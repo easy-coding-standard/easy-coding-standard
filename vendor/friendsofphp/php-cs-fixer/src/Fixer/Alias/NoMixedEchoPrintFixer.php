@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -53,9 +54,8 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Either language construct `print` or `echo` should be used.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php print 'example';\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php echo('example');\n", ['use' => 'print'])]);
     }
@@ -63,17 +63,15 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
      * {@inheritdoc}
      *
      * Must run after EchoTagSyntaxFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -10;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound($this->candidateTokenType);
     }
@@ -92,19 +90,16 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use', 'The desired language construct.'))->setAllowedValues(['print', 'echo'])->setDefault('echo')->getOption()]);
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixEchoToPrint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixEchoToPrint(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $nextTokenIndex = $tokens->getNextMeaningfulToken($index);
         $endTokenIndex = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
         $canBeConverted = \true;
@@ -125,11 +120,9 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixPrintToEcho(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixPrintToEcho(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
         if (!$prevToken->equalsAny([';', '{', '}', ')', [\T_OPEN_TAG], [\T_ELSE]])) {
             return;

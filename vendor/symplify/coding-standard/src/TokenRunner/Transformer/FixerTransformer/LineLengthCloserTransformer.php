@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\CT;
@@ -27,15 +28,9 @@ final class LineLengthCloserTransformer
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param int $kind
-     * @param string $newlineIndentWhitespace
-     * @param string $closingBracketNewlineIndentWhitespace
      */
-    public function insertNewlineBeforeClosingIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, $kind, $newlineIndentWhitespace, $closingBracketNewlineIndentWhitespace)
+    public function insertNewlineBeforeClosingIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, int $kind, string $newlineIndentWhitespace, string $closingBracketNewlineIndentWhitespace)
     {
-        $kind = (int) $kind;
-        $newlineIndentWhitespace = (string) $newlineIndentWhitespace;
-        $closingBracketNewlineIndentWhitespace = (string) $closingBracketNewlineIndentWhitespace;
         $isMethodCall = $this->callAnalyzer->isMethodCall($tokens, $blockInfo->getStart());
         $endIndex = $blockInfo->getEnd();
         $previousToken = $this->tokenFinder->getPreviousMeaningfulToken($tokens, $endIndex);
@@ -47,15 +42,8 @@ final class LineLengthCloserTransformer
         }
         $tokens->ensureWhitespaceAtIndex($endIndex - 1, 1, $closingBracketNewlineIndentWhitespace);
     }
-    /**
-     * @param bool $isMethodCall
-     * @param int $kind
-     * @return bool
-     */
-    private function shouldAddNewlineEarlier(\PhpCsFixer\Tokenizer\Token $previousToken, \PhpCsFixer\Tokenizer\Token $previousPreviousToken, $isMethodCall, $kind)
+    private function shouldAddNewlineEarlier(\PhpCsFixer\Tokenizer\Token $previousToken, \PhpCsFixer\Tokenizer\Token $previousPreviousToken, bool $isMethodCall, int $kind) : bool
     {
-        $isMethodCall = (bool) $isMethodCall;
-        $kind = (int) $kind;
         if ($isMethodCall) {
             return \false;
         }

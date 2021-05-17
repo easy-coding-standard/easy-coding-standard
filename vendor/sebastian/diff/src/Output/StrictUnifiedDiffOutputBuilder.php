@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of sebastian/diff.
  *
@@ -86,10 +87,7 @@ final class StrictUnifiedDiffOutputBuilder implements \ECSPrefix20210517\Sebasti
         $this->commonLineThreshold = $options['commonLineThreshold'];
         $this->contextLines = $options['contextLines'];
     }
-    /**
-     * @return string
-     */
-    public function getDiff(array $diff)
+    public function getDiff(array $diff) : string
     {
         if (0 === \count($diff)) {
             return '';
@@ -208,21 +206,9 @@ final class StrictUnifiedDiffOutputBuilder implements \ECSPrefix20210517\Sebasti
     }
     /**
      * @return void
-     * @param int $diffStartIndex
-     * @param int $diffEndIndex
-     * @param int $fromStart
-     * @param int $fromRange
-     * @param int $toStart
-     * @param int $toRange
      */
-    private function writeHunk(array $diff, $diffStartIndex, $diffEndIndex, $fromStart, $fromRange, $toStart, $toRange, $output)
+    private function writeHunk(array $diff, int $diffStartIndex, int $diffEndIndex, int $fromStart, int $fromRange, int $toStart, int $toRange, $output)
     {
-        $diffStartIndex = (int) $diffStartIndex;
-        $diffEndIndex = (int) $diffEndIndex;
-        $fromStart = (int) $fromStart;
-        $fromRange = (int) $fromRange;
-        $toStart = (int) $toStart;
-        $toRange = (int) $toRange;
         \fwrite($output, '@@ -' . $fromStart);
         if (!$this->collapseRanges || 1 !== $fromRange) {
             \fwrite($output, ',' . $fromRange);
@@ -254,22 +240,18 @@ final class StrictUnifiedDiffOutputBuilder implements \ECSPrefix20210517\Sebasti
     }
     /**
      * @return void
-     * @param string $option
      */
-    private function assertString(array $options, $option)
+    private function assertString(array $options, string $option)
     {
-        $option = (string) $option;
         if (!\is_string($options[$option])) {
             throw new \ECSPrefix20210517\SebastianBergmann\Diff\ConfigurationException($option, 'a string', $options[$option]);
         }
     }
     /**
      * @return void
-     * @param string $option
      */
-    private function assertStringOrNull(array $options, $option)
+    private function assertStringOrNull(array $options, string $option)
     {
-        $option = (string) $option;
         if (null !== $options[$option] && !\is_string($options[$option])) {
             throw new \ECSPrefix20210517\SebastianBergmann\Diff\ConfigurationException($option, 'a string or <null>', $options[$option]);
         }

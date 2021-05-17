@@ -23,9 +23,8 @@ trait ServiceSubscriberTrait
     protected $container;
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public static function getSubscribedServices()
+    public static function getSubscribedServices() : array
     {
         static $services;
         if (null !== $services) {

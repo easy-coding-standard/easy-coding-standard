@@ -23,20 +23,16 @@ class ConfirmationQuestion extends \ECSPrefix20210517\Symfony\Component\Console\
      * @param bool   $default         The default answer to return, true or false
      * @param string $trueAnswerRegex A regex to match the "yes" answer
      */
-    public function __construct($question, $default = \true, $trueAnswerRegex = '/^y/i')
+    public function __construct(string $question, bool $default = \true, string $trueAnswerRegex = '/^y/i')
     {
-        $question = (string) $question;
-        $default = (bool) $default;
-        $trueAnswerRegex = (string) $trueAnswerRegex;
         parent::__construct($question, $default);
         $this->trueAnswerRegex = $trueAnswerRegex;
         $this->setNormalizer($this->getDefaultNormalizer());
     }
     /**
      * Returns the default answer normalizer.
-     * @return callable
      */
-    private function getDefaultNormalizer()
+    private function getDefaultNormalizer() : callable
     {
         $default = $this->getDefault();
         $regex = $this->trueAnswerRegex;

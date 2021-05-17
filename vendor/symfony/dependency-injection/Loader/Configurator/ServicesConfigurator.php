@@ -30,13 +30,8 @@ class ServicesConfigurator extends \ECSPrefix20210517\Symfony\Component\Dependen
     private $path;
     private $anonymousHash;
     private $anonymousCount;
-    /**
-     * @param string $path
-     * @param int $anonymousCount
-     */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, array &$instanceof, $path = null, &$anonymousCount = 0)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, array &$instanceof, string $path = null, int &$anonymousCount = 0)
     {
-        $anonymousCount = (int) $anonymousCount;
         $this->defaults = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition();
         $this->container = $container;
         $this->loader = $loader;
@@ -48,20 +43,16 @@ class ServicesConfigurator extends \ECSPrefix20210517\Symfony\Component\Dependen
     }
     /**
      * Defines a set of defaults for following service definitions.
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator
      */
-    public final function defaults()
+    public final function defaults() : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator
     {
         return new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator($this, $this->defaults = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition(), $this->path);
     }
     /**
      * Defines an instanceof-conditional to be applied to following service definitions.
-     * @param string $fqcn
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
      */
-    public final function instanceof($fqcn)
+    public final function instanceof(string $fqcn) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
     {
-        $fqcn = (string) $fqcn;
         $this->instanceof[$fqcn] = $definition = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\ChildDefinition('');
         return new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator($this, $definition, $fqcn, $this->path);
     }
@@ -69,10 +60,9 @@ class ServicesConfigurator extends \ECSPrefix20210517\Symfony\Component\Dependen
      * Registers a service.
      *
      * @param string|null $id    The service id, or null to create an anonymous service
-     * @param string $class The class of the service, or null when $id is also the class name
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
+     * @param string|null $class The class of the service, or null when $id is also the class name
      */
-    public final function set($id, $class = null)
+    public final function set($id, string $class = null) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
         $defaults = $this->defaults;
         $definition = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition();
@@ -94,14 +84,9 @@ class ServicesConfigurator extends \ECSPrefix20210517\Symfony\Component\Dependen
     }
     /**
      * Creates an alias.
-     * @param string $id
-     * @param string $referencedId
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
      */
-    public final function alias($id, $referencedId)
+    public final function alias(string $id, string $referencedId) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
     {
-        $id = (string) $id;
-        $referencedId = (string) $referencedId;
         $ref = static::processValue($referencedId, \true);
         $alias = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Alias((string) $ref);
         if (!$this->defaults->isPublic() || !$this->defaults->isPrivate()) {
@@ -112,26 +97,18 @@ class ServicesConfigurator extends \ECSPrefix20210517\Symfony\Component\Dependen
     }
     /**
      * Registers a PSR-4 namespace using a glob pattern.
-     * @param string $namespace
-     * @param string $resource
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator
      */
-    public final function load($namespace, $resource)
+    public final function load(string $namespace, string $resource) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator
     {
-        $namespace = (string) $namespace;
-        $resource = (string) $resource;
         return new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator($this, $this->loader, $this->defaults, $namespace, $resource, \true);
     }
     /**
      * Gets an already defined service definition.
      *
      * @throws ServiceNotFoundException if the service definition does not exist
-     * @param string $id
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
      */
-    public final function get($id)
+    public final function get(string $id) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
-        $id = (string) $id;
         $definition = $this->container->getDefinition($id);
         return new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator($this->container, $definition->getInstanceofConditionals(), \true, $this, $definition, $id, []);
     }
@@ -139,12 +116,9 @@ class ServicesConfigurator extends \ECSPrefix20210517\Symfony\Component\Dependen
      * Registers a stack of decorator services.
      *
      * @param InlineServiceConfigurator[]|ReferenceConfigurator[] $services
-     * @param string $id
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
      */
-    public final function stack($id, array $services)
+    public final function stack(string $id, array $services) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
     {
-        $id = (string) $id;
         foreach ($services as $i => $service) {
             if ($service instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator) {
                 $definition = $service->definition->setInstanceofConditionals($this->instanceof);
@@ -164,13 +138,9 @@ class ServicesConfigurator extends \ECSPrefix20210517\Symfony\Component\Dependen
     }
     /**
      * Registers a service.
-     * @param string $id
-     * @param string $class
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
      */
-    public final function __invoke($id, $class = null)
+    public final function __invoke(string $id, string $class = null) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
-        $id = (string) $id;
         return $this->set($id, $class);
     }
     public function __destruct()

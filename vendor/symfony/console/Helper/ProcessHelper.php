@@ -31,12 +31,9 @@ class ProcessHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper\
      *                                output available on STDOUT or STDERR
      *
      * @return Process The process that ran
-     * @param string $error
-     * @param int $verbosity
      */
-    public function run(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null, $verbosity = \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE)
+    public function run(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $cmd, string $error = null, callable $callback = null, int $verbosity = \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE) : \ECSPrefix20210517\Symfony\Component\Process\Process
     {
-        $verbosity = (int) $verbosity;
         if (!\class_exists(\ECSPrefix20210517\Symfony\Component\Process\Process::class)) {
             throw new \LogicException('The ProcessHelper cannot be run as the Process component is not installed. Try running "compose require symfony/process".');
         }
@@ -50,10 +47,10 @@ class ProcessHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper\
         if (!\is_array($cmd)) {
             throw new \TypeError(\sprintf('The "command" argument of "%s()" must be an array or a "%s" instance, "%s" given.', __METHOD__, \ECSPrefix20210517\Symfony\Component\Process\Process::class, \get_debug_type($cmd)));
         }
-        if (\is_string(isset($cmd[0]) ? $cmd[0] : null)) {
+        if (\is_string($cmd[0] ?? null)) {
             $process = new \ECSPrefix20210517\Symfony\Component\Process\Process($cmd);
             $cmd = [];
-        } elseif ((isset($cmd[0]) ? $cmd[0] : null) instanceof \ECSPrefix20210517\Symfony\Component\Process\Process) {
+        } elseif (($cmd[0] ?? null) instanceof \ECSPrefix20210517\Symfony\Component\Process\Process) {
             $process = $cmd[0];
             unset($cmd[0]);
         } else {
@@ -90,9 +87,8 @@ class ProcessHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper\
      * @throws ProcessFailedException
      *
      * @see run()
-     * @param string $error
      */
-    public function mustRun(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null)
+    public function mustRun(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $cmd, string $error = null, callable $callback = null) : \ECSPrefix20210517\Symfony\Component\Process\Process
     {
         $process = $this->run($output, $cmd, $error, $callback);
         if (!$process->isSuccessful()) {
@@ -102,9 +98,8 @@ class ProcessHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper\
     }
     /**
      * Wraps a Process callback to add debugging output.
-     * @return callable
      */
-    public function wrapCallback(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\Process\Process $process, callable $callback = null)
+    public function wrapCallback(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\Process\Process $process, callable $callback = null) : callable
     {
         if ($output instanceof \ECSPrefix20210517\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
@@ -117,20 +112,14 @@ class ProcessHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper\
             }
         };
     }
-    /**
-     * @param string $str
-     * @return string
-     */
-    private function escapeString($str)
+    private function escapeString(string $str) : string
     {
-        $str = (string) $str;
         return \str_replace('<', '\\<', $str);
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return 'process';
     }

@@ -27,14 +27,8 @@ final class SourceContextProvider implements \ECSPrefix20210517\Symfony\Componen
     private $charset;
     private $projectDir;
     private $fileLinkFormatter;
-    /**
-     * @param string $charset
-     * @param string $projectDir
-     * @param int $limit
-     */
-    public function __construct($charset = null, $projectDir = null, \ECSPrefix20210517\Symfony\Component\HttpKernel\Debug\FileLinkFormatter $fileLinkFormatter = null, $limit = 9)
+    public function __construct(string $charset = null, string $projectDir = null, \ECSPrefix20210517\Symfony\Component\HttpKernel\Debug\FileLinkFormatter $fileLinkFormatter = null, int $limit = 9)
     {
-        $limit = (int) $limit;
         $this->charset = $charset;
         $this->projectDir = $projectDir;
         $this->fileLinkFormatter = $fileLinkFormatter;
@@ -52,8 +46,8 @@ final class SourceContextProvider implements \ECSPrefix20210517\Symfony\Componen
         $fileExcerpt = \false;
         for ($i = 2; $i < $this->limit; ++$i) {
             if (isset($trace[$i]['class'], $trace[$i]['function']) && 'dump' === $trace[$i]['function'] && \ECSPrefix20210517\Symfony\Component\VarDumper\VarDumper::class === $trace[$i]['class']) {
-                $file = isset($trace[$i]['file']) ? $trace[$i]['file'] : $file;
-                $line = isset($trace[$i]['line']) ? $trace[$i]['line'] : $line;
+                $file = $trace[$i]['file'] ?? $file;
+                $line = $trace[$i]['line'] ?? $line;
                 while (++$i < $this->limit) {
                     if (isset($trace[$i]['function'], $trace[$i]['file']) && empty($trace[$i]['class']) && 0 !== \strpos($trace[$i]['function'], 'call_user_func')) {
                         $file = $trace[$i]['file'];
@@ -99,13 +93,8 @@ final class SourceContextProvider implements \ECSPrefix20210517\Symfony\Componen
         }
         return $context;
     }
-    /**
-     * @param string $s
-     * @return string
-     */
-    private function htmlEncode($s)
+    private function htmlEncode(string $s) : string
     {
-        $s = (string) $s;
         $html = '';
         $dumper = new \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\HtmlDumper(function ($line) use(&$html) {
             $html .= $line;

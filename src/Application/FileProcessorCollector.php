@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
@@ -20,9 +21,9 @@ final class FileProcessorCollector
         $this->fileProcessors[] = $fixerFileProcessor;
     }
     /**
-     * @return mixed[]
+     * @return FileProcessorInterface[]
      */
-    public function getFileProcessors()
+    public function getFileProcessors() : array
     {
         return $this->fileProcessors;
     }

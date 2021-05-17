@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -71,9 +72,8 @@ final class NoAliasFunctionsFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Master functions shall be used instead of aliases.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 $a = chop($b);
@@ -106,25 +106,22 @@ mbereg_search_getregs();
      * {@inheritdoc}
      *
      * Must run before ImplodeCallFixer, PhpUnitDedicateAssertFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 40;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -165,9 +162,8 @@ mbereg_search_getregs();
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $sets = ['@internal', '@IMAP', '@mbreg', '@all', '@time', '@exif'];
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sets', 'List of sets to fix. Defined sets are `@internal` (native functions), `@IMAP` (IMAP functions), `@mbreg` (from `ext-mbstring`) `@all` (all listed sets).'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($sets)])->setDefault(['@internal', '@IMAP'])->getOption()]);

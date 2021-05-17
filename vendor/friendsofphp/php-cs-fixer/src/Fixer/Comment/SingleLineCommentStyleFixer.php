@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -48,9 +49,8 @@ final class SingleLineCommentStyleFixer extends \PhpCsFixer\AbstractFixer implem
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Single-line comments and multi-line comments with only one line of actual content should use the `//` syntax.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /* asterisk comment */
@@ -84,17 +84,15 @@ $c = 3;
      * {@inheritdoc}
      *
      * Must run after NoUselessReturnFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -19;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
@@ -138,9 +136,8 @@ $c = 3;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('comment_types', 'List of comment types to fix'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(['asterisk', 'hash'])])->setDefault(['asterisk', 'hash'])->getOption()]);
     }

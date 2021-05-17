@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass;
 
 use ECSPrefix20210517\Symfony\Component\Console\Command\Command;

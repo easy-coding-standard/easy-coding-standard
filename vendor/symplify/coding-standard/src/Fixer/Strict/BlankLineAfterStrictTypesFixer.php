@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Strict;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -39,18 +40,14 @@ final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixe
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
         $this->declareStrictTypeTokens = [new \PhpCsFixer\Tokenizer\Token([\T_DECLARE, 'declare']), new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'strict_types']), new \PhpCsFixer\Tokenizer\Token('='), new \PhpCsFixer\Tokenizer\Token([\T_LNUMBER, '1']), new \PhpCsFixer\Tokenizer\Token(')'), new \PhpCsFixer\Tokenizer\Token(';')];
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_OPEN_TAG, \T_WHITESPACE, \T_DECLARE, \T_STRING, '=', \T_LNUMBER, ';']);
     }
@@ -73,10 +70,7 @@ final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixe
         $lineEnding = $this->whitespacesFixerConfig->getLineEnding();
         $tokens->ensureWhitespaceAtIndex($semicolonPosition + 1, 0, $lineEnding . $lineEnding);
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 declare(strict_types=1);

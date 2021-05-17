@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\AutowireArrayParameter\DocBlock;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -35,13 +36,9 @@ final class ParamTypeDocBlockResolver
     const ARRAY_REGEXES = [self::NORMAL_REGEX, self::SHAPE_REGEX];
     /**
      * @return string|null
-     * @param string $docBlock
-     * @param string $parameterName
      */
-    public function resolve($docBlock, $parameterName)
+    public function resolve(string $docBlock, string $parameterName)
     {
-        $docBlock = (string) $docBlock;
-        $parameterName = (string) $parameterName;
         foreach (self::ARRAY_REGEXES as $arrayRegexWithPlaceholder) {
             $arrayRegex = \str_replace(self::NAME_PLACEHOLDER, $parameterName, $arrayRegexWithPlaceholder);
             $result = \ECSPrefix20210517\Nette\Utils\Strings::match($docBlock, $arrayRegex);

@@ -43,11 +43,9 @@ class NullOutput implements \ECSPrefix20210517\Symfony\Component\Console\Output\
     }
     /**
      * {@inheritdoc}
-     * @param bool $decorated
      */
-    public function setDecorated($decorated)
+    public function setDecorated(bool $decorated)
     {
-        $decorated = (bool) $decorated;
         // do nothing
     }
     /**
@@ -59,11 +57,9 @@ class NullOutput implements \ECSPrefix20210517\Symfony\Component\Console\Output\
     }
     /**
      * {@inheritdoc}
-     * @param int $level
      */
-    public function setVerbosity($level)
+    public function setVerbosity(int $level)
     {
-        $level = (int) $level;
         // do nothing
     }
     /**
@@ -103,22 +99,16 @@ class NullOutput implements \ECSPrefix20210517\Symfony\Component\Console\Output\
     }
     /**
      * {@inheritdoc}
-     * @param int $options
      */
-    public function writeln($messages, $options = self::OUTPUT_NORMAL)
+    public function writeln($messages, int $options = self::OUTPUT_NORMAL)
     {
-        $options = (int) $options;
         // do nothing
     }
     /**
      * {@inheritdoc}
-     * @param bool $newline
-     * @param int $options
      */
-    public function write($messages, $newline = \false, $options = self::OUTPUT_NORMAL)
+    public function write($messages, bool $newline = \false, int $options = self::OUTPUT_NORMAL)
     {
-        $newline = (bool) $newline;
-        $options = (int) $options;
         // do nothing
     }
 }

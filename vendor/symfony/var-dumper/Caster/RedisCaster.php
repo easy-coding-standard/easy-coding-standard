@@ -28,12 +28,8 @@ class RedisCaster
         1 => 'LZF',
     ];
     const FAILOVER_OPTIONS = [\RedisCluster::FAILOVER_NONE => 'NONE', \RedisCluster::FAILOVER_ERROR => 'ERROR', \RedisCluster::FAILOVER_DISTRIBUTE => 'DISTRIBUTE', \RedisCluster::FAILOVER_DISTRIBUTE_SLAVES => 'DISTRIBUTE_SLAVES'];
-    /**
-     * @param bool $isNested
-     */
-    public static function castRedis(\Redis $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castRedis(\Redis $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $prefix = \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         if (!($connected = $c->isConnected())) {
             return $a + [$prefix . 'isConnected' => $connected];
@@ -41,21 +37,13 @@ class RedisCaster
         $mode = $c->getMode();
         return $a + [$prefix . 'isConnected' => $connected, $prefix . 'host' => $c->getHost(), $prefix . 'port' => $c->getPort(), $prefix . 'auth' => $c->getAuth(), $prefix . 'mode' => isset(self::MODES[$mode]) ? new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ConstStub(self::MODES[$mode], $mode) : $mode, $prefix . 'dbNum' => $c->getDbNum(), $prefix . 'timeout' => $c->getTimeout(), $prefix . 'lastError' => $c->getLastError(), $prefix . 'persistentId' => $c->getPersistentID(), $prefix . 'options' => self::getRedisOptions($c)];
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function castRedisArray(\RedisArray $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castRedisArray(\RedisArray $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $prefix = \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         return $a + [$prefix . 'hosts' => $c->_hosts(), $prefix . 'function' => \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ClassStub::wrapCallable($c->_function()), $prefix . 'lastError' => $c->getLastError(), $prefix . 'options' => self::getRedisOptions($c)];
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function castRedisCluster(\RedisCluster $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castRedisCluster(\RedisCluster $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $prefix = \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $failover = $c->getOption(\RedisCluster::OPT_SLAVE_FAILOVER);
         $a += [$prefix . '_masters' => $c->_masters(), $prefix . '_redir' => $c->_redir(), $prefix . 'mode' => new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ConstStub($c->getMode() ? 'MULTI' : 'ATOMIC', $c->getMode()), $prefix . 'lastError' => $c->getLastError(), $prefix . 'options' => self::getRedisOptions($c, ['SLAVE_FAILOVER' => isset(self::FAILOVER_OPTIONS[$failover]) ? new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ConstStub(self::FAILOVER_OPTIONS[$failover], $failover) : $failover])];
@@ -63,9 +51,8 @@ class RedisCaster
     }
     /**
      * @param \Redis|\RedisArray|\RedisCluster $redis
-     * @return \Symfony\Component\VarDumper\Caster\EnumStub
      */
-    private static function getRedisOptions($redis, array $options = [])
+    private static function getRedisOptions($redis, array $options = []) : \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\EnumStub
     {
         $serializer = $redis->getOption(\Redis::OPT_SERIALIZER);
         if (\is_array($serializer)) {

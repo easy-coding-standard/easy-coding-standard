@@ -31,12 +31,8 @@ class YamlReferenceDumper
     {
         return $this->dumpNode($configuration->getConfigTreeBuilder()->buildTree());
     }
-    /**
-     * @param string $path
-     */
-    public function dumpAtPath(\ECSPrefix20210517\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, $path)
+    public function dumpAtPath(\ECSPrefix20210517\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, string $path)
     {
-        $path = (string) $path;
         $rootNode = $node = $configuration->getConfigTreeBuilder()->buildTree();
         foreach (\explode('.', $path) as $step) {
             if (!$node instanceof \ECSPrefix20210517\Symfony\Component\Config\Definition\ArrayNode) {
@@ -62,14 +58,8 @@ class YamlReferenceDumper
         $this->reference = null;
         return $ref;
     }
-    /**
-     * @param int $depth
-     * @param bool $prototypedArray
-     */
-    private function writeNode(\ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $node, \ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $parentNode = null, $depth = 0, $prototypedArray = \false)
+    private function writeNode(\ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $node, \ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $parentNode = null, int $depth = 0, bool $prototypedArray = \false)
     {
-        $depth = (int) $depth;
-        $prototypedArray = (bool) $prototypedArray;
         $comments = [];
         $default = '';
         $defaultArray = null;
@@ -157,23 +147,15 @@ class YamlReferenceDumper
     }
     /**
      * Outputs a single config reference line.
-     * @param string $text
-     * @param int $indent
      */
-    private function writeLine($text, $indent = 0)
+    private function writeLine(string $text, int $indent = 0)
     {
-        $text = (string) $text;
-        $indent = (int) $indent;
         $indent = \strlen($text) + $indent;
         $format = '%' . $indent . 's';
         $this->reference .= \sprintf($format, $text) . "\n";
     }
-    /**
-     * @param int $depth
-     */
-    private function writeArray(array $array, $depth)
+    private function writeArray(array $array, int $depth)
     {
-        $depth = (int) $depth;
         $isIndexed = \array_values($array) === $array;
         foreach ($array as $key => $value) {
             if (\is_array($value)) {
@@ -191,10 +173,7 @@ class YamlReferenceDumper
             }
         }
     }
-    /**
-     * @return mixed[]
-     */
-    private function getPrototypeChildren(\ECSPrefix20210517\Symfony\Component\Config\Definition\PrototypedArrayNode $node)
+    private function getPrototypeChildren(\ECSPrefix20210517\Symfony\Component\Config\Definition\PrototypedArrayNode $node) : array
     {
         $prototype = $node->getPrototype();
         $key = $node->getKeyAttribute();

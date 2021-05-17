@@ -17,34 +17,22 @@ final class AbstractArgument
 {
     private $text;
     private $context;
-    /**
-     * @param string $text
-     */
-    public function __construct($text = '')
+    public function __construct(string $text = '')
     {
-        $text = (string) $text;
         $this->text = \trim($text, '. ');
     }
     /**
      * @return void
-     * @param string $context
      */
-    public function setContext($context)
+    public function setContext(string $context)
     {
-        $context = (string) $context;
         $this->context = $context . ' is abstract' . ('' === $this->text ? '' : ': ');
     }
-    /**
-     * @return string
-     */
-    public function getText()
+    public function getText() : string
     {
         return $this->text;
     }
-    /**
-     * @return string
-     */
-    public function getTextWithContext()
+    public function getTextWithContext() : string
     {
         return $this->context . $this->text . '.';
     }

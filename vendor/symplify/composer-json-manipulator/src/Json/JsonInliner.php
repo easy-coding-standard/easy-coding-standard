@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\ComposerJsonManipulator\Json;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -20,13 +21,8 @@ final class JsonInliner
     {
         $this->parameterProvider = $parameterProvider;
     }
-    /**
-     * @param string $jsonContent
-     * @return string
-     */
-    public function inlineSections($jsonContent)
+    public function inlineSections(string $jsonContent) : string
     {
-        $jsonContent = (string) $jsonContent;
         if (!$this->parameterProvider->hasParameter(\ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS)) {
             return $jsonContent;
         }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -32,11 +33,9 @@ final class WordMatcher
     }
     /**
      * @return string|null
-     * @param string $needle
      */
-    public function match($needle)
+    public function match(string $needle)
     {
-        $needle = (string) $needle;
         $word = null;
         $distance = \ceil(\strlen($needle) * 0.35);
         foreach ($this->candidates as $candidate) {

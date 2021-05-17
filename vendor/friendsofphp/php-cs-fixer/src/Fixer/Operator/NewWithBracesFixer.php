@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,17 +26,15 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('All instances created with new keyword must be followed by braces.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$x = new X;\n")]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_NEW);
     }
@@ -82,11 +81,9 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function insertBracesAfter(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function insertBracesAfter(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $tokens->insertAt(++$index, [new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token(')')]);
     }
 }

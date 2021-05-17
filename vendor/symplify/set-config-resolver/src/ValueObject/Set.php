@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject;
 
 use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
@@ -13,33 +14,20 @@ final class Set
      * @var SmartFileInfo
      */
     private $setFileInfo;
-    /**
-     * @param string $name
-     */
-    public function __construct($name, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $setFileInfo)
+    public function __construct(string $name, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $setFileInfo)
     {
-        $name = (string) $name;
         $this->name = $name;
         $this->setFileInfo = $setFileInfo;
     }
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
-    /**
-     * @return \Symplify\SmartFileSystem\SmartFileInfo
-     */
-    public function getSetFileInfo()
+    public function getSetFileInfo() : \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->setFileInfo;
     }
-    /**
-     * @return string
-     */
-    public function getSetPathname()
+    public function getSetPathname() : string
     {
         return $this->setFileInfo->getPathname();
     }

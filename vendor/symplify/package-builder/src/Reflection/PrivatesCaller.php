@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Reflection;
 
 use ReflectionClass;
@@ -14,11 +15,9 @@ final class PrivatesCaller
      * @param object|string $object
      * @param mixed[] $arguments
      * @return mixed
-     * @param string $methodName
      */
-    public function callPrivateMethod($object, $methodName, array $arguments)
+    public function callPrivateMethod($object, string $methodName, array $arguments)
     {
-        $methodName = (string) $methodName;
         $this->ensureIsNotNull($object, __METHOD__);
         if (\is_string($object)) {
             $reflectionClass = new \ReflectionClass($object);
@@ -30,11 +29,9 @@ final class PrivatesCaller
     /**
      * @param object|string $object
      * @return mixed
-     * @param string $methodName
      */
-    public function callPrivateMethodWithReference($object, $methodName, $argument)
+    public function callPrivateMethodWithReference($object, string $methodName, $argument)
     {
-        $methodName = (string) $methodName;
         $this->ensureIsNotNull($object, __METHOD__);
         if (\is_string($object)) {
             $reflectionClass = new \ReflectionClass($object);
@@ -46,12 +43,9 @@ final class PrivatesCaller
     }
     /**
      * @param object $object
-     * @param string $methodName
-     * @return \ReflectionMethod
      */
-    private function createAccessibleMethodReflection($object, $methodName)
+    private function createAccessibleMethodReflection($object, string $methodName) : \ReflectionMethod
     {
-        $methodName = (string) $methodName;
         $reflectionMethod = new \ReflectionMethod(\get_class($object), $methodName);
         $reflectionMethod->setAccessible(\true);
         return $reflectionMethod;
@@ -59,11 +53,9 @@ final class PrivatesCaller
     /**
      * @param mixed $object
      * @return void
-     * @param string $location
      */
-    private function ensureIsNotNull($object, $location)
+    private function ensureIsNotNull($object, string $location)
     {
-        $location = (string) $location;
         if ($object !== null) {
             return;
         }

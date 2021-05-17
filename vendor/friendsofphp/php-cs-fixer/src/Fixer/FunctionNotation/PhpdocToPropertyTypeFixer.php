@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -27,9 +28,8 @@ final class PhpdocToPropertyTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDe
     private $skippedTypes = ['mixed' => \true, 'resource' => \true, 'null' => \true];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('EXPERIMENTAL: Takes `@var` annotation of non-mixed types and adjusts accordingly the property signature. Requires PHP >= 7.4.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
 class Foo {
@@ -49,9 +49,8 @@ class Foo {
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -60,19 +59,13 @@ class Foo {
      *
      * Must run before PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return parent::getPriority();
     }
-    /**
-     * @param string $type
-     * @return bool
-     */
-    protected function isSkippedType($type)
+    protected function isSkippedType(string $type) : bool
     {
-        $type = (string) $type;
         return isset($this->skippedTypes[$type]);
     }
     /**
@@ -89,11 +82,9 @@ class Foo {
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $index = $tokens->getNextTokenOfKind($index, ['{']);
         $classEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         for (; $index < $classEndIndex; ++$index) {
@@ -127,10 +118,9 @@ class Foo {
         }
     }
     /**
-     * @return mixed[]
-     * @param int $index
+     * @return array<string, int>
      */
-    private function findNextUntypedPropertiesDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function findNextUntypedPropertiesDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : array
     {
         do {
             $index = $tokens->getNextMeaningfulToken($index);

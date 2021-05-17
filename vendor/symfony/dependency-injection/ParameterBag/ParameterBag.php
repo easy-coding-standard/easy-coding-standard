@@ -95,9 +95,8 @@ class ParameterBag implements \ECSPrefix20210517\Symfony\Component\DependencyInj
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value
      */
-    public function set($name, $value)
+    public function set(string $name, $value)
     {
-        $name = (string) $name;
         $this->parameters[$name] = $value;
     }
     /**
@@ -113,9 +112,8 @@ class ParameterBag implements \ECSPrefix20210517\Symfony\Component\DependencyInj
      *
      * @param string $name The parameter name
      */
-    public function remove($name)
+    public function remove(string $name)
     {
-        $name = (string) $name;
         unset($this->parameters[$name]);
     }
     /**
@@ -175,11 +173,9 @@ class ParameterBag implements \ECSPrefix20210517\Symfony\Component\DependencyInj
      * @throws ParameterNotFoundException          if a placeholder references a parameter that does not exist
      * @throws ParameterCircularReferenceException if a circular reference if detected
      * @throws RuntimeException                    when a given parameter has a type problem
-     * @param string $value
      */
-    public function resolveString($value, array $resolving = [])
+    public function resolveString(string $value, array $resolving = [])
     {
-        $value = (string) $value;
         // we do this to deal with non string values (Boolean, integer, ...)
         // as the preg_replace_callback throw an exception when trying
         // a non-string in a parameter value

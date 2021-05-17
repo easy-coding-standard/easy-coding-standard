@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,9 +26,8 @@ final class HeredocToNowdocFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Convert `heredoc` to `nowdoc` where possible.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOF'
 <?php
@@ -46,17 +46,15 @@ EOF
      * {@inheritdoc}
      *
      * Must run after EscapeImplicitBackslashesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_START_HEREDOC);
     }
@@ -89,9 +87,8 @@ EOF
     }
     /**
      * Transforms the heredoc start token to nowdoc notation.
-     * @return \PhpCsFixer\Tokenizer\Token
      */
-    private function convertToNowdoc(\PhpCsFixer\Tokenizer\Token $token)
+    private function convertToNowdoc(\PhpCsFixer\Tokenizer\Token $token) : \PhpCsFixer\Tokenizer\Token
     {
         return new \PhpCsFixer\Tokenizer\Token([$token->getId(), \PhpCsFixer\Preg::replace('/^([Bb]?<<<)(\\h*)"?([^\\s"]+)"?/', '$1$2\'$3\'', $token->getContent())]);
     }

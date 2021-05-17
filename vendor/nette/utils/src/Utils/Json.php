@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 use ECSPrefix20210517\Nette;
@@ -17,12 +22,9 @@ final class Json
      * and Json::ESCAPE_UNICODE for ASCII output.
      * @param  mixed  $value
      * @throws JsonException
-     * @param int $flags
-     * @return string
      */
-    public static function encode($value, $flags = 0)
+    public static function encode($value, int $flags = 0) : string
     {
-        $flags = (int) $flags;
         $flags = ($flags & self::ESCAPE_UNICODE ? 0 : \JSON_UNESCAPED_UNICODE) | \JSON_UNESCAPED_SLASHES | ($flags & self::PRETTY ? \JSON_PRETTY_PRINT : 0) | (\defined('JSON_PRESERVE_ZERO_FRACTION') ? \JSON_PRESERVE_ZERO_FRACTION : 0);
         // since PHP 5.6.6 & PECL JSON-C 1.3.7
         $json = \json_encode($value, $flags);
@@ -35,13 +37,9 @@ final class Json
      * Parses JSON to PHP value. The flag can be Json::FORCE_ARRAY, which forces an array instead of an object as the return value.
      * @return mixed
      * @throws JsonException
-     * @param string $json
-     * @param int $flags
      */
-    public static function decode($json, $flags = 0)
+    public static function decode(string $json, int $flags = 0)
     {
-        $json = (string) $json;
-        $flags = (int) $flags;
         $forceArray = (bool) ($flags & self::FORCE_ARRAY);
         $value = \json_decode($json, $forceArray, 512, \JSON_BIGINT_AS_STRING);
         if ($error = \json_last_error()) {

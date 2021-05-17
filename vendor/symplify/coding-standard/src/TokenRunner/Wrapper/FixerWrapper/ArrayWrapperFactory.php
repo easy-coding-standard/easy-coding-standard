@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Wrapper\FixerWrapper;
 
 use PhpCsFixer\Tokenizer\Token;
@@ -19,9 +20,8 @@ final class ArrayWrapperFactory
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return \Symplify\CodingStandard\TokenRunner\ValueObject\Wrapper\FixerWrapper\ArrayWrapper
      */
-    public function createFromTokensAndBlockInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    public function createFromTokensAndBlockInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : \Symplify\CodingStandard\TokenRunner\ValueObject\Wrapper\FixerWrapper\ArrayWrapper
     {
         return new \Symplify\CodingStandard\TokenRunner\ValueObject\Wrapper\FixerWrapper\ArrayWrapper($tokens, $blockInfo, $this->tokenSkipper);
     }

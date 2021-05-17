@@ -31,14 +31,13 @@ class StreamOutput extends \ECSPrefix20210517\Symfony\Component\Console\Output\O
     /**
      * @param resource                      $stream    A stream resource
      * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
-     * @param bool $decorated Whether to decorate messages (null for auto-guessing)
+     * @param bool|null                     $decorated Whether to decorate messages (null for auto-guessing)
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      *
      * @throws InvalidArgumentException When first argument is not a real stream
      */
-    public function __construct($stream, $verbosity = self::VERBOSITY_NORMAL, $decorated = null, \ECSPrefix20210517\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \ECSPrefix20210517\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
-        $verbosity = (int) $verbosity;
         if (!\is_resource($stream) || 'stream' !== \get_resource_type($stream)) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
         }

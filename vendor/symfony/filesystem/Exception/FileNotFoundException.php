@@ -18,14 +18,8 @@ namespace ECSPrefix20210517\Symfony\Component\Filesystem\Exception;
  */
 class FileNotFoundException extends \ECSPrefix20210517\Symfony\Component\Filesystem\Exception\IOException
 {
-    /**
-     * @param string $message
-     * @param int $code
-     * @param string $path
-     */
-    public function __construct($message = null, $code = 0, \Throwable $previous = null, $path = null)
+    public function __construct(string $message = null, int $code = 0, \Throwable $previous = null, string $path = null)
     {
-        $code = (int) $code;
         if (null === $message) {
             if (null === $path) {
                 $message = 'File could not be found.';

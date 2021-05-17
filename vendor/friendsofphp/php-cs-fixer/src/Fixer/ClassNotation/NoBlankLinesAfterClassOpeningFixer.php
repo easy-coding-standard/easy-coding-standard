@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,17 +26,15 @@ final class NoBlankLinesAfterClassOpeningFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should be no empty lines after class opening brace.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Sample
@@ -51,9 +50,8 @@ final class Sample
      * {@inheritdoc}
      *
      * Must run after OrderedClassElementsFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
@@ -77,11 +75,9 @@ final class Sample
     /**
      * Cleanup a whitespace token.
      * @return void
-     * @param int $index
      */
-    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $content = $tokens[$index]->getContent();
         // if there is more than one new line in the whitespace, then we need to fix it
         if (\substr_count($content, "\n") > 1) {

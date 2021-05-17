@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,25 +29,22 @@ final class StringLineEndingFixer extends \PhpCsFixer\AbstractFixer implements \
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_CONSTANT_ENCAPSED_STRING, \T_ENCAPSED_AND_WHITESPACE, \T_INLINE_HTML]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('All multi-line strings must use correct line ending.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = 'my\r\nmulti\nline\r\nstring';\r\n")], null, 'Changing the line endings of multi-line strings might affect string comparisons and outputs.');
     }

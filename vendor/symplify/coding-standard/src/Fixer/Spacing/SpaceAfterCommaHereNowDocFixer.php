@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Spacing;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -21,18 +22,14 @@ final class SpaceAfterCommaHereNowDocFixer extends \Symplify\CodingStandard\Fixe
      * @var string
      */
     const ERROR_MESSAGE = 'Add space after nowdoc and heredoc keyword, to prevent bugs on PHP 7.2 and lower, see https://laravel-news.com/flexible-heredoc-and-nowdoc-coming-to-php-7-3';
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_START_HEREDOC, T_START_NOWDOC]);
     }
@@ -61,10 +58,7 @@ final class SpaceAfterCommaHereNowDocFixer extends \Symplify\CodingStandard\Fixe
             $tokens->ensureWhitespaceAtIndex($position + 1, 0, \PHP_EOL);
         }
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $values = [

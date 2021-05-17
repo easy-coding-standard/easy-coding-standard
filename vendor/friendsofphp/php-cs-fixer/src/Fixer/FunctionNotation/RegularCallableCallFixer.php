@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,9 +29,8 @@ final class RegularCallableCallFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Callables must be called without using `call_user_func*` when possible.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
     call_user_func("var_dump", 1, 2);
@@ -46,16 +46,12 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
-    /**
-     * @return bool
-     */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -87,11 +83,9 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function processCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $arguments)
+    private function processCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $arguments)
     {
-        $index = (int) $index;
         $firstArgIndex = $tokens->getNextMeaningfulToken($tokens->getNextMeaningfulToken($index));
         /** @var Token $firstArgToken */
         $firstArgToken = $tokens[$firstArgIndex];
@@ -155,15 +149,9 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
     }
     /**
      * @return void
-     * @param int $callIndex
-     * @param int $firstArgStartIndex
-     * @param int $firstArgEndIndex
      */
-    private function replaceCallUserFuncWithCallback(\PhpCsFixer\Tokenizer\Tokens $tokens, $callIndex, \PhpCsFixer\Tokenizer\Tokens $newCallTokens, $firstArgStartIndex, $firstArgEndIndex)
+    private function replaceCallUserFuncWithCallback(\PhpCsFixer\Tokenizer\Tokens $tokens, int $callIndex, \PhpCsFixer\Tokenizer\Tokens $newCallTokens, int $firstArgStartIndex, int $firstArgEndIndex)
     {
-        $callIndex = (int) $callIndex;
-        $firstArgStartIndex = (int) $firstArgStartIndex;
-        $firstArgEndIndex = (int) $firstArgEndIndex;
         $tokens->clearRange($firstArgStartIndex, $firstArgEndIndex);
         $afterFirstArgIndex = $tokens->getNextMeaningfulToken($firstArgEndIndex);
         $afterFirstArgToken = $tokens[$afterFirstArgIndex];
@@ -182,15 +170,8 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
             $tokens->clearTokenAndMergeSurroundingWhitespace($prevIndex);
         }
     }
-    /**
-     * @param int $indexStart
-     * @param int $indexEnd
-     * @return \PhpCsFixer\Tokenizer\Tokens
-     */
-    private function getTokensSubcollection(\PhpCsFixer\Tokenizer\Tokens $tokens, $indexStart, $indexEnd)
+    private function getTokensSubcollection(\PhpCsFixer\Tokenizer\Tokens $tokens, int $indexStart, int $indexEnd) : \PhpCsFixer\Tokenizer\Tokens
     {
-        $indexStart = (int) $indexStart;
-        $indexEnd = (int) $indexEnd;
         $size = $indexEnd - $indexStart + 1;
         $subcollection = new \PhpCsFixer\Tokenizer\Tokens($size);
         for ($i = 0; $i < $size; ++$i) {

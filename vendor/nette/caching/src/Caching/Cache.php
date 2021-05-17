@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Caching;
 
 use ECSPrefix20210517\Nette;
@@ -17,38 +22,31 @@ class Cache
     private $storage;
     /** @var string */
     private $namespace;
-    /**
-     * @param string $namespace
-     */
-    public function __construct(\ECSPrefix20210517\Nette\Caching\Storage $storage, $namespace = null)
+    public function __construct(\ECSPrefix20210517\Nette\Caching\Storage $storage, string $namespace = null)
     {
         $this->storage = $storage;
         $this->namespace = $namespace . self::NAMESPACE_SEPARATOR;
     }
     /**
      * Returns cache storage.
-     * @return \Nette\Caching\Storage
      */
-    public final function getStorage()
+    public final function getStorage() : \ECSPrefix20210517\Nette\Caching\Storage
     {
         return $this->storage;
     }
     /**
      * Returns cache namespace.
-     * @return string
      */
-    public final function getNamespace()
+    public final function getNamespace() : string
     {
         return (string) \substr($this->namespace, 0, -1);
     }
     /**
      * Returns new nested cache object.
      * @return static
-     * @param string $namespace
      */
-    public function derive($namespace)
+    public function derive(string $namespace)
     {
-        $namespace = (string) $namespace;
         return new static($this->storage, $this->namespace . $namespace);
     }
     /**
@@ -74,9 +72,8 @@ class Cache
     }
     /**
      * Reads multiple items from the cache.
-     * @return mixed[]
      */
-    public function bulkLoad(array $keys, callable $generator = null)
+    public function bulkLoad(array $keys, callable $generator = null) : array
     {
         if (\count($keys) === 0) {
             return [];
@@ -153,9 +150,8 @@ class Cache
     }
     /**
      * @param mixed[]|null $dp
-     * @return mixed[]
      */
-    private function completeDependencies($dp)
+    private function completeDependencies($dp) : array
     {
         // convert expire into relative amount of seconds
         if (isset($dp[self::EXPIRATION])) {
@@ -234,9 +230,8 @@ class Cache
     }
     /**
      * Caches results of function/method calls.
-     * @return \Closure
      */
-    public function wrap(callable $function, array $dependencies = null)
+    public function wrap(callable $function, array $dependencies = null) : \Closure
     {
         return function () use($function, $dependencies) {
             $key = [$function, $args = \func_get_args()];
@@ -273,18 +268,16 @@ class Cache
     }
     /**
      * Generates internal cache key.
-     * @return string
      */
-    protected function generateKey($key)
+    protected function generateKey($key) : string
     {
         return $this->namespace . \md5(\is_scalar($key) ? (string) $key : \serialize($key));
     }
     /********************* dependency checkers ****************d*g**/
     /**
      * Checks CALLBACKS dependencies.
-     * @return bool
      */
-    public static function checkCallbacks(array $callbacks)
+    public static function checkCallbacks(array $callbacks) : bool
     {
         foreach ($callbacks as $callback) {
             if (!\array_shift($callback)(...$callback)) {
@@ -295,23 +288,17 @@ class Cache
     }
     /**
      * Checks CONSTS dependency.
-     * @param string $const
-     * @return bool
      */
-    private static function checkConst($const, $value)
+    private static function checkConst(string $const, $value) : bool
     {
-        $const = (string) $const;
         return \defined($const) && \constant($const) === $value;
     }
     /**
      * Checks FILES dependency.
      * @param int|null $time
-     * @param string $file
-     * @return bool
      */
-    private static function checkFile($file, $time)
+    private static function checkFile(string $file, $time) : bool
     {
-        $file = (string) $file;
         return @\filemtime($file) == $time;
         // @ - stat may fail
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver\Provider;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -10,9 +11,9 @@ use ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException
 abstract class AbstractSetProvider implements \ECSPrefix20210517\Symplify\SetConfigResolver\Contract\SetProviderInterface
 {
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    public function provideSetNames()
+    public function provideSetNames() : array
     {
         $setNames = [];
         $sets = $this->provide();
@@ -23,11 +24,9 @@ abstract class AbstractSetProvider implements \ECSPrefix20210517\Symplify\SetCon
     }
     /**
      * @return \Symplify\SetConfigResolver\ValueObject\Set|null
-     * @param string $desiredSetName
      */
-    public function provideByName($desiredSetName)
+    public function provideByName(string $desiredSetName)
     {
-        $desiredSetName = (string) $desiredSetName;
         // 1. name-based approach
         $sets = $this->provide();
         foreach ($sets as $set) {
@@ -54,13 +53,8 @@ abstract class AbstractSetProvider implements \ECSPrefix20210517\Symplify\SetCon
         $message = \sprintf('Set "%s" was not found', $desiredSetName);
         throw new \ECSPrefix20210517\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
     }
-    /**
-     * @param string $setPath
-     * @return string
-     */
-    private function resolveSetUniquePathId($setPath)
+    private function resolveSetUniquePathId(string $setPath) : string
     {
-        $setPath = (string) $setPath;
         $setPath = \ECSPrefix20210517\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
         if ($setPath === null) {
             throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();

@@ -39,9 +39,8 @@ class AddRequestFormatsListener implements \ECSPrefix20210517\Symfony\Component\
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 100]];
     }

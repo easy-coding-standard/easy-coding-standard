@@ -80,11 +80,9 @@ class MemoryDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
     }
     /**
      * @return int|float
-     * @param string $memoryLimit
      */
-    private function convertToBytes($memoryLimit)
+    private function convertToBytes(string $memoryLimit)
     {
-        $memoryLimit = (string) $memoryLimit;
         if ('-1' === $memoryLimit) {
             return -1;
         }

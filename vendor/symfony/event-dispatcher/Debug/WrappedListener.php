@@ -71,34 +71,20 @@ final class WrappedListener
     {
         return $this->listener;
     }
-    /**
-     * @return bool
-     */
-    public function wasCalled()
+    public function wasCalled() : bool
     {
         return $this->called;
     }
-    /**
-     * @return bool
-     */
-    public function stoppedPropagation()
+    public function stoppedPropagation() : bool
     {
         return $this->stoppedPropagation;
     }
-    /**
-     * @return string
-     */
-    public function getPretty()
+    public function getPretty() : string
     {
         return $this->pretty;
     }
-    /**
-     * @param string $eventName
-     * @return mixed[]
-     */
-    public function getInfo($eventName)
+    public function getInfo(string $eventName) : array
     {
-        $eventName = (string) $eventName;
         if (null === $this->stub) {
             $this->stub = self::$hasClassStub ? new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ClassStub($this->pretty . '()', $this->listener) : $this->pretty . '()';
         }
@@ -107,16 +93,14 @@ final class WrappedListener
     /**
      * @param object $event
      * @return void
-     * @param string $eventName
      */
-    public function __invoke($event, $eventName, \ECSPrefix20210517\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher)
+    public function __invoke($event, string $eventName, \ECSPrefix20210517\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher)
     {
-        $eventName = (string) $eventName;
         $dispatcher = $this->dispatcher ?: $dispatcher;
         $this->called = \true;
         $this->priority = $dispatcher->getListenerPriority($eventName, $this->listener);
         $e = $this->stopwatch->start($this->name, 'event_listener');
-        ($this->optimizedListener !== null ? $this->optimizedListener : $this->listener)($event, $eventName, $dispatcher);
+        ($this->optimizedListener ?? $this->listener)($event, $eventName, $dispatcher);
         if ($e->isStarted()) {
             $e->stop();
         }

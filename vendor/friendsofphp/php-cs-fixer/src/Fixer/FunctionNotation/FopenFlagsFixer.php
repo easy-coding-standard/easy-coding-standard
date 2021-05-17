@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,29 +29,23 @@ final class FopenFlagsFixer extends \PhpCsFixer\AbstractFopenFlagFixer implement
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('The flags in `fopen` calls must omit `t`, and `b` must be omitted or included consistently.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = fopen(\$foo, 'rwt');\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = fopen(\$foo, 'rwt');\n", ['b_mode' => \false])], null, 'Risky when the function `fopen` is overridden.');
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('b_mode', 'The `b` flag must be used (`true`) or omitted (`false`).'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
     /**
      * @return void
-     * @param int $argumentStartIndex
-     * @param int $argumentEndIndex
      */
-    protected function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStartIndex, $argumentEndIndex)
+    protected function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex)
     {
-        $argumentStartIndex = (int) $argumentStartIndex;
-        $argumentEndIndex = (int) $argumentEndIndex;
         $argumentFlagIndex = null;
         for ($i = $argumentStartIndex; $i <= $argumentEndIndex; ++$i) {
             if ($tokens[$i]->isGivenKind([\T_WHITESPACE, \T_COMMENT, \T_DOC_COMMENT])) {

@@ -28,10 +28,7 @@ class LoggerDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
     private $containerPathPrefix;
     private $currentRequest;
     private $requestStack;
-    /**
-     * @param string $containerPathPrefix
-     */
-    public function __construct($logger = null, $containerPathPrefix = null, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
+    public function __construct($logger = null, string $containerPathPrefix = null, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
     {
         if (null !== $logger && $logger instanceof \ECSPrefix20210517\Symfony\Component\HttpKernel\Log\DebugLoggerInterface) {
             $this->logger = $logger;
@@ -74,31 +71,31 @@ class LoggerDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
     }
     public function getLogs()
     {
-        return isset($this->data['logs']) ? $this->data['logs'] : [];
+        return $this->data['logs'] ?? [];
     }
     public function getPriorities()
     {
-        return isset($this->data['priorities']) ? $this->data['priorities'] : [];
+        return $this->data['priorities'] ?? [];
     }
     public function countErrors()
     {
-        return isset($this->data['error_count']) ? $this->data['error_count'] : 0;
+        return $this->data['error_count'] ?? 0;
     }
     public function countDeprecations()
     {
-        return isset($this->data['deprecation_count']) ? $this->data['deprecation_count'] : 0;
+        return $this->data['deprecation_count'] ?? 0;
     }
     public function countWarnings()
     {
-        return isset($this->data['warning_count']) ? $this->data['warning_count'] : 0;
+        return $this->data['warning_count'] ?? 0;
     }
     public function countScreams()
     {
-        return isset($this->data['scream_count']) ? $this->data['scream_count'] : 0;
+        return $this->data['scream_count'] ?? 0;
     }
     public function getCompilerLogs()
     {
-        return $this->cloneVar($this->getContainerCompilerLogs(isset($this->data['compiler_logs_filepath']) ? $this->data['compiler_logs_filepath'] : null));
+        return $this->cloneVar($this->getContainerCompilerLogs($this->data['compiler_logs_filepath'] ?? null));
     }
     /**
      * {@inheritdoc}
@@ -107,10 +104,7 @@ class LoggerDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
     {
         return 'logger';
     }
-    /**
-     * @return mixed[]
-     */
-    private function getContainerDeprecationLogs()
+    private function getContainerDeprecationLogs() : array
     {
         if (null === $this->containerPathPrefix || !\is_file($file = $this->containerPathPrefix . 'Deprecations.log')) {
             return [];
@@ -132,11 +126,7 @@ class LoggerDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
         }
         return $logs;
     }
-    /**
-     * @param string $compilerLogsFilepath
-     * @return mixed[]
-     */
-    private function getContainerCompilerLogs($compilerLogsFilepath = null)
+    private function getContainerCompilerLogs(string $compilerLogsFilepath = null) : array
     {
         if (!\is_file($compilerLogsFilepath)) {
             return [];
@@ -183,10 +173,7 @@ class LoggerDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
         }
         return \array_values($sanitizedLogs);
     }
-    /**
-     * @return bool
-     */
-    private function isSilencedOrDeprecationErrorLog(array $log)
+    private function isSilencedOrDeprecationErrorLog(array $log) : bool
     {
         if (!isset($log['context']['exception'])) {
             return \false;
@@ -200,10 +187,7 @@ class LoggerDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
         }
         return \false;
     }
-    /**
-     * @return mixed[]
-     */
-    private function computeErrorsCount(array $containerDeprecationLogs)
+    private function computeErrorsCount(array $containerDeprecationLogs) : array
     {
         $silencedLogs = [];
         $count = ['error_count' => $this->logger->countErrors($this->currentRequest), 'deprecation_count' => 0, 'warning_count' => 0, 'scream_count' => 0, 'priorities' => []];

@@ -143,12 +143,12 @@ class QuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper
         } elseif ($question instanceof \ECSPrefix20210517\Symfony\Component\Console\Question\ChoiceQuestion) {
             $choices = $question->getChoices();
             if (!$question->isMultiselect()) {
-                return isset($choices[$default]) ? $choices[$default] : $default;
+                return $choices[$default] ?? $default;
             }
             $default = \explode(',', $default);
             foreach ($default as $k => $v) {
                 $v = $question->isTrimmable() ? \trim($v) : $v;
-                $default[$k] = isset($choices[$v]) ? $choices[$v] : $v;
+                $default[$k] = $choices[$v] ?? $v;
             }
         }
         return $default;
@@ -167,11 +167,9 @@ class QuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper
     }
     /**
      * @return string[]
-     * @param string $tag
      */
-    protected function formatChoiceQuestionChoices(\ECSPrefix20210517\Symfony\Component\Console\Question\ChoiceQuestion $question, $tag)
+    protected function formatChoiceQuestionChoices(\ECSPrefix20210517\Symfony\Component\Console\Question\ChoiceQuestion $question, string $tag)
     {
-        $tag = (string) $tag;
         $messages = [];
         $maxWidth = \max(\array_map('self::strlen', \array_keys($choices = $question->getChoices())));
         foreach ($choices as $key => $value) {
@@ -196,9 +194,8 @@ class QuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper
      * Autocompletes a question.
      *
      * @param resource $inputStream
-     * @return string
      */
-    private function autocomplete(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\Console\Question\Question $question, $inputStream, callable $autocomplete)
+    private function autocomplete(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\Console\Question\Question $question, $inputStream, callable $autocomplete) : string
     {
         $cursor = new \ECSPrefix20210517\Symfony\Component\Console\Cursor($output, $inputStream);
         $fullChoice = '';
@@ -305,13 +302,8 @@ class QuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper
         \shell_exec(\sprintf('stty %s', $sttyMode));
         return $fullChoice;
     }
-    /**
-     * @param string $entered
-     * @return string
-     */
-    private function mostRecentlyEnteredValue($entered)
+    private function mostRecentlyEnteredValue(string $entered) : string
     {
-        $entered = (string) $entered;
         // Determine the most recent value that the user entered
         if (\false === \strpos($entered, ',')) {
             return $entered;
@@ -329,11 +321,9 @@ class QuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper
      * @param bool     $trimmable   Is the answer trimmable
      *
      * @throws RuntimeException In case the fallback is deactivated and the response cannot be hidden
-     * @return string
      */
-    private function getHiddenResponse(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $inputStream, $trimmable = \true)
+    private function getHiddenResponse(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $inputStream, bool $trimmable = \true) : string
     {
-        $trimmable = (bool) $trimmable;
         if ('\\' === \DIRECTORY_SEPARATOR) {
             $exe = __DIR__ . '/../Resources/bin/hiddeninput.exe';
             // handle code running from a phar
@@ -395,12 +385,9 @@ class QuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper
         }
         throw $error;
     }
-    /**
-     * @return bool
-     */
-    private function isInteractiveInput($inputStream)
+    private function isInteractiveInput($inputStream) : bool
     {
-        if ('php://stdin' !== (isset(\stream_get_meta_data($inputStream)['uri']) ? \stream_get_meta_data($inputStream)['uri'] : null)) {
+        if ('php://stdin' !== (\stream_get_meta_data($inputStream)['uri'] ?? null)) {
             return \false;
         }
         if (null !== self::$stdinIsInteractive) {
@@ -459,7 +446,7 @@ class QuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper
      *
      * @return int Previous code page in IBM/EBCDIC format
      */
-    private function setIOCodepage()
+    private function setIOCodepage() : int
     {
         if (\function_exists('sapi_windows_cp_set')) {
             $cp = \sapi_windows_cp_get();
@@ -474,11 +461,9 @@ class QuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper
      * @param string|false $input
      *
      * @return string|false
-     * @param int $cp
      */
-    private function resetIOCodepage($cp, $input)
+    private function resetIOCodepage(int $cp, $input)
     {
-        $cp = (int) $cp;
         if (0 !== $cp) {
             \sapi_windows_cp_set($cp);
             if (\false !== $input && '' !== $input) {
@@ -498,9 +483,9 @@ class QuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helper
     private function cloneInputStream($inputStream)
     {
         $streamMetaData = \stream_get_meta_data($inputStream);
-        $seekable = isset($streamMetaData['seekable']) ? $streamMetaData['seekable'] : \false;
-        $mode = isset($streamMetaData['mode']) ? $streamMetaData['mode'] : 'rb';
-        $uri = isset($streamMetaData['uri']) ? $streamMetaData['uri'] : null;
+        $seekable = $streamMetaData['seekable'] ?? \false;
+        $mode = $streamMetaData['mode'] ?? 'rb';
+        $uri = $streamMetaData['uri'] ?? null;
         if (null === $uri) {
             return null;
         }

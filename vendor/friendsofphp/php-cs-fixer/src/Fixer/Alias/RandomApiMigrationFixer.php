@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -45,17 +46,15 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces `rand`, `srand`, `getrandmax` functions calls with their `mt_*` analogs.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n", ['replacements' => ['getrandmax' => 'mt_getrandmax']]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = rand(\$b, \$c);\n", ['replacements' => ['rand' => 'random_int']])], null, 'Risky when the configured functions are overridden.');
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -95,9 +94,8 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('replacements', 'Mapping between replaced functions with the new ones.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) {
             foreach ($value as $functionName => $replacement) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -36,17 +37,15 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     private $ignoredTags = [];
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -55,18 +54,16 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
      *
      * Must run before GeneralPhpdocAnnotationRemoveFixer, GeneralPhpdocTagRenameFixer, NoBlankLinesAfterPhpdocFixer, NoEmptyPhpdocFixer, NoSuperfluousPhpdocTagsFixer, PhpdocAddMissingParamAnnotationFixer, PhpdocAlignFixer, PhpdocAlignFixer, PhpdocAnnotationWithoutDotFixer, PhpdocInlineTagNormalizerFixer, PhpdocLineSpanFixer, PhpdocNoAccessFixer, PhpdocNoAliasTagFixer, PhpdocNoEmptyReturnFixer, PhpdocNoPackageFixer, PhpdocNoUselessInheritdocFixer, PhpdocOrderByValueFixer, PhpdocOrderFixer, PhpdocReturnSelfReferenceFixer, PhpdocSeparationFixer, PhpdocSingleLineVarSpacingFixer, PhpdocSummaryFixer, PhpdocTagCasingFixer, PhpdocTagTypeFixer, PhpdocToCommentFixer, PhpdocToParamTypeFixer, PhpdocToPropertyTypeFixer, PhpdocToReturnTypeFixer, PhpdocTrimConsecutiveBlankLineSeparationFixer, PhpdocTrimFixer, PhpdocTypesOrderFixer, PhpdocVarAnnotationCorrectOrderFixer, PhpdocVarWithoutNameFixer.
      * Must run after AlignMultilineCommentFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         // Should be run before all other PHPDoc fixers
         return 26;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Comments with annotation should be docblock when used on structural elements.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php /* header */ \$x = true; /* @var bool \$isFoo */ \$isFoo = true;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n// @todo do something later\n\$foo = 1;\n\n// @var int \$a\n\$a = foo();\n", ['ignored_tags' => ['todo']])], null, 'Risky as new docblocks might mean more, e.g. a Doctrine entity might have a new column in database.');
     }
@@ -83,9 +80,8 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('ignored_tags', 'List of ignored tags'))->setAllowedTypes(['array'])->setDefault([])->getOption()]);
     }
@@ -116,9 +112,8 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * @param int[] $indices
-     * @return bool
      */
-    private function isCommentCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices)
+    private function isCommentCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices) : bool
     {
         return \array_reduce($indices, function (bool $carry, int $index) use($tokens) {
             if ($carry) {
@@ -144,11 +139,9 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixCommentSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixCommentSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $message = $this->getMessage($tokens[$index]->getContent());
         if ('' !== \trim(\substr($message, 0, 1))) {
             $message = ' ' . $message;
@@ -183,13 +176,8 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
         $newContent .= $indent . ' */';
         $tokens->insertAt($startIndex, new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $newContent]));
     }
-    /**
-     * @param string $content
-     * @return string
-     */
-    private function getMessage($content)
+    private function getMessage(string $content) : string
     {
-        $content = (string) $content;
         if (0 === \strpos($content, '#')) {
             return \substr($content, 1);
         }

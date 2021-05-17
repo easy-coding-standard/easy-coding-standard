@@ -18,24 +18,16 @@ final class ResponseHasCookie extends \ECSPrefix20210517\PHPUnit\Framework\Const
     private $name;
     private $path;
     private $domain;
-    /**
-     * @param string $name
-     * @param string $path
-     * @param string $domain
-     */
-    public function __construct($name, $path = '/', $domain = null)
+    public function __construct(string $name, string $path = '/', string $domain = null)
     {
-        $name = (string) $name;
-        $path = (string) $path;
         $this->name = $name;
         $this->path = $path;
         $this->domain = $domain;
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function toString()
+    public function toString() : string
     {
         $str = \sprintf('has cookie "%s"', $this->name);
         if ('/' !== $this->path) {
@@ -50,9 +42,8 @@ final class ResponseHasCookie extends \ECSPrefix20210517\PHPUnit\Framework\Const
      * @param Response $response
      *
      * {@inheritdoc}
-     * @return bool
      */
-    protected function matches($response)
+    protected function matches($response) : bool
     {
         return null !== $this->getCookie($response);
     }
@@ -60,9 +51,8 @@ final class ResponseHasCookie extends \ECSPrefix20210517\PHPUnit\Framework\Const
      * @param Response $response
      *
      * {@inheritdoc}
-     * @return string
      */
-    protected function failureDescription($response)
+    protected function failureDescription($response) : string
     {
         return 'the Response ' . $this->toString();
     }

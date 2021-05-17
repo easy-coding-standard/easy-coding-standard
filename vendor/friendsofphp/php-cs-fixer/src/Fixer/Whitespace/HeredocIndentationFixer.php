@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -31,9 +32,8 @@ final class HeredocIndentationFixer extends \PhpCsFixer\AbstractFixer implements
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Heredoc/nowdoc content must be properly indented. Requires PHP >= 7.3.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
@@ -75,17 +75,15 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= 70300 && $tokens->isTokenKindFound(\T_START_HEREDOC);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('indentation', 'Whether the indentation should be the same as in the start token line or one level more.'))->setAllowedValues(['start_plus_one', 'same_as_start'])->setDefault('start_plus_one')->getOption()]);
     }
@@ -105,13 +103,9 @@ SAMPLE
     }
     /**
      * @return void
-     * @param int $start
-     * @param int $end
      */
-    private function fixIndentation(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
+    private function fixIndentation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
     {
-        $start = (int) $start;
-        $end = (int) $end;
         $indent = $this->getIndentAt($tokens, $start);
         if ('start_plus_one' === $this->configuration['indentation']) {
             $indent .= $this->whitespacesConfig->getIndent();
@@ -149,13 +143,8 @@ SAMPLE
         }
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_ENCAPSED_AND_WHITESPACE, $content]);
     }
-    /**
-     * @param int $index
-     * @return string
-     */
-    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : string
     {
-        $index = (int) $index;
         for (; $index >= 0; --$index) {
             if (!$tokens[$index]->isGivenKind([\T_WHITESPACE, \T_INLINE_HTML, \T_OPEN_TAG])) {
                 continue;

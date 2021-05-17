@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 use ECSPrefix20210517\Nette;
@@ -12,12 +17,9 @@ final class Reflection
     const BUILTIN_TYPES = ['string' => 1, 'int' => 1, 'float' => 1, 'bool' => 1, 'array' => 1, 'object' => 1, 'callable' => 1, 'iterable' => 1, 'void' => 1, 'null' => 1, 'mixed' => 1, 'false' => 1];
     /**
      * Determines if type is PHP built-in type. Otherwise, it is the class name.
-     * @param string $type
-     * @return bool
      */
-    public static function isBuiltinType($type)
+    public static function isBuiltinType(string $type) : bool
     {
-        $type = (string) $type;
         return isset(self::BUILTIN_TYPES[\strtolower($type)]);
     }
     /**
@@ -32,9 +34,8 @@ final class Reflection
     }
     /**
      * Returns the types of return value of given function or method and normalizes `self`, `static`, and `parent` to actual class names.
-     * @return mixed[]
      */
-    public static function getReturnTypes(\ReflectionFunctionAbstract $func)
+    public static function getReturnTypes(\ReflectionFunctionAbstract $func) : array
     {
         return self::getType($func, $func->getReturnType(), \true);
     }
@@ -50,9 +51,8 @@ final class Reflection
     }
     /**
      * Returns the types of given parameter and normalizes `self` and `parent` to the actual class names.
-     * @return mixed[]
      */
-    public static function getParameterTypes(\ReflectionParameter $param)
+    public static function getParameterTypes(\ReflectionParameter $param) : array
     {
         return self::getType($param, $param->getType(), \true);
     }
@@ -68,9 +68,8 @@ final class Reflection
     }
     /**
      * Returns the types of given property and normalizes `self` and `parent` to the actual class names.
-     * @return mixed[]
      */
-    public static function getPropertyTypes(\ReflectionProperty $prop)
+    public static function getPropertyTypes(\ReflectionProperty $prop) : array
     {
         return self::getType($prop, \PHP_VERSION_ID >= 70400 ? $prop->getType() : null, \true);
     }
@@ -78,11 +77,9 @@ final class Reflection
      * @param  \ReflectionFunction|\ReflectionMethod|\ReflectionParameter|\ReflectionProperty  $reflection
      * @return string|array|null
      * @param \ReflectionType|null $type
-     * @param bool $asArray
      */
-    private static function getType($reflection, $type, $asArray = \false)
+    private static function getType($reflection, $type, bool $asArray = \false)
     {
-        $asArray = (bool) $asArray;
         if ($type === null) {
             return $asArray ? [] : null;
         } elseif ($type instanceof \ReflectionNamedType) {
@@ -106,12 +103,9 @@ final class Reflection
     }
     /**
      * @param  \ReflectionFunction|\ReflectionMethod|\ReflectionParameter|\ReflectionProperty  $reflection
-     * @param string $type
-     * @return string
      */
-    private static function normalizeType($type, $reflection)
+    private static function normalizeType(string $type, $reflection) : string
     {
-        $type = (string) $type;
         $lower = \strtolower($type);
         if ($reflection instanceof \ReflectionFunction) {
             return $type;
@@ -155,9 +149,8 @@ final class Reflection
     }
     /**
      * Returns a reflection of a class or trait that contains a declaration of given property. Property can also be declared in the trait.
-     * @return \ReflectionClass
      */
-    public static function getPropertyDeclaringClass(\ReflectionProperty $prop)
+    public static function getPropertyDeclaringClass(\ReflectionProperty $prop) : \ReflectionClass
     {
         foreach ($prop->getDeclaringClass()->getTraits() as $trait) {
             if ($trait->hasProperty($prop->name) && $trait->getProperty($prop->name)->getDocComment() === $prop->getDocComment()) {
@@ -169,9 +162,8 @@ final class Reflection
     /**
      * Returns a reflection of a method that contains a declaration of $method.
      * Usually, each method is its own declaration, but the body of the method can also be in the trait and under a different name.
-     * @return \ReflectionMethod
      */
-    public static function getMethodDeclaringMethod(\ReflectionMethod $method)
+    public static function getMethodDeclaringMethod(\ReflectionMethod $method) : \ReflectionMethod
     {
         // file & line guessing as workaround for insufficient PHP reflection
         $decl = $method->getDeclaringClass();
@@ -179,7 +171,7 @@ final class Reflection
             return $method;
         }
         $hash = [$method->getFileName(), $method->getStartLine(), $method->getEndLine()];
-        if (($alias = isset($decl->getTraitAliases()[$method->name]) ? $decl->getTraitAliases()[$method->name] : null) && ($m = new \ReflectionMethod($alias)) && $hash === [$m->getFileName(), $m->getStartLine(), $m->getEndLine()]) {
+        if (($alias = $decl->getTraitAliases()[$method->name] ?? null) && ($m = new \ReflectionMethod($alias)) && $hash === [$m->getFileName(), $m->getStartLine(), $m->getEndLine()]) {
             return self::getMethodDeclaringMethod($m);
         }
         foreach ($decl->getTraits() as $trait) {
@@ -191,17 +183,13 @@ final class Reflection
     }
     /**
      * Finds out if reflection has access to PHPdoc comments. Comments may not be available due to the opcode cache.
-     * @return bool
      */
-    public static function areCommentsAvailable()
+    public static function areCommentsAvailable() : bool
     {
         static $res;
-        return isset($res) ? $res : ($res = (bool) (new \ReflectionMethod(__METHOD__))->getDocComment());
+        return $res ?? ($res = (bool) (new \ReflectionMethod(__METHOD__))->getDocComment());
     }
-    /**
-     * @return string
-     */
-    public static function toString(\Reflector $ref)
+    public static function toString(\Reflector $ref) : string
     {
         if ($ref instanceof \ReflectionClass) {
             return $ref->name;
@@ -221,12 +209,9 @@ final class Reflection
      * Expands the name of the class to full name in the given context of given class.
      * Thus, it returns how the PHP parser would understand $name if it were written in the body of the class $context.
      * @throws Nette\InvalidArgumentException
-     * @param string $name
-     * @return string
      */
-    public static function expandClassName($name, \ReflectionClass $context)
+    public static function expandClassName(string $name, \ReflectionClass $context) : string
     {
-        $name = (string) $name;
         $lower = \strtolower($name);
         if (empty($name)) {
             throw new \ECSPrefix20210517\Nette\InvalidArgumentException('Class name must not be empty.');
@@ -250,7 +235,7 @@ final class Reflection
         }
     }
     /** @return array of [alias => class] */
-    public static function getUseStatements(\ReflectionClass $class)
+    public static function getUseStatements(\ReflectionClass $class) : array
     {
         if ($class->isAnonymous()) {
             throw new \ECSPrefix20210517\Nette\NotImplementedException('Anonymous classes are not supported.');
@@ -268,13 +253,9 @@ final class Reflection
     }
     /**
      * Parses PHP code to [class => [alias => class, ...]]
-     * @param string $code
-     * @param string $forClass
-     * @return mixed[]
      */
-    private static function parseUseStatements($code, $forClass = null)
+    private static function parseUseStatements(string $code, string $forClass = null) : array
     {
-        $code = (string) $code;
         try {
             $tokens = \token_get_all($code, \TOKEN_PARSE);
         } catch (\ParseError $e) {

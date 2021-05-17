@@ -35,14 +35,13 @@ final class ArgumentResolver implements \ECSPrefix20210517\Symfony\Component\Htt
      */
     public function __construct(\ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, $argumentValueResolvers = [])
     {
-        $this->argumentMetadataFactory = isset($argumentMetadataFactory) ? $argumentMetadataFactory : new \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory();
+        $this->argumentMetadataFactory = $argumentMetadataFactory ?? new \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory();
         $this->argumentValueResolvers = $argumentValueResolvers ?: self::getDefaultArgumentValueResolvers();
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getArguments(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, callable $controller)
+    public function getArguments(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, callable $controller) : array
     {
         $arguments = [];
         foreach ($this->argumentMetadataFactory->createArgumentMetadata($controller) as $metadata) {

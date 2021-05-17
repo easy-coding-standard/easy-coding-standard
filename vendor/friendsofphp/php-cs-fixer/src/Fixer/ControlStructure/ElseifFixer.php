@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,9 +27,8 @@ final class ElseifFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('The keyword `elseif` should be used instead of `else if` so that all control keywords look like single words.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif (\$a) {\n} else if (\$b) {\n}\n")]);
     }
@@ -37,17 +37,15 @@ final class ElseifFixer extends \PhpCsFixer\AbstractFixer
      *
      * Must run before BracesFixer.
      * Must run after NoAlternativeSyntaxFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 40;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_IF, \T_ELSE]);
     }

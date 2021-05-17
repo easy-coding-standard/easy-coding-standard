@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -37,14 +38,9 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
-        $docContent = (string) $docContent;
-        $position = (int) $position;
         $argumentNames = $this->docblockRelatedParamNamesResolver->resolve($tokens, $position);
         if ($argumentNames === []) {
             return $docContent;
@@ -59,12 +55,10 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     }
     /**
      * @param string[] $functionArgumentNames
-     * @return mixed[]
-     * @param string $docContent
+     * @return string[]
      */
-    private function filterOutExistingParamNames($docContent, array $functionArgumentNames)
+    private function filterOutExistingParamNames(string $docContent, array $functionArgumentNames) : array
     {
-        $docContent = (string) $docContent;
         foreach ($functionArgumentNames as $key => $functionArgumentName) {
             $pattern = '# ' . \preg_quote($functionArgumentName, '#') . '\\b#';
             if (\ECSPrefix20210517\Nette\Utils\Strings::match($docContent, $pattern)) {
@@ -95,23 +89,15 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     }
     /**
      * @param string[] $argumentNames
-     * @param string $missingArgumentName
-     * @param int $key
-     * @return string
      */
-    private function resolveNewArgumentName(array $argumentNames, $missingArgumentName, $key)
+    private function resolveNewArgumentName(array $argumentNames, string $missingArgumentName, int $key) : string
     {
-        $missingArgumentName = (string) $missingArgumentName;
-        $key = (int) $key;
         if (\array_search($missingArgumentName, $argumentNames, \true)) {
             return $missingArgumentName;
         }
         return $argumentNames[$key];
     }
-    /**
-     * @return bool
-     */
-    private function shouldSkipLine(\PhpCsFixer\DocBlock\Line $line)
+    private function shouldSkipLine(\PhpCsFixer\DocBlock\Line $line) : bool
     {
         if (!\ECSPrefix20210517\Nette\Utils\Strings::contains($line->getContent(), self::PARAM_ANNOTATOIN_START_REGEX)) {
             return \true;
@@ -123,13 +109,8 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
         $match = \ECSPrefix20210517\Nette\Utils\Strings::match($line->getContent(), self::PARAM_WITHOUT_NAME_REGEX);
         return $match === null;
     }
-    /**
-     * @param string $newArgumentName
-     * @return string
-     */
-    private function createNewLineContent($newArgumentName, \PhpCsFixer\DocBlock\Line $line)
+    private function createNewLineContent(string $newArgumentName, \PhpCsFixer\DocBlock\Line $line) : string
     {
-        $newArgumentName = (string) $newArgumentName;
         // @see https://regex101.com/r/4FL49H/1
         $missingDollarSignPattern = '#(@param\\s+([\\w\\|\\[\\]\\\\]+\\s)?)(' . \ltrim($newArgumentName, '$') . ')#';
         // missing \$ case - possibly own worker

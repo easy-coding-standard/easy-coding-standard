@@ -57,30 +57,24 @@ abstract class AbstractCloner implements \ECSPrefix20210517\Symfony\Component\Va
     }
     /**
      * Sets the maximum number of items to clone past the minimum depth in nested structures.
-     * @param int $maxItems
      */
-    public function setMaxItems($maxItems)
+    public function setMaxItems(int $maxItems)
     {
-        $maxItems = (int) $maxItems;
         $this->maxItems = $maxItems;
     }
     /**
      * Sets the maximum cloned length for strings.
-     * @param int $maxString
      */
-    public function setMaxString($maxString)
+    public function setMaxString(int $maxString)
     {
-        $maxString = (int) $maxString;
         $this->maxString = $maxString;
     }
     /**
      * Sets the minimum tree depth where we are guaranteed to clone all the items.  After this
      * depth is reached, only setMaxItems items will be cloned.
-     * @param int $minDepth
      */
-    public function setMinDepth($minDepth)
+    public function setMinDepth(int $minDepth)
     {
-        $minDepth = (int) $minDepth;
         $this->minDepth = $minDepth;
     }
     /**
@@ -132,12 +126,11 @@ abstract class AbstractCloner implements \ECSPrefix20210517\Symfony\Component\Va
      *
      * @return array The object casted as array
      */
-    protected function castObject(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    protected function castObject(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $obj = $stub->value;
         $class = $stub->class;
-        if (\PHP_VERSION_ID < 80000 ? "\0" === (isset($class[15]) ? $class[15] : null) : \false !== \strpos($class, "@anonymous\0")) {
+        if (\PHP_VERSION_ID < 80000 ? "\0" === ($class[15] ?? null) : \false !== \strpos($class, "@anonymous\0")) {
             $stub->class = \get_debug_type($obj);
         }
         if (isset($this->classInfo[$class])) {
@@ -181,9 +174,8 @@ abstract class AbstractCloner implements \ECSPrefix20210517\Symfony\Component\Va
      *
      * @return array The resource casted as array
      */
-    protected function castResource(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    protected function castResource(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $a = [];
         $res = $stub->value;
         $type = $stub->class;

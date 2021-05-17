@@ -22,25 +22,23 @@ class CliErrorRenderer implements \ECSPrefix20210517\Symfony\Component\ErrorHand
 {
     /**
      * {@inheritdoc}
-     * @return \Symfony\Component\ErrorHandler\Exception\FlattenException
      */
-    public function render(\Throwable $exception)
+    public function render(\Throwable $exception) : \ECSPrefix20210517\Symfony\Component\ErrorHandler\Exception\FlattenException
     {
         $cloner = new \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\VarCloner();
-        $dumper = new \ECSPrefix20210517\Symfony\Component\ErrorHandler\ErrorRenderer\Anonymous__7bd99e4236808f08521345d76c9b0744__0();
+        $dumper = new class extends \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper
+        {
+            protected function supportsColors() : bool
+            {
+                $outputStream = $this->outputStream;
+                $this->outputStream = \fopen('php://stdout', 'w');
+                try {
+                    return parent::supportsColors();
+                } finally {
+                    $this->outputStream = $outputStream;
+                }
+            }
+        };
         return \ECSPrefix20210517\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)->setAsString($dumper->dump($cloner->cloneVar($exception), \true));
-    }
-}
-class Anonymous__7bd99e4236808f08521345d76c9b0744__0 extends \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper
-{
-    protected function supportsColors() : bool
-    {
-        $outputStream = $this->outputStream;
-        $this->outputStream = \fopen('php://stdout', 'w');
-        try {
-            return parent::supportsColors();
-        } finally {
-            $this->outputStream = $outputStream;
-        }
     }
 }

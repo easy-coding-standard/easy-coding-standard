@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Spacing;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -42,10 +43,7 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
         $this->blockFinder = $blockFinder;
         $this->chainMethodCallAnalyzer = $chainMethodCallAnalyzer;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
@@ -53,17 +51,15 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
      * Must run before
      *
      * @see \PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer::getPriority()
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 39;
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_OBJECT_OPERATOR]);
     }
@@ -86,10 +82,7 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
             ++$index;
         }
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $someClass->firstCall()->secondCall();
@@ -102,12 +95,9 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $objectOperatorIndex
-     * @return bool
      */
-    private function shouldPrefixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $objectOperatorIndex)
+    private function shouldPrefixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $objectOperatorIndex) : bool
     {
-        $objectOperatorIndex = (int) $objectOperatorIndex;
         for ($i = $objectOperatorIndex; $i >= 0; --$i) {
             /** @var Token $currentToken */
             $currentToken = $tokens[$i];
@@ -125,12 +115,9 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @return bool
      */
-    private function isDoubleBracket(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function isDoubleBracket(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
-        $position = (int) $position;
         /** @var int $nextTokenPosition */
         $nextTokenPosition = $tokens->getNextNonWhitespace($position);
         /** @var Token $nextToken */
@@ -141,12 +128,9 @@ CODE_SAMPLE
      * Matches e.g.: - app([ ])->some()
      *
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @return bool
      */
-    private function isPreceededByOpenedCallInAnotherBracket(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function isPreceededByOpenedCallInAnotherBracket(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
-        $position = (int) $position;
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
             return \false;
@@ -155,14 +139,9 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @param int $objectOperatorIndex
-     * @return bool
      */
-    private function shouldBracketPrefix(\PhpCsFixer\Tokenizer\Tokens $tokens, $position, $objectOperatorIndex)
+    private function shouldBracketPrefix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position, int $objectOperatorIndex) : bool
     {
-        $position = (int) $position;
-        $objectOperatorIndex = (int) $objectOperatorIndex;
         if ($this->isDoubleBracket($tokens, $position)) {
             return \false;
         }

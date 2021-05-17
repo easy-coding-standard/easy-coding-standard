@@ -30,12 +30,8 @@ class ErrorListener implements \ECSPrefix20210517\Symfony\Component\EventDispatc
     protected $controller;
     protected $logger;
     protected $debug;
-    /**
-     * @param bool $debug
-     */
-    public function __construct($controller, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null, $debug = \false)
+    public function __construct($controller, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null, bool $debug = \false)
     {
-        $debug = (bool) $debug;
         $this->controller = $controller;
         $this->logger = $logger;
         $this->debug = $debug;
@@ -89,28 +85,23 @@ class ErrorListener implements \ECSPrefix20210517\Symfony\Component\EventDispatc
             return;
         }
         $r = new \ReflectionFunction(\Closure::fromCallable($event->getController()));
-        $r = isset($r->getParameters()[$k]) ? $r->getParameters()[$k] : null;
+        $r = $r->getParameters()[$k] ?? null;
         if ($r && (!($r = $r->getType()) instanceof \ReflectionNamedType || \in_array($r->getName(), [\ECSPrefix20210517\Symfony\Component\ErrorHandler\Exception\FlattenException::class, \ECSPrefix20210517\Symfony\Component\Debug\Exception\FlattenException::class], \true))) {
             $arguments = $event->getArguments();
             $arguments[$k] = \ECSPrefix20210517\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($e);
             $event->setArguments($arguments);
         }
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS => 'onControllerArguments', \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION => [['logKernelException', 0], ['onKernelException', -128]], \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['removeCspHeader', -128]];
     }
     /**
      * Logs an exception.
      * @return void
-     * @param string $message
      */
-    protected function logException(\Throwable $exception, $message)
+    protected function logException(\Throwable $exception, string $message)
     {
-        $message = (string) $message;
         if (null !== $this->logger) {
             if (!$exception instanceof \ECSPrefix20210517\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface || $exception->getStatusCode() >= 500) {
                 $this->logger->critical($message, ['exception' => $exception]);
@@ -121,9 +112,8 @@ class ErrorListener implements \ECSPrefix20210517\Symfony\Component\EventDispatc
     }
     /**
      * Clones the request for the exception.
-     * @return \Symfony\Component\HttpFoundation\Request
      */
-    protected function duplicateRequest(\Throwable $exception, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request)
+    protected function duplicateRequest(\Throwable $exception, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request) : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request
     {
         $attributes = ['_controller' => $this->controller, 'exception' => $exception, 'logger' => $this->logger instanceof \ECSPrefix20210517\Symfony\Component\HttpKernel\Log\DebugLoggerInterface ? $this->logger : null];
         $request = $request->duplicate(null, null, $attributes);

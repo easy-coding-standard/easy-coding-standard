@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -55,21 +56,16 @@ final class ReporterFactory
         return $this;
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    public function getFormats()
+    public function getFormats() : array
     {
         $formats = \array_keys($this->reporters);
         \sort($formats);
         return $formats;
     }
-    /**
-     * @param string $format
-     * @return \PhpCsFixer\Console\Report\FixReport\ReporterInterface
-     */
-    public function getReporter($format)
+    public function getReporter(string $format) : \PhpCsFixer\Console\Report\FixReport\ReporterInterface
     {
-        $format = (string) $format;
         if (!isset($this->reporters[$format])) {
             throw new \UnexpectedValueException(\sprintf('Reporter for format "%s" is not registered.', $format));
         }

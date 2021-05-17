@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -23,9 +24,8 @@ final class SwitchContinueToBreakFixer extends \PhpCsFixer\AbstractFixer
     private $switchLevels = [];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Switch case must not be ended with `continue` but with `break`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 switch ($foo) {
@@ -53,17 +53,15 @@ switch ($foo) {
      * {@inheritdoc}
      *
      * Must run after NoAlternativeSyntaxFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_SWITCH, \T_CONTINUE, \T_LNUMBER]) && !$tokens->hasAlternativeSyntax();
     }
@@ -80,15 +78,9 @@ switch ($foo) {
     }
     /**
      * @param int $depth >= 0
-     * @param int $index
-     * @param bool $isInSwitch
-     * @return int
      */
-    private function doFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $depth, $isInSwitch)
+    private function doFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $depth, bool $isInSwitch) : int
     {
-        $index = (int) $index;
-        $depth = (int) $depth;
-        $isInSwitch = (bool) $isInSwitch;
         $token = $tokens[$index];
         if ($token->isGivenKind([\T_FOREACH, \T_FOR, \T_WHILE])) {
             // go to first `(`, go to its close ')', go to first of '{', ';', '? >'
@@ -111,15 +103,8 @@ switch ($foo) {
         }
         return $index;
     }
-    /**
-     * @param int $switchIndex
-     * @param int $depth
-     * @return int
-     */
-    private function fixInSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, $switchIndex, $depth)
+    private function fixInSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, int $switchIndex, int $depth) : int
     {
-        $switchIndex = (int) $switchIndex;
-        $depth = (int) $depth;
         $this->switchLevels[] = $depth;
         // figure out where the switch starts
         $openIndex = $tokens->getNextTokenOfKind($switchIndex, ['{']);
@@ -131,15 +116,8 @@ switch ($foo) {
         \array_pop($this->switchLevels);
         return $closeIndex;
     }
-    /**
-     * @param int $openIndex
-     * @param int $depth
-     * @return int
-     */
-    private function fixInLoop(\PhpCsFixer\Tokenizer\Tokens $tokens, $openIndex, $depth)
+    private function fixInLoop(\PhpCsFixer\Tokenizer\Tokens $tokens, int $openIndex, int $depth) : int
     {
-        $openIndex = (int) $openIndex;
-        $depth = (int) $depth;
         $openCount = 1;
         do {
             ++$openIndex;
@@ -159,17 +137,8 @@ switch ($foo) {
         } while (\true);
         return $openIndex;
     }
-    /**
-     * @param int $continueIndex
-     * @param bool $isInSwitch
-     * @param int $depth
-     * @return int
-     */
-    private function fixContinueWhenActsAsBreak(\PhpCsFixer\Tokenizer\Tokens $tokens, $continueIndex, $isInSwitch, $depth)
+    private function fixContinueWhenActsAsBreak(\PhpCsFixer\Tokenizer\Tokens $tokens, int $continueIndex, bool $isInSwitch, int $depth) : int
     {
-        $continueIndex = (int) $continueIndex;
-        $isInSwitch = (bool) $isInSwitch;
-        $depth = (int) $depth;
         $followingContinueIndex = $tokens->getNextMeaningfulToken($continueIndex);
         $followingContinueToken = $tokens[$followingContinueIndex];
         if ($isInSwitch && $followingContinueToken->equals(';')) {
@@ -225,11 +194,9 @@ switch ($foo) {
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function replaceContinueWithBreakToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function replaceContinueWithBreakToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_BREAK, 'break']);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\Skipper\SkipCriteriaResolver;
 
 use ECSPrefix20210517\Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -25,9 +26,9 @@ final class SkippedClassResolver
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }
     /**
-     * @return mixed[]
+     * @return array<string, string[]|null>
      */
-    public function resolve()
+    public function resolve() : array
     {
         if ($this->skippedClasses !== []) {
             return $this->skippedClasses;

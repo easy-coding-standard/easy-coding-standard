@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -80,18 +81,14 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
         $this->blockFinder = $blockFinder;
         $this->functionCallNameMatcher = $functionCallNameMatcher;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([
             // "["
@@ -133,10 +130,7 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
             }
         }
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 function some($veryLong, $superLong, $oneMoreTime)
@@ -166,9 +160,8 @@ CODE_SAMPLE
      * Must run before
      *
      * @see \PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 5;
     }
@@ -178,25 +171,20 @@ CODE_SAMPLE
      */
     public function configure($configuration = null)
     {
-        $this->lineLength = isset($configuration[self::LINE_LENGTH]) ? $configuration[self::LINE_LENGTH] : self::DEFAULT_LINE_LENGHT;
-        $this->breakLongLines = isset($configuration[self::BREAK_LONG_LINES]) ? $configuration[self::BREAK_LONG_LINES] : \true;
-        $this->inlineShortLines = isset($configuration[self::INLINE_SHORT_LINES]) ? $configuration[self::INLINE_SHORT_LINES] : \true;
+        $this->lineLength = $configuration[self::LINE_LENGTH] ?? self::DEFAULT_LINE_LENGHT;
+        $this->breakLongLines = $configuration[self::BREAK_LONG_LINES] ?? \true;
+        $this->inlineShortLines = $configuration[self::INLINE_SHORT_LINES] ?? \true;
     }
-    /**
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
-     */
-    public function getConfigurationDefinition()
+    public function getConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param int $position
      */
-    private function processMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function processMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
     {
-        $position = (int) $position;
         $methodNamePosition = $this->functionCallNameMatcher->matchName($tokens, $position);
         if ($methodNamePosition === null) {
             return;
@@ -215,11 +203,9 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param int $position
      */
-    private function processFunctionOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function processFunctionOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
     {
-        $position = (int) $position;
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
             return;
@@ -231,9 +217,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    private function shouldSkip(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    private function shouldSkip(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
     {
         // no items inside => skip
         if ($blockInfo->getEnd() - $blockInfo->getStart() <= 1) {
@@ -252,9 +237,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    private function isHerenowDoc(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    private function isHerenowDoc(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
     {
         // heredoc/nowdoc => skip
         $nextToken = $this->getNextMeaningfulToken($tokens, $blockInfo->getStart());

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -44,10 +45,7 @@ final class StandaloneLineInMultilineArrayFixer extends \Symplify\CodingStandard
         $this->tokensNewliner = $tokensNewliner;
         $this->blockFinder = $blockFinder;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
@@ -55,16 +53,12 @@ final class StandaloneLineInMultilineArrayFixer extends \Symplify\CodingStandard
      * Must run before
      *
      * @see \PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer::getPriority()
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 5;
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $friends = [1 => 'Peter', 2 => 'Paul'];
@@ -79,9 +73,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if (!$tokens->isAnyTokenKindsFound(\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds::ARRAY_OPEN_TOKENS)) {
             return \false;
@@ -110,9 +103,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    private function shouldSkipNestedArrayValue(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    private function shouldSkipNestedArrayValue(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
     {
         $arrayWrapper = $this->arrayWrapperFactory->createFromTokensAndBlockInfo($tokens, $blockInfo);
         if (!$arrayWrapper->isAssociativeArray()) {

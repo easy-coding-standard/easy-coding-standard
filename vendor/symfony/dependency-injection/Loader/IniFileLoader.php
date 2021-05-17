@@ -42,9 +42,8 @@ class IniFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInjec
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         if (!\is_string($resource)) {
             return \false;
@@ -60,11 +59,9 @@ class IniFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInjec
      *  * string concatenation ("foo" "bar").
      *
      * @return mixed
-     * @param string $value
      */
-    private function phpize($value)
+    private function phpize(string $value)
     {
-        $value = (string) $value;
         // trim on the right as comments removal keep whitespaces
         if ($value !== ($v = \rtrim($value))) {
             $value = '""' === \substr_replace($v, '', 1, -1) ? \substr($v, 1, -1) : $v;

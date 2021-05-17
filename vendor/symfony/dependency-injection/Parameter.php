@@ -18,12 +18,8 @@ namespace ECSPrefix20210517\Symfony\Component\DependencyInjection;
 class Parameter
 {
     private $id;
-    /**
-     * @param string $id
-     */
-    public function __construct($id)
+    public function __construct(string $id)
     {
-        $id = (string) $id;
         $this->id = $id;
     }
     /**

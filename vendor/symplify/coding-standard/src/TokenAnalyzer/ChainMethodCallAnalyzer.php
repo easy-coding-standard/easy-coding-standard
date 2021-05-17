@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenAnalyzer;
 
 use PhpCsFixer\Tokenizer\CT;
@@ -23,12 +24,9 @@ final class ChainMethodCallAnalyzer
      * Matches e.g: return app()->some(), app()->some(), (clone app)->some()
      *
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @return bool
      */
-    public function isPreceededByFuncCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function isPreceededByFuncCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
-        $position = (int) $position;
         for ($i = $position; $i >= 0; --$i) {
             /** @var Token $currentToken */
             $currentToken = $tokens[$i];
@@ -48,12 +46,9 @@ final class ChainMethodCallAnalyzer
      * Matches e.g. someMethod($this->some()->method()), [$this->some()->method()]
      *
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @return bool
      */
-    public function isPartOfMethodCallOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function isPartOfMethodCallOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
-        $position = (int) $position;
         $this->bracketNesting = 0;
         for ($i = $position; $i >= 0; --$i) {
             /** @var Token $currentToken */
@@ -71,10 +66,7 @@ final class ChainMethodCallAnalyzer
         }
         return \false;
     }
-    /**
-     * @return bool
-     */
-    private function isBreakingChar(\PhpCsFixer\Tokenizer\Token $currentToken)
+    private function isBreakingChar(\PhpCsFixer\Tokenizer\Token $currentToken) : bool
     {
         if ($currentToken->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, \T_ARRAY, \T_DOUBLE_COLON])) {
             return \true;
@@ -84,10 +76,7 @@ final class ChainMethodCallAnalyzer
         }
         return $currentToken->getContent() === '.';
     }
-    /**
-     * @return bool
-     */
-    private function shouldBreakOnBracket(\PhpCsFixer\Tokenizer\Token $token)
+    private function shouldBreakOnBracket(\PhpCsFixer\Tokenizer\Token $token) : bool
     {
         if ($token->getContent() === ')') {
             --$this->bracketNesting;

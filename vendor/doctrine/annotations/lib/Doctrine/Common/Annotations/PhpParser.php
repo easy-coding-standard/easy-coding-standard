@@ -33,9 +33,8 @@ final class PhpParser
      * @param ReflectionClass|ReflectionFunction $reflection
      *
      * @psalm-return array<string, string> a list with use statements in the form (Alias => FQN).
-     * @return mixed[]
      */
-    public function parseUseStatements($reflection)
+    public function parseUseStatements($reflection) : array
     {
         if (\method_exists($reflection, 'getUseStatements')) {
             return $reflection->getUseStatements();

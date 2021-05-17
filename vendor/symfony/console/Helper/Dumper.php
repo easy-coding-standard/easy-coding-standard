@@ -30,9 +30,9 @@ final class Dumper
         $this->cloner = $cloner;
         if (\class_exists(\ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper::class)) {
             $this->handler = function ($var) : string {
-                $dumper = $this->dumper !== null ? $this->dumper : ($this->dumper = new \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper(null, null, \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_LIGHT_ARRAY | \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_COMMA_SEPARATOR));
+                $dumper = $this->dumper ?? ($this->dumper = new \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper(null, null, \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_LIGHT_ARRAY | \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_COMMA_SEPARATOR));
                 $dumper->setColors($this->output->isDecorated());
-                return \rtrim($dumper->dump(($this->cloner !== null ? $this->cloner : ($this->cloner = new \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\VarCloner()))->cloneVar($var)->withRefHandles(\false), \true));
+                return \rtrim($dumper->dump(($this->cloner ?? ($this->cloner = new \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\VarCloner()))->cloneVar($var)->withRefHandles(\false), \true));
             };
         } else {
             $this->handler = function ($var) : string {
@@ -51,10 +51,7 @@ final class Dumper
             };
         }
     }
-    /**
-     * @return string
-     */
-    public function __invoke($var)
+    public function __invoke($var) : string
     {
         return ($this->handler)($var);
     }

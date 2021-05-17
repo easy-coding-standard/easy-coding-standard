@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -15,14 +16,9 @@ final class ParamNameReferenceMalformWorker implements \Symplify\CodingStandard\
     const PARAM_NAME_REGEX = '#(?<param>@param(.*?))&(?<paramName>\\$\\w+)#';
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
-        $docContent = (string) $docContent;
-        $position = (int) $position;
         return \ECSPrefix20210517\Nette\Utils\Strings::replace($docContent, self::PARAM_NAME_REGEX, function ($match) : string {
             return $match['param'] . $match['paramName'];
         });

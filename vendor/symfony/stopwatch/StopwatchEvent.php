@@ -43,21 +43,18 @@ class StopwatchEvent
     private $name;
     /**
      * @param float       $origin        The origin time in milliseconds
-     * @param string $category The event category or null to use the default
+     * @param string|null $category      The event category or null to use the default
      * @param bool        $morePrecision If true, time is stored as float to keep the original microsecond precision
-     * @param string $name The event name or null to define the name as default
+     * @param string|null $name          The event name or null to define the name as default
      *
      * @throws \InvalidArgumentException When the raw time is not valid
      */
-    public function __construct($origin, $category = null, $morePrecision = \false, $name = null)
+    public function __construct(float $origin, string $category = null, bool $morePrecision = \false, string $name = null)
     {
-        $origin = (double) $origin;
-        $morePrecision = (bool) $morePrecision;
-        $name = (string) $name;
         $this->origin = $this->formatTime($origin);
         $this->category = \is_string($category) ? $category : 'default';
         $this->morePrecision = $morePrecision;
-        $this->name = isset($name) ? $name : 'default';
+        $this->name = $name ?? 'default';
     }
     /**
      * Gets the category.
@@ -209,26 +206,19 @@ class StopwatchEvent
      * Formats a time.
      *
      * @throws \InvalidArgumentException When the raw time is not valid
-     * @param float $time
-     * @return float
      */
-    private function formatTime($time)
+    private function formatTime(float $time) : float
     {
-        $time = (double) $time;
         return \round($time, 1);
     }
     /**
      * Gets the event name.
-     * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString() : string
     {
         return \sprintf('%s/%s: %.2F MiB - %d ms', $this->getCategory(), $this->getName(), $this->getMemory() / 1024 / 1024, $this->getDuration());
     }

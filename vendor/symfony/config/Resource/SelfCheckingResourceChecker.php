@@ -25,12 +25,8 @@ class SelfCheckingResourceChecker implements \ECSPrefix20210517\Symfony\Componen
     {
         return $metadata instanceof \ECSPrefix20210517\Symfony\Component\Config\Resource\SelfCheckingResourceInterface;
     }
-    /**
-     * @param int $timestamp
-     */
-    public function isFresh(\ECSPrefix20210517\Symfony\Component\Config\Resource\ResourceInterface $resource, $timestamp)
+    public function isFresh(\ECSPrefix20210517\Symfony\Component\Config\Resource\ResourceInterface $resource, int $timestamp)
     {
-        $timestamp = (int) $timestamp;
         /* @var SelfCheckingResourceInterface $resource */
         return $resource->isFresh($timestamp);
     }

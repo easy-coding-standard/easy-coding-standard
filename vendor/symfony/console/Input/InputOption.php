@@ -43,16 +43,14 @@ class InputOption
     /**
      * @param string                    $name        The option name
      * @param string|array|null         $shortcut    The shortcuts, can be null, a string of shortcuts delimited by | or an array of shortcuts
-     * @param int $mode The option mode: One of the VALUE_* constants
+     * @param int|null                  $mode        The option mode: One of the VALUE_* constants
      * @param string                    $description A description text
      * @param string|string[]|bool|null $default     The default value (must be null for self::VALUE_NONE)
      *
      * @throws InvalidArgumentException If option mode is invalid or incompatible
      */
-    public function __construct($name, $shortcut = null, $mode = null, $description = '', $default = null)
+    public function __construct(string $name, $shortcut = null, int $mode = null, string $description = '', $default = null)
     {
-        $name = (string) $name;
-        $description = (string) $description;
         if (0 === \strpos($name, '--')) {
             $name = \substr($name, 2);
         }

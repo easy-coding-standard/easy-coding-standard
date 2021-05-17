@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
@@ -17,9 +18,8 @@ final class TargetFileInfoResolver
     /**
      * Useful for @see \Symplify\EasyCodingStandard\SnippetFormatter\Command\CheckMarkdownCommand Where the
      * $smartFileInfo is only temporary snippet, so original markdown file should be used
-     * @return \Symplify\SmartFileSystem\SmartFileInfo
      */
-    public function resolveTargetFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function resolveTargetFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo
     {
         $currentParentFileInfo = $this->currentParentFileInfoProvider->provide();
         if ($currentParentFileInfo !== null) {

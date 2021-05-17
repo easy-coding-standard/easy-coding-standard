@@ -21,14 +21,8 @@ use ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub;
 class DateCaster
 {
     const PERIOD_LIMIT = 3;
-    /**
-     * @param bool $isNested
-     * @param int $filter
-     */
-    public static function castDateTime(\DateTimeInterface $d, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
+    public static function castDateTime(\DateTimeInterface $d, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested, int $filter)
     {
-        $isNested = (bool) $isNested;
-        $filter = (int) $filter;
         $prefix = \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $location = $d->getTimezone()->getLocation();
         $fromNow = (new \DateTime())->diff($d);
@@ -38,24 +32,15 @@ class DateCaster
         $stub->class .= $d->format(' @U');
         return $a;
     }
-    /**
-     * @param bool $isNested
-     * @param int $filter
-     */
-    public static function castInterval(\DateInterval $interval, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
+    public static function castInterval(\DateInterval $interval, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested, int $filter)
     {
-        $isNested = (bool) $isNested;
-        $filter = (int) $filter;
         $now = new \DateTimeImmutable();
         $numberOfSeconds = $now->add($interval)->getTimestamp() - $now->getTimestamp();
         $title = \number_format($numberOfSeconds, 0, '.', ' ') . 's';
         $i = [\ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'interval' => new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ConstStub(self::formatInterval($interval), $title)];
         return $filter & \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE ? $i : $i + $a;
     }
-    /**
-     * @return string
-     */
-    private static function formatInterval(\DateInterval $i)
+    private static function formatInterval(\DateInterval $i) : string
     {
         $format = '%R ';
         if (0 === $i->y && 0 === $i->m && ($i->h >= 24 || $i->i >= 60 || $i->s >= 60)) {
@@ -69,28 +54,16 @@ class DateCaster
         $format = '%R ' === $format ? '0s' : $format;
         return $i->format(\rtrim($format));
     }
-    /**
-     * @param bool $isNested
-     * @param int $filter
-     */
-    public static function castTimeZone(\DateTimeZone $timeZone, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
+    public static function castTimeZone(\DateTimeZone $timeZone, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested, int $filter)
     {
-        $isNested = (bool) $isNested;
-        $filter = (int) $filter;
         $location = $timeZone->getLocation();
         $formatted = (new \DateTime('now', $timeZone))->format($location ? 'e (P)' : 'P');
         $title = $location && \extension_loaded('intl') ? \Locale::getDisplayRegion('-' . $location['country_code']) : '';
         $z = [\ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'timezone' => new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ConstStub($formatted, $title)];
         return $filter & \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE ? $z : $z + $a;
     }
-    /**
-     * @param bool $isNested
-     * @param int $filter
-     */
-    public static function castPeriod(\DatePeriod $p, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
+    public static function castPeriod(\DatePeriod $p, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested, int $filter)
     {
-        $isNested = (bool) $isNested;
-        $filter = (int) $filter;
         $dates = [];
         foreach (clone $p as $i => $d) {
             if (self::PERIOD_LIMIT === $i) {
@@ -104,24 +77,12 @@ class DateCaster
         $p = [\ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'period' => new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ConstStub($period, \implode("\n", $dates))];
         return $filter & \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE ? $p : $p + $a;
     }
-    /**
-     * @param string $extra
-     * @return string
-     */
-    private static function formatDateTime(\DateTimeInterface $d, $extra = '')
+    private static function formatDateTime(\DateTimeInterface $d, string $extra = '') : string
     {
-        $extra = (string) $extra;
         return $d->format('Y-m-d H:i:' . self::formatSeconds($d->format('s'), $d->format('u')) . $extra);
     }
-    /**
-     * @param string $s
-     * @param string $us
-     * @return string
-     */
-    private static function formatSeconds($s, $us)
+    private static function formatSeconds(string $s, string $us) : string
     {
-        $s = (string) $s;
-        $us = (string) $us;
         return \sprintf('%02d.%s', $s, 0 === ($len = \strlen($t = \rtrim($us, '0'))) ? '0' : ($len <= 3 ? \str_pad($t, 3, '0') : $us));
     }
 }

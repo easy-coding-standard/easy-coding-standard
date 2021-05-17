@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -15,12 +16,10 @@ interface StartEndTokenAwareAnalysis
 {
     /**
      * The start index of the analyzed subject inside of the Tokens.
-     * @return int
      */
-    public function getStartIndex();
+    public function getStartIndex() : int;
     /**
      * The end index of the analyzed subject inside of the Tokens.
-     * @return int
      */
-    public function getEndIndex();
+    public function getEndIndex() : int;
 }

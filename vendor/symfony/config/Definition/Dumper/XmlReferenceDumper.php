@@ -24,17 +24,11 @@ use ECSPrefix20210517\Symfony\Component\Config\Definition\PrototypedArrayNode;
 class XmlReferenceDumper
 {
     private $reference;
-    /**
-     * @param string $namespace
-     */
-    public function dump(\ECSPrefix20210517\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, $namespace = null)
+    public function dump(\ECSPrefix20210517\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, string $namespace = null)
     {
         return $this->dumpNode($configuration->getConfigTreeBuilder()->buildTree(), $namespace);
     }
-    /**
-     * @param string $namespace
-     */
-    public function dumpNode(\ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $node, $namespace = null)
+    public function dumpNode(\ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $node, string $namespace = null)
     {
         $this->reference = '';
         $this->writeNode($node, 0, \true, $namespace);
@@ -42,15 +36,8 @@ class XmlReferenceDumper
         $this->reference = null;
         return $ref;
     }
-    /**
-     * @param int $depth
-     * @param bool $root
-     * @param string $namespace
-     */
-    private function writeNode(\ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $node, $depth = 0, $root = \false, $namespace = null)
+    private function writeNode(\ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $node, int $depth = 0, bool $root = \false, string $namespace = null)
     {
-        $depth = (int) $depth;
-        $root = (bool) $root;
         $rootName = $root ? 'config' : $node->getName();
         $rootNamespace = $namespace ?: ($root ? 'http://example.org/schema/dic/' . $node->getName() : null);
         // xml remapping
@@ -89,7 +76,7 @@ class XmlReferenceDumper
                     $rootAttributes[$key] = \str_replace('-', ' ', $rootName) . ' ' . $key;
                 }
                 if ($prototype instanceof \ECSPrefix20210517\Symfony\Component\Config\Definition\PrototypedArrayNode) {
-                    $prototype->setName(isset($key) ? $key : '');
+                    $prototype->setName($key ?? '');
                     $children = [$key => $prototype];
                 } elseif ($prototype instanceof \ECSPrefix20210517\Symfony\Component\Config\Definition\ArrayNode) {
                     $children = $prototype->getChildren();
@@ -222,13 +209,9 @@ class XmlReferenceDumper
     }
     /**
      * Outputs a single config reference line.
-     * @param string $text
-     * @param int $indent
      */
-    private function writeLine($text, $indent = 0)
+    private function writeLine(string $text, int $indent = 0)
     {
-        $text = (string) $text;
-        $indent = (int) $indent;
         $indent = \strlen($text) + $indent;
         $format = '%' . $indent . 's';
         $this->reference .= \sprintf($format, $text) . \PHP_EOL;
@@ -237,9 +220,8 @@ class XmlReferenceDumper
      * Renders the string conversion of the value.
      *
      * @param mixed $value
-     * @return string
      */
-    private function writeValue($value)
+    private function writeValue($value) : string
     {
         if ('%%%%not_defined%%%%' === $value) {
             return '';

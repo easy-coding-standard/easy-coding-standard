@@ -19,24 +19,20 @@ interface OutputFormatterStyleInterface
 {
     /**
      * Sets style foreground color.
-     * @param string $color
      */
-    public function setForeground($color = null);
+    public function setForeground(string $color = null);
     /**
      * Sets style background color.
-     * @param string $color
      */
-    public function setBackground($color = null);
+    public function setBackground(string $color = null);
     /**
      * Sets some specific style option.
-     * @param string $option
      */
-    public function setOption($option);
+    public function setOption(string $option);
     /**
      * Unsets some specific style option.
-     * @param string $option
      */
-    public function unsetOption($option);
+    public function unsetOption(string $option);
     /**
      * Sets multiple style options at once.
      */
@@ -45,7 +41,6 @@ interface OutputFormatterStyleInterface
      * Applies the style to a given text.
      *
      * @return string
-     * @param string $text
      */
-    public function apply($text);
+    public function apply(string $text);
 }

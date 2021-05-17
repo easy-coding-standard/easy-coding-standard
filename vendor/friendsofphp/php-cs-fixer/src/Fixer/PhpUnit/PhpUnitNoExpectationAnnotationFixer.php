@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -47,9 +48,8 @@ final class PhpUnitNoExpectationAnnotationFixer extends \PhpCsFixer\Fixer\Abstra
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Usages of `@expectedException*` annotations MUST be replaced by `->setExpectedException*` methods.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
@@ -91,38 +91,31 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      * {@inheritdoc}
      *
      * Must run before NoEmptyPhpdocFixer, PhpUnitExpectationFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 10;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_2, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_4_3, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use_class_const', 'Use ::class notation.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             if (!$tokens[$i]->isGivenKind(\T_FUNCTION) || $tokensAnalyzer->isLambda($i)) {
@@ -172,10 +165,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $i = $docBlockIndex;
         }
     }
-    /**
-     * @return string
-     */
-    private function extractContentFromAnnotation(\PhpCsFixer\DocBlock\Annotation $annotation)
+    private function extractContentFromAnnotation(\PhpCsFixer\DocBlock\Annotation $annotation) : string
     {
         $tag = $annotation->getTag()->getName();
         if (1 !== \PhpCsFixer\Preg::match('/@' . $tag . '\\s+(.+)$/s', $annotation->getContent(), $matches)) {
@@ -187,10 +177,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         }
         return \rtrim($content);
     }
-    /**
-     * @return mixed[]
-     */
-    private function annotationsToParamList(array $annotations)
+    private function annotationsToParamList(array $annotations) : array
     {
         $params = [];
         $exceptionClass = \ltrim($annotations['expectedException'], '\\');

@@ -190,9 +190,8 @@ class AnnotationReader implements \ECSPrefix20210517\Doctrine\Common\Annotations
      * Gets the annotations applied to a function.
      *
      * @phpstan-return list<object> An array of Annotations.
-     * @return mixed[]
      */
-    public function getFunctionAnnotations(\ReflectionFunction $function)
+    public function getFunctionAnnotations(\ReflectionFunction $function) : array
     {
         $context = 'function ' . $function->getName();
         $this->parser->setTarget(\ECSPrefix20210517\Doctrine\Common\Annotations\Annotation\Target::TARGET_FUNCTION);
@@ -205,11 +204,9 @@ class AnnotationReader implements \ECSPrefix20210517\Doctrine\Common\Annotations
      * Gets a function annotation.
      *
      * @return object|null The Annotation or NULL, if the requested annotation does not exist.
-     * @param string $annotationName
      */
-    public function getFunctionAnnotation(\ReflectionFunction $function, $annotationName)
+    public function getFunctionAnnotation(\ReflectionFunction $function, string $annotationName)
     {
-        $annotationName = (string) $annotationName;
         $annotations = $this->getFunctionAnnotations($function);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {
@@ -223,9 +220,9 @@ class AnnotationReader implements \ECSPrefix20210517\Doctrine\Common\Annotations
      *
      * @param ReflectionClass|ReflectionFunction $reflection
      *
-     * @return mixed[]
+     * @return array<string, true>
      */
-    private function getIgnoredAnnotationNames($reflection)
+    private function getIgnoredAnnotationNames($reflection) : array
     {
         $type = $reflection instanceof \ReflectionClass ? 'class' : 'function';
         $name = $reflection->getName();
@@ -240,9 +237,9 @@ class AnnotationReader implements \ECSPrefix20210517\Doctrine\Common\Annotations
      *
      * @param ReflectionClass|ReflectionFunction $reflection
      *
-     * @return mixed[]
+     * @return array<string, class-string>
      */
-    private function getImports($reflection)
+    private function getImports($reflection) : array
     {
         $type = $reflection instanceof \ReflectionClass ? 'class' : 'function';
         $name = $reflection->getName();

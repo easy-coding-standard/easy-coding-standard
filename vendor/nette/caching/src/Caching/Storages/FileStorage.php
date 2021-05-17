@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Caching\Storages;
 
 use ECSPrefix20210517\Nette;
@@ -35,12 +40,8 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
     private $journal;
     /** @var array */
     private $locks;
-    /**
-     * @param string $dir
-     */
-    public function __construct($dir, \ECSPrefix20210517\Nette\Caching\Storages\Journal $journal = null)
+    public function __construct(string $dir, \ECSPrefix20210517\Nette\Caching\Storages\Journal $journal = null)
     {
-        $dir = (string) $dir;
         if (!\is_dir($dir)) {
             throw new \ECSPrefix20210517\Nette\DirectoryNotFoundException("Directory '{$dir}' not found.");
         }
@@ -50,20 +51,15 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
             $this->clean([]);
         }
     }
-    /**
-     * @param string $key
-     */
-    public function read($key)
+    public function read(string $key)
     {
-        $key = (string) $key;
         $meta = $this->readMetaAndLock($this->getCacheFile($key), \LOCK_SH);
         return $meta && $this->verify($meta) ? $this->readData($meta) : null;
     }
     /**
      * Verifies dependencies.
-     * @return bool
      */
-    private function verify(array $meta)
+    private function verify(array $meta) : bool
     {
         do {
             if (!empty($meta[self::META_DELTA])) {
@@ -81,7 +77,7 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
             if (!empty($meta[self::META_ITEMS])) {
                 foreach ($meta[self::META_ITEMS] as $depFile => $time) {
                     $m = $this->readMetaAndLock($depFile, \LOCK_SH);
-                    if ((isset($m[self::META_TIME]) ? $m[self::META_TIME] : null) !== $time || $m && !$this->verify($m)) {
+                    if (($m[self::META_TIME] ?? null) !== $time || $m && !$this->verify($m)) {
                         break 2;
                     }
                 }
@@ -94,11 +90,9 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function lock($key)
+    public function lock(string $key)
     {
-        $key = (string) $key;
         $cacheFile = $this->getCacheFile($key);
         if (!\is_dir($dir = \dirname($cacheFile))) {
             @\mkdir($dir);
@@ -113,11 +107,9 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function write($key, $data, array $dp)
+    public function write(string $key, $data, array $dp)
     {
-        $key = (string) $key;
         $meta = [self::META_TIME => \microtime()];
         if (isset($dp[\ECSPrefix20210517\Nette\Caching\Cache::EXPIRATION])) {
             if (empty($dp[\ECSPrefix20210517\Nette\Caching\Cache::SLIDING])) {
@@ -132,7 +124,7 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
             foreach ($dp[\ECSPrefix20210517\Nette\Caching\Cache::ITEMS] as $item) {
                 $depFile = $this->getCacheFile($item);
                 $m = $this->readMetaAndLock($depFile, \LOCK_SH);
-                $meta[self::META_ITEMS][$depFile] = isset($m[self::META_TIME]) ? $m[self::META_TIME] : null;
+                $meta[self::META_ITEMS][$depFile] = $m[self::META_TIME] ?? null;
                 unset($m);
             }
         }
@@ -181,11 +173,9 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function remove($key)
+    public function remove(string $key)
     {
-        $key = (string) $key;
         unset($this->locks[$key]);
         $this->delete($this->getCacheFile($key));
     }
@@ -196,7 +186,7 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
     {
         $all = !empty($conditions[\ECSPrefix20210517\Nette\Caching\Cache::ALL]);
         $collector = empty($conditions);
-        $namespaces = isset($conditions[\ECSPrefix20210517\Nette\Caching\Cache::NAMESPACES]) ? $conditions[\ECSPrefix20210517\Nette\Caching\Cache::NAMESPACES] : null;
+        $namespaces = $conditions[\ECSPrefix20210517\Nette\Caching\Cache::NAMESPACES] ?? null;
         // cleaning using file iterator
         if ($all || $collector) {
             $now = \time();
@@ -251,13 +241,9 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
     /**
      * Reads cache data from disk.
      * @return mixed[]|null
-     * @param string $file
-     * @param int $lock
      */
-    protected function readMetaAndLock($file, $lock)
+    protected function readMetaAndLock(string $file, int $lock)
     {
-        $file = (string) $file;
-        $lock = (int) $lock;
         $handle = @\fopen($file, 'r+b');
         // @ - file may not exist
         if (!$handle) {
@@ -289,12 +275,9 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
     }
     /**
      * Returns file name.
-     * @param string $key
-     * @return string
      */
-    protected function getCacheFile($key)
+    protected function getCacheFile(string $key) : string
     {
-        $key = (string) $key;
         $file = \urlencode($key);
         if ($a = \strrpos($file, '%00')) {
             // %00 = urlencode(Nette\Caching\Cache::NAMESPACE_SEPARATOR)
@@ -306,11 +289,9 @@ class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
      * Deletes and closes file.
      * @param  resource  $handle
      * @return void
-     * @param string $file
      */
-    private static function delete($file, $handle = null)
+    private static function delete(string $file, $handle = null)
     {
-        $file = (string) $file;
         if (@\unlink($file)) {
             // @ - file may not already exist
             if ($handle) {

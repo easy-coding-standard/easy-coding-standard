@@ -47,22 +47,16 @@ class Compiler
     }
     /**
      * Adds a pass to the PassConfig.
-     * @param string $type
-     * @param int $priority
      */
-    public function addPass(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addPass(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
-        $type = (string) $type;
-        $priority = (int) $priority;
         $this->passConfig->addPass($pass, $type, $priority);
     }
     /**
      * @final
-     * @param string $message
      */
-    public function log(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $message)
+    public function log(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $message)
     {
-        $message = (string) $message;
         if (\false !== \strpos($message, "\n")) {
             $message = \str_replace("\n", "\n" . \get_class($pass) . ': ', \trim($message));
         }

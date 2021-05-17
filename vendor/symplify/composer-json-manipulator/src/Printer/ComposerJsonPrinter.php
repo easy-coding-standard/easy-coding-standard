@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\ComposerJsonManipulator\Printer;
 
 use ECSPrefix20210517\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
@@ -15,18 +16,14 @@ final class ComposerJsonPrinter
     {
         $this->jsonFileManager = $jsonFileManager;
     }
-    /**
-     * @return string
-     */
-    public function printToString(\ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
+    public function printToString(\ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : string
     {
         return $this->jsonFileManager->encodeJsonToFileContent($composerJson->getJsonArray());
     }
     /**
      * @param string|SmartFileInfo $targetFile
-     * @return string
      */
-    public function print(\ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $targetFile)
+    public function print(\ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $targetFile) : string
     {
         if (\is_string($targetFile)) {
             return $this->jsonFileManager->printComposerJsonToFilePath($composerJson, $targetFile);

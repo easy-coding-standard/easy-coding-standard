@@ -23,14 +23,8 @@ class RegisterLocaleAwareServicesPass implements \ECSPrefix20210517\Symfony\Comp
 {
     private $listenerServiceId;
     private $localeAwareTag;
-    /**
-     * @param string $listenerServiceId
-     * @param string $localeAwareTag
-     */
-    public function __construct($listenerServiceId = 'locale_aware_listener', $localeAwareTag = 'kernel.locale_aware')
+    public function __construct(string $listenerServiceId = 'locale_aware_listener', string $localeAwareTag = 'kernel.locale_aware')
     {
-        $listenerServiceId = (string) $listenerServiceId;
-        $localeAwareTag = (string) $localeAwareTag;
         $this->listenerServiceId = $listenerServiceId;
         $this->localeAwareTag = $localeAwareTag;
     }

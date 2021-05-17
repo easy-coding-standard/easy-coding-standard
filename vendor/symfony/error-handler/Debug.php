@@ -17,10 +17,7 @@ namespace ECSPrefix20210517\Symfony\Component\ErrorHandler;
  */
 class Debug
 {
-    /**
-     * @return \Symfony\Component\ErrorHandler\ErrorHandler
-     */
-    public static function enable()
+    public static function enable() : \ECSPrefix20210517\Symfony\Component\ErrorHandler\ErrorHandler
     {
         \error_reporting(-1);
         if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true)) {

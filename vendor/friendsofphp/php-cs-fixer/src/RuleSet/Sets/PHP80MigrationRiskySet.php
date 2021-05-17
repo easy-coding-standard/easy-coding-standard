@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -17,10 +18,7 @@ use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
  */
 final class PHP80MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
 {
-    /**
-     * @return mixed[]
-     */
-    public function getRules()
+    public function getRules() : array
     {
         return [
             '@PHP74Migration:risky' => \true,
@@ -31,10 +29,7 @@ final class PHP80MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDe
             'no_unreachable_default_argument_value' => \true,
         ];
     }
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription() : string
     {
         return 'Rules to improve code for PHP 8.0 compatibility.';
     }

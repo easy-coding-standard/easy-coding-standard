@@ -28,10 +28,8 @@ class ConfigCache extends \ECSPrefix20210517\Symfony\Component\Config\ResourceCh
      * @param string $file  The absolute cache path
      * @param bool   $debug Whether debugging is enabled or not
      */
-    public function __construct($file, $debug)
+    public function __construct(string $file, bool $debug)
     {
-        $file = (string) $file;
-        $debug = (bool) $debug;
         $this->debug = $debug;
         $checkers = [];
         if (\true === $this->debug) {

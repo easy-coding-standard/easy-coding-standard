@@ -22,9 +22,8 @@ final class RequestValueResolver implements \ECSPrefix20210517\Symfony\Component
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
     {
         return \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request::class === $argument->getType() || \is_subclass_of($argument->getType(), \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request::class);
     }

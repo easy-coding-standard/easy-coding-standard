@@ -1,14 +1,12 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Console\Input;
 
 use ECSPrefix20210517\Symfony\Component\Console\Input\ArgvInput;
 final class StaticInputDetector
 {
-    /**
-     * @return bool
-     */
-    public static function isDebug()
+    public static function isDebug() : bool
     {
         $argvInput = new \ECSPrefix20210517\Symfony\Component\Console\Input\ArgvInput();
         return $argvInput->hasParameterOption(['--debug', '-v', '-vv', '-vvv']);

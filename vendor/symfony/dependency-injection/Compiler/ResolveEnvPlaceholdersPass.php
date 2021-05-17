@@ -16,12 +16,8 @@ use ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition;
  */
 class ResolveEnvPlaceholdersPass extends \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if (\is_string($value)) {
             return $this->container->resolveEnvPlaceholders($value, \true);
         }

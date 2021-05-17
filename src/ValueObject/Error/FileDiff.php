@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
 use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
@@ -23,45 +24,32 @@ final class FileDiff
     private $smartFileInfo;
     /**
      * @param string[] $appliedCheckers
-     * @param string $diff
-     * @param string $consoleFormattedDiff
      */
-    public function __construct(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, $consoleFormattedDiff, array $appliedCheckers)
+    public function __construct(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $consoleFormattedDiff, array $appliedCheckers)
     {
-        $diff = (string) $diff;
-        $consoleFormattedDiff = (string) $consoleFormattedDiff;
         $this->diff = $diff;
         $this->appliedCheckers = $appliedCheckers;
         $this->consoleFormattedDiff = $consoleFormattedDiff;
         $this->smartFileInfo = $smartFileInfo;
     }
-    /**
-     * @return string
-     */
-    public function getDiff()
+    public function getDiff() : string
     {
         return $this->diff;
     }
-    /**
-     * @return string
-     */
-    public function getDiffConsoleFormatted()
+    public function getDiffConsoleFormatted() : string
     {
         return $this->consoleFormattedDiff;
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    public function getAppliedCheckers()
+    public function getAppliedCheckers() : array
     {
         $this->appliedCheckers = \array_unique($this->appliedCheckers);
         \sort($this->appliedCheckers);
         return $this->appliedCheckers;
     }
-    /**
-     * @return string
-     */
-    public function getRelativeFilePathFromCwd()
+    public function getRelativeFilePathFromCwd() : string
     {
         return $this->smartFileInfo->getRelativeFilePathFromCwd();
     }

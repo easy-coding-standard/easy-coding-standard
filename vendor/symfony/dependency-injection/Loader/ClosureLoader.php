@@ -36,11 +36,9 @@ class ClosureLoader extends \ECSPrefix20210517\Symfony\Component\Config\Loader\L
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
-        $type = (string) $type;
         return $resource instanceof \Closure;
     }
 }

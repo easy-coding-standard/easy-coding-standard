@@ -18,12 +18,8 @@ use ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class ConstStub extends \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub
 {
-    /**
-     * @param string $name
-     */
-    public function __construct($name, $value = null)
+    public function __construct(string $name, $value = null)
     {
-        $name = (string) $name;
         $this->class = $name;
         $this->value = 1 < \func_num_args() ? $value : $name;
     }

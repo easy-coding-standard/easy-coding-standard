@@ -1,17 +1,15 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Matcher;
 
 final class ArrayStringAndFnMatcher
 {
     /**
      * @param string[] $matchingValues
-     * @param string $currentValue
-     * @return bool
      */
-    public function isMatchWithIsA($currentValue, array $matchingValues)
+    public function isMatchWithIsA(string $currentValue, array $matchingValues) : bool
     {
-        $currentValue = (string) $currentValue;
         if ($this->isMatch($currentValue, $matchingValues)) {
             return \true;
         }
@@ -24,12 +22,9 @@ final class ArrayStringAndFnMatcher
     }
     /**
      * @param string[] $matchingValues
-     * @param string $currentValue
-     * @return bool
      */
-    public function isMatch($currentValue, array $matchingValues)
+    public function isMatch(string $currentValue, array $matchingValues) : bool
     {
-        $currentValue = (string) $currentValue;
         foreach ($matchingValues as $matchingValue) {
             if ($currentValue === $matchingValue) {
                 return \true;

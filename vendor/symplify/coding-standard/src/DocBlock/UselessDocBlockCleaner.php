@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\DocBlock;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -45,15 +46,8 @@ final class UselessDocBlockCleaner
      * @var string
      */
     const COMMENT_CONSTRUCTOR_CLASS_REGEX = '#^\\s{0,}(\\/\\*{2}\\s+?)?(\\*|\\/\\/)\\s+[^\\s]*\\s+[Cc]onstructor\\.?(\\s+\\*\\/)?$#';
-    /**
-     * @param int $position
-     * @param string $docContent
-     * @return string
-     */
-    public function clearDocTokenContent(array $tokens, $position, $docContent)
+    public function clearDocTokenContent(array $tokens, int $position, string $docContent) : string
     {
-        $position = (int) $position;
-        $docContent = (string) $docContent;
         foreach (self::CLEANING_REGEXES as $cleaningRegex) {
             $docContent = \ECSPrefix20210517\Nette\Utils\Strings::replace($docContent, $cleaningRegex, '');
         }
@@ -61,14 +55,9 @@ final class UselessDocBlockCleaner
     }
     /**
      * @param Token[] $reversedTokens
-     * @param int $index
-     * @param string $docContent
-     * @return string
      */
-    private function cleanClassMethodCommentMimicMethodName(array $reversedTokens, $index, $docContent)
+    private function cleanClassMethodCommentMimicMethodName(array $reversedTokens, int $index, string $docContent) : string
     {
-        $index = (int) $index;
-        $docContent = (string) $docContent;
         $matchMethodClass = \ECSPrefix20210517\Nette\Utils\Strings::match($docContent, self::COMMENT_METHOD_CLASS_REGEX);
         if ($matchMethodClass) {
             return $docContent;
@@ -88,25 +77,15 @@ final class UselessDocBlockCleaner
         }
         return \ECSPrefix20210517\Nette\Utils\Strings::replace($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX, '');
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function isNextFunction(array $reversedTokens, $index)
+    private function isNextFunction(array $reversedTokens, int $index) : bool
     {
-        $index = (int) $index;
         if (!isset($reversedTokens[$index + 4])) {
             return \false;
         }
         return $reversedTokens[$index + 4]->getContent() === 'function';
     }
-    /**
-     * @param string $content
-     * @return string
-     */
-    private function removeSpaces($content)
+    private function removeSpaces(string $content) : string
     {
-        $content = (string) $content;
         return \ECSPrefix20210517\Nette\Utils\Strings::replace($content, self::SPACE_STAR_SLASH_REGEX, '');
     }
 }

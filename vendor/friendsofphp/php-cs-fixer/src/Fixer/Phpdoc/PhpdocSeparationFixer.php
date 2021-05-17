@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -27,9 +28,8 @@ final class PhpdocSeparationFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Annotations in PHPDoc should be grouped together so that annotations of the same type immediately follow each other, and annotations of a different type are separated by a single blank line.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
@@ -49,17 +49,15 @@ function fnc($foo, $bar) {}
      *
      * Must run before PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, GeneralPhpdocAnnotationRemoveFixer, PhpdocIndentFixer, PhpdocNoAccessFixer, PhpdocNoEmptyReturnFixer, PhpdocNoPackageFixer, PhpdocOrderFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -3;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -100,9 +98,8 @@ function fnc($foo, $bar) {}
     }
     /**
      * Make sure the annotations are correctly separated.
-     * @return string
      */
-    private function fixAnnotations(\PhpCsFixer\DocBlock\DocBlock $doc)
+    private function fixAnnotations(\PhpCsFixer\DocBlock\DocBlock $doc) : string
     {
         foreach ($doc->getAnnotations() as $index => $annotation) {
             $next = $doc->getAnnotation($index + 1);

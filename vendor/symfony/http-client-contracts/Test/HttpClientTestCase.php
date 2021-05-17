@@ -28,11 +28,7 @@ abstract class HttpClientTestCase extends \ECSPrefix20210517\PHPUnit\Framework\T
     {
         \ECSPrefix20210517\Symfony\Contracts\HttpClient\Test\TestHttpServer::start();
     }
-    /**
-     * @param string $testCase
-     * @return \Symfony\Contracts\HttpClient\HttpClientInterface
-     */
-    protected abstract function getHttpClient($testCase);
+    protected abstract function getHttpClient(string $testCase) : \ECSPrefix20210517\Symfony\Contracts\HttpClient\HttpClientInterface;
     public function testGetRequest()
     {
         $client = $this->getHttpClient(__FUNCTION__);

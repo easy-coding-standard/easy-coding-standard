@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -66,9 +67,8 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     ];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Use the Elvis operator `?:` where possible.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$foo = \$foo ? \$foo : 1;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$foo = \$bar[a()] ? \$bar[a()] : 1; # \"risky\" sample, \"a()\" only gets called once after fixing\n")], null, 'Risky when relying on functions called on both sides of the `?` operator.');
     }
@@ -76,25 +76,22 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
      * {@inheritdoc}
      *
      * Must run before NoTrailingWhitespaceFixer, TernaryOperatorSpacesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 1;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('?');
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -130,11 +127,9 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return null|array null if contains ++/-- operator
-     * @param int $index
      */
-    private function getBeforeOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $blockEdgeDefinitions)
+    private function getBeforeOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $blockEdgeDefinitions)
     {
-        $index = (int) $index;
         $index = $tokens->getPrevMeaningfulToken($index);
         $before = ['end' => $index];
         while (!$tokens[$index]->equalsAny(self::VALID_BEFORE_ENDTYPES)) {
@@ -170,13 +165,8 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
         }
         return $before;
     }
-    /**
-     * @param int $index
-     * @return mixed[]
-     */
-    private function getAfterOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function getAfterOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : array
     {
-        $index = (int) $index;
         $index = $tokens->getNextMeaningfulToken($index);
         $after = ['start' => $index];
         while (!$tokens[$index]->equals(':')) {
@@ -191,9 +181,8 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Meaningful compare of tokens within ranges.
-     * @return bool
      */
-    private function rangeEqualsRange(\PhpCsFixer\Tokenizer\Tokens $tokens, array $range1, array $range2)
+    private function rangeEqualsRange(\PhpCsFixer\Tokenizer\Tokens $tokens, array $range1, array $range2) : bool
     {
         $leftStart = $range1['start'];
         $leftEnd = $range1['end'];

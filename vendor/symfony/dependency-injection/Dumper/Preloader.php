@@ -17,11 +17,9 @@ final class Preloader
 {
     /**
      * @return void
-     * @param string $file
      */
-    public static function append($file, array $list)
+    public static function append(string $file, array $list)
     {
-        $file = (string) $file;
         if (!\file_exists($file)) {
             throw new \LogicException(\sprintf('File "%s" does not exist.', $file));
         }
@@ -67,11 +65,9 @@ final class Preloader
     }
     /**
      * @return void
-     * @param string $class
      */
-    private static function doPreload($class, array &$preloaded)
+    private static function doPreload(string $class, array &$preloaded)
     {
-        $class = (string) $class;
         if (isset($preloaded[$class]) || \in_array($class, ['self', 'static', 'parent'], \true)) {
             return;
         }

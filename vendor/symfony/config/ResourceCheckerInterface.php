@@ -38,5 +38,5 @@ interface ResourceCheckerInterface
      *
      * @return bool True if the resource has not changed since the given timestamp, false otherwise
      */
-    public function isFresh(\ECSPrefix20210517\Symfony\Component\Config\Resource\ResourceInterface $resource, $timestamp);
+    public function isFresh(\ECSPrefix20210517\Symfony\Component\Config\Resource\ResourceInterface $resource, int $timestamp);
 }

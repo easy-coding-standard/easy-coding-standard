@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -70,17 +71,15 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \false;
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         $nameParts = \explode('\\', static::class);
         $name = \substr(\end($nameParts), 0, -\strlen('Fixer'));
@@ -88,17 +87,15 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
     }
     /**
      * {@inheritdoc}
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function supports(\SplFileInfo $file)
+    public function supports(\SplFileInfo $file) : bool
     {
         return \true;
     }
@@ -129,10 +126,7 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
             throw new \PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException($this->getName(), \sprintf('Invalid configuration: %s', $exception->getMessage()), $exception);
         }
     }
-    /**
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
-     */
-    public function getConfigurationDefinition()
+    public function getConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         if (!$this instanceof \PhpCsFixer\Fixer\ConfigurableFixerInterface) {
             throw new \LogicException(\sprintf('Cannot get configuration definition using Abstract parent, child "%s" not implementing "PhpCsFixer\\Fixer\\ConfigurableFixerInterface".', static::class));
@@ -156,20 +150,14 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
      * @return void
      */
     protected abstract function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens);
-    /**
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
-     */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         if (!$this instanceof \PhpCsFixer\Fixer\ConfigurableFixerInterface) {
             throw new \LogicException('Cannot create configuration definition using Abstract parent, child not implementing "PhpCsFixer\\Fixer\\ConfigurableFixerInterface".');
         }
         throw new \LogicException('Not implemented.');
     }
-    /**
-     * @return \PhpCsFixer\WhitespacesFixerConfig
-     */
-    private function getDefaultWhitespacesFixerConfig()
+    private function getDefaultWhitespacesFixerConfig() : \PhpCsFixer\WhitespacesFixerConfig
     {
         static $defaultWhitespacesFixerConfig = null;
         if (null === $defaultWhitespacesFixerConfig) {

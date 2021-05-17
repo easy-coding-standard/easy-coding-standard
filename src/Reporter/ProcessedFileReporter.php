@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Reporter;
 
 use Symplify\EasyCodingStandard\Configuration\Configuration;
@@ -25,13 +26,8 @@ final class ProcessedFileReporter
         $this->outputFormatterCollector = $outputFormatterCollector;
         $this->errorAndDiffResultFactory = $errorAndDiffResultFactory;
     }
-    /**
-     * @param int $processedFileCount
-     * @return int
-     */
-    public function report($processedFileCount)
+    public function report(int $processedFileCount) : int
     {
-        $processedFileCount = (int) $processedFileCount;
         $outputFormat = $this->configuration->getOutputFormat();
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
         $errorAndDiffResult = $this->errorAndDiffResultFactory->create();

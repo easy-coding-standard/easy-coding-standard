@@ -36,11 +36,9 @@ class StrictSessionHandler extends \ECSPrefix20210517\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doRead($sessionId)
+    protected function doRead(string $sessionId)
     {
-        $sessionId = (string) $sessionId;
         return $this->handler->read($sessionId);
     }
     /**
@@ -52,13 +50,9 @@ class StrictSessionHandler extends \ECSPrefix20210517\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite(string $sessionId, string $data)
     {
-        $sessionId = (string) $sessionId;
-        $data = (string) $data;
         return $this->handler->write($sessionId, $data);
     }
     /**
@@ -72,11 +66,9 @@ class StrictSessionHandler extends \ECSPrefix20210517\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doDestroy($sessionId)
+    protected function doDestroy(string $sessionId)
     {
-        $sessionId = (string) $sessionId;
         $this->doDestroy = \false;
         return $this->handler->destroy($sessionId);
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -41,9 +42,8 @@ final class NativeConstantInvocationFixer extends \PhpCsFixer\AbstractFixer impl
     private $caseInsensitiveConstantsToEscape = [];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Add leading `\\` before constant invocation of internal constant to speed up resolving. Constant name match is case-sensitive, except for `null`, `false` and `true`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);\n"), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 namespace space1 {
@@ -58,25 +58,22 @@ namespace {
      * {@inheritdoc}
      *
      * Must run before GlobalNamespaceImportFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 10;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -139,9 +136,8 @@ namespace {
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $constantChecker = static function (array $value) {
             foreach ($value as $constantName) {
@@ -155,13 +151,9 @@ namespace {
     }
     /**
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function fixConstantInvocations(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function fixConstantInvocations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $useDeclarations = (new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
         $useConstantDeclarations = [];
         foreach ($useDeclarations as $use) {

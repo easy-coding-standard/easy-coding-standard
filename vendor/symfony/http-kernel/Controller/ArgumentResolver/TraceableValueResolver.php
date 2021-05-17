@@ -30,9 +30,8 @@ final class TraceableValueResolver implements \ECSPrefix20210517\Symfony\Compone
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
     {
         $method = \get_class($this->inner) . '::' . __FUNCTION__;
         $this->stopwatch->start($method, 'controller.argument_value_resolver');

@@ -72,11 +72,9 @@ class ReplaceAliasByActualDefinitionPass extends \ECSPrefix20210517\Symfony\Comp
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference && isset($this->replacements[$referenceId = (string) $value])) {
             // Perform the replacement
             $newId = $this->replacements[$referenceId];

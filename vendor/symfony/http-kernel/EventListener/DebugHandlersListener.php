@@ -47,10 +47,8 @@ class DebugHandlersListener implements \ECSPrefix20210517\Symfony\Component\Even
      * @param string|FileLinkFormatter|null $fileLinkFormat   The format for links to source files
      * @param bool                          $scope            Enables/disables scoping mode
      */
-    public function __construct(callable $exceptionHandler = null, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null, $levels = \E_ALL, $throwAt = \E_ALL, $scream = \true, $fileLinkFormat = null, $scope = \true, \ECSPrefix20210517\Psr\Log\LoggerInterface $deprecationLogger = null)
+    public function __construct(callable $exceptionHandler = null, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null, $levels = \E_ALL, $throwAt = \E_ALL, bool $scream = \true, $fileLinkFormat = null, bool $scope = \true, \ECSPrefix20210517\Psr\Log\LoggerInterface $deprecationLogger = null)
     {
-        $scream = (bool) $scream;
-        $scope = (bool) $scope;
         $handler = \set_exception_handler('var_dump');
         $this->earlyHandler = \is_array($handler) ? $handler[0] : null;
         \restore_exception_handler();
@@ -165,10 +163,7 @@ class DebugHandlersListener implements \ECSPrefix20210517\Symfony\Component\Even
             $handler->setDefaultLogger($this->logger, $defaultLoggerLevels);
         }
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         $events = [\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['configure', 2048]];
         if (\defined('Symfony\\Component\\Console\\ConsoleEvents::COMMAND')) {

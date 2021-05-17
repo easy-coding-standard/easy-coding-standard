@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -26,14 +27,9 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
-        $docContent = (string) $docContent;
-        $position = (int) $position;
         $argumentNames = $this->docblockRelatedParamNamesResolver->resolve($tokens, $position);
         if ($argumentNames === []) {
             return $docContent;
@@ -57,12 +53,10 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
         return $this->fixTypos($argumentNames, $paramNames, $docContent);
     }
     /**
-     * @return mixed[]
-     * @param string $docContent
+     * @return string[]
      */
-    private function getParamNames($docContent)
+    private function getParamNames(string $docContent) : array
     {
-        $docContent = (string) $docContent;
         $paramAnnotations = $this->getAnnotationsOfType($docContent, 'param');
         $paramNames = [];
         foreach ($paramAnnotations as $paramAnnotation) {
@@ -74,26 +68,19 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
         return $paramNames;
     }
     /**
-     * @return mixed[]
-     * @param string $docContent
-     * @param string $type
+     * @return Annotation[]
      */
-    private function getAnnotationsOfType($docContent, $type)
+    private function getAnnotationsOfType(string $docContent, string $type) : array
     {
-        $docContent = (string) $docContent;
-        $type = (string) $type;
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
         return $docBlock->getAnnotationsOfType($type);
     }
     /**
      * @param string[] $argumentNames
      * @param string[] $paramNames
-     * @param string $docContent
-     * @return string
      */
-    private function fixTypos(array $argumentNames, array $paramNames, $docContent)
+    private function fixTypos(array $argumentNames, array $paramNames, string $docContent) : string
     {
-        $docContent = (string) $docContent;
         foreach ($argumentNames as $key => $argumentName) {
             // 1. the same position
             if (!isset($paramNames[$key])) {

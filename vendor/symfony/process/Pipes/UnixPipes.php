@@ -25,13 +25,9 @@ class UnixPipes extends \ECSPrefix20210517\Symfony\Component\Process\Pipes\Abstr
     private $haveReadSupport;
     /**
      * @param bool|null $ttyMode
-     * @param bool $ptyMode
-     * @param bool $haveReadSupport
      */
-    public function __construct($ttyMode, $ptyMode, $input, $haveReadSupport)
+    public function __construct($ttyMode, bool $ptyMode, $input, bool $haveReadSupport)
     {
-        $ptyMode = (bool) $ptyMode;
-        $haveReadSupport = (bool) $haveReadSupport;
         $this->ttyMode = $ttyMode;
         $this->ptyMode = $ptyMode;
         $this->haveReadSupport = $haveReadSupport;
@@ -51,9 +47,8 @@ class UnixPipes extends \ECSPrefix20210517\Symfony\Component\Process\Pipes\Abstr
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getDescriptors()
+    public function getDescriptors() : array
     {
         if (!$this->haveReadSupport) {
             $nullstream = \fopen('/dev/null', 'c');
@@ -74,22 +69,16 @@ class UnixPipes extends \ECSPrefix20210517\Symfony\Component\Process\Pipes\Abstr
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getFiles()
+    public function getFiles() : array
     {
         return [];
     }
     /**
      * {@inheritdoc}
-     * @param bool $blocking
-     * @param bool $close
-     * @return mixed[]
      */
-    public function readAndWrite($blocking, $close = \false)
+    public function readAndWrite(bool $blocking, bool $close = \false) : array
     {
-        $blocking = (bool) $blocking;
-        $close = (bool) $close;
         $this->unblock();
         $w = $this->write();
         $read = $e = [];
@@ -127,17 +116,15 @@ class UnixPipes extends \ECSPrefix20210517\Symfony\Component\Process\Pipes\Abstr
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function haveReadSupport()
+    public function haveReadSupport() : bool
     {
         return $this->haveReadSupport;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function areOpen()
+    public function areOpen() : bool
     {
         return (bool) $this->pipes;
     }

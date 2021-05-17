@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of sebastian/diff.
  *
@@ -32,56 +33,34 @@ final class Chunk
      * @var Line[]
      */
     private $lines;
-    /**
-     * @param int $start
-     * @param int $startRange
-     * @param int $end
-     * @param int $endRange
-     */
-    public function __construct($start = 0, $startRange = 1, $end = 0, $endRange = 1, array $lines = [])
+    public function __construct(int $start = 0, int $startRange = 1, int $end = 0, int $endRange = 1, array $lines = [])
     {
-        $start = (int) $start;
-        $startRange = (int) $startRange;
-        $end = (int) $end;
-        $endRange = (int) $endRange;
         $this->start = $start;
         $this->startRange = $startRange;
         $this->end = $end;
         $this->endRange = $endRange;
         $this->lines = $lines;
     }
-    /**
-     * @return int
-     */
-    public function getStart()
+    public function getStart() : int
     {
         return $this->start;
     }
-    /**
-     * @return int
-     */
-    public function getStartRange()
+    public function getStartRange() : int
     {
         return $this->startRange;
     }
-    /**
-     * @return int
-     */
-    public function getEnd()
+    public function getEnd() : int
     {
         return $this->end;
     }
-    /**
-     * @return int
-     */
-    public function getEndRange()
+    public function getEndRange() : int
     {
         return $this->endRange;
     }
     /**
-     * @return mixed[]
+     * @return Line[]
      */
-    public function getLines()
+    public function getLines() : array
     {
         return $this->lines;
     }

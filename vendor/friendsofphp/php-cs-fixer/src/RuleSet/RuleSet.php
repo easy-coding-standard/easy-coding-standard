@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -52,22 +53,17 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
     }
     /**
      * {@inheritdoc}
-     * @param string $rule
-     * @return bool
      */
-    public function hasRule($rule)
+    public function hasRule(string $rule) : bool
     {
-        $rule = (string) $rule;
         return \array_key_exists($rule, $this->rules);
     }
     /**
      * {@inheritdoc}
      * @return mixed[]|null
-     * @param string $rule
      */
-    public function getRuleConfiguration($rule)
+    public function getRuleConfiguration(string $rule)
     {
-        $rule = (string) $rule;
         if (!$this->hasRule($rule)) {
             throw new \InvalidArgumentException(\sprintf('Rule "%s" is not in the set.', $rule));
         }
@@ -78,9 +74,8 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getRules()
+    public function getRules() : array
     {
         return $this->rules;
     }
@@ -114,14 +109,9 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
      *
      * If set value is false then disable all fixers in set,
      * if not then get value from set item.
-     * @param string $setName
-     * @param bool $setValue
-     * @return mixed[]
      */
-    private function resolveSubset($setName, $setValue)
+    private function resolveSubset(string $setName, bool $setValue) : array
     {
-        $setName = (string) $setName;
-        $setValue = (bool) $setValue;
         $rules = \PhpCsFixer\RuleSet\RuleSets::getSetDefinition($setName)->getRules();
         foreach ($rules as $name => $value) {
             if ('@' === $name[0]) {

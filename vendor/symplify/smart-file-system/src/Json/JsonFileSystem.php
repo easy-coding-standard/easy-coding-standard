@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SmartFileSystem\Json;
 
 use ECSPrefix20210517\Nette\Utils\Arrays;
@@ -26,11 +27,9 @@ final class JsonFileSystem
     }
     /**
      * @return mixed[]
-     * @param string $filePath
      */
-    public function loadFilePathToJson($filePath)
+    public function loadFilePathToJson(string $filePath) : array
     {
-        $filePath = (string) $filePath;
         $this->fileSystemGuard->ensureFileExists($filePath, __METHOD__);
         $fileContent = $this->smartFileSystem->readFile($filePath);
         return \ECSPrefix20210517\Nette\Utils\Json::decode($fileContent, \ECSPrefix20210517\Nette\Utils\Json::FORCE_ARRAY);
@@ -38,22 +37,18 @@ final class JsonFileSystem
     /**
      * @param array<string, mixed> $jsonArray
      * @return void
-     * @param string $filePath
      */
-    public function writeJsonToFilePath(array $jsonArray, $filePath)
+    public function writeJsonToFilePath(array $jsonArray, string $filePath)
     {
-        $filePath = (string) $filePath;
         $jsonContent = \ECSPrefix20210517\Nette\Utils\Json::encode($jsonArray, \ECSPrefix20210517\Nette\Utils\Json::PRETTY) . \PHP_EOL;
         $this->smartFileSystem->dumpFile($filePath, $jsonContent);
     }
     /**
      * @param array<string, mixed> $newJsonArray
      * @return void
-     * @param string $filePath
      */
-    public function mergeArrayToJsonFile($filePath, array $newJsonArray)
+    public function mergeArrayToJsonFile(string $filePath, array $newJsonArray)
     {
-        $filePath = (string) $filePath;
         $jsonArray = $this->loadFilePathToJson($filePath);
         $newComposerJsonArray = \ECSPrefix20210517\Nette\Utils\Arrays::mergeTree($jsonArray, $newJsonArray);
         $this->writeJsonToFilePath($newComposerJsonArray, $filePath);

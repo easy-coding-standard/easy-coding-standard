@@ -27,35 +27,30 @@ class FileExistenceResource implements \ECSPrefix20210517\Symfony\Component\Conf
     /**
      * @param string $resource The file path to the resource
      */
-    public function __construct($resource)
+    public function __construct(string $resource)
     {
-        $resource = (string) $resource;
         $this->resource = $resource;
         $this->exists = \file_exists($resource);
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->resource;
     }
     /**
      * @return string The file path to the resource
      */
-    public function getResource()
+    public function getResource() : string
     {
         return $this->resource;
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
-     * @return bool
      */
-    public function isFresh($timestamp)
+    public function isFresh(int $timestamp) : bool
     {
-        $timestamp = (int) $timestamp;
         return \file_exists($this->resource) === $this->exists;
     }
 }

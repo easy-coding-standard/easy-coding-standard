@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\DependencyInjection;
 
 use ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,12 +13,10 @@ use Throwable;
 final class DefinitionFinder
 {
     /**
-     * @return mixed[]
-     * @param string $type
+     * @return Definition[]
      */
-    public function findAllByType(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
+    public function findAllByType(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $type) : array
     {
-        $type = (string) $type;
         $definitions = [];
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {
@@ -31,13 +30,8 @@ final class DefinitionFinder
         }
         return $definitions;
     }
-    /**
-     * @param string $type
-     * @return \Symfony\Component\DependencyInjection\Definition
-     */
-    public function getByType(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
+    public function getByType(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $type) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition
     {
-        $type = (string) $type;
         $definition = $this->getByTypeIfExists($containerBuilder, $type);
         if ($definition !== null) {
             return $definition;
@@ -46,11 +40,9 @@ final class DefinitionFinder
     }
     /**
      * @return \Symfony\Component\DependencyInjection\Definition|null
-     * @param string $type
      */
-    private function getByTypeIfExists(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
+    private function getByTypeIfExists(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $type)
     {
-        $type = (string) $type;
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {
             $class = $definition->getClass() ?: $name;
@@ -63,13 +55,8 @@ final class DefinitionFinder
         }
         return null;
     }
-    /**
-     * @param string $class
-     * @return bool
-     */
-    private function doesClassExists($class)
+    private function doesClassExists(string $class) : bool
     {
-        $class = (string) $class;
         try {
             return \class_exists($class);
         } catch (\Throwable $throwable) {

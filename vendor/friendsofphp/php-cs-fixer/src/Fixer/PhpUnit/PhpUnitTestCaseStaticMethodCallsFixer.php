@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -282,9 +283,8 @@ final class PhpUnitTestCaseStaticMethodCallsFixer extends \PhpCsFixer\Fixer\Abst
     private $conversionMap = [self::CALL_TYPE_THIS => [[\T_OBJECT_OPERATOR, '->'], [\T_VARIABLE, '$this']], self::CALL_TYPE_SELF => [[\T_DOUBLE_COLON, '::'], [\T_STRING, 'self']], self::CALL_TYPE_STATIC => [[\T_DOUBLE_COLON, '::'], [\T_STATIC, 'static']]];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         $codeSample = '<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
@@ -303,25 +303,22 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      * {@inheritdoc}
      *
      * Must run before SelfStaticAccessorFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $thisFixer = $this;
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('call_type', 'The call type to use for referring to PHPUnit methods.'))->setAllowedTypes(['string'])->setAllowedValues(\array_keys($this->allowedValues))->setDefault('static')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('methods', 'Dictionary of `method` => `call_type` values that differ from the default strategy.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) use($thisFixer) {
@@ -339,13 +336,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             // skip anonymous classes
@@ -390,27 +383,13 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $tokens[$referenceIndex] = new \PhpCsFixer\Tokenizer\Token($this->conversionMap[$callType][1]);
         }
     }
-    /**
-     * @param int $index
-     * @param int $referenceIndex
-     * @param string $callType
-     * @return bool
-     */
-    private function needsConversion(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $referenceIndex, $callType)
+    private function needsConversion(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $referenceIndex, string $callType) : bool
     {
-        $index = (int) $index;
-        $referenceIndex = (int) $referenceIndex;
-        $callType = (string) $callType;
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         return $functionsAnalyzer->isTheSameClassCall($tokens, $index) && !$tokens[$referenceIndex]->equals($this->conversionMap[$callType][1], \false);
     }
-    /**
-     * @param int $index
-     * @return int
-     */
-    private function findEndOfNextBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function findEndOfNextBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
-        $index = (int) $index;
         $nextIndex = $tokens->getNextTokenOfKind($index, [';', '{']);
         return $tokens[$nextIndex]->equals('{') ? $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $nextIndex) : $nextIndex;
     }

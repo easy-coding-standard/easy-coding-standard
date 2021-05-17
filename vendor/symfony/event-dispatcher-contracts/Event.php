@@ -31,9 +31,8 @@ class Event implements \ECSPrefix20210517\Psr\EventDispatcher\StoppableEventInte
     private $propagationStopped = \false;
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isPropagationStopped()
+    public function isPropagationStopped() : bool
     {
         return $this->propagationStopped;
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -27,9 +28,8 @@ final class PhpdocAnnotationWithoutDotFixer extends \PhpCsFixer\AbstractFixer
     private $tags = ['throws', 'return', 'param', 'internal', 'deprecated', 'var', 'type'];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPDoc annotation descriptions should not be a sentence.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
@@ -43,17 +43,15 @@ function foo ($bar) {}
      *
      * Must run before PhpdocAlignFixer, PhpdocTypesFixer, PhpdocTypesOrderFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpdocIndentFixer, PhpdocToCommentFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 17;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -27,37 +28,27 @@ final class RuleDefinition
     private $codeSamples = [];
     /**
      * @param CodeSampleInterface[] $codeSamples
-     * @param string $description
      */
-    public function __construct($description, array $codeSamples)
+    public function __construct(string $description, array $codeSamples)
     {
-        $description = (string) $description;
         $this->description = $description;
         if ($codeSamples === []) {
             throw new \ECSPrefix20210517\Symplify\RuleDocGenerator\Exception\PoorDocumentationException('Provide at least one code sample, so people can practically see what the rule does');
         }
         $this->codeSamples = $codeSamples;
     }
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription() : string
     {
         return $this->description;
     }
     /**
      * @return void
-     * @param string $ruleClass
      */
-    public function setRuleClass($ruleClass)
+    public function setRuleClass(string $ruleClass)
     {
-        $ruleClass = (string) $ruleClass;
         $this->ruleClass = $ruleClass;
     }
-    /**
-     * @return string
-     */
-    public function getRuleClass()
+    public function getRuleClass() : string
     {
         if ($this->ruleClass === null) {
             throw new \ECSPrefix20210517\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException();
@@ -66,42 +57,31 @@ final class RuleDefinition
     }
     /**
      * @return void
-     * @param string $ruleFilePath
      */
-    public function setRuleFilePath($ruleFilePath)
+    public function setRuleFilePath(string $ruleFilePath)
     {
-        $ruleFilePath = (string) $ruleFilePath;
         // fir relative file path for GitHub
         $this->ruleFilePath = \ltrim($ruleFilePath, '/');
     }
-    /**
-     * @return string
-     */
-    public function getRuleFilePath()
+    public function getRuleFilePath() : string
     {
         if ($this->ruleFilePath === null) {
             throw new \ECSPrefix20210517\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException();
         }
         return $this->ruleFilePath;
     }
-    /**
-     * @return string
-     */
-    public function getRuleShortClass()
+    public function getRuleShortClass() : string
     {
         return (string) \ECSPrefix20210517\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
     }
     /**
-     * @return mixed[]
+     * @return CodeSampleInterface[]
      */
-    public function getCodeSamples()
+    public function getCodeSamples() : array
     {
         return $this->codeSamples;
     }
-    /**
-     * @return bool
-     */
-    public function isConfigurable()
+    public function isConfigurable() : bool
     {
         foreach ($this->codeSamples as $codeSample) {
             if ($codeSample instanceof \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
 use ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface;
@@ -15,10 +16,7 @@ final class InitCommand extends \ECSPrefix20210517\Symplify\PackageBuilder\Conso
     {
         $this->setDescription('Generate ecs.php configuration file');
     }
-    /**
-     * @return int
-     */
-    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $rectorConfigFiles = $this->smartFileSystem->exists(\getcwd() . '/ecs.php');
         if (!$rectorConfigFiles) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -76,9 +77,9 @@ final class Token
         }
     }
     /**
-     * @return mixed[]
+     * @return int[]
      */
-    public static function getCastTokenKinds()
+    public static function getCastTokenKinds() : array
     {
         static $castTokens = [\T_ARRAY_CAST, \T_BOOL_CAST, \T_DOUBLE_CAST, \T_INT_CAST, \T_OBJECT_CAST, \T_STRING_CAST, \T_UNSET_CAST];
         return $castTokens;
@@ -86,9 +87,9 @@ final class Token
     /**
      * Get classy tokens kinds: T_CLASS, T_INTERFACE and T_TRAIT.
      *
-     * @return mixed[]
+     * @return int[]
      */
-    public static function getClassyTokenKinds()
+    public static function getClassyTokenKinds() : array
     {
         static $classTokens = [\T_CLASS, \T_TRAIT, \T_INTERFACE];
         return $classTokens;
@@ -96,9 +97,9 @@ final class Token
     /**
      * Get object operator tokens kinds: T_OBJECT_OPERATOR and (if available) T_NULLSAFE_OBJECT_OPERATOR.
      *
-     * @return mixed[]
+     * @return int[]
      */
-    public static function getObjectOperatorKinds()
+    public static function getObjectOperatorKinds() : array
     {
         static $objectOperators = null;
         if (null === $objectOperators) {
@@ -116,11 +117,9 @@ final class Token
      *
      * @param array|string|Token $other         token or it's prototype
      * @param bool               $caseSensitive perform a case sensitive comparison
-     * @return bool
      */
-    public function equals($other, $caseSensitive = \true)
+    public function equals($other, bool $caseSensitive = \true) : bool
     {
-        $caseSensitive = (bool) $caseSensitive;
         if ($other instanceof self) {
             // Inlined getPrototype() on this very hot path.
             // We access the private properties of $other directly to save function call overhead.
@@ -160,11 +159,9 @@ final class Token
      *
      * @param array $others        array of tokens or token prototypes
      * @param bool  $caseSensitive perform a case sensitive comparison
-     * @return bool
      */
-    public function equalsAny(array $others, $caseSensitive = \true)
+    public function equalsAny(array $others, bool $caseSensitive = \true) : bool
     {
-        $caseSensitive = (bool) $caseSensitive;
         foreach ($others as $other) {
             if ($this->equals($other, $caseSensitive)) {
                 return \true;
@@ -179,11 +176,9 @@ final class Token
      *                                             the ones used in $others. If any is missing, the default case-sensitive
      *                                             comparison is used
      * @param int                   $key           the key of the token that has to be looked up
-     * @return bool
      */
-    public static function isKeyCaseSensitive($caseSensitive, $key)
+    public static function isKeyCaseSensitive($caseSensitive, int $key) : bool
     {
-        $key = (int) $key;
         if (\is_array($caseSensitive)) {
             return isset($caseSensitive[$key]) ? $caseSensitive[$key] : \true;
         }
@@ -203,9 +198,8 @@ final class Token
      * Get token's content.
      *
      * It shall be used only for getting the content of token, not for checking it against excepted value.
-     * @return string
      */
-    public function getContent()
+    public function getContent() : string
     {
         return $this->content;
     }
@@ -239,11 +233,9 @@ final class Token
      * It shall be used only for getting the name of token, not for checking it against excepted value.
      *
      * @return null|string token name
-     * @param int $id
      */
-    public static function getNameForId($id)
+    public static function getNameForId(int $id)
     {
-        $id = (int) $id;
         if (\PhpCsFixer\Tokenizer\CT::has($id)) {
             return \PhpCsFixer\Tokenizer\CT::getName($id);
         }
@@ -253,9 +245,9 @@ final class Token
     /**
      * Generate array containing all keywords that exists in PHP version in use.
      *
-     * @return mixed[]
+     * @return array<int, int>
      */
-    public static function getKeywords()
+    public static function getKeywords() : array
     {
         static $keywords = null;
         if (null === $keywords) {
@@ -268,9 +260,9 @@ final class Token
      *
      * @see https://php.net/manual/en/language.constants.predefined.php
      *
-     * @return mixed[]
+     * @return array<int, int>
      */
-    public static function getMagicConstants()
+    public static function getMagicConstants() : array
     {
         static $magicConstants = null;
         if (null === $magicConstants) {
@@ -283,40 +275,36 @@ final class Token
      *
      * @return bool is array
      */
-    public function isArray()
+    public function isArray() : bool
     {
         return $this->isArray;
     }
     /**
      * Check if token is one of type cast tokens.
-     * @return bool
      */
-    public function isCast()
+    public function isCast() : bool
     {
         return $this->isGivenKind(self::getCastTokenKinds());
     }
     /**
      * Check if token is one of classy tokens: T_CLASS, T_INTERFACE or T_TRAIT.
-     * @return bool
      */
-    public function isClassy()
+    public function isClassy() : bool
     {
         return $this->isGivenKind(self::getClassyTokenKinds());
     }
     /**
      * Check if token is one of comment tokens: T_COMMENT or T_DOC_COMMENT.
-     * @return bool
      */
-    public function isComment()
+    public function isComment() : bool
     {
         static $commentTokens = [\T_COMMENT, \T_DOC_COMMENT];
         return $this->isGivenKind($commentTokens);
     }
     /**
      * Check if token is one of object operator tokens: T_OBJECT_OPERATOR or T_NULLSAFE_OBJECT_OPERATOR.
-     * @return bool
      */
-    public function isObjectOperator()
+    public function isObjectOperator() : bool
     {
         return $this->isGivenKind(self::getObjectOperatorKinds());
     }
@@ -324,26 +312,23 @@ final class Token
      * Check if token is one of given kind.
      *
      * @param int|int[] $possibleKind kind or array of kinds
-     * @return bool
      */
-    public function isGivenKind($possibleKind)
+    public function isGivenKind($possibleKind) : bool
     {
         return $this->isArray && (\is_array($possibleKind) ? \in_array($this->id, $possibleKind, \true) : $this->id === $possibleKind);
     }
     /**
      * Check if token is a keyword.
-     * @return bool
      */
-    public function isKeyword()
+    public function isKeyword() : bool
     {
         $keywords = static::getKeywords();
         return $this->isArray && isset($keywords[$this->id]);
     }
     /**
      * Check if token is a native PHP constant: true, false or null.
-     * @return bool
      */
-    public function isNativeConstant()
+    public function isNativeConstant() : bool
     {
         static $nativeConstantStrings = ['true', 'false', 'null'];
         return $this->isArray && \in_array(\strtolower($this->content), $nativeConstantStrings, \true);
@@ -352,9 +337,8 @@ final class Token
      * Returns if the token is of a Magic constants type.
      *
      * @see https://php.net/manual/en/language.constants.predefined.php
-     * @return bool
      */
-    public function isMagicConstant()
+    public function isMagicConstant() : bool
     {
         $magicConstants = static::getMagicConstants();
         return $this->isArray && isset($magicConstants[$this->id]);
@@ -363,9 +347,8 @@ final class Token
      * Check if token is whitespace.
      *
      * @param null|string $whitespaces whitespace characters, default is " \t\n\r\0\x0B"
-     * @return bool
      */
-    public function isWhitespace($whitespaces = " \t\n\r\0\v")
+    public function isWhitespace($whitespaces = " \t\n\r\0\v") : bool
     {
         if (null === $whitespaces) {
             $whitespaces = " \t\n\r\0\v";
@@ -375,17 +358,11 @@ final class Token
         }
         return '' === \trim($this->content, $whitespaces);
     }
-    /**
-     * @return mixed[]
-     */
-    public function toArray()
+    public function toArray() : array
     {
         return ['id' => $this->id, 'name' => $this->getName(), 'content' => $this->content, 'isArray' => $this->isArray, 'changed' => $this->changed];
     }
-    /**
-     * @return string
-     */
-    public function toJson()
+    public function toJson() : string
     {
         $jsonResult = \json_encode($this->toArray(), \JSON_PRETTY_PRINT | \JSON_NUMERIC_CHECK);
         if (\JSON_ERROR_NONE !== \json_last_error()) {
@@ -396,9 +373,9 @@ final class Token
     /**
      * @param string[] $tokenNames
      *
-     * @return mixed[]
+     * @return array<int, int>
      */
-    private static function getTokenKindsForNames(array $tokenNames)
+    private static function getTokenKindsForNames(array $tokenNames) : array
     {
         $keywords = [];
         foreach ($tokenNames as $keywordName) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\Skipper\SkipCriteriaResolver;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -29,9 +30,9 @@ final class SkippedPathsResolver
         $this->pathNormalizer = $pathNormalizer;
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    public function resolve()
+    public function resolve() : array
     {
         if ($this->skippedPaths !== []) {
             return $this->skippedPaths;

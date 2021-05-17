@@ -124,16 +124,12 @@ class MergeExtensionConfigurationParameterBag extends \ECSPrefix20210517\Symfony
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getEnvPlaceholders()
+    public function getEnvPlaceholders() : array
     {
         return null !== $this->processedEnvPlaceholders ? $this->processedEnvPlaceholders : parent::getEnvPlaceholders();
     }
-    /**
-     * @return mixed[]
-     */
-    public function getUnusedEnvPlaceholders()
+    public function getUnusedEnvPlaceholders() : array
     {
         return null === $this->processedEnvPlaceholders ? [] : \array_diff_key(parent::getEnvPlaceholders(), $this->processedEnvPlaceholders);
     }
@@ -154,13 +150,9 @@ class MergeExtensionConfigurationContainerBuilder extends \ECSPrefix20210517\Sym
     /**
      * {@inheritdoc}
      * @return $this
-     * @param string $type
-     * @param int $priority
      */
-    public function addCompilerPass(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addCompilerPass(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
-        $type = (string) $type;
-        $priority = (int) $priority;
         throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('You cannot add compiler pass "%s" from extension "%s". Compiler passes must be registered before the container is compiled.', \get_debug_type($pass), $this->extensionClass));
     }
     /**

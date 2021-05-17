@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver\Bootstrap;
 
 use ECSPrefix20210517\Nette\Utils\ObjectHelpers;

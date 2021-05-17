@@ -48,9 +48,8 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20210517\Symfony\Compo
      *
      * @param array $patterns The class patterns to expand
      * @param array $classes  The existing classes to match against the patterns
-     * @return mixed[]
      */
-    private function expandClasses(array $patterns, array $classes)
+    private function expandClasses(array $patterns, array $classes) : array
     {
         $expanded = [];
         // Explicit classes declared in the patterns are returned directly
@@ -70,10 +69,7 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20210517\Symfony\Compo
         }
         return \array_unique($expanded);
     }
-    /**
-     * @return mixed[]
-     */
-    private function getClassesInComposerClassMaps()
+    private function getClassesInComposerClassMaps() : array
     {
         $classes = [];
         foreach (\spl_autoload_functions() as $function) {
@@ -89,10 +85,7 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20210517\Symfony\Compo
         }
         return \array_keys($classes);
     }
-    /**
-     * @return mixed[]
-     */
-    private function patternsToRegexps(array $patterns)
+    private function patternsToRegexps(array $patterns) : array
     {
         $regexps = [];
         foreach ($patterns as $pattern) {
@@ -108,13 +101,8 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20210517\Symfony\Compo
         }
         return $regexps;
     }
-    /**
-     * @param string $class
-     * @return bool
-     */
-    private function matchAnyRegexps($class, array $regexps)
+    private function matchAnyRegexps(string $class, array $regexps) : bool
     {
-        $class = (string) $class;
         $isTest = \false !== \strpos($class, 'Test');
         foreach ($regexps as $regex) {
             if ($isTest && \false === \strpos($regex, 'Test')) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -27,9 +28,8 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Standardize spaces around ternary operator.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = \$a   ?1 :0;\n")]);
     }
@@ -37,17 +37,15 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
      * {@inheritdoc}
      *
      * Must run after ArraySyntaxFixer, ListSyntaxFixer, TernaryToElvisOperatorFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound(['?', ':']);
     }
@@ -105,13 +103,8 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function belongsToAlternativeSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function belongsToAlternativeSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         if (!$tokens[$index]->equals(':')) {
             return \false;
         }
@@ -127,25 +120,19 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
         return $tokens[$alternativeControlStructureIndex]->isGivenKind([\T_DECLARE, \T_ELSEIF, \T_FOR, \T_FOREACH, \T_IF, \T_SWITCH, \T_WHILE]);
     }
     /**
-     * @return mixed[]
-     * @param int $switchIndex
+     * @return int[]
      */
-    private function getColonIndicesForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, $switchIndex)
+    private function getColonIndicesForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, int $switchIndex) : array
     {
-        $switchIndex = (int) $switchIndex;
         return \array_map(static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis $caseAnalysis) {
             return $caseAnalysis->getColonIndex();
         }, (new \PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer())->getSwitchAnalysis($tokens, $switchIndex)->getCases());
     }
     /**
      * @return void
-     * @param int $index
-     * @param bool $after
      */
-    private function ensureWhitespaceExistence(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $after)
+    private function ensureWhitespaceExistence(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $after)
     {
-        $index = (int) $index;
-        $after = (bool) $after;
         if ($tokens[$index]->isWhitespace()) {
             if (\false === \strpos($tokens[$index]->getContent(), "\n") && !$tokens[$index - 1]->isComment()) {
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);

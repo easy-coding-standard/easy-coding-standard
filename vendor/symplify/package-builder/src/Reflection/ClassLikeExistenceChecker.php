@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Reflection;
 
 use ReflectionClass;
@@ -13,13 +14,8 @@ final class ClassLikeExistenceChecker
      * @var string[]
      */
     private $sensitiveNonExistingClasses = [];
-    /**
-     * @param string $classLike
-     * @return bool
-     */
-    public function doesClassLikeExist($classLike)
+    public function doesClassLikeExist(string $classLike) : bool
     {
-        $classLike = (string) $classLike;
         if (\class_exists($classLike)) {
             return \true;
         }
@@ -28,13 +24,8 @@ final class ClassLikeExistenceChecker
         }
         return \trait_exists($classLike);
     }
-    /**
-     * @param string $classLikeName
-     * @return bool
-     */
-    public function doesClassLikeInsensitiveExists($classLikeName)
+    public function doesClassLikeInsensitiveExists(string $classLikeName) : bool
     {
-        $classLikeName = (string) $classLikeName;
         if (!$this->doesClassLikeExist($classLikeName)) {
             return \false;
         }

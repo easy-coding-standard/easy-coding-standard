@@ -23,12 +23,8 @@ final class ReverseContainer
     private $reversibleLocator;
     private $tagName;
     private $getServiceId;
-    /**
-     * @param string $tagName
-     */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Container $serviceContainer, \ECSPrefix20210517\Psr\Container\ContainerInterface $reversibleLocator, $tagName = 'container.reversible')
+    public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Container $serviceContainer, \ECSPrefix20210517\Psr\Container\ContainerInterface $reversibleLocator, string $tagName = 'container.reversible')
     {
-        $tagName = (string) $tagName;
         $this->serviceContainer = $serviceContainer;
         $this->reversibleLocator = $reversibleLocator;
         $this->tagName = $tagName;
@@ -59,11 +55,9 @@ final class ReverseContainer
     /**
      * @throws ServiceNotFoundException When the service is not reversible
      * @return object
-     * @param string $id
      */
-    public function getService($id)
+    public function getService(string $id)
     {
-        $id = (string) $id;
         if ($this->serviceContainer->has($id)) {
             return $this->serviceContainer->get($id);
         }

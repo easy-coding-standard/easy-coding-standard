@@ -27,16 +27,12 @@ class ServerDumper implements \ECSPrefix20210517\Symfony\Component\VarDumper\Dum
      * @param DataDumperInterface|null   $wrappedDumper    A wrapped instance used whenever we failed contacting the server
      * @param ContextProviderInterface[] $contextProviders Context providers indexed by context name
      */
-    public function __construct($host, \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\DataDumperInterface $wrappedDumper = null, array $contextProviders = [])
+    public function __construct(string $host, \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\DataDumperInterface $wrappedDumper = null, array $contextProviders = [])
     {
-        $host = (string) $host;
         $this->connection = new \ECSPrefix20210517\Symfony\Component\VarDumper\Server\Connection($host, $contextProviders);
         $this->wrappedDumper = $wrappedDumper;
     }
-    /**
-     * @return mixed[]
-     */
-    public function getContextProviders()
+    public function getContextProviders() : array
     {
         return $this->connection->getContextProviders();
     }

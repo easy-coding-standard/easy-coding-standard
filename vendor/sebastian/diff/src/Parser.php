@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of sebastian/diff.
  *
@@ -21,12 +22,10 @@ use function preg_split;
 final class Parser
 {
     /**
-     * @return mixed[]
-     * @param string $string
+     * @return Diff[]
      */
-    public function parse($string)
+    public function parse(string $string) : array
     {
-        $string = (string) $string;
         $lines = \preg_split('(\\r\\n|\\r|\\n)', $string);
         if (!empty($lines) && $lines[\count($lines) - 1] === '') {
             \array_pop($lines);

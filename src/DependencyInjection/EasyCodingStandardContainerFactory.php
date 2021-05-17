@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface;
@@ -11,19 +12,13 @@ use ECSPrefix20210517\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
 use ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs;
 final class EasyCodingStandardContainerFactory
 {
-    /**
-     * @return \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    public function createFromFromInput(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input)
+    public function createFromFromInput(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface
     {
         $ecsConfigsResolver = new \Symplify\EasyCodingStandard\Bootstrap\ECSConfigsResolver();
         $bootstrapConfigs = $ecsConfigsResolver->resolveFromInput($input);
         return $this->createFromFromBootstrapConfigs($bootstrapConfigs);
     }
-    /**
-     * @return \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    public function createFromFromBootstrapConfigs(\ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs)
+    public function createFromFromBootstrapConfigs(\ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface
     {
         $environment = 'prod' . \random_int(1, 100000);
         $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \ECSPrefix20210517\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());

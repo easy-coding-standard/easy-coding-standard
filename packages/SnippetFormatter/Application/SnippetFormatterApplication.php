@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Application;
 
 use ECSPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle;
@@ -47,14 +48,9 @@ final class SnippetFormatterApplication
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @param string $snippetPattern
-     * @param string $kind
-     * @return int
      */
-    public function processFileInfosWithSnippetPattern(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, array $fileInfos, $snippetPattern, $kind)
+    public function processFileInfosWithSnippetPattern(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, array $fileInfos, string $snippetPattern, string $kind) : int
     {
-        $snippetPattern = (string) $snippetPattern;
-        $kind = (string) $kind;
         $sources = $configuration->getSources();
         $fileCount = \count($fileInfos);
         if ($fileCount === 0) {
@@ -70,13 +66,9 @@ final class SnippetFormatterApplication
     }
     /**
      * @return void
-     * @param string $snippetPattern
-     * @param string $kind
      */
-    private function processFileInfoWithPattern(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, $snippetPattern, $kind)
+    private function processFileInfoWithPattern(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, string $snippetPattern, string $kind)
     {
-        $snippetPattern = (string) $snippetPattern;
-        $kind = (string) $kind;
         $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern, $kind);
         if ($phpFileInfo->getContents() === $fixedContent) {
             // nothing has changed

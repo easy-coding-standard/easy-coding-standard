@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\ValueObjectFactory;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -16,13 +17,8 @@ final class DocBlockLinesFactory
      * @var string
      */
     const END_OF_DOC_BLOCK_REGEX = '/(\\*\\/)$/';
-    /**
-     * @param string $docBlock
-     * @return \Symplify\CodingStandard\ValueObject\DocBlockLines
-     */
-    public function createFromDocBlock($docBlock)
+    public function createFromDocBlock(string $docBlock) : \Symplify\CodingStandard\ValueObject\DocBlockLines
     {
-        $docBlock = (string) $docBlock;
         // Remove the prefix '/**'
         $docBlock = \ECSPrefix20210517\Nette\Utils\Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
         // Remove the suffix '*/'
@@ -39,9 +35,8 @@ final class DocBlockLinesFactory
     }
     /**
      * @param string[] $docBlockLines
-     * @return \Symplify\CodingStandard\ValueObject\DocBlockLines
      */
-    private function createFromLines(array $docBlockLines)
+    private function createFromLines(array $docBlockLines) : \Symplify\CodingStandard\ValueObject\DocBlockLines
     {
         $descriptionLines = [];
         $otherLines = [];
@@ -60,12 +55,10 @@ final class DocBlockLinesFactory
         return new \Symplify\CodingStandard\ValueObject\DocBlockLines($descriptionLines, $otherLines);
     }
     /**
-     * @return mixed[]
-     * @param string $string
+     * @return string[]
      */
-    private function splitToLines($string)
+    private function splitToLines(string $string) : array
     {
-        $string = (string) $string;
         return \explode(\PHP_EOL, $string);
     }
 }

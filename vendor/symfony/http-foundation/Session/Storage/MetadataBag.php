@@ -49,10 +49,8 @@ class MetadataBag implements \ECSPrefix20210517\Symfony\Component\HttpFoundation
      * @param string $storageKey      The key used to store bag in the session
      * @param int    $updateThreshold The time to wait between two UPDATED updates
      */
-    public function __construct($storageKey = '_sf2_meta', $updateThreshold = 0)
+    public function __construct(string $storageKey = '_sf2_meta', int $updateThreshold = 0)
     {
-        $storageKey = (string) $storageKey;
-        $updateThreshold = (int) $updateThreshold;
         $this->storageKey = $storageKey;
         $this->updateThreshold = $updateThreshold;
     }
@@ -89,7 +87,7 @@ class MetadataBag implements \ECSPrefix20210517\Symfony\Component\HttpFoundation
      *                      to expire with browser session. Time is in seconds, and is
      *                      not a Unix timestamp.
      */
-    public function stampNew($lifetime = null)
+    public function stampNew(int $lifetime = null)
     {
         $this->stampCreated($lifetime);
     }
@@ -134,18 +132,15 @@ class MetadataBag implements \ECSPrefix20210517\Symfony\Component\HttpFoundation
     }
     /**
      * Sets name.
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
-        $name = (string) $name;
         $this->name = $name;
     }
     /**
      * @return void
-     * @param int $lifetime
      */
-    private function stampCreated($lifetime = null)
+    private function stampCreated(int $lifetime = null)
     {
         $timeStamp = \time();
         $this->meta[self::CREATED] = $this->meta[self::UPDATED] = $this->lastUsed = $timeStamp;

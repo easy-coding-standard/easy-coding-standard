@@ -41,14 +41,13 @@ class SerializerErrorRenderer implements \ECSPrefix20210517\Symfony\Component\Er
         }
         $this->serializer = $serializer;
         $this->format = $format;
-        $this->fallbackErrorRenderer = isset($fallbackErrorRenderer) ? $fallbackErrorRenderer : new \ECSPrefix20210517\Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer();
+        $this->fallbackErrorRenderer = $fallbackErrorRenderer ?? new \ECSPrefix20210517\Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer();
         $this->debug = $debug;
     }
     /**
      * {@inheritdoc}
-     * @return \Symfony\Component\ErrorHandler\Exception\FlattenException
      */
-    public function render(\Throwable $exception)
+    public function render(\Throwable $exception) : \ECSPrefix20210517\Symfony\Component\ErrorHandler\Exception\FlattenException
     {
         $headers = [];
         $debug = \is_bool($this->debug) ? $this->debug : ($this->debug)($exception);
@@ -59,16 +58,13 @@ class SerializerErrorRenderer implements \ECSPrefix20210517\Symfony\Component\Er
         $flattenException = \ECSPrefix20210517\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception, null, $headers);
         try {
             $format = \is_string($this->format) ? $this->format : ($this->format)($flattenException);
-            $headers = ['Content-Type' => isset(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request::getMimeTypes($format)[0]) ? \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request::getMimeTypes($format)[0] : $format, 'Vary' => 'Accept'];
+            $headers = ['Content-Type' => \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request::getMimeTypes($format)[0] ?? $format, 'Vary' => 'Accept'];
             return $flattenException->setAsString($this->serializer->serialize($flattenException, $format, ['exception' => $exception, 'debug' => $debug]))->setHeaders($flattenException->getHeaders() + $headers);
         } catch (\ECSPrefix20210517\Symfony\Component\Serializer\Exception\NotEncodableValueException $e) {
             return $this->fallbackErrorRenderer->render($exception);
         }
     }
-    /**
-     * @return \Closure
-     */
-    public static function getPreferredFormat(\ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack)
+    public static function getPreferredFormat(\ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack) : \Closure
     {
         return static function () use($requestStack) {
             if (!($request = $requestStack->getCurrentRequest())) {

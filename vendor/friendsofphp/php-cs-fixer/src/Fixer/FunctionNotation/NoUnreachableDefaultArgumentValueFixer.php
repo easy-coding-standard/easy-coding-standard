@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,9 +27,8 @@ final class NoUnreachableDefaultArgumentValueFixer extends \PhpCsFixer\AbstractF
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('In function arguments there must not be arguments with default values before non-default ones.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 function example($foo = "two words", $bar) {}
@@ -38,17 +38,15 @@ function example($foo = "two words", $bar) {}
      * {@inheritdoc}
      *
      * Must run after NullableTypeDeclarationForDefaultNullValueFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
             return \true;
@@ -57,9 +55,8 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -80,13 +77,9 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $lastArgumentIndex = $this->getLastNonDefaultArgumentIndex($tokens, $startIndex, $endIndex);
         if (!$lastArgumentIndex) {
             return;
@@ -107,13 +100,9 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * @return int|null
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function getLastNonDefaultArgumentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function getLastNonDefaultArgumentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             $token = $tokens[$i];
             if ($token->equals('=')) {
@@ -126,24 +115,15 @@ function example($foo = "two words", $bar) {}
         }
         return null;
     }
-    /**
-     * @param int $variableIndex
-     * @return bool
-     */
-    private function isEllipsis(\PhpCsFixer\Tokenizer\Tokens $tokens, $variableIndex)
+    private function isEllipsis(\PhpCsFixer\Tokenizer\Tokens $tokens, int $variableIndex) : bool
     {
-        $variableIndex = (int) $variableIndex;
         return $tokens[$tokens->getPrevMeaningfulToken($variableIndex)]->isGivenKind(\T_ELLIPSIS);
     }
     /**
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function removeDefaultArgument(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function removeDefaultArgument(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         for ($i = $startIndex; $i <= $endIndex;) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($i);
             $this->clearWhitespacesBeforeIndex($tokens, $i);
@@ -152,11 +132,9 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * @param int $index Index of "="
-     * @return bool
      */
-    private function isNonNullableTypehintedNullableVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function isNonNullableTypehintedNullableVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         $nextToken = $tokens[$tokens->getNextMeaningfulToken($index)];
         if (!$nextToken->equals([\T_STRING, 'null'], \false)) {
             return \false;
@@ -172,11 +150,9 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function clearWhitespacesBeforeIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function clearWhitespacesBeforeIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $prevIndex = $tokens->getNonEmptySibling($index, -1);
         if (!$tokens[$prevIndex]->isWhitespace()) {
             return;

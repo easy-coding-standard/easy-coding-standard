@@ -20,31 +20,19 @@ class Psr6CacheClearer implements \ECSPrefix20210517\Symfony\Component\HttpKerne
     {
         $this->pools = $pools;
     }
-    /**
-     * @param string $name
-     */
-    public function hasPool($name)
+    public function hasPool(string $name)
     {
-        $name = (string) $name;
         return isset($this->pools[$name]);
     }
-    /**
-     * @param string $name
-     */
-    public function getPool($name)
+    public function getPool(string $name)
     {
-        $name = (string) $name;
         if (!$this->hasPool($name)) {
             throw new \InvalidArgumentException(\sprintf('Cache pool not found: "%s".', $name));
         }
         return $this->pools[$name];
     }
-    /**
-     * @param string $name
-     */
-    public function clearPool($name)
+    public function clearPool(string $name)
     {
-        $name = (string) $name;
         if (!isset($this->pools[$name])) {
             throw new \InvalidArgumentException(\sprintf('Cache pool not found: "%s".', $name));
         }
@@ -52,11 +40,9 @@ class Psr6CacheClearer implements \ECSPrefix20210517\Symfony\Component\HttpKerne
     }
     /**
      * {@inheritdoc}
-     * @param string $cacheDir
      */
-    public function clear($cacheDir)
+    public function clear(string $cacheDir)
     {
-        $cacheDir = (string) $cacheDir;
         foreach ($this->pools as $pool) {
             $pool->clear();
         }

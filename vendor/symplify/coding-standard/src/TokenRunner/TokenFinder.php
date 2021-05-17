@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -11,9 +12,8 @@ final class TokenFinder
     /**
      * @param int|Token $position
      * @param Tokens<Token> $tokens
-     * @return \PhpCsFixer\Tokenizer\Token
      */
-    public function getPreviousMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function getPreviousMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $position) : \PhpCsFixer\Tokenizer\Token
     {
         if (\is_int($position)) {
             return $this->findPreviousTokenByPosition($tokens, $position);
@@ -23,24 +23,18 @@ final class TokenFinder
     /**
      * @param mixed[] $tokens
      * @return mixed[]|string|null
-     * @param int $position
      */
-    public function getNextMeaninfulToken(array $tokens, $position)
+    public function getNextMeaninfulToken(array $tokens, int $position)
     {
-        $position = (int) $position;
         $tokens = $this->getNextMeaninfulTokens($tokens, $position, 1);
-        return isset($tokens[0]) ? $tokens[0] : null;
+        return $tokens[0] ?? null;
     }
     /**
      * @param mixed[] $tokens
      * @return mixed[]
-     * @param int $position
-     * @param int $count
      */
-    public function getNextMeaninfulTokens(array $tokens, $position, $count)
+    public function getNextMeaninfulTokens(array $tokens, int $position, int $count) : array
     {
-        $position = (int) $position;
-        $count = (int) $count;
         $foundTokens = [];
         $tokensCount = \count($tokens);
         for ($i = $position; $i < $tokensCount; ++$i) {
@@ -58,11 +52,9 @@ final class TokenFinder
     /**
      * @param mixed[] $rawTokens
      * @return mixed[]|string
-     * @param int $position
      */
-    public function getSameRowLastToken(array $rawTokens, $position)
+    public function getSameRowLastToken(array $rawTokens, int $position)
     {
-        $position = (int) $position;
         $lastToken = null;
         $rawTokensCount = \count($rawTokens);
         for ($i = $position; $i < $rawTokensCount; ++$i) {
@@ -76,12 +68,9 @@ final class TokenFinder
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @return \PhpCsFixer\Tokenizer\Token
      */
-    private function findPreviousTokenByPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function findPreviousTokenByPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : \PhpCsFixer\Tokenizer\Token
     {
-        $position = (int) $position;
         $previousPosition = $position - 1;
         if (!isset($tokens[$previousPosition])) {
             throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
@@ -90,18 +79,16 @@ final class TokenFinder
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return \PhpCsFixer\Tokenizer\Token
      */
-    private function findPreviousTokenByToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $positionToken)
+    private function findPreviousTokenByToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $positionToken) : \PhpCsFixer\Tokenizer\Token
     {
         $position = $this->resolvePositionByToken($tokens, $positionToken);
         return $this->findPreviousTokenByPosition($tokens, $position - 1);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return int
      */
-    private function resolvePositionByToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $positionToken)
+    private function resolvePositionByToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $positionToken) : int
     {
         foreach ($tokens as $position => $token) {
             if ($token === $positionToken) {

@@ -29,10 +29,7 @@ final class TerminateEvent extends \ECSPrefix20210517\Symfony\Component\HttpKern
         parent::__construct($kernel, $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST);
         $this->response = $response;
     }
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function getResponse()
+    public function getResponse() : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response
     {
         return $this->response;
     }

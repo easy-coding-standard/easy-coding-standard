@@ -24,11 +24,9 @@ final class InputBag extends \ECSPrefix20210517\Symfony\Component\HttpFoundation
      * @param string|null $default The default value if the input key does not exist
      *
      * @return string|null
-     * @param string $key
      */
-    public function get($key, $default = null)
+    public function get(string $key, $default = null)
     {
-        $key = (string) $key;
         if (null !== $default && !\is_scalar($default) && !(\is_object($default) && \method_exists($default, '__toString'))) {
             trigger_deprecation('symfony/http-foundation', '5.1', 'Passing a non-string value as 2nd argument to "%s()" is deprecated, pass a string or null instead.', __METHOD__);
         }
@@ -41,9 +39,8 @@ final class InputBag extends \ECSPrefix20210517\Symfony\Component\HttpFoundation
     /**
      * {@inheritdoc}
      * @param string|null $key
-     * @return mixed[]
      */
-    public function all($key = null)
+    public function all($key = null) : array
     {
         return parent::all($key);
     }
@@ -68,11 +65,9 @@ final class InputBag extends \ECSPrefix20210517\Symfony\Component\HttpFoundation
      * Sets an input by name.
      *
      * @param string|array|null $value
-     * @param string $key
      */
-    public function set($key, $value)
+    public function set(string $key, $value)
     {
-        $key = (string) $key;
         if (null !== $value && !\is_scalar($value) && !\is_array($value) && !\method_exists($value, '__toString')) {
             trigger_deprecation('symfony/http-foundation', '5.1', 'Passing "%s" as a 2nd Argument to "%s()" is deprecated, pass a string, array, or null instead.', \get_debug_type($value), __METHOD__);
         }
@@ -80,25 +75,21 @@ final class InputBag extends \ECSPrefix20210517\Symfony\Component\HttpFoundation
     }
     /**
      * {@inheritdoc}
-     * @param string $key
-     * @param int $filter
      */
-    public function filter($key, $default = null, $filter = \FILTER_DEFAULT, $options = [])
+    public function filter(string $key, $default = null, int $filter = \FILTER_DEFAULT, $options = [])
     {
-        $key = (string) $key;
-        $filter = (int) $filter;
         $value = $this->has($key) ? $this->all()[$key] : $default;
         // Always turn $options into an array - this allows filter_var option shortcuts.
         if (!\is_array($options) && $options) {
             $options = ['flags' => $options];
         }
-        if (\is_array($value) && !((isset($options['flags']) ? $options['flags'] : 0) & (\FILTER_REQUIRE_ARRAY | \FILTER_FORCE_ARRAY))) {
+        if (\is_array($value) && !(($options['flags'] ?? 0) & (\FILTER_REQUIRE_ARRAY | \FILTER_FORCE_ARRAY))) {
             trigger_deprecation('symfony/http-foundation', '5.1', 'Filtering an array value with "%s()" without passing the FILTER_REQUIRE_ARRAY or FILTER_FORCE_ARRAY flag is deprecated', __METHOD__);
             if (!isset($options['flags'])) {
                 $options['flags'] = \FILTER_REQUIRE_ARRAY;
             }
         }
-        if (\FILTER_CALLBACK & $filter && !(isset($options['options']) ? $options['options'] : null) instanceof \Closure) {
+        if (\FILTER_CALLBACK & $filter && !($options['options'] ?? null) instanceof \Closure) {
             trigger_deprecation('symfony/http-foundation', '5.2', 'Not passing a Closure together with FILTER_CALLBACK to "%s()" is deprecated. Wrap your filter in a closure instead.', __METHOD__);
             // throw new \InvalidArgumentException(sprintf('A Closure must be passed to "%s()" when FILTER_CALLBACK is used, "%s" given.', __METHOD__, get_debug_type($options['options'] ?? null)));
         }

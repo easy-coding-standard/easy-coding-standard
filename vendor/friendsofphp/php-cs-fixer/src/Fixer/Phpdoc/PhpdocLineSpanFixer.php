@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -33,9 +34,8 @@ final class PhpdocLineSpanFixer extends \PhpCsFixer\AbstractFixer implements \Ph
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Changes doc blocks from single to multi line, or reversed. Works for class constants, properties and methods only.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nclass Foo{\n    /** @var bool */\n    public \$var;\n}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nclass Foo{\n    /**\n    * @var bool\n    */\n    public \$var;\n}\n", ['property' => 'single'])]);
     }
@@ -44,25 +44,22 @@ final class PhpdocLineSpanFixer extends \PhpCsFixer\AbstractFixer implements \Ph
      *
      * Must run before PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, GeneralPhpdocAnnotationRemoveFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('const', 'Whether const blocks should be single or multi line'))->setAllowedValues(['single', 'multi'])->setDefault('multi')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('property', 'Whether property doc blocks should be single or multi line'))->setAllowedValues(['single', 'multi'])->setDefault('multi')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('method', 'Whether method doc blocks should be single or multi line'))->setAllowedValues(['single', 'multi'])->setDefault('multi')->getOption()]);
     }
@@ -88,21 +85,12 @@ final class PhpdocLineSpanFixer extends \PhpCsFixer\AbstractFixer implements \Ph
             $tokens->offsetSet($docIndex, new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]));
         }
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function hasDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function hasDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         $docBlockIndex = $this->getDocBlockIndex($tokens, $index);
         return $tokens[$docBlockIndex]->isGivenKind(\T_DOC_COMMENT);
     }
-    /**
-     * @param int $index
-     * @return int
-     */
-    private function getDocBlockIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function getDocBlockIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
         do {
             $index = $tokens->getPrevNonWhitespace($index);

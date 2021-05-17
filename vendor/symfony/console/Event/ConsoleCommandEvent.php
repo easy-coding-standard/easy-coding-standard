@@ -27,24 +27,19 @@ final class ConsoleCommandEvent extends \ECSPrefix20210517\Symfony\Component\Con
     private $commandShouldRun = \true;
     /**
      * Disables the command, so it won't be run.
-     * @return bool
      */
-    public function disableCommand()
+    public function disableCommand() : bool
     {
         return $this->commandShouldRun = \false;
     }
-    /**
-     * @return bool
-     */
-    public function enableCommand()
+    public function enableCommand() : bool
     {
         return $this->commandShouldRun = \true;
     }
     /**
      * Returns true if the command is runnable, false otherwise.
-     * @return bool
      */
-    public function commandShouldRun()
+    public function commandShouldRun() : bool
     {
         return $this->commandShouldRun;
     }

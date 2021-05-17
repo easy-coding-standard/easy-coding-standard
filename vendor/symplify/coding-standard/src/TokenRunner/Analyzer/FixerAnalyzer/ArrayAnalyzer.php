@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer;
 
 use PhpCsFixer\Tokenizer\CT;
@@ -18,9 +19,8 @@ final class ArrayAnalyzer
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return int
      */
-    public function getItemCount(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    public function getItemCount(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : int
     {
         $nextMeanninfulPosition = $tokens->getNextMeaningfulToken($blockInfo->getStart());
         if ($nextMeanninfulPosition === null) {
@@ -42,9 +42,8 @@ final class ArrayAnalyzer
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isIndexedList(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    public function isIndexedList(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
     {
         $isIndexedList = \false;
         $this->traverseArrayWithoutNesting($tokens, $blockInfo, function (\PhpCsFixer\Tokenizer\Token $token) use(&$isIndexedList) {
@@ -67,10 +66,7 @@ final class ArrayAnalyzer
             $callable($token, $i, $tokens);
         }
     }
-    /**
-     * @return bool
-     */
-    private function isArrayCloser(\PhpCsFixer\Tokenizer\Token $token)
+    private function isArrayCloser(\PhpCsFixer\Tokenizer\Token $token) : bool
     {
         if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
             return \true;

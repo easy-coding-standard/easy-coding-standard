@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Reporter;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
@@ -18,11 +19,9 @@ final class CheckerListReporter
     /**
      * @param FixerInterface[]|Sniff[] $checkers
      * @return void
-     * @param string $type
      */
-    public function report(array $checkers, $type)
+    public function report(array $checkers, string $type)
     {
-        $type = (string) $type;
         if ($checkers === []) {
             return;
         }

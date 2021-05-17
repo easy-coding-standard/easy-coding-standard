@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -33,9 +34,8 @@ final class PhpdocReturnSelfReferenceFixer extends \PhpCsFixer\AbstractFixer imp
     private static $toTypes = ['$this', 'static', 'self'];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('The type of `@return` annotations of methods returning a reference to itself must the configured one.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Sample
@@ -79,9 +79,8 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \count($tokens) > 10 && $tokens->isTokenKindFound(\T_DOC_COMMENT) && $tokens->isAnyTokenKindsFound([\T_CLASS, \T_INTERFACE]);
     }
@@ -90,9 +89,8 @@ class Sample
      *
      * Must run before NoSuperfluousPhpdocTagsFixer, PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 10;
     }
@@ -111,9 +109,8 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $default = ['this' => '$this', '@this' => '$this', '$self' => 'self', '@self' => 'self', '$static' => 'static', '@static' => 'static'];
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('replacements', 'Mapping between replaced return types with new ones.'))->setAllowedTypes(['array'])->setNormalizer(static function (\ECSPrefix20210517\Symfony\Component\OptionsResolver\Options $options, $value) use($default) {
@@ -135,9 +132,8 @@ class Sample
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
         static $methodModifiers = [\T_STATIC, \T_FINAL, \T_ABSTRACT, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC];
         // find PHPDoc of method (if any)

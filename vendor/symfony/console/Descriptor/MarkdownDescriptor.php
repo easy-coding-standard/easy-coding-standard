@@ -38,13 +38,9 @@ class MarkdownDescriptor extends \ECSPrefix20210517\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
-     * @param string $content
-     * @param bool $decorated
      */
-    protected function write($content, $decorated = \true)
+    protected function write(string $content, bool $decorated = \true)
     {
-        $content = (string) $content;
-        $decorated = (bool) $decorated;
         parent::write($content, $decorated);
     }
     /**
@@ -116,7 +112,7 @@ class MarkdownDescriptor extends \ECSPrefix20210517\Symfony\Component\Console\De
      */
     protected function describeApplication(\ECSPrefix20210517\Symfony\Component\Console\Application $application, array $options = [])
     {
-        $describedNamespace = isset($options['namespace']) ? $options['namespace'] : null;
+        $describedNamespace = $options['namespace'] ?? null;
         $description = new \ECSPrefix20210517\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);
         $title = $this->getApplicationTitle($application);
         $this->write($title . "\n" . \str_repeat('=', \ECSPrefix20210517\Symfony\Component\Console\Helper\Helper::strlen($title)));
@@ -137,10 +133,7 @@ class MarkdownDescriptor extends \ECSPrefix20210517\Symfony\Component\Console\De
             }
         }
     }
-    /**
-     * @return string
-     */
-    private function getApplicationTitle(\ECSPrefix20210517\Symfony\Component\Console\Application $application)
+    private function getApplicationTitle(\ECSPrefix20210517\Symfony\Component\Console\Application $application) : string
     {
         if ('UNKNOWN' !== $application->getName()) {
             if ('UNKNOWN' !== $application->getVersion()) {

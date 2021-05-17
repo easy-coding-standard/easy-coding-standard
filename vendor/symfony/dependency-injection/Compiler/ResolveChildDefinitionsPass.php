@@ -26,12 +26,8 @@ use ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceCir
 class ResolveChildDefinitionsPass extends \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $currentPath;
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if (!$value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);
         }
@@ -53,9 +49,8 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210517\Symfony\Component\D
      * Resolves the definition.
      *
      * @throws RuntimeException When the definition is invalid
-     * @return \Symfony\Component\DependencyInjection\Definition
      */
-    private function resolveDefinition(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ChildDefinition $definition)
+    private function resolveDefinition(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ChildDefinition $definition) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition
     {
         try {
             return $this->doResolveDefinition($definition);
@@ -68,10 +63,7 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210517\Symfony\Component\D
             throw $e;
         }
     }
-    /**
-     * @return \Symfony\Component\DependencyInjection\Definition
-     */
-    private function doResolveDefinition(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ChildDefinition $definition)
+    private function doResolveDefinition(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ChildDefinition $definition) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition
     {
         if (!$this->container->has($parent = $definition->getParent())) {
             throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Parent definition "%s" does not exist.', $parent));
@@ -150,7 +142,7 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210517\Symfony\Component\D
             if (null === $decoratedService) {
                 $def->setDecoratedService($decoratedService);
             } else {
-                $def->setDecoratedService($decoratedService[0], $decoratedService[1], $decoratedService[2], isset($decoratedService[3]) ? $decoratedService[3] : \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
+                $def->setDecoratedService($decoratedService[0], $decoratedService[1], $decoratedService[2], $decoratedService[3] ?? \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
             }
         }
         // merge arguments

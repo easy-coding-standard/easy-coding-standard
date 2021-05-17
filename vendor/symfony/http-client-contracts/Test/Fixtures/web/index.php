@@ -9,7 +9,7 @@ if ('cli-server' !== \PHP_SAPI) {
 $vars = [];
 if (!$_POST) {
     $_POST = \json_decode(\file_get_contents('php://input'), \true);
-    $_POST['content-type'] = isset($_SERVER['HTTP_CONTENT_TYPE']) ? $_SERVER['HTTP_CONTENT_TYPE'] : '?';
+    $_POST['content-type'] = $_SERVER['HTTP_CONTENT_TYPE'] ?? '?';
 }
 foreach ($_SERVER as $k => $v) {
     switch ($k) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SmartFileSystem;
 
 /**
@@ -9,9 +10,9 @@ final class FileSystemFilter
 {
     /**
      * @param string[] $filesAndDirectories
-     * @return mixed[]
+     * @return string[]
      */
-    public function filterDirectories(array $filesAndDirectories)
+    public function filterDirectories(array $filesAndDirectories) : array
     {
         $directories = \array_filter($filesAndDirectories, function (string $path) : bool {
             return !\is_file($path);
@@ -20,9 +21,9 @@ final class FileSystemFilter
     }
     /**
      * @param string[] $filesAndDirectories
-     * @return mixed[]
+     * @return string[]
      */
-    public function filterFiles(array $filesAndDirectories)
+    public function filterFiles(array $filesAndDirectories) : array
     {
         $files = \array_filter($filesAndDirectories, function (string $path) : bool {
             return \is_file($path);

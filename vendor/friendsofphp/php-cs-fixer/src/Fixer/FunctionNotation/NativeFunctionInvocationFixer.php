@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -64,9 +65,8 @@ final class NativeFunctionInvocationFixer extends \PhpCsFixer\AbstractFixer impl
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Add leading `\\` before function invocation to speed up resolving.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
@@ -121,25 +121,22 @@ $c = get_class($d);
      *
      * Must run before GlobalNamespaceImportFixer.
      * Must run after BacktickToShellExecFixer, StrictParamFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 1;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -162,9 +159,8 @@ $c = get_class($d);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('exclude', 'List of functions to ignore.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) {
             foreach ($value as $functionName) {
@@ -188,15 +184,9 @@ $c = get_class($d);
     }
     /**
      * @return void
-     * @param int $start
-     * @param int $end
-     * @param bool $tryToRemove
      */
-    private function fixFunctionCalls(\PhpCsFixer\Tokenizer\Tokens $tokens, callable $functionFilter, $start, $end, $tryToRemove)
+    private function fixFunctionCalls(\PhpCsFixer\Tokenizer\Tokens $tokens, callable $functionFilter, int $start, int $end, bool $tryToRemove)
     {
-        $start = (int) $start;
-        $end = (int) $end;
-        $tryToRemove = (bool) $tryToRemove;
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $tokensToInsert = [];
         for ($index = $start; $index < $end; ++$index) {
@@ -221,10 +211,7 @@ $c = get_class($d);
         }
         $tokens->insertSlices($tokensToInsert);
     }
-    /**
-     * @return callable
-     */
-    private function getFunctionFilter()
+    private function getFunctionFilter() : callable
     {
         $exclude = $this->normalizeFunctionNames($this->configuration['exclude']);
         if (\in_array(self::SET_ALL, $this->configuration['include'], \true)) {

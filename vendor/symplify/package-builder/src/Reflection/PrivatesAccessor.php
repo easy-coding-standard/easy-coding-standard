@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Reflection;
 
 use ReflectionProperty;
@@ -12,11 +13,9 @@ final class PrivatesAccessor
     /**
      * @return mixed
      * @param object $object
-     * @param string $propertyName
      */
-    public function getPrivateProperty($object, $propertyName)
+    public function getPrivateProperty($object, string $propertyName)
     {
-        $propertyName = (string) $propertyName;
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);
         return $propertyReflection->getValue($object);
@@ -24,23 +23,18 @@ final class PrivatesAccessor
     /**
      * @param object $object
      * @return void
-     * @param string $propertyName
      */
-    public function setPrivateProperty($object, $propertyName, $value)
+    public function setPrivateProperty($object, string $propertyName, $value)
     {
-        $propertyName = (string) $propertyName;
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);
         $propertyReflection->setValue($object, $value);
     }
     /**
      * @param object $object
-     * @param string $propertyName
-     * @return \ReflectionProperty
      */
-    private function resolvePropertyReflection($object, $propertyName)
+    private function resolvePropertyReflection($object, string $propertyName) : \ReflectionProperty
     {
-        $propertyName = (string) $propertyName;
         if (\property_exists($object, $propertyName)) {
             return new \ReflectionProperty($object, $propertyName);
         }

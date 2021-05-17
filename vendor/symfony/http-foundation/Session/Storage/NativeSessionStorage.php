@@ -151,11 +151,9 @@ class NativeSessionStorage implements \ECSPrefix20210517\Symfony\Component\HttpF
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    public function setId($id)
+    public function setId(string $id)
     {
-        $id = (string) $id;
         $this->saveHandler->setId($id);
     }
     /**
@@ -167,21 +165,16 @@ class NativeSessionStorage implements \ECSPrefix20210517\Symfony\Component\HttpF
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
-        $name = (string) $name;
         $this->saveHandler->setName($name);
     }
     /**
      * {@inheritdoc}
-     * @param bool $destroy
-     * @param int $lifetime
      */
-    public function regenerate($destroy = \false, $lifetime = null)
+    public function regenerate(bool $destroy = \false, int $lifetime = null)
     {
-        $destroy = (bool) $destroy;
         // Cannot regenerate the session ID for non-active sessions.
         if (\PHP_SESSION_ACTIVE !== \session_status()) {
             return \false;
@@ -267,11 +260,9 @@ class NativeSessionStorage implements \ECSPrefix20210517\Symfony\Component\HttpF
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getBag($name)
+    public function getBag(string $name)
     {
-        $name = (string) $name;
         if (!isset($this->bags[$name])) {
             throw new \InvalidArgumentException(\sprintf('The SessionBagInterface "%s" is not registered.', $name));
         }

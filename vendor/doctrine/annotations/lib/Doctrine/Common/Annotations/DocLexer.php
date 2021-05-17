@@ -42,9 +42,8 @@ final class DocLexer extends \ECSPrefix20210517\Doctrine\Common\Lexer\AbstractLe
     /**
      * Whether the next token starts immediately, or if there were
      * non-captured symbols before that
-     * @return bool
      */
-    public function nextTokenIsAdjacent()
+    public function nextTokenIsAdjacent() : bool
     {
         return $this->token === null || $this->lookahead !== null && $this->lookahead['position'] - $this->token['position'] === \strlen($this->token['value']);
     }

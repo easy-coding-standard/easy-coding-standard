@@ -1,16 +1,14 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
 use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
 interface FileProcessorInterface
 {
+    public function processFile(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string;
     /**
-     * @return string
+     * @return object[]
      */
-    public function processFile(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo);
-    /**
-     * @return mixed[]
-     */
-    public function getCheckers();
+    public function getCheckers() : array;
 }

@@ -25,5 +25,5 @@ interface SelfCheckingResourceInterface extends \ECSPrefix20210517\Symfony\Compo
      *
      * @return bool True if the resource has not been updated, false otherwise
      */
-    public function isFresh($timestamp);
+    public function isFresh(int $timestamp);
 }

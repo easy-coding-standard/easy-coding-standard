@@ -20,15 +20,14 @@ if (!\function_exists('mb_convert_encoding')) {
      */
     function mb_convert_encoding($string, $to_encoding, $from_encoding = null)
     {
-        return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_convert_encoding(isset($string) ? $string : '', (string) $to_encoding, $from_encoding);
+        return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_convert_encoding($string ?? '', (string) $to_encoding, $from_encoding);
     }
 }
 if (!\function_exists('mb_decode_mimeheader')) {
     /**
      * @param string|null $string
-     * @return string
      */
-    function mb_decode_mimeheader($string)
+    function mb_decode_mimeheader($string) : string
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_decode_mimeheader((string) $string);
     }
@@ -40,9 +39,8 @@ if (!\function_exists('mb_encode_mimeheader')) {
      * @param string|null $transfer_encoding
      * @param string|null $newline
      * @param int|null $indent
-     * @return string
      */
-    function mb_encode_mimeheader($string, $charset = null, $transfer_encoding = null, $newline = "\r\n", $indent = 0)
+    function mb_encode_mimeheader($string, $charset = null, $transfer_encoding = null, $newline = "\r\n", $indent = 0) : string
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_encode_mimeheader((string) $string, $charset, $transfer_encoding, (string) $newline, (int) $indent);
     }
@@ -51,9 +49,8 @@ if (!\function_exists('mb_decode_numericentity')) {
     /**
      * @param string|null $string
      * @param string|null $encoding
-     * @return string
      */
-    function mb_decode_numericentity($string, array $map, $encoding = null)
+    function mb_decode_numericentity($string, array $map, $encoding = null) : string
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_decode_numericentity((string) $string, $map, $encoding);
     }
@@ -63,9 +60,8 @@ if (!\function_exists('mb_encode_numericentity')) {
      * @param string|null $string
      * @param string|null $encoding
      * @param bool|null $hex
-     * @return string
      */
-    function mb_encode_numericentity($string, array $map, $encoding = null, $hex = \false)
+    function mb_encode_numericentity($string, array $map, $encoding = null, $hex = \false) : string
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_encode_numericentity((string) $string, $map, $encoding, (bool) $hex);
     }
@@ -75,9 +71,8 @@ if (!\function_exists('mb_convert_case')) {
      * @param string|null $string
      * @param int|null $mode
      * @param string|null $encoding
-     * @return string
      */
-    function mb_convert_case($string, $mode, $encoding = null)
+    function mb_convert_case($string, $mode, $encoding = null) : string
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_convert_case((string) $string, (int) $mode, $encoding);
     }
@@ -103,10 +98,7 @@ if (!\function_exists('mb_language')) {
     }
 }
 if (!\function_exists('mb_list_encodings')) {
-    /**
-     * @return mixed[]
-     */
-    function mb_list_encodings()
+    function mb_list_encodings() : array
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_list_encodings();
     }
@@ -114,9 +106,8 @@ if (!\function_exists('mb_list_encodings')) {
 if (!\function_exists('mb_encoding_aliases')) {
     /**
      * @param string|null $encoding
-     * @return mixed[]
      */
-    function mb_encoding_aliases($encoding)
+    function mb_encoding_aliases($encoding) : array
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_encoding_aliases((string) $encoding);
     }
@@ -125,9 +116,8 @@ if (!\function_exists('mb_check_encoding')) {
     /**
      * @param mixed[]|string|null $value
      * @param string|null $encoding
-     * @return bool
      */
-    function mb_check_encoding($value = null, $encoding = null)
+    function mb_check_encoding($value = null, $encoding = null) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_check_encoding($value, $encoding);
     }
@@ -157,9 +147,8 @@ if (!\function_exists('mb_detect_order')) {
 if (!\function_exists('mb_parse_str')) {
     /**
      * @param string|null $string
-     * @return bool
      */
-    function mb_parse_str($string, &$result = [])
+    function mb_parse_str($string, &$result = []) : bool
     {
         \parse_str((string) $string, $result);
     }
@@ -168,9 +157,8 @@ if (!\function_exists('mb_strlen')) {
     /**
      * @param string|null $string
      * @param string|null $encoding
-     * @return int
      */
-    function mb_strlen($string, $encoding = null)
+    function mb_strlen($string, $encoding = null) : int
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_strlen((string) $string, $encoding);
     }
@@ -192,9 +180,8 @@ if (!\function_exists('mb_strtolower')) {
     /**
      * @param string|null $string
      * @param string|null $encoding
-     * @return string
      */
-    function mb_strtolower($string, $encoding = null)
+    function mb_strtolower($string, $encoding = null) : string
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_strtolower((string) $string, $encoding);
     }
@@ -203,9 +190,8 @@ if (!\function_exists('mb_strtoupper')) {
     /**
      * @param string|null $string
      * @param string|null $encoding
-     * @return string
      */
-    function mb_strtoupper($string, $encoding = null)
+    function mb_strtoupper($string, $encoding = null) : string
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_strtoupper((string) $string, $encoding);
     }
@@ -226,9 +212,8 @@ if (!\function_exists('mb_substr')) {
      * @param int|null $start
      * @param int|null $length
      * @param string|null $encoding
-     * @return string
      */
-    function mb_substr($string, $start, $length = null, $encoding = null)
+    function mb_substr($string, $start, $length = null, $encoding = null) : string
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_substr((string) $string, (int) $start, $length, $encoding);
     }
@@ -348,9 +333,8 @@ if (!\function_exists('mb_strwidth')) {
     /**
      * @param string|null $string
      * @param string|null $encoding
-     * @return int
      */
-    function mb_strwidth($string, $encoding = null)
+    function mb_strwidth($string, $encoding = null) : int
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_strwidth((string) $string, $encoding);
     }
@@ -360,9 +344,8 @@ if (!\function_exists('mb_substr_count')) {
      * @param string|null $haystack
      * @param string|null $needle
      * @param string|null $encoding
-     * @return int
      */
-    function mb_substr_count($haystack, $needle, $encoding = null)
+    function mb_substr_count($haystack, $needle, $encoding = null) : int
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_substr_count((string) $haystack, (string) $needle, $encoding);
     }
@@ -371,9 +354,8 @@ if (!\function_exists('mb_output_handler')) {
     /**
      * @param string|null $string
      * @param int|null $status
-     * @return string
      */
-    function mb_output_handler($string, $status)
+    function mb_output_handler($string, $status) : string
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_output_handler((string) $string, (int) $status);
     }
@@ -398,7 +380,7 @@ if (!\function_exists('mb_convert_variables')) {
      */
     function mb_convert_variables($to_encoding, $from_encoding, &$var, &...$vars)
     {
-        return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_convert_variables((string) $to_encoding, isset($from_encoding) ? $from_encoding : '', $var, ...$vars);
+        return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_convert_variables((string) $to_encoding, $from_encoding ?? '', $var, ...$vars);
     }
 }
 if (!\function_exists('mb_ord')) {
@@ -427,11 +409,10 @@ if (!\function_exists('mb_scrub')) {
     /**
      * @param string|null $string
      * @param string|null $encoding
-     * @return string
      */
-    function mb_scrub($string, $encoding = null)
+    function mb_scrub($string, $encoding = null) : string
     {
-        $encoding = isset($encoding) ? $encoding : \mb_internal_encoding();
+        $encoding = $encoding ?? \mb_internal_encoding();
         return \mb_convert_encoding((string) $string, $encoding, $encoding);
     }
 }
@@ -440,9 +421,8 @@ if (!\function_exists('mb_str_split')) {
      * @param string|null $string
      * @param int|null $length
      * @param string|null $encoding
-     * @return mixed[]
      */
-    function mb_str_split($string, $length = 1, $encoding = null)
+    function mb_str_split($string, $length = 1, $encoding = null) : array
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Mbstring\Mbstring::mb_str_split((string) $string, (int) $length, $encoding);
     }

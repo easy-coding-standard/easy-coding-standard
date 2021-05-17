@@ -57,9 +57,8 @@ class EnvPlaceholderParameterBag extends \ECSPrefix20210517\Symfony\Component\De
     }
     /**
      * Gets the common env placeholder prefix for env vars created by this bag.
-     * @return string
      */
-    public function getEnvPlaceholderUniquePrefix()
+    public function getEnvPlaceholderUniquePrefix() : string
     {
         if (null === $this->envPlaceholderUniquePrefix) {
             $reproducibleEntropy = \unserialize(\serialize($this->parameters));
@@ -79,10 +78,7 @@ class EnvPlaceholderParameterBag extends \ECSPrefix20210517\Symfony\Component\De
     {
         return $this->envPlaceholders;
     }
-    /**
-     * @return mixed[]
-     */
-    public function getUnusedEnvPlaceholders()
+    public function getUnusedEnvPlaceholders() : array
     {
         return $this->unusedEnvPlaceholders;
     }

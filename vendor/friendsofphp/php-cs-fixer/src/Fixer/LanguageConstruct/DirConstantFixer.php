@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -24,17 +25,15 @@ final class DirConstantFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces `dirname(__FILE__)` expression with equivalent `__DIR__` constant.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = dirname(__FILE__);\n")], null, 'Risky when the function `dirname` is overridden.');
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_FILE);
     }
@@ -42,9 +41,8 @@ final class DirConstantFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
      * {@inheritdoc}
      *
      * Must run before CombineNestedDirnameFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 40;
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Finder;
 
 use ECSPrefix20210517\Symfony\Component\Finder\Finder;
@@ -33,12 +34,10 @@ final class SourceFinder
     }
     /**
      * @param string[] $source
-     * @return mixed[]
-     * @param bool $doesMatchGitDiff
+     * @return SmartFileInfo[]
      */
-    public function find(array $source, $doesMatchGitDiff = \false)
+    public function find(array $source, bool $doesMatchGitDiff = \false) : array
     {
-        $doesMatchGitDiff = (bool) $doesMatchGitDiff;
         $fileInfos = [];
         foreach ($source as $singleSource) {
             if (\is_file($singleSource)) {
@@ -53,21 +52,19 @@ final class SourceFinder
         return $fileInfos;
     }
     /**
-     * @return mixed[]
-     * @param string $directory
+     * @return SmartFileInfo[]
      */
-    private function processDirectory($directory)
+    private function processDirectory(string $directory) : array
     {
-        $directory = (string) $directory;
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
         $finder = \ECSPrefix20210517\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
         return $this->finderSanitizer->sanitize($finder);
     }
     /**
      * @param string[] $fileExtensions
-     * @return mixed[]
+     * @return string[]
      */
-    private function normalizeFileExtensions(array $fileExtensions)
+    private function normalizeFileExtensions(array $fileExtensions) : array
     {
         $normalizedFileExtensions = [];
         foreach ($fileExtensions as $fileExtension) {
@@ -77,12 +74,10 @@ final class SourceFinder
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @return mixed[]
-     * @param bool $doesMatchGitDiff
+     * @return SmartFileInfo[]
      */
-    private function filterOutGitDiffFiles(array $fileInfos, $doesMatchGitDiff)
+    private function filterOutGitDiffFiles(array $fileInfos, bool $doesMatchGitDiff) : array
     {
-        $doesMatchGitDiff = (bool) $doesMatchGitDiff;
         if (!$doesMatchGitDiff) {
             return $fileInfos;
         }

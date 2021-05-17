@@ -37,9 +37,8 @@ class Stub
     private static $defaultProperties = [];
     /**
      * @internal
-     * @return mixed[]
      */
-    public function __sleep()
+    public function __sleep() : array
     {
         $properties = [];
         if (!isset(self::$defaultProperties[$c = static::class])) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\ComposerJsonManipulator;
 
 use ECSPrefix20210517\Nette\Utils\Json;
@@ -20,51 +21,34 @@ final class ComposerJsonFactory
     {
         $this->jsonFileManager = $jsonFileManager;
     }
-    /**
-     * @param string $jsonString
-     * @return \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
-     */
-    public function createFromString($jsonString)
+    public function createFromString(string $jsonString) : \ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
-        $jsonString = (string) $jsonString;
         $jsonArray = \ECSPrefix20210517\Nette\Utils\Json::decode($jsonString, \ECSPrefix20210517\Nette\Utils\Json::FORCE_ARRAY);
         return $this->createFromArray($jsonArray);
     }
-    /**
-     * @return \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
-     */
-    public function createFromFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function createFromFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         $jsonArray = $this->jsonFileManager->loadFromFilePath($smartFileInfo->getRealPath());
         $composerJson = $this->createFromArray($jsonArray);
         $composerJson->setOriginalFileInfo($smartFileInfo);
         return $composerJson;
     }
-    /**
-     * @param string $filePath
-     * @return \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
-     */
-    public function createFromFilePath($filePath)
+    public function createFromFilePath(string $filePath) : \ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
-        $filePath = (string) $filePath;
         $jsonArray = $this->jsonFileManager->loadFromFilePath($filePath);
         $composerJson = $this->createFromArray($jsonArray);
         $fileInfo = new \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo($filePath);
         $composerJson->setOriginalFileInfo($fileInfo);
         return $composerJson;
     }
-    /**
-     * @return \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
-     */
-    public function createEmpty()
+    public function createEmpty() : \ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         return new \ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
     }
     /**
      * @param mixed[] $jsonArray
-     * @return \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
      */
-    public function createFromArray(array $jsonArray)
+    public function createFromArray(array $jsonArray) : \ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         $composerJson = new \ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         if (isset($jsonArray[\ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG])) {

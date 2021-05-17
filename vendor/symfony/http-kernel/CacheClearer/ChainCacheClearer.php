@@ -29,11 +29,9 @@ class ChainCacheClearer implements \ECSPrefix20210517\Symfony\Component\HttpKern
     }
     /**
      * {@inheritdoc}
-     * @param string $cacheDir
      */
-    public function clear($cacheDir)
+    public function clear(string $cacheDir)
     {
-        $cacheDir = (string) $cacheDir;
         foreach ($this->clearers as $clearer) {
             $clearer->clear($cacheDir);
         }

@@ -24,15 +24,12 @@ class Logger extends \ECSPrefix20210517\Psr\Log\AbstractLogger
     private $minLevelIndex;
     private $formatter;
     private $handle;
-    /**
-     * @param string $minLevel
-     */
-    public function __construct($minLevel = null, $output = null, callable $formatter = null)
+    public function __construct(string $minLevel = null, $output = null, callable $formatter = null)
     {
         if (null === $minLevel) {
             $minLevel = null === $output || 'php://stdout' === $output || 'php://stderr' === $output ? \ECSPrefix20210517\Psr\Log\LogLevel::ERROR : \ECSPrefix20210517\Psr\Log\LogLevel::WARNING;
             if (isset($_ENV['SHELL_VERBOSITY']) || isset($_SERVER['SHELL_VERBOSITY'])) {
-                switch ((int) (isset($_ENV['SHELL_VERBOSITY']) ? $_ENV['SHELL_VERBOSITY'] : $_SERVER['SHELL_VERBOSITY'])) {
+                switch ((int) ($_ENV['SHELL_VERBOSITY'] ?? $_SERVER['SHELL_VERBOSITY'])) {
                     case -1:
                         $minLevel = \ECSPrefix20210517\Psr\Log\LogLevel::ERROR;
                         break;
@@ -77,17 +74,8 @@ class Logger extends \ECSPrefix20210517\Psr\Log\AbstractLogger
             \error_log($formatter($level, $message, $context, \false));
         }
     }
-    /**
-     * @param string $level
-     * @param string $message
-     * @param bool $prefixDate
-     * @return string
-     */
-    private function format($level, $message, array $context, $prefixDate = \true)
+    private function format(string $level, string $message, array $context, bool $prefixDate = \true) : string
     {
-        $level = (string) $level;
-        $message = (string) $message;
-        $prefixDate = (bool) $prefixDate;
         if (\false !== \strpos($message, '{')) {
             $replacements = [];
             foreach ($context as $key => $val) {

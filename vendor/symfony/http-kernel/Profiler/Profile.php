@@ -36,20 +36,12 @@ class Profile
      * @var Profile[]
      */
     private $children = [];
-    /**
-     * @param string $token
-     */
-    public function __construct($token)
+    public function __construct(string $token)
     {
-        $token = (string) $token;
         $this->token = $token;
     }
-    /**
-     * @param string $token
-     */
-    public function setToken($token)
+    public function setToken(string $token)
     {
-        $token = (string) $token;
         $this->token = $token;
     }
     /**
@@ -112,12 +104,8 @@ class Profile
     {
         return $this->method;
     }
-    /**
-     * @param string $method
-     */
-    public function setMethod($method)
+    public function setMethod(string $method)
     {
-        $method = (string) $method;
         $this->method = $method;
     }
     /**
@@ -146,20 +134,12 @@ class Profile
         }
         return $this->time;
     }
-    /**
-     * @param int $time
-     */
-    public function setTime($time)
+    public function setTime(int $time)
     {
-        $time = (int) $time;
         $this->time = $time;
     }
-    /**
-     * @param int $statusCode
-     */
-    public function setStatusCode($statusCode)
+    public function setStatusCode(int $statusCode)
     {
-        $statusCode = (int) $statusCode;
         $this->statusCode = $statusCode;
     }
     /**
@@ -201,11 +181,9 @@ class Profile
     }
     /**
      * @return $this|null
-     * @param string $token
      */
-    public function getChildByToken($token)
+    public function getChildByToken(string $token)
     {
-        $token = (string) $token;
         foreach ($this->children as $child) {
             if ($token === $child->getToken()) {
                 return $child;
@@ -219,11 +197,9 @@ class Profile
      * @return DataCollectorInterface A DataCollectorInterface instance
      *
      * @throws \InvalidArgumentException if the collector does not exist
-     * @param string $name
      */
-    public function getCollector($name)
+    public function getCollector(string $name)
     {
-        $name = (string) $name;
         if (!isset($this->collectors[$name])) {
             throw new \InvalidArgumentException(\sprintf('Collector "%s" does not exist.', $name));
         }
@@ -259,11 +235,9 @@ class Profile
     }
     /**
      * @return bool
-     * @param string $name
      */
-    public function hasCollector($name)
+    public function hasCollector(string $name)
     {
-        $name = (string) $name;
         return isset($this->collectors[$name]);
     }
     /**

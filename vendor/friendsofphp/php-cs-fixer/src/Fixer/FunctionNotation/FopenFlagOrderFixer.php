@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,21 +26,16 @@ final class FopenFlagOrderFixer extends \PhpCsFixer\AbstractFopenFlagFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Order the flags in `fopen` calls, `b` and `t` must be last.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = fopen(\$foo, 'br+');\n")], null, 'Risky when the function `fopen` is overridden.');
     }
     /**
      * @return void
-     * @param int $argumentStartIndex
-     * @param int $argumentEndIndex
      */
-    protected function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStartIndex, $argumentEndIndex)
+    protected function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex)
     {
-        $argumentStartIndex = (int) $argumentStartIndex;
-        $argumentEndIndex = (int) $argumentEndIndex;
         $argumentFlagIndex = null;
         for ($i = $argumentStartIndex; $i <= $argumentEndIndex; ++$i) {
             if ($tokens[$i]->isGivenKind([\T_WHITESPACE, \T_COMMENT, \T_DOC_COMMENT])) {
@@ -84,9 +80,9 @@ final class FopenFlagOrderFixer extends \PhpCsFixer\AbstractFopenFlagFixer
     /**
      * @param string[] $flags
      *
-     * @return mixed[]
+     * @return string[]
      */
-    private function sortFlags(array $flags)
+    private function sortFlags(array $flags) : array
     {
         \usort($flags, static function (string $flag1, string $flag2) {
             if ($flag1 === $flag2) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use ECSPrefix20210517\Nette\Caching\Cache;
@@ -33,11 +34,9 @@ final class ChangedFilesDetector
     /**
      * For tests
      * @return void
-     * @param string $configurationFile
      */
-    public function changeConfigurationFile($configurationFile)
+    public function changeConfigurationFile(string $configurationFile)
     {
-        $configurationFile = (string) $configurationFile;
         $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($configurationFile));
     }
     /**
@@ -57,10 +56,7 @@ final class ChangedFilesDetector
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $this->cache->remove($cacheKey);
     }
-    /**
-     * @return bool
-     */
-    public function hasFileInfoChanged(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function hasFileInfoChanged(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
@@ -93,28 +89,21 @@ final class ChangedFilesDetector
     }
     /**
      * @return void
-     * @param string $configurationHash
      */
-    private function storeConfigurationDataHash($configurationHash)
+    private function storeConfigurationDataHash(string $configurationHash)
     {
-        $configurationHash = (string) $configurationHash;
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
         $this->cache->save(self::CONFIGURATION_HASH_KEY, $configurationHash);
     }
-    /**
-     * @return string
-     */
-    private function fileInfoToKey(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    private function fileInfoToKey(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         return \sha1($smartFileInfo->getRelativeFilePathFromCwd());
     }
     /**
      * @return void
-     * @param string $configurationHash
      */
-    private function invalidateCacheIfConfigurationChanged($configurationHash)
+    private function invalidateCacheIfConfigurationChanged(string $configurationHash)
     {
-        $configurationHash = (string) $configurationHash;
         $cachedValue = $this->cache->load(self::CONFIGURATION_HASH_KEY);
         if ($configurationHash === $cachedValue) {
             return;

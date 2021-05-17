@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\AutowireArrayParameter\Skipper;
 
 use ReflectionMethod;
@@ -30,10 +31,7 @@ final class ParameterSkipper
         $this->parameterTypeResolver = $parameterTypeResolver;
         $this->excludedFatalClasses = \array_merge(self::DEFAULT_EXCLUDED_FATAL_CLASSES, $excludedFatalClasses);
     }
-    /**
-     * @return bool
-     */
-    public function shouldSkipParameter(\ReflectionMethod $reflectionMethod, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, \ReflectionParameter $reflectionParameter)
+    public function shouldSkipParameter(\ReflectionMethod $reflectionMethod, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, \ReflectionParameter $reflectionParameter) : bool
     {
         if (!$this->isArrayType($reflectionParameter)) {
             return \true;
@@ -59,10 +57,7 @@ final class ParameterSkipper
         }
         return \is_a($definition->getClass(), $parameterType, \true);
     }
-    /**
-     * @return bool
-     */
-    private function isArrayType(\ReflectionParameter $reflectionParameter)
+    private function isArrayType(\ReflectionParameter $reflectionParameter) : bool
     {
         if ($reflectionParameter->getType() === null) {
             return \false;

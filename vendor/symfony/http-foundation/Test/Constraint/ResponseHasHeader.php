@@ -15,19 +15,14 @@ use ECSPrefix20210517\Symfony\Component\HttpFoundation\Response;
 final class ResponseHasHeader extends \ECSPrefix20210517\PHPUnit\Framework\Constraint\Constraint
 {
     private $headerName;
-    /**
-     * @param string $headerName
-     */
-    public function __construct($headerName)
+    public function __construct(string $headerName)
     {
-        $headerName = (string) $headerName;
         $this->headerName = $headerName;
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function toString()
+    public function toString() : string
     {
         return \sprintf('has header "%s"', $this->headerName);
     }
@@ -35,9 +30,8 @@ final class ResponseHasHeader extends \ECSPrefix20210517\PHPUnit\Framework\Const
      * @param Response $response
      *
      * {@inheritdoc}
-     * @return bool
      */
-    protected function matches($response)
+    protected function matches($response) : bool
     {
         return $response->headers->has($this->headerName);
     }
@@ -45,9 +39,8 @@ final class ResponseHasHeader extends \ECSPrefix20210517\PHPUnit\Framework\Const
      * @param Response $response
      *
      * {@inheritdoc}
-     * @return string
      */
-    protected function failureDescription($response)
+    protected function failureDescription($response) : string
     {
         return 'the Response ' . $this->toString();
     }

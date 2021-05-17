@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Parameter;
 
 use ECSPrefix20210517\Symfony\Component\DependencyInjection\Container;
@@ -22,93 +23,71 @@ final class ParameterProvider
         $parameterBag = $container->getParameterBag();
         $this->parameters = $parameterBag->all();
     }
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function hasParameter($name)
+    public function hasParameter(string $name) : bool
     {
-        $name = (string) $name;
         return isset($this->parameters[$name]);
     }
     /**
      * @api
      * @return mixed|null
-     * @param string $name
      */
-    public function provideParameter($name)
+    public function provideParameter(string $name)
     {
-        $name = (string) $name;
-        return isset($this->parameters[$name]) ? $this->parameters[$name] : null;
+        return $this->parameters[$name] ?? null;
     }
     /**
      * @api
-     * @param string $name
-     * @return string
      */
-    public function provideStringParameter($name)
+    public function provideStringParameter(string $name) : string
     {
-        $name = (string) $name;
         $this->ensureParameterIsSet($name);
         return (string) $this->parameters[$name];
     }
     /**
      * @api
      * @return mixed[]
-     * @param string $name
      */
-    public function provideArrayParameter($name)
+    public function provideArrayParameter(string $name) : array
     {
-        $name = (string) $name;
         $this->ensureParameterIsSet($name);
         return $this->parameters[$name];
     }
     /**
      * @api
-     * @param string $parameterName
-     * @return bool
      */
-    public function provideBoolParameter($parameterName)
+    public function provideBoolParameter(string $parameterName) : bool
     {
-        $parameterName = (string) $parameterName;
-        return isset($this->parameters[$parameterName]) ? $this->parameters[$parameterName] : \false;
+        return $this->parameters[$parameterName] ?? \false;
     }
     /**
      * @return void
-     * @param string $name
      */
-    public function changeParameter($name, $value)
+    public function changeParameter(string $name, $value)
     {
-        $name = (string) $name;
         $this->parameters[$name] = $value;
     }
     /**
      * @api
      * @return mixed[]
      */
-    public function provide()
+    public function provide() : array
     {
         return $this->parameters;
     }
     /**
      * @api
-     * @param string $name
-     * @return int
      */
-    public function provideIntParameter($name)
+    public function provideIntParameter(string $name) : int
     {
-        $name = (string) $name;
         $this->ensureParameterIsSet($name);
         return (int) $this->parameters[$name];
     }
     /**
      * @api
      * @return void
-     * @param string $name
      */
-    public function ensureParameterIsSet($name)
+    public function ensureParameterIsSet(string $name)
     {
-        $name = (string) $name;
         if (\array_key_exists($name, $this->parameters)) {
             return;
         }

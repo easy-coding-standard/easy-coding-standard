@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FixerRunner\Parser;
 
 use PhpCsFixer\Tokenizer\Tokens;
@@ -14,13 +15,8 @@ final class FileToTokensParser
     {
         $this->smartFileSystem = $smartFileSystem;
     }
-    /**
-     * @param string $filePath
-     * @return \PhpCsFixer\Tokenizer\Tokens
-     */
-    public function parseFromFilePath($filePath)
+    public function parseFromFilePath(string $filePath) : \PhpCsFixer\Tokenizer\Tokens
     {
-        $filePath = (string) $filePath;
         $fileContent = $this->smartFileSystem->readFile($filePath);
         return \PhpCsFixer\Tokenizer\Tokens::fromCode($fileContent);
     }

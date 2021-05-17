@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,9 +27,8 @@ final class LowercaseStaticReferenceFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Class static references `self`, `static` and `parent` MUST be in lower case.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Foo extends Bar
@@ -58,10 +58,7 @@ class Foo extends Bar
 }
 ', new \PhpCsFixer\FixerDefinition\VersionSpecification(70100))]);
     }
-    /**
-     * @return bool
-     */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_STATIC, \T_STRING]);
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Command;
 
 use ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface;
@@ -27,10 +28,7 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
         $this->setDescription('Format Heredoc/Nowdoc PHP snippets in PHP files');
         parent::configure();
     }
-    /**
-     * @return int
-     */
-    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         if (!$this->loadedCheckersGuard->areSomeCheckerRegistered()) {
             $this->loadedCheckersGuard->report();

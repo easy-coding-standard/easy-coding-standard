@@ -53,12 +53,8 @@ class MockArraySessionStorage implements \ECSPrefix20210517\Symfony\Component\Ht
      * @var array|SessionBagInterface[]
      */
     protected $bags = [];
-    /**
-     * @param string $name
-     */
-    public function __construct($name = 'MOCKSESSID', \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
+    public function __construct(string $name = 'MOCKSESSID', \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
     {
-        $name = (string) $name;
         $this->name = $name;
         $this->setMetadataBag($metaBag);
     }
@@ -82,12 +78,9 @@ class MockArraySessionStorage implements \ECSPrefix20210517\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
-     * @param bool $destroy
-     * @param int $lifetime
      */
-    public function regenerate($destroy = \false, $lifetime = null)
+    public function regenerate(bool $destroy = \false, int $lifetime = null)
     {
-        $destroy = (bool) $destroy;
         if (!$this->started) {
             $this->start();
         }
@@ -104,11 +97,9 @@ class MockArraySessionStorage implements \ECSPrefix20210517\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    public function setId($id)
+    public function setId(string $id)
     {
-        $id = (string) $id;
         if ($this->started) {
             throw new \LogicException('Cannot set session ID after the session has started.');
         }
@@ -123,11 +114,9 @@ class MockArraySessionStorage implements \ECSPrefix20210517\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
-        $name = (string) $name;
         $this->name = $name;
     }
     /**
@@ -165,11 +154,9 @@ class MockArraySessionStorage implements \ECSPrefix20210517\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getBag($name)
+    public function getBag(string $name)
     {
-        $name = (string) $name;
         if (!isset($this->bags[$name])) {
             throw new \InvalidArgumentException(\sprintf('The SessionBagInterface "%s" is not registered.', $name));
         }
@@ -218,7 +205,7 @@ class MockArraySessionStorage implements \ECSPrefix20210517\Symfony\Component\Ht
         $bags = \array_merge($this->bags, [$this->metadataBag]);
         foreach ($bags as $bag) {
             $key = $bag->getStorageKey();
-            $this->data[$key] = isset($this->data[$key]) ? $this->data[$key] : [];
+            $this->data[$key] = $this->data[$key] ?? [];
             $bag->initialize($this->data[$key]);
         }
         $this->started = \true;

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -27,9 +28,8 @@ final class PhpdocSummaryFixer extends \PhpCsFixer\AbstractFixer implements \Php
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPDoc summary should end in either a full stop, exclamation mark, or question mark.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
@@ -43,17 +43,15 @@ function foo () {}
      *
      * Must run before PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -81,12 +79,9 @@ function foo () {}
     }
     /**
      * Is the last line of the short description correctly formatted?
-     * @param string $content
-     * @return bool
      */
-    private function isCorrectlyFormatted($content)
+    private function isCorrectlyFormatted(string $content) : bool
     {
-        $content = (string) $content;
         if (\false !== \stripos($content, '{@inheritdoc}')) {
             return \true;
         }

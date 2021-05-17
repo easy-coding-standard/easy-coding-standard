@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Spacing;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -38,18 +39,14 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
         $this->blockFinder = $blockFinder;
         $this->tokensNewliner = $tokensNewliner;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE]);
     }
@@ -73,10 +70,7 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
             $this->processFunction($tokens, $position);
         }
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class PromotedProperties
@@ -101,11 +95,9 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param int $position
      */
-    private function processFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function processFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
     {
-        $position = (int) $position;
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
             return;
@@ -115,11 +107,9 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return string|null
-     * @param int $position
      */
-    private function getFunctionName(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function getFunctionName(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
     {
-        $position = (int) $position;
         $nextToken = $this->getNextMeaningfulToken($tokens, $position);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return null;

@@ -18,14 +18,8 @@ namespace ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception;
  */
 class InvalidParameterTypeException extends \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
 {
-    /**
-     * @param string $serviceId
-     * @param string $type
-     */
-    public function __construct($serviceId, $type, \ReflectionParameter $parameter)
+    public function __construct(string $serviceId, string $type, \ReflectionParameter $parameter)
     {
-        $serviceId = (string) $serviceId;
-        $type = (string) $type;
         $acceptedType = $parameter->getType();
         $acceptedType = $acceptedType instanceof \ReflectionNamedType ? $acceptedType->getName() : (string) $acceptedType;
         $this->code = $type;

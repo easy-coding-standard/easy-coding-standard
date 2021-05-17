@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 use ECSPrefix20210517\Nette;
@@ -12,14 +17,9 @@ final class Random
     /**
      * Generates a random string of given length from characters specified in second argument.
      * Supports intervals, such as `0-9` or `A-Z`.
-     * @param int $length
-     * @param string $charlist
-     * @return string
      */
-    public static function generate($length = 10, $charlist = '0-9a-z')
+    public static function generate(int $length = 10, string $charlist = '0-9a-z') : string
     {
-        $length = (int) $length;
-        $charlist = (string) $charlist;
         $charlist = \count_chars(\preg_replace_callback('#.-.#', function (array $m) : string {
             return \implode('', \range($m[0][0], $m[0][2]));
         }, $charlist), 3);

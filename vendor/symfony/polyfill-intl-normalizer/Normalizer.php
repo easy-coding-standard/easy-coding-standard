@@ -36,14 +36,8 @@ class Normalizer
     private static $cC;
     private static $ulenMask = ["À" => 2, "Ð" => 2, "à" => 3, "ð" => 4];
     private static $ASCII = " eiasntrolud][cmp'\ng|hv.fb,:=-q10C2*yx)(L9AS/P\"EjMIk3>5T<D4}B{8FwR67UGN;JzV#HOW_&!K?XQ%Y\\\tZ+~^\$@`\0\1\2\3\4\5\6\7\10\v\f\r\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37";
-    /**
-     * @param string $s
-     * @param int $form
-     */
-    public static function isNormalized($s, $form = self::FORM_C)
+    public static function isNormalized(string $s, int $form = self::FORM_C)
     {
-        $s = (string) $s;
-        $form = (int) $form;
         if (!\in_array($form, [self::NFD, self::NFKD, self::NFC, self::NFKC])) {
             return \false;
         }
@@ -55,14 +49,8 @@ class Normalizer
         }
         return self::normalize($s, $form) === $s;
     }
-    /**
-     * @param string $s
-     * @param int $form
-     */
-    public static function normalize($s, $form = self::FORM_C)
+    public static function normalize(string $s, int $form = self::FORM_C)
     {
-        $s = (string) $s;
-        $form = (int) $form;
         if (!\preg_match('//u', $s)) {
             return \false;
         }
@@ -149,7 +137,7 @@ class Normalizer
             $uchr = \substr($s, $i, $ulen);
             if ($lastUchr < "á„€" || "á„’" < $lastUchr || $uchr < "á…¡" || "á…µ" < $uchr || $lastUcls) {
                 // Table lookup and combining chars composition
-                $ucls = isset($combClass[$uchr]) ? $combClass[$uchr] : 0;
+                $ucls = $combClass[$uchr] ?? 0;
                 if (isset($compMap[$lastUchr . $uchr]) && (!$lastUcls || $lastUcls < $ucls)) {
                     $lastUchr = $compMap[$lastUchr . $uchr];
                 } elseif ($lastUcls = $ucls) {
@@ -211,7 +199,7 @@ class Normalizer
             $i += $ulen;
             if ($uchr < "ê°€" || "íž£" < $uchr) {
                 // Table lookup
-                if ($uchr !== ($j = isset($compatMap[$uchr]) ? $compatMap[$uchr] : (isset($decompMap[$uchr]) ? $decompMap[$uchr] : $uchr))) {
+                if ($uchr !== ($j = $compatMap[$uchr] ?? $decompMap[$uchr] ?? $uchr)) {
                     $uchr = $j;
                     $j = \strlen($uchr);
                     $ulen = $uchr[0] < "€" ? 1 : $ulenMask[$uchr[0] & "ð"];

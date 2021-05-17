@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Provider;
 
 use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;

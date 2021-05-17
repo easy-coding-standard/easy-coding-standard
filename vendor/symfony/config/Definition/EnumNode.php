@@ -21,11 +21,9 @@ class EnumNode extends \ECSPrefix20210517\Symfony\Component\Config\Definition\Sc
     private $values;
     /**
      * @param string|null $name
-     * @param string $pathSeparator
      */
-    public function __construct($name, \ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $parent = null, array $values = [], $pathSeparator = \ECSPrefix20210517\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
+    public function __construct($name, \ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $parent = null, array $values = [], string $pathSeparator = \ECSPrefix20210517\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
     {
-        $pathSeparator = (string) $pathSeparator;
         $values = \array_unique($values);
         if (empty($values)) {
             throw new \InvalidArgumentException('$values must contain at least one element.');
@@ -49,9 +47,8 @@ class EnumNode extends \ECSPrefix20210517\Symfony\Component\Config\Definition\Sc
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    protected function allowPlaceholders()
+    protected function allowPlaceholders() : bool
     {
         return \false;
     }

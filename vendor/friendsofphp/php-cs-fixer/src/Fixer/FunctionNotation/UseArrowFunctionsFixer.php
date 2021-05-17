@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -27,9 +28,8 @@ final class UseArrowFunctionsFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Anonymous functions with one-liner return statement must use arrow functions.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
@@ -45,17 +45,15 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= 70400 && $tokens->isAllTokenKindsFound([\T_FUNCTION, \T_RETURN]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -133,15 +131,8 @@ SAMPLE
             $this->transform($tokens, $index, $useStart, $useEnd, $braceOpen, $return, $semicolon, $braceClose);
         }
     }
-    /**
-     * @param int $start
-     * @param int $end
-     * @return bool
-     */
-    private function isMultilined(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
+    private function isMultilined(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : bool
     {
-        $start = (int) $start;
-        $end = (int) $end;
         for ($i = $start; $i < $end; ++$i) {
             if (\false !== \strpos($tokens[$i]->getContent(), "\n")) {
                 return \true;
@@ -153,19 +144,9 @@ SAMPLE
      * @param int|null $useStart
      * @param int|null $useEnd
      * @return void
-     * @param int $index
-     * @param int $braceOpen
-     * @param int $return
-     * @param int $semicolon
-     * @param int $braceClose
      */
-    private function transform(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $useStart, $useEnd, $braceOpen, $return, $semicolon, $braceClose)
+    private function transform(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, $useStart, $useEnd, int $braceOpen, int $return, int $semicolon, int $braceClose)
     {
-        $index = (int) $index;
-        $braceOpen = (int) $braceOpen;
-        $return = (int) $return;
-        $semicolon = (int) $semicolon;
-        $braceClose = (int) $braceClose;
         $tokens->clearRange($semicolon, $braceClose);
         $tokens->clearRange($braceOpen + 1, $return);
         $tokens[$braceOpen] = new \PhpCsFixer\Tokenizer\Token([\T_DOUBLE_ARROW, '=>']);

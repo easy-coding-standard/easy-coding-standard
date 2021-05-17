@@ -91,19 +91,15 @@ abstract class Extension implements \ECSPrefix20210517\Symfony\Component\Depende
         }
         return null;
     }
-    /**
-     * @return mixed[]
-     */
-    protected final function processConfiguration(\ECSPrefix20210517\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, array $configs)
+    protected final function processConfiguration(\ECSPrefix20210517\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, array $configs) : array
     {
         $processor = new \ECSPrefix20210517\Symfony\Component\Config\Definition\Processor();
         return $this->processedConfigs[] = $processor->processConfiguration($configuration, $configs);
     }
     /**
      * @internal
-     * @return mixed[]
      */
-    public final function getProcessedConfigs()
+    public final function getProcessedConfigs() : array
     {
         try {
             return $this->processedConfigs;

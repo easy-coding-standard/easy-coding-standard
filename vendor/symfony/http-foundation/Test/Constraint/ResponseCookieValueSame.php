@@ -19,17 +19,8 @@ final class ResponseCookieValueSame extends \ECSPrefix20210517\PHPUnit\Framework
     private $value;
     private $path;
     private $domain;
-    /**
-     * @param string $name
-     * @param string $value
-     * @param string $path
-     * @param string $domain
-     */
-    public function __construct($name, $value, $path = '/', $domain = null)
+    public function __construct(string $name, string $value, string $path = '/', string $domain = null)
     {
-        $name = (string) $name;
-        $value = (string) $value;
-        $path = (string) $path;
         $this->name = $name;
         $this->value = $value;
         $this->path = $path;
@@ -37,9 +28,8 @@ final class ResponseCookieValueSame extends \ECSPrefix20210517\PHPUnit\Framework
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function toString()
+    public function toString() : string
     {
         $str = \sprintf('has cookie "%s"', $this->name);
         if ('/' !== $this->path) {
@@ -55,9 +45,8 @@ final class ResponseCookieValueSame extends \ECSPrefix20210517\PHPUnit\Framework
      * @param Response $response
      *
      * {@inheritdoc}
-     * @return bool
      */
-    protected function matches($response)
+    protected function matches($response) : bool
     {
         $cookie = $this->getCookie($response);
         if (!$cookie) {
@@ -69,9 +58,8 @@ final class ResponseCookieValueSame extends \ECSPrefix20210517\PHPUnit\Framework
      * @param Response $response
      *
      * {@inheritdoc}
-     * @return string
      */
-    protected function failureDescription($response)
+    protected function failureDescription($response) : string
     {
         return 'the Response ' . $this->toString();
     }

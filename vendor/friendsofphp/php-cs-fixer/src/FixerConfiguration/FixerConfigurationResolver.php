@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -38,17 +39,15 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getOptions()
+    public function getOptions() : array
     {
         return $this->options;
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function resolve(array $options)
+    public function resolve(array $options) : array
     {
         $resolver = new \ECSPrefix20210517\Symfony\Component\OptionsResolver\OptionsResolver();
         foreach ($this->options as $option) {

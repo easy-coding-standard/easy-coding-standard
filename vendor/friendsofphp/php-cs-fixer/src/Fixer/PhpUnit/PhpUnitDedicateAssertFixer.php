@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -57,17 +58,15 @@ final class PhpUnitDedicateAssertFixer extends \PhpCsFixer\Fixer\AbstractPhpUnit
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPUnit assertions like `assertInternalType`, `assertFileExists`, should be used over `assertTrue`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
@@ -95,22 +94,17 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      *
      * Must run before PhpUnitDedicateAssertInternalTypeFixer.
      * Must run after NoAliasFunctionsFixer, PhpUnitConstructFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -15;
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         foreach ($this->getPreviousAssertCall($tokens, $startIndex, $endIndex) as $assertCall) {
             // test and fix for assertTrue/False to dedicated asserts
             if ('asserttrue' === $assertCall['loweredName'] || 'assertfalse' === $assertCall['loweredName']) {
@@ -125,9 +119,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_0, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_5, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_0, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
     }
@@ -232,13 +225,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * @return mixed[]
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function getPreviousAssertCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function getPreviousAssertCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = $endIndex; $index > $startIndex; --$index) {
             $index = $tokens->getPrevTokenOfKind($index, [[\T_STRING]]);
@@ -264,15 +253,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * @param false|int $callNSIndex
      * @return void
-     * @param int $callIndex
-     * @param int $openIndex
-     * @param int $closeIndex
      */
-    private function removeFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $callNSIndex, $callIndex, $openIndex, $closeIndex)
+    private function removeFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $callNSIndex, int $callIndex, int $openIndex, int $closeIndex)
     {
-        $callIndex = (int) $callIndex;
-        $openIndex = (int) $openIndex;
-        $closeIndex = (int) $closeIndex;
         $tokens->clearTokenAndMergeSurroundingWhitespace($callIndex);
         if (\false !== $callNSIndex) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($callNSIndex);

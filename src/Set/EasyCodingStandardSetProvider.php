@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Set;
 
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
@@ -16,16 +17,16 @@ final class EasyCodingStandardSetProvider extends \ECSPrefix20210517\Symplify\Se
         $this->sets = $constantReflectionSetFactory->createSetsFromClass(\Symplify\EasyCodingStandard\ValueObject\Set\SetList::class);
     }
     /**
-     * @return mixed[]
+     * @return Set[]
      */
-    public function provide()
+    public function provide() : array
     {
         return $this->sets;
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    public function provideSetNames()
+    public function provideSetNames() : array
     {
         $setNames = [];
         foreach ($this->sets as $set) {

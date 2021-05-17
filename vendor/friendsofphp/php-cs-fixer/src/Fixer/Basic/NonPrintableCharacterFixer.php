@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -52,33 +53,29 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Remove Zero-width space (ZWSP), Non-breaking space (NBSP) and other invisible unicode symbols.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n"), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70000), ['use_escape_sequences_in_strings' => \false])], null, 'Risky when strings contain intended invisible characters.');
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound(self::$tokens);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use_escape_sequences_in_strings', 'Whether characters should be replaced with escape sequences in strings.'))->setAllowedTypes(['bool'])->setDefault(\true)->setNormalizer(static function (\ECSPrefix20210517\Symfony\Component\OptionsResolver\Options $options, $value) {
             if (\PHP_VERSION_ID < 70000 && $value) {

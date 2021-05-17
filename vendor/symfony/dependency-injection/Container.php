@@ -132,8 +132,9 @@ class Container implements \ECSPrefix20210517\Symfony\Component\DependencyInject
      *
      * Setting a synthetic service to null resets it: has() returns false and get()
      * behaves in the same way as if the service was never created.
+     * @param object|null $service
      */
-    public function set(string $id, ?object $service)
+    public function set(string $id, $service)
     {
         // Runs the internal initializer; used by the dumped container to include always-needed files
         if (isset($this->privates['service_container']) && $this->privates['service_container'] instanceof \Closure) {
@@ -198,7 +199,7 @@ class Container implements \ECSPrefix20210517\Symfony\Component\DependencyInject
      *
      * @see Reference
      */
-    public function get($id, int $invalidBehavior = 1)
+    public function get($id, $invalidBehavior = 1)
     {
         return $this->services[$id] ?? $this->services[$id = $this->aliases[$id] ?? $id] ?? ('service_container' === $id ? $this : ($this->factories[$id] ?? [$this, 'make'])($id, $invalidBehavior));
     }
@@ -378,8 +379,9 @@ class Container implements \ECSPrefix20210517\Symfony\Component\DependencyInject
      * @return mixed
      *
      * @internal
+     * @param string|null $method
      */
-    protected final function getService($registry, string $id, ?string $method, $load)
+    protected final function getService($registry, string $id, $method, $load)
     {
         if ('service_container' === $id) {
             return $this;

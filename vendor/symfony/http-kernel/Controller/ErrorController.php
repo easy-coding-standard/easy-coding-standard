@@ -32,21 +32,13 @@ class ErrorController
         $this->controller = $controller;
         $this->errorRenderer = $errorRenderer;
     }
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function __invoke(\Throwable $exception)
+    public function __invoke(\Throwable $exception) : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response
     {
         $exception = $this->errorRenderer->render($exception);
         return new \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response($exception->getAsString(), $exception->getStatusCode(), $exception->getHeaders());
     }
-    /**
-     * @param int $code
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function preview(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $code)
+    public function preview(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, int $code) : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response
     {
-        $code = (int) $code;
         /*
          * This Request mimics the parameters set by
          * \Symfony\Component\HttpKernel\EventListener\ErrorListener::duplicateRequest, with

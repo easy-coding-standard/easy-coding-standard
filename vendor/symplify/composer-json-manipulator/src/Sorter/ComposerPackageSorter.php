@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\ComposerJsonManipulator\Sorter;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -26,28 +27,17 @@ final class ComposerPackageSorter
      * @link https://getcomposer.org/doc/02-libraries.md#platform-packages
      *
      * @param array<string, string> $packages
-     * @return mixed[]
+     * @return array<string, string>
      */
-    public function sortPackages(array $packages = [])
+    public function sortPackages(array $packages = []) : array
     {
         \uksort($packages, function (string $firstPackageName, string $secondPackageName) : int {
-            $battleShipcompare = function ($left, $right) {
-                if ($left === $right) {
-                    return 0;
-                }
-                return $left < $right ? -1 : 1;
-            };
-            return $battleShipcompare($this->createNameWithPriority($firstPackageName), $this->createNameWithPriority($secondPackageName));
+            return $this->createNameWithPriority($firstPackageName) <=> $this->createNameWithPriority($secondPackageName);
         });
         return $packages;
     }
-    /**
-     * @param string $requirementName
-     * @return string
-     */
-    private function createNameWithPriority($requirementName)
+    private function createNameWithPriority(string $requirementName) : string
     {
-        $requirementName = (string) $requirementName;
         if ($this->isPlatformPackage($requirementName)) {
             return \ECSPrefix20210517\Nette\Utils\Strings::replace($requirementName, self::REQUIREMENT_TYPE_REGEX, function (array $match) : string {
                 $name = $match['name'];
@@ -68,13 +58,8 @@ final class ComposerPackageSorter
         }
         return '4-' . $requirementName;
     }
-    /**
-     * @param string $name
-     * @return bool
-     */
-    private function isPlatformPackage($name)
+    private function isPlatformPackage(string $name) : bool
     {
-        $name = (string) $name;
         return (bool) \ECSPrefix20210517\Nette\Utils\Strings::match($name, self::PLATFORM_PACKAGE_REGEX);
     }
 }

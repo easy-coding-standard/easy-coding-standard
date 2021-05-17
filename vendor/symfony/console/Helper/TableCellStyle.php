@@ -30,10 +30,7 @@ class TableCellStyle
         }
         $this->options = \array_merge($this->options, $options);
     }
-    /**
-     * @return mixed[]
-     */
-    public function getOptions()
+    public function getOptions() : array
     {
         return $this->options;
     }

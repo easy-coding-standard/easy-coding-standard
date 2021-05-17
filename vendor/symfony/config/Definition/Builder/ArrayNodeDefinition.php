@@ -61,11 +61,9 @@ class ArrayNodeDefinition extends \ECSPrefix20210517\Symfony\Component\Config\De
      * Sets a prototype for child nodes.
      *
      * @return NodeDefinition
-     * @param string $type
      */
-    public function prototype($type)
+    public function prototype(string $type)
     {
-        $type = (string) $type;
         return $this->prototype = $this->getNodeBuilder()->node(null, $type)->setParent($this);
     }
     /**
@@ -173,13 +171,12 @@ class ArrayNodeDefinition extends \ECSPrefix20210517\Symfony\Component\Config\De
      * Sets a normalization rule for XML configurations.
      *
      * @param string      $singular The key to remap
-     * @param string $plural The plural of the key for irregular plurals
+     * @param string|null $plural   The plural of the key for irregular plurals
      *
      * @return $this
      */
-    public function fixXmlConfig($singular, $plural = null)
+    public function fixXmlConfig(string $singular, string $plural = null)
     {
-        $singular = (string) $singular;
         $this->normalization()->remap($singular, $plural);
         return $this;
     }
@@ -211,10 +208,8 @@ class ArrayNodeDefinition extends \ECSPrefix20210517\Symfony\Component\Config\De
      *
      * @return $this
      */
-    public function useAttributeAsKey($name, $removeKeyItem = \true)
+    public function useAttributeAsKey(string $name, bool $removeKeyItem = \true)
     {
-        $name = (string) $name;
-        $removeKeyItem = (bool) $removeKeyItem;
         $this->key = $name;
         $this->removeKeyItem = $removeKeyItem;
         return $this;
@@ -223,11 +218,9 @@ class ArrayNodeDefinition extends \ECSPrefix20210517\Symfony\Component\Config\De
      * Sets whether the node can be unset.
      *
      * @return $this
-     * @param bool $allow
      */
-    public function canBeUnset($allow = \true)
+    public function canBeUnset(bool $allow = \true)
     {
-        $allow = (bool) $allow;
         $this->merge()->allowUnset($allow);
         return $this;
     }
@@ -249,7 +242,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210517\Symfony\Component\Config\De
     public function canBeEnabled()
     {
         $this->addDefaultsIfNotSet()->treatFalseLike(['enabled' => \false])->treatTrueLike(['enabled' => \true])->treatNullLike(['enabled' => \true])->beforeNormalization()->ifArray()->then(function ($v) {
-            $v['enabled'] = isset($v['enabled']) ? $v['enabled'] : \true;
+            $v['enabled'] = $v['enabled'] ?? \true;
             return $v;
         })->end()->children()->booleanNode('enabled')->defaultFalse();
         return $this;
@@ -289,9 +282,8 @@ class ArrayNodeDefinition extends \ECSPrefix20210517\Symfony\Component\Config\De
      *
      * @return $this
      */
-    public function ignoreExtraKeys($remove = \true)
+    public function ignoreExtraKeys(bool $remove = \true)
     {
-        $remove = (bool) $remove;
         $this->ignoreExtraKeys = \true;
         $this->removeExtraKeys = $remove;
         return $this;
@@ -300,11 +292,9 @@ class ArrayNodeDefinition extends \ECSPrefix20210517\Symfony\Component\Config\De
      * Sets whether to enable key normalization.
      *
      * @return $this
-     * @param bool $bool
      */
-    public function normalizeKeys($bool)
+    public function normalizeKeys(bool $bool)
     {
-        $bool = (bool) $bool;
         $this->normalizeKeys = $bool;
         return $this;
     }
@@ -447,13 +437,11 @@ class ArrayNodeDefinition extends \ECSPrefix20210517\Symfony\Component\Config\De
      * Finds a node defined by the given $nodePath.
      *
      * @param string $nodePath The path of the node to find. e.g "doctrine.orm.mappings"
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
-    public function find($nodePath)
+    public function find(string $nodePath) : \ECSPrefix20210517\Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
-        $nodePath = (string) $nodePath;
         $firstPathSegment = \false === ($pathSeparatorPos = \strpos($nodePath, $this->pathSeparator)) ? $nodePath : \substr($nodePath, 0, $pathSeparatorPos);
-        if (null === ($node = isset($this->children[$firstPathSegment]) ? $this->children[$firstPathSegment] : null)) {
+        if (null === ($node = $this->children[$firstPathSegment] ?? null)) {
             throw new \RuntimeException(\sprintf('Node with name "%s" does not exist in the current node "%s".', $firstPathSegment, $this->name));
         }
         if (\false === $pathSeparatorPos) {

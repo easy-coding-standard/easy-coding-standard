@@ -225,11 +225,9 @@ class InputDefinition
      * @return InputOption A InputOption object
      *
      * @throws InvalidArgumentException When option given doesn't exist
-     * @param string $name
      */
-    public function getOption($name)
+    public function getOption(string $name)
     {
-        $name = (string) $name;
         if (!$this->hasOption($name)) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $name));
         }
@@ -242,11 +240,9 @@ class InputDefinition
      * executing the command (use getOption() instead).
      *
      * @return bool true if the InputOption object exists, false otherwise
-     * @param string $name
      */
-    public function hasOption($name)
+    public function hasOption(string $name)
     {
-        $name = (string) $name;
         return isset($this->options[$name]);
     }
     /**
@@ -262,22 +258,18 @@ class InputDefinition
      * Returns true if an InputOption object exists by shortcut.
      *
      * @return bool true if the InputOption object exists, false otherwise
-     * @param string $name
      */
-    public function hasShortcut($name)
+    public function hasShortcut(string $name)
     {
-        $name = (string) $name;
         return isset($this->shortcuts[$name]);
     }
     /**
      * Gets an InputOption by shortcut.
      *
      * @return InputOption An InputOption object
-     * @param string $shortcut
      */
-    public function getOptionForShortcut($shortcut)
+    public function getOptionForShortcut(string $shortcut)
     {
-        $shortcut = (string) $shortcut;
         return $this->getOption($this->shortcutToName($shortcut));
     }
     /**
@@ -299,12 +291,9 @@ class InputDefinition
      * @throws InvalidArgumentException When option given does not exist
      *
      * @internal
-     * @param string $shortcut
-     * @return string
      */
-    public function shortcutToName($shortcut)
+    public function shortcutToName(string $shortcut) : string
     {
-        $shortcut = (string) $shortcut;
         if (!isset($this->shortcuts[$shortcut])) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "-%s" option does not exist.', $shortcut));
         }
@@ -314,11 +303,9 @@ class InputDefinition
      * Gets the synopsis.
      *
      * @return string The synopsis
-     * @param bool $short
      */
-    public function getSynopsis($short = \false)
+    public function getSynopsis(bool $short = \false)
     {
-        $short = (bool) $short;
         $elements = [];
         if ($short && $this->getOptions()) {
             $elements[] = '[options]';

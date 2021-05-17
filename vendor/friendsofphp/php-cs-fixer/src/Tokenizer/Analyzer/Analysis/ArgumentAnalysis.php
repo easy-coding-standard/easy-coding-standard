@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -43,13 +44,9 @@ final class ArgumentAnalysis
     /**
      * @param string|null $default
      * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis|null $typeAnalysis
-     * @param string $name
-     * @param int $nameIndex
      */
-    public function __construct($name, $nameIndex, $default, $typeAnalysis = null)
+    public function __construct(string $name, int $nameIndex, $default, $typeAnalysis = null)
     {
-        $name = (string) $name;
-        $nameIndex = (int) $nameIndex;
         $this->name = $name;
         $this->nameIndex = $nameIndex;
         $this->default = $default ?: null;
@@ -62,24 +59,15 @@ final class ArgumentAnalysis
     {
         return $this->default;
     }
-    /**
-     * @return bool
-     */
-    public function hasDefault()
+    public function hasDefault() : bool
     {
         return null !== $this->default;
     }
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
-    /**
-     * @return int
-     */
-    public function getNameIndex()
+    public function getNameIndex() : int
     {
         return $this->nameIndex;
     }
@@ -90,10 +78,7 @@ final class ArgumentAnalysis
     {
         return $this->typeAnalysis;
     }
-    /**
-     * @return bool
-     */
-    public function hasTypeAnalysis()
+    public function hasTypeAnalysis() : bool
     {
         return null !== $this->typeAnalysis;
     }

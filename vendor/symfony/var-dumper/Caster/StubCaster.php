@@ -20,12 +20,8 @@ use ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class StubCaster
 {
-    /**
-     * @param bool $isNested
-     */
-    public static function castStub(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castStub(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         if ($isNested) {
             $stub->type = $c->type;
             $stub->class = $c->class;
@@ -41,32 +37,20 @@ class StubCaster
         }
         return $a;
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function castCutArray(\ECSPrefix20210517\Symfony\Component\VarDumper\Caster\CutArrayStub $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castCutArray(\ECSPrefix20210517\Symfony\Component\VarDumper\Caster\CutArrayStub $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         return $isNested ? $c->preservedSubset : $a;
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function cutInternals($obj, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function cutInternals($obj, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         if ($isNested) {
             $stub->cut += \count($a);
             return [];
         }
         return $a;
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function castEnum(\ECSPrefix20210517\Symfony\Component\VarDumper\Caster\EnumStub $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castEnum(\ECSPrefix20210517\Symfony\Component\VarDumper\Caster\EnumStub $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         if ($isNested) {
             $stub->class = $c->dumpKeys ? '' : null;
             $stub->handle = 0;

@@ -50,7 +50,7 @@ class SymfonyQuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console
                 break;
             case $question instanceof \ECSPrefix20210517\Symfony\Component\Console\Question\ChoiceQuestion:
                 $choices = $question->getChoices();
-                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, \ECSPrefix20210517\Symfony\Component\Console\Formatter\OutputFormatter::escape(isset($choices[$default]) ? $choices[$default] : $default));
+                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, \ECSPrefix20210517\Symfony\Component\Console\Formatter\OutputFormatter::escape($choices[$default] ?? $default));
                 break;
             default:
                 $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, \ECSPrefix20210517\Symfony\Component\Console\Formatter\OutputFormatter::escape($default));
@@ -75,10 +75,7 @@ class SymfonyQuestionHelper extends \ECSPrefix20210517\Symfony\Component\Console
         }
         parent::writeError($output, $error);
     }
-    /**
-     * @return string
-     */
-    private function getEofShortcut()
+    private function getEofShortcut() : string
     {
         if (\false !== \strpos(\PHP_OS, 'WIN')) {
             return '<comment>Ctrl+Z</comment> then <comment>Enter</comment>';

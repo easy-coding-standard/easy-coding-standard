@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -56,11 +57,9 @@ final class CT
      * Get name for custom token.
      *
      * @param int $value custom token value
-     * @return string
      */
-    public static function getName($value)
+    public static function getName(int $value) : string
     {
-        $value = (int) $value;
         if (!self::has($value)) {
             throw new \InvalidArgumentException(\sprintf('No custom token was found for "%s".', $value));
         }
@@ -71,18 +70,13 @@ final class CT
      * Check if given custom token exists.
      *
      * @param int $value custom token value
-     * @return bool
      */
-    public static function has($value)
+    public static function has(int $value) : bool
     {
-        $value = (int) $value;
         $tokens = self::getMapById();
         return isset($tokens[$value]);
     }
-    /**
-     * @return mixed[]
-     */
-    private static function getMapById()
+    private static function getMapById() : array
     {
         static $constants;
         if (null === $constants) {

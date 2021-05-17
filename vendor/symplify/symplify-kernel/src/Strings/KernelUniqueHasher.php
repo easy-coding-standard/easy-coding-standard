@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SymplifyKernel\Strings;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -15,13 +16,8 @@ final class KernelUniqueHasher
     {
         $this->stringsConverter = new \ECSPrefix20210517\Symplify\SymplifyKernel\Strings\StringsConverter();
     }
-    /**
-     * @param string $kernelClass
-     * @return string
-     */
-    public function hashKernelClass($kernelClass)
+    public function hashKernelClass(string $kernelClass) : string
     {
-        $kernelClass = (string) $kernelClass;
         $this->ensureIsNotGenericKernelClass($kernelClass);
         $shortClassName = (string) \ECSPrefix20210517\Nette\Utils\Strings::after($kernelClass, '\\', -1);
         $userSpecificShortClassName = $shortClassName . \get_current_user();
@@ -29,11 +25,9 @@ final class KernelUniqueHasher
     }
     /**
      * @return void
-     * @param string $kernelClass
      */
-    private function ensureIsNotGenericKernelClass($kernelClass)
+    private function ensureIsNotGenericKernelClass(string $kernelClass)
     {
-        $kernelClass = (string) $kernelClass;
         if ($kernelClass !== \ECSPrefix20210517\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class) {
             return;
         }

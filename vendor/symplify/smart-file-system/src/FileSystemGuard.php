@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SmartFileSystem;
 
 use ECSPrefix20210517\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
@@ -8,13 +9,9 @@ final class FileSystemGuard
 {
     /**
      * @return void
-     * @param string $file
-     * @param string $location
      */
-    public function ensureFileExists($file, $location)
+    public function ensureFileExists(string $file, string $location)
     {
-        $file = (string) $file;
-        $location = (string) $location;
         if (\file_exists($file)) {
             return;
         }
@@ -22,13 +19,9 @@ final class FileSystemGuard
     }
     /**
      * @return void
-     * @param string $directory
-     * @param string $extraMessage
      */
-    public function ensureDirectoryExists($directory, $extraMessage = '')
+    public function ensureDirectoryExists(string $directory, string $extraMessage = '')
     {
-        $directory = (string) $directory;
-        $extraMessage = (string) $extraMessage;
         if (\is_dir($directory) && \file_exists($directory)) {
             return;
         }

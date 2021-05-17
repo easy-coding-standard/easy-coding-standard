@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\Token;
@@ -46,10 +47,7 @@ final class TokensInliner
             $tokens[$i] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
         }
     }
-    /**
-     * @return bool
-     */
-    private function isBlockStartOrEnd(\PhpCsFixer\Tokenizer\Token $previousToken, \PhpCsFixer\Tokenizer\Token $nextToken)
+    private function isBlockStartOrEnd(\PhpCsFixer\Tokenizer\Token $previousToken, \PhpCsFixer\Tokenizer\Token $nextToken) : bool
     {
         if (\in_array($previousToken->getContent(), ['(', '['], \true)) {
             return \true;

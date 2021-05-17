@@ -38,9 +38,8 @@ class DelegatingLoader extends \ECSPrefix20210517\Symfony\Component\Config\Loade
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         return \false !== $this->resolver->resolve($resource, $type);
     }

@@ -50,8 +50,8 @@ class ValidateEnvPlaceholdersPass implements \ECSPrefix20210517\Symfony\Componen
                     $values[$defaultType] = $default;
                 } else {
                     $prefix = \substr($env, 0, $i);
-                    foreach (isset($envTypes[$prefix]) ? $envTypes[$prefix] : ['string'] as $type) {
-                        $values[$type] = isset(self::TYPE_FIXTURES[$type]) ? self::TYPE_FIXTURES[$type] : null;
+                    foreach ($envTypes[$prefix] ?? ['string'] as $type) {
+                        $values[$type] = self::TYPE_FIXTURES[$type] ?? null;
                     }
                 }
                 foreach ($placeholders as $placeholder) {
@@ -79,9 +79,8 @@ class ValidateEnvPlaceholdersPass implements \ECSPrefix20210517\Symfony\Componen
     }
     /**
      * @internal
-     * @return mixed[]
      */
-    public function getExtensionConfig()
+    public function getExtensionConfig() : array
     {
         try {
             return $this->extensionConfig;

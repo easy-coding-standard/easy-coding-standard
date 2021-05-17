@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Naming;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -44,18 +45,14 @@ final class StandardizeHereNowDocKeywordFixer extends \Symplify\CodingStandard\F
      * @var string
      */
     private $keyword = self::DEFAULT_KEYWORD;
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_START_HEREDOC, T_START_NOWDOC]);
     }
@@ -77,10 +74,7 @@ final class StandardizeHereNowDocKeywordFixer extends \Symplify\CodingStandard\F
             }
         }
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $value = <<<'WHATEVER'
@@ -100,23 +94,18 @@ CODE_SAMPLE
      */
     public function configure($configuration = null)
     {
-        $this->keyword = isset($configuration[self::KEYWORD]) ? $configuration[self::KEYWORD] : self::DEFAULT_KEYWORD;
+        $this->keyword = $configuration[self::KEYWORD] ?? self::DEFAULT_KEYWORD;
     }
-    /**
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
-     */
-    public function getConfigurationDefinition()
+    public function getConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param int $position
      */
-    private function fixStartToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $position)
+    private function fixStartToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $position)
     {
-        $position = (int) $position;
         $match = \ECSPrefix20210517\Nette\Utils\Strings::match($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX);
         if (!isset($match['name'])) {
             return;
@@ -127,11 +116,9 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param int $position
      */
-    private function fixEndToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $position)
+    private function fixEndToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $position)
     {
-        $position = (int) $position;
         if ($token->getContent() === $this->keyword) {
             return;
         }

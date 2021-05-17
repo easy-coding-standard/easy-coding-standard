@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\ValueObjectFactory;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -12,12 +13,9 @@ final class LineLengthAndPositionFactory
 {
     /**
      * @param Tokens<Token> $tokens
-     * @param int $currentPosition
-     * @return \Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition
      */
-    public function createFromTokensAndLineStartPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, $currentPosition)
+    public function createFromTokensAndLineStartPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $currentPosition) : \Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition
     {
-        $currentPosition = (int) $currentPosition;
         $length = 0;
         while (!$this->isNewLineOrOpenTag($tokens, $currentPosition)) {
             // in case of multiline string, we are interested in length of the part on current line only
@@ -43,12 +41,9 @@ final class LineLengthAndPositionFactory
     }
     /**
      * @param Tokens|Token[] $tokens
-     * @param int $position
-     * @return bool
      */
-    private function isNewLineOrOpenTag(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function isNewLineOrOpenTag(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
-        $position = (int) $position;
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }

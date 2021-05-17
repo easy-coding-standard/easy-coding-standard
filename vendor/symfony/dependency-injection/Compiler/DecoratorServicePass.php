@@ -46,7 +46,7 @@ class DecoratorServicePass extends \ECSPrefix20210517\Symfony\Component\Dependen
         foreach ($definitions as list($id, $definition)) {
             $decoratedService = $definition->getDecoratedService();
             list($inner, $renamedId) = $decoratedService;
-            $invalidBehavior = isset($decoratedService[3]) ? $decoratedService[3] : \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+            $invalidBehavior = $decoratedService[3] ?? \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             $definition->setDecoratedService(null);
             if (!$renamedId) {
                 $renamedId = $id . '.inner';
@@ -94,12 +94,8 @@ class DecoratorServicePass extends \ECSPrefix20210517\Symfony\Component\Dependen
             $container->setAlias($inner, $id)->setPublic($public);
         }
     }
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference && $this->innerId === (string) $value) {
             return new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference($this->currentId, $value->getInvalidBehavior());
         }

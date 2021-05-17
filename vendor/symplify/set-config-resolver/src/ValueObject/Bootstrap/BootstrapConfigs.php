@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject\Bootstrap;
 
 use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
@@ -30,9 +31,9 @@ final class BootstrapConfigs
         return $this->mainConfigFileInfo;
     }
     /**
-     * @return mixed[]
+     * @return SmartFileInfo[]
      */
-    public function getConfigFileInfos()
+    public function getConfigFileInfos() : array
     {
         if (!$this->mainConfigFileInfo instanceof \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo) {
             return $this->setConfigFileInfos;

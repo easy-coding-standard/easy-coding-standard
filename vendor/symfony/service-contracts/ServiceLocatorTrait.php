@@ -69,9 +69,8 @@ trait ServiceLocatorTrait
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getProvidedServices()
+    public function getProvidedServices() : array
     {
         if (null === $this->providedTypes) {
             $this->providedTypes = [];
@@ -86,13 +85,8 @@ trait ServiceLocatorTrait
         }
         return $this->providedTypes;
     }
-    /**
-     * @param string $id
-     * @return \Psr\Container\NotFoundExceptionInterface
-     */
-    private function createNotFoundException($id)
+    private function createNotFoundException(string $id) : \ECSPrefix20210517\Psr\Container\NotFoundExceptionInterface
     {
-        $id = (string) $id;
         if (!($alternatives = \array_keys($this->factories))) {
             $message = 'is empty...';
         } else {
@@ -108,21 +102,14 @@ trait ServiceLocatorTrait
         } else {
             $message = \sprintf('Service "%s" not found: the current service locator %s', $id, $message);
         }
-        return new \ECSPrefix20210517\Symfony\Contracts\Service\Anonymous__3e88683f5fba080472fe4fa460352f72__0($message);
+        return new class($message) extends \InvalidArgumentException implements \ECSPrefix20210517\Psr\Container\NotFoundExceptionInterface
+        {
+        };
     }
-    /**
-     * @param string $id
-     * @return \Psr\Container\ContainerExceptionInterface
-     */
-    private function createCircularReferenceException($id, array $path)
+    private function createCircularReferenceException(string $id, array $path) : \ECSPrefix20210517\Psr\Container\ContainerExceptionInterface
     {
-        $id = (string) $id;
-        return new \ECSPrefix20210517\Symfony\Contracts\Service\Anonymous__3e88683f5fba080472fe4fa460352f72__1(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path)));
+        return new class(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path))) extends \RuntimeException implements \ECSPrefix20210517\Psr\Container\ContainerExceptionInterface
+        {
+        };
     }
-}
-class Anonymous__3e88683f5fba080472fe4fa460352f72__0 extends \InvalidArgumentException implements \ECSPrefix20210517\Psr\Container\NotFoundExceptionInterface
-{
-}
-class Anonymous__3e88683f5fba080472fe4fa460352f72__1 extends \RuntimeException implements \ECSPrefix20210517\Psr\Container\ContainerExceptionInterface
-{
 }

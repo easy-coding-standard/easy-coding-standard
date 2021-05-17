@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Bridges\CacheLatte;
 
 use ECSPrefix20210517\Latte;
@@ -74,11 +79,9 @@ final class CacheMacro implements \ECSPrefix20210517\Latte\IMacro
      * Starts the output cache. Returns Nette\Caching\OutputHelper object if buffering was started.
      * @return Nette\Caching\OutputHelper|\stdClass
      * @param mixed[]|null $parents
-     * @param string $key
      */
-    public static function createCache(\ECSPrefix20210517\Nette\Caching\Storage $cacheStorage, $key, &$parents, array $args = null)
+    public static function createCache(\ECSPrefix20210517\Nette\Caching\Storage $cacheStorage, string $key, &$parents, array $args = null)
     {
-        $key = (string) $key;
         if ($args) {
             if (\array_key_exists('if', $args) && !$args['if']) {
                 return $parents[] = new \stdClass();
@@ -112,8 +115,8 @@ final class CacheMacro implements \ECSPrefix20210517\Latte\IMacro
             $args['expiration'] = $args['expire'];
             // back compatibility
         }
-        $helper->dependencies[\ECSPrefix20210517\Nette\Caching\Cache::TAGS] = isset($args['tags']) ? $args['tags'] : null;
-        $helper->dependencies[\ECSPrefix20210517\Nette\Caching\Cache::EXPIRATION] = isset($args['expiration']) ? $args['expiration'] : '+ 7 days';
+        $helper->dependencies[\ECSPrefix20210517\Nette\Caching\Cache::TAGS] = $args['tags'] ?? null;
+        $helper->dependencies[\ECSPrefix20210517\Nette\Caching\Cache::EXPIRATION] = $args['expiration'] ?? '+ 7 days';
         $helper->end();
     }
     /**

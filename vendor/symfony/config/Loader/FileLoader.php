@@ -32,11 +32,9 @@ abstract class FileLoader extends \ECSPrefix20210517\Symfony\Component\Config\Lo
     }
     /**
      * Sets the current directory.
-     * @param string $dir
      */
-    public function setCurrentDir($dir)
+    public function setCurrentDir(string $dir)
     {
-        $dir = (string) $dir;
         $this->currentDir = $dir;
     }
     /**
@@ -82,24 +80,16 @@ abstract class FileLoader extends \ECSPrefix20210517\Symfony\Component\Config\Lo
                 $isSubpath = \true;
             }
             if ($isSubpath) {
-                return isset($ret[1]) ? $ret : (isset($ret[0]) ? $ret[0] : null);
+                return isset($ret[1]) ? $ret : $ret[0] ?? null;
             }
         }
         return $this->doImport($resource, $type, $ignoreErrors, $sourceResource);
     }
     /**
      * @internal
-     * @param string $pattern
-     * @param bool $recursive
-     * @param bool $ignoreErrors
-     * @param bool $forExclusion
      */
-    protected function glob($pattern, $recursive, &$resource = null, $ignoreErrors = \false, $forExclusion = \false, array $excluded = [])
+    protected function glob(string $pattern, bool $recursive, &$resource = null, bool $ignoreErrors = \false, bool $forExclusion = \false, array $excluded = [])
     {
-        $pattern = (string) $pattern;
-        $recursive = (bool) $recursive;
-        $ignoreErrors = (bool) $ignoreErrors;
-        $forExclusion = (bool) $forExclusion;
         if (\strlen($pattern) === ($i = \strcspn($pattern, '*?{['))) {
             $prefix = $pattern;
             $pattern = '';
@@ -125,14 +115,8 @@ abstract class FileLoader extends \ECSPrefix20210517\Symfony\Component\Config\Lo
         $resource = new \ECSPrefix20210517\Symfony\Component\Config\Resource\GlobResource($prefix, $pattern, $recursive, $forExclusion, $excluded);
         yield from $resource;
     }
-    /**
-     * @param string $type
-     * @param bool $ignoreErrors
-     * @param string $sourceResource
-     */
-    private function doImport($resource, $type = null, $ignoreErrors = \false, $sourceResource = null)
+    private function doImport($resource, string $type = null, bool $ignoreErrors = \false, string $sourceResource = null)
     {
-        $ignoreErrors = (bool) $ignoreErrors;
         try {
             $loader = $this->resolve($resource, $type);
             if ($loader instanceof self && null !== $this->currentDir) {

@@ -34,12 +34,11 @@ abstract class AbstractDumper implements \ECSPrefix20210517\Symfony\Component\Va
     private $charset = '';
     /**
      * @param callable|resource|string|null $output  A line dumper callable, an opened stream or an output path, defaults to static::$defaultOutput
-     * @param string $charset The default character encoding to use for non-UTF8 strings
+     * @param string|null                   $charset The default character encoding to use for non-UTF8 strings
      * @param int                           $flags   A bit field of static::DUMP_* constants to fine tune dumps representation
      */
-    public function __construct($output = null, $charset = null, $flags = 0)
+    public function __construct($output = null, string $charset = null, int $flags = 0)
     {
-        $flags = (int) $flags;
         $this->flags = $flags;
         $this->setCharset((($charset ?: \ini_get('php.output_encoding')) ?: \ini_get('default_charset')) ?: 'UTF-8');
         $this->decimalPoint = \localeconv();
@@ -75,11 +74,9 @@ abstract class AbstractDumper implements \ECSPrefix20210517\Symfony\Component\Va
      * Sets the default character encoding to use for non-UTF8 strings.
      *
      * @return string The previous charset
-     * @param string $charset
      */
-    public function setCharset($charset)
+    public function setCharset(string $charset)
     {
-        $charset = (string) $charset;
         $prev = $this->charset;
         $charset = \strtoupper($charset);
         $charset = null === $charset || 'UTF-8' === $charset || 'UTF8' === $charset ? 'CP1252' : $charset;
@@ -93,9 +90,8 @@ abstract class AbstractDumper implements \ECSPrefix20210517\Symfony\Component\Va
      *
      * @return string The previous indent pad
      */
-    public function setIndentPad($pad)
+    public function setIndentPad(string $pad)
     {
-        $pad = (string) $pad;
         $prev = $this->indentPad;
         $this->indentPad = $pad;
         return $prev;
@@ -144,23 +140,16 @@ abstract class AbstractDumper implements \ECSPrefix20210517\Symfony\Component\Va
      * @param int $depth The recursive depth in the dumped structure for the line being dumped,
      *                   or -1 to signal the end-of-dump to the line dumper callable
      */
-    protected function dumpLine($depth)
+    protected function dumpLine(int $depth)
     {
-        $depth = (int) $depth;
         ($this->lineDumper)($this->line, $depth, $this->indentPad);
         $this->line = '';
     }
     /**
      * Generic line dumper callback.
-     * @param string $line
-     * @param int $depth
-     * @param string $indentPad
      */
-    protected function echoLine($line, $depth, $indentPad)
+    protected function echoLine(string $line, int $depth, string $indentPad)
     {
-        $line = (string) $line;
-        $depth = (int) $depth;
-        $indentPad = (string) $indentPad;
         if (-1 !== $depth) {
             \fwrite($this->outputStream, \str_repeat($indentPad, $depth) . $line . "\n");
         }

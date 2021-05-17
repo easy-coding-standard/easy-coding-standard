@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -44,10 +45,7 @@ final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fi
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
         $this->arrayAnalyzer = $arrayAnalyzer;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
@@ -55,16 +53,12 @@ final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fi
      * Must run before
      *
      * @see \PhpCsFixer\Fixer\Whitespace\ArrayIndentationFixer::getPriority()
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 34;
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $items = [1 => 'Hey'];
@@ -78,9 +72,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if (!$tokens->isAnyTokenKindsFound(\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds::ARRAY_OPEN_TOKENS)) {
             return \false;
@@ -121,12 +114,9 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $index
-     * @return bool
      */
-    private function isNextTokenAlsoArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function isNextTokenAlsoArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         $nextToken = $this->getNextMeaningfulToken($tokens, $index);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return \false;
@@ -136,13 +126,11 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param int $arrayCloserPosition
      */
-    private function handleArrayCloser(\PhpCsFixer\Tokenizer\Tokens $tokens, $arrayCloserPosition)
+    private function handleArrayCloser(\PhpCsFixer\Tokenizer\Tokens $tokens, int $arrayCloserPosition)
     {
-        $arrayCloserPosition = (int) $arrayCloserPosition;
         $preArrayCloserPosition = $arrayCloserPosition - 1;
-        $previousCloserToken = isset($tokens[$preArrayCloserPosition]) ? $tokens[$preArrayCloserPosition] : null;
+        $previousCloserToken = $tokens[$preArrayCloserPosition] ?? null;
         if (!$previousCloserToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return;
         }
@@ -155,13 +143,11 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param int $arrayOpenerPosition
      */
-    private function handleArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, $arrayOpenerPosition)
+    private function handleArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, int $arrayOpenerPosition)
     {
-        $arrayOpenerPosition = (int) $arrayOpenerPosition;
         $postArrayOpenerPosition = $arrayOpenerPosition + 1;
-        $nextToken = isset($tokens[$postArrayOpenerPosition]) ? $tokens[$postArrayOpenerPosition] : null;
+        $nextToken = $tokens[$postArrayOpenerPosition] ?? null;
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return;
         }

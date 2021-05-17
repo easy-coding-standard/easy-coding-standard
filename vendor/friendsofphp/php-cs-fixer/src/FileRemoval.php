@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -38,9 +39,8 @@ final class FileRemoval
     /**
      * This class is not intended to be serialized,
      * and cannot be deserialized (see __wakeup method).
-     * @return mixed[]
      */
-    public function __sleep()
+    public function __sleep() : array
     {
         throw new \BadMethodCallException('Cannot serialize ' . __CLASS__);
     }
@@ -58,21 +58,17 @@ final class FileRemoval
     /**
      * Adds a file to be removed.
      * @return void
-     * @param string $path
      */
-    public function observe($path)
+    public function observe(string $path)
     {
-        $path = (string) $path;
         $this->files[$path] = \true;
     }
     /**
      * Removes a file from shutdown removal.
      * @return void
-     * @param string $path
      */
-    public function delete($path)
+    public function delete(string $path)
     {
-        $path = (string) $path;
         if (isset($this->files[$path])) {
             unset($this->files[$path]);
         }
@@ -91,11 +87,9 @@ final class FileRemoval
     }
     /**
      * @return void
-     * @param string $path
      */
-    private function unlink($path)
+    private function unlink(string $path)
     {
-        $path = (string) $path;
         @\unlink($path);
     }
 }

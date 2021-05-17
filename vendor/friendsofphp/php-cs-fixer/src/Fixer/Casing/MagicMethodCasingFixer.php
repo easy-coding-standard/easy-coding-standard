@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,9 +26,8 @@ final class MagicMethodCasingFixer extends \PhpCsFixer\AbstractFixer
     private static $magicNames = ['__call' => '__call', '__callstatic' => '__callStatic', '__clone' => '__clone', '__construct' => '__construct', '__debuginfo' => '__debugInfo', '__destruct' => '__destruct', '__get' => '__get', '__invoke' => '__invoke', '__isset' => '__isset', '__serialize' => '__serialize', '__set' => '__set', '__set_state' => '__set_state', '__sleep' => '__sleep', '__tostring' => '__toString', '__unserialize' => '__unserialize', '__unset' => '__unset', '__wakeup' => '__wakeup'];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Magic method definitions and calls must be using the correct casing.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Foo
@@ -42,9 +42,8 @@ $foo->__INVOKE(1);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING) && $tokens->isAnyTokenKindsFound(\array_merge([\T_FUNCTION, \T_DOUBLE_COLON], \PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds()));
     }
@@ -107,13 +106,8 @@ $foo->__INVOKE(1);
             }
         }
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function isFunctionSignature(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function isFunctionSignature(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isGivenKind(\T_FUNCTION)) {
             return \false;
@@ -121,13 +115,8 @@ $foo->__INVOKE(1);
         }
         return $tokens[$tokens->getNextMeaningfulToken($index)]->equals('(');
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isObjectOperator()) {
             return \false;
@@ -135,13 +124,8 @@ $foo->__INVOKE(1);
         }
         return $tokens[$tokens->getNextMeaningfulToken($index)]->equals('(');
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function isStaticMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function isStaticMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isGivenKind(\T_DOUBLE_COLON)) {
             return \false;
@@ -149,33 +133,22 @@ $foo->__INVOKE(1);
         }
         return $tokens[$tokens->getNextMeaningfulToken($index)]->equals('(');
     }
-    /**
-     * @param string $name
-     * @return bool
-     */
-    private function isMagicMethodName($name)
+    private function isMagicMethodName(string $name) : bool
     {
-        $name = (string) $name;
         return isset(self::$magicNames[$name]);
     }
     /**
      * @param string $name name of a magic method
-     * @return string
      */
-    private function getMagicMethodNameInCorrectCasing($name)
+    private function getMagicMethodNameInCorrectCasing(string $name) : string
     {
-        $name = (string) $name;
         return self::$magicNames[$name];
     }
     /**
      * @return void
-     * @param int $index
-     * @param string $nameInCorrectCasing
      */
-    private function setTokenToCorrectCasing(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $nameInCorrectCasing)
+    private function setTokenToCorrectCasing(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $nameInCorrectCasing)
     {
-        $index = (int) $index;
-        $nameInCorrectCasing = (string) $nameInCorrectCasing;
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $nameInCorrectCasing]);
     }
 }

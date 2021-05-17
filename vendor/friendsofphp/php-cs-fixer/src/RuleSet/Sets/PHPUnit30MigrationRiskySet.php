@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -18,17 +19,11 @@ use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
  */
 final class PHPUnit30MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
 {
-    /**
-     * @return mixed[]
-     */
-    public function getRules()
+    public function getRules() : array
     {
         return ['php_unit_dedicate_assert' => ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_0]];
     }
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription() : string
     {
         return 'Rules to improve tests code for PHPUnit 3.0 compatibility.';
     }

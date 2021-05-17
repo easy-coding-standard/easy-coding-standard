@@ -63,9 +63,8 @@ interface StoreInterface
      * Purges data for the given URL.
      *
      * @return bool true if the URL exists and has been purged, false otherwise
-     * @param string $url
      */
-    public function purge($url);
+    public function purge(string $url);
     /**
      * Cleanups storage.
      */

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -71,10 +72,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210517\Sym
             $this->processParameters($containerBuilder, $constructorReflectionMethod, $definition);
         }
     }
-    /**
-     * @return bool
-     */
-    private function shouldSkipDefinition(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition)
+    private function shouldSkipDefinition(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition) : bool
     {
         if ($definition->isAbstract()) {
             return \true;
@@ -134,9 +132,9 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210517\Sym
      * Abstract definitions cannot be the target of references
      *
      * @param Definition[] $definitions
-     * @return mixed[]
+     * @return Definition[]
      */
-    private function filterOutAbstractDefinitions(array $definitions)
+    private function filterOutAbstractDefinitions(array $definitions) : array
     {
         foreach ($definitions as $key => $definition) {
             if ($definition->isAbstract()) {
@@ -147,9 +145,9 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210517\Sym
     }
     /**
      * @param Definition[] $definitions
-     * @return mixed[]
+     * @return Reference[]
      */
-    private function createReferencesFromDefinitions(array $definitions)
+    private function createReferencesFromDefinitions(array $definitions) : array
     {
         $references = [];
         $definitionOfTypeNames = \array_keys($definitions);

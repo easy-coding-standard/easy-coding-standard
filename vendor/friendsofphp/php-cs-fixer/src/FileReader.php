@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -37,13 +38,8 @@ final class FileReader
         }
         return $instance;
     }
-    /**
-     * @param string $filePath
-     * @return string
-     */
-    public function read($filePath)
+    public function read(string $filePath) : string
     {
-        $filePath = (string) $filePath;
         if ('php://stdin' === $filePath) {
             if (null === $this->stdinContent) {
                 $this->stdinContent = $this->readRaw($filePath);
@@ -52,13 +48,8 @@ final class FileReader
         }
         return $this->readRaw($filePath);
     }
-    /**
-     * @param string $realPath
-     * @return string
-     */
-    private function readRaw($realPath)
+    private function readRaw(string $realPath) : string
     {
-        $realPath = (string) $realPath;
         $content = @\file_get_contents($realPath);
         if (\false === $content) {
             $error = \error_get_last();

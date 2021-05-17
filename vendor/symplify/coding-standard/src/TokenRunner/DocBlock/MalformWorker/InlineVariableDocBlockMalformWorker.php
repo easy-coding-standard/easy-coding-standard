@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -26,14 +27,9 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
     const ASTERISK_LEFTOVERS_REGEX = '#(\\*\\*)(\\s+\\*)#';
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
-        $docContent = (string) $docContent;
-        $position = (int) $position;
         if (!$this->isVariableComment($tokens, $position)) {
             return $docContent;
         }
@@ -50,12 +46,9 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @return bool
      */
-    private function isVariableComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function isVariableComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
-        $position = (int) $position;
         $nextPosition = $tokens->getNextMeaningfulToken($position);
         if ($nextPosition === null) {
             return \false;

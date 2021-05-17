@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException;
@@ -12,17 +13,15 @@ final class AppliedCheckersCollector
     private $appliedCheckersByFile = [];
     /**
      * @return void
-     * @param string $checker
      */
-    public function addFileInfoAndChecker(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $checker)
+    public function addFileInfoAndChecker(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $checker)
     {
-        $checker = (string) $checker;
         $this->appliedCheckersByFile[$smartFileInfo->getRealPath()][] = $checker;
     }
     /**
-     * @return mixed[]
+     * @return class-string[]
      */
-    public function getAppliedCheckersPerFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function getAppliedCheckersPerFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         $this->ensureFileHasAppliedCheckers($smartFileInfo);
         return $this->appliedCheckersByFile[$smartFileInfo->getRealPath()];

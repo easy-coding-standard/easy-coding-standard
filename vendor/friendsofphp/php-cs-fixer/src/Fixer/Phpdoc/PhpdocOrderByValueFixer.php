@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -33,9 +34,8 @@ final class PhpdocOrderByValueFixer extends \PhpCsFixer\AbstractFixer implements
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Order phpdoc tags by value.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
@@ -58,17 +58,15 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      *
      * Must run before PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpUnitFqcnAnnotationFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -10;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_CLASS, \T_DOC_COMMENT]);
     }
@@ -118,10 +116,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             }
         }
     }
-    /**
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
-     */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $allowedValues = ['author', 'covers', 'coversNothing', 'dataProvider', 'depends', 'group', 'internal', 'method', 'property', 'property-read', 'property-write', 'requires', 'throws', 'uses'];
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('annotations', 'List of annotations to order, e.g. `["covers"]`.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($allowedValues)])->setNormalizer(function (\ECSPrefix20210517\Symfony\Component\OptionsResolver\Options $options, $value) {

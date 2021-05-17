@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette;
 
 use ECSPrefix20210517\Nette\Utils\ObjectHelpers;
@@ -14,15 +19,13 @@ trait SmartObject
 {
     /**
      * @throws MemberAccessException
-     * @param string $name
      */
-    public function __call($name, array $args)
+    public function __call(string $name, array $args)
     {
-        $name = (string) $name;
         $class = static::class;
         if (\ECSPrefix20210517\Nette\Utils\ObjectHelpers::hasProperty($class, $name) === 'event') {
             // calling event handlers
-            $handlers = $this->{$name} !== null ? $this->{$name} : null;
+            $handlers = $this->{$name} ?? null;
             if (\is_array($handlers) || $handlers instanceof \Traversable) {
                 foreach ($handlers as $handler) {
                     $handler(...$args);
@@ -36,23 +39,19 @@ trait SmartObject
     }
     /**
      * @throws MemberAccessException
-     * @param string $name
      */
-    public static function __callStatic($name, array $args)
+    public static function __callStatic(string $name, array $args)
     {
-        $name = (string) $name;
         \ECSPrefix20210517\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
     }
     /**
      * @return mixed
      * @throws MemberAccessException if the property is not defined.
-     * @param string $name
      */
-    public function &__get($name)
+    public function &__get(string $name)
     {
-        $name = (string) $name;
         $class = static::class;
-        if ($prop = isset(\ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name]) ? \ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name] : null) {
+        if ($prop = \ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name] ?? null) {
             // property getter
             if (!($prop & 0b1)) {
                 throw new \ECSPrefix20210517\Nette\MemberAccessException("Cannot read a write-only property {$class}::\${$name}.");
@@ -73,16 +72,14 @@ trait SmartObject
      * @param  mixed  $value
      * @return void
      * @throws MemberAccessException if the property is not defined or is read-only
-     * @param string $name
      */
-    public function __set($name, $value)
+    public function __set(string $name, $value)
     {
-        $name = (string) $name;
         $class = static::class;
         if (\ECSPrefix20210517\Nette\Utils\ObjectHelpers::hasProperty($class, $name)) {
             // unsetted property
             $this->{$name} = $value;
-        } elseif ($prop = isset(\ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name]) ? \ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name] : null) {
+        } elseif ($prop = \ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name] ?? null) {
             // property setter
             if (!($prop & 0b1000)) {
                 throw new \ECSPrefix20210517\Nette\MemberAccessException("Cannot write to a read-only property {$class}::\${$name}.");
@@ -95,23 +92,16 @@ trait SmartObject
     /**
      * @return void
      * @throws MemberAccessException
-     * @param string $name
      */
-    public function __unset($name)
+    public function __unset(string $name)
     {
-        $name = (string) $name;
         $class = static::class;
         if (!\ECSPrefix20210517\Nette\Utils\ObjectHelpers::hasProperty($class, $name)) {
             throw new \ECSPrefix20210517\Nette\MemberAccessException("Cannot unset the property {$class}::\${$name}.");
         }
     }
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function __isset($name)
+    public function __isset(string $name) : bool
     {
-        $name = (string) $name;
         return isset(\ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties(static::class)[$name]);
     }
 }

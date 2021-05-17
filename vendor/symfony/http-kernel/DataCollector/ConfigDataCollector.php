@@ -101,9 +101,8 @@ class ConfigDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
     }
     /**
      * Returns if the current Symfony version is a Long-Term Support one.
-     * @return bool
      */
-    public function isSymfonyLts()
+    public function isSymfonyLts() : bool
     {
         return $this->data['symfony_lts'];
     }
@@ -143,7 +142,7 @@ class ConfigDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
      */
     public function getPhpVersionExtra()
     {
-        return isset($this->data['php_version_extra']) ? $this->data['php_version_extra'] : null;
+        return $this->data['php_version_extra'] ?? null;
     }
     /**
      * @return int The PHP architecture as number of bits (e.g. 32 or 64)
@@ -236,7 +235,7 @@ class ConfigDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKerne
      *
      * @return string One of: dev, stable, eom, eol
      */
-    private function determineSymfonyState()
+    private function determineSymfonyState() : string
     {
         $now = new \DateTime();
         $eom = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20210517\Symfony\Component\HttpKernel\Kernel::END_OF_MAINTENANCE)->modify('last day of this month');

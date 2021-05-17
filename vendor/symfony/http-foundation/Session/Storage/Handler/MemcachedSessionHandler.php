@@ -45,7 +45,7 @@ class MemcachedSessionHandler extends \ECSPrefix20210517\Symfony\Component\HttpF
             throw new \InvalidArgumentException(\sprintf('The following options are not supported "%s".', \implode(', ', $diff)));
         }
         $this->ttl = isset($options['expiretime']) ? (int) $options['expiretime'] : 86400;
-        $this->prefix = isset($options['prefix']) ? $options['prefix'] : 'sf2s';
+        $this->prefix = $options['prefix'] ?? 'sf2s';
     }
     /**
      * @return bool
@@ -56,11 +56,9 @@ class MemcachedSessionHandler extends \ECSPrefix20210517\Symfony\Component\HttpF
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doRead($sessionId)
+    protected function doRead(string $sessionId)
     {
-        $sessionId = (string) $sessionId;
         return $this->memcached->get($this->prefix . $sessionId) ?: '';
     }
     /**
@@ -73,22 +71,16 @@ class MemcachedSessionHandler extends \ECSPrefix20210517\Symfony\Component\HttpF
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite(string $sessionId, string $data)
     {
-        $sessionId = (string) $sessionId;
-        $data = (string) $data;
         return $this->memcached->set($this->prefix . $sessionId, $data, \time() + $this->ttl);
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doDestroy($sessionId)
+    protected function doDestroy(string $sessionId)
     {
-        $sessionId = (string) $sessionId;
         $result = $this->memcached->delete($this->prefix . $sessionId);
         return $result || \Memcached::RES_NOTFOUND == $this->memcached->getResultCode();
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -33,9 +34,8 @@ final class FullyQualifiedStrictTypesFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Transforms imported FQCN parameters and return types in function arguments to short version.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
@@ -65,17 +65,15 @@ class SomeClass
      *
      * Must run before NoSuperfluousPhpdocTagsFixer.
      * Must run after PhpdocToReturnTypeFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 7;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_FUNCTION) && (\count((new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens)) || \count((new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens)));
     }
@@ -97,11 +95,9 @@ class SomeClass
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $arguments = (new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->getFunctionArguments($tokens, $index);
         foreach ($arguments as $argument) {
             if (!$argument->hasTypeAnalysis()) {
@@ -112,11 +108,9 @@ class SomeClass
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         if (\PHP_VERSION_ID < 70000) {
             return;
         }

@@ -309,11 +309,9 @@ class Finder implements \IteratorAggregate, \Countable
      * @return $this
      *
      * @see ExcludeDirectoryFilterIterator
-     * @param bool $ignoreDotFiles
      */
-    public function ignoreDotFiles($ignoreDotFiles)
+    public function ignoreDotFiles(bool $ignoreDotFiles)
     {
-        $ignoreDotFiles = (bool) $ignoreDotFiles;
         if ($ignoreDotFiles) {
             $this->ignore |= static::IGNORE_DOT_FILES;
         } else {
@@ -329,11 +327,9 @@ class Finder implements \IteratorAggregate, \Countable
      * @return $this
      *
      * @see ExcludeDirectoryFilterIterator
-     * @param bool $ignoreVCS
      */
-    public function ignoreVCS($ignoreVCS)
+    public function ignoreVCS(bool $ignoreVCS)
     {
-        $ignoreVCS = (bool) $ignoreVCS;
         if ($ignoreVCS) {
             $this->ignore |= static::IGNORE_VCS_FILES;
         } else {
@@ -347,11 +343,9 @@ class Finder implements \IteratorAggregate, \Countable
      * This option is disabled by default.
      *
      * @return $this
-     * @param bool $ignoreVCSIgnored
      */
-    public function ignoreVCSIgnored($ignoreVCSIgnored)
+    public function ignoreVCSIgnored(bool $ignoreVCSIgnored)
     {
-        $ignoreVCSIgnored = (bool) $ignoreVCSIgnored;
         if ($ignoreVCSIgnored) {
             $this->ignore |= static::IGNORE_VCS_IGNORED_FILES;
         } else {
@@ -397,11 +391,9 @@ class Finder implements \IteratorAggregate, \Countable
      * @return $this
      *
      * @see SortableIterator
-     * @param bool $useNaturalSort
      */
-    public function sortByName($useNaturalSort = \false)
+    public function sortByName(bool $useNaturalSort = \false)
     {
-        $useNaturalSort = (bool) $useNaturalSort;
         $this->sort = $useNaturalSort ? \ECSPrefix20210517\Symfony\Component\Finder\Iterator\SortableIterator::SORT_BY_NAME_NATURAL : \ECSPrefix20210517\Symfony\Component\Finder\Iterator\SortableIterator::SORT_BY_NAME;
         return $this;
     }
@@ -510,11 +502,9 @@ class Finder implements \IteratorAggregate, \Countable
      * By default, scanning unreadable directories content throws an AccessDeniedException.
      *
      * @return $this
-     * @param bool $ignore
      */
-    public function ignoreUnreadableDirs($ignore = \true)
+    public function ignoreUnreadableDirs(bool $ignore = \true)
     {
-        $ignore = (bool) $ignore;
         $this->ignoreUnreadableDirs = $ignore;
         return $this;
     }
@@ -627,13 +617,8 @@ class Finder implements \IteratorAggregate, \Countable
     {
         return \iterator_count($this->getIterator());
     }
-    /**
-     * @param string $dir
-     * @return \Iterator
-     */
-    private function searchInDirectory($dir)
+    private function searchInDirectory(string $dir) : \Iterator
     {
-        $dir = (string) $dir;
         $exclude = $this->exclude;
         $notPaths = $this->notPaths;
         if (static::IGNORE_VCS_FILES === (static::IGNORE_VCS_FILES & $this->ignore)) {
@@ -708,12 +693,9 @@ class Finder implements \IteratorAggregate, \Countable
      * Normalizes given directory names by removing trailing slashes.
      *
      * Excluding: (s)ftp:// or ssh2.(s)ftp:// wrapper
-     * @param string $dir
-     * @return string
      */
-    private function normalizeDir($dir)
+    private function normalizeDir(string $dir) : string
     {
-        $dir = (string) $dir;
         if ('/' === $dir) {
             return $dir;
         }

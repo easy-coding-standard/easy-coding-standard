@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer;
 
 use PhpCsFixer\Tokenizer\Token;
@@ -17,12 +18,9 @@ final class IndentDetector
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $startIndex
-     * @return int
      */
-    public function detectOnPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex)
+    public function detectOnPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex) : int
     {
-        $startIndex = (int) $startIndex;
         $indent = $this->whitespacesFixerConfig->getIndent();
         for ($i = $startIndex; $i > 0; --$i) {
             /** @var Token $token */

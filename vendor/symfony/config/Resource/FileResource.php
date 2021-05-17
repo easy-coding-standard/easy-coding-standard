@@ -30,9 +30,8 @@ class FileResource implements \ECSPrefix20210517\Symfony\Component\Config\Resour
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($resource)
+    public function __construct(string $resource)
     {
-        $resource = (string) $resource;
         $this->resource = \realpath($resource) ?: (\file_exists($resource) ? $resource : \false);
         if (\false === $this->resource) {
             throw new \InvalidArgumentException(\sprintf('The file "%s" does not exist.', $resource));
@@ -40,27 +39,23 @@ class FileResource implements \ECSPrefix20210517\Symfony\Component\Config\Resour
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->resource;
     }
     /**
      * @return string The canonicalized, absolute path to the resource
      */
-    public function getResource()
+    public function getResource() : string
     {
         return $this->resource;
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
-     * @return bool
      */
-    public function isFresh($timestamp)
+    public function isFresh(int $timestamp) : bool
     {
-        $timestamp = (int) $timestamp;
         return \false !== ($filemtime = @\filemtime($this->resource)) && $filemtime <= $timestamp;
     }
 }

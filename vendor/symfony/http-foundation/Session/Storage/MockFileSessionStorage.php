@@ -26,11 +26,9 @@ class MockFileSessionStorage extends \ECSPrefix20210517\Symfony\Component\HttpFo
     private $savePath;
     /**
      * @param string $savePath Path of directory to save session files
-     * @param string $name
      */
-    public function __construct($savePath = null, $name = 'MOCKSESSID', \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
+    public function __construct(string $savePath = null, string $name = 'MOCKSESSID', \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
     {
-        $name = (string) $name;
         if (null === $savePath) {
             $savePath = \sys_get_temp_dir();
         }
@@ -57,12 +55,9 @@ class MockFileSessionStorage extends \ECSPrefix20210517\Symfony\Component\HttpFo
     }
     /**
      * {@inheritdoc}
-     * @param bool $destroy
-     * @param int $lifetime
      */
-    public function regenerate($destroy = \false, $lifetime = null)
+    public function regenerate(bool $destroy = \false, int $lifetime = null)
     {
-        $destroy = (bool) $destroy;
         if (!$this->started) {
             $this->start();
         }
@@ -121,9 +116,8 @@ class MockFileSessionStorage extends \ECSPrefix20210517\Symfony\Component\HttpFo
     }
     /**
      * Calculate path to file.
-     * @return string
      */
-    private function getFilePath()
+    private function getFilePath() : string
     {
         return $this->savePath . '/' . $this->id . '.mocksess';
     }

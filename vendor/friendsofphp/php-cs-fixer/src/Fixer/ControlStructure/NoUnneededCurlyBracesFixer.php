@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,9 +29,8 @@ final class NoUnneededCurlyBracesFixer extends \PhpCsFixer\AbstractFixer impleme
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Removes unneeded curly braces that are superfluous and aren\'t part of a control structure\'s body.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php {
     echo 1;
@@ -51,17 +51,15 @@ namespace Foo {
      * {@inheritdoc}
      *
      * Must run before NoUselessElseFixer, NoUselessReturnFixer, ReturnAssignmentFixer, SimplifiedIfReturnFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 40;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('}');
     }
@@ -82,9 +80,8 @@ namespace Foo {
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('namespaces', 'Remove unneeded curly braces from bracketed namespaces.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
@@ -93,10 +90,8 @@ namespace Foo {
      * @param int $closeIndex index of `}` token
      * @return void
      */
-    private function clearOverCompleteBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, $openIndex, $closeIndex)
+    private function clearOverCompleteBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, int $openIndex, int $closeIndex)
     {
-        $openIndex = (int) $openIndex;
-        $closeIndex = (int) $closeIndex;
         $tokens->clearTokenAndMergeSurroundingWhitespace($closeIndex);
         $tokens->clearTokenAndMergeSurroundingWhitespace($openIndex);
     }
@@ -113,11 +108,9 @@ namespace Foo {
     }
     /**
      * @param int $index index of `{` token
-     * @return bool
      */
-    private function isOverComplete(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function isOverComplete(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         static $include = ['{', '}', [\T_OPEN_TAG], ':', ';'];
         return $tokens[$tokens->getPrevMeaningfulToken($index)]->equalsAny($include);
     }

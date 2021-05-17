@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -104,21 +105,17 @@ final class Tokens extends \SplFixedArray
     /**
      * Returns the index of the closest next token that is neither a comment nor a whitespace token.
      * @return int|null
-     * @param int $index
      */
-    public function getNextMeaningfulToken($index)
+    public function getNextMeaningfulToken(int $index)
     {
-        $index = (int) $index;
         return $this->getMeaningfulTokenSibling($index, 1);
     }
     /**
      * Returns the index of the closest previous token that is neither a comment nor a whitespace token.
      * @return int|null
-     * @param int $index
      */
-    public function getPreviousMeaningfulToken($index)
+    public function getPreviousMeaningfulToken(int $index)
     {
-        $index = (int) $index;
         return $this->getMeaningfulTokenSibling($index, -1);
     }
     /**
@@ -126,11 +123,9 @@ final class Tokens extends \SplFixedArray
      *
      * @param string|string[] $type
      * @return int|null
-     * @param int $index
      */
-    public function getNextTokenOfType($type, $index)
+    public function getNextTokenOfType($type, int $index)
     {
-        $index = (int) $index;
         return $this->getTokenOfTypeSibling($index, $type, 1);
     }
     /**
@@ -138,21 +133,17 @@ final class Tokens extends \SplFixedArray
      *
      * @param string|string[] $type
      * @return int|null
-     * @param int $index
      */
-    public function getPreviousTokenOfType($type, $index)
+    public function getPreviousTokenOfType($type, int $index)
     {
-        $index = (int) $index;
         return $this->getTokenOfTypeSibling($index, $type, -1);
     }
     /**
      * Returns the index of the last token that is part of the annotation at the given index.
      * @return int|null
-     * @param int $index
      */
-    public function getAnnotationEnd($index)
+    public function getAnnotationEnd(int $index)
     {
-        $index = (int) $index;
         $currentIndex = null;
         if (isset($this[$index + 2])) {
             if ($this[$index + 2]->isType(\ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
@@ -180,11 +171,9 @@ final class Tokens extends \SplFixedArray
     /**
      * Returns the index of the close brace that matches the open brace at the given index.
      * @return int|null
-     * @param int $index
      */
-    public function getArrayEnd($index)
+    public function getArrayEnd(int $index)
     {
-        $index = (int) $index;
         $level = 1;
         for (++$index, $max = \count($this); $index < $max; ++$index) {
             if ($this[$index]->isType(\ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES)) {
@@ -200,9 +189,8 @@ final class Tokens extends \SplFixedArray
     }
     /**
      * Returns the code from the tokens.
-     * @return string
      */
-    public function getCode()
+    public function getCode() : string
     {
         $code = '';
         foreach ($this as $token) {
@@ -213,11 +201,9 @@ final class Tokens extends \SplFixedArray
     /**
      * Inserts a token at the given index.
      * @return void
-     * @param int $index
      */
-    public function insertAt($index, \PhpCsFixer\Doctrine\Annotation\Token $token)
+    public function insertAt(int $index, \PhpCsFixer\Doctrine\Annotation\Token $token)
     {
-        $index = (int) $index;
         $this->setSize($this->getSize() + 1);
         for ($i = $this->getSize() - 1; $i > $index; --$i) {
             $this[$i] = isset($this[$i - 1]) ? $this[$i - 1] : new \PhpCsFixer\Doctrine\Annotation\Token();
@@ -266,13 +252,9 @@ final class Tokens extends \SplFixedArray
     }
     /**
      * @return int|null
-     * @param int $index
-     * @param int $direction
      */
-    private function getMeaningfulTokenSibling($index, $direction)
+    private function getMeaningfulTokenSibling(int $index, int $direction)
     {
-        $index = (int) $index;
-        $direction = (int) $direction;
         while (\true) {
             $index += $direction;
             if (!$this->offsetExists($index)) {
@@ -287,13 +269,9 @@ final class Tokens extends \SplFixedArray
     /**
      * @param string|string[] $type
      * @return int|null
-     * @param int $index
-     * @param int $direction
      */
-    private function getTokenOfTypeSibling($index, $type, $direction)
+    private function getTokenOfTypeSibling(int $index, $type, int $direction)
     {
-        $index = (int) $index;
-        $direction = (int) $direction;
         while (\true) {
             $index += $direction;
             if (!$this->offsetExists($index)) {

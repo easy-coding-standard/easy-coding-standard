@@ -1,21 +1,21 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver\Contract;
 
 use ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject\Set;
 interface SetProviderInterface
 {
     /**
-     * @return mixed[]
+     * @return Set[]
      */
-    public function provide();
+    public function provide() : array;
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    public function provideSetNames();
+    public function provideSetNames() : array;
     /**
      * @return \Symplify\SetConfigResolver\ValueObject\Set|null
-     * @param string $setName
      */
-    public function provideByName($setName);
+    public function provideByName(string $setName);
 }

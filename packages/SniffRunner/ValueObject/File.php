@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject;
 
 use PHP_CodeSniffer\Config;
@@ -66,14 +67,8 @@ final class File extends \PHP_CodeSniffer\Files\File
      * @var SmartFileInfo
      */
     private $fileInfo;
-    /**
-     * @param string $path
-     * @param string $content
-     */
-    public function __construct($path, $content, \PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \ECSPrefix20210517\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \ECSPrefix20210517\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
-        $path = (string) $path;
-        $content = (string) $content;
         $this->path = $path;
         $this->content = $content;
         $this->fixer = $fixer;
@@ -115,17 +110,14 @@ final class File extends \PHP_CodeSniffer\Files\File
         }
         $this->fixedCount += $this->fixer->getFixCount();
     }
-    /**
-     * @return void
-     */
-    public function getErrorCount()
+    public function getErrorCount() : int
     {
         throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public. Use "%s" service.', __METHOD__, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector::class));
     }
     /**
      * @return mixed[]
      */
-    public function getErrors()
+    public function getErrors() : array
     {
         throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public. Use "%s" service.', __METHOD__, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector::class));
     }
@@ -133,17 +125,13 @@ final class File extends \PHP_CodeSniffer\Files\File
      * Delegate to addError().
      *
      * {@inheritdoc}
-     * @return bool
      */
-    public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0)
+    public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0) : bool
     {
         $this->appliedCheckersCollector->addFileInfoAndChecker($this->fileInfo, $this->resolveFullyQualifiedCode($code));
         return !$this->shouldSkipError($error, $code, $data);
     }
-    /**
-     * @return bool
-     */
-    public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
+    public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
     {
         if ($this->shouldSkipError($error, $code, $data)) {
             return \false;
@@ -154,9 +142,8 @@ final class File extends \PHP_CodeSniffer\Files\File
      * Allow only specific classes
      *
      * {@inheritdoc}
-     * @return bool
      */
-    public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
+    public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
     {
         if (!$this->isSniffClassWarningAllowed($this->activeSniffClass)) {
             return \false;
@@ -177,9 +164,8 @@ final class File extends \PHP_CodeSniffer\Files\File
      * Delegated from addError().
      *
      * {@inheritdoc}
-     * @return bool
      */
-    protected function addMessage($isError, $message, $line, $column, $sniffClassOrCode, $data, $severity, $isFixable = \false)
+    protected function addMessage($isError, $message, $line, $column, $sniffClassOrCode, $data, $severity, $isFixable = \false) : bool
     {
         // skip warnings
         if (!$isError) {
@@ -212,13 +198,8 @@ final class File extends \PHP_CodeSniffer\Files\File
         $this->easyCodingStandardStyle->writeln('     [sniff] ' . $this->activeSniffClass);
         $this->previousActiveSniffClass = $this->activeSniffClass;
     }
-    /**
-     * @param string $sniffClassOrCode
-     * @return string
-     */
-    private function resolveFullyQualifiedCode($sniffClassOrCode)
+    private function resolveFullyQualifiedCode(string $sniffClassOrCode) : string
     {
-        $sniffClassOrCode = (string) $sniffClassOrCode;
         if (\class_exists($sniffClassOrCode)) {
             return $sniffClassOrCode;
         }
@@ -226,14 +207,9 @@ final class File extends \PHP_CodeSniffer\Files\File
     }
     /**
      * @param string[] $data
-     * @param string $error
-     * @param string $code
-     * @return bool
      */
-    private function shouldSkipError($error, $code, array $data)
+    private function shouldSkipError(string $error, string $code, array $data) : bool
     {
-        $error = (string) $error;
-        $code = (string) $code;
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
         if ($this->skipper->shouldSkipElementAndFileInfo($fullyQualifiedCode, $this->fileInfo)) {
             return \true;
@@ -241,13 +217,8 @@ final class File extends \PHP_CodeSniffer\Files\File
         $message = $data !== [] ? \vsprintf($error, $data) : $error;
         return $this->skipper->shouldSkipElementAndFileInfo($message, $this->fileInfo);
     }
-    /**
-     * @param string $sniffClass
-     * @return bool
-     */
-    private function isSniffClassWarningAllowed($sniffClass)
+    private function isSniffClassWarningAllowed(string $sniffClass) : bool
     {
-        $sniffClass = (string) $sniffClass;
         foreach (self::REPORT_WARNINGS_SNIFFS as $reportWarningsSniff) {
             if (\is_a($sniffClass, $reportWarningsSniff, \true)) {
                 return \true;

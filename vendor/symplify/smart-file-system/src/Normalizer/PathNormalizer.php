@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SmartFileSystem\Normalizer;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -26,15 +27,8 @@ final class PathNormalizer
      * @var string
      */
     const SCHEME_UNDEFINED = 'undefined';
-    /**
-     * @param string $originalPath
-     * @param string $directorySeparator
-     * @return string
-     */
-    public function normalizePath($originalPath, $directorySeparator = \DIRECTORY_SEPARATOR)
+    public function normalizePath(string $originalPath, string $directorySeparator = \DIRECTORY_SEPARATOR) : string
     {
-        $originalPath = (string) $originalPath;
-        $directorySeparator = (string) $directorySeparator;
         $matches = \ECSPrefix20210517\Nette\Utils\Strings::match($originalPath, self::SCHEME_PATH_REGEX);
         if ($matches !== null) {
             list(, $scheme, $path) = $matches;
@@ -52,12 +46,10 @@ final class PathNormalizer
     }
     /**
      * @param string[] $pathParts
-     * @return mixed[]
-     * @param string $scheme
+     * @return string[]
      */
-    private function normalizePathParts(array $pathParts, $scheme)
+    private function normalizePathParts(array $pathParts, string $scheme) : array
     {
-        $scheme = (string) $scheme;
         $normalizedPathParts = [];
         foreach ($pathParts as $pathPart) {
             if ($pathPart === '.') {

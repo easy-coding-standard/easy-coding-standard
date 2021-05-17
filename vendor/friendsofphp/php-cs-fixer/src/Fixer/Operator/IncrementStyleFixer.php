@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -38,9 +39,8 @@ final class IncrementStyleFixer extends \PhpCsFixer\Fixer\AbstractIncrementOpera
     const STYLE_POST = 'post';
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Pre- or post-increment and decrement operators should be used if possible.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a++;\n\$b--;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n++\$a;\n--\$b;\n", ['style' => self::STYLE_POST])]);
     }
@@ -48,25 +48,22 @@ final class IncrementStyleFixer extends \PhpCsFixer\Fixer\AbstractIncrementOpera
      * {@inheritdoc}
      *
      * Must run after StandardizeIncrementFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_INC, \T_DEC]);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('style', 'Whether to use pre- or post-increment and decrement operators.'))->setAllowedValues([self::STYLE_PRE, self::STYLE_POST])->setDefault(self::STYLE_PRE)->getOption()]);
     }
@@ -107,13 +104,8 @@ final class IncrementStyleFixer extends \PhpCsFixer\Fixer\AbstractIncrementOpera
             }
         }
     }
-    /**
-     * @param int $index
-     * @return int
-     */
-    private function findEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function findEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
-        $index = (int) $index;
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         $nextToken = $tokens[$nextIndex];
         while ($nextToken->equalsAny(['$', '(', '[', [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {

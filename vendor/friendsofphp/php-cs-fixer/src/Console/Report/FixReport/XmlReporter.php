@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -21,17 +22,15 @@ final class XmlReporter implements \PhpCsFixer\Console\Report\FixReport\Reporter
 {
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getFormat()
+    public function getFormat() : string
     {
         return 'xml';
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary)
+    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary) : string
     {
         if (!\extension_loaded('dom')) {
             throw new \RuntimeException('Cannot generate report! `ext-dom` is not available!');
@@ -64,10 +63,7 @@ final class XmlReporter implements \PhpCsFixer\Console\Report\FixReport\Reporter
         $dom->formatOutput = \true;
         return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210517\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
     }
-    /**
-     * @return \DOMElement
-     */
-    private function createAppliedFixersElement(\DOMDocument $dom, array $fixResult)
+    private function createAppliedFixersElement(\DOMDocument $dom, array $fixResult) : \DOMElement
     {
         $appliedFixersXML = $dom->createElement('applied_fixers');
         foreach ($fixResult['appliedFixers'] as $appliedFixer) {
@@ -77,22 +73,14 @@ final class XmlReporter implements \PhpCsFixer\Console\Report\FixReport\Reporter
         }
         return $appliedFixersXML;
     }
-    /**
-     * @return \DOMElement
-     */
-    private function createDiffElement(\DOMDocument $dom, array $fixResult)
+    private function createDiffElement(\DOMDocument $dom, array $fixResult) : \DOMElement
     {
         $diffXML = $dom->createElement('diff');
         $diffXML->appendChild($dom->createCDATASection($fixResult['diff']));
         return $diffXML;
     }
-    /**
-     * @param float $time
-     * @return \DOMElement
-     */
-    private function createTimeElement($time, \DOMDocument $dom)
+    private function createTimeElement(float $time, \DOMDocument $dom) : \DOMElement
     {
-        $time = (double) $time;
         $time = \round($time / 1000, 3);
         $timeXML = $dom->createElement('time');
         $timeXML->setAttribute('unit', 's');
@@ -101,13 +89,8 @@ final class XmlReporter implements \PhpCsFixer\Console\Report\FixReport\Reporter
         $timeXML->appendChild($timeTotalXML);
         return $timeXML;
     }
-    /**
-     * @param float $memory
-     * @return \DOMElement
-     */
-    private function createMemoryElement($memory, \DOMDocument $dom)
+    private function createMemoryElement(float $memory, \DOMDocument $dom) : \DOMElement
     {
-        $memory = (double) $memory;
         $memory = \round($memory / 1024 / 1024, 3);
         $memoryXML = $dom->createElement('memory');
         $memoryXML->setAttribute('value', (string) $memory);

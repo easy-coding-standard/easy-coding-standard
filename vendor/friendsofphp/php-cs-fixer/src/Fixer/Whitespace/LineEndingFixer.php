@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -30,17 +31,15 @@ final class LineEndingFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('All PHP files must use same line ending.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$b = \" \$a \r\n 123\"; \$a = <<<TEST\r\nAAAAA \r\n |\r\nTEST;\n")]);
     }
@@ -48,9 +47,8 @@ final class LineEndingFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
      * {@inheritdoc}
      *
      * Must run before BracesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 40;
     }

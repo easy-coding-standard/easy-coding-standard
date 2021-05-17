@@ -24,10 +24,8 @@ class UriSigner
      * @param string $secret    A secret
      * @param string $parameter Query string parameter to use
      */
-    public function __construct($secret, $parameter = '_hash')
+    public function __construct(string $secret, string $parameter = '_hash')
     {
-        $secret = (string) $secret;
-        $parameter = (string) $parameter;
         $this->secret = $secret;
         $this->parameter = $parameter;
     }
@@ -38,11 +36,9 @@ class UriSigner
      * which value depends on the URI and the secret.
      *
      * @return string The signed URI
-     * @param string $uri
      */
-    public function sign($uri)
+    public function sign(string $uri)
     {
-        $uri = (string) $uri;
         $url = \parse_url($uri);
         if (isset($url['query'])) {
             \parse_str($url['query'], $params);
@@ -57,11 +53,9 @@ class UriSigner
      * Checks that a URI contains the correct hash.
      *
      * @return bool True if the URI is signed correctly, false otherwise
-     * @param string $uri
      */
-    public function check($uri)
+    public function check(string $uri)
     {
-        $uri = (string) $uri;
         $url = \parse_url($uri);
         if (isset($url['query'])) {
             \parse_str($url['query'], $params);
@@ -75,38 +69,27 @@ class UriSigner
         unset($params[$this->parameter]);
         return \hash_equals($this->computeHash($this->buildUrl($url, $params)), $hash);
     }
-    /**
-     * @return bool
-     */
-    public function checkRequest(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request)
+    public function checkRequest(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request) : bool
     {
         $qs = ($qs = $request->server->get('QUERY_STRING')) ? '?' . $qs : '';
         // we cannot use $request->getUri() here as we want to work with the original URI (no query string reordering)
         return $this->check($request->getSchemeAndHttpHost() . $request->getBaseUrl() . $request->getPathInfo() . $qs);
     }
-    /**
-     * @param string $uri
-     * @return string
-     */
-    private function computeHash($uri)
+    private function computeHash(string $uri) : string
     {
-        $uri = (string) $uri;
         return \base64_encode(\hash_hmac('sha256', $uri, $this->secret, \true));
     }
-    /**
-     * @return string
-     */
-    private function buildUrl(array $url, array $params = [])
+    private function buildUrl(array $url, array $params = []) : string
     {
         \ksort($params, \SORT_STRING);
         $url['query'] = \http_build_query($params, '', '&');
         $scheme = isset($url['scheme']) ? $url['scheme'] . '://' : '';
-        $host = isset($url['host']) ? $url['host'] : '';
+        $host = $url['host'] ?? '';
         $port = isset($url['port']) ? ':' . $url['port'] : '';
-        $user = isset($url['user']) ? $url['user'] : '';
+        $user = $url['user'] ?? '';
         $pass = isset($url['pass']) ? ':' . $url['pass'] : '';
         $pass = $user || $pass ? "{$pass}@" : '';
-        $path = isset($url['path']) ? $url['path'] : '';
+        $path = $url['path'] ?? '';
         $query = isset($url['query']) && $url['query'] ? '?' . $url['query'] : '';
         $fragment = isset($url['fragment']) ? '#' . $url['fragment'] : '';
         return $scheme . $user . $pass . $host . $port . $path . $query . $fragment;

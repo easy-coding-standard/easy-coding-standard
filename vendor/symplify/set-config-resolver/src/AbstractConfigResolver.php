@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver;
 
 use ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface;
@@ -58,13 +59,8 @@ abstract class AbstractConfigResolver
         }
         return null;
     }
-    /**
-     * @param string $configValue
-     * @return \Symplify\SmartFileSystem\SmartFileInfo
-     */
-    private function createFileInfo($configValue)
+    private function createFileInfo(string $configValue) : \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $configValue = (string) $configValue;
         return new \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo($configValue);
     }
 }

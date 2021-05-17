@@ -52,11 +52,9 @@ class RouterListener implements \ECSPrefix20210517\Symfony\Component\EventDispat
      * @param string                                      $projectDir
      *
      * @throws \InvalidArgumentException
-     * @param bool $debug
      */
-    public function __construct($matcher, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20210517\Symfony\Component\Routing\RequestContext $context = null, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null, $projectDir = null, $debug = \true)
+    public function __construct($matcher, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20210517\Symfony\Component\Routing\RequestContext $context = null, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null, string $projectDir = null, bool $debug = \true)
     {
-        $debug = (bool) $debug;
         if (!$matcher instanceof \ECSPrefix20210517\Symfony\Component\Routing\Matcher\UrlMatcherInterface && !$matcher instanceof \ECSPrefix20210517\Symfony\Component\Routing\Matcher\RequestMatcherInterface) {
             throw new \InvalidArgumentException('Matcher must either implement UrlMatcherInterface or RequestMatcherInterface.');
         }
@@ -105,7 +103,7 @@ class RouterListener implements \ECSPrefix20210517\Symfony\Component\EventDispat
                 $parameters = $this->matcher->match($request->getPathInfo());
             }
             if (null !== $this->logger) {
-                $this->logger->info('Matched route "{route}".', ['route' => isset($parameters['_route']) ? $parameters['_route'] : 'n/a', 'route_parameters' => $parameters, 'request_uri' => $request->getUri(), 'method' => $request->getMethod()]);
+                $this->logger->info('Matched route "{route}".', ['route' => $parameters['_route'] ?? 'n/a', 'route_parameters' => $parameters, 'request_uri' => $request->getUri(), 'method' => $request->getMethod()]);
             }
             $request->attributes->add($parameters);
             unset($parameters['_route'], $parameters['_controller']);
@@ -130,17 +128,11 @@ class RouterListener implements \ECSPrefix20210517\Symfony\Component\EventDispat
             $event->setResponse($this->createWelcomeResponse());
         }
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 32]], \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', 0]], \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION => ['onKernelException', -64]];
     }
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    private function createWelcomeResponse()
+    private function createWelcomeResponse() : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response
     {
         $version = \ECSPrefix20210517\Symfony\Component\HttpKernel\Kernel::VERSION;
         $projectDir = \realpath($this->projectDir) . \DIRECTORY_SEPARATOR;

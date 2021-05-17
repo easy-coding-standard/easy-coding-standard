@@ -27,9 +27,8 @@ class StringInput extends \ECSPrefix20210517\Symfony\Component\Console\Input\Arg
     /**
      * @param string $input A string representing the parameters from the CLI
      */
-    public function __construct($input)
+    public function __construct(string $input)
     {
-        $input = (string) $input;
         parent::__construct([]);
         $this->setTokens($this->tokenize($input));
     }
@@ -37,12 +36,9 @@ class StringInput extends \ECSPrefix20210517\Symfony\Component\Console\Input\Arg
      * Tokenizes a string.
      *
      * @throws InvalidArgumentException When unable to parse input (should never happen)
-     * @param string $input
-     * @return mixed[]
      */
-    private function tokenize($input)
+    private function tokenize(string $input) : array
     {
-        $input = (string) $input;
         $tokens = [];
         $length = \strlen($input);
         $cursor = 0;

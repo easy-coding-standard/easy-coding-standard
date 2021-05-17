@@ -26,7 +26,7 @@ class Processor
      *
      * @return array The processed configuration
      */
-    public function process(\ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $configTree, array $configs)
+    public function process(\ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $configTree, array $configs) : array
     {
         $currentConfig = [];
         foreach ($configs as $config) {
@@ -42,7 +42,7 @@ class Processor
      *
      * @return array The processed configuration
      */
-    public function processConfiguration(\ECSPrefix20210517\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, array $configs)
+    public function processConfiguration(\ECSPrefix20210517\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, array $configs) : array
     {
         return $this->process($configuration->getConfigTreeBuilder()->buildTree(), $configs);
     }
@@ -66,11 +66,9 @@ class Processor
      * @param array  $config A config array
      * @param string $key    The key to normalize
      * @param string $plural The plural form of the key if it is irregular
-     * @return mixed[]
      */
-    public static function normalizeConfig(array $config, $key, $plural = null)
+    public static function normalizeConfig(array $config, string $key, string $plural = null) : array
     {
-        $key = (string) $key;
         if (null === $plural) {
             $plural = $key . 's';
         }

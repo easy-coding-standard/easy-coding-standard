@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,9 +27,8 @@ final class NoLeadingImportSlashFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Remove leading slashes in `use` clauses.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nnamespace Foo;\nuse \\Bar;\n")]);
     }
@@ -37,17 +37,15 @@ final class NoLeadingImportSlashFixer extends \PhpCsFixer\AbstractFixer
      *
      * Must run before OrderedImportsFixer.
      * Must run after NoUnusedImportsFixer, SingleImportPerStatementFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -20;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_USE);
     }
@@ -74,11 +72,9 @@ final class NoLeadingImportSlashFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function removeLeadingImportSlash(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function removeLeadingImportSlash(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $previousIndex = $tokens->getPrevNonWhitespace($index);
         if ($previousIndex < $index - 1 || $tokens[$previousIndex]->isComment()) {
             $tokens->clearAt($index);

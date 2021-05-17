@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Style;
 
 use ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface;
@@ -61,39 +62,25 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210517\Symfony\Component
         $separator = \str_repeat('-', $this->getTerminalWidth());
         $this->writeln(' ' . $separator);
     }
-    /**
-     * @return string
-     */
-    private function createMessageFromFileError(\Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $codingStandardError)
+    private function createMessageFromFileError(\Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $codingStandardError) : string
     {
         $message = \sprintf('%s%s Reported by: "%s"', $codingStandardError->getMessage(), \PHP_EOL . \PHP_EOL, $codingStandardError->getCheckerClass());
         $message = $this->clearCrLfFromMessage($message);
         return $this->wrapMessageSoItFitsTheColumnWidth($message);
     }
-    /**
-     * @return int
-     */
-    private function getTerminalWidth()
+    private function getTerminalWidth() : int
     {
         return $this->terminal->getWidth() - self::BULGARIAN_CONSTANT;
     }
     /**
      * This prevents message override in Windows system.
-     * @param string $message
-     * @return string
      */
-    private function clearCrLfFromMessage($message)
+    private function clearCrLfFromMessage(string $message) : string
     {
-        $message = (string) $message;
         return \str_replace("\r", '', $message);
     }
-    /**
-     * @param string $message
-     * @return string
-     */
-    private function wrapMessageSoItFitsTheColumnWidth($message)
+    private function wrapMessageSoItFitsTheColumnWidth(string $message) : string
     {
-        $message = (string) $message;
         return \wordwrap($message, $this->getTerminalWidth(), \PHP_EOL);
     }
 }

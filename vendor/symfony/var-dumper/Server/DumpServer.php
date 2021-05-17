@@ -25,12 +25,8 @@ class DumpServer
     private $host;
     private $socket;
     private $logger;
-    /**
-     * @param string $host
-     */
-    public function __construct($host, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null)
+    public function __construct(string $host, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null)
     {
-        $host = (string) $host;
         if (\false === \strpos($host, '://')) {
             $host = 'tcp://' . $host;
         }
@@ -76,10 +72,7 @@ class DumpServer
             $callback($data, $context, $clientId);
         }
     }
-    /**
-     * @return string
-     */
-    public function getHost()
+    public function getHost() : string
     {
         return $this->host;
     }

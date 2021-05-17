@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -11,9 +12,8 @@ final class LineLengthResolver
 {
     /**
      * @param Tokens|Token[] $tokens
-     * @return int
      */
-    public function getLengthFromStartEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    public function getLengthFromStartEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : int
     {
         $lineLength = 0;
         // compute from function to start of line
@@ -35,12 +35,9 @@ final class LineLengthResolver
     }
     /**
      * @param Tokens|Token[] $tokens
-     * @param int $position
-     * @return bool
      */
-    private function isNewLineOrOpenTag(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function isNewLineOrOpenTag(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
-        $position = (int) $position;
         /** @var Token $currentToken */
         $currentToken = $tokens[$position];
         if (\ECSPrefix20210517\Nette\Utils\Strings::startsWith($currentToken->getContent(), \ECSPrefix20210517\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
@@ -50,9 +47,8 @@ final class LineLengthResolver
     }
     /**
      * @param Tokens|Token[] $tokens
-     * @return int
      */
-    private function getLengthFromFunctionStartToEndOfArguments(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function getLengthFromFunctionStartToEndOfArguments(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens) : int
     {
         $length = 0;
         $start = $blockInfo->getStart();
@@ -74,9 +70,8 @@ final class LineLengthResolver
     }
     /**
      * @param Tokens|Token[] $tokens
-     * @return int
      */
-    private function getLengthFromEndOfArgumentToLineBreak(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function getLengthFromEndOfArgumentToLineBreak(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens) : int
     {
         $length = 0;
         $end = $blockInfo->getEnd();

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,17 +27,15 @@ final class NoLeadingNamespaceWhitespaceFixer extends \PhpCsFixer\AbstractFixer 
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_NAMESPACE);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('The namespace declaration line shouldn\'t contain leading whitespace.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
  namespace Test8a;
@@ -75,13 +74,8 @@ final class NoLeadingNamespaceWhitespaceFixer extends \PhpCsFixer\AbstractFixer 
             }
         }
     }
-    /**
-     * @param string $str
-     * @return bool
-     */
-    private static function endsWithWhitespace($str)
+    private static function endsWithWhitespace(string $str) : bool
     {
-        $str = (string) $str;
         if ('' === $str) {
             return \false;
         }

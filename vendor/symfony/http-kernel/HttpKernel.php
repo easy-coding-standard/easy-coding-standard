@@ -56,7 +56,7 @@ class HttpKernel implements \ECSPrefix20210517\Symfony\Component\HttpKernel\Http
     {
         $this->dispatcher = $dispatcher;
         $this->resolver = $resolver;
-        $this->requestStack = isset($requestStack) ? $requestStack : new \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack();
+        $this->requestStack = $requestStack ?? new \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack();
         $this->argumentResolver = $argumentResolver;
         if (null === $this->argumentResolver) {
             $this->argumentResolver = new \ECSPrefix20210517\Symfony\Component\HttpKernel\Controller\ArgumentResolver();
@@ -64,13 +64,9 @@ class HttpKernel implements \ECSPrefix20210517\Symfony\Component\HttpKernel\Http
     }
     /**
      * {@inheritdoc}
-     * @param int $type
-     * @param bool $catch
      */
-    public function handle(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $type = \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
+    public function handle(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, int $type = \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true)
     {
-        $type = (int) $type;
-        $catch = (bool) $catch;
         $request->headers->set('X-Php-Ob-Level', (string) \ob_get_level());
         try {
             return $this->handleRaw($request, $type);
@@ -112,12 +108,9 @@ class HttpKernel implements \ECSPrefix20210517\Symfony\Component\HttpKernel\Http
      *
      * @throws \LogicException       If one of the listener does not behave as expected
      * @throws NotFoundHttpException When controller cannot be found
-     * @param int $type
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function handleRaw(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST)
+    private function handleRaw(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, int $type = self::MASTER_REQUEST) : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response
     {
-        $type = (int) $type;
         $this->requestStack->push($request);
         // request
         $event = new \ECSPrefix20210517\Symfony\Component\HttpKernel\Event\RequestEvent($this, $request, $type);
@@ -161,12 +154,9 @@ class HttpKernel implements \ECSPrefix20210517\Symfony\Component\HttpKernel\Http
      * Filters a response object.
      *
      * @throws \RuntimeException if the passed object is not a Response instance
-     * @param int $type
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function filterResponse(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Response $response, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $type)
+    private function filterResponse(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Response $response, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, int $type) : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response
     {
-        $type = (int) $type;
         $event = new \ECSPrefix20210517\Symfony\Component\HttpKernel\Event\ResponseEvent($this, $request, $type, $response);
         $this->dispatcher->dispatch($event, \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::RESPONSE);
         $this->finishRequest($request, $type);
@@ -178,11 +168,9 @@ class HttpKernel implements \ECSPrefix20210517\Symfony\Component\HttpKernel\Http
      * Note that the order of the operations is important here, otherwise
      * operations such as {@link RequestStack::getParentRequest()} can lead to
      * weird results.
-     * @param int $type
      */
-    private function finishRequest(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $type)
+    private function finishRequest(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, int $type)
     {
-        $type = (int) $type;
         $this->dispatcher->dispatch(new \ECSPrefix20210517\Symfony\Component\HttpKernel\Event\FinishRequestEvent($this, $request, $type), \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST);
         $this->requestStack->pop();
     }
@@ -190,12 +178,9 @@ class HttpKernel implements \ECSPrefix20210517\Symfony\Component\HttpKernel\Http
      * Handles a throwable by trying to convert it to a Response.
      *
      * @throws \Exception
-     * @param int $type
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function handleThrowable(\Throwable $e, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $type)
+    private function handleThrowable(\Throwable $e, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, int $type) : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response
     {
-        $type = (int) $type;
         $event = new \ECSPrefix20210517\Symfony\Component\HttpKernel\Event\ExceptionEvent($this, $request, $type, $e);
         $this->dispatcher->dispatch($event, \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION);
         // a listener might have replaced the exception
@@ -224,9 +209,8 @@ class HttpKernel implements \ECSPrefix20210517\Symfony\Component\HttpKernel\Http
     }
     /**
      * Returns a human-readable string for the specified variable.
-     * @return string
      */
-    private function varToString($var)
+    private function varToString($var) : string
     {
         if (\is_object($var)) {
             return \sprintf('an object of type %s', \get_class($var));

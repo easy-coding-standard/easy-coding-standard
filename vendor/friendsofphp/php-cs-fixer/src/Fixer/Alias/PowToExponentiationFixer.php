@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,18 +27,16 @@ final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferen
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         // minimal candidate to fix is seven tokens: pow(x,y);
         return $tokens->count() > 7 && $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts `pow` to the `**` operator.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n pow(\$a, 1);\n")], null, 'Risky when the function `pow` is overridden.');
     }
@@ -45,9 +44,8 @@ final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferen
      * {@inheritdoc}
      *
      * Must run before BinaryOperatorSpacesFixer, MethodArgumentSpaceFixer, NativeFunctionCasingFixer, NoSpacesAfterFunctionNameFixer, NoSpacesInsideParenthesisFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 32;
     }
@@ -94,9 +92,9 @@ final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferen
         }
     }
     /**
-     * @return mixed[]
+     * @return array[]
      */
-    private function findPowCalls(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function findPowCalls(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
         $candidates = [];
         // Minimal candidate to fix is seven tokens: pow(x,y);
@@ -117,15 +115,9 @@ final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferen
      * @param array<int, int> $arguments
      *
      * @return int number of tokens added to the collection
-     * @param int $functionNameIndex
-     * @param int $openParenthesisIndex
-     * @param int $closeParenthesisIndex
      */
-    private function fixPowToExponentiation(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex, $openParenthesisIndex, $closeParenthesisIndex, array $arguments)
+    private function fixPowToExponentiation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $functionNameIndex, int $openParenthesisIndex, int $closeParenthesisIndex, array $arguments) : int
     {
-        $functionNameIndex = (int) $functionNameIndex;
-        $openParenthesisIndex = (int) $openParenthesisIndex;
-        $closeParenthesisIndex = (int) $closeParenthesisIndex;
         // find the argument separator ',' directly after the last token of the first argument;
         // replace it with T_POW '**'
         $tokens[$tokens->getNextTokenOfKind(\reset($arguments), [','])] = new \PhpCsFixer\Tokenizer\Token([\T_POW, '**']);
@@ -154,15 +146,8 @@ final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferen
         }
         return $added;
     }
-    /**
-     * @param int $argumentStartIndex
-     * @param int $argumentEndIndex
-     * @return bool
-     */
-    private function isParenthesisNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStartIndex, $argumentEndIndex)
+    private function isParenthesisNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex) : bool
     {
-        $argumentStartIndex = (int) $argumentStartIndex;
-        $argumentEndIndex = (int) $argumentEndIndex;
         static $allowedKinds = null;
         if (null === $allowedKinds) {
             $allowedKinds = $this->getAllowedKinds();

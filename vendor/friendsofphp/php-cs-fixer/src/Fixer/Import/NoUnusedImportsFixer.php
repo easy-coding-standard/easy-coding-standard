@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -29,9 +30,8 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Unused `use` statements must be removed.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nuse \\DateTime;\nuse \\Exception;\n\nnew DateTime();\n")]);
     }
@@ -40,17 +40,15 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
      *
      * Must run before BlankLineAfterNamespaceFixer, NoExtraBlankLinesFixer, NoLeadingImportSlashFixer, SingleLineAfterImportsFixer.
      * Must run after ClassKeywordRemoveFixer, GlobalNamespaceImportFixer, PhpUnitFqcnAnnotationFixer, SingleImportPerStatementFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -10;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_USE);
     }
@@ -82,12 +80,9 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param array<int, int> $ignoredIndexes
-     * @param string $shortName
-     * @return bool
      */
-    private function isImportUsed(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace, array $ignoredIndexes, $shortName)
+    private function isImportUsed(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace, array $ignoredIndexes, string $shortName) : bool
     {
-        $shortName = (string) $shortName;
         $namespaceEndIndex = $namespace->getScopeEndIndex();
         for ($index = $namespace->getScopeStartIndex(); $index <= $namespaceEndIndex; ++$index) {
             if (isset($ignoredIndexes[$index])) {

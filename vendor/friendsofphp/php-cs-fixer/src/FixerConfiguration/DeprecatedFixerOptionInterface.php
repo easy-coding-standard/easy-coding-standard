@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -13,8 +14,5 @@ namespace PhpCsFixer\FixerConfiguration;
 
 interface DeprecatedFixerOptionInterface extends \PhpCsFixer\FixerConfiguration\FixerOptionInterface
 {
-    /**
-     * @return string
-     */
-    public function getDeprecationMessage();
+    public function getDeprecationMessage() : string;
 }

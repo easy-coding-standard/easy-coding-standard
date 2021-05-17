@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of sebastian/diff.
  *
@@ -26,18 +27,11 @@ final class DiffOnlyOutputBuilder implements \ECSPrefix20210517\SebastianBergman
      * @var string
      */
     private $header;
-    /**
-     * @param string $header
-     */
-    public function __construct($header = "--- Original\n+++ New\n")
+    public function __construct(string $header = "--- Original\n+++ New\n")
     {
-        $header = (string) $header;
         $this->header = $header;
     }
-    /**
-     * @return string
-     */
-    public function getDiff(array $diff)
+    public function getDiff(array $diff) : string
     {
         $buffer = \fopen('php://memory', 'r+b');
         if ('' !== $this->header) {

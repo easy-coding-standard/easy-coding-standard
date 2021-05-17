@@ -50,11 +50,10 @@ abstract class Helper implements \ECSPrefix20210517\Symfony\Component\Console\He
      *
      * @internal in Symfony 5.2
      * @param string|null $string
-     * @return int
      */
-    public static function width($string)
+    public static function width($string) : int
     {
-        isset($string) ? $string : ($string = '');
+        $string ?? ($string = '');
         if (\preg_match('//u', $string)) {
             return (new \ECSPrefix20210517\Symfony\Component\String\UnicodeString($string))->width(\false);
         }
@@ -69,11 +68,10 @@ abstract class Helper implements \ECSPrefix20210517\Symfony\Component\Console\He
      *
      * @internal in Symfony 5.2
      * @param string|null $string
-     * @return int
      */
-    public static function length($string)
+    public static function length($string) : int
     {
-        isset($string) ? $string : ($string = '');
+        $string ?? ($string = '');
         if (\preg_match('//u', $string)) {
             return (new \ECSPrefix20210517\Symfony\Component\String\UnicodeString($string))->length();
         }
@@ -87,13 +85,10 @@ abstract class Helper implements \ECSPrefix20210517\Symfony\Component\Console\He
      *
      * @return string The string subset
      * @param string|null $string
-     * @param int $from
-     * @param int $length
      */
-    public static function substr($string, $from, $length = null)
+    public static function substr($string, int $from, int $length = null)
     {
-        $from = (int) $from;
-        isset($string) ? $string : ($string = '');
+        $string ?? ($string = '');
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
             return \substr($string, $from, $length);
         }
@@ -113,12 +108,8 @@ abstract class Helper implements \ECSPrefix20210517\Symfony\Component\Console\He
             }
         }
     }
-    /**
-     * @param int $memory
-     */
-    public static function formatMemory($memory)
+    public static function formatMemory(int $memory)
     {
-        $memory = (int) $memory;
         if ($memory >= 1024 * 1024 * 1024) {
             return \sprintf('%.1f GiB', $memory / 1024 / 1024 / 1024);
         }
@@ -145,7 +136,7 @@ abstract class Helper implements \ECSPrefix20210517\Symfony\Component\Console\He
         $isDecorated = $formatter->isDecorated();
         $formatter->setDecorated(\false);
         // remove <...> formatting
-        $string = $formatter->format(isset($string) ? $string : '');
+        $string = $formatter->format($string ?? '');
         // remove already formatted characters
         $string = \preg_replace("/\33\\[[^m]*m/", '', $string);
         $formatter->setDecorated($isDecorated);

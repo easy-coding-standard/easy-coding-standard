@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -24,17 +25,15 @@ final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Variables must be set `null` instead of using `(unset)` casting.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = (unset) \$b;\n")]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_UNSET_CAST);
     }
@@ -42,9 +41,8 @@ final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
      * {@inheritdoc}
      *
      * Must run before BinaryOperatorSpacesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
@@ -62,11 +60,9 @@ final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixUnsetCast(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixUnsetCast(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $assignmentIndex = $tokens->getPrevMeaningfulToken($index);
         if (null === $assignmentIndex || !$tokens[$assignmentIndex]->equals('=')) {
             return;

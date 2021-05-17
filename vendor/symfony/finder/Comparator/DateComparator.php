@@ -22,9 +22,8 @@ class DateComparator extends \ECSPrefix20210517\Symfony\Component\Finder\Compara
      *
      * @throws \InvalidArgumentException If the test is not understood
      */
-    public function __construct($test)
+    public function __construct(string $test)
     {
-        $test = (string) $test;
         if (!\preg_match('#^\\s*(==|!=|[<>]=?|after|since|before|until)?\\s*(.+?)\\s*$#i', $test, $matches)) {
             throw new \InvalidArgumentException(\sprintf('Don\'t understand "%s" as a date test.', $test));
         }
@@ -34,7 +33,7 @@ class DateComparator extends \ECSPrefix20210517\Symfony\Component\Finder\Compara
         } catch (\Exception $e) {
             throw new \InvalidArgumentException(\sprintf('"%s" is not a valid date.', $matches[2]));
         }
-        $operator = isset($matches[1]) ? $matches[1] : '==';
+        $operator = $matches[1] ?? '==';
         if ('since' === $operator || 'after' === $operator) {
             $operator = '>';
         }

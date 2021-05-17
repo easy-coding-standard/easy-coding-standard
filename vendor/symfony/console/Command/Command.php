@@ -58,11 +58,11 @@ class Command
         return $class === $r->class ? static::$defaultName : null;
     }
     /**
-     * @param string $name The name of the command; passing null means it must be set in configure()
+     * @param string|null $name The name of the command; passing null means it must be set in configure()
      *
      * @throws LogicException When the command name is empty
      */
-    public function __construct($name = null)
+    public function __construct(string $name = null)
     {
         $this->definition = new \ECSPrefix20210517\Symfony\Component\Console\Input\InputDefinition();
         if (null !== $name || null !== ($name = static::getDefaultName())) {
@@ -274,9 +274,8 @@ class Command
      *
      * @param bool $mergeArgs Whether to merge or not the Application definition arguments to Command definition arguments
      */
-    public function mergeApplicationDefinition($mergeArgs = \true)
+    public function mergeApplicationDefinition(bool $mergeArgs = \true)
     {
-        $mergeArgs = (bool) $mergeArgs;
         if (null === $this->application) {
             return;
         }
@@ -314,7 +313,7 @@ class Command
      */
     public function getDefinition()
     {
-        return $this->fullDefinition !== null ? $this->fullDefinition : $this->getNativeDefinition();
+        return $this->fullDefinition ?? $this->getNativeDefinition();
     }
     /**
      * Gets the InputDefinition to be used to create representations of this Command.
@@ -336,19 +335,15 @@ class Command
     /**
      * Adds an argument.
      *
-     * @param int $mode The argument mode: InputArgument::REQUIRED or InputArgument::OPTIONAL
+     * @param int|null             $mode    The argument mode: InputArgument::REQUIRED or InputArgument::OPTIONAL
      * @param string|string[]|null $default The default value (for InputArgument::OPTIONAL mode only)
      *
      * @throws InvalidArgumentException When argument mode is not valid
      *
      * @return $this
-     * @param string $name
-     * @param string $description
      */
-    public function addArgument($name, $mode = null, $description = '', $default = null)
+    public function addArgument(string $name, int $mode = null, string $description = '', $default = null)
     {
-        $name = (string) $name;
-        $description = (string) $description;
         $this->definition->addArgument(new \ECSPrefix20210517\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
             $this->fullDefinition->addArgument(new \ECSPrefix20210517\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
@@ -359,19 +354,15 @@ class Command
      * Adds an option.
      *
      * @param string|array|null         $shortcut The shortcuts, can be null, a string of shortcuts delimited by | or an array of shortcuts
-     * @param int $mode The option mode: One of the InputOption::VALUE_* constants
+     * @param int|null                  $mode     The option mode: One of the InputOption::VALUE_* constants
      * @param string|string[]|bool|null $default  The default value (must be null for InputOption::VALUE_NONE)
      *
      * @throws InvalidArgumentException If option mode is invalid or incompatible
      *
      * @return $this
-     * @param string $name
-     * @param string $description
      */
-    public function addOption($name, $shortcut = null, $mode = null, $description = '', $default = null)
+    public function addOption(string $name, $shortcut = null, int $mode = null, string $description = '', $default = null)
     {
-        $name = (string) $name;
-        $description = (string) $description;
         $this->definition->addOption(new \ECSPrefix20210517\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
             $this->fullDefinition->addOption(new \ECSPrefix20210517\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
@@ -389,11 +380,9 @@ class Command
      * @return $this
      *
      * @throws InvalidArgumentException When the name is invalid
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
-        $name = (string) $name;
         $this->validateName($name);
         $this->name = $name;
         return $this;
@@ -405,11 +394,9 @@ class Command
      * like a daemon.
      *
      * @return $this
-     * @param string $title
      */
-    public function setProcessTitle($title)
+    public function setProcessTitle(string $title)
     {
-        $title = (string) $title;
         $this->processTitle = $title;
         return $this;
     }
@@ -430,9 +417,8 @@ class Command
      *
      * @final since Symfony 5.1
      */
-    public function setHidden($hidden)
+    public function setHidden(bool $hidden)
     {
-        $hidden = (bool) $hidden;
         $this->hidden = $hidden;
         return $this;
     }
@@ -447,11 +433,9 @@ class Command
      * Sets the description for the command.
      *
      * @return $this
-     * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
-        $description = (string) $description;
         $this->description = $description;
         return $this;
     }
@@ -468,11 +452,9 @@ class Command
      * Sets the help for the command.
      *
      * @return $this
-     * @param string $help
      */
-    public function setHelp($help)
+    public function setHelp(string $help)
     {
-        $help = (string) $help;
         $this->help = $help;
         return $this;
     }
@@ -532,9 +514,8 @@ class Command
      *
      * @return string The synopsis
      */
-    public function getSynopsis($short = \false)
+    public function getSynopsis(bool $short = \false)
     {
-        $short = (bool) $short;
         $key = $short ? 'short' : 'long';
         if (!isset($this->synopsis[$key])) {
             $this->synopsis[$key] = \trim(\sprintf('%s %s', $this->name, $this->definition->getSynopsis($short)));
@@ -545,11 +526,9 @@ class Command
      * Add a command usage example, it'll be prefixed with the command name.
      *
      * @return $this
-     * @param string $usage
      */
-    public function addUsage($usage)
+    public function addUsage(string $usage)
     {
-        $usage = (string) $usage;
         if (0 !== \strpos($usage, $this->name)) {
             $usage = \sprintf('%s %s', $this->name, $usage);
         }
@@ -572,11 +551,9 @@ class Command
      *
      * @throws LogicException           if no HelperSet is defined
      * @throws InvalidArgumentException if the helper is not defined
-     * @param string $name
      */
-    public function getHelper($name)
+    public function getHelper(string $name)
     {
-        $name = (string) $name;
         if (null === $this->helperSet) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\LogicException(\sprintf('Cannot retrieve helper "%s" because there is no HelperSet defined. Did you forget to add your command to the application or to set the application on the command using the setApplication() method? You can also set the HelperSet directly using the setHelperSet() method.', $name));
         }
@@ -588,11 +565,9 @@ class Command
      * It must be non-empty and parts can optionally be separated by ":".
      *
      * @throws InvalidArgumentException When the name is invalid
-     * @param string $name
      */
-    private function validateName($name)
+    private function validateName(string $name)
     {
-        $name = (string) $name;
         if (!\preg_match('/^[^\\:]++(\\:[^\\:]++)*$/', $name)) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Command name "%s" is invalid.', $name));
         }

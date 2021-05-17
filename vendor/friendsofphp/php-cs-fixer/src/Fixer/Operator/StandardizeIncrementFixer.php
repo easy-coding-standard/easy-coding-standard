@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,9 +27,8 @@ final class StandardizeIncrementFixer extends \PhpCsFixer\Fixer\AbstractIncremen
     const EXPRESSION_END_TOKENS = [';', ')', ']', ',', ':', [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\T_CLOSE_TAG]];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Increment and decrement operators should be used if possible.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$i += 1;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$i -= 1;\n")]);
     }
@@ -36,17 +36,15 @@ final class StandardizeIncrementFixer extends \PhpCsFixer\Fixer\AbstractIncremen
      * {@inheritdoc}
      *
      * Must run before IncrementStyleFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 1;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_PLUS_EQUAL, \T_MINUS_EQUAL]);
     }
@@ -79,13 +77,9 @@ final class StandardizeIncrementFixer extends \PhpCsFixer\Fixer\AbstractIncremen
     /**
      * Clear tokens in the given range unless they are comments.
      * @return void
-     * @param int $indexStart
-     * @param int $indexEnd
      */
-    private function clearRangeLeaveComments(\PhpCsFixer\Tokenizer\Tokens $tokens, $indexStart, $indexEnd)
+    private function clearRangeLeaveComments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $indexStart, int $indexEnd)
     {
-        $indexStart = (int) $indexStart;
-        $indexEnd = (int) $indexEnd;
         for ($i = $indexStart; $i <= $indexEnd; ++$i) {
             $token = $tokens[$i];
             if ($token->isComment()) {

@@ -50,18 +50,16 @@ interface ParameterBagInterface
     public function get($name);
     /**
      * Removes a parameter.
-     * @param string $name
      */
-    public function remove($name);
+    public function remove(string $name);
     /**
      * Sets a service container parameter.
      *
      * @param mixed $value The parameter value
      *
      * @throws LogicException if the parameter can not be set
-     * @param string $name
      */
-    public function set($name, $value);
+    public function set(string $name, $value);
     /**
      * Returns true if a parameter name is defined.
      *

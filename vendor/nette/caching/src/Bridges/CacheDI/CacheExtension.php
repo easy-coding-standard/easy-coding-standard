@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Bridges\CacheDI;
 
 use ECSPrefix20210517\Nette;
@@ -10,12 +15,8 @@ final class CacheExtension extends \ECSPrefix20210517\Nette\DI\CompilerExtension
 {
     /** @var string */
     private $tempDir;
-    /**
-     * @param string $tempDir
-     */
-    public function __construct($tempDir)
+    public function __construct(string $tempDir)
     {
-        $tempDir = (string) $tempDir;
         $this->tempDir = $tempDir;
     }
     public function loadConfiguration()

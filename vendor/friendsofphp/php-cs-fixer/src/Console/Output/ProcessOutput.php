@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -47,14 +48,8 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
      * @var int
      */
     private $symbolsPerLine;
-    /**
-     * @param int $width
-     * @param int $nbFiles
-     */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher, $width, $nbFiles)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher, int $width, int $nbFiles)
     {
-        $width = (int) $width;
-        $nbFiles = (int) $nbFiles;
         $this->output = $output;
         $this->eventDispatcher = $dispatcher;
         $this->eventDispatcher->addListener(\PhpCsFixer\FixerFileProcessedEvent::NAME, [$this, 'onFixerFileProcessed']);
@@ -71,9 +66,8 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
     /**
      * This class is not intended to be serialized,
      * and cannot be deserialized (see __wakeup method).
-     * @return mixed[]
      */
-    public function __sleep()
+    public function __sleep() : array
     {
         throw new \BadMethodCallException('Cannot serialize ' . __CLASS__);
     }

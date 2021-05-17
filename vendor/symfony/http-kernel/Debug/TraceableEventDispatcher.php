@@ -24,11 +24,9 @@ class TraceableEventDispatcher extends \ECSPrefix20210517\Symfony\Component\Even
     /**
      * {@inheritdoc}
      * @param object $event
-     * @param string $eventName
      */
-    protected function beforeDispatch($eventName, $event)
+    protected function beforeDispatch(string $eventName, $event)
     {
-        $eventName = (string) $eventName;
         switch ($eventName) {
             case \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::REQUEST:
                 $this->stopwatch->openSection();
@@ -60,11 +58,9 @@ class TraceableEventDispatcher extends \ECSPrefix20210517\Symfony\Component\Even
     /**
      * {@inheritdoc}
      * @param object $event
-     * @param string $eventName
      */
-    protected function afterDispatch($eventName, $event)
+    protected function afterDispatch(string $eventName, $event)
     {
-        $eventName = (string) $eventName;
         switch ($eventName) {
             case \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS:
                 $this->stopwatch->start('controller', 'section');

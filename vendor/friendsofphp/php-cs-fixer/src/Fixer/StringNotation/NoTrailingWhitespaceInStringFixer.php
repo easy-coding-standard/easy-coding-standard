@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,25 +26,22 @@ final class NoTrailingWhitespaceInStringFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_CONSTANT_ENCAPSED_STRING, \T_ENCAPSED_AND_WHITESPACE, \T_INLINE_HTML]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('There must be no trailing whitespace in strings.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = '  \n    foo \n';\n")], null, 'Changing the whitespaces in strings might affect string comparisons and outputs.');
     }
@@ -81,13 +79,9 @@ final class NoTrailingWhitespaceInStringFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $index
-     * @param string $content
      */
-    private function updateContent(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $content)
+    private function updateContent(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $content)
     {
-        $index = (int) $index;
-        $content = (string) $content;
         if ('' === $content) {
             $tokens->clearAt($index);
             return;

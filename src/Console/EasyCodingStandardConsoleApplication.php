@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
 use ECSPrefix20210517\Composer\XdebugHandler\XdebugHandler;
@@ -32,10 +33,7 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210517\Symf
         }
         $this->setDefaultCommand(\ECSPrefix20210517\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class));
     }
-    /**
-     * @return int
-     */
-    public function doRun(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output)
+    public function doRun(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
@@ -50,19 +48,13 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210517\Symf
         }
         return parent::doRun($input, $output);
     }
-    /**
-     * @return \Symfony\Component\Console\Input\InputDefinition
-     */
-    protected function getDefaultInputDefinition()
+    protected function getDefaultInputDefinition() : \ECSPrefix20210517\Symfony\Component\Console\Input\InputDefinition
     {
         $inputDefinition = parent::getDefaultInputDefinition();
         $this->addExtraOptions($inputDefinition);
         return $inputDefinition;
     }
-    /**
-     * @return bool
-     */
-    private function shouldPrintMetaInformation(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input)
+    private function shouldPrintMetaInformation(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         $hasNoArguments = $input->getFirstArgument() === null;
         $hasVersionOption = $input->hasParameterOption('--version');
@@ -83,10 +75,7 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210517\Symf
         $inputDefinition->addOption(new \ECSPrefix20210517\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::XDEBUG, null, \ECSPrefix20210517\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running xdebug'));
         $inputDefinition->addOption(new \ECSPrefix20210517\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::DEBUG, null, \ECSPrefix20210517\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Run in debug mode (alias for "-vvv")'));
     }
-    /**
-     * @return string
-     */
-    private function resolveEasyCodingStandardVersion()
+    private function resolveEasyCodingStandardVersion() : string
     {
         // load packages' scoped installed versions class
         if (\file_exists(__DIR__ . '/../../vendor/composer/InstalledVersions.php')) {
@@ -104,7 +93,7 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210517\Symf
             if ($ecsPackageData['reference'] !== null) {
                 return 'dev-main@' . \ECSPrefix20210517\Nette\Utils\Strings::substring($ecsPackageData['reference'], 0, 7);
             }
-            return isset($ecsPackageData['aliases'][0]) ? $ecsPackageData['aliases'][0] : 'dev-main';
+            return $ecsPackageData['aliases'][0] ?? 'dev-main';
         }
         return $ecsPackageData['version'];
     }

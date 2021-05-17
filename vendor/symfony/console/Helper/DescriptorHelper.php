@@ -55,11 +55,9 @@ class DescriptorHelper extends \ECSPrefix20210517\Symfony\Component\Console\Help
      * Registers a descriptor.
      *
      * @return $this
-     * @param string $format
      */
-    public function register($format, \ECSPrefix20210517\Symfony\Component\Console\Descriptor\DescriptorInterface $descriptor)
+    public function register(string $format, \ECSPrefix20210517\Symfony\Component\Console\Descriptor\DescriptorInterface $descriptor)
     {
-        $format = (string) $format;
         $this->descriptors[$format] = $descriptor;
         return $this;
     }

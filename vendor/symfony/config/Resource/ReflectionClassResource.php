@@ -33,12 +33,9 @@ class ReflectionClassResource implements \ECSPrefix20210517\Symfony\Component\Co
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
-     * @return bool
      */
-    public function isFresh($timestamp)
+    public function isFresh(int $timestamp) : bool
     {
-        $timestamp = (int) $timestamp;
         if (null === $this->hash) {
             $this->hash = $this->computeHash();
             $this->loadFiles($this->classReflector);
@@ -53,18 +50,14 @@ class ReflectionClassResource implements \ECSPrefix20210517\Symfony\Component\Co
         }
         return \true;
     }
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString() : string
     {
         return 'reflection.' . $this->className;
     }
     /**
      * @internal
-     * @return mixed[]
      */
-    public function __sleep()
+    public function __sleep() : array
     {
         if (null === $this->hash) {
             $this->hash = $this->computeHash();
@@ -95,10 +88,7 @@ class ReflectionClassResource implements \ECSPrefix20210517\Symfony\Component\Co
             }
         } while ($class = $class->getParentClass());
     }
-    /**
-     * @return string
-     */
-    private function computeHash()
+    private function computeHash() : string
     {
         if (null === $this->classReflector) {
             try {

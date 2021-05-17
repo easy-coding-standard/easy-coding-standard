@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
 use ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface;
@@ -68,37 +69,25 @@ final class Configuration
         $this->setOutputFormat($input);
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    public function getSources()
+    public function getSources() : array
     {
         return $this->sources;
     }
-    /**
-     * @return bool
-     */
-    public function isFixer()
+    public function isFixer() : bool
     {
         return $this->isFixer;
     }
-    /**
-     * @return bool
-     */
-    public function shouldClearCache()
+    public function shouldClearCache() : bool
     {
         return $this->shouldClearCache;
     }
-    /**
-     * @return bool
-     */
-    public function shouldShowProgressBar()
+    public function shouldShowProgressBar() : bool
     {
         return $this->showProgressBar;
     }
-    /**
-     * @return bool
-     */
-    public function shouldShowErrorTable()
+    public function shouldShowErrorTable() : bool
     {
         return $this->showErrorTable;
     }
@@ -112,16 +101,13 @@ final class Configuration
         $this->sources = $this->normalizeSources($sources);
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    public function getPaths()
+    public function getPaths() : array
     {
         return $this->paths;
     }
-    /**
-     * @return string
-     */
-    public function getOutputFormat()
+    public function getOutputFormat() : string
     {
         return $this->outputFormat;
     }
@@ -134,17 +120,11 @@ final class Configuration
     {
         $this->isFixer = \true;
     }
-    /**
-     * @return bool
-     */
-    public function doesMatchGitDiff()
+    public function doesMatchGitDiff() : bool
     {
         return $this->doesMatchGitDiff;
     }
-    /**
-     * @return bool
-     */
-    private function canShowProgressBar(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input)
+    private function canShowProgressBar(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         $notJsonOutput = $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT) !== \Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter::NAME;
         if (!$notJsonOutput) {
@@ -167,9 +147,9 @@ final class Configuration
     }
     /**
      * @param string[] $sources
-     * @return mixed[]
+     * @return string[]
      */
-    private function normalizeSources(array $sources)
+    private function normalizeSources(array $sources) : array
     {
         foreach ($sources as $key => $value) {
             $sources[$key] = \rtrim($value, \DIRECTORY_SEPARATOR);

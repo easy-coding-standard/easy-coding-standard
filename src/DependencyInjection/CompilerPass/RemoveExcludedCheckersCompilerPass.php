@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -23,9 +24,9 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210517\Sym
         }
     }
     /**
-     * @return mixed[]
+     * @return array<int, class-string>
      */
-    private function getExcludedCheckersFromParameterBag(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag)
+    private function getExcludedCheckersFromParameterBag(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag) : array
     {
         // parts of "skip" parameter
         if (!$parameterBag->has(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP)) {

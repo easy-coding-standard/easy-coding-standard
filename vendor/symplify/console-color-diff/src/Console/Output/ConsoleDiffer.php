@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\ConsoleColorDiff\Console\Output;
 
 use ECSPrefix20210517\SebastianBergmann\Diff\Differ;
@@ -19,15 +20,8 @@ final class ConsoleDiffer
         $this->differ = $differ;
         $this->colorConsoleDiffFormatter = $colorConsoleDiffFormatter;
     }
-    /**
-     * @param string $old
-     * @param string $new
-     * @return string
-     */
-    public function diff($old, $new)
+    public function diff(string $old, string $new) : string
     {
-        $old = (string) $old;
-        $new = (string) $new;
         $diff = $this->differ->diff($old, $new);
         return $this->colorConsoleDiffFormatter->format($diff);
     }

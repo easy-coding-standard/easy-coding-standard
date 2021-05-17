@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,9 +29,8 @@ final class SelfStaticAccessorFixer extends \PhpCsFixer\AbstractFixer
     private $tokensAnalyzer;
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Inside a `final` class or anonymous class `self` should be preferred to `static`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Sample
@@ -74,9 +74,8 @@ $a = new class() {
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_CLASS, \T_STATIC]) && $tokens->isAnyTokenKindsFound([\T_DOUBLE_COLON, \T_NEW, \T_INSTANCEOF]);
     }
@@ -84,9 +83,8 @@ $a = new class() {
      * {@inheritdoc}
      *
      * Must run after FinalInternalClassFixer, FunctionToConstantFixer, PhpUnitTestCaseStaticMethodCallsFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -10;
     }
@@ -105,13 +103,8 @@ $a = new class() {
             $classIndex = $tokens->getNextTokenOfKind($classIndex, [[\T_CLASS]]);
         }
     }
-    /**
-     * @param int $index
-     * @return int
-     */
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
-        $index = (int) $index;
         $index = $tokens->getNextTokenOfKind($index, ['{']);
         $classOpenCount = 1;
         while ($classOpenCount > 0) {

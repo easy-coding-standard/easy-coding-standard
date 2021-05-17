@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -29,26 +30,23 @@ final class SingleBlankLineAtEofFixer extends \PhpCsFixer\AbstractFixer implemen
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('A PHP file without end tag must always end with a single empty line feed.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = 1;"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = 1;\n\n")]);
     }
     /**
      * {@inheritdoc}
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         // must run last to be sure the file is properly formatted before it runs
         return -50;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \true;
     }

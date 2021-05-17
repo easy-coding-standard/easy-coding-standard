@@ -31,18 +31,8 @@ class RegisterListenersPass implements \ECSPrefix20210517\Symfony\Component\Depe
     private $hotPathTagName;
     private $noPreloadEvents = [];
     private $noPreloadTagName;
-    /**
-     * @param string $dispatcherService
-     * @param string $listenerTag
-     * @param string $subscriberTag
-     * @param string $eventAliasesParameter
-     */
-    public function __construct($dispatcherService = 'event_dispatcher', $listenerTag = 'kernel.event_listener', $subscriberTag = 'kernel.event_subscriber', $eventAliasesParameter = 'event_dispatcher.event_aliases')
+    public function __construct(string $dispatcherService = 'event_dispatcher', string $listenerTag = 'kernel.event_listener', string $subscriberTag = 'kernel.event_subscriber', string $eventAliasesParameter = 'event_dispatcher.event_aliases')
     {
-        $dispatcherService = (string) $dispatcherService;
-        $listenerTag = (string) $listenerTag;
-        $subscriberTag = (string) $subscriberTag;
-        $eventAliasesParameter = (string) $eventAliasesParameter;
         $this->dispatcherService = $dispatcherService;
         $this->listenerTag = $listenerTag;
         $this->subscriberTag = $subscriberTag;
@@ -50,22 +40,18 @@ class RegisterListenersPass implements \ECSPrefix20210517\Symfony\Component\Depe
     }
     /**
      * @return $this
-     * @param string $tagName
      */
-    public function setHotPathEvents(array $hotPathEvents, $tagName = 'container.hot_path')
+    public function setHotPathEvents(array $hotPathEvents, string $tagName = 'container.hot_path')
     {
-        $tagName = (string) $tagName;
         $this->hotPathEvents = \array_flip($hotPathEvents);
         $this->hotPathTagName = $tagName;
         return $this;
     }
     /**
      * @return $this
-     * @param string $tagName
      */
-    public function setNoPreloadEvents(array $noPreloadEvents, $tagName = 'container.no_preload')
+    public function setNoPreloadEvents(array $noPreloadEvents, string $tagName = 'container.no_preload')
     {
-        $tagName = (string) $tagName;
         $this->noPreloadEvents = \array_flip($noPreloadEvents);
         $this->noPreloadTagName = $tagName;
         return $this;
@@ -83,15 +69,15 @@ class RegisterListenersPass implements \ECSPrefix20210517\Symfony\Component\Depe
         foreach ($container->findTaggedServiceIds($this->listenerTag, \true) as $id => $events) {
             $noPreload = 0;
             foreach ($events as $event) {
-                $priority = isset($event['priority']) ? $event['priority'] : 0;
+                $priority = $event['priority'] ?? 0;
                 if (!isset($event['event'])) {
                     if ($container->getDefinition($id)->hasTag($this->subscriberTag)) {
                         continue;
                     }
-                    $event['method'] = isset($event['method']) ? $event['method'] : '__invoke';
+                    $event['method'] = $event['method'] ?? '__invoke';
                     $event['event'] = $this->getEventFromTypeDeclaration($container, $id, $event['method']);
                 }
-                $event['event'] = isset($aliases[$event['event']]) ? $aliases[$event['event']] : $event['event'];
+                $event['event'] = $aliases[$event['event']] ?? $event['event'];
                 if (!isset($event['method'])) {
                     $event['method'] = 'on' . \preg_replace_callback(['/(?<=\\b)[a-z]/i', '/[^a-z0-9]/i'], function ($matches) {
                         return \strtoupper($matches[0]);
@@ -160,15 +146,8 @@ class RegisterListenersPass implements \ECSPrefix20210517\Symfony\Component\Depe
             \ECSPrefix20210517\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = [];
         }
     }
-    /**
-     * @param string $id
-     * @param string $method
-     * @return string
-     */
-    private function getEventFromTypeDeclaration(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, $id, $method)
+    private function getEventFromTypeDeclaration(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $id, string $method) : string
     {
-        $id = (string) $id;
-        $method = (string) $method;
         if (null === ($class = $container->getDefinition($id)->getClass()) || !($r = $container->getReflectionClass($class, \false)) || !$r->hasMethod($method) || 1 > ($m = $r->getMethod($method))->getNumberOfParameters() || !($type = $m->getParameters()[0]->getType()) instanceof \ReflectionNamedType || $type->isBuiltin() || \ECSPrefix20210517\Symfony\Contracts\EventDispatcher\Event::class === ($name = $type->getName())) {
             throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must define the "event" attribute on "%s" tags.', $id, $this->listenerTag));
         }
@@ -183,24 +162,15 @@ class ExtractingEventDispatcher extends \ECSPrefix20210517\Symfony\Component\Eve
     public $listeners = [];
     public static $aliases = [];
     public static $subscriber;
-    /**
-     * @param string $eventName
-     * @param int $priority
-     */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener(string $eventName, $listener, int $priority = 0)
     {
-        $eventName = (string) $eventName;
-        $priority = (int) $priority;
         $this->listeners[] = [$eventName, $listener[1], $priority];
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         $events = [];
         foreach ([self::$subscriber, 'getSubscribedEvents']() as $eventName => $params) {
-            $events[isset(self::$aliases[$eventName]) ? self::$aliases[$eventName] : $eventName] = $params;
+            $events[self::$aliases[$eventName] ?? $eventName] = $params;
         }
         return $events;
     }

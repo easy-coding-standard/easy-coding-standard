@@ -97,11 +97,9 @@ class ControllerResolver implements \ECSPrefix20210517\Symfony\Component\HttpKer
      * @return callable A PHP callable
      *
      * @throws \InvalidArgumentException When the controller cannot be created
-     * @param string $controller
      */
-    protected function createController($controller)
+    protected function createController(string $controller)
     {
-        $controller = (string) $controller;
         if (\false === \strpos($controller, '::')) {
             $controller = $this->instantiateController($controller);
             if (!\is_callable($controller)) {
@@ -140,17 +138,12 @@ class ControllerResolver implements \ECSPrefix20210517\Symfony\Component\HttpKer
      * Returns an instantiated controller.
      *
      * @return object
-     * @param string $class
      */
-    protected function instantiateController($class)
+    protected function instantiateController(string $class)
     {
-        $class = (string) $class;
         return new $class();
     }
-    /**
-     * @return string
-     */
-    private function getControllerError($callable)
+    private function getControllerError($callable) : string
     {
         if (\is_string($callable)) {
             if (\false !== \strpos($callable, '::')) {
@@ -195,10 +188,7 @@ class ControllerResolver implements \ECSPrefix20210517\Symfony\Component\HttpKer
         }
         return $message;
     }
-    /**
-     * @return mixed[]
-     */
-    private function getClassMethodsWithoutMagicMethods($classOrObject)
+    private function getClassMethodsWithoutMagicMethods($classOrObject) : array
     {
         $methods = \get_class_methods($classOrObject);
         return \array_filter($methods, function (string $method) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Bootstrap;
 
 use ECSPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle;

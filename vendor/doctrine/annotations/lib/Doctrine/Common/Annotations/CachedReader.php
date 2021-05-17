@@ -186,9 +186,8 @@ final class CachedReader implements \ECSPrefix20210517\Doctrine\Common\Annotatio
     }
     /**
      * Returns the time the class was last modified, testing traits and parents
-     * @return int
      */
-    private function getLastModification(\ReflectionClass $class)
+    private function getLastModification(\ReflectionClass $class) : int
     {
         $filename = $class->getFileName();
         if (isset($this->loadedFilemtimes[$filename])) {
@@ -203,10 +202,7 @@ final class CachedReader implements \ECSPrefix20210517\Doctrine\Common\Annotatio
         \assert($lastModification !== \false);
         return $this->loadedFilemtimes[$filename] = $lastModification;
     }
-    /**
-     * @return int
-     */
-    private function getTraitLastModificationTime(\ReflectionClass $reflectionTrait)
+    private function getTraitLastModificationTime(\ReflectionClass $reflectionTrait) : int
     {
         $fileName = $reflectionTrait->getFileName();
         if (isset($this->loadedFilemtimes[$fileName])) {

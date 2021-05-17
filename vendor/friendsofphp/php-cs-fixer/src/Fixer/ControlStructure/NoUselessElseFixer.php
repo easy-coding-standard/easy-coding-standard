@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -23,17 +24,15 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_ELSE);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should not be useless `else` cases.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif (\$a) {\n    return 1;\n} else {\n    return 2;\n}\n")]);
     }
@@ -42,9 +41,8 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
      *
      * Must run before BracesFixer, CombineConsecutiveUnsetsFixer, NoBreakCommentFixer, NoExtraBlankLinesFixer, NoTrailingWhitespaceFixer, NoUselessReturnFixer, NoWhitespaceInBlankLineFixer, SimplifiedIfReturnFixer.
      * Must run after NoAlternativeSyntaxFixer, NoEmptyStatementFixer, NoUnneededCurlyBracesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return parent::getPriority();
     }
@@ -79,9 +77,8 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
      * @param int $index T_ELSE index
      * @return void
      */
-    private function fixEmptyElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixEmptyElse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $next = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$next]->equals('{')) {
             $close = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $next);
@@ -104,9 +101,8 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
      * @param int $index index of T_ELSE
      * @return void
      */
-    private function clearElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function clearElse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $tokens->clearTokenAndMergeSurroundingWhitespace($index);
         // clear T_ELSE and the '{' '}' if there are any
         $next = $tokens->getNextMeaningfulToken($index);

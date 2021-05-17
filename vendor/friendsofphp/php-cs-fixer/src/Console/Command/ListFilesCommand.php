@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -50,10 +51,7 @@ final class ListFilesCommand extends \ECSPrefix20210517\Symfony\Component\Consol
     {
         $this->setDefinition([new \ECSPrefix20210517\Symfony\Component\Console\Input\InputOption('config', '', \ECSPrefix20210517\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.')])->setDescription('List all files being fixed by the given config.');
     }
-    /**
-     * @return int
-     */
-    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $passedConfig = $input->getOption('config');
         $cwd = \getcwd();

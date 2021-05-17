@@ -34,11 +34,9 @@ class PrototypedArrayNode extends \ECSPrefix20210517\Symfony\Component\Config\De
     /**
      * Sets the minimum number of elements that a prototype based node must
      * contain. By default this is zero, meaning no elements.
-     * @param int $number
      */
-    public function setMinNumberOfElements($number)
+    public function setMinNumberOfElements(int $number)
     {
-        $number = (int) $number;
         $this->minNumberOfElements = $number;
     }
     /**
@@ -65,10 +63,8 @@ class PrototypedArrayNode extends \ECSPrefix20210517\Symfony\Component\Config\De
      * @param string $attribute The name of the attribute which value is to be used as a key
      * @param bool   $remove    Whether or not to remove the key
      */
-    public function setKeyAttribute($attribute, $remove = \true)
+    public function setKeyAttribute(string $attribute, bool $remove = \true)
     {
-        $attribute = (string) $attribute;
-        $remove = (bool) $remove;
         $this->keyAttribute = $attribute;
         $this->removeKeyAttribute = $remove;
     }
@@ -323,12 +319,10 @@ class PrototypedArrayNode extends \ECSPrefix20210517\Symfony\Component\Config\De
      * the prototype of child node 'name001' should be a ScalarNode instead of an ArrayNode instance.
      *
      * @return mixed The prototype instance
-     * @param string $key
      */
-    private function getPrototypeForChild($key)
+    private function getPrototypeForChild(string $key)
     {
-        $key = (string) $key;
-        $prototype = isset($this->valuePrototypes[$key]) ? $this->valuePrototypes[$key] : $this->prototype;
+        $prototype = $this->valuePrototypes[$key] ?? $this->prototype;
         $prototype->setName($key);
         return $prototype;
     }

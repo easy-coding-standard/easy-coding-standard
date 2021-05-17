@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -37,25 +38,22 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
     private static $delimiters = ['/', '#', '!'];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace deprecated `ereg` regular expression functions with `preg`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$x = ereg('[A-Z]');\n")], null, 'Risky if the `ereg` function is overridden.');
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -112,11 +110,9 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
      * Check the validity of a PCRE.
      *
      * @param string $pattern the regular expression
-     * @return bool
      */
-    private function checkPreg($pattern)
+    private function checkPreg(string $pattern) : bool
     {
-        $pattern = (string) $pattern;
         try {
             \PhpCsFixer\Preg::match($pattern, '');
             return \true;
@@ -131,9 +127,8 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
      *
      * @return string the preg delimiter
      */
-    private function getBestDelimiter($pattern)
+    private function getBestDelimiter(string $pattern) : string
     {
-        $pattern = (string) $pattern;
         // try do find something that's not used
         $delimiters = [];
         foreach (self::$delimiters as $k => $d) {

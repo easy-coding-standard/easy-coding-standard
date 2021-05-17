@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517;
 
 // decoupled in own "*.php" file, so ECS, Rector and PHPStan works out of the box here
@@ -70,11 +71,9 @@ final class AutoloadIncluder
     }
     /**
      * @return void
-     * @param string $file
      */
-    public function autoloadProjectAutoloaderFile($file)
+    public function autoloadProjectAutoloaderFile(string $file)
     {
-        $file = (string) $file;
         $path = \dirname(__DIR__) . $file;
         if (!\is_file($path)) {
             return;
@@ -112,11 +111,9 @@ final class AutoloadIncluder
     }
     /**
      * @return void
-     * @param string $file
      */
-    private function loadIfNotLoadedYet($file)
+    private function loadIfNotLoadedYet(string $file)
     {
-        $file = (string) $file;
         if (\in_array($file, $this->alreadyLoadedAutoloadFiles, \true)) {
             return;
         }

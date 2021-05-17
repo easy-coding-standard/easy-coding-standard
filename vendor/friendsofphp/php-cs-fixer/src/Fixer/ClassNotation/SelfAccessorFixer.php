@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,9 +29,8 @@ final class SelfAccessorFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Inside class or interface element `self` should be preferred to the class name itself.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Sample
@@ -47,17 +47,15 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_CLASS, \T_INTERFACE]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -85,17 +83,9 @@ class Sample
     /**
      * Replace occurrences of the name of the classy element by "self" (if possible).
      * @return void
-     * @param string $namespace
-     * @param string $name
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespace, $name, $startIndex, $endIndex)
+    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespace, string $name, int $startIndex, int $endIndex)
     {
-        $namespace = (string) $namespace;
-        $name = (string) $name;
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $insideMethodSignatureUntil = null;
         for ($i = $startIndex; $i < $endIndex; ++$i) {
@@ -143,12 +133,9 @@ class Sample
     }
     /**
      * @return int|null
-     * @param int $index
-     * @param string $namespace
      */
-    private function getClassStart(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $namespace)
+    private function getClassStart(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $namespace)
     {
-        $namespace = (string) $namespace;
         $namespace = ('' !== $namespace ? '\\' . $namespace : '') . '\\';
         foreach (\array_reverse(\PhpCsFixer\Preg::split('/(\\\\)/', $namespace, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE)) as $piece) {
             $index = $tokens->getPrevMeaningfulToken($index);

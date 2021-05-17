@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Caching\Storages;
 
 use ECSPrefix20210517\Nette;
@@ -14,12 +19,8 @@ class SQLiteJournal implements \ECSPrefix20210517\Nette\Caching\Storages\Journal
     private $path;
     /** @var \PDO */
     private $pdo;
-    /**
-     * @param string $path
-     */
-    public function __construct($path)
+    public function __construct(string $path)
     {
-        $path = (string) $path;
         if (!\extension_loaded('pdo_sqlite')) {
             throw new \ECSPrefix20210517\Nette\NotSupportedException('SQLiteJournal requires PHP extension pdo_sqlite which is not loaded.');
         }
@@ -55,11 +56,9 @@ class SQLiteJournal implements \ECSPrefix20210517\Nette\Caching\Storages\Journal
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function write($key, array $dependencies)
+    public function write(string $key, array $dependencies)
     {
-        $key = (string) $key;
         if (!$this->pdo) {
             $this->open();
         }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -64,9 +65,8 @@ final class ClassAttributesSeparationFixer extends \PhpCsFixer\AbstractFixer imp
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Class, trait and interface elements must be separated with one or none blank line.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Sample
@@ -100,17 +100,15 @@ class Sample
      *
      * Must run before BracesFixer, IndentationTypeFixer.
      * Must run after OrderedClassElementsFixer, SingleClassElementPerStatementFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 55;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
@@ -148,9 +146,8 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'Dictionary of `const|method|property` => `none|one` values.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) {
             foreach ($option as $type => $spacing) {
@@ -170,15 +167,9 @@ class Sample
      * Deals with comments, PHPDocs and spaces above the element with respect to the position of the
      * element within the class, interface or trait.
      * @return void
-     * @param int $classEndIndex
-     * @param int $elementEndIndex
-     * @param string $spacing
      */
-    private function fixSpaceBelowClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $classEndIndex, $elementEndIndex, $spacing)
+    private function fixSpaceBelowClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classEndIndex, int $elementEndIndex, string $spacing)
     {
-        $classEndIndex = (int) $classEndIndex;
-        $elementEndIndex = (int) $elementEndIndex;
-        $spacing = (string) $spacing;
         for ($nextNotWhite = $elementEndIndex + 1;; ++$nextNotWhite) {
             if (($tokens[$nextNotWhite]->isComment() || $tokens[$nextNotWhite]->isWhitespace()) && \false === \strpos($tokens[$nextNotWhite]->getContent(), "\n")) {
                 continue;
@@ -201,15 +192,9 @@ class Sample
      * Deals with comments, PHPDocs and spaces above the method with respect to the position of the
      * method within the class or trait.
      * @return void
-     * @param int $classEndIndex
-     * @param int $elementEndIndex
-     * @param string $spacing
      */
-    private function fixSpaceBelowClassMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, $classEndIndex, $elementEndIndex, $spacing)
+    private function fixSpaceBelowClassMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classEndIndex, int $elementEndIndex, string $spacing)
     {
-        $classEndIndex = (int) $classEndIndex;
-        $elementEndIndex = (int) $elementEndIndex;
-        $spacing = (string) $spacing;
         $nextNotWhite = $tokens->getNextNonWhitespace($elementEndIndex);
         $this->correctLineBreaks($tokens, $elementEndIndex, $nextNotWhite, $nextNotWhite === $classEndIndex || self::SPACING_NONE === $spacing ? 1 : 2);
     }
@@ -222,13 +207,9 @@ class Sample
      * @param int $classStartIndex index of the class Token the element is in
      * @param int $elementIndex    index of the element to fix
      * @return void
-     * @param string $spacing
      */
-    private function fixSpaceAboveClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $classStartIndex, $elementIndex, $spacing)
+    private function fixSpaceAboveClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classStartIndex, int $elementIndex, string $spacing)
     {
-        $classStartIndex = (int) $classStartIndex;
-        $elementIndex = (int) $elementIndex;
-        $spacing = (string) $spacing;
         static $methodAttr = [\T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_ABSTRACT, \T_FINAL, \T_STATIC, \T_STRING, \T_NS_SEPARATOR, \T_VAR, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION];
         $nonWhiteAbove = null;
         // find out where the element definition starts
@@ -293,15 +274,9 @@ class Sample
     }
     /**
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
-     * @param int $reqLineCount
      */
-    private function correctLineBreaks(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex, $reqLineCount = 2)
+    private function correctLineBreaks(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, int $reqLineCount = 2)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
-        $reqLineCount = (int) $reqLineCount;
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         ++$startIndex;
         $numbOfWhiteTokens = $endIndex - $startIndex;
@@ -332,28 +307,16 @@ class Sample
             }
         }
     }
-    /**
-     * @param int $whiteSpaceStartIndex
-     * @param int $whiteSpaceEndIndex
-     * @return int
-     */
-    private function getLineBreakCount(\PhpCsFixer\Tokenizer\Tokens $tokens, $whiteSpaceStartIndex, $whiteSpaceEndIndex)
+    private function getLineBreakCount(\PhpCsFixer\Tokenizer\Tokens $tokens, int $whiteSpaceStartIndex, int $whiteSpaceEndIndex) : int
     {
-        $whiteSpaceStartIndex = (int) $whiteSpaceStartIndex;
-        $whiteSpaceEndIndex = (int) $whiteSpaceEndIndex;
         $lineCount = 0;
         for ($i = $whiteSpaceStartIndex; $i < $whiteSpaceEndIndex; ++$i) {
             $lineCount += \substr_count($tokens[$i]->getContent(), "\n");
         }
         return $lineCount;
     }
-    /**
-     * @param int $commentIndex
-     * @return int
-     */
-    private function findCommentBlockStart(\PhpCsFixer\Tokenizer\Tokens $tokens, $commentIndex)
+    private function findCommentBlockStart(\PhpCsFixer\Tokenizer\Tokens $tokens, int $commentIndex) : int
     {
-        $commentIndex = (int) $commentIndex;
         $start = $commentIndex;
         for ($i = $commentIndex - 1; $i > 0; --$i) {
             if ($tokens[$i]->isComment()) {
@@ -368,11 +331,9 @@ class Sample
     }
     /**
      * @param int $index attribute close index
-     * @return int
      */
-    private function findAttributeBlockStart(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function findAttributeBlockStart(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
-        $index = (int) $index;
         $start = $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ATTRIBUTE, $index);
         for ($i = $index - 1; $i > 0; --$i) {
             if ($tokens[$i]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE)) {

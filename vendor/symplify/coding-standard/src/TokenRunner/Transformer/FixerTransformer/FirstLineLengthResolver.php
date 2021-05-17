@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -22,9 +23,8 @@ final class FirstLineLengthResolver
     }
     /**
      * @param Tokens|Token[] $tokens
-     * @return int
      */
-    public function resolveFromTokensAndStartPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    public function resolveFromTokensAndStartPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : int
     {
         // compute from here to start of line
         $currentPosition = $blockInfo->getStart();
@@ -62,12 +62,9 @@ final class FirstLineLengthResolver
     }
     /**
      * @param Tokens|Token[] $tokens
-     * @param int $position
-     * @return bool
      */
-    private function isEndOFArgumentsLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function isEndOFArgumentsLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
-        $position = (int) $position;
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }

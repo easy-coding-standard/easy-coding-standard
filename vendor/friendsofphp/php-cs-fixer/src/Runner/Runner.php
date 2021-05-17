@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -90,10 +91,7 @@ final class Runner
         $this->directory = $directory ?: new \PhpCsFixer\Cache\Directory('');
         $this->stopOnViolation = $stopOnViolation;
     }
-    /**
-     * @return mixed[]
-     */
-    public function fix()
+    public function fix() : array
     {
         $changed = [];
         $finder = $this->finder;
@@ -200,21 +198,17 @@ final class Runner
     /**
      * Process an exception that occurred.
      * @return void
-     * @param string $name
      */
-    private function processException($name, \Throwable $e)
+    private function processException(string $name, \Throwable $e)
     {
-        $name = (string) $name;
         $this->dispatchEvent(\PhpCsFixer\FixerFileProcessedEvent::NAME, new \PhpCsFixer\FixerFileProcessedEvent(\PhpCsFixer\FixerFileProcessedEvent::STATUS_EXCEPTION));
         $this->errorsManager->report(new \PhpCsFixer\Error\Error(\PhpCsFixer\Error\Error::TYPE_EXCEPTION, $name, $e));
     }
     /**
      * @return void
-     * @param string $name
      */
-    private function dispatchEvent($name, \ECSPrefix20210517\Symfony\Contracts\EventDispatcher\Event $event)
+    private function dispatchEvent(string $name, \ECSPrefix20210517\Symfony\Contracts\EventDispatcher\Event $event)
     {
-        $name = (string) $name;
         if (null === $this->eventDispatcher) {
             return;
         }

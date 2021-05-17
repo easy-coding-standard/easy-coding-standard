@@ -20,12 +20,8 @@ class ReferenceConfigurator extends \ECSPrefix20210517\Symfony\Component\Depende
     protected $id;
     /** @internal */
     protected $invalidBehavior = \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
-    /**
-     * @param string $id
-     */
-    public function __construct($id)
+    public function __construct(string $id)
     {
-        $id = (string) $id;
         $this->id = $id;
     }
     /**

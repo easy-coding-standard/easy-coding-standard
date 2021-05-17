@@ -35,5 +35,5 @@ interface HttpKernelInterface
      *
      * @throws \Exception When an Exception occurs during processing
      */
-    public function handle(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = \true);
+    public function handle(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, int $type = self::MASTER_REQUEST, bool $catch = \true);
 }

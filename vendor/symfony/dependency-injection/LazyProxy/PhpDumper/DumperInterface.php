@@ -28,10 +28,8 @@ interface DumperInterface
      * Generates the code to be used to instantiate a proxy in the dumped factory code.
      *
      * @return string
-     * @param string $id
-     * @param string $factoryCode
      */
-    public function getProxyFactoryCode(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, $id, $factoryCode);
+    public function getProxyFactoryCode(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, string $id, string $factoryCode);
     /**
      * Generates the code for the lazy proxy.
      *

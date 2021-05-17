@@ -27,55 +27,47 @@ class OutputFormatterStyle implements \ECSPrefix20210517\Symfony\Component\Conso
     /**
      * Initializes output formatter style.
      *
-     * @param string $foreground The style foreground color name
-     * @param string $background The style background color name
+     * @param string|null $foreground The style foreground color name
+     * @param string|null $background The style background color name
      */
-    public function __construct($foreground = null, $background = null, array $options = [])
+    public function __construct(string $foreground = null, string $background = null, array $options = [])
     {
         $this->color = new \ECSPrefix20210517\Symfony\Component\Console\Color($this->foreground = $foreground ?: '', $this->background = $background ?: '', $this->options = $options);
     }
     /**
      * {@inheritdoc}
-     * @param string $color
      */
-    public function setForeground($color = null)
+    public function setForeground(string $color = null)
     {
         $this->color = new \ECSPrefix20210517\Symfony\Component\Console\Color($this->foreground = $color ?: '', $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
-     * @param string $color
      */
-    public function setBackground($color = null)
+    public function setBackground(string $color = null)
     {
         $this->color = new \ECSPrefix20210517\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
     }
     /**
      * @return void
-     * @param string $url
      */
-    public function setHref($url)
+    public function setHref(string $url)
     {
-        $url = (string) $url;
         $this->href = $url;
     }
     /**
      * {@inheritdoc}
-     * @param string $option
      */
-    public function setOption($option)
+    public function setOption(string $option)
     {
-        $option = (string) $option;
         $this->options[] = $option;
         $this->color = new \ECSPrefix20210517\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
-     * @param string $option
      */
-    public function unsetOption($option)
+    public function unsetOption(string $option)
     {
-        $option = (string) $option;
         $pos = \array_search($option, $this->options);
         if (\false !== $pos) {
             unset($this->options[$pos]);
@@ -91,11 +83,9 @@ class OutputFormatterStyle implements \ECSPrefix20210517\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @param string $text
      */
-    public function apply($text)
+    public function apply(string $text)
     {
-        $text = (string) $text;
         if (null === $this->handlesHrefGracefully) {
             $this->handlesHrefGracefully = 'JetBrains-JediTerm' !== \getenv('TERMINAL_EMULATOR') && (!\getenv('KONSOLE_VERSION') || (int) \getenv('KONSOLE_VERSION') > 201100);
         }

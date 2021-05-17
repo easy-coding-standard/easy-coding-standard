@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Caching\Storages;
 
 use ECSPrefix20210517\Nette;
@@ -20,22 +25,13 @@ class MemcachedStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECS
     private $journal;
     /**
      * Checks if Memcached extension is available.
-     * @return bool
      */
-    public static function isAvailable()
+    public static function isAvailable() : bool
     {
         return \extension_loaded('memcached');
     }
-    /**
-     * @param string $host
-     * @param int $port
-     * @param string $prefix
-     */
-    public function __construct($host = 'localhost', $port = 11211, $prefix = '', \ECSPrefix20210517\Nette\Caching\Storages\Journal $journal = null)
+    public function __construct(string $host = 'localhost', int $port = 11211, string $prefix = '', \ECSPrefix20210517\Nette\Caching\Storages\Journal $journal = null)
     {
-        $host = (string) $host;
-        $port = (int) $port;
-        $prefix = (string) $prefix;
         if (!static::isAvailable()) {
             throw new \ECSPrefix20210517\Nette\NotSupportedException("PHP extension 'memcached' is not loaded.");
         }
@@ -48,32 +44,21 @@ class MemcachedStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECS
     }
     /**
      * @return void
-     * @param string $host
-     * @param int $port
      */
-    public function addServer($host = 'localhost', $port = 11211)
+    public function addServer(string $host = 'localhost', int $port = 11211)
     {
-        $host = (string) $host;
-        $port = (int) $port;
         if (@$this->memcached->addServer($host, $port, 1) === \false) {
             // @ is escalated to exception
             $error = \error_get_last();
             throw new \ECSPrefix20210517\Nette\InvalidStateException("Memcached::addServer(): {$error['message']}.");
         }
     }
-    /**
-     * @return \Memcached
-     */
-    public function getConnection()
+    public function getConnection() : \Memcached
     {
         return $this->memcached;
     }
-    /**
-     * @param string $key
-     */
-    public function read($key)
+    public function read(string $key)
     {
-        $key = (string) $key;
         $key = \urlencode($this->prefix . $key);
         $meta = $this->memcached->get($key);
         if (!$meta) {
@@ -95,10 +80,7 @@ class MemcachedStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECS
         }
         return $meta[self::META_DATA];
     }
-    /**
-     * @return mixed[]
-     */
-    public function bulkRead(array $keys)
+    public function bulkRead(array $keys) : array
     {
         $prefixedKeys = \array_map(function ($key) {
             return \urlencode($this->prefix . $key);
@@ -124,18 +106,15 @@ class MemcachedStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECS
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function lock($key)
+    public function lock(string $key)
     {
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function write($key, $data, array $dp)
+    public function write(string $key, $data, array $dp)
     {
-        $key = (string) $key;
         if (isset($dp[\ECSPrefix20210517\Nette\Caching\Cache::ITEMS])) {
             throw new \ECSPrefix20210517\Nette\NotSupportedException('Dependent items are not supported by MemcachedStorage.');
         }
@@ -162,11 +141,9 @@ class MemcachedStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECS
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function remove($key)
+    public function remove(string $key)
     {
-        $key = (string) $key;
         $this->memcached->delete(\urlencode($this->prefix . $key), 0);
     }
     /**

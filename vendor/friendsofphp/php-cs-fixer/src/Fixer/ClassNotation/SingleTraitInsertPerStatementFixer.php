@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -24,10 +25,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class SingleTraitInsertPerStatementFixer extends \PhpCsFixer\AbstractFixer
 {
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Each trait `use` must be done as single statement.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Example
@@ -40,16 +38,12 @@ final class Example
      * {@inheritdoc}
      *
      * Must run before BracesFixer, SpaceAfterSemicolonFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 36;
     }
-    /**
-     * @return bool
-     */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT);
     }
@@ -70,11 +64,9 @@ final class Example
     /**
      * @param int[] $candidates ',' indexes to fix
      * @return void
-     * @param int $useTraitIndex
      */
-    private function fixTraitUse(\PhpCsFixer\Tokenizer\Tokens $tokens, $useTraitIndex, array $candidates)
+    private function fixTraitUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $useTraitIndex, array $candidates)
     {
-        $useTraitIndex = (int) $useTraitIndex;
         foreach ($candidates as $commaIndex) {
             $inserts = [new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, 'use']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
             $nextImportStartIndex = $tokens->getNextMeaningfulToken($commaIndex);
@@ -89,12 +81,10 @@ final class Example
         }
     }
     /**
-     * @return mixed[]
-     * @param int $index
+     * @return int[]
      */
-    private function getCandidates(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function getCandidates(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : array
     {
-        $index = (int) $index;
         $indexes = [];
         $index = $tokens->getNextTokenOfKind($index, [',', ';', '{']);
         while (!$tokens[$index]->equals(';')) {

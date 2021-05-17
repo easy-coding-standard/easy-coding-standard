@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -47,10 +48,7 @@ final class FileFilterIterator extends \FilterIterator
         $this->eventDispatcher = $eventDispatcher;
         $this->cacheManager = $cacheManager;
     }
-    /**
-     * @return bool
-     */
-    public function accept()
+    public function accept() : bool
     {
         $file = $this->current();
         if (!$file instanceof \SplFileInfo) {
@@ -74,11 +72,9 @@ final class FileFilterIterator extends \FilterIterator
     }
     /**
      * @return void
-     * @param string $name
      */
-    private function dispatchEvent($name, \ECSPrefix20210517\Symfony\Contracts\EventDispatcher\Event $event)
+    private function dispatchEvent(string $name, \ECSPrefix20210517\Symfony\Contracts\EventDispatcher\Event $event)
     {
-        $name = (string) $name;
         if (null === $this->eventDispatcher) {
             return;
         }

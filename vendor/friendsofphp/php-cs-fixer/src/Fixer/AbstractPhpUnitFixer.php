@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -21,9 +22,8 @@ abstract class AbstractPhpUnitFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public final function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public final function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_CLASS, \T_STRING]);
     }
@@ -39,28 +39,17 @@ abstract class AbstractPhpUnitFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    protected abstract function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex);
-    /**
-     * @param int $index
-     * @return int
-     */
-    protected final function getDocBlockIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    protected abstract function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex);
+    protected final function getDocBlockIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
         do {
             $index = $tokens->getPrevNonWhitespace($index);
         } while ($tokens[$index]->isGivenKind([\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_COMMENT]));
         return $index;
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    protected final function isPHPDoc(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    protected final function isPHPDoc(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         return $tokens[$index]->isGivenKind(\T_DOC_COMMENT);
     }
 }

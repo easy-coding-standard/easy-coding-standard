@@ -21,67 +21,53 @@ final class Cursor
     public function __construct(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $input = null)
     {
         $this->output = $output;
-        $this->input = isset($input) ? $input : (\defined('STDIN') ? \STDIN : \fopen('php://input', 'r+'));
+        $this->input = $input ?? (\defined('STDIN') ? \STDIN : \fopen('php://input', 'r+'));
     }
     /**
      * @return $this
-     * @param int $lines
      */
-    public function moveUp($lines = 1)
+    public function moveUp(int $lines = 1)
     {
-        $lines = (int) $lines;
         $this->output->write(\sprintf("\33[%dA", $lines));
         return $this;
     }
     /**
      * @return $this
-     * @param int $lines
      */
-    public function moveDown($lines = 1)
+    public function moveDown(int $lines = 1)
     {
-        $lines = (int) $lines;
         $this->output->write(\sprintf("\33[%dB", $lines));
         return $this;
     }
     /**
      * @return $this
-     * @param int $columns
      */
-    public function moveRight($columns = 1)
+    public function moveRight(int $columns = 1)
     {
-        $columns = (int) $columns;
         $this->output->write(\sprintf("\33[%dC", $columns));
         return $this;
     }
     /**
      * @return $this
-     * @param int $columns
      */
-    public function moveLeft($columns = 1)
+    public function moveLeft(int $columns = 1)
     {
-        $columns = (int) $columns;
         $this->output->write(\sprintf("\33[%dD", $columns));
         return $this;
     }
     /**
      * @return $this
-     * @param int $column
      */
-    public function moveToColumn($column)
+    public function moveToColumn(int $column)
     {
-        $column = (int) $column;
         $this->output->write(\sprintf("\33[%dG", $column));
         return $this;
     }
     /**
      * @return $this
-     * @param int $column
-     * @param int $row
      */
-    public function moveToPosition($column, $row)
+    public function moveToPosition(int $column, int $row)
     {
-        $column = (int) $column;
-        $row = (int) $row;
         $this->output->write(\sprintf("\33[%d;%dH", $row + 1, $column));
         return $this;
     }
@@ -155,9 +141,8 @@ final class Cursor
     }
     /**
      * Returns the current cursor position as x,y coordinates.
-     * @return mixed[]
      */
-    public function getCurrentPosition()
+    public function getCurrentPosition() : array
     {
         static $isTtySupported;
         if (null === $isTtySupported && \function_exists('proc_open')) {

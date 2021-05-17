@@ -43,9 +43,8 @@ class DumpDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKernel\
     /**
      * @param string|FileLinkFormatter|null       $fileLinkFormat
      * @param DataDumperInterface|Connection|null $dumper
-     * @param string $charset
      */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\Stopwatch\Stopwatch $stopwatch = null, $fileLinkFormat = null, $charset = null, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, $dumper = null)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\Stopwatch\Stopwatch $stopwatch = null, $fileLinkFormat = null, string $charset = null, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, $dumper = null)
     {
         $this->stopwatch = $stopwatch;
         $this->fileLinkFormat = ($fileLinkFormat ?: \ini_get('xdebug.file_link_format')) ?: \get_cfg_var('xdebug.file_link_format');
@@ -122,9 +121,8 @@ class DumpDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKernel\
     }
     /**
      * @internal
-     * @return mixed[]
      */
-    public function __sleep()
+    public function __sleep() : array
     {
         if (!$this->dataCount) {
             $this->data = [];
@@ -154,17 +152,11 @@ class DumpDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKernel\
         }
         self::__construct($this->stopwatch, \is_string($fileLinkFormat) || $fileLinkFormat instanceof \ECSPrefix20210517\Symfony\Component\HttpKernel\Debug\FileLinkFormatter ? $fileLinkFormat : null, \is_string($charset) ? $charset : null);
     }
-    /**
-     * @return int
-     */
-    public function getDumpsCount()
+    public function getDumpsCount() : int
     {
         return $this->dataCount;
     }
-    /**
-     * @return mixed[]
-     */
-    public function getDumps($format, $maxDepthLimit = -1, $maxItemsPerDepth = -1)
+    public function getDumps($format, $maxDepthLimit = -1, $maxItemsPerDepth = -1) : array
     {
         $data = \fopen('php://memory', 'r+');
         if ('html' === $format) {
@@ -186,10 +178,7 @@ class DumpDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKernel\
         }
         return $dumps;
     }
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return 'dump';
     }
@@ -221,16 +210,8 @@ class DumpDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKernel\
             $this->dataCount = 0;
         }
     }
-    /**
-     * @param string $name
-     * @param string $file
-     * @param int $line
-     */
-    private function doDump(\ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Data $data, $name, $file, $line)
+    private function doDump(\ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Data $data, string $name, string $file, int $line)
     {
-        $name = (string) $name;
-        $file = (string) $file;
-        $line = (int) $line;
         if ($dumper instanceof \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\CliDumper) {
             $contextDumper = function ($name, $file, $line, $fmt) {
                 if ($this instanceof \ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\HtmlDumper) {

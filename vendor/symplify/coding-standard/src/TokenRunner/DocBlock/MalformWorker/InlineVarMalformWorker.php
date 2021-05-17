@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -15,14 +16,9 @@ final class InlineVarMalformWorker implements \Symplify\CodingStandard\TokenRunn
     const SINGLE_ASTERISK_START_REGEX = '#^/\\*(\\n?\\s+@var)#';
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
-        $docContent = (string) $docContent;
-        $position = (int) $position;
         /** @var Token $token */
         $token = $tokens[$position];
         if (!$token->isGivenKind(\T_COMMENT)) {

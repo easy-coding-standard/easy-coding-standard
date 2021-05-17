@@ -37,16 +37,8 @@ class PrototypeConfigurator extends \ECSPrefix20210517\Symfony\Component\Depende
     private $resource;
     private $excludes;
     private $allowParent;
-    /**
-     * @param string $namespace
-     * @param string $resource
-     * @param bool $allowParent
-     */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $defaults, $namespace, $resource, $allowParent)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $defaults, string $namespace, string $resource, bool $allowParent)
     {
-        $namespace = (string) $namespace;
-        $resource = (string) $resource;
-        $allowParent = (bool) $allowParent;
         $definition = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition();
         if (!$defaults->isPublic() || !$defaults->isPrivate()) {
             $definition->setPublic($defaults->isPublic());

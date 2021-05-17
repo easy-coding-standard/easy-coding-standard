@@ -29,9 +29,8 @@ class ServiceReferenceGraphNode
      * @param string $id    The node identifier
      * @param mixed  $value The node value
      */
-    public function __construct($id, $value)
+    public function __construct(string $id, $value)
     {
-        $id = (string) $id;
         $this->id = $id;
         $this->value = $value;
     }

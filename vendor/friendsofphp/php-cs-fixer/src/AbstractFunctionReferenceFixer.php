@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -22,9 +23,8 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -34,13 +34,9 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
      *
      * @return mixed[]|null returns $functionName, $openParenthesis, $closeParenthesis packed into array
      * @param int|null $end
-     * @param string $functionNameToSearch
-     * @param int $start
      */
-    protected function find($functionNameToSearch, \PhpCsFixer\Tokenizer\Tokens $tokens, $start = 0, $end = null)
+    protected function find(string $functionNameToSearch, \PhpCsFixer\Tokenizer\Tokens $tokens, int $start = 0, $end = null)
     {
-        $functionNameToSearch = (string) $functionNameToSearch;
-        $start = (int) $start;
         // make interface consistent with findSequence
         $end = null === $end ? $tokens->count() : $end;
         // find raw sequence which we can analyse for context

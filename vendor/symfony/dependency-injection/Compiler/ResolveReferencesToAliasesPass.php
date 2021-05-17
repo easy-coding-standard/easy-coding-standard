@@ -36,24 +36,17 @@ class ResolveReferencesToAliasesPass extends \ECSPrefix20210517\Symfony\Componen
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if (!$value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);
         }
         $defId = $this->getDefinitionId($id = (string) $value, $this->container);
         return $defId !== $id ? new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference($defId, $value->getInvalidBehavior()) : $value;
     }
-    /**
-     * @param string $id
-     * @return string
-     */
-    private function getDefinitionId($id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    private function getDefinitionId(string $id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container) : string
     {
-        $id = (string) $id;
         if (!$container->hasAlias($id)) {
             return $id;
         }

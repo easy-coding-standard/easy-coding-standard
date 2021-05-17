@@ -14,11 +14,9 @@ class UndefinedFunctionError extends \Error
 {
     /**
      * {@inheritdoc}
-     * @param string $message
      */
-    public function __construct($message, \Throwable $previous)
+    public function __construct(string $message, \Throwable $previous)
     {
-        $message = (string) $message;
         parent::__construct($message, $previous->getCode(), $previous->getPrevious());
         foreach (['file' => $previous->getFile(), 'line' => $previous->getLine(), 'trace' => $previous->getTrace()] as $property => $value) {
             $refl = new \ReflectionProperty(\Error::class, $property);

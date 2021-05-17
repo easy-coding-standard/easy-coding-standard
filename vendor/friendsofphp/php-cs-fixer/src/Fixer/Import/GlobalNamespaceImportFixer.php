@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -39,9 +40,8 @@ final class GlobalNamespaceImportFixer extends \PhpCsFixer\AbstractFixer impleme
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Imports or fully qualifies global classes/functions/constants.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
@@ -77,17 +77,15 @@ if (count($x)) {
      *
      * Must run before NoUnusedImportsFixer, OrderedImportsFixer.
      * Must run after NativeConstantInvocationFixer, NativeFunctionInvocationFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_NS_SEPARATOR, \T_USE]) && $tokens->isTokenKindFound(\T_NAMESPACE) && 1 === $tokens->countTokenKind(\T_NAMESPACE) && $tokens->isMonolithicPhp();
     }
@@ -123,18 +121,14 @@ if (count($x)) {
             $this->insertImports($tokens, $newImports, $useDeclarations);
         }
     }
-    /**
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
-     */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('import_constants', 'Whether to import, not import or ignore global constants.'))->setDefault(null)->setAllowedValues([\true, \false, null])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('import_functions', 'Whether to import, not import or ignore global functions.'))->setDefault(null)->setAllowedValues([\true, \false, null])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('import_classes', 'Whether to import, not import or ignore global classes.'))->setDefault(\true)->setAllowedValues([\true, \false, null])->getOption()]);
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @return mixed[]
      */
-    private function importConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
+    private function importConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
     {
         list($global, $other) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isConstant();
@@ -187,9 +181,8 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @return mixed[]
      */
-    private function importFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
+    private function importFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
     {
         list($global, $other) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isFunction();
@@ -226,9 +219,8 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @return mixed[]
      */
-    private function importClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
+    private function importClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
     {
         list($global, $other) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isClass();
@@ -314,11 +306,9 @@ if (count($x)) {
      * @param int[] $indexes
      *
      * @return array array keys contain the names that must be imported
-     * @param bool $caseSensitive
      */
-    private function prepareImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes, array $global, array $other, $caseSensitive)
+    private function prepareImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes, array $global, array $other, bool $caseSensitive) : array
     {
-        $caseSensitive = (bool) $caseSensitive;
         $imports = [];
         foreach ($indexes as $index) {
             $name = $tokens[$index]->getContent();
@@ -482,12 +472,9 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $declarations
-     * @param bool $caseSensitive
-     * @return mixed[]
      */
-    private function filterUseDeclarations(array $declarations, callable $callback, $caseSensitive)
+    private function filterUseDeclarations(array $declarations, callable $callback, bool $caseSensitive) : array
     {
-        $caseSensitive = (bool) $caseSensitive;
         $global = [];
         $other = [];
         foreach ($declarations as $declaration) {
@@ -508,13 +495,9 @@ if (count($x)) {
     }
     /**
      * @return mixed[]
-     * @param int $start
-     * @param int $end
      */
-    private function findFunctionDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
+    private function findFunctionDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
     {
-        $start = (int) $start;
-        $end = (int) $end;
         for ($index = $start; $index <= $end; ++$index) {
             $token = $tokens[$index];
             if ($token->isClassy()) {
@@ -549,10 +532,7 @@ if (count($x)) {
             }
         }
     }
-    /**
-     * @return bool
-     */
-    private function traverseDocBlockTypes(\PhpCsFixer\DocBlock\DocBlock $doc, callable $callback)
+    private function traverseDocBlockTypes(\PhpCsFixer\DocBlock\DocBlock $doc, callable $callback) : bool
     {
         $annotations = $doc->getAnnotationsOfType(\PhpCsFixer\DocBlock\Annotation::getTagsWithTypes());
         if (!$annotations) {

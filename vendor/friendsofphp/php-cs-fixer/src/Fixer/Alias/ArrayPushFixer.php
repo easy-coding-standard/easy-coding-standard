@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -27,25 +28,22 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts simple usages of `array_push($x, $y);` to `$x[] = $y;`.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\narray_push(\$x, \$y);\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70000))], null, 'Risky when the function `array_push` is overridden.');
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\T_STRING) && $tokens->count() > 7;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -114,13 +112,8 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @param int $index
-     * @return int
-     */
-    private function getFirstArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function getFirstArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
-        $index = (int) $index;
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         $nextToken = $tokens[$nextIndex];
         while ($nextToken->equalsAny(['$', '[', '(', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {
@@ -143,12 +136,9 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int $endIndex boundary, i.e. tokens index of `)`
      * @return int|null
-     * @param int $index
      */
-    private function getSecondArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $endIndex)
+    private function getSecondArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex)
     {
-        $index = (int) $index;
-        $endIndex = (int) $endIndex;
         if ($tokens[$index]->isGivenKind(\T_ELLIPSIS)) {
             return null;
         }

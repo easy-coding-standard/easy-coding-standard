@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\Skipper\SkipVoter;
 
 use ECSPrefix20210517\Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -42,9 +43,8 @@ final class ClassSkipVoter implements \ECSPrefix20210517\Symplify\Skipper\Contra
     }
     /**
      * @param string|object $element
-     * @return bool
      */
-    public function match($element)
+    public function match($element) : bool
     {
         if (\is_object($element)) {
             return \true;
@@ -53,9 +53,8 @@ final class ClassSkipVoter implements \ECSPrefix20210517\Symplify\Skipper\Contra
     }
     /**
      * @param string|object $element
-     * @return bool
      */
-    public function shouldSkip($element, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function shouldSkip($element, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $only = $this->parameterProvider->provideArrayParameter(\ECSPrefix20210517\Symplify\Skipper\ValueObject\Option::ONLY);
         $doesMatchOnly = $this->onlySkipper->doesMatchOnly($element, $smartFileInfo, $only);

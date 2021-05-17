@@ -29,12 +29,8 @@ final class PsrCachedReader implements \ECSPrefix20210517\Doctrine\Common\Annota
     private $loadedAnnotations = [];
     /** @var int[] */
     private $loadedFilemtimes = [];
-    /**
-     * @param bool $debug
-     */
-    public function __construct(\ECSPrefix20210517\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20210517\Psr\Cache\CacheItemPoolInterface $cache, $debug = \false)
+    public function __construct(\ECSPrefix20210517\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20210517\Psr\Cache\CacheItemPoolInterface $cache, bool $debug = \false)
     {
-        $debug = (bool) $debug;
         $this->delegate = $reader;
         $this->cache = $cache;
         $this->debug = (bool) $debug;
@@ -121,14 +117,9 @@ final class PsrCachedReader implements \ECSPrefix20210517\Doctrine\Common\Annota
         $this->loadedAnnotations = [];
         $this->loadedFilemtimes = [];
     }
-    /**
-     * @return mixed[]
-     * @param string $cacheKey
-     * @param string $method */
-    private function fetchFromCache($cacheKey, \ReflectionClass $class, $method, \Reflector $reflector)
+    /** @return mixed[] */
+    private function fetchFromCache(string $cacheKey, \ReflectionClass $class, string $method, \Reflector $reflector) : array
     {
-        $cacheKey = (string) $cacheKey;
-        $method = (string) $method;
         $cacheKey = \rawurlencode($cacheKey);
         $item = $this->cache->getItem($cacheKey);
         if ($this->debug && !$this->refresh($cacheKey, $class) || !$item->isHit()) {
@@ -141,11 +132,9 @@ final class PsrCachedReader implements \ECSPrefix20210517\Doctrine\Common\Annota
      *
      * @return bool Returns true if the cache was fresh, or false if the class
      * being read was modified since writing to the cache.
-     * @param string $cacheKey
      */
-    private function refresh($cacheKey, \ReflectionClass $class)
+    private function refresh(string $cacheKey, \ReflectionClass $class) : bool
     {
-        $cacheKey = (string) $cacheKey;
         $lastModification = $this->getLastModification($class);
         if ($lastModification === 0) {
             return \true;
@@ -159,9 +148,8 @@ final class PsrCachedReader implements \ECSPrefix20210517\Doctrine\Common\Annota
     }
     /**
      * Returns the time the class was last modified, testing traits and parents
-     * @return int
      */
-    private function getLastModification(\ReflectionClass $class)
+    private function getLastModification(\ReflectionClass $class) : int
     {
         $filename = $class->getFileName();
         if (isset($this->loadedFilemtimes[$filename])) {
@@ -176,10 +164,7 @@ final class PsrCachedReader implements \ECSPrefix20210517\Doctrine\Common\Annota
         \assert($lastModification !== \false);
         return $this->loadedFilemtimes[$filename] = $lastModification;
     }
-    /**
-     * @return int
-     */
-    private function getTraitLastModificationTime(\ReflectionClass $reflectionTrait)
+    private function getTraitLastModificationTime(\ReflectionClass $reflectionTrait) : int
     {
         $fileName = $reflectionTrait->getFileName();
         if (isset($this->loadedFilemtimes[$fileName])) {

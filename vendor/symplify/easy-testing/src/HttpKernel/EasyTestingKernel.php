@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\EasyTesting\HttpKernel;
 
 use ECSPrefix20210517\Symfony\Component\Config\Loader\LoaderInterface;

@@ -28,10 +28,8 @@ class File extends \SplFileInfo
      *
      * @throws FileNotFoundException If the given path is not a file
      */
-    public function __construct($path, $checkPath = \true)
+    public function __construct(string $path, bool $checkPath = \true)
     {
-        $path = (string) $path;
-        $checkPath = (bool) $checkPath;
         if ($checkPath && !\is_file($path)) {
             throw new \ECSPrefix20210517\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException($path);
         }
@@ -55,7 +53,7 @@ class File extends \SplFileInfo
         if (!\class_exists(\ECSPrefix20210517\Symfony\Component\Mime\MimeTypes::class)) {
             throw new \LogicException('You cannot guess the extension as the Mime component is not installed. Try running "composer require symfony/mime".');
         }
-        return isset(\ECSPrefix20210517\Symfony\Component\Mime\MimeTypes::getDefault()->getExtensions($this->getMimeType())[0]) ? \ECSPrefix20210517\Symfony\Component\Mime\MimeTypes::getDefault()->getExtensions($this->getMimeType())[0] : null;
+        return \ECSPrefix20210517\Symfony\Component\Mime\MimeTypes::getDefault()->getExtensions($this->getMimeType())[0] ?? null;
     }
     /**
      * Returns the mime type of the file.
@@ -81,12 +79,9 @@ class File extends \SplFileInfo
      * @return self A File object representing the new file
      *
      * @throws FileException if the target file could not be created
-     * @param string $directory
-     * @param string $name
      */
-    public function move($directory, $name = null)
+    public function move(string $directory, string $name = null)
     {
-        $directory = (string) $directory;
         $target = $this->getTargetFile($directory, $name);
         \set_error_handler(function ($type, $msg) use(&$error) {
             $error = $msg;
@@ -99,10 +94,7 @@ class File extends \SplFileInfo
         @\chmod($target, 0666 & ~\umask());
         return $target;
     }
-    /**
-     * @return string
-     */
-    public function getContent()
+    public function getContent() : string
     {
         $content = \file_get_contents($this->getPathname());
         if (\false === $content) {
@@ -112,12 +104,9 @@ class File extends \SplFileInfo
     }
     /**
      * @return self
-     * @param string $directory
-     * @param string $name
      */
-    protected function getTargetFile($directory, $name = null)
+    protected function getTargetFile(string $directory, string $name = null)
     {
-        $directory = (string) $directory;
         if (!\is_dir($directory)) {
             if (\false === @\mkdir($directory, 0777, \true) && !\is_dir($directory)) {
                 throw new \ECSPrefix20210517\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Unable to create the "%s" directory.', $directory));
@@ -132,11 +121,9 @@ class File extends \SplFileInfo
      * Returns locale independent base name of the given path.
      *
      * @return string
-     * @param string $name
      */
-    protected function getName($name)
+    protected function getName(string $name)
     {
-        $name = (string) $name;
         $originalName = \str_replace('\\', '/', $name);
         $pos = \strrpos($originalName, '/');
         $originalName = \false === $pos ? $originalName : \substr($originalName, $pos + 1);

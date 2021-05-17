@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Commenting;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -45,18 +46,14 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
         $this->phpContentAnalyzer = $phpContentAnalyzer;
         $this->decommenter = $decommenter;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
@@ -93,10 +90,7 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
             $tokens->clearRange($realStart, $startAndEnd->getEnd());
         }
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 // $one = 1;
@@ -111,9 +105,8 @@ CODE_SAMPLE
      * Remove the indent space ahead of comments
      *
      * @param Tokens<Token> $tokens
-     * @return int
      */
-    private function resolveRealStart(\Symplify\CodingStandard\ValueObject\StartAndEnd $startAndEnd, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function resolveRealStart(\Symplify\CodingStandard\ValueObject\StartAndEnd $startAndEnd, \PhpCsFixer\Tokenizer\Tokens $tokens) : int
     {
         $preStartPosition = $startAndEnd->getStart() - 1;
         /** @var Token $preStartToken */

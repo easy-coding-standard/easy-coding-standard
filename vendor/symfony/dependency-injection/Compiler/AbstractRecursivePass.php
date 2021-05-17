@@ -47,13 +47,8 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210517\Symfony\Compo
     {
         $this->processExpressions = \true;
     }
-    /**
-     * @param bool $reset
-     * @return bool
-     */
-    protected function inExpression($reset = \true)
+    protected function inExpression(bool $reset = \true) : bool
     {
-        $reset = (bool) $reset;
         $inExpression = $this->inExpression;
         if ($reset) {
             $this->inExpression = \false;
@@ -66,11 +61,9 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210517\Symfony\Compo
      * @param mixed $value
      *
      * @return mixed The processed value
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
                 if ($isRoot) {
@@ -102,11 +95,9 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210517\Symfony\Compo
      * @return \ReflectionFunctionAbstract|null
      *
      * @throws RuntimeException
-     * @param bool $required
      */
-    protected function getConstructor(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, $required)
+    protected function getConstructor(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, bool $required)
     {
-        $required = (bool) $required;
         if ($definition->isSynthetic()) {
             return null;
         }
@@ -155,11 +146,9 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210517\Symfony\Compo
      * @throws RuntimeException
      *
      * @return \ReflectionFunctionAbstract
-     * @param string $method
      */
-    protected function getReflectionMethod(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, $method)
+    protected function getReflectionMethod(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, string $method)
     {
-        $method = (string) $method;
         if ('__construct' === $method) {
             return $this->getConstructor($definition, \true);
         }
@@ -178,10 +167,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210517\Symfony\Compo
         }
         return $r;
     }
-    /**
-     * @return \Symfony\Component\DependencyInjection\ExpressionLanguage
-     */
-    private function getExpressionLanguage()
+    private function getExpressionLanguage() : \ECSPrefix20210517\Symfony\Component\DependencyInjection\ExpressionLanguage
     {
         if (null === $this->expressionLanguage) {
             if (!\class_exists(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ExpressionLanguage::class)) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -43,9 +44,8 @@ final class FunctionDeclarationFixer extends \PhpCsFixer\AbstractFixer implement
     private $singleLineWhitespaceOptions = " \t";
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
             return \true;
@@ -54,9 +54,8 @@ final class FunctionDeclarationFixer extends \PhpCsFixer\AbstractFixer implement
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Spaces should be properly placed in a function declaration.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
@@ -83,9 +82,8 @@ $f = fn () => null;
      *
      * Must run before MethodArgumentSpaceFixer.
      * Must run after SingleSpaceAfterConstructFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 31;
     }
@@ -157,21 +155,16 @@ $f = fn () => null;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('closure_function_spacing', 'Spacing to use before open parenthesis for closures.'))->setDefault(self::SPACING_ONE)->setAllowedValues(self::SUPPORTED_SPACINGS)->getOption()]);
     }
     /**
      * @return void
-     * @param int $start
-     * @param int $end
      */
-    private function fixParenthesisInnerEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
+    private function fixParenthesisInnerEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
     {
-        $start = (int) $start;
-        $end = (int) $end;
         // remove single-line whitespace before )
         if ($tokens[$end - 1]->isWhitespace($this->singleLineWhitespaceOptions)) {
             $tokens->clearAt($end - 1);

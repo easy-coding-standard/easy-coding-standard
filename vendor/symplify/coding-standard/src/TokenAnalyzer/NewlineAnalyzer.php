@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenAnalyzer;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -9,12 +10,9 @@ final class NewlineAnalyzer
 {
     /**
      * @param Tokens<Token> $tokens
-     * @param int $i
-     * @return bool
      */
-    public function doesContentBeforeBracketRequireNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $i)
+    public function doesContentBeforeBracketRequireNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $i) : bool
     {
-        $i = (int) $i;
         $previousMeaningfulTokenPosition = $tokens->getPrevNonWhitespace($i);
         if ($previousMeaningfulTokenPosition === null) {
             return \false;
@@ -34,10 +32,7 @@ final class NewlineAnalyzer
         // is a function
         return $previousPreviousToken->isGivenKind([\T_RETURN, \T_DOUBLE_COLON, T_OPEN_CURLY_BRACKET]);
     }
-    /**
-     * @return bool
-     */
-    public function isNewlineToken(\PhpCsFixer\Tokenizer\Token $currentToken)
+    public function isNewlineToken(\PhpCsFixer\Tokenizer\Token $currentToken) : bool
     {
         if (!$currentToken->isWhitespace()) {
             return \false;

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
 use PhpCsFixer\Differ\DifferInterface;
@@ -94,16 +95,13 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         $this->targetFileInfoResolver = $targetFileInfoResolver;
     }
     /**
-     * @return mixed[]
+     * @return FixerInterface[]
      */
-    public function getCheckers()
+    public function getCheckers() : array
     {
         return $this->fixers;
     }
-    /**
-     * @return string
-     */
-    public function processFile(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function processFile(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
         $this->appliedFixers = [];
@@ -134,18 +132,12 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     }
     /**
      * @param FixerInterface[] $fixers
-     * @return mixed[]
+     * @return FixerInterface[]
      */
-    private function sortFixers(array $fixers)
+    private function sortFixers(array $fixers) : array
     {
         \usort($fixers, function (\PhpCsFixer\Fixer\FixerInterface $firstFixer, \PhpCsFixer\Fixer\FixerInterface $secondFixer) : int {
-            $battleShipcompare = function ($left, $right) {
-                if ($left === $right) {
-                    return 0;
-                }
-                return $left < $right ? -1 : 1;
-            };
-            return $battleShipcompare($secondFixer->getPriority(), $firstFixer->getPriority());
+            return $secondFixer->getPriority() <=> $firstFixer->getPriority();
         });
         return $fixers;
     }
@@ -176,9 +168,8 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    private function shouldSkip(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function shouldSkip(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if ($this->skipper->shouldSkipElementAndFileInfo($fixer, $smartFileInfo)) {
             return \true;
@@ -190,9 +181,8 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     }
     /**
      * Is markdown/herenow doc checker → skip useless rules
-     * @return bool
      */
-    private function shouldSkipForMarkdownHeredocCheck(\PhpCsFixer\Fixer\FixerInterface $fixer)
+    private function shouldSkipForMarkdownHeredocCheck(\PhpCsFixer\Fixer\FixerInterface $fixer) : bool
     {
         if ($this->currentParentFileInfoProvider->provide() === null) {
             return \false;

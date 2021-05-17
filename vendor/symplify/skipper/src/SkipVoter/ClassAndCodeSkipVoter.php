@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\Skipper\SkipVoter;
 
 use ECSPrefix20210517\Symplify\Skipper\Contract\SkipVoterInterface;
@@ -26,9 +27,8 @@ final class ClassAndCodeSkipVoter implements \ECSPrefix20210517\Symplify\Skipper
     }
     /**
      * @param string|object $element
-     * @return bool
      */
-    public function match($element)
+    public function match($element) : bool
     {
         if (!\is_string($element)) {
             return \false;
@@ -37,9 +37,8 @@ final class ClassAndCodeSkipVoter implements \ECSPrefix20210517\Symplify\Skipper
     }
     /**
      * @param string $element
-     * @return bool
      */
-    public function shouldSkip($element, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function shouldSkip($element, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
         if (!\array_key_exists($element, $skippedClassAndCodes)) {

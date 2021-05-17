@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,29 +29,25 @@ final class UseTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
 {
     /**
      * {@inheritdoc}
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         // Should run after CurlyBraceTransformer and before TypeColonTransformer
         return -5;
     }
     /**
      * {@inheritdoc}
-     * @return int
      */
-    public function getRequiredPhpVersionId()
+    public function getRequiredPhpVersionId() : int
     {
         return 50300;
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param int $index
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
+    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index)
     {
-        $index = (int) $index;
         if ($token->isGivenKind(\T_USE) && $this->isUseForLambda($tokens, $index)) {
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, $token->getContent()]);
             return;
@@ -79,20 +76,16 @@ final class UseTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getCustomTokens()
+    public function getCustomTokens() : array
     {
         return [\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA];
     }
     /**
      * Check if token under given index is `use` statement for lambda function.
-     * @param int $index
-     * @return bool
      */
-    private function isUseForLambda(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function isUseForLambda(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         $nextToken = $tokens[$tokens->getNextMeaningfulToken($index)];
         // test `function () use ($foo) {}` case
         return $nextToken->equals('(');

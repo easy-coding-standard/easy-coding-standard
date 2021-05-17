@@ -24,5 +24,5 @@ interface TaggedContainerInterface extends \ECSPrefix20210517\Symfony\Component\
      *
      * @return array An array of tags
      */
-    public function findTaggedServiceIds($name);
+    public function findTaggedServiceIds(string $name);
 }

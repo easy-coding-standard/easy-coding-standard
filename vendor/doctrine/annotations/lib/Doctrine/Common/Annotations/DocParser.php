@@ -277,9 +277,8 @@ final class DocParser
      *
      * @throws AnnotationException
      */
-    private function match($token)
+    private function match(int $token) : bool
     {
-        $token = (int) $token;
         if (!$this->lexer->isNextToken($token)) {
             throw $this->syntaxError($this->lexer->getLiteral($token));
         }
@@ -294,9 +293,8 @@ final class DocParser
      * @throws AnnotationException
      *
      * @phpstan-param list<mixed[]> $tokens
-     * @return bool
      */
-    private function matchAny(array $tokens)
+    private function matchAny(array $tokens) : bool
     {
         if (!$this->lexer->isNextTokenAny($tokens)) {
             throw $this->syntaxError(\implode(' or ', \array_map([$this->lexer, 'getLiteral'], $tokens)));
@@ -308,11 +306,9 @@ final class DocParser
      *
      * @param string       $expected Expected string.
      * @param mixed[]|null $token    Optional token.
-     * @return \Doctrine\Common\Annotations\AnnotationException
      */
-    private function syntaxError($expected, $token = null)
+    private function syntaxError(string $expected, $token = null) : \ECSPrefix20210517\Doctrine\Common\Annotations\AnnotationException
     {
-        $expected = (string) $expected;
         if ($token === null) {
             $token = $this->lexer->lookahead;
         }
@@ -329,11 +325,9 @@ final class DocParser
      * but uses the {@link AnnotationRegistry} to load classes.
      *
      * @param class-string $fqcn
-     * @return bool
      */
-    private function classExists($fqcn)
+    private function classExists(string $fqcn) : bool
     {
-        $fqcn = (string) $fqcn;
         if (isset($this->classExists[$fqcn])) {
             return $this->classExists[$fqcn];
         }
@@ -353,9 +347,8 @@ final class DocParser
      * @throws ReflectionException
      * @return void
      */
-    private function collectAnnotationMetadata($name)
+    private function collectAnnotationMetadata(string $name)
     {
-        $name = (string) $name;
         if (self::$metadataParser === null) {
             self::$metadataParser = new self();
             self::$metadataParser->setIgnoreNotImportedAnnotations(\true);
@@ -444,7 +437,7 @@ final class DocParser
     private function collectAttributeTypeMetadata(array &$metadata, \ECSPrefix20210517\Doctrine\Common\Annotations\Annotation\Attribute $attribute)
     {
         // handle internal type declaration
-        $type = isset(self::$typeMap[$attribute->type]) ? self::$typeMap[$attribute->type] : $attribute->type;
+        $type = self::$typeMap[$attribute->type] ?? $attribute->type;
         // handle the case if the property type is mixed
         if ($type === 'mixed') {
             return;
@@ -482,9 +475,8 @@ final class DocParser
      * @throws ReflectionException
      *
      * @phpstan-return list<object>
-     * @return mixed[]
      */
-    private function Annotations()
+    private function Annotations() : array
     {
         $annotations = [];
         while ($this->lexer->lookahead !== null) {
@@ -699,7 +691,7 @@ EXCEPTION
      * @throws AnnotationException
      * @throws ReflectionException
      */
-    private function MethodCall()
+    private function MethodCall() : array
     {
         $values = [];
         if (!$this->lexer->isNextToken(\ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
@@ -720,7 +712,7 @@ EXCEPTION
      * @throws AnnotationException
      * @throws ReflectionException
      */
-    private function Values()
+    private function Values() : array
     {
         $values = [$this->Value()];
         while ($this->lexer->isNextToken(\ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_COMMA)) {
@@ -801,40 +793,27 @@ EXCEPTION
         }
         return \constant($identifier);
     }
-    /**
-     * @param string $identifier
-     * @return bool
-     */
-    private function identifierStartsWithBackslash($identifier)
+    private function identifierStartsWithBackslash(string $identifier) : bool
     {
-        $identifier = (string) $identifier;
         return $identifier[0] === '\\';
     }
-    /**
-     * @param string $identifier
-     * @return bool
-     */
-    private function identifierEndsWithClassConstant($identifier)
+    private function identifierEndsWithClassConstant(string $identifier) : bool
     {
-        $identifier = (string) $identifier;
         return $this->getClassConstantPositionInIdentifier($identifier) === \strlen($identifier) - \strlen('::class');
     }
     /**
      * @return int|false
-     * @param string $identifier
      */
-    private function getClassConstantPositionInIdentifier($identifier)
+    private function getClassConstantPositionInIdentifier(string $identifier)
     {
-        $identifier = (string) $identifier;
         return \stripos($identifier, '::class');
     }
     /**
      * Identifier ::= string
      *
      * @throws AnnotationException
-     * @return string
      */
-    private function Identifier()
+    private function Identifier() : string
     {
         // check if we have an annotation
         if (!$this->lexer->isNextTokenAny(self::$classIdentifiers)) {
@@ -913,9 +892,8 @@ EXCEPTION
      *
      * @throws AnnotationException
      * @throws ReflectionException
-     * @return \stdClass
      */
-    private function FieldAssignment()
+    private function FieldAssignment() : \stdClass
     {
         $this->match(\ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER);
         $fieldName = $this->lexer->token['value'];
@@ -933,7 +911,7 @@ EXCEPTION
      * @throws AnnotationException
      * @throws ReflectionException
      */
-    private function Arrayx()
+    private function Arrayx() : array
     {
         $array = $values = [];
         $this->match(\ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES);
@@ -971,9 +949,8 @@ EXCEPTION
      * @throws ReflectionException
      *
      * @phpstan-return array{mixed, mixed}
-     * @return mixed[]
      */
-    private function ArrayEntry()
+    private function ArrayEntry() : array
     {
         $peek = $this->lexer->glimpse();
         if ($peek['type'] === \ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_EQUALS || $peek['type'] === \ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_COLON) {
@@ -990,12 +967,9 @@ EXCEPTION
     }
     /**
      * Checks whether the given $name matches any ignored annotation name or namespace
-     * @param string $name
-     * @return bool
      */
-    private function isIgnoredAnnotation($name)
+    private function isIgnoredAnnotation(string $name) : bool
     {
-        $name = (string) $name;
         if ($this->ignoreNotImportedAnnotations || isset($this->ignoredAnnotationNames[$name])) {
             return \true;
         }
@@ -1012,14 +986,12 @@ EXCEPTION
      *
      * @param array<string,mixed> $arguments
      *
-     * @return mixed[]
-     * @param string $name
+     * @return array<string,mixed>
      */
-    private function resolvePositionalValues(array $arguments, $name)
+    private function resolvePositionalValues(array $arguments, string $name) : array
     {
-        $name = (string) $name;
-        $positionalArguments = isset($arguments['positional_arguments']) ? $arguments['positional_arguments'] : [];
-        $values = isset($arguments['named_arguments']) ? $arguments['named_arguments'] : [];
+        $positionalArguments = $arguments['positional_arguments'] ?? [];
+        $values = $arguments['named_arguments'] ?? [];
         if (self::$annotationMetadata[$name]['has_named_argument_constructor'] && self::$annotationMetadata[$name]['default_property'] !== null) {
             // We must ensure that we don't have positional arguments after named ones
             $positions = \array_keys($positionalArguments);

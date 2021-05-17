@@ -24,15 +24,8 @@ final class BoundArgument implements \ECSPrefix20210517\Symfony\Component\Depend
     private $used;
     private $type;
     private $file;
-    /**
-     * @param bool $trackUsage
-     * @param int $type
-     * @param string $file
-     */
-    public function __construct($value, $trackUsage = \true, $type = 0, $file = null)
+    public function __construct($value, bool $trackUsage = \true, int $type = 0, string $file = null)
     {
-        $trackUsage = (bool) $trackUsage;
-        $type = (int) $type;
         $this->value = $value;
         if ($trackUsage) {
             $this->identifier = ++self::$sequence;
@@ -44,9 +37,8 @@ final class BoundArgument implements \ECSPrefix20210517\Symfony\Component\Depend
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getValues()
+    public function getValues() : array
     {
         return [$this->value, $this->identifier, $this->used, $this->type, $this->file];
     }

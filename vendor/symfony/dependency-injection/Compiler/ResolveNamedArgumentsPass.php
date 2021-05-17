@@ -24,11 +24,9 @@ class ResolveNamedArgumentsPass extends \ECSPrefix20210517\Symfony\Component\Dep
 {
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\AbstractArgument && $value->getText() . '.' === $value->getTextWithContext()) {
             $value->setContext(\sprintf('A value found in service "%s"', $this->currentId));
         }

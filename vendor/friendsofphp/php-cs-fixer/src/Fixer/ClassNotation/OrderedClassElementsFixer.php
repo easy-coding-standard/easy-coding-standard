@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -84,17 +85,15 @@ final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implemen
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Orders the elements of classes/interfaces/traits.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Example
@@ -147,9 +146,8 @@ class Example
      *
      * Must run before ClassAttributesSeparationFixer, NoBlankLinesAfterClassOpeningFixer, SpaceAfterSemicolonFixer.
      * Must run after NoPhp4ConstructorFixer, ProtectedToPrivateFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 65;
     }
@@ -178,19 +176,16 @@ class Example
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('order', 'List of strings defining order of elements.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(\array_merge(self::$typeHierarchy, self::$specialTypes)))])->setDefault(['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property_public', 'property_protected', 'property_private', 'construct', 'destruct', 'magic', 'phpunit', 'method_public', 'method_protected', 'method_private'])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'How multiple occurrences of same type statements should be sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_NONE)->getOption()]);
     }
     /**
-     * @return mixed[]
-     * @param int $startIndex
+     * @return array[]
      */
-    private function getElements(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex)
+    private function getElements(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex) : array
     {
-        $startIndex = (int) $startIndex;
         static $elementTokenKinds = [\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \T_CONST, \T_VARIABLE, \T_FUNCTION];
         ++$startIndex;
         $elements = [];
@@ -238,11 +233,9 @@ class Example
     }
     /**
      * @return array|string type or array of type and name
-     * @param int $index
      */
-    private function detectElementType(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function detectElementType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $token = $tokens[$index];
         if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
             return 'use_trait';
@@ -268,13 +261,8 @@ class Example
         }
         return 'method';
     }
-    /**
-     * @param int $index
-     * @return int
-     */
-    private function findElementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function findElementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
-        $index = (int) $index;
         $index = $tokens->getNextTokenOfKind($index, ['{', ';']);
         if ($tokens[$index]->equals('{')) {
             $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
@@ -287,9 +275,9 @@ class Example
     /**
      * @param array[] $elements
      *
-     * @return mixed[]
+     * @return array[]
      */
-    private function sortElements(array $elements)
+    private function sortElements(array $elements) : array
     {
         static $phpunitPositions = ['setupbeforeclass' => 1, 'dosetupbeforeclass' => 2, 'teardownafterclass' => 3, 'doteardownafterclass' => 4, 'setup' => 5, 'dosetup' => 6, 'teardown' => 7, 'doteardown' => 8];
         foreach ($elements as &$element) {
@@ -324,10 +312,7 @@ class Example
         });
         return $elements;
     }
-    /**
-     * @return int
-     */
-    private function sortGroupElements(array $a, array $b)
+    private function sortGroupElements(array $a, array $b) : int
     {
         $selectedSortAlgorithm = $this->configuration['sort_algorithm'];
         if (self::SORT_ALPHA === $selectedSortAlgorithm) {
@@ -338,13 +323,9 @@ class Example
     /**
      * @param array[] $elements
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function sortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex, array $elements)
+    private function sortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, array $elements)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $replaceTokens = [];
         foreach ($elements as $element) {
             for ($i = $element['start']; $i <= $element['end']; ++$i) {

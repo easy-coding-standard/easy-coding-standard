@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -30,9 +31,8 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
     private $tokensAnalyzer;
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Local, dynamic and directly referenced variables should not be assigned and directly returned by a function or method.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction a() {\n    \$a = 1;\n    return \$a;\n}\n")]);
     }
@@ -41,17 +41,15 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
      *
      * Must run before BlankLineBeforeStatementFixer.
      * Must run after NoEmptyStatementFixer, NoUnneededCurlyBracesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -15;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_FUNCTION, \T_RETURN, \T_VARIABLE]);
     }
@@ -90,11 +88,8 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
      *
      * @return int >= 0 number of tokens inserted into the Tokens collection
      */
-    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionIndex, $functionOpenIndex, $functionCloseIndex)
+    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex, int $functionOpenIndex, int $functionCloseIndex) : int
     {
-        $functionIndex = (int) $functionIndex;
-        $functionOpenIndex = (int) $functionOpenIndex;
-        $functionCloseIndex = (int) $functionCloseIndex;
         static $riskyKinds = [
             \PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN,
             // "$h = ${$g};" case
@@ -223,17 +218,9 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return int >= 0 number of tokens inserted into the Tokens collection
-     * @param int $assignVarIndex
-     * @param int $assignVarOperatorIndex
-     * @param int $returnIndex
-     * @param int $returnVarEndIndex
      */
-    private function simplifyReturnStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, $assignVarIndex, $assignVarOperatorIndex, $returnIndex, $returnVarEndIndex)
+    private function simplifyReturnStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $assignVarIndex, int $assignVarOperatorIndex, int $returnIndex, int $returnVarEndIndex) : int
     {
-        $assignVarIndex = (int) $assignVarIndex;
-        $assignVarOperatorIndex = (int) $assignVarOperatorIndex;
-        $returnIndex = (int) $returnIndex;
-        $returnVarEndIndex = (int) $returnVarEndIndex;
         $inserted = 0;
         $originalIndent = $tokens[$assignVarIndex - 1]->isWhitespace() ? $tokens[$assignVarIndex - 1]->getContent() : null;
         // remove the return statement
@@ -272,11 +259,9 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function clearIfSave(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function clearIfSave(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         if ($tokens[$index]->isComment()) {
             return;
         }

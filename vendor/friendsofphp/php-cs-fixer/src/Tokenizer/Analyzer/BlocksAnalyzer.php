@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -23,9 +24,8 @@ final class BlocksAnalyzer
     /**
      * @param int|null $openIndex
      * @param int|null $closeIndex
-     * @return bool
      */
-    public function isBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $openIndex, $closeIndex)
+    public function isBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $openIndex, $closeIndex) : bool
     {
         if (null === $openIndex || null === $closeIndex) {
             return \false;

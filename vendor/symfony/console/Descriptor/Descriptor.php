@@ -56,13 +56,9 @@ abstract class Descriptor implements \ECSPrefix20210517\Symfony\Component\Consol
     }
     /**
      * Writes content to output.
-     * @param string $content
-     * @param bool $decorated
      */
-    protected function write($content, $decorated = \false)
+    protected function write(string $content, bool $decorated = \false)
     {
-        $content = (string) $content;
-        $decorated = (bool) $decorated;
         $this->output->write($content, \false, $decorated ? \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL : \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
     }
     /**

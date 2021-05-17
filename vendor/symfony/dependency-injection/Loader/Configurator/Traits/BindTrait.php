@@ -29,16 +29,15 @@ trait BindTrait
      *
      * @return $this
      */
-    public final function bind($nameOrFqcn, $valueOrRef)
+    public final function bind(string $nameOrFqcn, $valueOrRef)
     {
-        $nameOrFqcn = (string) $nameOrFqcn;
         $valueOrRef = static::processValue($valueOrRef, \true);
         if (!\preg_match('/^(?:(?:array|bool|float|int|string)[ \\t]*+)?\\$/', $nameOrFqcn) && !$valueOrRef instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference) {
             throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid binding for service "%s": named arguments must start with a "$", and FQCN must map to references. Neither applies to binding "%s".', $this->id, $nameOrFqcn));
         }
         $bindings = $this->definition->getBindings();
         $type = $this instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator ? \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\BoundArgument::DEFAULTS_BINDING : ($this instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator ? \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\BoundArgument::INSTANCEOF_BINDING : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\BoundArgument::SERVICE_BINDING);
-        $bindings[$nameOrFqcn] = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\BoundArgument($valueOrRef, \true, $type, $this->path !== null ? $this->path : null);
+        $bindings[$nameOrFqcn] = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\BoundArgument($valueOrRef, \true, $type, $this->path ?? null);
         $this->definition->setBindings($bindings);
         return $this;
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -29,9 +30,8 @@ final class SpaceAfterSemicolonFixer extends \PhpCsFixer\AbstractFixer implement
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Fix whitespace after a semicolon.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n                        sample();     \$test = 1;\n                        sample();\$test = 2;\n                        for ( ;;++\$sample) {\n                        }\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfor (\$i = 0; ; ++\$i) {\n}\n", ['remove_in_empty_for_expressions' => \true])]);
     }
@@ -39,25 +39,22 @@ final class SpaceAfterSemicolonFixer extends \PhpCsFixer\AbstractFixer implement
      * {@inheritdoc}
      *
      * Must run after CombineConsecutiveUnsetsFixer, MultilineWhitespaceBeforeSemicolonsFixer, NoEmptyStatementFixer, OrderedClassElementsFixer, SingleImportPerStatementFixer, SingleTraitInsertPerStatementFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -1;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(';');
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('remove_in_empty_for_expressions', 'Whether spaces should be removed for empty `for` expressions.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }

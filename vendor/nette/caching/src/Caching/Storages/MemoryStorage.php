@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Caching\Storages;
 
 use ECSPrefix20210517\Nette;
@@ -11,37 +16,28 @@ class MemoryStorage implements \ECSPrefix20210517\Nette\Caching\Storage
     use Nette\SmartObject;
     /** @var array */
     private $data = [];
-    /**
-     * @param string $key
-     */
-    public function read($key)
+    public function read(string $key)
     {
-        $key = (string) $key;
-        return isset($this->data[$key]) ? $this->data[$key] : null;
+        return $this->data[$key] ?? null;
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function lock($key)
+    public function lock(string $key)
     {
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function write($key, $data, array $dependencies)
+    public function write(string $key, $data, array $dependencies)
     {
-        $key = (string) $key;
         $this->data[$key] = $data;
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function remove($key)
+    public function remove(string $key)
     {
-        $key = (string) $key;
         unset($this->data[$key]);
     }
     /**

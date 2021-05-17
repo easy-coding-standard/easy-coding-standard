@@ -43,13 +43,8 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210517\Symfony\Co
             $container->getParameterBag()->remove('container.behavior_describing_tags');
         }
     }
-    /**
-     * @param string $id
-     * @return \Symfony\Component\DependencyInjection\Definition
-     */
-    private function processDefinition(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, $id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, array $tagsToKeep)
+    private function processDefinition(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, array $tagsToKeep) : \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition
     {
-        $id = (string) $id;
         $instanceofConditionals = $definition->getInstanceofConditionals();
         $autoconfiguredInstanceof = $definition->isAutoconfigured() ? $container->getAutoconfiguredInstanceof() : [];
         if (!$instanceofConditionals && !$autoconfiguredInstanceof) {
@@ -67,7 +62,7 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210517\Symfony\Co
         $reflectionClass = null;
         $parent = $definition instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\ChildDefinition ? $definition->getParent() : null;
         foreach ($conditionals as $interface => $instanceofDefs) {
-            if ($interface !== $class && !(isset($reflectionClass) ? $reflectionClass : ($reflectionClass = $container->getReflectionClass($class, \false) ?: \false))) {
+            if ($interface !== $class && !($reflectionClass ?? ($reflectionClass = $container->getReflectionClass($class, \false) ?: \false))) {
                 continue;
             }
             if ($interface !== $class && !\is_subclass_of($class, $interface)) {
@@ -129,10 +124,7 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210517\Symfony\Co
         }
         return $definition;
     }
-    /**
-     * @return mixed[]
-     */
-    private function mergeConditionals(array $autoconfiguredInstanceof, array $instanceofConditionals, \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    private function mergeConditionals(array $autoconfiguredInstanceof, array $instanceofConditionals, \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container) : array
     {
         // make each value an array of ChildDefinition
         $conditionals = \array_map(function ($childDef) {

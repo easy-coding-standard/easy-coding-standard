@@ -23,12 +23,8 @@ use ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference;
 class ResolveDecoratorStackPass implements \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $tag;
-    /**
-     * @param string $tag
-     */
-    public function __construct($tag = 'container.stack')
+    public function __construct(string $tag = 'container.stack')
     {
-        $tag = (string) $tag;
         $this->tag = $tag;
     }
     public function process(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container)
@@ -57,7 +53,7 @@ class ResolveDecoratorStackPass implements \ECSPrefix20210517\Symfony\Component\
                 $resolvedDefinitions[$k] = $v;
             }
             $alias = $container->setAlias($id, $k);
-            if (isset($definition->getChanges()['public']) ? $definition->getChanges()['public'] : \false) {
+            if ($definition->getChanges()['public'] ?? \false) {
                 $alias->setPublic($definition->isPublic());
             }
             if ($definition->isDeprecated()) {
@@ -66,10 +62,7 @@ class ResolveDecoratorStackPass implements \ECSPrefix20210517\Symfony\Component\
         }
         $container->setDefinitions($resolvedDefinitions);
     }
-    /**
-     * @return mixed[]
-     */
-    private function resolveStack(array $stacks, array $path)
+    private function resolveStack(array $stacks, array $path) : array
     {
         $definitions = [];
         $id = \end($path);

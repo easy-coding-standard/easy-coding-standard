@@ -21,12 +21,8 @@ class AcceptHeaderItem
     private $quality = 1.0;
     private $index = 0;
     private $attributes = [];
-    /**
-     * @param string $value
-     */
-    public function __construct($value, array $attributes = [])
+    public function __construct(string $value, array $attributes = [])
     {
-        $value = (string) $value;
         $this->value = $value;
         foreach ($attributes as $name => $value) {
             $this->setAttribute($name, $value);
@@ -40,7 +36,7 @@ class AcceptHeaderItem
      */
     public static function fromString($itemValue)
     {
-        $parts = \ECSPrefix20210517\Symfony\Component\HttpFoundation\HeaderUtils::split(isset($itemValue) ? $itemValue : '', ';=');
+        $parts = \ECSPrefix20210517\Symfony\Component\HttpFoundation\HeaderUtils::split($itemValue ?? '', ';=');
         $part = \array_shift($parts);
         $attributes = \ECSPrefix20210517\Symfony\Component\HttpFoundation\HeaderUtils::combine($parts);
         return new self($part[0], $attributes);
@@ -62,11 +58,9 @@ class AcceptHeaderItem
      * Set the item value.
      *
      * @return $this
-     * @param string $value
      */
-    public function setValue($value)
+    public function setValue(string $value)
     {
-        $value = (string) $value;
         $this->value = $value;
         return $this;
     }
@@ -83,11 +77,9 @@ class AcceptHeaderItem
      * Set the item quality.
      *
      * @return $this
-     * @param float $quality
      */
-    public function setQuality($quality)
+    public function setQuality(float $quality)
     {
-        $quality = (double) $quality;
         $this->quality = $quality;
         return $this;
     }
@@ -104,11 +96,9 @@ class AcceptHeaderItem
      * Set the item index.
      *
      * @return $this
-     * @param int $index
      */
-    public function setIndex($index)
+    public function setIndex(int $index)
     {
-        $index = (int) $index;
         $this->index = $index;
         return $this;
     }
@@ -125,11 +115,9 @@ class AcceptHeaderItem
      * Tests if an attribute exists.
      *
      * @return bool
-     * @param string $name
      */
-    public function hasAttribute($name)
+    public function hasAttribute(string $name)
     {
-        $name = (string) $name;
         return isset($this->attributes[$name]);
     }
     /**
@@ -138,12 +126,10 @@ class AcceptHeaderItem
      * @param mixed $default
      *
      * @return mixed
-     * @param string $name
      */
-    public function getAttribute($name, $default = null)
+    public function getAttribute(string $name, $default = null)
     {
-        $name = (string) $name;
-        return isset($this->attributes[$name]) ? $this->attributes[$name] : $default;
+        return $this->attributes[$name] ?? $default;
     }
     /**
      * Returns all attributes.
@@ -158,13 +144,9 @@ class AcceptHeaderItem
      * Set an attribute.
      *
      * @return $this
-     * @param string $name
-     * @param string $value
      */
-    public function setAttribute($name, $value)
+    public function setAttribute(string $name, string $value)
     {
-        $name = (string) $name;
-        $value = (string) $value;
         if ('q' === $name) {
             $this->quality = (float) $value;
         } else {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -27,9 +28,8 @@ final class IncludeFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Include/Require and file path should be divided with a single space. File path should not be placed under brackets.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 require ("sample1.php");
@@ -40,9 +40,8 @@ include_once("sample4.php");
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_REQUIRE, \T_REQUIRE_ONCE, \T_INCLUDE, \T_INCLUDE_ONCE]);
     }
@@ -88,10 +87,7 @@ include_once("sample4.php");
             }
         }
     }
-    /**
-     * @return mixed[]
-     */
-    private function findIncludies(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function findIncludies(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
         static $includyTokenKinds = [\T_REQUIRE, \T_REQUIRE_ONCE, \T_INCLUDE, \T_INCLUDE_ONCE];
         $includies = [];
@@ -111,11 +107,9 @@ include_once("sample4.php");
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function removeWhitespaceAroundIfPossible(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function removeWhitespaceAroundIfPossible(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $nextIndex = $tokens->getNextNonWhitespace($index);
         if (null === $nextIndex || !$tokens[$nextIndex]->isComment()) {
             $tokens->removeLeadingWhitespace($index);

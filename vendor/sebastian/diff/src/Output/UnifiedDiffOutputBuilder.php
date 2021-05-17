@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of sebastian/diff.
  *
@@ -46,21 +47,12 @@ final class UnifiedDiffOutputBuilder extends \ECSPrefix20210517\SebastianBergman
      * @var bool
      */
     private $addLineNumbers;
-    /**
-     * @param string $header
-     * @param bool $addLineNumbers
-     */
-    public function __construct($header = "--- Original\n+++ New\n", $addLineNumbers = \false)
+    public function __construct(string $header = "--- Original\n+++ New\n", bool $addLineNumbers = \false)
     {
-        $header = (string) $header;
-        $addLineNumbers = (bool) $addLineNumbers;
         $this->header = $header;
         $this->addLineNumbers = $addLineNumbers;
     }
-    /**
-     * @return string
-     */
-    public function getDiff(array $diff)
+    public function getDiff(array $diff) : string
     {
         $buffer = \fopen('php://memory', 'r+b');
         if ('' !== $this->header) {
@@ -175,21 +167,9 @@ final class UnifiedDiffOutputBuilder extends \ECSPrefix20210517\SebastianBergman
     }
     /**
      * @return void
-     * @param int $diffStartIndex
-     * @param int $diffEndIndex
-     * @param int $fromStart
-     * @param int $fromRange
-     * @param int $toStart
-     * @param int $toRange
      */
-    private function writeHunk(array $diff, $diffStartIndex, $diffEndIndex, $fromStart, $fromRange, $toStart, $toRange, $output)
+    private function writeHunk(array $diff, int $diffStartIndex, int $diffEndIndex, int $fromStart, int $fromRange, int $toStart, int $toRange, $output)
     {
-        $diffStartIndex = (int) $diffStartIndex;
-        $diffEndIndex = (int) $diffEndIndex;
-        $fromStart = (int) $fromStart;
-        $fromRange = (int) $fromRange;
-        $toStart = (int) $toStart;
-        $toRange = (int) $toRange;
         if ($this->addLineNumbers) {
             \fwrite($output, '@@ -' . $fromStart);
             if (!$this->collapseRanges || 1 !== $fromRange) {

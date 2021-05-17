@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer;
 
 use PhpCsFixer\Tokenizer\CT;
@@ -20,12 +21,9 @@ final class TokenSkipper
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @return int
      */
-    public function skipBlocks(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function skipBlocks(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : int
     {
-        $position = (int) $position;
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
@@ -48,12 +46,9 @@ final class TokenSkipper
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @return int
      */
-    public function skipBlocksReversed(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function skipBlocksReversed(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : int
     {
-        $position = (int) $position;
         /** @var Token $token */
         $token = $tokens[$position];
         if (!$token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE) && !$token->equals(')')) {

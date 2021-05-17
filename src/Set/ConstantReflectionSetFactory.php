@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Set;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -19,12 +20,10 @@ final class ConstantReflectionSetFactory
      */
     const UNDERSCORE_REGEX = '#_#';
     /**
-     * @return mixed[]
-     * @param string $setClassName
+     * @return Set[]
      */
-    public function createSetsFromClass($setClassName)
+    public function createSetsFromClass(string $setClassName) : array
     {
-        $setClassName = (string) $setClassName;
         $setListReflectionClass = new \ReflectionClass($setClassName);
         $sets = [];
         // new kind of paths sets
@@ -42,13 +41,8 @@ final class ConstantReflectionSetFactory
         }
         return $sets;
     }
-    /**
-     * @param string $string
-     * @return string
-     */
-    private function constantToDashes($string)
+    private function constantToDashes(string $string) : string
     {
-        $string = (string) $string;
         $string = \strtolower($string);
         return \ECSPrefix20210517\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
     }

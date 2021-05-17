@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver\Config;
 
 use ECSPrefix20210517\Symfony\Component\Config\FileLocator;
@@ -24,9 +25,9 @@ final class SetsParameterResolver
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @return mixed[]
+     * @return SmartFileInfo[]
      */
-    public function resolveFromFileInfos(array $fileInfos)
+    public function resolveFromFileInfos(array $fileInfos) : array
     {
         $setFileInfos = [];
         foreach ($fileInfos as $fileInfo) {
@@ -38,9 +39,9 @@ final class SetsParameterResolver
         return $setFileInfos;
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    private function resolveSetsFromFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo)
+    private function resolveSetsFromFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         if ($configFileInfo->hasSuffixes(['yml', 'yaml'])) {
             throw new \ECSPrefix20210517\Symplify\Astral\Exception\ShouldNotHappenException('Only PHP config suffix is supported now. Migrete your Symfony config to PHP');
@@ -48,9 +49,9 @@ final class SetsParameterResolver
         return $this->resolveSetsParameterFromPhpFileInfo($configFileInfo);
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    private function resolveSetsParameterFromPhpFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo)
+    private function resolveSetsParameterFromPhpFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         // php file loader
         $containerBuilder = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder();

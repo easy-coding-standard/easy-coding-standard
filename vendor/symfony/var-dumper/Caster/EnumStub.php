@@ -19,12 +19,8 @@ use ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub;
 class EnumStub extends \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub
 {
     public $dumpKeys = \true;
-    /**
-     * @param bool $dumpKeys
-     */
-    public function __construct(array $values, $dumpKeys = \true)
+    public function __construct(array $values, bool $dumpKeys = \true)
     {
-        $dumpKeys = (bool) $dumpKeys;
         $this->value = $values;
         $this->dumpKeys = $dumpKeys;
     }

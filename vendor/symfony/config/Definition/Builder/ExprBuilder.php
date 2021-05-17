@@ -175,11 +175,9 @@ class ExprBuilder
      * @return $this
      *
      * @throws \InvalidArgumentException
-     * @param string $message
      */
-    public function thenInvalid($message)
+    public function thenInvalid(string $message)
     {
-        $message = (string) $message;
         $this->thenPart = function ($v) use($message) {
             throw new \InvalidArgumentException(\sprintf($message, \json_encode($v)));
         };

@@ -34,12 +34,12 @@ class Session implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Ses
     private $usageReporter;
     public function __construct(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage = null, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface $attributes = null, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface $flashes = null, callable $usageReporter = null)
     {
-        $this->storage = isset($storage) ? $storage : new \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage();
+        $this->storage = $storage ?? new \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage();
         $this->usageReporter = $usageReporter;
-        $attributes = isset($attributes) ? $attributes : new \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag();
+        $attributes = $attributes ?? new \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag();
         $this->attributeName = $attributes->getName();
         $this->registerBag($attributes);
-        $flashes = isset($flashes) ? $flashes : new \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Flash\FlashBag();
+        $flashes = $flashes ?? new \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Flash\FlashBag();
         $this->flashName = $flashes->getName();
         $this->registerBag($flashes);
     }
@@ -52,29 +52,23 @@ class Session implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function has($name)
+    public function has(string $name)
     {
-        $name = (string) $name;
         return $this->getAttributeBag()->has($name);
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function get($name, $default = null)
+    public function get(string $name, $default = null)
     {
-        $name = (string) $name;
         return $this->getAttributeBag()->get($name, $default);
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function set($name, $value)
+    public function set(string $name, $value)
     {
-        $name = (string) $name;
         $this->getAttributeBag()->set($name, $value);
     }
     /**
@@ -93,11 +87,9 @@ class Session implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function remove($name)
+    public function remove(string $name)
     {
-        $name = (string) $name;
         return $this->getAttributeBag()->remove($name);
     }
     /**
@@ -132,18 +124,14 @@ class Session implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Ses
     {
         return \count($this->getAttributeBag()->all());
     }
-    /**
-     * @return int
-     */
-    public function &getUsageIndex()
+    public function &getUsageIndex() : int
     {
         return $this->usageIndex;
     }
     /**
      * @internal
-     * @return bool
      */
-    public function isEmpty()
+    public function isEmpty() : bool
     {
         if ($this->isStarted()) {
             ++$this->usageIndex;
@@ -170,11 +158,9 @@ class Session implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Ses
     /**
      * {@inheritdoc}
      * @param int|null $lifetime
-     * @param bool $destroy
      */
-    public function migrate($destroy = \false, $lifetime = null)
+    public function migrate(bool $destroy = \false, $lifetime = null)
     {
-        $destroy = (bool) $destroy;
         return $this->storage->regenerate($destroy, $lifetime);
     }
     /**
@@ -193,11 +179,9 @@ class Session implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    public function setId($id)
+    public function setId(string $id)
     {
-        $id = (string) $id;
         if ($this->storage->getId() !== $id) {
             $this->storage->setId($id);
         }
@@ -211,11 +195,9 @@ class Session implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
-        $name = (string) $name;
         $this->storage->setName($name);
     }
     /**
@@ -238,11 +220,9 @@ class Session implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getBag($name)
+    public function getBag(string $name)
     {
-        $name = (string) $name;
         $bag = $this->storage->getBag($name);
         return \method_exists($bag, 'getBag') ? $bag->getBag() : $bag;
     }
@@ -259,9 +239,8 @@ class Session implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Ses
      * Gets the attributebag interface.
      *
      * Note that this method was added to help with IDE autocompletion.
-     * @return \Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface
      */
-    private function getAttributeBag()
+    private function getAttributeBag() : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface
     {
         return $this->getBag($this->attributeName);
     }

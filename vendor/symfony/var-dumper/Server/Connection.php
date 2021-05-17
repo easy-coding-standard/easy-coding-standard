@@ -26,26 +26,19 @@ class Connection
      * @param string                     $host             The server host
      * @param ContextProviderInterface[] $contextProviders Context providers indexed by context name
      */
-    public function __construct($host, array $contextProviders = [])
+    public function __construct(string $host, array $contextProviders = [])
     {
-        $host = (string) $host;
         if (\false === \strpos($host, '://')) {
             $host = 'tcp://' . $host;
         }
         $this->host = $host;
         $this->contextProviders = $contextProviders;
     }
-    /**
-     * @return mixed[]
-     */
-    public function getContextProviders()
+    public function getContextProviders() : array
     {
         return $this->contextProviders;
     }
-    /**
-     * @return bool
-     */
-    public function write(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Data $data)
+    public function write(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Data $data) : bool
     {
         $socketIsFresh = !$this->socket;
         if (!($this->socket = $this->socket ?: $this->createSocket())) {

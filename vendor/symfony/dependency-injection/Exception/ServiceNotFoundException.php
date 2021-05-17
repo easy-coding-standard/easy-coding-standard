@@ -21,14 +21,8 @@ class ServiceNotFoundException extends \ECSPrefix20210517\Symfony\Component\Depe
     private $id;
     private $sourceId;
     private $alternatives;
-    /**
-     * @param string $id
-     * @param string $sourceId
-     * @param string $msg
-     */
-    public function __construct($id, $sourceId = null, \Throwable $previous = null, array $alternatives = [], $msg = null)
+    public function __construct(string $id, string $sourceId = null, \Throwable $previous = null, array $alternatives = [], string $msg = null)
     {
-        $id = (string) $id;
         if (null !== $msg) {
             // no-op
         } elseif (null === $sourceId) {

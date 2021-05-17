@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Php;
 
 use Symplify\CodingStandard\TokenRunner\TokenFinder;
@@ -22,13 +23,8 @@ final class PhpContentAnalyzer
     {
         $this->tokenFinder = $tokenFinder;
     }
-    /**
-     * @param string $content
-     * @return bool
-     */
-    public function isPhpContent($content)
+    public function isPhpContent(string $content) : bool
     {
-        $content = (string) $content;
         // is content commented PHP code?
         $rawTokens = $this->parseCodeToTokens($content);
         $tokenCount = \count($rawTokens);
@@ -128,12 +124,9 @@ final class PhpContentAnalyzer
     }
     /**
      * @param mixed[] $tokens
-     * @param int $i
-     * @return bool
      */
-    private function isFunctionStart(array $tokens, $i)
+    private function isFunctionStart(array $tokens, int $i) : bool
     {
-        $i = (int) $i;
         $twoNextTokens = $this->tokenFinder->getNextMeaninfulTokens($tokens, $i + 1, 2);
         if (\count($twoNextTokens) !== 2) {
             return \false;
@@ -145,13 +138,8 @@ final class PhpContentAnalyzer
         }
         return $openBracketToken === '(';
     }
-    /**
-     * @param int $tokenCount
-     * @return bool
-     */
-    private function hasTwoStringsTokensInRow($tokenCount, array $rawTokens)
+    private function hasTwoStringsTokensInRow(int $tokenCount, array $rawTokens) : bool
     {
-        $tokenCount = (int) $tokenCount;
         for ($i = 0; $i < $tokenCount; ++$i) {
             $token = $rawTokens[$i];
             if ($token[0] !== \T_STRING) {

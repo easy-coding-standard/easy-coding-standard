@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -49,9 +50,8 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('The correct case must be used for standard PHP types in PHPDoc.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
@@ -72,9 +72,8 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
      *
      * Must run before GeneralPhpdocAnnotationRemoveFixer, GeneralPhpdocTagRenameFixer, NoBlankLinesAfterPhpdocFixer, NoEmptyPhpdocFixer, NoSuperfluousPhpdocTagsFixer, PhpdocAddMissingParamAnnotationFixer, PhpdocAlignFixer, PhpdocAlignFixer, PhpdocInlineTagNormalizerFixer, PhpdocLineSpanFixer, PhpdocNoAccessFixer, PhpdocNoAliasTagFixer, PhpdocNoEmptyReturnFixer, PhpdocNoPackageFixer, PhpdocNoUselessInheritdocFixer, PhpdocOrderByValueFixer, PhpdocOrderFixer, PhpdocReturnSelfReferenceFixer, PhpdocScalarFixer, PhpdocSeparationFixer, PhpdocSingleLineVarSpacingFixer, PhpdocSummaryFixer, PhpdocTagCasingFixer, PhpdocTagTypeFixer, PhpdocToParamTypeFixer, PhpdocToPropertyTypeFixer, PhpdocToReturnTypeFixer, PhpdocToReturnTypeFixer, PhpdocTrimConsecutiveBlankLineSeparationFixer, PhpdocTrimFixer, PhpdocTypesOrderFixer, PhpdocVarAnnotationCorrectOrderFixer, PhpdocVarWithoutNameFixer.
      * Must run after PhpdocAnnotationWithoutDotFixer, PhpdocIndentFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         /*
          * Should be run before all other docblock fixers apart from the
@@ -88,20 +87,16 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
     }
     /**
      * {@inheritdoc}
-     * @param string $type
-     * @return string
      */
-    protected function normalize($type)
+    protected function normalize(string $type) : string
     {
-        $type = (string) $type;
         $lower = \strtolower($type);
         return \in_array($lower, $this->typesToFix, \true) ? $lower : $type;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $possibleGroups = \array_keys(self::$possibleTypes);
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('groups', 'Type groups to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($possibleGroups)])->setDefault($possibleGroups)->getOption()]);

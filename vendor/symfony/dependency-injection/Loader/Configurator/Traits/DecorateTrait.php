@@ -22,15 +22,9 @@ trait DecorateTrait
      * @return $this
      *
      * @throws InvalidArgumentException in case the decorated service id and the new decorated service id are equals
-     * @param string $renamedId
-     * @param int $priority
-     * @param int $invalidBehavior
      */
-    public final function decorate($id, $renamedId = null, $priority = 0, $invalidBehavior = \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public final function decorate($id, string $renamedId = null, int $priority = 0, int $invalidBehavior = \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
-        $renamedId = (string) $renamedId;
-        $priority = (int) $priority;
-        $invalidBehavior = (int) $invalidBehavior;
         $this->definition->setDecoratedService($id, $renamedId, $priority, $invalidBehavior);
         return $this;
     }

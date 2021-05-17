@@ -22,11 +22,9 @@ class HttpException extends \RuntimeException implements \ECSPrefix20210517\Symf
     /**
      * @param string|null $message
      * @param int|null $code
-     * @param int $statusCode
      */
-    public function __construct($statusCode, $message = '', \Throwable $previous = null, array $headers = [], $code = 0)
+    public function __construct(int $statusCode, $message = '', \Throwable $previous = null, array $headers = [], $code = 0)
     {
-        $statusCode = (int) $statusCode;
         $this->statusCode = $statusCode;
         $this->headers = $headers;
         parent::__construct($message, $code, $previous);

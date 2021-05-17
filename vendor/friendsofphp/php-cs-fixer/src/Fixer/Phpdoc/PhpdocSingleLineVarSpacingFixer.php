@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -27,9 +28,8 @@ final class PhpdocSingleLineVarSpacingFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Single line `@var` PHPDoc should have proper spacing.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php /**@var   MyClass   \$a   */\n\$a = test();\n")]);
     }
@@ -38,17 +38,15 @@ final class PhpdocSingleLineVarSpacingFixer extends \PhpCsFixer\AbstractFixer
      *
      * Must run before PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpdocIndentFixer, PhpdocNoAliasTagFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -10;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_COMMENT, \T_DOC_COMMENT]);
     }
@@ -70,13 +68,8 @@ final class PhpdocSingleLineVarSpacingFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @param string $content
-     * @return string
-     */
-    private function fixTokenContent($content)
+    private function fixTokenContent(string $content) : string
     {
-        $content = (string) $content;
         return \PhpCsFixer\Preg::replaceCallback('#^/\\*\\*\\h*@var\\h+(\\S+)\\h*(\\$\\S+)?\\h*([^\\n]*)\\*/$#', static function (array $matches) {
             $content = '/** @var';
             for ($i = 1, $m = \count($matches); $i < $m; ++$i) {

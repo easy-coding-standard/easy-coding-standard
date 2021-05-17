@@ -22,15 +22,9 @@ class FormatterHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helpe
      * Formats a message within a section.
      *
      * @return string The format section
-     * @param string $section
-     * @param string $message
-     * @param string $style
      */
-    public function formatSection($section, $message, $style = 'info')
+    public function formatSection(string $section, string $message, string $style = 'info')
     {
-        $section = (string) $section;
-        $message = (string) $message;
-        $style = (string) $style;
         return \sprintf('<%s>[%s]</%s> %s', $style, $section, $style, $message);
     }
     /**
@@ -39,13 +33,9 @@ class FormatterHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helpe
      * @param string|array $messages The message to write in the block
      *
      * @return string The formatter message
-     * @param string $style
-     * @param bool $large
      */
-    public function formatBlock($messages, $style, $large = \false)
+    public function formatBlock($messages, string $style, bool $large = \false)
     {
-        $style = (string) $style;
-        $large = (bool) $large;
         if (!\is_array($messages)) {
             $messages = [$messages];
         }
@@ -72,15 +62,9 @@ class FormatterHelper extends \ECSPrefix20210517\Symfony\Component\Console\Helpe
      * Truncates a message to the given length.
      *
      * @return string
-     * @param string $message
-     * @param int $length
-     * @param string $suffix
      */
-    public function truncate($message, $length, $suffix = '...')
+    public function truncate(string $message, int $length, string $suffix = '...')
     {
-        $message = (string) $message;
-        $length = (int) $length;
-        $suffix = (string) $suffix;
         $computedLength = $length - self::strlen($suffix);
         if ($computedLength > self::strlen($message)) {
             return $message;

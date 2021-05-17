@@ -57,11 +57,9 @@ abstract class NodeDefinition implements \ECSPrefix20210517\Symfony\Component\Co
      * Sets info message.
      *
      * @return $this
-     * @param string $info
      */
-    public function info($info)
+    public function info(string $info)
     {
-        $info = (string) $info;
         return $this->attribute('info', $info);
     }
     /**
@@ -81,11 +79,9 @@ abstract class NodeDefinition implements \ECSPrefix20210517\Symfony\Component\Co
      * @param mixed $value
      *
      * @return $this
-     * @param string $key
      */
-    public function attribute($key, $value)
+    public function attribute(string $key, $value)
     {
-        $key = (string) $key;
         $this->attributes[$key] = $value;
         return $this;
     }
@@ -105,9 +101,8 @@ abstract class NodeDefinition implements \ECSPrefix20210517\Symfony\Component\Co
      *
      * @return NodeInterface
      */
-    public function getNode($forceRootNode = \false)
+    public function getNode(bool $forceRootNode = \false)
     {
-        $forceRootNode = (bool) $forceRootNode;
         if ($forceRootNode) {
             $this->parent = null;
         }
@@ -163,12 +158,12 @@ abstract class NodeDefinition implements \ECSPrefix20210517\Symfony\Component\Co
         $args = \func_get_args();
         if (\func_num_args() < 2) {
             trigger_deprecation('symfony/config', '5.1', 'The signature of method "%s()" requires 3 arguments: "string $package, string $version, string $message", not defining them is deprecated.', __METHOD__);
-            $message = isset($args[0]) ? $args[0] : 'The child node "%node%" at path "%path%" is deprecated.';
+            $message = $args[0] ?? 'The child node "%node%" at path "%path%" is deprecated.';
             $package = $version = '';
         } else {
             $package = (string) $args[0];
             $version = (string) $args[1];
-            $message = (string) (isset($args[2]) ? $args[2] : 'The child node "%node%" at path "%path%" is deprecated.');
+            $message = (string) ($args[2] ?? 'The child node "%node%" at path "%path%" is deprecated.');
         }
         $this->deprecation = ['package' => $package, 'version' => $version, 'message' => $message];
         return $this;
@@ -272,11 +267,9 @@ abstract class NodeDefinition implements \ECSPrefix20210517\Symfony\Component\Co
      * Sets whether the node can be overwritten.
      *
      * @return $this
-     * @param bool $deny
      */
-    public function cannotBeOverwritten($deny = \true)
+    public function cannotBeOverwritten(bool $deny = \true)
     {
-        $deny = (bool) $deny;
         $this->merge()->denyOverwrite($deny);
         return $this;
     }
@@ -328,11 +321,9 @@ abstract class NodeDefinition implements \ECSPrefix20210517\Symfony\Component\Co
      * Set PathSeparator to use.
      *
      * @return $this
-     * @param string $separator
      */
-    public function setPathSeparator($separator)
+    public function setPathSeparator(string $separator)
     {
-        $separator = (string) $separator;
         if ($this instanceof \ECSPrefix20210517\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface) {
             foreach ($this->getChildNodeDefinitions() as $child) {
                 $child->setPathSeparator($separator);

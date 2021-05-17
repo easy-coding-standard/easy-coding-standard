@@ -19,14 +19,8 @@ class FrameStub extends \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\En
 {
     public $keepArgs;
     public $inTraceStub;
-    /**
-     * @param bool $keepArgs
-     * @param bool $inTraceStub
-     */
-    public function __construct(array $frame, $keepArgs = \true, $inTraceStub = \false)
+    public function __construct(array $frame, bool $keepArgs = \true, bool $inTraceStub = \false)
     {
-        $keepArgs = (bool) $keepArgs;
-        $inTraceStub = (bool) $inTraceStub;
         $this->value = $frame;
         $this->keepArgs = $keepArgs;
         $this->inTraceStub = $inTraceStub;

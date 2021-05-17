@@ -27,11 +27,9 @@ class PhpExecutableFinder
      * Finds The PHP executable.
      *
      * @return string|false The PHP executable path or false if it cannot be found
-     * @param bool $includeArgs
      */
-    public function find($includeArgs = \true)
+    public function find(bool $includeArgs = \true)
     {
-        $includeArgs = (bool) $includeArgs;
         if ($php = \getenv('PHP_BINARY')) {
             if (!\is_executable($php)) {
                 $command = '\\' === \DIRECTORY_SEPARATOR ? 'where' : 'command -v';

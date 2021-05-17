@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\Skipper\FileSystem;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -18,13 +19,8 @@ final class PathNormalizer
      * @see https://regex101.com/r/aVUDjM/2
      */
     const ONLY_STARTS_WITH_ASTERISK_REGEX = '#^\\*(.*?)[^*]$#';
-    /**
-     * @param string $path
-     * @return string
-     */
-    public function normalizeForFnmatch($path)
+    public function normalizeForFnmatch(string $path) : string
     {
-        $path = (string) $path;
         // ends with *
         if (\ECSPrefix20210517\Nette\Utils\Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
             return '*' . $path;

@@ -28,17 +28,9 @@ class ArgumentMetadata
     /**
      * @param string|null $type
      * @param \Symfony\Component\HttpKernel\Attribute\ArgumentInterface|null $attribute
-     * @param string $name
-     * @param bool $isVariadic
-     * @param bool $hasDefaultValue
-     * @param bool $isNullable
      */
-    public function __construct($name, $type, $isVariadic, $hasDefaultValue, $defaultValue, $isNullable = \false, $attribute = null)
+    public function __construct(string $name, $type, bool $isVariadic, bool $hasDefaultValue, $defaultValue, bool $isNullable = \false, $attribute = null)
     {
-        $name = (string) $name;
-        $isVariadic = (bool) $isVariadic;
-        $hasDefaultValue = (bool) $hasDefaultValue;
-        $isNullable = (bool) $isNullable;
         $this->name = $name;
         $this->type = $type;
         $this->isVariadic = $isVariadic;

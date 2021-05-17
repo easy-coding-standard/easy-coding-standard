@@ -21,11 +21,9 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20210517\Symfony\Component\D
 {
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         $value = parent::processValue($value, $isRoot);
         if (!$value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
             return $value;
@@ -78,18 +76,13 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20210517\Symfony\Component\D
             $setters = $value->getMethodCalls();
             $value->setMethodCalls($withers);
             foreach ($setters as $call) {
-                $value->addMethodCall($call[0], $call[1], isset($call[2]) ? $call[2] : \false);
+                $value->addMethodCall($call[0], $call[1], $call[2] ?? \false);
             }
         }
         return $value;
     }
-    /**
-     * @param string $doc
-     * @return bool
-     */
-    private function isWither(\ReflectionMethod $reflectionMethod, $doc)
+    private function isWither(\ReflectionMethod $reflectionMethod, string $doc) : bool
     {
-        $doc = (string) $doc;
         $match = \preg_match('#(?:^/\\*\\*|\\n\\s*+\\*)\\s*+@return\\s++(static|\\$this)[\\s\\*]#i', $doc, $matches);
         if ($match && 'static' === $matches[1]) {
             return \true;

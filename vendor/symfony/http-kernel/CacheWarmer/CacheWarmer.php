@@ -17,12 +17,8 @@ namespace ECSPrefix20210517\Symfony\Component\HttpKernel\CacheWarmer;
  */
 abstract class CacheWarmer implements \ECSPrefix20210517\Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface
 {
-    /**
-     * @param string $file
-     */
-    protected function writeCacheFile($file, $content)
+    protected function writeCacheFile(string $file, $content)
     {
-        $file = (string) $file;
         $tmpFile = @\tempnam(\dirname($file), \basename($file));
         if (\false !== @\file_put_contents($tmpFile, $content) && @\rename($tmpFile, $file)) {
             @\chmod($file, 0666 & ~\umask());

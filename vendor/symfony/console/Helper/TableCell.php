@@ -18,12 +18,8 @@ class TableCell
 {
     private $value;
     private $options = ['rowspan' => 1, 'colspan' => 1, 'style' => null];
-    /**
-     * @param string $value
-     */
-    public function __construct($value = '', array $options = [])
+    public function __construct(string $value = '', array $options = [])
     {
-        $value = (string) $value;
         $this->value = $value;
         // check option names
         if ($diff = \array_diff(\array_keys($options), \array_keys($this->options))) {

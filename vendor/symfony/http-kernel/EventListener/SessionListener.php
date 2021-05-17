@@ -27,12 +27,8 @@ use ECSPrefix20210517\Symfony\Component\HttpKernel\Event\RequestEvent;
  */
 class SessionListener extends \ECSPrefix20210517\Symfony\Component\HttpKernel\EventListener\AbstractSessionListener
 {
-    /**
-     * @param bool $debug
-     */
-    public function __construct(\ECSPrefix20210517\Psr\Container\ContainerInterface $container, $debug = \false)
+    public function __construct(\ECSPrefix20210517\Psr\Container\ContainerInterface $container, bool $debug = \false)
     {
-        $debug = (bool) $debug;
         parent::__construct($container, $debug);
     }
     public function onKernelRequest(\ECSPrefix20210517\Symfony\Component\HttpKernel\Event\RequestEvent $event)

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Composer;
 
 use ECSPrefix20210517\Composer\Autoload\ClassLoader;
@@ -10,10 +11,7 @@ use ReflectionClass;
  */
 final class VendorDirProvider
 {
-    /**
-     * @return string
-     */
-    public function provide()
+    public function provide() : string
     {
         $rootFolder = \getenv('SystemDrive', \true) . \DIRECTORY_SEPARATOR;
         $path = __DIR__;
@@ -25,10 +23,7 @@ final class VendorDirProvider
         }
         return $this->reflectionFallback();
     }
-    /**
-     * @return string
-     */
-    private function reflectionFallback()
+    private function reflectionFallback() : string
     {
         $reflectionClass = new \ReflectionClass(\ECSPrefix20210517\Composer\Autoload\ClassLoader::class);
         return \dirname($reflectionClass->getFileName(), 2);

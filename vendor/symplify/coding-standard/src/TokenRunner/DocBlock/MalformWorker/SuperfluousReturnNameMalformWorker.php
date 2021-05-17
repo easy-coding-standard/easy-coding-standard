@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -29,14 +30,9 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
     const VARIABLE_NAME_PART = 'variableName';
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
-        $docContent = (string) $docContent;
-        $position = (int) $position;
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
         $lines = $docBlock->getLines();
         foreach ($lines as $line) {
@@ -60,12 +56,9 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
     }
     /**
      * @param array<string, string> $match
-     * @param string $content
-     * @return bool
      */
-    private function shouldSkip(array $match, $content)
+    private function shouldSkip(array $match, string $content) : bool
     {
-        $content = (string) $content;
         if (\in_array($match[self::VARIABLE_NAME_PART], self::ALLOWED_VARIABLE_NAMES, \true)) {
             return \true;
         }

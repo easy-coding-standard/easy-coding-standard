@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -31,9 +32,8 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
     private $classyElements;
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -63,9 +63,8 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
     protected abstract function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens);
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('ignored_tags', 'List of tags that must not be treated as Doctrine Annotations.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $values) {
             foreach ($values as $value) {
@@ -177,13 +176,8 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
             'override',
         ])->getOption()]);
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function nextElementAcceptsDoctrineAnnotations(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function nextElementAcceptsDoctrineAnnotations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         do {
             $index = $tokens->getNextMeaningfulToken($index);
             if (null === $index) {

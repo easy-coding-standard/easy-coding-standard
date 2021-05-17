@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Annotation;
 
 use ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer;
@@ -36,25 +37,16 @@ final class DoctrineAnnotationNewlineInNestedAnnotationFixer extends \PhpCsFixer
         $this->doctrineBlockFinder = $doctrineBlockFinder;
         parent::__construct();
     }
-    /**
-     * @return int
-     */
-    public function getPriority()
+    public function getPriority() : int
     {
         // must run before \PhpCsFixer\Fixer\DoctrineAnnotation\DoctrineAnnotationIndentationFixer
         return 100;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
@@ -99,7 +91,7 @@ CODE_SAMPLE
                 continue;
             }
             $previousTokenPosition = $index - 1;
-            $previousToken = isset($tokens[$previousTokenPosition]) ? $tokens[$previousTokenPosition] : null;
+            $previousToken = $tokens[$previousTokenPosition] ?? null;
             if ($previousToken === null) {
                 continue;
             }
@@ -116,10 +108,7 @@ CODE_SAMPLE
             $this->processEndBracket($index, $tokens, $previousTokenPosition);
         }
     }
-    /**
-     * @return bool
-     */
-    private function isDocOpener(\PhpCsFixer\Doctrine\Annotation\Token $token)
+    private function isDocOpener(\PhpCsFixer\Doctrine\Annotation\Token $token) : bool
     {
         if ($token->isType(\ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
             return \ECSPrefix20210517\Nette\Utils\Strings::contains($token->getContent(), '*');
@@ -129,13 +118,9 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param int $index
-     * @param int $previousTokenPosition
      */
-    private function processEndBracket($index, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $previousTokenPosition)
+    private function processEndBracket(int $index, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $previousTokenPosition)
     {
-        $index = (int) $index;
-        $previousTokenPosition = (int) $previousTokenPosition;
         /** @var Token $previousToken */
         $previousToken = $tokens->offsetGet($previousTokenPosition);
         // already a space → skip
@@ -157,18 +142,15 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $index
-     * @return bool
      */
-    private function shouldSkip($index, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, \PhpCsFixer\Doctrine\Annotation\Token $previousToken)
+    private function shouldSkip(int $index, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, \PhpCsFixer\Doctrine\Annotation\Token $previousToken) : bool
     {
-        $index = (int) $index;
         // docblock opener → skip it
         if ($this->isDocOpener($previousToken)) {
             return \true;
         }
         $nextTokenPosition = $index + 1;
-        $nextToken = isset($tokens[$nextTokenPosition]) ? $tokens[$nextTokenPosition] : null;
+        $nextToken = $tokens[$nextTokenPosition] ?? null;
         if (!$nextToken instanceof \PhpCsFixer\Doctrine\Annotation\Token) {
             return \true;
         }

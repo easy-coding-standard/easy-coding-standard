@@ -35,10 +35,8 @@ class JsonResponse extends \ECSPrefix20210517\Symfony\Component\HttpFoundation\R
      * @param array $headers An array of response headers
      * @param bool  $json    If the data is already a JSON string
      */
-    public function __construct($data = null, $status = 200, array $headers = [], $json = \false)
+    public function __construct($data = null, int $status = 200, array $headers = [], bool $json = \false)
     {
-        $status = (int) $status;
-        $json = (bool) $json;
         parent::__construct('', $status, $headers);
         if ($json && !\is_string($data) && !\is_numeric($data) && !\is_callable([$data, '__toString'])) {
             throw new \TypeError(\sprintf('"%s": If $json is set to true, argument $data must be a string or object implementing __toString(), "%s" given.', __METHOD__, \get_debug_type($data)));
@@ -64,9 +62,8 @@ class JsonResponse extends \ECSPrefix20210517\Symfony\Component\HttpFoundation\R
      *
      * @deprecated since Symfony 5.1, use __construct() instead.
      */
-    public static function create($data = null, $status = 200, array $headers = [])
+    public static function create($data = null, int $status = 200, array $headers = [])
     {
-        $status = (int) $status;
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($data, $status, $headers);
     }
@@ -84,22 +81,20 @@ class JsonResponse extends \ECSPrefix20210517\Symfony\Component\HttpFoundation\R
      *
      * @return static
      */
-    public static function fromJsonString($data, $status = 200, array $headers = [])
+    public static function fromJsonString(string $data, int $status = 200, array $headers = [])
     {
-        $data = (string) $data;
-        $status = (int) $status;
         return new static($data, $status, $headers, \true);
     }
     /**
      * Sets the JSONP callback.
      *
-     * @param string $callback The JSONP callback or null to use none
+     * @param string|null $callback The JSONP callback or null to use none
      *
      * @return $this
      *
      * @throws \InvalidArgumentException When the callback name is not valid
      */
-    public function setCallback($callback = null)
+    public function setCallback(string $callback = null)
     {
         if (null !== $callback) {
             // partially taken from https://geekality.net/2011/08/03/valid-javascript-identifier/
@@ -122,11 +117,9 @@ class JsonResponse extends \ECSPrefix20210517\Symfony\Component\HttpFoundation\R
      * Sets a raw string containing a JSON document to be sent.
      *
      * @return $this
-     * @param string $json
      */
-    public function setJson($json)
+    public function setJson(string $json)
     {
-        $json = (string) $json;
         $this->data = $json;
         return $this->update();
     }
@@ -170,11 +163,9 @@ class JsonResponse extends \ECSPrefix20210517\Symfony\Component\HttpFoundation\R
      * Sets options used while encoding data to JSON.
      *
      * @return $this
-     * @param int $encodingOptions
      */
-    public function setEncodingOptions($encodingOptions)
+    public function setEncodingOptions(int $encodingOptions)
     {
-        $encodingOptions = (int) $encodingOptions;
         $this->encodingOptions = $encodingOptions;
         return $this->setData(\json_decode($this->data));
     }

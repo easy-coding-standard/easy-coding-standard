@@ -48,11 +48,9 @@ class GenericEvent extends \ECSPrefix20210517\Symfony\Contracts\EventDispatcher\
      * @return mixed Contents of array key
      *
      * @throws \InvalidArgumentException if key is not found
-     * @param string $key
      */
-    public function getArgument($key)
+    public function getArgument(string $key)
     {
-        $key = (string) $key;
         if ($this->hasArgument($key)) {
             return $this->arguments[$key];
         }
@@ -64,11 +62,9 @@ class GenericEvent extends \ECSPrefix20210517\Symfony\Contracts\EventDispatcher\
      * @param mixed $value Value
      *
      * @return $this
-     * @param string $key
      */
-    public function setArgument($key, $value)
+    public function setArgument(string $key, $value)
     {
-        $key = (string) $key;
         $this->arguments[$key] = $value;
         return $this;
     }
@@ -95,11 +91,9 @@ class GenericEvent extends \ECSPrefix20210517\Symfony\Contracts\EventDispatcher\
      * Has argument.
      *
      * @return bool
-     * @param string $key
      */
-    public function hasArgument($key)
+    public function hasArgument(string $key)
     {
-        $key = (string) $key;
         return \array_key_exists($key, $this->arguments);
     }
     /**

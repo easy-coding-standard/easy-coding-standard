@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of sebastian/diff.
  *
@@ -14,7 +15,6 @@ interface LongestCommonSubsequenceCalculator
 {
     /**
      * Calculates the longest common subsequence of two arrays.
-     * @return mixed[]
      */
-    public function calculate(array $from, array $to);
+    public function calculate(array $from, array $to) : array;
 }

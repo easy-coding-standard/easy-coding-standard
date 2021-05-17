@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -29,17 +30,15 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     const THROW_END_TOKENS = [';', '(', '{', '}'];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Throwing exception must be done in single line.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nthrow new Exception(\n    'Error.',\n    500\n);\n")]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_THROW);
     }
@@ -47,9 +46,8 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
      * {@inheritdoc}
      *
      * Must run before BracesFixer, ConcatSpaceFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         // must be fun before ConcatSpaceFixer
         return 36;
@@ -75,13 +73,9 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function trimNewLines(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function trimNewLines(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             $content = $tokens[$index]->getContent();
             if ($tokens[$index]->isGivenKind(\T_COMMENT)) {

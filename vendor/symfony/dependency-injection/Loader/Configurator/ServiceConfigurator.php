@@ -41,13 +41,8 @@ class ServiceConfigurator extends \ECSPrefix20210517\Symfony\Component\Dependenc
     private $instanceof;
     private $allowParent;
     private $path;
-    /**
-     * @param bool $allowParent
-     * @param string $path
-     */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, $allowParent, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, $path = null)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, string $path = null)
     {
-        $allowParent = (bool) $allowParent;
         $this->container = $container;
         $this->instanceof = $instanceof;
         $this->allowParent = $allowParent;

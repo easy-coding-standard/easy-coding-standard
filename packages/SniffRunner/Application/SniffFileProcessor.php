@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use PHP_CodeSniffer\Fixer;
@@ -90,16 +91,13 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         }
     }
     /**
-     * @return mixed[]
+     * @return Sniff[]
      */
-    public function getCheckers()
+    public function getCheckers() : array
     {
         return $this->sniffs;
     }
-    /**
-     * @return string
-     */
-    public function processFile(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function processFile(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
         $this->fixFile($file, $this->fixer, $smartFileInfo, $this->tokenListeners);

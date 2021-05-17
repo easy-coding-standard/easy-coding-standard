@@ -15,9 +15,8 @@ if (!\function_exists('normalizer_is_normalized')) {
     /**
      * @param string|null $string
      * @param int|null $form
-     * @return bool
      */
-    function normalizer_is_normalized($string, $form = \ECSPrefix20210517\Symfony\Polyfill\Intl\Normalizer\Normalizer::FORM_C)
+    function normalizer_is_normalized($string, $form = \ECSPrefix20210517\Symfony\Polyfill\Intl\Normalizer\Normalizer::FORM_C) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Intl\Normalizer\Normalizer::isNormalized((string) $string, (int) $form);
     }

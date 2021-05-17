@@ -72,15 +72,9 @@ abstract class AbstractSurrogate implements \ECSPrefix20210517\Symfony\Component
     }
     /**
      * {@inheritdoc}
-     * @param string $uri
-     * @param string $alt
-     * @param bool $ignoreErrors
      */
-    public function handle(\ECSPrefix20210517\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, $uri, $alt, $ignoreErrors)
+    public function handle(\ECSPrefix20210517\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, string $uri, string $alt, bool $ignoreErrors)
     {
-        $uri = (string) $uri;
-        $alt = (string) $alt;
-        $ignoreErrors = (bool) $ignoreErrors;
         $subRequest = \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request::create($uri, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request::METHOD_GET, [], $cache->getRequest()->cookies->all(), [], $cache->getRequest()->server->all());
         try {
             $response = $cache->handle($subRequest, \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpKernelInterface::SUB_REQUEST, \true);

@@ -22,11 +22,9 @@ class NumericNode extends \ECSPrefix20210517\Symfony\Component\Config\Definition
     protected $max;
     /**
      * @param string|null $name
-     * @param string $pathSeparator
      */
-    public function __construct($name, \ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $parent = null, $min = null, $max = null, $pathSeparator = \ECSPrefix20210517\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
+    public function __construct($name, \ECSPrefix20210517\Symfony\Component\Config\Definition\NodeInterface $parent = null, $min = null, $max = null, string $pathSeparator = \ECSPrefix20210517\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
     {
-        $pathSeparator = (string) $pathSeparator;
         parent::__construct($name, $parent, $pathSeparator);
         $this->min = $min;
         $this->max = $max;

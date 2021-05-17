@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -29,9 +30,8 @@ final class EscapeImplicitBackslashesFixer extends \PhpCsFixer\AbstractFixer imp
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         $codeSample = <<<'EOF'
 <?php
@@ -50,9 +50,8 @@ EOF;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_ENCAPSED_AND_WHITESPACE, \T_CONSTANT_ENCAPSED_STRING]);
     }
@@ -61,9 +60,8 @@ EOF;
      *
      * Must run before HeredocToNowdocFixer, SingleQuoteFixer.
      * Must run after BacktickToShellExecFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 1;
     }
@@ -110,9 +108,8 @@ EOF;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_quoted', 'Whether to fix single-quoted strings.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('double_quoted', 'Whether to fix double-quoted strings.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('heredoc_syntax', 'Whether to fix heredoc syntax.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }

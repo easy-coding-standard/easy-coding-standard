@@ -17,12 +17,8 @@ namespace ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception;
  */
 class EnvParameterException extends \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
 {
-    /**
-     * @param string $message
-     */
-    public function __construct(array $envs, \Throwable $previous = null, $message = 'Incompatible use of dynamic environment variables "%s" found in parameters.')
+    public function __construct(array $envs, \Throwable $previous = null, string $message = 'Incompatible use of dynamic environment variables "%s" found in parameters.')
     {
-        $message = (string) $message;
         parent::__construct(\sprintf($message, \implode('", "', $envs)), 0, $previous);
     }
 }

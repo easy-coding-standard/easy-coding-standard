@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Spacing;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -39,18 +40,14 @@ final class NewlineServiceDefinitionConfigFixer extends \Symplify\CodingStandard
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
         $this->symfonyClosureAnalyzer = $symfonyClosureAnalyzer;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_RETURN, \T_STATIC, \T_FUNCTION, \T_VARIABLE, \T_STRING, \T_OBJECT_OPERATOR]);
     }
@@ -82,10 +79,7 @@ final class NewlineServiceDefinitionConfigFixer extends \Symplify\CodingStandard
             $tokens->ensureWhitespaceAtIndex($index, 0, $newlineAndIndent);
         }
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -112,21 +106,17 @@ CODE_SAMPLE
      * Must run before
      *
      * @see \PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer::getPriority()
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 39;
     }
     /**
      * @param string[] $methodNames
      * @param Tokens<Token> $tokens
-     * @param int $index
-     * @return bool
      */
-    private function isNextTokenMethodCallNamed(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $methodNames)
+    private function isNextTokenMethodCallNamed(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $methodNames) : bool
     {
-        $index = (int) $index;
         $nextToken = $this->getNextMeaningfulToken($tokens, $index);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return \false;

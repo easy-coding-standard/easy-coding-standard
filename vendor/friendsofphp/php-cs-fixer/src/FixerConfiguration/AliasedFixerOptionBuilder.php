@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,12 +27,8 @@ final class AliasedFixerOptionBuilder
      * @var string
      */
     private $alias;
-    /**
-     * @param string $alias
-     */
-    public function __construct(\PhpCsFixer\FixerConfiguration\FixerOptionBuilder $optionBuilder, $alias)
+    public function __construct(\PhpCsFixer\FixerConfiguration\FixerOptionBuilder $optionBuilder, string $alias)
     {
-        $alias = (string) $alias;
         $this->optionBuilder = $optionBuilder;
         $this->alias = $alias;
     }
@@ -71,10 +68,7 @@ final class AliasedFixerOptionBuilder
         $this->optionBuilder->setNormalizer($normalizer);
         return $this;
     }
-    /**
-     * @return \PhpCsFixer\FixerConfiguration\AliasedFixerOption
-     */
-    public function getOption()
+    public function getOption() : \PhpCsFixer\FixerConfiguration\AliasedFixerOption
     {
         return new \PhpCsFixer\FixerConfiguration\AliasedFixerOption($this->optionBuilder->getOption(), $this->alias);
     }

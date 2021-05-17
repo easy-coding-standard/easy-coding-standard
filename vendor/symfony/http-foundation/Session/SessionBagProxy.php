@@ -32,10 +32,7 @@ final class SessionBagProxy implements \ECSPrefix20210517\Symfony\Component\Http
         $this->usageIndex =& $usageIndex;
         $this->usageReporter = $usageReporter;
     }
-    /**
-     * @return \Symfony\Component\HttpFoundation\Session\SessionBagInterface
-     */
-    public function getBag()
+    public function getBag() : \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\SessionBagInterface
     {
         ++$this->usageIndex;
         if ($this->usageReporter && 0 <= $this->usageIndex) {
@@ -43,10 +40,7 @@ final class SessionBagProxy implements \ECSPrefix20210517\Symfony\Component\Http
         }
         return $this->bag;
     }
-    /**
-     * @return bool
-     */
-    public function isEmpty()
+    public function isEmpty() : bool
     {
         if (!isset($this->data[$this->bag->getStorageKey()])) {
             return \true;
@@ -59,9 +53,8 @@ final class SessionBagProxy implements \ECSPrefix20210517\Symfony\Component\Http
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->bag->getName();
     }
@@ -80,9 +73,8 @@ final class SessionBagProxy implements \ECSPrefix20210517\Symfony\Component\Http
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getStorageKey()
+    public function getStorageKey() : string
     {
         return $this->bag->getStorageKey();
     }

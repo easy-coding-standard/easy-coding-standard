@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -45,17 +46,9 @@ final class ReportSummary
     /**
      * @param int $time   duration in milliseconds
      * @param int $memory memory usage in bytes
-     * @param bool $addAppliedFixers
-     * @param bool $isDryRun
-     * @param bool $isDecoratedOutput
      */
-    public function __construct(array $changed, $time, $memory, $addAppliedFixers, $isDryRun, $isDecoratedOutput)
+    public function __construct(array $changed, int $time, int $memory, bool $addAppliedFixers, bool $isDryRun, bool $isDecoratedOutput)
     {
-        $time = (int) $time;
-        $memory = (int) $memory;
-        $addAppliedFixers = (bool) $addAppliedFixers;
-        $isDryRun = (bool) $isDryRun;
-        $isDecoratedOutput = (bool) $isDecoratedOutput;
         $this->changed = $changed;
         $this->time = $time;
         $this->memory = $memory;
@@ -63,45 +56,27 @@ final class ReportSummary
         $this->isDryRun = $isDryRun;
         $this->isDecoratedOutput = $isDecoratedOutput;
     }
-    /**
-     * @return bool
-     */
-    public function isDecoratedOutput()
+    public function isDecoratedOutput() : bool
     {
         return $this->isDecoratedOutput;
     }
-    /**
-     * @return bool
-     */
-    public function isDryRun()
+    public function isDryRun() : bool
     {
         return $this->isDryRun;
     }
-    /**
-     * @return mixed[]
-     */
-    public function getChanged()
+    public function getChanged() : array
     {
         return $this->changed;
     }
-    /**
-     * @return int
-     */
-    public function getMemory()
+    public function getMemory() : int
     {
         return $this->memory;
     }
-    /**
-     * @return int
-     */
-    public function getTime()
+    public function getTime() : int
     {
         return $this->time;
     }
-    /**
-     * @return bool
-     */
-    public function shouldAddAppliedFixers()
+    public function shouldAddAppliedFixers() : bool
     {
         return $this->addAppliedFixers;
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -35,9 +36,8 @@ final class PhpdocToParamTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDecla
     const SKIPPED_TYPES = ['mixed' => \true, 'resource' => \true, 'static' => \true, 'void' => \true];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('EXPERIMENTAL: Takes `@param` annotations of non-mixed types and adjusts accordingly the function signature. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
 
@@ -59,9 +59,8 @@ function bar($foo) {}
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= self::MINIMUM_PHP_VERSION && $tokens->isTokenKindFound(\T_FUNCTION);
     }
@@ -70,19 +69,13 @@ function bar($foo) {}
      *
      * Must run before NoSuperfluousPhpdocTagsFixer, PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 8;
     }
-    /**
-     * @param string $type
-     * @return bool
-     */
-    protected function isSkippedType($type)
+    protected function isSkippedType(string $type) : bool
     {
-        $type = (string) $type;
         return isset(self::SKIPPED_TYPES[$type]);
     }
     /**
@@ -130,11 +123,9 @@ function bar($foo) {}
     }
     /**
      * @return int|null
-     * @param int $startIndex
      */
-    private function findCorrectVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, \PhpCsFixer\DocBlock\Annotation $paramTypeAnnotation)
+    private function findCorrectVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, \PhpCsFixer\DocBlock\Annotation $paramTypeAnnotation)
     {
-        $startIndex = (int) $startIndex;
         $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
         for ($index = $startIndex + 1; $index < $endIndex; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_VARIABLE)) {
@@ -151,11 +142,9 @@ function bar($foo) {}
      * Determine whether the function already has a param type hint.
      *
      * @param int $index The index of the end of the function definition line, EG at { or ;
-     * @return bool
      */
-    private function hasParamTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function hasParamTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         return !$tokens[$prevIndex]->equalsAny([',', '(']);
     }

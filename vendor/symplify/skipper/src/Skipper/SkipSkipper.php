@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\Skipper\Skipper;
 
 use ECSPrefix20210517\Symplify\Skipper\Matcher\FileInfoMatcher;
@@ -20,9 +21,8 @@ final class SkipSkipper
     /**
      * @param object|string $checker
      * @param array<string, string[]|null> $skippedClasses
-     * @return bool
      */
-    public function doesMatchSkip($checker, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $skippedClasses)
+    public function doesMatchSkip($checker, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $skippedClasses) : bool
     {
         foreach ($skippedClasses as $skippedClass => $skippedFiles) {
             if (!\is_a($checker, $skippedClass, \true)) {

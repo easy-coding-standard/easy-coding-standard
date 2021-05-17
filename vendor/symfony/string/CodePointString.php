@@ -22,37 +22,24 @@ use ECSPrefix20210517\Symfony\Component\String\Exception\InvalidArgumentExceptio
  */
 class CodePointString extends \ECSPrefix20210517\Symfony\Component\String\AbstractUnicodeString
 {
-    /**
-     * @param string $string
-     */
-    public function __construct($string = '')
+    public function __construct(string $string = '')
     {
-        $string = (string) $string;
         if ('' !== $string && !\preg_match('//u', $string)) {
             throw new \ECSPrefix20210517\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
         $this->string = $string;
     }
-    /**
-     * @param string ...$suffix
-     * @return \Symfony\Component\String\AbstractString
-     */
-    public function append(...$suffix)
+    public function append(string ...$suffix) : \ECSPrefix20210517\Symfony\Component\String\AbstractString
     {
         $str = clone $this;
-        $str->string .= 1 >= \count($suffix) ? isset($suffix[0]) ? $suffix[0] : '' : \implode('', $suffix);
+        $str->string .= 1 >= \count($suffix) ? $suffix[0] ?? '' : \implode('', $suffix);
         if (!\preg_match('//u', $str->string)) {
             throw new \ECSPrefix20210517\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
         return $str;
     }
-    /**
-     * @param int $length
-     * @return mixed[]
-     */
-    public function chunk($length = 1)
+    public function chunk(int $length = 1) : array
     {
-        $length = (int) $length;
         if (1 > $length) {
             throw new \ECSPrefix20210517\Symfony\Component\String\Exception\InvalidArgumentException('The chunk length must be greater than zero.');
         }
@@ -73,20 +60,12 @@ class CodePointString extends \ECSPrefix20210517\Symfony\Component\String\Abstra
         }
         return $chunks;
     }
-    /**
-     * @param int $offset
-     * @return mixed[]
-     */
-    public function codePointsAt($offset)
+    public function codePointsAt(int $offset) : array
     {
-        $offset = (int) $offset;
         $str = $offset ? $this->slice($offset, 1) : $this;
         return '' === $str->string ? [] : [\mb_ord($str->string, 'UTF-8')];
     }
-    /**
-     * @return bool
-     */
-    public function endsWith($suffix)
+    public function endsWith($suffix) : bool
     {
         if ($suffix instanceof \ECSPrefix20210517\Symfony\Component\String\AbstractString) {
             $suffix = $suffix->string;
@@ -103,10 +82,7 @@ class CodePointString extends \ECSPrefix20210517\Symfony\Component\String\Abstra
         }
         return \strlen($this->string) >= \strlen($suffix) && 0 === \substr_compare($this->string, $suffix, -\strlen($suffix));
     }
-    /**
-     * @return bool
-     */
-    public function equalsTo($string)
+    public function equalsTo($string) : bool
     {
         if ($string instanceof \ECSPrefix20210517\Symfony\Component\String\AbstractString) {
             $string = $string->string;
@@ -122,11 +98,9 @@ class CodePointString extends \ECSPrefix20210517\Symfony\Component\String\Abstra
     }
     /**
      * @return int|null
-     * @param int $offset
      */
-    public function indexOf($needle, $offset = 0)
+    public function indexOf($needle, int $offset = 0)
     {
-        $offset = (int) $offset;
         if ($needle instanceof \ECSPrefix20210517\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
@@ -142,11 +116,9 @@ class CodePointString extends \ECSPrefix20210517\Symfony\Component\String\Abstra
     }
     /**
      * @return int|null
-     * @param int $offset
      */
-    public function indexOfLast($needle, $offset = 0)
+    public function indexOfLast($needle, int $offset = 0)
     {
-        $offset = (int) $offset;
         if ($needle instanceof \ECSPrefix20210517\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
@@ -160,35 +132,21 @@ class CodePointString extends \ECSPrefix20210517\Symfony\Component\String\Abstra
         $i = $this->ignoreCase ? \mb_strripos($this->string, $needle, $offset, 'UTF-8') : \mb_strrpos($this->string, $needle, $offset, 'UTF-8');
         return \false === $i ? null : $i;
     }
-    /**
-     * @return int
-     */
-    public function length()
+    public function length() : int
     {
         return \mb_strlen($this->string, 'UTF-8');
     }
-    /**
-     * @param string ...$prefix
-     * @return \Symfony\Component\String\AbstractString
-     */
-    public function prepend(...$prefix)
+    public function prepend(string ...$prefix) : \ECSPrefix20210517\Symfony\Component\String\AbstractString
     {
         $str = clone $this;
-        $str->string = (1 >= \count($prefix) ? isset($prefix[0]) ? $prefix[0] : '' : \implode('', $prefix)) . $this->string;
+        $str->string = (1 >= \count($prefix) ? $prefix[0] ?? '' : \implode('', $prefix)) . $this->string;
         if (!\preg_match('//u', $str->string)) {
             throw new \ECSPrefix20210517\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
         return $str;
     }
-    /**
-     * @param string $from
-     * @param string $to
-     * @return \Symfony\Component\String\AbstractString
-     */
-    public function replace($from, $to)
+    public function replace(string $from, string $to) : \ECSPrefix20210517\Symfony\Component\String\AbstractString
     {
-        $from = (string) $from;
-        $to = (string) $to;
         $str = clone $this;
         if ('' === $from || !\preg_match('//u', $from)) {
             return $str;
@@ -203,47 +161,26 @@ class CodePointString extends \ECSPrefix20210517\Symfony\Component\String\Abstra
         }
         return $str;
     }
-    /**
-     * @param int $start
-     * @param int $length
-     * @return \Symfony\Component\String\AbstractString
-     */
-    public function slice($start = 0, $length = null)
+    public function slice(int $start = 0, int $length = null) : \ECSPrefix20210517\Symfony\Component\String\AbstractString
     {
-        $start = (int) $start;
         $str = clone $this;
         $str->string = \mb_substr($this->string, $start, $length, 'UTF-8');
         return $str;
     }
-    /**
-     * @param string $replacement
-     * @param int $start
-     * @param int $length
-     * @return \Symfony\Component\String\AbstractString
-     */
-    public function splice($replacement, $start = 0, $length = null)
+    public function splice(string $replacement, int $start = 0, int $length = null) : \ECSPrefix20210517\Symfony\Component\String\AbstractString
     {
-        $replacement = (string) $replacement;
-        $start = (int) $start;
         if (!\preg_match('//u', $replacement)) {
             throw new \ECSPrefix20210517\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
         $str = clone $this;
         $start = $start ? \strlen(\mb_substr($this->string, 0, $start, 'UTF-8')) : 0;
         $length = $length ? \strlen(\mb_substr($this->string, $start, $length, 'UTF-8')) : $length;
-        $str->string = \substr_replace($this->string, $replacement, $start, isset($length) ? $length : \PHP_INT_MAX);
+        $str->string = \substr_replace($this->string, $replacement, $start, $length ?? \PHP_INT_MAX);
         return $str;
     }
-    /**
-     * @param string $delimiter
-     * @param int $limit
-     * @param int $flags
-     * @return mixed[]
-     */
-    public function split($delimiter, $limit = null, $flags = null)
+    public function split(string $delimiter, int $limit = null, int $flags = null) : array
     {
-        $delimiter = (string) $delimiter;
-        if (1 > ($limit = isset($limit) ? $limit : \PHP_INT_MAX)) {
+        if (1 > ($limit = $limit ?? \PHP_INT_MAX)) {
             throw new \ECSPrefix20210517\Symfony\Component\String\Exception\InvalidArgumentException('Split limit must be a positive integer.');
         }
         if ('' === $delimiter) {
@@ -263,10 +200,7 @@ class CodePointString extends \ECSPrefix20210517\Symfony\Component\String\Abstra
         }
         return $chunks;
     }
-    /**
-     * @return bool
-     */
-    public function startsWith($prefix)
+    public function startsWith($prefix) : bool
     {
         if ($prefix instanceof \ECSPrefix20210517\Symfony\Component\String\AbstractString) {
             $prefix = $prefix->string;

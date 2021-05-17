@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Caching\Storages;
 
 use ECSPrefix20210517\Nette;
@@ -12,12 +17,8 @@ class SQLiteStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECSPre
     use Nette\SmartObject;
     /** @var \PDO */
     private $pdo;
-    /**
-     * @param string $path
-     */
-    public function __construct($path)
+    public function __construct(string $path)
     {
-        $path = (string) $path;
         if ($path !== ':memory:' && !\is_file($path)) {
             \touch($path);
             // ensures ordinary file permissions
@@ -42,12 +43,8 @@ class SQLiteStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECSPre
 			PRAGMA synchronous = OFF;
 		');
     }
-    /**
-     * @param string $key
-     */
-    public function read($key)
+    public function read(string $key)
     {
-        $key = (string) $key;
         $stmt = $this->pdo->prepare('SELECT data, slide FROM cache WHERE key=? AND (expire IS NULL OR expire >= ?)');
         $stmt->execute([$key, \time()]);
         if (!($row = $stmt->fetch(\PDO::FETCH_ASSOC))) {
@@ -58,10 +55,7 @@ class SQLiteStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECSPre
         }
         return \unserialize($row['data']);
     }
-    /**
-     * @return mixed[]
-     */
-    public function bulkRead(array $keys)
+    public function bulkRead(array $keys) : array
     {
         $stmt = $this->pdo->prepare('SELECT key, data, slide FROM cache WHERE key IN (?' . \str_repeat(',?', \count($keys) - 1) . ') AND (expire IS NULL OR expire >= ?)');
         $stmt->execute(\array_merge($keys, [\time()]));
@@ -81,18 +75,15 @@ class SQLiteStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECSPre
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function lock($key)
+    public function lock(string $key)
     {
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function write($key, $data, array $dependencies)
+    public function write(string $key, $data, array $dependencies)
     {
-        $key = (string) $key;
         $expire = isset($dependencies[\ECSPrefix20210517\Nette\Caching\Cache::EXPIRATION]) ? $dependencies[\ECSPrefix20210517\Nette\Caching\Cache::EXPIRATION] + \time() : null;
         $slide = isset($dependencies[\ECSPrefix20210517\Nette\Caching\Cache::SLIDING]) ? $dependencies[\ECSPrefix20210517\Nette\Caching\Cache::EXPIRATION] : null;
         $this->pdo->exec('BEGIN TRANSACTION');
@@ -108,11 +99,9 @@ class SQLiteStorage implements \ECSPrefix20210517\Nette\Caching\Storage, \ECSPre
     }
     /**
      * @return void
-     * @param string $key
      */
-    public function remove($key)
+    public function remove(string $key)
     {
-        $key = (string) $key;
         $this->pdo->prepare('DELETE FROM cache WHERE key=?')->execute([$key]);
     }
     /**

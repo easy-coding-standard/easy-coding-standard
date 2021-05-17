@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use ECSPrefix20210517\Nette\Utils\Json;
@@ -28,29 +29,18 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
-    /**
-     * @param int $processedFilesCount
-     * @return int
-     */
-    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, $processedFilesCount)
+    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, int $processedFilesCount) : int
     {
-        $processedFilesCount = (int) $processedFilesCount;
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
         $errorCount = $errorAndDiffResult->getErrorCount();
         return $errorCount === 0 ? \ECSPrefix20210517\Symplify\PackageBuilder\Console\ShellCode::SUCCESS : \ECSPrefix20210517\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return self::NAME;
     }
-    /**
-     * @return string
-     */
-    public function createJsonContent(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult)
+    public function createJsonContent(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : string
     {
         $errorsArray = $this->createBaseErrorsArray($errorAndDiffResult);
         $codingStandardErrors = $errorAndDiffResult->getErrors();
@@ -66,7 +56,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
     /**
      * @return mixed[]
      */
-    private function createBaseErrorsArray(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult)
+    private function createBaseErrorsArray(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : array
     {
         return ['totals' => ['errors' => $errorAndDiffResult->getErrorCount(), 'diffs' => $errorAndDiffResult->getFileDiffsCount()], self::FILES => []];
     }

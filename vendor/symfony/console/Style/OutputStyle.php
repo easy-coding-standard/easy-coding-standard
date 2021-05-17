@@ -28,49 +28,37 @@ abstract class OutputStyle implements \ECSPrefix20210517\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @param int $count
      */
-    public function newLine($count = 1)
+    public function newLine(int $count = 1)
     {
-        $count = (int) $count;
         $this->output->write(\str_repeat(\PHP_EOL, $count));
     }
     /**
      * @return ProgressBar
-     * @param int $max
      */
-    public function createProgressBar($max = 0)
+    public function createProgressBar(int $max = 0)
     {
-        $max = (int) $max;
         return new \ECSPrefix20210517\Symfony\Component\Console\Helper\ProgressBar($this->output, $max);
     }
     /**
      * {@inheritdoc}
-     * @param bool $newline
-     * @param int $type
      */
-    public function write($messages, $newline = \false, $type = self::OUTPUT_NORMAL)
+    public function write($messages, bool $newline = \false, int $type = self::OUTPUT_NORMAL)
     {
-        $newline = (bool) $newline;
-        $type = (int) $type;
         $this->output->write($messages, $newline, $type);
     }
     /**
      * {@inheritdoc}
-     * @param int $type
      */
-    public function writeln($messages, $type = self::OUTPUT_NORMAL)
+    public function writeln($messages, int $type = self::OUTPUT_NORMAL)
     {
-        $type = (int) $type;
         $this->output->writeln($messages, $type);
     }
     /**
      * {@inheritdoc}
-     * @param int $level
      */
-    public function setVerbosity($level)
+    public function setVerbosity(int $level)
     {
-        $level = (int) $level;
         $this->output->setVerbosity($level);
     }
     /**
@@ -82,11 +70,9 @@ abstract class OutputStyle implements \ECSPrefix20210517\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @param bool $decorated
      */
-    public function setDecorated($decorated)
+    public function setDecorated(bool $decorated)
     {
-        $decorated = (bool) $decorated;
         $this->output->setDecorated($decorated);
     }
     /**

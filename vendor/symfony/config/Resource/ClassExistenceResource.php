@@ -29,11 +29,10 @@ class ClassExistenceResource implements \ECSPrefix20210517\Symfony\Component\Con
     private static $existsCache = [];
     /**
      * @param string    $resource The fully-qualified class name
-     * @param bool $exists Boolean when the existency check has already been done
+     * @param bool|null $exists   Boolean when the existency check has already been done
      */
-    public function __construct($resource, $exists = null)
+    public function __construct(string $resource, bool $exists = null)
     {
-        $resource = (string) $resource;
         $this->resource = $resource;
         if (null !== $exists) {
             $this->exists = [(bool) $exists, null];
@@ -41,16 +40,15 @@ class ClassExistenceResource implements \ECSPrefix20210517\Symfony\Component\Con
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->resource;
     }
     /**
      * @return string The file path to the resource
      */
-    public function getResource()
+    public function getResource() : string
     {
         return $this->resource;
     }
@@ -58,12 +56,9 @@ class ClassExistenceResource implements \ECSPrefix20210517\Symfony\Component\Con
      * {@inheritdoc}
      *
      * @throws \ReflectionException when a parent class/interface/trait is not found
-     * @param int $timestamp
-     * @return bool
      */
-    public function isFresh($timestamp)
+    public function isFresh(int $timestamp) : bool
     {
-        $timestamp = (int) $timestamp;
         $loaded = \class_exists($this->resource, \false) || \interface_exists($this->resource, \false) || \trait_exists($this->resource, \false);
         if (null !== ($exists =& self::$existsCache[$this->resource])) {
             if ($loaded) {
@@ -105,9 +100,8 @@ class ClassExistenceResource implements \ECSPrefix20210517\Symfony\Component\Con
     }
     /**
      * @internal
-     * @return mixed[]
      */
-    public function __sleep()
+    public function __sleep() : array
     {
         if (null === $this->exists) {
             $this->isFresh(0);
@@ -138,11 +132,9 @@ class ClassExistenceResource implements \ECSPrefix20210517\Symfony\Component\Con
      * @throws \ReflectionException
      *
      * @internal
-     * @param string $class
      */
-    public static function throwOnRequiredClass($class, \Exception $previous = null)
+    public static function throwOnRequiredClass(string $class, \Exception $previous = null)
     {
-        $class = (string) $class;
         // If the passed class is the resource being checked, we shouldn't throw.
         if (null === $previous && self::$autoloadedClass === $class) {
             return;
@@ -195,7 +187,7 @@ class ClassExistenceResource implements \ECSPrefix20210517\Symfony\Component\Con
                 case 'is_callable':
                     return;
             }
-            $props = ['file' => isset($callerFrame['file']) ? $callerFrame['file'] : null, 'line' => isset($callerFrame['line']) ? $callerFrame['line'] : null, 'trace' => \array_slice($trace, 1 + $i)];
+            $props = ['file' => $callerFrame['file'] ?? null, 'line' => $callerFrame['line'] ?? null, 'trace' => \array_slice($trace, 1 + $i)];
             foreach ($props as $p => $v) {
                 if (null !== $v) {
                     $r = new \ReflectionProperty(\Exception::class, $p);

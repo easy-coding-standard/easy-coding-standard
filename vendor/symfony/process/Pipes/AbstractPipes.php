@@ -48,9 +48,8 @@ abstract class AbstractPipes implements \ECSPrefix20210517\Symfony\Component\Pro
     }
     /**
      * Returns true if a system call has been interrupted.
-     * @return bool
      */
-    protected function hasSystemCallBeenInterrupted()
+    protected function hasSystemCallBeenInterrupted() : bool
     {
         $lastError = $this->lastError;
         $this->lastError = null;

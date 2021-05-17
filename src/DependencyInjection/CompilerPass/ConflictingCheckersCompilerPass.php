@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff;
@@ -40,9 +41,8 @@ final class ConflictingCheckersCompilerPass implements \ECSPrefix20210517\Symfon
     /**
      * @param mixed[] $checkers
      * @param string[] $matchingCheckerGroup
-     * @return bool
      */
-    private function isMatch(array $checkers, array $matchingCheckerGroup)
+    private function isMatch(array $checkers, array $matchingCheckerGroup) : bool
     {
         $checkers = \array_flip($checkers);
         $matchingCheckerGroup = \array_flip($matchingCheckerGroup);

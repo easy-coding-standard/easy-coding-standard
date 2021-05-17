@@ -40,13 +40,9 @@ class Caster
      *
      * @return array The array-cast of the object, with prefixed dynamic properties
      * @param object $obj
-     * @param string $class
-     * @param string $debugClass
      */
-    public static function castObject($obj, $class, $hasDebugInfo = \false, $debugClass = null)
+    public static function castObject($obj, string $class, bool $hasDebugInfo = \false, string $debugClass = null) : array
     {
-        $class = (string) $class;
-        $hasDebugInfo = (bool) $hasDebugInfo;
         if ($hasDebugInfo) {
             try {
                 $debugInfo = $obj->__debugInfo();
@@ -61,11 +57,11 @@ class Caster
         }
         if ($a) {
             static $publicProperties = [];
-            $debugClass = isset($debugClass) ? $debugClass : \get_debug_type($obj);
+            $debugClass = $debugClass ?? \get_debug_type($obj);
             $i = 0;
             $prefixedKeys = [];
             foreach ($a as $k => $v) {
-                if ("\0" !== (isset($k[0]) ? $k[0] : '')) {
+                if ("\0" !== ($k[0] ?? '')) {
                     if (!isset($publicProperties[$class])) {
                         foreach ((new \ReflectionClass($class))->getProperties(\ReflectionProperty::IS_PUBLIC) as $prop) {
                             $publicProperties[$class][$prop->name] = \true;
@@ -114,9 +110,8 @@ class Caster
      *
      * @return array The filtered array
      */
-    public static function filter(array $a, $filter, array $listedProperties = [], &$count = 0)
+    public static function filter(array $a, int $filter, array $listedProperties = [], &$count = 0) : array
     {
-        $filter = (int) $filter;
         $count = 0;
         foreach ($a as $k => $v) {
             $type = self::EXCLUDE_STRICT & $filter;
@@ -150,13 +145,8 @@ class Caster
         }
         return $a;
     }
-    /**
-     * @param bool $isNested
-     * @return mixed[]
-     */
-    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested) : array
     {
-        $isNested = (bool) $isNested;
         if (isset($a['__PHP_Incomplete_Class_Name'])) {
             $stub->class .= '(' . $a['__PHP_Incomplete_Class_Name'] . ')';
             unset($a['__PHP_Incomplete_Class_Name']);

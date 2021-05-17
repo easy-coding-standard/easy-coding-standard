@@ -27,7 +27,7 @@ class EnvVarProcessor implements \ECSPrefix20210517\Symfony\Component\Dependency
     public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface $container, \Traversable $loaders = null)
     {
         $this->container = $container;
-        $this->loaders = isset($loaders) ? $loaders : new \ArrayIterator();
+        $this->loaders = $loaders ?? new \ArrayIterator();
     }
     /**
      * {@inheritdoc}
@@ -38,13 +38,9 @@ class EnvVarProcessor implements \ECSPrefix20210517\Symfony\Component\Dependency
     }
     /**
      * {@inheritdoc}
-     * @param string $prefix
-     * @param string $name
      */
-    public function getEnv($prefix, $name, \Closure $getEnv)
+    public function getEnv(string $prefix, string $name, \Closure $getEnv)
     {
-        $prefix = (string) $prefix;
-        $name = (string) $name;
         $i = \strpos($name, ':');
         if ('key' === $prefix) {
             if (\false === $i) {
@@ -102,7 +98,7 @@ class EnvVarProcessor implements \ECSPrefix20210517\Symfony\Component\Dependency
         } elseif (\false === ($env = \getenv($name)) || null === $env) {
             // null is a possible value because of thread safety issues
             foreach ($this->loadedVars as $vars) {
-                if (\false !== ($env = isset($vars[$name]) ? $vars[$name] : \false)) {
+                if (\false !== ($env = $vars[$name] ?? \false)) {
                     break;
                 }
             }
@@ -118,7 +114,7 @@ class EnvVarProcessor implements \ECSPrefix20210517\Symfony\Component\Dependency
                             continue;
                         }
                         $this->loadedVars[] = $vars = $loader->loadEnvVars();
-                        if (\false !== ($env = isset($vars[$name]) ? $vars[$name] : \false)) {
+                        if (\false !== ($env = $vars[$name] ?? \false)) {
                             $ended = \false;
                             break;
                         }

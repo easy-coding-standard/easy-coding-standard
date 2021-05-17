@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,9 +26,8 @@ final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionRefer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces `intval`, `floatval`, `doubleval`, `strval` and `boolval` function calls with according type casting operator.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
     $a = intval($b);
@@ -39,9 +39,8 @@ final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionRefer
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }

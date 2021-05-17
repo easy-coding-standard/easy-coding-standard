@@ -23,12 +23,8 @@ use ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents;
 class ResponseListener implements \ECSPrefix20210517\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $charset;
-    /**
-     * @param string $charset
-     */
-    public function __construct($charset)
+    public function __construct(string $charset)
     {
-        $charset = (string) $charset;
         $this->charset = $charset;
     }
     /**
@@ -45,10 +41,7 @@ class ResponseListener implements \ECSPrefix20210517\Symfony\Component\EventDisp
         }
         $response->prepare($event->getRequest());
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -22,18 +23,18 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 final class NamespaceUsesAnalyzer
 {
     /**
-     * @return mixed[]
+     * @return NamespaceUseAnalysis[]
      */
-    public function getDeclarationsFromTokens(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function getDeclarationsFromTokens(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
         $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $useIndexes = $tokenAnalyzer->getImportUseIndexes();
         return $this->getDeclarations($tokens, $useIndexes);
     }
     /**
-     * @return mixed[]
+     * @return NamespaceUseAnalysis[]
      */
-    public function getDeclarationsInNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace)
+    public function getDeclarationsInNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace) : array
     {
         $namespaceUses = [];
         foreach ($this->getDeclarationsFromTokens($tokens) as $namespaceUse) {
@@ -44,9 +45,9 @@ final class NamespaceUsesAnalyzer
         return $namespaceUses;
     }
     /**
-     * @return mixed[]
+     * @return NamespaceUseAnalysis[]
      */
-    private function getDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useIndexes)
+    private function getDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useIndexes) : array
     {
         $uses = [];
         foreach ($useIndexes as $index) {
@@ -60,13 +61,9 @@ final class NamespaceUsesAnalyzer
     }
     /**
      * @return \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis|null
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function parseDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function parseDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $fullName = $shortName = '';
         $aliased = \false;
         $type = \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis::TYPE_CLASS;

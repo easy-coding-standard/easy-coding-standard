@@ -17,13 +17,8 @@ use ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub;
  */
 final class ImagineCaster
 {
-    /**
-     * @param bool $isNested
-     * @return mixed[]
-     */
-    public static function castImage(\ECSPrefix20210517\Imagine\Image\ImageInterface $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castImage(\ECSPrefix20210517\Imagine\Image\ImageInterface $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested) : array
     {
-        $isNested = (bool) $isNested;
         $imgData = $c->get('png');
         if (\strlen($imgData) > 1 * 1000 * 1000) {
             $a += [\ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'image' => new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ConstStub($c->getSize())];

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Neon;
 
 /**
@@ -51,11 +56,9 @@ final class Decoder
     /**
      * Decodes a NEON string.
      * @return mixed
-     * @param string $input
      */
-    public function decode($input)
+    public function decode(string $input)
     {
-        $input = (string) $input;
         if (\substr($input, 0, 3) === "﻿") {
             // BOM
             $input = \substr($input, 3);
@@ -86,11 +89,9 @@ final class Decoder
     /**
      * @param  string|bool|null  $indent  indentation (for block-parser)
      * @return mixed
-     * @param bool $hasKey
      */
-    private function parse($indent, array $result = null, $key = null, $hasKey = \false)
+    private function parse($indent, array $result = null, $key = null, bool $hasKey = \false)
     {
-        $hasKey = (bool) $hasKey;
         $inlineParser = $indent === \false;
         $value = null;
         $hasValue = \false;
@@ -222,7 +223,7 @@ final class Decoder
                 }
             } else {
                 // Value
-                $isKey = ($tmp = isset($tokens[$n + 1][0]) ? $tokens[$n + 1][0] : null) && ($tmp === ':' || $tmp === '=');
+                $isKey = ($tmp = $tokens[$n + 1][0] ?? null) && ($tmp === ':' || $tmp === '=');
                 if ($t[0] === '"' || $t[0] === "'") {
                     if (\preg_match('#^...\\n++([\\t ]*+)#', $t, $m)) {
                         $converted = \substr($t, 3, -3);
@@ -301,10 +302,7 @@ final class Decoder
             $result[$key] = $value;
         }
     }
-    /**
-     * @return string
-     */
-    private function cbString(array $m)
+    private function cbString(array $m) : string
     {
         $sq = $m[0];
         if (isset(self::ESCAPE_SEQUENCES[$sq[1]])) {
@@ -324,13 +322,9 @@ final class Decoder
             $this->error("Invalid escaping sequence {$sq}");
         }
     }
-    /**
-     * @param string $message
-     */
-    private function error($message = "Unexpected '%s'")
+    private function error(string $message = "Unexpected '%s'")
     {
-        $message = (string) $message;
-        $last = isset($this->tokens[$this->pos]) ? $this->tokens[$this->pos] : null;
+        $last = $this->tokens[$this->pos] ?? null;
         $offset = $last ? $last[1] : \strlen($this->input);
         $text = \substr($this->input, 0, $offset);
         $line = \substr_count($text, "\n");

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -23,9 +24,8 @@ final class NoNullPropertyInitializationFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Properties MUST not be explicitly initialized with `null` except when they have a type declaration (PHP 7.4).', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Foo {
@@ -35,9 +35,8 @@ class Foo {
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_CLASS, \T_TRAIT]) && $tokens->isAnyTokenKindsFound([\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_VAR]);
     }

@@ -23,12 +23,8 @@ class ResolveNoPreloadPass extends \ECSPrefix20210517\Symfony\Component\Dependen
     const DO_PRELOAD_TAG = '.container.do_preload';
     private $tagName;
     private $resolvedIds = [];
-    /**
-     * @param string $tagName
-     */
-    public function __construct($tagName = 'container.no_preload')
+    public function __construct(string $tagName = 'container.no_preload')
     {
-        $tagName = (string) $tagName;
         $this->tagName = $tagName;
     }
     /**
@@ -64,11 +60,9 @@ class ResolveNoPreloadPass extends \ECSPrefix20210517\Symfony\Component\Dependen
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference && \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior() && $this->container->hasDefinition($id = (string) $value)) {
             $definition = $this->container->getDefinition($id);
             if (!isset($this->resolvedIds[$id]) && (!$definition->isPublic() || $definition->isPrivate())) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -31,30 +32,23 @@ final class TokenizerLinter implements \PhpCsFixer\Linter\LinterInterface
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isAsync()
+    public function isAsync() : bool
     {
         return \false;
     }
     /**
      * {@inheritdoc}
-     * @param string $path
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintFile($path)
+    public function lintFile(string $path) : \PhpCsFixer\Linter\LintingResultInterface
     {
-        $path = (string) $path;
         return $this->lintSource(\PhpCsFixer\FileReader::createSingleton()->read($path));
     }
     /**
      * {@inheritdoc}
-     * @param string $source
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintSource($source)
+    public function lintSource(string $source) : \PhpCsFixer\Linter\LintingResultInterface
     {
-        $source = (string) $source;
         try {
             // To lint, we will parse the source into Tokens.
             // During that process, it might throw a ParseError or CompileError.

@@ -33,18 +33,8 @@ class RegisterControllerArgumentLocatorsPass implements \ECSPrefix20210517\Symfo
     private $controllerTag;
     private $controllerLocator;
     private $notTaggedControllerResolverServiceId;
-    /**
-     * @param string $resolverServiceId
-     * @param string $controllerTag
-     * @param string $controllerLocator
-     * @param string $notTaggedControllerResolverServiceId
-     */
-    public function __construct($resolverServiceId = 'argument_resolver.service', $controllerTag = 'controller.service_arguments', $controllerLocator = 'argument_resolver.controller_locator', $notTaggedControllerResolverServiceId = 'argument_resolver.not_tagged_controller')
+    public function __construct(string $resolverServiceId = 'argument_resolver.service', string $controllerTag = 'controller.service_arguments', string $controllerLocator = 'argument_resolver.controller_locator', string $notTaggedControllerResolverServiceId = 'argument_resolver.not_tagged_controller')
     {
-        $resolverServiceId = (string) $resolverServiceId;
-        $controllerTag = (string) $controllerTag;
-        $controllerLocator = (string) $controllerLocator;
-        $notTaggedControllerResolverServiceId = (string) $notTaggedControllerResolverServiceId;
         $this->resolverServiceId = $resolverServiceId;
         $this->controllerTag = $controllerTag;
         $this->controllerLocator = $controllerLocator;
@@ -172,7 +162,7 @@ class RegisterControllerArgumentLocatorsPass implements \ECSPrefix20210517\Symfo
                 // register the maps as a per-method service-locators
                 if ($args) {
                     $controllers[$id . '::' . $r->name] = \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass::register($container, $args);
-                    foreach (isset($publicAliases[$id]) ? $publicAliases[$id] : [] as $alias) {
+                    foreach ($publicAliases[$id] ?? [] as $alias) {
                         $controllers[$alias . '::' . $r->name] = clone $controllers[$id . '::' . $r->name];
                     }
                 }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -23,17 +24,15 @@ final class NoUselessReturnFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_FUNCTION, \T_RETURN]);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should not be an empty `return` statement at the end of a function.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 function example($b) {
@@ -49,9 +48,8 @@ function example($b) {
      *
      * Must run before BlankLineBeforeStatementFixer, NoExtraBlankLinesFixer, NoWhitespaceInBlankLineFixer, SingleLineCommentStyleFixer.
      * Must run after NoEmptyStatementFixer, NoUnneededCurlyBracesFixer, NoUselessElseFixer, SimplifiedNullReturnFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -18;
     }
@@ -76,10 +74,8 @@ function example($b) {
      * @param int $end   Token index of the closing brace token of the function
      * @return void
      */
-    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
+    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
     {
-        $start = (int) $start;
-        $end = (int) $end;
         for ($index = $end; $index > $start; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_RETURN)) {
                 continue;

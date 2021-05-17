@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,9 +26,8 @@ final class NoPhp4ConstructorFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Convert PHP4-style constructors to `__construct`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Foo
@@ -42,25 +42,22 @@ class Foo
      * {@inheritdoc}
      *
      * Must run before OrderedClassElementsFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 75;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_CLASS);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -122,11 +119,8 @@ class Foo
      * @param int    $classEnd   the class end index
      * @return void
      */
-    private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, $className, $classStart, $classEnd)
+    private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, string $className, int $classStart, int $classEnd)
     {
-        $className = (string) $className;
-        $classStart = (int) $classStart;
-        $classEnd = (int) $classEnd;
         $php4 = $this->findFunction($tokens, $className, $classStart, $classEnd);
         if (null === $php4) {
             // no PHP4-constructor!
@@ -177,10 +171,8 @@ class Foo
      * @param int    $classEnd   the class end index
      * @return void
      */
-    private function fixParent(\PhpCsFixer\Tokenizer\Tokens $tokens, $classStart, $classEnd)
+    private function fixParent(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classStart, int $classEnd)
     {
-        $classStart = (int) $classStart;
-        $classEnd = (int) $classEnd;
         // check calls to the parent constructor
         foreach ($tokens->findGivenKind(\T_EXTENDS) as $index => $token) {
             $parentIndex = $tokens->getNextMeaningfulToken($index);
@@ -220,10 +212,8 @@ class Foo
      * @param int    $end    the PHP4 constructor body end
      * @return void
      */
-    private function fixInfiniteRecursion(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
+    private function fixInfiniteRecursion(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
     {
-        $start = (int) $start;
-        $end = (int) $end;
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperatorKind) {
             $seq = [[\T_VARIABLE, '$this'], [$objectOperatorKind], [\T_STRING, '__construct']];
             while (\true) {
@@ -248,11 +238,8 @@ class Foo
      *
      * @return array an array containing the sequence and case sensitiveness [ 0 => $seq, 1 => $case ]
      */
-    private function getWrapperMethodSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, $method, $startIndex, $bodyIndex)
+    private function getWrapperMethodSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, string $method, int $startIndex, int $bodyIndex) : array
     {
-        $method = (string) $method;
-        $startIndex = (int) $startIndex;
-        $bodyIndex = (int) $bodyIndex;
         $sequences = [];
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperatorKind) {
             // initialise sequence as { $this->{$method}(
@@ -298,11 +285,8 @@ class Foo
      *     - modifiers (array): The modifiers as array keys and their index as
      *       the values, e.g. array(T_PUBLIC => 10)
      */
-    private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $name, $startIndex, $endIndex)
+    private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, string $name, int $startIndex, int $endIndex)
     {
-        $name = (string) $name;
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $function = $tokens->findSequence([[\T_FUNCTION], [\T_STRING, $name], '('], $startIndex, $endIndex, \false);
         if (null === $function) {
             return null;

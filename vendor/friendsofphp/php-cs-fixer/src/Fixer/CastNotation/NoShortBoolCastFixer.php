@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,25 +27,22 @@ final class NoShortBoolCastFixer extends \PhpCsFixer\AbstractFixer
      * {@inheritdoc}
      *
      * Must run before CastSpacesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -9;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Short cast `bool` using double exclamation mark should not be used.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = !!\$b;\n")]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('!');
     }
@@ -60,13 +58,8 @@ final class NoShortBoolCastFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @param int $index
-     * @return int
-     */
-    private function fixShortCast(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixShortCast(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
-        $index = (int) $index;
         for ($i = $index - 1; $i > 1; --$i) {
             if ($tokens[$i]->equals('!')) {
                 $this->fixShortCastToBoolCast($tokens, $i, $index);
@@ -80,13 +73,9 @@ final class NoShortBoolCastFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $start
-     * @param int $end
      */
-    private function fixShortCastToBoolCast(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
+    private function fixShortCastToBoolCast(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
     {
-        $start = (int) $start;
-        $end = (int) $end;
         for (; $start <= $end; ++$start) {
             if (!$tokens[$start]->isComment() && !($tokens[$start]->isWhitespace() && $tokens[$start - 1]->isComment())) {
                 $tokens->clearAt($start);

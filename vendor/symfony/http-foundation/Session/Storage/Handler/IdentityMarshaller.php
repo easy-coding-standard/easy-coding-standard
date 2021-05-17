@@ -19,9 +19,8 @@ class IdentityMarshaller implements \ECSPrefix20210517\Symfony\Component\Cache\M
     /**
      * {@inheritdoc}
      * @param mixed[]|null $failed
-     * @return mixed[]
      */
-    public function marshall(array $values, &$failed)
+    public function marshall(array $values, &$failed) : array
     {
         foreach ($values as $key => $value) {
             if (!\is_string($value)) {
@@ -32,12 +31,9 @@ class IdentityMarshaller implements \ECSPrefix20210517\Symfony\Component\Cache\M
     }
     /**
      * {@inheritdoc}
-     * @param string $value
-     * @return string
      */
-    public function unmarshall($value)
+    public function unmarshall(string $value) : string
     {
-        $value = (string) $value;
         return $value;
     }
 }

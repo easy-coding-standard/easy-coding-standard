@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -38,9 +39,8 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getLatestVersion()
+    public function getLatestVersion() : string
     {
         $this->retrieveAvailableVersions();
         return $this->availableVersions[0];
@@ -48,11 +48,9 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
     /**
      * {@inheritdoc}
      * @return string|null
-     * @param int $majorVersion
      */
-    public function getLatestVersionOfMajor($majorVersion)
+    public function getLatestVersionOfMajor(int $majorVersion)
     {
-        $majorVersion = (int) $majorVersion;
         $this->retrieveAvailableVersions();
         $semverConstraint = '^' . $majorVersion;
         foreach ($this->availableVersions as $availableVersion) {
@@ -64,14 +62,9 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
     }
     /**
      * {@inheritdoc}
-     * @param string $versionA
-     * @param string $versionB
-     * @return int
      */
-    public function compareVersions($versionA, $versionB)
+    public function compareVersions(string $versionA, string $versionB) : int
     {
-        $versionA = (string) $versionA;
-        $versionB = (string) $versionB;
         $versionA = $this->versionParser->normalize($versionA);
         $versionB = $this->versionParser->normalize($versionB);
         if (\ECSPrefix20210517\Composer\Semver\Comparator::lessThan($versionA, $versionB)) {

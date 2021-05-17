@@ -20,12 +20,8 @@ use ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder;
 class RemoveEmptyControllerArgumentLocatorsPass implements \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $controllerLocator;
-    /**
-     * @param string $controllerLocator
-     */
-    public function __construct($controllerLocator = 'argument_resolver.controller_locator')
+    public function __construct(string $controllerLocator = 'argument_resolver.controller_locator')
     {
-        $controllerLocator = (string) $controllerLocator;
         $this->controllerLocator = $controllerLocator;
     }
     public function process(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container)

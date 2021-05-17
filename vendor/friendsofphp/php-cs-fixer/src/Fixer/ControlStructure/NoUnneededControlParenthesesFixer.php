@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -39,9 +40,8 @@ final class NoUnneededControlParenthesesFixer extends \PhpCsFixer\AbstractFixer 
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         $types = [];
         foreach (self::$loops as $loop) {
@@ -52,9 +52,8 @@ final class NoUnneededControlParenthesesFixer extends \PhpCsFixer\AbstractFixer 
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Removes unneeded parentheses around control statements.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 while ($x) { while ($y) { break (2); } }
@@ -80,9 +79,8 @@ yield(2);
      * {@inheritdoc}
      *
      * Must run before NoTrailingWhitespaceFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 30;
     }
@@ -129,9 +127,8 @@ yield(2);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('statements', 'List of control statements to fix.'))->setAllowedTypes(['array'])->setDefault(['break', 'clone', 'continue', 'echo_print', 'return', 'switch_case', 'yield'])->getOption()]);
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -24,25 +25,22 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Class `DateTimeImmutable` should be used instead of `DateTime`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nnew DateTime();\n")], null, 'Risky when the code relies on modifying `DateTime` objects or if any of the `date_create*` functions are overridden.');
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -90,15 +88,9 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $index
-     * @param bool $isInNamespace
-     * @param bool $isImported
      */
-    private function fixClassUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $isInNamespace, $isImported)
+    private function fixClassUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $isInNamespace, bool $isImported)
     {
-        $index = (int) $index;
-        $isInNamespace = (bool) $isInNamespace;
-        $isImported = (bool) $isImported;
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$nextIndex]->isGivenKind(\T_DOUBLE_COLON)) {
             $nextNextIndex = $tokens->getNextMeaningfulToken($nextIndex);
@@ -131,13 +123,9 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $index
-     * @param string $replacement
      */
-    private function fixFunctionUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $replacement)
+    private function fixFunctionUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $replacement)
     {
-        $index = (int) $index;
-        $replacement = (string) $replacement;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if ($tokens[$prevIndex]->isGivenKind([\T_DOUBLE_COLON, \T_NEW]) || $tokens[$prevIndex]->isObjectOperator()) {
             return;

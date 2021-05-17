@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,9 +27,8 @@ final class SwitchCaseSemicolonToColonFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('A case should be followed by a colon and not a semicolon.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
     switch ($a) {
@@ -43,17 +43,15 @@ final class SwitchCaseSemicolonToColonFixer extends \PhpCsFixer\AbstractFixer
      * {@inheritdoc}
      *
      * Must run after NoEmptyStatementFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_CASE, \T_DEFAULT]);
     }
@@ -74,11 +72,9 @@ final class SwitchCaseSemicolonToColonFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $index
      */
-    protected function fixSwitchCase(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    protected function fixSwitchCase(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $ternariesCount = 0;
         do {
             if ($tokens[$index]->equalsAny(['(', '{'])) {
@@ -104,11 +100,9 @@ final class SwitchCaseSemicolonToColonFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param int $index
      */
-    protected function fixSwitchDefault(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    protected function fixSwitchDefault(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         do {
             if ($tokens[$index]->equalsAny([':', ';', [\T_DOUBLE_ARROW]])) {
                 break;

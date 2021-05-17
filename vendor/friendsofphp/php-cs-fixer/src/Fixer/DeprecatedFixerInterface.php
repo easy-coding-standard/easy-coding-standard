@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -19,7 +20,7 @@ interface DeprecatedFixerInterface extends \PhpCsFixer\Fixer\FixerInterface
     /**
      * Returns names of fixers to use instead, if any.
      *
-     * @return mixed[]
+     * @return string[]
      */
-    public function getSuccessorsNames();
+    public function getSuccessorsNames() : array;
 }

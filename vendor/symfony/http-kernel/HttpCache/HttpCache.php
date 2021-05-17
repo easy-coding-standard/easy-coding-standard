@@ -162,13 +162,9 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
     }
     /**
      * {@inheritdoc}
-     * @param int $type
-     * @param bool $catch
      */
-    public function handle(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $type = \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
+    public function handle(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, int $type = \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true)
     {
-        $type = (int) $type;
-        $catch = (bool) $catch;
         // FIXME: catch exceptions and implement a 500 error page here? -> in Varnish, there is a built-in error page mechanism
         if (\ECSPrefix20210517\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $type) {
             $this->traces = [];
@@ -227,9 +223,8 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
      *
      * @return Response A Response instance
      */
-    protected function pass(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $catch = \false)
+    protected function pass(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
     {
-        $catch = (bool) $catch;
         $this->record($request, 'pass');
         return $this->forward($request, $catch);
     }
@@ -244,9 +239,8 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
      *
      * @see RFC2616 13.10
      */
-    protected function invalidate(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $catch = \false)
+    protected function invalidate(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
     {
-        $catch = (bool) $catch;
         $response = $this->pass($request, $catch);
         // invalidate only when the response is successful
         if ($response->isSuccessful() || $response->isRedirect()) {
@@ -284,9 +278,8 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
      *
      * @throws \Exception
      */
-    protected function lookup(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $catch = \false)
+    protected function lookup(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
     {
-        $catch = (bool) $catch;
         try {
             $entry = $this->store->lookup($request);
         } catch (\Exception $e) {
@@ -321,9 +314,8 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
      *
      * @return Response A Response instance
      */
-    protected function validate(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response $entry, $catch = \false)
+    protected function validate(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response $entry, bool $catch = \false)
     {
-        $catch = (bool) $catch;
         $subRequest = clone $request;
         // send no head requests because we want content
         if ('HEAD' === $request->getMethod()) {
@@ -373,9 +365,8 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
      *
      * @return Response A Response instance
      */
-    protected function fetch(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $catch = \false)
+    protected function fetch(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
     {
-        $catch = (bool) $catch;
         $subRequest = clone $request;
         // send no head requests because we want content
         if ('HEAD' === $request->getMethod()) {
@@ -401,9 +392,8 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
      *
      * @return Response A Response instance
      */
-    protected function forward(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $catch = \false, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response $entry = null)
+    protected function forward(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response $entry = null)
     {
-        $catch = (bool) $catch;
         if ($this->surrogate) {
             $this->surrogate->addSurrogateCapability($request);
         }
@@ -567,9 +557,8 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
     /**
      * Checks if the Request includes authorization or other sensitive information
      * that should cause the Response to be considered private by default.
-     * @return bool
      */
-    private function isPrivateRequest(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request)
+    private function isPrivateRequest(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request) : bool
     {
         foreach ($this->options['private_headers'] as $key) {
             $key = \strtolower(\str_replace('HTTP_', '', $key));
@@ -585,18 +574,15 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
     }
     /**
      * Records that an event took place.
-     * @param string $event
      */
-    private function record(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, $event)
+    private function record(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, string $event)
     {
-        $event = (string) $event;
         $this->traces[$this->getTraceKey($request)][] = $event;
     }
     /**
      * Calculates the key we use in the "trace" array for a given request.
-     * @return string
      */
-    private function getTraceKey(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request)
+    private function getTraceKey(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request) : string
     {
         $path = $request->getPathInfo();
         if ($qs = $request->getQueryString()) {
@@ -607,9 +593,8 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
     /**
      * Checks whether the given (cached) response may be served as "stale" when a revalidation
      * is currently in progress.
-     * @return bool
      */
-    private function mayServeStaleWhileRevalidate(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Response $entry)
+    private function mayServeStaleWhileRevalidate(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Response $entry) : bool
     {
         $timeout = $entry->headers->getCacheControlDirective('stale-while-revalidate');
         if (null === $timeout) {
@@ -619,9 +604,8 @@ class HttpCache implements \ECSPrefix20210517\Symfony\Component\HttpKernel\HttpK
     }
     /**
      * Waits for the store to release a locked entry.
-     * @return bool
      */
-    private function waitForLock(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request)
+    private function waitForLock(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request) : bool
     {
         $wait = 0;
         while ($this->store->isLocked($request) && $wait < 100) {

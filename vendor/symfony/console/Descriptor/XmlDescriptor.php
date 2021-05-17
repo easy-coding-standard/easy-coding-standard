@@ -24,10 +24,7 @@ use ECSPrefix20210517\Symfony\Component\Console\Input\InputOption;
  */
 class XmlDescriptor extends \ECSPrefix20210517\Symfony\Component\Console\Descriptor\Descriptor
 {
-    /**
-     * @return \DOMDocument
-     */
-    public function getInputDefinitionDocument(\ECSPrefix20210517\Symfony\Component\Console\Input\InputDefinition $definition)
+    public function getInputDefinitionDocument(\ECSPrefix20210517\Symfony\Component\Console\Input\InputDefinition $definition) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($definitionXML = $dom->createElement('definition'));
@@ -41,10 +38,7 @@ class XmlDescriptor extends \ECSPrefix20210517\Symfony\Component\Console\Descrip
         }
         return $dom;
     }
-    /**
-     * @return \DOMDocument
-     */
-    public function getCommandDocument(\ECSPrefix20210517\Symfony\Component\Console\Command\Command $command)
+    public function getCommandDocument(\ECSPrefix20210517\Symfony\Component\Console\Command\Command $command) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($commandXML = $dom->createElement('command'));
@@ -64,11 +58,7 @@ class XmlDescriptor extends \ECSPrefix20210517\Symfony\Component\Console\Descrip
         $this->appendDocument($commandXML, $definitionXML->getElementsByTagName('definition')->item(0));
         return $dom;
     }
-    /**
-     * @param string $namespace
-     * @return \DOMDocument
-     */
-    public function getApplicationDocument(\ECSPrefix20210517\Symfony\Component\Console\Application $application, $namespace = null)
+    public function getApplicationDocument(\ECSPrefix20210517\Symfony\Component\Console\Application $application, string $namespace = null) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($rootXml = $dom->createElement('symfony'));
@@ -132,7 +122,7 @@ class XmlDescriptor extends \ECSPrefix20210517\Symfony\Component\Console\Descrip
      */
     protected function describeApplication(\ECSPrefix20210517\Symfony\Component\Console\Application $application, array $options = [])
     {
-        $this->writeDocument($this->getApplicationDocument($application, isset($options['namespace']) ? $options['namespace'] : null));
+        $this->writeDocument($this->getApplicationDocument($application, $options['namespace'] ?? null));
     }
     /**
      * Appends document children to parent node.
@@ -151,10 +141,7 @@ class XmlDescriptor extends \ECSPrefix20210517\Symfony\Component\Console\Descrip
         $dom->formatOutput = \true;
         $this->write($dom->saveXML());
     }
-    /**
-     * @return \DOMDocument
-     */
-    private function getInputArgumentDocument(\ECSPrefix20210517\Symfony\Component\Console\Input\InputArgument $argument)
+    private function getInputArgumentDocument(\ECSPrefix20210517\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('argument'));
@@ -171,15 +158,12 @@ class XmlDescriptor extends \ECSPrefix20210517\Symfony\Component\Console\Descrip
         }
         return $dom;
     }
-    /**
-     * @return \DOMDocument
-     */
-    private function getInputOptionDocument(\ECSPrefix20210517\Symfony\Component\Console\Input\InputOption $option)
+    private function getInputOptionDocument(\ECSPrefix20210517\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('option'));
         $objectXML->setAttribute('name', '--' . $option->getName());
-        $pos = \strpos($option->getShortcut() !== null ? $option->getShortcut() : '', '|');
+        $pos = \strpos($option->getShortcut() ?? '', '|');
         if (\false !== $pos) {
             $objectXML->setAttribute('shortcut', '-' . \substr($option->getShortcut(), 0, $pos));
             $objectXML->setAttribute('shortcuts', '-' . \str_replace('|', '|-', $option->getShortcut()));

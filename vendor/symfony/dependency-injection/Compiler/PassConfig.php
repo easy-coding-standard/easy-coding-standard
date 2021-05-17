@@ -52,13 +52,9 @@ class PassConfig
      * Adds a pass.
      *
      * @throws InvalidArgumentException when a pass type doesn't exist
-     * @param string $type
-     * @param int $priority
      */
-    public function addPass(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = self::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addPass(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = self::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
-        $type = (string) $type;
-        $priority = (int) $priority;
         $property = $type . 'Passes';
         if (!isset($this->{$property})) {
             throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid type "%s".', $type));
@@ -177,9 +173,9 @@ class PassConfig
      *
      * @param array $passes CompilerPassInterface instances with their priority as key
      *
-     * @return mixed[]
+     * @return CompilerPassInterface[]
      */
-    private function sortPasses(array $passes)
+    private function sortPasses(array $passes) : array
     {
         if (0 === \count($passes)) {
             return [];

@@ -1,14 +1,18 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 class Helpers
 {
     /**
      * Executes a callback and returns the captured output as a string.
-     * @return string
      */
-    public static function capture(callable $func)
+    public static function capture(callable $func) : string
     {
         \ob_start(function () {
         });
@@ -23,11 +27,10 @@ class Helpers
     /**
      * Returns the last occurred PHP error or an empty string if no error occurred. Unlike error_get_last(),
      * it is nit affected by the PHP directive html_errors and always returns text, not HTML.
-     * @return string
      */
-    public static function getLastError()
+    public static function getLastError() : string
     {
-        $message = isset(\error_get_last()['message']) ? \error_get_last()['message'] : '';
+        $message = \error_get_last()['message'] ?? '';
         $message = \ini_get('html_errors') ? \ECSPrefix20210517\Nette\Utils\Html::htmlToText($message) : $message;
         $message = \preg_replace('#^\\w+\\(.*?\\): #', '', $message);
         return $message;
@@ -45,11 +48,9 @@ class Helpers
      * Looks for a string from possibilities that is most similar to value, but not the same (for 8-bit encoding).
      * @param  string[]  $possibilities
      * @return string|null
-     * @param string $value
      */
-    public static function getSuggestion(array $possibilities, $value)
+    public static function getSuggestion(array $possibilities, string $value)
     {
-        $value = (string) $value;
         $best = null;
         $min = (\strlen($value) / 4 + 1) * 10 + 0.1;
         foreach (\array_unique($possibilities) as $item) {

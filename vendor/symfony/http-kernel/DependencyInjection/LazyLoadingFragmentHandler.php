@@ -22,22 +22,16 @@ class LazyLoadingFragmentHandler extends \ECSPrefix20210517\Symfony\Component\Ht
 {
     private $container;
     private $initialized = [];
-    /**
-     * @param bool $debug
-     */
-    public function __construct(\ECSPrefix20210517\Psr\Container\ContainerInterface $container, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack, $debug = \false)
+    public function __construct(\ECSPrefix20210517\Psr\Container\ContainerInterface $container, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack, bool $debug = \false)
     {
-        $debug = (bool) $debug;
         $this->container = $container;
         parent::__construct($requestStack, [], $debug);
     }
     /**
      * {@inheritdoc}
-     * @param string $renderer
      */
-    public function render($uri, $renderer = 'inline', array $options = [])
+    public function render($uri, string $renderer = 'inline', array $options = [])
     {
-        $renderer = (string) $renderer;
         if (!isset($this->initialized[$renderer]) && $this->container->has($renderer)) {
             $this->addRenderer($this->container->get($renderer));
             $this->initialized[$renderer] = \true;

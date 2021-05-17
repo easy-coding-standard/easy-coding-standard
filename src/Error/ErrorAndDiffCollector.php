@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Error;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -52,14 +53,9 @@ final class ErrorAndDiffCollector
     /**
      * @param class-string $sourceClass
      * @return void
-     * @param int $line
-     * @param string $message
      */
-    public function addErrorMessage(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $line, $message, $sourceClass)
+    public function addErrorMessage(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, int $line, string $message, string $sourceClass)
     {
-        $line = (int) $line;
-        $message = (string) $message;
-        $sourceClass = (string) $sourceClass;
         if ($this->currentParentFileInfoProvider->provide() !== null) {
             // skip sniff errors
             return;
@@ -71,38 +67,32 @@ final class ErrorAndDiffCollector
     }
     /**
      * @return void
-     * @param int $line
-     * @param string $message
      */
-    public function addSystemErrorMessage(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $line, $message)
+    public function addSystemErrorMessage(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, int $line, string $message)
     {
-        $line = (int) $line;
-        $message = (string) $message;
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
         $this->systemErrors[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($line, $message, $smartFileInfo);
     }
     /**
-     * @return mixed[]
+     * @return CodingStandardError[]
      */
-    public function getErrors()
+    public function getErrors() : array
     {
         return $this->codingStandardErrors;
     }
     /**
-     * @return mixed[]
+     * @return SystemError[]
      */
-    public function getSystemErrors()
+    public function getSystemErrors() : array
     {
         return $this->systemErrors;
     }
     /**
      * @param class-string[] $appliedCheckers
      * @return void
-     * @param string $diff
      */
-    public function addDiffForFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
+    public function addDiffForFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, array $appliedCheckers)
     {
-        $diff = (string) $diff;
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
         foreach ($appliedCheckers as $appliedChecker) {
             $this->ensureIsFixerOrChecker($appliedChecker);
@@ -110,9 +100,9 @@ final class ErrorAndDiffCollector
         $this->fileDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($smartFileInfo, $diff, $appliedCheckers);
     }
     /**
-     * @return mixed[]
+     * @return FileDiff[]
      */
-    public function getFileDiffs()
+    public function getFileDiffs() : array
     {
         return $this->fileDiffs;
     }
@@ -127,11 +117,9 @@ final class ErrorAndDiffCollector
     }
     /**
      * @return void
-     * @param string $sourceClass
      */
-    private function ensureIsFixerOrChecker($sourceClass)
+    private function ensureIsFixerOrChecker(string $sourceClass)
     {
-        $sourceClass = (string) $sourceClass;
         // remove dot suffix of "."
         if (\ECSPrefix20210517\Nette\Utils\Strings::contains($sourceClass, '.')) {
             $sourceClass = (string) \ECSPrefix20210517\Nette\Utils\Strings::before($sourceClass, '.', 1);

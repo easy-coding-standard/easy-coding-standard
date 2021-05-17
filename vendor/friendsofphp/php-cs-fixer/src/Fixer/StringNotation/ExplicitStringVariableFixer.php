@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,9 +26,8 @@ final class ExplicitStringVariableFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts implicit variables into explicit ones in double-quoted strings or heredoc syntax.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
 <?php
@@ -46,17 +46,15 @@ EOT
      *
      * Must run before SimpleToComplexStringVariableFixer.
      * Must run after BacktickToShellExecFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_VARIABLE);
     }
@@ -125,9 +123,8 @@ EOT
      * Check if token is a part of a string.
      *
      * @param Token $token The token to check
-     * @return bool
      */
-    private function isStringPartToken(\PhpCsFixer\Tokenizer\Token $token)
+    private function isStringPartToken(\PhpCsFixer\Tokenizer\Token $token) : bool
     {
         return $token->isGivenKind(\T_ENCAPSED_AND_WHITESPACE) || $token->isGivenKind(\T_START_HEREDOC) || '"' === $token->getContent() || 'b"' === \strtolower($token->getContent());
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,9 +29,8 @@ final class FinalPublicMethodForAbstractClassFixer extends \PhpCsFixer\AbstractF
     private $magicMethods = ['__construct' => \true, '__destruct' => \true, '__call' => \true, '__callstatic' => \true, '__get' => \true, '__set' => \true, '__isset' => \true, '__unset' => \true, '__sleep' => \true, '__wakeup' => \true, '__tostring' => \true, '__invoke' => \true, '__set_state' => \true, '__clone' => \true, '__debuginfo' => \true];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('All `public` methods of `abstract` classes should be `final`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
@@ -43,17 +43,15 @@ abstract class AbstractMachine
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_CLASS, \T_ABSTRACT, \T_PUBLIC, \T_FUNCTION]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -76,13 +74,9 @@ abstract class AbstractMachine
     }
     /**
      * @return void
-     * @param int $classOpenIndex
-     * @param int $classCloseIndex
      */
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $classOpenIndex, $classCloseIndex)
+    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, int $classCloseIndex)
     {
-        $classOpenIndex = (int) $classOpenIndex;
-        $classCloseIndex = (int) $classCloseIndex;
         for ($index = $classCloseIndex - 1; $index > $classOpenIndex; --$index) {
             // skip method contents
             if ($tokens[$index]->equals('}')) {

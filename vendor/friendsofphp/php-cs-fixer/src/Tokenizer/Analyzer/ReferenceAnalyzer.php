@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -20,13 +21,8 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class ReferenceAnalyzer
 {
-    /**
-     * @param int $index
-     * @return bool
-     */
-    public function isReference(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    public function isReference(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_RETURN_REF)) {
             return \true;
         }

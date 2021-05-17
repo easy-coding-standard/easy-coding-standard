@@ -28,7 +28,7 @@ interface ServiceProviderInterface extends \ECSPrefix20210517\Psr\Container\Cont
      *  * ['foo' => '?'] means the container provides service name "foo" of unspecified type
      *  * ['bar' => '?Bar\Baz'] means the container provides a service "bar" of type Bar\Baz|null
      *
-     * @return mixed[] The provided service types, keyed by service names
+     * @return string[] The provided service types, keyed by service names
      */
-    public function getProvidedServices();
+    public function getProvidedServices() : array;
 }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -55,23 +56,16 @@ final class Error
     /**
      * @param \Throwable|null $source
      * @param string|null $diff
-     * @param int $type
-     * @param string $filePath
      */
-    public function __construct($type, $filePath, $source = null, array $appliedFixers = [], $diff = null)
+    public function __construct(int $type, string $filePath, $source = null, array $appliedFixers = [], $diff = null)
     {
-        $type = (int) $type;
-        $filePath = (string) $filePath;
         $this->type = $type;
         $this->filePath = $filePath;
         $this->source = $source;
         $this->appliedFixers = $appliedFixers;
         $this->diff = $diff;
     }
-    /**
-     * @return string
-     */
-    public function getFilePath()
+    public function getFilePath() : string
     {
         return $this->filePath;
     }
@@ -82,17 +76,11 @@ final class Error
     {
         return $this->source;
     }
-    /**
-     * @return int
-     */
-    public function getType()
+    public function getType() : int
     {
         return $this->type;
     }
-    /**
-     * @return mixed[]
-     */
-    public function getAppliedFixers()
+    public function getAppliedFixers() : array
     {
         return $this->appliedFixers;
     }

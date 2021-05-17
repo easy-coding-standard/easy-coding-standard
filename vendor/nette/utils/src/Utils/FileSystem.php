@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 use ECSPrefix20210517\Nette;
@@ -13,13 +18,9 @@ final class FileSystem
      * Creates a directory if it doesn't exist.
      * @throws Nette\IOException  on error occurred
      * @return void
-     * @param string $dir
-     * @param int $mode
      */
-    public static function createDir($dir, $mode = 0777)
+    public static function createDir(string $dir, int $mode = 0777)
     {
-        $dir = (string) $dir;
-        $mode = (int) $mode;
         if (!\is_dir($dir) && !@\mkdir($dir, $mode, \true) && !\is_dir($dir)) {
             // @ - dir may already exist
             throw new \ECSPrefix20210517\Nette\IOException("Unable to create directory '{$dir}' with mode " . \decoct($mode) . '. ' . \ECSPrefix20210517\Nette\Utils\Helpers::getLastError());
@@ -30,15 +31,9 @@ final class FileSystem
      * @throws Nette\IOException  on error occurred
      * @throws Nette\InvalidStateException  if $overwrite is set to false and destination already exists
      * @return void
-     * @param string $origin
-     * @param string $target
-     * @param bool $overwrite
      */
-    public static function copy($origin, $target, $overwrite = \true)
+    public static function copy(string $origin, string $target, bool $overwrite = \true)
     {
-        $origin = (string) $origin;
-        $target = (string) $target;
-        $overwrite = (bool) $overwrite;
         if (\stream_is_local($origin) && !\file_exists($origin)) {
             throw new \ECSPrefix20210517\Nette\IOException("File or directory '{$origin}' not found.");
         } elseif (!$overwrite && \file_exists($target)) {
@@ -67,11 +62,9 @@ final class FileSystem
      * Deletes a file or directory if exists.
      * @throws Nette\IOException  on error occurred
      * @return void
-     * @param string $path
      */
-    public static function delete($path)
+    public static function delete(string $path)
     {
-        $path = (string) $path;
         if (\is_file($path) || \is_link($path)) {
             $func = \DIRECTORY_SEPARATOR === '\\' && \is_dir($path) ? 'rmdir' : 'unlink';
             if (!@$func($path)) {
@@ -93,15 +86,9 @@ final class FileSystem
      * @throws Nette\IOException  on error occurred
      * @throws Nette\InvalidStateException  if $overwrite is set to false and destination already exists
      * @return void
-     * @param string $origin
-     * @param string $target
-     * @param bool $overwrite
      */
-    public static function rename($origin, $target, $overwrite = \true)
+    public static function rename(string $origin, string $target, bool $overwrite = \true)
     {
-        $origin = (string) $origin;
-        $target = (string) $target;
-        $overwrite = (bool) $overwrite;
         if (!$overwrite && \file_exists($target)) {
             throw new \ECSPrefix20210517\Nette\InvalidStateException("File or directory '{$target}' already exists.");
         } elseif (!\file_exists($origin)) {
@@ -120,12 +107,9 @@ final class FileSystem
     /**
      * Reads the content of a file.
      * @throws Nette\IOException  on error occurred
-     * @param string $file
-     * @return string
      */
-    public static function read($file)
+    public static function read(string $file) : string
     {
-        $file = (string) $file;
         $content = @\file_get_contents($file);
         // @ is escalated to exception
         if ($content === \false) {
@@ -138,13 +122,9 @@ final class FileSystem
      * @throws Nette\IOException  on error occurred
      * @param int|null $mode
      * @return void
-     * @param string $file
-     * @param string $content
      */
-    public static function write($file, $content, $mode = 0666)
+    public static function write(string $file, string $content, $mode = 0666)
     {
-        $file = (string) $file;
-        $content = (string) $content;
         static::createDir(\dirname($file));
         if (@\file_put_contents($file, $content) === \false) {
             // @ is escalated to exception
@@ -157,22 +137,16 @@ final class FileSystem
     }
     /**
      * Determines if the path is absolute.
-     * @param string $path
-     * @return bool
      */
-    public static function isAbsolute($path)
+    public static function isAbsolute(string $path) : bool
     {
-        $path = (string) $path;
         return (bool) \preg_match('#([a-z]:)?[/\\\\]|[a-z][a-z0-9+.-]*://#Ai', $path);
     }
     /**
      * Normalizes `..` and `.` and directory separators in path.
-     * @param string $path
-     * @return string
      */
-    public static function normalizePath($path)
+    public static function normalizePath(string $path) : string
     {
-        $path = (string) $path;
         $parts = $path === '' ? [] : \preg_split('~[/\\\\]+~', $path);
         $res = [];
         foreach ($parts as $part) {
@@ -186,10 +160,8 @@ final class FileSystem
     }
     /**
      * Joins all segments of the path and normalizes the result.
-     * @param string ...$paths
-     * @return string
      */
-    public static function joinPaths(...$paths)
+    public static function joinPaths(string ...$paths) : string
     {
         return self::normalizePath(\implode('/', $paths));
     }

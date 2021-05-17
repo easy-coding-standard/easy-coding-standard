@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\ValueObject;
 
 final class LineLengthAndPosition
@@ -12,28 +13,16 @@ final class LineLengthAndPosition
      * @var int
      */
     private $currentPosition;
-    /**
-     * @param int $lineLength
-     * @param int $currentPosition
-     */
-    public function __construct($lineLength, $currentPosition)
+    public function __construct(int $lineLength, int $currentPosition)
     {
-        $lineLength = (int) $lineLength;
-        $currentPosition = (int) $currentPosition;
         $this->lineLength = $lineLength;
         $this->currentPosition = $currentPosition;
     }
-    /**
-     * @return int
-     */
-    public function getLineLength()
+    public function getLineLength() : int
     {
         return $this->lineLength;
     }
-    /**
-     * @return int
-     */
-    public function getCurrentPosition()
+    public function getCurrentPosition() : int
     {
         return $this->currentPosition;
     }

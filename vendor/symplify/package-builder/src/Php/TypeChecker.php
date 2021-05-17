@@ -1,14 +1,14 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Php;
 
 final class TypeChecker
 {
     /**
      * @param array<class-string> $types
-     * @return bool
      */
-    public function isInstanceOf($object, array $types)
+    public function isInstanceOf($object, array $types) : bool
     {
         foreach ($types as $type) {
             if (\is_a($object, $type, \true)) {

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,17 +26,15 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Doctrine annotations must be indented with four spaces.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n *  @Foo(\n *   foo=\"foo\"\n *  )\n */\nclass Bar {}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n *  @Foo({@Bar,\n *   @Baz})\n */\nclass Bar {}\n", ['indent_mixed_lines' => \true])]);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver(\array_merge(parent::createConfigurationDefinition()->getOptions(), [(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('indent_mixed_lines', 'Whether to indent lines that have content before closing parenthesis.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]));
     }
@@ -82,12 +81,10 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
         }
     }
     /**
-     * @return mixed[]
-     * @param int $index
+     * @return int[]
      */
-    private function getLineBracesCount(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index)
+    private function getLineBracesCount(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index) : array
     {
-        $index = (int) $index;
         $opening = 0;
         $closing = 0;
         while (isset($tokens[++$index])) {
@@ -110,13 +107,8 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
         }
         return [$opening, $closing];
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function isClosingLineWithMeaningfulContent(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index)
+    private function isClosingLineWithMeaningfulContent(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         while (isset($tokens[++$index])) {
             $token = $tokens[$index];
             if ($token->isType(\ECSPrefix20210517\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
@@ -131,12 +123,9 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
     }
     /**
      * @param array<array<int>> $annotationPositions Pairs of begin and end indexes of main annotations
-     * @param int $newLineTokenIndex
-     * @return bool
      */
-    private function indentationCanBeFixed(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $newLineTokenIndex, array $annotationPositions)
+    private function indentationCanBeFixed(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $newLineTokenIndex, array $annotationPositions) : bool
     {
-        $newLineTokenIndex = (int) $newLineTokenIndex;
         foreach ($annotationPositions as $position) {
             if ($newLineTokenIndex >= $position[0] && $newLineTokenIndex <= $position[1]) {
                 return \true;

@@ -19,7 +19,6 @@ interface DumpDescriptorInterface
 {
     /**
      * @return void
-     * @param int $clientId
      */
-    public function describe(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId);
+    public function describe(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId);
 }

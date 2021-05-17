@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -32,9 +33,8 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
     private $indent;
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Code MUST use configured indentation type.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nif (true) {\n\techo 'Hello!';\n}\n")]);
     }
@@ -43,17 +43,15 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
      *
      * Must run before PhpdocIndentFixer.
      * Must run after ClassAttributesSeparationFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 50;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_COMMENT, \T_DOC_COMMENT, \T_WHITESPACE]);
     }
@@ -75,13 +73,8 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
             }
         }
     }
-    /**
-     * @param int $index
-     * @return \PhpCsFixer\Tokenizer\Token
-     */
-    private function fixIndentInComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixIndentInComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : \PhpCsFixer\Tokenizer\Token
     {
-        $index = (int) $index;
         $content = \PhpCsFixer\Preg::replace('/^(?:(?<! ) {1,3})?\\t/m', '\\1    ', $tokens[$index]->getContent(), -1, $count);
         // Also check for more tabs.
         while (0 !== $count) {
@@ -94,13 +87,8 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
         }, $content);
         return new \PhpCsFixer\Tokenizer\Token([$tokens[$index]->getId(), $content]);
     }
-    /**
-     * @param int $index
-     * @return \PhpCsFixer\Tokenizer\Token
-     */
-    private function fixIndentToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixIndentToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : \PhpCsFixer\Tokenizer\Token
     {
-        $index = (int) $index;
         $content = $tokens[$index]->getContent();
         $previousTokenHasTrailingLinebreak = \false;
         // @TODO this can be removed when we have a transformer for "T_OPEN_TAG" to "T_OPEN_TAG + T_WHITESPACE"
@@ -127,13 +115,9 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * @return string mixed
-     * @param string $content
-     * @param string $indent
      */
-    private function getExpectedIndent($content, $indent)
+    private function getExpectedIndent(string $content, string $indent) : string
     {
-        $content = (string) $content;
-        $indent = (string) $indent;
         if ("\t" === $indent) {
             $content = \str_replace('    ', $indent, $content);
         }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SymplifyKernel\ValueObject;
 
 use ECSPrefix20210517\Symfony\Component\Console\Application;
@@ -25,9 +26,8 @@ final class KernelBootAndApplicationRun
      * @param class-string $kernelClass
      * @param string[]|SmartFileInfo[] $extraConfigs
      */
-    public function __construct($kernelClass, array $extraConfigs = [])
+    public function __construct(string $kernelClass, array $extraConfigs = [])
     {
-        $kernelClass = (string) $kernelClass;
         $this->setKernelClass($kernelClass);
         $this->extraConfigs = $extraConfigs;
     }
@@ -45,10 +45,7 @@ final class KernelBootAndApplicationRun
             exit(\ECSPrefix20210517\Symplify\PackageBuilder\Console\ShellCode::ERROR);
         }
     }
-    /**
-     * @return \Symfony\Component\HttpKernel\KernelInterface
-     */
-    private function createKernel()
+    private function createKernel() : \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface
     {
         // random has is needed, so cache is invalidated and changes from config are loaded
         $environment = 'prod' . \random_int(1, 100000);
@@ -74,11 +71,9 @@ final class KernelBootAndApplicationRun
     }
     /**
      * @return void
-     * @param string $kernelClass
      */
-    private function setExtraConfigs(\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface $kernel, $kernelClass)
+    private function setExtraConfigs(\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface $kernel, string $kernelClass)
     {
-        $kernelClass = (string) $kernelClass;
         if ($this->extraConfigs === []) {
             return;
         }
@@ -94,9 +89,8 @@ final class KernelBootAndApplicationRun
      * @param class-string $kernelClass
      * @return void
      */
-    private function setKernelClass($kernelClass)
+    private function setKernelClass(string $kernelClass)
     {
-        $kernelClass = (string) $kernelClass;
         if (!\is_a($kernelClass, \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface::class, \true)) {
             $message = \sprintf('Class "%s" must by type of "%s"', $kernelClass, \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface::class);
             throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\BootException($message);

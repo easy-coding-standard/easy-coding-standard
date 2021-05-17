@@ -74,7 +74,7 @@ class XmlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjection
             if (\count($methodcall[1])) {
                 $this->convertParameters($methodcall[1], 'argument', $call);
             }
-            if (isset($methodcall[2]) ? $methodcall[2] : \false) {
+            if ($methodcall[2] ?? \false) {
                 $call->setAttribute('returns-clone', 'true');
             }
             $parent->appendChild($call);
@@ -110,7 +110,7 @@ class XmlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjection
         if (null !== ($decoratedService = $definition->getDecoratedService())) {
             list($decorated, $renamedId, $priority) = $decoratedService;
             $service->setAttribute('decorates', $decorated);
-            $decorationOnInvalid = isset($decoratedService[3]) ? $decoratedService[3] : \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+            $decorationOnInvalid = $decoratedService[3] ?? \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             if (\in_array($decorationOnInvalid, [\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE, \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE], \true)) {
                 $invalidBehavior = \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $decorationOnInvalid ? 'null' : 'ignore';
                 $service->setAttribute('decoration-on-invalid', $invalidBehavior);
@@ -195,12 +195,8 @@ class XmlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjection
         }
         $parent->appendChild($service);
     }
-    /**
-     * @param string $alias
-     */
-    private function addServiceAlias($alias, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Alias $id, \DOMElement $parent)
+    private function addServiceAlias(string $alias, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Alias $id, \DOMElement $parent)
     {
-        $alias = (string) $alias;
         $service = $this->document->createElement('service');
         $service->setAttribute('id', $alias);
         $service->setAttribute('alias', $id);
@@ -236,14 +232,8 @@ class XmlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjection
         }
         $parent->appendChild($services);
     }
-    /**
-     * @param string $type
-     * @param string $keyAttribute
-     */
-    private function convertParameters(array $parameters, $type, \DOMElement $parent, $keyAttribute = 'key')
+    private function convertParameters(array $parameters, string $type, \DOMElement $parent, string $keyAttribute = 'key')
     {
-        $type = (string) $type;
-        $keyAttribute = (string) $keyAttribute;
         $withKeys = \array_keys($parameters) !== \range(0, \count($parameters) - 1);
         foreach ($parameters as $key => $value) {
             $element = $this->document->createElement($type);
@@ -316,9 +306,8 @@ class XmlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjection
     }
     /**
      * Escapes arguments.
-     * @return mixed[]
      */
-    private function escape(array $arguments)
+    private function escape(array $arguments) : array
     {
         $args = [];
         foreach ($arguments as $k => $v) {
@@ -338,9 +327,8 @@ class XmlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjection
      * @param mixed $value Value to convert
      *
      * @throws RuntimeException When trying to dump object or resource
-     * @return string
      */
-    public static function phpToXml($value)
+    public static function phpToXml($value) : string
     {
         switch (\true) {
             case null === $value:

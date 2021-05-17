@@ -23,12 +23,8 @@ use ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference;
  */
 class CheckReferenceValidityPass extends \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if ($isRoot && $value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition && ($value->isSynthetic() || $value->isAbstract())) {
             return $value;
         }

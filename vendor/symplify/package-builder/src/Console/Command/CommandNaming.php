@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Console\Command;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -18,9 +19,8 @@ final class CommandNaming
      * Converts:
      * - "SomeClass\SomeSuperCommand" → "some-super"
      * - "SomeClass\SOMESuperCommand" → "some-super"
-     * @return string
      */
-    public function resolveFromCommand(\ECSPrefix20210517\Symfony\Component\Console\Command\Command $command)
+    public function resolveFromCommand(\ECSPrefix20210517\Symfony\Component\Console\Command\Command $command) : string
     {
         $commandClass = \get_class($command);
         return self::classToName($commandClass);
@@ -29,12 +29,9 @@ final class CommandNaming
      * Converts:
      * - "SomeClass\SomeSuperCommand" → "some-super"
      * - "SomeClass\SOMESuperCommand" → "some-super"
-     * @param string $class
-     * @return string
      */
-    public static function classToName($class)
+    public static function classToName(string $class) : string
     {
-        $class = (string) $class;
         /** @var string $shortClassName */
         $shortClassName = self::resolveShortName($class);
         $rawCommandName = \ECSPrefix20210517\Nette\Utils\Strings::substring($shortClassName, 0, -\strlen('Command'));
@@ -51,25 +48,13 @@ final class CommandNaming
             return '-' . \strtolower($matches[0]);
         });
     }
-    /**
-     * @param string $class
-     * @return string
-     */
-    private static function resolveShortName($class)
+    private static function resolveShortName(string $class) : string
     {
-        $class = (string) $class;
         $classParts = \explode('\\', $class);
         return \array_pop($classParts);
     }
-    /**
-     * @param string $string
-     * @param int $position
-     * @return bool
-     */
-    private static function isFollowedByUpperCaseLetterOrNothing($string, $position)
+    private static function isFollowedByUpperCaseLetterOrNothing(string $string, int $position) : bool
     {
-        $string = (string) $string;
-        $position = (int) $position;
         // this is the last letter
         if (!isset($string[$position + 1])) {
             return \true;

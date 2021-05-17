@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -52,18 +53,14 @@ final class Application extends \ECSPrefix20210517\Symfony\Component\Console\App
         $this->add(new \PhpCsFixer\Console\Command\ListSetsCommand());
         $this->add(new \PhpCsFixer\Console\Command\SelfUpdateCommand(new \PhpCsFixer\Console\SelfUpdate\NewVersionChecker(new \PhpCsFixer\Console\SelfUpdate\GithubClient()), $this->toolInfo, new \PhpCsFixer\PharChecker()));
     }
-    /**
-     * @return int
-     */
-    public static function getMajorVersion()
+    public static function getMajorVersion() : int
     {
         return (int) \explode('.', self::VERSION)[0];
     }
     /**
      * {@inheritdoc}
-     * @return int
      */
-    public function doRun(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output)
+    public function doRun(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $stdErr = $output instanceof \ECSPrefix20210517\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : ($input->hasParameterOption('--format', \true) && 'txt' !== $input->getParameterOption('--format', null, \true) ? null : $output);
         if (null !== $stdErr) {
@@ -94,9 +91,8 @@ final class Application extends \ECSPrefix20210517\Symfony\Component\Console\App
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getLongVersion()
+    public function getLongVersion() : string
     {
         $version = \implode('', [
             parent::getLongVersion(),
@@ -113,9 +109,8 @@ final class Application extends \ECSPrefix20210517\Symfony\Component\Console\App
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    protected function getDefaultCommands()
+    protected function getDefaultCommands() : array
     {
         return [new \PhpCsFixer\Console\Command\HelpCommand(), new \ECSPrefix20210517\Symfony\Component\Console\Command\ListCommand()];
     }

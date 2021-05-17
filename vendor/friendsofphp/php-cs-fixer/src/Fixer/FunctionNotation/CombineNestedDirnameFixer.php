@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,25 +27,22 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace multiple nested calls of `dirname` by only one call with second `$level` parameter. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\ndirname(dirname(dirname(\$path)));\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70000))], null, 'Risky when the function `dirname` is overridden.');
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -53,9 +51,8 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
      *
      * Must run before MethodArgumentSpaceFixer, NoSpacesInsideParenthesisFixer.
      * Must run after DirConstantFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 35;
     }
@@ -98,9 +95,8 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
      *
      * @return array|bool `false` when it is not a (supported) `dirname` call, an array with info about the dirname call otherwise
      */
-    private function getDirnameInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $firstArgumentEndIndex = null)
+    private function getDirnameInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, $firstArgumentEndIndex = null)
     {
-        $index = (int) $index;
         if (!$tokens[$index]->equals([\T_STRING, 'dirname'], \false)) {
             return \false;
         }

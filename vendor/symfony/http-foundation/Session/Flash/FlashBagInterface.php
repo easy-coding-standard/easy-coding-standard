@@ -22,16 +22,14 @@ interface FlashBagInterface extends \ECSPrefix20210517\Symfony\Component\HttpFou
      * Adds a flash message for the given type.
      *
      * @param mixed $message
-     * @param string $type
      */
-    public function add($type, $message);
+    public function add(string $type, $message);
     /**
      * Registers one or more messages for a given type.
      *
      * @param string|array $messages
-     * @param string $type
      */
-    public function set($type, $messages);
+    public function set(string $type, $messages);
     /**
      * Gets flash messages for a given type.
      *
@@ -40,7 +38,7 @@ interface FlashBagInterface extends \ECSPrefix20210517\Symfony\Component\HttpFou
      *
      * @return array
      */
-    public function peek($type, array $default = []);
+    public function peek(string $type, array $default = []);
     /**
      * Gets all flash messages.
      *
@@ -53,9 +51,8 @@ interface FlashBagInterface extends \ECSPrefix20210517\Symfony\Component\HttpFou
      * @param array $default Default value if $type does not exist
      *
      * @return array
-     * @param string $type
      */
-    public function get($type, array $default = []);
+    public function get(string $type, array $default = []);
     /**
      * Gets and clears flashes from the stack.
      *
@@ -70,9 +67,8 @@ interface FlashBagInterface extends \ECSPrefix20210517\Symfony\Component\HttpFou
      * Has flash messages for a given type?
      *
      * @return bool
-     * @param string $type
      */
-    public function has($type);
+    public function has(string $type);
     /**
      * Returns a list of all defined types.
      *

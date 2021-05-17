@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -31,17 +32,15 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Forces PHPDoc tags to be either regular annotations or inline.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * {@api}\n */\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @inheritdoc\n */\n", ['tags' => ['inheritdoc' => 'inline']])]);
     }
@@ -50,9 +49,8 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
      *
      * Must run before PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
@@ -93,9 +91,8 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('tags', 'The list of tags to fix'))->setAllowedTypes(['array'])->setAllowedValues([function ($value) {
             foreach ($value as $type) {
@@ -112,21 +109,12 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
             return $normalized;
         })->getOption()]);
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function tagIsSurroundedByText(array $parts, $index)
+    private function tagIsSurroundedByText(array $parts, int $index) : bool
     {
-        $index = (int) $index;
         return \PhpCsFixer\Preg::match('/(^|\\R)\\h*[^@\\s]\\N*/', $this->cleanComment($parts[$index - 1])) || \PhpCsFixer\Preg::match('/^.*?\\R\\s*[^@\\s]/', $this->cleanComment($parts[$index + 1]));
     }
-    /**
-     * @param string $comment
-     */
-    private function cleanComment($comment)
+    private function cleanComment(string $comment)
     {
-        $comment = (string) $comment;
         $comment = \PhpCsFixer\Preg::replace('/^\\/\\*\\*|\\*\\/$/', '', $comment);
         return \PhpCsFixer\Preg::replace('/(\\R)(\\h*\\*)?\\h*/', '$1', $comment);
     }

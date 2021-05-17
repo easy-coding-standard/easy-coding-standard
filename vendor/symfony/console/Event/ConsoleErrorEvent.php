@@ -27,10 +27,7 @@ final class ConsoleErrorEvent extends \ECSPrefix20210517\Symfony\Component\Conso
         parent::__construct($command, $input, $output);
         $this->error = $error;
     }
-    /**
-     * @return \Throwable
-     */
-    public function getError()
+    public function getError() : \Throwable
     {
         return $this->error;
     }
@@ -43,20 +40,15 @@ final class ConsoleErrorEvent extends \ECSPrefix20210517\Symfony\Component\Conso
     }
     /**
      * @return void
-     * @param int $exitCode
      */
-    public function setExitCode($exitCode)
+    public function setExitCode(int $exitCode)
     {
-        $exitCode = (int) $exitCode;
         $this->exitCode = $exitCode;
         $r = new \ReflectionProperty($this->error, 'code');
         $r->setAccessible(\true);
         $r->setValue($this->error, $this->exitCode);
     }
-    /**
-     * @return int
-     */
-    public function getExitCode()
+    public function getExitCode() : int
     {
         return null !== $this->exitCode ? $this->exitCode : (\is_int($this->error->getCode()) && 0 !== $this->error->getCode() ? $this->error->getCode() : 1);
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,18 +26,9 @@ final class Preg
      * @param null|string[] $matches
      *
      * @throws PregException
-     * @param string $pattern
-     * @param string $subject
-     * @param int $flags
-     * @param int $offset
-     * @return int
      */
-    public static function match($pattern, $subject, &$matches = null, $flags = 0, $offset = 0)
+    public static function match(string $pattern, string $subject, &$matches = null, int $flags = 0, int $offset = 0) : int
     {
-        $pattern = (string) $pattern;
-        $subject = (string) $subject;
-        $flags = (int) $flags;
-        $offset = (int) $offset;
         $result = @\preg_match(self::addUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -51,18 +43,9 @@ final class Preg
      * @param null|string[] $matches
      *
      * @throws PregException
-     * @param string $pattern
-     * @param string $subject
-     * @param int $flags
-     * @param int $offset
-     * @return int
      */
-    public static function matchAll($pattern, $subject, &$matches = null, $flags = \PREG_PATTERN_ORDER, $offset = 0)
+    public static function matchAll(string $pattern, string $subject, &$matches = null, int $flags = \PREG_PATTERN_ORDER, int $offset = 0) : int
     {
-        $pattern = (string) $pattern;
-        $subject = (string) $subject;
-        $flags = (int) $flags;
-        $offset = (int) $offset;
         $result = @\preg_match_all(self::addUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -82,11 +65,9 @@ final class Preg
      *
      * @return string|string[]
      * @param int|null $count
-     * @param int $limit
      */
-    public static function replace($pattern, $replacement, $subject, $limit = -1, &$count = null)
+    public static function replace($pattern, $replacement, $subject, int $limit = -1, &$count = null)
     {
-        $limit = (int) $limit;
         $result = @\preg_replace(self::addUtf8Modifier($pattern), $replacement, $subject, $limit, $count);
         if (null !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -105,11 +86,9 @@ final class Preg
      *
      * @return string|string[]
      * @param int|null $count
-     * @param int $limit
      */
-    public static function replaceCallback($pattern, callable $callback, $subject, $limit = -1, &$count = null)
+    public static function replaceCallback($pattern, callable $callback, $subject, int $limit = -1, &$count = null)
     {
-        $limit = (int) $limit;
         $result = @\preg_replace_callback(self::addUtf8Modifier($pattern), $callback, $subject, $limit, $count);
         if (null !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -123,18 +102,10 @@ final class Preg
     /**
      * @throws PregException
      *
-     * @return mixed[]
-     * @param string $pattern
-     * @param string $subject
-     * @param int $limit
-     * @param int $flags
+     * @return string[]
      */
-    public static function split($pattern, $subject, $limit = -1, $flags = 0)
+    public static function split(string $pattern, string $subject, int $limit = -1, int $flags = 0) : array
     {
-        $pattern = (string) $pattern;
-        $subject = (string) $subject;
-        $limit = (int) $limit;
-        $flags = (int) $flags;
         $result = @\preg_split(self::addUtf8Modifier($pattern), $subject, $limit, $flags);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -181,14 +152,9 @@ final class Preg
      * an invalid pattern, tell more about such kind of error in the message.
      *
      * @param string[] $patterns
-     * @param int $error
-     * @param string $method
-     * @return \PhpCsFixer\PregException
      */
-    private static function newPregException($error, $method, array $patterns)
+    private static function newPregException(int $error, string $method, array $patterns) : \PhpCsFixer\PregException
     {
-        $error = (int) $error;
-        $method = (string) $method;
         foreach ($patterns as $pattern) {
             $last = \error_get_last();
             $result = @\preg_match($pattern, '');

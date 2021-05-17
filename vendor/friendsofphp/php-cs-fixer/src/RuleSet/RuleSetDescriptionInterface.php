@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -19,21 +20,11 @@ namespace PhpCsFixer\RuleSet;
 interface RuleSetDescriptionInterface
 {
     public function __construct();
-    /**
-     * @return string
-     */
-    public function getDescription();
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getDescription() : string;
+    public function getName() : string;
     /**
      * Get all rules from rules set.
-     * @return mixed[]
      */
-    public function getRules();
-    /**
-     * @return bool
-     */
-    public function isRisky();
+    public function getRules() : array;
+    public function isRisky() : bool;
 }

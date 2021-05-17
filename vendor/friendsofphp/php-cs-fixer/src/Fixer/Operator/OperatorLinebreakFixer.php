@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -42,9 +43,8 @@ final class OperatorLinebreakFixer extends \PhpCsFixer\AbstractFixer implements 
     private $operators = [];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Operators - when multiline - must always be at the beginning or at the end of the line.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 function foo() {
@@ -77,17 +77,15 @@ function foo() {
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('only_booleans', 'whether to limit operators to only boolean ones'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('position', 'whether to place operators at the beginning or at the end of the line'))->setAllowedValues(['beginning', 'end'])->setDefault($this->position)->getOption()]);
     }
@@ -130,9 +128,9 @@ function foo() {
     /**
      * Currently only colons from "switch".
      *
-     * @return mixed[]
+     * @return int[]
      */
-    private function getExcludedIndices(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function getExcludedIndices(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
         $indices = [];
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
@@ -143,12 +141,10 @@ function foo() {
         return $indices;
     }
     /**
-     * @return mixed[]
-     * @param int $switchIndex
+     * @return int[]
      */
-    private function getCasesColonsForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, $switchIndex)
+    private function getCasesColonsForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, int $switchIndex) : array
     {
-        $switchIndex = (int) $switchIndex;
         return \array_map(static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis $caseAnalysis) {
             return $caseAnalysis->getColonIndex();
         }, (new \PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer())->getSwitchAnalysis($tokens, $switchIndex)->getCases());
@@ -230,12 +226,10 @@ function foo() {
     /**
      * @param int[] $indices
      *
-     * @return mixed[]
-     * @param int $direction
+     * @return Token[]
      */
-    private function getReplacementsAndClear(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices, $direction)
+    private function getReplacementsAndClear(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices, int $direction) : array
     {
-        $direction = (int) $direction;
         return \array_map(static function (int $index) use($tokens, $direction) {
             $clone = $tokens[$index];
             if ($tokens[$index + $direction]->isWhitespace()) {
@@ -245,15 +239,8 @@ function foo() {
             return $clone;
         }, $indices);
     }
-    /**
-     * @param int $indexStart
-     * @param int $indexEnd
-     * @return bool
-     */
-    private function isMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, $indexStart, $indexEnd)
+    private function isMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $indexStart, int $indexEnd) : bool
     {
-        $indexStart = (int) $indexStart;
-        $indexEnd = (int) $indexEnd;
         for ($index = $indexStart; $index <= $indexEnd; ++$index) {
             if (\false !== \strpos($tokens[$index]->getContent(), "\n")) {
                 return \true;

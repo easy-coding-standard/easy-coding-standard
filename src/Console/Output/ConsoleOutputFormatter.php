@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Symplify\EasyCodingStandard\Configuration\Configuration;
@@ -27,13 +28,8 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->configuration = $configuration;
     }
-    /**
-     * @param int $processedFilesCount
-     * @return int
-     */
-    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, $processedFilesCount)
+    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, int $processedFilesCount) : int
     {
-        $processedFilesCount = (int) $processedFilesCount;
         $this->reportFileDiffs($errorAndDiffResult->getFileDiffs());
         if ($errorAndDiffResult->getErrorCount() === 0 && $errorAndDiffResult->getFileDiffsCount() === 0) {
             if ($processedFilesCount !== 0) {
@@ -45,10 +41,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         $this->easyCodingStandardStyle->newLine();
         return $this->configuration->isFixer() ? $this->printAfterFixerStatus($errorAndDiffResult) : $this->printNoFixerStatus($errorAndDiffResult);
     }
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return self::NAME;
     }
@@ -76,10 +69,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
             $this->easyCodingStandardStyle->listing($fileDiff->getAppliedCheckers());
         }
     }
-    /**
-     * @return int
-     */
-    private function printAfterFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult)
+    private function printAfterFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : int
     {
         if ($this->configuration->shouldShowErrorTable()) {
             $this->easyCodingStandardStyle->printErrors($errorAndDiffResult->getErrors());
@@ -92,10 +82,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getErrorCount(), $errorAndDiffResult->getFileDiffsCount());
         return \ECSPrefix20210517\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
-    /**
-     * @return int
-     */
-    private function printNoFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult)
+    private function printNoFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : int
     {
         if ($this->configuration->shouldShowErrorTable()) {
             $errors = $errorAndDiffResult->getErrors();
@@ -115,13 +102,9 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
     }
     /**
      * @return void
-     * @param int $errorCount
-     * @param int $fileDiffsCount
      */
-    private function printErrorMessageFromErrorCounts($errorCount, $fileDiffsCount)
+    private function printErrorMessageFromErrorCounts(int $errorCount, int $fileDiffsCount)
     {
-        $errorCount = (int) $errorCount;
-        $fileDiffsCount = (int) $fileDiffsCount;
         if ($errorCount !== 0) {
             $errorMessage = \sprintf('Found %d error%s that need%s to be fixed manually.', $errorCount, $errorCount === 1 ? '' : 's', $errorCount === 1 ? 's' : '');
             $this->easyCodingStandardStyle->error($errorMessage);

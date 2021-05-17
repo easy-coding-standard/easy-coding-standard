@@ -21,12 +21,8 @@ class AddEventAliasesPass implements \ECSPrefix20210517\Symfony\Component\Depend
 {
     private $eventAliases;
     private $eventAliasesParameter;
-    /**
-     * @param string $eventAliasesParameter
-     */
-    public function __construct(array $eventAliases, $eventAliasesParameter = 'event_dispatcher.event_aliases')
+    public function __construct(array $eventAliases, string $eventAliasesParameter = 'event_dispatcher.event_aliases')
     {
-        $eventAliasesParameter = (string) $eventAliasesParameter;
         $this->eventAliases = $eventAliases;
         $this->eventAliasesParameter = $eventAliasesParameter;
     }

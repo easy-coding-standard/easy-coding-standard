@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of sebastian/diff.
  *
@@ -21,9 +22,8 @@ final class MemoryEfficientLongestCommonSubsequenceCalculator implements \ECSPre
 {
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function calculate(array $from, array $to)
+    public function calculate(array $from, array $to) : array
     {
         $cFrom = \count($from);
         $cTo = \count($to);
@@ -54,10 +54,7 @@ final class MemoryEfficientLongestCommonSubsequenceCalculator implements \ECSPre
         $toEnd = \array_slice($to, $jMax);
         return \array_merge($this->calculate($fromStart, $toStart), $this->calculate($fromEnd, $toEnd));
     }
-    /**
-     * @return mixed[]
-     */
-    private function length(array $from, array $to)
+    private function length(array $from, array $to) : array
     {
         $current = \array_fill(0, \count($to) + 1, 0);
         $cFrom = \count($from);

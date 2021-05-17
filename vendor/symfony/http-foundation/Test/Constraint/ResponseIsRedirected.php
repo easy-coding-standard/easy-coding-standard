@@ -16,9 +16,8 @@ final class ResponseIsRedirected extends \ECSPrefix20210517\PHPUnit\Framework\Co
 {
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function toString()
+    public function toString() : string
     {
         return 'is redirected';
     }
@@ -26,9 +25,8 @@ final class ResponseIsRedirected extends \ECSPrefix20210517\PHPUnit\Framework\Co
      * @param Response $response
      *
      * {@inheritdoc}
-     * @return bool
      */
-    protected function matches($response)
+    protected function matches($response) : bool
     {
         return $response->isRedirect();
     }
@@ -36,9 +34,8 @@ final class ResponseIsRedirected extends \ECSPrefix20210517\PHPUnit\Framework\Co
      * @param Response $response
      *
      * {@inheritdoc}
-     * @return string
      */
-    protected function failureDescription($response)
+    protected function failureDescription($response) : string
     {
         return 'the Response ' . $this->toString();
     }
@@ -46,9 +43,8 @@ final class ResponseIsRedirected extends \ECSPrefix20210517\PHPUnit\Framework\Co
      * @param Response $response
      *
      * {@inheritdoc}
-     * @return string
      */
-    protected function additionalFailureDescription($response)
+    protected function additionalFailureDescription($response) : string
     {
         return (string) $response;
     }

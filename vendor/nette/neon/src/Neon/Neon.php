@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Neon;
 
 /**
@@ -12,12 +17,9 @@ final class Neon
     const CHAIN = '!!chain';
     /**
      * Returns value converted to NEON. The flag can be Neon::BLOCK, which will create multiline output.
-     * @param int $flags
-     * @return string
      */
-    public static function encode($value, $flags = 0)
+    public static function encode($value, int $flags = 0) : string
     {
-        $flags = (int) $flags;
         $encoder = new \ECSPrefix20210517\Nette\Neon\Encoder();
         return $encoder->encode($value, $flags);
     }
@@ -25,11 +27,9 @@ final class Neon
      * Converts given NEON to PHP value.
      * Returns scalars, arrays, DateTimeImmutable and Entity objects.
      * @return mixed
-     * @param string $input
      */
-    public static function decode($input)
+    public static function decode(string $input)
     {
-        $input = (string) $input;
         $decoder = new \ECSPrefix20210517\Nette\Neon\Decoder();
         return $decoder->decode($input);
     }

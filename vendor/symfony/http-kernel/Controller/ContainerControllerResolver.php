@@ -27,12 +27,8 @@ class ContainerControllerResolver extends \ECSPrefix20210517\Symfony\Component\H
         $this->container = $container;
         parent::__construct($logger);
     }
-    /**
-     * @param string $controller
-     */
-    protected function createController($controller)
+    protected function createController(string $controller)
     {
-        $controller = (string) $controller;
         if (1 === \substr_count($controller, ':')) {
             $controller = \str_replace(':', '::', $controller);
             trigger_deprecation('symfony/http-kernel', '5.1', 'Referencing controllers with a single colon is deprecated. Use "%s" instead.', $controller);
@@ -41,11 +37,9 @@ class ContainerControllerResolver extends \ECSPrefix20210517\Symfony\Component\H
     }
     /**
      * {@inheritdoc}
-     * @param string $class
      */
-    protected function instantiateController($class)
+    protected function instantiateController(string $class)
     {
-        $class = (string) $class;
         $class = \ltrim($class, '\\');
         if ($this->container->has($class)) {
             return $this->container->get($class);
@@ -60,12 +54,8 @@ class ContainerControllerResolver extends \ECSPrefix20210517\Symfony\Component\H
         }
         throw new \InvalidArgumentException(\sprintf('Controller "%s" does neither exist as service nor as class.', $class), 0, $e);
     }
-    /**
-     * @param string $controller
-     */
-    private function throwExceptionIfControllerWasRemoved($controller, \Throwable $previous)
+    private function throwExceptionIfControllerWasRemoved(string $controller, \Throwable $previous)
     {
-        $controller = (string) $controller;
         if ($this->container instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Container && isset($this->container->getRemovedIds()[$controller])) {
             throw new \InvalidArgumentException(\sprintf('Controller "%s" cannot be fetched from the container because it is private. Did you forget to tag the service with "controller.service_arguments"?', $controller), 0, $previous);
         }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -33,9 +34,8 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('All PHPUnit test classes should be marked as internal.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nclass MyTest extends TestCase {}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nclass MyTest extends TestCase {}\nfinal class FinalTest extends TestCase {}\nabstract class AbstractTest extends TestCase {}\n", ['types' => ['final']])]);
     }
@@ -43,17 +43,15 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
      * {@inheritdoc}
      *
      * Must run before FinalInternalClassFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 68;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $types = ['normal', 'final', 'abstract'];
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('types', 'What types of classes to mark as internal'))->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($types)])->setAllowedTypes(['array'])->setDefault(['normal', 'final'])->getOption()]);
@@ -61,13 +59,9 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
     /**
      * {@inheritdoc}
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $classIndex = $tokens->getPrevTokenOfKind($startIndex, [[\T_CLASS]]);
         if (!$this->isAllowedByConfiguration($tokens, $classIndex)) {
             return;
@@ -79,13 +73,8 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
             $this->createDocBlock($tokens, $docBlockIndex);
         }
     }
-    /**
-     * @param int $i
-     * @return bool
-     */
-    private function isAllowedByConfiguration(\PhpCsFixer\Tokenizer\Tokens $tokens, $i)
+    private function isAllowedByConfiguration(\PhpCsFixer\Tokenizer\Tokens $tokens, int $i) : bool
     {
-        $i = (int) $i;
         $typeIndex = $tokens->getPrevMeaningfulToken($i);
         if ($tokens[$typeIndex]->isGivenKind(\T_FINAL)) {
             return \in_array('final', $this->configuration['types'], \true);
@@ -97,11 +86,9 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
     }
     /**
      * @return void
-     * @param int $docBlockIndex
      */
-    private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
+    private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex)
     {
-        $docBlockIndex = (int) $docBlockIndex;
         $lineEnd = $this->whitespacesConfig->getLineEnding();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));
         $toInsert = [new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, '/**' . $lineEnd . "{$originalIndent} * @internal" . $lineEnd . "{$originalIndent} */"]), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnd . $originalIndent])];
@@ -110,11 +97,9 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
     }
     /**
      * @return void
-     * @param int $docBlockIndex
      */
-    private function updateDocBlockIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
+    private function updateDocBlockIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex)
     {
-        $docBlockIndex = (int) $docBlockIndex;
         $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
         if (!empty($doc->getAnnotationsOfType('internal'))) {
             return;
@@ -125,25 +110,18 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
         $tokens[$docBlockIndex] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $lines]);
     }
     /**
-     * @return mixed[]
-     * @param int $docBlockIndex
+     * @return Line[]
      */
-    private function addInternalAnnotation(\PhpCsFixer\DocBlock\DocBlock $docBlock, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
+    private function addInternalAnnotation(\PhpCsFixer\DocBlock\DocBlock $docBlock, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : array
     {
-        $docBlockIndex = (int) $docBlockIndex;
         $lines = $docBlock->getLines();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $docBlockIndex);
         $lineEnd = $this->whitespacesConfig->getLineEnding();
         \array_splice($lines, -1, 0, $originalIndent . ' *' . $lineEnd . $originalIndent . ' * @internal' . $lineEnd);
         return $lines;
     }
-    /**
-     * @param int $docBlockIndex
-     * @return \PhpCsFixer\DocBlock\DocBlock
-     */
-    private function makeDocBlockMultiLineIfNeeded(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
+    private function makeDocBlockMultiLineIfNeeded(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : \PhpCsFixer\DocBlock\DocBlock
     {
-        $docBlockIndex = (int) $docBlockIndex;
         $lines = $doc->getLines();
         if (1 === \count($lines) && empty($doc->getAnnotationsOfType('internal'))) {
             $indent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));

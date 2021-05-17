@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
 use ECSPrefix20210517\Nette\Caching\Cache;
@@ -23,10 +24,7 @@ final class NetteCacheFactory
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
     }
-    /**
-     * @return \Nette\Caching\Cache
-     */
-    public function create()
+    public function create() : \ECSPrefix20210517\Nette\Caching\Cache
     {
         $cacheDirectory = $this->parameterProvider->provideStringParameter(\Symplify\EasyCodingStandard\ValueObject\Option::CACHE_DIRECTORY);
         // ensure cache directory exists

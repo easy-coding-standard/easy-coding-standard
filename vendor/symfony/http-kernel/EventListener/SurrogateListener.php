@@ -50,10 +50,7 @@ class SurrogateListener implements \ECSPrefix20210517\Symfony\Component\EventDis
         }
         $surrogate->addSurrogateControl($event->getResponse());
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
     }

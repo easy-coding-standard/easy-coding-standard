@@ -53,35 +53,24 @@ class ServiceLocator implements \ECSPrefix20210517\Symfony\Contracts\Service\Ser
             throw $e;
         }
     }
-    /**
-     * @param string $id
-     */
-    public function __invoke($id)
+    public function __invoke(string $id)
     {
-        $id = (string) $id;
         return isset($this->factories[$id]) ? $this->get($id) : null;
     }
     /**
      * @internal
      *
      * @return static
-     * @param string $externalId
      */
-    public function withContext($externalId, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Container $container)
+    public function withContext(string $externalId, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Container $container)
     {
-        $externalId = (string) $externalId;
         $locator = clone $this;
         $locator->externalId = $externalId;
         $locator->container = $container;
         return $locator;
     }
-    /**
-     * @param string $id
-     * @return \Psr\Container\NotFoundExceptionInterface
-     */
-    private function createNotFoundException($id)
+    private function createNotFoundException(string $id) : \ECSPrefix20210517\Psr\Container\NotFoundExceptionInterface
     {
-        $id = (string) $id;
         if ($this->loading) {
             $msg = \sprintf('The service "%s" has a dependency on a non-existent service "%s". This locator %s', \end($this->loading), $id, $this->formatAlternatives());
             return new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, \end($this->loading) ?: null, null, [], $msg);
@@ -121,22 +110,12 @@ class ServiceLocator implements \ECSPrefix20210517\Symfony\Contracts\Service\Ser
         }
         return new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, \end($this->loading) ?: null, null, [], \implode(' ', $msg));
     }
-    /**
-     * @param string $id
-     * @return \Psr\Container\ContainerExceptionInterface
-     */
-    private function createCircularReferenceException($id, array $path)
+    private function createCircularReferenceException(string $id, array $path) : \ECSPrefix20210517\Psr\Container\ContainerExceptionInterface
     {
-        $id = (string) $id;
         return new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, $path);
     }
-    /**
-     * @param string $separator
-     * @return string
-     */
-    private function formatAlternatives(array $alternatives = null, $separator = 'and')
+    private function formatAlternatives(array $alternatives = null, string $separator = 'and') : string
     {
-        $separator = (string) $separator;
         $format = '"%s"%s';
         if (null === $alternatives) {
             if (!($alternatives = \array_keys($this->factories))) {

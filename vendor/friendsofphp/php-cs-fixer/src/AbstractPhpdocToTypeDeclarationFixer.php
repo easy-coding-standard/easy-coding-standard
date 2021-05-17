@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -45,22 +46,16 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     private static $syntaxValidationCache = [];
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
-    /**
-     * @param string $type
-     * @return bool
-     */
-    protected abstract function isSkippedType($type);
+    protected abstract function isSkippedType(string $type) : bool;
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('scalar_types', 'Fix also scalar types; may have unexpected behaviour due to PHP bad type coercion system.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
@@ -68,7 +63,7 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
      * @param int $index The index of the function token
      * @return int|null
      */
-    protected function findFunctionDocComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    protected function findFunctionDocComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
         do {
             $index = $tokens->getPrevNonWhitespace($index);
@@ -79,14 +74,10 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         return null;
     }
     /**
-     * @return mixed[]
-     * @param string $name
-     * @param int $docCommentIndex
+     * @return Annotation[]
      */
-    protected function getAnnotationsFromDocComment($name, \PhpCsFixer\Tokenizer\Tokens $tokens, $docCommentIndex)
+    protected function getAnnotationsFromDocComment(string $name, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docCommentIndex) : array
     {
-        $name = (string) $name;
-        $docCommentIndex = (int) $docCommentIndex;
         $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
         $namespace = $namespacesAnalyzer->getNamespaceAt($tokens, $docCommentIndex);
         $namespaceUsesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
@@ -95,14 +86,10 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         return $doc->getAnnotationsOfType($name);
     }
     /**
-     * @return mixed[]
-     * @param string $type
-     * @param bool $isNullable
+     * @return Token[]
      */
-    protected function createTypeDeclarationTokens($type, $isNullable)
+    protected function createTypeDeclarationTokens(string $type, bool $isNullable) : array
     {
-        $type = (string) $type;
-        $isNullable = (bool) $isNullable;
         static $specialTypes = ['array' => [\PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, 'array'], 'callable' => [\T_CALLABLE, 'callable'], 'static' => [\T_STATIC, 'static']];
         $newTokens = [];
         if (\true === $isNullable && 'mixed' !== $type) {
@@ -131,11 +118,9 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     }
     /**
      * @return mixed[]|null
-     * @param bool $isReturnType
      */
-    protected function getCommonTypeFromAnnotation(\PhpCsFixer\DocBlock\Annotation $annotation, $isReturnType)
+    protected function getCommonTypeFromAnnotation(\PhpCsFixer\DocBlock\Annotation $annotation, bool $isReturnType)
     {
-        $isReturnType = (bool) $isReturnType;
         $typesExpression = $annotation->getTypeExpression();
         $commonType = $typesExpression->getCommonType();
         $isNullable = $typesExpression->allowsNull();
@@ -163,13 +148,8 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         }
         return [$commonType, $isNullable];
     }
-    /**
-     * @param string $code
-     * @return bool
-     */
-    protected final function isValidSyntax($code)
+    protected final function isValidSyntax(string $code) : bool
     {
-        $code = (string) $code;
         if (!isset(self::$syntaxValidationCache[$code])) {
             try {
                 \PhpCsFixer\Tokenizer\Tokens::fromCode($code);

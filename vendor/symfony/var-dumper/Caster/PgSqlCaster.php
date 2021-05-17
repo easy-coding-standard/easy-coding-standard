@@ -24,21 +24,13 @@ class PgSqlCaster
     const TRANSACTION_STATUS = [\PGSQL_TRANSACTION_IDLE => 'PGSQL_TRANSACTION_IDLE', \PGSQL_TRANSACTION_ACTIVE => 'PGSQL_TRANSACTION_ACTIVE', \PGSQL_TRANSACTION_INTRANS => 'PGSQL_TRANSACTION_INTRANS', \PGSQL_TRANSACTION_INERROR => 'PGSQL_TRANSACTION_INERROR', \PGSQL_TRANSACTION_UNKNOWN => 'PGSQL_TRANSACTION_UNKNOWN'];
     const RESULT_STATUS = [\PGSQL_EMPTY_QUERY => 'PGSQL_EMPTY_QUERY', \PGSQL_COMMAND_OK => 'PGSQL_COMMAND_OK', \PGSQL_TUPLES_OK => 'PGSQL_TUPLES_OK', \PGSQL_COPY_OUT => 'PGSQL_COPY_OUT', \PGSQL_COPY_IN => 'PGSQL_COPY_IN', \PGSQL_BAD_RESPONSE => 'PGSQL_BAD_RESPONSE', \PGSQL_NONFATAL_ERROR => 'PGSQL_NONFATAL_ERROR', \PGSQL_FATAL_ERROR => 'PGSQL_FATAL_ERROR'];
     const DIAG_CODES = ['severity' => \PGSQL_DIAG_SEVERITY, 'sqlstate' => \PGSQL_DIAG_SQLSTATE, 'message' => \PGSQL_DIAG_MESSAGE_PRIMARY, 'detail' => \PGSQL_DIAG_MESSAGE_DETAIL, 'hint' => \PGSQL_DIAG_MESSAGE_HINT, 'statement position' => \PGSQL_DIAG_STATEMENT_POSITION, 'internal position' => \PGSQL_DIAG_INTERNAL_POSITION, 'internal query' => \PGSQL_DIAG_INTERNAL_QUERY, 'context' => \PGSQL_DIAG_CONTEXT, 'file' => \PGSQL_DIAG_SOURCE_FILE, 'line' => \PGSQL_DIAG_SOURCE_LINE, 'function' => \PGSQL_DIAG_SOURCE_FUNCTION];
-    /**
-     * @param bool $isNested
-     */
-    public static function castLargeObject($lo, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castLargeObject($lo, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $a['seek position'] = \pg_lo_tell($lo);
         return $a;
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function castLink($link, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castLink($link, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $a['status'] = \pg_connection_status($link);
         $a['status'] = new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ConstStub(\PGSQL_CONNECTION_OK === $a['status'] ? 'PGSQL_CONNECTION_OK' : 'PGSQL_CONNECTION_BAD', $a['status']);
         $a['busy'] = \pg_connection_busy($link);
@@ -63,12 +55,8 @@ class PgSqlCaster
         $a['param'] = new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\EnumStub($a['param']);
         return $a;
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function castResult($result, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castResult($result, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $a['num rows'] = \pg_num_rows($result);
         $a['status'] = \pg_result_status($result);
         if (isset(self::RESULT_STATUS[$a['status']])) {

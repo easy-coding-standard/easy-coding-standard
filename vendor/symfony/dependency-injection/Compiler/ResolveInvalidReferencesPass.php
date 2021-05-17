@@ -51,13 +51,9 @@ class ResolveInvalidReferencesPass implements \ECSPrefix20210517\Symfony\Compone
      * @return mixed
      *
      * @throws RuntimeException When an invalid reference is found
-     * @param int $rootLevel
-     * @param int $level
      */
-    private function processValue($value, $rootLevel = 0, $level = 0)
+    private function processValue($value, int $rootLevel = 0, int $level = 0)
     {
-        $rootLevel = (int) $rootLevel;
-        $level = (int) $level;
         if ($value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
             $value->setValues($this->processValue($value->getValues(), 1, 1));
         } elseif ($value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {

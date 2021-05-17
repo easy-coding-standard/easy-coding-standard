@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -18,15 +19,8 @@ namespace PhpCsFixer;
  */
 final class FixerNameValidator
 {
-    /**
-     * @param string $name
-     * @param bool $isCustom
-     * @return bool
-     */
-    public function isValid($name, $isCustom)
+    public function isValid(string $name, bool $isCustom) : bool
     {
-        $name = (string) $name;
-        $isCustom = (bool) $isCustom;
         if (!$isCustom) {
             return 1 === \PhpCsFixer\Preg::match('/^[a-z][a-z0-9_]*$/', $name);
         }

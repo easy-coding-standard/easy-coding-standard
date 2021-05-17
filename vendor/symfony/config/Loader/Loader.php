@@ -49,13 +49,13 @@ abstract class Loader implements \ECSPrefix20210517\Symfony\Component\Config\Loa
      * Finds a loader able to load an imported resource.
      *
      * @param mixed       $resource A resource
-     * @param string $type The resource type or null if unknown
+     * @param string|null $type     The resource type or null if unknown
      *
      * @return $this|LoaderInterface
      *
      * @throws LoaderLoadException If no loader is found
      */
-    public function resolve($resource, $type = null)
+    public function resolve($resource, string $type = null)
     {
         if ($this->supports($resource, $type)) {
             return $this;

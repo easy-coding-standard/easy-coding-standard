@@ -22,9 +22,8 @@ final class DefaultValueResolver implements \ECSPrefix20210517\Symfony\Component
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
     {
         return $argument->hasDefaultValue() || null !== $argument->getType() && $argument->isNullable() && !$argument->isVariadic();
     }

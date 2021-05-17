@@ -39,10 +39,8 @@ class ProfilerListener implements \ECSPrefix20210517\Symfony\Component\EventDisp
      * @param bool $onlyException      True if the profiler only collects data when an exception occurs, false otherwise
      * @param bool $onlyMasterRequests True if the profiler only collects data when the request is a master request, false otherwise
      */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\HttpKernel\Profiler\Profiler $profiler, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestMatcherInterface $matcher = null, $onlyException = \false, $onlyMasterRequests = \false)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\HttpKernel\Profiler\Profiler $profiler, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestMatcherInterface $matcher = null, bool $onlyException = \false, bool $onlyMasterRequests = \false)
     {
-        $onlyException = (bool) $onlyException;
-        $onlyMasterRequests = (bool) $onlyMasterRequests;
         $this->profiler = $profiler;
         $this->matcher = $matcher;
         $this->onlyException = $onlyException;
@@ -102,10 +100,7 @@ class ProfilerListener implements \ECSPrefix20210517\Symfony\Component\EventDisp
         $this->profiles = new \SplObjectStorage();
         $this->parents = new \SplObjectStorage();
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onKernelResponse', -100], \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION => ['onKernelException', 0], \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::TERMINATE => ['onKernelTerminate', -1024]];
     }

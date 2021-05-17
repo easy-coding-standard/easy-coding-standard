@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Bundle;
 
 use ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder;

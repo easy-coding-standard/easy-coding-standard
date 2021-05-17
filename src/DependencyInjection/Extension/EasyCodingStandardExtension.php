@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
 
 use ECSPrefix20210517\Symfony\Component\Config\FileLocator;

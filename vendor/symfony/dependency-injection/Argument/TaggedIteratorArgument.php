@@ -24,15 +24,13 @@ class TaggedIteratorArgument extends \ECSPrefix20210517\Symfony\Component\Depend
     private $needsIndexes = \false;
     /**
      * @param string      $tag                   The name of the tag identifying the target services
-     * @param string $indexAttribute The name of the attribute that defines the key referencing each service in the tagged collection
-     * @param string $defaultIndexMethod The static method that should be called to get each service's key when their tag doesn't define the previous attribute
+     * @param string|null $indexAttribute        The name of the attribute that defines the key referencing each service in the tagged collection
+     * @param string|null $defaultIndexMethod    The static method that should be called to get each service's key when their tag doesn't define the previous attribute
      * @param bool        $needsIndexes          Whether indexes are required and should be generated when computing the map
-     * @param string $defaultPriorityMethod The static method that should be called to get each service's priority when their tag doesn't define the "priority" attribute
+     * @param string|null $defaultPriorityMethod The static method that should be called to get each service's priority when their tag doesn't define the "priority" attribute
      */
-    public function __construct($tag, $indexAttribute = null, $defaultIndexMethod = null, $needsIndexes = \false, $defaultPriorityMethod = null)
+    public function __construct(string $tag, string $indexAttribute = null, string $defaultIndexMethod = null, bool $needsIndexes = \false, string $defaultPriorityMethod = null)
     {
-        $tag = (string) $tag;
-        $needsIndexes = (bool) $needsIndexes;
         parent::__construct([]);
         if (null === $indexAttribute && $needsIndexes) {
             $indexAttribute = \preg_match('/[^.]++$/', $tag, $m) ? $m[0] : $tag;
@@ -61,10 +59,7 @@ class TaggedIteratorArgument extends \ECSPrefix20210517\Symfony\Component\Depend
     {
         return $this->defaultIndexMethod;
     }
-    /**
-     * @return bool
-     */
-    public function needsIndexes()
+    public function needsIndexes() : bool
     {
         return $this->needsIndexes;
     }

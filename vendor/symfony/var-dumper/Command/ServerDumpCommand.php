@@ -59,14 +59,11 @@ and redirecting the output to a file:
 EOF
 );
     }
-    /**
-     * @return int
-     */
-    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $io = new \ECSPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle($input, $output);
         $format = $input->getOption('format');
-        if (!($descriptor = isset($this->descriptors[$format]) ? $this->descriptors[$format] : null)) {
+        if (!($descriptor = $this->descriptors[$format] ?? null)) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Unsupported format "%s".', $format));
         }
         $errorIo = $io->getErrorStyle();

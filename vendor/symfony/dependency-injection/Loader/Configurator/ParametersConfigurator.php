@@ -26,11 +26,9 @@ class ParametersConfigurator extends \ECSPrefix20210517\Symfony\Component\Depend
      * Creates a parameter.
      *
      * @return $this
-     * @param string $name
      */
-    public final function set($name, $value)
+    public final function set(string $name, $value)
     {
-        $name = (string) $name;
         $this->container->setParameter($name, static::processValue($value, \true));
         return $this;
     }
@@ -38,11 +36,9 @@ class ParametersConfigurator extends \ECSPrefix20210517\Symfony\Component\Depend
      * Creates a parameter.
      *
      * @return $this
-     * @param string $name
      */
-    public final function __invoke($name, $value)
+    public final function __invoke(string $name, $value)
     {
-        $name = (string) $name;
         return $this->set($name, $value);
     }
 }

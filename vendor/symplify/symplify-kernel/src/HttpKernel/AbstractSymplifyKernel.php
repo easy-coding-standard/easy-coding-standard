@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SymplifyKernel\HttpKernel;
 
 use ECSPrefix20210517\Symfony\Component\Config\Loader\LoaderInterface;
@@ -15,17 +16,11 @@ abstract class AbstractSymplifyKernel extends \ECSPrefix20210517\Symfony\Compone
      * @var string[]
      */
     private $configs = [];
-    /**
-     * @return string
-     */
-    public function getCacheDir()
+    public function getCacheDir() : string
     {
         return \sys_get_temp_dir() . '/' . $this->getUniqueKernelHash();
     }
-    /**
-     * @return string
-     */
-    public function getLogDir()
+    public function getLogDir() : string
     {
         return \sys_get_temp_dir() . '/' . $this->getUniqueKernelHash() . '_log';
     }
@@ -58,10 +53,7 @@ abstract class AbstractSymplifyKernel extends \ECSPrefix20210517\Symfony\Compone
             $loader->load($config);
         }
     }
-    /**
-     * @return string
-     */
-    private function getUniqueKernelHash()
+    private function getUniqueKernelHash() : string
     {
         $kernelUniqueHasher = new \ECSPrefix20210517\Symplify\SymplifyKernel\Strings\KernelUniqueHasher();
         return $kernelUniqueHasher->hashKernelClass(static::class);

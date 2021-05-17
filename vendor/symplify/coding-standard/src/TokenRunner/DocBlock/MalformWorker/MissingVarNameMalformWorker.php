@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -15,14 +16,9 @@ final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\Toke
     const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\\/\\*\\* @var )(?<type>[\\\\\\w\\|]+)(?<close>\\s+\\*\\/)$#';
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
-        $docContent = (string) $docContent;
-        $position = (int) $position;
         if (!\ECSPrefix20210517\Nette\Utils\Strings::match($docContent, self::VAR_WITHOUT_NAME_REGEX)) {
             return $docContent;
         }
@@ -37,16 +33,14 @@ final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\Toke
     /**
      * @param Tokens<Token> $tokens
      * @return \PhpCsFixer\Tokenizer\Token|null
-     * @param int $position
      */
-    private function getNextVariableToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function getNextVariableToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
     {
-        $position = (int) $position;
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($position);
         if ($nextMeaningfulTokenPosition === null) {
             return null;
         }
-        $nextToken = isset($tokens[$nextMeaningfulTokenPosition]) ? $tokens[$nextMeaningfulTokenPosition] : null;
+        $nextToken = $tokens[$nextMeaningfulTokenPosition] ?? null;
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return null;
         }

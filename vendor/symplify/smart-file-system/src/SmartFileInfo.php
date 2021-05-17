@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SmartFileSystem;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -22,12 +23,8 @@ final class SmartFileInfo extends \ECSPrefix20210517\Symfony\Component\Finder\Sp
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    /**
-     * @param string $filePath
-     */
-    public function __construct($filePath)
+    public function __construct(string $filePath)
     {
-        $filePath = (string) $filePath;
         $this->smartFileSystem = new \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileSystem();
         // accepts also dirs
         if (!\file_exists($filePath)) {
@@ -44,66 +41,42 @@ final class SmartFileInfo extends \ECSPrefix20210517\Symfony\Component\Finder\Sp
         }
         parent::__construct($filePath, $relativeDirectoryPath, $relativeFilePath);
     }
-    /**
-     * @return string
-     */
-    public function getBasenameWithoutSuffix()
+    public function getBasenameWithoutSuffix() : string
     {
         return \pathinfo($this->getFilename())['filename'];
     }
-    /**
-     * @return string
-     */
-    public function getSuffix()
+    public function getSuffix() : string
     {
         return \pathinfo($this->getFilename(), \PATHINFO_EXTENSION);
     }
     /**
      * @param string[] $suffixes
-     * @return bool
      */
-    public function hasSuffixes(array $suffixes)
+    public function hasSuffixes(array $suffixes) : bool
     {
         return \in_array($this->getSuffix(), $suffixes, \true);
     }
-    /**
-     * @return string
-     */
-    public function getRealPathWithoutSuffix()
+    public function getRealPathWithoutSuffix() : string
     {
         return \ECSPrefix20210517\Nette\Utils\Strings::replace($this->getRealPath(), self::LAST_SUFFIX_REGEX, '');
     }
-    /**
-     * @return string
-     */
-    public function getRelativeFilePath()
+    public function getRelativeFilePath() : string
     {
         return $this->getRelativePathname();
     }
-    /**
-     * @return string
-     */
-    public function getRelativeDirectoryPath()
+    public function getRelativeDirectoryPath() : string
     {
         return $this->getRelativePath();
     }
-    /**
-     * @param string $directory
-     * @return string
-     */
-    public function getRelativeFilePathFromDirectory($directory)
+    public function getRelativeFilePathFromDirectory(string $directory) : string
     {
-        $directory = (string) $directory;
         if (!\file_exists($directory)) {
             throw new \ECSPrefix20210517\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException(\sprintf('Directory "%s" was not found in %s.', $directory, self::class));
         }
         $relativeFilePath = $this->smartFileSystem->makePathRelative($this->getNormalizedRealPath(), (string) \realpath($directory));
         return \rtrim($relativeFilePath, '/');
     }
-    /**
-     * @return string
-     */
-    public function getRelativeFilePathFromCwdInTests()
+    public function getRelativeFilePathFromCwdInTests() : string
     {
         // special case for tests
         if (\ECSPrefix20210517\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
@@ -111,73 +84,41 @@ final class SmartFileInfo extends \ECSPrefix20210517\Symfony\Component\Finder\Sp
         }
         return $this->getRelativeFilePathFromDirectory(\getcwd());
     }
-    /**
-     * @return string
-     */
-    public function getRelativeFilePathFromCwd()
+    public function getRelativeFilePathFromCwd() : string
     {
         return $this->getRelativeFilePathFromDirectory(\getcwd());
     }
-    /**
-     * @param string $string
-     * @return bool
-     */
-    public function endsWith($string)
+    public function endsWith(string $string) : bool
     {
-        $string = (string) $string;
         return \ECSPrefix20210517\Nette\Utils\Strings::endsWith($this->getNormalizedRealPath(), $string);
     }
-    /**
-     * @param string $string
-     * @return bool
-     */
-    public function doesFnmatch($string)
+    public function doesFnmatch(string $string) : bool
     {
-        $string = (string) $string;
         if (\fnmatch($this->normalizePath($string), $this->getNormalizedRealPath())) {
             return \true;
         }
         // in case of relative compare
         return \fnmatch('*/' . $this->normalizePath($string), $this->getNormalizedRealPath());
     }
-    /**
-     * @return string
-     */
-    public function getRealPath()
+    public function getRealPath() : string
     {
         // for phar compatibility @see https://github.com/rectorphp/rector/commit/e5d7cee69558f7e6b35d995a5ca03fa481b0407c
         return parent::getRealPath() ?: $this->getPathname();
     }
-    /**
-     * @return string
-     */
-    public function getRealPathDirectory()
+    public function getRealPathDirectory() : string
     {
         return \dirname($this->getRealPath());
     }
-    /**
-     * @param string $partialPath
-     * @return bool
-     */
-    public function startsWith($partialPath)
+    public function startsWith(string $partialPath) : bool
     {
-        $partialPath = (string) $partialPath;
         return \ECSPrefix20210517\Nette\Utils\Strings::startsWith($this->getNormalizedRealPath(), $partialPath);
     }
-    /**
-     * @return string
-     */
-    private function getNormalizedRealPath()
+    private function getNormalizedRealPath() : string
     {
         return $this->normalizePath($this->getRealPath());
     }
-    /**
-     * @param string $path
-     * @return string
-     */
-    private function normalizePath($path)
+    private function normalizePath(string $path) : string
     {
-        $path = (string) $path;
         return \str_replace('\\', '/', $path);
     }
 }

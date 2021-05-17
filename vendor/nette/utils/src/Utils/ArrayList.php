@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 use ECSPrefix20210517\Nette;
@@ -13,17 +18,15 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
     private $list = [];
     /**
      * Returns an iterator over all items.
-     * @return \ArrayIterator
      */
-    public function getIterator()
+    public function getIterator() : \ArrayIterator
     {
         return new \ArrayIterator($this->list);
     }
     /**
      * Returns items count.
-     * @return int
      */
-    public function count()
+    public function count() : int
     {
         return \count($this->list);
     }
@@ -60,9 +63,8 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
     /**
      * Determines whether a item exists.
      * @param  int  $index
-     * @return bool
      */
-    public function offsetExists($index)
+    public function offsetExists($index) : bool
     {
         return \is_int($index) && $index >= 0 && $index < \count($this->list);
     }

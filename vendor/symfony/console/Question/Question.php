@@ -33,9 +33,8 @@ class Question
      * @param string $question The question to ask to the user
      * @param mixed  $default  The default answer to return if the user enters nothing
      */
-    public function __construct($question, $default = null)
+    public function __construct(string $question, $default = null)
     {
-        $question = (string) $question;
         $this->question = $question;
         $this->default = $default;
     }
@@ -59,9 +58,8 @@ class Question
     }
     /**
      * Returns whether the user response accepts newline characters.
-     * @return bool
      */
-    public function isMultiline()
+    public function isMultiline() : bool
     {
         return $this->multiline;
     }
@@ -69,11 +67,9 @@ class Question
      * Sets whether the user response should accept newline characters.
      *
      * @return $this
-     * @param bool $multiline
      */
-    public function setMultiline($multiline)
+    public function setMultiline(bool $multiline)
     {
-        $multiline = (bool) $multiline;
         $this->multiline = $multiline;
         return $this;
     }
@@ -152,7 +148,7 @@ class Question
         } elseif ($values instanceof \Traversable) {
             $valueCache = null;
             $callback = static function () use($values, &$valueCache) {
-                return isset($valueCache) ? $valueCache : ($valueCache = \iterator_to_array($values, \false));
+                return $valueCache ?? ($valueCache = \iterator_to_array($values, \false));
             };
         } else {
             $callback = null;
@@ -260,20 +256,15 @@ class Question
     {
         return (bool) \count(\array_filter(\array_keys($array), 'is_string'));
     }
-    /**
-     * @return bool
-     */
-    public function isTrimmable()
+    public function isTrimmable() : bool
     {
         return $this->trimmable;
     }
     /**
      * @return $this
-     * @param bool $trimmable
      */
-    public function setTrimmable($trimmable)
+    public function setTrimmable(bool $trimmable)
     {
-        $trimmable = (bool) $trimmable;
         $this->trimmable = $trimmable;
         return $this;
     }

@@ -15,16 +15,8 @@ namespace ECSPrefix20210517\Symfony\Component\HttpKernel\Exception;
  */
 class ControllerDoesNotReturnResponseException extends \LogicException
 {
-    /**
-     * @param string $message
-     * @param string $file
-     * @param int $line
-     */
-    public function __construct($message, callable $controller, $file, $line)
+    public function __construct(string $message, callable $controller, string $file, int $line)
     {
-        $message = (string) $message;
-        $file = (string) $file;
-        $line = (int) $line;
         parent::__construct($message);
         if (!($controllerDefinition = $this->parseControllerDefinition($controller))) {
             return;

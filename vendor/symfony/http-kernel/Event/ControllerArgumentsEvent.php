@@ -37,10 +37,7 @@ final class ControllerArgumentsEvent extends \ECSPrefix20210517\Symfony\Componen
         $this->controller = $controller;
         $this->arguments = $arguments;
     }
-    /**
-     * @return callable
-     */
-    public function getController()
+    public function getController() : callable
     {
         return $this->controller;
     }
@@ -48,10 +45,7 @@ final class ControllerArgumentsEvent extends \ECSPrefix20210517\Symfony\Componen
     {
         $this->controller = $controller;
     }
-    /**
-     * @return mixed[]
-     */
-    public function getArguments()
+    public function getArguments() : array
     {
         return $this->arguments;
     }

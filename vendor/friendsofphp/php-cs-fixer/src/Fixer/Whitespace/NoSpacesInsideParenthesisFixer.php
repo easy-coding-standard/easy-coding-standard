@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,9 +27,8 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('There MUST NOT be a space after the opening parenthesis. There MUST NOT be a space before the closing parenthesis.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif ( \$a ) {\n    foo( );\n}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction foo( \$bar, \$baz )\n{\n}\n")]);
     }
@@ -37,17 +37,15 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
      *
      * Must run before FunctionToConstantFixer.
      * Must run after CombineConsecutiveIssetsFixer, CombineNestedDirnameFixer, LambdaNotUsedImportFixer, NoUselessSprintfFixer, PowToExponentiationFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 2;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('(');
     }
@@ -80,11 +78,9 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
     /**
      * Remove spaces from token at a given index.
      * @return void
-     * @param int $index
      */
-    private function removeSpaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function removeSpaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $token = $tokens[$index];
         if ($token->isWhitespace() && \false === \strpos($token->getContent(), "\n")) {
             $tokens->clearAt($index);

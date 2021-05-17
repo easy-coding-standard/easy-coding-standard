@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -17,17 +18,11 @@ use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
  */
 final class PHP71MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
 {
-    /**
-     * @return mixed[]
-     */
-    public function getRules()
+    public function getRules() : array
     {
         return ['@PHP70Migration:risky' => \true, 'void_return' => \true];
     }
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription() : string
     {
         return 'Rules to improve code for PHP 7.1 compatibility.';
     }

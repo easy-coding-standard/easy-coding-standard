@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,9 +26,8 @@ final class PhpdocTrimFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPDoc should start and end with content, excluding the very first and last line of the docblocks.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
@@ -44,17 +44,15 @@ final class Foo {}
      *
      * Must run before PhpdocAlignFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, GeneralPhpdocAnnotationRemoveFixer, PhpUnitTestAnnotationFixer, PhpdocIndentFixer, PhpdocNoAccessFixer, PhpdocNoEmptyReturnFixer, PhpdocNoPackageFixer, PhpdocOrderFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -5;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -78,12 +76,9 @@ final class Foo {}
     }
     /**
      * Make sure the first useful line starts immediately after the first line.
-     * @param string $content
-     * @return string
      */
-    private function fixStart($content)
+    private function fixStart(string $content) : string
     {
-        $content = (string) $content;
         return \PhpCsFixer\Preg::replace('~
                 (^/\\*\\*)            # DocComment begin
                 (?:
@@ -95,12 +90,9 @@ final class Foo {}
     }
     /**
      * Make sure the last useful line is immediately before the final line.
-     * @param string $content
-     * @return string
      */
-    private function fixEnd($content)
+    private function fixEnd(string $content) : string
     {
-        $content = (string) $content;
         return \PhpCsFixer\Preg::replace('~
                 (\\R\\h*(?:\\*\\h*)?\\S.*?) # last line with useful content
                 (?:

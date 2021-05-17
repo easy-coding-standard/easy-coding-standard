@@ -34,9 +34,8 @@ class IntegerNode extends \ECSPrefix20210517\Symfony\Component\Config\Definition
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    protected function getValidPlaceholderTypes()
+    protected function getValidPlaceholderTypes() : array
     {
         return ['int'];
     }

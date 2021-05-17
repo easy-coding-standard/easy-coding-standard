@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -70,17 +71,15 @@ final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\Abstrac
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Native type hints for functions should use the correct case.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nclass Bar {\n    public function Foo(CALLABLE \$bar)\n    {\n        return 1;\n    }\n}\n"), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction Foo(INT \$a): Bool\n{\n    return true;\n}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70000)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction Foo(Iterable \$a): VOID\n{\n    echo 'Hello world';\n}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70100)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction Foo(Object \$a)\n{\n    return 'hi!';\n}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70200))]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_FUNCTION, \T_STRING]);
     }
@@ -101,22 +100,18 @@ final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\Abstrac
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixFunctionArgumentTypes(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixFunctionArgumentTypes(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         foreach ($this->functionsAnalyzer->getFunctionArguments($tokens, $index) as $argument) {
             $this->fixArgumentType($tokens, $argument->getTypeAnalysis());
         }
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $this->fixArgumentType($tokens, $this->functionsAnalyzer->getFunctionReturnType($tokens, $index));
     }
     /**

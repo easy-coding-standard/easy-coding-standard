@@ -29,9 +29,8 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20210517\Symfo
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
     {
         $controller = $request->attributes->get('_controller');
         if (\is_array($controller) && \is_callable($controller, \true) && \is_string($controller[0])) {

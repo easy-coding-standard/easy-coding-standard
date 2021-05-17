@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -19,9 +20,9 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class NamespacesAnalyzer
 {
     /**
-     * @return mixed[]
+     * @return NamespaceAnalysis[]
      */
-    public function getDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function getDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
         $namespaces = [];
         for ($index = 1, $count = \count($tokens); $index < $count; ++$index) {

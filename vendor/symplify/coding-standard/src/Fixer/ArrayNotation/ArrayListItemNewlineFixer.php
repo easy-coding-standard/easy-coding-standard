@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -44,25 +45,18 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
         $this->arrayBlockInfoFinder = $arrayBlockInfoFinder;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
-    /**
-     * @return int
-     */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 40;
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if (!$tokens->isAnyTokenKindsFound(\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds::ARRAY_OPEN_TOKENS)) {
             return \false;
@@ -80,10 +74,7 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
             $this->fixArrayOpener($tokens, $arrayBlockInfo);
         }
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $value = ['simple' => 1, 'easy' => 2];
@@ -108,7 +99,7 @@ CODE_SAMPLE
                 return;
             }
             $nextTokenPosition = $position + 1;
-            $nextToken = isset($tokens[$nextTokenPosition]) ? $tokens[$nextTokenPosition] : null;
+            $nextToken = $tokens[$nextTokenPosition] ?? null;
             if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
                 return;
             }

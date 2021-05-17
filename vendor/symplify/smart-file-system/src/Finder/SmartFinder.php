@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SmartFileSystem\Finder;
 
 use ECSPrefix20210517\Symfony\Component\Finder\Finder;
@@ -25,12 +26,10 @@ final class SmartFinder
     }
     /**
      * @param string[] $directoriesOrFiles
-     * @return mixed[]
-     * @param string $path
+     * @return SmartFileInfo[]
      */
-    public function findPaths(array $directoriesOrFiles, $path)
+    public function findPaths(array $directoriesOrFiles, string $path) : array
     {
-        $path = (string) $path;
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
         if ($directories !== []) {
@@ -43,12 +42,10 @@ final class SmartFinder
     /**
      * @param string[] $directoriesOrFiles
      * @param string[] $excludedDirectories
-     * @return mixed[]
-     * @param string $name
+     * @return SmartFileInfo[]
      */
-    public function find(array $directoriesOrFiles, $name, array $excludedDirectories = [])
+    public function find(array $directoriesOrFiles, string $name, array $excludedDirectories = []) : array
     {
-        $name = (string) $name;
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
         if ($directories !== []) {

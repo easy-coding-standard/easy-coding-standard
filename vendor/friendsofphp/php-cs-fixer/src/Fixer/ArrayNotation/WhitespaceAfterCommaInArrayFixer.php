@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,17 +26,15 @@ final class WhitespaceAfterCommaInArrayFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('In array declaration, there MUST be a whitespace after each comma.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$sample = array(1,'a',\$b,);\n")]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]);
     }
@@ -72,11 +71,9 @@ final class WhitespaceAfterCommaInArrayFixer extends \PhpCsFixer\AbstractFixer
      * Method to move index over the non-array elements like function calls or function declarations.
      *
      * @return int New index
-     * @param int $index
      */
-    private function skipNonArrayElements($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function skipNonArrayElements(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens) : int
     {
-        $index = (int) $index;
         if ($tokens[$index]->equals('}')) {
             return $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         }

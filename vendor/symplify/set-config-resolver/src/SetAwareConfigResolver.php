@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver;
 
 use ECSPrefix20210517\Symplify\SetConfigResolver\Config\SetsParameterResolver;
@@ -22,9 +23,9 @@ final class SetAwareConfigResolver extends \ECSPrefix20210517\Symplify\SetConfig
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @return mixed[]
+     * @return SmartFileInfo[]
      */
-    public function resolveFromParameterSetsFromConfigFiles(array $fileInfos)
+    public function resolveFromParameterSetsFromConfigFiles(array $fileInfos) : array
     {
         return $this->setsParameterResolver->resolveFromFileInfos($fileInfos);
     }

@@ -28,9 +28,8 @@ class FileLinkFormatter
     private $urlFormat;
     /**
      * @param string|\Closure $urlFormat the URL format, or a closure that returns it on-demand
-     * @param string $baseDir
      */
-    public function __construct($fileLinkFormat = null, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, $baseDir = null, $urlFormat = null)
+    public function __construct($fileLinkFormat = null, \ECSPrefix20210517\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, string $baseDir = null, $urlFormat = null)
     {
         $fileLinkFormat = ($fileLinkFormat ?: \ini_get('xdebug.file_link_format')) ?: \get_cfg_var('xdebug.file_link_format');
         if ($fileLinkFormat && !\is_array($fileLinkFormat)) {
@@ -42,14 +41,8 @@ class FileLinkFormatter
         $this->baseDir = $baseDir;
         $this->urlFormat = $urlFormat;
     }
-    /**
-     * @param string $file
-     * @param int $line
-     */
-    public function format($file, $line)
+    public function format(string $file, int $line)
     {
-        $file = (string) $file;
-        $line = (int) $line;
         if ($fmt = $this->getFileLinkFormat()) {
             for ($i = 1; isset($fmt[$i]); ++$i) {
                 if (0 === \strpos($file, $k = $fmt[$i++])) {
@@ -63,9 +56,8 @@ class FileLinkFormatter
     }
     /**
      * @internal
-     * @return mixed[]
      */
-    public function __sleep()
+    public function __sleep() : array
     {
         $this->fileLinkFormat = $this->getFileLinkFormat();
         return ['fileLinkFormat'];
@@ -73,13 +65,9 @@ class FileLinkFormatter
     /**
      * @internal
      * @return string|null
-     * @param string $routeName
-     * @param string $queryString
      */
-    public static function generateUrlFormat(\ECSPrefix20210517\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router, $routeName, $queryString)
+    public static function generateUrlFormat(\ECSPrefix20210517\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router, string $routeName, string $queryString)
     {
-        $routeName = (string) $routeName;
-        $queryString = (string) $queryString;
         try {
             return $router->generate($routeName) . $queryString;
         } catch (\Throwable $e) {

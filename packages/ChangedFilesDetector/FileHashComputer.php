@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use ECSPrefix20210517\Symfony\Component\Config\FileLocator;
@@ -15,26 +16,16 @@ use ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException
  */
 final class FileHashComputer
 {
-    /**
-     * @param string $filePath
-     * @return string
-     */
-    public function computeConfig($filePath)
+    public function computeConfig(string $filePath) : string
     {
-        $filePath = (string) $filePath;
         $containerBuilder = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder();
         $loader = $this->createLoader($filePath, $containerBuilder);
         $loader->load($filePath);
         $parameterBag = $containerBuilder->getParameterBag();
         return $this->arrayToHash($containerBuilder->getServiceIds()) . $this->arrayToHash($parameterBag->all());
     }
-    /**
-     * @param string $filePath
-     * @return string
-     */
-    public function compute($filePath)
+    public function compute(string $filePath) : string
     {
-        $filePath = (string) $filePath;
         $fileHash = \md5_file($filePath);
         if (!$fileHash) {
             throw new \Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException(\sprintf('File "%s" was not found', $fileHash));
@@ -43,20 +34,14 @@ final class FileHashComputer
     }
     /**
      * @param mixed[] $array
-     * @return string
      */
-    private function arrayToHash(array $array)
+    private function arrayToHash(array $array) : string
     {
         $serializedArray = \serialize($array);
         return \md5($serializedArray);
     }
-    /**
-     * @param string $filePath
-     * @return \Symfony\Component\Config\Loader\LoaderInterface
-     */
-    private function createLoader($filePath, \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    private function createLoader(string $filePath, \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \ECSPrefix20210517\Symfony\Component\Config\Loader\LoaderInterface
     {
-        $filePath = (string) $filePath;
         $fileLocator = new \ECSPrefix20210517\Symfony\Component\Config\FileLocator([\dirname($filePath)]);
         $loaders = [new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \ECSPrefix20210517\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $fileLocator)];
         $loaderResolver = new \ECSPrefix20210517\Symfony\Component\Config\Loader\LoaderResolver($loaders);

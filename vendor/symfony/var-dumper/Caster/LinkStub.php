@@ -20,12 +20,8 @@ class LinkStub extends \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Con
     public $inVendor = \false;
     private static $vendorRoots;
     private static $composerRoots;
-    /**
-     * @param int $line
-     */
-    public function __construct($label, $line = 0, $href = null)
+    public function __construct($label, int $line = 0, $href = null)
     {
-        $line = (int) $line;
         $this->value = $label;
         if (null === $href) {
             $href = $label;
@@ -61,14 +57,8 @@ class LinkStub extends \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Con
             $this->attr['ellipsis-tail'] = 1;
         }
     }
-    /**
-     * @param string $file
-     * @param bool $inVendor
-     */
-    private function getComposerRoot($file, &$inVendor)
+    private function getComposerRoot(string $file, bool &$inVendor)
     {
-        $file = (string) $file;
-        $inVendor = (bool) $inVendor;
         if (null === self::$vendorRoots) {
             self::$vendorRoots = [];
             foreach (\get_declared_classes() as $class) {

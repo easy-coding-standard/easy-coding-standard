@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\PackageBuilder\Strings;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -14,41 +15,26 @@ final class StringFormatConverter
      * @see https://regex101.com/r/rl1nvl/1
      */
     const BIG_LETTER_REGEX = '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]*)#';
-    /**
-     * @param string $value
-     * @return string
-     */
-    public function underscoreAndHyphenToCamelCase($value)
+    public function underscoreAndHyphenToCamelCase(string $value) : string
     {
-        $value = (string) $value;
         $underscoreToHyphensValue = \str_replace(['_', '-'], ' ', $value);
         $uppercasedWords = \ucwords($underscoreToHyphensValue);
         $value = \str_replace(' ', '', $uppercasedWords);
         return \lcfirst($value);
     }
-    /**
-     * @param string $input
-     * @return string
-     */
-    public function camelCaseToUnderscore($input)
+    public function camelCaseToUnderscore(string $input) : string
     {
-        $input = (string) $input;
         return $this->camelCaseToGlue($input, '_');
     }
-    /**
-     * @param string $input
-     * @return string
-     */
-    public function camelCaseToDashed($input)
+    public function camelCaseToDashed(string $input) : string
     {
-        $input = (string) $input;
         return $this->camelCaseToGlue($input, '-');
     }
     /**
      * @param mixed[] $items
      * @return mixed[]
      */
-    public function camelCaseToUnderscoreInArrayKeys(array $items)
+    public function camelCaseToUnderscoreInArrayKeys(array $items) : array
     {
         foreach ($items as $key => $value) {
             if (!\is_string($key)) {
@@ -63,15 +49,8 @@ final class StringFormatConverter
         }
         return $items;
     }
-    /**
-     * @param string $input
-     * @param string $glue
-     * @return string
-     */
-    private function camelCaseToGlue($input, $glue)
+    private function camelCaseToGlue(string $input, string $glue) : string
     {
-        $input = (string) $input;
-        $glue = (string) $glue;
         $matches = \ECSPrefix20210517\Nette\Utils\Strings::matchAll($input, self::BIG_LETTER_REGEX);
         $parts = [];
         foreach ($matches as $match) {

@@ -20,7 +20,6 @@ interface WrappableOutputFormatterInterface extends \ECSPrefix20210517\Symfony\C
     /**
      * Formats a message according to the given styles, wrapping at `$width` (0 means no wrapping).
      * @param string|null $message
-     * @param int $width
      */
-    public function formatAndWrap($message, $width);
+    public function formatAndWrap($message, int $width);
 }

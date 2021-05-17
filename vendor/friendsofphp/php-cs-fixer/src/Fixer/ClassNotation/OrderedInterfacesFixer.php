@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -52,25 +53,22 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
     const SUPPORTED_ORDER_OPTIONS = [self::ORDER_ALPHA, self::ORDER_LENGTH];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Orders the interfaces in an `implements` or `interface extends` clause.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nfinal class ExampleA implements Gamma, Alpha, Beta {}\n\ninterface ExampleB extends Gamma, Alpha, Beta {}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nfinal class ExampleA implements Gamma, Alpha, Beta {}\n\ninterface ExampleB extends Gamma, Alpha, Beta {}\n", [self::OPTION_DIRECTION => self::DIRECTION_DESCEND]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nfinal class ExampleA implements MuchLonger, Short, Longer {}\n\ninterface ExampleB extends MuchLonger, Short, Longer {}\n", [self::OPTION_ORDER => self::ORDER_LENGTH]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nfinal class ExampleA implements MuchLonger, Short, Longer {}\n\ninterface ExampleB extends MuchLonger, Short, Longer {}\n", [self::OPTION_ORDER => self::ORDER_LENGTH, self::OPTION_DIRECTION => self::DIRECTION_DESCEND])], null, "Risky for `implements` when specifying both an interface and its parent interface, because PHP doesn't break on `parent, child` but does on `child, parent`.");
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_IMPLEMENTS) || $tokens->isAllTokenKindsFound([\T_INTERFACE, \T_EXTENDS]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \true;
     }
@@ -149,9 +147,8 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder(self::OPTION_ORDER, 'How the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_ORDER_OPTIONS)->setDefault(self::ORDER_ALPHA)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder(self::OPTION_DIRECTION, 'Which direction the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_DIRECTION_OPTIONS)->setDefault(self::DIRECTION_ASCEND)->getOption()]);
     }

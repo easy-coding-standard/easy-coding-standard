@@ -17,7 +17,10 @@ abstract class ServiceLocatorTest extends \ECSPrefix20210517\PHPUnit\Framework\T
 {
     protected function getServiceLocator(array $factories)
     {
-        return new \ECSPrefix20210517\Symfony\Contracts\Service\Test\Anonymous__d6c1c77bf942b97f808b4e2980b37377__0($factories);
+        return new class($factories) implements \ECSPrefix20210517\Psr\Container\ContainerInterface
+        {
+            use ServiceLocatorTrait;
+        };
     }
     public function testHas()
     {
@@ -77,8 +80,4 @@ abstract class ServiceLocatorTest extends \ECSPrefix20210517\PHPUnit\Framework\T
         }]);
         $locator->get('foo');
     }
-}
-class Anonymous__d6c1c77bf942b97f808b4e2980b37377__0 implements \ECSPrefix20210517\Psr\Container\ContainerInterface
-{
-    use ServiceLocatorTrait;
 }

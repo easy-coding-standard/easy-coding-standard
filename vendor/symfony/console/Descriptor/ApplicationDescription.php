@@ -36,21 +36,13 @@ class ApplicationDescription
      * @var Command[]
      */
     private $aliases;
-    /**
-     * @param string $namespace
-     * @param bool $showHidden
-     */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\Console\Application $application, $namespace = null, $showHidden = \false)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\Console\Application $application, string $namespace = null, bool $showHidden = \false)
     {
-        $showHidden = (bool) $showHidden;
         $this->application = $application;
         $this->namespace = $namespace;
         $this->showHidden = $showHidden;
     }
-    /**
-     * @return mixed[]
-     */
-    public function getNamespaces()
+    public function getNamespaces() : array
     {
         if (null === $this->namespaces) {
             $this->inspectApplication();
@@ -58,9 +50,9 @@ class ApplicationDescription
         return $this->namespaces;
     }
     /**
-     * @return mixed[]
+     * @return Command[]
      */
-    public function getCommands()
+    public function getCommands() : array
     {
         if (null === $this->commands) {
             $this->inspectApplication();
@@ -69,16 +61,13 @@ class ApplicationDescription
     }
     /**
      * @throws CommandNotFoundException
-     * @param string $name
-     * @return \Symfony\Component\Console\Command\Command
      */
-    public function getCommand($name)
+    public function getCommand(string $name) : \ECSPrefix20210517\Symfony\Component\Console\Command\Command
     {
-        $name = (string) $name;
         if (!isset($this->commands[$name]) && !isset($this->aliases[$name])) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
-        return isset($this->commands[$name]) ? $this->commands[$name] : $this->aliases[$name];
+        return $this->commands[$name] ?? $this->aliases[$name];
     }
     private function inspectApplication()
     {
@@ -102,10 +91,7 @@ class ApplicationDescription
             $this->namespaces[$namespace] = ['id' => $namespace, 'commands' => $names];
         }
     }
-    /**
-     * @return mixed[]
-     */
-    private function sortCommands(array $commands)
+    private function sortCommands(array $commands) : array
     {
         $namespacedCommands = [];
         $globalCommands = [];

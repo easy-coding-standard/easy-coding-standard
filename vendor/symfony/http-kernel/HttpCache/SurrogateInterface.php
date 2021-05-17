@@ -55,10 +55,8 @@ interface SurrogateInterface
      * @param string $comment A comment to add as an esi:include tag
      *
      * @return string
-     * @param string $uri
-     * @param bool $ignoreErrors
      */
-    public function renderIncludeTag($uri, $alt = null, $ignoreErrors = \true, $comment = '');
+    public function renderIncludeTag(string $uri, string $alt = null, bool $ignoreErrors = \true, string $comment = '');
     /**
      * Replaces a Response Surrogate tags with the included resource content.
      *
@@ -74,8 +72,6 @@ interface SurrogateInterface
      *
      * @throws \RuntimeException
      * @throws \Exception
-     * @param string $uri
-     * @param bool $ignoreErrors
      */
-    public function handle(\ECSPrefix20210517\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, $uri, $alt, $ignoreErrors);
+    public function handle(\ECSPrefix20210517\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, string $uri, string $alt, bool $ignoreErrors);
 }

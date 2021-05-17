@@ -29,11 +29,9 @@ class FileProfilerStorage implements \ECSPrefix20210517\Symfony\Component\HttpKe
      * Example : "file:/path/to/the/storage/folder"
      *
      * @throws \RuntimeException
-     * @param string $dsn
      */
-    public function __construct($dsn)
+    public function __construct(string $dsn)
     {
-        $dsn = (string) $dsn;
         if (0 !== \strpos($dsn, 'file:')) {
             throw new \RuntimeException(\sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
         }
@@ -49,14 +47,9 @@ class FileProfilerStorage implements \ECSPrefix20210517\Symfony\Component\HttpKe
      * @param string|null $url
      * @param int|null $limit
      * @param string|null $method
-     * @param int $start
-     * @param int $end
-     * @return mixed[]
      */
-    public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null)
+    public function find($ip, $url, $limit, $method, int $start = null, int $end = null, $statusCode = null) : array
     {
-        $start = (int) $start;
-        $end = (int) $end;
         $file = $this->getIndexFilename();
         if (!\file_exists($file)) {
             return [];
@@ -101,11 +94,9 @@ class FileProfilerStorage implements \ECSPrefix20210517\Symfony\Component\HttpKe
     /**
      * {@inheritdoc}
      * @return \Symfony\Component\HttpKernel\Profiler\Profile|null
-     * @param string $token
      */
-    public function read($token)
+    public function read(string $token)
     {
-        $token = (string) $token;
         if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;
         }
@@ -118,9 +109,8 @@ class FileProfilerStorage implements \ECSPrefix20210517\Symfony\Component\HttpKe
      * {@inheritdoc}
      *
      * @throws \RuntimeException
-     * @return bool
      */
-    public function write(\ECSPrefix20210517\Symfony\Component\HttpKernel\Profiler\Profile $profile)
+    public function write(\ECSPrefix20210517\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool
     {
         $file = $this->getFilename($profile->getToken());
         $profileIndexed = \is_file($file);
@@ -162,11 +152,9 @@ class FileProfilerStorage implements \ECSPrefix20210517\Symfony\Component\HttpKe
      * Gets filename to store data, associated to the token.
      *
      * @return string The profile filename
-     * @param string $token
      */
-    protected function getFilename($token)
+    protected function getFilename(string $token)
     {
-        $token = (string) $token;
         // Uses 4 last characters, because first are mostly the same.
         $folderA = \substr($token, -2, 2);
         $folderB = \substr($token, -4, 2);
@@ -219,12 +207,8 @@ class FileProfilerStorage implements \ECSPrefix20210517\Symfony\Component\HttpKe
         }
         return '' === $line ? null : $line;
     }
-    /**
-     * @param string $token
-     */
-    protected function createProfileFromData($token, array $data, \ECSPrefix20210517\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
+    protected function createProfileFromData(string $token, array $data, \ECSPrefix20210517\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
     {
-        $token = (string) $token;
         $profile = new \ECSPrefix20210517\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);
         $profile->setMethod($data['method']);

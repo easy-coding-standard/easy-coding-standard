@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of sebastian/diff.
  *
@@ -69,9 +70,8 @@ final class Differ
      *
      * @param array|string $from
      * @param array|string $to
-     * @return string
      */
-    public function diff($from, $to, \ECSPrefix20210517\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs = null)
+    public function diff($from, $to, \ECSPrefix20210517\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs = null) : string
     {
         $diff = $this->diffToArray($this->normalizeDiffInput($from), $this->normalizeDiffInput($to), $lcs);
         return $this->outputBuilder->getDiff($diff);
@@ -90,9 +90,8 @@ final class Differ
      * @param array|string                       $from
      * @param array|string                       $to
      * @param LongestCommonSubsequenceCalculator $lcs
-     * @return mixed[]
      */
-    public function diffToArray($from, $to, \ECSPrefix20210517\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs = null)
+    public function diffToArray($from, $to, \ECSPrefix20210517\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs = null) : array
     {
         if (\is_string($from)) {
             $from = $this->splitStringByLines($from);
@@ -154,18 +153,12 @@ final class Differ
     }
     /**
      * Checks if input is string, if so it will split it line-by-line.
-     * @param string $input
-     * @return mixed[]
      */
-    private function splitStringByLines($input)
+    private function splitStringByLines(string $input) : array
     {
-        $input = (string) $input;
         return \preg_split('/(.*\\R)/', $input, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY);
     }
-    /**
-     * @return \SebastianBergmann\Diff\LongestCommonSubsequenceCalculator
-     */
-    private function selectLcsImplementation(array $from, array $to)
+    private function selectLcsImplementation(array $from, array $to) : \ECSPrefix20210517\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator
     {
         // We do not want to use the time-efficient implementation if its memory
         // footprint will probably exceed this value. Note that the footprint
@@ -189,9 +182,8 @@ final class Differ
     }
     /**
      * Returns true if line ends don't match in a diff.
-     * @return bool
      */
-    private function detectUnmatchedLineEndings(array $diff)
+    private function detectUnmatchedLineEndings(array $diff) : bool
     {
         $newLineBreaks = ['' => \true];
         $oldLineBreaks = ['' => \true];
@@ -223,10 +215,7 @@ final class Differ
         }
         return \false;
     }
-    /**
-     * @return string
-     */
-    private function getLinebreak($line)
+    private function getLinebreak($line) : string
     {
         if (!\is_string($line)) {
             return '';
@@ -243,10 +232,7 @@ final class Differ
         }
         return "\n";
     }
-    /**
-     * @return mixed[]
-     */
-    private static function getArrayDiffParted(array &$from, array &$to)
+    private static function getArrayDiffParted(array &$from, array &$to) : array
     {
         $start = [];
         $end = [];

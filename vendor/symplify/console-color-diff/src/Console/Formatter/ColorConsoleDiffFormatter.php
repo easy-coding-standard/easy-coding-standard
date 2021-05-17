@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\ConsoleColorDiff\Console\Formatter;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -41,24 +42,12 @@ final class ColorConsoleDiffFormatter
     {
         $this->template = \sprintf('<comment>    ---------- begin diff ----------</comment>%s%%s%s<comment>    ----------- end diff -----------</comment>' . \PHP_EOL, \PHP_EOL, \PHP_EOL);
     }
-    /**
-     * @param string $diff
-     * @return string
-     */
-    public function format($diff)
+    public function format(string $diff) : string
     {
-        $diff = (string) $diff;
         return $this->formatWithTemplate($diff, $this->template);
     }
-    /**
-     * @param string $diff
-     * @param string $template
-     * @return string
-     */
-    private function formatWithTemplate($diff, $template)
+    private function formatWithTemplate(string $diff, string $template) : string
     {
-        $diff = (string) $diff;
-        $template = (string) $template;
         $escapedDiff = \ECSPrefix20210517\Symfony\Component\Console\Formatter\OutputFormatter::escape(\rtrim($diff));
         $escapedDiffLines = \ECSPrefix20210517\Nette\Utils\Strings::split($escapedDiff, self::NEWLINES_REGEX);
         $coloredLines = \array_map(function (string $string) : string {
@@ -72,31 +61,16 @@ final class ColorConsoleDiffFormatter
         }, $escapedDiffLines);
         return \sprintf($template, \implode(\PHP_EOL, $coloredLines));
     }
-    /**
-     * @param string $string
-     * @return string
-     */
-    private function makePlusLinesGreen($string)
+    private function makePlusLinesGreen(string $string) : string
     {
-        $string = (string) $string;
         return \ECSPrefix20210517\Nette\Utils\Strings::replace($string, self::PLUS_START_REGEX, '<fg=green>$1</fg=green>');
     }
-    /**
-     * @param string $string
-     * @return string
-     */
-    private function makeMinusLinesRed($string)
+    private function makeMinusLinesRed(string $string) : string
     {
-        $string = (string) $string;
         return \ECSPrefix20210517\Nette\Utils\Strings::replace($string, self::MINUT_START_REGEX, '<fg=red>$1</fg=red>');
     }
-    /**
-     * @param string $string
-     * @return string
-     */
-    private function makeAtNoteCyan($string)
+    private function makeAtNoteCyan(string $string) : string
     {
-        $string = (string) $string;
         return \ECSPrefix20210517\Nette\Utils\Strings::replace($string, self::AT_START_REGEX, '<fg=cyan>$1</fg=cyan>');
     }
 }

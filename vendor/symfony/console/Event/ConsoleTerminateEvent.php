@@ -21,28 +21,19 @@ use ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface;
 final class ConsoleTerminateEvent extends \ECSPrefix20210517\Symfony\Component\Console\Event\ConsoleEvent
 {
     private $exitCode;
-    /**
-     * @param int $exitCode
-     */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\Console\Command\Command $command, \ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $exitCode)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\Console\Command\Command $command, \ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, int $exitCode)
     {
-        $exitCode = (int) $exitCode;
         parent::__construct($command, $input, $output);
         $this->setExitCode($exitCode);
     }
     /**
      * @return void
-     * @param int $exitCode
      */
-    public function setExitCode($exitCode)
+    public function setExitCode(int $exitCode)
     {
-        $exitCode = (int) $exitCode;
         $this->exitCode = $exitCode;
     }
-    /**
-     * @return int
-     */
-    public function getExitCode()
+    public function getExitCode() : int
     {
         return $this->exitCode;
     }

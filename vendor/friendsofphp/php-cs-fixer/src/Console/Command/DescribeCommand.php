@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -78,9 +79,8 @@ final class DescribeCommand extends \ECSPrefix20210517\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
-     * @return int
      */
-    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         if (\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof \ECSPrefix20210517\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $stdErr = $output->getErrorOutput();
@@ -104,11 +104,9 @@ final class DescribeCommand extends \ECSPrefix20210517\Symfony\Component\Console
     }
     /**
      * @return void
-     * @param string $name
      */
-    private function describeRule(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $name)
+    private function describeRule(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, string $name)
     {
-        $name = (string) $name;
         $fixers = $this->getFixers();
         if (!isset($fixers[$name])) {
             throw new \PhpCsFixer\Console\Command\DescribeNameNotFoundException($name, 'rule');
@@ -217,11 +215,9 @@ final class DescribeCommand extends \ECSPrefix20210517\Symfony\Component\Console
     }
     /**
      * @return void
-     * @param string $name
      */
-    private function describeSet(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $name)
+    private function describeSet(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, string $name)
     {
-        $name = (string) $name;
         if (!\in_array($name, $this->getSetNames(), \true)) {
             throw new \PhpCsFixer\Console\Command\DescribeNameNotFoundException($name, 'set');
         }
@@ -248,9 +244,9 @@ final class DescribeCommand extends \ECSPrefix20210517\Symfony\Component\Console
         $output->write($help);
     }
     /**
-     * @return mixed[]
+     * @return array<string, FixerInterface>
      */
-    private function getFixers()
+    private function getFixers() : array
     {
         if (null !== $this->fixers) {
             return $this->fixers;
@@ -264,9 +260,9 @@ final class DescribeCommand extends \ECSPrefix20210517\Symfony\Component\Console
         return $this->fixers;
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    private function getSetNames()
+    private function getSetNames() : array
     {
         if (null !== $this->setNames) {
             return $this->setNames;
@@ -278,9 +274,8 @@ final class DescribeCommand extends \ECSPrefix20210517\Symfony\Component\Console
      * @param string $type 'rule'|'set'
      * @return void
      */
-    private function describeList(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $type)
+    private function describeList(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, string $type)
     {
-        $type = (string) $type;
         if ($output->getVerbosity() >= \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE) {
             $describe = ['sets' => $this->getSetNames(), 'rules' => $this->getFixers()];
         } elseif ($output->getVerbosity() >= \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
@@ -296,13 +291,8 @@ final class DescribeCommand extends \ECSPrefix20210517\Symfony\Component\Console
             }
         }
     }
-    /**
-     * @param string $content
-     * @return string
-     */
-    private function replaceRstLinks($content)
+    private function replaceRstLinks(string $content) : string
     {
-        $content = (string) $content;
         return \PhpCsFixer\Preg::replaceCallback('/(`[^<]+<[^>]+>`_)/', static function (array $matches) {
             return \PhpCsFixer\Preg::replaceCallback('/`(.*)<(.*)>`_/', static function (array $matches) {
                 return $matches[1] . '(' . $matches[2] . ')';

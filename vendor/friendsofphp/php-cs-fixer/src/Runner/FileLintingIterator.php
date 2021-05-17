@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -56,10 +57,7 @@ final class FileLintingIterator extends \IteratorIterator
         parent::rewind();
         $this->currentResult = $this->valid() ? $this->handleItem($this->current()) : null;
     }
-    /**
-     * @return \PhpCsFixer\Linter\LintingResultInterface
-     */
-    private function handleItem(\SplFileInfo $file)
+    private function handleItem(\SplFileInfo $file) : \PhpCsFixer\Linter\LintingResultInterface
     {
         return $this->linter->lintFile($file->getRealPath());
     }

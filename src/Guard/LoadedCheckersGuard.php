@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Guard;
 
 use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
@@ -19,10 +20,7 @@ final class LoadedCheckersGuard
         $this->fileProcessorCollector = $fileProcessorCollector;
         $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
     }
-    /**
-     * @return bool
-     */
-    public function areSomeCheckerRegistered()
+    public function areSomeCheckerRegistered() : bool
     {
         $checkerCount = $this->getCheckerCount();
         return $checkerCount !== 0;
@@ -34,10 +32,7 @@ final class LoadedCheckersGuard
     {
         $this->noCheckersLoaderReporter->report();
     }
-    /**
-     * @return int
-     */
-    private function getCheckerCount()
+    private function getCheckerCount() : int
     {
         $checkerCount = 0;
         $fileProcessors = $this->fileProcessorCollector->getFileProcessors();

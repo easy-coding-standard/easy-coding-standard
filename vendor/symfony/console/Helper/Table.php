@@ -85,11 +85,9 @@ class Table
     }
     /**
      * Sets a style definition.
-     * @param string $name
      */
-    public static function setStyleDefinition($name, \ECSPrefix20210517\Symfony\Component\Console\Helper\TableStyle $style)
+    public static function setStyleDefinition(string $name, \ECSPrefix20210517\Symfony\Component\Console\Helper\TableStyle $style)
     {
-        $name = (string) $name;
         if (!self::$styles) {
             self::$styles = self::initStyles();
         }
@@ -99,11 +97,9 @@ class Table
      * Gets a style definition by name.
      *
      * @return TableStyle
-     * @param string $name
      */
-    public static function getStyleDefinition($name)
+    public static function getStyleDefinition(string $name)
     {
-        $name = (string) $name;
         if (!self::$styles) {
             self::$styles = self::initStyles();
         }
@@ -139,11 +135,9 @@ class Table
      * @param TableStyle|string $name The style name or a TableStyle instance
      *
      * @return $this
-     * @param int $columnIndex
      */
-    public function setColumnStyle($columnIndex, $name)
+    public function setColumnStyle(int $columnIndex, $name)
     {
-        $columnIndex = (int) $columnIndex;
         $this->columnStyles[$columnIndex] = $this->resolveStyle($name);
         return $this;
     }
@@ -153,24 +147,18 @@ class Table
      * If style was not set, it returns the global table style.
      *
      * @return TableStyle
-     * @param int $columnIndex
      */
-    public function getColumnStyle($columnIndex)
+    public function getColumnStyle(int $columnIndex)
     {
-        $columnIndex = (int) $columnIndex;
-        return isset($this->columnStyles[$columnIndex]) ? $this->columnStyles[$columnIndex] : $this->getStyle();
+        return $this->columnStyles[$columnIndex] ?? $this->getStyle();
     }
     /**
      * Sets the minimum width of a column.
      *
      * @return $this
-     * @param int $columnIndex
-     * @param int $width
      */
-    public function setColumnWidth($columnIndex, $width)
+    public function setColumnWidth(int $columnIndex, int $width)
     {
-        $columnIndex = (int) $columnIndex;
-        $width = (int) $width;
         $this->columnWidths[$columnIndex] = $width;
         return $this;
     }
@@ -194,13 +182,9 @@ class Table
      * formatted strings are preserved.
      *
      * @return $this
-     * @param int $columnIndex
-     * @param int $width
      */
-    public function setColumnMaxWidth($columnIndex, $width)
+    public function setColumnMaxWidth(int $columnIndex, int $width)
     {
-        $columnIndex = (int) $columnIndex;
-        $width = (int) $width;
         if (!$this->output->getFormatter() instanceof \ECSPrefix20210517\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface) {
             throw new \LogicException(\sprintf('Setting a maximum column width is only supported when using a "%s" formatter, got "%s".', \ECSPrefix20210517\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface::class, \get_debug_type($this->output->getFormatter())));
         }
@@ -281,11 +265,9 @@ class Table
     }
     /**
      * @return $this
-     * @param bool $horizontal
      */
-    public function setHorizontal($horizontal = \true)
+    public function setHorizontal(bool $horizontal = \true)
     {
-        $horizontal = (bool) $horizontal;
         $this->horizontal = $horizontal;
         return $this;
     }
@@ -307,7 +289,7 @@ class Table
         $divider = new \ECSPrefix20210517\Symfony\Component\Console\Helper\TableSeparator();
         if ($this->horizontal) {
             $rows = [];
-            foreach (isset($this->headers[0]) ? $this->headers[0] : [] as $i => $header) {
+            foreach ($this->headers[0] ?? [] as $i => $header) {
                 $rows[$i] = [$header];
                 foreach ($this->rows as $row) {
                     if ($row instanceof \ECSPrefix20210517\Symfony\Component\Console\Helper\TableSeparator) {
@@ -367,13 +349,9 @@ class Table
      * Example:
      *
      *     +-----+-----------+-------+
-     * @param int $type
-     * @param string $title
-     * @param string $titleFormat
      */
-    private function renderRowSeparator($type = self::SEPARATOR_MID, $title = null, $titleFormat = null)
+    private function renderRowSeparator(int $type = self::SEPARATOR_MID, string $title = null, string $titleFormat = null)
     {
-        $type = (int) $type;
         if (0 === ($count = $this->numberOfColumns)) {
             return;
         }
@@ -415,12 +393,9 @@ class Table
     }
     /**
      * Renders vertical column separator.
-     * @param int $type
-     * @return string
      */
-    private function renderColumnSeparator($type = self::BORDER_OUTSIDE)
+    private function renderColumnSeparator(int $type = self::BORDER_OUTSIDE) : string
     {
-        $type = (int) $type;
         $borders = $this->style->getBorderChars();
         return \sprintf($this->style->getBorderFormat(), self::BORDER_OUTSIDE === $type ? $borders[1] : $borders[3]);
     }
@@ -430,12 +405,9 @@ class Table
      * Example:
      *
      *     | 9971-5-0210-0 | A Tale of Two Cities  | Charles Dickens  |
-     * @param string $cellFormat
-     * @param string $firstCellFormat
      */
-    private function renderRow(array $row, $cellFormat, $firstCellFormat = null)
+    private function renderRow(array $row, string $cellFormat, string $firstCellFormat = null)
     {
-        $cellFormat = (string) $cellFormat;
         $rowContent = $this->renderColumnSeparator(self::BORDER_OUTSIDE);
         $columns = $this->getRowColumns($row);
         $last = \count($columns) - 1;
@@ -451,15 +423,10 @@ class Table
     }
     /**
      * Renders table cell with padding.
-     * @param int $column
-     * @param string $cellFormat
-     * @return string
      */
-    private function renderCell(array $row, $column, $cellFormat)
+    private function renderCell(array $row, int $column, string $cellFormat) : string
     {
-        $column = (int) $column;
-        $cellFormat = (string) $cellFormat;
-        $cell = isset($row[$column]) ? $row[$column] : '';
+        $cell = $row[$column] ?? '';
         $width = $this->effectiveColumnWidths[$column];
         if ($cell instanceof \ECSPrefix20210517\Symfony\Component\Console\Helper\TableCell && $cell->getColspan() > 1) {
             // add the width of the following columns(numbers of colspan).
@@ -513,10 +480,7 @@ class Table
         }
         $this->numberOfColumns = \max($columns);
     }
-    /**
-     * @return \Symfony\Component\Console\Helper\TableRows
-     */
-    private function buildTableRows(array $rows)
+    private function buildTableRows(array $rows) : \ECSPrefix20210517\Symfony\Component\Console\Helper\TableRows
     {
         /** @var WrappableOutputFormatterInterface $formatter */
         $formatter = $this->output->getFormatter();
@@ -529,7 +493,7 @@ class Table
                 if (isset($this->columnMaxWidths[$column]) && \ECSPrefix20210517\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($formatter, $cell) > $this->columnMaxWidths[$column]) {
                     $cell = $formatter->formatAndWrap($cell, $this->columnMaxWidths[$column] * $colspan);
                 }
-                if (!\strstr(isset($cell) ? $cell : '', "\n")) {
+                if (!\strstr($cell ?? '', "\n")) {
                     continue;
                 }
                 $escaped = \implode("\n", \array_map([\ECSPrefix20210517\Symfony\Component\Console\Formatter\OutputFormatter::class, 'escapeTrailingBackslash'], \explode("\n", $cell)));
@@ -561,10 +525,7 @@ class Table
             }
         });
     }
-    /**
-     * @return int
-     */
-    private function calculateRowCount()
+    private function calculateRowCount() : int
     {
         $numberOfRows = \count(\iterator_to_array($this->buildTableRows(\array_merge($this->headers, [new \ECSPrefix20210517\Symfony\Component\Console\Helper\TableSeparator()], $this->rows))));
         if ($this->headers) {
@@ -581,12 +542,9 @@ class Table
      * fill rows that contains rowspan > 1.
      *
      * @throws InvalidArgumentException
-     * @param int $line
-     * @return mixed[]
      */
-    private function fillNextRows(array $rows, $line)
+    private function fillNextRows(array $rows, int $line) : array
     {
-        $line = (int) $line;
         $unmergedRows = [];
         foreach ($rows[$line] as $column => $cell) {
             if (null !== $cell && !$cell instanceof \ECSPrefix20210517\Symfony\Component\Console\Helper\TableCell && !\is_scalar($cell) && !(\is_object($cell) && \method_exists($cell, '__toString'))) {
@@ -604,7 +562,7 @@ class Table
                 // create a two dimensional array (rowspan x colspan)
                 $unmergedRows = \array_replace_recursive(\array_fill($line + 1, $nbLines, []), $unmergedRows);
                 foreach ($unmergedRows as $unmergedRowKey => $unmergedRow) {
-                    $value = isset($lines[$unmergedRowKey - $line]) ? $lines[$unmergedRowKey - $line] : '';
+                    $value = $lines[$unmergedRowKey - $line] ?? '';
                     $unmergedRows[$unmergedRowKey][$column] = new \ECSPrefix20210517\Symfony\Component\Console\Helper\TableCell($value, ['colspan' => $cell->getColspan(), 'style' => $cell->getStyle()]);
                     if ($nbLines === $unmergedRowKey - $line) {
                         break;
@@ -648,13 +606,8 @@ class Table
         }
         return $newRow ?: $row;
     }
-    /**
-     * @param int $line
-     * @return mixed[]
-     */
-    private function copyRow(array $rows, $line)
+    private function copyRow(array $rows, int $line) : array
     {
-        $line = (int) $line;
         $row = $rows[$line];
         foreach ($row as $cellKey => $cellValue) {
             $row[$cellKey] = '';
@@ -666,9 +619,8 @@ class Table
     }
     /**
      * Gets number of columns by row.
-     * @return int
      */
-    private function getNumberOfColumns(array $row)
+    private function getNumberOfColumns(array $row) : int
     {
         $columns = \count($row);
         foreach ($row as $column) {
@@ -678,9 +630,8 @@ class Table
     }
     /**
      * Gets list of columns for the given row.
-     * @return mixed[]
      */
-    private function getRowColumns(array $row)
+    private function getRowColumns(array $row) : array
     {
         $columns = \range(0, $this->numberOfColumns - 1);
         foreach ($row as $cellKey => $cell) {
@@ -720,26 +671,18 @@ class Table
             $this->effectiveColumnWidths[$column] = \max($lengths) + \ECSPrefix20210517\Symfony\Component\Console\Helper\Helper::strlen($this->style->getCellRowContentFormat()) - 2;
         }
     }
-    /**
-     * @return int
-     */
-    private function getColumnSeparatorWidth()
+    private function getColumnSeparatorWidth() : int
     {
         return \ECSPrefix20210517\Symfony\Component\Console\Helper\Helper::strlen(\sprintf($this->style->getBorderFormat(), $this->style->getBorderChars()[3]));
     }
-    /**
-     * @param int $column
-     * @return int
-     */
-    private function getCellWidth(array $row, $column)
+    private function getCellWidth(array $row, int $column) : int
     {
-        $column = (int) $column;
         $cellWidth = 0;
         if (isset($row[$column])) {
             $cell = $row[$column];
             $cellWidth = \ECSPrefix20210517\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->output->getFormatter(), $cell);
         }
-        $columnWidth = isset($this->columnWidths[$column]) ? $this->columnWidths[$column] : 0;
+        $columnWidth = $this->columnWidths[$column] ?? 0;
         $cellWidth = \max($cellWidth, $columnWidth);
         return isset($this->columnMaxWidths[$column]) ? \min($this->columnMaxWidths[$column], $cellWidth) : $cellWidth;
     }
@@ -751,10 +694,7 @@ class Table
         $this->effectiveColumnWidths = [];
         $this->numberOfColumns = null;
     }
-    /**
-     * @return mixed[]
-     */
-    private static function initStyles()
+    private static function initStyles() : array
     {
         $borderless = new \ECSPrefix20210517\Symfony\Component\Console\Helper\TableStyle();
         $borderless->setHorizontalBorderChars('=')->setVerticalBorderChars(' ')->setDefaultCrossingChar(' ');
@@ -766,10 +706,7 @@ class Table
         $boxDouble = (new \ECSPrefix20210517\Symfony\Component\Console\Helper\TableStyle())->setHorizontalBorderChars('═', '─')->setVerticalBorderChars('║', '│')->setCrossingChars('┼', '╔', '╤', '╗', '╢', '╝', '╧', '╚', '╟', '╠', '╪', '╣');
         return ['default' => new \ECSPrefix20210517\Symfony\Component\Console\Helper\TableStyle(), 'borderless' => $borderless, 'compact' => $compact, 'symfony-style-guide' => $styleGuide, 'box' => $box, 'box-double' => $boxDouble];
     }
-    /**
-     * @return \Symfony\Component\Console\Helper\TableStyle
-     */
-    private function resolveStyle($name)
+    private function resolveStyle($name) : \ECSPrefix20210517\Symfony\Component\Console\Helper\TableStyle
     {
         if ($name instanceof \ECSPrefix20210517\Symfony\Component\Console\Helper\TableStyle) {
             return $name;

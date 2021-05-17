@@ -39,11 +39,10 @@ class ServiceLocator extends \ECSPrefix20210517\Symfony\Component\DependencyInje
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function getProvidedServices()
+    public function getProvidedServices() : array
     {
-        return $this->serviceTypes !== null ? $this->serviceTypes : ($this->serviceTypes = \array_map(function () {
+        return $this->serviceTypes ?? ($this->serviceTypes = \array_map(function () {
             return '?';
         }, $this->serviceMap));
     }

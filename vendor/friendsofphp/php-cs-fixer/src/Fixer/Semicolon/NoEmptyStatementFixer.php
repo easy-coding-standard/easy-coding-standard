@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,9 +26,8 @@ final class NoEmptyStatementFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Remove useless (semicolon) statements.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = 1;;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php echo 1;2;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php while(foo()){\n    continue 1;\n}\n")]);
     }
@@ -36,17 +36,15 @@ final class NoEmptyStatementFixer extends \PhpCsFixer\AbstractFixer
      *
      * Must run before BracesFixer, CombineConsecutiveUnsetsFixer, MultilineWhitespaceBeforeSemicolonsFixer, NoExtraBlankLinesFixer, NoSinglelineWhitespaceBeforeSemicolonsFixer, NoTrailingWhitespaceFixer, NoUselessElseFixer, NoUselessReturnFixer, NoWhitespaceInBlankLineFixer, ReturnAssignmentFixer, SpaceAfterSemicolonFixer, SwitchCaseSemicolonToColonFixer.
      * Must run after NoUselessSprintfFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 40;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(';');
     }
@@ -107,12 +105,9 @@ final class NoEmptyStatementFixer extends \PhpCsFixer\AbstractFixer
      *
      * @param int $index Semicolon index
      * @return void
-     * @param int $curlyCloseIndex
      */
-    private function fixSemicolonAfterCurlyBraceClose(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $curlyCloseIndex)
+    private function fixSemicolonAfterCurlyBraceClose(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $curlyCloseIndex)
     {
-        $index = (int) $index;
-        $curlyCloseIndex = (int) $curlyCloseIndex;
         static $beforeCurlyOpeningKinds = null;
         if (null === $beforeCurlyOpeningKinds) {
             $beforeCurlyOpeningKinds = [\T_ELSE, \T_FINALLY, \T_NAMESPACE, \T_OPEN_TAG];

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer;
 
 use PhpCsFixer\Fixer\FixerInterface;
@@ -8,50 +9,36 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
 {
-    /**
-     * @return int
-     */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return self::class;
     }
-    /**
-     * @return bool
-     */
-    public function isRisky()
+    public function isRisky() : bool
     {
         return \false;
     }
-    /**
-     * @return bool
-     */
-    public function supports(\SplFileInfo $file)
+    public function supports(\SplFileInfo $file) : bool
     {
         return \true;
     }
     /**
-     * @return mixed[]
+     * @return Token[]
      * @param Tokens<Token> $tokens
      */
-    protected function reverseTokens(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function reverseTokens(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
         return \array_reverse($tokens->toArray(), \true);
     }
     /**
      * @param Tokens<Token> $tokens
      * @return \PhpCsFixer\Tokenizer\Token|null
-     * @param int $index
      */
-    protected function getNextMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    protected function getNextMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $nextMeaninfulTokenPosition = $tokens->getNextMeaningfulToken($index);
         if ($nextMeaninfulTokenPosition === null) {
             return null;
@@ -61,11 +48,9 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
     /**
      * @param Tokens<Token> $tokens
      * @return \PhpCsFixer\Tokenizer\Token|null
-     * @param int $index
      */
-    protected function getPreviousToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    protected function getPreviousToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $previousIndex = $index - 1;
         if (!isset($tokens[$previousIndex])) {
             return null;

@@ -37,13 +37,9 @@ class Cookie
      * Creates cookie from raw header string.
      *
      * @return static
-     * @param string $cookie
-     * @param bool $decode
      */
-    public static function fromString($cookie, $decode = \false)
+    public static function fromString(string $cookie, bool $decode = \false)
     {
-        $cookie = (string) $cookie;
-        $decode = (bool) $decode;
         $data = ['expires' => 0, 'path' => '/', 'domain' => null, 'secure' => \false, 'httponly' => \false, 'raw' => !$decode, 'samesite' => null];
         $parts = \ECSPrefix20210517\Symfony\Component\HttpFoundation\HeaderUtils::split($cookie, ';=');
         $part = \array_shift($parts);
@@ -60,38 +56,26 @@ class Cookie
      * @return $this
      * @param string|null $path
      * @param string|null $sameSite
-     * @param string $name
-     * @param string $value
-     * @param string $domain
-     * @param bool $secure
-     * @param bool $httpOnly
-     * @param bool $raw
      */
-    public static function create($name, $value = null, $expire = 0, $path = '/', $domain = null, $secure = null, $httpOnly = \true, $raw = \false, $sameSite = self::SAMESITE_LAX)
+    public static function create(string $name, string $value = null, $expire = 0, $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, $sameSite = self::SAMESITE_LAX)
     {
-        $name = (string) $name;
-        $httpOnly = (bool) $httpOnly;
-        $raw = (bool) $raw;
         return new self($name, $value, $expire, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
     }
     /**
      * @param string                        $name     The name of the cookie
-     * @param string $value The value of the cookie
+     * @param string|null                   $value    The value of the cookie
      * @param int|string|\DateTimeInterface $expire   The time the cookie expires
      * @param string                        $path     The path on the server in which the cookie will be available on
-     * @param string $domain The domain that the cookie is available to
-     * @param bool $secure Whether the client should send back the cookie only over HTTPS or null to auto-enable this when the request is already using HTTPS
+     * @param string|null                   $domain   The domain that the cookie is available to
+     * @param bool|null                     $secure   Whether the client should send back the cookie only over HTTPS or null to auto-enable this when the request is already using HTTPS
      * @param bool                          $httpOnly Whether the cookie will be made accessible only through the HTTP protocol
      * @param bool                          $raw      Whether the cookie value should be sent with no url encoding
      * @param string|null                   $sameSite Whether the cookie will be available for cross-site requests
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($name, $value = null, $expire = 0, $path = '/', $domain = null, $secure = null, $httpOnly = \true, $raw = \false, $sameSite = 'lax')
+    public function __construct(string $name, string $value = null, $expire = 0, $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, $sameSite = 'lax')
     {
-        $name = (string) $name;
-        $httpOnly = (bool) $httpOnly;
-        $raw = (bool) $raw;
         // from PHP source code
         if ($raw && \false !== \strpbrk($name, self::$reservedCharsList)) {
             throw new \InvalidArgumentException(\sprintf('The cookie name "%s" contains invalid characters.', $name));
@@ -170,11 +154,9 @@ class Cookie
      * Creates a cookie copy with a new path on the server in which the cookie will be available on.
      *
      * @return static
-     * @param string $path
      */
-    public function withPath($path)
+    public function withPath(string $path)
     {
-        $path = (string) $path;
         $cookie = clone $this;
         $cookie->path = '' === $path ? '/' : $path;
         return $cookie;
@@ -183,11 +165,9 @@ class Cookie
      * Creates a cookie copy that only be transmitted over a secure HTTPS connection from the client.
      *
      * @return static
-     * @param bool $secure
      */
-    public function withSecure($secure = \true)
+    public function withSecure(bool $secure = \true)
     {
-        $secure = (bool) $secure;
         $cookie = clone $this;
         $cookie->secure = $secure;
         return $cookie;
@@ -196,11 +176,9 @@ class Cookie
      * Creates a cookie copy that be accessible only through the HTTP protocol.
      *
      * @return static
-     * @param bool $httpOnly
      */
-    public function withHttpOnly($httpOnly = \true)
+    public function withHttpOnly(bool $httpOnly = \true)
     {
-        $httpOnly = (bool) $httpOnly;
         $cookie = clone $this;
         $cookie->httpOnly = $httpOnly;
         return $cookie;
@@ -209,11 +187,9 @@ class Cookie
      * Creates a cookie copy that uses no url encoding.
      *
      * @return static
-     * @param bool $raw
      */
-    public function withRaw($raw = \true)
+    public function withRaw(bool $raw = \true)
     {
-        $raw = (bool) $raw;
         if ($raw && \false !== \strpbrk($this->name, self::$reservedCharsList)) {
             throw new \InvalidArgumentException(\sprintf('The cookie name "%s" contains invalid characters.', $this->name));
         }
@@ -341,7 +317,7 @@ class Cookie
      */
     public function isSecure()
     {
-        return $this->secure !== null ? $this->secure : $this->secureDefault;
+        return $this->secure ?? $this->secureDefault;
     }
     /**
      * Checks whether the cookie will be made accessible only through the HTTP protocol.
@@ -383,9 +359,8 @@ class Cookie
      * @param bool $default The default value of the "secure" flag when it is set to null
      * @return void
      */
-    public function setSecureDefault($default)
+    public function setSecureDefault(bool $default)
     {
-        $default = (bool) $default;
         $this->secureDefault = $default;
     }
 }

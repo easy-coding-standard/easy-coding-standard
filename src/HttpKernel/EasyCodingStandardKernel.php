@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\HttpKernel;
 
 use ECSPrefix20210517\Symfony\Component\Config\Loader\DelegatingLoader;
@@ -37,9 +38,8 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210517\Symplify\Symplif
     }
     /**
      * @param ContainerInterface|ContainerBuilder $container
-     * @return \Symfony\Component\Config\Loader\DelegatingLoader
      */
-    protected function getContainerLoader(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    protected function getContainerLoader(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface $container) : \ECSPrefix20210517\Symfony\Component\Config\Loader\DelegatingLoader
     {
         $delegatingLoaderFactory = new \Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory();
         return $delegatingLoaderFactory->createFromContainerBuilderAndKernel($container, $this);

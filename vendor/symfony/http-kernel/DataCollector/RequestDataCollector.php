@@ -75,12 +75,12 @@ class RequestDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKern
             $responseCookies[$cookie->getName()] = $cookie;
         }
         $dotenvVars = [];
-        foreach (\explode(',', isset($_SERVER['SYMFONY_DOTENV_VARS']) ? $_SERVER['SYMFONY_DOTENV_VARS'] : (isset($_ENV['SYMFONY_DOTENV_VARS']) ? $_ENV['SYMFONY_DOTENV_VARS'] : '')) as $name) {
+        foreach (\explode(',', $_SERVER['SYMFONY_DOTENV_VARS'] ?? $_ENV['SYMFONY_DOTENV_VARS'] ?? '') as $name) {
             if ('' !== $name && isset($_ENV[$name])) {
                 $dotenvVars[$name] = $_ENV[$name];
             }
         }
-        $this->data = ['method' => $request->getMethod(), 'format' => $request->getRequestFormat(), 'content_type' => $response->headers->get('Content-Type', 'text/html'), 'status_text' => isset(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Response::$statusTexts[$statusCode]) ? \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response::$statusTexts[$statusCode] : '', 'status_code' => $statusCode, 'request_query' => $request->query->all(), 'request_request' => $request->request->all(), 'request_files' => $request->files->all(), 'request_headers' => $request->headers->all(), 'request_server' => $request->server->all(), 'request_cookies' => $request->cookies->all(), 'request_attributes' => $attributes, 'route' => $route, 'response_headers' => $response->headers->all(), 'response_cookies' => $responseCookies, 'session_metadata' => $sessionMetadata, 'session_attributes' => $sessionAttributes, 'session_usages' => \array_values($this->sessionUsages), 'stateless_check' => $this->requestStack && $this->requestStack->getMasterRequest()->attributes->get('_stateless', \false), 'flashes' => $flashes, 'path_info' => $request->getPathInfo(), 'controller' => 'n/a', 'locale' => $request->getLocale(), 'dotenv_vars' => $dotenvVars];
+        $this->data = ['method' => $request->getMethod(), 'format' => $request->getRequestFormat(), 'content_type' => $response->headers->get('Content-Type', 'text/html'), 'status_text' => \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response::$statusTexts[$statusCode] ?? '', 'status_code' => $statusCode, 'request_query' => $request->query->all(), 'request_request' => $request->request->all(), 'request_files' => $request->files->all(), 'request_headers' => $request->headers->all(), 'request_server' => $request->server->all(), 'request_cookies' => $request->cookies->all(), 'request_attributes' => $attributes, 'route' => $route, 'response_headers' => $response->headers->all(), 'response_cookies' => $responseCookies, 'session_metadata' => $sessionMetadata, 'session_attributes' => $sessionAttributes, 'session_usages' => \array_values($this->sessionUsages), 'stateless_check' => $this->requestStack && $this->requestStack->getMasterRequest()->attributes->get('_stateless', \false), 'flashes' => $flashes, 'path_info' => $request->getPathInfo(), 'controller' => 'n/a', 'locale' => $request->getLocale(), 'dotenv_vars' => $dotenvVars];
         if (isset($this->data['request_headers']['php-auth-pw'])) {
             $this->data['request_headers']['php-auth-pw'] = '******';
         }
@@ -274,11 +274,11 @@ class RequestDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKern
      */
     public function getRedirect()
     {
-        return isset($this->data['redirect']) ? $this->data['redirect'] : \false;
+        return $this->data['redirect'] ?? \false;
     }
     public function getForwardToken()
     {
-        return isset($this->data['forward_token']) ? $this->data['forward_token'] : null;
+        return $this->data['forward_token'] ?? null;
     }
     public function onKernelController(\ECSPrefix20210517\Symfony\Component\HttpKernel\Event\ControllerEvent $event)
     {
@@ -312,7 +312,7 @@ class RequestDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKern
         $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
         $traceEndIndex = \count($trace) - 1;
         for ($i = $traceEndIndex; $i > 0; --$i) {
-            if (null !== ($class = isset($trace[$i]['class']) ? $trace[$i]['class'] : null) && (\is_subclass_of($class, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\SessionInterface::class) || \is_subclass_of($class, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\SessionBagInterface::class))) {
+            if (null !== ($class = $trace[$i]['class'] ?? null) && (\is_subclass_of($class, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\SessionInterface::class) || \is_subclass_of($class, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Session\SessionBagInterface::class))) {
                 $traceEndIndex = $i;
                 break;
             }
@@ -323,7 +323,7 @@ class RequestDataCollector extends \ECSPrefix20210517\Symfony\Component\HttpKern
         // Remove part of the backtrace that belongs to session only
         \array_splice($trace, 0, $traceEndIndex);
         // Merge identical backtraces generated by internal call reports
-        $name = \sprintf('%s:%s', isset($trace[1]['class']) ? $trace[1]['class'] : $trace[0]['file'], $trace[0]['line']);
+        $name = \sprintf('%s:%s', $trace[1]['class'] ?? $trace[0]['file'], $trace[0]['line']);
         if (!\array_key_exists($name, $this->sessionUsages)) {
             $this->sessionUsages[$name] = ['name' => $name, 'file' => $trace[0]['file'], 'line' => $trace[0]['line'], 'trace' => $trace];
         }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -45,14 +46,8 @@ final class FixerOptionBuilder
      * @var null|string
      */
     private $deprecationMessage;
-    /**
-     * @param string $name
-     * @param string $description
-     */
-    public function __construct($name, $description)
+    public function __construct(string $name, string $description)
     {
-        $name = (string) $name;
-        $description = (string) $description;
         $this->name = $name;
         $this->description = $description;
     }
@@ -102,10 +97,7 @@ final class FixerOptionBuilder
         $this->deprecationMessage = $deprecationMessage;
         return $this;
     }
-    /**
-     * @return \PhpCsFixer\FixerConfiguration\FixerOptionInterface
-     */
-    public function getOption()
+    public function getOption() : \PhpCsFixer\FixerConfiguration\FixerOptionInterface
     {
         $option = new \PhpCsFixer\FixerConfiguration\FixerOption($this->name, $this->description, $this->isRequired, $this->default, $this->allowedTypes, $this->allowedValues, $this->normalizer);
         if (null !== $this->deprecationMessage) {

@@ -35,11 +35,9 @@ class CliDescriptor implements \ECSPrefix20210517\Symfony\Component\VarDumper\Co
     }
     /**
      * @return void
-     * @param int $clientId
      */
-    public function describe(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId)
+    public function describe(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId)
     {
-        $clientId = (int) $clientId;
         $io = $output instanceof \ECSPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle ? $output : new \ECSPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle(new \ECSPrefix20210517\Symfony\Component\Console\Input\ArrayInput([]), $output);
         $this->dumper->setColors($output->isDecorated());
         $rows = [['date', \date('r', $context['timestamp'])]];
@@ -63,12 +61,12 @@ class CliDescriptor implements \ECSPrefix20210517\Symfony\Component\VarDumper\Co
         if (isset($context['source'])) {
             $source = $context['source'];
             $sourceInfo = \sprintf('%s on line %d', $source['name'], $source['line']);
-            $fileLink = isset($source['file_link']) ? $source['file_link'] : null;
+            $fileLink = $source['file_link'] ?? null;
             if ($this->supportsHref && $fileLink) {
                 $sourceInfo = \sprintf('<href=%s>%s</>', $fileLink, $sourceInfo);
             }
             $rows[] = ['source', $sourceInfo];
-            $file = isset($source['file_relative']) ? $source['file_relative'] : $source['file'];
+            $file = $source['file_relative'] ?? $source['file'];
             $rows[] = ['file', $file];
         }
         $io->table([], $rows);

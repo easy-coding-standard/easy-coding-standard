@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,17 +27,15 @@ final class NoTrailingCommaInSinglelineArrayFixer extends \PhpCsFixer\AbstractFi
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHP single-line arrays should not have trailing comma.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = array('sample',  );\n")]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]);
     }
@@ -55,11 +54,9 @@ final class NoTrailingCommaInSinglelineArrayFixer extends \PhpCsFixer\AbstractFi
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         if ($tokensAnalyzer->isArrayMultiLine($index)) {
             return;

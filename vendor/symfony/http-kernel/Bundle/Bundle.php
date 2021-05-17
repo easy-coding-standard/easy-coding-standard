@@ -99,9 +99,8 @@ abstract class Bundle implements \ECSPrefix20210517\Symfony\Component\HttpKernel
     }
     /**
      * Returns the bundle name (the class short name).
-     * @return string
      */
-    public final function getName()
+    public final function getName() : string
     {
         if (null === $this->name) {
             $this->parseClassName();

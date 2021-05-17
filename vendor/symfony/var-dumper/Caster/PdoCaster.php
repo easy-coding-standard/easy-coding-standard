@@ -21,12 +21,8 @@ use ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub;
 class PdoCaster
 {
     const PDO_ATTRIBUTES = ['CASE' => [\PDO::CASE_LOWER => 'LOWER', \PDO::CASE_NATURAL => 'NATURAL', \PDO::CASE_UPPER => 'UPPER'], 'ERRMODE' => [\PDO::ERRMODE_SILENT => 'SILENT', \PDO::ERRMODE_WARNING => 'WARNING', \PDO::ERRMODE_EXCEPTION => 'EXCEPTION'], 'TIMEOUT', 'PREFETCH', 'AUTOCOMMIT', 'PERSISTENT', 'DRIVER_NAME', 'SERVER_INFO', 'ORACLE_NULLS' => [\PDO::NULL_NATURAL => 'NATURAL', \PDO::NULL_EMPTY_STRING => 'EMPTY_STRING', \PDO::NULL_TO_STRING => 'TO_STRING'], 'CLIENT_VERSION', 'SERVER_VERSION', 'STATEMENT_CLASS', 'EMULATE_PREPARES', 'CONNECTION_STATUS', 'STRINGIFY_FETCHES', 'DEFAULT_FETCH_MODE' => [\PDO::FETCH_ASSOC => 'ASSOC', \PDO::FETCH_BOTH => 'BOTH', \PDO::FETCH_LAZY => 'LAZY', \PDO::FETCH_NUM => 'NUM', \PDO::FETCH_OBJ => 'OBJ']];
-    /**
-     * @param bool $isNested
-     */
-    public static function castPdo(\PDO $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castPdo(\PDO $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $attr = [];
         $errmode = $c->getAttribute(\PDO::ATTR_ERRMODE);
         $c->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -62,12 +58,8 @@ class PdoCaster
         $c->setAttribute(\PDO::ATTR_ERRMODE, $errmode);
         return $a;
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function castPdoStatement(\PDOStatement $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castPdoStatement(\PDOStatement $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $prefix = \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $a[$prefix . 'errorInfo'] = $c->errorInfo();
         if (!isset($a[$prefix . 'errorInfo'][1], $a[$prefix . 'errorInfo'][2])) {

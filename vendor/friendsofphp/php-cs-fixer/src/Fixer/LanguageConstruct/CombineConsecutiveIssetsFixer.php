@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -24,9 +25,8 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Using `isset($var) &&` multiple times should be done in one call.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = isset(\$a) && isset(\$b);\n")]);
     }
@@ -34,17 +34,15 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
      * {@inheritdoc}
      *
      * Must run before MultilineWhitespaceBeforeSemicolonsFixer, NoSinglelineWhitespaceBeforeSemicolonsFixer, NoSpacesInsideParenthesisFixer, NoTrailingWhitespaceFixer, NoWhitespaceInBlankLineFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 3;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_ISSET, \T_BOOLEAN_AND]);
     }
@@ -108,11 +106,10 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int $index of T_ISSET
      *
-     * @return mixed[] indexes of meaningful tokens belonging to the isset statement
+     * @return int[] indexes of meaningful tokens belonging to the isset statement
      */
-    private function getIssetInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function getIssetInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : array
     {
-        $index = (int) $index;
         $openIndex = $tokens->getNextMeaningfulToken($index);
         $braceOpenCount = 1;
         $meaningfulTokenIndexes = [$openIndex];
@@ -135,9 +132,9 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int[] $indexes
      *
-     * @return mixed[]
+     * @return Token[]
      */
-    private function getTokenClones(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes)
+    private function getTokenClones(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes) : array
     {
         $clones = [];
         foreach ($indexes as $i) {

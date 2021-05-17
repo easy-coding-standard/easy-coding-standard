@@ -17,12 +17,6 @@ namespace ECSPrefix20210517\Symfony\Contracts\HttpClient;
  */
 interface ResponseStreamInterface extends \Iterator
 {
-    /**
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
-     */
-    public function key();
-    /**
-     * @return \Symfony\Contracts\HttpClient\ChunkInterface
-     */
-    public function current();
+    public function key() : \ECSPrefix20210517\Symfony\Contracts\HttpClient\ResponseInterface;
+    public function current() : \ECSPrefix20210517\Symfony\Contracts\HttpClient\ChunkInterface;
 }

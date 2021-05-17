@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -32,9 +33,8 @@ final class NoWhitespaceBeforeCommaInArrayFixer extends \PhpCsFixer\AbstractFixe
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('In array declaration, there MUST NOT be a whitespace before each comma.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$x = array(1 , \"2\");\n"), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
@@ -51,9 +51,8 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]);
     }
@@ -71,9 +70,8 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_heredoc', 'Whether the whitespace between heredoc end and comma should be removed.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (\ECSPrefix20210517\Symfony\Component\OptionsResolver\Options $options, $value) {
             if (\PHP_VERSION_ID < 70300 && $value) {
@@ -85,11 +83,9 @@ SAMPLE
     /**
      * Method to fix spacing in array declaration.
      * @return void
-     * @param int $index
      */
-    private function fixSpacing($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function fixSpacing(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        $index = (int) $index;
         if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
             $startIndex = $index;
             $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $startIndex);
@@ -110,11 +106,9 @@ SAMPLE
      * Method to move index over the non-array elements like function calls or function declarations.
      *
      * @return int New index
-     * @param int $index
      */
-    private function skipNonArrayElements($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function skipNonArrayElements(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens) : int
     {
-        $index = (int) $index;
         if ($tokens[$index]->equals('}')) {
             return $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         }

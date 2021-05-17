@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,19 +29,16 @@ final class FileSpecificCodeSample implements \PhpCsFixer\FixerDefinition\FileSp
     private $splFileInfo;
     /**
      * @param mixed[]|null $configuration
-     * @param string $code
      */
-    public function __construct($code, \SplFileInfo $splFileInfo, $configuration = null)
+    public function __construct(string $code, \SplFileInfo $splFileInfo, $configuration = null)
     {
-        $code = (string) $code;
         $this->codeSample = new \PhpCsFixer\FixerDefinition\CodeSample($code, $configuration);
         $this->splFileInfo = $splFileInfo;
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getCode()
+    public function getCode() : string
     {
         return $this->codeSample->getCode();
     }
@@ -54,9 +52,8 @@ final class FileSpecificCodeSample implements \PhpCsFixer\FixerDefinition\FileSp
     }
     /**
      * {@inheritdoc}
-     * @return \SplFileInfo
      */
-    public function getSplFileInfo()
+    public function getSplFileInfo() : \SplFileInfo
     {
         return $this->splFileInfo;
     }

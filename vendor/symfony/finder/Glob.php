@@ -38,17 +38,9 @@ class Glob
      * Returns a regexp which is the equivalent of the glob pattern.
      *
      * @return string
-     * @param string $glob
-     * @param bool $strictLeadingDot
-     * @param bool $strictWildcardSlash
-     * @param string $delimiter
      */
-    public static function toRegex($glob, $strictLeadingDot = \true, $strictWildcardSlash = \true, $delimiter = '#')
+    public static function toRegex(string $glob, bool $strictLeadingDot = \true, bool $strictWildcardSlash = \true, string $delimiter = '#')
     {
-        $glob = (string) $glob;
-        $strictLeadingDot = (bool) $strictLeadingDot;
-        $strictWildcardSlash = (bool) $strictWildcardSlash;
-        $delimiter = (string) $delimiter;
         $firstByte = \true;
         $escaping = \false;
         $inCurlies = 0;

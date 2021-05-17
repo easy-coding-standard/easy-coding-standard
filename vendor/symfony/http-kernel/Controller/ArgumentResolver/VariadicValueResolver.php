@@ -22,9 +22,8 @@ final class VariadicValueResolver implements \ECSPrefix20210517\Symfony\Componen
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function supports(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210517\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
     {
         return $argument->isVariadic() && $request->attributes->has($argument->getName());
     }

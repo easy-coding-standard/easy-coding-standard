@@ -36,9 +36,8 @@ class FragmentListener implements \ECSPrefix20210517\Symfony\Component\EventDisp
     /**
      * @param string $fragmentPath The path that triggers this listener
      */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\HttpKernel\UriSigner $signer, $fragmentPath = '/_fragment')
+    public function __construct(\ECSPrefix20210517\Symfony\Component\HttpKernel\UriSigner $signer, string $fragmentPath = '/_fragment')
     {
-        $fragmentPath = (string) $fragmentPath;
         $this->signer = $signer;
         $this->fragmentPath = $fragmentPath;
     }
@@ -78,10 +77,7 @@ class FragmentListener implements \ECSPrefix20210517\Symfony\Component\EventDisp
         }
         throw new \ECSPrefix20210517\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 48]]];
     }

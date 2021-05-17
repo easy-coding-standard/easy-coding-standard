@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,9 +27,8 @@ final class NoMultilineWhitespaceAroundDoubleArrowFixer extends \PhpCsFixer\Abst
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Operator `=>` should not be surrounded by multi-line whitespaces.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = array(1\n\n=> 2);\n")]);
     }
@@ -36,17 +36,15 @@ final class NoMultilineWhitespaceAroundDoubleArrowFixer extends \PhpCsFixer\Abst
      * {@inheritdoc}
      *
      * Must run before BinaryOperatorSpacesFixer, TrailingCommaInMultilineFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 1;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOUBLE_ARROW);
     }
@@ -69,11 +67,9 @@ final class NoMultilineWhitespaceAroundDoubleArrowFixer extends \PhpCsFixer\Abst
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $token = $tokens[$index];
         if ($token->isWhitespace() && !$token->isWhitespace(" \t")) {
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, \rtrim($token->getContent()) . ' ']);

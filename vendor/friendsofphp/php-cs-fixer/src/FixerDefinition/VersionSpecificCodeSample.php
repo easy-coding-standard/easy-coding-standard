@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,19 +27,16 @@ final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\Ver
     private $versionSpecification;
     /**
      * @param mixed[]|null $configuration
-     * @param string $code
      */
-    public function __construct($code, \PhpCsFixer\FixerDefinition\VersionSpecificationInterface $versionSpecification, $configuration = null)
+    public function __construct(string $code, \PhpCsFixer\FixerDefinition\VersionSpecificationInterface $versionSpecification, $configuration = null)
     {
-        $code = (string) $code;
         $this->codeSample = new \PhpCsFixer\FixerDefinition\CodeSample($code, $configuration);
         $this->versionSpecification = $versionSpecification;
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getCode()
+    public function getCode() : string
     {
         return $this->codeSample->getCode();
     }
@@ -52,12 +50,9 @@ final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\Ver
     }
     /**
      * {@inheritdoc}
-     * @param int $version
-     * @return bool
      */
-    public function isSuitableFor($version)
+    public function isSuitableFor(int $version) : bool
     {
-        $version = (int) $version;
         return $this->versionSpecification->isSatisfiedBy($version);
     }
 }

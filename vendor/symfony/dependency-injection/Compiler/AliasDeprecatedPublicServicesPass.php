@@ -17,21 +17,15 @@ final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20210517\Symfony
 {
     private $tagName;
     private $aliases = [];
-    /**
-     * @param string $tagName
-     */
-    public function __construct($tagName = 'container.private')
+    public function __construct(string $tagName = 'container.private')
     {
-        $tagName = (string) $tagName;
         $this->tagName = $tagName;
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
             return new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());
         }
@@ -43,10 +37,10 @@ final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20210517\Symfony
     public function process(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->findTaggedServiceIds($this->tagName) as $id => $tags) {
-            if (null === ($package = isset($tags[0]['package']) ? $tags[0]['package'] : null)) {
+            if (null === ($package = $tags[0]['package'] ?? null)) {
                 throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "package" attribute is mandatory for the "%s" tag on the "%s" service.', $this->tagName, $id));
             }
-            if (null === ($version = isset($tags[0]['version']) ? $tags[0]['version'] : null)) {
+            if (null === ($version = $tags[0]['version'] ?? null)) {
                 throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "version" attribute is mandatory for the "%s" tag on the "%s" service.', $this->tagName, $id));
             }
             $definition = $container->getDefinition($id);

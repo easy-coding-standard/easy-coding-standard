@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -24,17 +25,15 @@ final class TrimArraySpacesFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Arrays should be formatted like function/method arguments, without leading or trailing single line space.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$sample = array( );\n\$sample = array( 'a', 'b' );\n")]);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]);
     }
@@ -53,11 +52,9 @@ final class TrimArraySpacesFixer extends \PhpCsFixer\AbstractFixer
     /**
      * Method to trim leading/trailing whitespace within single line arrays.
      * @return void
-     * @param int $index
      */
-    private static function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private static function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $startIndex = $index;
         if ($tokens[$startIndex]->isGivenKind(\T_ARRAY)) {
             $startIndex = $tokens->getNextMeaningfulToken($startIndex);

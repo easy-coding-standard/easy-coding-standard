@@ -54,9 +54,8 @@ class IpUtils
      * @return bool Whether the request IP matches the IP, or whether the request IP is within the CIDR subnet
      * @param string|null $requestIp
      */
-    public static function checkIp4($requestIp, $ip)
+    public static function checkIp4($requestIp, string $ip)
     {
-        $ip = (string) $ip;
         $cacheKey = $requestIp . '-' . $ip;
         if (isset(self::$checkedIps[$cacheKey])) {
             return self::$checkedIps[$cacheKey];
@@ -96,9 +95,8 @@ class IpUtils
      * @throws \RuntimeException When IPV6 support is not enabled
      * @param string|null $requestIp
      */
-    public static function checkIp6($requestIp, $ip)
+    public static function checkIp6($requestIp, string $ip)
     {
-        $ip = (string) $ip;
         $cacheKey = $requestIp . '-' . $ip;
         if (isset(self::$checkedIps[$cacheKey])) {
             return self::$checkedIps[$cacheKey];
@@ -137,12 +135,9 @@ class IpUtils
      * Anonymizes an IP/IPv6.
      *
      * Removes the last byte for v4 and the last 8 bytes for v6 IPs
-     * @param string $ip
-     * @return string
      */
-    public static function anonymize($ip)
+    public static function anonymize(string $ip) : string
     {
-        $ip = (string) $ip;
         $wrappedIPv6 = \false;
         if ('[' === \substr($ip, 0, 1) && ']' === \substr($ip, -1, 1)) {
             $wrappedIPv6 = \true;

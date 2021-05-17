@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -41,9 +42,8 @@ final class HeaderCommentFixer extends \PhpCsFixer\AbstractFixer implements \Php
     const HEADER_COMMENT = 'comment';
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Add, replace or remove header comment.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 declare(strict_types=1);
@@ -77,9 +77,8 @@ echo 1;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return isset($tokens[0]) && $tokens[0]->isGivenKind(\T_OPEN_TAG) && $tokens->isMonolithicPhp();
     }
@@ -87,9 +86,8 @@ echo 1;
      * {@inheritdoc}
      *
      * Must run after DeclareStrictTypesFixer, NoBlankLinesAfterPhpdocFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         // When this fixer is configured with ["separate" => "bottom", "comment_type" => "PHPDoc"]
         // and the target file has no namespace or declare() construct,
@@ -142,9 +140,8 @@ echo 1;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $fixerName = $this->getName();
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('header', 'Proper header content.'))->setAllowedTypes(['string'])->setNormalizer(static function (\ECSPrefix20210517\Symfony\Component\OptionsResolver\Options $options, $value) use($fixerName) {
@@ -159,9 +156,8 @@ echo 1;
     }
     /**
      * Enclose the given text in a comment block.
-     * @return string
      */
-    private function getHeaderAsComment()
+    private function getHeaderAsComment() : string
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         $comment = (self::HEADER_COMMENT === $this->configuration['comment_type'] ? '/*' : '/**') . $lineEnding;
@@ -173,11 +169,9 @@ echo 1;
     }
     /**
      * @return int|null
-     * @param int $headerNewIndex
      */
-    private function findHeaderCommentCurrentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $headerNewIndex)
+    private function findHeaderCommentCurrentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $headerNewIndex)
     {
-        $headerNewIndex = (int) $headerNewIndex;
         $index = $tokens->getNextNonWhitespace($headerNewIndex);
         if (null === $index || !$tokens[$index]->isComment()) {
             return null;
@@ -199,12 +193,9 @@ echo 1;
     }
     /**
      * Find the index where the header comment must be inserted.
-     * @param string $location
-     * @return int
      */
-    private function findHeaderCommentInsertionIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $location)
+    private function findHeaderCommentInsertionIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, string $location) : int
     {
-        $location = (string) $location;
         if ('after_open' === $location) {
             return 1;
         }
@@ -245,11 +236,9 @@ echo 1;
     }
     /**
      * @return void
-     * @param int $headerIndex
      */
-    private function fixWhiteSpaceAroundHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, $headerIndex)
+    private function fixWhiteSpaceAroundHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, int $headerIndex)
     {
-        $headerIndex = (int) $headerIndex;
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         // fix lines after header comment
         if (('both' === $this->configuration['separate'] || 'bottom' === $this->configuration['separate']) && null !== $tokens->getNextMeaningfulToken($headerIndex)) {
@@ -286,15 +275,8 @@ echo 1;
             $tokens->insertAt($headerIndex, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, \str_repeat($lineEnding, $expectedLineCount - $lineBreakCount)]));
         }
     }
-    /**
-     * @param int $index
-     * @param int $direction
-     * @return int
-     */
-    private function getLineBreakCount(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $direction)
+    private function getLineBreakCount(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $direction) : int
     {
-        $index = (int) $index;
-        $direction = (int) $direction;
         $whitespace = '';
         for ($index += $direction; isset($tokens[$index]); $index += $direction) {
             $token = $tokens[$index];
@@ -313,11 +295,9 @@ echo 1;
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function removeHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function removeHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $prevIndex = $index - 1;
         $prevToken = $tokens[$prevIndex];
         $newlineRemoved = \false;
@@ -347,11 +327,9 @@ echo 1;
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function insertHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function insertHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([self::HEADER_COMMENT === $this->configuration['comment_type'] ? \T_COMMENT : \T_DOC_COMMENT, $this->getHeaderAsComment()]));
         $this->fixWhiteSpaceAroundHeader($tokens, $index);
     }

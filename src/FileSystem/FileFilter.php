@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
@@ -16,9 +17,9 @@ final class FileFilter
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @return mixed[]
+     * @return SmartFileInfo[]
      */
-    public function filterOnlyChangedFiles(array $fileInfos)
+    public function filterOnlyChangedFiles(array $fileInfos) : array
     {
         return \array_filter($fileInfos, function (\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool {
             return $this->changedFilesDetector->hasFileInfoChanged($smartFileInfo);

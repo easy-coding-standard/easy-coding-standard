@@ -30,11 +30,9 @@ class InvalidConfigurationException extends \ECSPrefix20210517\Symfony\Component
     }
     /**
      * Adds extra information that is suffixed to the original exception message.
-     * @param string $hint
      */
-    public function addHint($hint)
+    public function addHint(string $hint)
     {
-        $hint = (string) $hint;
         if (!$this->containsHints) {
             $this->message .= "\nHint: " . $hint;
             $this->containsHints = \true;

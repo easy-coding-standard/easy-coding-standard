@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\EasyTesting\Finder;
 
 use ECSPrefix20210517\Symfony\Component\Finder\Finder;
@@ -16,9 +17,9 @@ final class FixtureFinder
         $this->finderSanitizer = $finderSanitizer;
     }
     /**
-     * @return mixed[]
+     * @return SmartFileInfo[]
      */
-    public function find(array $sources)
+    public function find(array $sources) : array
     {
         $finder = new \ECSPrefix20210517\Symfony\Component\Finder\Finder();
         $finder->files()->in($sources)->name('*.php.inc')->path('Fixture')->sortByName();

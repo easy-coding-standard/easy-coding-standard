@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -56,18 +57,14 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
     {
         $this->docBlockLinesFactory = $docBlockLinesFactory;
     }
-    /**
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
-     */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -117,12 +114,9 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
      */
     public function configure($configuration = null)
     {
-        $this->lineLength = isset($configuration[self::LINE_LENGTH]) ? $configuration[self::LINE_LENGTH] : self::DEFAULT_LINE_LENGHT;
+        $this->lineLength = $configuration[self::LINE_LENGTH] ?? self::DEFAULT_LINE_LENGHT;
     }
-    /**
-     * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-     */
-    public function getRuleDefinition()
+    public function getRuleDefinition() : \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 /**
@@ -143,30 +137,17 @@ function some()
 CODE_SAMPLE
 , [self::LINE_LENGTH => 40])]);
     }
-    /**
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
-     */
-    public function getConfigurationDefinition()
+    public function getConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
-    /**
-     * @param string $docBlock
-     * @return string
-     */
-    private function resolveIndentationStringFor($docBlock)
+    private function resolveIndentationStringFor(string $docBlock) : string
     {
-        $docBlock = (string) $docBlock;
         $matches = \ECSPrefix20210517\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
-        return isset($matches[self::INDENTATION_PART]) ? $matches[self::INDENTATION_PART] : '';
+        return $matches[self::INDENTATION_PART] ?? '';
     }
-    /**
-     * @param string $indentationString
-     * @return string
-     */
-    private function formatLinesAsDocBlockContent(array $docBlockLines, $indentationString)
+    private function formatLinesAsDocBlockContent(array $docBlockLines, string $indentationString) : string
     {
-        $indentationString = (string) $indentationString;
         foreach ($docBlockLines as $index => $docBlockLine) {
             $docBlockLines[$index] = $indentationString . ' *' . ($docBlockLine !== '' ? ' ' : '') . $docBlockLine;
         }
@@ -175,9 +156,9 @@ CODE_SAMPLE
         return \implode(\PHP_EOL, $docBlockLines);
     }
     /**
-     * @return mixed[]
+     * @return array<string>
      */
-    private function extractParagraphsFromDescriptionLines(array $descriptionLines)
+    private function extractParagraphsFromDescriptionLines(array $descriptionLines) : array
     {
         $paragraphLines = [];
         $paragraphIndex = 0;
@@ -197,22 +178,18 @@ CODE_SAMPLE
         }, $paragraphLines);
     }
     /**
-     * @return mixed[]
-     * @param string $string
+     * @return string[]
      */
-    private function getLines($string)
+    private function getLines(string $string) : array
     {
-        $string = (string) $string;
         return \explode(\PHP_EOL, $string);
     }
     /**
      * @param string[] $lines
-     * @return mixed[]
-     * @param int $maximumLineLength
+     * @return string[]
      */
-    private function wrapParagraphs(array $lines, $maximumLineLength)
+    private function wrapParagraphs(array $lines, int $maximumLineLength) : array
     {
-        $maximumLineLength = (int) $maximumLineLength;
         $wrappedLines = [];
         foreach ($lines as $line) {
             $wrappedLines[] = \wordwrap($line, $maximumLineLength);

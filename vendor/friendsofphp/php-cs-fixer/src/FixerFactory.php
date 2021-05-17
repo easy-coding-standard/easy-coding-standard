@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -62,9 +63,9 @@ final class FixerFactory
         return $this;
     }
     /**
-     * @return mixed[]
+     * @return FixerInterface[]
      */
-    public function getFixers()
+    public function getFixers() : array
     {
         $this->fixers = \PhpCsFixer\Utils::sortFixers($this->fixers);
         return $this->fixers;
@@ -105,11 +106,9 @@ final class FixerFactory
     }
     /**
      * @return $this
-     * @param bool $isCustom
      */
-    public function registerFixer(\PhpCsFixer\Fixer\FixerInterface $fixer, $isCustom)
+    public function registerFixer(\PhpCsFixer\Fixer\FixerInterface $fixer, bool $isCustom)
     {
-        $isCustom = (bool) $isCustom;
         $name = $fixer->getName();
         if (isset($this->fixersByName[$name])) {
             throw new \UnexpectedValueException(\sprintf('Fixer named "%s" is already registered.', $name));
@@ -164,12 +163,9 @@ final class FixerFactory
     }
     /**
      * Check if fixer exists.
-     * @param string $name
-     * @return bool
      */
-    public function hasRule($name)
+    public function hasRule(string $name) : bool
     {
-        $name = (string) $name;
         return isset($this->fixersByName[$name]);
     }
     /**
@@ -183,9 +179,8 @@ final class FixerFactory
     }
     /**
      * @param array<string, string[]> $fixerConflicts
-     * @return string
      */
-    private function generateConflictMessage(array $fixerConflicts)
+    private function generateConflictMessage(array $fixerConflicts) : string
     {
         $message = 'Rule contains conflicting fixers:';
         $report = [];

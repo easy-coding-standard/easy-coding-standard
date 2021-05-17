@@ -34,10 +34,7 @@ final class ControllerEvent extends \ECSPrefix20210517\Symfony\Component\HttpKer
         parent::__construct($kernel, $request, $requestType);
         $this->setController($controller);
     }
-    /**
-     * @return callable
-     */
-    public function getController()
+    public function getController() : callable
     {
         return $this->controller;
     }

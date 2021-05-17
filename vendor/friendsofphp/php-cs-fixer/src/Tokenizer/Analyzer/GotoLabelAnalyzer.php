@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -17,13 +18,8 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class GotoLabelAnalyzer
 {
-    /**
-     * @param int $index
-     * @return bool
-     */
-    public function belongsToGoToLabel(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    public function belongsToGoToLabel(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         if (!$tokens[$index]->equals(':')) {
             return \false;
         }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\ValueObject;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -23,23 +24,20 @@ final class DocBlockLines
         $this->otherLines = $otherLines;
     }
     /**
-     * @return mixed[]
+     * @return array<string>
      */
-    public function getDescriptionLines()
+    public function getDescriptionLines() : array
     {
         return $this->descriptionLines;
     }
     /**
-     * @return mixed[]
+     * @return array<string>
      */
-    public function getOtherLines()
+    public function getOtherLines() : array
     {
         return $this->otherLines;
     }
-    /**
-     * @return bool
-     */
-    public function hasListDescriptionLines()
+    public function hasListDescriptionLines() : bool
     {
         foreach ($this->descriptionLines as $descriptionLine) {
             if (\ECSPrefix20210517\Nette\Utils\Strings::startsWith($descriptionLine, '-')) {

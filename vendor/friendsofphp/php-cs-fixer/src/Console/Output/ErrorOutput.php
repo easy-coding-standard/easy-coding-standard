@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -39,11 +40,9 @@ final class ErrorOutput
     /**
      * @param Error[] $errors
      * @return void
-     * @param string $process
      */
-    public function listErrors($process, array $errors)
+    public function listErrors(string $process, array $errors)
     {
-        $process = (string) $process;
         $this->output->writeln(['', \sprintf('Files that were not fixed due to errors reported during %s:', $process)]);
         $showDetails = $this->output->getVerbosity() >= \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE;
         $showTrace = $this->output->getVerbosity() >= \ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG;
@@ -105,13 +104,8 @@ final class ErrorOutput
             $this->output->writeln(\sprintf('        in <info>%s</info> at line <info>%d</info>', $this->prepareOutput($trace['file']), $trace['line']));
         }
     }
-    /**
-     * @param string $string
-     * @return string
-     */
-    private function prepareOutput($string)
+    private function prepareOutput(string $string) : string
     {
-        $string = (string) $string;
         return $this->isDecorated ? \ECSPrefix20210517\Symfony\Component\Console\Formatter\OutputFormatter::escape($string) : $string;
     }
 }

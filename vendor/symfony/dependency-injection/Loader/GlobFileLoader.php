@@ -30,9 +30,8 @@ class GlobFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         return 'glob' === $type;
     }

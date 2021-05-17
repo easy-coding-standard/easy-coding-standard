@@ -23,9 +23,8 @@ class FlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Se
     /**
      * @param string $storageKey The key used to store flashes in the session
      */
-    public function __construct($storageKey = '_symfony_flashes')
+    public function __construct(string $storageKey = '_symfony_flashes')
     {
-        $storageKey = (string) $storageKey;
         $this->storageKey = $storageKey;
     }
     /**
@@ -35,12 +34,8 @@ class FlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Se
     {
         return $this->name;
     }
-    /**
-     * @param string $name
-     */
-    public function setName($name)
+    public function setName(string $name)
     {
-        $name = (string) $name;
         $this->name = $name;
     }
     /**
@@ -52,20 +47,16 @@ class FlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Se
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function add($type, $message)
+    public function add(string $type, $message)
     {
-        $type = (string) $type;
         $this->flashes[$type][] = $message;
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function peek($type, array $default = [])
+    public function peek(string $type, array $default = [])
     {
-        $type = (string) $type;
         return $this->has($type) ? $this->flashes[$type] : $default;
     }
     /**
@@ -77,11 +68,9 @@ class FlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Se
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function get($type, array $default = [])
+    public function get(string $type, array $default = [])
     {
-        $type = (string) $type;
         if (!$this->has($type)) {
             return $default;
         }
@@ -100,11 +89,9 @@ class FlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Se
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function set($type, $messages)
+    public function set(string $type, $messages)
     {
-        $type = (string) $type;
         $this->flashes[$type] = (array) $messages;
     }
     /**
@@ -116,11 +103,9 @@ class FlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFoundation\Se
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function has($type)
+    public function has(string $type)
     {
-        $type = (string) $type;
         return \array_key_exists($type, $this->flashes) && $this->flashes[$type];
     }
     /**

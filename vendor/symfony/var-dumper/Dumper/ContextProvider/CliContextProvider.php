@@ -25,6 +25,6 @@ final class CliContextProvider implements \ECSPrefix20210517\Symfony\Component\V
         if ('cli' !== \PHP_SAPI) {
             return null;
         }
-        return ['command_line' => $commandLine = \implode(' ', isset($_SERVER['argv']) ? $_SERVER['argv'] : []), 'identifier' => \hash('crc32b', $commandLine . $_SERVER['REQUEST_TIME_FLOAT'])];
+        return ['command_line' => $commandLine = \implode(' ', $_SERVER['argv'] ?? []), 'identifier' => \hash('crc32b', $commandLine . $_SERVER['REQUEST_TIME_FLOAT'])];
     }
 }

@@ -15,12 +15,8 @@ final class OptionConfigurator
 {
     private $name;
     private $resolver;
-    /**
-     * @param string $name
-     */
-    public function __construct($name, \ECSPrefix20210517\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
+    public function __construct(string $name, \ECSPrefix20210517\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
     {
-        $name = (string) $name;
         $this->name = $name;
         $this->resolver = $resolver;
         $this->resolver->setDefined($name);
@@ -34,7 +30,7 @@ final class OptionConfigurator
      *
      * @throws AccessException If called from a lazy option or normalizer
      */
-    public function allowedTypes(...$types)
+    public function allowedTypes(string ...$types)
     {
         $this->resolver->setAllowedTypes($this->name, $types);
         return $this;
@@ -70,11 +66,9 @@ final class OptionConfigurator
     /**
      * Defines an option configurator with the given name.
      * @return $this
-     * @param string $option
      */
-    public function define($option)
+    public function define(string $option)
     {
-        $option = (string) $option;
         return $this->resolver->define($option);
     }
     /**
@@ -86,10 +80,8 @@ final class OptionConfigurator
      *
      * @return $this
      */
-    public function deprecated($package, $version, $message = 'The option "%name%" is deprecated.')
+    public function deprecated(string $package, string $version, $message = 'The option "%name%" is deprecated.')
     {
-        $package = (string) $package;
-        $version = (string) $version;
         $this->resolver->setDeprecated($this->name, $package, $version, $message);
         return $this;
     }
@@ -125,11 +117,9 @@ final class OptionConfigurator
      * @return $this
      *
      * @throws AccessException If called from a lazy option or normalizer
-     * @param string $info
      */
-    public function info($info)
+    public function info(string $info)
     {
-        $info = (string) $info;
         $this->resolver->setInfo($this->name, $info);
         return $this;
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\AutowireArrayParameter\TypeResolver;
 
 use ECSPrefix20210517\Nette\Utils\Reflection;
@@ -21,11 +22,9 @@ final class ParameterTypeResolver
     }
     /**
      * @return string|null
-     * @param string $parameterName
      */
-    public function resolveParameterType($parameterName, \ReflectionMethod $reflectionMethod)
+    public function resolveParameterType(string $parameterName, \ReflectionMethod $reflectionMethod)
     {
-        $parameterName = (string) $parameterName;
         $docComment = $reflectionMethod->getDocComment();
         if ($docComment === \false) {
             return null;

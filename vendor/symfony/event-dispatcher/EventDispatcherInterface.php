@@ -26,9 +26,8 @@ interface EventDispatcherInterface extends \ECSPrefix20210517\Symfony\Contracts\
      * @param callable $listener The listener
      * @param int      $priority The higher this value, the earlier an event
      *                           listener will be triggered in the chain (defaults to 0)
-     * @param string $eventName
      */
-    public function addListener($eventName, $listener, $priority = 0);
+    public function addListener(string $eventName, $listener, int $priority = 0);
     /**
      * Adds an event subscriber.
      *
@@ -40,17 +39,15 @@ interface EventDispatcherInterface extends \ECSPrefix20210517\Symfony\Contracts\
      * Removes an event listener from the specified events.
      *
      * @param callable $listener The listener to remove
-     * @param string $eventName
      */
-    public function removeListener($eventName, $listener);
+    public function removeListener(string $eventName, $listener);
     public function removeSubscriber(\ECSPrefix20210517\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
     /**
      * Gets the listeners of a specific event or all listeners sorted by descending priority.
      *
      * @return array The event listeners for the specified event, or all event listeners by event name
-     * @param string $eventName
      */
-    public function getListeners($eventName = null);
+    public function getListeners(string $eventName = null);
     /**
      * Gets the listener priority for a specific event.
      *
@@ -59,14 +56,12 @@ interface EventDispatcherInterface extends \ECSPrefix20210517\Symfony\Contracts\
      * @param callable $listener The listener
      *
      * @return int|null The event listener priority
-     * @param string $eventName
      */
-    public function getListenerPriority($eventName, $listener);
+    public function getListenerPriority(string $eventName, $listener);
     /**
      * Checks whether an event has any registered listeners.
      *
      * @return bool true if the specified event has any listeners, false otherwise
-     * @param string $eventName
      */
-    public function hasListeners($eventName = null);
+    public function hasListeners(string $eventName = null);
 }

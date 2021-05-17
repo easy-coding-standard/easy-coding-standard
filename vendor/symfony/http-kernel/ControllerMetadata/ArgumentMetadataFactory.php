@@ -21,9 +21,8 @@ final class ArgumentMetadataFactory implements \ECSPrefix20210517\Symfony\Compon
 {
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function createArgumentMetadata($controller)
+    public function createArgumentMetadata($controller) : array
     {
         $arguments = [];
         if (\is_array($controller)) {

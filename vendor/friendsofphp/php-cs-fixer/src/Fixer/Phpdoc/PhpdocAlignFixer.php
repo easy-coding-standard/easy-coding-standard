@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -89,9 +90,8 @@ final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         $code = <<<'EOF'
 <?php
@@ -113,9 +113,8 @@ EOF;
      * {@inheritdoc}
      *
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, CommentToPhpdocFixer, GeneralPhpdocAnnotationRemoveFixer, GeneralPhpdocTagRenameFixer, NoBlankLinesAfterPhpdocFixer, NoEmptyPhpdocFixer, NoSuperfluousPhpdocTagsFixer, PhpdocAddMissingParamAnnotationFixer, PhpdocAddMissingParamAnnotationFixer, PhpdocAnnotationWithoutDotFixer, PhpdocIndentFixer, PhpdocIndentFixer, PhpdocInlineTagNormalizerFixer, PhpdocLineSpanFixer, PhpdocNoAccessFixer, PhpdocNoAliasTagFixer, PhpdocNoEmptyReturnFixer, PhpdocNoPackageFixer, PhpdocNoUselessInheritdocFixer, PhpdocOrderByValueFixer, PhpdocOrderFixer, PhpdocReturnSelfReferenceFixer, PhpdocScalarFixer, PhpdocScalarFixer, PhpdocSeparationFixer, PhpdocSingleLineVarSpacingFixer, PhpdocSummaryFixer, PhpdocTagCasingFixer, PhpdocTagTypeFixer, PhpdocToCommentFixer, PhpdocToCommentFixer, PhpdocToParamTypeFixer, PhpdocToPropertyTypeFixer, PhpdocToReturnTypeFixer, PhpdocTrimConsecutiveBlankLineSeparationFixer, PhpdocTrimFixer, PhpdocTypesFixer, PhpdocTypesFixer, PhpdocTypesOrderFixer, PhpdocVarAnnotationCorrectOrderFixer, PhpdocVarWithoutNameFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         /*
          * Should be run after all other docblock fixers. This because they
@@ -128,9 +127,8 @@ EOF;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -155,9 +153,8 @@ EOF;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $tags = new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('tags', 'The tags that should be aligned.');
         $tags->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(self::ALIGNABLE_TAGS)])->setDefault(['method', 'param', 'property', 'return', 'throws', 'type', 'var']);
@@ -232,13 +229,9 @@ EOF;
     }
     /**
      * @return mixed[]|null
-     * @param string $line
-     * @param bool $matchCommentOnly
      */
-    private function getMatches($line, $matchCommentOnly = \false)
+    private function getMatches(string $line, bool $matchCommentOnly = \false)
     {
-        $line = (string) $line;
-        $matchCommentOnly = (bool) $matchCommentOnly;
         if (\PhpCsFixer\Preg::match($this->regex, $line, $matches)) {
             if (!empty($matches['tag2'])) {
                 $matches['tag'] = $matches['tag2'];
@@ -263,26 +256,16 @@ EOF;
         }
         return null;
     }
-    /**
-     * @param int $verticalAlignIndent
-     * @param int $leftAlignIndent
-     * @return string
-     */
-    private function getIndent($verticalAlignIndent, $leftAlignIndent = 1)
+    private function getIndent(int $verticalAlignIndent, int $leftAlignIndent = 1) : string
     {
-        $verticalAlignIndent = (int) $verticalAlignIndent;
-        $leftAlignIndent = (int) $leftAlignIndent;
         $indent = self::ALIGN_VERTICAL === $this->align ? $verticalAlignIndent : $leftAlignIndent;
         return \str_repeat(' ', $indent);
     }
     /**
      * @param array[] $items
-     * @param int $index
-     * @return int
      */
-    private function getLeftAlignedDescriptionIndent(array $items, $index)
+    private function getLeftAlignedDescriptionIndent(array $items, int $index) : int
     {
-        $index = (int) $index;
         if (self::ALIGN_LEFT !== $this->align) {
             return 0;
         }
@@ -304,9 +287,8 @@ EOF;
     /**
      * Get indent for sentence.
      * @param string|null $sentence
-     * @return int
      */
-    private function getSentenceIndent($sentence)
+    private function getSentenceIndent($sentence) : int
     {
         if (null === $sentence) {
             return 0;

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -34,9 +35,8 @@ final class ClassDefinitionFixer extends \PhpCsFixer\AbstractFixer implements \P
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Whitespace around the keywords of a class, trait or interfaces definition should be one space.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
@@ -77,17 +77,15 @@ interface Bar extends
      * {@inheritdoc}
      *
      * Must run before BracesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 36;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
@@ -106,9 +104,8 @@ interface Bar extends
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('multi_line_extends_each_single_line', 'Whether definitions should be multiline.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_item_single_line', 'Whether definitions should be single line when including a single item.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_line', 'Whether definitions should be single line.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
@@ -116,9 +113,8 @@ interface Bar extends
      * @param int $classyIndex Class definition token start index
      * @return void
      */
-    private function fixClassyDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, $classyIndex)
+    private function fixClassyDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classyIndex)
     {
-        $classyIndex = (int) $classyIndex;
         $classDefInfo = $this->getClassyDefinitionInfo($tokens, $classyIndex);
         // PSR2 4.1 Lists of implements MAY be split across multiple lines, where each subsequent line is indented once.
         // When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line.
@@ -141,13 +137,8 @@ interface Bar extends
         // 4.1 The extends and implements keywords MUST be declared on the same line as the class name.
         $this->makeClassyDefinitionSingleLine($tokens, $classDefInfo['anonymousClass'] ? $tokens->getPrevMeaningfulToken($classyIndex) : $classDefInfo['start'], $end);
     }
-    /**
-     * @param int $classOpenIndex
-     * @return mixed[]
-     */
-    private function fixClassyDefinitionExtends(\PhpCsFixer\Tokenizer\Tokens $tokens, $classOpenIndex, array $classExtendsInfo)
+    private function fixClassyDefinitionExtends(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, array $classExtendsInfo) : array
     {
-        $classOpenIndex = (int) $classOpenIndex;
         $endIndex = $tokens->getPrevNonWhitespace($classOpenIndex);
         if ($this->configuration['single_line'] || \false === $classExtendsInfo['multiLine']) {
             $this->makeClassyDefinitionSingleLine($tokens, $classExtendsInfo['start'], $endIndex);
@@ -161,13 +152,8 @@ interface Bar extends
         }
         return $classExtendsInfo;
     }
-    /**
-     * @param int $classOpenIndex
-     * @return mixed[]
-     */
-    private function fixClassyDefinitionImplements(\PhpCsFixer\Tokenizer\Tokens $tokens, $classOpenIndex, array $classImplementsInfo)
+    private function fixClassyDefinitionImplements(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, array $classImplementsInfo) : array
     {
-        $classOpenIndex = (int) $classOpenIndex;
         $endIndex = $tokens->getPrevNonWhitespace($classOpenIndex);
         if ($this->configuration['single_line'] || \false === $classImplementsInfo['multiLine']) {
             $this->makeClassyDefinitionSingleLine($tokens, $classImplementsInfo['start'], $endIndex);
@@ -181,10 +167,7 @@ interface Bar extends
         }
         return $classImplementsInfo;
     }
-    /**
-     * @return int
-     */
-    private function fixClassyDefinitionOpenSpacing(\PhpCsFixer\Tokenizer\Tokens $tokens, array $classDefInfo)
+    private function fixClassyDefinitionOpenSpacing(\PhpCsFixer\Tokenizer\Tokens $tokens, array $classDefInfo) : int
     {
         if ($classDefInfo['anonymousClass']) {
             if (\false !== $classDefInfo['implements']) {
@@ -210,13 +193,8 @@ interface Bar extends
         $tokens->insertAt($openIndex, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $spacing]));
         return $openIndex + 1;
     }
-    /**
-     * @param int $classyIndex
-     * @return mixed[]
-     */
-    private function getClassyDefinitionInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $classyIndex)
+    private function getClassyDefinitionInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classyIndex) : array
     {
-        $classyIndex = (int) $classyIndex;
         $openIndex = $tokens->getNextTokenOfKind($classyIndex, ['{']);
         $prev = $tokens->getPrevMeaningfulToken($classyIndex);
         $startIndex = $tokens[$prev]->isGivenKind([\T_FINAL, \T_ABSTRACT]) ? $prev : $classyIndex;
@@ -235,15 +213,8 @@ interface Bar extends
         }
         return ['start' => $startIndex, 'classy' => $classyIndex, 'open' => $openIndex, 'extends' => $extends, 'implements' => $implements, 'anonymousClass' => $anonymousClass];
     }
-    /**
-     * @param int $startIndex
-     * @param string $label
-     * @return mixed[]
-     */
-    private function getClassyInheritanceInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $label)
+    private function getClassyInheritanceInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, string $label) : array
     {
-        $startIndex = (int) $startIndex;
-        $label = (string) $label;
         $implementsInfo = ['start' => $startIndex, $label => 1, 'multiLine' => \false];
         ++$startIndex;
         $endIndex = $tokens->getNextTokenOfKind($startIndex, ['{', [\T_IMPLEMENTS], [\T_EXTENDS]]);
@@ -261,13 +232,9 @@ interface Bar extends
     }
     /**
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function makeClassyDefinitionSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function makeClassyDefinitionSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         for ($i = $endIndex; $i >= $startIndex; --$i) {
             if ($tokens[$i]->isWhitespace()) {
                 $prevNonWhite = $tokens->getPrevNonWhitespace($i);
@@ -306,13 +273,9 @@ interface Bar extends
     }
     /**
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function makeClassyInheritancePartMultiLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function makeClassyInheritancePartMultiLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         for ($i = $endIndex; $i > $startIndex; --$i) {
             $previousInterfaceImplementingIndex = $tokens->getPrevTokenOfKind($i, [',', [\T_IMPLEMENTS], [\T_EXTENDS]]);
             $breakAtIndex = $tokens->getNextMeaningfulToken($previousInterfaceImplementingIndex);

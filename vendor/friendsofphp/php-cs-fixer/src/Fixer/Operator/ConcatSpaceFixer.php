@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -43,9 +44,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Concatenation should be spaced according configuration.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$foo = 'bar' . 3 . 'baz'.'qux';\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$foo = 'bar' . 3 . 'baz'.'qux';\n", ['spacing' => 'none']), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$foo = 'bar' . 3 . 'baz'.'qux';\n", ['spacing' => 'one'])]);
     }
@@ -53,17 +53,15 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      * {@inheritdoc}
      *
      * Must run after SingleLineThrowFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('.');
     }
@@ -82,9 +80,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('spacing', 'Spacing to apply around concatenation operator.'))->setAllowedValues(['one', 'none'])->setDefault('none')->getOption()]);
     }
@@ -92,9 +89,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      * @param int $index index of concatenation '.' token
      * @return void
      */
-    private function fixConcatenationToNoSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixConcatenationToNoSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $prevNonWhitespaceToken = $tokens[$tokens->getPrevNonWhitespace($index)];
         if (!$prevNonWhitespaceToken->isGivenKind([\T_LNUMBER, \T_COMMENT, \T_DOC_COMMENT]) || '/*' === \substr($prevNonWhitespaceToken->getContent(), 0, 2)) {
             $tokens->removeLeadingWhitespace($index, " \t");
@@ -107,9 +103,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      * @param int $index index of concatenation '.' token
      * @return void
      */
-    private function fixConcatenationToSingleSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixConcatenationToSingleSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $this->fixWhiteSpaceAroundConcatToken($tokens, $index, 1);
         $this->fixWhiteSpaceAroundConcatToken($tokens, $index, -1);
     }
@@ -118,10 +113,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      * @param int $offset 1 or -1
      * @return void
      */
-    private function fixWhiteSpaceAroundConcatToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $offset)
+    private function fixWhiteSpaceAroundConcatToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $offset)
     {
-        $index = (int) $index;
-        $offset = (int) $offset;
         $offsetIndex = $index + $offset;
         if (!$tokens[$offsetIndex]->isWhitespace()) {
             $tokens->insertAt($index + (1 === $offset ?: 0), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));

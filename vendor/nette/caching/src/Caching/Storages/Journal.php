@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Caching\Storages;
 
 /**
@@ -10,9 +15,8 @@ interface Journal
     /**
      * Writes entry information into the journal.
      * @return void
-     * @param string $key
      */
-    function write($key, array $dependencies);
+    function write(string $key, array $dependencies);
     /**
      * Cleans entries from journal.
      * @return array|null of removed items or null when performing a full cleanup

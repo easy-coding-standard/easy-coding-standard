@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -21,61 +22,37 @@ final class StdinFileInfo extends \SplFileInfo
     public function __construct()
     {
     }
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->getRealPath();
     }
-    /**
-     * @return string
-     */
-    public function getRealPath()
+    public function getRealPath() : string
     {
         // So file_get_contents & friends will work.
         // Warning - this stream is not seekable, so `file_get_contents` will work only once! Consider using `FileReader`.
         return 'php://stdin';
     }
-    /**
-     * @return int
-     */
-    public function getATime()
+    public function getATime() : int
     {
         return 0;
     }
-    /**
-     * @return string
-     */
-    public function getBasename($suffix = null)
+    public function getBasename($suffix = null) : string
     {
         return $this->getFilename();
     }
-    /**
-     * @return int
-     */
-    public function getCTime()
+    public function getCTime() : int
     {
         return 0;
     }
-    /**
-     * @return string
-     */
-    public function getExtension()
+    public function getExtension() : string
     {
         return '.php';
     }
-    /**
-     * @return \SplFileInfo
-     */
-    public function getFileInfo($className = null)
+    public function getFileInfo($className = null) : \SplFileInfo
     {
         throw new \BadMethodCallException(\sprintf('Method "%s" is not implemented.', __METHOD__));
     }
-    /**
-     * @return string
-     */
-    public function getFilename()
+    public function getFilename() : string
     {
         /*
          * Useful so fixers depending on PHP-only files still work.
@@ -85,129 +62,75 @@ final class StdinFileInfo extends \SplFileInfo
          */
         return 'stdin.php';
     }
-    /**
-     * @return int
-     */
-    public function getGroup()
+    public function getGroup() : int
     {
         return 0;
     }
-    /**
-     * @return int
-     */
-    public function getInode()
+    public function getInode() : int
     {
         return 0;
     }
-    /**
-     * @return string
-     */
-    public function getLinkTarget()
+    public function getLinkTarget() : string
     {
         return '';
     }
-    /**
-     * @return int
-     */
-    public function getMTime()
+    public function getMTime() : int
     {
         return 0;
     }
-    /**
-     * @return int
-     */
-    public function getOwner()
+    public function getOwner() : int
     {
         return 0;
     }
-    /**
-     * @return string
-     */
-    public function getPath()
+    public function getPath() : string
     {
         return '';
     }
-    /**
-     * @return \SplFileInfo
-     */
-    public function getPathInfo($className = null)
+    public function getPathInfo($className = null) : \SplFileInfo
     {
         throw new \BadMethodCallException(\sprintf('Method "%s" is not implemented.', __METHOD__));
     }
-    /**
-     * @return string
-     */
-    public function getPathname()
+    public function getPathname() : string
     {
         return $this->getFilename();
     }
-    /**
-     * @return int
-     */
-    public function getPerms()
+    public function getPerms() : int
     {
         return 0;
     }
-    /**
-     * @return int
-     */
-    public function getSize()
+    public function getSize() : int
     {
         return 0;
     }
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType() : string
     {
         return 'file';
     }
-    /**
-     * @return bool
-     */
-    public function isDir()
+    public function isDir() : bool
     {
         return \false;
     }
-    /**
-     * @return bool
-     */
-    public function isExecutable()
+    public function isExecutable() : bool
     {
         return \false;
     }
-    /**
-     * @return bool
-     */
-    public function isFile()
+    public function isFile() : bool
     {
         return \true;
     }
-    /**
-     * @return bool
-     */
-    public function isLink()
+    public function isLink() : bool
     {
         return \false;
     }
-    /**
-     * @return bool
-     */
-    public function isReadable()
+    public function isReadable() : bool
     {
         return \true;
     }
-    /**
-     * @return bool
-     */
-    public function isWritable()
+    public function isWritable() : bool
     {
         return \false;
     }
-    /**
-     * @return \SplFileObject
-     */
-    public function openFile($openMode = 'r', $useIncludePath = \false, $context = null)
+    public function openFile($openMode = 'r', $useIncludePath = \false, $context = null) : \SplFileObject
     {
         throw new \BadMethodCallException(\sprintf('Method "%s" is not implemented.', __METHOD__));
     }

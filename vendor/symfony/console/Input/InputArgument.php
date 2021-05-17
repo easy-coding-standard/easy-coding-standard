@@ -28,16 +28,14 @@ class InputArgument
     private $description;
     /**
      * @param string               $name        The argument name
-     * @param int $mode The argument mode: self::REQUIRED or self::OPTIONAL
+     * @param int|null             $mode        The argument mode: self::REQUIRED or self::OPTIONAL
      * @param string               $description A description text
      * @param string|string[]|null $default     The default value (for self::OPTIONAL mode only)
      *
      * @throws InvalidArgumentException When argument mode is not valid
      */
-    public function __construct($name, $mode = null, $description = '', $default = null)
+    public function __construct(string $name, int $mode = null, string $description = '', $default = null)
     {
-        $name = (string) $name;
-        $description = (string) $description;
         if (null === $mode) {
             $mode = self::OPTIONAL;
         } elseif ($mode > 7 || $mode < 1) {

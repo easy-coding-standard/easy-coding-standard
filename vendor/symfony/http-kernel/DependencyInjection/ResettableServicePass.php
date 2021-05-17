@@ -22,12 +22,8 @@ use ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference;
 class ResettableServicePass implements \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $tagName;
-    /**
-     * @param string $tagName
-     */
-    public function __construct($tagName = 'kernel.reset')
+    public function __construct(string $tagName = 'kernel.reset')
     {
-        $tagName = (string) $tagName;
         $this->tagName = $tagName;
     }
     /**

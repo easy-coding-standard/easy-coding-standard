@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
@@ -43,10 +44,7 @@ final class EasyCodingStandardApplication
         $this->fileFilter = $fileFilter;
         $this->singleFileProcessor = $singleFileProcessor;
     }
-    /**
-     * @return int
-     */
-    public function run()
+    public function run() : int
     {
         // 1. find files in sources
         $files = $this->sourceFinder->find($this->configuration->getSources(), $this->configuration->doesMatchGitDiff());

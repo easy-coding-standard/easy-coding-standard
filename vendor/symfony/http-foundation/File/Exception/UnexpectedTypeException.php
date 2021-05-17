@@ -12,12 +12,8 @@ namespace ECSPrefix20210517\Symfony\Component\HttpFoundation\File\Exception;
 
 class UnexpectedTypeException extends \ECSPrefix20210517\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
-    /**
-     * @param string $expectedType
-     */
-    public function __construct($value, $expectedType)
+    public function __construct($value, string $expectedType)
     {
-        $expectedType = (string) $expectedType;
         parent::__construct(\sprintf('Expected argument of type %s, %s given', $expectedType, \get_debug_type($value)));
     }
 }

@@ -22,17 +22,8 @@ class TraceStub extends \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\St
     public $sliceOffset;
     public $sliceLength;
     public $numberingOffset;
-    /**
-     * @param bool $keepArgs
-     * @param int $sliceOffset
-     * @param int $sliceLength
-     * @param int $numberingOffset
-     */
-    public function __construct(array $trace, $keepArgs = \true, $sliceOffset = 0, $sliceLength = null, $numberingOffset = 0)
+    public function __construct(array $trace, bool $keepArgs = \true, int $sliceOffset = 0, int $sliceLength = null, int $numberingOffset = 0)
     {
-        $keepArgs = (bool) $keepArgs;
-        $sliceOffset = (int) $sliceOffset;
-        $numberingOffset = (int) $numberingOffset;
         $this->value = $trace;
         $this->keepArgs = $keepArgs;
         $this->sliceOffset = $sliceOffset;

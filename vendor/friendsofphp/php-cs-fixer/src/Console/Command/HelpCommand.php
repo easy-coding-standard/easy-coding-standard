@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -30,9 +31,8 @@ final class HelpCommand extends \ECSPrefix20210517\Symfony\Component\Console\Com
     protected static $defaultName = 'help';
     /**
      * @param mixed $value
-     * @return string
      */
-    public static function toString($value)
+    public static function toString($value) : string
     {
         return \is_array($value) ? static::arrayToString($value) : static::scalarToString($value);
     }
@@ -73,14 +73,10 @@ final class HelpCommand extends \ECSPrefix20210517\Symfony\Component\Console\Com
     /**
      * Wraps a string to the given number of characters, ignoring style tags.
      *
-     * @return mixed[]
-     * @param string $string
-     * @param int $width
+     * @return string[]
      */
-    private static function wordwrap($string, $width)
+    private static function wordwrap(string $string, int $width) : array
     {
-        $string = (string) $string;
-        $width = (int) $width;
         $result = [];
         $currentLine = 0;
         $lineLength = 0;
@@ -103,17 +99,13 @@ final class HelpCommand extends \ECSPrefix20210517\Symfony\Component\Console\Com
     }
     /**
      * @param mixed $value
-     * @return string
      */
-    private static function scalarToString($value)
+    private static function scalarToString($value) : string
     {
         $str = \var_export($value, \true);
         return \PhpCsFixer\Preg::replace('/\\bNULL\\b/', 'null', $str);
     }
-    /**
-     * @return string
-     */
-    private static function arrayToString(array $value)
+    private static function arrayToString(array $value) : string
     {
         if (0 === \count($value)) {
             return '[]';
@@ -128,10 +120,7 @@ final class HelpCommand extends \ECSPrefix20210517\Symfony\Component\Console\Com
         }
         return \substr($str, 0, -2) . ']';
     }
-    /**
-     * @return bool
-     */
-    private static function isHash(array $array)
+    private static function isHash(array $array) : bool
     {
         $i = 0;
         foreach ($array as $k => $v) {

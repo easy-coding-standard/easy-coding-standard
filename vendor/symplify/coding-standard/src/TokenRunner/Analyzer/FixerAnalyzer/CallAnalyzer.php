@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer;
 
 use PhpCsFixer\Tokenizer\Token;
@@ -8,12 +9,9 @@ final class CallAnalyzer
 {
     /**
      * @param Tokens<Token> $tokens
-     * @param int $bracketPosition
-     * @return bool
      */
-    public function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $bracketPosition)
+    public function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $bracketPosition) : bool
     {
-        $bracketPosition = (int) $bracketPosition;
         $objectToken = new \PhpCsFixer\Tokenizer\Token([\T_OBJECT_OPERATOR, '->']);
         $whitespaceToken = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
         $previousTokenOfKindPosition = $tokens->getPrevTokenOfKind($bracketPosition, [$objectToken, $whitespaceToken]);

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -53,9 +54,9 @@ final class WarningsDetector
         }
     }
     /**
-     * @return mixed[]
+     * @return string[]
      */
-    public function getWarnings()
+    public function getWarnings() : array
     {
         if (!\count($this->warnings)) {
             return [];

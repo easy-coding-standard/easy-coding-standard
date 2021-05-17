@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 use ECSPrefix20210517\Nette;
@@ -11,13 +16,9 @@ final class ObjectHelpers
 {
     use Nette\StaticClass;
     /** @throws MemberAccessException
-     * @return void
-     * @param string $class
-     * @param string $name */
-    public static function strictGet($class, $name)
+     * @return void */
+    public static function strictGet(string $class, string $name)
     {
-        $class = (string) $class;
-        $name = (string) $name;
         $rc = new \ReflectionClass($class);
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
             return !$p->isStatic();
@@ -25,13 +26,9 @@ final class ObjectHelpers
         throw new \ECSPrefix20210517\Nette\MemberAccessException("Cannot read an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
     }
     /** @throws MemberAccessException
-     * @return void
-     * @param string $class
-     * @param string $name */
-    public static function strictSet($class, $name)
+     * @return void */
+    public static function strictSet(string $class, string $name)
     {
-        $class = (string) $class;
-        $name = (string) $name;
         $rc = new \ReflectionClass($class);
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
             return !$p->isStatic();
@@ -39,13 +36,9 @@ final class ObjectHelpers
         throw new \ECSPrefix20210517\Nette\MemberAccessException("Cannot write to an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
     }
     /** @throws MemberAccessException
-     * @return void
-     * @param string $class
-     * @param string $method */
-    public static function strictCall($class, $method, array $additionalMethods = [])
+     * @return void */
+    public static function strictCall(string $class, string $method, array $additionalMethods = [])
     {
-        $class = (string) $class;
-        $method = (string) $method;
         $hint = self::getSuggestion(\array_merge(\get_class_methods($class), self::parseFullDoc(new \ReflectionClass($class), '~^[ \\t*]*@method[ \\t]+(?:\\S+[ \\t]+)??(\\w+)\\(~m'), $additionalMethods), $method);
         if (\method_exists($class, $method)) {
             // called parent::$method()
@@ -54,13 +47,9 @@ final class ObjectHelpers
         throw new \ECSPrefix20210517\Nette\MemberAccessException("Call to undefined method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
     }
     /** @throws MemberAccessException
-     * @return void
-     * @param string $class
-     * @param string $method */
-    public static function strictStaticCall($class, $method)
+     * @return void */
+    public static function strictStaticCall(string $class, string $method)
     {
-        $class = (string) $class;
-        $method = (string) $method;
         $hint = self::getSuggestion(\array_filter((new \ReflectionClass($class))->getMethods(\ReflectionMethod::IS_PUBLIC), function ($m) {
             return $m->isStatic();
         }), $method);
@@ -70,11 +59,9 @@ final class ObjectHelpers
      * Returns array of magic properties defined by annotation @property.
      * @return array of [name => bit mask]
      * @internal
-     * @param string $class
      */
-    public static function getMagicProperties($class)
+    public static function getMagicProperties(string $class) : array
     {
-        $class = (string) $class;
         static $cache;
         $props =& $cache[$class];
         if ($props !== null) {
@@ -104,11 +91,9 @@ final class ObjectHelpers
      * @param  (\ReflectionFunctionAbstract|\ReflectionParameter|\ReflectionClass|\ReflectionProperty|string)[]  $possibilities
      * @internal
      * @return string|null
-     * @param string $value
      */
-    public static function getSuggestion(array $possibilities, $value)
+    public static function getSuggestion(array $possibilities, string $value)
     {
-        $value = (string) $value;
         $norm = \preg_replace($re = '#^(get|set|has|is|add)(?=[A-Z])#', '+', $value);
         $best = null;
         $min = (\strlen($value) / 4 + 1) * 10 + 0.1;
@@ -121,13 +106,8 @@ final class ObjectHelpers
         }
         return $best;
     }
-    /**
-     * @param string $pattern
-     * @return mixed[]
-     */
-    private static function parseFullDoc(\ReflectionClass $rc, $pattern)
+    private static function parseFullDoc(\ReflectionClass $rc, string $pattern) : array
     {
-        $pattern = (string) $pattern;
         do {
             $doc[] = $rc->getDocComment();
             $traits = $rc->getTraits();
@@ -142,13 +122,9 @@ final class ObjectHelpers
      * Checks if the public non-static property exists.
      * @return bool|string returns 'event' if the property exists and has event like name
      * @internal
-     * @param string $class
-     * @param string $name
      */
-    public static function hasProperty($class, $name)
+    public static function hasProperty(string $class, string $name)
     {
-        $class = (string) $class;
-        $name = (string) $name;
         static $cache;
         $prop =& $cache[$class][$name];
         if ($prop === null) {

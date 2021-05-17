@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,20 +29,13 @@ class InvalidFixerConfigurationException extends \PhpCsFixer\ConfigurationExcept
     private $fixerName;
     /**
      * @param \Throwable|null $previous
-     * @param string $fixerName
-     * @param string $message
      */
-    public function __construct($fixerName, $message, $previous = null)
+    public function __construct(string $fixerName, string $message, $previous = null)
     {
-        $fixerName = (string) $fixerName;
-        $message = (string) $message;
         parent::__construct(\sprintf('[%s] %s', $fixerName, $message), \PhpCsFixer\Console\Command\FixCommandExitStatusCalculator::EXIT_STATUS_FLAG_HAS_INVALID_FIXER_CONFIG, $previous);
         $this->fixerName = $fixerName;
     }
-    /**
-     * @return string
-     */
-    public function getFixerName()
+    public function getFixerName() : string
     {
         return $this->fixerName;
     }

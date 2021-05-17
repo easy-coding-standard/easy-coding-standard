@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject;
 
 use ECSPrefix20210517\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
@@ -14,14 +15,8 @@ abstract class AbstractCodeSample implements \ECSPrefix20210517\Symplify\RuleDoc
      * @var string
      */
     private $badCode;
-    /**
-     * @param string $badCode
-     * @param string $goodCode
-     */
-    public function __construct($badCode, $goodCode)
+    public function __construct(string $badCode, string $goodCode)
     {
-        $badCode = (string) $badCode;
-        $goodCode = (string) $goodCode;
         $badCode = \trim($badCode);
         $goodCode = \trim($goodCode);
         if ($badCode === '') {
@@ -34,17 +29,11 @@ abstract class AbstractCodeSample implements \ECSPrefix20210517\Symplify\RuleDoc
         $this->goodCode = $goodCode;
         $this->badCode = $badCode;
     }
-    /**
-     * @return string
-     */
-    public function getGoodCode()
+    public function getGoodCode() : string
     {
         return $this->goodCode;
     }
-    /**
-     * @return string
-     */
-    public function getBadCode()
+    public function getBadCode() : string
     {
         return $this->badCode;
     }

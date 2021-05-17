@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -34,9 +35,8 @@ final class PhpdocToReturnTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDecl
     private $skippedTypes = ['mixed' => \true, 'resource' => \true, 'null' => \true];
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('EXPERIMENTAL: Takes `@return` annotation of non-mixed types and adjusts accordingly the function signature. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
 
@@ -72,9 +72,8 @@ final class Foo {
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
             return \true;
@@ -86,19 +85,13 @@ final class Foo {
      *
      * Must run before FullyQualifiedStrictTypesFixer, NoSuperfluousPhpdocTagsFixer, PhpdocAlignFixer, ReturnTypeDeclarationFixer.
      * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, PhpdocIndentFixer, PhpdocScalarFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer, PhpdocTypesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 13;
     }
-    /**
-     * @param string $type
-     * @return bool
-     */
-    protected function isSkippedType($type)
+    protected function isSkippedType(string $type) : bool
     {
-        $type = (string) $type;
         return isset($this->skippedTypes[$type]);
     }
     /**
@@ -146,11 +139,9 @@ final class Foo {
      * Determine whether the function already has a return type hint.
      *
      * @param int $index The index of the end of the function definition line, EG at { or ;
-     * @return bool
      */
-    private function hasReturnTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function hasReturnTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         $endFuncIndex = $tokens->getPrevTokenOfKind($index, [')']);
         $nextIndex = $tokens->getNextMeaningfulToken($endFuncIndex);
         return $tokens[$nextIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON);

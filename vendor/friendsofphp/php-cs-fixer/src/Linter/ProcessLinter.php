@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -73,9 +74,8 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * This class is not intended to be serialized,
      * and cannot be deserialized (see __wakeup method).
-     * @return mixed[]
      */
-    public function __sleep()
+    public function __sleep() : array
     {
         throw new \BadMethodCallException('Cannot serialize ' . __CLASS__);
     }
@@ -92,39 +92,30 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isAsync()
+    public function isAsync() : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @param string $path
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintFile($path)
+    public function lintFile(string $path) : \PhpCsFixer\Linter\LintingResultInterface
     {
-        $path = (string) $path;
         return new \PhpCsFixer\Linter\ProcessLintingResult($this->createProcessForFile($path), $path);
     }
     /**
      * {@inheritdoc}
-     * @param string $source
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintSource($source)
+    public function lintSource(string $source) : \PhpCsFixer\Linter\LintingResultInterface
     {
-        $source = (string) $source;
         return new \PhpCsFixer\Linter\ProcessLintingResult($this->createProcessForSource($source), $this->temporaryFile);
     }
     /**
      * @param string $path path to file
-     * @return \Symfony\Component\Process\Process
      */
-    private function createProcessForFile($path)
+    private function createProcessForFile(string $path) : \ECSPrefix20210517\Symfony\Component\Process\Process
     {
-        $path = (string) $path;
         // in case php://stdin
         if (!\is_file($path)) {
             return $this->createProcessForSource(\PhpCsFixer\FileReader::createSingleton()->read($path));
@@ -138,11 +129,9 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      * Create process that lint PHP code.
      *
      * @param string $source code
-     * @return \Symfony\Component\Process\Process
      */
-    private function createProcessForSource($source)
+    private function createProcessForSource(string $source) : \ECSPrefix20210517\Symfony\Component\Process\Process
     {
-        $source = (string) $source;
         if (null === $this->temporaryFile) {
             $this->temporaryFile = \tempnam(\sys_get_temp_dir(), 'cs_fixer_tmp_');
             $this->fileRemoval->observe($this->temporaryFile);

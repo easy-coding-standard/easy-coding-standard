@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Fixer;
@@ -42,10 +43,7 @@ final class FileFactory
         $this->appliedCheckersCollector = $appliedCheckersCollector;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
-    /**
-     * @return \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File
-     */
-    public function createFromFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function createFromFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File
     {
         return new \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File($smartFileInfo->getRelativeFilePath(), $smartFileInfo->getContents(), $this->fixer, $this->errorAndDiffCollector, $this->skipper, $this->appliedCheckersCollector, $this->easyCodingStandardStyle);
     }

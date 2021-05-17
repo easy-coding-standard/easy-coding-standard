@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 use ECSPrefix20210517\Nette;
@@ -11,11 +16,9 @@ class ArrayHash extends \stdClass implements \ArrayAccess, \Countable, \Iterator
     /**
      * Transforms array to ArrayHash.
      * @return static
-     * @param bool $recursive
      */
-    public static function from(array $array, $recursive = \true)
+    public static function from(array $array, bool $recursive = \true)
     {
-        $recursive = (bool) $recursive;
         $obj = new static();
         foreach ($array as $key => $value) {
             $obj->{$key} = $recursive && \is_array($value) ? static::from($value, \true) : $value;
@@ -24,17 +27,15 @@ class ArrayHash extends \stdClass implements \ArrayAccess, \Countable, \Iterator
     }
     /**
      * Returns an iterator over all items.
-     * @return \RecursiveArrayIterator
      */
-    public function getIterator()
+    public function getIterator() : \RecursiveArrayIterator
     {
         return new \RecursiveArrayIterator((array) $this);
     }
     /**
      * Returns items count.
-     * @return int
      */
-    public function count()
+    public function count() : int
     {
         return \count((array) $this);
     }
@@ -64,9 +65,8 @@ class ArrayHash extends \stdClass implements \ArrayAccess, \Countable, \Iterator
     /**
      * Determines whether a item exists.
      * @param  string|int  $key
-     * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists($key) : bool
     {
         return isset($this->{$key});
     }

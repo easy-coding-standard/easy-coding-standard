@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff;
@@ -113,9 +114,9 @@ final class RemoveMutualCheckersCompilerPass implements \ECSPrefix20210517\Symfo
     }
     /**
      * @param string[] $checkers
-     * @return mixed[]
+     * @return string[]
      */
-    private function resolveCheckersToRemove(array $checkers)
+    private function resolveCheckersToRemove(array $checkers) : array
     {
         $checkers = \array_flip($checkers);
         $checkersToRemove = [];
@@ -133,9 +134,8 @@ final class RemoveMutualCheckersCompilerPass implements \ECSPrefix20210517\Symfo
     /**
      * @param string[] $checkers
      * @param string[] $matchingCheckerGroup
-     * @return bool
      */
-    private function isMatch(array $checkers, array $matchingCheckerGroup)
+    private function isMatch(array $checkers, array $matchingCheckerGroup) : bool
     {
         $matchingCheckerGroupKeys = \array_flip($matchingCheckerGroup);
         $matchingCheckers = \array_intersect_key($matchingCheckerGroupKeys, $checkers);

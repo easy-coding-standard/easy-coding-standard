@@ -32,11 +32,9 @@ class ProgressIndicator
     /**
      * @param int        $indicatorChangeInterval Change interval in milliseconds
      * @param array|null $indicatorValues         Animated indicator characters
-     * @param string $format
      */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, $format = null, $indicatorChangeInterval = 100, array $indicatorValues = null)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface $output, string $format = null, int $indicatorChangeInterval = 100, array $indicatorValues = null)
     {
-        $indicatorChangeInterval = (int) $indicatorChangeInterval;
         $this->output = $output;
         if (null === $format) {
             $format = $this->determineBestFormat();
@@ -64,11 +62,9 @@ class ProgressIndicator
     }
     /**
      * Starts the indicator output.
-     * @param string $message
      */
-    public function start($message)
+    public function start(string $message)
     {
-        $message = (string) $message;
         if ($this->started) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\LogicException('Progress indicator already started.');
         }
@@ -103,9 +99,8 @@ class ProgressIndicator
      *
      * @param $message
      */
-    public function finish($message)
+    public function finish(string $message)
     {
-        $message = (string) $message;
         if (!$this->started) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\LogicException('Progress indicator has not yet been started.');
         }
@@ -118,25 +113,21 @@ class ProgressIndicator
      * Gets the format for a given name.
      *
      * @return string|null A format string
-     * @param string $name
      */
-    public static function getFormatDefinition($name)
+    public static function getFormatDefinition(string $name)
     {
-        $name = (string) $name;
         if (!self::$formats) {
             self::$formats = self::initFormats();
         }
-        return isset(self::$formats[$name]) ? self::$formats[$name] : null;
+        return self::$formats[$name] ?? null;
     }
     /**
      * Sets a placeholder formatter for a given name.
      *
      * This method also allow you to override an existing placeholder.
-     * @param string $name
      */
-    public static function setPlaceholderFormatterDefinition($name, callable $callable)
+    public static function setPlaceholderFormatterDefinition(string $name, callable $callable)
     {
-        $name = (string) $name;
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
         }
@@ -146,15 +137,13 @@ class ProgressIndicator
      * Gets the placeholder formatter for a given name (including the delimiter char like %).
      *
      * @return callable|null A PHP callable
-     * @param string $name
      */
-    public static function getPlaceholderFormatterDefinition($name)
+    public static function getPlaceholderFormatterDefinition(string $name)
     {
-        $name = (string) $name;
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
         }
-        return isset(self::$formatters[$name]) ? self::$formatters[$name] : null;
+        return self::$formatters[$name] ?? null;
     }
     private function display()
     {
@@ -166,12 +155,9 @@ class ProgressIndicator
                 return $formatter($this);
             }
             return $matches[0];
-        }, $this->format !== null ? $this->format : ''));
+        }, $this->format ?? ''));
     }
-    /**
-     * @return string
-     */
-    private function determineBestFormat()
+    private function determineBestFormat() : string
     {
         switch ($this->output->getVerbosity()) {
             // OutputInterface::VERBOSITY_QUIET: display is disabled anyway
@@ -186,11 +172,9 @@ class ProgressIndicator
     }
     /**
      * Overwrites a previous message to the output.
-     * @param string $message
      */
-    private function overwrite($message)
+    private function overwrite(string $message)
     {
-        $message = (string) $message;
         if ($this->output->isDecorated()) {
             $this->output->write("\r\33[2K");
             $this->output->write($message);
@@ -198,17 +182,11 @@ class ProgressIndicator
             $this->output->writeln($message);
         }
     }
-    /**
-     * @return float
-     */
-    private function getCurrentTimeInMilliseconds()
+    private function getCurrentTimeInMilliseconds() : float
     {
         return \round(\microtime(\true) * 1000);
     }
-    /**
-     * @return mixed[]
-     */
-    private static function initPlaceholderFormatters()
+    private static function initPlaceholderFormatters() : array
     {
         return ['indicator' => function (self $indicator) {
             return $indicator->indicatorValues[$indicator->indicatorCurrent % \count($indicator->indicatorValues)];
@@ -220,10 +198,7 @@ class ProgressIndicator
             return \ECSPrefix20210517\Symfony\Component\Console\Helper\Helper::formatMemory(\memory_get_usage(\true));
         }];
     }
-    /**
-     * @return mixed[]
-     */
-    private static function initFormats()
+    private static function initFormats() : array
     {
         return ['normal' => ' %indicator% %message%', 'normal_no_ansi' => ' %message%', 'verbose' => ' %indicator% %message% (%elapsed:6s%)', 'verbose_no_ansi' => ' %message% (%elapsed:6s%)', 'very_verbose' => ' %indicator% %message% (%elapsed:6s%, %memory:6s%)', 'very_verbose_no_ansi' => ' %message% (%elapsed:6s%, %memory:6s%)'];
     }

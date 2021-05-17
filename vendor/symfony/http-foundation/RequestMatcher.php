@@ -49,11 +49,8 @@ class RequestMatcher implements \ECSPrefix20210517\Symfony\Component\HttpFoundat
      * @param string|string[]|null $methods
      * @param string|string[]|null $ips
      * @param string|string[]|null $schemes
-     * @param string $path
-     * @param string $host
-     * @param int $port
      */
-    public function __construct($path = null, $host = null, $methods = null, $ips = null, array $attributes = [], $schemes = null, $port = null)
+    public function __construct(string $path = null, string $host = null, $methods = null, $ips = null, array $attributes = [], $schemes = null, int $port = null)
     {
         $this->matchPath($path);
         $this->matchHost($host);
@@ -104,9 +101,8 @@ class RequestMatcher implements \ECSPrefix20210517\Symfony\Component\HttpFoundat
      *
      * @param string $ip A specific IP address or a range specified using IP/netmask like 192.168.1.0/24
      */
-    public function matchIp($ip)
+    public function matchIp(string $ip)
     {
-        $ip = (string) $ip;
         $this->matchIps($ip);
     }
     /**
@@ -132,13 +128,9 @@ class RequestMatcher implements \ECSPrefix20210517\Symfony\Component\HttpFoundat
     }
     /**
      * Adds a check for request attribute.
-     * @param string $key
-     * @param string $regexp
      */
-    public function matchAttribute($key, $regexp)
+    public function matchAttribute(string $key, string $regexp)
     {
-        $key = (string) $key;
-        $regexp = (string) $regexp;
         $this->attributes[$key] = $regexp;
     }
     /**

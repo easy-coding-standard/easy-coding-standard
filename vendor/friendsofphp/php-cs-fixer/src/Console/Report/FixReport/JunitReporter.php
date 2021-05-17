@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -22,17 +23,15 @@ final class JunitReporter implements \PhpCsFixer\Console\Report\FixReport\Report
 {
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function getFormat()
+    public function getFormat() : string
     {
         return 'junit';
     }
     /**
      * {@inheritdoc}
-     * @return string
      */
-    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary)
+    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary) : string
     {
         if (!\extension_loaded('dom')) {
             throw new \RuntimeException('Cannot generate report! `ext-dom` is not available!');
@@ -83,15 +82,8 @@ final class JunitReporter implements \PhpCsFixer\Console\Report\FixReport\Report
         $testsuite->setAttribute('failures', (string) $assertionsCount);
         $testsuite->setAttribute('errors', '0');
     }
-    /**
-     * @param string $file
-     * @param bool $shouldAddAppliedFixers
-     * @return \DOMElement
-     */
-    private function createFailedTestCase(\DOMDocument $dom, $file, array $fixResult, $shouldAddAppliedFixers)
+    private function createFailedTestCase(\DOMDocument $dom, string $file, array $fixResult, bool $shouldAddAppliedFixers) : \DOMElement
     {
-        $file = (string) $file;
-        $shouldAddAppliedFixers = (bool) $shouldAddAppliedFixers;
         $appliedFixersCount = \count($fixResult['appliedFixers']);
         $testName = \str_replace('.', '_DOT_', \PhpCsFixer\Preg::replace('@\\.' . \pathinfo($file, \PATHINFO_EXTENSION) . '$@', '', $file));
         $testcase = $dom->createElement('testcase');

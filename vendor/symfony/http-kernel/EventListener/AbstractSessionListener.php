@@ -40,12 +40,8 @@ abstract class AbstractSessionListener implements \ECSPrefix20210517\Symfony\Com
     protected $container;
     private $sessionUsageStack = [];
     private $debug;
-    /**
-     * @param bool $debug
-     */
-    public function __construct(\ECSPrefix20210517\Psr\Container\ContainerInterface $container = null, $debug = \false)
+    public function __construct(\ECSPrefix20210517\Psr\Container\ContainerInterface $container = null, bool $debug = \false)
     {
-        $debug = (bool) $debug;
         $this->container = $container;
         $this->debug = $debug;
     }
@@ -58,7 +54,7 @@ abstract class AbstractSessionListener implements \ECSPrefix20210517\Symfony\Com
         if (!$request->hasSession()) {
             $sess = null;
             $request->setSessionFactory(function () use(&$sess) {
-                return isset($sess) ? $sess : ($sess = $this->getSession());
+                return $sess ?? ($sess = $this->getSession());
             });
         }
         $session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null;
@@ -156,10 +152,7 @@ abstract class AbstractSessionListener implements \ECSPrefix20210517\Symfony\Com
         }
         throw new \ECSPrefix20210517\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [
             \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 128],

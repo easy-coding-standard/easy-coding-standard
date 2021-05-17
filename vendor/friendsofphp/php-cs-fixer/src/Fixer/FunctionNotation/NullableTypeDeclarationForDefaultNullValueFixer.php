@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -32,17 +33,15 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Adds or removes `?` before type declarations for parameters with a default `null` value.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction sample(string \$str = null)\n{}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70100)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction sample(?string \$str = null)\n{}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70100), ['use_nullable_type_declaration' => \false])], 'Rule is applied only in a PHP 7.1+ environment.');
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if (\PHP_VERSION_ID < 70100) {
             return \false;
@@ -59,17 +58,15 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
      * {@inheritdoc}
      *
      * Must run before NoUnreachableDefaultArgumentValueFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 1;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use_nullable_type_declaration', 'Whether to add or remove `?` before type declarations for parameters with a default `null` value.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }

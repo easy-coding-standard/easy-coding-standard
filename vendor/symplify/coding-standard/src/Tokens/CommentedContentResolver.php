@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\Tokens;
 
 use ECSPrefix20210517\Nette\Utils\Strings;
@@ -28,12 +29,9 @@ final class CommentedContentResolver
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $position
-     * @return \Symplify\CodingStandard\ValueObject\StartAndEnd
      */
-    public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : \Symplify\CodingStandard\ValueObject\StartAndEnd
     {
-        $position = (int) $position;
         $token = $tokens[$position];
         if (!$token->isGivenKind(\T_COMMENT)) {
             throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
@@ -67,15 +65,8 @@ final class CommentedContentResolver
         }
         return new \Symplify\CodingStandard\ValueObject\StartAndEnd($startPosition, $lastPosition);
     }
-    /**
-     * @param int $lastLineSeen
-     * @param int $tokenLine
-     * @return bool
-     */
-    private function shouldBreak($lastLineSeen, $tokenLine, \PhpCsFixer\Tokenizer\Token $token)
+    private function shouldBreak(int $lastLineSeen, int $tokenLine, \PhpCsFixer\Tokenizer\Token $token) : bool
     {
-        $lastLineSeen = (int) $lastLineSeen;
-        $tokenLine = (int) $tokenLine;
         if ($lastLineSeen + 1 <= $tokenLine && \ECSPrefix20210517\Nette\Utils\Strings::startsWith($token->getContent(), '/*')) {
             // First non-whitespace token on a new line is start of a different style comment.
             return \true;
@@ -86,15 +77,8 @@ final class CommentedContentResolver
         // Blank line breaks a '//' style comment block.
         return $lastLineSeen + 1 < $tokenLine;
     }
-    /**
-     * @param int $lastLineSeen
-     * @param int $tokenLine
-     * @return bool
-     */
-    private function isNextLineNotComment($lastLineSeen, $tokenLine, \PhpCsFixer\Tokenizer\Token $token)
+    private function isNextLineNotComment(int $lastLineSeen, int $tokenLine, \PhpCsFixer\Tokenizer\Token $token) : bool
     {
-        $lastLineSeen = (int) $lastLineSeen;
-        $tokenLine = (int) $tokenLine;
         if ($lastLineSeen >= $tokenLine) {
             return \false;
         }

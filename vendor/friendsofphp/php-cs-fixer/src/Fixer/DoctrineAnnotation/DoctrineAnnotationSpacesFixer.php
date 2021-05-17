@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -29,9 +30,8 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Fixes spaces in Doctrine annotations.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @Foo ( )\n */\nclass Bar {}\n\n/**\n * @Foo(\"bar\" ,\"baz\")\n */\nclass Bar2 {}\n\n/**\n * @Foo(foo = \"foo\", bar = {\"foo\":\"foo\", \"bar\"=\"bar\"})\n */\nclass Bar3 {}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @Foo(foo = \"foo\", bar = {\"foo\":\"foo\", \"bar\"=\"bar\"})\n */\nclass Bar {}\n", ['after_array_assignments_equals' => \false, 'before_array_assignments_equals' => \false])], 'There must not be any space around parentheses; commas must be preceded by no space and followed by one space; there must be no space around named arguments assignment operator; there must be one space around array assignment operator.');
     }
@@ -39,17 +39,15 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
      * {@inheritdoc}
      *
      * Must run after DoctrineAnnotationArrayAssignmentFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver(\array_merge(parent::createConfigurationDefinition()->getOptions(), [(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('around_parentheses', 'Whether to fix spaces around parentheses.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('around_commas', 'Whether to fix spaces around commas.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('before_argument_assignments', 'Whether to add, remove or ignore spaces before argument assignment operator.'))->setAllowedTypes(['null', 'bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_argument_assignments', 'Whether to add, remove or ignore spaces after argument assignment operator.'))->setAllowedTypes(['null', 'bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('before_array_assignments_equals', 'Whether to add, remove or ignore spaces before array `=` assignment operator.'))->setAllowedTypes(['null', 'bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_array_assignments_equals', 'Whether to add, remove or ignore spaces after array assignment `=` operator.'))->setAllowedTypes(['null', 'bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('before_array_assignments_colon', 'Whether to add, remove or ignore spaces before array `:` assignment operator.'))->setAllowedTypes(['null', 'bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_array_assignments_colon', 'Whether to add, remove or ignore spaces after array assignment `:` operator.'))->setAllowedTypes(['null', 'bool'])->setDefault(\true)->getOption()]));
     }
@@ -192,33 +190,25 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
     /**
      * @param bool|null $insert
      * @return void
-     * @param int $index
      */
-    private function updateSpacesAfter(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index, $insert)
+    private function updateSpacesAfter(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, $insert)
     {
-        $index = (int) $index;
         $this->updateSpacesAt($tokens, $index + 1, $index + 1, $insert);
     }
     /**
      * @param bool|null $insert
      * @return void
-     * @param int $index
      */
-    private function updateSpacesBefore(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index, $insert)
+    private function updateSpacesBefore(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, $insert)
     {
-        $index = (int) $index;
         $this->updateSpacesAt($tokens, $index - 1, $index, $insert);
     }
     /**
      * @param bool|null $insert
      * @return void
-     * @param int $index
-     * @param int $insertIndex
      */
-    private function updateSpacesAt(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index, $insertIndex, $insert)
+    private function updateSpacesAt(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, int $insertIndex, $insert)
     {
-        $index = (int) $index;
-        $insertIndex = (int) $insertIndex;
         if (null === $insert) {
             return;
         }

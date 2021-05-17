@@ -28,11 +28,9 @@ class HIncludeFragmentRenderer extends \ECSPrefix20210517\Symfony\Component\Http
     private $charset;
     /**
      * @param string $globalDefaultTemplate The global default content (it can be a template name or the content)
-     * @param string $charset
      */
-    public function __construct(\ECSPrefix20210517\Twig\Environment $twig = null, \ECSPrefix20210517\Symfony\Component\HttpKernel\UriSigner $signer = null, $globalDefaultTemplate = null, $charset = 'utf-8')
+    public function __construct(\ECSPrefix20210517\Twig\Environment $twig = null, \ECSPrefix20210517\Symfony\Component\HttpKernel\UriSigner $signer = null, string $globalDefaultTemplate = null, string $charset = 'utf-8')
     {
-        $charset = (string) $charset;
         $this->twig = $twig;
         $this->globalDefaultTemplate = $globalDefaultTemplate;
         $this->signer = $signer;
@@ -67,7 +65,7 @@ class HIncludeFragmentRenderer extends \ECSPrefix20210517\Symfony\Component\Http
         }
         // We need to replace ampersands in the URI with the encoded form in order to return valid html/xml content.
         $uri = \str_replace('&', '&amp;', $uri);
-        $template = isset($options['default']) ? $options['default'] : $this->globalDefaultTemplate;
+        $template = $options['default'] ?? $this->globalDefaultTemplate;
         if (null !== $this->twig && $template && $this->twig->getLoader()->exists($template)) {
             $content = $this->twig->render($template);
         } else {

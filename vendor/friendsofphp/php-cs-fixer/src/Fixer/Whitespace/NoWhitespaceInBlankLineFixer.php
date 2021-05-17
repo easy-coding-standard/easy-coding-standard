@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -26,9 +27,8 @@ final class NoWhitespaceInBlankLineFixer extends \PhpCsFixer\AbstractFixer imple
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Remove trailing whitespace at the end of blank lines.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n   \n\$a = 1;\n")]);
     }
@@ -36,17 +36,15 @@ final class NoWhitespaceInBlankLineFixer extends \PhpCsFixer\AbstractFixer imple
      * {@inheritdoc}
      *
      * Must run after CombineConsecutiveIssetsFixer, CombineConsecutiveUnsetsFixer, FunctionToConstantFixer, NoEmptyCommentFixer, NoEmptyPhpdocFixer, NoEmptyStatementFixer, NoUselessElseFixer, NoUselessReturnFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -19;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \true;
     }
@@ -65,11 +63,9 @@ final class NoWhitespaceInBlankLineFixer extends \PhpCsFixer\AbstractFixer imple
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixWhitespaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixWhitespaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $content = $tokens[$index]->getContent();
         $lines = \PhpCsFixer\Preg::split("/(\r\n|\n)/", $content);
         $lineCount = \count($lines);

@@ -87,9 +87,8 @@ class Terminal
     }
     /**
      * Returns whether STDOUT has vt100 support (some Windows 10+ configurations).
-     * @return bool
      */
-    private static function hasVt100Support()
+    private static function hasVt100Support() : bool
     {
         return \function_exists('sapi_windows_vt100_support') && \sapi_windows_vt100_support(\fopen('php://stdout', 'w'));
     }
@@ -133,11 +132,9 @@ class Terminal
     }
     /**
      * @return string|null
-     * @param string $command
      */
-    private static function readFromProcess($command)
+    private static function readFromProcess(string $command)
     {
-        $command = (string) $command;
         if (!\function_exists('proc_open')) {
             return null;
         }

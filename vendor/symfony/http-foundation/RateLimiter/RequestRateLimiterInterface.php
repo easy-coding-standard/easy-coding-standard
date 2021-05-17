@@ -24,10 +24,7 @@ use ECSPrefix20210517\Symfony\Component\RateLimiter\RateLimit;
  */
 interface RequestRateLimiterInterface
 {
-    /**
-     * @return \Symfony\Component\RateLimiter\RateLimit
-     */
-    public function consume(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request);
+    public function consume(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request) : \ECSPrefix20210517\Symfony\Component\RateLimiter\RateLimit;
     /**
      * @return void
      */

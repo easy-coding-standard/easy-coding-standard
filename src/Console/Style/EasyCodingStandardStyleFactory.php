@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Style;
 
 use ECSPrefix20210517\Symfony\Component\Console\Application;
@@ -24,10 +25,7 @@ final class EasyCodingStandardStyleFactory
         $this->privatesCaller = new \ECSPrefix20210517\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $this->terminal = $terminal;
     }
-    /**
-     * @return \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
-     */
-    public function create()
+    public function create() : \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
     {
         $argvInput = new \ECSPrefix20210517\Symfony\Component\Console\Input\ArgvInput();
         $consoleOutput = new \ECSPrefix20210517\Symfony\Component\Console\Output\ConsoleOutput();

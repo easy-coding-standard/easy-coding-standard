@@ -23,9 +23,8 @@ class AutoExpireFlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFou
     /**
      * @param string $storageKey The key used to store flashes in the session
      */
-    public function __construct($storageKey = '_symfony_flashes')
+    public function __construct(string $storageKey = '_symfony_flashes')
     {
-        $storageKey = (string) $storageKey;
         $this->storageKey = $storageKey;
     }
     /**
@@ -35,12 +34,8 @@ class AutoExpireFlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFou
     {
         return $this->name;
     }
-    /**
-     * @param string $name
-     */
-    public function setName($name)
+    public function setName(string $name)
     {
-        $name = (string) $name;
         $this->name = $name;
     }
     /**
@@ -57,20 +52,16 @@ class AutoExpireFlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function add($type, $message)
+    public function add(string $type, $message)
     {
-        $type = (string) $type;
         $this->flashes['new'][$type][] = $message;
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function peek($type, array $default = [])
+    public function peek(string $type, array $default = [])
     {
-        $type = (string) $type;
         return $this->has($type) ? $this->flashes['display'][$type] : $default;
     }
     /**
@@ -82,11 +73,9 @@ class AutoExpireFlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function get($type, array $default = [])
+    public function get(string $type, array $default = [])
     {
-        $type = (string) $type;
         $return = $default;
         if (!$this->has($type)) {
             return $return;
@@ -115,20 +104,16 @@ class AutoExpireFlashBag implements \ECSPrefix20210517\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function set($type, $messages)
+    public function set(string $type, $messages)
     {
-        $type = (string) $type;
         $this->flashes['new'][$type] = (array) $messages;
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function has($type)
+    public function has(string $type)
     {
-        $type = (string) $type;
         return \array_key_exists($type, $this->flashes['display']) && $this->flashes['display'][$type];
     }
     /**

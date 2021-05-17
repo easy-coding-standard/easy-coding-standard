@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -28,9 +29,8 @@ final class BlankLineAfterNamespaceFixer extends \PhpCsFixer\AbstractFixer imple
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('There MUST be one blank line after the namespace declaration.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nnamespace Sample\\Sample;\n\n\n\$a;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nnamespace Sample\\Sample;\nClass Test{}\n")]);
     }
@@ -38,17 +38,15 @@ final class BlankLineAfterNamespaceFixer extends \PhpCsFixer\AbstractFixer imple
      * {@inheritdoc}
      *
      * Must run after NoUnusedImportsFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -20;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_NAMESPACE);
     }
@@ -78,13 +76,8 @@ final class BlankLineAfterNamespaceFixer extends \PhpCsFixer\AbstractFixer imple
             }
         }
     }
-    /**
-     * @param int $index
-     * @return int
-     */
-    private function getIndexToEnsureBlankLineAfter(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function getIndexToEnsureBlankLineAfter(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
-        $index = (int) $index;
         $indexToEnsureBlankLine = $index;
         $nextIndex = $tokens->getNonEmptySibling($indexToEnsureBlankLine, 1);
         while (null !== $nextIndex) {
@@ -106,15 +99,8 @@ final class BlankLineAfterNamespaceFixer extends \PhpCsFixer\AbstractFixer imple
         }
         return $indexToEnsureBlankLine;
     }
-    /**
-     * @param string $currentContent
-     * @param bool $isLastIndex
-     * @return \PhpCsFixer\Tokenizer\Token
-     */
-    private function getTokenToInsert($currentContent, $isLastIndex)
+    private function getTokenToInsert(string $currentContent, bool $isLastIndex) : \PhpCsFixer\Tokenizer\Token
     {
-        $currentContent = (string) $currentContent;
-        $isLastIndex = (bool) $isLastIndex;
         $ending = $this->whitespacesConfig->getLineEnding();
         $emptyLines = $isLastIndex ? $ending : $ending . $ending;
         $indent = 1 === \PhpCsFixer\Preg::match('/^.*\\R( *)$/s', $currentContent, $matches) ? $matches[1] : '';

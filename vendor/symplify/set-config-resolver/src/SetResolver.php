@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver;
 
 use ECSPrefix20210517\Symplify\SetConfigResolver\Contract\SetProviderInterface;
@@ -16,13 +17,8 @@ final class SetResolver
     {
         $this->setProvider = $setProvider;
     }
-    /**
-     * @param string $setName
-     * @return \Symplify\SmartFileSystem\SmartFileInfo
-     */
-    public function detectFromName($setName)
+    public function detectFromName(string $setName) : \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $setName = (string) $setName;
         $set = $this->setProvider->provideByName($setName);
         if (!$set instanceof \ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject\Set) {
             $this->reportSetNotFound($setName);
@@ -31,11 +27,9 @@ final class SetResolver
     }
     /**
      * @return void
-     * @param string $setName
      */
-    private function reportSetNotFound($setName)
+    private function reportSetNotFound(string $setName)
     {
-        $setName = (string) $setName;
         $message = \sprintf('Set "%s" was not found', $setName);
         throw new \ECSPrefix20210517\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
     }

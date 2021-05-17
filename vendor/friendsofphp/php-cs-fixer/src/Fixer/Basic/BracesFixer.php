@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -43,9 +44,8 @@ final class BracesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer
     const LINE_SAME = 'same';
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('The body of each structure MUST be enclosed by braces. Braces should be properly placed. Body of braces should be properly indented.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
@@ -110,17 +110,15 @@ class Foo
      *
      * Must run before ArrayIndentationFixer, MethodArgumentSpaceFixer, MethodChainingIndentationFixer.
      * Must run after ClassAttributesSeparationFixer, ClassDefinitionFixer, ElseifFixer, LineEndingFixer, NoAlternativeSyntaxFixer, NoEmptyStatementFixer, NoUselessElseFixer, SingleLineThrowFixer, SingleSpaceAfterConstructFixer, SingleTraitInsertPerStatementFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 35;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \true;
     }
@@ -139,9 +137,8 @@ class Foo
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('allow_single_line_anonymous_class_with_empty_body', 'Whether single line anonymous class with empty body notation should be allowed.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('allow_single_line_closure', 'Whether single line lambda notation should be allowed.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('position_after_functions_and_oop_constructs', 'whether the opening brace should be placed on "next" or "same" line after classy constructs (non-anonymous classes, interfaces, traits, methods and non-lambda functions).'))->setAllowedValues([self::LINE_NEXT, self::LINE_SAME])->setDefault(self::LINE_NEXT)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('position_after_control_structures', 'whether the opening brace should be placed on "next" or "same" line after control structures.'))->setAllowedValues([self::LINE_NEXT, self::LINE_SAME])->setDefault(self::LINE_SAME)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('position_after_anonymous_constructs', 'whether the opening brace should be placed on "next" or "same" line after anonymous constructs (anonymous classes and lambda functions).'))->setAllowedValues([self::LINE_NEXT, self::LINE_SAME])->setDefault(self::LINE_SAME)->getOption()]);
     }
@@ -504,13 +501,8 @@ class Foo
             }
         }
     }
-    /**
-     * @param int $structureTokenIndex
-     * @return int
-     */
-    private function findParenthesisEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $structureTokenIndex)
+    private function findParenthesisEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $structureTokenIndex) : int
     {
-        $structureTokenIndex = (int) $structureTokenIndex;
         $nextIndex = $tokens->getNextMeaningfulToken($structureTokenIndex);
         $nextToken = $tokens[$nextIndex];
         // return if next token is not opening parenthesis
@@ -519,13 +511,8 @@ class Foo
         }
         return $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex);
     }
-    /**
-     * @param int $parenthesisEndIndex
-     * @return int
-     */
-    private function findStatementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $parenthesisEndIndex)
+    private function findStatementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $parenthesisEndIndex) : int
     {
-        $parenthesisEndIndex = (int) $parenthesisEndIndex;
         $nextIndex = $tokens->getNextMeaningfulToken($parenthesisEndIndex);
         $nextToken = $tokens[$nextIndex];
         if (!$nextToken) {
@@ -571,10 +558,7 @@ class Foo
             }
         }
     }
-    /**
-     * @return mixed[]
-     */
-    private function getControlTokens()
+    private function getControlTokens() : array
     {
         static $tokens = [\T_DECLARE, \T_DO, \T_ELSE, \T_ELSEIF, \T_FINALLY, \T_FOR, \T_FOREACH, \T_IF, \T_WHILE, \T_TRY, \T_CATCH, \T_SWITCH];
         // @TODO: drop condition when PHP 8.0+ is required
@@ -583,21 +567,13 @@ class Foo
         }
         return $tokens;
     }
-    /**
-     * @return mixed[]
-     */
-    private function getControlContinuationTokens()
+    private function getControlContinuationTokens() : array
     {
         static $tokens = [\T_CATCH, \T_ELSE, \T_ELSEIF, \T_FINALLY];
         return $tokens;
     }
-    /**
-     * @param int $openingTokenKind
-     * @return mixed[]
-     */
-    private function getControlContinuationTokensForOpeningToken($openingTokenKind)
+    private function getControlContinuationTokensForOpeningToken(int $openingTokenKind) : array
     {
-        $openingTokenKind = (int) $openingTokenKind;
         if (\T_IF === $openingTokenKind) {
             return [\T_ELSE, \T_ELSEIF];
         }
@@ -609,13 +585,8 @@ class Foo
         }
         return [];
     }
-    /**
-     * @param int $openingTokenKind
-     * @return mixed[]
-     */
-    private function getFinalControlContinuationTokensForOpeningToken($openingTokenKind)
+    private function getFinalControlContinuationTokensForOpeningToken(int $openingTokenKind) : array
     {
-        $openingTokenKind = (int) $openingTokenKind;
         if (\T_IF === $openingTokenKind) {
             return [\T_ELSE];
         }
@@ -626,11 +597,9 @@ class Foo
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixDeclareStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixDeclareStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $tokens->removeTrailingWhitespace($index);
         $startParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(']);
         $tokens->removeTrailingWhitespace($startParenthesisIndex);
@@ -644,11 +613,9 @@ class Foo
     }
     /**
      * @return void
-     * @param int $startBraceIndex
      */
-    private function fixSingleLineWhitespaceForDeclare(\PhpCsFixer\Tokenizer\Tokens $tokens, $startBraceIndex)
+    private function fixSingleLineWhitespaceForDeclare(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startBraceIndex)
     {
-        $startBraceIndex = (int) $startBraceIndex;
         // fix single-line whitespace before {
         // eg: `declare(ticks=1){` => `declare(ticks=1) {`
         // eg: `declare(ticks=1)   {` => `declare(ticks=1) {`
@@ -658,13 +625,9 @@ class Foo
     }
     /**
      * @return void
-     * @param int $index
-     * @param string $whitespace
      */
-    private function ensureWhitespaceAtIndexAndIndentMultilineComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $whitespace)
+    private function ensureWhitespaceAtIndexAndIndentMultilineComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $whitespace)
     {
-        $index = (int) $index;
-        $whitespace = (string) $whitespace;
         if ($tokens[$index]->isWhitespace()) {
             $nextTokenIndex = $tokens->getNextNonWhitespace($index);
         } else {
@@ -682,15 +645,8 @@ class Foo
         }
         $tokens->ensureWhitespaceAtIndex($index, 0, $whitespace);
     }
-    /**
-     * @param int $startParenthesisIndex
-     * @param int $endParenthesisIndex
-     * @return bool
-     */
-    private function isMultilined(\PhpCsFixer\Tokenizer\Tokens $tokens, $startParenthesisIndex, $endParenthesisIndex)
+    private function isMultilined(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startParenthesisIndex, int $endParenthesisIndex) : bool
     {
-        $startParenthesisIndex = (int) $startParenthesisIndex;
-        $endParenthesisIndex = (int) $endParenthesisIndex;
         for ($i = $startParenthesisIndex; $i < $endParenthesisIndex; ++$i) {
             if (\false !== \strpos($tokens[$i]->getContent(), "\n")) {
                 return \true;
@@ -705,12 +661,9 @@ class Foo
      * Indentation of a comment is not changed when the comment is part of a
      * multi-line message whose lines are all single-line comments and at least
      * one line has meaningful content.
-     * @param int $index
-     * @return bool
      */
-    private function isCommentWithFixableIndentation(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function isCommentWithFixableIndentation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         if (!$tokens[$index]->isComment()) {
             return \false;
         }
@@ -745,13 +698,9 @@ class Foo
     }
     /**
      * @return int|null
-     * @param int $index
-     * @param bool $after
      */
-    private function getSiblingContinuousSingleLineComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $after)
+    private function getSiblingContinuousSingleLineComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $after)
     {
-        $index = (int) $index;
-        $after = (bool) $after;
         $siblingIndex = $index;
         do {
             $siblingIndex = $tokens->getTokenOfKindSibling($siblingIndex, $after ? 1 : -1, [[\T_COMMENT]]);

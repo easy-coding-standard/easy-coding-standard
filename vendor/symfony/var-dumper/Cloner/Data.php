@@ -112,12 +112,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
         }
         yield from $value;
     }
-    /**
-     * @param string $key
-     */
-    public function __get($key)
+    public function __get(string $key)
     {
-        $key = (string) $key;
         if (null !== ($data = $this->seek($key))) {
             $item = $this->getStub($data->data[$data->position][$data->key]);
             return $item instanceof \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub || [] === $item ? $data : $item;
@@ -126,11 +122,9 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
     /**
      * @return bool
-     * @param string $key
      */
-    public function __isset($key)
+    public function __isset(string $key)
     {
-        $key = (string) $key;
         return null !== $this->seek($key);
     }
     /**
@@ -167,11 +161,9 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * Returns a depth limited clone of $this.
      *
      * @return static
-     * @param int $maxDepth
      */
-    public function withMaxDepth($maxDepth)
+    public function withMaxDepth(int $maxDepth)
     {
-        $maxDepth = (int) $maxDepth;
         $data = clone $this;
         $data->maxDepth = (int) $maxDepth;
         return $data;
@@ -180,11 +172,9 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * Limits the number of elements per depth level.
      *
      * @return static
-     * @param int $maxItemsPerDepth
      */
-    public function withMaxItemsPerDepth($maxItemsPerDepth)
+    public function withMaxItemsPerDepth(int $maxItemsPerDepth)
     {
-        $maxItemsPerDepth = (int) $maxItemsPerDepth;
         $data = clone $this;
         $data->maxItemsPerDepth = (int) $maxItemsPerDepth;
         return $data;
@@ -196,9 +186,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * @return static
      */
-    public function withRefHandles($useRefHandles)
+    public function withRefHandles(bool $useRefHandles)
     {
-        $useRefHandles = (bool) $useRefHandles;
         $data = clone $this;
         $data->useRefHandles = $useRefHandles ? -1 : 0;
         return $data;
@@ -261,7 +250,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     {
         $refs = [0];
         $cursor = new \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Cursor();
-        if ($cursor->attr = isset($this->context[\ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider::class]) ? $this->context[\ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider::class] : []) {
+        if ($cursor->attr = $this->context[\ECSPrefix20210517\Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider::class] ?? []) {
             $cursor->attr['if_links'] = \true;
             $cursor->hashType = -1;
             $dumper->dumpScalar($cursor, 'default', '^');
@@ -369,15 +358,9 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * Dumps children of hash structures.
      *
      * @return int The final number of removed items
-     * @param int $hashCut
-     * @param int $hashType
-     * @param bool $dumpKeys
      */
-    private function dumpChildren(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\DumperInterface $dumper, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Cursor $parentCursor, array &$refs, array $children, $hashCut, $hashType, $dumpKeys)
+    private function dumpChildren(\ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\DumperInterface $dumper, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Cursor $parentCursor, array &$refs, array $children, int $hashCut, int $hashType, bool $dumpKeys) : int
     {
-        $hashCut = (int) $hashCut;
-        $hashType = (int) $hashType;
-        $dumpKeys = (bool) $dumpKeys;
         $cursor = clone $parentCursor;
         ++$cursor->depth;
         $cursor->hashType = $hashType;

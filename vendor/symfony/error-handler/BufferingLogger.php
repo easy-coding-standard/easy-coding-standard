@@ -26,10 +26,7 @@ class BufferingLogger extends \ECSPrefix20210517\Psr\Log\AbstractLogger
     {
         $this->logs[] = [$level, $message, $context];
     }
-    /**
-     * @return mixed[]
-     */
-    public function cleanLogs()
+    public function cleanLogs() : array
     {
         $logs = $this->logs;
         $this->logs = [];

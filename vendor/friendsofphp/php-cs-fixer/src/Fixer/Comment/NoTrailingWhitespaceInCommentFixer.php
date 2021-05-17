@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -25,9 +26,8 @@ final class NoTrailingWhitespaceInCommentFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('There MUST be no trailing spaces inside comment or PHPDoc.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 // This is ' . '
@@ -38,17 +38,15 @@ final class NoTrailingWhitespaceInCommentFixer extends \PhpCsFixer\AbstractFixer
      * {@inheritdoc}
      *
      * Must run after PhpdocNoUselessInheritdocFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 0;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_COMMENT, \T_DOC_COMMENT]);
     }

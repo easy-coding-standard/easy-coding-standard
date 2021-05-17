@@ -58,11 +58,9 @@ final class AnnotationRegistry
      * @deprecated This method is deprecated and will be removed in
      *             doctrine/annotations 2.0. Annotations will be autoloaded in 2.0.
      * @return void
-     * @param string $file
      */
-    public static function registerFile($file)
+    public static function registerFile(string $file)
     {
-        $file = (string) $file;
         self::$registerFileUsed = \true;
         require_once $file;
     }
@@ -76,11 +74,9 @@ final class AnnotationRegistry
      *
      * @phpstan-param string|list<string>|null $dirs
      * @return void
-     * @param string $namespace
      */
-    public static function registerAutoloadNamespace($namespace, $dirs = null)
+    public static function registerAutoloadNamespace(string $namespace, $dirs = null)
     {
-        $namespace = (string) $namespace;
         self::$autoloadNamespaces[$namespace] = $dirs;
     }
     /**
@@ -130,12 +126,9 @@ final class AnnotationRegistry
     }
     /**
      * Autoloads an annotation class silently.
-     * @param string $class
-     * @return bool
      */
-    public static function loadAnnotationClass($class)
+    public static function loadAnnotationClass(string $class) : bool
     {
-        $class = (string) $class;
         if (\class_exists($class, \false)) {
             return \true;
         }

@@ -21,14 +21,8 @@ final class Color
     private $foreground;
     private $background;
     private $options = [];
-    /**
-     * @param string $foreground
-     * @param string $background
-     */
-    public function __construct($foreground = '', $background = '', array $options = [])
+    public function __construct(string $foreground = '', string $background = '', array $options = [])
     {
-        $foreground = (string) $foreground;
-        $background = (string) $background;
         $this->foreground = $this->parseColor($foreground);
         $this->background = $this->parseColor($background);
         foreach ($options as $option) {
@@ -38,19 +32,11 @@ final class Color
             $this->options[$option] = self::AVAILABLE_OPTIONS[$option];
         }
     }
-    /**
-     * @param string $text
-     * @return string
-     */
-    public function apply($text)
+    public function apply(string $text) : string
     {
-        $text = (string) $text;
         return $this->set() . $text . $this->unset();
     }
-    /**
-     * @return string
-     */
-    public function set()
+    public function set() : string
     {
         $setCodes = [];
         if ('' !== $this->foreground) {
@@ -67,10 +53,7 @@ final class Color
         }
         return \sprintf("\33[%sm", \implode(';', $setCodes));
     }
-    /**
-     * @return string
-     */
-    public function unset()
+    public function unset() : string
     {
         $unsetCodes = [];
         if ('' !== $this->foreground) {
@@ -87,13 +70,8 @@ final class Color
         }
         return \sprintf("\33[%sm", \implode(';', $unsetCodes));
     }
-    /**
-     * @param string $color
-     * @return string
-     */
-    private function parseColor($color)
+    private function parseColor(string $color) : string
     {
-        $color = (string) $color;
         if ('' === $color) {
             return '';
         }
@@ -112,13 +90,8 @@ final class Color
         }
         return (string) self::COLORS[$color];
     }
-    /**
-     * @param int $color
-     * @return string
-     */
-    private function convertHexColorToAnsi($color)
+    private function convertHexColorToAnsi(int $color) : string
     {
-        $color = (int) $color;
         $r = $color >> 16 & 255;
         $g = $color >> 8 & 255;
         $b = $color & 255;
@@ -128,33 +101,15 @@ final class Color
         }
         return \sprintf('8;2;%d;%d;%d', $r, $g, $b);
     }
-    /**
-     * @param int $r
-     * @param int $g
-     * @param int $b
-     * @return int
-     */
-    private function degradeHexColorToAnsi($r, $g, $b)
+    private function degradeHexColorToAnsi(int $r, int $g, int $b) : int
     {
-        $r = (int) $r;
-        $g = (int) $g;
-        $b = (int) $b;
         if (0 === \round($this->getSaturation($r, $g, $b) / 50)) {
             return 0;
         }
         return \round($b / 255) << 2 | \round($g / 255) << 1 | \round($r / 255);
     }
-    /**
-     * @param int $r
-     * @param int $g
-     * @param int $b
-     * @return int
-     */
-    private function getSaturation($r, $g, $b)
+    private function getSaturation(int $r, int $g, int $b) : int
     {
-        $r = (int) $r;
-        $g = (int) $g;
-        $b = (int) $b;
         $r = $r / 255;
         $g = $g / 255;
         $b = $b / 255;

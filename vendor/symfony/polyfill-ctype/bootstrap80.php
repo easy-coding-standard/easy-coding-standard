@@ -14,9 +14,8 @@ use ECSPrefix20210517\Symfony\Polyfill\Ctype as p;
 if (!\function_exists('ctype_alnum')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_alnum($text)
+    function ctype_alnum($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_alnum($text);
     }
@@ -24,9 +23,8 @@ if (!\function_exists('ctype_alnum')) {
 if (!\function_exists('ctype_alpha')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_alpha($text)
+    function ctype_alpha($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_alpha($text);
     }
@@ -34,9 +32,8 @@ if (!\function_exists('ctype_alpha')) {
 if (!\function_exists('ctype_cntrl')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_cntrl($text)
+    function ctype_cntrl($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_cntrl($text);
     }
@@ -44,9 +41,8 @@ if (!\function_exists('ctype_cntrl')) {
 if (!\function_exists('ctype_digit')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_digit($text)
+    function ctype_digit($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_digit($text);
     }
@@ -54,9 +50,8 @@ if (!\function_exists('ctype_digit')) {
 if (!\function_exists('ctype_graph')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_graph($text)
+    function ctype_graph($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_graph($text);
     }
@@ -64,9 +59,8 @@ if (!\function_exists('ctype_graph')) {
 if (!\function_exists('ctype_lower')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_lower($text)
+    function ctype_lower($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_lower($text);
     }
@@ -74,9 +68,8 @@ if (!\function_exists('ctype_lower')) {
 if (!\function_exists('ctype_print')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_print($text)
+    function ctype_print($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_print($text);
     }
@@ -84,9 +77,8 @@ if (!\function_exists('ctype_print')) {
 if (!\function_exists('ctype_punct')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_punct($text)
+    function ctype_punct($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_punct($text);
     }
@@ -94,9 +86,8 @@ if (!\function_exists('ctype_punct')) {
 if (!\function_exists('ctype_space')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_space($text)
+    function ctype_space($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_space($text);
     }
@@ -104,9 +95,8 @@ if (!\function_exists('ctype_space')) {
 if (!\function_exists('ctype_upper')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_upper($text)
+    function ctype_upper($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_upper($text);
     }
@@ -114,9 +104,8 @@ if (!\function_exists('ctype_upper')) {
 if (!\function_exists('ctype_xdigit')) {
     /**
      * @param mixed $text
-     * @return bool
      */
-    function ctype_xdigit($text)
+    function ctype_xdigit($text) : bool
     {
         return \ECSPrefix20210517\Symfony\Polyfill\Ctype\Ctype::ctype_xdigit($text);
     }

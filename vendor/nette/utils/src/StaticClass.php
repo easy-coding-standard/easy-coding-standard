@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette;
 
 /**
@@ -16,11 +21,9 @@ trait StaticClass
      * Call to undefined static method.
      * @return void
      * @throws MemberAccessException
-     * @param string $name
      */
-    public static function __callStatic($name, array $args)
+    public static function __callStatic(string $name, array $args)
     {
-        $name = (string) $name;
         \ECSPrefix20210517\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
     }
 }

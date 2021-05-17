@@ -63,10 +63,7 @@ class GraphvizDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInje
         }
         return $this->container->resolveEnvPlaceholders($this->startDot() . $this->addNodes() . $this->addEdges() . $this->endDot(), '__ENV_%s__');
     }
-    /**
-     * @return string
-     */
-    private function addNodes()
+    private function addNodes() : string
     {
         $code = '';
         foreach ($this->nodes as $id => $node) {
@@ -75,10 +72,7 @@ class GraphvizDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInje
         }
         return $code;
     }
-    /**
-     * @return string
-     */
-    private function addEdges()
+    private function addEdges() : string
     {
         $code = '';
         foreach ($this->edges as $id => $edges) {
@@ -90,18 +84,9 @@ class GraphvizDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInje
     }
     /**
      * Finds all edges belonging to a specific service id.
-     * @param string $id
-     * @param bool $required
-     * @param string $name
-     * @param bool $lazy
-     * @return mixed[]
      */
-    private function findEdges($id, array $arguments, $required, $name, $lazy = \false)
+    private function findEdges(string $id, array $arguments, bool $required, string $name, bool $lazy = \false) : array
     {
-        $id = (string) $id;
-        $required = (bool) $required;
-        $name = (string) $name;
-        $lazy = (bool) $lazy;
         $edges = [];
         foreach ($arguments as $argument) {
             if ($argument instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\Parameter) {
@@ -130,10 +115,7 @@ class GraphvizDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInje
         }
         return $edges;
     }
-    /**
-     * @return mixed[]
-     */
-    private function findNodes()
+    private function findNodes() : array
     {
         $nodes = [];
         $container = $this->cloneContainer();
@@ -159,10 +141,7 @@ class GraphvizDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInje
         }
         return $nodes;
     }
-    /**
-     * @return \Symfony\Component\DependencyInjection\ContainerBuilder
-     */
-    private function cloneContainer()
+    private function cloneContainer() : \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder
     {
         $parameterBag = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($this->container->getParameterBag()->all());
         $container = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder($parameterBag);
@@ -174,24 +153,15 @@ class GraphvizDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInje
         }
         return $container;
     }
-    /**
-     * @return string
-     */
-    private function startDot()
+    private function startDot() : string
     {
         return \sprintf("digraph sc {\n  %s\n  node [%s];\n  edge [%s];\n\n", $this->addOptions($this->options['graph']), $this->addOptions($this->options['node']), $this->addOptions($this->options['edge']));
     }
-    /**
-     * @return string
-     */
-    private function endDot()
+    private function endDot() : string
     {
         return "}\n";
     }
-    /**
-     * @return string
-     */
-    private function addAttributes(array $attributes)
+    private function addAttributes(array $attributes) : string
     {
         $code = [];
         foreach ($attributes as $k => $v) {
@@ -199,10 +169,7 @@ class GraphvizDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInje
         }
         return $code ? ', ' . \implode(', ', $code) : '';
     }
-    /**
-     * @return string
-     */
-    private function addOptions(array $options)
+    private function addOptions(array $options) : string
     {
         $code = [];
         foreach ($options as $k => $v) {
@@ -210,22 +177,12 @@ class GraphvizDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInje
         }
         return \implode(' ', $code);
     }
-    /**
-     * @param string $id
-     * @return string
-     */
-    private function dotize($id)
+    private function dotize(string $id) : string
     {
-        $id = (string) $id;
         return \preg_replace('/\\W/i', '_', $id);
     }
-    /**
-     * @param string $id
-     * @return mixed[]
-     */
-    private function getAliases($id)
+    private function getAliases(string $id) : array
     {
-        $id = (string) $id;
         $aliases = [];
         foreach ($this->container->getAliases() as $alias => $origin) {
             if ($id == $origin) {

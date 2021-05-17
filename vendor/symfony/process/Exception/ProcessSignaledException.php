@@ -24,17 +24,11 @@ final class ProcessSignaledException extends \ECSPrefix20210517\Symfony\Componen
         $this->process = $process;
         parent::__construct(\sprintf('The process has been signaled with signal "%s".', $process->getTermSignal()));
     }
-    /**
-     * @return \Symfony\Component\Process\Process
-     */
-    public function getProcess()
+    public function getProcess() : \ECSPrefix20210517\Symfony\Component\Process\Process
     {
         return $this->process;
     }
-    /**
-     * @return int
-     */
-    public function getSignal()
+    public function getSignal() : int
     {
         return $this->getProcess()->getTermSignal();
     }

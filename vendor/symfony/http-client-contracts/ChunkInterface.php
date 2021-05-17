@@ -26,23 +26,20 @@ interface ChunkInterface
      * Tells when the idle timeout has been reached.
      *
      * @throws TransportExceptionInterface on a network error
-     * @return bool
      */
-    public function isTimeout();
+    public function isTimeout() : bool;
     /**
      * Tells when headers just arrived.
      *
      * @throws TransportExceptionInterface on a network error or when the idle timeout is reached
-     * @return bool
      */
-    public function isFirst();
+    public function isFirst() : bool;
     /**
      * Tells when the body just completed.
      *
      * @throws TransportExceptionInterface on a network error or when the idle timeout is reached
-     * @return bool
      */
-    public function isLast();
+    public function isLast() : bool;
     /**
      * Returns a [status code, headers] tuple when a 1xx status code was just received.
      *
@@ -54,14 +51,12 @@ interface ChunkInterface
      * Returns the content of the response chunk.
      *
      * @throws TransportExceptionInterface on a network error or when the idle timeout is reached
-     * @return string
      */
-    public function getContent();
+    public function getContent() : string;
     /**
      * Returns the offset of the chunk in the response body.
-     * @return int
      */
-    public function getOffset();
+    public function getOffset() : int;
     /**
      * In case of error, returns the message that describes it.
      * @return string|null

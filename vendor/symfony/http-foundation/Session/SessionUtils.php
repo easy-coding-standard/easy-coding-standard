@@ -24,13 +24,9 @@ final class SessionUtils
      * Finds the session header amongst the headers that are to be sent, removes it, and returns
      * it so the caller can process it further.
      * @return string|null
-     * @param string $sessionName
-     * @param string $sessionId
      */
-    public static function popSessionCookie($sessionName, $sessionId)
+    public static function popSessionCookie(string $sessionName, string $sessionId)
     {
-        $sessionName = (string) $sessionName;
-        $sessionId = (string) $sessionId;
         $sessionCookie = null;
         $sessionCookiePrefix = \sprintf(' %s=', \urlencode($sessionName));
         $sessionCookieWithId = \sprintf('%s%s;', $sessionCookiePrefix, \urlencode($sessionId));

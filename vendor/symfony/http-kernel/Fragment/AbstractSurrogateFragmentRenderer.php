@@ -64,17 +64,14 @@ abstract class AbstractSurrogateFragmentRenderer extends \ECSPrefix20210517\Symf
         if ($uri instanceof \ECSPrefix20210517\Symfony\Component\HttpKernel\Controller\ControllerReference) {
             $uri = $this->generateSignedFragmentUri($uri, $request);
         }
-        $alt = isset($options['alt']) ? $options['alt'] : null;
+        $alt = $options['alt'] ?? null;
         if ($alt instanceof \ECSPrefix20210517\Symfony\Component\HttpKernel\Controller\ControllerReference) {
             $alt = $this->generateSignedFragmentUri($alt, $request);
         }
-        $tag = $this->surrogate->renderIncludeTag($uri, $alt, isset($options['ignore_errors']) ? $options['ignore_errors'] : \false, isset($options['comment']) ? $options['comment'] : '');
+        $tag = $this->surrogate->renderIncludeTag($uri, $alt, $options['ignore_errors'] ?? \false, $options['comment'] ?? '');
         return new \ECSPrefix20210517\Symfony\Component\HttpFoundation\Response($tag);
     }
-    /**
-     * @return string
-     */
-    private function generateSignedFragmentUri(\ECSPrefix20210517\Symfony\Component\HttpKernel\Controller\ControllerReference $uri, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request)
+    private function generateSignedFragmentUri(\ECSPrefix20210517\Symfony\Component\HttpKernel\Controller\ControllerReference $uri, \ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request) : string
     {
         if (null === $this->signer) {
             throw new \LogicException('You must use a URI when using the ESI rendering strategy or set a URL signer.');
@@ -83,10 +80,7 @@ abstract class AbstractSurrogateFragmentRenderer extends \ECSPrefix20210517\Symf
         $fragmentUri = $this->signer->sign($this->generateFragmentUri($uri, $request, \true));
         return \substr($fragmentUri, \strlen($request->getSchemeAndHttpHost()));
     }
-    /**
-     * @return bool
-     */
-    private function containsNonScalars(array $values)
+    private function containsNonScalars(array $values) : bool
     {
         foreach ($values as $value) {
             if (\is_array($value)) {

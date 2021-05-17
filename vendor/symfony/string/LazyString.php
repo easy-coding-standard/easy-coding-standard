@@ -33,13 +33,13 @@ class LazyString implements \Stringable, \JsonSerializable
             if (null !== $arguments) {
                 if (!\is_callable($callback)) {
                     $callback[0] = $callback[0]();
-                    $callback[1] = isset($callback[1]) ? $callback[1] : '__invoke';
+                    $callback[1] = $callback[1] ?? '__invoke';
                 }
                 $value = $callback(...$arguments);
                 $callback = self::getPrettyName($callback);
                 $arguments = null;
             }
-            return isset($value) ? $value : '';
+            return $value ?? '';
         };
         return $lazyString;
     }
@@ -62,9 +62,8 @@ class LazyString implements \Stringable, \JsonSerializable
     }
     /**
      * Tells whether the provided value can be cast to string.
-     * @return bool
      */
-    public static final function isStringable($value)
+    public static final function isStringable($value) : bool
     {
         return \is_string($value) || $value instanceof self || (\is_object($value) ? \method_exists($value, '__toString') : \is_scalar($value));
     }
@@ -74,9 +73,8 @@ class LazyString implements \Stringable, \JsonSerializable
      * @param object|string|int|float|bool $value
      *
      * @throws \TypeError When the provided value is not stringable
-     * @return string
      */
-    public static final function resolve($value)
+    public static final function resolve($value) : string
     {
         return $value;
     }
@@ -105,28 +103,19 @@ class LazyString implements \Stringable, \JsonSerializable
             throw $e;
         }
     }
-    /**
-     * @return mixed[]
-     */
-    public function __sleep()
+    public function __sleep() : array
     {
         $this->__toString();
         return ['value'];
     }
-    /**
-     * @return string
-     */
-    public function jsonSerialize()
+    public function jsonSerialize() : string
     {
         return $this->__toString();
     }
     private function __construct()
     {
     }
-    /**
-     * @return string
-     */
-    private static function getPrettyName(callable $callback)
+    private static function getPrettyName(callable $callback) : string
     {
         if (\is_string($callback)) {
             return $callback;

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -50,10 +51,7 @@ final class ProcessLintingResult implements \PhpCsFixer\Linter\LintingResultInte
             throw new \PhpCsFixer\Linter\LintingException($this->getProcessErrorMessage(), $this->process->getExitCode());
         }
     }
-    /**
-     * @return string
-     */
-    private function getProcessErrorMessage()
+    private function getProcessErrorMessage() : string
     {
         $output = \strtok(\ltrim($this->process->getErrorOutput() ?: $this->process->getOutput()), "\n");
         if (\false === $output) {
@@ -75,10 +73,7 @@ final class ProcessLintingResult implements \PhpCsFixer\Linter\LintingResultInte
         }
         return \sprintf('%s.', $output);
     }
-    /**
-     * @return bool
-     */
-    private function isSuccessful()
+    private function isSuccessful() : bool
     {
         if (null === $this->isSuccessful) {
             $this->process->wait();

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -30,9 +31,8 @@ final class ReturnTypeDeclarationFixer extends \PhpCsFixer\AbstractFixer impleme
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         $versionSpecification = new \PhpCsFixer\FixerDefinition\VersionSpecification(70000);
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should be one or no space before colon, and one space after it in return type declarations, according to configuration.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction foo(int \$a):string {};\n", $versionSpecification), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction foo(int \$a):string {};\n", $versionSpecification, ['space_before' => 'none']), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction foo(int \$a):string {};\n", $versionSpecification, ['space_before' => 'one'])], 'Rule is applied only in a PHP 7+ environment.');
@@ -41,17 +41,15 @@ final class ReturnTypeDeclarationFixer extends \PhpCsFixer\AbstractFixer impleme
      * {@inheritdoc}
      *
      * Must run after PhpdocToReturnTypeFixer, VoidReturnFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return -17;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON);
     }
@@ -92,9 +90,8 @@ final class ReturnTypeDeclarationFixer extends \PhpCsFixer\AbstractFixer impleme
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('space_before', 'Spacing to apply before colon.'))->setAllowedValues(['one', 'none'])->setDefault('none')->getOption()]);
     }

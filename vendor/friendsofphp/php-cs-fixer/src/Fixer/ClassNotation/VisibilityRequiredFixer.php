@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -36,9 +37,8 @@ final class VisibilityRequiredFixer extends \PhpCsFixer\AbstractFixer implements
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Visibility MUST be declared on all properties and methods; `abstract` and `final` MUST be declared before the visibility; `static` MUST be declared after the visibility.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Sample
@@ -59,17 +59,15 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'The structural elements to fix (PHP >= 7.1 required for `const`).'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(['property', 'method', 'const'])])->setDefault(['property', 'method', 'const'])->getOption()]);
     }
@@ -143,26 +141,15 @@ class Sample
             $this->moveTokenAndEnsureSingleSpaceFollows($tokens, $abstractFinalIndex, $index);
         }
     }
-    /**
-     * @param int $keywordIndex
-     * @param int $comparedIndex
-     * @return bool
-     */
-    private function isKeywordPlacedProperly(\PhpCsFixer\Tokenizer\Tokens $tokens, $keywordIndex, $comparedIndex)
+    private function isKeywordPlacedProperly(\PhpCsFixer\Tokenizer\Tokens $tokens, int $keywordIndex, int $comparedIndex) : bool
     {
-        $keywordIndex = (int) $keywordIndex;
-        $comparedIndex = (int) $comparedIndex;
         return $keywordIndex + 2 === $comparedIndex && ' ' === $tokens[$keywordIndex + 1]->getContent();
     }
     /**
      * @return void
-     * @param int $fromIndex
-     * @param int $toIndex
      */
-    private function moveTokenAndEnsureSingleSpaceFollows(\PhpCsFixer\Tokenizer\Tokens $tokens, $fromIndex, $toIndex)
+    private function moveTokenAndEnsureSingleSpaceFollows(\PhpCsFixer\Tokenizer\Tokens $tokens, int $fromIndex, int $toIndex)
     {
-        $fromIndex = (int) $fromIndex;
-        $toIndex = (int) $toIndex;
         $tokens->insertAt($toIndex, [$tokens[$fromIndex], new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]);
         $tokens->clearAt($fromIndex);
         if ($tokens[$fromIndex + 1]->isWhitespace()) {

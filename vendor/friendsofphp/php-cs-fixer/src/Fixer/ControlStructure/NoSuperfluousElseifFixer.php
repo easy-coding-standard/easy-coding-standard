@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -22,17 +23,15 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
 {
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_ELSE, \T_ELSEIF]);
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces superfluous `elseif` with `if`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif (\$a) {\n    return 1;\n} elseif (\$b) {\n    return 2;\n}\n")]);
     }
@@ -41,9 +40,8 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
      *
      * Must run before SimplifiedIfReturnFixer.
      * Must run after NoAlternativeSyntaxFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return parent::getPriority();
     }
@@ -59,22 +57,15 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
             }
         }
     }
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function isElseif(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function isElseif(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        $index = (int) $index;
         return $tokens[$index]->isGivenKind(\T_ELSEIF) || $tokens[$index]->isGivenKind(\T_ELSE) && $tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(\T_IF);
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function convertElseifToIf(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function convertElseifToIf(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         if ($tokens[$index]->isGivenKind(\T_ELSE)) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index);
         } else {

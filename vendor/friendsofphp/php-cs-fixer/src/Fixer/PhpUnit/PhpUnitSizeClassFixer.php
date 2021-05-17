@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -33,30 +34,24 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
 {
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('All PHPUnit test cases should have `@small`, `@medium` or `@large` annotation to enable run time limits.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nclass MyTest extends TestCase {}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nclass MyTest extends TestCase {}\n", ['group' => 'medium'])], 'The special groups [small, medium, large] provides a way to identify tests that are taking long to be executed.');
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('group', 'Define a specific group to be used in case no group is already in use'))->setAllowedValues(['small', 'medium', 'large'])->setDefault('small')->getOption()]);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $classIndex = $tokens->getPrevTokenOfKind($startIndex, [[\T_CLASS]]);
         if ($this->isAbstractClass($tokens, $classIndex)) {
             return;
@@ -68,23 +63,16 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
             $this->createDocBlock($tokens, $docBlockIndex);
         }
     }
-    /**
-     * @param int $i
-     * @return bool
-     */
-    private function isAbstractClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $i)
+    private function isAbstractClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $i) : bool
     {
-        $i = (int) $i;
         $typeIndex = $tokens->getPrevMeaningfulToken($i);
         return $tokens[$typeIndex]->isGivenKind(\T_ABSTRACT);
     }
     /**
      * @return void
-     * @param int $docBlockIndex
      */
-    private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
+    private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex)
     {
-        $docBlockIndex = (int) $docBlockIndex;
         $lineEnd = $this->whitespacesConfig->getLineEnding();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));
         $group = $this->configuration['group'];
@@ -94,11 +82,9 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
     }
     /**
      * @return void
-     * @param int $docBlockIndex
      */
-    private function updateDocBlockIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
+    private function updateDocBlockIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex)
     {
-        $docBlockIndex = (int) $docBlockIndex;
         $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
         if (!empty($this->filterDocBlock($doc))) {
             return;
@@ -109,12 +95,10 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
         $tokens[$docBlockIndex] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $lines]);
     }
     /**
-     * @return mixed[]
-     * @param int $docBlockIndex
+     * @return Line[]
      */
-    private function addSizeAnnotation(\PhpCsFixer\DocBlock\DocBlock $docBlock, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
+    private function addSizeAnnotation(\PhpCsFixer\DocBlock\DocBlock $docBlock, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : array
     {
-        $docBlockIndex = (int) $docBlockIndex;
         $lines = $docBlock->getLines();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $docBlockIndex);
         $lineEnd = $this->whitespacesConfig->getLineEnding();
@@ -122,13 +106,8 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
         \array_splice($lines, -1, 0, $originalIndent . ' *' . $lineEnd . $originalIndent . ' * @' . $group . $lineEnd);
         return $lines;
     }
-    /**
-     * @param int $docBlockIndex
-     * @return \PhpCsFixer\DocBlock\DocBlock
-     */
-    private function makeDocBlockMultiLineIfNeeded(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
+    private function makeDocBlockMultiLineIfNeeded(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : \PhpCsFixer\DocBlock\DocBlock
     {
-        $docBlockIndex = (int) $docBlockIndex;
         $lines = $doc->getLines();
         if (1 === \count($lines) && empty($this->filterDocBlock($doc))) {
             $lines = $this->splitUpDocBlock($lines, $tokens, $docBlockIndex);
@@ -141,12 +120,10 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
      *
      * @param Line[] $lines
      *
-     * @return mixed[]
-     * @param int $docBlockIndex
+     * @return Line[]
      */
-    private function splitUpDocBlock(array $lines, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
+    private function splitUpDocBlock(array $lines, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : array
     {
-        $docBlockIndex = (int) $docBlockIndex;
         $lineContent = $this->getSingleLineDocBlockEntry($lines);
         $lineEnd = $this->whitespacesConfig->getLineEnding();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));
@@ -156,9 +133,8 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
      * @todo check whether it's doable to use \PhpCsFixer\DocBlock\DocBlock::getSingleLineDocBlockEntry instead
      *
      * @param Line[] $lines
-     * @return string
      */
-    private function getSingleLineDocBlockEntry(array $lines)
+    private function getSingleLineDocBlockEntry(array $lines) : string
     {
         $line = $lines[0];
         $line = \str_replace('*/', '', $line->getContent());
@@ -175,9 +151,9 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
         return \implode('', $line);
     }
     /**
-     * @return mixed[]
+     * @return Annotation[][]
      */
-    private function filterDocBlock(\PhpCsFixer\DocBlock\DocBlock $doc)
+    private function filterDocBlock(\PhpCsFixer\DocBlock\DocBlock $doc) : array
     {
         return \array_filter([$doc->getAnnotationsOfType('small'), $doc->getAnnotationsOfType('large'), $doc->getAnnotationsOfType('medium')]);
     }

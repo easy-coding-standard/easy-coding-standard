@@ -85,9 +85,8 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         if (!\is_string($resource)) {
             return \false;
@@ -97,12 +96,8 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
         }
         return \in_array($type, ['yaml', 'yml'], \true);
     }
-    /**
-     * @param string $file
-     */
-    private function parseImports(array $content, $file)
+    private function parseImports(array $content, string $file)
     {
-        $file = (string) $file;
         if (!isset($content['imports'])) {
             return;
         }
@@ -118,15 +113,11 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
                 throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('An import should provide a resource in "%s". Check your YAML syntax.', $file));
             }
             $this->setCurrentDir($defaultDirectory);
-            $this->import($import['resource'], isset($import['type']) ? $import['type'] : null, isset($import['ignore_errors']) ? $import['ignore_errors'] : \false, $file);
+            $this->import($import['resource'], $import['type'] ?? null, $import['ignore_errors'] ?? \false, $file);
         }
     }
-    /**
-     * @param string $file
-     */
-    private function parseDefinitions(array $content, $file)
+    private function parseDefinitions(array $content, string $file)
     {
-        $file = (string) $file;
         if (!isset($content['services'])) {
             return;
         }
@@ -159,12 +150,9 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
     }
     /**
      * @throws InvalidArgumentException
-     * @param string $file
-     * @return mixed[]
      */
-    private function parseDefaults(array &$content, $file)
+    private function parseDefaults(array &$content, string $file) : array
     {
-        $file = (string) $file;
         if (!\array_key_exists('_defaults', $content['services'])) {
             return [];
         }
@@ -216,10 +204,7 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
         }
         return $defaults;
     }
-    /**
-     * @return bool
-     */
-    private function isUsingShortSyntax(array $service)
+    private function isUsingShortSyntax(array $service) : bool
     {
         foreach ($service as $key => $value) {
             if (\is_string($key) && ('' === $key || '$' !== $key[0] && \false === \strpos($key, '\\'))) {
@@ -234,15 +219,9 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
      * @param array|string|null $service
      *
      * @throws InvalidArgumentException When tags are invalid
-     * @param string $id
-     * @param string $file
-     * @param bool $return
      */
-    private function parseDefinition($id, $service, $file, array $defaults, $return = \false)
+    private function parseDefinition(string $id, $service, string $file, array $defaults, bool $return = \false)
     {
-        $id = (string) $id;
-        $file = (string) $file;
-        $return = (bool) $return;
         if (\preg_match('/^_[a-zA-Z0-9_]*$/', $id)) {
             throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service names that start with an underscore are reserved. Rename the "%s" service or define it in XML instead.', $id));
         }
@@ -283,7 +262,7 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
             if ($diff = \array_diff(\array_keys($service), ['stack', 'public', 'deprecated'])) {
                 throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid attribute "%s"; supported ones are "public" and "deprecated" for service "%s" in "%s". Check your YAML syntax.', \implode('", "', $diff), $id, $file));
             }
-            $service = ['parent' => '', 'arguments' => $stack, 'tags' => ['container.stack'], 'public' => isset($service['public']) ? $service['public'] : null, 'deprecated' => isset($service['deprecated']) ? $service['deprecated'] : null];
+            $service = ['parent' => '', 'arguments' => $stack, 'tags' => ['container.stack'], 'public' => $service['public'] ?? null, 'deprecated' => $service['deprecated'] ?? null];
         }
         $this->checkDefinition($id, $service, $file);
         if (isset($service['alias'])) {
@@ -305,7 +284,7 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
                     if (!isset($deprecation['version'])) {
                         trigger_deprecation('symfony/dependency-injection', '5.1', 'Not setting the attribute "version" of the "deprecated" option in "%s" is deprecated.', $file);
                     }
-                    $alias->setDeprecated(isset($deprecation['package']) ? $deprecation['package'] : '', isset($deprecation['version']) ? $deprecation['version'] : '', isset($deprecation['message']) ? $deprecation['message'] : '');
+                    $alias->setDeprecated($deprecation['package'] ?? '', $deprecation['version'] ?? '', $deprecation['message'] ?? '');
                 }
             }
             return $return ? $alias : $this->container->setAlias($id, $alias);
@@ -359,7 +338,7 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
             if (!isset($deprecation['version'])) {
                 trigger_deprecation('symfony/dependency-injection', '5.1', 'Not setting the attribute "version" of the "deprecated" option in "%s" is deprecated.', $file);
             }
-            $definition->setDeprecated(isset($deprecation['package']) ? $deprecation['package'] : '', isset($deprecation['version']) ? $deprecation['version'] : '', isset($deprecation['message']) ? $deprecation['message'] : '');
+            $definition->setDeprecated($deprecation['package'] ?? '', $deprecation['version'] ?? '', $deprecation['message'] ?? '');
         }
         if (isset($service['factory'])) {
             $definition->setFactory($this->parseCallable($service['factory'], 'factory', $id, $file));
@@ -389,8 +368,8 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
                 }
                 if (isset($call['method']) && \is_string($call['method'])) {
                     $method = $call['method'];
-                    $args = isset($call['arguments']) ? $call['arguments'] : [];
-                    $returnsClone = isset($call['returns_clone']) ? $call['returns_clone'] : \false;
+                    $args = $call['arguments'] ?? [];
+                    $returnsClone = $call['returns_clone'] ?? \false;
                 } else {
                     if (1 === \count($call) && \is_string(\key($call))) {
                         $method = \key($call);
@@ -408,8 +387,8 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
                         throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid call for service "%s": the method must be defined as the first index of an array or as the only key of a map in "%s".', $id, $file));
                     } else {
                         $method = $call[0];
-                        $args = isset($call[1]) ? $call[1] : [];
-                        $returnsClone = isset($call[2]) ? $call[2] : \false;
+                        $args = $call[1] ?? [];
+                        $returnsClone = $call[2] ?? \false;
                     }
                 }
                 if (!\is_array($args)) {
@@ -419,7 +398,7 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
                 $definition->addMethodCall($method, $args, $returnsClone);
             }
         }
-        $tags = isset($service['tags']) ? $service['tags'] : [];
+        $tags = $service['tags'] ?? [];
         if (!\is_array($tags)) {
             throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Parameter "tags" must be an array for service "%s" in "%s". Check your YAML syntax.', $id, $file));
         }
@@ -450,7 +429,7 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
             }
             $definition->addTag($name, $tag);
         }
-        if (null !== ($decorates = isset($service['decorates']) ? $service['decorates'] : null)) {
+        if (null !== ($decorates = $service['decorates'] ?? null)) {
             if ('' !== $decorates && '@' === $decorates[0]) {
                 throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The value of the "decorates" option for the "%s" service must be the id of the service without the "@" prefix (replace "%s" with "%s").', $id, $service['decorates'], \substr($decorates, 1)));
             }
@@ -466,8 +445,8 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
             } else {
                 throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid value "%s" for attribute "decoration_on_invalid" on service "%s". Did you mean "exception", "ignore" or null in "%s"?', $decorationOnInvalid, $id, $file));
             }
-            $renameId = isset($service['decoration_inner_name']) ? $service['decoration_inner_name'] : null;
-            $priority = isset($service['decoration_priority']) ? $service['decoration_priority'] : 0;
+            $renameId = $service['decoration_inner_name'] ?? null;
+            $priority = $service['decoration_priority'] ?? 0;
             $definition->setDecoratedService($decorates, $renameId, $priority, $invalidBehavior);
         }
         if (isset($service['autowire'])) {
@@ -506,8 +485,8 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
             if (!\is_string($service['resource'])) {
                 throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A "resource" attribute must be of type string for service "%s" in "%s". Check your YAML syntax.', $id, $file));
             }
-            $exclude = isset($service['exclude']) ? $service['exclude'] : null;
-            $namespace = isset($service['namespace']) ? $service['namespace'] : $id;
+            $exclude = $service['exclude'] ?? null;
+            $namespace = $service['namespace'] ?? $id;
             $this->registerClasses($definition, $namespace, $service['resource'], $exclude);
         } else {
             $this->setDefinition($id, $definition);
@@ -521,15 +500,9 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
      * @throws InvalidArgumentException When errors occur
      *
      * @return string|array|Reference A parsed callable
-     * @param string $parameter
-     * @param string $id
-     * @param string $file
      */
-    private function parseCallable($callable, $parameter, $id, $file)
+    private function parseCallable($callable, string $parameter, string $id, string $file)
     {
-        $parameter = (string) $parameter;
-        $id = (string) $id;
-        $file = (string) $file;
         if (\is_string($callable)) {
             if ('' !== $callable && '@' === $callable[0]) {
                 if (\false === \strpos($callable, ':')) {
@@ -585,11 +558,9 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
      *
      * @throws InvalidArgumentException When service file is not valid
      * @return mixed[]|null
-     * @param string $file
      */
-    private function validate($content, $file)
+    private function validate($content, string $file)
     {
-        $file = (string) $file;
         if (null === $content) {
             return $content;
         }
@@ -613,13 +584,9 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
      * Resolves services.
      *
      * @return array|string|Reference|ArgumentInterface
-     * @param string $file
-     * @param bool $isParameter
      */
-    private function resolveServices($value, $file, $isParameter = \false)
+    private function resolveServices($value, string $file, bool $isParameter = \false)
     {
-        $file = (string) $file;
-        $isParameter = (bool) $isParameter;
         if ($value instanceof \ECSPrefix20210517\Symfony\Component\Yaml\Tag\TaggedValue) {
             $argument = $value->getValue();
             if ('iterator' === $value->getTag()) {
@@ -657,7 +624,7 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
                     if ($diff = \array_diff(\array_keys($argument), ['tag', 'index_by', 'default_index_method', 'default_priority_method'])) {
                         throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"!%s" tag contains unsupported key "%s"; supported ones are "tag", "index_by", "default_index_method", and "default_priority_method".', $value->getTag(), \implode('", "', $diff)));
                     }
-                    $argument = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($argument['tag'], isset($argument['index_by']) ? $argument['index_by'] : null, isset($argument['default_index_method']) ? $argument['default_index_method'] : null, $forLocator, isset($argument['default_priority_method']) ? $argument['default_priority_method'] : null);
+                    $argument = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($argument['tag'], $argument['index_by'] ?? null, $argument['default_index_method'] ?? null, $forLocator, $argument['default_priority_method'] ?? null);
                 } elseif (\is_string($argument) && $argument) {
                     $argument = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($argument, null, null, $forLocator);
                 } else {
@@ -676,7 +643,7 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
                 $this->isLoadingInstanceof = \false;
                 $instanceof = $this->instanceof;
                 $this->instanceof = [];
-                $id = \sprintf('.%d_%s', ++$this->anonymousServicesCount, \preg_replace('/^.*\\\\/', '', isset($argument['class']) ? $argument['class'] : '') . $this->anonymousServicesSuffix);
+                $id = \sprintf('.%d_%s', ++$this->anonymousServicesCount, \preg_replace('/^.*\\\\/', '', $argument['class'] ?? '') . $this->anonymousServicesSuffix);
                 $this->parseDefinition($id, $argument, $file, []);
                 if (!$this->container->hasDefinition($id)) {
                     throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Creating an alias using the tag "!service" is not allowed in "%s".', $file));
@@ -737,13 +704,9 @@ class YamlFileLoader extends \ECSPrefix20210517\Symfony\Component\DependencyInje
     }
     /**
      * Checks the keywords used to define a service.
-     * @param string $id
-     * @param string $file
      */
-    private function checkDefinition($id, array $definition, $file)
+    private function checkDefinition(string $id, array $definition, string $file)
     {
-        $id = (string) $id;
-        $file = (string) $file;
         if ($this->isLoadingInstanceof) {
             $keywords = self::INSTANCEOF_KEYWORDS;
         } elseif (isset($definition['resource']) || isset($definition['namespace'])) {

@@ -59,7 +59,7 @@ abstract class FileLoader extends \ECSPrefix20210517\Symfony\Component\Config\Lo
                 throw $e;
             }
             foreach ($prev->getTrace() as $frame) {
-                if ('import' === (isset($frame['function']) ? $frame['function'] : null) && \is_a(isset($frame['class']) ? $frame['class'] : '', \ECSPrefix20210517\Symfony\Component\Config\Loader\Loader::class, \true)) {
+                if ('import' === ($frame['function'] ?? null) && \is_a($frame['class'] ?? '', \ECSPrefix20210517\Symfony\Component\Config\Loader\Loader::class, \true)) {
                     break;
                 }
             }
@@ -97,7 +97,7 @@ abstract class FileLoader extends \ECSPrefix20210517\Symfony\Component\Config\Lo
                     continue;
                 }
                 foreach (\class_implements($class, \false) as $interface) {
-                    $this->singlyImplemented[$interface] = (isset($this->singlyImplemented[$interface]) ? $this->singlyImplemented[$interface] : $class) !== $class ? \false : $class;
+                    $this->singlyImplemented[$interface] = ($this->singlyImplemented[$interface] ?? $class) !== $class ? \false : $class;
                 }
             }
         }
@@ -131,15 +131,8 @@ abstract class FileLoader extends \ECSPrefix20210517\Symfony\Component\Config\Lo
             $this->container->setDefinition($id, $definition->setInstanceofConditionals($this->instanceof));
         }
     }
-    /**
-     * @param string $namespace
-     * @param string $pattern
-     * @return mixed[]
-     */
-    private function findClasses($namespace, $pattern, array $excludePatterns)
+    private function findClasses(string $namespace, string $pattern, array $excludePatterns) : array
     {
-        $namespace = (string) $namespace;
-        $pattern = (string) $pattern;
         $parameterBag = $this->container->getParameterBag();
         $excludePaths = [];
         $excludePrefix = null;

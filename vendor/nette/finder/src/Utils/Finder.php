@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 use ECSPrefix20210517\Nette;
@@ -65,11 +70,9 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Creates filtering group by mask & type selector.
      * @return static
-     * @param string $type
      */
-    private function select(array $masks, $type)
+    private function select(array $masks, string $type)
     {
-        $type = (string) $type;
         $this->cursor =& $this->groups[];
         $pattern = self::buildPattern($masks);
         $this->filter(function (\RecursiveDirectoryIterator $file) use($type, $pattern) : bool {
@@ -136,17 +139,15 @@ class Finder implements \IteratorAggregate, \Countable
     /********************* iterator generator ****************d*g**/
     /**
      * Get the number of found files and/or directories.
-     * @return int
      */
-    public function count()
+    public function count() : int
     {
         return \iterator_count($this->getIterator());
     }
     /**
      * Returns iterator.
-     * @return \Iterator
      */
-    public function getIterator()
+    public function getIterator() : \Iterator
     {
         if (!$this->paths) {
             throw new \ECSPrefix20210517\Nette\InvalidStateException('Call in() or from() to specify directory to search.');
@@ -162,12 +163,9 @@ class Finder implements \IteratorAggregate, \Countable
     }
     /**
      * Returns per-path iterator.
-     * @param string $path
-     * @return \Iterator
      */
-    private function buildIterator($path)
+    private function buildIterator(string $path) : \Iterator
     {
-        $path = (string) $path;
         $iterator = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
         if ($this->exclude) {
             $iterator = new \RecursiveCallbackFilterIterator($iterator, function ($foo, $bar, \RecursiveDirectoryIterator $file) : bool {
@@ -232,11 +230,9 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Limits recursion level.
      * @return static
-     * @param int $depth
      */
-    public function limitDepth($depth)
+    public function limitDepth(int $depth)
     {
-        $depth = (int) $depth;
         $this->maxDepth = $depth;
         return $this;
     }
@@ -244,11 +240,9 @@ class Finder implements \IteratorAggregate, \Countable
      * Restricts the search by size.
      * @param  string  $operator  "[operator] [size] [unit]" example: >=10kB
      * @return static
-     * @param int $size
      */
-    public function size($operator, $size = null)
+    public function size(string $operator, int $size = null)
     {
-        $operator = (string) $operator;
         if (\func_num_args() === 1) {
             // in $operator is predicate
             if (!\preg_match('#^(?:([=<>!]=?|<>)\\s*)?((?:\\d*\\.)?\\d+)\\s*(K|M|G|)B?$#Di', $operator, $matches)) {
@@ -269,9 +263,8 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  string|int|\DateTimeInterface  $date
      * @return static
      */
-    public function date($operator, $date = null)
+    public function date(string $operator, $date = null)
     {
-        $operator = (string) $operator;
         if (\func_num_args() === 1) {
             // in $operator is predicate
             if (!\preg_match('#^(?:([=<>!]=?|<>)\\s*)?(.+)$#Di', $operator, $matches)) {
@@ -287,12 +280,9 @@ class Finder implements \IteratorAggregate, \Countable
     }
     /**
      * Compares two values.
-     * @param string $operator
-     * @return bool
      */
-    public static function compare($l, $operator, $r)
+    public static function compare($l, string $operator, $r) : bool
     {
-        $operator = (string) $operator;
         switch ($operator) {
             case '>':
                 return $l > $r;
@@ -314,21 +304,15 @@ class Finder implements \IteratorAggregate, \Countable
         }
     }
     /********************* extension methods ****************d*g**/
-    /**
-     * @param string $name
-     */
-    public function __call($name, array $args)
+    public function __call(string $name, array $args)
     {
-        $name = (string) $name;
         return isset(self::$extMethods[$name]) ? self::$extMethods[$name]($this, ...$args) : \ECSPrefix20210517\Nette\Utils\ObjectHelpers::strictCall(\get_class($this), $name, \array_keys(self::$extMethods));
     }
     /**
      * @return void
-     * @param string $name
      */
-    public static function extensionMethod($name, callable $callback)
+    public static function extensionMethod(string $name, callable $callback)
     {
-        $name = (string) $name;
         self::$extMethods[$name] = $callback;
     }
 }

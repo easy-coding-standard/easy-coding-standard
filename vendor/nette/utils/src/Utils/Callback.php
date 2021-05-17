@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Utils;
 
 use ECSPrefix20210517\Nette;
@@ -13,10 +18,8 @@ final class Callback
     /**
      * @param  string|object|callable  $callable  class, object, callable
      * @deprecated use Closure::fromCallable()
-     * @param string $method
-     * @return \Closure
      */
-    public static function closure($callable, $method = null)
+    public static function closure($callable, string $method = null) : \Closure
     {
         \trigger_error(__METHOD__ . '() is deprecated, use Closure::fromCallable().', \E_USER_DEPRECATED);
         try {
@@ -50,11 +53,9 @@ final class Callback
     /**
      * Invokes internal PHP function with own error handler.
      * @return mixed
-     * @param string $function
      */
-    public static function invokeSafe($function, array $args, callable $onError)
+    public static function invokeSafe(string $function, array $args, callable $onError)
     {
-        $function = (string) $function;
         $prev = \set_error_handler(function ($severity, $message, $file) use($onError, &$prev, $function) {
             if ($file === __FILE__) {
                 $msg = \ini_get('html_errors') ? \ECSPrefix20210517\Nette\Utils\Html::htmlToText($message) : $message;
@@ -77,11 +78,9 @@ final class Callback
      * @param  mixed  $callable
      * @return callable
      * @throws Nette\InvalidArgumentException
-     * @param bool $syntax
      */
-    public static function check($callable, $syntax = \false)
+    public static function check($callable, bool $syntax = \false)
     {
-        $syntax = (bool) $syntax;
         if (!\is_callable($callable, $syntax)) {
             throw new \ECSPrefix20210517\Nette\InvalidArgumentException($syntax ? 'Given value is not a callable type.' : \sprintf("Callback '%s' is not callable.", self::toString($callable)));
         }
@@ -90,9 +89,8 @@ final class Callback
     /**
      * Converts PHP callback to textual form. Class or method may not exists.
      * @param  mixed  $callable
-     * @return string
      */
-    public static function toString($callable)
+    public static function toString($callable) : string
     {
         if ($callable instanceof \Closure) {
             $inner = self::unwrap($callable);
@@ -107,10 +105,10 @@ final class Callback
     /**
      * Returns reflection for method or function used in PHP callback.
      * @param  callable  $callable  type check is escalated to ReflectionException
-     * @return \ReflectionFunctionAbstract
+     * @return \ReflectionMethod|\ReflectionFunction
      * @throws \ReflectionException  if callback is not valid
      */
-    public static function toReflection($callable)
+    public static function toReflection($callable) : \ReflectionFunctionAbstract
     {
         if ($callable instanceof \Closure) {
             $callable = self::unwrap($callable);
@@ -127,17 +125,15 @@ final class Callback
     }
     /**
      * Checks whether PHP callback is function or static method.
-     * @return bool
      */
-    public static function isStatic(callable $callable)
+    public static function isStatic(callable $callable) : bool
     {
         return \is_array($callable) ? \is_string($callable[0]) : \is_string($callable);
     }
     /**
      * Unwraps closure created by Closure::fromCallable().
-     * @return callable
      */
-    public static function unwrap(\Closure $closure)
+    public static function unwrap(\Closure $closure) : callable
     {
         $r = new \ReflectionFunction($closure);
         if (\substr($r->name, -1) === '}') {

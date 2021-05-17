@@ -44,11 +44,9 @@ class ArrayInput extends \ECSPrefix20210517\Symfony\Component\Console\Input\Inpu
     }
     /**
      * {@inheritdoc}
-     * @param bool $onlyParams
      */
-    public function hasParameterOption($values, $onlyParams = \false)
+    public function hasParameterOption($values, bool $onlyParams = \false)
     {
-        $onlyParams = (bool) $onlyParams;
         $values = (array) $values;
         foreach ($this->parameters as $k => $v) {
             if (!\is_int($k)) {
@@ -65,11 +63,9 @@ class ArrayInput extends \ECSPrefix20210517\Symfony\Component\Console\Input\Inpu
     }
     /**
      * {@inheritdoc}
-     * @param bool $onlyParams
      */
-    public function getParameterOption($values, $default = \false, $onlyParams = \false)
+    public function getParameterOption($values, $default = \false, bool $onlyParams = \false)
     {
-        $onlyParams = (bool) $onlyParams;
         $values = (array) $values;
         foreach ($this->parameters as $k => $v) {
             if ($onlyParams && ('--' === $k || \is_int($k) && '--' === $v)) {
@@ -131,11 +127,9 @@ class ArrayInput extends \ECSPrefix20210517\Symfony\Component\Console\Input\Inpu
      * Adds a short option value.
      *
      * @throws InvalidOptionException When option given doesn't exist
-     * @param string $shortcut
      */
-    private function addShortOption($shortcut, $value)
+    private function addShortOption(string $shortcut, $value)
     {
-        $shortcut = (string) $shortcut;
         if (!$this->definition->hasShortcut($shortcut)) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "-%s" option does not exist.', $shortcut));
         }
@@ -146,11 +140,9 @@ class ArrayInput extends \ECSPrefix20210517\Symfony\Component\Console\Input\Inpu
      *
      * @throws InvalidOptionException When option given doesn't exist
      * @throws InvalidOptionException When a required value is missing
-     * @param string $name
      */
-    private function addLongOption($name, $value)
+    private function addLongOption(string $name, $value)
     {
-        $name = (string) $name;
         if (!$this->definition->hasOption($name)) {
             throw new \ECSPrefix20210517\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "--%s" option does not exist.', $name));
         }

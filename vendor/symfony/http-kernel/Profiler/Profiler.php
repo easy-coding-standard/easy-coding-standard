@@ -32,12 +32,8 @@ class Profiler implements \ECSPrefix20210517\Symfony\Contracts\Service\ResetInte
     private $logger;
     private $initiallyEnabled = \true;
     private $enabled = \true;
-    /**
-     * @param bool $enable
-     */
-    public function __construct(\ECSPrefix20210517\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface $storage, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null, $enable = \true)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface $storage, \ECSPrefix20210517\Psr\Log\LoggerInterface $logger = null, bool $enable = \true)
     {
-        $enable = (bool) $enable;
         $this->storage = $storage;
         $this->logger = $logger;
         $this->initiallyEnabled = $this->enabled = $enable;
@@ -72,11 +68,9 @@ class Profiler implements \ECSPrefix20210517\Symfony\Contracts\Service\ResetInte
      * Loads the Profile for the given token.
      *
      * @return Profile|null A Profile instance
-     * @param string $token
      */
-    public function loadProfile($token)
+    public function loadProfile(string $token)
     {
-        $token = (string) $token;
         return $this->storage->read($token);
     }
     /**
@@ -117,9 +111,8 @@ class Profiler implements \ECSPrefix20210517\Symfony\Contracts\Service\ResetInte
      * @param string|null $ip
      * @param string|null $url
      * @param string|null $method
-     * @param string $statusCode
      */
-    public function find($ip, $url, $limit, $method, $start, $end, $statusCode = null)
+    public function find($ip, $url, $limit, $method, $start, $end, string $statusCode = null)
     {
         return $this->storage->find($ip, $url, $limit, $method, $this->getTimestamp($start), $this->getTimestamp($end), $statusCode);
     }
@@ -196,9 +189,8 @@ class Profiler implements \ECSPrefix20210517\Symfony\Contracts\Service\ResetInte
      *
      * @return bool
      */
-    public function has($name)
+    public function has(string $name)
     {
-        $name = (string) $name;
         return isset($this->collectors[$name]);
     }
     /**
@@ -210,9 +202,8 @@ class Profiler implements \ECSPrefix20210517\Symfony\Contracts\Service\ResetInte
      *
      * @throws \InvalidArgumentException if the collector does not exist
      */
-    public function get($name)
+    public function get(string $name)
     {
-        $name = (string) $name;
         if (!isset($this->collectors[$name])) {
             throw new \InvalidArgumentException(\sprintf('Collector "%s" does not exist.', $name));
         }

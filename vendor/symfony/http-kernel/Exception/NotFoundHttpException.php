@@ -20,9 +20,8 @@ class NotFoundHttpException extends \ECSPrefix20210517\Symfony\Component\HttpKer
      * @param \Throwable|null $previous The previous exception
      * @param int             $code     The internal exception code
      */
-    public function __construct($message = '', \Throwable $previous = null, $code = 0, array $headers = [])
+    public function __construct($message = '', \Throwable $previous = null, int $code = 0, array $headers = [])
     {
-        $code = (int) $code;
         parent::__construct(404, $message, $previous, $headers, $code);
     }
 }

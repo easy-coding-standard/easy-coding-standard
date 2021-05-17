@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -44,16 +45,8 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
      * @var bool
      */
     private $nullable;
-    /**
-     * @param string $name
-     * @param int $startIndex
-     * @param int $endIndex
-     */
-    public function __construct($name, $startIndex, $endIndex)
+    public function __construct(string $name, int $startIndex, int $endIndex)
     {
-        $name = (string) $name;
-        $startIndex = (int) $startIndex;
-        $endIndex = (int) $endIndex;
         $this->name = $name;
         $this->nullable = \false;
         if (0 === \strpos($name, '?')) {
@@ -63,38 +56,23 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
         $this->startIndex = $startIndex;
         $this->endIndex = $endIndex;
     }
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
-    /**
-     * @return int
-     */
-    public function getStartIndex()
+    public function getStartIndex() : int
     {
         return $this->startIndex;
     }
-    /**
-     * @return int
-     */
-    public function getEndIndex()
+    public function getEndIndex() : int
     {
         return $this->endIndex;
     }
-    /**
-     * @return bool
-     */
-    public function isReservedType()
+    public function isReservedType() : bool
     {
         return \in_array($this->name, self::$reservedTypes, \true);
     }
-    /**
-     * @return bool
-     */
-    public function isNullable()
+    public function isNullable() : bool
     {
         return $this->nullable;
     }

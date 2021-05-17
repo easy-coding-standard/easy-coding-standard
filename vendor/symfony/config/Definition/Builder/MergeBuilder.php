@@ -28,11 +28,9 @@ class MergeBuilder
      * Sets whether the node can be unset.
      *
      * @return $this
-     * @param bool $allow
      */
-    public function allowUnset($allow = \true)
+    public function allowUnset(bool $allow = \true)
     {
-        $allow = (bool) $allow;
         $this->allowFalse = $allow;
         return $this;
     }
@@ -40,11 +38,9 @@ class MergeBuilder
      * Sets whether the node can be overwritten.
      *
      * @return $this
-     * @param bool $deny
      */
-    public function denyOverwrite($deny = \true)
+    public function denyOverwrite(bool $deny = \true)
     {
-        $deny = (bool) $deny;
         $this->allowOverwrite = !$deny;
         return $this;
     }

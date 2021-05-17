@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\ValueObject;
 
 final class BlockInfo
@@ -12,38 +13,21 @@ final class BlockInfo
      * @var int
      */
     private $end;
-    /**
-     * @param int $start
-     * @param int $end
-     */
-    public function __construct($start, $end)
+    public function __construct(int $start, int $end)
     {
-        $start = (int) $start;
-        $end = (int) $end;
         $this->start = $start;
         $this->end = $end;
     }
-    /**
-     * @return int
-     */
-    public function getStart()
+    public function getStart() : int
     {
         return $this->start;
     }
-    /**
-     * @return int
-     */
-    public function getEnd()
+    public function getEnd() : int
     {
         return $this->end;
     }
-    /**
-     * @param int $position
-     * @return bool
-     */
-    public function contains($position)
+    public function contains(int $position) : bool
     {
-        $position = (int) $position;
         if ($position < $this->start) {
             return \false;
         }

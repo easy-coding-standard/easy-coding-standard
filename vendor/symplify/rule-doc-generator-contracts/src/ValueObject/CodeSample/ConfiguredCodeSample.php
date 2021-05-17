@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
 use ECSPrefix20210517\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
@@ -13,13 +14,9 @@ final class ConfiguredCodeSample extends \ECSPrefix20210517\Symplify\RuleDocGene
     private $configuration = [];
     /**
      * @param array<string, mixed> $configuration
-     * @param string $badCode
-     * @param string $goodCode
      */
-    public function __construct($badCode, $goodCode, array $configuration)
+    public function __construct(string $badCode, string $goodCode, array $configuration)
     {
-        $badCode = (string) $badCode;
-        $goodCode = (string) $goodCode;
         if ($configuration === []) {
             $message = \sprintf('Configuration cannot be empty. Look for "%s"', $badCode);
             throw new \ECSPrefix20210517\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($message);
@@ -28,9 +25,9 @@ final class ConfiguredCodeSample extends \ECSPrefix20210517\Symplify\RuleDocGene
         parent::__construct($badCode, $goodCode);
     }
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      */
-    public function getConfiguration()
+    public function getConfiguration() : array
     {
         return $this->configuration;
     }

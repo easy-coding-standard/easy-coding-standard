@@ -18,12 +18,8 @@ use ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub;
 class SymfonyCaster
 {
     const REQUEST_GETTERS = ['pathInfo' => 'getPathInfo', 'requestUri' => 'getRequestUri', 'baseUrl' => 'getBaseUrl', 'basePath' => 'getBasePath', 'method' => 'getMethod', 'format' => 'getRequestFormat'];
-    /**
-     * @param bool $isNested
-     */
-    public static function castRequest(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castRequest(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $clone = null;
         foreach (self::REQUEST_GETTERS as $prop => $getter) {
             $key = \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_PROTECTED . $prop;
@@ -36,24 +32,16 @@ class SymfonyCaster
         }
         return $a;
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function castHttpClient($client, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castHttpClient($client, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $multiKey = \sprintf("\0%s\0multi", \get_class($client));
         if (isset($a[$multiKey])) {
             $a[$multiKey] = new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\CutStub($a[$multiKey]);
         }
         return $a;
     }
-    /**
-     * @param bool $isNested
-     */
-    public static function castHttpClientResponse($response, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castHttpClientResponse($response, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
-        $isNested = (bool) $isNested;
         $stub->cut += \count($a);
         $a = [];
         foreach ($response->getInfo() as $k => $v) {

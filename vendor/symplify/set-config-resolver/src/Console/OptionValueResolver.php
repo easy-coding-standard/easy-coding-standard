@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace ECSPrefix20210517\Symplify\SetConfigResolver\Console;
 
 use ECSPrefix20210517\Symfony\Component\Console\Input\InputInterface;

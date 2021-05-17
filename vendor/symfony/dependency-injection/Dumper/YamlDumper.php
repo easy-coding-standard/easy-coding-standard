@@ -51,13 +51,8 @@ class YamlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjectio
         }
         return $this->container->resolveEnvPlaceholders($this->addParameters() . "\n" . $this->addServices());
     }
-    /**
-     * @param string $id
-     * @return string
-     */
-    private function addService($id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition)
+    private function addService(string $id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition) : string
     {
-        $id = (string) $id;
         $code = "    {$id}:\n";
         if ($class = $definition->getClass()) {
             if ('\\' === \substr($class, 0, 1)) {
@@ -129,7 +124,7 @@ class YamlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjectio
             if (0 !== $priority) {
                 $code .= \sprintf("        decoration_priority: %s\n", $priority);
             }
-            $decorationOnInvalid = isset($decoratedService[3]) ? $decoratedService[3] : \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+            $decorationOnInvalid = $decoratedService[3] ?? \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             if (\in_array($decorationOnInvalid, [\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE, \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE])) {
                 $invalidBehavior = \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $decorationOnInvalid ? 'null' : 'ignore';
                 $code .= \sprintf("        decoration_on_invalid: %s\n", $invalidBehavior);
@@ -143,13 +138,8 @@ class YamlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjectio
         }
         return $code;
     }
-    /**
-     * @param string $alias
-     * @return string
-     */
-    private function addServiceAlias($alias, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Alias $id)
+    private function addServiceAlias(string $alias, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Alias $id) : string
     {
-        $alias = (string) $alias;
         $deprecated = '';
         if ($id->isDeprecated()) {
             $deprecated = "        deprecated:\n";
@@ -167,10 +157,7 @@ class YamlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjectio
         }
         return \sprintf("    %s:\n        alias: %s\n%s", $alias, $id, $deprecated);
     }
-    /**
-     * @return string
-     */
-    private function addServices()
+    private function addServices() : string
     {
         if (!$this->container->getDefinitions()) {
             return '';
@@ -188,10 +175,7 @@ class YamlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjectio
         }
         return $code;
     }
-    /**
-     * @return string
-     */
-    private function addParameters()
+    private function addParameters() : string
     {
         if (!$this->container->getParameterBag()->all()) {
             return '';
@@ -276,13 +260,8 @@ class YamlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjectio
         }
         return $value;
     }
-    /**
-     * @param string $id
-     * @return string
-     */
-    private function getServiceCall($id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference $reference = null)
+    private function getServiceCall(string $id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Reference $reference = null) : string
     {
-        $id = (string) $id;
         if (null !== $reference) {
             switch ($reference->getInvalidBehavior()) {
                 case \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE:
@@ -297,31 +276,16 @@ class YamlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjectio
         }
         return \sprintf('@%s', $id);
     }
-    /**
-     * @param string $id
-     * @return string
-     */
-    private function getParameterCall($id)
+    private function getParameterCall(string $id) : string
     {
-        $id = (string) $id;
         return \sprintf('%%%s%%', $id);
     }
-    /**
-     * @param string $expression
-     * @return string
-     */
-    private function getExpressionCall($expression)
+    private function getExpressionCall(string $expression) : string
     {
-        $expression = (string) $expression;
         return \sprintf('@=%s', $expression);
     }
-    /**
-     * @param bool $escape
-     * @return mixed[]
-     */
-    private function prepareParameters(array $parameters, $escape = \true)
+    private function prepareParameters(array $parameters, bool $escape = \true) : array
     {
-        $escape = (bool) $escape;
         $filtered = [];
         foreach ($parameters as $key => $value) {
             if (\is_array($value)) {
@@ -333,10 +297,7 @@ class YamlDumper extends \ECSPrefix20210517\Symfony\Component\DependencyInjectio
         }
         return $escape ? $this->escape($filtered) : $filtered;
     }
-    /**
-     * @return mixed[]
-     */
-    private function escape(array $arguments)
+    private function escape(array $arguments) : array
     {
         $args = [];
         foreach ($arguments as $k => $v) {

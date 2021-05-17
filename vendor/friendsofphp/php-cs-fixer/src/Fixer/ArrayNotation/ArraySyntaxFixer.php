@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of PHP CS Fixer.
  *
@@ -46,9 +47,8 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHP arrays should be declared using the configured syntax.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\narray(1,2);\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(50400)), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n[1,2];\n", ['syntax' => 'long'])]);
     }
@@ -56,17 +56,15 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      * {@inheritdoc}
      *
      * Must run before BinaryOperatorSpacesFixer, TernaryOperatorSpacesFixer.
-     * @return int
      */
-    public function getPriority()
+    public function getPriority() : int
     {
         return 1;
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound($this->candidateTokenKind);
     }
@@ -85,19 +83,16 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * {@inheritdoc}
-     * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
-    protected function createConfigurationDefinition()
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('syntax', 'Whether to use the `long` or `short` array syntax.'))->setAllowedValues(['long', 'short'])->setDefault('short')->getOption()]);
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixToLongArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixToLongArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token('(');
         $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token(')');
@@ -105,11 +100,9 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * @return void
-     * @param int $index
      */
-    private function fixToShortArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixToShortArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
-        $index = (int) $index;
         $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
         $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
         $tokens[$openIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, '[']);

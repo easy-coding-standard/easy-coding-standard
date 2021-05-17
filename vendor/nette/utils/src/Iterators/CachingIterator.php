@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
+ */
+declare (strict_types=1);
 namespace ECSPrefix20210517\Nette\Iterators;
 
 use ECSPrefix20210517\Nette;
@@ -39,59 +44,50 @@ class CachingIterator extends \CachingIterator implements \Countable
     }
     /**
      * Is the current element the first one?
-     * @param int $gridWidth
-     * @return bool
      */
-    public function isFirst($gridWidth = null)
+    public function isFirst(int $gridWidth = null) : bool
     {
         return $this->counter === 1 || $gridWidth && $this->counter !== 0 && ($this->counter - 1) % $gridWidth === 0;
     }
     /**
      * Is the current element the last one?
-     * @param int $gridWidth
-     * @return bool
      */
-    public function isLast($gridWidth = null)
+    public function isLast(int $gridWidth = null) : bool
     {
         return !$this->hasNext() || $gridWidth && $this->counter % $gridWidth === 0;
     }
     /**
      * Is the iterator empty?
-     * @return bool
      */
-    public function isEmpty()
+    public function isEmpty() : bool
     {
         return $this->counter === 0;
     }
     /**
      * Is the counter odd?
-     * @return bool
      */
-    public function isOdd()
+    public function isOdd() : bool
     {
         return $this->counter % 2 === 1;
     }
     /**
      * Is the counter even?
-     * @return bool
      */
-    public function isEven()
+    public function isEven() : bool
     {
         return $this->counter % 2 === 0;
     }
     /**
      * Returns the counter.
-     * @return int
      */
-    public function getCounter()
+    public function getCounter() : int
     {
         return $this->counter;
     }
     /**
      * Returns the count of elements.
-     * @return int
      */
-    public function count()
+    public function count() : int
     {
         $inner = $this->getInnerIterator();
         if ($inner instanceof \Countable) {

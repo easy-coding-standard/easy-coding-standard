@@ -36,12 +36,8 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
     private $decoratedMethodIndex;
     private $decoratedMethodArgumentIndex;
     private $typesClone;
-    /**
-     * @param bool $throwOnAutowireException
-     */
-    public function __construct($throwOnAutowireException = \true)
+    public function __construct(bool $throwOnAutowireException = \true)
     {
-        $throwOnAutowireException = (bool) $throwOnAutowireException;
         $this->throwOnAutowiringException = $throwOnAutowireException;
     }
     /**
@@ -64,28 +60,24 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         try {
             return $this->doProcessValue($value, $isRoot);
         } catch (\ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\AutowiringFailedException $e) {
             if ($this->throwOnAutowiringException) {
                 throw $e;
             }
-            $this->container->getDefinition($this->currentId)->addError($e->getMessageCallback() !== null ? $e->getMessageCallback() : $e->getMessage());
+            $this->container->getDefinition($this->currentId)->addError($e->getMessageCallback() ?? $e->getMessage());
             return parent::processValue($value, $isRoot);
         }
     }
     /**
      * @return mixed
-     * @param bool $isRoot
      */
-    private function doProcessValue($value, $isRoot = \false)
+    private function doProcessValue($value, bool $isRoot = \false)
     {
-        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\TypedReference) {
             if ($ref = $this->getAutowiredReference($value)) {
                 return $ref;
@@ -126,13 +118,8 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
         }
         return $value;
     }
-    /**
-     * @param bool $isRoot
-     * @return mixed[]
-     */
-    private function autowireCalls(\ReflectionClass $reflectionClass, $isRoot)
+    private function autowireCalls(\ReflectionClass $reflectionClass, bool $isRoot) : array
     {
-        $isRoot = (bool) $isRoot;
         $this->decoratedId = null;
         $this->decoratedClass = null;
         $this->getPreviousValue = null;
@@ -169,7 +156,7 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
      *
      * @throws AutowiringFailedException
      */
-    private function autowireMethod(\ReflectionFunctionAbstract $reflectionMethod, array $arguments)
+    private function autowireMethod(\ReflectionFunctionAbstract $reflectionMethod, array $arguments) : array
     {
         $class = $reflectionMethod instanceof \ReflectionMethod ? $reflectionMethod->class : $this->currentId;
         $method = $reflectionMethod->name;
@@ -286,11 +273,9 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
     }
     /**
      * Populates the list of available types for a given definition.
-     * @param string $id
      */
-    private function populateAvailableType(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, $id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition)
+    private function populateAvailableType(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $id, \ECSPrefix20210517\Symfony\Component\DependencyInjection\Definition $definition)
     {
-        $id = (string) $id;
         // Never use abstract services
         if ($definition->isAbstract()) {
             return;
@@ -307,13 +292,9 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
     }
     /**
      * Associates a type and a service id if applicable.
-     * @param string $type
-     * @param string $id
      */
-    private function set($type, $id)
+    private function set(string $type, string $id)
     {
-        $type = (string) $type;
-        $id = (string) $id;
         // is this already a type/class that is known to match multiple services?
         if (isset($this->ambiguousServiceTypes[$type])) {
             $this->ambiguousServiceTypes[$type][] = $id;
@@ -331,13 +312,8 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
         }
         $this->ambiguousServiceTypes[$type][] = $id;
     }
-    /**
-     * @param string $label
-     * @return callable
-     */
-    private function createTypeNotFoundMessageCallback(\ECSPrefix20210517\Symfony\Component\DependencyInjection\TypedReference $reference, $label)
+    private function createTypeNotFoundMessageCallback(\ECSPrefix20210517\Symfony\Component\DependencyInjection\TypedReference $reference, string $label) : callable
     {
-        $label = (string) $label;
         if (null === $this->typesClone->container) {
             $this->typesClone->container = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder($this->container->getParameterBag());
             $this->typesClone->container->setAliases($this->container->getAliases());
@@ -349,15 +325,8 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
             return $this->createTypeNotFoundMessage($reference, $label, $currentId);
         })->bindTo($this->typesClone);
     }
-    /**
-     * @param string $label
-     * @param string $currentId
-     * @return string
-     */
-    private function createTypeNotFoundMessage(\ECSPrefix20210517\Symfony\Component\DependencyInjection\TypedReference $reference, $label, $currentId)
+    private function createTypeNotFoundMessage(\ECSPrefix20210517\Symfony\Component\DependencyInjection\TypedReference $reference, string $label, string $currentId) : string
     {
-        $label = (string) $label;
-        $currentId = (string) $currentId;
         if (!($r = $this->container->getReflectionClass($type = $reference->getType(), \false))) {
             // either $type does not exist or a parent class does not exist
             try {
@@ -384,10 +353,7 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
         }
         return $message;
     }
-    /**
-     * @return string
-     */
-    private function createTypeAlternatives(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210517\Symfony\Component\DependencyInjection\TypedReference $reference)
+    private function createTypeAlternatives(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210517\Symfony\Component\DependencyInjection\TypedReference $reference) : string
     {
         // try suggesting available aliases first
         if ($message = $this->getAliasesSuggestionForType($container, $type = $reference->getType())) {
@@ -410,11 +376,9 @@ class AutowirePass extends \ECSPrefix20210517\Symfony\Component\DependencyInject
     }
     /**
      * @return string|null
-     * @param string $type
      */
-    private function getAliasesSuggestionForType(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, $type)
+    private function getAliasesSuggestionForType(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $type)
     {
-        $type = (string) $type;
         $aliases = [];
         foreach (\class_parents($type) + \class_implements($type) as $parent) {
             if ($container->has($parent) && !$container->findDefinition($parent)->isAbstract()) {

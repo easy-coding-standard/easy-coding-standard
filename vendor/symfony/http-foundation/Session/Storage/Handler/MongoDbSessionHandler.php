@@ -76,11 +76,9 @@ class MongoDbSessionHandler extends \ECSPrefix20210517\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doDestroy($sessionId)
+    protected function doDestroy(string $sessionId)
     {
-        $sessionId = (string) $sessionId;
         $this->getCollection()->deleteOne([$this->options['id_field'] => $sessionId]);
         return \true;
     }
@@ -94,13 +92,9 @@ class MongoDbSessionHandler extends \ECSPrefix20210517\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite(string $sessionId, string $data)
     {
-        $sessionId = (string) $sessionId;
-        $data = (string) $data;
         $expiry = new \MongoDB\BSON\UTCDateTime((\time() + (int) \ini_get('session.gc_maxlifetime')) * 1000);
         $fields = [$this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(), $this->options['expiry_field'] => $expiry, $this->options['data_field'] => new \MongoDB\BSON\Binary($data, \MongoDB\BSON\Binary::TYPE_OLD_BINARY)];
         $this->getCollection()->updateOne([$this->options['id_field'] => $sessionId], ['$set' => $fields], ['upsert' => \true]);
@@ -117,21 +111,16 @@ class MongoDbSessionHandler extends \ECSPrefix20210517\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doRead($sessionId)
+    protected function doRead(string $sessionId)
     {
-        $sessionId = (string) $sessionId;
         $dbData = $this->getCollection()->findOne([$this->options['id_field'] => $sessionId, $this->options['expiry_field'] => ['$gte' => new \MongoDB\BSON\UTCDateTime()]]);
         if (null === $dbData) {
             return '';
         }
         return $dbData[$this->options['data_field']]->getData();
     }
-    /**
-     * @return \MongoDB\Collection
-     */
-    private function getCollection()
+    private function getCollection() : \ECSPrefix20210517\MongoDB\Collection
     {
         if (null === $this->collection) {
             $this->collection = $this->mongo->selectCollection($this->options['database'], $this->options['collection']);
