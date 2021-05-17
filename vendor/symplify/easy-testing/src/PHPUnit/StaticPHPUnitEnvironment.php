@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\EasyTesting\PHPUnit;
+namespace ECSPrefix20210517\Symplify\EasyTesting\PHPUnit;
 
 final class StaticPHPUnitEnvironment
 {

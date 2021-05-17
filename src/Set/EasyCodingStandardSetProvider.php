@@ -3,9 +3,9 @@
 namespace Symplify\EasyCodingStandard\Set;
 
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
-use ECSPrefix20210516\Symplify\SetConfigResolver\Provider\AbstractSetProvider;
-use ECSPrefix20210516\Symplify\SetConfigResolver\ValueObject\Set;
-final class EasyCodingStandardSetProvider extends \ECSPrefix20210516\Symplify\SetConfigResolver\Provider\AbstractSetProvider
+use ECSPrefix20210517\Symplify\SetConfigResolver\Provider\AbstractSetProvider;
+use ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject\Set;
+final class EasyCodingStandardSetProvider extends \ECSPrefix20210517\Symplify\SetConfigResolver\Provider\AbstractSetProvider
 {
     /**
      * @var Set[]

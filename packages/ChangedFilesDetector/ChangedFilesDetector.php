@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
-use ECSPrefix20210516\Nette\Caching\Cache;
-use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210517\Nette\Caching\Cache;
+use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
  */
@@ -25,7 +25,7 @@ final class ChangedFilesDetector
      * @var Cache
      */
     private $cache;
-    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer $fileHashComputer, \ECSPrefix20210516\Nette\Caching\Cache $cache)
+    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer $fileHashComputer, \ECSPrefix20210517\Nette\Caching\Cache $cache)
     {
         $this->fileHashComputer = $fileHashComputer;
         $this->cache = $cache;
@@ -43,16 +43,16 @@ final class ChangedFilesDetector
     /**
      * @return void
      */
-    public function addFileInfo(\ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function addFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $currentValue = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
-        $this->cache->save($cacheKey, $currentValue, [\ECSPrefix20210516\Nette\Caching\Cache::TAGS => [self::CHANGED_FILES_CACHE_TAG]]);
+        $this->cache->save($cacheKey, $currentValue, [\ECSPrefix20210517\Nette\Caching\Cache::TAGS => [self::CHANGED_FILES_CACHE_TAG]]);
     }
     /**
      * @return void
      */
-    public function invalidateFileInfo(\ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function invalidateFileInfo(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $this->cache->remove($cacheKey);
@@ -60,7 +60,7 @@ final class ChangedFilesDetector
     /**
      * @return bool
      */
-    public function hasFileInfoChanged(\ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function hasFileInfoChanged(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
@@ -73,7 +73,7 @@ final class ChangedFilesDetector
     public function clearCache()
     {
         // clear cache only for changed files group
-        $this->cache->clean([\ECSPrefix20210516\Nette\Caching\Cache::TAGS => [self::CHANGED_FILES_CACHE_TAG]]);
+        $this->cache->clean([\ECSPrefix20210517\Nette\Caching\Cache::TAGS => [self::CHANGED_FILES_CACHE_TAG]]);
     }
     /**
      * For cache invalidation
@@ -104,7 +104,7 @@ final class ChangedFilesDetector
     /**
      * @return string
      */
-    private function fileInfoToKey(\ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    private function fileInfoToKey(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         return \sha1($smartFileInfo->getRelativeFilePathFromCwd());
     }

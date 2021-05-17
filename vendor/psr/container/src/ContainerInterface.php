@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210516\Psr\Container;
+namespace ECSPrefix20210517\Psr\Container;
 
 /**
  * Describes the interface of a container that exposes methods to read its entries.

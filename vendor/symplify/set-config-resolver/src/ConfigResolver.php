@@ -1,7 +1,7 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\SetConfigResolver;
+namespace ECSPrefix20210517\Symplify\SetConfigResolver;
 
-final class ConfigResolver extends \ECSPrefix20210516\Symplify\SetConfigResolver\AbstractConfigResolver
+final class ConfigResolver extends \ECSPrefix20210517\Symplify\SetConfigResolver\AbstractConfigResolver
 {
 }

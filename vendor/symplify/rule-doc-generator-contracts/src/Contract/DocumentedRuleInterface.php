@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\RuleDocGenerator\Contract;
+namespace ECSPrefix20210517\Symplify\RuleDocGenerator\Contract;
 
-use ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 interface DocumentedRuleInterface
 {
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\PackageBuilder\Configuration;
+namespace ECSPrefix20210517\Symplify\PackageBuilder\Configuration;
 
 final class StaticEolConfiguration
 {

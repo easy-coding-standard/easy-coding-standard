@@ -1,16 +1,16 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\Skipper\Matcher;
+namespace ECSPrefix20210517\Symplify\Skipper\Matcher;
 
-use ECSPrefix20210516\Symplify\Skipper\FileSystem\PathNormalizer;
-use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210517\Symplify\Skipper\FileSystem\PathNormalizer;
+use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoMatcher
 {
     /**
      * @var PathNormalizer
      */
     private $pathNormalizer;
-    public function __construct(\ECSPrefix20210516\Symplify\Skipper\FileSystem\PathNormalizer $pathNormalizer)
+    public function __construct(\ECSPrefix20210517\Symplify\Skipper\FileSystem\PathNormalizer $pathNormalizer)
     {
         $this->pathNormalizer = $pathNormalizer;
     }
@@ -18,7 +18,7 @@ final class FileInfoMatcher
      * @param string[] $filePattern
      * @return bool
      */
-    public function doesFileInfoMatchPatterns(\ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $filePattern)
+    public function doesFileInfoMatchPatterns(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $filePattern)
     {
         foreach ($filePattern as $onlyFile) {
             if ($this->doesFileInfoMatchPattern($smartFileInfo, $onlyFile)) {
@@ -32,7 +32,7 @@ final class FileInfoMatcher
      * @param string $ignoredPath
      * @return bool
      */
-    private function doesFileInfoMatchPattern(\ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $ignoredPath)
+    private function doesFileInfoMatchPattern(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $ignoredPath)
     {
         $ignoredPath = (string) $ignoredPath;
         // in ecs.php, the path can be absolute

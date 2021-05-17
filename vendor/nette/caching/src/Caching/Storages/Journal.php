@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210516\Nette\Caching\Storages;
+namespace ECSPrefix20210517\Nette\Caching\Storages;
 
 /**
  * Cache journal provider.
@@ -19,4 +19,4 @@ interface Journal
      */
     function clean(array $conditions);
 }
-\class_exists(\ECSPrefix20210516\Nette\Caching\Storages\IJournal::class);
+\class_exists(\ECSPrefix20210517\Nette\Caching\Storages\IJournal::class);

@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Bootstrap;
 
-use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
 final class ConfigHasher
 {
     /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210516\Nette;
+namespace ECSPrefix20210517\Nette;
 
-use ECSPrefix20210516\Nette\Utils\ObjectHelpers;
+use ECSPrefix20210517\Nette\Utils\ObjectHelpers;
 /**
  * Strict class for better experience.
  * - 'did you mean' hints
@@ -20,7 +20,7 @@ trait SmartObject
     {
         $name = (string) $name;
         $class = static::class;
-        if (\ECSPrefix20210516\Nette\Utils\ObjectHelpers::hasProperty($class, $name) === 'event') {
+        if (\ECSPrefix20210517\Nette\Utils\ObjectHelpers::hasProperty($class, $name) === 'event') {
             // calling event handlers
             $handlers = $this->{$name} !== null ? $this->{$name} : null;
             if (\is_array($handlers) || $handlers instanceof \Traversable) {
@@ -28,10 +28,10 @@ trait SmartObject
                     $handler(...$args);
                 }
             } elseif ($handlers !== null) {
-                throw new \ECSPrefix20210516\Nette\UnexpectedValueException("Property {$class}::\${$name} must be iterable or null, " . \gettype($handlers) . ' given.');
+                throw new \ECSPrefix20210517\Nette\UnexpectedValueException("Property {$class}::\${$name} must be iterable or null, " . \gettype($handlers) . ' given.');
             }
         } else {
-            \ECSPrefix20210516\Nette\Utils\ObjectHelpers::strictCall($class, $name);
+            \ECSPrefix20210517\Nette\Utils\ObjectHelpers::strictCall($class, $name);
         }
     }
     /**
@@ -41,7 +41,7 @@ trait SmartObject
     public static function __callStatic($name, array $args)
     {
         $name = (string) $name;
-        \ECSPrefix20210516\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
+        \ECSPrefix20210517\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
     }
     /**
      * @return mixed
@@ -52,10 +52,10 @@ trait SmartObject
     {
         $name = (string) $name;
         $class = static::class;
-        if ($prop = isset(\ECSPrefix20210516\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name]) ? \ECSPrefix20210516\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name] : null) {
+        if ($prop = isset(\ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name]) ? \ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name] : null) {
             // property getter
             if (!($prop & 0b1)) {
-                throw new \ECSPrefix20210516\Nette\MemberAccessException("Cannot read a write-only property {$class}::\${$name}.");
+                throw new \ECSPrefix20210517\Nette\MemberAccessException("Cannot read a write-only property {$class}::\${$name}.");
             }
             $m = ($prop & 0b10 ? 'get' : 'is') . $name;
             if ($prop & 0b100) {
@@ -66,7 +66,7 @@ trait SmartObject
                 return $val;
             }
         } else {
-            \ECSPrefix20210516\Nette\Utils\ObjectHelpers::strictGet($class, $name);
+            \ECSPrefix20210517\Nette\Utils\ObjectHelpers::strictGet($class, $name);
         }
     }
     /**
@@ -79,17 +79,17 @@ trait SmartObject
     {
         $name = (string) $name;
         $class = static::class;
-        if (\ECSPrefix20210516\Nette\Utils\ObjectHelpers::hasProperty($class, $name)) {
+        if (\ECSPrefix20210517\Nette\Utils\ObjectHelpers::hasProperty($class, $name)) {
             // unsetted property
             $this->{$name} = $value;
-        } elseif ($prop = isset(\ECSPrefix20210516\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name]) ? \ECSPrefix20210516\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name] : null) {
+        } elseif ($prop = isset(\ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name]) ? \ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name] : null) {
             // property setter
             if (!($prop & 0b1000)) {
-                throw new \ECSPrefix20210516\Nette\MemberAccessException("Cannot write to a read-only property {$class}::\${$name}.");
+                throw new \ECSPrefix20210517\Nette\MemberAccessException("Cannot write to a read-only property {$class}::\${$name}.");
             }
             $this->{'set' . $name}($value);
         } else {
-            \ECSPrefix20210516\Nette\Utils\ObjectHelpers::strictSet($class, $name);
+            \ECSPrefix20210517\Nette\Utils\ObjectHelpers::strictSet($class, $name);
         }
     }
     /**
@@ -101,8 +101,8 @@ trait SmartObject
     {
         $name = (string) $name;
         $class = static::class;
-        if (!\ECSPrefix20210516\Nette\Utils\ObjectHelpers::hasProperty($class, $name)) {
-            throw new \ECSPrefix20210516\Nette\MemberAccessException("Cannot unset the property {$class}::\${$name}.");
+        if (!\ECSPrefix20210517\Nette\Utils\ObjectHelpers::hasProperty($class, $name)) {
+            throw new \ECSPrefix20210517\Nette\MemberAccessException("Cannot unset the property {$class}::\${$name}.");
         }
     }
     /**
@@ -112,6 +112,6 @@ trait SmartObject
     public function __isset($name)
     {
         $name = (string) $name;
-        return isset(\ECSPrefix20210516\Nette\Utils\ObjectHelpers::getMagicProperties(static::class)[$name]);
+        return isset(\ECSPrefix20210517\Nette\Utils\ObjectHelpers::getMagicProperties(static::class)[$name]);
     }
 }

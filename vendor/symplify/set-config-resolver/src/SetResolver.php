@@ -1,18 +1,18 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\SetConfigResolver;
+namespace ECSPrefix20210517\Symplify\SetConfigResolver;
 
-use ECSPrefix20210516\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use ECSPrefix20210516\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use ECSPrefix20210516\Symplify\SetConfigResolver\ValueObject\Set;
-use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210517\Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use ECSPrefix20210517\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject\Set;
+use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetResolver
 {
     /**
      * @var SetProviderInterface
      */
     private $setProvider;
-    public function __construct(\ECSPrefix20210516\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
+    public function __construct(\ECSPrefix20210517\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
     {
         $this->setProvider = $setProvider;
     }
@@ -24,7 +24,7 @@ final class SetResolver
     {
         $setName = (string) $setName;
         $set = $this->setProvider->provideByName($setName);
-        if (!$set instanceof \ECSPrefix20210516\Symplify\SetConfigResolver\ValueObject\Set) {
+        if (!$set instanceof \ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject\Set) {
             $this->reportSetNotFound($setName);
         }
         return $set->getSetFileInfo();
@@ -37,6 +37,6 @@ final class SetResolver
     {
         $setName = (string) $setName;
         $message = \sprintf('Set "%s" was not found', $setName);
-        throw new \ECSPrefix20210516\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
+        throw new \ECSPrefix20210517\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
     }
 }

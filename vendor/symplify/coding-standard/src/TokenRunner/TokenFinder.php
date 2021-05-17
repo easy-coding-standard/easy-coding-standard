@@ -2,10 +2,10 @@
 
 namespace Symplify\CodingStandard\TokenRunner;
 
-use ECSPrefix20210516\Nette\Utils\Strings;
+use ECSPrefix20210517\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20210516\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class TokenFinder
 {
     /**
@@ -67,7 +67,7 @@ final class TokenFinder
         $rawTokensCount = \count($rawTokens);
         for ($i = $position; $i < $rawTokensCount; ++$i) {
             $token = $rawTokens[$i];
-            if (\is_array($token) && \ECSPrefix20210516\Nette\Utils\Strings::contains($token[1], \PHP_EOL)) {
+            if (\is_array($token) && \ECSPrefix20210517\Nette\Utils\Strings::contains($token[1], \PHP_EOL)) {
                 break;
             }
             $lastToken = $token;
@@ -84,7 +84,7 @@ final class TokenFinder
         $position = (int) $position;
         $previousPosition = $position - 1;
         if (!isset($tokens[$previousPosition])) {
-            throw new \ECSPrefix20210516\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $tokens[$previousPosition];
     }
@@ -108,6 +108,6 @@ final class TokenFinder
                 return $position;
             }
         }
-        throw new \ECSPrefix20210516\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
 }

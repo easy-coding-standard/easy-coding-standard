@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\Commenting;
 
-use ECSPrefix20210516\Nette\Utils\Strings;
+use ECSPrefix20210517\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -13,15 +13,15 @@ use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\Php\PhpContentAnalyzer;
 use Symplify\CodingStandard\Tokens\CommentedContentResolver;
 use Symplify\CodingStandard\ValueObject\StartAndEnd;
-use ECSPrefix20210516\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://softwareengineering.stackexchange.com/a/394288/148956
  *
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\RemoveCommentedCodeFixer\RemoveCommentedCodeFixerTest
  */
-final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210516\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210517\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -72,7 +72,7 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
             if (!$token->isGivenKind(\T_COMMENT)) {
                 continue;
             }
-            if (!\ECSPrefix20210516\Nette\Utils\Strings::startsWith($token->getContent(), '//')) {
+            if (!\ECSPrefix20210517\Nette\Utils\Strings::startsWith($token->getContent(), '//')) {
                 continue;
             }
             $startAndEnd = $this->commentedContentResolver->resolve($tokens, $i);
@@ -98,7 +98,7 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
      */
     public function getRuleDefinition()
     {
-        return new \ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 // $one = 1;
 // $two = 2;
 // $three = 3;
@@ -122,7 +122,7 @@ CODE_SAMPLE
         if ($preStartToken->getContent() === \PHP_EOL) {
             return $realStart - 1;
         }
-        if (\ECSPrefix20210516\Nette\Utils\Strings::endsWith($preStartToken->getContent(), '    ')) {
+        if (\ECSPrefix20210517\Nette\Utils\Strings::endsWith($preStartToken->getContent(), '    ')) {
             return $realStart - 1;
         }
         return $realStart;

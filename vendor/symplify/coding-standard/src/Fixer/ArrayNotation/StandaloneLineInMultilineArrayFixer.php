@@ -14,13 +14,13 @@ use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use Symplify\CodingStandard\TokenRunner\ValueObject\LineKind;
 use Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds;
 use Symplify\CodingStandard\TokenRunner\Wrapper\FixerWrapper\ArrayWrapperFactory;
-use ECSPrefix20210516\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer\StandaloneLineInMultilineArrayFixerTest
  */
-final class StandaloneLineInMultilineArrayFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210516\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class StandaloneLineInMultilineArrayFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210517\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -66,7 +66,7 @@ final class StandaloneLineInMultilineArrayFixer extends \Symplify\CodingStandard
      */
     public function getRuleDefinition()
     {
-        return new \ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $friends = [1 => 'Peter', 2 => 'Paul'];
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'

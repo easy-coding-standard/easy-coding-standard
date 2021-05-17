@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\SetConfigResolver\ValueObject;
+namespace ECSPrefix20210517\Symplify\SetConfigResolver\ValueObject;
 
-use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
 final class Set
 {
     /**
@@ -16,7 +16,7 @@ final class Set
     /**
      * @param string $name
      */
-    public function __construct($name, \ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $setFileInfo)
+    public function __construct($name, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $setFileInfo)
     {
         $name = (string) $name;
         $this->name = $name;

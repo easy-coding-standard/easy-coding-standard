@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210516\Doctrine\Common\Annotations;
+namespace ECSPrefix20210517\Doctrine\Common\Annotations;
 
-use ECSPrefix20210516\Psr\Cache\CacheItemPoolInterface;
+use ECSPrefix20210517\Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -17,7 +17,7 @@ use function time;
 /**
  * A cache aware annotation reader.
  */
-final class PsrCachedReader implements \ECSPrefix20210516\Doctrine\Common\Annotations\Reader
+final class PsrCachedReader implements \ECSPrefix20210517\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $delegate;
@@ -32,7 +32,7 @@ final class PsrCachedReader implements \ECSPrefix20210516\Doctrine\Common\Annota
     /**
      * @param bool $debug
      */
-    public function __construct(\ECSPrefix20210516\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20210516\Psr\Cache\CacheItemPoolInterface $cache, $debug = \false)
+    public function __construct(\ECSPrefix20210517\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20210517\Psr\Cache\CacheItemPoolInterface $cache, $debug = \false)
     {
         $debug = (bool) $debug;
         $this->delegate = $reader;
@@ -131,7 +131,7 @@ final class PsrCachedReader implements \ECSPrefix20210516\Doctrine\Common\Annota
         $method = (string) $method;
         $cacheKey = \rawurlencode($cacheKey);
         $item = $this->cache->getItem($cacheKey);
-        if (!$item->isHit() || $this->debug && !$this->refresh($cacheKey, $class)) {
+        if ($this->debug && !$this->refresh($cacheKey, $class) || !$item->isHit()) {
             $this->cache->save($item->set($this->delegate->{$method}($reflector)));
         }
         return $item->get();

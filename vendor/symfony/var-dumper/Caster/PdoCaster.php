@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210516\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210517\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210516\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Casts PDO related classes to array representation.
  *
@@ -24,7 +24,7 @@ class PdoCaster
     /**
      * @param bool $isNested
      */
-    public static function castPdo(\PDO $c, array $a, \ECSPrefix20210516\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castPdo(\PDO $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         $attr = [];
@@ -38,19 +38,19 @@ class PdoCaster
             try {
                 $attr[$k] = 'ERRMODE' === $k ? $errmode : $c->getAttribute(\constant('PDO::ATTR_' . $k));
                 if ($v && isset($v[$attr[$k]])) {
-                    $attr[$k] = new \ECSPrefix20210516\Symfony\Component\VarDumper\Caster\ConstStub($v[$attr[$k]], $attr[$k]);
+                    $attr[$k] = new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ConstStub($v[$attr[$k]], $attr[$k]);
                 }
             } catch (\Exception $e) {
             }
         }
         if (isset($attr[$k = 'STATEMENT_CLASS'][1])) {
             if ($attr[$k][1]) {
-                $attr[$k][1] = new \ECSPrefix20210516\Symfony\Component\VarDumper\Caster\ArgsStub($attr[$k][1], '__construct', $attr[$k][0]);
+                $attr[$k][1] = new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ArgsStub($attr[$k][1], '__construct', $attr[$k][0]);
             }
-            $attr[$k][0] = new \ECSPrefix20210516\Symfony\Component\VarDumper\Caster\ClassStub($attr[$k][0]);
+            $attr[$k][0] = new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\ClassStub($attr[$k][0]);
         }
-        $prefix = \ECSPrefix20210516\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
-        $a += [$prefix . 'inTransaction' => \method_exists($c, 'inTransaction'), $prefix . 'errorInfo' => $c->errorInfo(), $prefix . 'attributes' => new \ECSPrefix20210516\Symfony\Component\VarDumper\Caster\EnumStub($attr)];
+        $prefix = \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
+        $a += [$prefix . 'inTransaction' => \method_exists($c, 'inTransaction'), $prefix . 'errorInfo' => $c->errorInfo(), $prefix . 'attributes' => new \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\EnumStub($attr)];
         if ($a[$prefix . 'inTransaction']) {
             $a[$prefix . 'inTransaction'] = $c->inTransaction();
         } else {
@@ -65,10 +65,10 @@ class PdoCaster
     /**
      * @param bool $isNested
      */
-    public static function castPdoStatement(\PDOStatement $c, array $a, \ECSPrefix20210516\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castPdoStatement(\PDOStatement $c, array $a, \ECSPrefix20210517\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $prefix = \ECSPrefix20210516\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
+        $prefix = \ECSPrefix20210517\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $a[$prefix . 'errorInfo'] = $c->errorInfo();
         if (!isset($a[$prefix . 'errorInfo'][1], $a[$prefix . 'errorInfo'][2])) {
             unset($a[$prefix . 'errorInfo']);

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210516\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210517\Symfony\Component\HttpFoundation;
 
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210516\Symfony\Component\HttpFoundation\AcceptHeaderItem::class);
+\class_exists(\ECSPrefix20210517\Symfony\Component\HttpFoundation\AcceptHeaderItem::class);
 /**
  * Represents an Accept-* header.
  *
@@ -43,16 +43,15 @@ class AcceptHeader
      * Builds an AcceptHeader instance from a string.
      *
      * @return self
-     * @param string|null $headerValue
      */
-    public static function fromString($headerValue)
+    public static function fromString(?string $headerValue)
     {
         $index = 0;
-        $parts = \ECSPrefix20210516\Symfony\Component\HttpFoundation\HeaderUtils::split(isset($headerValue) ? $headerValue : '', ',;=');
+        $parts = \ECSPrefix20210517\Symfony\Component\HttpFoundation\HeaderUtils::split($headerValue ?? '', ',;=');
         return new self(\array_map(function ($subParts) use(&$index) {
             $part = \array_shift($subParts);
-            $attributes = \ECSPrefix20210516\Symfony\Component\HttpFoundation\HeaderUtils::combine($subParts);
-            $item = new \ECSPrefix20210516\Symfony\Component\HttpFoundation\AcceptHeaderItem($part[0], $attributes);
+            $attributes = \ECSPrefix20210517\Symfony\Component\HttpFoundation\HeaderUtils::combine($subParts);
+            $item = new \ECSPrefix20210517\Symfony\Component\HttpFoundation\AcceptHeaderItem($part[0], $attributes);
             $item->setIndex($index++);
             return $item;
         }, $parts));
@@ -70,30 +69,26 @@ class AcceptHeader
      * Tests if header has given value.
      *
      * @return bool
-     * @param string $value
      */
-    public function has($value)
+    public function has(string $value)
     {
-        $value = (string) $value;
         return isset($this->items[$value]);
     }
     /**
      * Returns given value's item, if exists.
      *
      * @return AcceptHeaderItem|null
-     * @param string $value
      */
-    public function get($value)
+    public function get(string $value)
     {
-        $value = (string) $value;
-        return isset($this->items[$value]) ? $this->items[$value] : (isset($this->items[\explode('/', $value)[0] . '/*']) ? $this->items[\explode('/', $value)[0] . '/*'] : (isset($this->items['*/*']) ? $this->items['*/*'] : (isset($this->items['*']) ? $this->items['*'] : null)));
+        return $this->items[$value] ?? $this->items[\explode('/', $value)[0] . '/*'] ?? $this->items['*/*'] ?? $this->items['*'] ?? null;
     }
     /**
      * Adds an item.
      *
      * @return $this
      */
-    public function add(\ECSPrefix20210516\Symfony\Component\HttpFoundation\AcceptHeaderItem $item)
+    public function add(\ECSPrefix20210517\Symfony\Component\HttpFoundation\AcceptHeaderItem $item)
     {
         $this->items[$item->getValue()] = $item;
         $this->sorted = \false;
@@ -113,12 +108,10 @@ class AcceptHeader
      * Filters items on their value using given regex.
      *
      * @return self
-     * @param string $pattern
      */
-    public function filter($pattern)
+    public function filter(string $pattern)
     {
-        $pattern = (string) $pattern;
-        return new self(\array_filter($this->items, function (\ECSPrefix20210516\Symfony\Component\HttpFoundation\AcceptHeaderItem $item) use($pattern) {
+        return new self(\array_filter($this->items, function (\ECSPrefix20210517\Symfony\Component\HttpFoundation\AcceptHeaderItem $item) use($pattern) {
             return \preg_match($pattern, $item->getValue());
         }));
     }
@@ -134,12 +127,11 @@ class AcceptHeader
     }
     /**
      * Sorts items by descending quality.
-     * @return void
      */
-    private function sort()
+    private function sort() : void
     {
         if (!$this->sorted) {
-            \uasort($this->items, function (\ECSPrefix20210516\Symfony\Component\HttpFoundation\AcceptHeaderItem $a, \ECSPrefix20210516\Symfony\Component\HttpFoundation\AcceptHeaderItem $b) {
+            \uasort($this->items, function (\ECSPrefix20210517\Symfony\Component\HttpFoundation\AcceptHeaderItem $a, \ECSPrefix20210517\Symfony\Component\HttpFoundation\AcceptHeaderItem $b) {
                 $qA = $a->getQuality();
                 $qB = $b->getQuality();
                 if ($qA === $qB) {

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210516\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210517\Symfony\Component\HttpFoundation;
 
 /**
  * ResponseHeaderBag is a container for Response HTTP headers.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ResponseHeaderBag extends \ECSPrefix20210516\Symfony\Component\HttpFoundation\HeaderBag
+class ResponseHeaderBag extends \ECSPrefix20210517\Symfony\Component\HttpFoundation\HeaderBag
 {
     const COOKIES_FLAT = 'flat';
     const COOKIES_ARRAY = 'array';
@@ -101,7 +101,7 @@ class ResponseHeaderBag extends \ECSPrefix20210516\Symfony\Component\HttpFoundat
                 $this->cookies = [];
             }
             foreach ((array) $values as $cookie) {
-                $this->setCookie(\ECSPrefix20210516\Symfony\Component\HttpFoundation\Cookie::fromString($cookie));
+                $this->setCookie(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Cookie::fromString($cookie));
             }
             $this->headerNames[$uniqueKey] = $key;
             return;
@@ -154,7 +154,7 @@ class ResponseHeaderBag extends \ECSPrefix20210516\Symfony\Component\HttpFoundat
         $key = (string) $key;
         return \array_key_exists($key, $this->computedCacheControl) ? $this->computedCacheControl[$key] : null;
     }
-    public function setCookie(\ECSPrefix20210516\Symfony\Component\HttpFoundation\Cookie $cookie)
+    public function setCookie(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Cookie $cookie)
     {
         $this->cookies[$cookie->getDomain()][$cookie->getPath()][$cookie->getName()] = $cookie;
         $this->headerNames['set-cookie'] = 'Set-Cookie';
@@ -223,7 +223,7 @@ class ResponseHeaderBag extends \ECSPrefix20210516\Symfony\Component\HttpFoundat
         $name = (string) $name;
         $secure = (bool) $secure;
         $httpOnly = (bool) $httpOnly;
-        $this->setCookie(new \ECSPrefix20210516\Symfony\Component\HttpFoundation\Cookie($name, null, 1, $path, $domain, $secure, $httpOnly, \false, $sameSite));
+        $this->setCookie(new \ECSPrefix20210517\Symfony\Component\HttpFoundation\Cookie($name, null, 1, $path, $domain, $secure, $httpOnly, \false, $sameSite));
     }
     /**
      * @see HeaderUtils::makeDisposition()
@@ -236,7 +236,7 @@ class ResponseHeaderBag extends \ECSPrefix20210516\Symfony\Component\HttpFoundat
         $disposition = (string) $disposition;
         $filename = (string) $filename;
         $filenameFallback = (string) $filenameFallback;
-        return \ECSPrefix20210516\Symfony\Component\HttpFoundation\HeaderUtils::makeDisposition($disposition, $filename, $filenameFallback);
+        return \ECSPrefix20210517\Symfony\Component\HttpFoundation\HeaderUtils::makeDisposition($disposition, $filename, $filenameFallback);
     }
     /**
      * Returns the calculated value of the cache-control header.

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\PackageBuilder\Strings;
+namespace ECSPrefix20210517\Symplify\PackageBuilder\Strings;
 
-use ECSPrefix20210516\Nette\Utils\Strings;
+use ECSPrefix20210517\Nette\Utils\Strings;
 /**
  * @api
  * @see \Symplify\PackageBuilder\Tests\Strings\StringFormatConverterTest
@@ -72,7 +72,7 @@ final class StringFormatConverter
     {
         $input = (string) $input;
         $glue = (string) $glue;
-        $matches = \ECSPrefix20210516\Nette\Utils\Strings::matchAll($input, self::BIG_LETTER_REGEX);
+        $matches = \ECSPrefix20210517\Nette\Utils\Strings::matchAll($input, self::BIG_LETTER_REGEX);
         $parts = [];
         foreach ($matches as $match) {
             $parts[] = $match[0] === \strtoupper($match[0]) ? \strtolower($match[0]) : \lcfirst($match[0]);

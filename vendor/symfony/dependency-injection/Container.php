@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210516\Symfony\Component\DependencyInjection;
+namespace ECSPrefix20210517\Symfony\Component\DependencyInjection;
 
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\Argument\ServiceLocator as ArgumentServiceLocator;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
-use ECSPrefix20210516\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use ECSPrefix20210516\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\ServiceLocator as ArgumentServiceLocator;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
+use ECSPrefix20210517\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use ECSPrefix20210517\Symfony\Contracts\Service\ResetInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210516\Symfony\Component\DependencyInjection\Argument\RewindableGenerator::class);
-\class_exists(\ECSPrefix20210516\Symfony\Component\DependencyInjection\Argument\ServiceLocator::class);
+\class_exists(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\RewindableGenerator::class);
+\class_exists(\ECSPrefix20210517\Symfony\Component\DependencyInjection\Argument\ServiceLocator::class);
 /**
  * Container is a dependency injection container.
  *
@@ -42,7 +42,7 @@ use ECSPrefix20210516\Symfony\Contracts\Service\ResetInterface;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInjection\ContainerInterface, \ECSPrefix20210516\Symfony\Contracts\Service\ResetInterface
+class Container implements \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface, \ECSPrefix20210517\Symfony\Contracts\Service\ResetInterface
 {
     protected $parameterBag;
     protected $services = [];
@@ -57,9 +57,9 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
     private $envCache = [];
     private $compiled = \false;
     private $getEnv;
-    public function __construct(\ECSPrefix20210516\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
+    public function __construct(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
     {
-        $this->parameterBag = isset($parameterBag) ? $parameterBag : new \ECSPrefix20210516\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag();
+        $this->parameterBag = $parameterBag ?? new \ECSPrefix20210517\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag();
     }
     /**
      * Compiles the container.
@@ -72,7 +72,7 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
     public function compile()
     {
         $this->parameterBag->resolve();
-        $this->parameterBag = new \ECSPrefix20210516\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag($this->parameterBag->all());
+        $this->parameterBag = new \ECSPrefix20210517\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag($this->parameterBag->all());
         $this->compiled = \true;
     }
     /**
@@ -102,9 +102,8 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
      *
      * @throws InvalidArgumentException if the parameter is not defined
      */
-    public function getParameter($name)
+    public function getParameter(string $name)
     {
-        $name = (string) $name;
         return $this->parameterBag->get($name);
     }
     /**
@@ -114,9 +113,8 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
      *
      * @return bool The presence of parameter in container
      */
-    public function hasParameter($name)
+    public function hasParameter(string $name)
     {
-        $name = (string) $name;
         return $this->parameterBag->has($name);
     }
     /**
@@ -125,9 +123,8 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value
      */
-    public function setParameter($name, $value)
+    public function setParameter(string $name, $value)
     {
-        $name = (string) $name;
         $this->parameterBag->set($name, $value);
     }
     /**
@@ -135,12 +132,9 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
      *
      * Setting a synthetic service to null resets it: has() returns false and get()
      * behaves in the same way as if the service was never created.
-     * @param object|null $service
-     * @param string $id
      */
-    public function set($id, $service)
+    public function set(string $id, ?object $service)
     {
-        $id = (string) $id;
         // Runs the internal initializer; used by the dumped container to include always-needed files
         if (isset($this->privates['service_container']) && $this->privates['service_container'] instanceof \Closure) {
             $initialize = $this->privates['service_container'];
@@ -148,18 +142,18 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
             $initialize();
         }
         if ('service_container' === $id) {
-            throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('You cannot set service "service_container".');
+            throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('You cannot set service "service_container".');
         }
         if (!(isset($this->fileMap[$id]) || isset($this->methodMap[$id]))) {
             if (isset($this->syntheticIds[$id]) || !isset($this->getRemovedIds()[$id])) {
                 // no-op
             } elseif (null === $service) {
-                throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "%s" service is private, you cannot unset it.', $id));
+                throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "%s" service is private, you cannot unset it.', $id));
             } else {
-                throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "%s" service is private, you cannot replace it.', $id));
+                throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "%s" service is private, you cannot replace it.', $id));
             }
         } elseif (isset($this->services[$id])) {
-            throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "%s" service is already initialized, you cannot replace it.', $id));
+            throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "%s" service is already initialized, you cannot replace it.', $id));
         }
         if (isset($this->aliases[$id])) {
             unset($this->aliases[$id]);
@@ -204,23 +198,19 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
      *
      * @see Reference
      */
-    public function get($id, $invalidBehavior = 1)
+    public function get($id, int $invalidBehavior = 1)
     {
-        return isset($this->services[$id]) ? $this->services[$id] : (isset($this->services[$id = isset($this->aliases[$id]) ? $this->aliases[$id] : $id]) ? $this->services[$id = isset($this->aliases[$id]) ? $this->aliases[$id] : $id] : ('service_container' === $id ? $this : (isset($this->factories[$id]) ? $this->factories[$id] : [$this, 'make'])($id, $invalidBehavior)));
+        return $this->services[$id] ?? $this->services[$id = $this->aliases[$id] ?? $id] ?? ('service_container' === $id ? $this : ($this->factories[$id] ?? [$this, 'make'])($id, $invalidBehavior));
     }
     /**
      * Creates a service.
      *
      * As a separate method to allow "get()" to use the really fast `??` operator.
-     * @param string $id
-     * @param int $invalidBehavior
      */
-    private function make($id, $invalidBehavior)
+    private function make(string $id, int $invalidBehavior)
     {
-        $id = (string) $id;
-        $invalidBehavior = (int) $invalidBehavior;
         if (isset($this->loading[$id])) {
-            throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, \array_merge(\array_keys($this->loading), [$id]));
+            throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, \array_merge(\array_keys($this->loading), [$id]));
         }
         $this->loading[$id] = \true;
         try {
@@ -237,13 +227,13 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
         }
         if (1 === $invalidBehavior) {
             if (!$id) {
-                throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id);
+                throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id);
             }
             if (isset($this->syntheticIds[$id])) {
-                throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service is synthetic, it needs to be set at boot time before it can be used.', $id));
+                throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service is synthetic, it needs to be set at boot time before it can be used.', $id));
             }
             if (isset($this->getRemovedIds()[$id])) {
-                throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service or alias has been removed or inlined when the container was compiled. You should either make it public, or stop using the container directly and use dependency injection instead.', $id));
+                throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service or alias has been removed or inlined when the container was compiled. You should either make it public, or stop using the container directly and use dependency injection instead.', $id));
             }
             $alternatives = [];
             foreach ($this->getServiceIds() as $knownId) {
@@ -255,7 +245,7 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
                     $alternatives[] = $knownId;
                 }
             }
-            throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, $alternatives);
+            throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, $alternatives);
         }
         return null;
     }
@@ -266,9 +256,8 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
      *
      * @return bool true if service has already been initialized, false otherwise
      */
-    public function initialized($id)
+    public function initialized(string $id)
     {
-        $id = (string) $id;
         if (isset($this->aliases[$id])) {
             $id = $this->aliases[$id];
         }
@@ -286,7 +275,7 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
         $this->services = $this->factories = $this->privates = [];
         foreach ($services as $service) {
             try {
-                if ($service instanceof \ECSPrefix20210516\Symfony\Contracts\Service\ResetInterface) {
+                if ($service instanceof \ECSPrefix20210517\Symfony\Contracts\Service\ResetInterface) {
                     $service->reset();
                 }
             } catch (\Throwable $e) {
@@ -353,13 +342,13 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
     protected function getEnv($name)
     {
         if (isset($this->resolving[$envName = "env({$name})"])) {
-            throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($this->resolving));
+            throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($this->resolving));
         }
         if (isset($this->envCache[$name]) || \array_key_exists($name, $this->envCache)) {
             return $this->envCache[$name];
         }
         if (!$this->has($id = 'container.env_var_processors_locator')) {
-            $this->set($id, new \ECSPrefix20210516\Symfony\Component\DependencyInjection\ServiceLocator([]));
+            $this->set($id, new \ECSPrefix20210517\Symfony\Component\DependencyInjection\ServiceLocator([]));
         }
         if (!$this->getEnv) {
             $this->getEnv = new \ReflectionMethod($this, __FUNCTION__);
@@ -374,7 +363,7 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
             $prefix = 'string';
             $localName = $name;
         }
-        $processor = $processors->has($prefix) ? $processors->get($prefix) : new \ECSPrefix20210516\Symfony\Component\DependencyInjection\EnvVarProcessor($this);
+        $processor = $processors->has($prefix) ? $processors->get($prefix) : new \ECSPrefix20210517\Symfony\Component\DependencyInjection\EnvVarProcessor($this);
         $this->resolving[$envName] = \true;
         try {
             return $this->envCache[$name] = $processor->getEnv($prefix, $localName, $this->getEnv);
@@ -389,28 +378,25 @@ class Container implements \ECSPrefix20210516\Symfony\Component\DependencyInject
      * @return mixed
      *
      * @internal
-     * @param string|null $method
-     * @param string $id
      */
-    protected final function getService($registry, $id, $method, $load)
+    protected final function getService($registry, string $id, ?string $method, $load)
     {
-        $id = (string) $id;
         if ('service_container' === $id) {
             return $this;
         }
         if (\is_string($load)) {
-            throw new \ECSPrefix20210516\Symfony\Component\DependencyInjection\Exception\RuntimeException($load);
+            throw new \ECSPrefix20210517\Symfony\Component\DependencyInjection\Exception\RuntimeException($load);
         }
         if (null === $method) {
-            return \false !== $registry ? isset($this->{$registry}[$id]) ? $this->{$registry}[$id] : null : null;
+            return \false !== $registry ? $this->{$registry}[$id] ?? null : null;
         }
         if (\false !== $registry) {
-            return isset($this->{$registry}[$id]) ? $this->{$registry}[$id] : ($this->{$registry}[$id] = $load ? $this->load($method) : $this->{$method}());
+            return $this->{$registry}[$id] ?? ($this->{$registry}[$id] = $load ? $this->load($method) : $this->{$method}());
         }
         if (!$load) {
             return $this->{$method}();
         }
-        return ($factory = isset($this->factories[$id]) ? $this->factories[$id] : (isset($this->factories['service_container'][$id]) ? $this->factories['service_container'][$id] : null)) ? $factory() : $this->load($method);
+        return ($factory = $this->factories[$id] ?? $this->factories['service_container'][$id] ?? null) ? $factory() : $this->load($method);
     }
     private function __clone()
     {

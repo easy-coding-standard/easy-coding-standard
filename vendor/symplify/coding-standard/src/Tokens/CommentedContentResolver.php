@@ -2,11 +2,11 @@
 
 namespace Symplify\CodingStandard\Tokens;
 
-use ECSPrefix20210516\Nette\Utils\Strings;
+use ECSPrefix20210517\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\ValueObject\StartAndEnd;
-use ECSPrefix20210516\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * Heavily inspired by
  *
@@ -36,7 +36,7 @@ final class CommentedContentResolver
         $position = (int) $position;
         $token = $tokens[$position];
         if (!$token->isGivenKind(\T_COMMENT)) {
-            throw new \ECSPrefix20210516\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $lastLineSeen = $this->lineResolver->resolve($tokens, $position);
         $startPosition = $position;
@@ -59,7 +59,7 @@ final class CommentedContentResolver
             $lastLineSeen = $tokenLine;
             // Trim as much off the comment as possible so we don't, have additional whitespace tokens or comment tokens
             $tokenContent = \trim($token->getContent());
-            $hasBlockCommentCloser = \ECSPrefix20210516\Nette\Utils\Strings::endsWith($tokenContent, '*/');
+            $hasBlockCommentCloser = \ECSPrefix20210517\Nette\Utils\Strings::endsWith($tokenContent, '*/');
             if ($hasBlockCommentCloser) {
                 // Closer of a block comment found
                 break;
@@ -76,7 +76,7 @@ final class CommentedContentResolver
     {
         $lastLineSeen = (int) $lastLineSeen;
         $tokenLine = (int) $tokenLine;
-        if ($lastLineSeen + 1 <= $tokenLine && \ECSPrefix20210516\Nette\Utils\Strings::startsWith($token->getContent(), '/*')) {
+        if ($lastLineSeen + 1 <= $tokenLine && \ECSPrefix20210517\Nette\Utils\Strings::startsWith($token->getContent(), '/*')) {
             // First non-whitespace token on a new line is start of a different style comment.
             return \true;
         }
@@ -98,6 +98,6 @@ final class CommentedContentResolver
         if ($lastLineSeen >= $tokenLine) {
             return \false;
         }
-        return !\ECSPrefix20210516\Nette\Utils\Strings::startsWith($token->getContent(), '//');
+        return !\ECSPrefix20210517\Nette\Utils\Strings::startsWith($token->getContent(), '//');
     }
 }

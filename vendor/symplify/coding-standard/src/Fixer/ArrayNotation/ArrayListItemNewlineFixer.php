@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
-use ECSPrefix20210516\Nette\Utils\Strings;
+use ECSPrefix20210517\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -14,13 +14,13 @@ use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer;
 use Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds;
-use ECSPrefix20210516\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\ArrayNotation\ArrayListItemNewlineFixer\ArrayListItemNewlineFixerTest
  */
-final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210516\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210517\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -85,7 +85,7 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
      */
     public function getRuleDefinition()
     {
-        return new \ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210516\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210517\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $value = ['simple' => 1, 'easy' => 2];
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -112,7 +112,7 @@ CODE_SAMPLE
             if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
                 return;
             }
-            if (\ECSPrefix20210516\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
+            if (\ECSPrefix20210517\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
                 return;
             }
             $tokens->ensureWhitespaceAtIndex($nextTokenPosition, 0, $this->whitespacesFixerConfig->getLineEnding());

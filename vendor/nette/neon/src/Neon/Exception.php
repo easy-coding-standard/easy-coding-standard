@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210516\Nette\Neon;
+namespace ECSPrefix20210517\Nette\Neon;
 
 /**
  * The exception that indicates error of NEON processing.

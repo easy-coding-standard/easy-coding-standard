@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210516\Symfony\Component\HttpKernel;
+namespace ECSPrefix20210517\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210516\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210517\Symfony\Component\HttpFoundation\Request;
 /**
  * Signs URIs.
  *
@@ -78,7 +78,7 @@ class UriSigner
     /**
      * @return bool
      */
-    public function checkRequest(\ECSPrefix20210516\Symfony\Component\HttpFoundation\Request $request)
+    public function checkRequest(\ECSPrefix20210517\Symfony\Component\HttpFoundation\Request $request)
     {
         $qs = ($qs = $request->server->get('QUERY_STRING')) ? '?' . $qs : '';
         // we cannot use $request->getUri() here as we want to work with the original URI (no query string reordering)

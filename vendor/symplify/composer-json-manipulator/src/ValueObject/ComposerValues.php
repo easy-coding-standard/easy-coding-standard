@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\ComposerJsonManipulator\ValueObject;
+namespace ECSPrefix20210517\Symplify\ComposerJsonManipulator\ValueObject;
 
 final class ComposerValues
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\SmartFileSystem;
+namespace ECSPrefix20210517\Symplify\SmartFileSystem;
 
 /**
  * @see \Symplify\SmartFileSystem\Tests\FileSystemFilter\FileSystemFilterTest

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210516\Symplify\PackageBuilder\ValueObject;
+namespace ECSPrefix20210517\Symplify\PackageBuilder\ValueObject;
 
 final class MethodName
 {

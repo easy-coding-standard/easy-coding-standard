@@ -1,13 +1,13 @@
 <?php
 
-namespace ECSPrefix20210516\Nette\Caching\Storages;
+namespace ECSPrefix20210517\Nette\Caching\Storages;
 
-use ECSPrefix20210516\Nette;
-use ECSPrefix20210516\Nette\Caching\Cache;
+use ECSPrefix20210517\Nette;
+use ECSPrefix20210517\Nette\Caching\Cache;
 /**
  * Cache file storage.
  */
-class FileStorage implements \ECSPrefix20210516\Nette\Caching\Storage
+class FileStorage implements \ECSPrefix20210517\Nette\Caching\Storage
 {
     use Nette\SmartObject;
     /**
@@ -38,11 +38,11 @@ class FileStorage implements \ECSPrefix20210516\Nette\Caching\Storage
     /**
      * @param string $dir
      */
-    public function __construct($dir, \ECSPrefix20210516\Nette\Caching\Storages\Journal $journal = null)
+    public function __construct($dir, \ECSPrefix20210517\Nette\Caching\Storages\Journal $journal = null)
     {
         $dir = (string) $dir;
         if (!\is_dir($dir)) {
-            throw new \ECSPrefix20210516\Nette\DirectoryNotFoundException("Directory '{$dir}' not found.");
+            throw new \ECSPrefix20210517\Nette\DirectoryNotFoundException("Directory '{$dir}' not found.");
         }
         $this->dir = $dir;
         $this->journal = $journal;
@@ -75,7 +75,7 @@ class FileStorage implements \ECSPrefix20210516\Nette\Caching\Storage
             } elseif (!empty($meta[self::META_EXPIRE]) && $meta[self::META_EXPIRE] < \time()) {
                 break;
             }
-            if (!empty($meta[self::META_CALLBACKS]) && !\ECSPrefix20210516\Nette\Caching\Cache::checkCallbacks($meta[self::META_CALLBACKS])) {
+            if (!empty($meta[self::META_CALLBACKS]) && !\ECSPrefix20210517\Nette\Caching\Cache::checkCallbacks($meta[self::META_CALLBACKS])) {
                 break;
             }
             if (!empty($meta[self::META_ITEMS])) {
@@ -119,25 +119,25 @@ class FileStorage implements \ECSPrefix20210516\Nette\Caching\Storage
     {
         $key = (string) $key;
         $meta = [self::META_TIME => \microtime()];
-        if (isset($dp[\ECSPrefix20210516\Nette\Caching\Cache::EXPIRATION])) {
-            if (empty($dp[\ECSPrefix20210516\Nette\Caching\Cache::SLIDING])) {
-                $meta[self::META_EXPIRE] = $dp[\ECSPrefix20210516\Nette\Caching\Cache::EXPIRATION] + \time();
+        if (isset($dp[\ECSPrefix20210517\Nette\Caching\Cache::EXPIRATION])) {
+            if (empty($dp[\ECSPrefix20210517\Nette\Caching\Cache::SLIDING])) {
+                $meta[self::META_EXPIRE] = $dp[\ECSPrefix20210517\Nette\Caching\Cache::EXPIRATION] + \time();
                 // absolute time
             } else {
-                $meta[self::META_DELTA] = (int) $dp[\ECSPrefix20210516\Nette\Caching\Cache::EXPIRATION];
+                $meta[self::META_DELTA] = (int) $dp[\ECSPrefix20210517\Nette\Caching\Cache::EXPIRATION];
                 // sliding time
             }
         }
-        if (isset($dp[\ECSPrefix20210516\Nette\Caching\Cache::ITEMS])) {
-            foreach ($dp[\ECSPrefix20210516\Nette\Caching\Cache::ITEMS] as $item) {
+        if (isset($dp[\ECSPrefix20210517\Nette\Caching\Cache::ITEMS])) {
+            foreach ($dp[\ECSPrefix20210517\Nette\Caching\Cache::ITEMS] as $item) {
                 $depFile = $this->getCacheFile($item);
                 $m = $this->readMetaAndLock($depFile, \LOCK_SH);
                 $meta[self::META_ITEMS][$depFile] = isset($m[self::META_TIME]) ? $m[self::META_TIME] : null;
                 unset($m);
             }
         }
-        if (isset($dp[\ECSPrefix20210516\Nette\Caching\Cache::CALLBACKS])) {
-            $meta[self::META_CALLBACKS] = $dp[\ECSPrefix20210516\Nette\Caching\Cache::CALLBACKS];
+        if (isset($dp[\ECSPrefix20210517\Nette\Caching\Cache::CALLBACKS])) {
+            $meta[self::META_CALLBACKS] = $dp[\ECSPrefix20210517\Nette\Caching\Cache::CALLBACKS];
         }
         if (!isset($this->locks[$key])) {
             $this->lock($key);
@@ -148,9 +148,9 @@ class FileStorage implements \ECSPrefix20210516\Nette\Caching\Storage
         $handle = $this->locks[$key];
         unset($this->locks[$key]);
         $cacheFile = $this->getCacheFile($key);
-        if (isset($dp[\ECSPrefix20210516\Nette\Caching\Cache::TAGS]) || isset($dp[\ECSPrefix20210516\Nette\Caching\Cache::PRIORITY])) {
+        if (isset($dp[\ECSPrefix20210517\Nette\Caching\Cache::TAGS]) || isset($dp[\ECSPrefix20210517\Nette\Caching\Cache::PRIORITY])) {
             if (!$this->journal) {
-                throw new \ECSPrefix20210516\Nette\InvalidStateException('CacheJournal has not been provided.');
+                throw new \ECSPrefix20210517\Nette\InvalidStateException('CacheJournal has not been provided.');
             }
             $this->journal->write($cacheFile, $dp);
         }
@@ -194,13 +194,13 @@ class FileStorage implements \ECSPrefix20210516\Nette\Caching\Storage
      */
     public function clean(array $conditions)
     {
-        $all = !empty($conditions[\ECSPrefix20210516\Nette\Caching\Cache::ALL]);
+        $all = !empty($conditions[\ECSPrefix20210517\Nette\Caching\Cache::ALL]);
         $collector = empty($conditions);
-        $namespaces = isset($conditions[\ECSPrefix20210516\Nette\Caching\Cache::NAMESPACES]) ? $conditions[\ECSPrefix20210516\Nette\Caching\Cache::NAMESPACES] : null;
+        $namespaces = isset($conditions[\ECSPrefix20210517\Nette\Caching\Cache::NAMESPACES]) ? $conditions[\ECSPrefix20210517\Nette\Caching\Cache::NAMESPACES] : null;
         // cleaning using file iterator
         if ($all || $collector) {
             $now = \time();
-            foreach (\ECSPrefix20210516\Nette\Utils\Finder::find('_*')->from($this->dir)->childFirst() as $entry) {
+            foreach (\ECSPrefix20210517\Nette\Utils\Finder::find('_*')->from($this->dir)->childFirst() as $entry) {
                 $path = (string) $entry;
                 if ($entry->isDir()) {
                     // collector: remove empty dirs
@@ -234,7 +234,7 @@ class FileStorage implements \ECSPrefix20210516\Nette\Caching\Storage
                 if (!\is_dir($dir)) {
                     continue;
                 }
-                foreach (\ECSPrefix20210516\Nette\Utils\Finder::findFiles('_*')->in($dir) as $entry) {
+                foreach (\ECSPrefix20210517\Nette\Utils\Finder::findFiles('_*')->in($dir) as $entry) {
                     $this->delete((string) $entry);
                 }
                 @\rmdir($dir);
