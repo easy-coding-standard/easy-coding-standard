@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210517\Psr\Log;
+namespace ECSPrefix20210519\Psr\Log;
 
 /**
  * Describes a logger-aware instance.
@@ -14,5 +14,5 @@ interface LoggerAwareInterface
      *
      * @return void
      */
-    public function setLogger(\ECSPrefix20210517\Psr\Log\LoggerInterface $logger);
+    public function setLogger(\ECSPrefix20210519\Psr\Log\LoggerInterface $logger);
 }

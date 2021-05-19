@@ -5,14 +5,14 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210517\Nette\Caching\Storages;
+namespace ECSPrefix20210519\Nette\Caching\Storages;
 
-use ECSPrefix20210517\Nette;
-use ECSPrefix20210517\Nette\Caching\Cache;
+use ECSPrefix20210519\Nette;
+use ECSPrefix20210519\Nette\Caching\Cache;
 /**
  * SQLite based journal.
  */
-class SQLiteJournal implements \ECSPrefix20210517\Nette\Caching\Storages\Journal
+class SQLiteJournal implements \ECSPrefix20210519\Nette\Caching\Storages\Journal
 {
     use Nette\SmartObject;
     /** @string */
@@ -22,7 +22,7 @@ class SQLiteJournal implements \ECSPrefix20210517\Nette\Caching\Storages\Journal
     public function __construct(string $path)
     {
         if (!\extension_loaded('pdo_sqlite')) {
-            throw new \ECSPrefix20210517\Nette\NotSupportedException('SQLiteJournal requires PHP extension pdo_sqlite which is not loaded.');
+            throw new \ECSPrefix20210519\Nette\NotSupportedException('SQLiteJournal requires PHP extension pdo_sqlite which is not loaded.');
         }
         $this->path = $path;
     }
@@ -63,16 +63,16 @@ class SQLiteJournal implements \ECSPrefix20210517\Nette\Caching\Storages\Journal
             $this->open();
         }
         $this->pdo->exec('BEGIN');
-        if (!empty($dependencies[\ECSPrefix20210517\Nette\Caching\Cache::TAGS])) {
+        if (!empty($dependencies[\ECSPrefix20210519\Nette\Caching\Cache::TAGS])) {
             $this->pdo->prepare('DELETE FROM tags WHERE key = ?')->execute([$key]);
-            foreach ($dependencies[\ECSPrefix20210517\Nette\Caching\Cache::TAGS] as $tag) {
+            foreach ($dependencies[\ECSPrefix20210519\Nette\Caching\Cache::TAGS] as $tag) {
                 $arr[] = $key;
                 $arr[] = $tag;
             }
             $this->pdo->prepare('INSERT INTO tags (key, tag) SELECT ?, ?' . \str_repeat('UNION SELECT ?, ?', \count($arr) / 2 - 1))->execute($arr);
         }
-        if (!empty($dependencies[\ECSPrefix20210517\Nette\Caching\Cache::PRIORITY])) {
-            $this->pdo->prepare('REPLACE INTO priorities (key, priority) VALUES (?, ?)')->execute([$key, (int) $dependencies[\ECSPrefix20210517\Nette\Caching\Cache::PRIORITY]]);
+        if (!empty($dependencies[\ECSPrefix20210519\Nette\Caching\Cache::PRIORITY])) {
+            $this->pdo->prepare('REPLACE INTO priorities (key, priority) VALUES (?, ?)')->execute([$key, (int) $dependencies[\ECSPrefix20210519\Nette\Caching\Cache::PRIORITY]]);
         }
         $this->pdo->exec('COMMIT');
     }
@@ -84,7 +84,7 @@ class SQLiteJournal implements \ECSPrefix20210517\Nette\Caching\Storages\Journal
         if (!$this->pdo) {
             $this->open();
         }
-        if (!empty($conditions[\ECSPrefix20210517\Nette\Caching\Cache::ALL])) {
+        if (!empty($conditions[\ECSPrefix20210519\Nette\Caching\Cache::ALL])) {
             $this->pdo->exec('
 				BEGIN;
 				DELETE FROM tags;
@@ -94,14 +94,14 @@ class SQLiteJournal implements \ECSPrefix20210517\Nette\Caching\Storages\Journal
             return null;
         }
         $unions = $args = [];
-        if (!empty($conditions[\ECSPrefix20210517\Nette\Caching\Cache::TAGS])) {
-            $tags = (array) $conditions[\ECSPrefix20210517\Nette\Caching\Cache::TAGS];
+        if (!empty($conditions[\ECSPrefix20210519\Nette\Caching\Cache::TAGS])) {
+            $tags = (array) $conditions[\ECSPrefix20210519\Nette\Caching\Cache::TAGS];
             $unions[] = 'SELECT DISTINCT key FROM tags WHERE tag IN (?' . \str_repeat(', ?', \count($tags) - 1) . ')';
             $args = $tags;
         }
-        if (!empty($conditions[\ECSPrefix20210517\Nette\Caching\Cache::PRIORITY])) {
+        if (!empty($conditions[\ECSPrefix20210519\Nette\Caching\Cache::PRIORITY])) {
             $unions[] = 'SELECT DISTINCT key FROM priorities WHERE priority <= ?';
-            $args[] = (int) $conditions[\ECSPrefix20210517\Nette\Caching\Cache::PRIORITY];
+            $args[] = (int) $conditions[\ECSPrefix20210519\Nette\Caching\Cache::PRIORITY];
         }
         if (empty($unions)) {
             return [];

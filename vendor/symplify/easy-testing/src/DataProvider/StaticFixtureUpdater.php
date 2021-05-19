@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210517\Symplify\EasyTesting\DataProvider;
+namespace ECSPrefix20210519\Symplify\EasyTesting\DataProvider;
 
-use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileSystem;
 final class StaticFixtureUpdater
 {
     /**
      * @return void
      */
-    public static function updateFixtureContent(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
+    public static function updateFixtureContent(\ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
@@ -21,18 +21,18 @@ final class StaticFixtureUpdater
     /**
      * @return void
      */
-    public static function updateExpectedFixtureContent(string $newOriginalContent, \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo)
+    public static function updateExpectedFixtureContent(string $newOriginalContent, \ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo)
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
         }
         self::getSmartFileSystem()->dumpFile($expectedFixtureFileInfo->getRealPath(), $newOriginalContent);
     }
-    private static function getSmartFileSystem() : \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileSystem
+    private static function getSmartFileSystem() : \ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileSystem
     {
-        return new \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileSystem();
+        return new \ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileSystem();
     }
-    private static function resolveNewFixtureContent(\ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent) : string
+    private static function resolveNewFixtureContent(\ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent) : string
     {
         if ($originalFileInfo->getContents() === $changedContent) {
             return $originalFileInfo->getContents();

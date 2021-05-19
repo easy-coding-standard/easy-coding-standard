@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
-use ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210519\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210519\Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-final class DeprecationWarningCompilerPass implements \ECSPrefix20210517\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class DeprecationWarningCompilerPass implements \ECSPrefix20210519\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var array<string, string>
@@ -15,7 +15,7 @@ final class DeprecationWarningCompilerPass implements \ECSPrefix20210517\Symfony
     /**
      * @return void
      */
-    public function process(\ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\ECSPrefix20210519\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $parameterBag = $containerBuilder->getParameterBag();
         foreach (self::DEPRECATED_PARAMETERS as $parameter => $message) {

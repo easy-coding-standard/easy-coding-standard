@@ -7,91 +7,91 @@ $loader = require_once __DIR__.'/autoload.php';
 // Aliases for the whitelisted classes. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#class-whitelisting
 if (!class_exists('AutoloadIncluder', false) && !interface_exists('AutoloadIncluder', false) && !trait_exists('AutoloadIncluder', false)) {
-    spl_autoload_call('ECSPrefix20210517\AutoloadIncluder');
+    spl_autoload_call('ECSPrefix20210519\AutoloadIncluder');
 }
-if (!class_exists('ComposerAutoloaderInit2d8d0532dd5ca59b490a0c6872043578', false) && !interface_exists('ComposerAutoloaderInit2d8d0532dd5ca59b490a0c6872043578', false) && !trait_exists('ComposerAutoloaderInit2d8d0532dd5ca59b490a0c6872043578', false)) {
-    spl_autoload_call('ECSPrefix20210517\ComposerAutoloaderInit2d8d0532dd5ca59b490a0c6872043578');
+if (!class_exists('ComposerAutoloaderInit05c437d845b2dc1861a21813f3f23423', false) && !interface_exists('ComposerAutoloaderInit05c437d845b2dc1861a21813f3f23423', false) && !trait_exists('ComposerAutoloaderInit05c437d845b2dc1861a21813f3f23423', false)) {
+    spl_autoload_call('ECSPrefix20210519\ComposerAutoloaderInit05c437d845b2dc1861a21813f3f23423');
 }
 if (!class_exists('Symfony\Component\DependencyInjection\Extension\ExtensionInterface', false) && !interface_exists('Symfony\Component\DependencyInjection\Extension\ExtensionInterface', false) && !trait_exists('Symfony\Component\DependencyInjection\Extension\ExtensionInterface', false)) {
-    spl_autoload_call('ECSPrefix20210517\Symfony\Component\DependencyInjection\Extension\ExtensionInterface');
+    spl_autoload_call('ECSPrefix20210519\Symfony\Component\DependencyInjection\Extension\ExtensionInterface');
 }
 if (!class_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !interface_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !trait_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false)) {
-    spl_autoload_call('ECSPrefix20210517\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator');
+    spl_autoload_call('ECSPrefix20210519\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator');
 }
 if (!class_exists('Normalizer', false) && !interface_exists('Normalizer', false) && !trait_exists('Normalizer', false)) {
-    spl_autoload_call('ECSPrefix20210517\Normalizer');
+    spl_autoload_call('ECSPrefix20210519\Normalizer');
 }
 if (!class_exists('JsonException', false) && !interface_exists('JsonException', false) && !trait_exists('JsonException', false)) {
-    spl_autoload_call('ECSPrefix20210517\JsonException');
+    spl_autoload_call('ECSPrefix20210519\JsonException');
 }
 if (!class_exists('Attribute', false) && !interface_exists('Attribute', false) && !trait_exists('Attribute', false)) {
-    spl_autoload_call('ECSPrefix20210517\Attribute');
+    spl_autoload_call('ECSPrefix20210519\Attribute');
 }
 if (!class_exists('Stringable', false) && !interface_exists('Stringable', false) && !trait_exists('Stringable', false)) {
-    spl_autoload_call('ECSPrefix20210517\Stringable');
+    spl_autoload_call('ECSPrefix20210519\Stringable');
 }
 if (!class_exists('UnhandledMatchError', false) && !interface_exists('UnhandledMatchError', false) && !trait_exists('UnhandledMatchError', false)) {
-    spl_autoload_call('ECSPrefix20210517\UnhandledMatchError');
+    spl_autoload_call('ECSPrefix20210519\UnhandledMatchError');
 }
 if (!class_exists('ValueError', false) && !interface_exists('ValueError', false) && !trait_exists('ValueError', false)) {
-    spl_autoload_call('ECSPrefix20210517\ValueError');
+    spl_autoload_call('ECSPrefix20210519\ValueError');
 }
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire2d8d0532dd5ca59b490a0c6872043578')) {
-    function composerRequire2d8d0532dd5ca59b490a0c6872043578() {
-        return \ECSPrefix20210517\composerRequire2d8d0532dd5ca59b490a0c6872043578(...func_get_args());
+if (!function_exists('composerRequire05c437d845b2dc1861a21813f3f23423')) {
+    function composerRequire05c437d845b2dc1861a21813f3f23423() {
+        return \ECSPrefix20210519\composerRequire05c437d845b2dc1861a21813f3f23423(...func_get_args());
     }
 }
 if (!function_exists('sample')) {
     function sample() {
-        return \ECSPrefix20210517\sample(...func_get_args());
+        return \ECSPrefix20210519\sample(...func_get_args());
     }
 }
 if (!function_exists('foo')) {
     function foo() {
-        return \ECSPrefix20210517\foo(...func_get_args());
+        return \ECSPrefix20210519\foo(...func_get_args());
     }
 }
 if (!function_exists('bar')) {
     function bar() {
-        return \ECSPrefix20210517\bar(...func_get_args());
+        return \ECSPrefix20210519\bar(...func_get_args());
     }
 }
 if (!function_exists('baz')) {
     function baz() {
-        return \ECSPrefix20210517\baz(...func_get_args());
+        return \ECSPrefix20210519\baz(...func_get_args());
     }
 }
 if (!function_exists('xyz')) {
     function xyz() {
-        return \ECSPrefix20210517\xyz(...func_get_args());
+        return \ECSPrefix20210519\xyz(...func_get_args());
     }
 }
 if (!function_exists('printPHPCodeSnifferTestOutput')) {
     function printPHPCodeSnifferTestOutput() {
-        return \ECSPrefix20210517\printPHPCodeSnifferTestOutput(...func_get_args());
+        return \ECSPrefix20210519\printPHPCodeSnifferTestOutput(...func_get_args());
     }
 }
 if (!function_exists('setproctitle')) {
     function setproctitle() {
-        return \ECSPrefix20210517\setproctitle(...func_get_args());
+        return \ECSPrefix20210519\setproctitle(...func_get_args());
     }
 }
 if (!function_exists('includeIfExists')) {
     function includeIfExists() {
-        return \ECSPrefix20210517\includeIfExists(...func_get_args());
+        return \ECSPrefix20210519\includeIfExists(...func_get_args());
     }
 }
 if (!function_exists('dump')) {
     function dump() {
-        return \ECSPrefix20210517\dump(...func_get_args());
+        return \ECSPrefix20210519\dump(...func_get_args());
     }
 }
 if (!function_exists('dd')) {
     function dd() {
-        return \ECSPrefix20210517\dd(...func_get_args());
+        return \ECSPrefix20210519\dd(...func_get_args());
     }
 }
 

@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210517\Symplify\PackageBuilder\Testing;
+namespace ECSPrefix20210519\Symplify\PackageBuilder\Testing;
 
-use ECSPrefix20210517\PHPUnit\Framework\TestCase;
+use ECSPrefix20210519\PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20210517\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface;
-use ECSPrefix20210517\Symfony\Contracts\Service\ResetInterface;
-use ECSPrefix20210517\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-use ECSPrefix20210517\Symplify\PackageBuilder\Exception\HttpKernel\MissingInterfaceException;
-use ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210519\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210519\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210519\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix20210519\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210519\Symfony\Component\HttpKernel\KernelInterface;
+use ECSPrefix20210519\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20210519\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
+use ECSPrefix20210519\Symplify\PackageBuilder\Exception\HttpKernel\MissingInterfaceException;
+use ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210519\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * Inspiration
  *
  * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Test/KernelTestCase.php
  */
-abstract class AbstractKernelTestCase extends \ECSPrefix20210517\PHPUnit\Framework\TestCase
+abstract class AbstractKernelTestCase extends \ECSPrefix20210519\PHPUnit\Framework\TestCase
 {
     /**
      * @var KernelInterface
@@ -38,7 +38,7 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210517\PHPUnit\Framewo
      * @param class-string<KernelInterface> $kernelClass
      * @param string[]|SmartFileInfo[] $configs
      */
-    protected function bootKernelWithConfigs(string $kernelClass, array $configs) : \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface
+    protected function bootKernelWithConfigs(string $kernelClass, array $configs) : \ECSPrefix20210519\Symfony\Component\HttpKernel\KernelInterface
     {
         // unwrap file infos to real paths
         $configFilePaths = $this->resolveConfigFilePaths($configs);
@@ -52,7 +52,7 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210517\PHPUnit\Framewo
      * @param class-string<KernelInterface> $kernelClass
      * @param string[]|SmartFileInfo[] $configs
      */
-    protected function bootKernelWithConfigsAndStaticCache(string $kernelClass, array $configs) : \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface
+    protected function bootKernelWithConfigsAndStaticCache(string $kernelClass, array $configs) : \ECSPrefix20210519\Symfony\Component\HttpKernel\KernelInterface
     {
         // unwrap file infos to real paths
         $configFilePaths = $this->resolveConfigFilePaths($configs);
@@ -77,7 +77,7 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210517\PHPUnit\Framewo
     protected function getService(string $type)
     {
         if (self::$container === null) {
-            throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException('First, crewate container with booKernel(KernelClass::class)');
+            throw new \ECSPrefix20210519\Symplify\SymplifyKernel\Exception\ShouldNotHappenException('First, crewate container with booKernel(KernelClass::class)');
         }
         return self::$container->get($type);
     }
@@ -88,8 +88,8 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210517\PHPUnit\Framewo
     {
         $this->ensureKernelShutdown();
         $kernel = new $kernelClass('test', \true);
-        if (!$kernel instanceof \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface) {
-            throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        if (!$kernel instanceof \ECSPrefix20210519\Symfony\Component\HttpKernel\KernelInterface) {
+            throw new \ECSPrefix20210519\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         static::$kernel = $this->bootAndReturnKernel($kernel);
     }
@@ -109,7 +109,7 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210517\PHPUnit\Framewo
             if ($kernel !== null) {
                 $container = static::$kernel->getContainer();
                 static::$kernel->shutdown();
-                if ($container instanceof \ECSPrefix20210517\Symfony\Contracts\Service\ResetInterface) {
+                if ($container instanceof \ECSPrefix20210519\Symfony\Contracts\Service\ResetInterface) {
                     $container->reset();
                 }
             }
@@ -135,21 +135,21 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210517\PHPUnit\Framewo
     {
         $configFilePaths = [];
         foreach ($configs as $config) {
-            $configFilePaths[] = $config instanceof \ECSPrefix20210517\Symplify\SmartFileSystem\SmartFileInfo ? $config->getRealPath() : $config;
+            $configFilePaths[] = $config instanceof \ECSPrefix20210519\Symplify\SmartFileSystem\SmartFileInfo ? $config->getRealPath() : $config;
         }
         return $configFilePaths;
     }
     /**
      * @return void
      */
-    private function ensureIsConfigAwareKernel(\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface $kernel)
+    private function ensureIsConfigAwareKernel(\ECSPrefix20210519\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {
-        if ($kernel instanceof \ECSPrefix20210517\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface) {
+        if ($kernel instanceof \ECSPrefix20210519\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface) {
             return;
         }
-        throw new \ECSPrefix20210517\Symplify\PackageBuilder\Exception\HttpKernel\MissingInterfaceException(\sprintf('"%s" is missing an "%s" interface', \get_class($kernel), \ECSPrefix20210517\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface::class));
+        throw new \ECSPrefix20210519\Symplify\PackageBuilder\Exception\HttpKernel\MissingInterfaceException(\sprintf('"%s" is missing an "%s" interface', \get_class($kernel), \ECSPrefix20210519\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface::class));
     }
-    private function bootAndReturnKernel(\ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface $kernel) : \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface
+    private function bootAndReturnKernel(\ECSPrefix20210519\Symfony\Component\HttpKernel\KernelInterface $kernel) : \ECSPrefix20210519\Symfony\Component\HttpKernel\KernelInterface
     {
         $kernel->boot();
         $container = $kernel->getContainer();
@@ -157,13 +157,13 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210517\PHPUnit\Framewo
         if ($container->has('test.service_container')) {
             $container = $container->get('test.service_container');
         }
-        if (!$container instanceof \ECSPrefix20210517\Symfony\Component\DependencyInjection\ContainerInterface) {
-            throw new \ECSPrefix20210517\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        if (!$container instanceof \ECSPrefix20210519\Symfony\Component\DependencyInjection\ContainerInterface) {
+            throw new \ECSPrefix20210519\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         // has output? keep it silent out of tests
-        if ($container->has(\ECSPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle::class)) {
-            $symfonyStyle = $container->get(\ECSPrefix20210517\Symfony\Component\Console\Style\SymfonyStyle::class);
-            $symfonyStyle->setVerbosity(\ECSPrefix20210517\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
+        if ($container->has(\ECSPrefix20210519\Symfony\Component\Console\Style\SymfonyStyle::class)) {
+            $symfonyStyle = $container->get(\ECSPrefix20210519\Symfony\Component\Console\Style\SymfonyStyle::class);
+            $symfonyStyle->setVerbosity(\ECSPrefix20210519\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         }
         static::$container = $container;
         return $kernel;
@@ -171,7 +171,7 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210517\PHPUnit\Framewo
     /**
      * @param string[] $configFilePaths
      */
-    private function createBootedKernelFromConfigs(string $kernelClass, string $configsHash, array $configFilePaths) : \ECSPrefix20210517\Symfony\Component\HttpKernel\KernelInterface
+    private function createBootedKernelFromConfigs(string $kernelClass, string $configsHash, array $configFilePaths) : \ECSPrefix20210519\Symfony\Component\HttpKernel\KernelInterface
     {
         $kernel = new $kernelClass('test_' . $configsHash, \true);
         $this->ensureIsConfigAwareKernel($kernel);
