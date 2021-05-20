@@ -26,7 +26,7 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20210519\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20210520\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * Make sure there is one blank line above and below class elements.
  *
@@ -152,10 +152,10 @@ class Sample
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'Dictionary of `const|method|property` => `none|one` values.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) {
             foreach ($option as $type => $spacing) {
                 if (!\in_array($type, self::SUPPORTED_TYPES, \true)) {
-                    throw new \ECSPrefix20210519\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected element type, expected any of "%s", got "%s".', \implode('", "', self::SUPPORTED_TYPES), \gettype($type) . '#' . $type));
+                    throw new \ECSPrefix20210520\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected element type, expected any of "%s", got "%s".', \implode('", "', self::SUPPORTED_TYPES), \gettype($type) . '#' . $type));
                 }
                 if (!\in_array($spacing, self::SUPPORTED_SPACINGS, \true)) {
-                    throw new \ECSPrefix20210519\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected spacing for element type "%s", expected any of "%s", got "%s".', $spacing, \implode('", "', self::SUPPORTED_SPACINGS), \is_object($spacing) ? \get_class($spacing) : (null === $spacing ? 'null' : \gettype($spacing) . '#' . $spacing)));
+                    throw new \ECSPrefix20210520\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected spacing for element type "%s", expected any of "%s", got "%s".', $spacing, \implode('", "', self::SUPPORTED_SPACINGS), \is_object($spacing) ? \get_class($spacing) : (null === $spacing ? 'null' : \gettype($spacing) . '#' . $spacing)));
                 }
             }
             return \true;

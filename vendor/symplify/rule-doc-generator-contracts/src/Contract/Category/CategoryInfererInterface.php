@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210519\Symplify\RuleDocGenerator\Contract\Category;
+namespace ECSPrefix20210520\Symplify\RuleDocGenerator\Contract\Category;
 
-use ECSPrefix20210519\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210520\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 interface CategoryInfererInterface
 {
     /**
      * @return string|null
      */
-    public function infer(\ECSPrefix20210519\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition);
+    public function infer(\ECSPrefix20210520\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition);
 }

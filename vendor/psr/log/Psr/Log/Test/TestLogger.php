@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210519\Psr\Log\Test;
+namespace ECSPrefix20210520\Psr\Log\Test;
 
-use ECSPrefix20210519\Psr\Log\AbstractLogger;
+use ECSPrefix20210520\Psr\Log\AbstractLogger;
 /**
  * Used for testing purposes.
  *
@@ -53,7 +53,7 @@ use ECSPrefix20210519\Psr\Log\AbstractLogger;
  * @method bool hasInfoThatPasses($message)
  * @method bool hasDebugThatPasses($message)
  */
-class TestLogger extends \ECSPrefix20210519\Psr\Log\AbstractLogger
+class TestLogger extends \ECSPrefix20210520\Psr\Log\AbstractLogger
 {
     /**
      * @var array

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\DocBlock;
 
-use ECSPrefix20210519\Nette\Utils\Strings;
+use ECSPrefix20210520\Nette\Utils\Strings;
 use Symplify\CodingStandard\Tokens\CommentedLineTrimmer;
 /**
  * Heavily inspired by
@@ -40,6 +40,6 @@ final class Decommenter
      */
     private function clearContent(string $content) : string
     {
-        return \ECSPrefix20210519\Nette\Utils\Strings::replace($content, self::LINE_BREAKER_REGEX, '-');
+        return \ECSPrefix20210520\Nette\Utils\Strings::replace($content, self::LINE_BREAKER_REGEX, '-');
     }
 }

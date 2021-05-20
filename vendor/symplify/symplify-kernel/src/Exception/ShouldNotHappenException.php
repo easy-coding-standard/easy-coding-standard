@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210519\Symplify\SymplifyKernel\Exception;
+namespace ECSPrefix20210520\Symplify\SymplifyKernel\Exception;
 
 use Exception;
 final class ShouldNotHappenException extends \Exception

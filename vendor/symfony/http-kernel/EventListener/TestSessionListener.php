@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210519\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20210520\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20210519\Psr\Container\ContainerInterface;
-use ECSPrefix20210519\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use ECSPrefix20210520\Psr\Container\ContainerInterface;
+use ECSPrefix20210520\Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * Sets the session in the request.
  *
@@ -19,10 +19,10 @@ use ECSPrefix20210519\Symfony\Component\HttpFoundation\Session\SessionInterface;
  *
  * @final
  */
-class TestSessionListener extends \ECSPrefix20210519\Symfony\Component\HttpKernel\EventListener\AbstractTestSessionListener
+class TestSessionListener extends \ECSPrefix20210520\Symfony\Component\HttpKernel\EventListener\AbstractTestSessionListener
 {
     private $container;
-    public function __construct(\ECSPrefix20210519\Psr\Container\ContainerInterface $container, array $sessionOptions = [])
+    public function __construct(\ECSPrefix20210520\Psr\Container\ContainerInterface $container, array $sessionOptions = [])
     {
         $this->container = $container;
         parent::__construct($sessionOptions);

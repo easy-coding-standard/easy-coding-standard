@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
-use ECSPrefix20210519\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210519\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210519\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use ECSPrefix20210520\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210520\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210520\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210519\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210520\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @return void
      */
-    public function process(\ECSPrefix20210519\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\ECSPrefix20210520\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $excludedCheckers = $this->getExcludedCheckersFromParameterBag($containerBuilder->getParameterBag());
         $definitions = $containerBuilder->getDefinitions();
@@ -26,7 +26,7 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210519\Sym
     /**
      * @return array<int, class-string>
      */
-    private function getExcludedCheckersFromParameterBag(\ECSPrefix20210519\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag) : array
+    private function getExcludedCheckersFromParameterBag(\ECSPrefix20210520\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag) : array
     {
         // parts of "skip" parameter
         if (!$parameterBag->has(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP)) {
