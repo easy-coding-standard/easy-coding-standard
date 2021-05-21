@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210520\Symplify\SmartFileSystem\Exception;
+namespace ECSPrefix20210521\Symplify\SmartFileSystem\Exception;
 
 use Exception;
 final class DirectoryNotFoundException extends \Exception

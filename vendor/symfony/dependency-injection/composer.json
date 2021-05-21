@@ -46,7 +46,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210520\\Symfony\\Component\\DependencyInjection\\": ""
+            "ECSPrefix20210521\\Symfony\\Component\\DependencyInjection\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

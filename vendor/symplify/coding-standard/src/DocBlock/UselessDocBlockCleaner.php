@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\DocBlock;
 
-use ECSPrefix20210520\Nette\Utils\Strings;
+use ECSPrefix20210521\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 final class UselessDocBlockCleaner
 {
@@ -49,7 +49,7 @@ final class UselessDocBlockCleaner
     public function clearDocTokenContent(array $tokens, int $position, string $docContent) : string
     {
         foreach (self::CLEANING_REGEXES as $cleaningRegex) {
-            $docContent = \ECSPrefix20210520\Nette\Utils\Strings::replace($docContent, $cleaningRegex, '');
+            $docContent = \ECSPrefix20210521\Nette\Utils\Strings::replace($docContent, $cleaningRegex, '');
         }
         return $this->cleanClassMethodCommentMimicMethodName($tokens, $position, $docContent);
     }
@@ -58,14 +58,14 @@ final class UselessDocBlockCleaner
      */
     private function cleanClassMethodCommentMimicMethodName(array $reversedTokens, int $index, string $docContent) : string
     {
-        $matchMethodClass = \ECSPrefix20210520\Nette\Utils\Strings::match($docContent, self::COMMENT_METHOD_CLASS_REGEX);
+        $matchMethodClass = \ECSPrefix20210521\Nette\Utils\Strings::match($docContent, self::COMMENT_METHOD_CLASS_REGEX);
         if ($matchMethodClass) {
             return $docContent;
         }
         if (!$this->isNextFunction($reversedTokens, $index)) {
             return $docContent;
         }
-        $matchAnyMethodClass = \ECSPrefix20210520\Nette\Utils\Strings::match($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX);
+        $matchAnyMethodClass = \ECSPrefix20210521\Nette\Utils\Strings::match($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX);
         if (!$matchAnyMethodClass) {
             return $docContent;
         }
@@ -75,7 +75,7 @@ final class UselessDocBlockCleaner
         if (\strtolower($obviousMethodComment) !== \strtolower($methodNameContent)) {
             return $docContent;
         }
-        return \ECSPrefix20210520\Nette\Utils\Strings::replace($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX, '');
+        return \ECSPrefix20210521\Nette\Utils\Strings::replace($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX, '');
     }
     private function isNextFunction(array $reversedTokens, int $index) : bool
     {
@@ -86,6 +86,6 @@ final class UselessDocBlockCleaner
     }
     private function removeSpaces(string $content) : string
     {
-        return \ECSPrefix20210520\Nette\Utils\Strings::replace($content, self::SPACE_STAR_SLASH_REGEX, '');
+        return \ECSPrefix20210521\Nette\Utils\Strings::replace($content, self::SPACE_STAR_SLASH_REGEX, '');
     }
 }

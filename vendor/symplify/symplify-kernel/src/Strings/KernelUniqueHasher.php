@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210520\Symplify\SymplifyKernel\Strings;
+namespace ECSPrefix20210521\Symplify\SymplifyKernel\Strings;
 
-use ECSPrefix20210520\Nette\Utils\Strings;
-use ECSPrefix20210520\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException;
-use ECSPrefix20210520\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+use ECSPrefix20210521\Nette\Utils\Strings;
+use ECSPrefix20210521\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException;
+use ECSPrefix20210521\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class KernelUniqueHasher
 {
     /**
@@ -14,12 +14,12 @@ final class KernelUniqueHasher
     private $stringsConverter;
     public function __construct()
     {
-        $this->stringsConverter = new \ECSPrefix20210520\Symplify\SymplifyKernel\Strings\StringsConverter();
+        $this->stringsConverter = new \ECSPrefix20210521\Symplify\SymplifyKernel\Strings\StringsConverter();
     }
     public function hashKernelClass(string $kernelClass) : string
     {
         $this->ensureIsNotGenericKernelClass($kernelClass);
-        $shortClassName = (string) \ECSPrefix20210520\Nette\Utils\Strings::after($kernelClass, '\\', -1);
+        $shortClassName = (string) \ECSPrefix20210521\Nette\Utils\Strings::after($kernelClass, '\\', -1);
         $userSpecificShortClassName = $shortClassName . \get_current_user();
         return $this->stringsConverter->camelCaseToGlue($userSpecificShortClassName, '_');
     }
@@ -28,10 +28,10 @@ final class KernelUniqueHasher
      */
     private function ensureIsNotGenericKernelClass(string $kernelClass)
     {
-        if ($kernelClass !== \ECSPrefix20210520\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class) {
+        if ($kernelClass !== \ECSPrefix20210521\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class) {
             return;
         }
-        $message = \sprintf('Instead of "%s", provide final Kernel class', \ECSPrefix20210520\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class);
-        throw new \ECSPrefix20210520\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException($message);
+        $message = \sprintf('Instead of "%s", provide final Kernel class', \ECSPrefix20210521\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class);
+        throw new \ECSPrefix20210521\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException($message);
     }
 }
