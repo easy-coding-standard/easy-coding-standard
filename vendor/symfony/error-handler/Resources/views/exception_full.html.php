@@ -1,5 +1,5 @@
 <!-- <?php 
-namespace ECSPrefix20210521;
+namespace ECSPrefix20210522;
 
 echo $_message = \sprintf('%s (%d %s)', $exceptionMessage, $statusCode, $statusText);
 ?> -->
@@ -32,7 +32,7 @@ echo $this->include('assets/css/exception_full.css');
         </script>
 
         <?php 
-if (\class_exists(\ECSPrefix20210521\Symfony\Component\HttpKernel\Kernel::class)) {
+if (\class_exists(\ECSPrefix20210522\Symfony\Component\HttpKernel\Kernel::class)) {
     ?>
             <header>
                 <div class="container">
@@ -42,7 +42,7 @@ if (\class_exists(\ECSPrefix20210521\Symfony\Component\HttpKernel\Kernel::class)
 
                     <div class="help-link">
                         <a href="https://symfony.com/doc/<?php 
-    echo \ECSPrefix20210521\Symfony\Component\HttpKernel\Kernel::VERSION;
+    echo \ECSPrefix20210522\Symfony\Component\HttpKernel\Kernel::VERSION;
     ?>/index.html">
                             <span class="icon"><?php 
     echo $this->include('assets/images/icon-book.svg');
