@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210522\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20210523\Symfony\Component\HttpKernel\HttpCache;
 
-use ECSPrefix20210522\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210522\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210523\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210523\Symfony\Component\HttpFoundation\Response;
 /**
  * Esi implements the ESI capabilities to Request and Response instances.
  *
@@ -23,7 +23,7 @@ use ECSPrefix20210522\Symfony\Component\HttpFoundation\Response;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Esi extends \ECSPrefix20210522\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
+class Esi extends \ECSPrefix20210523\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
 {
     public function getName()
     {
@@ -32,7 +32,7 @@ class Esi extends \ECSPrefix20210522\Symfony\Component\HttpKernel\HttpCache\Abst
     /**
      * {@inheritdoc}
      */
-    public function addSurrogateControl(\ECSPrefix20210522\Symfony\Component\HttpFoundation\Response $response)
+    public function addSurrogateControl(\ECSPrefix20210523\Symfony\Component\HttpFoundation\Response $response)
     {
         if (\false !== \strpos($response->getContent(), '<esi:include')) {
             $response->headers->set('Surrogate-Control', 'content="ESI/1.0"');
@@ -52,7 +52,7 @@ class Esi extends \ECSPrefix20210522\Symfony\Component\HttpKernel\HttpCache\Abst
     /**
      * {@inheritdoc}
      */
-    public function process(\ECSPrefix20210522\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210522\Symfony\Component\HttpFoundation\Response $response)
+    public function process(\ECSPrefix20210523\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210523\Symfony\Component\HttpFoundation\Response $response)
     {
         $type = $response->headers->get('Content-Type');
         if (empty($type)) {

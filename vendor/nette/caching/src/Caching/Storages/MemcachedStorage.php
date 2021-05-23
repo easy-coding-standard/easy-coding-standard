@@ -5,14 +5,14 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210522\Nette\Caching\Storages;
+namespace ECSPrefix20210523\Nette\Caching\Storages;
 
-use ECSPrefix20210522\Nette;
-use ECSPrefix20210522\Nette\Caching\Cache;
+use ECSPrefix20210523\Nette;
+use ECSPrefix20210523\Nette\Caching\Cache;
 /**
  * Memcached storage using memcached extension.
  */
-class MemcachedStorage implements \ECSPrefix20210522\Nette\Caching\Storage, \ECSPrefix20210522\Nette\Caching\BulkReader
+class MemcachedStorage implements \ECSPrefix20210523\Nette\Caching\Storage, \ECSPrefix20210523\Nette\Caching\BulkReader
 {
     use Nette\SmartObject;
     /** @internal cache structure */
@@ -30,10 +30,10 @@ class MemcachedStorage implements \ECSPrefix20210522\Nette\Caching\Storage, \ECS
     {
         return \extension_loaded('memcached');
     }
-    public function __construct(string $host = 'localhost', int $port = 11211, string $prefix = '', \ECSPrefix20210522\Nette\Caching\Storages\Journal $journal = null)
+    public function __construct(string $host = 'localhost', int $port = 11211, string $prefix = '', \ECSPrefix20210523\Nette\Caching\Storages\Journal $journal = null)
     {
         if (!static::isAvailable()) {
-            throw new \ECSPrefix20210522\Nette\NotSupportedException("PHP extension 'memcached' is not loaded.");
+            throw new \ECSPrefix20210523\Nette\NotSupportedException("PHP extension 'memcached' is not loaded.");
         }
         $this->prefix = $prefix;
         $this->journal = $journal;
@@ -50,7 +50,7 @@ class MemcachedStorage implements \ECSPrefix20210522\Nette\Caching\Storage, \ECS
         if (@$this->memcached->addServer($host, $port, 1) === \false) {
             // @ is escalated to exception
             $error = \error_get_last();
-            throw new \ECSPrefix20210522\Nette\InvalidStateException("Memcached::addServer(): {$error['message']}.");
+            throw new \ECSPrefix20210523\Nette\InvalidStateException("Memcached::addServer(): {$error['message']}.");
         }
     }
     public function getConnection() : \Memcached
@@ -71,7 +71,7 @@ class MemcachedStorage implements \ECSPrefix20210522\Nette\Caching\Storage, \ECS
         //     callbacks => array of callbacks (function, args)
         // )
         // verify dependencies
-        if (!empty($meta[self::META_CALLBACKS]) && !\ECSPrefix20210522\Nette\Caching\Cache::checkCallbacks($meta[self::META_CALLBACKS])) {
+        if (!empty($meta[self::META_CALLBACKS]) && !\ECSPrefix20210523\Nette\Caching\Cache::checkCallbacks($meta[self::META_CALLBACKS])) {
             $this->memcached->delete($key, 0);
             return null;
         }
@@ -90,7 +90,7 @@ class MemcachedStorage implements \ECSPrefix20210522\Nette\Caching\Storage, \ECS
         $result = [];
         $deleteKeys = [];
         foreach ($metas as $prefixedKey => $meta) {
-            if (!empty($meta[self::META_CALLBACKS]) && !\ECSPrefix20210522\Nette\Caching\Cache::checkCallbacks($meta[self::META_CALLBACKS])) {
+            if (!empty($meta[self::META_CALLBACKS]) && !\ECSPrefix20210523\Nette\Caching\Cache::checkCallbacks($meta[self::META_CALLBACKS])) {
                 $deleteKeys[] = $prefixedKey;
             } else {
                 $result[$keys[$prefixedKey]] = $meta[self::META_DATA];
@@ -115,25 +115,25 @@ class MemcachedStorage implements \ECSPrefix20210522\Nette\Caching\Storage, \ECS
      */
     public function write(string $key, $data, array $dp)
     {
-        if (isset($dp[\ECSPrefix20210522\Nette\Caching\Cache::ITEMS])) {
-            throw new \ECSPrefix20210522\Nette\NotSupportedException('Dependent items are not supported by MemcachedStorage.');
+        if (isset($dp[\ECSPrefix20210523\Nette\Caching\Cache::ITEMS])) {
+            throw new \ECSPrefix20210523\Nette\NotSupportedException('Dependent items are not supported by MemcachedStorage.');
         }
         $key = \urlencode($this->prefix . $key);
         $meta = [self::META_DATA => $data];
         $expire = 0;
-        if (isset($dp[\ECSPrefix20210522\Nette\Caching\Cache::EXPIRATION])) {
-            $expire = (int) $dp[\ECSPrefix20210522\Nette\Caching\Cache::EXPIRATION];
-            if (!empty($dp[\ECSPrefix20210522\Nette\Caching\Cache::SLIDING])) {
+        if (isset($dp[\ECSPrefix20210523\Nette\Caching\Cache::EXPIRATION])) {
+            $expire = (int) $dp[\ECSPrefix20210523\Nette\Caching\Cache::EXPIRATION];
+            if (!empty($dp[\ECSPrefix20210523\Nette\Caching\Cache::SLIDING])) {
                 $meta[self::META_DELTA] = $expire;
                 // sliding time
             }
         }
-        if (isset($dp[\ECSPrefix20210522\Nette\Caching\Cache::CALLBACKS])) {
-            $meta[self::META_CALLBACKS] = $dp[\ECSPrefix20210522\Nette\Caching\Cache::CALLBACKS];
+        if (isset($dp[\ECSPrefix20210523\Nette\Caching\Cache::CALLBACKS])) {
+            $meta[self::META_CALLBACKS] = $dp[\ECSPrefix20210523\Nette\Caching\Cache::CALLBACKS];
         }
-        if (isset($dp[\ECSPrefix20210522\Nette\Caching\Cache::TAGS]) || isset($dp[\ECSPrefix20210522\Nette\Caching\Cache::PRIORITY])) {
+        if (isset($dp[\ECSPrefix20210523\Nette\Caching\Cache::TAGS]) || isset($dp[\ECSPrefix20210523\Nette\Caching\Cache::PRIORITY])) {
             if (!$this->journal) {
-                throw new \ECSPrefix20210522\Nette\InvalidStateException('CacheJournal has not been provided.');
+                throw new \ECSPrefix20210523\Nette\InvalidStateException('CacheJournal has not been provided.');
             }
             $this->journal->write($key, $dp);
         }
@@ -151,7 +151,7 @@ class MemcachedStorage implements \ECSPrefix20210522\Nette\Caching\Storage, \ECS
      */
     public function clean(array $conditions)
     {
-        if (!empty($conditions[\ECSPrefix20210522\Nette\Caching\Cache::ALL])) {
+        if (!empty($conditions[\ECSPrefix20210523\Nette\Caching\Cache::ALL])) {
             $this->memcached->flush();
         } elseif ($this->journal) {
             foreach ($this->journal->clean($conditions) as $entry) {

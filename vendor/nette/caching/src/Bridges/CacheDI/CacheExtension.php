@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210522\Nette\Bridges\CacheDI;
+namespace ECSPrefix20210523\Nette\Bridges\CacheDI;
 
-use ECSPrefix20210522\Nette;
+use ECSPrefix20210523\Nette;
 /**
  * Cache extension for Nette DI.
  */
-final class CacheExtension extends \ECSPrefix20210522\Nette\DI\CompilerExtension
+final class CacheExtension extends \ECSPrefix20210523\Nette\DI\CompilerExtension
 {
     /** @var string */
     private $tempDir;
@@ -22,15 +22,15 @@ final class CacheExtension extends \ECSPrefix20210522\Nette\DI\CompilerExtension
     public function loadConfiguration()
     {
         $dir = $this->tempDir . '/cache';
-        \ECSPrefix20210522\Nette\Utils\FileSystem::createDir($dir);
+        \ECSPrefix20210523\Nette\Utils\FileSystem::createDir($dir);
         if (!\is_writable($dir)) {
-            throw new \ECSPrefix20210522\Nette\InvalidStateException("Make directory '{$dir}' writable.");
+            throw new \ECSPrefix20210523\Nette\InvalidStateException("Make directory '{$dir}' writable.");
         }
         $builder = $this->getContainerBuilder();
         if (\extension_loaded('pdo_sqlite')) {
-            $builder->addDefinition($this->prefix('journal'))->setType(\ECSPrefix20210522\Nette\Caching\Storages\Journal::class)->setFactory(\ECSPrefix20210522\Nette\Caching\Storages\SQLiteJournal::class, [$dir . '/journal.s3db']);
+            $builder->addDefinition($this->prefix('journal'))->setType(\ECSPrefix20210523\Nette\Caching\Storages\Journal::class)->setFactory(\ECSPrefix20210523\Nette\Caching\Storages\SQLiteJournal::class, [$dir . '/journal.s3db']);
         }
-        $builder->addDefinition($this->prefix('storage'))->setType(\ECSPrefix20210522\Nette\Caching\Storage::class)->setFactory(\ECSPrefix20210522\Nette\Caching\Storages\FileStorage::class, [$dir]);
+        $builder->addDefinition($this->prefix('storage'))->setType(\ECSPrefix20210523\Nette\Caching\Storage::class)->setFactory(\ECSPrefix20210523\Nette\Caching\Storages\FileStorage::class, [$dir]);
         if ($this->name === 'cache') {
             if (\extension_loaded('pdo_sqlite')) {
                 $builder->addAlias('nette.cacheJournal', $this->prefix('journal'));
