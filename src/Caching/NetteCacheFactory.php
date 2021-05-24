@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
-use ECSPrefix20210523\Nette\Caching\Cache;
-use ECSPrefix20210523\Nette\Caching\Storages\FileStorage;
-use ECSPrefix20210523\Nette\Caching\Storages\SQLiteJournal;
+use ECSPrefix20210524\Nette\Caching\Cache;
+use ECSPrefix20210524\Nette\Caching\Storages\FileStorage;
+use ECSPrefix20210524\Nette\Caching\Storages\SQLiteJournal;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20210523\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20210523\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210524\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210524\Symplify\SmartFileSystem\SmartFileSystem;
 final class NetteCacheFactory
 {
     /**
@@ -19,12 +19,12 @@ final class NetteCacheFactory
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\ECSPrefix20210523\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210523\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\ECSPrefix20210524\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210524\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function create() : \ECSPrefix20210523\Nette\Caching\Cache
+    public function create() : \ECSPrefix20210524\Nette\Caching\Cache
     {
         $cacheDirectory = $this->parameterProvider->provideStringParameter(\Symplify\EasyCodingStandard\ValueObject\Option::CACHE_DIRECTORY);
         // ensure cache directory exists
@@ -32,10 +32,10 @@ final class NetteCacheFactory
             $this->smartFileSystem->mkdir($cacheDirectory);
         }
         // journal is needed for tags support
-        $sqLiteJournal = new \ECSPrefix20210523\Nette\Caching\Storages\SQLiteJournal($cacheDirectory . '/_tags_journal');
-        $fileStorage = new \ECSPrefix20210523\Nette\Caching\Storages\FileStorage($cacheDirectory, $sqLiteJournal);
+        $sqLiteJournal = new \ECSPrefix20210524\Nette\Caching\Storages\SQLiteJournal($cacheDirectory . '/_tags_journal');
+        $fileStorage = new \ECSPrefix20210524\Nette\Caching\Storages\FileStorage($cacheDirectory, $sqLiteJournal);
         // namespace is unique per project
         $namespace = \md5(\getcwd());
-        return new \ECSPrefix20210523\Nette\Caching\Cache($fileStorage, $namespace);
+        return new \ECSPrefix20210524\Nette\Caching\Cache($fileStorage, $namespace);
     }
 }

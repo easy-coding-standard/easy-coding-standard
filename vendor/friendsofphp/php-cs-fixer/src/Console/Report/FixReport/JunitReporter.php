@@ -13,7 +13,7 @@ declare (strict_types=1);
 namespace PhpCsFixer\Console\Report\FixReport;
 
 use PhpCsFixer\Preg;
-use ECSPrefix20210523\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20210524\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * @author Boris Gorbylev <ekho@ekho.name>
  *
@@ -50,7 +50,7 @@ final class JunitReporter implements \PhpCsFixer\Console\Report\FixReport\Report
             $testsuite->setAttribute('time', \sprintf('%.3f', $reportSummary->getTime() / 1000));
         }
         $dom->formatOutput = \true;
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210523\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
+        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210524\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
     }
     /**
      * @return void
