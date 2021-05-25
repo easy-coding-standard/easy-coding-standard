@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210524\Composer\Semver\Constraint;
+namespace ECSPrefix20210525\Composer\Semver\Constraint;
 
 class Bound
 {
@@ -43,10 +43,16 @@ class Bound
     {
         return $this->isInclusive;
     }
+    /**
+     * @return bool
+     */
     public function isZero()
     {
         return $this->getVersion() === '0.0.0.0-dev' && $this->isInclusive();
     }
+    /**
+     * @return bool
+     */
     public function isPositiveInfinity()
     {
         return $this->getVersion() === \PHP_INT_MAX . '.0.0.0' && !$this->isInclusive();
@@ -59,7 +65,7 @@ class Bound
      *
      * @return bool
      */
-    public function compareTo(\ECSPrefix20210524\Composer\Semver\Constraint\Bound $other, $operator)
+    public function compareTo(\ECSPrefix20210525\Composer\Semver\Constraint\Bound $other, $operator)
     {
         if (!\in_array($operator, array('<', '>'), \true)) {
             throw new \InvalidArgumentException('Does not support any other operator other than > or <.');
@@ -85,13 +91,13 @@ class Bound
      */
     public static function zero()
     {
-        return new \ECSPrefix20210524\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \true);
+        return new \ECSPrefix20210525\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \true);
     }
     /**
      * @return self
      */
     public static function positiveInfinity()
     {
-        return new \ECSPrefix20210524\Composer\Semver\Constraint\Bound(\PHP_INT_MAX . '.0.0.0', \false);
+        return new \ECSPrefix20210525\Composer\Semver\Constraint\Bound(\PHP_INT_MAX . '.0.0.0', \false);
     }
 }

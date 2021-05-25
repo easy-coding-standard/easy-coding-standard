@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210524\Symplify\Skipper\SkipVoter;
+namespace ECSPrefix20210525\Symplify\Skipper\SkipVoter;
 
-use ECSPrefix20210524\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20210524\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20210524\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
-use ECSPrefix20210524\Symplify\SmartFileSystem\SmartFileInfo;
-final class MessageSkipVoter implements \ECSPrefix20210524\Symplify\Skipper\Contract\SkipVoterInterface
+use ECSPrefix20210525\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20210525\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20210525\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
+use ECSPrefix20210525\Symplify\SmartFileSystem\SmartFileInfo;
+final class MessageSkipVoter implements \ECSPrefix20210525\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var SkippedMessagesResolver
@@ -17,7 +17,7 @@ final class MessageSkipVoter implements \ECSPrefix20210524\Symplify\Skipper\Cont
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\ECSPrefix20210524\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver, \ECSPrefix20210524\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\ECSPrefix20210525\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver, \ECSPrefix20210525\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedMessagesResolver = $skippedMessagesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
@@ -35,7 +35,7 @@ final class MessageSkipVoter implements \ECSPrefix20210524\Symplify\Skipper\Cont
     /**
      * @param string $element
      */
-    public function shouldSkip($element, \ECSPrefix20210524\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \ECSPrefix20210525\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedMessages = $this->skippedMessagesResolver->resolve();
         if (!\array_key_exists($element, $skippedMessages)) {

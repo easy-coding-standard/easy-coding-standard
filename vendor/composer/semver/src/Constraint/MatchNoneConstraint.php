@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210524\Composer\Semver\Constraint;
+namespace ECSPrefix20210525\Composer\Semver\Constraint;
 
 /**
  * Blackhole of constraints, nothing escapes it
  */
-class MatchNoneConstraint implements \ECSPrefix20210524\Composer\Semver\Constraint\ConstraintInterface
+class MatchNoneConstraint implements \ECSPrefix20210525\Composer\Semver\Constraint\ConstraintInterface
 {
     /** @var string|null */
     protected $prettyString;
@@ -22,23 +22,26 @@ class MatchNoneConstraint implements \ECSPrefix20210524\Composer\Semver\Constrai
      *
      * @return bool
      */
-    public function matches(\ECSPrefix20210524\Composer\Semver\Constraint\ConstraintInterface $provider)
+    public function matches(\ECSPrefix20210525\Composer\Semver\Constraint\ConstraintInterface $provider)
     {
         return \false;
     }
-    public function compile($operator)
+    /**
+     * {@inheritDoc}
+     */
+    public function compile($otherOperator)
     {
         return 'false';
     }
     /**
-     * @param string|null $prettyString
+     * {@inheritDoc}
      */
     public function setPrettyString($prettyString)
     {
         $this->prettyString = $prettyString;
     }
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getPrettyString()
     {
@@ -48,7 +51,7 @@ class MatchNoneConstraint implements \ECSPrefix20210524\Composer\Semver\Constrai
         return (string) $this;
     }
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function __toString()
     {
@@ -59,13 +62,13 @@ class MatchNoneConstraint implements \ECSPrefix20210524\Composer\Semver\Constrai
      */
     public function getUpperBound()
     {
-        return new \ECSPrefix20210524\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
+        return new \ECSPrefix20210525\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
     }
     /**
      * {@inheritDoc}
      */
     public function getLowerBound()
     {
-        return new \ECSPrefix20210524\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
+        return new \ECSPrefix20210525\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
     }
 }

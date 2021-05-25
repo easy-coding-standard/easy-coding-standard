@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210524\Symplify\SymplifyKernel\Strings;
+namespace ECSPrefix20210525\Symplify\SymplifyKernel\Strings;
 
-use ECSPrefix20210524\Nette\Utils\Strings;
+use ECSPrefix20210525\Nette\Utils\Strings;
 final class StringsConverter
 {
     /**
@@ -16,7 +16,7 @@ final class StringsConverter
         if ($input === \strtolower($input)) {
             return $input;
         }
-        $matches = \ECSPrefix20210524\Nette\Utils\Strings::matchAll($input, self::CAMEL_CASE_BY_WORD_REGEX);
+        $matches = \ECSPrefix20210525\Nette\Utils\Strings::matchAll($input, self::CAMEL_CASE_BY_WORD_REGEX);
         $parts = [];
         foreach ($matches as $match) {
             $parts[] = $match[0] === \strtoupper($match[0]) ? \strtolower($match[0]) : \lcfirst($match[0]);

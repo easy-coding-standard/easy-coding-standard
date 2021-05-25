@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210524\Composer\Semver;
+namespace ECSPrefix20210525\Composer\Semver;
 
-use ECSPrefix20210524\Composer\Semver\Constraint\Constraint;
+use ECSPrefix20210525\Composer\Semver\Constraint\Constraint;
 class Comparator
 {
     /**
@@ -93,10 +93,12 @@ class Comparator
      * @param string $version2
      *
      * @return bool
+     *
+     * @phpstan-param Constraint::STR_OP_*  $operator
      */
     public static function compare($version1, $operator, $version2)
     {
-        $constraint = new \ECSPrefix20210524\Composer\Semver\Constraint\Constraint($operator, $version2);
-        return $constraint->matchSpecific(new \ECSPrefix20210524\Composer\Semver\Constraint\Constraint('==', $version1), \true);
+        $constraint = new \ECSPrefix20210525\Composer\Semver\Constraint\Constraint($operator, $version2);
+        return $constraint->matchSpecific(new \ECSPrefix20210525\Composer\Semver\Constraint\Constraint('==', $version1), \true);
     }
 }

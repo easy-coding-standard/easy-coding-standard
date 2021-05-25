@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210524\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper;
+namespace ECSPrefix20210525\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper;
 
-use ECSPrefix20210524\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210525\Symfony\Component\DependencyInjection\Definition;
 /**
  * Null dumper, negates any proxy code generation for any given service definition.
  *
@@ -18,26 +18,26 @@ use ECSPrefix20210524\Symfony\Component\DependencyInjection\Definition;
  *
  * @final
  */
-class NullDumper implements \ECSPrefix20210524\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface
+class NullDumper implements \ECSPrefix20210525\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function isProxyCandidate(\ECSPrefix20210524\Symfony\Component\DependencyInjection\Definition $definition) : bool
+    public function isProxyCandidate(\ECSPrefix20210525\Symfony\Component\DependencyInjection\Definition $definition) : bool
     {
         return \false;
     }
     /**
      * {@inheritdoc}
      */
-    public function getProxyFactoryCode(\ECSPrefix20210524\Symfony\Component\DependencyInjection\Definition $definition, string $id, string $factoryCode) : string
+    public function getProxyFactoryCode(\ECSPrefix20210525\Symfony\Component\DependencyInjection\Definition $definition, string $id, string $factoryCode) : string
     {
         return '';
     }
     /**
      * {@inheritdoc}
      */
-    public function getProxyCode(\ECSPrefix20210524\Symfony\Component\DependencyInjection\Definition $definition) : string
+    public function getProxyCode(\ECSPrefix20210525\Symfony\Component\DependencyInjection\Definition $definition) : string
     {
         return '';
     }

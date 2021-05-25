@@ -8,21 +8,26 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210524\Composer\Semver;
+namespace ECSPrefix20210525\Composer\Semver;
 
-use ECSPrefix20210524\Composer\Semver\Constraint\Constraint;
-use ECSPrefix20210524\Composer\Semver\Constraint\ConstraintInterface;
+use ECSPrefix20210525\Composer\Semver\Constraint\Constraint;
+use ECSPrefix20210525\Composer\Semver\Constraint\ConstraintInterface;
 /**
  * Helper class to evaluate constraint by compiling and reusing the code to evaluate
  */
 class CompilingMatcher
 {
+    /**
+     * @var array
+     * @phpstan-var array<string, callable>
+     */
     private static $compiledCheckerCache = array();
+    /** @var bool */
     private static $enabled;
     /**
-     * @phpstan-var array<Constraint::OP_*, string>
+     * @phpstan-var array<Constraint::OP_*, Constraint::STR_OP_*>
      */
-    private static $transOpInt = array(\ECSPrefix20210524\Composer\Semver\Constraint\Constraint::OP_EQ => '==', \ECSPrefix20210524\Composer\Semver\Constraint\Constraint::OP_LT => '<', \ECSPrefix20210524\Composer\Semver\Constraint\Constraint::OP_LE => '<=', \ECSPrefix20210524\Composer\Semver\Constraint\Constraint::OP_GT => '>', \ECSPrefix20210524\Composer\Semver\Constraint\Constraint::OP_GE => '>=', \ECSPrefix20210524\Composer\Semver\Constraint\Constraint::OP_NE => '!=');
+    private static $transOpInt = array(\ECSPrefix20210525\Composer\Semver\Constraint\Constraint::OP_EQ => \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::STR_OP_EQ, \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::OP_LT => \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::STR_OP_LT, \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::OP_LE => \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::STR_OP_LE, \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::OP_GT => \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::STR_OP_GT, \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::OP_GE => \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::STR_OP_GE, \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::OP_NE => \ECSPrefix20210525\Composer\Semver\Constraint\Constraint::STR_OP_NE);
     /**
      * Evaluates the expression: $constraint match $operator $version
      *
@@ -33,13 +38,13 @@ class CompilingMatcher
      *
      * @return mixed
      */
-    public static function match(\ECSPrefix20210524\Composer\Semver\Constraint\ConstraintInterface $constraint, $operator, $version)
+    public static function match(\ECSPrefix20210525\Composer\Semver\Constraint\ConstraintInterface $constraint, $operator, $version)
     {
         if (self::$enabled === null) {
-            self::$enabled = !\in_array('eval', \explode(',', \ini_get('disable_functions')), \true);
+            self::$enabled = !\in_array('eval', \explode(',', (string) \ini_get('disable_functions')), \true);
         }
         if (!self::$enabled) {
-            return $constraint->matches(new \ECSPrefix20210524\Composer\Semver\Constraint\Constraint(self::$transOpInt[$operator], $version));
+            return $constraint->matches(new \ECSPrefix20210525\Composer\Semver\Constraint\Constraint(self::$transOpInt[$operator], $version));
         }
         $cacheKey = $operator . $constraint;
         if (!isset(self::$compiledCheckerCache[$cacheKey])) {

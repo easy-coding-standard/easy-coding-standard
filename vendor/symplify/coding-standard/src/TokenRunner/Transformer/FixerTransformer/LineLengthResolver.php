@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
-use ECSPrefix20210524\Nette\Utils\Strings;
+use ECSPrefix20210525\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20210524\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20210525\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class LineLengthResolver
 {
     /**
@@ -40,7 +40,7 @@ final class LineLengthResolver
     {
         /** @var Token $currentToken */
         $currentToken = $tokens[$position];
-        if (\ECSPrefix20210524\Nette\Utils\Strings::startsWith($currentToken->getContent(), \ECSPrefix20210524\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
+        if (\ECSPrefix20210525\Nette\Utils\Strings::startsWith($currentToken->getContent(), \ECSPrefix20210525\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
             return \true;
         }
         return $currentToken->isGivenKind(\T_OPEN_TAG);
@@ -77,7 +77,7 @@ final class LineLengthResolver
         $end = $blockInfo->getEnd();
         /** @var Token $currentToken */
         $currentToken = $tokens[$end];
-        while (!\ECSPrefix20210524\Nette\Utils\Strings::startsWith($currentToken->getContent(), \ECSPrefix20210524\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
+        while (!\ECSPrefix20210525\Nette\Utils\Strings::startsWith($currentToken->getContent(), \ECSPrefix20210525\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
             $length += \strlen($currentToken->getContent());
             ++$end;
             if (!isset($tokens[$end])) {

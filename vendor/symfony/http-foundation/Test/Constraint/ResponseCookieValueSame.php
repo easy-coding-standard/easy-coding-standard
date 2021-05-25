@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210524\Symfony\Component\HttpFoundation\Test\Constraint;
+namespace ECSPrefix20210525\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use ECSPrefix20210524\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210524\Symfony\Component\HttpFoundation\Cookie;
-use ECSPrefix20210524\Symfony\Component\HttpFoundation\Response;
-final class ResponseCookieValueSame extends \ECSPrefix20210524\PHPUnit\Framework\Constraint\Constraint
+use ECSPrefix20210525\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210525\Symfony\Component\HttpFoundation\Cookie;
+use ECSPrefix20210525\Symfony\Component\HttpFoundation\Response;
+final class ResponseCookieValueSame extends \ECSPrefix20210525\PHPUnit\Framework\Constraint\Constraint
 {
     private $name;
     private $value;
@@ -66,10 +66,10 @@ final class ResponseCookieValueSame extends \ECSPrefix20210524\PHPUnit\Framework
     /**
      * @return \Symfony\Component\HttpFoundation\Cookie|null
      */
-    protected function getCookie(\ECSPrefix20210524\Symfony\Component\HttpFoundation\Response $response)
+    protected function getCookie(\ECSPrefix20210525\Symfony\Component\HttpFoundation\Response $response)
     {
         $cookies = $response->headers->getCookies();
-        $filteredCookies = \array_filter($cookies, function (\ECSPrefix20210524\Symfony\Component\HttpFoundation\Cookie $cookie) {
+        $filteredCookies = \array_filter($cookies, function (\ECSPrefix20210525\Symfony\Component\HttpFoundation\Cookie $cookie) {
             return $cookie->getName() === $this->name && $cookie->getPath() === $this->path && $cookie->getDomain() === $this->domain;
         });
         return \reset($filteredCookies) ?: null;

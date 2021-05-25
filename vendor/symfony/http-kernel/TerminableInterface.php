@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210524\Symfony\Component\HttpKernel;
+namespace ECSPrefix20210525\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210524\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210524\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210525\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210525\Symfony\Component\HttpFoundation\Response;
 /**
  * Terminable extends the Kernel request/response cycle with dispatching a post
  * response event after sending the response and before shutting down the kernel.
@@ -26,5 +26,5 @@ interface TerminableInterface
      *
      * Should be called after sending the response and before shutting down the kernel.
      */
-    public function terminate(\ECSPrefix20210524\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210524\Symfony\Component\HttpFoundation\Response $response);
+    public function terminate(\ECSPrefix20210525\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210525\Symfony\Component\HttpFoundation\Response $response);
 }
