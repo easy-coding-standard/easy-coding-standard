@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210525\Nette\Caching\Storages;
+namespace ECSPrefix20210526\Nette\Caching\Storages;
 
-use ECSPrefix20210525\Nette;
+use ECSPrefix20210526\Nette;
 /**
  * Cache dummy storage.
  */
-class DevNullStorage implements \ECSPrefix20210525\Nette\Caching\Storage
+class DevNullStorage implements \ECSPrefix20210526\Nette\Caching\Storage
 {
     use Nette\SmartObject;
     public function read(string $key)

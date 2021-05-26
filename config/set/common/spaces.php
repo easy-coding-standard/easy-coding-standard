@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210525;
+namespace ECSPrefix20210526;
 
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff;
@@ -23,10 +23,10 @@ use PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer;
 use PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer;
 use PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
-use ECSPrefix20210525\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix20210526\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Spacing\NewlineServiceDefinitionConfigFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
-return static function (\ECSPrefix20210525\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\ECSPrefix20210526\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->set(\Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer::class);
     $services->set(\Symplify\CodingStandard\Fixer\Spacing\NewlineServiceDefinitionConfigFixer::class);

@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210525\Nette\Caching\Storages;
+namespace ECSPrefix20210526\Nette\Caching\Storages;
 
 /**
  * Cache journal provider.
@@ -23,4 +23,4 @@ interface Journal
      */
     function clean(array $conditions);
 }
-\class_exists(\ECSPrefix20210525\Nette\Caching\Storages\IJournal::class);
+\class_exists(\ECSPrefix20210526\Nette\Caching\Storages\IJournal::class);

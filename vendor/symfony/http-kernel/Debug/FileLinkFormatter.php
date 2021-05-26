@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210525\Symfony\Component\HttpKernel\Debug;
+namespace ECSPrefix20210526\Symfony\Component\HttpKernel\Debug;
 
-use ECSPrefix20210525\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210525\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210525\Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ECSPrefix20210526\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210526\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20210526\Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * Formats debug file links.
  *
@@ -29,7 +29,7 @@ class FileLinkFormatter
     /**
      * @param string|\Closure $urlFormat the URL format, or a closure that returns it on-demand
      */
-    public function __construct($fileLinkFormat = null, \ECSPrefix20210525\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, string $baseDir = null, $urlFormat = null)
+    public function __construct($fileLinkFormat = null, \ECSPrefix20210526\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, string $baseDir = null, $urlFormat = null)
     {
         $fileLinkFormat = ($fileLinkFormat ?: \ini_get('xdebug.file_link_format')) ?: \get_cfg_var('xdebug.file_link_format');
         if ($fileLinkFormat && !\is_array($fileLinkFormat)) {
@@ -66,7 +66,7 @@ class FileLinkFormatter
      * @internal
      * @return string|null
      */
-    public static function generateUrlFormat(\ECSPrefix20210525\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router, string $routeName, string $queryString)
+    public static function generateUrlFormat(\ECSPrefix20210526\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router, string $routeName, string $queryString)
     {
         try {
             return $router->generate($routeName) . $queryString;
@@ -81,7 +81,7 @@ class FileLinkFormatter
         }
         if ($this->requestStack && $this->baseDir && $this->urlFormat) {
             $request = $this->requestStack->getMasterRequest();
-            if ($request instanceof \ECSPrefix20210525\Symfony\Component\HttpFoundation\Request && (!$this->urlFormat instanceof \Closure || ($this->urlFormat = ($this->urlFormat)()))) {
+            if ($request instanceof \ECSPrefix20210526\Symfony\Component\HttpFoundation\Request && (!$this->urlFormat instanceof \Closure || ($this->urlFormat = ($this->urlFormat)()))) {
                 return [$request->getSchemeAndHttpHost() . $this->urlFormat, $this->baseDir . \DIRECTORY_SEPARATOR, ''];
             }
         }
