@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210526\Nette\Caching;
+namespace ECSPrefix20210530\Nette\Caching;
 
 /**
  * Cache storage.
@@ -38,4 +38,4 @@ interface Storage
      */
     function clean(array $conditions);
 }
-\class_exists(\ECSPrefix20210526\Nette\Caching\IStorage::class);
+\class_exists(\ECSPrefix20210530\Nette\Caching\IStorage::class);

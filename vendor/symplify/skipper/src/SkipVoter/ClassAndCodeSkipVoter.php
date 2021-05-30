@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210526\Symplify\Skipper\SkipVoter;
+namespace ECSPrefix20210530\Symplify\Skipper\SkipVoter;
 
-use ECSPrefix20210526\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20210526\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20210526\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
-use ECSPrefix20210526\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210530\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20210530\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20210530\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
+use ECSPrefix20210530\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Matching class and code, e.g. App\Category\ArraySniff.SomeCode
  */
-final class ClassAndCodeSkipVoter implements \ECSPrefix20210526\Symplify\Skipper\Contract\SkipVoterInterface
+final class ClassAndCodeSkipVoter implements \ECSPrefix20210530\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var SkippedClassAndCodesResolver
@@ -20,7 +20,7 @@ final class ClassAndCodeSkipVoter implements \ECSPrefix20210526\Symplify\Skipper
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\ECSPrefix20210526\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \ECSPrefix20210526\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\ECSPrefix20210530\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \ECSPrefix20210530\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedClassAndCodesResolver = $skippedClassAndCodesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
@@ -38,7 +38,7 @@ final class ClassAndCodeSkipVoter implements \ECSPrefix20210526\Symplify\Skipper
     /**
      * @param string $element
      */
-    public function shouldSkip($element, \ECSPrefix20210526\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \ECSPrefix20210530\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
         if (!\array_key_exists($element, $skippedClassAndCodes)) {

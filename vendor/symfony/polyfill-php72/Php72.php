@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210526\Symfony\Polyfill\Php72;
+namespace ECSPrefix20210530\Symfony\Polyfill\Php72;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -146,7 +146,7 @@ final class Php72
         } else {
             $s = \chr(0xf0 | $code >> 18) . \chr(0x80 | $code >> 12 & 0x3f) . \chr(0x80 | $code >> 6 & 0x3f) . \chr(0x80 | $code & 0x3f);
         }
-        if ('UTF-8' !== $encoding) {
+        if ('UTF-8' !== ($encoding = $encoding ?? \mb_internal_encoding())) {
             $s = \mb_convert_encoding($s, $encoding, 'UTF-8');
         }
         return $s;

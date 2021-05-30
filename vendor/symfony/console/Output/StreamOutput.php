@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210526\Symfony\Component\Console\Output;
+namespace ECSPrefix20210530\Symfony\Component\Console\Output;
 
-use ECSPrefix20210526\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210526\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20210530\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210530\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * StreamOutput writes the output to a given stream.
  *
@@ -25,7 +25,7 @@ use ECSPrefix20210526\Symfony\Component\Console\Formatter\OutputFormatterInterfa
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class StreamOutput extends \ECSPrefix20210526\Symfony\Component\Console\Output\Output
+class StreamOutput extends \ECSPrefix20210530\Symfony\Component\Console\Output\Output
 {
     private $stream;
     /**
@@ -36,10 +36,10 @@ class StreamOutput extends \ECSPrefix20210526\Symfony\Component\Console\Output\O
      *
      * @throws InvalidArgumentException When first argument is not a real stream
      */
-    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \ECSPrefix20210526\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \ECSPrefix20210530\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         if (!\is_resource($stream) || 'stream' !== \get_resource_type($stream)) {
-            throw new \ECSPrefix20210526\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
+            throw new \ECSPrefix20210530\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
         }
         $this->stream = $stream;
         if (null === $decorated) {
@@ -95,11 +95,19 @@ class StreamOutput extends \ECSPrefix20210526\Symfony\Component\Console\Output\O
             return \function_exists('sapi_windows_vt100_support') && @\sapi_windows_vt100_support($this->stream) || \false !== \getenv('ANSICON') || 'ON' === \getenv('ConEmuANSI') || 'xterm' === \getenv('TERM');
         }
         $streamIsatty = function ($stream) {
+            if (\function_exists('stream_isatty')) {
+                return \stream_isatty($stream);
+            }
+            if (!\is_resource($stream)) {
+                \trigger_error('stream_isatty() expects parameter 1 to be resource, ' . \gettype($stream) . ' given', \E_USER_WARNING);
+                return \false;
+            }
             if ('\\' === \DIRECTORY_SEPARATOR) {
                 $stat = @\fstat($stream);
+                // Check if formatted mode is S_IFCHR
                 return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
             }
-            return @\posix_isatty($stream);
+            return \function_exists('posix_isatty') && @\posix_isatty($stream);
         };
         return $streamIsatty($this->stream);
     }
