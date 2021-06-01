@@ -6,8 +6,8 @@ $loader = require_once __DIR__.'/autoload.php';
 
 // Aliases for the whitelisted classes. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#class-whitelisting
-if (!class_exists('ComposerAutoloaderInit1c4a698b00a4d8b0c74d13bdb80315de', false) && !interface_exists('ComposerAutoloaderInit1c4a698b00a4d8b0c74d13bdb80315de', false) && !trait_exists('ComposerAutoloaderInit1c4a698b00a4d8b0c74d13bdb80315de', false)) {
-    spl_autoload_call('ConfigTransformer20210601\ComposerAutoloaderInit1c4a698b00a4d8b0c74d13bdb80315de');
+if (!class_exists('ComposerAutoloaderInitb5381c733f303a6c8db282e77e8c07f1', false) && !interface_exists('ComposerAutoloaderInitb5381c733f303a6c8db282e77e8c07f1', false) && !trait_exists('ComposerAutoloaderInitb5381c733f303a6c8db282e77e8c07f1', false)) {
+    spl_autoload_call('ConfigTransformer20210601\ComposerAutoloaderInitb5381c733f303a6c8db282e77e8c07f1');
 }
 if (!class_exists('Normalizer', false) && !interface_exists('Normalizer', false) && !trait_exists('Normalizer', false)) {
     spl_autoload_call('ConfigTransformer20210601\Normalizer');
@@ -33,9 +33,9 @@ if (!class_exists('ReturnTypeWillChange', false) && !interface_exists('ReturnTyp
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire1c4a698b00a4d8b0c74d13bdb80315de')) {
-    function composerRequire1c4a698b00a4d8b0c74d13bdb80315de() {
-        return \ConfigTransformer20210601\composerRequire1c4a698b00a4d8b0c74d13bdb80315de(...func_get_args());
+if (!function_exists('composerRequireb5381c733f303a6c8db282e77e8c07f1')) {
+    function composerRequireb5381c733f303a6c8db282e77e8c07f1() {
+        return \ConfigTransformer20210601\composerRequireb5381c733f303a6c8db282e77e8c07f1(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {
