@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210530\Nette;
+namespace ConfigTransformer20210601\Nette;
 
 /**
  * The exception that is thrown when the value of an argument is
@@ -37,7 +37,7 @@ class NotSupportedException extends \LogicException
 /**
  * The exception that is thrown when a requested method or operation is deprecated.
  */
-class DeprecatedException extends \ECSPrefix20210530\Nette\NotSupportedException
+class DeprecatedException extends \ConfigTransformer20210601\Nette\NotSupportedException
 {
 }
 /**
@@ -55,13 +55,13 @@ class IOException extends \RuntimeException
 /**
  * The exception that is thrown when accessing a file that does not exist on disk.
  */
-class FileNotFoundException extends \ECSPrefix20210530\Nette\IOException
+class FileNotFoundException extends \ConfigTransformer20210601\Nette\IOException
 {
 }
 /**
  * The exception that is thrown when part of a file or directory cannot be found.
  */
-class DirectoryNotFoundException extends \ECSPrefix20210530\Nette\IOException
+class DirectoryNotFoundException extends \ConfigTransformer20210601\Nette\IOException
 {
 }
 /**

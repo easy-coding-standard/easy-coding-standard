@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpKernel\Config;
+namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Config;
 
-use ECSPrefix20210530\Symfony\Component\Config\FileLocator as BaseFileLocator;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\KernelInterface;
+use ConfigTransformer20210601\Symfony\Component\Config\FileLocator as BaseFileLocator;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelInterface;
 /**
  * FileLocator uses the KernelInterface to locate resources in bundles.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FileLocator extends \ECSPrefix20210530\Symfony\Component\Config\FileLocator
+class FileLocator extends \ConfigTransformer20210601\Symfony\Component\Config\FileLocator
 {
     private $kernel;
-    public function __construct(\ECSPrefix20210530\Symfony\Component\HttpKernel\KernelInterface $kernel)
+    public function __construct(\ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {
         $this->kernel = $kernel;
         parent::__construct();

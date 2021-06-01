@@ -8,15 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpFoundation\Session\Attribute;
+namespace ConfigTransformer20210601\Symfony\Component\HttpFoundation\Session\Attribute;
 
+trigger_deprecation('symfony/http-foundation', '5.3', 'The "%s" class is deprecated.', \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag::class);
 /**
  * This class provides structured storage of session attributes using
  * a name spacing character in the key.
  *
  * @author Drak <drak@zikula.org>
+ *
+ * @deprecated since Symfony 5.3
  */
-class NamespacedAttributeBag extends \ECSPrefix20210530\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag
+class NamespacedAttributeBag extends \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag
 {
     private $namespaceCharacter;
     /**

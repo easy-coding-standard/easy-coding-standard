@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210530\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass;
+namespace ConfigTransformer20210601\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass;
 
-use ECSPrefix20210530\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210530\Symplify\PackageBuilder\Console\Command\CommandNaming;
+use ConfigTransformer20210601\Symfony\Component\Console\Command\Command;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ConfigTransformer20210601\Symplify\PackageBuilder\Console\Command\CommandNaming;
 /**
  * @see \Symplify\ConsolePackageBuilder\Tests\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPassTest
  */
-final class NamelessConsoleCommandCompilerPass implements \ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class NamelessConsoleCommandCompilerPass implements \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @return void
      */
-    public function process(\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             $definitionClass = $definition->getClass();
             if ($definitionClass === null) {
                 continue;
             }
-            if (!\is_a($definitionClass, \ECSPrefix20210530\Symfony\Component\Console\Command\Command::class, \true)) {
+            if (!\is_a($definitionClass, \ConfigTransformer20210601\Symfony\Component\Console\Command\Command::class, \true)) {
                 continue;
             }
-            $commandName = \ECSPrefix20210530\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName($definitionClass);
+            $commandName = \ConfigTransformer20210601\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName($definitionClass);
             $definition->addMethodCall('setName', [$commandName]);
         }
     }

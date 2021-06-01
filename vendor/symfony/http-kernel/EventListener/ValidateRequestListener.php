@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpKernel\EventListener;
+namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20210530\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\KernelEvents;
+use ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Validates Requests.
  *
@@ -20,14 +20,14 @@ use ECSPrefix20210530\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class ValidateRequestListener implements \ECSPrefix20210530\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ValidateRequestListener implements \ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     /**
      * Performs the validation.
      */
-    public function onKernelRequest(\ECSPrefix20210530\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    public function onKernelRequest(\ConfigTransformer20210601\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
         $request = $event->getRequest();
@@ -41,6 +41,6 @@ class ValidateRequestListener implements \ECSPrefix20210530\Symfony\Component\Ev
      */
     public static function getSubscribedEvents() : array
     {
-        return [\ECSPrefix20210530\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 256]]];
+        return [\ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 256]]];
     }
 }

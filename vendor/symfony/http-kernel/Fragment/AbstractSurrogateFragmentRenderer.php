@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpKernel\Fragment;
+namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Fragment;
 
-use ECSPrefix20210530\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210530\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ControllerReference;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\UriSigner;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ControllerReference;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\UriSigner;
 /**
  * Implements Surrogate rendering strategy.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class AbstractSurrogateFragmentRenderer extends \ECSPrefix20210530\Symfony\Component\HttpKernel\Fragment\RoutableFragmentRenderer
+abstract class AbstractSurrogateFragmentRenderer extends \ConfigTransformer20210601\Symfony\Component\HttpKernel\Fragment\RoutableFragmentRenderer
 {
     private $surrogate;
     private $inlineStrategy;
@@ -31,7 +31,7 @@ abstract class AbstractSurrogateFragmentRenderer extends \ECSPrefix20210530\Symf
      *
      * @param FragmentRendererInterface $inlineStrategy The inline strategy to use when the surrogate is not supported
      */
-    public function __construct(\ECSPrefix20210530\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate = null, \ECSPrefix20210530\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface $inlineStrategy, \ECSPrefix20210530\Symfony\Component\HttpKernel\UriSigner $signer = null)
+    public function __construct(\ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate = null, \ConfigTransformer20210601\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface $inlineStrategy, \ConfigTransformer20210601\Symfony\Component\HttpKernel\UriSigner $signer = null)
     {
         $this->surrogate = $surrogate;
         $this->inlineStrategy = $inlineStrategy;
@@ -53,32 +53,27 @@ abstract class AbstractSurrogateFragmentRenderer extends \ECSPrefix20210530\Symf
      *
      * @see Symfony\Component\HttpKernel\HttpCache\SurrogateInterface
      */
-    public function render($uri, \ECSPrefix20210530\Symfony\Component\HttpFoundation\Request $request, array $options = [])
+    public function render($uri, \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request, array $options = [])
     {
         if (!$this->surrogate || !$this->surrogate->hasSurrogateCapability($request)) {
-            if ($uri instanceof \ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ControllerReference && $this->containsNonScalars($uri->attributes)) {
+            if ($uri instanceof \ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ControllerReference && $this->containsNonScalars($uri->attributes)) {
                 throw new \InvalidArgumentException('Passing non-scalar values as part of URI attributes to the ESI and SSI rendering strategies is not supported. Use a different rendering strategy or pass scalar values.');
             }
             return $this->inlineStrategy->render($uri, $request, $options);
         }
-        if ($uri instanceof \ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ControllerReference) {
+        if ($uri instanceof \ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ControllerReference) {
             $uri = $this->generateSignedFragmentUri($uri, $request);
         }
         $alt = $options['alt'] ?? null;
-        if ($alt instanceof \ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ControllerReference) {
+        if ($alt instanceof \ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ControllerReference) {
             $alt = $this->generateSignedFragmentUri($alt, $request);
         }
         $tag = $this->surrogate->renderIncludeTag($uri, $alt, $options['ignore_errors'] ?? \false, $options['comment'] ?? '');
-        return new \ECSPrefix20210530\Symfony\Component\HttpFoundation\Response($tag);
+        return new \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response($tag);
     }
-    private function generateSignedFragmentUri(\ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ControllerReference $uri, \ECSPrefix20210530\Symfony\Component\HttpFoundation\Request $request) : string
+    private function generateSignedFragmentUri(\ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ControllerReference $uri, \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request) : string
     {
-        if (null === $this->signer) {
-            throw new \LogicException('You must use a URI when using the ESI rendering strategy or set a URL signer.');
-        }
-        // we need to sign the absolute URI, but want to return the path only.
-        $fragmentUri = $this->signer->sign($this->generateFragmentUri($uri, $request, \true));
-        return \substr($fragmentUri, \strlen($request->getSchemeAndHttpHost()));
+        return (new \ConfigTransformer20210601\Symfony\Component\HttpKernel\Fragment\FragmentUriGenerator($this->fragmentPath, $this->signer))->generate($uri, $request);
     }
     private function containsNonScalars(array $values) : bool
     {

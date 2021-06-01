@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\Console\Descriptor;
+namespace ConfigTransformer20210601\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20210530\Symfony\Component\Console\Application;
-use ECSPrefix20210530\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210530\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix20210530\Symfony\Component\Console\Helper\Helper;
-use ECSPrefix20210530\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210530\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20210530\Symfony\Component\Console\Input\InputOption;
+use ConfigTransformer20210601\Symfony\Component\Console\Application;
+use ConfigTransformer20210601\Symfony\Component\Console\Command\Command;
+use ConfigTransformer20210601\Symfony\Component\Console\Formatter\OutputFormatter;
+use ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper;
+use ConfigTransformer20210601\Symfony\Component\Console\Input\InputArgument;
+use ConfigTransformer20210601\Symfony\Component\Console\Input\InputDefinition;
+use ConfigTransformer20210601\Symfony\Component\Console\Input\InputOption;
 /**
  * Text descriptor.
  *
@@ -24,19 +24,19 @@ use ECSPrefix20210530\Symfony\Component\Console\Input\InputOption;
  *
  * @internal
  */
-class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descriptor\Descriptor
+class TextDescriptor extends \ConfigTransformer20210601\Symfony\Component\Console\Descriptor\Descriptor
 {
     /**
      * {@inheritdoc}
      */
-    protected function describeInputArgument(\ECSPrefix20210530\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
+    protected function describeInputArgument(\ConfigTransformer20210601\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
     {
         if (null !== $argument->getDefault() && (!\is_array($argument->getDefault()) || \count($argument->getDefault()))) {
             $default = \sprintf('<comment> [default: %s]</comment>', $this->formatDefaultValue($argument->getDefault()));
         } else {
             $default = '';
         }
-        $totalWidth = $options['total_width'] ?? \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($argument->getName());
+        $totalWidth = $options['total_width'] ?? \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($argument->getName());
         $spacingWidth = $totalWidth - \strlen($argument->getName());
         $this->writeText(\sprintf(
             '  <info>%s</info>  %s%s%s',
@@ -50,7 +50,7 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
     /**
      * {@inheritdoc}
      */
-    protected function describeInputOption(\ECSPrefix20210530\Symfony\Component\Console\Input\InputOption $option, array $options = [])
+    protected function describeInputOption(\ConfigTransformer20210601\Symfony\Component\Console\Input\InputOption $option, array $options = [])
     {
         if ($option->acceptValue() && null !== $option->getDefault() && (!\is_array($option->getDefault()) || \count($option->getDefault()))) {
             $default = \sprintf('<comment> [default: %s]</comment>', $this->formatDefaultValue($option->getDefault()));
@@ -65,8 +65,8 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
             }
         }
         $totalWidth = $options['total_width'] ?? $this->calculateTotalWidthForOptions([$option]);
-        $synopsis = \sprintf('%s%s', $option->getShortcut() ? \sprintf('-%s, ', $option->getShortcut()) : '    ', \sprintf('--%s%s', $option->getName(), $value));
-        $spacingWidth = $totalWidth - \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($synopsis);
+        $synopsis = \sprintf('%s%s', $option->getShortcut() ? \sprintf('-%s, ', $option->getShortcut()) : '    ', \sprintf($option->isNegatable() ? '--%1$s|--no-%1$s' : '--%1$s%2$s', $option->getName(), $value));
+        $spacingWidth = $totalWidth - \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($synopsis);
         $this->writeText(\sprintf(
             '  <info>%s</info>  %s%s%s%s',
             $synopsis,
@@ -80,11 +80,11 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
     /**
      * {@inheritdoc}
      */
-    protected function describeInputDefinition(\ECSPrefix20210530\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
+    protected function describeInputDefinition(\ConfigTransformer20210601\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
     {
         $totalWidth = $this->calculateTotalWidthForOptions($definition->getOptions());
         foreach ($definition->getArguments() as $argument) {
-            $totalWidth = \max($totalWidth, \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($argument->getName()));
+            $totalWidth = \max($totalWidth, \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($argument->getName()));
         }
         if ($definition->getArguments()) {
             $this->writeText('<comment>Arguments:</comment>', $options);
@@ -117,7 +117,7 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
     /**
      * {@inheritdoc}
      */
-    protected function describeCommand(\ECSPrefix20210530\Symfony\Component\Console\Command\Command $command, array $options = [])
+    protected function describeCommand(\ConfigTransformer20210601\Symfony\Component\Console\Command\Command $command, array $options = [])
     {
         $command->mergeApplicationDefinition(\false);
         if ($description = $command->getDescription()) {
@@ -129,7 +129,7 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
         $this->writeText('<comment>Usage:</comment>', $options);
         foreach (\array_merge([$command->getSynopsis(\true)], $command->getAliases(), $command->getUsages()) as $usage) {
             $this->writeText("\n");
-            $this->writeText('  ' . \ECSPrefix20210530\Symfony\Component\Console\Formatter\OutputFormatter::escape($usage), $options);
+            $this->writeText('  ' . \ConfigTransformer20210601\Symfony\Component\Console\Formatter\OutputFormatter::escape($usage), $options);
         }
         $this->writeText("\n");
         $definition = $command->getDefinition();
@@ -150,10 +150,10 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
     /**
      * {@inheritdoc}
      */
-    protected function describeApplication(\ECSPrefix20210530\Symfony\Component\Console\Application $application, array $options = [])
+    protected function describeApplication(\ConfigTransformer20210601\Symfony\Component\Console\Application $application, array $options = [])
     {
         $describedNamespace = $options['namespace'] ?? null;
-        $description = new \ECSPrefix20210530\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);
+        $description = new \ConfigTransformer20210601\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);
         if (isset($options['raw_text']) && $options['raw_text']) {
             $width = $this->getColumnWidth($description->getCommands());
             foreach ($description->getCommands() as $command) {
@@ -166,7 +166,7 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
             }
             $this->writeText("<comment>Usage:</comment>\n", $options);
             $this->writeText("  command [options] [arguments]\n\n", $options);
-            $this->describeInputDefinition(new \ECSPrefix20210530\Symfony\Component\Console\Input\InputDefinition($application->getDefinition()->getOptions()), $options);
+            $this->describeInputDefinition(new \ConfigTransformer20210601\Symfony\Component\Console\Input\InputDefinition($application->getDefinition()->getOptions()), $options);
             $this->writeText("\n");
             $this->writeText("\n");
             $commands = $description->getCommands();
@@ -194,13 +194,13 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
                 if (!$namespace['commands']) {
                     continue;
                 }
-                if (!$describedNamespace && \ECSPrefix20210530\Symfony\Component\Console\Descriptor\ApplicationDescription::GLOBAL_NAMESPACE !== $namespace['id']) {
+                if (!$describedNamespace && \ConfigTransformer20210601\Symfony\Component\Console\Descriptor\ApplicationDescription::GLOBAL_NAMESPACE !== $namespace['id']) {
                     $this->writeText("\n");
                     $this->writeText(' <comment>' . $namespace['id'] . '</comment>', $options);
                 }
                 foreach ($namespace['commands'] as $name) {
                     $this->writeText("\n");
-                    $spacingWidth = $width - \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($name);
+                    $spacingWidth = $width - \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($name);
                     $command = $commands[$name];
                     $commandAliases = $name === $command->getName() ? $this->getCommandAliasesText($command) : '';
                     $this->writeText(\sprintf('  <info>%s</info>%s%s', $name, \str_repeat(' ', $spacingWidth), $commandAliases . $command->getDescription()), $options);
@@ -219,7 +219,7 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
     /**
      * Formats command aliases to show them in the command description.
      */
-    private function getCommandAliasesText(\ECSPrefix20210530\Symfony\Component\Console\Command\Command $command) : string
+    private function getCommandAliasesText(\ConfigTransformer20210601\Symfony\Component\Console\Command\Command $command) : string
     {
         $text = '';
         $aliases = $command->getAliases();
@@ -239,11 +239,11 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
             return 'INF';
         }
         if (\is_string($default)) {
-            $default = \ECSPrefix20210530\Symfony\Component\Console\Formatter\OutputFormatter::escape($default);
+            $default = \ConfigTransformer20210601\Symfony\Component\Console\Formatter\OutputFormatter::escape($default);
         } elseif (\is_array($default)) {
             foreach ($default as $key => $value) {
                 if (\is_string($value)) {
-                    $default[$key] = \ECSPrefix20210530\Symfony\Component\Console\Formatter\OutputFormatter::escape($value);
+                    $default[$key] = \ConfigTransformer20210601\Symfony\Component\Console\Formatter\OutputFormatter::escape($value);
                 }
             }
         }
@@ -256,13 +256,13 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
     {
         $widths = [];
         foreach ($commands as $command) {
-            if ($command instanceof \ECSPrefix20210530\Symfony\Component\Console\Command\Command) {
-                $widths[] = \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($command->getName());
+            if ($command instanceof \ConfigTransformer20210601\Symfony\Component\Console\Command\Command) {
+                $widths[] = \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($command->getName());
                 foreach ($command->getAliases() as $alias) {
-                    $widths[] = \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($alias);
+                    $widths[] = \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($alias);
                 }
             } else {
-                $widths[] = \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($command);
+                $widths[] = \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($command);
             }
         }
         return $widths ? \max($widths) + 2 : 0;
@@ -275,9 +275,12 @@ class TextDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descri
         $totalWidth = 0;
         foreach ($options as $option) {
             // "-" + shortcut + ", --" + name
-            $nameLength = 1 + \max(\ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($option->getShortcut()), 1) + 4 + \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($option->getName());
-            if ($option->acceptValue()) {
-                $valueLength = 1 + \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen($option->getName());
+            $nameLength = 1 + \max(\ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($option->getShortcut()), 1) + 4 + \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($option->getName());
+            if ($option->isNegatable()) {
+                $nameLength += 6 + \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($option->getName());
+                // |--no- + name
+            } elseif ($option->acceptValue()) {
+                $valueLength = 1 + \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width($option->getName());
                 // = + value
                 $valueLength += $option->isValueOptional() ? 2 : 0;
                 // [ + ]

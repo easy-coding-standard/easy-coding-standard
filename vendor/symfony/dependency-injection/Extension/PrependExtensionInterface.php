@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\DependencyInjection\Extension;
+namespace ConfigTransformer20210601\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
 interface PrependExtensionInterface
 {
     /**
      * Allow an extension to prepend the extension configurations.
      */
-    public function prepend(\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder $container);
+    public function prepend(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container);
 }

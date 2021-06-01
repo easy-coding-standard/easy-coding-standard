@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler;
+namespace ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Alias;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerInterface;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference;
 /**
  * Overwrites a service but keeps the overridden one.
  *
@@ -22,7 +22,7 @@ use ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Diego Saint Esteben <diego@saintesteben.me>
  */
-class DecoratorServicePass extends \ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class DecoratorServicePass extends \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $innerId = '.inner';
     /**
@@ -30,9 +30,12 @@ class DecoratorServicePass extends \ECSPrefix20210530\Symfony\Component\Dependen
      */
     public function __construct($innerId = '.inner')
     {
+        if (0 < \func_num_args()) {
+            trigger_deprecation('symfony/dependency-injection', '5.3', 'Configuring "%s" is deprecated.', __CLASS__);
+        }
         $this->innerId = $innerId;
     }
-    public function process(\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $definitions = new \SplPriorityQueue();
         $order = \PHP_INT_MAX;
@@ -46,7 +49,7 @@ class DecoratorServicePass extends \ECSPrefix20210530\Symfony\Component\Dependen
         foreach ($definitions as list($id, $definition)) {
             $decoratedService = $definition->getDecoratedService();
             list($inner, $renamedId) = $decoratedService;
-            $invalidBehavior = $decoratedService[3] ?? \ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+            $invalidBehavior = $decoratedService[3] ?? \ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             $definition->setDecoratedService(null);
             if (!$renamedId) {
                 $renamedId = $id . '.inner';
@@ -61,7 +64,7 @@ class DecoratorServicePass extends \ECSPrefix20210530\Symfony\Component\Dependen
                 $alias = $container->getAlias($inner);
                 $public = $alias->isPublic();
                 $private = $alias->isPrivate();
-                $container->setAlias($renamedId, new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Alias((string) $alias, \false));
+                $container->setAlias($renamedId, new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Alias((string) $alias, \false));
             } elseif ($container->hasDefinition($inner)) {
                 $decoratedDefinition = $container->getDefinition($inner);
                 $public = $decoratedDefinition->isPublic();
@@ -69,23 +72,25 @@ class DecoratorServicePass extends \ECSPrefix20210530\Symfony\Component\Dependen
                 $decoratedDefinition->setPublic(\false);
                 $container->setDefinition($renamedId, $decoratedDefinition);
                 $decoratingDefinitions[$inner] = $decoratedDefinition;
-            } elseif (\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $invalidBehavior) {
+            } elseif (\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $invalidBehavior) {
                 $container->removeDefinition($id);
                 continue;
-            } elseif (\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $invalidBehavior) {
+            } elseif (\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $invalidBehavior) {
                 $public = $definition->isPublic();
                 $private = $definition->isPrivate();
             } else {
-                throw new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($inner, $id);
+                throw new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($inner, $id);
             }
             if (isset($decoratingDefinitions[$inner])) {
                 $decoratingDefinition = $decoratingDefinitions[$inner];
                 $decoratingTags = $decoratingDefinition->getTags();
                 $resetTags = [];
-                if (isset($decoratingTags['container.service_locator'])) {
-                    // container.service_locator has special logic and it must not be transferred out to decorators
-                    $resetTags = ['container.service_locator' => $decoratingTags['container.service_locator']];
-                    unset($decoratingTags['container.service_locator']);
+                // container.service_locator and container.service_subscriber have special logic and they must not be transferred out to decorators
+                foreach (['container.service_locator', 'container.service_subscriber'] as $containerTag) {
+                    if (isset($decoratingTags[$containerTag])) {
+                        $resetTags[$containerTag] = $decoratingTags[$containerTag];
+                        unset($decoratingTags[$containerTag]);
+                    }
                 }
                 $definition->setTags(\array_merge($decoratingTags, $definition->getTags()));
                 $decoratingDefinition->setTags($resetTags);
@@ -96,8 +101,8 @@ class DecoratorServicePass extends \ECSPrefix20210530\Symfony\Component\Dependen
     }
     protected function processValue($value, bool $isRoot = \false)
     {
-        if ($value instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference && $this->innerId === (string) $value) {
-            return new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference($this->currentId, $value->getInvalidBehavior());
+        if ($value instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference && $this->innerId === (string) $value) {
+            return new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference($this->currentId, $value->getInvalidBehavior());
         }
         return parent::processValue($value, $isRoot);
     }

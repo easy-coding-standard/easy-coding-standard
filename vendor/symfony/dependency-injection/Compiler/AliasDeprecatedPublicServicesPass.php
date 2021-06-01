@@ -8,17 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler;
+namespace ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference;
-final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference;
+final class AliasDeprecatedPublicServicesPass extends \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $tagName;
     private $aliases = [];
     public function __construct(string $tagName = 'container.private')
     {
+        if (0 < \func_num_args()) {
+            trigger_deprecation('symfony/dependency-injection', '5.3', 'Configuring "%s" is deprecated.', __CLASS__);
+        }
         $this->tagName = $tagName;
     }
     /**
@@ -26,22 +29,22 @@ final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20210530\Symfony
      */
     protected function processValue($value, bool $isRoot = \false)
     {
-        if ($value instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
-            return new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());
+        if ($value instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
+            return new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());
         }
         return parent::processValue($value, $isRoot);
     }
     /**
      * {@inheritdoc}
      */
-    public function process(\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->findTaggedServiceIds($this->tagName) as $id => $tags) {
             if (null === ($package = $tags[0]['package'] ?? null)) {
-                throw new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "package" attribute is mandatory for the "%s" tag on the "%s" service.', $this->tagName, $id));
+                throw new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "package" attribute is mandatory for the "%s" tag on the "%s" service.', $this->tagName, $id));
             }
             if (null === ($version = $tags[0]['version'] ?? null)) {
-                throw new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "version" attribute is mandatory for the "%s" tag on the "%s" service.', $this->tagName, $id));
+                throw new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "version" attribute is mandatory for the "%s" tag on the "%s" service.', $this->tagName, $id));
             }
             $definition = $container->getDefinition($id);
             if (!$definition->isPublic() || $definition->isPrivate()) {

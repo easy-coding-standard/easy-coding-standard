@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpKernel\Controller;
+namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller;
 
-use ECSPrefix20210530\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface;
 /**
  * Responsible for resolving the arguments passed to an action.
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
-final class ArgumentResolver implements \ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface
+final class ArgumentResolver implements \ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface
 {
     private $argumentMetadataFactory;
     /**
@@ -33,15 +33,15 @@ final class ArgumentResolver implements \ECSPrefix20210530\Symfony\Component\Htt
     /**
      * @param mixed[] $argumentValueResolvers
      */
-    public function __construct(\ECSPrefix20210530\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, $argumentValueResolvers = [])
+    public function __construct(\ConfigTransformer20210601\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, $argumentValueResolvers = [])
     {
-        $this->argumentMetadataFactory = $argumentMetadataFactory ?? new \ECSPrefix20210530\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory();
+        $this->argumentMetadataFactory = $argumentMetadataFactory ?? new \ConfigTransformer20210601\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory();
         $this->argumentValueResolvers = $argumentValueResolvers ?: self::getDefaultArgumentValueResolvers();
     }
     /**
      * {@inheritdoc}
      */
-    public function getArguments(\ECSPrefix20210530\Symfony\Component\HttpFoundation\Request $request, callable $controller) : array
+    public function getArguments(\ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request, callable $controller) : array
     {
         $arguments = [];
         foreach ($this->argumentMetadataFactory->createArgumentMetadata($controller) as $metadata) {
@@ -76,6 +76,6 @@ final class ArgumentResolver implements \ECSPrefix20210530\Symfony\Component\Htt
      */
     public static function getDefaultArgumentValueResolvers()
     {
-        return [new \ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver(), new \ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver(), new \ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver(), new \ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver(), new \ECSPrefix20210530\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver()];
+        return [new \ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver(), new \ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver(), new \ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver(), new \ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver(), new \ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver()];
     }
 }

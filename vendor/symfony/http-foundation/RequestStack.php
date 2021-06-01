@@ -8,8 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpFoundation;
+namespace ConfigTransformer20210601\Symfony\Component\HttpFoundation;
 
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * Request stack that controls the lifecycle of requests.
  *
@@ -27,7 +29,7 @@ class RequestStack
      * This method should generally not be called directly as the stack
      * management should be taken care of by the application itself.
      */
-    public function push(\ECSPrefix20210530\Symfony\Component\HttpFoundation\Request $request)
+    public function push(\ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request)
     {
         $this->requests[] = $request;
     }
@@ -56,20 +58,31 @@ class RequestStack
         return \end($this->requests) ?: null;
     }
     /**
-     * Gets the master Request.
+     * Gets the main request.
      *
-     * Be warned that making your code aware of the master request
+     * Be warned that making your code aware of the main request
      * might make it un-compatible with other features of your framework
      * like ESI support.
-     *
-     * @return Request|null
+     * @return \Symfony\Component\HttpFoundation\Request|null
      */
-    public function getMasterRequest()
+    public function getMainRequest()
     {
         if (!$this->requests) {
             return null;
         }
         return $this->requests[0];
+    }
+    /**
+     * Gets the master request.
+     *
+     * @return Request|null
+     *
+     * @deprecated since symfony/http-foundation 5.3, use getMainRequest() instead
+     */
+    public function getMasterRequest()
+    {
+        trigger_deprecation('symfony/http-foundation', '5.3', '"%s()" is deprecated, use "getMainRequest()" instead.', __METHOD__);
+        return $this->getMainRequest();
     }
     /**
      * Returns the parent request of the current.
@@ -78,7 +91,7 @@ class RequestStack
      * might make it un-compatible with other features of your framework
      * like ESI support.
      *
-     * If current Request is the master request, it returns null.
+     * If current Request is the main request, it returns null.
      *
      * @return Request|null
      */
@@ -89,5 +102,17 @@ class RequestStack
             return null;
         }
         return $this->requests[$pos];
+    }
+    /**
+     * Gets the current session.
+     *
+     * @throws SessionNotFoundException
+     */
+    public function getSession() : \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Session\SessionInterface
+    {
+        if (null !== ($request = \end($this->requests) ?: null) && $request->hasSession()) {
+            return $request->getSession();
+        }
+        throw new \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException();
     }
 }

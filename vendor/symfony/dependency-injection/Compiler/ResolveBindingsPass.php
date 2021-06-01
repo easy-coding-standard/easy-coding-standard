@@ -8,22 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler;
+namespace ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\TypedReference;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Attribute\Target;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Definition;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * @author Guilhem Niot <guilhem.niot@gmail.com>
  */
-class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveBindingsPass extends \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $usedBindings = [];
     private $unusedBindings = [];
@@ -31,7 +32,7 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
     /**
      * {@inheritdoc}
      */
-    public function process(\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->usedBindings = $container->getRemovedBindingIds();
         try {
@@ -51,9 +52,9 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
                 if ($argumentName) {
                     $message .= \sprintf('named "%s" ', $argumentName);
                 }
-                if (\ECSPrefix20210530\Symfony\Component\DependencyInjection\Argument\BoundArgument::DEFAULTS_BINDING === $bindingType) {
+                if (\ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\BoundArgument::DEFAULTS_BINDING === $bindingType) {
                     $message .= 'under "_defaults"';
-                } elseif (\ECSPrefix20210530\Symfony\Component\DependencyInjection\Argument\BoundArgument::INSTANCEOF_BINDING === $bindingType) {
+                } elseif (\ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\BoundArgument::INSTANCEOF_BINDING === $bindingType) {
                     $message .= 'under "_instanceof"';
                 } else {
                     $message .= \sprintf('for service "%s"', $serviceId);
@@ -68,7 +69,7 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
                 foreach ($this->errorMessages as $m) {
                     $message .= "\n - " . $m;
                 }
-                throw new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException($message);
+                throw new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException($message);
             }
         } finally {
             $this->usedBindings = [];
@@ -81,7 +82,7 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
      */
     protected function processValue($value, bool $isRoot = \false)
     {
-        if ($value instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\TypedReference && $value->getType() === (string) $value) {
+        if ($value instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\TypedReference && $value->getType() === (string) $value) {
             // Already checked
             $bindings = $this->container->getDefinition($this->currentId)->getBindings();
             $name = $value->getName();
@@ -93,7 +94,7 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
             }
             return parent::processValue($value, $isRoot);
         }
-        if (!$value instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\Definition || !($bindings = $value->getBindings())) {
+        if (!$value instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Definition || !($bindings = $value->getBindings())) {
             return parent::processValue($value, $isRoot);
         }
         $bindingNames = [];
@@ -111,8 +112,8 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
             if (!isset($m[1])) {
                 continue;
             }
-            if (null !== $bindingValue && !$bindingValue instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference && !$bindingValue instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\Definition && !$bindingValue instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument && !$bindingValue instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
-                throw new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid value for binding key "%s" for service "%s": expected null, "%s", "%s", "%s" or ServiceLocatorArgument, "%s" given.', $key, $this->currentId, \ECSPrefix20210530\Symfony\Component\DependencyInjection\Reference::class, \ECSPrefix20210530\Symfony\Component\DependencyInjection\Definition::class, \ECSPrefix20210530\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::class, \get_debug_type($bindingValue)));
+            if (null !== $bindingValue && !$bindingValue instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference && !$bindingValue instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Definition && !$bindingValue instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument && !$bindingValue instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
+                throw new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid value for binding key "%s" for service "%s": expected null, "%s", "%s", "%s" or ServiceLocatorArgument, "%s" given.', $key, $this->currentId, \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference::class, \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Definition::class, \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument::class, \get_debug_type($bindingValue)));
             }
         }
         if ($value->isAbstract()) {
@@ -123,7 +124,7 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
             if ($constructor = $this->getConstructor($value, \false)) {
                 $calls[] = [$constructor, $value->getArguments()];
             }
-        } catch (\ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
+        } catch (\ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
             $this->errorMessages[] = $e->getMessage();
             $this->container->getDefinition($this->currentId)->addError($e->getMessage());
             return parent::processValue($value, $isRoot);
@@ -135,7 +136,7 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
             } else {
                 try {
                     $reflectionMethod = $this->getReflectionMethod($value, $method);
-                } catch (\ECSPrefix20210530\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
+                } catch (\ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
                     if ($value->getFactory()) {
                         continue;
                     }
@@ -146,20 +147,21 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
                 if (\array_key_exists($key, $arguments) && '' !== $arguments[$key]) {
                     continue;
                 }
-                $typeHint = \ECSPrefix20210530\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper::getTypeHint($reflectionMethod, $parameter);
-                if ($typeHint && \array_key_exists($k = \ltrim($typeHint, '\\') . ' $' . $parameter->name, $bindings)) {
+                $typeHint = \ConfigTransformer20210601\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper::getTypeHint($reflectionMethod, $parameter);
+                $name = \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Attribute\Target::parseName($parameter);
+                if ($typeHint && \array_key_exists($k = \ltrim($typeHint, '\\') . ' $' . $name, $bindings)) {
                     $arguments[$key] = $this->getBindingValue($bindings[$k]);
                     continue;
                 }
-                if (\array_key_exists('$' . $parameter->name, $bindings)) {
-                    $arguments[$key] = $this->getBindingValue($bindings['$' . $parameter->name]);
+                if (\array_key_exists('$' . $name, $bindings)) {
+                    $arguments[$key] = $this->getBindingValue($bindings['$' . $name]);
                     continue;
                 }
                 if ($typeHint && '\\' === $typeHint[0] && isset($bindings[$typeHint = \substr($typeHint, 1)])) {
                     $arguments[$key] = $this->getBindingValue($bindings[$typeHint]);
                     continue;
                 }
-                if (isset($bindingNames[$parameter->name])) {
+                if (isset($bindingNames[$name]) || isset($bindingNames[$parameter->name])) {
                     $bindingKey = \array_search($binding, $bindings, \true);
                     $argumentType = \substr($bindingKey, 0, \strpos($bindingKey, ' '));
                     $this->errorMessages[] = \sprintf('Did you forget to add the type "%s" to argument "$%s" of method "%s::%s()"?', $argumentType, $parameter->name, $reflectionMethod->class, $reflectionMethod->name);
@@ -184,7 +186,7 @@ class ResolveBindingsPass extends \ECSPrefix20210530\Symfony\Component\Dependenc
     /**
      * @return mixed
      */
-    private function getBindingValue(\ECSPrefix20210530\Symfony\Component\DependencyInjection\Argument\BoundArgument $binding)
+    private function getBindingValue(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\BoundArgument $binding)
     {
         list($bindingValue, $bindingId) = $binding->getValues();
         $this->usedBindings[$bindingId] = \true;

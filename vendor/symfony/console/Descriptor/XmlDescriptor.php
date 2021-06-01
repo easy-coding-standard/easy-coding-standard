@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\Console\Descriptor;
+namespace ConfigTransformer20210601\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20210530\Symfony\Component\Console\Application;
-use ECSPrefix20210530\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210530\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210530\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20210530\Symfony\Component\Console\Input\InputOption;
+use ConfigTransformer20210601\Symfony\Component\Console\Application;
+use ConfigTransformer20210601\Symfony\Component\Console\Command\Command;
+use ConfigTransformer20210601\Symfony\Component\Console\Input\InputArgument;
+use ConfigTransformer20210601\Symfony\Component\Console\Input\InputDefinition;
+use ConfigTransformer20210601\Symfony\Component\Console\Input\InputOption;
 /**
  * XML descriptor.
  *
@@ -22,9 +22,9 @@ use ECSPrefix20210530\Symfony\Component\Console\Input\InputOption;
  *
  * @internal
  */
-class XmlDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descriptor\Descriptor
+class XmlDescriptor extends \ConfigTransformer20210601\Symfony\Component\Console\Descriptor\Descriptor
 {
-    public function getInputDefinitionDocument(\ECSPrefix20210530\Symfony\Component\Console\Input\InputDefinition $definition) : \DOMDocument
+    public function getInputDefinitionDocument(\ConfigTransformer20210601\Symfony\Component\Console\Input\InputDefinition $definition) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($definitionXML = $dom->createElement('definition'));
@@ -38,27 +38,33 @@ class XmlDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descrip
         }
         return $dom;
     }
-    public function getCommandDocument(\ECSPrefix20210530\Symfony\Component\Console\Command\Command $command) : \DOMDocument
+    public function getCommandDocument(\ConfigTransformer20210601\Symfony\Component\Console\Command\Command $command, bool $short = \false) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($commandXML = $dom->createElement('command'));
-        $command->mergeApplicationDefinition(\false);
         $commandXML->setAttribute('id', $command->getName());
         $commandXML->setAttribute('name', $command->getName());
         $commandXML->setAttribute('hidden', $command->isHidden() ? 1 : 0);
         $commandXML->appendChild($usagesXML = $dom->createElement('usages'));
-        foreach (\array_merge([$command->getSynopsis()], $command->getAliases(), $command->getUsages()) as $usage) {
-            $usagesXML->appendChild($dom->createElement('usage', $usage));
-        }
         $commandXML->appendChild($descriptionXML = $dom->createElement('description'));
         $descriptionXML->appendChild($dom->createTextNode(\str_replace("\n", "\n ", $command->getDescription())));
-        $commandXML->appendChild($helpXML = $dom->createElement('help'));
-        $helpXML->appendChild($dom->createTextNode(\str_replace("\n", "\n ", $command->getProcessedHelp())));
-        $definitionXML = $this->getInputDefinitionDocument($command->getDefinition());
-        $this->appendDocument($commandXML, $definitionXML->getElementsByTagName('definition')->item(0));
+        if ($short) {
+            foreach ($command->getAliases() as $usage) {
+                $usagesXML->appendChild($dom->createElement('usage', $usage));
+            }
+        } else {
+            $command->mergeApplicationDefinition(\false);
+            foreach (\array_merge([$command->getSynopsis()], $command->getAliases(), $command->getUsages()) as $usage) {
+                $usagesXML->appendChild($dom->createElement('usage', $usage));
+            }
+            $commandXML->appendChild($helpXML = $dom->createElement('help'));
+            $helpXML->appendChild($dom->createTextNode(\str_replace("\n", "\n ", $command->getProcessedHelp())));
+            $definitionXML = $this->getInputDefinitionDocument($command->getDefinition());
+            $this->appendDocument($commandXML, $definitionXML->getElementsByTagName('definition')->item(0));
+        }
         return $dom;
     }
-    public function getApplicationDocument(\ECSPrefix20210530\Symfony\Component\Console\Application $application, string $namespace = null) : \DOMDocument
+    public function getApplicationDocument(\ConfigTransformer20210601\Symfony\Component\Console\Application $application, string $namespace = null, bool $short = \false) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($rootXml = $dom->createElement('symfony'));
@@ -69,12 +75,12 @@ class XmlDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descrip
             }
         }
         $rootXml->appendChild($commandsXML = $dom->createElement('commands'));
-        $description = new \ECSPrefix20210530\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
+        $description = new \ConfigTransformer20210601\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
         if ($namespace) {
             $commandsXML->setAttribute('namespace', $namespace);
         }
         foreach ($description->getCommands() as $command) {
-            $this->appendDocument($commandsXML, $this->getCommandDocument($command));
+            $this->appendDocument($commandsXML, $this->getCommandDocument($command, $short));
         }
         if (!$namespace) {
             $rootXml->appendChild($namespacesXML = $dom->createElement('namespaces'));
@@ -92,37 +98,37 @@ class XmlDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descrip
     /**
      * {@inheritdoc}
      */
-    protected function describeInputArgument(\ECSPrefix20210530\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
+    protected function describeInputArgument(\ConfigTransformer20210601\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
     {
         $this->writeDocument($this->getInputArgumentDocument($argument));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeInputOption(\ECSPrefix20210530\Symfony\Component\Console\Input\InputOption $option, array $options = [])
+    protected function describeInputOption(\ConfigTransformer20210601\Symfony\Component\Console\Input\InputOption $option, array $options = [])
     {
         $this->writeDocument($this->getInputOptionDocument($option));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeInputDefinition(\ECSPrefix20210530\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
+    protected function describeInputDefinition(\ConfigTransformer20210601\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
     {
         $this->writeDocument($this->getInputDefinitionDocument($definition));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeCommand(\ECSPrefix20210530\Symfony\Component\Console\Command\Command $command, array $options = [])
+    protected function describeCommand(\ConfigTransformer20210601\Symfony\Component\Console\Command\Command $command, array $options = [])
     {
-        $this->writeDocument($this->getCommandDocument($command));
+        $this->writeDocument($this->getCommandDocument($command, $options['short'] ?? \false));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeApplication(\ECSPrefix20210530\Symfony\Component\Console\Application $application, array $options = [])
+    protected function describeApplication(\ConfigTransformer20210601\Symfony\Component\Console\Application $application, array $options = [])
     {
-        $this->writeDocument($this->getApplicationDocument($application, $options['namespace'] ?? null));
+        $this->writeDocument($this->getApplicationDocument($application, $options['namespace'] ?? null, $options['short'] ?? \false));
     }
     /**
      * Appends document children to parent node.
@@ -141,7 +147,7 @@ class XmlDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descrip
         $dom->formatOutput = \true;
         $this->write($dom->saveXML());
     }
-    private function getInputArgumentDocument(\ECSPrefix20210530\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
+    private function getInputArgumentDocument(\ConfigTransformer20210601\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('argument'));
@@ -158,7 +164,7 @@ class XmlDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descrip
         }
         return $dom;
     }
-    private function getInputOptionDocument(\ECSPrefix20210530\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
+    private function getInputOptionDocument(\ConfigTransformer20210601\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('option'));
@@ -184,6 +190,16 @@ class XmlDescriptor extends \ECSPrefix20210530\Symfony\Component\Console\Descrip
                     $defaultXML->appendChild($dom->createTextNode($default));
                 }
             }
+        }
+        if ($option->isNegatable()) {
+            $dom->appendChild($objectXML = $dom->createElement('option'));
+            $objectXML->setAttribute('name', '--no-' . $option->getName());
+            $objectXML->setAttribute('shortcut', '');
+            $objectXML->setAttribute('accept_value', 0);
+            $objectXML->setAttribute('is_value_required', 0);
+            $objectXML->setAttribute('is_multiple', 0);
+            $objectXML->appendChild($descriptionXML = $dom->createElement('description'));
+            $descriptionXML->appendChild($dom->createTextNode('Negate the "--' . $option->getName() . '" option'));
         }
         return $dom;
     }

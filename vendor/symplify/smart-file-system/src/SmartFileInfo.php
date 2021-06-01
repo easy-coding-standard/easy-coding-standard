@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210530\Symplify\SmartFileSystem;
+namespace ConfigTransformer20210601\Symplify\SmartFileSystem;
 
-use ECSPrefix20210530\Nette\Utils\Strings;
-use ECSPrefix20210530\Symfony\Component\Finder\SplFileInfo;
-use ECSPrefix20210530\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
-use ECSPrefix20210530\Symplify\EasyTesting\StaticFixtureSplitter;
-use ECSPrefix20210530\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
-use ECSPrefix20210530\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use ConfigTransformer20210601\Nette\Utils\Strings;
+use ConfigTransformer20210601\Symfony\Component\Finder\SplFileInfo;
+use ConfigTransformer20210601\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
+use ConfigTransformer20210601\Symplify\EasyTesting\StaticFixtureSplitter;
+use ConfigTransformer20210601\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
+use ConfigTransformer20210601\Symplify\SmartFileSystem\Exception\FileNotFoundException;
 /**
  * @see \Symplify\SmartFileSystem\Tests\SmartFileInfo\SmartFileInfoTest
  */
-final class SmartFileInfo extends \ECSPrefix20210530\Symfony\Component\Finder\SplFileInfo
+final class SmartFileInfo extends \ConfigTransformer20210601\Symfony\Component\Finder\SplFileInfo
 {
     /**
      * @var string
@@ -25,13 +25,13 @@ final class SmartFileInfo extends \ECSPrefix20210530\Symfony\Component\Finder\Sp
     private $smartFileSystem;
     public function __construct(string $filePath)
     {
-        $this->smartFileSystem = new \ECSPrefix20210530\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->smartFileSystem = new \ConfigTransformer20210601\Symplify\SmartFileSystem\SmartFileSystem();
         // accepts also dirs
         if (!\file_exists($filePath)) {
-            throw new \ECSPrefix20210530\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File path "%s" was not found while creating "%s" object.', $filePath, self::class));
+            throw new \ConfigTransformer20210601\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File path "%s" was not found while creating "%s" object.', $filePath, self::class));
         }
         // real path doesn't work in PHAR: https://www.php.net/manual/en/function.realpath.php
-        if (\ECSPrefix20210530\Nette\Utils\Strings::startsWith($filePath, 'phar://')) {
+        if (\ConfigTransformer20210601\Nette\Utils\Strings::startsWith($filePath, 'phar://')) {
             $relativeFilePath = $filePath;
             $relativeDirectoryPath = \dirname($filePath);
         } else {
@@ -58,7 +58,7 @@ final class SmartFileInfo extends \ECSPrefix20210530\Symfony\Component\Finder\Sp
     }
     public function getRealPathWithoutSuffix() : string
     {
-        return \ECSPrefix20210530\Nette\Utils\Strings::replace($this->getRealPath(), self::LAST_SUFFIX_REGEX, '');
+        return \ConfigTransformer20210601\Nette\Utils\Strings::replace($this->getRealPath(), self::LAST_SUFFIX_REGEX, '');
     }
     public function getRelativeFilePath() : string
     {
@@ -71,7 +71,7 @@ final class SmartFileInfo extends \ECSPrefix20210530\Symfony\Component\Finder\Sp
     public function getRelativeFilePathFromDirectory(string $directory) : string
     {
         if (!\file_exists($directory)) {
-            throw new \ECSPrefix20210530\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException(\sprintf('Directory "%s" was not found in %s.', $directory, self::class));
+            throw new \ConfigTransformer20210601\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException(\sprintf('Directory "%s" was not found in %s.', $directory, self::class));
         }
         $relativeFilePath = $this->smartFileSystem->makePathRelative($this->getNormalizedRealPath(), (string) \realpath($directory));
         return \rtrim($relativeFilePath, '/');
@@ -79,8 +79,8 @@ final class SmartFileInfo extends \ECSPrefix20210530\Symfony\Component\Finder\Sp
     public function getRelativeFilePathFromCwdInTests() : string
     {
         // special case for tests
-        if (\ECSPrefix20210530\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            return $this->getRelativeFilePathFromDirectory(\ECSPrefix20210530\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath());
+        if (\ConfigTransformer20210601\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            return $this->getRelativeFilePathFromDirectory(\ConfigTransformer20210601\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath());
         }
         return $this->getRelativeFilePathFromDirectory(\getcwd());
     }
@@ -90,7 +90,7 @@ final class SmartFileInfo extends \ECSPrefix20210530\Symfony\Component\Finder\Sp
     }
     public function endsWith(string $string) : bool
     {
-        return \ECSPrefix20210530\Nette\Utils\Strings::endsWith($this->getNormalizedRealPath(), $string);
+        return \ConfigTransformer20210601\Nette\Utils\Strings::endsWith($this->getNormalizedRealPath(), $string);
     }
     public function doesFnmatch(string $string) : bool
     {
@@ -111,7 +111,7 @@ final class SmartFileInfo extends \ECSPrefix20210530\Symfony\Component\Finder\Sp
     }
     public function startsWith(string $partialPath) : bool
     {
-        return \ECSPrefix20210530\Nette\Utils\Strings::startsWith($this->getNormalizedRealPath(), $partialPath);
+        return \ConfigTransformer20210601\Nette\Utils\Strings::startsWith($this->getNormalizedRealPath(), $partialPath);
     }
     private function getNormalizedRealPath() : string
     {

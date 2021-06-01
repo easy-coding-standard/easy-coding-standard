@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\VarDumper\Dumper\ContextProvider;
+namespace ConfigTransformer20210601\Symfony\Component\VarDumper\Dumper\ContextProvider;
 
-use ECSPrefix20210530\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210530\Symfony\Component\VarDumper\Caster\ReflectionCaster;
-use ECSPrefix20210530\Symfony\Component\VarDumper\Cloner\VarCloner;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\RequestStack;
+use ConfigTransformer20210601\Symfony\Component\VarDumper\Caster\ReflectionCaster;
+use ConfigTransformer20210601\Symfony\Component\VarDumper\Cloner\VarCloner;
 /**
  * Tries to provide context from a request.
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-final class RequestContextProvider implements \ECSPrefix20210530\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface
+final class RequestContextProvider implements \ConfigTransformer20210601\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface
 {
     private $requestStack;
     private $cloner;
-    public function __construct(\ECSPrefix20210530\Symfony\Component\HttpFoundation\RequestStack $requestStack)
+    public function __construct(\ConfigTransformer20210601\Symfony\Component\HttpFoundation\RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
-        $this->cloner = new \ECSPrefix20210530\Symfony\Component\VarDumper\Cloner\VarCloner();
+        $this->cloner = new \ConfigTransformer20210601\Symfony\Component\VarDumper\Cloner\VarCloner();
         $this->cloner->setMaxItems(0);
-        $this->cloner->addCasters(\ECSPrefix20210530\Symfony\Component\VarDumper\Caster\ReflectionCaster::UNSET_CLOSURE_FILE_INFO);
+        $this->cloner->addCasters(\ConfigTransformer20210601\Symfony\Component\VarDumper\Caster\ReflectionCaster::UNSET_CLOSURE_FILE_INFO);
     }
     /**
      * @return mixed[]|null

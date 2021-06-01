@@ -8,39 +8,40 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpKernel;
+namespace ConfigTransformer20210601\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210530\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator;
-use ECSPrefix20210530\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper;
-use ECSPrefix20210530\Symfony\Component\Config\ConfigCache;
-use ECSPrefix20210530\Symfony\Component\Config\Loader\DelegatingLoader;
-use ECSPrefix20210530\Symfony\Component\Config\Loader\LoaderResolver;
-use ECSPrefix20210530\Symfony\Component\Debug\DebugClassLoader as LegacyDebugClassLoader;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler\PassConfig;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Dumper\PhpDumper;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Dumper\Preloader;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\ClosureLoader;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\IniFileLoader;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use ECSPrefix20210530\Symfony\Component\ErrorHandler\DebugClassLoader;
-use ECSPrefix20210530\Symfony\Component\Filesystem\Filesystem;
-use ECSPrefix20210530\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210530\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Config\FileLocator;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
+use ConfigTransformer20210601\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator;
+use ConfigTransformer20210601\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper;
+use ConfigTransformer20210601\Symfony\Component\Config\Builder\ConfigBuilderGenerator;
+use ConfigTransformer20210601\Symfony\Component\Config\ConfigCache;
+use ConfigTransformer20210601\Symfony\Component\Config\Loader\DelegatingLoader;
+use ConfigTransformer20210601\Symfony\Component\Config\Loader\LoaderResolver;
+use ConfigTransformer20210601\Symfony\Component\Debug\DebugClassLoader as LegacyDebugClassLoader;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerInterface;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Dumper\Preloader;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\ClosureLoader;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\IniFileLoader;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use ConfigTransformer20210601\Symfony\Component\ErrorHandler\DebugClassLoader;
+use ConfigTransformer20210601\Symfony\Component\Filesystem\Filesystem;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Config\FileLocator;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210530\Symfony\Component\Config\ConfigCache::class);
+\class_exists(\ConfigTransformer20210601\Symfony\Component\Config\ConfigCache::class);
 /**
  * The Kernel is the heart of the Symfony system.
  *
@@ -51,7 +52,7 @@ use ECSPrefix20210530\Symfony\Component\HttpKernel\DependencyInjection\MergeExte
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel\KernelInterface, \ECSPrefix20210530\Symfony\Component\HttpKernel\RebootableInterface, \ECSPrefix20210530\Symfony\Component\HttpKernel\TerminableInterface
+abstract class Kernel implements \ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelInterface, \ConfigTransformer20210601\Symfony\Component\HttpKernel\RebootableInterface, \ConfigTransformer20210601\Symfony\Component\HttpKernel\TerminableInterface
 {
     /**
      * @var BundleInterface[]
@@ -67,17 +68,19 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
     private $requestStackSize = 0;
     private $resetServices = \false;
     private static $freshCache = [];
-    const VERSION = '5.2.9';
-    const VERSION_ID = 50209;
+    const VERSION = '5.3.0';
+    const VERSION_ID = 50300;
     const MAJOR_VERSION = 5;
-    const MINOR_VERSION = 2;
-    const RELEASE_VERSION = 9;
+    const MINOR_VERSION = 3;
+    const RELEASE_VERSION = 0;
     const EXTRA_VERSION = '';
-    const END_OF_MAINTENANCE = '07/2021';
-    const END_OF_LIFE = '07/2021';
+    const END_OF_MAINTENANCE = '05/2021';
+    const END_OF_LIFE = '01/2022';
     public function __construct(string $environment, bool $debug)
     {
-        $this->environment = $environment;
+        if (!($this->environment = $environment)) {
+            throw new \InvalidArgumentException(\sprintf('Invalid environment provided to "%s": the environment cannot be empty.', \get_debug_type($this)));
+        }
         $this->debug = $debug;
     }
     public function __clone()
@@ -126,12 +129,12 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
     /**
      * {@inheritdoc}
      */
-    public function terminate(\ECSPrefix20210530\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210530\Symfony\Component\HttpFoundation\Response $response)
+    public function terminate(\ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request, \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response $response)
     {
         if (\false === $this->booted) {
             return;
         }
-        if ($this->getHttpKernel() instanceof \ECSPrefix20210530\Symfony\Component\HttpKernel\TerminableInterface) {
+        if ($this->getHttpKernel() instanceof \ConfigTransformer20210601\Symfony\Component\HttpKernel\TerminableInterface) {
             $this->getHttpKernel()->terminate($request, $response);
         }
     }
@@ -155,7 +158,7 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
     /**
      * {@inheritdoc}
      */
-    public function handle(\ECSPrefix20210530\Symfony\Component\HttpFoundation\Request $request, int $type = \ECSPrefix20210530\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true)
+    public function handle(\ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request, int $type = \ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST, bool $catch = \true)
     {
         if (!$this->booted) {
             $container = $this->container ?? $this->preBoot();
@@ -339,7 +342,7 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
      *
      * Use this method to register compiler passes and manipulate the container during the building process.
      */
-    protected function build(\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    protected function build(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
     }
     /**
@@ -352,7 +355,7 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
     protected function getContainerClass()
     {
         $class = static::class;
-        $class = \false !== \strpos($class, "@anonymous\0") ? \get_parent_class($class) . \str_replace('.', '_', \ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder::hash($class)) : $class;
+        $class = \false !== \strpos($class, "@anonymous\0") ? \get_parent_class($class) . \str_replace('.', '_', \ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder::hash($class)) : $class;
         $class = \str_replace('\\', '_', $class) . \ucfirst($this->environment) . ($this->debug ? 'Debug' : '') . 'Container';
         if (!\preg_match('/^[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*$/', $class)) {
             throw new \InvalidArgumentException(\sprintf('The environment "%s" contains invalid characters, it can only contain characters allowed in PHP class names.', $this->environment));
@@ -380,7 +383,7 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
     {
         $class = $this->getContainerClass();
         $buildDir = $this->warmupDir ?: $this->getBuildDir();
-        $cache = new \ECSPrefix20210530\Symfony\Component\Config\ConfigCache($buildDir . '/' . $class . '.php', $this->debug);
+        $cache = new \ConfigTransformer20210601\Symfony\Component\Config\ConfigCache($buildDir . '/' . $class . '.php', $this->debug);
         $cachePath = $cache->getPath();
         // Silence E_WARNING to ignore "include" failures - don't use "@" to prevent silencing fatal errors
         $errorLevel = \error_reporting(\E_ALL ^ \E_WARNING);
@@ -445,7 +448,7 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
                 }
                 // Remove frames added by DebugClassLoader.
                 for ($i = \count($backtrace) - 2; 0 < $i; --$i) {
-                    if (\in_array($backtrace[$i]['class'] ?? null, [\ECSPrefix20210530\Symfony\Component\ErrorHandler\DebugClassLoader::class, \ECSPrefix20210530\Symfony\Component\Debug\DebugClassLoader::class], \true)) {
+                    if (\in_array($backtrace[$i]['class'] ?? null, [\ConfigTransformer20210601\Symfony\Component\ErrorHandler\DebugClassLoader::class, \ConfigTransformer20210601\Symfony\Component\Debug\DebugClassLoader::class], \true)) {
                         $backtrace = [$backtrace[$i + 1]];
                         break;
                     }
@@ -481,17 +484,17 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
             $legacyContainers[$oldContainerDir . '.legacy'] = \true;
             foreach (\glob(\dirname($oldContainerDir) . \DIRECTORY_SEPARATOR . '*.legacy', \GLOB_NOSORT) as $legacyContainer) {
                 if (!isset($legacyContainers[$legacyContainer]) && @\unlink($legacyContainer)) {
-                    (new \ECSPrefix20210530\Symfony\Component\Filesystem\Filesystem())->remove(\substr($legacyContainer, 0, -7));
+                    (new \ConfigTransformer20210601\Symfony\Component\Filesystem\Filesystem())->remove(\substr($legacyContainer, 0, -7));
                 }
             }
             \touch($oldContainerDir . '.legacy');
         }
-        $preload = $this instanceof \ECSPrefix20210530\Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface ? (array) $this->warmUp($this->container->getParameter('kernel.cache_dir')) : [];
+        $preload = $this instanceof \ConfigTransformer20210601\Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface ? (array) $this->warmUp($this->container->getParameter('kernel.cache_dir')) : [];
         if ($this->container->has('cache_warmer')) {
             $preload = \array_merge($preload, (array) $this->container->get('cache_warmer')->warmUp($this->container->getParameter('kernel.cache_dir')));
         }
-        if ($preload && \method_exists(\ECSPrefix20210530\Symfony\Component\DependencyInjection\Dumper\Preloader::class, 'append') && \file_exists($preloadFile = $buildDir . '/' . $class . '.preload.php')) {
-            \ECSPrefix20210530\Symfony\Component\DependencyInjection\Dumper\Preloader::append($preloadFile, $preload);
+        if ($preload && \method_exists(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\Dumper\Preloader::class, 'append') && \file_exists($preloadFile = $buildDir . '/' . $class . '.preload.php')) {
+            \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Dumper\Preloader::append($preloadFile, $preload);
         }
     }
     /**
@@ -531,15 +534,16 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
         $container->addObjectResource($this);
         $this->prepareContainer($container);
         if (null !== ($cont = $this->registerContainerConfiguration($this->getContainerLoader($container)))) {
+            trigger_deprecation('symfony/http-kernel', '5.3', 'Returning a ContainerBuilder from "%s::registerContainerConfiguration()" is deprecated.', \get_debug_type($this));
             $container->merge($cont);
         }
-        $container->addCompilerPass(new \ECSPrefix20210530\Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass($this));
+        $container->addCompilerPass(new \ConfigTransformer20210601\Symfony\Component\HttpKernel\DependencyInjection\AddAnnotatedClassesToCachePass($this));
         return $container;
     }
     /**
      * Prepares the ContainerBuilder before it is compiled.
      */
-    protected function prepareContainer(\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    protected function prepareContainer(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $extensions = [];
         foreach ($this->bundles as $bundle) {
@@ -558,7 +562,7 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
             $extensions[] = $extension->getAlias();
         }
         // ensure these extensions are implicitly loaded
-        $container->getCompilerPassConfig()->setMergePass(new \ECSPrefix20210530\Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass($extensions));
+        $container->getCompilerPassConfig()->setMergePass(new \ConfigTransformer20210601\Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass($extensions));
     }
     /**
      * Gets a new ContainerBuilder instance used to build the service container.
@@ -567,16 +571,16 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
      */
     protected function getContainerBuilder()
     {
-        $container = new \ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $container = new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder();
         $container->getParameterBag()->add($this->getKernelParameters());
-        if ($this instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\Extension\ExtensionInterface) {
+        if ($this instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Extension\ExtensionInterface) {
             $container->registerExtension($this);
         }
-        if ($this instanceof \ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface) {
-            $container->addCompilerPass($this, \ECSPrefix20210530\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, -10000);
+        if ($this instanceof \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface) {
+            $container->addCompilerPass($this, \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, -10000);
         }
-        if (\class_exists(\ECSPrefix20210530\ProxyManager\Configuration::class) && \class_exists(\ECSPrefix20210530\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator::class)) {
-            $container->setProxyInstantiator(new \ECSPrefix20210530\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator());
+        if (\class_exists(\ConfigTransformer20210601\ProxyManager\Configuration::class) && \class_exists(\ConfigTransformer20210601\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator::class)) {
+            $container->setProxyInstantiator(new \ConfigTransformer20210601\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator());
         }
         return $container;
     }
@@ -586,17 +590,17 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
      * @param string $class     The name of the class to generate
      * @param string $baseClass The name of the container's base class
      */
-    protected function dumpContainer(\ECSPrefix20210530\Symfony\Component\Config\ConfigCache $cache, \ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $class, string $baseClass)
+    protected function dumpContainer(\ConfigTransformer20210601\Symfony\Component\Config\ConfigCache $cache, \ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $class, string $baseClass)
     {
         // cache the container
-        $dumper = new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Dumper\PhpDumper($container);
-        if (\class_exists(\ECSPrefix20210530\ProxyManager\Configuration::class) && \class_exists(\ECSPrefix20210530\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper::class)) {
-            $dumper->setProxyDumper(new \ECSPrefix20210530\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper());
+        $dumper = new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Dumper\PhpDumper($container);
+        if (\class_exists(\ConfigTransformer20210601\ProxyManager\Configuration::class) && \class_exists(\ConfigTransformer20210601\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper::class)) {
+            $dumper->setProxyDumper(new \ConfigTransformer20210601\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper());
         }
         $content = $dumper->dump(['class' => $class, 'base_class' => $baseClass, 'file' => $cache->getPath(), 'as_files' => \true, 'debug' => $this->debug, 'build_time' => $container->hasParameter('kernel.container_build_time') ? $container->getParameter('kernel.container_build_time') : \time(), 'preload_classes' => \array_map('get_class', $this->bundles)]);
         $rootCode = \array_pop($content);
         $dir = \dirname($cache->getPath()) . '/';
-        $fs = new \ECSPrefix20210530\Symfony\Component\Filesystem\Filesystem();
+        $fs = new \ConfigTransformer20210601\Symfony\Component\Filesystem\Filesystem();
         foreach ($content as $file => $code) {
             $fs->dumpFile($dir . $file, $code);
             @\chmod($dir . $file, 0666 & ~\umask());
@@ -612,13 +616,14 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
      *
      * @return DelegatingLoader The loader
      */
-    protected function getContainerLoader(\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    protected function getContainerLoader(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
-        $locator = new \ECSPrefix20210530\Symfony\Component\HttpKernel\Config\FileLocator($this);
-        $resolver = new \ECSPrefix20210530\Symfony\Component\Config\Loader\LoaderResolver([new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\XmlFileLoader($container, $locator), new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, $locator), new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\IniFileLoader($container, $locator), new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($container, $locator), new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($container, $locator), new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\DirectoryLoader($container, $locator), new \ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader\ClosureLoader($container)]);
-        return new \ECSPrefix20210530\Symfony\Component\Config\Loader\DelegatingLoader($resolver);
+        $env = $this->getEnvironment();
+        $locator = new \ConfigTransformer20210601\Symfony\Component\HttpKernel\Config\FileLocator($this);
+        $resolver = new \ConfigTransformer20210601\Symfony\Component\Config\Loader\LoaderResolver([new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\XmlFileLoader($container, $locator, $env), new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, $locator, $env), new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\IniFileLoader($container, $locator, $env), new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($container, $locator, $env, \class_exists(\ConfigTransformer20210601\Symfony\Component\Config\Builder\ConfigBuilderGenerator::class) ? new \ConfigTransformer20210601\Symfony\Component\Config\Builder\ConfigBuilderGenerator($this->getBuildDir()) : null), new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($container, $locator, $env), new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\DirectoryLoader($container, $locator, $env), new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\ClosureLoader($container, $env)]);
+        return new \ConfigTransformer20210601\Symfony\Component\Config\Loader\DelegatingLoader($resolver);
     }
-    private function preBoot() : \ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerInterface
+    private function preBoot() : \ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerInterface
     {
         if ($this->debug) {
             $this->startTime = \microtime(\true);
@@ -632,10 +637,10 @@ abstract class Kernel implements \ECSPrefix20210530\Symfony\Component\HttpKernel
         $this->initializeContainer();
         $container = $this->container;
         if ($container->hasParameter('kernel.trusted_hosts') && ($trustedHosts = $container->getParameter('kernel.trusted_hosts'))) {
-            \ECSPrefix20210530\Symfony\Component\HttpFoundation\Request::setTrustedHosts($trustedHosts);
+            \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request::setTrustedHosts($trustedHosts);
         }
         if ($container->hasParameter('kernel.trusted_proxies') && $container->hasParameter('kernel.trusted_headers') && ($trustedProxies = $container->getParameter('kernel.trusted_proxies'))) {
-            \ECSPrefix20210530\Symfony\Component\HttpFoundation\Request::setTrustedProxies(\is_array($trustedProxies) ? $trustedProxies : \array_map('trim', \explode(',', $trustedProxies)), $container->getParameter('kernel.trusted_headers'));
+            \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request::setTrustedProxies(\is_array($trustedProxies) ? $trustedProxies : \array_map('trim', \explode(',', $trustedProxies)), $container->getParameter('kernel.trusted_headers'));
         }
         return $container;
     }

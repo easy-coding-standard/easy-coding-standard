@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpKernel\DataCollector;
+namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210530\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210530\Symfony\Component\HttpFoundation\Response;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response;
 /**
  * MemoryDataCollector.
  *
@@ -19,7 +19,7 @@ use ECSPrefix20210530\Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
-class MemoryDataCollector extends \ECSPrefix20210530\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210530\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class MemoryDataCollector extends \ConfigTransformer20210601\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ConfigTransformer20210601\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
 {
     public function __construct()
     {
@@ -28,7 +28,7 @@ class MemoryDataCollector extends \ECSPrefix20210530\Symfony\Component\HttpKerne
     /**
      * {@inheritdoc}
      */
-    public function collect(\ECSPrefix20210530\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210530\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect(\ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request, \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $this->updateMemoryUsage();
     }

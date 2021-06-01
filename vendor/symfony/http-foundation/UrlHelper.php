@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpFoundation;
+namespace ConfigTransformer20210601\Symfony\Component\HttpFoundation;
 
-use ECSPrefix20210530\Symfony\Component\Routing\RequestContext;
+use ConfigTransformer20210601\Symfony\Component\Routing\RequestContext;
 /**
  * A helper service for manipulating URLs within and outside the request scope.
  *
@@ -20,7 +20,7 @@ final class UrlHelper
 {
     private $requestStack;
     private $requestContext;
-    public function __construct(\ECSPrefix20210530\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20210530\Symfony\Component\Routing\RequestContext $requestContext = null)
+    public function __construct(\ConfigTransformer20210601\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ConfigTransformer20210601\Symfony\Component\Routing\RequestContext $requestContext = null)
     {
         $this->requestStack = $requestStack;
         $this->requestContext = $requestContext;
@@ -30,7 +30,7 @@ final class UrlHelper
         if (\false !== \strpos($path, '://') || '//' === \substr($path, 0, 2)) {
             return $path;
         }
-        if (null === ($request = $this->requestStack->getMasterRequest())) {
+        if (null === ($request = $this->requestStack->getMainRequest())) {
             return $this->getAbsoluteUrlFromContext($path);
         }
         if ('#' === $path[0]) {
@@ -53,7 +53,7 @@ final class UrlHelper
         if (\false !== \strpos($path, '://') || '//' === \substr($path, 0, 2)) {
             return $path;
         }
-        if (null === ($request = $this->requestStack->getMasterRequest())) {
+        if (null === ($request = $this->requestStack->getMainRequest())) {
             return $path;
         }
         return $request->getRelativeUriForPath($path);

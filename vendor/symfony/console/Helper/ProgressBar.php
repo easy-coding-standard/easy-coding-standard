@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\Console\Helper;
+namespace ConfigTransformer20210601\Symfony\Component\Console\Helper;
 
-use ECSPrefix20210530\Symfony\Component\Console\Cursor;
-use ECSPrefix20210530\Symfony\Component\Console\Exception\LogicException;
-use ECSPrefix20210530\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20210530\Symfony\Component\Console\Output\ConsoleSectionOutput;
-use ECSPrefix20210530\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210530\Symfony\Component\Console\Terminal;
+use ConfigTransformer20210601\Symfony\Component\Console\Cursor;
+use ConfigTransformer20210601\Symfony\Component\Console\Exception\LogicException;
+use ConfigTransformer20210601\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ConfigTransformer20210601\Symfony\Component\Console\Output\ConsoleSectionOutput;
+use ConfigTransformer20210601\Symfony\Component\Console\Output\OutputInterface;
+use ConfigTransformer20210601\Symfony\Component\Console\Terminal;
 /**
  * The ProgressBar provides helpers to display progress output.
  *
@@ -24,6 +24,14 @@ use ECSPrefix20210530\Symfony\Component\Console\Terminal;
  */
 final class ProgressBar
 {
+    const FORMAT_VERBOSE = 'verbose';
+    const FORMAT_VERY_VERBOSE = 'very_verbose';
+    const FORMAT_DEBUG = 'debug';
+    const FORMAT_NORMAL = 'normal';
+    const FORMAT_VERBOSE_NOMAX = 'verbose_nomax';
+    const FORMAT_VERY_VERBOSE_NOMAX = 'very_verbose_nomax';
+    const FORMAT_DEBUG_NOMAX = 'debug_nomax';
+    const FORMAT_NORMAL_NOMAX = 'normal_nomax';
     private $barWidth = 28;
     private $barChar;
     private $emptyBarChar = '-';
@@ -52,14 +60,14 @@ final class ProgressBar
     /**
      * @param int $max Maximum steps (0 if unknown)
      */
-    public function __construct(\ECSPrefix20210530\Symfony\Component\Console\Output\OutputInterface $output, int $max = 0, float $minSecondsBetweenRedraws = 1 / 25)
+    public function __construct(\ConfigTransformer20210601\Symfony\Component\Console\Output\OutputInterface $output, int $max = 0, float $minSecondsBetweenRedraws = 1 / 25)
     {
-        if ($output instanceof \ECSPrefix20210530\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if ($output instanceof \ConfigTransformer20210601\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
         $this->output = $output;
         $this->setMaxSteps($max);
-        $this->terminal = new \ECSPrefix20210530\Symfony\Component\Console\Terminal();
+        $this->terminal = new \ConfigTransformer20210601\Symfony\Component\Console\Terminal();
         if (0 < $minSecondsBetweenRedraws) {
             $this->redrawFreq = null;
             $this->minSecondsBetweenRedraws = $minSecondsBetweenRedraws;
@@ -71,7 +79,7 @@ final class ProgressBar
             $this->redrawFreq = null;
         }
         $this->startTime = \time();
-        $this->cursor = new \ECSPrefix20210530\Symfony\Component\Console\Cursor($output);
+        $this->cursor = new \ConfigTransformer20210601\Symfony\Component\Console\Cursor($output);
     }
     /**
      * Sets a placeholder formatter for a given name.
@@ -330,7 +338,7 @@ final class ProgressBar
     {
         $this->format = null;
         $this->max = \max(0, $max);
-        $this->stepWidth = $this->max ? \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlen((string) $this->max) : 4;
+        $this->stepWidth = $this->max ? \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width((string) $this->max) : 4;
     }
     /**
      * Finishes the progress output.
@@ -353,7 +361,7 @@ final class ProgressBar
      */
     public function display()
     {
-        if (\ECSPrefix20210530\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET === $this->output->getVerbosity()) {
+        if (\ConfigTransformer20210601\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET === $this->output->getVerbosity()) {
             return;
         }
         if (null === $this->format) {
@@ -403,11 +411,11 @@ final class ProgressBar
         $originalMessage = $message;
         if ($this->overwrite) {
             if (null !== $this->previousMessage) {
-                if ($this->output instanceof \ECSPrefix20210530\Symfony\Component\Console\Output\ConsoleSectionOutput) {
+                if ($this->output instanceof \ConfigTransformer20210601\Symfony\Component\Console\Output\ConsoleSectionOutput) {
                     $messageLines = \explode("\n", $message);
                     $lineCount = \count($messageLines);
                     foreach ($messageLines as $messageLine) {
-                        $messageLineLength = \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->output->getFormatter(), $messageLine);
+                        $messageLineLength = \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width(\ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::removeDecoration($this->output->getFormatter(), $messageLine));
                         if ($messageLineLength > $this->terminal->getWidth()) {
                             $lineCount += \floor($messageLineLength / $this->terminal->getWidth());
                         }
@@ -433,40 +441,40 @@ final class ProgressBar
     {
         switch ($this->output->getVerbosity()) {
             // OutputInterface::VERBOSITY_QUIET: display is disabled anyway
-            case \ECSPrefix20210530\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE:
-                return $this->max ? 'verbose' : 'verbose_nomax';
-            case \ECSPrefix20210530\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE:
-                return $this->max ? 'very_verbose' : 'very_verbose_nomax';
-            case \ECSPrefix20210530\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG:
-                return $this->max ? 'debug' : 'debug_nomax';
+            case \ConfigTransformer20210601\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE:
+                return $this->max ? self::FORMAT_VERBOSE : self::FORMAT_VERBOSE_NOMAX;
+            case \ConfigTransformer20210601\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE:
+                return $this->max ? self::FORMAT_VERY_VERBOSE : self::FORMAT_VERY_VERBOSE_NOMAX;
+            case \ConfigTransformer20210601\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG:
+                return $this->max ? self::FORMAT_DEBUG : self::FORMAT_DEBUG_NOMAX;
             default:
-                return $this->max ? 'normal' : 'normal_nomax';
+                return $this->max ? self::FORMAT_NORMAL : self::FORMAT_NORMAL_NOMAX;
         }
     }
     private static function initPlaceholderFormatters() : array
     {
-        return ['bar' => function (self $bar, \ECSPrefix20210530\Symfony\Component\Console\Output\OutputInterface $output) {
+        return ['bar' => function (self $bar, \ConfigTransformer20210601\Symfony\Component\Console\Output\OutputInterface $output) {
             $completeBars = $bar->getBarOffset();
             $display = \str_repeat($bar->getBarCharacter(), $completeBars);
             if ($completeBars < $bar->getBarWidth()) {
-                $emptyBars = $bar->getBarWidth() - $completeBars - \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::length(\ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::removeDecoration($output->getFormatter(), $bar->getProgressCharacter()));
+                $emptyBars = $bar->getBarWidth() - $completeBars - \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::length(\ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::removeDecoration($output->getFormatter(), $bar->getProgressCharacter()));
                 $display .= $bar->getProgressCharacter() . \str_repeat($bar->getEmptyBarCharacter(), $emptyBars);
             }
             return $display;
         }, 'elapsed' => function (self $bar) {
-            return \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::formatTime(\time() - $bar->getStartTime());
+            return \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::formatTime(\time() - $bar->getStartTime());
         }, 'remaining' => function (self $bar) {
             if (!$bar->getMaxSteps()) {
-                throw new \ECSPrefix20210530\Symfony\Component\Console\Exception\LogicException('Unable to display the remaining time if the maximum number of steps is not set.');
+                throw new \ConfigTransformer20210601\Symfony\Component\Console\Exception\LogicException('Unable to display the remaining time if the maximum number of steps is not set.');
             }
-            return \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::formatTime($bar->getRemaining());
+            return \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::formatTime($bar->getRemaining());
         }, 'estimated' => function (self $bar) {
             if (!$bar->getMaxSteps()) {
-                throw new \ECSPrefix20210530\Symfony\Component\Console\Exception\LogicException('Unable to display the estimated time if the maximum number of steps is not set.');
+                throw new \ConfigTransformer20210601\Symfony\Component\Console\Exception\LogicException('Unable to display the estimated time if the maximum number of steps is not set.');
             }
-            return \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::formatTime($bar->getEstimated());
+            return \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::formatTime($bar->getEstimated());
         }, 'memory' => function (self $bar) {
-            return \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::formatMemory(\memory_get_usage(\true));
+            return \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::formatMemory(\memory_get_usage(\true));
         }, 'current' => function (self $bar) {
             return \str_pad($bar->getProgress(), $bar->getStepWidth(), ' ', \STR_PAD_LEFT);
         }, 'max' => function (self $bar) {
@@ -477,7 +485,7 @@ final class ProgressBar
     }
     private static function initFormats() : array
     {
-        return ['normal' => ' %current%/%max% [%bar%] %percent:3s%%', 'normal_nomax' => ' %current% [%bar%]', 'verbose' => ' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s%', 'verbose_nomax' => ' %current% [%bar%] %elapsed:6s%', 'very_verbose' => ' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s%/%estimated:-6s%', 'very_verbose_nomax' => ' %current% [%bar%] %elapsed:6s%', 'debug' => ' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s%/%estimated:-6s% %memory:6s%', 'debug_nomax' => ' %current% [%bar%] %elapsed:6s% %memory:6s%'];
+        return [self::FORMAT_NORMAL => ' %current%/%max% [%bar%] %percent:3s%%', self::FORMAT_NORMAL_NOMAX => ' %current% [%bar%]', self::FORMAT_VERBOSE => ' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s%', self::FORMAT_VERBOSE_NOMAX => ' %current% [%bar%] %elapsed:6s%', self::FORMAT_VERY_VERBOSE => ' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s%/%estimated:-6s%', self::FORMAT_VERY_VERBOSE_NOMAX => ' %current% [%bar%] %elapsed:6s%', self::FORMAT_DEBUG => ' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s%/%estimated:-6s% %memory:6s%', self::FORMAT_DEBUG_NOMAX => ' %current% [%bar%] %elapsed:6s% %memory:6s%'];
     }
     private function buildLine() : string
     {
@@ -498,7 +506,7 @@ final class ProgressBar
         $line = \preg_replace_callback($regex, $callback, $this->format);
         // gets string length for each sub line with multiline format
         $linesLength = \array_map(function ($subLine) {
-            return \ECSPrefix20210530\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->output->getFormatter(), \rtrim($subLine, "\r"));
+            return \ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::width(\ConfigTransformer20210601\Symfony\Component\Console\Helper\Helper::removeDecoration($this->output->getFormatter(), \rtrim($subLine, "\r")));
         }, \explode("\n", $line));
         $linesWidth = \max($linesLength);
         $terminalWidth = $this->terminal->getWidth();

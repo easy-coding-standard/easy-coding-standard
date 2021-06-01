@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\DependencyInjection\Loader;
+namespace ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix20210530\Symfony\Component\Config\Loader\Loader;
-use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ConfigTransformer20210601\Symfony\Component\Config\Loader\Loader;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * ClosureLoader loads service definitions from a PHP closure.
  *
@@ -19,12 +19,13 @@ use ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ClosureLoader extends \ECSPrefix20210530\Symfony\Component\Config\Loader\Loader
+class ClosureLoader extends \ConfigTransformer20210601\Symfony\Component\Config\Loader\Loader
 {
     private $container;
-    public function __construct(\ECSPrefix20210530\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function __construct(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $env = null)
     {
         $this->container = $container;
+        parent::__construct($env);
     }
     /**
      * {@inheritdoc}
@@ -32,7 +33,7 @@ class ClosureLoader extends \ECSPrefix20210530\Symfony\Component\Config\Loader\L
      */
     public function load($resource, $type = null)
     {
-        $resource($this->container);
+        $resource($this->container, $this->env);
     }
     /**
      * {@inheritdoc}

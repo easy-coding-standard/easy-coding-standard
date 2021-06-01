@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpKernel\ControllerMetadata;
+namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\ControllerMetadata;
 
-use ECSPrefix20210530\Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
 /**
  * Responsible for storing metadata of an argument.
  *
@@ -18,18 +18,19 @@ use ECSPrefix20210530\Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
  */
 class ArgumentMetadata
 {
+    const IS_INSTANCEOF = 2;
     private $name;
     private $type;
     private $isVariadic;
     private $hasDefaultValue;
     private $defaultValue;
     private $isNullable;
-    private $attribute;
+    private $attributes;
     /**
+     * @param object[] $attributes
      * @param string|null $type
-     * @param \Symfony\Component\HttpKernel\Attribute\ArgumentInterface|null $attribute
      */
-    public function __construct(string $name, $type, bool $isVariadic, bool $hasDefaultValue, $defaultValue, bool $isNullable = \false, $attribute = null)
+    public function __construct(string $name, $type, bool $isVariadic, bool $hasDefaultValue, $defaultValue, bool $isNullable = \false, $attributes = [])
     {
         $this->name = $name;
         $this->type = $type;
@@ -37,7 +38,11 @@ class ArgumentMetadata
         $this->hasDefaultValue = $hasDefaultValue;
         $this->defaultValue = $defaultValue;
         $this->isNullable = $isNullable || null === $type || $hasDefaultValue && null === $defaultValue;
-        $this->attribute = $attribute;
+        if (null === $attributes || $attributes instanceof \ConfigTransformer20210601\Symfony\Component\HttpKernel\Attribute\ArgumentInterface) {
+            trigger_deprecation('symfony/http-kernel', '5.3', 'The "%s" constructor expects an array of PHP attributes as last argument, %s given.', __CLASS__, \get_debug_type($attributes));
+            $attributes = $attributes ? [$attributes] : [];
+        }
+        $this->attributes = $attributes;
     }
     /**
      * Returns the name as given in PHP, $foo would yield "foo".
@@ -108,6 +113,34 @@ class ArgumentMetadata
      */
     public function getAttribute()
     {
-        return $this->attribute;
+        trigger_deprecation('symfony/http-kernel', '5.3', 'Method "%s()" is deprecated, use "getAttributes()" instead.', __METHOD__);
+        if (!$this->attributes) {
+            return null;
+        }
+        return $this->attributes[0] instanceof \ConfigTransformer20210601\Symfony\Component\HttpKernel\Attribute\ArgumentInterface ? $this->attributes[0] : null;
+    }
+    /**
+     * @return object[]
+     */
+    public function getAttributes(string $name = null, int $flags = 0) : array
+    {
+        if (!$name) {
+            return $this->attributes;
+        }
+        $attributes = [];
+        if ($flags & self::IS_INSTANCEOF) {
+            foreach ($this->attributes as $attribute) {
+                if ($attribute instanceof $name) {
+                    $attributes[] = $attribute;
+                }
+            }
+        } else {
+            foreach ($this->attributes as $attribute) {
+                if (\get_class($attribute) === $name) {
+                    $attributes[] = $attribute;
+                }
+            }
+        }
+        return $attributes;
     }
 }

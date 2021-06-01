@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210530\Symfony\Component\HttpKernel\Event;
+namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210530\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210530\Symfony\Component\HttpKernel\HttpKernelInterface;
-use ECSPrefix20210530\Symfony\Contracts\EventDispatcher\Event;
+use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request;
+use ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ConfigTransformer20210601\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Base class for events thrown in the HttpKernel component.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class KernelEvent extends \ECSPrefix20210530\Symfony\Contracts\EventDispatcher\Event
+class KernelEvent extends \ConfigTransformer20210601\Symfony\Contracts\EventDispatcher\Event
 {
     private $kernel;
     private $request;
     private $requestType;
     /**
      * @param int $requestType The request type the kernel is currently processing; one of
-     *                         HttpKernelInterface::MASTER_REQUEST or HttpKernelInterface::SUB_REQUEST
+     *                         HttpKernelInterface::MAIN_REQUEST or HttpKernelInterface::SUB_REQUEST
      */
-    public function __construct(\ECSPrefix20210530\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210530\Symfony\Component\HttpFoundation\Request $request, $requestType)
+    public function __construct(\ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request, $requestType)
     {
         $this->kernel = $kernel;
         $this->request = $request;
@@ -54,7 +54,7 @@ class KernelEvent extends \ECSPrefix20210530\Symfony\Contracts\EventDispatcher\E
     /**
      * Returns the request type the kernel is currently processing.
      *
-     * @return int One of HttpKernelInterface::MASTER_REQUEST and
+     * @return int One of HttpKernelInterface::MAIN_REQUEST and
      *             HttpKernelInterface::SUB_REQUEST
      */
     public function getRequestType()
@@ -62,12 +62,22 @@ class KernelEvent extends \ECSPrefix20210530\Symfony\Contracts\EventDispatcher\E
         return $this->requestType;
     }
     /**
+     * Checks if this is the main request.
+     */
+    public function isMainRequest() : bool
+    {
+        return \ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST === $this->requestType;
+    }
+    /**
      * Checks if this is a master request.
      *
      * @return bool True if the request is a master request
+     *
+     * @deprecated since symfony/http-kernel 5.3, use isMainRequest() instead
      */
     public function isMasterRequest()
     {
-        return \ECSPrefix20210530\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $this->requestType;
+        trigger_deprecation('symfony/http-kernel', '5.3', '"%s()" is deprecated, use "isMainRequest()" instead.', __METHOD__);
+        return $this->isMainRequest();
     }
 }
