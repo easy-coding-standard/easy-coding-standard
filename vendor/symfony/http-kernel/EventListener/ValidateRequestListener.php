@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20210601\Symfony\Component\HttpKernel\EventListener;
 
-use ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ConfigTransformer20210601\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210601\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Validates Requests.
  *
@@ -20,12 +20,12 @@ use ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class ValidateRequestListener implements \ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ValidateRequestListener implements \ECSPrefix20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     /**
      * Performs the validation.
      */
-    public function onKernelRequest(\ConfigTransformer20210601\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    public function onKernelRequest(\ECSPrefix20210601\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         if (!$event->isMainRequest()) {
             return;
@@ -41,6 +41,6 @@ class ValidateRequestListener implements \ConfigTransformer20210601\Symfony\Comp
      */
     public static function getSubscribedEvents() : array
     {
-        return [\ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 256]]];
+        return [\ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 256]]];
     }
 }

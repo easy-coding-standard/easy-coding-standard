@@ -1,6 +1,6 @@
 <?php
 
-namespace ConfigTransformer20210601\Psr\Cache;
+namespace ECSPrefix20210601\Psr\Cache;
 
 /**
  * CacheItemInterface defines an interface for interacting with objects inside a cache.
@@ -32,7 +32,7 @@ interface CacheItemInterface
      * @return string
      *   The key string for this cache item.
      */
-    public function getKey();
+    public function getKey() : string;
     /**
      * Retrieves the value of the item from the cache associated with this object's key.
      *
@@ -55,7 +55,7 @@ interface CacheItemInterface
      * @return bool
      *   True if the request resulted in a cache hit. False otherwise.
      */
-    public function isHit();
+    public function isHit() : bool;
     /**
      * Sets the value represented by this cache item.
      *

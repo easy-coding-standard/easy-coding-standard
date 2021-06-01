@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ConfigTransformer20210601\Symplify\SmartFileSystem;
+namespace ECSPrefix20210601\Symplify\SmartFileSystem;
 
-use ConfigTransformer20210601\Nette\Utils\Strings;
-use ConfigTransformer20210601\Symfony\Component\Filesystem\Exception\IOException;
-use ConfigTransformer20210601\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix20210601\Nette\Utils\Strings;
+use ECSPrefix20210601\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix20210601\Symfony\Component\Filesystem\Filesystem;
 /**
  * @see \Symplify\SmartFileSystem\Tests\SmartFileSystem\SmartFileSystemTest
  */
-final class SmartFileSystem extends \ConfigTransformer20210601\Symfony\Component\Filesystem\Filesystem
+final class SmartFileSystem extends \ECSPrefix20210601\Symfony\Component\Filesystem\Filesystem
 {
     /**
      * @var string
@@ -24,13 +24,13 @@ final class SmartFileSystem extends \ConfigTransformer20210601\Symfony\Component
         $source = @\file_get_contents($filename);
         if (!$source) {
             $message = \sprintf('Failed to read "%s" file: "%s"', $filename, $this->getLastError());
-            throw new \ConfigTransformer20210601\Symfony\Component\Filesystem\Exception\IOException($message, 0, null, $filename);
+            throw new \ECSPrefix20210601\Symfony\Component\Filesystem\Exception\IOException($message, 0, null, $filename);
         }
         return $source;
     }
-    public function readFileToSmartFileInfo(string $filename) : \ConfigTransformer20210601\Symplify\SmartFileSystem\SmartFileInfo
+    public function readFileToSmartFileInfo(string $filename) : \ECSPrefix20210601\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \ConfigTransformer20210601\Symplify\SmartFileSystem\SmartFileInfo($filename);
+        return new \ECSPrefix20210601\Symplify\SmartFileSystem\SmartFileInfo($filename);
     }
     /**
      * Converts given HTML code to plain text
@@ -63,6 +63,6 @@ final class SmartFileSystem extends \ConfigTransformer20210601\Symfony\Component
     {
         $message = \error_get_last()['message'] ?? '';
         $message = \ini_get('html_errors') ? $this->htmlToText($message) : $message;
-        return \ConfigTransformer20210601\Nette\Utils\Strings::replace($message, self::BEFORE_COLLON_REGEX, '');
+        return \ECSPrefix20210601\Nette\Utils\Strings::replace($message, self::BEFORE_COLLON_REGEX, '');
     }
 }

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Fragment;
+namespace ECSPrefix20210601\Symfony\Component\HttpKernel\Fragment;
 
-use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request;
-use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response;
-use ConfigTransformer20210601\Symfony\Component\HttpKernel\Controller\ControllerReference;
+use ECSPrefix20210601\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210601\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210601\Symfony\Component\HttpKernel\Controller\ControllerReference;
 /**
  * Interface implemented by all rendering strategies.
  *
@@ -27,7 +27,7 @@ interface FragmentRendererInterface
      *
      * @return Response A Response instance
      */
-    public function render($uri, \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request, array $options = []);
+    public function render($uri, \ECSPrefix20210601\Symfony\Component\HttpFoundation\Request $request, array $options = []);
     /**
      * Gets the name of the strategy.
      *

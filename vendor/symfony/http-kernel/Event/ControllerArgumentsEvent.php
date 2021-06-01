@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Event;
+namespace ECSPrefix20210601\Symfony\Component\HttpKernel\Event;
 
-use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request;
-use ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210601\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210601\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows filtering of controller arguments.
  *
@@ -24,14 +24,14 @@ use ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-final class ControllerArgumentsEvent extends \ConfigTransformer20210601\Symfony\Component\HttpKernel\Event\KernelEvent
+final class ControllerArgumentsEvent extends \ECSPrefix20210601\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $controller;
     private $arguments;
     /**
      * @param int|null $requestType
      */
-    public function __construct(\ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request, $requestType)
+    public function __construct(\ECSPrefix20210601\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \ECSPrefix20210601\Symfony\Component\HttpFoundation\Request $request, $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->controller = $controller;

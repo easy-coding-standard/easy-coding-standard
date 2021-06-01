@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\EventDispatcher\DependencyInjection;
+namespace ECSPrefix20210601\Symfony\Component\EventDispatcher\DependencyInjection;
 
-use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference;
-use ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventDispatcher;
-use ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ConfigTransformer20210601\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20210601\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20210601\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210601\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210601\Symfony\Component\EventDispatcher\EventDispatcher;
+use ECSPrefix20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210601\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Compiler pass to register tagged services for an event dispatcher.
  */
-class RegisterListenersPass implements \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class RegisterListenersPass implements \ECSPrefix20210601\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     protected $dispatcherService;
     protected $listenerTag;
@@ -59,7 +59,7 @@ class RegisterListenersPass implements \ConfigTransformer20210601\Symfony\Compon
         $this->noPreloadTagName = $tagName;
         return $this;
     }
-    public function process(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\ECSPrefix20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->dispatcherService) && !$container->hasAlias($this->dispatcherService)) {
             return;
@@ -94,7 +94,7 @@ class RegisterListenersPass implements \ConfigTransformer20210601\Symfony\Compon
                 if (isset($event['dispatcher'])) {
                     $dispatcherDefinition = $container->getDefinition($event['dispatcher']);
                 }
-                $dispatcherDefinition->addMethodCall('addListener', [$event['event'], [new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument(new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference($id)), $event['method']], $priority]);
+                $dispatcherDefinition->addMethodCall('addListener', [$event['event'], [new \ECSPrefix20210601\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument(new \ECSPrefix20210601\Symfony\Component\DependencyInjection\Reference($id)), $event['method']], $priority]);
                 if (isset($this->hotPathEvents[$event['event']])) {
                     $container->getDefinition($id)->addTag($this->hotPathTagName);
                 } elseif (isset($this->noPreloadEvents[$event['event']])) {
@@ -105,16 +105,16 @@ class RegisterListenersPass implements \ConfigTransformer20210601\Symfony\Compon
                 $container->getDefinition($id)->addTag($this->noPreloadTagName);
             }
         }
-        $extractingDispatcher = new \ConfigTransformer20210601\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher();
+        $extractingDispatcher = new \ECSPrefix20210601\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher();
         foreach ($container->findTaggedServiceIds($this->subscriberTag, \true) as $id => $tags) {
             $def = $container->getDefinition($id);
             // We must assume that the class value has been correctly filled, even if the service is created by a factory
             $class = $def->getClass();
             if (!($r = $container->getReflectionClass($class))) {
-                throw new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+                throw new \ECSPrefix20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
             }
-            if (!$r->isSubclassOf(\ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
-                throw new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must implement interface "%s".', $id, \ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface::class));
+            if (!$r->isSubclassOf(\ECSPrefix20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
+                throw new \ECSPrefix20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must implement interface "%s".', $id, \ECSPrefix20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface::class));
             }
             $class = $r->name;
             $dispatcherDefinitions = [];
@@ -128,11 +128,11 @@ class RegisterListenersPass implements \ConfigTransformer20210601\Symfony\Compon
                 $dispatcherDefinitions = [$globalDispatcherDefinition];
             }
             $noPreload = 0;
-            \ConfigTransformer20210601\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = $aliases;
-            \ConfigTransformer20210601\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$subscriber = $class;
+            \ECSPrefix20210601\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = $aliases;
+            \ECSPrefix20210601\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$subscriber = $class;
             $extractingDispatcher->addSubscriber($extractingDispatcher);
             foreach ($extractingDispatcher->listeners as $args) {
-                $args[1] = [new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument(new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Reference($id)), $args[1]];
+                $args[1] = [new \ECSPrefix20210601\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument(new \ECSPrefix20210601\Symfony\Component\DependencyInjection\Reference($id)), $args[1]];
                 foreach ($dispatcherDefinitions as $dispatcherDefinition) {
                     $dispatcherDefinition->addMethodCall('addListener', $args);
                 }
@@ -146,13 +146,13 @@ class RegisterListenersPass implements \ConfigTransformer20210601\Symfony\Compon
                 $container->getDefinition($id)->addTag($this->noPreloadTagName);
             }
             $extractingDispatcher->listeners = [];
-            \ConfigTransformer20210601\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = [];
+            \ECSPrefix20210601\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = [];
         }
     }
-    private function getEventFromTypeDeclaration(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $id, string $method) : string
+    private function getEventFromTypeDeclaration(\ECSPrefix20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $id, string $method) : string
     {
-        if (null === ($class = $container->getDefinition($id)->getClass()) || !($r = $container->getReflectionClass($class, \false)) || !$r->hasMethod($method) || 1 > ($m = $r->getMethod($method))->getNumberOfParameters() || !($type = $m->getParameters()[0]->getType()) instanceof \ReflectionNamedType || $type->isBuiltin() || \ConfigTransformer20210601\Symfony\Contracts\EventDispatcher\Event::class === ($name = $type->getName())) {
-            throw new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must define the "event" attribute on "%s" tags.', $id, $this->listenerTag));
+        if (null === ($class = $container->getDefinition($id)->getClass()) || !($r = $container->getReflectionClass($class, \false)) || !$r->hasMethod($method) || 1 > ($m = $r->getMethod($method))->getNumberOfParameters() || !($type = $m->getParameters()[0]->getType()) instanceof \ReflectionNamedType || $type->isBuiltin() || \ECSPrefix20210601\Symfony\Contracts\EventDispatcher\Event::class === ($name = $type->getName())) {
+            throw new \ECSPrefix20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must define the "event" attribute on "%s" tags.', $id, $this->listenerTag));
         }
         return $name;
     }
@@ -160,7 +160,7 @@ class RegisterListenersPass implements \ConfigTransformer20210601\Symfony\Compon
 /**
  * @internal
  */
-class ExtractingEventDispatcher extends \ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventDispatcher implements \ConfigTransformer20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ExtractingEventDispatcher extends \ECSPrefix20210601\Symfony\Component\EventDispatcher\EventDispatcher implements \ECSPrefix20210601\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     public $listeners = [];
     public static $aliases = [];

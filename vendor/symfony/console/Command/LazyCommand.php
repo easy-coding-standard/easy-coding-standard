@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\Console\Command;
+namespace ECSPrefix20210601\Symfony\Component\Console\Command;
 
-use ConfigTransformer20210601\Symfony\Component\Console\Application;
-use ConfigTransformer20210601\Symfony\Component\Console\Helper\HelperSet;
-use ConfigTransformer20210601\Symfony\Component\Console\Input\InputDefinition;
-use ConfigTransformer20210601\Symfony\Component\Console\Input\InputInterface;
-use ConfigTransformer20210601\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210601\Symfony\Component\Console\Application;
+use ECSPrefix20210601\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix20210601\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20210601\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class LazyCommand extends \ConfigTransformer20210601\Symfony\Component\Console\Command\Command
+final class LazyCommand extends \ECSPrefix20210601\Symfony\Component\Console\Command\Command
 {
     private $command;
     private $isEnabled;
@@ -41,7 +41,7 @@ final class LazyCommand extends \ConfigTransformer20210601\Symfony\Component\Con
     /**
      * @return void
      */
-    public function setApplication(\ConfigTransformer20210601\Symfony\Component\Console\Application $application = null)
+    public function setApplication(\ECSPrefix20210601\Symfony\Component\Console\Application $application = null)
     {
         if ($this->command instanceof parent) {
             $this->command->setApplication($application);
@@ -51,7 +51,7 @@ final class LazyCommand extends \ConfigTransformer20210601\Symfony\Component\Con
     /**
      * @return void
      */
-    public function setHelperSet(\ConfigTransformer20210601\Symfony\Component\Console\Helper\HelperSet $helperSet)
+    public function setHelperSet(\ECSPrefix20210601\Symfony\Component\Console\Helper\HelperSet $helperSet)
     {
         if ($this->command instanceof parent) {
             $this->command->setHelperSet($helperSet);
@@ -94,11 +94,11 @@ final class LazyCommand extends \ConfigTransformer20210601\Symfony\Component\Con
         $this->getCommand()->setDefinition($definition);
         return $this;
     }
-    public function getDefinition() : \ConfigTransformer20210601\Symfony\Component\Console\Input\InputDefinition
+    public function getDefinition() : \ECSPrefix20210601\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getDefinition();
     }
-    public function getNativeDefinition() : \ConfigTransformer20210601\Symfony\Component\Console\Input\InputDefinition
+    public function getNativeDefinition() : \ECSPrefix20210601\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getNativeDefinition();
     }
