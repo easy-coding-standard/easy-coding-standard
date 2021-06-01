@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Bundle;
+namespace ECSPrefix20210601\Symfony\Component\HttpKernel\Bundle;
 
-use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix20210601\Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use ECSPrefix20210601\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210601\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 /**
  * BundleInterface.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-interface BundleInterface extends \ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerAwareInterface
+interface BundleInterface extends \ECSPrefix20210601\Symfony\Component\DependencyInjection\ContainerAwareInterface
 {
     /**
      * Boots the Bundle.
@@ -33,7 +33,7 @@ interface BundleInterface extends \ConfigTransformer20210601\Symfony\Component\D
      *
      * It is only ever called once when the cache is empty.
      */
-    public function build(\ConfigTransformer20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container);
+    public function build(\ECSPrefix20210601\Symfony\Component\DependencyInjection\ContainerBuilder $container);
     /**
      * Returns the container extension that should be implicitly loaded.
      *

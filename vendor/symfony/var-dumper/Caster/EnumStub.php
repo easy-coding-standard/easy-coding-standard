@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210601\Symfony\Component\VarDumper\Caster;
 
-use ConfigTransformer20210601\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20210601\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Represents an enumeration of values.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class EnumStub extends \ConfigTransformer20210601\Symfony\Component\VarDumper\Cloner\Stub
+class EnumStub extends \ECSPrefix20210601\Symfony\Component\VarDumper\Cloner\Stub
 {
     public $dumpKeys = \true;
     public function __construct(array $values, bool $dumpKeys = \true)

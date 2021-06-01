@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Debug;
+namespace ECSPrefix20210601\Symfony\Component\HttpKernel\Debug;
 
-use ConfigTransformer20210601\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher as BaseTraceableEventDispatcher;
-use ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20210601\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher as BaseTraceableEventDispatcher;
+use ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Collects some data about event listeners.
  *
@@ -19,7 +19,7 @@ use ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TraceableEventDispatcher extends \ConfigTransformer20210601\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher
+class TraceableEventDispatcher extends \ECSPrefix20210601\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher
 {
     /**
      * {@inheritdoc}
@@ -28,17 +28,17 @@ class TraceableEventDispatcher extends \ConfigTransformer20210601\Symfony\Compon
     protected function beforeDispatch(string $eventName, $event)
     {
         switch ($eventName) {
-            case \ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents::REQUEST:
+            case \ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents::REQUEST:
                 $this->stopwatch->openSection();
                 break;
-            case \ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents::VIEW:
-            case \ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
+            case \ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents::VIEW:
+            case \ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
                 // stop only if a controller has been executed
                 if ($this->stopwatch->isStarted('controller')) {
                     $this->stopwatch->stop('controller');
                 }
                 break;
-            case \ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
+            case \ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
                 $token = $event->getResponse()->headers->get('X-Debug-Token');
                 if (null === $token) {
                     break;
@@ -62,17 +62,17 @@ class TraceableEventDispatcher extends \ConfigTransformer20210601\Symfony\Compon
     protected function afterDispatch(string $eventName, $event)
     {
         switch ($eventName) {
-            case \ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS:
+            case \ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS:
                 $this->stopwatch->start('controller', 'section');
                 break;
-            case \ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
+            case \ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
                 $token = $event->getResponse()->headers->get('X-Debug-Token');
                 if (null === $token) {
                     break;
                 }
                 $this->stopwatch->stopSection($token);
                 break;
-            case \ConfigTransformer20210601\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
+            case \ECSPrefix20210601\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
                 // In the special case described in the `preDispatch` method above, the `$token` section
                 // does not exist, then closing it throws an exception which must be caught.
                 $token = $event->getResponse()->headers->get('X-Debug-Token');

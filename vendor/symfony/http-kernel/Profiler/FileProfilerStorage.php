@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Profiler;
+namespace ECSPrefix20210601\Symfony\Component\HttpKernel\Profiler;
 
 /**
  * Storage for profiler using files.
  *
  * @author Alexandre Salomé <alexandre.salome@gmail.com>
  */
-class FileProfilerStorage implements \ConfigTransformer20210601\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface
+class FileProfilerStorage implements \ECSPrefix20210601\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface
 {
     /**
      * Folder where profiler data are stored.
@@ -110,7 +110,7 @@ class FileProfilerStorage implements \ConfigTransformer20210601\Symfony\Componen
      *
      * @throws \RuntimeException
      */
-    public function write(\ConfigTransformer20210601\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool
+    public function write(\ECSPrefix20210601\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool
     {
         $file = $this->getFilename($profile->getToken());
         $profileIndexed = \is_file($file);
@@ -125,7 +125,7 @@ class FileProfilerStorage implements \ConfigTransformer20210601\Symfony\Componen
         // when there are errors in sub-requests, the parent and/or children tokens
         // may equal the profile token, resulting in infinite loops
         $parentToken = $profile->getParentToken() !== $profileToken ? $profile->getParentToken() : null;
-        $childrenToken = \array_filter(\array_map(function (\ConfigTransformer20210601\Symfony\Component\HttpKernel\Profiler\Profile $p) use($profileToken) {
+        $childrenToken = \array_filter(\array_map(function (\ECSPrefix20210601\Symfony\Component\HttpKernel\Profiler\Profile $p) use($profileToken) {
             return $profileToken !== $p->getToken() ? $p->getToken() : null;
         }, $profile->getChildren()));
         // Store profile
@@ -207,9 +207,9 @@ class FileProfilerStorage implements \ConfigTransformer20210601\Symfony\Componen
         }
         return '' === $line ? null : $line;
     }
-    protected function createProfileFromData(string $token, array $data, \ConfigTransformer20210601\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
+    protected function createProfileFromData(string $token, array $data, \ECSPrefix20210601\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
     {
-        $profile = new \ConfigTransformer20210601\Symfony\Component\HttpKernel\Profiler\Profile($token);
+        $profile = new \ECSPrefix20210601\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);
         $profile->setMethod($data['method']);
         $profile->setUrl($data['url']);

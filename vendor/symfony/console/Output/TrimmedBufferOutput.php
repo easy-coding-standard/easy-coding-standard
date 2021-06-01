@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\Console\Output;
+namespace ECSPrefix20210601\Symfony\Component\Console\Output;
 
-use ConfigTransformer20210601\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ConfigTransformer20210601\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20210601\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210601\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * A BufferedOutput that keeps only the last N chars.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class TrimmedBufferOutput extends \ConfigTransformer20210601\Symfony\Component\Console\Output\Output
+class TrimmedBufferOutput extends \ECSPrefix20210601\Symfony\Component\Console\Output\Output
 {
     private $maxLength;
     private $buffer = '';
     /**
      * @param int|null $verbosity
      */
-    public function __construct(int $maxLength, $verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \ConfigTransformer20210601\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    public function __construct(int $maxLength, $verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \ECSPrefix20210601\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         if ($maxLength <= 0) {
-            throw new \ConfigTransformer20210601\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('"%s()" expects a strictly positive maxLength. Got %d.', __METHOD__, $maxLength));
+            throw new \ECSPrefix20210601\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('"%s()" expects a strictly positive maxLength. Got %d.', __METHOD__, $maxLength));
         }
         parent::__construct($verbosity, $decorated, $formatter);
         $this->maxLength = $maxLength;

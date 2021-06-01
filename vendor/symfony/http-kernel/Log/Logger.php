@@ -8,50 +8,50 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\Log;
+namespace ECSPrefix20210601\Symfony\Component\HttpKernel\Log;
 
-use ConfigTransformer20210601\Psr\Log\AbstractLogger;
-use ConfigTransformer20210601\Psr\Log\InvalidArgumentException;
-use ConfigTransformer20210601\Psr\Log\LogLevel;
+use ECSPrefix20210601\Psr\Log\AbstractLogger;
+use ECSPrefix20210601\Psr\Log\InvalidArgumentException;
+use ECSPrefix20210601\Psr\Log\LogLevel;
 /**
  * Minimalist PSR-3 logger designed to write in stderr or any other stream.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class Logger extends \ConfigTransformer20210601\Psr\Log\AbstractLogger
+class Logger extends \ECSPrefix20210601\Psr\Log\AbstractLogger
 {
-    const LEVELS = [\ConfigTransformer20210601\Psr\Log\LogLevel::DEBUG => 0, \ConfigTransformer20210601\Psr\Log\LogLevel::INFO => 1, \ConfigTransformer20210601\Psr\Log\LogLevel::NOTICE => 2, \ConfigTransformer20210601\Psr\Log\LogLevel::WARNING => 3, \ConfigTransformer20210601\Psr\Log\LogLevel::ERROR => 4, \ConfigTransformer20210601\Psr\Log\LogLevel::CRITICAL => 5, \ConfigTransformer20210601\Psr\Log\LogLevel::ALERT => 6, \ConfigTransformer20210601\Psr\Log\LogLevel::EMERGENCY => 7];
+    const LEVELS = [\ECSPrefix20210601\Psr\Log\LogLevel::DEBUG => 0, \ECSPrefix20210601\Psr\Log\LogLevel::INFO => 1, \ECSPrefix20210601\Psr\Log\LogLevel::NOTICE => 2, \ECSPrefix20210601\Psr\Log\LogLevel::WARNING => 3, \ECSPrefix20210601\Psr\Log\LogLevel::ERROR => 4, \ECSPrefix20210601\Psr\Log\LogLevel::CRITICAL => 5, \ECSPrefix20210601\Psr\Log\LogLevel::ALERT => 6, \ECSPrefix20210601\Psr\Log\LogLevel::EMERGENCY => 7];
     private $minLevelIndex;
     private $formatter;
     private $handle;
     public function __construct(string $minLevel = null, $output = null, callable $formatter = null)
     {
         if (null === $minLevel) {
-            $minLevel = null === $output || 'php://stdout' === $output || 'php://stderr' === $output ? \ConfigTransformer20210601\Psr\Log\LogLevel::ERROR : \ConfigTransformer20210601\Psr\Log\LogLevel::WARNING;
+            $minLevel = null === $output || 'php://stdout' === $output || 'php://stderr' === $output ? \ECSPrefix20210601\Psr\Log\LogLevel::ERROR : \ECSPrefix20210601\Psr\Log\LogLevel::WARNING;
             if (isset($_ENV['SHELL_VERBOSITY']) || isset($_SERVER['SHELL_VERBOSITY'])) {
                 switch ((int) ($_ENV['SHELL_VERBOSITY'] ?? $_SERVER['SHELL_VERBOSITY'])) {
                     case -1:
-                        $minLevel = \ConfigTransformer20210601\Psr\Log\LogLevel::ERROR;
+                        $minLevel = \ECSPrefix20210601\Psr\Log\LogLevel::ERROR;
                         break;
                     case 1:
-                        $minLevel = \ConfigTransformer20210601\Psr\Log\LogLevel::NOTICE;
+                        $minLevel = \ECSPrefix20210601\Psr\Log\LogLevel::NOTICE;
                         break;
                     case 2:
-                        $minLevel = \ConfigTransformer20210601\Psr\Log\LogLevel::INFO;
+                        $minLevel = \ECSPrefix20210601\Psr\Log\LogLevel::INFO;
                         break;
                     case 3:
-                        $minLevel = \ConfigTransformer20210601\Psr\Log\LogLevel::DEBUG;
+                        $minLevel = \ECSPrefix20210601\Psr\Log\LogLevel::DEBUG;
                         break;
                 }
             }
         }
         if (!isset(self::LEVELS[$minLevel])) {
-            throw new \ConfigTransformer20210601\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $minLevel));
+            throw new \ECSPrefix20210601\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $minLevel));
         }
         $this->minLevelIndex = self::LEVELS[$minLevel];
         $this->formatter = $formatter ?: [$this, 'format'];
         if ($output && \false === ($this->handle = \is_resource($output) ? $output : @\fopen($output, 'a'))) {
-            throw new \ConfigTransformer20210601\Psr\Log\InvalidArgumentException(\sprintf('Unable to open "%s".', $output));
+            throw new \ECSPrefix20210601\Psr\Log\InvalidArgumentException(\sprintf('Unable to open "%s".', $output));
         }
     }
     /**
@@ -62,7 +62,7 @@ class Logger extends \ConfigTransformer20210601\Psr\Log\AbstractLogger
     public function log($level, $message, array $context = [])
     {
         if (!isset(self::LEVELS[$level])) {
-            throw new \ConfigTransformer20210601\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
+            throw new \ECSPrefix20210601\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
         }
         if (self::LEVELS[$level] < $this->minLevelIndex) {
             return;

@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20210601\Symfony\Component\HttpKernel\HttpCache;
 
-use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request;
-use ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210601\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210601\Symfony\Component\HttpFoundation\Response;
 /**
  * Ssi implements the SSI capabilities to Request and Response instances.
  *
  * @author Sebastian Krebs <krebs.seb@gmail.com>
  */
-class Ssi extends \ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
+class Ssi extends \ECSPrefix20210601\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
 {
     /**
      * {@inheritdoc}
@@ -29,7 +29,7 @@ class Ssi extends \ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpCa
     /**
      * {@inheritdoc}
      */
-    public function addSurrogateControl(\ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response $response)
+    public function addSurrogateControl(\ECSPrefix20210601\Symfony\Component\HttpFoundation\Response $response)
     {
         if (\false !== \strpos($response->getContent(), '<!--#include')) {
             $response->headers->set('Surrogate-Control', 'content="SSI/1.0"');
@@ -45,7 +45,7 @@ class Ssi extends \ConfigTransformer20210601\Symfony\Component\HttpKernel\HttpCa
     /**
      * {@inheritdoc}
      */
-    public function process(\ConfigTransformer20210601\Symfony\Component\HttpFoundation\Request $request, \ConfigTransformer20210601\Symfony\Component\HttpFoundation\Response $response)
+    public function process(\ECSPrefix20210601\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210601\Symfony\Component\HttpFoundation\Response $response)
     {
         $type = $response->headers->get('Content-Type');
         if (empty($type)) {

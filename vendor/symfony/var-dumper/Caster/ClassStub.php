@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ConfigTransformer20210601\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210601\Symfony\Component\VarDumper\Caster;
 
-use ConfigTransformer20210601\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20210601\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Represents a PHP class identifier.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ClassStub extends \ConfigTransformer20210601\Symfony\Component\VarDumper\Caster\ConstStub
+class ClassStub extends \ECSPrefix20210601\Symfony\Component\VarDumper\Caster\ConstStub
 {
     /**
      * @param string   $identifier A PHP identifier, e.g. a class, method, interface, etc. name
@@ -56,8 +56,8 @@ class ClassStub extends \ConfigTransformer20210601\Symfony\Component\VarDumper\C
                 }, $identifier);
             }
             if (null !== $callable && $r instanceof \ReflectionFunctionAbstract) {
-                $s = \ConfigTransformer20210601\Symfony\Component\VarDumper\Caster\ReflectionCaster::castFunctionAbstract($r, [], new \ConfigTransformer20210601\Symfony\Component\VarDumper\Cloner\Stub(), \true, \ConfigTransformer20210601\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE);
-                $s = \ConfigTransformer20210601\Symfony\Component\VarDumper\Caster\ReflectionCaster::getSignature($s);
+                $s = \ECSPrefix20210601\Symfony\Component\VarDumper\Caster\ReflectionCaster::castFunctionAbstract($r, [], new \ECSPrefix20210601\Symfony\Component\VarDumper\Cloner\Stub(), \true, \ECSPrefix20210601\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE);
+                $s = \ECSPrefix20210601\Symfony\Component\VarDumper\Caster\ReflectionCaster::getSignature($s);
                 if ('()' === \substr($identifier, -2)) {
                     $this->value = \substr_replace($identifier, $s, -2);
                 } else {
