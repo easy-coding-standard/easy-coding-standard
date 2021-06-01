@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210601\Psr\Cache;
+namespace ConfigTransformer20210601\Psr\Cache;
 
 /**
  * CacheItemPoolInterface generates CacheItemInterface objects.
@@ -29,7 +29,7 @@ interface CacheItemPoolInterface
      * @return CacheItemInterface
      *   The corresponding Cache Item.
      */
-    public function getItem(string $key) : \ECSPrefix20210601\Psr\Cache\CacheItemInterface;
+    public function getItem($key);
     /**
      * Returns a traversable set of cache items.
      *
@@ -40,8 +40,8 @@ interface CacheItemPoolInterface
      *   If any of the keys in $keys are not a legal value a \Psr\Cache\InvalidArgumentException
      *   MUST be thrown.
      *
-     * @return iterable
-     *   An iterable collection of Cache Items keyed by the cache keys of
+     * @return array|\Traversable
+     *   A traversable collection of Cache Items keyed by the cache keys of
      *   each item. A Cache item will be returned for each key, even if that
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
@@ -64,14 +64,14 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if item exists in the cache, false otherwise.
      */
-    public function hasItem(string $key) : bool;
+    public function hasItem($key);
     /**
      * Deletes all items in the pool.
      *
      * @return bool
      *   True if the pool was successfully cleared. False if there was an error.
      */
-    public function clear() : bool;
+    public function clear();
     /**
      * Removes the item from the pool.
      *
@@ -85,7 +85,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully removed. False if there was an error.
      */
-    public function deleteItem(string $key) : bool;
+    public function deleteItem($key);
     /**
      * Removes multiple items from the pool.
      *
@@ -99,7 +99,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the items were successfully removed. False if there was an error.
      */
-    public function deleteItems(array $keys) : bool;
+    public function deleteItems(array $keys);
     /**
      * Persists a cache item immediately.
      *
@@ -109,7 +109,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully persisted. False if there was an error.
      */
-    public function save(\ECSPrefix20210601\Psr\Cache\CacheItemInterface $item) : bool;
+    public function save(\ConfigTransformer20210601\Psr\Cache\CacheItemInterface $item);
     /**
      * Sets a cache item to be persisted later.
      *
@@ -119,12 +119,12 @@ interface CacheItemPoolInterface
      * @return bool
      *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
      */
-    public function saveDeferred(\ECSPrefix20210601\Psr\Cache\CacheItemInterface $item) : bool;
+    public function saveDeferred(\ConfigTransformer20210601\Psr\Cache\CacheItemInterface $item);
     /**
      * Persists any deferred cache items.
      *
      * @return bool
      *   True if all not-yet-saved items were successfully saved or there were none. False otherwise.
      */
-    public function commit() : bool;
+    public function commit();
 }

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210601\Symfony\Component\Config\Loader;
+namespace ConfigTransformer20210601\Symfony\Component\Config\Loader;
 
-use ECSPrefix20210601\Symfony\Component\Config\Exception\LoaderLoadException;
+use ConfigTransformer20210601\Symfony\Component\Config\Exception\LoaderLoadException;
 /**
  * DelegatingLoader delegates loading to other loaders using a loader resolver.
  *
@@ -19,19 +19,20 @@ use ECSPrefix20210601\Symfony\Component\Config\Exception\LoaderLoadException;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class DelegatingLoader extends \ECSPrefix20210601\Symfony\Component\Config\Loader\Loader
+class DelegatingLoader extends \ConfigTransformer20210601\Symfony\Component\Config\Loader\Loader
 {
-    public function __construct(\ECSPrefix20210601\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver)
+    public function __construct(\ConfigTransformer20210601\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver)
     {
         $this->resolver = $resolver;
     }
     /**
      * {@inheritdoc}
+     * @param string|null $type
      */
-    public function load($resource, string $type = null)
+    public function load($resource, $type = null)
     {
         if (\false === ($loader = $this->resolver->resolve($resource, $type))) {
-            throw new \ECSPrefix20210601\Symfony\Component\Config\Exception\LoaderLoadException($resource, null, 0, null, $type);
+            throw new \ConfigTransformer20210601\Symfony\Component\Config\Exception\LoaderLoadException($resource, null, 0, null, $type);
         }
         return $loader->load($resource, $type);
     }

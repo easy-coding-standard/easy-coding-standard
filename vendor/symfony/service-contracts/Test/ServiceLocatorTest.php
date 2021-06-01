@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210601\Symfony\Contracts\Service\Test;
+namespace ConfigTransformer20210601\Symfony\Contracts\Service\Test;
 
-use ECSPrefix20210601\PHPUnit\Framework\TestCase;
-use ECSPrefix20210601\Psr\Container\ContainerInterface;
-use ECSPrefix20210601\Symfony\Contracts\Service\ServiceLocatorTrait;
-abstract class ServiceLocatorTest extends \ECSPrefix20210601\PHPUnit\Framework\TestCase
+use ConfigTransformer20210601\PHPUnit\Framework\TestCase;
+use ConfigTransformer20210601\Psr\Container\ContainerInterface;
+use ConfigTransformer20210601\Symfony\Contracts\Service\ServiceLocatorTrait;
+abstract class ServiceLocatorTest extends \ConfigTransformer20210601\PHPUnit\Framework\TestCase
 {
     protected function getServiceLocator(array $factories)
     {
-        return new class($factories) implements \ECSPrefix20210601\Psr\Container\ContainerInterface
+        return new class($factories) implements \ConfigTransformer20210601\Psr\Container\ContainerInterface
         {
             use ServiceLocatorTrait;
         };
@@ -59,7 +59,7 @@ abstract class ServiceLocatorTest extends \ECSPrefix20210601\PHPUnit\Framework\T
     public function testThrowsOnUndefinedInternalService()
     {
         if (!$this->getExpectedException()) {
-            $this->expectException(\ECSPrefix20210601\Psr\Container\NotFoundExceptionInterface::class);
+            $this->expectException(\ConfigTransformer20210601\Psr\Container\NotFoundExceptionInterface::class);
             $this->expectExceptionMessage('The service "foo" has a dependency on a non-existent service "bar". This locator only knows about the "foo" service.');
         }
         $locator = $this->getServiceLocator(['foo' => function () use(&$locator) {
@@ -69,7 +69,7 @@ abstract class ServiceLocatorTest extends \ECSPrefix20210601\PHPUnit\Framework\T
     }
     public function testThrowsOnCircularReference()
     {
-        $this->expectException(\ECSPrefix20210601\Psr\Container\ContainerExceptionInterface::class);
+        $this->expectException(\ConfigTransformer20210601\Psr\Container\ContainerExceptionInterface::class);
         $this->expectExceptionMessage('Circular reference detected for service "bar", path: "bar -> baz -> bar".');
         $locator = $this->getServiceLocator(['foo' => function () use(&$locator) {
             return $locator->get('bar');

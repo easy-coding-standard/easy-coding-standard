@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210601\Symfony\Component\ErrorHandler;
+namespace ConfigTransformer20210601\Symfony\Component\ErrorHandler;
 
 /**
  * Registers all the debug tools.
@@ -17,7 +17,7 @@ namespace ECSPrefix20210601\Symfony\Component\ErrorHandler;
  */
 class Debug
 {
-    public static function enable() : \ECSPrefix20210601\Symfony\Component\ErrorHandler\ErrorHandler
+    public static function enable() : \ConfigTransformer20210601\Symfony\Component\ErrorHandler\ErrorHandler
     {
         \error_reporting(-1);
         if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true)) {
@@ -30,7 +30,7 @@ class Debug
         \ini_set('assert.active', 1);
         \ini_set('assert.warning', 0);
         \ini_set('assert.exception', 1);
-        \ECSPrefix20210601\Symfony\Component\ErrorHandler\DebugClassLoader::enable();
-        return \ECSPrefix20210601\Symfony\Component\ErrorHandler\ErrorHandler::register(new \ECSPrefix20210601\Symfony\Component\ErrorHandler\ErrorHandler(new \ECSPrefix20210601\Symfony\Component\ErrorHandler\BufferingLogger(), \true));
+        \ConfigTransformer20210601\Symfony\Component\ErrorHandler\DebugClassLoader::enable();
+        return \ConfigTransformer20210601\Symfony\Component\ErrorHandler\ErrorHandler::register(new \ConfigTransformer20210601\Symfony\Component\ErrorHandler\ErrorHandler(new \ConfigTransformer20210601\Symfony\Component\ErrorHandler\BufferingLogger(), \true));
     }
 }

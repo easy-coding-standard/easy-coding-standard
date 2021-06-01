@@ -8,28 +8,29 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210601\Symfony\Component\DependencyInjection\Loader;
+namespace ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix20210601\Symfony\Component\Config\Util\XmlUtils;
-use ECSPrefix20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ConfigTransformer20210601\Symfony\Component\Config\Util\XmlUtils;
+use ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * IniFileLoader loads parameters from INI files.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class IniFileLoader extends \ECSPrefix20210601\Symfony\Component\DependencyInjection\Loader\FileLoader
+class IniFileLoader extends \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Loader\FileLoader
 {
     /**
      * {@inheritdoc}
+     * @param string|null $type
      */
-    public function load($resource, string $type = null)
+    public function load($resource, $type = null)
     {
         $path = $this->locator->locate($resource);
         $this->container->fileExists($path);
         // first pass to catch parsing errors
         $result = \parse_ini_file($path, \true);
         if (\false === $result || [] === $result) {
-            throw new \ECSPrefix20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "%s" file is not valid.', $resource));
+            throw new \ConfigTransformer20210601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "%s" file is not valid.', $resource));
         }
         // real raw parsing
         $result = \parse_ini_file($path, \true, \INI_SCANNER_RAW);
@@ -82,7 +83,7 @@ class IniFileLoader extends \ECSPrefix20210601\Symfony\Component\DependencyInjec
                 // quoted string
                 return \substr($value, 1, -1);
             default:
-                return \ECSPrefix20210601\Symfony\Component\Config\Util\XmlUtils::phpize($value);
+                return \ConfigTransformer20210601\Symfony\Component\Config\Util\XmlUtils::phpize($value);
         }
     }
 }

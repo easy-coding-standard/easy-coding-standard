@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210601\Symplify\EasyTesting\PHPUnit\Behavior;
+namespace ConfigTransformer20210601\Symplify\EasyTesting\PHPUnit\Behavior;
 
-use ECSPrefix20210601\Symfony\Component\Finder\Finder;
-use ECSPrefix20210601\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
-use ECSPrefix20210601\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use ECSPrefix20210601\Symplify\SmartFileSystem\SmartFileInfo;
+use ConfigTransformer20210601\Symfony\Component\Finder\Finder;
+use ConfigTransformer20210601\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
+use ConfigTransformer20210601\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ConfigTransformer20210601\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Use only in "\PHPUnit\Framework\TestCase"
  *
@@ -39,9 +39,9 @@ trait DirectoryAssertableTrait
      */
     private function findFileInfosInDirectory(string $directory) : array
     {
-        $firstDirectoryFinder = new \ECSPrefix20210601\Symfony\Component\Finder\Finder();
+        $firstDirectoryFinder = new \ConfigTransformer20210601\Symfony\Component\Finder\Finder();
         $firstDirectoryFinder->files()->in($directory);
-        $finderSanitizer = new \ECSPrefix20210601\Symplify\SmartFileSystem\Finder\FinderSanitizer();
+        $finderSanitizer = new \ConfigTransformer20210601\Symplify\SmartFileSystem\Finder\FinderSanitizer();
         return $finderSanitizer->sanitize($firstDirectoryFinder);
     }
     /**
@@ -56,7 +56,7 @@ trait DirectoryAssertableTrait
             $relativeFilePath = $expectedFileInfo->getRelativeFilePathFromDirectory($expectedDirectory);
             // match output file info
             $outputFileInfo = $this->resolveFileInfoByRelativeFilePath($outputFileInfos, $outputDirectory, $relativeFilePath);
-            $fileInfosByRelativeFilePath[$relativeFilePath] = new \ECSPrefix20210601\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair($expectedFileInfo, $outputFileInfo);
+            $fileInfosByRelativeFilePath[$relativeFilePath] = new \ConfigTransformer20210601\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair($expectedFileInfo, $outputFileInfo);
         }
         return $fileInfosByRelativeFilePath;
     }
