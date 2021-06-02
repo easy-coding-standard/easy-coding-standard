@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210601\SebastianBergmann\Diff;
+namespace ECSPrefix20210602\SebastianBergmann\Diff;
 
 use Throwable;
 interface Exception extends \Throwable

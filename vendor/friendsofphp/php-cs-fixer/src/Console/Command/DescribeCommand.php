@@ -30,19 +30,19 @@ use PhpCsFixer\StdinFileInfo;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Utils;
 use PhpCsFixer\WordMatcher;
-use ECSPrefix20210601\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210601\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix20210601\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210601\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210601\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210602\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210602\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20210602\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20210602\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210602\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20210602\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  * @author SpacePossum
  *
  * @internal
  */
-final class DescribeCommand extends \ECSPrefix20210601\Symfony\Component\Console\Command\Command
+final class DescribeCommand extends \ECSPrefix20210602\Symfony\Component\Console\Command\Command
 {
     protected static $defaultName = 'describe';
     /**
@@ -75,14 +75,14 @@ final class DescribeCommand extends \ECSPrefix20210601\Symfony\Component\Console
      */
     protected function configure()
     {
-        $this->setDefinition([new \ECSPrefix20210601\Symfony\Component\Console\Input\InputArgument('name', \ECSPrefix20210601\Symfony\Component\Console\Input\InputArgument::REQUIRED, 'Name of rule / set.')])->setDescription('Describe rule / ruleset.');
+        $this->setDefinition([new \ECSPrefix20210602\Symfony\Component\Console\Input\InputArgument('name', \ECSPrefix20210602\Symfony\Component\Console\Input\InputArgument::REQUIRED, 'Name of rule / set.')])->setDescription('Describe rule / ruleset.');
     }
     /**
      * {@inheritdoc}
      */
-    protected function execute(\ECSPrefix20210601\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20210602\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210602\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
-        if (\ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof \ECSPrefix20210601\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if (\ECSPrefix20210602\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof \ECSPrefix20210602\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $stdErr = $output->getErrorOutput();
             $stdErr->writeln($this->getApplication()->getLongVersion());
             $stdErr->writeln(\sprintf('Runtime: <info>PHP %s</info>', \PHP_VERSION));
@@ -105,7 +105,7 @@ final class DescribeCommand extends \ECSPrefix20210601\Symfony\Component\Console
     /**
      * @return void
      */
-    private function describeRule(\ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface $output, string $name)
+    private function describeRule(\ECSPrefix20210602\Symfony\Component\Console\Output\OutputInterface $output, string $name)
     {
         $fixers = $this->getFixers();
         if (!isset($fixers[$name])) {
@@ -122,7 +122,7 @@ final class DescribeCommand extends \ECSPrefix20210601\Symfony\Component\Console
             $description .= \sprintf(' <error>DEPRECATED</error>: %s.', $message);
         }
         $output->writeln(\sprintf('<info>Description of</info> %s <info>rule</info>.', $name));
-        if ($output->getVerbosity() >= \ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
+        if ($output->getVerbosity() >= \ECSPrefix20210602\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
             $output->writeln(\sprintf('Fixer class: <comment>%s</comment>.', \get_class($fixer)));
         }
         $output->writeln($description);
@@ -142,7 +142,7 @@ final class DescribeCommand extends \ECSPrefix20210601\Symfony\Component\Console
             $options = $configurationDefinition->getOptions();
             $output->writeln(\sprintf('Fixer is configurable using following option%s:', 1 === \count($options) ? '' : 's'));
             foreach ($options as $option) {
-                $line = '* <info>' . \ECSPrefix20210601\Symfony\Component\Console\Formatter\OutputFormatter::escape($option->getName()) . '</info>';
+                $line = '* <info>' . \ECSPrefix20210602\Symfony\Component\Console\Formatter\OutputFormatter::escape($option->getName()) . '</info>';
                 $allowed = \PhpCsFixer\Console\Command\HelpCommand::getDisplayableAllowedValues($option);
                 if (null !== $allowed) {
                     foreach ($allowed as &$value) {
@@ -160,7 +160,7 @@ final class DescribeCommand extends \ECSPrefix20210601\Symfony\Component\Console
                 if (null !== $allowed) {
                     $line .= ' (' . \implode(', ', $allowed) . ')';
                 }
-                $description = \PhpCsFixer\Preg::replace('/(`.+?`)/', '<info>$1</info>', \ECSPrefix20210601\Symfony\Component\Console\Formatter\OutputFormatter::escape($option->getDescription()));
+                $description = \PhpCsFixer\Preg::replace('/(`.+?`)/', '<info>$1</info>', \ECSPrefix20210602\Symfony\Component\Console\Formatter\OutputFormatter::escape($option->getDescription()));
                 $line .= ': ' . \lcfirst(\PhpCsFixer\Preg::replace('/\\.$/', '', $description)) . '; ';
                 if ($option->hasDefault()) {
                     $line .= \sprintf('defaults to <comment>%s</comment>', \PhpCsFixer\Console\Command\HelpCommand::toString($option->getDefault()));
@@ -168,7 +168,7 @@ final class DescribeCommand extends \ECSPrefix20210601\Symfony\Component\Console
                     $line .= '<comment>required</comment>';
                 }
                 if ($option instanceof \PhpCsFixer\FixerConfiguration\DeprecatedFixerOption) {
-                    $line .= '. <error>DEPRECATED</error>: ' . \PhpCsFixer\Preg::replace('/(`.+?`)/', '<info>$1</info>', \ECSPrefix20210601\Symfony\Component\Console\Formatter\OutputFormatter::escape(\lcfirst($option->getDeprecationMessage())));
+                    $line .= '. <error>DEPRECATED</error>: ' . \PhpCsFixer\Preg::replace('/(`.+?`)/', '<info>$1</info>', \ECSPrefix20210602\Symfony\Component\Console\Formatter\OutputFormatter::escape(\lcfirst($option->getDeprecationMessage())));
                 }
                 if ($option instanceof \PhpCsFixer\FixerConfiguration\AliasedFixerOption) {
                     $line .= '; <error>DEPRECATED</error> alias: <comment>' . $option->getAlias() . '</comment>';
@@ -216,7 +216,7 @@ final class DescribeCommand extends \ECSPrefix20210601\Symfony\Component\Console
     /**
      * @return void
      */
-    private function describeSet(\ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface $output, string $name)
+    private function describeSet(\ECSPrefix20210602\Symfony\Component\Console\Output\OutputInterface $output, string $name)
     {
         if (!\in_array($name, $this->getSetNames(), \true)) {
             throw new \PhpCsFixer\Console\Command\DescribeNameNotFoundException($name, 'set');
@@ -274,11 +274,11 @@ final class DescribeCommand extends \ECSPrefix20210601\Symfony\Component\Console
      * @param string $type 'rule'|'set'
      * @return void
      */
-    private function describeList(\ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface $output, string $type)
+    private function describeList(\ECSPrefix20210602\Symfony\Component\Console\Output\OutputInterface $output, string $type)
     {
-        if ($output->getVerbosity() >= \ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE) {
+        if ($output->getVerbosity() >= \ECSPrefix20210602\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE) {
             $describe = ['sets' => $this->getSetNames(), 'rules' => $this->getFixers()];
-        } elseif ($output->getVerbosity() >= \ECSPrefix20210601\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
+        } elseif ($output->getVerbosity() >= \ECSPrefix20210602\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
             $describe = 'set' === $type ? ['sets' => $this->getSetNames()] : ['rules' => $this->getFixers()];
         } else {
             return;
