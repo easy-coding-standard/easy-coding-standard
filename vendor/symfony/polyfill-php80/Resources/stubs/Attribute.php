@@ -2,7 +2,9 @@
 
 
 
-#[Attribute(\Attribute::TARGET_CLASS)]
+/**
+ * @Attribute
+ */
 final class Attribute
 {
     const TARGET_CLASS = 1;
@@ -20,4 +22,7 @@ final class Attribute
         $this->flags = $flags;
     }
 }
+/**
+ * @Attribute
+ */
 

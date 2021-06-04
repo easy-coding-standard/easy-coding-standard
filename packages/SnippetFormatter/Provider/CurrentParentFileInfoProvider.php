@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Provider;
 
-use ECSPrefix20210602\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210604\Symplify\SmartFileSystem\SmartFileInfo;
 final class CurrentParentFileInfoProvider
 {
     /**
@@ -13,7 +13,7 @@ final class CurrentParentFileInfoProvider
     /**
      * @return void
      */
-    public function setParentFileInfo(\ECSPrefix20210602\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function setParentFileInfo(\ECSPrefix20210604\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $this->smartFileInfo = $smartFileInfo;
     }

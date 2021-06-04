@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210602\Symfony\Component\HttpFoundation\Session\Storage\Proxy;
+namespace ECSPrefix20210604\Symfony\Component\HttpFoundation\Session\Storage\Proxy;
 
 /**
  * @author Drak <drak@zikula.org>
  */
-class SessionHandlerProxy extends \ECSPrefix20210602\Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy implements \SessionHandlerInterface, \SessionUpdateTimestampHandlerInterface
+class SessionHandlerProxy extends \ECSPrefix20210604\Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy implements \SessionHandlerInterface, \SessionUpdateTimestampHandlerInterface
 {
     protected $handler;
     public function __construct(\SessionHandlerInterface $handler)
@@ -33,6 +33,7 @@ class SessionHandlerProxy extends \ECSPrefix20210602\Symfony\Component\HttpFound
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function open($savePath, $sessionName)
     {
         return (bool) $this->handler->open($savePath, $sessionName);
@@ -40,6 +41,7 @@ class SessionHandlerProxy extends \ECSPrefix20210602\Symfony\Component\HttpFound
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function close()
     {
         return (bool) $this->handler->close();
@@ -47,6 +49,7 @@ class SessionHandlerProxy extends \ECSPrefix20210602\Symfony\Component\HttpFound
     /**
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function read($sessionId)
     {
         return (string) $this->handler->read($sessionId);
@@ -54,6 +57,7 @@ class SessionHandlerProxy extends \ECSPrefix20210602\Symfony\Component\HttpFound
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function write($sessionId, $data)
     {
         return (bool) $this->handler->write($sessionId, $data);
@@ -61,20 +65,23 @@ class SessionHandlerProxy extends \ECSPrefix20210602\Symfony\Component\HttpFound
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function destroy($sessionId)
     {
         return (bool) $this->handler->destroy($sessionId);
     }
     /**
-     * @return bool
+     * @return int|false
      */
+    #[\ReturnTypeWillChange]
     public function gc($maxlifetime)
     {
-        return (bool) $this->handler->gc($maxlifetime);
+        return $this->handler->gc($maxlifetime);
     }
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function validateId($sessionId)
     {
         return !$this->handler instanceof \SessionUpdateTimestampHandlerInterface || $this->handler->validateId($sessionId);
@@ -82,6 +89,7 @@ class SessionHandlerProxy extends \ECSPrefix20210602\Symfony\Component\HttpFound
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function updateTimestamp($sessionId, $data)
     {
         return $this->handler instanceof \SessionUpdateTimestampHandlerInterface ? $this->handler->updateTimestamp($sessionId, $data) : $this->write($sessionId, $data);

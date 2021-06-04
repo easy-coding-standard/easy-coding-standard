@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210602\Nette\Caching;
+namespace ECSPrefix20210604\Nette\Caching;
 
-use ECSPrefix20210602\Nette;
+use ECSPrefix20210604\Nette;
 /**
  * Implements the cache for a application.
  */
@@ -22,7 +22,7 @@ class Cache
     private $storage;
     /** @var string */
     private $namespace;
-    public function __construct(\ECSPrefix20210602\Nette\Caching\Storage $storage, string $namespace = null)
+    public function __construct(\ECSPrefix20210604\Nette\Caching\Storage $storage, string $namespace = null)
     {
         $this->storage = $storage;
         $this->namespace = $namespace . self::NAMESPACE_SEPARATOR;
@@ -30,7 +30,7 @@ class Cache
     /**
      * Returns cache storage.
      */
-    public final function getStorage() : \ECSPrefix20210602\Nette\Caching\Storage
+    public final function getStorage() : \ECSPrefix20210604\Nette\Caching\Storage
     {
         return $this->storage;
     }
@@ -80,11 +80,11 @@ class Cache
         }
         foreach ($keys as $key) {
             if (!\is_scalar($key)) {
-                throw new \ECSPrefix20210602\Nette\InvalidArgumentException('Only scalar keys are allowed in bulkLoad()');
+                throw new \ECSPrefix20210604\Nette\InvalidArgumentException('Only scalar keys are allowed in bulkLoad()');
             }
         }
         $result = [];
-        if (!$this->storage instanceof \ECSPrefix20210602\Nette\Caching\BulkReader) {
+        if (!$this->storage instanceof \ECSPrefix20210604\Nette\Caching\BulkReader) {
             foreach ($keys as $key) {
                 $result[$key] = $this->load($key, $generator ? function (&$dependencies) use($key, $generator) {
                     return $generator(...[$key, &$dependencies]);
@@ -155,7 +155,7 @@ class Cache
     {
         // convert expire into relative amount of seconds
         if (isset($dp[self::EXPIRATION])) {
-            $dp[self::EXPIRATION] = \ECSPrefix20210602\Nette\Utils\DateTime::from($dp[self::EXPIRATION])->format('U') - \time();
+            $dp[self::EXPIRATION] = \ECSPrefix20210604\Nette\Utils\DateTime::from($dp[self::EXPIRATION])->format('U') - \time();
         }
         // make list from TAGS
         if (isset($dp[self::TAGS])) {
@@ -253,7 +253,7 @@ class Cache
     {
         $data = $this->load($key);
         if ($data === null) {
-            return new \ECSPrefix20210602\Nette\Caching\OutputHelper($this, $key);
+            return new \ECSPrefix20210604\Nette\Caching\OutputHelper($this, $key);
         }
         echo $data;
         return null;

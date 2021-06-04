@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210602\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20210604\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20210602\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
+use ECSPrefix20210604\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * This class builds an if expression.
  *
@@ -22,7 +22,7 @@ class ExprBuilder
     protected $node;
     public $ifPart;
     public $thenPart;
-    public function __construct(\ECSPrefix20210602\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
+    public function __construct(\ECSPrefix20210604\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->node = $node;
     }
@@ -193,7 +193,7 @@ class ExprBuilder
     public function thenUnset()
     {
         $this->thenPart = function ($v) {
-            throw new \ECSPrefix20210602\Symfony\Component\Config\Definition\Exception\UnsetKeyException('Unsetting key.');
+            throw new \ECSPrefix20210604\Symfony\Component\Config\Definition\Exception\UnsetKeyException('Unsetting key.');
         };
         return $this;
     }

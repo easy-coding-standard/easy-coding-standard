@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210602\Symfony\Component\HttpKernel\Controller;
+namespace ECSPrefix20210604\Symfony\Component\HttpKernel\Controller;
 
-use ECSPrefix20210602\Psr\Container\ContainerInterface;
-use ECSPrefix20210602\Psr\Log\LoggerInterface;
-use ECSPrefix20210602\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix20210604\Psr\Container\ContainerInterface;
+use ECSPrefix20210604\Psr\Log\LoggerInterface;
+use ECSPrefix20210604\Symfony\Component\DependencyInjection\Container;
 /**
  * A controller resolver searching for a controller in a psr-11 container when using the "service::method" notation.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-class ContainerControllerResolver extends \ECSPrefix20210602\Symfony\Component\HttpKernel\Controller\ControllerResolver
+class ContainerControllerResolver extends \ECSPrefix20210604\Symfony\Component\HttpKernel\Controller\ControllerResolver
 {
     protected $container;
-    public function __construct(\ECSPrefix20210602\Psr\Container\ContainerInterface $container, \ECSPrefix20210602\Psr\Log\LoggerInterface $logger = null)
+    public function __construct(\ECSPrefix20210604\Psr\Container\ContainerInterface $container, \ECSPrefix20210604\Psr\Log\LoggerInterface $logger = null)
     {
         $this->container = $container;
         parent::__construct($logger);
@@ -56,7 +56,7 @@ class ContainerControllerResolver extends \ECSPrefix20210602\Symfony\Component\H
     }
     private function throwExceptionIfControllerWasRemoved(string $controller, \Throwable $previous)
     {
-        if ($this->container instanceof \ECSPrefix20210602\Symfony\Component\DependencyInjection\Container && isset($this->container->getRemovedIds()[$controller])) {
+        if ($this->container instanceof \ECSPrefix20210604\Symfony\Component\DependencyInjection\Container && isset($this->container->getRemovedIds()[$controller])) {
             throw new \InvalidArgumentException(\sprintf('Controller "%s" cannot be fetched from the container because it is private. Did you forget to tag the service with "controller.service_arguments"?', $controller), 0, $previous);
         }
     }

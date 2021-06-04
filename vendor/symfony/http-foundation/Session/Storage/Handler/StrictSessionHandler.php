@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210602\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace ECSPrefix20210604\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Adds basic `SessionUpdateTimestampHandlerInterface` behaviors to another `SessionHandlerInterface`.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class StrictSessionHandler extends \ECSPrefix20210602\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class StrictSessionHandler extends \ECSPrefix20210604\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     private $handler;
     private $doDestroy;
@@ -29,6 +29,7 @@ class StrictSessionHandler extends \ECSPrefix20210602\Symfony\Component\HttpFoun
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function open($savePath, $sessionName)
     {
         parent::open($savePath, $sessionName);
@@ -44,6 +45,7 @@ class StrictSessionHandler extends \ECSPrefix20210602\Symfony\Component\HttpFoun
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function updateTimestamp($sessionId, $data)
     {
         return $this->write($sessionId, $data);
@@ -58,6 +60,7 @@ class StrictSessionHandler extends \ECSPrefix20210602\Symfony\Component\HttpFoun
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function destroy($sessionId)
     {
         $this->doDestroy = \true;
@@ -75,13 +78,15 @@ class StrictSessionHandler extends \ECSPrefix20210602\Symfony\Component\HttpFoun
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function close()
     {
         return $this->handler->close();
     }
     /**
-     * @return bool
+     * @return int|false
      */
+    #[\ReturnTypeWillChange]
     public function gc($maxlifetime)
     {
         return $this->handler->gc($maxlifetime);

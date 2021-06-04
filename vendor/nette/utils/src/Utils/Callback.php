@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210602\Nette\Utils;
+namespace ECSPrefix20210604\Nette\Utils;
 
-use ECSPrefix20210602\Nette;
+use ECSPrefix20210604\Nette;
 use function is_array, is_object, is_string;
 /**
  * PHP callable tools.
@@ -25,7 +25,7 @@ final class Callback
         try {
             return \Closure::fromCallable($method === null ? $callable : [$callable, $method]);
         } catch (\TypeError $e) {
-            throw new \ECSPrefix20210602\Nette\InvalidArgumentException($e->getMessage());
+            throw new \ECSPrefix20210604\Nette\InvalidArgumentException($e->getMessage());
         }
     }
     /**
@@ -58,7 +58,7 @@ final class Callback
     {
         $prev = \set_error_handler(function ($severity, $message, $file) use($onError, &$prev, $function) {
             if ($file === __FILE__) {
-                $msg = \ini_get('html_errors') ? \ECSPrefix20210602\Nette\Utils\Html::htmlToText($message) : $message;
+                $msg = \ini_get('html_errors') ? \ECSPrefix20210604\Nette\Utils\Html::htmlToText($message) : $message;
                 $msg = \preg_replace("#^{$function}\\(.*?\\): #", '', $msg);
                 if ($onError($msg, $severity) !== \false) {
                     return null;
@@ -82,7 +82,7 @@ final class Callback
     public static function check($callable, bool $syntax = \false)
     {
         if (!\is_callable($callable, $syntax)) {
-            throw new \ECSPrefix20210602\Nette\InvalidArgumentException($syntax ? 'Given value is not a callable type.' : \sprintf("Callback '%s' is not callable.", self::toString($callable)));
+            throw new \ECSPrefix20210604\Nette\InvalidArgumentException($syntax ? 'Given value is not a callable type.' : \sprintf("Callback '%s' is not callable.", self::toString($callable)));
         }
         return $callable;
     }

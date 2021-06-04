@@ -2,11 +2,16 @@
 
 
 
-#[Attribute(\Attribute::TARGET_METHOD)]
+/**
+ * @Attribute
+ */
 final class ReturnTypeWillChange
 {
     public function __construct()
     {
     }
 }
+/**
+ * @Attribute
+ */
 

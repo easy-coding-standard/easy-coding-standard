@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210602\Nette\Caching\Storages;
+namespace ECSPrefix20210604\Nette\Caching\Storages;
 
-use ECSPrefix20210602\Nette;
+use ECSPrefix20210604\Nette;
 /**
  * Memory cache storage.
  */
-class MemoryStorage implements \ECSPrefix20210602\Nette\Caching\Storage
+class MemoryStorage implements \ECSPrefix20210604\Nette\Caching\Storage
 {
     use Nette\SmartObject;
     /** @var array */
@@ -45,7 +45,7 @@ class MemoryStorage implements \ECSPrefix20210602\Nette\Caching\Storage
      */
     public function clean(array $conditions)
     {
-        if (!empty($conditions[\ECSPrefix20210602\Nette\Caching\Cache::ALL])) {
+        if (!empty($conditions[\ECSPrefix20210604\Nette\Caching\Cache::ALL])) {
             $this->data = [];
         }
     }
