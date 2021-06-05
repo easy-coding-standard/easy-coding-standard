@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace ECSPrefix20210605;
 
 use PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer;
+use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PhpCsFixer\Fixer\Strict\StrictComparisonFixer;
 use PhpCsFixer\Fixer\Strict\StrictParamFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -12,4 +13,5 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services->set(\PhpCsFixer\Fixer\Strict\StrictComparisonFixer::class);
     $services->set(\PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer::class);
     $services->set(\PhpCsFixer\Fixer\Strict\StrictParamFixer::class);
+    $services->set(\PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer::class);
 };
