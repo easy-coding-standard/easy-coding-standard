@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210604\Symplify\Skipper\HttpKernel;
+namespace ECSPrefix20210605\Symplify\Skipper\HttpKernel;
 
-use ECSPrefix20210604\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix20210604\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use ECSPrefix20210604\Symplify\Skipper\Bundle\SkipperBundle;
-use ECSPrefix20210604\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use ECSPrefix20210604\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class SkipperKernel extends \ECSPrefix20210604\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use ECSPrefix20210605\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix20210605\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20210605\Symplify\Skipper\Bundle\SkipperBundle;
+use ECSPrefix20210605\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use ECSPrefix20210605\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class SkipperKernel extends \ECSPrefix20210605\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @return void
      */
-    public function registerContainerConfiguration(\ECSPrefix20210604\Symfony\Component\Config\Loader\LoaderInterface $loader)
+    public function registerContainerConfiguration(\ECSPrefix20210605\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         parent::registerContainerConfiguration($loader);
@@ -23,6 +23,6 @@ final class SkipperKernel extends \ECSPrefix20210604\Symplify\SymplifyKernel\Htt
      */
     public function registerBundles()
     {
-        return [new \ECSPrefix20210604\Symplify\Skipper\Bundle\SkipperBundle(), new \ECSPrefix20210604\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
+        return [new \ECSPrefix20210605\Symplify\Skipper\Bundle\SkipperBundle(), new \ECSPrefix20210605\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }
 }

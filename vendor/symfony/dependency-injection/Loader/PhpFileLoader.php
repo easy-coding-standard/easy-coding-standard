@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix20210604\Symfony\Component\Config\Builder\ConfigBuilderGenerator;
-use ECSPrefix20210604\Symfony\Component\Config\Builder\ConfigBuilderGeneratorInterface;
-use ECSPrefix20210604\Symfony\Component\Config\Builder\ConfigBuilderInterface;
-use ECSPrefix20210604\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix20210604\Symfony\Component\DependencyInjection\Attribute\When;
-use ECSPrefix20210604\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix20210604\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210604\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210604\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use ECSPrefix20210604\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix20210605\Symfony\Component\Config\Builder\ConfigBuilderGenerator;
+use ECSPrefix20210605\Symfony\Component\Config\Builder\ConfigBuilderGeneratorInterface;
+use ECSPrefix20210605\Symfony\Component\Config\Builder\ConfigBuilderInterface;
+use ECSPrefix20210605\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix20210605\Symfony\Component\DependencyInjection\Attribute\When;
+use ECSPrefix20210605\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix20210605\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210605\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210605\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use ECSPrefix20210605\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 /**
  * PhpFileLoader loads service definitions from a PHP file.
  *
@@ -29,14 +29,14 @@ use ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\Configurator\
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class PhpFileLoader extends \ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\FileLoader
+class PhpFileLoader extends \ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\FileLoader
 {
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     private $generator;
     /**
      * @param \Symfony\Component\Config\Builder\ConfigBuilderGeneratorInterface|null $generator
      */
-    public function __construct(\ECSPrefix20210604\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210604\Symfony\Component\Config\FileLocatorInterface $locator, string $env = null, $generator = null)
+    public function __construct(\ECSPrefix20210605\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210605\Symfony\Component\Config\FileLocatorInterface $locator, string $env = null, $generator = null)
     {
         parent::__construct($container, $locator, $env);
         $this->generator = $generator;
@@ -55,11 +55,11 @@ class PhpFileLoader extends \ECSPrefix20210604\Symfony\Component\DependencyInjec
         // the closure forbids access to the private scope in the included file
         $load = \Closure::bind(function ($path, $env) use($container, $loader, $resource, $type) {
             return include $path;
-        }, $this, \ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\ProtectedPhpFileLoader::class);
+        }, $this, \ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\ProtectedPhpFileLoader::class);
         try {
             $callback = $load($path, $this->env);
             if (\is_object($callback) && \is_callable($callback)) {
-                $this->executeCallback($callback, new \ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator($this->container, $this, $this->instanceof, $path, $resource, $this->env), $path);
+                $this->executeCallback($callback, new \ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator($this->container, $this, $this->instanceof, $path, $resource, $this->env), $path);
             }
         } finally {
             $this->instanceof = [];
@@ -82,7 +82,7 @@ class PhpFileLoader extends \ECSPrefix20210604\Symfony\Component\DependencyInjec
     /**
      * Resolve the parameters to the $callback and execute it.
      */
-    private function executeCallback(callable $callback, \ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator, string $path)
+    private function executeCallback(callable $callback, \ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator, string $path)
     {
         if (!$callback instanceof \Closure) {
             $callback = \Closure::fromCallable($callback);
@@ -92,7 +92,7 @@ class PhpFileLoader extends \ECSPrefix20210604\Symfony\Component\DependencyInjec
         $r = new \ReflectionFunction($callback);
         if (\PHP_VERSION_ID >= 80000) {
             $attribute = null;
-            foreach ($r->getAttributes(\ECSPrefix20210604\Symfony\Component\DependencyInjection\Attribute\When::class) as $attribute) {
+            foreach ($r->getAttributes(\ECSPrefix20210605\Symfony\Component\DependencyInjection\Attribute\When::class) as $attribute) {
                 if ($this->env === $attribute->newInstance()->env) {
                     $attribute = null;
                     break;
@@ -105,24 +105,24 @@ class PhpFileLoader extends \ECSPrefix20210604\Symfony\Component\DependencyInjec
         foreach ($r->getParameters() as $parameter) {
             $reflectionType = $parameter->getType();
             if (!$reflectionType instanceof \ReflectionNamedType) {
-                throw new \InvalidArgumentException(\sprintf('Could not resolve argument "$%s" for "%s". You must typehint it (for example with "%s" or "%s").', $parameter->getName(), $path, \ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator::class, \ECSPrefix20210604\Symfony\Component\DependencyInjection\ContainerBuilder::class));
+                throw new \InvalidArgumentException(\sprintf('Could not resolve argument "$%s" for "%s". You must typehint it (for example with "%s" or "%s").', $parameter->getName(), $path, \ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator::class, \ECSPrefix20210605\Symfony\Component\DependencyInjection\ContainerBuilder::class));
             }
             $type = $reflectionType->getName();
             switch ($type) {
-                case \ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator::class:
+                case \ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator::class:
                     $arguments[] = $containerConfigurator;
                     break;
-                case \ECSPrefix20210604\Symfony\Component\DependencyInjection\ContainerBuilder::class:
+                case \ECSPrefix20210605\Symfony\Component\DependencyInjection\ContainerBuilder::class:
                     $arguments[] = $this->container;
                     break;
-                case \ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\FileLoader::class:
+                case \ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\FileLoader::class:
                 case self::class:
                     $arguments[] = $this;
                     break;
                 default:
                     try {
                         $configBuilder = $this->configBuilder($type);
-                    } catch (\ECSPrefix20210604\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException $e) {
+                    } catch (\ECSPrefix20210605\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException $e) {
                         throw new \InvalidArgumentException(\sprintf('Could not resolve argument "%s" for "%s".', $type . ' $' . $parameter->getName(), $path), 0, $e);
                     } catch (\LogicException $e) {
                         throw new \InvalidArgumentException(\sprintf('Could not resolve argument "%s" for "%s".', $type . ' $' . $parameter->getName(), $path), 0, $e);
@@ -132,7 +132,7 @@ class PhpFileLoader extends \ECSPrefix20210604\Symfony\Component\DependencyInjec
             }
         }
         // Force load ContainerConfigurator to make env(), param() etc available.
-        \class_exists(\ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator::class);
+        \class_exists(\ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator::class);
         $callback(...$arguments);
         /** @var ConfigBuilderInterface $configBuilder */
         foreach ($configBuilders as $configBuilder) {
@@ -142,36 +142,36 @@ class PhpFileLoader extends \ECSPrefix20210604\Symfony\Component\DependencyInjec
     /**
      * @param string $namespace FQCN string for a class implementing ConfigBuilderInterface
      */
-    private function configBuilder(string $namespace) : \ECSPrefix20210604\Symfony\Component\Config\Builder\ConfigBuilderInterface
+    private function configBuilder(string $namespace) : \ECSPrefix20210605\Symfony\Component\Config\Builder\ConfigBuilderInterface
     {
-        if (!\class_exists(\ECSPrefix20210604\Symfony\Component\Config\Builder\ConfigBuilderGenerator::class)) {
+        if (!\class_exists(\ECSPrefix20210605\Symfony\Component\Config\Builder\ConfigBuilderGenerator::class)) {
             throw new \LogicException('You cannot use the config builder as the Config component is not installed. Try running "composer require symfony/config".');
         }
         if (null === $this->generator) {
             throw new \LogicException('You cannot use the ConfigBuilders without providing a class implementing ConfigBuilderGeneratorInterface.');
         }
         // If class exists and implements ConfigBuilderInterface
-        if (\class_exists($namespace) && \is_subclass_of($namespace, \ECSPrefix20210604\Symfony\Component\Config\Builder\ConfigBuilderInterface::class)) {
+        if (\class_exists($namespace) && \is_subclass_of($namespace, \ECSPrefix20210605\Symfony\Component\Config\Builder\ConfigBuilderInterface::class)) {
             return new $namespace();
         }
         // If it does not start with Symfony\Config\ we dont know how to handle this
         if ('Symfony\\Config\\' !== \substr($namespace, 0, 15)) {
-            throw new \ECSPrefix20210604\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Could not find or generate class "%s".', $namespace));
+            throw new \ECSPrefix20210605\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Could not find or generate class "%s".', $namespace));
         }
         // Try to get the extension alias
-        $alias = \ECSPrefix20210604\Symfony\Component\DependencyInjection\Container::underscore(\substr($namespace, 15, -6));
+        $alias = \ECSPrefix20210605\Symfony\Component\DependencyInjection\Container::underscore(\substr($namespace, 15, -6));
         if (\false !== \strpos($alias, '\\')) {
-            throw new \ECSPrefix20210604\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('You can only use "root" ConfigBuilders from "Symfony\\Config\\" namespace. Nested classes like "Symfony\\Config\\Framework\\CacheConfig" cannot be used.');
+            throw new \ECSPrefix20210605\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('You can only use "root" ConfigBuilders from "Symfony\\Config\\" namespace. Nested classes like "Symfony\\Config\\Framework\\CacheConfig" cannot be used.');
         }
         if (!$this->container->hasExtension($alias)) {
-            $extensions = \array_filter(\array_map(function (\ECSPrefix20210604\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $ext) {
+            $extensions = \array_filter(\array_map(function (\ECSPrefix20210605\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $ext) {
                 return $ext->getAlias();
             }, $this->container->getExtensions()));
-            throw new \ECSPrefix20210604\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no extension able to load the configuration for "%s". Looked for namespace "%s", found "%s".', $namespace, $alias, $extensions ? \implode('", "', $extensions) : 'none'));
+            throw new \ECSPrefix20210605\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no extension able to load the configuration for "%s". Looked for namespace "%s", found "%s".', $namespace, $alias, $extensions ? \implode('", "', $extensions) : 'none'));
         }
         $extension = $this->container->getExtension($alias);
-        if (!$extension instanceof \ECSPrefix20210604\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface) {
-            throw new \LogicException(\sprintf('You cannot use the config builder for "%s" because the extension does not implement "%s".', $namespace, \ECSPrefix20210604\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface::class));
+        if (!$extension instanceof \ECSPrefix20210605\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface) {
+            throw new \LogicException(\sprintf('You cannot use the config builder for "%s" because the extension does not implement "%s".', $namespace, \ECSPrefix20210605\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface::class));
         }
         $configuration = $extension->getConfiguration([], $this->container);
         $loader = $this->generator->build($configuration);
@@ -181,6 +181,6 @@ class PhpFileLoader extends \ECSPrefix20210604\Symfony\Component\DependencyInjec
 /**
  * @internal
  */
-final class ProtectedPhpFileLoader extends \ECSPrefix20210604\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+final class ProtectedPhpFileLoader extends \ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
 }

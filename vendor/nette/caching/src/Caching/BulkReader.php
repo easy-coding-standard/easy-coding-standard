@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210604\Nette\Caching;
+namespace ECSPrefix20210605\Nette\Caching;
 
 /**
  * Cache storage with a bulk read support.
@@ -18,4 +18,4 @@ interface BulkReader
      */
     function bulkRead(array $keys) : array;
 }
-\class_exists(\ECSPrefix20210604\Nette\Caching\IBulkReader::class);
+\class_exists(\ECSPrefix20210605\Nette\Caching\IBulkReader::class);

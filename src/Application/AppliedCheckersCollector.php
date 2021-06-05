@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException;
-use ECSPrefix20210604\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210605\Symplify\SmartFileSystem\SmartFileInfo;
 final class AppliedCheckersCollector
 {
     /**
@@ -14,14 +14,14 @@ final class AppliedCheckersCollector
     /**
      * @return void
      */
-    public function addFileInfoAndChecker(\ECSPrefix20210604\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $checker)
+    public function addFileInfoAndChecker(\ECSPrefix20210605\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $checker)
     {
         $this->appliedCheckersByFile[$smartFileInfo->getRealPath()][] = $checker;
     }
     /**
      * @return class-string[]
      */
-    public function getAppliedCheckersPerFileInfo(\ECSPrefix20210604\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getAppliedCheckersPerFileInfo(\ECSPrefix20210605\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         $this->ensureFileHasAppliedCheckers($smartFileInfo);
         return $this->appliedCheckersByFile[$smartFileInfo->getRealPath()];
@@ -29,7 +29,7 @@ final class AppliedCheckersCollector
     /**
      * @return void
      */
-    private function ensureFileHasAppliedCheckers(\ECSPrefix20210604\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    private function ensureFileHasAppliedCheckers(\ECSPrefix20210605\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         if (isset($this->appliedCheckersByFile[$smartFileInfo->getRealPath()])) {
             return;

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210604\Symfony\Component\HttpKernel\Fragment;
+namespace ECSPrefix20210605\Symfony\Component\HttpKernel\Fragment;
 
-use ECSPrefix20210604\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210604\Symfony\Component\HttpKernel\Controller\ControllerReference;
+use ECSPrefix20210605\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210605\Symfony\Component\HttpKernel\Controller\ControllerReference;
 /**
  * Interface implemented by rendering strategies able to generate an URL for a fragment.
  *
@@ -28,5 +28,5 @@ interface FragmentUriGeneratorInterface
      *
      * @return string A fragment URI
      */
-    public function generate(\ECSPrefix20210604\Symfony\Component\HttpKernel\Controller\ControllerReference $controller, \ECSPrefix20210604\Symfony\Component\HttpFoundation\Request $request = null, bool $absolute = \false, bool $strict = \true, bool $sign = \true) : string;
+    public function generate(\ECSPrefix20210605\Symfony\Component\HttpKernel\Controller\ControllerReference $controller, \ECSPrefix20210605\Symfony\Component\HttpFoundation\Request $request = null, bool $absolute = \false, bool $strict = \true, bool $sign = \true) : string;
 }

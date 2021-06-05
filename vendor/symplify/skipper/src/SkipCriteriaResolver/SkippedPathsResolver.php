@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210604\Symplify\Skipper\SkipCriteriaResolver;
+namespace ECSPrefix20210605\Symplify\Skipper\SkipCriteriaResolver;
 
-use ECSPrefix20210604\Nette\Utils\Strings;
-use ECSPrefix20210604\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20210604\Symplify\Skipper\ValueObject\Option;
-use ECSPrefix20210604\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+use ECSPrefix20210605\Nette\Utils\Strings;
+use ECSPrefix20210605\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210605\Symplify\Skipper\ValueObject\Option;
+use ECSPrefix20210605\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
 /**
  * @see \Symplify\Skipper\Tests\SkipCriteriaResolver\SkippedPathsResolver\SkippedPathsResolverTest
  */
@@ -24,7 +24,7 @@ final class SkippedPathsResolver
      * @var PathNormalizer
      */
     private $pathNormalizer;
-    public function __construct(\ECSPrefix20210604\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210604\Symplify\SmartFileSystem\Normalizer\PathNormalizer $pathNormalizer)
+    public function __construct(\ECSPrefix20210605\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210605\Symplify\SmartFileSystem\Normalizer\PathNormalizer $pathNormalizer)
     {
         $this->parameterProvider = $parameterProvider;
         $this->pathNormalizer = $pathNormalizer;
@@ -37,7 +37,7 @@ final class SkippedPathsResolver
         if ($this->skippedPaths !== []) {
             return $this->skippedPaths;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\ECSPrefix20210604\Symplify\Skipper\ValueObject\Option::SKIP);
+        $skip = $this->parameterProvider->provideArrayParameter(\ECSPrefix20210605\Symplify\Skipper\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             if (!\is_int($key)) {
                 continue;
@@ -46,7 +46,7 @@ final class SkippedPathsResolver
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }
-            if (\ECSPrefix20210604\Nette\Utils\Strings::contains($value, '*')) {
+            if (\ECSPrefix20210605\Nette\Utils\Strings::contains($value, '*')) {
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }

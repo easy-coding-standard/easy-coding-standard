@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
-use ECSPrefix20210604\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210605\Symplify\SmartFileSystem\SmartFileInfo;
 interface FileProcessorInterface
 {
-    public function processFile(\ECSPrefix20210604\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string;
+    public function processFile(\ECSPrefix20210605\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string;
     /**
      * @return object[]
      */
