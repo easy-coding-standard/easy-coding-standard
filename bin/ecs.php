@@ -22,6 +22,7 @@ $autoloadIncluder->includeCwdVendorAutoloadIfExists();
 $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
+$autoloadIncluder->loadIfNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 try {
     $input = new \ECSPrefix20210605\Symfony\Component\Console\Input\ArgvInput();
     $ecsContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory();
@@ -112,8 +113,11 @@ final class AutoloadIncluder
     /**
      * @return void
      */
-    private function loadIfNotLoadedYet(string $file)
+    public function loadIfNotLoadedYet(string $file)
     {
+        if (!\file_exists($file)) {
+            return;
+        }
         if (\in_array($file, $this->alreadyLoadedAutoloadFiles, \true)) {
             return;
         }
