@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\ValueObject\Set;
 final class SetList
 {
     /**
-     * @deprecated
+     * @deprecated Use PSR_12 instead
      * @var string
      * @api
      */
