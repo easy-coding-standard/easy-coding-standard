@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace ECSPrefix20210605;
 
-use ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use ECSPrefix20210605\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use ECSPrefix20210605\Symplify\Skipper\ValueObject\Option;
 use ECSPrefix20210605\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-return static function (\ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\ECSPrefix20210605\Symplify\Skipper\ValueObject\Option::SKIP, []);
     $parameters->set(\ECSPrefix20210605\Symplify\Skipper\ValueObject\Option::ONLY, []);

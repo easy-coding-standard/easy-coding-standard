@@ -5,7 +5,7 @@ namespace ECSPrefix20210605;
 
 use ECSPrefix20210605\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20210605\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use ECSPrefix20210605\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use ECSPrefix20210605\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use ECSPrefix20210605\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
@@ -15,7 +15,7 @@ use ECSPrefix20210605\Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use ECSPrefix20210605\Symplify\SmartFileSystem\Finder\SmartFinder;
 use ECSPrefix20210605\Symplify\SmartFileSystem\SmartFileSystem;
 use function ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (\ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     // symfony style

@@ -9,7 +9,7 @@ use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\WhitespacesFixerConfig;
 use ECSPrefix20210605\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20210605\Symfony\Component\Console\Terminal;
-use ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
@@ -22,7 +22,7 @@ use ECSPrefix20210605\Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use ECSPrefix20210605\Symplify\SmartFileSystem\Finder\SmartFinder;
 use ECSPrefix20210605\Symplify\SmartFileSystem\SmartFileSystem;
 use function ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (\ECSPrefix20210605\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(__DIR__ . '/services/services_cache.php');
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
