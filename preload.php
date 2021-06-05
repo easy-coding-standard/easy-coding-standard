@@ -7,4 +7,5 @@ require_once __DIR__ . '/vendor/psr/container/src/NotFoundExceptionInterface.php
 require_once __DIR__ . '/vendor/psr/container/src/ContainerInterface.php';
 require_once __DIR__ . '/vendor/symplify/rule-doc-generator-contracts/src/ValueObject/RuleDefinition.php';
 require_once __DIR__ . '/vendor/symplify/rule-doc-generator-contracts/src/Contract/DocumentedRuleInterface.php';
+require_once __DIR__ . '/vendor/symfony/dependency-injection/Loader/Configurator/AbstractConfigurator.php';
 require_once __DIR__ . '/vendor/symfony/dependency-injection/Loader/Configurator/ContainerConfigurator.php';
