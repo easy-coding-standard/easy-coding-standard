@@ -45,9 +45,3 @@ interface ExtensionInterface
      */
     public function getAlias();
 }
-/**
- * ExtensionInterface is the interface implemented by container extension classes.
- *
- * @author Fabien Potencier <fabien@symfony.com>
- */
-\class_alias('ECSPrefix20210605\\Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface', 'Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface', \false);

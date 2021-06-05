@@ -85,10 +85,6 @@ class ContainerConfigurator extends \ECSPrefix20210605\Symfony\Component\Depende
     }
 }
 /**
- * @author Nicolas Grekas <p@tchwork.com>
- */
-\class_alias('ECSPrefix20210605\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', 'Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', \false);
-/**
  * Creates a parameter.
  */
 function param(string $name) : \ECSPrefix20210605\Symfony\Component\Config\Loader\ParamConfigurator
