@@ -11,22 +11,26 @@ use Symplify\EasyCodingStandard\Caching\Journal\PriorityManager;
 use Symplify\EasyCodingStandard\Caching\Journal\TagManager;
 use Symplify\EasyCodingStandard\Caching\JsonFile\LockingJsonFileAccessor;
 use ECSPrefix20210606\Symplify\SmartFileSystem\SmartFileSystem;
-class JsonFileJournal implements \ECSPrefix20210606\Nette\Caching\Storages\Journal
+final class JsonFileJournal implements \ECSPrefix20210606\Nette\Caching\Storages\Journal
 {
-    /** @var LockingJsonFileAccessor */
-    private $fileAccessor;
-    /** @var DataContainer */
-    private $journal;
+    /**
+     * @var LockingJsonFileAccessor
+     */
+    private $lockingJsonFileAccessor;
+    /**
+     * @var DataContainer
+     */
+    private $dataContainer;
     public function __construct(string $journalFilePath = 'journal.json')
     {
-        $this->fileAccessor = new \Symplify\EasyCodingStandard\Caching\JsonFile\LockingJsonFileAccessor($journalFilePath);
-        if ($this->fileAccessor->exists() && !$this->fileAccessor->isWritable()) {
-            throw new \ECSPrefix20210606\Symfony\Component\Filesystem\Exception\IOException("Cache journal file '{$journalFilePath}' is not writable");
+        $this->lockingJsonFileAccessor = new \Symplify\EasyCodingStandard\Caching\JsonFile\LockingJsonFileAccessor($journalFilePath);
+        if ($this->lockingJsonFileAccessor->exists() && !$this->lockingJsonFileAccessor->isWritable()) {
+            throw new \ECSPrefix20210606\Symfony\Component\Filesystem\Exception\IOException(\sprintf("Cache journal file '%s' is not writable", $journalFilePath));
         }
-        if (!$this->fileAccessor->exists()) {
-            $filesystem = new \ECSPrefix20210606\Symplify\SmartFileSystem\SmartFileSystem();
-            $emptyContainer = new \Symplify\EasyCodingStandard\Caching\Journal\DataContainer();
-            $filesystem->dumpFile($journalFilePath, $emptyContainer->toJson());
+        if (!$this->lockingJsonFileAccessor->exists()) {
+            $smartFileSystem = new \ECSPrefix20210606\Symplify\SmartFileSystem\SmartFileSystem();
+            $dataContainer = new \Symplify\EasyCodingStandard\Caching\Journal\DataContainer();
+            $smartFileSystem->dumpFile($journalFilePath, $dataContainer->toJson());
         }
     }
     /**
@@ -34,45 +38,41 @@ class JsonFileJournal implements \ECSPrefix20210606\Nette\Caching\Storages\Journ
      */
     public function write(string $key, array $dependencies)
     {
-        $this->journal = $this->fileAccessor->openAndRead();
-        if (isset($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) && \count($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) > 0) {
-            $tagManager = new \Symplify\EasyCodingStandard\Caching\Journal\TagManager($this->journal);
+        $this->dataContainer = $this->lockingJsonFileAccessor->openAndRead();
+        if (isset($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) && (\is_array($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) || $dependencies[\ECSPrefix20210606\Nette\Caching\Cache::TAGS] instanceof \Countable ? \count($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) : 0) > 0) {
+            $tagManager = new \Symplify\EasyCodingStandard\Caching\Journal\TagManager($this->dataContainer);
             $tagManager->deleteTagsForKey($key);
             $tagManager->addTagsForKey($key, $dependencies[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]);
         }
         if (isset($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::PRIORITY])) {
-            $priorityManager = new \Symplify\EasyCodingStandard\Caching\Journal\PriorityManager($this->journal);
+            $priorityManager = new \Symplify\EasyCodingStandard\Caching\Journal\PriorityManager($this->dataContainer);
             $priorityManager->unsetPriority($key);
             $priorityManager->setPriority($key, (int) $dependencies[\ECSPrefix20210606\Nette\Caching\Cache::PRIORITY]);
         }
-        $this->fileAccessor->writeAndClose($this->journal);
+        $this->lockingJsonFileAccessor->writeAndClose($this->dataContainer);
     }
     /**
-     * @param array $conditions
-     *
+     * @param array<string, mixed> $conditions
      * @return mixed[]|null
      */
     public function clean(array $conditions)
     {
-        $this->journal = $this->fileAccessor->openAndRead();
+        $this->dataContainer = $this->lockingJsonFileAccessor->openAndRead();
         if (isset($conditions[\ECSPrefix20210606\Nette\Caching\Cache::ALL])) {
-            $this->fileAccessor->writeAndClose(new \Symplify\EasyCodingStandard\Caching\Journal\DataContainer());
+            $this->lockingJsonFileAccessor->writeAndClose(new \Symplify\EasyCodingStandard\Caching\Journal\DataContainer());
             return null;
         }
-        $tagManager = new \Symplify\EasyCodingStandard\Caching\Journal\TagManager($this->journal);
-        $priorityManager = new \Symplify\EasyCodingStandard\Caching\Journal\PriorityManager($this->journal);
+        $tagManager = new \Symplify\EasyCodingStandard\Caching\Journal\TagManager($this->dataContainer);
+        $priorityManager = new \Symplify\EasyCodingStandard\Caching\Journal\PriorityManager($this->dataContainer);
         $keys = [];
-        if (isset($conditions[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) && \count($conditions[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) > 0) {
+        if (isset($conditions[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) && (\is_array($conditions[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) || $conditions[\ECSPrefix20210606\Nette\Caching\Cache::TAGS] instanceof \Countable ? \count($conditions[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]) : 0) > 0) {
             $keys += $tagManager->getKeysByTags($conditions[\ECSPrefix20210606\Nette\Caching\Cache::TAGS]);
-        }
-        if (isset($conditions[\ECSPrefix20210606\Nette\Caching\Cache::PRIORITY]) && \count($conditions[\ECSPrefix20210606\Nette\Caching\Cache::PRIORITY]) > 0) {
-            $keys += $priorityManager->getKeysByPriority($conditions[\ECSPrefix20210606\Nette\Caching\Cache::PRIORITY]);
         }
         foreach ($keys as $key) {
             $tagManager->deleteTagsForKey($key);
             $priorityManager->unsetPriority($key);
         }
-        $this->fileAccessor->writeAndClose($this->journal);
+        $this->lockingJsonFileAccessor->writeAndClose($this->dataContainer);
         return $keys;
     }
 }

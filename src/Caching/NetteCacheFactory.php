@@ -31,8 +31,8 @@ final class NetteCacheFactory
             $this->smartFileSystem->mkdir($cacheDirectory);
         }
         // journal is needed for tags support
-        $journal = new \Symplify\EasyCodingStandard\Caching\JsonFileJournal($cacheDirectory . '/journal.json');
-        $fileStorage = new \ECSPrefix20210606\Nette\Caching\Storages\FileStorage($cacheDirectory, $journal);
+        $jsonFileJournal = new \Symplify\EasyCodingStandard\Caching\JsonFileJournal($cacheDirectory . '/journal.json');
+        $fileStorage = new \ECSPrefix20210606\Nette\Caching\Storages\FileStorage($cacheDirectory, $jsonFileJournal);
         // namespace is unique per project
         $namespace = \md5(\getcwd());
         return new \ECSPrefix20210606\Nette\Caching\Cache($fileStorage, $namespace);

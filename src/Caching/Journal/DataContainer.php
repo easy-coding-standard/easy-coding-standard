@@ -4,15 +4,35 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching\Journal;
 
 use ECSPrefix20210606\Nette\Utils\Json;
-class DataContainer
+final class DataContainer
 {
-    /** @var mixed[] */
+    /**
+     * @var string
+     */
+    const TAGS = 'tags';
+    /**
+     * @var string
+     */
+    const BY_KEY = 'by-key';
+    /**
+     * @var string
+     */
+    const PRIORITIES = 'priorities';
+    /**
+     * @var mixed[]
+     */
     public $tagsByKey = [];
-    /** @var array[] */
+    /**
+     * @var array[]
+     */
     public $keysByTag = [];
-    /** @var int[] */
+    /**
+     * @var int[]
+     */
     public $prioritiesByKey = [];
-    /** @var array[] */
+    /**
+     * @var array[]
+     */
     public $keysByPriority = [];
     /**
      * @return $this
@@ -20,15 +40,15 @@ class DataContainer
     public static function fromJson(string $jsonString)
     {
         $data = \ECSPrefix20210606\Nette\Utils\Json::decode($jsonString, \ECSPrefix20210606\Nette\Utils\Json::FORCE_ARRAY);
-        $instance = new self();
-        $instance->tagsByKey = $data['tags']['by-key'];
-        $instance->keysByTag = $data['tags']['by-tag'];
-        $instance->prioritiesByKey = $data['priorities']['by-key'];
-        $instance->keysByPriority = $data['priorities']['by-priority'];
-        return $instance;
+        $self = new self();
+        $self->tagsByKey = $data[self::TAGS][self::BY_KEY];
+        $self->keysByTag = $data[self::TAGS]['by-tag'];
+        $self->prioritiesByKey = $data[self::PRIORITIES][self::BY_KEY];
+        $self->keysByPriority = $data[self::PRIORITIES]['by-priority'];
+        return $self;
     }
     public function toJson() : string
     {
-        return \ECSPrefix20210606\Nette\Utils\Json::encode(['tags' => ['by-key' => $this->tagsByKey, 'by-tag' => $this->keysByTag], 'priorities' => ['by-key' => $this->prioritiesByKey, 'by-priority' => $this->keysByPriority]]);
+        return \ECSPrefix20210606\Nette\Utils\Json::encode([self::TAGS => [self::BY_KEY => $this->tagsByKey, 'by-tag' => $this->keysByTag], self::PRIORITIES => [self::BY_KEY => $this->prioritiesByKey, 'by-priority' => $this->keysByPriority]]);
     }
 }
