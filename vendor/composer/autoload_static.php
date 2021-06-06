@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite4961d5d7956202f7d606f02ae7471ed
+class ComposerStaticInit976ea1124724bb910aa0df3828f4d6c5
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1867,6 +1867,11 @@ class ComposerStaticInite4961d5d7956202f7d606f02ae7471ed
         'Symplify\\EasyCodingStandard\\Bootstrap\\ConfigHasher' => __DIR__ . '/../..' . '/src/Bootstrap/ConfigHasher.php',
         'Symplify\\EasyCodingStandard\\Bootstrap\\NoCheckersLoaderReporter' => __DIR__ . '/../..' . '/src/Bootstrap/NoCheckersLoaderReporter.php',
         'Symplify\\EasyCodingStandard\\Bundle\\EasyCodingStandardBundle' => __DIR__ . '/../..' . '/src/Bundle/EasyCodingStandardBundle.php',
+        'Symplify\\EasyCodingStandard\\Caching\\Journal\\DataContainer' => __DIR__ . '/../..' . '/src/Caching/Journal/DataContainer.php',
+        'Symplify\\EasyCodingStandard\\Caching\\Journal\\PriorityManager' => __DIR__ . '/../..' . '/src/Caching/Journal/PriorityManager.php',
+        'Symplify\\EasyCodingStandard\\Caching\\Journal\\TagManager' => __DIR__ . '/../..' . '/src/Caching/Journal/TagManager.php',
+        'Symplify\\EasyCodingStandard\\Caching\\JsonFileJournal' => __DIR__ . '/../..' . '/src/Caching/JsonFileJournal.php',
+        'Symplify\\EasyCodingStandard\\Caching\\JsonFile\\LockingJsonFileAccessor' => __DIR__ . '/../..' . '/src/Caching/JsonFile/LockingJsonFileAccessor.php',
         'Symplify\\EasyCodingStandard\\Caching\\NetteCacheFactory' => __DIR__ . '/../..' . '/src/Caching/NetteCacheFactory.php',
         'Symplify\\EasyCodingStandard\\ChangedFilesDetector\\ChangedFilesDetector' => __DIR__ . '/../..' . '/packages/ChangedFilesDetector/ChangedFilesDetector.php',
         'Symplify\\EasyCodingStandard\\ChangedFilesDetector\\Exception\\FileHashFailedException' => __DIR__ . '/../..' . '/packages/ChangedFilesDetector/Exception/FileHashFailedException.php',
@@ -1948,9 +1953,9 @@ class ComposerStaticInite4961d5d7956202f7d606f02ae7471ed
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite4961d5d7956202f7d606f02ae7471ed::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite4961d5d7956202f7d606f02ae7471ed::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite4961d5d7956202f7d606f02ae7471ed::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit976ea1124724bb910aa0df3828f4d6c5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit976ea1124724bb910aa0df3828f4d6c5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit976ea1124724bb910aa0df3828f4d6c5::$classMap;
 
         }, null, ClassLoader::class);
     }
