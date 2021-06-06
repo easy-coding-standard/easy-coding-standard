@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210605\Symfony\Contracts\HttpClient\Exception;
+namespace ECSPrefix20210606\Symfony\Contracts\HttpClient\Exception;
 
 /**
  * When any error happens at the transport level.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-interface TransportExceptionInterface extends \ECSPrefix20210605\Symfony\Contracts\HttpClient\Exception\ExceptionInterface
+interface TransportExceptionInterface extends \ECSPrefix20210606\Symfony\Contracts\HttpClient\Exception\ExceptionInterface
 {
 }

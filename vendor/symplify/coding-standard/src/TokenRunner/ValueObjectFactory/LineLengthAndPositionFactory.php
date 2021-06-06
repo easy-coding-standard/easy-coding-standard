@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\ValueObjectFactory;
 
-use ECSPrefix20210605\Nette\Utils\Strings;
+use ECSPrefix20210606\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition;
-use ECSPrefix20210605\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20210606\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class LineLengthAndPositionFactory
 {
     /**
@@ -47,7 +47,7 @@ final class LineLengthAndPositionFactory
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
-        if (\ECSPrefix20210605\Nette\Utils\Strings::startsWith($tokens[$position]->getContent(), \ECSPrefix20210605\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
+        if (\ECSPrefix20210606\Nette\Utils\Strings::startsWith($tokens[$position]->getContent(), \ECSPrefix20210606\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
             return \true;
         }
         return $tokens[$position]->isGivenKind(\T_OPEN_TAG);

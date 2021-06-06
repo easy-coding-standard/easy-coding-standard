@@ -3,22 +3,22 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Bundle;
 
-use ECSPrefix20210605\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210605\Symfony\Component\HttpKernel\Bundle\Bundle;
-use ECSPrefix20210605\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use ECSPrefix20210606\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210606\Symfony\Component\HttpKernel\Bundle\Bundle;
+use ECSPrefix20210606\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\CodingStandard\DependencyInjection\Extension\SymplifyCodingStandardExtension;
 /**
  * This class is dislocated in non-standard location, so it's not added by symfony/flex to bundles.php and cause app to
  * crash. See https://github.com/symplify/symplify/issues/1952#issuecomment-628765364
  */
-final class SymplifyCodingStandardBundle extends \ECSPrefix20210605\Symfony\Component\HttpKernel\Bundle\Bundle
+final class SymplifyCodingStandardBundle extends \ECSPrefix20210606\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
      * @return void
      */
-    public function build(\ECSPrefix20210605\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function build(\ECSPrefix20210606\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $containerBuilder->addCompilerPass(new \ECSPrefix20210605\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
+        $containerBuilder->addCompilerPass(new \ECSPrefix20210606\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
     /**
      * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null

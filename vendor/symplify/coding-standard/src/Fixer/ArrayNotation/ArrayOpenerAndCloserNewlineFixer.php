@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
-use ECSPrefix20210605\Nette\Utils\Strings;
+use ECSPrefix20210606\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -15,13 +15,13 @@ use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer;
 use Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds;
-use ECSPrefix20210605\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210605\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210605\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210606\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer\ArrayOpenerAndCloserNewlineFixerTest
  */
-final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210605\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210606\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -58,9 +58,9 @@ final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fi
     {
         return 34;
     }
-    public function getRuleDefinition() : \ECSPrefix20210605\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20210605\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210605\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $items = [1 => 'Hey'];
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -135,7 +135,7 @@ CODE_SAMPLE
             return;
         }
         // already whitespace
-        if (\ECSPrefix20210605\Nette\Utils\Strings::contains($previousCloserToken->getContent(), "\n")) {
+        if (\ECSPrefix20210606\Nette\Utils\Strings::contains($previousCloserToken->getContent(), "\n")) {
             return;
         }
         $tokens->ensureWhitespaceAtIndex($preArrayCloserPosition, 1, $this->whitespacesFixerConfig->getLineEnding());
@@ -152,7 +152,7 @@ CODE_SAMPLE
             return;
         }
         // already is whitespace
-        if (\ECSPrefix20210605\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
+        if (\ECSPrefix20210606\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
             return;
         }
         $tokens->ensureWhitespaceAtIndex($postArrayOpenerPosition, 0, $this->whitespacesFixerConfig->getLineEnding());

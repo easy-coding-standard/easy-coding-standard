@@ -5,14 +5,14 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210605\Nette\Caching\Storages;
+namespace ECSPrefix20210606\Nette\Caching\Storages;
 
-use ECSPrefix20210605\Nette;
-use ECSPrefix20210605\Nette\Caching\Cache;
+use ECSPrefix20210606\Nette;
+use ECSPrefix20210606\Nette\Caching\Cache;
 /**
  * SQLite storage.
  */
-class SQLiteStorage implements \ECSPrefix20210605\Nette\Caching\Storage, \ECSPrefix20210605\Nette\Caching\BulkReader
+class SQLiteStorage implements \ECSPrefix20210606\Nette\Caching\Storage, \ECSPrefix20210606\Nette\Caching\BulkReader
 {
     use Nette\SmartObject;
     /** @var \PDO */
@@ -84,12 +84,12 @@ class SQLiteStorage implements \ECSPrefix20210605\Nette\Caching\Storage, \ECSPre
      */
     public function write(string $key, $data, array $dependencies)
     {
-        $expire = isset($dependencies[\ECSPrefix20210605\Nette\Caching\Cache::EXPIRATION]) ? $dependencies[\ECSPrefix20210605\Nette\Caching\Cache::EXPIRATION] + \time() : null;
-        $slide = isset($dependencies[\ECSPrefix20210605\Nette\Caching\Cache::SLIDING]) ? $dependencies[\ECSPrefix20210605\Nette\Caching\Cache::EXPIRATION] : null;
+        $expire = isset($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::EXPIRATION]) ? $dependencies[\ECSPrefix20210606\Nette\Caching\Cache::EXPIRATION] + \time() : null;
+        $slide = isset($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::SLIDING]) ? $dependencies[\ECSPrefix20210606\Nette\Caching\Cache::EXPIRATION] : null;
         $this->pdo->exec('BEGIN TRANSACTION');
         $this->pdo->prepare('REPLACE INTO cache (key, data, expire, slide) VALUES (?, ?, ?, ?)')->execute([$key, \serialize($data), $expire, $slide]);
-        if (!empty($dependencies[\ECSPrefix20210605\Nette\Caching\Cache::TAGS])) {
-            foreach ($dependencies[\ECSPrefix20210605\Nette\Caching\Cache::TAGS] as $tag) {
+        if (!empty($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::TAGS])) {
+            foreach ($dependencies[\ECSPrefix20210606\Nette\Caching\Cache::TAGS] as $tag) {
                 $arr[] = $key;
                 $arr[] = $tag;
             }
@@ -109,13 +109,13 @@ class SQLiteStorage implements \ECSPrefix20210605\Nette\Caching\Storage, \ECSPre
      */
     public function clean(array $conditions)
     {
-        if (!empty($conditions[\ECSPrefix20210605\Nette\Caching\Cache::ALL])) {
+        if (!empty($conditions[\ECSPrefix20210606\Nette\Caching\Cache::ALL])) {
             $this->pdo->prepare('DELETE FROM cache')->execute();
         } else {
             $sql = 'DELETE FROM cache WHERE expire < ?';
             $args = [\time()];
-            if (!empty($conditions[\ECSPrefix20210605\Nette\Caching\Cache::TAGS])) {
-                $tags = $conditions[\ECSPrefix20210605\Nette\Caching\Cache::TAGS];
+            if (!empty($conditions[\ECSPrefix20210606\Nette\Caching\Cache::TAGS])) {
+                $tags = $conditions[\ECSPrefix20210606\Nette\Caching\Cache::TAGS];
                 $sql .= ' OR key IN (SELECT key FROM tags WHERE tag IN (?' . \str_repeat(',?', \count($tags) - 1) . '))';
                 $args = \array_merge($args, $tags);
             }
