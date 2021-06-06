@@ -44,6 +44,7 @@ return array(
     'ECSPrefix20210606\\Symfony\\Component\\DependencyInjection\\' => array($vendorDir . '/symfony/dependency-injection'),
     'ECSPrefix20210606\\Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'ECSPrefix20210606\\Symfony\\Component\\Config\\' => array($vendorDir . '/symfony/config'),
+    'ECSPrefix20210606\\Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),
     'ECSPrefix20210606\\Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'ECSPrefix20210606\\Psr\\EventDispatcher\\' => array($vendorDir . '/psr/event-dispatcher/src'),
     'ECSPrefix20210606\\Psr\\Container\\' => array($vendorDir . '/psr/container/src'),

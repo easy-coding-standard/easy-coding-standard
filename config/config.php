@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace ECSPrefix20210606;
 
-use ECSPrefix20210606\Nette\Utils\Strings;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
@@ -13,9 +12,9 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::INDENTATION, \Symplify\EasyCodingStandard\ValueObject\Option::INDENTATION_SPACES);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::LINE_ENDING, \PHP_EOL);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::CACHE_DIRECTORY, \sys_get_temp_dir() . '/_changed_files_detector%env(TEST_SUFFIX)%');
-    $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::CACHE_NAMESPACE, \ECSPrefix20210606\Nette\Utils\Strings::webalize(\getcwd()));
+    $cacheNamespace = \str_replace(\DIRECTORY_SEPARATOR, '_', \getcwd());
+    $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::CACHE_NAMESPACE, $cacheNamespace);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, []);
-    $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::SETS, []);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS, ['php']);
     $parameters->set('env(TEST_SUFFIX)', '');
 };

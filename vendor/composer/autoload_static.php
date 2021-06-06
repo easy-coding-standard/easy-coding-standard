@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite02705055da9bf25c260edf983b97ec6
+class ComposerStaticInitf1380a06c1e43227367d83628f4d82c8
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -16,6 +16,7 @@ class ComposerStaticInite02705055da9bf25c260edf983b97ec6
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
     );
@@ -67,6 +68,7 @@ class ComposerStaticInite02705055da9bf25c260edf983b97ec6
             'ECSPrefix20210606\\Symfony\\Component\\DependencyInjection\\' => 56,
             'ECSPrefix20210606\\Symfony\\Component\\Console\\' => 44,
             'ECSPrefix20210606\\Symfony\\Component\\Config\\' => 43,
+            'ECSPrefix20210606\\Stringy\\' => 26,
             'ECSPrefix20210606\\Psr\\Log\\' => 26,
             'ECSPrefix20210606\\Psr\\EventDispatcher\\' => 38,
             'ECSPrefix20210606\\Psr\\Container\\' => 32,
@@ -231,6 +233,10 @@ class ComposerStaticInite02705055da9bf25c260edf983b97ec6
         'ECSPrefix20210606\\Symfony\\Component\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'ECSPrefix20210606\\Stringy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/danielstjules/stringy/src',
         ),
         'ECSPrefix20210606\\Psr\\Log\\' => 
         array (
@@ -412,6 +418,8 @@ class ComposerStaticInite02705055da9bf25c260edf983b97ec6
         'ECSPrefix20210606\\SebastianBergmann\\Diff\\Output\\UnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/UnifiedDiffOutputBuilder.php',
         'ECSPrefix20210606\\SebastianBergmann\\Diff\\Parser' => __DIR__ . '/..' . '/sebastian/diff/src/Parser.php',
         'ECSPrefix20210606\\SebastianBergmann\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
+        'ECSPrefix20210606\\Stringy\\StaticStringy' => __DIR__ . '/..' . '/danielstjules/stringy/src/StaticStringy.php',
+        'ECSPrefix20210606\\Stringy\\Stringy' => __DIR__ . '/..' . '/danielstjules/stringy/src/Stringy.php',
         'ECSPrefix20210606\\Symfony\\Component\\Config\\Builder\\ClassBuilder' => __DIR__ . '/..' . '/symfony/config/Builder/ClassBuilder.php',
         'ECSPrefix20210606\\Symfony\\Component\\Config\\Builder\\ConfigBuilderGenerator' => __DIR__ . '/..' . '/symfony/config/Builder/ConfigBuilderGenerator.php',
         'ECSPrefix20210606\\Symfony\\Component\\Config\\Builder\\ConfigBuilderGeneratorInterface' => __DIR__ . '/..' . '/symfony/config/Builder/ConfigBuilderGeneratorInterface.php',
@@ -1882,7 +1890,6 @@ class ComposerStaticInite02705055da9bf25c260edf983b97ec6
         'Symplify\\EasyCodingStandard\\Contract\\Application\\FileProcessorInterface' => __DIR__ . '/../..' . '/src/Contract/Application/FileProcessorInterface.php',
         'Symplify\\EasyCodingStandard\\Contract\\Console\\Output\\OutputFormatterInterface' => __DIR__ . '/../..' . '/src/Contract/Console/Output/OutputFormatterInterface.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\ConflictingCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/ConflictingCheckersCompilerPass.php',
-        'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\DeprecationWarningCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/DeprecationWarningCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\FixerWhitespaceConfigCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/FixerWhitespaceConfigCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveExcludedCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveExcludedCheckersCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveMutualCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveMutualCheckersCompilerPass.php',
@@ -1938,9 +1945,9 @@ class ComposerStaticInite02705055da9bf25c260edf983b97ec6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite02705055da9bf25c260edf983b97ec6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite02705055da9bf25c260edf983b97ec6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite02705055da9bf25c260edf983b97ec6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf1380a06c1e43227367d83628f4d82c8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf1380a06c1e43227367d83628f4d82c8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf1380a06c1e43227367d83628f4d82c8::$classMap;
 
         }, null, ClassLoader::class);
     }

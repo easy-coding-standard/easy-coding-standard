@@ -10,7 +10,6 @@ use ECSPrefix20210606\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
 use ECSPrefix20210606\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\DeprecationWarningCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
 use ECSPrefix20210606\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
 use ECSPrefix20210606\Symplify\Skipper\Bundle\SkipperBundle;
@@ -28,13 +27,6 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210606\Symplify\Symplif
             $bundles[] = new \ECSPrefix20210606\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle();
         }
         return $bundles;
-    }
-    /**
-     * @return void
-     */
-    protected function build(\ECSPrefix20210606\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
-    {
-        $containerBuilder->addCompilerPass(new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\DeprecationWarningCompilerPass());
     }
     /**
      * @param ContainerInterface|ContainerBuilder $container
