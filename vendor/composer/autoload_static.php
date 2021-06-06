@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf1380a06c1e43227367d83628f4d82c8
+class ComposerStaticInitb1850354e086e496003634dc0b4dfa3f
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1932,6 +1932,9 @@ class ComposerStaticInitf1380a06c1e43227367d83628f4d82c8
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Provider\\CurrentParentFileInfoProvider' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Provider/CurrentParentFileInfoProvider.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Reporter\\SnippetReporter' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Reporter/SnippetReporter.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\ValueObject\\SnippetPattern' => __DIR__ . '/../..' . '/packages/SnippetFormatter/ValueObject/SnippetPattern.php',
+        'Symplify\\EasyCodingStandard\\Testing\\Contract\\ConfigAwareInterface' => __DIR__ . '/../..' . '/src/Testing/Contract/ConfigAwareInterface.php',
+        'Symplify\\EasyCodingStandard\\Testing\\Exception\\ShouldNotHappenException' => __DIR__ . '/../..' . '/src/Testing/Exception/ShouldNotHappenException.php',
+        'Symplify\\EasyCodingStandard\\Testing\\PHPUnit\\AbstractCheckerTestCase' => __DIR__ . '/../..' . '/src/Testing/PHPUnit/AbstractCheckerTestCase.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\CodingStandardError' => __DIR__ . '/../..' . '/src/ValueObject/Error/CodingStandardError.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\ErrorAndDiffResult' => __DIR__ . '/../..' . '/src/ValueObject/Error/ErrorAndDiffResult.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff' => __DIR__ . '/../..' . '/src/ValueObject/Error/FileDiff.php',
@@ -1945,9 +1948,9 @@ class ComposerStaticInitf1380a06c1e43227367d83628f4d82c8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf1380a06c1e43227367d83628f4d82c8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf1380a06c1e43227367d83628f4d82c8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf1380a06c1e43227367d83628f4d82c8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb1850354e086e496003634dc0b4dfa3f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb1850354e086e496003634dc0b4dfa3f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb1850354e086e496003634dc0b4dfa3f::$classMap;
 
         }, null, ClassLoader::class);
     }

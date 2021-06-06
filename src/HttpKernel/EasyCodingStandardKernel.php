@@ -11,7 +11,6 @@ use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
 use ECSPrefix20210606\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
-use ECSPrefix20210606\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
 use ECSPrefix20210606\Symplify\Skipper\Bundle\SkipperBundle;
 use ECSPrefix20210606\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use ECSPrefix20210606\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
@@ -22,11 +21,7 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210606\Symplify\Symplif
      */
     public function registerBundles()
     {
-        $bundles = [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20210606\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20210606\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20210606\Symplify\Skipper\Bundle\SkipperBundle()];
-        if ($this->environment === 'test') {
-            $bundles[] = new \ECSPrefix20210606\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle();
-        }
-        return $bundles;
+        return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20210606\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20210606\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20210606\Symplify\Skipper\Bundle\SkipperBundle()];
     }
     /**
      * @param ContainerInterface|ContainerBuilder $container

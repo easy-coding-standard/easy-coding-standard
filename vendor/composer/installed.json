@@ -3320,7 +3320,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "93bd0efc7dc3ec640c1d49b1bc34dec3df759ff6"
+                "reference": "55c5e1e92e92df9e8b8bd39dfb868559d3672a40"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.0",
@@ -3338,8 +3338,7 @@
                 "phpunit\/phpunit": "^9.5",
                 "symfony\/framework-bundle": "^4.4|^5.2",
                 "symfony\/http-kernel": "^4.4|^5.2",
-                "symplify\/easy-coding-standard-tester": "dev-main",
-                "symplify\/php-config-printer": "dev-main",
+                "symplify\/easy-coding-standard": "dev-main",
                 "symplify\/rule-doc-generator": "dev-main",
                 "symplify\/smart-file-system": "dev-main"
             },
