@@ -34,6 +34,8 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
         __DIR__ . '/../src/HttpKernel',
         __DIR__ . '/../src/Exception',
         __DIR__ . '/../src/ValueObject',
+        // for 3rd party tests
+        __DIR__ . '/../src/Testing',
     ]);
     $services->set(\ECSPrefix20210606\Symfony\Component\Console\Terminal::class);
     $services->set(\ECSPrefix20210606\Symplify\SmartFileSystem\FileSystemGuard::class);
