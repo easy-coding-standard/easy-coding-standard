@@ -90,13 +90,13 @@ final class ComposerJsonSection
     const AUTHORS = 'authors';
     /**
      * @var string
+     */
+    const PROVIDES = 'provides';
+    /**
+     * @var string
      * @see https://getcomposer.org/doc/articles/scripts.md#custom-descriptions-
      */
     const SCRIPTS_DESCRIPTIONS = 'scripts-descriptions';
-    /**
-     * @var string
-     */
-    const PROVIDES = 'provides';
     /**
      * @var string
      */
