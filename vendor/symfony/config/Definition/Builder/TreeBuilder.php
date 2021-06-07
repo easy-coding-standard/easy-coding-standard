@@ -8,27 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210606\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20210607\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20210606\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix20210607\Symfony\Component\Config\Definition\NodeInterface;
 /**
  * This is the entry class for building a config tree.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class TreeBuilder implements \ECSPrefix20210606\Symfony\Component\Config\Definition\Builder\NodeParentInterface
+class TreeBuilder implements \ECSPrefix20210607\Symfony\Component\Config\Definition\Builder\NodeParentInterface
 {
     protected $tree;
     protected $root;
-    public function __construct(string $name, string $type = 'array', \ECSPrefix20210606\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
+    public function __construct(string $name, string $type = 'array', \ECSPrefix20210607\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
     {
-        $builder = $builder ?? new \ECSPrefix20210606\Symfony\Component\Config\Definition\Builder\NodeBuilder();
+        $builder = $builder ?? new \ECSPrefix20210607\Symfony\Component\Config\Definition\Builder\NodeBuilder();
         $this->root = $builder->node($name, $type)->setParent($this);
     }
     /**
      * @return NodeDefinition|ArrayNodeDefinition The root node (as an ArrayNodeDefinition when the type is 'array')
      */
-    public function getRootNode() : \ECSPrefix20210606\Symfony\Component\Config\Definition\Builder\NodeDefinition
+    public function getRootNode() : \ECSPrefix20210607\Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
         return $this->root;
     }

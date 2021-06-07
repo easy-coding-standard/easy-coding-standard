@@ -1,5 +1,5 @@
 <div class="trace trace-as-html" id="trace-box-<?php 
-namespace ECSPrefix20210606;
+namespace ECSPrefix20210607;
 
 echo $index;
 ?>">

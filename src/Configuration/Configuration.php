@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use ECSPrefix20210606\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210607\Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20210606\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210607\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class Configuration
 {
     /**
@@ -43,7 +43,7 @@ final class Configuration
      * @var bool
      */
     private $doesMatchGitDiff = \false;
-    public function __construct(\ECSPrefix20210606\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\ECSPrefix20210607\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->paths = $parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS);
     }
@@ -51,7 +51,7 @@ final class Configuration
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      * @return void
      */
-    public function resolveFromInput(\ECSPrefix20210606\Symfony\Component\Console\Input\InputInterface $input)
+    public function resolveFromInput(\ECSPrefix20210607\Symfony\Component\Console\Input\InputInterface $input)
     {
         /** @var string[] $paths */
         $paths = (array) $input->getArgument(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS);
@@ -124,7 +124,7 @@ final class Configuration
     {
         return $this->doesMatchGitDiff;
     }
-    private function canShowProgressBar(\ECSPrefix20210606\Symfony\Component\Console\Input\InputInterface $input) : bool
+    private function canShowProgressBar(\ECSPrefix20210607\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         $notJsonOutput = $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT) !== \Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter::NAME;
         if (!$notJsonOutput) {
@@ -159,7 +159,7 @@ final class Configuration
     /**
      * @return void
      */
-    private function setOutputFormat(\ECSPrefix20210606\Symfony\Component\Console\Input\InputInterface $input)
+    private function setOutputFormat(\ECSPrefix20210607\Symfony\Component\Console\Input\InputInterface $input)
     {
         $outputFormat = (string) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT);
         // Backwards compatibility with older version

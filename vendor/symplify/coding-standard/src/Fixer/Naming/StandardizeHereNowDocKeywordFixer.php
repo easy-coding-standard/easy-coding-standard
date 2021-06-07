@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Naming;
 
-use ECSPrefix20210606\Nette\Utils\Strings;
+use ECSPrefix20210607\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -12,15 +12,15 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use ECSPrefix20210606\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix20210606\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use ECSPrefix20210606\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix20210607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210607\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix20210607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210607\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Naming\StandardizeHereNowDocKeywordFixer\StandardizeHereNowDocKeywordFixerTest
  */
-final class StandardizeHereNowDocKeywordFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210606\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \ECSPrefix20210606\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class StandardizeHereNowDocKeywordFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \ECSPrefix20210607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * @api
@@ -74,9 +74,9 @@ final class StandardizeHereNowDocKeywordFixer extends \Symplify\CodingStandard\F
             }
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20210607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210606\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210607\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $value = <<<'WHATEVER'
 ...
 'WHATEVER'
@@ -97,7 +97,7 @@ CODE_SAMPLE
     }
     public function getConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        throw new \ECSPrefix20210606\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        throw new \ECSPrefix20210607\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
     /**
      * @param Tokens<Token> $tokens
@@ -105,11 +105,11 @@ CODE_SAMPLE
      */
     private function fixStartToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $position)
     {
-        $match = \ECSPrefix20210606\Nette\Utils\Strings::match($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX);
+        $match = \ECSPrefix20210607\Nette\Utils\Strings::match($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX);
         if (!isset($match['name'])) {
             return;
         }
-        $newContent = \ECSPrefix20210606\Nette\Utils\Strings::replace($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX, '$1' . $this->keyword . '$4');
+        $newContent = \ECSPrefix20210607\Nette\Utils\Strings::replace($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX, '$1' . $this->keyword . '$4');
         $tokens[$position] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $newContent]);
     }
     /**

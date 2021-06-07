@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Error;
 
-use ECSPrefix20210606\Nette\Utils\Strings;
+use ECSPrefix20210607\Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Exception\NotSniffNorFixerException;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use ECSPrefix20210606\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210607\Symplify\SmartFileSystem\SmartFileInfo;
 final class ErrorAndDiffCollector
 {
     /**
@@ -43,7 +43,7 @@ final class ErrorAndDiffCollector
      * @var CurrentParentFileInfoProvider
      */
     private $currentParentFileInfoProvider;
-    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, \Symplify\EasyCodingStandard\Error\ErrorFactory $errorFactory, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider)
+    public function __construct(\Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, \Symplify\EasyCodingStandard\Error\ErrorFactory $errorFactory, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider)
     {
         $this->changedFilesDetector = $changedFilesDetector;
         $this->fileDiffFactory = $fileDiffFactory;
@@ -54,7 +54,7 @@ final class ErrorAndDiffCollector
      * @param class-string $sourceClass
      * @return void
      */
-    public function addErrorMessage(\ECSPrefix20210606\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, int $line, string $message, string $sourceClass)
+    public function addErrorMessage(\ECSPrefix20210607\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, int $line, string $message, string $sourceClass)
     {
         if ($this->currentParentFileInfoProvider->provide() !== null) {
             // skip sniff errors
@@ -68,7 +68,7 @@ final class ErrorAndDiffCollector
     /**
      * @return void
      */
-    public function addSystemErrorMessage(\ECSPrefix20210606\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, int $line, string $message)
+    public function addSystemErrorMessage(\ECSPrefix20210607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, int $line, string $message)
     {
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
         $this->systemErrors[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($line, $message, $smartFileInfo);
@@ -91,7 +91,7 @@ final class ErrorAndDiffCollector
      * @param class-string[] $appliedCheckers
      * @return void
      */
-    public function addDiffForFileInfo(\ECSPrefix20210606\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, array $appliedCheckers)
+    public function addDiffForFileInfo(\ECSPrefix20210607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, array $appliedCheckers)
     {
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
         foreach ($appliedCheckers as $appliedChecker) {
@@ -121,8 +121,8 @@ final class ErrorAndDiffCollector
     private function ensureIsFixerOrChecker(string $sourceClass)
     {
         // remove dot suffix of "."
-        if (\ECSPrefix20210606\Nette\Utils\Strings::contains($sourceClass, '.')) {
-            $sourceClass = (string) \ECSPrefix20210606\Nette\Utils\Strings::before($sourceClass, '.', 1);
+        if (\ECSPrefix20210607\Nette\Utils\Strings::contains($sourceClass, '.')) {
+            $sourceClass = (string) \ECSPrefix20210607\Nette\Utils\Strings::before($sourceClass, '.', 1);
         }
         if (\is_a($sourceClass, \PhpCsFixer\Fixer\FixerInterface::class, \true)) {
             return;

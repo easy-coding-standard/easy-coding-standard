@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
-use ECSPrefix20210606\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210607\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiff
 {
     /**
@@ -25,7 +25,7 @@ final class FileDiff
     /**
      * @param string[] $appliedCheckers
      */
-    public function __construct(\ECSPrefix20210606\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $consoleFormattedDiff, array $appliedCheckers)
+    public function __construct(\ECSPrefix20210607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $consoleFormattedDiff, array $appliedCheckers)
     {
         $this->diff = $diff;
         $this->appliedCheckers = $appliedCheckers;
