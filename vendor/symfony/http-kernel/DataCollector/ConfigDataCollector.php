@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210607\Symfony\Component\HttpKernel\DataCollector;
+namespace ECSPrefix20210608\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210607\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210607\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel;
-use ECSPrefix20210607\Symfony\Component\HttpKernel\KernelInterface;
-use ECSPrefix20210607\Symfony\Component\VarDumper\Caster\ClassStub;
+use ECSPrefix20210608\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210608\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel;
+use ECSPrefix20210608\Symfony\Component\HttpKernel\KernelInterface;
+use ECSPrefix20210608\Symfony\Component\VarDumper\Caster\ClassStub;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @final
  */
-class ConfigDataCollector extends \ECSPrefix20210607\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210607\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class ConfigDataCollector extends \ECSPrefix20210608\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210608\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
 {
     /**
      * @var KernelInterface
@@ -29,21 +29,21 @@ class ConfigDataCollector extends \ECSPrefix20210607\Symfony\Component\HttpKerne
     /**
      * Sets the Kernel associated with this Request.
      */
-    public function setKernel(\ECSPrefix20210607\Symfony\Component\HttpKernel\KernelInterface $kernel = null)
+    public function setKernel(\ECSPrefix20210608\Symfony\Component\HttpKernel\KernelInterface $kernel = null)
     {
         $this->kernel = $kernel;
     }
     /**
      * {@inheritdoc}
      */
-    public function collect(\ECSPrefix20210607\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210607\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect(\ECSPrefix20210608\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210608\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
-        $eom = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel::END_OF_MAINTENANCE);
-        $eol = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel::END_OF_LIFE);
-        $this->data = ['token' => $response->headers->get('X-Debug-Token'), 'symfony_version' => \ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel::VERSION, 'symfony_minor_version' => \sprintf('%s.%s', \ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel::MAJOR_VERSION, \ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel::MINOR_VERSION), 'symfony_lts' => 4 === \ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel::MINOR_VERSION, 'symfony_state' => $this->determineSymfonyState(), 'symfony_eom' => $eom->format('F Y'), 'symfony_eol' => $eol->format('F Y'), 'env' => isset($this->kernel) ? $this->kernel->getEnvironment() : 'n/a', 'debug' => isset($this->kernel) ? $this->kernel->isDebug() : 'n/a', 'php_version' => \PHP_VERSION, 'php_architecture' => \PHP_INT_SIZE * 8, 'php_intl_locale' => \class_exists(\Locale::class, \false) && \Locale::getDefault() ? \Locale::getDefault() : 'n/a', 'php_timezone' => \date_default_timezone_get(), 'xdebug_enabled' => \extension_loaded('xdebug'), 'apcu_enabled' => \extension_loaded('apcu') && \filter_var(\ini_get('apc.enabled'), \FILTER_VALIDATE_BOOLEAN), 'zend_opcache_enabled' => \extension_loaded('Zend OPcache') && \filter_var(\ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN), 'bundles' => [], 'sapi_name' => \PHP_SAPI];
+        $eom = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel::END_OF_MAINTENANCE);
+        $eol = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel::END_OF_LIFE);
+        $this->data = ['token' => $response->headers->get('X-Debug-Token'), 'symfony_version' => \ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel::VERSION, 'symfony_minor_version' => \sprintf('%s.%s', \ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel::MAJOR_VERSION, \ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel::MINOR_VERSION), 'symfony_lts' => 4 === \ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel::MINOR_VERSION, 'symfony_state' => $this->determineSymfonyState(), 'symfony_eom' => $eom->format('F Y'), 'symfony_eol' => $eol->format('F Y'), 'env' => isset($this->kernel) ? $this->kernel->getEnvironment() : 'n/a', 'debug' => isset($this->kernel) ? $this->kernel->isDebug() : 'n/a', 'php_version' => \PHP_VERSION, 'php_architecture' => \PHP_INT_SIZE * 8, 'php_intl_locale' => \class_exists(\Locale::class, \false) && \Locale::getDefault() ? \Locale::getDefault() : 'n/a', 'php_timezone' => \date_default_timezone_get(), 'xdebug_enabled' => \extension_loaded('xdebug'), 'apcu_enabled' => \extension_loaded('apcu') && \filter_var(\ini_get('apc.enabled'), \FILTER_VALIDATE_BOOLEAN), 'zend_opcache_enabled' => \extension_loaded('Zend OPcache') && \filter_var(\ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN), 'bundles' => [], 'sapi_name' => \PHP_SAPI];
         if (isset($this->kernel)) {
             foreach ($this->kernel->getBundles() as $name => $bundle) {
-                $this->data['bundles'][$name] = new \ECSPrefix20210607\Symfony\Component\VarDumper\Caster\ClassStub(\get_class($bundle));
+                $this->data['bundles'][$name] = new \ECSPrefix20210608\Symfony\Component\VarDumper\Caster\ClassStub(\get_class($bundle));
             }
         }
         if (\preg_match('~^(\\d+(?:\\.\\d+)*)(.+)?$~', $this->data['php_version'], $matches) && isset($matches[2])) {
@@ -238,13 +238,13 @@ class ConfigDataCollector extends \ECSPrefix20210607\Symfony\Component\HttpKerne
     private function determineSymfonyState() : string
     {
         $now = new \DateTime();
-        $eom = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel::END_OF_MAINTENANCE)->modify('last day of this month');
-        $eol = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel::END_OF_LIFE)->modify('last day of this month');
+        $eom = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel::END_OF_MAINTENANCE)->modify('last day of this month');
+        $eol = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel::END_OF_LIFE)->modify('last day of this month');
         if ($now > $eol) {
             $versionState = 'eol';
         } elseif ($now > $eom) {
             $versionState = 'eom';
-        } elseif ('' !== \ECSPrefix20210607\Symfony\Component\HttpKernel\Kernel::EXTRA_VERSION) {
+        } elseif ('' !== \ECSPrefix20210608\Symfony\Component\HttpKernel\Kernel::EXTRA_VERSION) {
             $versionState = 'dev';
         } else {
             $versionState = 'stable';

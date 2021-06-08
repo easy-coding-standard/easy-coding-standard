@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210607\Symplify\SymplifyKernel\Bundle;
+namespace ECSPrefix20210608\Symplify\SymplifyKernel\Bundle;
 
-use ECSPrefix20210607\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210607\Symfony\Component\HttpKernel\Bundle\Bundle;
-use ECSPrefix20210607\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-use ECSPrefix20210607\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
-final class SymplifyKernelBundle extends \ECSPrefix20210607\Symfony\Component\HttpKernel\Bundle\Bundle
+use ECSPrefix20210608\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210608\Symfony\Component\HttpKernel\Bundle\Bundle;
+use ECSPrefix20210608\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use ECSPrefix20210608\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
+final class SymplifyKernelBundle extends \ECSPrefix20210608\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
      * @return void
      */
-    public function build(\ECSPrefix20210607\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function build(\ECSPrefix20210608\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $containerBuilder->addCompilerPass(new \ECSPrefix20210607\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
+        $containerBuilder->addCompilerPass(new \ECSPrefix20210608\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
     /**
      * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
      */
     protected function createContainerExtension()
     {
-        return new \ECSPrefix20210607\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension();
+        return new \ECSPrefix20210608\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension();
     }
 }

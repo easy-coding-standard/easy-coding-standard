@@ -5,8 +5,8 @@ namespace Symplify\EasyCodingStandard\Caching;
 
 use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20210607\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20210607\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210608\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210608\Symplify\SmartFileSystem\SmartFileSystem;
 final class CacheFactory
 {
     /**
@@ -17,7 +17,7 @@ final class CacheFactory
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\ECSPrefix20210607\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210607\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\ECSPrefix20210608\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210608\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
