@@ -8,7 +8,7 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use ECSPrefix20210608\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210610\Symplify\SmartFileSystem\SmartFileInfo;
 final class EasyCodingStandardApplication
 {
     /**

@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
-use ECSPrefix20210608\Nette\Utils\Strings;
+use ECSPrefix20210610\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory;
-use ECSPrefix20210608\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20210610\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class FirstLineLengthResolver
 {
     /**
@@ -37,7 +37,7 @@ final class FirstLineLengthResolver
         // includes indent in the beginning
         $lineLength += \strlen($currentToken->getContent());
         // minus end of lines, do not count line feeds as characters
-        $endOfLineCount = \substr_count($currentToken->getContent(), \ECSPrefix20210608\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar());
+        $endOfLineCount = \substr_count($currentToken->getContent(), \ECSPrefix20210610\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar());
         $lineLength -= $endOfLineCount;
         // compute from here to end of line
         $currentPosition = $blockInfo->getStart() + 1;
@@ -68,7 +68,7 @@ final class FirstLineLengthResolver
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
-        if (\ECSPrefix20210608\Nette\Utils\Strings::startsWith($tokens[$position]->getContent(), \ECSPrefix20210608\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
+        if (\ECSPrefix20210610\Nette\Utils\Strings::startsWith($tokens[$position]->getContent(), \ECSPrefix20210610\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
             return \true;
         }
         return $tokens[$position]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA);

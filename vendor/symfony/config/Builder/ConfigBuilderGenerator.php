@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210608\Symfony\Component\Config\Builder;
+namespace ECSPrefix20210610\Symfony\Component\Config\Builder;
 
-use ECSPrefix20210608\Symfony\Component\Config\Definition\ArrayNode;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\BooleanNode;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\EnumNode;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\FloatNode;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\IntegerNode;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\NodeInterface;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\PrototypedArrayNode;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\ScalarNode;
-use ECSPrefix20210608\Symfony\Component\Config\Definition\VariableNode;
-use ECSPrefix20210608\Symfony\Component\Config\Loader\ParamConfigurator;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\ArrayNode;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\BooleanNode;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\EnumNode;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\FloatNode;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\IntegerNode;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\ScalarNode;
+use ECSPrefix20210610\Symfony\Component\Config\Definition\VariableNode;
+use ECSPrefix20210610\Symfony\Component\Config\Loader\ParamConfigurator;
 /**
  * Generate ConfigBuilders to help create valid config.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class ConfigBuilderGenerator implements \ECSPrefix20210608\Symfony\Component\Config\Builder\ConfigBuilderGeneratorInterface
+class ConfigBuilderGenerator implements \ECSPrefix20210610\Symfony\Component\Config\Builder\ConfigBuilderGeneratorInterface
 {
     private $classes;
     private $outputDir;
@@ -38,17 +38,17 @@ class ConfigBuilderGenerator implements \ECSPrefix20210608\Symfony\Component\Con
     /**
      * @return \Closure that will return the root config class
      */
-    public function build(\ECSPrefix20210608\Symfony\Component\Config\Definition\ConfigurationInterface $configuration) : \Closure
+    public function build(\ECSPrefix20210610\Symfony\Component\Config\Definition\ConfigurationInterface $configuration) : \Closure
     {
         $this->classes = [];
         $rootNode = $configuration->getConfigTreeBuilder()->buildTree();
-        $rootClass = new \ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder('ECSPrefix20210608\\Symfony\\Config', $rootNode->getName());
+        $rootClass = new \ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder('ECSPrefix20210610\\Symfony\\Config', $rootNode->getName());
         $path = $this->getFullPath($rootClass);
         if (!\is_file($path)) {
             // Generate the class if the file not exists
             $this->classes[] = $rootClass;
             $this->buildNode($rootNode, $rootClass, $this->getSubNamespace($rootClass));
-            $rootClass->addImplements(\ECSPrefix20210608\Symfony\Component\Config\Builder\ConfigBuilderInterface::class);
+            $rootClass->addImplements(\ECSPrefix20210610\Symfony\Component\Config\Builder\ConfigBuilderInterface::class);
             $rootClass->addMethod('getExtensionAlias', '
 public function NAME(): string
 {
@@ -64,7 +64,7 @@ public function NAME(): string
         });
         return $loader;
     }
-    private function getFullPath(\ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder $class) : string
+    private function getFullPath(\ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder $class) : string
     {
         $directory = $this->outputDir . \DIRECTORY_SEPARATOR . $class->getDirectory();
         if (!\is_dir($directory)) {
@@ -87,23 +87,23 @@ public function NAME(): string
     /**
      * @return void
      */
-    private function buildNode(\ECSPrefix20210608\Symfony\Component\Config\Definition\NodeInterface $node, \ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace)
+    private function buildNode(\ECSPrefix20210610\Symfony\Component\Config\Definition\NodeInterface $node, \ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace)
     {
-        if (!$node instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\ArrayNode) {
+        if (!$node instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\ArrayNode) {
             throw new \LogicException('The node was expected to be an ArrayNode. This Configuration includes an edge case not supported yet.');
         }
         foreach ($node->getChildren() as $child) {
             switch (\true) {
-                case $child instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\ScalarNode:
+                case $child instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\ScalarNode:
                     $this->handleScalarNode($child, $class);
                     break;
-                case $child instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\PrototypedArrayNode:
+                case $child instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\PrototypedArrayNode:
                     $this->handlePrototypedArrayNode($child, $class, $namespace);
                     break;
-                case $child instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\VariableNode:
+                case $child instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\VariableNode:
                     $this->handleVariableNode($child, $class);
                     break;
-                case $child instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\ArrayNode:
+                case $child instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\ArrayNode:
                     $this->handleArrayNode($child, $class, $namespace);
                     break;
                 default:
@@ -114,9 +114,9 @@ public function NAME(): string
     /**
      * @return void
      */
-    private function handleArrayNode(\ECSPrefix20210608\Symfony\Component\Config\Definition\ArrayNode $node, \ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace)
+    private function handleArrayNode(\ECSPrefix20210610\Symfony\Component\Config\Definition\ArrayNode $node, \ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace)
     {
-        $childClass = new \ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder($namespace, $node->getName());
+        $childClass = new \ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder($namespace, $node->getName());
         $class->addRequire($childClass);
         $this->classes[] = $childClass;
         $property = $class->addProperty($node->getName(), $childClass->getFqcn());
@@ -131,18 +131,18 @@ public function NAME(array $value = []): CLASS
 
     return $this->PROPERTY;
 }';
-        $class->addUse(\ECSPrefix20210608\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+        $class->addUse(\ECSPrefix20210610\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
         $class->addMethod($node->getName(), $body, ['PROPERTY' => $property->getName(), 'CLASS' => $childClass->getFqcn()]);
         $this->buildNode($node, $childClass, $this->getSubNamespace($childClass));
     }
     /**
      * @return void
      */
-    private function handleVariableNode(\ECSPrefix20210608\Symfony\Component\Config\Definition\VariableNode $node, \ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder $class)
+    private function handleVariableNode(\ECSPrefix20210610\Symfony\Component\Config\Definition\VariableNode $node, \ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder $class)
     {
         $comment = $this->getComment($node);
         $property = $class->addProperty($node->getName());
-        $class->addUse(\ECSPrefix20210608\Symfony\Component\Config\Loader\ParamConfigurator::class);
+        $class->addUse(\ECSPrefix20210610\Symfony\Component\Config\Loader\ParamConfigurator::class);
         $body = '
 /**
 COMMENT * @return $this
@@ -158,14 +158,14 @@ public function NAME($valueDEFAULT): self
     /**
      * @return void
      */
-    private function handlePrototypedArrayNode(\ECSPrefix20210608\Symfony\Component\Config\Definition\PrototypedArrayNode $node, \ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace)
+    private function handlePrototypedArrayNode(\ECSPrefix20210610\Symfony\Component\Config\Definition\PrototypedArrayNode $node, \ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace)
     {
         $name = $this->getSingularName($node);
         $prototype = $node->getPrototype();
         $methodName = $name;
         $parameterType = $this->getParameterType($prototype);
-        if (null !== $parameterType || $prototype instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\ScalarNode) {
-            $class->addUse(\ECSPrefix20210608\Symfony\Component\Config\Loader\ParamConfigurator::class);
+        if (null !== $parameterType || $prototype instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\ScalarNode) {
+            $class->addUse(\ECSPrefix20210610\Symfony\Component\Config\Loader\ParamConfigurator::class);
             $property = $class->addProperty($node->getName());
             if (null === ($key = $node->getKeyAttribute())) {
                 // This is an array of values; don't use singular name
@@ -197,7 +197,7 @@ public function NAME(string $VAR, $VALUE): self
             }
             return;
         }
-        $childClass = new \ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder($namespace, $name);
+        $childClass = new \ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder($namespace, $name);
         $class->addRequire($childClass);
         $this->classes[] = $childClass;
         $property = $class->addProperty($node->getName(), $childClass->getFqcn() . '[]');
@@ -221,7 +221,7 @@ public function NAME(string $VAR, array $VALUE = []): CLASS
 
     throw new InvalidConfigurationException(\'The node created by "NAME()" has already been initialized. You cannot pass values the second time you call NAME().\');
 }';
-            $class->addUse(\ECSPrefix20210608\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+            $class->addUse(\ECSPrefix20210610\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
             $class->addMethod($methodName, $body, ['PROPERTY' => $property->getName(), 'CLASS' => $childClass->getFqcn(), 'VAR' => '' === $key ? 'key' : $key, 'VALUE' => 'value' === $key ? 'data' : 'value']);
         }
         $this->buildNode($prototype, $childClass, $namespace . '\\' . $childClass->getName());
@@ -229,11 +229,11 @@ public function NAME(string $VAR, array $VALUE = []): CLASS
     /**
      * @return void
      */
-    private function handleScalarNode(\ECSPrefix20210608\Symfony\Component\Config\Definition\ScalarNode $node, \ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder $class)
+    private function handleScalarNode(\ECSPrefix20210610\Symfony\Component\Config\Definition\ScalarNode $node, \ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder $class)
     {
         $comment = $this->getComment($node);
         $property = $class->addProperty($node->getName());
-        $class->addUse(\ECSPrefix20210608\Symfony\Component\Config\Loader\ParamConfigurator::class);
+        $class->addUse(\ECSPrefix20210610\Symfony\Component\Config\Loader\ParamConfigurator::class);
         $body = '
 /**
 COMMENT * @return $this
@@ -249,31 +249,31 @@ public function NAME($value): self
     /**
      * @return string|null
      */
-    private function getParameterType(\ECSPrefix20210608\Symfony\Component\Config\Definition\NodeInterface $node)
+    private function getParameterType(\ECSPrefix20210610\Symfony\Component\Config\Definition\NodeInterface $node)
     {
-        if ($node instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\BooleanNode) {
+        if ($node instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\BooleanNode) {
             return 'bool';
         }
-        if ($node instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\IntegerNode) {
+        if ($node instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\IntegerNode) {
             return 'int';
         }
-        if ($node instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\FloatNode) {
+        if ($node instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\FloatNode) {
             return 'float';
         }
-        if ($node instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\EnumNode) {
+        if ($node instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\EnumNode) {
             return '';
         }
-        if ($node instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\PrototypedArrayNode && $node->getPrototype() instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\ScalarNode) {
+        if ($node instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\PrototypedArrayNode && $node->getPrototype() instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\ScalarNode) {
             // This is just an array of variables
             return 'array';
         }
-        if ($node instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\VariableNode) {
+        if ($node instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\VariableNode) {
             // mixed
             return '';
         }
         return null;
     }
-    private function getComment(\ECSPrefix20210608\Symfony\Component\Config\Definition\VariableNode $node) : string
+    private function getComment(\ECSPrefix20210610\Symfony\Component\Config\Definition\VariableNode $node) : string
     {
         $comment = '';
         if ('' !== ($info = (string) $node->getInfo())) {
@@ -285,7 +285,7 @@ public function NAME($value): self
         if ('' !== ($default = $node->getDefaultValue())) {
             $comment .= ' * @default ' . (null === $default ? 'null' : \var_export($default, \true)) . \PHP_EOL;
         }
-        if ($node instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\EnumNode) {
+        if ($node instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\EnumNode) {
             $comment .= \sprintf(' * @param ParamConfigurator|%s $value', \implode('|', \array_map(function ($a) {
                 return \var_export($a, \true);
             }, $node->getValues()))) . \PHP_EOL;
@@ -304,14 +304,14 @@ public function NAME($value): self
     /**
      * Pick a good singular name.
      */
-    private function getSingularName(\ECSPrefix20210608\Symfony\Component\Config\Definition\PrototypedArrayNode $node) : string
+    private function getSingularName(\ECSPrefix20210610\Symfony\Component\Config\Definition\PrototypedArrayNode $node) : string
     {
         $name = $node->getName();
         if ('s' !== \substr($name, -1)) {
             return $name;
         }
         $parent = $node->getParent();
-        $mappings = $parent instanceof \ECSPrefix20210608\Symfony\Component\Config\Definition\ArrayNode ? $parent->getXmlRemappings() : [];
+        $mappings = $parent instanceof \ECSPrefix20210610\Symfony\Component\Config\Definition\ArrayNode ? $parent->getXmlRemappings() : [];
         foreach ($mappings as $map) {
             if ($map[1] === $name) {
                 $name = $map[0];
@@ -323,7 +323,7 @@ public function NAME($value): self
     /**
      * @return void
      */
-    private function buildToArray(\ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder $class)
+    private function buildToArray(\ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder $class)
     {
         $body = '$output = [];';
         foreach ($class->getProperties() as $p) {
@@ -352,7 +352,7 @@ public function NAME(): array
     /**
      * @return void
      */
-    private function buildConstructor(\ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder $class)
+    private function buildConstructor(\ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder $class)
     {
         $body = '';
         foreach ($class->getProperties() as $p) {
@@ -375,7 +375,7 @@ public function NAME(): array
     if ([] !== $value) {
         throw new InvalidConfigurationException(sprintf(\'The following keys are not supported by "%s": \', __CLASS__).implode(\', \', array_keys($value)));
     }';
-        $class->addUse(\ECSPrefix20210608\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+        $class->addUse(\ECSPrefix20210610\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
         $class->addMethod('__construct', '
 public function __construct(array $value = [])
 {
@@ -383,7 +383,7 @@ public function __construct(array $value = [])
 }
 ');
     }
-    private function getSubNamespace(\ECSPrefix20210608\Symfony\Component\Config\Builder\ClassBuilder $rootClass) : string
+    private function getSubNamespace(\ECSPrefix20210610\Symfony\Component\Config\Builder\ClassBuilder $rootClass) : string
     {
         return \sprintf('%s\\%s', $rootClass->getNamespace(), \substr($rootClass->getName(), 0, -6));
     }

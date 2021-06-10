@@ -11,8 +11,8 @@ namespace PHP_CodeSniffer\Tests\Standards;
 
 use PHP_CodeSniffer\Util\Standards;
 use PHP_CodeSniffer\Autoload;
-use ECSPrefix20210608\PHPUnit\TextUI\TestRunner;
-use ECSPrefix20210608\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210610\PHPUnit\TextUI\TestRunner;
+use ECSPrefix20210610\PHPUnit\Framework\TestSuite;
 class AllSniffs
 {
     /**
@@ -22,7 +22,7 @@ class AllSniffs
      */
     public static function main()
     {
-        \ECSPrefix20210608\PHPUnit\TextUI\TestRunner::run(self::suite());
+        \ECSPrefix20210610\PHPUnit\TextUI\TestRunner::run(self::suite());
     }
     //end main()
     /**
@@ -38,7 +38,7 @@ class AllSniffs
         $GLOBALS['PHP_CODESNIFFER_SNIFF_CODES'] = [];
         $GLOBALS['PHP_CODESNIFFER_FIXABLE_CODES'] = [];
         $GLOBALS['PHP_CODESNIFFER_SNIFF_CASE_FILES'] = [];
-        $suite = new \ECSPrefix20210608\PHPUnit\Framework\TestSuite('PHP CodeSniffer Standards');
+        $suite = new \ECSPrefix20210610\PHPUnit\Framework\TestSuite('PHP CodeSniffer Standards');
         $isInstalled = !\is_file(__DIR__ . '/../../autoload.php');
         // Optionally allow for ignoring the tests for one or more standards.
         $ignoreTestsForStandards = \getenv('PHPCS_IGNORE_TESTS');

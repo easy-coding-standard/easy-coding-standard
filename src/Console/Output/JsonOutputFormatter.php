@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use ECSPrefix20210608\Nette\Utils\Json;
+use ECSPrefix20210610\Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
-use ECSPrefix20210608\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210610\Symplify\PackageBuilder\Console\ShellCode;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Console\Output\JsonOutputFormatterTest
  */
@@ -34,7 +34,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
         $errorCount = $errorAndDiffResult->getErrorCount();
-        return $errorCount === 0 ? \ECSPrefix20210608\Symplify\PackageBuilder\Console\ShellCode::SUCCESS : \ECSPrefix20210608\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+        return $errorCount === 0 ? \ECSPrefix20210610\Symplify\PackageBuilder\Console\ShellCode::SUCCESS : \ECSPrefix20210610\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     public function getName() : string
     {
@@ -51,7 +51,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         foreach ($fileDiffs as $fileDiff) {
             $errorsArray[self::FILES][$fileDiff->getRelativeFilePathFromCwd()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
         }
-        return \ECSPrefix20210608\Nette\Utils\Json::encode($errorsArray, \ECSPrefix20210608\Nette\Utils\Json::PRETTY);
+        return \ECSPrefix20210610\Nette\Utils\Json::encode($errorsArray, \ECSPrefix20210610\Nette\Utils\Json::PRETTY);
     }
     /**
      * @return mixed[]

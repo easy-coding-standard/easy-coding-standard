@@ -6,7 +6,7 @@
     <title>Welcome to Symfony!</title>
     <style>
         <?php 
-namespace ECSPrefix20210608;
+namespace ECSPrefix20210610;
 
 $hue = \random_int(0, 360);
 ?>

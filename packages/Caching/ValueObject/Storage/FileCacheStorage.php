@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
 
-use ECSPrefix20210608\Nette\Utils\Random;
+use ECSPrefix20210610\Nette\Utils\Random;
 use Symplify\EasyCodingStandard\Caching\Exception\CachingException;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem;
-use ECSPrefix20210608\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210610\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Inspired by
  * https://github.com/phpstan/phpstan-src/commit/4df7342f3a0aaef4bcd85456dd20ca88d38dd90d#diff-6dc14f6222bf150e6840ca44a7126653052a1cedc6a149b4e5c1e1a2c80eacdc
@@ -21,7 +21,7 @@ final class FileCacheStorage
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(string $directory, \ECSPrefix20210608\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(string $directory, \ECSPrefix20210610\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->directory = $directory;
         $this->smartFileSystem = $smartFileSystem;
@@ -53,7 +53,7 @@ final class FileCacheStorage
         list($firstDirectory, $secondDirectory, $path) = $this->getFilePaths($key);
         $this->smartFileSystem->mkdir($firstDirectory);
         $this->smartFileSystem->mkdir($secondDirectory);
-        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, \ECSPrefix20210608\Nette\Utils\Random::generate());
+        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, \ECSPrefix20210610\Nette\Utils\Random::generate());
         $errorBefore = \error_get_last();
         $exported = @\var_export(new \Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem($variableKey, $data), \true);
         $errorAfter = \error_get_last();
