@@ -5,10 +5,10 @@
     "require": {
         "php": ">=7.3",
         "nette\/utils": "^3.2",
-        "symfony\/console": "^4.4|^5.2",
+        "symfony\/console": "^4.4|^5.3",
         "sebastian\/diff": "^4.0",
-        "symfony\/dependency-injection": "^5.2",
-        "symfony\/http-kernel": "^4.4|^5.2",
+        "symfony\/dependency-injection": "^5.3",
+        "symfony\/http-kernel": "^4.4|^5.3",
         "symplify\/package-builder": "dev-main"
     },
     "require-dev": {
@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210610\\Symplify\\ConsoleColorDiff\\": "src"
+            "ECSPrefix20210611\\Symplify\\ConsoleColorDiff\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210610\\Symplify\\ConsoleColorDiff\\Tests\\": "tests"
+            "ECSPrefix20210611\\Symplify\\ConsoleColorDiff\\Tests\\": "tests"
         }
     },
     "extra": {

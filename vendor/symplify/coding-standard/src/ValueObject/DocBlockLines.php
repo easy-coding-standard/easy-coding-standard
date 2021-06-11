@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\ValueObject;
 
-use ECSPrefix20210610\Nette\Utils\Strings;
+use ECSPrefix20210611\Nette\Utils\Strings;
 final class DocBlockLines
 {
     /**
@@ -40,7 +40,7 @@ final class DocBlockLines
     public function hasListDescriptionLines() : bool
     {
         foreach ($this->descriptionLines as $descriptionLine) {
-            if (\ECSPrefix20210610\Nette\Utils\Strings::startsWith($descriptionLine, '-')) {
+            if (\ECSPrefix20210611\Nette\Utils\Strings::startsWith($descriptionLine, '-')) {
                 return \true;
             }
         }
