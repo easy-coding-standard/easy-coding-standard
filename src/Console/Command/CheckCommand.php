@@ -10,7 +10,7 @@ use ECSPrefix20210611\Symplify\PackageBuilder\Console\ShellCode;
 final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
-     * @var ProcessedFileReporter
+     * @var \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter
      */
     private $processedFileReporter;
     public function __construct(\Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter)

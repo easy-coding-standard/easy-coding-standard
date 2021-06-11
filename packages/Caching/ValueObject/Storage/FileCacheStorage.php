@@ -19,7 +19,7 @@ final class FileCacheStorage
      */
     private $directory;
     /**
-     * @var SmartFileSystem
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
     public function __construct(string $directory, \ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)

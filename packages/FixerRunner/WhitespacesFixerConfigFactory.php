@@ -10,7 +10,7 @@ use ECSPrefix20210611\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class WhitespacesFixerConfigFactory
 {
     /**
-     * @var ParameterProvider
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
     public function __construct(\ECSPrefix20210611\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)

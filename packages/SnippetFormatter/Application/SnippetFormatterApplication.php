@@ -14,27 +14,27 @@ use ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileSystem;
 final class SnippetFormatterApplication
 {
     /**
-     * @var Configuration
+     * @var \Symplify\EasyCodingStandard\Configuration\Configuration
      */
     private $configuration;
     /**
-     * @var SnippetReporter
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter
      */
     private $snippetReporter;
     /**
-     * @var SnippetFormatter
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter
      */
     private $snippetFormatter;
     /**
-     * @var SmartFileSystem
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
     /**
-     * @var SymfonyStyle
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
     private $symfonyStyle;
     /**
-     * @var ProcessedFileReporter
+     * @var \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter
      */
     private $processedFileReporter;
     public function __construct(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter $snippetReporter, \Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter $snippetFormatter, \ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20210611\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter)

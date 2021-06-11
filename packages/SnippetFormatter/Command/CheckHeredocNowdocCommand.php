@@ -12,7 +12,7 @@ use ECSPrefix20210611\Symplify\PackageBuilder\Console\ShellCode;
 final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
-     * @var SnippetFormatterApplication
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication
      */
     private $snippetFormatterApplication;
     public function __construct(\Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication $snippetFormatterApplication)

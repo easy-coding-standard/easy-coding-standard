@@ -19,18 +19,18 @@ final class SourceFinder
      */
     private $fileExtensions = [];
     /**
-     * @var FinderSanitizer
+     * @var \Symplify\SmartFileSystem\Finder\FinderSanitizer
      */
     private $finderSanitizer;
     /**
-     * @var GitDiffProvider
+     * @var \Symplify\EasyCodingStandard\Git\GitDiffProvider
      */
     private $gitDiffProvider;
     public function __construct(\ECSPrefix20210611\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \ECSPrefix20210611\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\EasyCodingStandard\Git\GitDiffProvider $gitDiffProvider)
     {
         $this->finderSanitizer = $finderSanitizer;
-        $this->fileExtensions = $parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS);
         $this->gitDiffProvider = $gitDiffProvider;
+        $this->fileExtensions = $parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS);
     }
     /**
      * @param string[] $source

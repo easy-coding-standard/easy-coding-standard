@@ -8,7 +8,7 @@ use ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileFilter
 {
     /**
-     * @var ChangedFilesDetector
+     * @var \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector
      */
     private $changedFilesDetector;
     public function __construct(\Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector)

@@ -17,13 +17,13 @@ final class EasyCodingStandardStyleFactory
      */
     private $privatesCaller;
     /**
-     * @var Terminal
+     * @var \Symfony\Component\Console\Terminal
      */
     private $terminal;
     public function __construct(\ECSPrefix20210611\Symfony\Component\Console\Terminal $terminal)
     {
-        $this->privatesCaller = new \ECSPrefix20210611\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $this->terminal = $terminal;
+        $this->privatesCaller = new \ECSPrefix20210611\Symplify\PackageBuilder\Reflection\PrivatesCaller();
     }
     public function create() : \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
     {

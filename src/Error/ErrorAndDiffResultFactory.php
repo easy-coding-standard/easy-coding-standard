@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 final class ErrorAndDiffResultFactory
 {
     /**
-     * @var ErrorAndDiffCollector
+     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
     public function __construct(\Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector)

@@ -16,11 +16,11 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
      */
     const NAME = 'console';
     /**
-     * @var EasyCodingStandardStyle
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
     /**
-     * @var Configuration
+     * @var \Symplify\EasyCodingStandard\Configuration\Configuration
      */
     private $configuration;
     public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Configuration\Configuration $configuration)

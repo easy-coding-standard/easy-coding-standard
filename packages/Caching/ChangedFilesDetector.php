@@ -18,11 +18,11 @@ final class ChangedFilesDetector
      */
     const FILE_HASH = 'file_hash';
     /**
-     * @var FileHashComputer
+     * @var \Symplify\EasyCodingStandard\Caching\FileHashComputer
      */
     private $fileHashComputer;
     /**
-     * @var Cache
+     * @var \Symplify\EasyCodingStandard\Caching\Cache
      */
     private $cache;
     public function __construct(\Symplify\EasyCodingStandard\Caching\FileHashComputer $fileHashComputer, \Symplify\EasyCodingStandard\Caching\Cache $cache)

@@ -8,11 +8,11 @@ use Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter;
 final class LoadedCheckersGuard
 {
     /**
-     * @var FileProcessorCollector
+     * @var \Symplify\EasyCodingStandard\Application\FileProcessorCollector
      */
     private $fileProcessorCollector;
     /**
-     * @var NoCheckersLoaderReporter
+     * @var \Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter
      */
     private $noCheckersLoaderReporter;
     public function __construct(\Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector, \Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter $noCheckersLoaderReporter)

@@ -8,7 +8,7 @@ use ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo;
 final class TargetFileInfoResolver
 {
     /**
-     * @var CurrentParentFileInfoProvider
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider
      */
     private $currentParentFileInfoProvider;
     public function __construct(\Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider)

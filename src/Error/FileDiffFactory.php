@@ -9,7 +9,7 @@ use ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiffFactory
 {
     /**
-     * @var ColorConsoleDiffFormatter
+     * @var \Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
     public function __construct(\ECSPrefix20210611\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)

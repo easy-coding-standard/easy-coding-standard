@@ -30,35 +30,35 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      */
     private $tokenListeners = [];
     /**
-     * @var Fixer
+     * @var \PHP_CodeSniffer\Fixer
      */
     private $fixer;
     /**
-     * @var FileFactory
+     * @var \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory
      */
     private $fileFactory;
     /**
-     * @var Configuration
+     * @var \Symplify\EasyCodingStandard\Configuration\Configuration
      */
     private $configuration;
     /**
-     * @var ErrorAndDiffCollector
+     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
     /**
-     * @var DifferInterface
+     * @var \PhpCsFixer\Differ\DifferInterface
      */
     private $differ;
     /**
-     * @var AppliedCheckersCollector
+     * @var \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector
      */
     private $appliedCheckersCollector;
     /**
-     * @var SmartFileSystem
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
     /**
-     * @var TargetFileInfoResolver
+     * @var \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver
      */
     private $targetFileInfoResolver;
     /**
@@ -72,12 +72,12 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->differ = $differ;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
+        $this->smartFileSystem = $smartFileSystem;
+        $this->targetFileInfoResolver = $targetFileInfoResolver;
         $this->addCompatibilityLayer();
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
         }
-        $this->smartFileSystem = $smartFileSystem;
-        $this->targetFileInfoResolver = $targetFileInfoResolver;
     }
     /**
      * @return void

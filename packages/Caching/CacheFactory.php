@@ -10,11 +10,11 @@ use ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileSystem;
 final class CacheFactory
 {
     /**
-     * @var ParameterProvider
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
     /**
-     * @var SmartFileSystem
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
     public function __construct(\ECSPrefix20210611\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)

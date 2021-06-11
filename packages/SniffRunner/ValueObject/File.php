@@ -32,10 +32,6 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     public $tokenizerType = 'PHP';
     /**
-     * @var Fixer
-     */
-    public $fixer;
-    /**
      * @var string|null
      */
     private $activeSniffClass;
@@ -48,34 +44,36 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     private $tokenListeners = [];
     /**
-     * @var ErrorAndDiffCollector
-     */
-    private $errorAndDiffCollector;
-    /**
-     * @var Skipper
-     */
-    private $skipper;
-    /**
-     * @var AppliedCheckersCollector
-     */
-    private $appliedCheckersCollector;
-    /**
-     * @var EasyCodingStandardStyle
-     */
-    private $easyCodingStandardStyle;
-    /**
      * @var SmartFileInfo
      */
     private $fileInfo;
+    /**
+     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
+     */
+    private $errorAndDiffCollector;
+    /**
+     * @var \Symplify\Skipper\Skipper\Skipper
+     */
+    private $skipper;
+    /**
+     * @var \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector
+     */
+    private $appliedCheckersCollector;
+    /**
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
+     */
+    private $easyCodingStandardStyle;
     public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \ECSPrefix20210611\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
-        $this->path = $path;
-        $this->content = $content;
-        $this->fixer = $fixer;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
-        $this->eolChar = \PHP_CodeSniffer\Util\Common::detectLineEndings($content);
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
+        $this->path = $path;
+        $this->content = $content;
+        // this property cannot be promoted as defined in constructor
+        $this->fixer = $fixer;
+        $this->eolChar = \PHP_CodeSniffer\Util\Common::detectLineEndings($content);
         // compat
         if (!\defined('PHP_CODESNIFFER_CBF')) {
             \define('PHP_CODESNIFFER_CBF', \false);
@@ -85,7 +83,6 @@ final class File extends \PHP_CodeSniffer\Files\File
         $this->config->tabWidth = 4;
         $this->config->annotations = \false;
         $this->config->encoding = 'UTF-8';
-        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
     /**
      * Mimics @see

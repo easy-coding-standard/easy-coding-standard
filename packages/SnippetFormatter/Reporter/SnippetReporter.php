@@ -7,7 +7,7 @@ use ECSPrefix20210611\Symfony\Component\Console\Style\SymfonyStyle;
 final class SnippetReporter
 {
     /**
-     * @var SymfonyStyle
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
     private $symfonyStyle;
     public function __construct(\ECSPrefix20210611\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)

@@ -16,23 +16,23 @@ use ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileFactory
 {
     /**
-     * @var Fixer
+     * @var \PHP_CodeSniffer\Fixer
      */
     private $fixer;
     /**
-     * @var ErrorAndDiffCollector
+     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
     /**
-     * @var Skipper
+     * @var \Symplify\Skipper\Skipper\Skipper
      */
     private $skipper;
     /**
-     * @var AppliedCheckersCollector
+     * @var \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector
      */
     private $appliedCheckersCollector;
     /**
-     * @var EasyCodingStandardStyle
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
     public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \ECSPrefix20210611\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)

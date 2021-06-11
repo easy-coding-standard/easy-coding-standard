@@ -19,13 +19,13 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210611\Symfony\Component
      */
     const BULGARIAN_CONSTANT = 8;
     /**
-     * @var Terminal
+     * @var \Symfony\Component\Console\Terminal
      */
     private $terminal;
     public function __construct(\ECSPrefix20210611\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210611\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210611\Symfony\Component\Console\Terminal $terminal)
     {
-        parent::__construct($input, $output);
         $this->terminal = $terminal;
+        parent::__construct($input, $output);
     }
     /**
      * @param CodingStandardError[] $codingStandardErrors

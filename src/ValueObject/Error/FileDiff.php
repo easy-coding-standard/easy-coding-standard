@@ -7,30 +7,30 @@ use ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiff
 {
     /**
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
+     */
+    private $smartFileInfo;
+    /**
      * @var string
      */
     private $diff;
-    /**
-     * @var string[]
-     */
-    private $appliedCheckers = [];
     /**
      * @var string
      */
     private $consoleFormattedDiff;
     /**
-     * @var SmartFileInfo
+     * @var mixed[]
      */
-    private $smartFileInfo;
+    private $appliedCheckers;
     /**
      * @param string[] $appliedCheckers
      */
     public function __construct(\ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $consoleFormattedDiff, array $appliedCheckers)
     {
-        $this->diff = $diff;
-        $this->appliedCheckers = $appliedCheckers;
-        $this->consoleFormattedDiff = $consoleFormattedDiff;
         $this->smartFileInfo = $smartFileInfo;
+        $this->diff = $diff;
+        $this->consoleFormattedDiff = $consoleFormattedDiff;
+        $this->appliedCheckers = $appliedCheckers;
     }
     public function getDiff() : string
     {

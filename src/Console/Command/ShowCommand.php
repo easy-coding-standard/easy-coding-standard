@@ -15,33 +15,33 @@ use ECSPrefix20210611\Symplify\PackageBuilder\Console\ShellCode;
 final class ShowCommand extends \ECSPrefix20210611\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
-     * @var SniffFileProcessor
+     * @var \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor
      */
     private $sniffFileProcessor;
     /**
-     * @var FixerFileProcessor
+     * @var \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor
      */
     private $fixerFileProcessor;
     /**
-     * @var EasyCodingStandardStyle
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
     /**
-     * @var CheckerListReporter
+     * @var \Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter
      */
     private $checkerListReporter;
     /**
-     * @var LoadedCheckersGuard
+     * @var \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard
      */
     private $loadedCheckersGuard;
     public function __construct(\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor $sniffFileProcessor, \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor $fixerFileProcessor, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter $checkerListReporter, \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard $loadedCheckersGuard)
     {
-        parent::__construct();
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->checkerListReporter = $checkerListReporter;
         $this->loadedCheckersGuard = $loadedCheckersGuard;
+        parent::__construct();
     }
     /**
      * @return void

@@ -9,15 +9,15 @@ use Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory;
 final class ProcessedFileReporter
 {
     /**
-     * @var Configuration
+     * @var \Symplify\EasyCodingStandard\Configuration\Configuration
      */
     private $configuration;
     /**
-     * @var OutputFormatterCollector
+     * @var \Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector
      */
     private $outputFormatterCollector;
     /**
-     * @var ErrorAndDiffResultFactory
+     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory
      */
     private $errorAndDiffResultFactory;
     public function __construct(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory $errorAndDiffResultFactory)

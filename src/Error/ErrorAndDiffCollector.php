@@ -28,19 +28,19 @@ final class ErrorAndDiffCollector
      */
     private $fileDiffs = [];
     /**
-     * @var ChangedFilesDetector
+     * @var \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector
      */
     private $changedFilesDetector;
     /**
-     * @var FileDiffFactory
+     * @var \Symplify\EasyCodingStandard\Error\FileDiffFactory
      */
     private $fileDiffFactory;
     /**
-     * @var ErrorFactory
+     * @var \Symplify\EasyCodingStandard\Error\ErrorFactory
      */
     private $errorFactory;
     /**
-     * @var CurrentParentFileInfoProvider
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider
      */
     private $currentParentFileInfoProvider;
     public function __construct(\Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, \Symplify\EasyCodingStandard\Error\ErrorFactory $errorFactory, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider)
@@ -121,7 +121,7 @@ final class ErrorAndDiffCollector
     private function ensureIsFixerOrChecker(string $sourceClass)
     {
         // remove dot suffix of "."
-        if (\ECSPrefix20210611\Nette\Utils\Strings::contains($sourceClass, '.')) {
+        if (\strpos($sourceClass, '.') !== \false) {
             $sourceClass = (string) \ECSPrefix20210611\Nette\Utils\Strings::before($sourceClass, '.', 1);
         }
         if (\is_a($sourceClass, \PhpCsFixer\Fixer\FixerInterface::class, \true)) {

@@ -44,25 +44,25 @@ final class SnippetFormatter
      */
     const CLOSING = 'closing';
     /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-    /**
-     * @var FixerFileProcessor
-     */
-    private $fixerFileProcessor;
-    /**
-     * @var SniffFileProcessor
-     */
-    private $sniffFileProcessor;
-    /**
-     * @var CurrentParentFileInfoProvider
-     */
-    private $currentParentFileInfoProvider;
-    /**
      * @var bool
      */
     private $isPhp73OrAbove = \false;
+    /**
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
+     */
+    private $smartFileSystem;
+    /**
+     * @var \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor
+     */
+    private $fixerFileProcessor;
+    /**
+     * @var \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor
+     */
+    private $sniffFileProcessor;
+    /**
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider
+     */
+    private $currentParentFileInfoProvider;
     public function __construct(\ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor $fixerFileProcessor, \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor $sniffFileProcessor, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider)
     {
         $this->smartFileSystem = $smartFileSystem;
@@ -75,7 +75,7 @@ final class SnippetFormatter
     {
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
         return \ECSPrefix20210611\Nette\Utils\Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use($kind) : string {
-            if (\ECSPrefix20210611\Nette\Utils\Strings::contains($match[self::CONTENT], '-----')) {
+            if (\strpos($match[self::CONTENT], '-----') !== \false) {
                 // do nothing
                 return $match[self::OPENING] . $match[self::CONTENT] . $match[self::CLOSING];
             }
@@ -96,7 +96,7 @@ final class SnippetFormatter
     {
         $content = $this->isPhp73OrAbove ? $content : \trim($content);
         $temporaryFilePath = $this->createTemporaryFilePath($content);
-        if (!\ECSPrefix20210611\Nette\Utils\Strings::startsWith($this->isPhp73OrAbove ? \trim($content) : $content, '<?php')) {
+        if (\strncmp($this->isPhp73OrAbove ? \trim($content) : $content, '<?php', \strlen('<?php')) !== 0) {
             $content = '<?php' . \PHP_EOL . $content;
         }
         $fileContent = $this->isPhp73OrAbove ? \ltrim($content, \PHP_EOL) : $content;
@@ -106,7 +106,7 @@ final class SnippetFormatter
             $this->fixerFileProcessor->processFile($temporaryFileInfo);
             $this->sniffFileProcessor->processFile($temporaryFileInfo);
             $fileContent = $temporaryFileInfo->getContents();
-        } catch (\Throwable $throwable) {
+        } catch (\Throwable $exception) {
             // Skipped parsed error when processing php temporaryFile
         } finally {
             // remove temporary temporaryFile

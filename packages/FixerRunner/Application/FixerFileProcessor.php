@@ -43,39 +43,39 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      */
     private $fixers = [];
     /**
-     * @var ErrorAndDiffCollector
+     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
     /**
-     * @var Skipper
-     */
-    private $skipper;
-    /**
-     * @var Configuration
+     * @var \Symplify\EasyCodingStandard\Configuration\Configuration
      */
     private $configuration;
     /**
-     * @var FileToTokensParser
+     * @var \Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser
      */
     private $fileToTokensParser;
     /**
-     * @var DifferInterface
+     * @var \Symplify\Skipper\Skipper\Skipper
+     */
+    private $skipper;
+    /**
+     * @var \PhpCsFixer\Differ\DifferInterface
      */
     private $differ;
     /**
-     * @var EasyCodingStandardStyle
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
     /**
-     * @var SmartFileSystem
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
     /**
-     * @var CurrentParentFileInfoProvider
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider
      */
     private $currentParentFileInfoProvider;
     /**
-     * @var TargetFileInfoResolver
+     * @var \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver
      */
     private $targetFileInfoResolver;
     /**
@@ -84,15 +84,15 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     public function __construct(\Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser $fileToTokensParser, \ECSPrefix20210611\Symplify\Skipper\Skipper\Skipper $skipper, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider, \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver $targetFileInfoResolver, array $fixers = [])
     {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
-        $this->skipper = $skipper;
         $this->configuration = $configuration;
         $this->fileToTokensParser = $fileToTokensParser;
+        $this->skipper = $skipper;
         $this->differ = $differ;
-        $this->fixers = $this->sortFixers($fixers);
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->smartFileSystem = $smartFileSystem;
         $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
         $this->targetFileInfoResolver = $targetFileInfoResolver;
+        $this->fixers = $this->sortFixers($fixers);
     }
     /**
      * @return FixerInterface[]

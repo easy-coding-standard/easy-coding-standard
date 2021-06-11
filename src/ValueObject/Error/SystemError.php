@@ -15,7 +15,7 @@ final class SystemError
      */
     private $message;
     /**
-     * @var SmartFileInfo
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
      */
     private $fileInfo;
     public function __construct(int $line, string $message, \ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)

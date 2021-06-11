@@ -22,7 +22,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
      */
     const FILES = 'files';
     /**
-     * @var EasyCodingStandardStyle
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
     public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)

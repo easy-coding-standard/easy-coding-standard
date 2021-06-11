@@ -11,19 +11,19 @@ use ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleFileProcessor
 {
     /**
-     * @var Skipper
+     * @var \Symplify\Skipper\Skipper\Skipper
      */
     private $skipper;
     /**
-     * @var ChangedFilesDetector
+     * @var \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector
      */
     private $changedFilesDetector;
     /**
-     * @var ErrorAndDiffCollector
+     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
     /**
-     * @var FileProcessorCollector
+     * @var \Symplify\EasyCodingStandard\Application\FileProcessorCollector
      */
     private $fileProcessorCollector;
     public function __construct(\ECSPrefix20210611\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)

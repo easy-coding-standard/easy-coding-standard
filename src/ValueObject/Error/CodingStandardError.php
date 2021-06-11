@@ -19,7 +19,7 @@ final class CodingStandardError
      */
     private $checkerClass;
     /**
-     * @var SmartFileInfo
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
      */
     private $fileInfo;
     public function __construct(int $line, string $message, string $checkerClass, \ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)

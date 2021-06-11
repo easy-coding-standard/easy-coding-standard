@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 final class Cache
 {
     /**
-     * @var FileCacheStorage
+     * @var \Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage
      */
     private $fileCacheStorage;
     public function __construct(\Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage $fileCacheStorage)

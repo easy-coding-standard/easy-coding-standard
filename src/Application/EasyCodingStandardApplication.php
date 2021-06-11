@@ -12,27 +12,27 @@ use ECSPrefix20210611\Symplify\SmartFileSystem\SmartFileInfo;
 final class EasyCodingStandardApplication
 {
     /**
-     * @var EasyCodingStandardStyle
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
     /**
-     * @var SourceFinder
+     * @var \Symplify\EasyCodingStandard\Finder\SourceFinder
      */
     private $sourceFinder;
     /**
-     * @var ChangedFilesDetector
+     * @var \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector
      */
     private $changedFilesDetector;
     /**
-     * @var Configuration
+     * @var \Symplify\EasyCodingStandard\Configuration\Configuration
      */
     private $configuration;
     /**
-     * @var FileFilter
+     * @var \Symplify\EasyCodingStandard\FileSystem\FileFilter
      */
     private $fileFilter;
     /**
-     * @var SingleFileProcessor
+     * @var \Symplify\EasyCodingStandard\Application\SingleFileProcessor
      */
     private $singleFileProcessor;
     public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor)
