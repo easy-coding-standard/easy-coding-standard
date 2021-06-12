@@ -35,7 +35,7 @@ final class ComposerJson
      */
     private $keywords = [];
     /**
-     * @var string
+     * @var string|null
      */
     private $homepage;
     /**
@@ -91,11 +91,11 @@ final class ComposerJson
      */
     private $config = [];
     /**
-     * @var SmartFileInfo|null
+     * @var \Symplify\SmartFileSystem\SmartFileInfo|null
      */
     private $fileInfo;
     /**
-     * @var ComposerPackageSorter
+     * @var \Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter
      */
     private $composerPackageSorter;
     /**
@@ -474,7 +474,10 @@ final class ComposerJson
     {
         $this->homepage = $homepage;
     }
-    public function getHomepage() : string
+    /**
+     * @return string|null
+     */
+    public function getHomepage()
     {
         return $this->homepage;
     }

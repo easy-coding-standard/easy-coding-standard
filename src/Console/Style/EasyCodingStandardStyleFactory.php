@@ -13,7 +13,7 @@ use ECSPrefix20210612\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class EasyCodingStandardStyleFactory
 {
     /**
-     * @var PrivatesCaller
+     * @var \Symplify\PackageBuilder\Reflection\PrivatesCaller
      */
     private $privatesCaller;
     /**

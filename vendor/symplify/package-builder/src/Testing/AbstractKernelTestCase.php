@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Service\ResetInterface;
@@ -25,12 +24,12 @@ use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 abstract class AbstractKernelTestCase extends TestCase
 {
     /**
-     * @var KernelInterface
+     * @var \Symfony\Component\HttpKernel\KernelInterface|null
      */
     protected static $kernel;
 
     /**
-     * @var ContainerInterface|Container
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface|null
      */
     protected static $container;
 
@@ -86,7 +85,7 @@ abstract class AbstractKernelTestCase extends TestCase
      *
      * @template T of object
      * @param class-string<T> $type
-     * @return object|null
+     * @return object
      */
     protected function getService(string $type)
     {
@@ -94,7 +93,13 @@ abstract class AbstractKernelTestCase extends TestCase
             throw new ShouldNotHappenException('First, crewate container with booKernel(KernelClass::class)');
         }
 
-        return self::$container->get($type);
+        $service = self::$container->get($type);
+        if ($service === null) {
+            $errorMessage = sprintf('Services "%s" was not found', $type);
+            throw new \Symplify\Astral\Exception\ShouldNotHappenException($errorMessage);
+        }
+
+        return $service;
     }
 
     /**

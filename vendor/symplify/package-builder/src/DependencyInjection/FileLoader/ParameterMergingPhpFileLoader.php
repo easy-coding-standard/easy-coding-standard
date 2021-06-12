@@ -15,7 +15,7 @@ use ECSPrefix20210612\Symplify\PackageBuilder\Yaml\ParametersMerger;
 final class ParameterMergingPhpFileLoader extends \ECSPrefix20210612\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
     /**
-     * @var ParametersMerger
+     * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
     public function __construct(\ECSPrefix20210612\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20210612\Symfony\Component\Config\FileLocatorInterface $fileLocator)

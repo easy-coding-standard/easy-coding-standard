@@ -21,19 +21,19 @@ abstract class AbstractCheckerTestCase extends \ECSPrefix20210612\Symplify\Packa
      */
     const POSSIBLE_CODE_SNIFFER_AUTOLOAD_PATHS = [__DIR__ . '/../../../../../vendor/squizlabs/php_codesniffer/autoload.php', __DIR__ . '/../../../../vendor/squizlabs/php_codesniffer/autoload.php'];
     /**
-     * @var FixerFileProcessor
+     * @var \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor
      */
     private $fixerFileProcessor;
     /**
-     * @var SniffFileProcessor
+     * @var \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor
      */
     private $sniffFileProcessor;
     /**
-     * @var ErrorAndDiffCollector
+     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
     /**
-     * @var ErrorAndDiffResultFactory
+     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory
      */
     private $errorAndDiffResultFactory;
     /**

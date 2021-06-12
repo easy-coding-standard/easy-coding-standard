@@ -44,7 +44,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     private $tokenListeners = [];
     /**
-     * @var SmartFileInfo
+     * @var \Symplify\SmartFileSystem\SmartFileInfo|null
      */
     private $fileInfo;
     /**

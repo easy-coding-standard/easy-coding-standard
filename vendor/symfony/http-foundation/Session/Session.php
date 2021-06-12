@@ -148,18 +148,16 @@ class Session implements \ECSPrefix20210612\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
-     * @param int|null $lifetime
      */
-    public function invalidate($lifetime = null)
+    public function invalidate(int $lifetime = null)
     {
         $this->storage->clear();
         return $this->migrate(\true, $lifetime);
     }
     /**
      * {@inheritdoc}
-     * @param int|null $lifetime
      */
-    public function migrate(bool $destroy = \false, $lifetime = null)
+    public function migrate(bool $destroy = \false, int $lifetime = null)
     {
         return $this->storage->regenerate($destroy, $lifetime);
     }

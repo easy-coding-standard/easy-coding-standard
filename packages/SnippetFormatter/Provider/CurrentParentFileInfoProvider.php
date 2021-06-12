@@ -7,7 +7,7 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class CurrentParentFileInfoProvider
 {
     /**
-     * @var SmartFileInfo|null
+     * @var \Symplify\SmartFileSystem\SmartFileInfo|null
      */
     private $smartFileInfo;
     /**

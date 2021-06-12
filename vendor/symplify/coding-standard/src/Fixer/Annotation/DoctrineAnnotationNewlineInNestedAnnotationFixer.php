@@ -25,7 +25,7 @@ final class DoctrineAnnotationNewlineInNestedAnnotationFixer extends \PhpCsFixer
      */
     const ERROR_MESSAGE = 'Nested object annotations should start on a standalone line';
     /**
-     * @var BlockInfo|null
+     * @var \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo|null
      */
     private $currentBlockInfo;
     /**

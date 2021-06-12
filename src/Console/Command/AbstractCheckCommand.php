@@ -15,19 +15,19 @@ use ECSPrefix20210612\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCo
 abstract class AbstractCheckCommand extends \ECSPrefix20210612\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
-     * @var Configuration
+     * @var \Symplify\EasyCodingStandard\Configuration\Configuration
      */
     protected $configuration;
     /**
-     * @var EasyCodingStandardStyle
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     protected $easyCodingStandardStyle;
     /**
-     * @var EasyCodingStandardApplication
+     * @var \Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication
      */
     protected $easyCodingStandardApplication;
     /**
-     * @var LoadedCheckersGuard
+     * @var \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard
      */
     protected $loadedCheckersGuard;
     /**

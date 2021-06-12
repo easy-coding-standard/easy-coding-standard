@@ -63,7 +63,7 @@ final class ErrorAndDiffResult
      */
     private function sortByFileAndLine(array $errorMessages) : array
     {
-        \usort($errorMessages, static function (\Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $firstCodingStandardError, \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $secondCodingStandardError) : int {
+        \usort($errorMessages, function (\Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $firstCodingStandardError, \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $secondCodingStandardError) : int {
             return [$firstCodingStandardError->getRelativeFilePathFromCwd(), $firstCodingStandardError->getLine()] <=> [$secondCodingStandardError->getRelativeFilePathFromCwd(), $secondCodingStandardError->getLine()];
         });
         return $errorMessages;
@@ -74,7 +74,7 @@ final class ErrorAndDiffResult
      */
     private function sortByFilePath(array $fileDiffs) : array
     {
-        \uasort($fileDiffs, static function (\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $firstFileDiff, \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $secondFileDiff) : int {
+        \uasort($fileDiffs, function (\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $firstFileDiff, \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $secondFileDiff) : int {
             return $firstFileDiff->getRelativeFilePathFromCwd() <=> $secondFileDiff->getRelativeFilePathFromCwd();
         });
         return $fileDiffs;

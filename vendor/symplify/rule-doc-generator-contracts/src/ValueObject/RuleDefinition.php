@@ -11,11 +11,11 @@ use ECSPrefix20210612\Symplify\RuleDocGenerator\ValueObject\CodeSample\Configure
 final class RuleDefinition
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $ruleClass;
     /**
-     * @var string
+     * @var string|null
      */
     private $ruleFilePath;
     /**
@@ -72,6 +72,9 @@ final class RuleDefinition
     }
     public function getRuleShortClass() : string
     {
+        if ($this->ruleClass === null) {
+            throw new \ECSPrefix20210612\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException();
+        }
         return (string) \ECSPrefix20210612\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
     }
     /**

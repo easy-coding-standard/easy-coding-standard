@@ -13,19 +13,19 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileSystem;
 abstract class AbstractSymplifyCommand extends \ECSPrefix20210612\Symfony\Component\Console\Command\Command
 {
     /**
-     * @var SymfonyStyle
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
     protected $symfonyStyle;
     /**
-     * @var SmartFileSystem
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     protected $smartFileSystem;
     /**
-     * @var SmartFinder
+     * @var \Symplify\SmartFileSystem\Finder\SmartFinder
      */
     protected $smartFinder;
     /**
-     * @var FileSystemGuard
+     * @var \Symplify\SmartFileSystem\FileSystemGuard
      */
     protected $fileSystemGuard;
     public function __construct()
