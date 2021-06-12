@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210611\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20210612\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20210611\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210611\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210612\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210612\Symfony\Component\DependencyInjection\Definition;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceConfigurator extends \ECSPrefix20210611\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class ServiceConfigurator extends \ECSPrefix20210612\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
     const FACTORY = 'services';
     use Traits\AbstractTrait;
@@ -42,7 +42,7 @@ class ServiceConfigurator extends \ECSPrefix20210611\Symfony\Component\Dependenc
     private $allowParent;
     private $path;
     private $destructed = \false;
-    public function __construct(\ECSPrefix20210611\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \ECSPrefix20210611\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210611\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, string $path = null)
+    public function __construct(\ECSPrefix20210612\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \ECSPrefix20210612\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210612\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, string $path = null)
     {
         $this->container = $container;
         $this->instanceof = $instanceof;
