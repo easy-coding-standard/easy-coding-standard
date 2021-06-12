@@ -9,7 +9,7 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class FixtureFinder
 {
     /**
-     * @var FinderSanitizer
+     * @var \Symplify\SmartFileSystem\Finder\FinderSanitizer
      */
     private $finderSanitizer;
     public function __construct(\ECSPrefix20210612\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer)

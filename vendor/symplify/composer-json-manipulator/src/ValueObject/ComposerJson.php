@@ -479,7 +479,7 @@ final class ComposerJson
         return $this->homepage;
     }
     /**
-     * @param string|array $license
+     * @param string|string[]|null $license
      * @return void
      */
     public function setLicense($license)

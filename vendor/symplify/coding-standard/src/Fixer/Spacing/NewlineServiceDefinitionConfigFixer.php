@@ -28,11 +28,11 @@ final class NewlineServiceDefinitionConfigFixer extends \Symplify\CodingStandard
      */
     const FLUENT_METHOD_NAMES = ['call', 'property', 'args', 'arg'];
     /**
-     * @var WhitespacesFixerConfig
+     * @var \PhpCsFixer\WhitespacesFixerConfig
      */
     private $whitespacesFixerConfig;
     /**
-     * @var SymfonyClosureAnalyzer
+     * @var \Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer
      */
     private $symfonyClosureAnalyzer;
     public function __construct(\PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer $symfonyClosureAnalyzer)

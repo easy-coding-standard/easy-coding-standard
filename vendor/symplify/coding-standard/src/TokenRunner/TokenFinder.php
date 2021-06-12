@@ -6,12 +6,13 @@ namespace Symplify\CodingStandard\TokenRunner;
 use ECSPrefix20210612\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+use PhpToken;
 use ECSPrefix20210612\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class TokenFinder
 {
     /**
-     * @param int|Token $position
      * @param Tokens<Token> $tokens
+     * @param int|\PhpCsFixer\Tokenizer\Token $position
      */
     public function getPreviousMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $position) : \PhpCsFixer\Tokenizer\Token
     {
@@ -21,8 +22,8 @@ final class TokenFinder
         return $this->findPreviousTokenByToken($tokens, $position);
     }
     /**
-     * @param mixed[] $tokens
-     * @return mixed[]|string|null
+     * @param PhpToken[] $tokens
+     * @return \PhpToken|null
      */
     public function getNextMeaninfulToken(array $tokens, int $position)
     {
@@ -30,8 +31,8 @@ final class TokenFinder
         return $tokens[0] ?? null;
     }
     /**
-     * @param mixed[] $tokens
-     * @return mixed[]
+     * @param PhpToken[] $tokens
+     * @return PhpToken[]
      */
     public function getNextMeaninfulTokens(array $tokens, int $position, int $count) : array
     {
@@ -39,7 +40,7 @@ final class TokenFinder
         $tokensCount = \count($tokens);
         for ($i = $position; $i < $tokensCount; ++$i) {
             $token = $tokens[$i];
-            if ($token[0] === \T_WHITESPACE) {
+            if ($token->is(\T_WHITESPACE)) {
                 continue;
             }
             if (\count($foundTokens) === $count) {
@@ -50,8 +51,8 @@ final class TokenFinder
         return $foundTokens;
     }
     /**
-     * @param mixed[] $rawTokens
-     * @return mixed[]|string
+     * @param PhpToken[] $rawTokens
+     * @return \PhpToken|null
      */
     public function getSameRowLastToken(array $rawTokens, int $position)
     {
@@ -59,7 +60,7 @@ final class TokenFinder
         $rawTokensCount = \count($rawTokens);
         for ($i = $position; $i < $rawTokensCount; ++$i) {
             $token = $rawTokens[$i];
-            if (\is_array($token) && \ECSPrefix20210612\Nette\Utils\Strings::contains($token[1], \PHP_EOL)) {
+            if (\ECSPrefix20210612\Nette\Utils\Strings::contains($token->text, \PHP_EOL)) {
                 break;
             }
             $lastToken = $token;

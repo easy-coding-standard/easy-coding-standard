@@ -9,7 +9,7 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class ComposerJsonPrinter
 {
     /**
-     * @var JsonFileManager
+     * @var \Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager
      */
     private $jsonFileManager;
     public function __construct(\ECSPrefix20210612\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager $jsonFileManager)
@@ -21,7 +21,7 @@ final class ComposerJsonPrinter
         return $this->jsonFileManager->encodeJsonToFileContent($composerJson->getJsonArray());
     }
     /**
-     * @param string|SmartFileInfo $targetFile
+     * @param string|\Symplify\SmartFileSystem\SmartFileInfo $targetFile
      */
     public function print(\ECSPrefix20210612\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $targetFile) : string
     {

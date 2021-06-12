@@ -3,7 +3,7 @@
     "description": "Sanitized FileInfo with safe getRealPath() and other handy methods",
     "license": "MIT",
     "require": {
-        "php": ">=7.3",
+        "php": ">=8.0",
         "nette\/utils": "^3.2",
         "symfony\/finder": "^4.4|^5.3",
         "symfony\/filesystem": "^4.4|^5.3"

@@ -13,11 +13,11 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassAndCodeSkipVoter implements \ECSPrefix20210612\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
-     * @var SkippedClassAndCodesResolver
+     * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver
      */
     private $skippedClassAndCodesResolver;
     /**
-     * @var FileInfoMatcher
+     * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
     public function __construct(\ECSPrefix20210612\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \ECSPrefix20210612\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
@@ -36,10 +36,13 @@ final class ClassAndCodeSkipVoter implements \ECSPrefix20210612\Symplify\Skipper
         return \substr_count($element, '.') === 1;
     }
     /**
-     * @param string $element
+     * @param string|object $element
      */
     public function shouldSkip($element, \ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
+        if (\is_object($element)) {
+            return \false;
+        }
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
         if (!\array_key_exists($element, $skippedClassAndCodes)) {
             return \false;

@@ -28,11 +28,11 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
      */
     const ERROR_MESSAGE = 'Promoted property should be on standalone line';
     /**
-     * @var BlockFinder
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder
      */
     private $blockFinder;
     /**
-     * @var TokensNewliner
+     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner
      */
     private $tokensNewliner;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner $tokensNewliner)

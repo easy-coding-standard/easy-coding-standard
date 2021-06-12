@@ -20,7 +20,7 @@ final class CommentedContentResolver
      */
     const EMPTY_TOKENS = [\T_WHITESPACE, \T_STRING, \T_ENCAPSED_AND_WHITESPACE, \T_COMMENT];
     /**
-     * @var LineResolver
+     * @var \Symplify\CodingStandard\Tokens\LineResolver
      */
     private $lineResolver;
     public function __construct(\Symplify\CodingStandard\Tokens\LineResolver $lineResolver)

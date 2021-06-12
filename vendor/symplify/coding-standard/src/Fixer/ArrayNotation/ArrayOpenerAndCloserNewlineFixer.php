@@ -28,15 +28,15 @@ final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fi
      */
     const ERROR_MESSAGE = 'Indexed PHP array opener [ and closer ] must be on own line';
     /**
-     * @var ArrayBlockInfoFinder
+     * @var \Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder
      */
     private $arrayBlockInfoFinder;
     /**
-     * @var WhitespacesFixerConfig
+     * @var \PhpCsFixer\WhitespacesFixerConfig
      */
     private $whitespacesFixerConfig;
     /**
-     * @var ArrayAnalyzer
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer
      */
     private $arrayAnalyzer;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder $arrayBlockInfoFinder, \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer $arrayAnalyzer)

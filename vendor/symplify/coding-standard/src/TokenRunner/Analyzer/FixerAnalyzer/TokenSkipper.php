@@ -12,7 +12,7 @@ use ECSPrefix20210612\Symplify\SymplifyKernel\Exception\ShouldNotHappenException
 final class TokenSkipper
 {
     /**
-     * @var BlockFinder
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder
      */
     private $blockFinder;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder)

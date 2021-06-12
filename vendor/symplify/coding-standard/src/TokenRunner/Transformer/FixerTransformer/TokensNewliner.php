@@ -15,23 +15,23 @@ use Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver;
 final class TokensNewliner
 {
     /**
-     * @var LineLengthCloserTransformer
+     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthCloserTransformer
      */
     private $lineLengthCloserTransformer;
     /**
-     * @var TokenSkipper
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper
      */
     private $tokenSkipper;
     /**
-     * @var LineLengthOpenerTransformer
+     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthOpenerTransformer
      */
     private $lineLengthOpenerTransformer;
     /**
-     * @var WhitespacesFixerConfig
+     * @var \PhpCsFixer\WhitespacesFixerConfig
      */
     private $whitespacesFixerConfig;
     /**
-     * @var IndentResolver
+     * @var \Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver
      */
     private $indentResolver;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthCloserTransformer $lineLengthCloserTransformer, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthOpenerTransformer $lineLengthOpenerTransformer, \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver $indentResolver)

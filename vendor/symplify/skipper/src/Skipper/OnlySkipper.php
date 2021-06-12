@@ -11,7 +11,7 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class OnlySkipper
 {
     /**
-     * @var FileInfoMatcher
+     * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
     public function __construct(\ECSPrefix20210612\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
@@ -19,8 +19,8 @@ final class OnlySkipper
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
     /**
-     * @param object|string $checker
      * @param mixed[] $only
+     * @param object|string $checker
      * @return bool|null
      */
     public function doesMatchOnly($checker, \ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only)

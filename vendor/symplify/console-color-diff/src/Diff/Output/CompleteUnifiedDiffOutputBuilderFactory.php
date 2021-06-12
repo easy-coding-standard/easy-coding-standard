@@ -11,7 +11,7 @@ use ECSPrefix20210612\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class CompleteUnifiedDiffOutputBuilderFactory
 {
     /**
-     * @var PrivatesAccessor
+     * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
      */
     private $privatesAccessor;
     public function __construct(\ECSPrefix20210612\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)

@@ -23,7 +23,7 @@ final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fi
      */
     const ERROR_MESSAGE = 'Remove useless PHPStorm-generated @todo comments, redundant "Class XY" or "gets service" comments etc.';
     /**
-     * @var UselessDocBlockCleaner
+     * @var \Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner
      */
     private $uselessDocBlockCleaner;
     public function __construct(\Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner $uselessDocBlockCleaner)

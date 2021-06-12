@@ -26,15 +26,15 @@ final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixe
      */
     const ERROR_MESSAGE = 'Strict type declaration has to be followed by empty line';
     /**
-     * @var WhitespacesFixerConfig
-     */
-    private $whitespacesFixerConfig;
-    /**
      * Generates: "declare(strict_types=1);"
      *
      * @var Token[]
      */
     private $declareStrictTypeTokens = [];
+    /**
+     * @var \PhpCsFixer\WhitespacesFixerConfig
+     */
+    private $whitespacesFixerConfig;
     public function __construct(\PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig)
     {
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;

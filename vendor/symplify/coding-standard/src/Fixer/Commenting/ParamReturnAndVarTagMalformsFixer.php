@@ -42,9 +42,9 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
      */
     const TYPE_ANNOTATION_REGEX = '#@(param|return|var)#';
     /**
-     * @var MalformWorkerInterface[]
+     * @var mixed[]
      */
-    private $malformWorkers = [];
+    private $malformWorkers;
     /**
      * @param MalformWorkerInterface[] $malformWorkers
      */

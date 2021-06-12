@@ -7,11 +7,11 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class InputFileInfoAndExpectedFileInfo
 {
     /**
-     * @var SmartFileInfo
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
      */
     private $inputFileInfo;
     /**
-     * @var SmartFileInfo
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
      */
     private $expectedFileInfo;
     public function __construct(\ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo)

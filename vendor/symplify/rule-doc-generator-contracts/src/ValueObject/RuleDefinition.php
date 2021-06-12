@@ -13,10 +13,6 @@ final class RuleDefinition
     /**
      * @var string
      */
-    private $description;
-    /**
-     * @var string
-     */
     private $ruleClass;
     /**
      * @var string
@@ -26,6 +22,10 @@ final class RuleDefinition
      * @var CodeSampleInterface[]
      */
     private $codeSamples = [];
+    /**
+     * @var string
+     */
+    private $description;
     /**
      * @param CodeSampleInterface[] $codeSamples
      */

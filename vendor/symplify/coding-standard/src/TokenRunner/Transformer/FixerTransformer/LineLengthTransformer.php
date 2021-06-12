@@ -10,21 +10,21 @@ use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 final class LineLengthTransformer
 {
     /**
-     * @var LineLengthResolver
+     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthResolver
      */
     private $lineLengthResolver;
     /**
-     * @var TokensInliner
+     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensInliner
      */
     private $tokensInliner;
     /**
-     * @var TokensNewliner
-     */
-    private $tokensNewliner;
-    /**
-     * @var FirstLineLengthResolver
+     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\FirstLineLengthResolver
      */
     private $firstLineLengthResolver;
+    /**
+     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner
+     */
+    private $tokensNewliner;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthResolver $lineLengthResolver, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensInliner $tokensInliner, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\FirstLineLengthResolver $firstLineLengthResolver, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner $tokensNewliner)
     {
         $this->lineLengthResolver = $lineLengthResolver;

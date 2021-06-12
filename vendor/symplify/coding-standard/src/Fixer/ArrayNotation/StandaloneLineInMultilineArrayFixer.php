@@ -28,15 +28,15 @@ final class StandaloneLineInMultilineArrayFixer extends \Symplify\CodingStandard
      */
     const ERROR_MESSAGE = 'Indexed arrays must have 1 item per line';
     /**
-     * @var ArrayWrapperFactory
+     * @var \Symplify\CodingStandard\TokenRunner\Wrapper\FixerWrapper\ArrayWrapperFactory
      */
     private $arrayWrapperFactory;
     /**
-     * @var TokensNewliner
+     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner
      */
     private $tokensNewliner;
     /**
-     * @var BlockFinder
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder
      */
     private $blockFinder;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Wrapper\FixerWrapper\ArrayWrapperFactory $arrayWrapperFactory, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner $tokensNewliner, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder)

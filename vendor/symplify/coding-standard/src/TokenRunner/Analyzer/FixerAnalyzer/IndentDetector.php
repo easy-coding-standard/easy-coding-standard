@@ -9,7 +9,7 @@ use PhpCsFixer\WhitespacesFixerConfig;
 final class IndentDetector
 {
     /**
-     * @var WhitespacesFixerConfig
+     * @var \PhpCsFixer\WhitespacesFixerConfig
      */
     private $whitespacesFixerConfig;
     public function __construct(\PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig)

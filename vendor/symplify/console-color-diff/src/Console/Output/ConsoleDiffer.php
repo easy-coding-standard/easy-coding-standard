@@ -8,11 +8,11 @@ use ECSPrefix20210612\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDi
 final class ConsoleDiffer
 {
     /**
-     * @var Differ
+     * @var \SebastianBergmann\Diff\Differ
      */
     private $differ;
     /**
-     * @var ColorConsoleDiffFormatter
+     * @var \Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
     public function __construct(\ECSPrefix20210612\SebastianBergmann\Diff\Differ $differ, \ECSPrefix20210612\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)

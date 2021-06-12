@@ -16,21 +16,21 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileSystem;
 final class JsonFileManager
 {
     /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-    /**
-     * @var JsonCleaner
-     */
-    private $jsonCleaner;
-    /**
-     * @var JsonInliner
-     */
-    private $jsonInliner;
-    /**
      * @var mixed[]
      */
     private $cachedJSONFiles = [];
+    /**
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
+     */
+    private $smartFileSystem;
+    /**
+     * @var \Symplify\ComposerJsonManipulator\Json\JsonCleaner
+     */
+    private $jsonCleaner;
+    /**
+     * @var \Symplify\ComposerJsonManipulator\Json\JsonInliner
+     */
+    private $jsonInliner;
     public function __construct(\ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20210612\Symplify\ComposerJsonManipulator\Json\JsonCleaner $jsonCleaner, \ECSPrefix20210612\Symplify\ComposerJsonManipulator\Json\JsonInliner $jsonInliner)
     {
         $this->smartFileSystem = $smartFileSystem;

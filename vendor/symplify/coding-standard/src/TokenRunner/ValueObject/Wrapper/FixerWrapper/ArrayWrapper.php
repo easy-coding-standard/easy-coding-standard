@@ -15,22 +15,25 @@ final class ArrayWrapper
      */
     const ARRAY_OPEN_TOKENS = [\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN];
     /**
-     * @var Tokens
+     * @var \PhpCsFixer\Tokenizer\Tokens
      */
     private $tokens;
     /**
-     * @var TokenSkipper
+     * @var \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo
+     */
+    private $blockInfo;
+    /**
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper
      */
     private $tokenSkipper;
     /**
-     * @var BlockInfo
+     * @param Tokens<Token> $tokens
      */
-    private $blockInfo;
     public function __construct(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper)
     {
         $this->tokens = $tokens;
-        $this->tokenSkipper = $tokenSkipper;
         $this->blockInfo = $blockInfo;
+        $this->tokenSkipper = $tokenSkipper;
     }
     public function isAssociativeArray() : bool
     {

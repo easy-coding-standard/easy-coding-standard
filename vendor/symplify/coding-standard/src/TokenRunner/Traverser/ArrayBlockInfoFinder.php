@@ -11,7 +11,7 @@ use Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds;
 final class ArrayBlockInfoFinder
 {
     /**
-     * @var BlockFinder
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder
      */
     private $blockFinder;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder)

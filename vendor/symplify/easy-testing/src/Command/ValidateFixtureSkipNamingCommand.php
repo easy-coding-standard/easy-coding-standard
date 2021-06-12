@@ -14,11 +14,11 @@ use ECSPrefix20210612\Symplify\PackageBuilder\Console\ShellCode;
 final class ValidateFixtureSkipNamingCommand extends \ECSPrefix20210612\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
-     * @var MissplacedSkipPrefixResolver
+     * @var \Symplify\EasyTesting\MissplacedSkipPrefixResolver
      */
     private $missplacedSkipPrefixResolver;
     /**
-     * @var FixtureFinder
+     * @var \Symplify\EasyTesting\Finder\FixtureFinder
      */
     private $fixtureFinder;
     public function __construct(\ECSPrefix20210612\Symplify\EasyTesting\MissplacedSkipPrefixResolver $missplacedSkipPrefixResolver, \ECSPrefix20210612\Symplify\EasyTesting\Finder\FixtureFinder $fixtureFinder)

@@ -13,15 +13,15 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
 final class SkippedPathsResolver
 {
     /**
-     * @var ParameterProvider
-     */
-    private $parameterProvider;
-    /**
      * @var string[]
      */
     private $skippedPaths = [];
     /**
-     * @var PathNormalizer
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     */
+    private $parameterProvider;
+    /**
+     * @var \Symplify\SmartFileSystem\Normalizer\PathNormalizer
      */
     private $pathNormalizer;
     public function __construct(\ECSPrefix20210612\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210612\Symplify\SmartFileSystem\Normalizer\PathNormalizer $pathNormalizer)

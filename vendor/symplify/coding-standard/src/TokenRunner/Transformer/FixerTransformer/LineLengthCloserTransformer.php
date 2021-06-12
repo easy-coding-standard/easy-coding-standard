@@ -13,11 +13,11 @@ use Symplify\CodingStandard\TokenRunner\ValueObject\LineKind;
 final class LineLengthCloserTransformer
 {
     /**
-     * @var CallAnalyzer
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer
      */
     private $callAnalyzer;
     /**
-     * @var TokenFinder
+     * @var \Symplify\CodingStandard\TokenRunner\TokenFinder
      */
     private $tokenFinder;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer $callAnalyzer, \Symplify\CodingStandard\TokenRunner\TokenFinder $tokenFinder)

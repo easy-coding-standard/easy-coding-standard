@@ -28,15 +28,15 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
      */
     const ERROR_MESSAGE = 'Indexed PHP array item has to have one line per item';
     /**
-     * @var ArrayAnalyzer
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer
      */
     private $arrayAnalyzer;
     /**
-     * @var WhitespacesFixerConfig
+     * @var \PhpCsFixer\WhitespacesFixerConfig
      */
     private $whitespacesFixerConfig;
     /**
-     * @var ArrayBlockInfoFinder
+     * @var \Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder
      */
     private $arrayBlockInfoFinder;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer $arrayAnalyzer, \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder $arrayBlockInfoFinder)

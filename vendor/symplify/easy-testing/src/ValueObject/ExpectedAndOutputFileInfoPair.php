@@ -8,11 +8,11 @@ use ECSPrefix20210612\Symplify\SymplifyKernel\Exception\ShouldNotHappenException
 final class ExpectedAndOutputFileInfoPair
 {
     /**
-     * @var SmartFileInfo
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
      */
     private $expectedFileInfo;
     /**
-     * @var SmartFileInfo|null
+     * @var \Symplify\SmartFileSystem\SmartFileInfo|null
      */
     private $outputFileInfo;
     /**

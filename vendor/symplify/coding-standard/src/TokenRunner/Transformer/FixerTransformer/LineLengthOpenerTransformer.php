@@ -11,7 +11,7 @@ use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 final class LineLengthOpenerTransformer
 {
     /**
-     * @var CallAnalyzer
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer
      */
     private $callAnalyzer;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer $callAnalyzer)

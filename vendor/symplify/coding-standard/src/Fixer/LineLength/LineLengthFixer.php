@@ -64,15 +64,15 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
      */
     private $inlineShortLines = \true;
     /**
-     * @var LineLengthTransformer
+     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer
      */
     private $lineLengthTransformer;
     /**
-     * @var BlockFinder
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder
      */
     private $blockFinder;
     /**
-     * @var FunctionCallNameMatcher
+     * @var \Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher
      */
     private $functionCallNameMatcher;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer $lineLengthTransformer, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher $functionCallNameMatcher)

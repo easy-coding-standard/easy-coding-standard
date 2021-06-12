@@ -18,7 +18,7 @@ final class Decommenter
      */
     const LINE_BREAKER_REGEX = '#[\\-=\\#\\*]{2,}#';
     /**
-     * @var CommentedLineTrimmer
+     * @var \Symplify\CodingStandard\Tokens\CommentedLineTrimmer
      */
     private $commentedLineTrimmer;
     public function __construct(\Symplify\CodingStandard\Tokens\CommentedLineTrimmer $commentedLineTrimmer)

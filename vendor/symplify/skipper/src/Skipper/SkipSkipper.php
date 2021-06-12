@@ -11,7 +11,7 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class SkipSkipper
 {
     /**
-     * @var FileInfoMatcher
+     * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
     public function __construct(\ECSPrefix20210612\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
@@ -19,8 +19,8 @@ final class SkipSkipper
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
     /**
-     * @param object|string $checker
      * @param array<string, string[]|null> $skippedClasses
+     * @param object|string $checker
      */
     public function doesMatchSkip($checker, \ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $skippedClasses) : bool
     {

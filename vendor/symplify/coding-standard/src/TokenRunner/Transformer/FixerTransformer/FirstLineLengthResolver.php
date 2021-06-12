@@ -14,7 +14,7 @@ use ECSPrefix20210612\Symplify\PackageBuilder\Configuration\StaticEolConfigurati
 final class FirstLineLengthResolver
 {
     /**
-     * @var LineLengthAndPositionFactory
+     * @var \Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory
      */
     private $lineLengthAndPositionFactory;
     public function __construct(\Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory $lineLengthAndPositionFactory)

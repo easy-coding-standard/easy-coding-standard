@@ -20,13 +20,13 @@ final class DoctrineBlockFinder
      */
     private $docBlockEdgeDefinitions = [];
     /**
-     * @var BlockFinder
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder
      */
     private $blockFinder;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder)
     {
-        $this->docBlockEdgeDefinitions = [new \Symplify\CodingStandard\TokenRunner\ValueObject\DocBlockEdgeDefinition(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, '{', '}'), new \Symplify\CodingStandard\TokenRunner\ValueObject\DocBlockEdgeDefinition(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, '(', ')')];
         $this->blockFinder = $blockFinder;
+        $this->docBlockEdgeDefinitions = [new \Symplify\CodingStandard\TokenRunner\ValueObject\DocBlockEdgeDefinition(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, '{', '}'), new \Symplify\CodingStandard\TokenRunner\ValueObject\DocBlockEdgeDefinition(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, '(', ')')];
     }
     /**
      * Accepts position to both start and end token, e.g. (, ), {, }

@@ -44,10 +44,6 @@ final class SnippetFormatter
      */
     const CLOSING = 'closing';
     /**
-     * @var bool
-     */
-    private $isPhp73OrAbove = \false;
-    /**
      * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
@@ -69,7 +65,6 @@ final class SnippetFormatter
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
-        $this->isPhp73OrAbove = \PHP_VERSION_ID >= 70300;
     }
     public function format(\ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $snippetRegex, string $kind) : string
     {
@@ -87,19 +82,15 @@ final class SnippetFormatter
      */
     private function fixContentAndPreserveFormatting(array $match, string $kind) : string
     {
-        if ($this->isPhp73OrAbove) {
-            return \str_replace(\PHP_EOL, '', $match[self::OPENING]) . \PHP_EOL . $this->fixContent($match[self::CONTENT], $kind) . \str_replace(\PHP_EOL, '', $match[self::CLOSING]);
-        }
-        return \rtrim($match[self::OPENING], \PHP_EOL) . \PHP_EOL . $this->fixContent($match[self::CONTENT], $kind) . \ltrim($match[self::CLOSING], \PHP_EOL);
+        return \str_replace(\PHP_EOL, '', $match[self::OPENING]) . \PHP_EOL . $this->fixContent($match[self::CONTENT], $kind) . \str_replace(\PHP_EOL, '', $match[self::CLOSING]);
     }
     private function fixContent(string $content, string $kind) : string
     {
-        $content = $this->isPhp73OrAbove ? $content : \trim($content);
         $temporaryFilePath = $this->createTemporaryFilePath($content);
-        if (\strncmp($this->isPhp73OrAbove ? \trim($content) : $content, '<?php', \strlen('<?php')) !== 0) {
+        if (\strncmp(\trim($content), '<?php', \strlen('<?php')) !== 0) {
             $content = '<?php' . \PHP_EOL . $content;
         }
-        $fileContent = $this->isPhp73OrAbove ? \ltrim($content, \PHP_EOL) : $content;
+        $fileContent = \ltrim($content, \PHP_EOL);
         $this->smartFileSystem->dumpFile($temporaryFilePath, $fileContent);
         $temporaryFileInfo = new \ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo($temporaryFilePath);
         try {

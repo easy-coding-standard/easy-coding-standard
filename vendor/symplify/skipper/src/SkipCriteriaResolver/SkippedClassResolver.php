@@ -13,11 +13,11 @@ final class SkippedClassResolver
      */
     private $skippedClasses = [];
     /**
-     * @var ParameterProvider
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
     /**
-     * @var ClassLikeExistenceChecker
+     * @var \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
     public function __construct(\ECSPrefix20210612\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210612\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)

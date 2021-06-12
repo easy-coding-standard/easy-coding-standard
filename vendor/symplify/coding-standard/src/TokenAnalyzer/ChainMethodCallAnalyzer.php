@@ -9,13 +9,13 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class ChainMethodCallAnalyzer
 {
     /**
-     * @var NewlineAnalyzer
-     */
-    private $newlineAnalyzer;
-    /**
      * @var int
      */
     private $bracketNesting = 0;
+    /**
+     * @var \Symplify\CodingStandard\TokenAnalyzer\NewlineAnalyzer
+     */
+    private $newlineAnalyzer;
     public function __construct(\Symplify\CodingStandard\TokenAnalyzer\NewlineAnalyzer $newlineAnalyzer)
     {
         $this->newlineAnalyzer = $newlineAnalyzer;

@@ -10,11 +10,11 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class PathSkipVoter implements \ECSPrefix20210612\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
-     * @var FileInfoMatcher
+     * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
     /**
-     * @var SkippedPathsResolver
+     * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver
      */
     private $skippedPathsResolver;
     public function __construct(\ECSPrefix20210612\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher, \ECSPrefix20210612\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)

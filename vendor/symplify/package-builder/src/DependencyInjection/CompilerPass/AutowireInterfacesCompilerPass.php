@@ -8,9 +8,9 @@ use ECSPrefix20210612\Symfony\Component\DependencyInjection\ContainerBuilder;
 final class AutowireInterfacesCompilerPass implements \ECSPrefix20210612\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
-     * @var string[]
+     * @var mixed[]
      */
-    private $typesToAutowire = [];
+    private $typesToAutowire;
     /**
      * @param string[] $typesToAutowire
      */

@@ -10,11 +10,11 @@ use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\IndentDetector;
 final class IndentResolver
 {
     /**
-     * @var IndentDetector
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\IndentDetector
      */
     private $indentDetector;
     /**
-     * @var WhitespacesFixerConfig
+     * @var \PhpCsFixer\WhitespacesFixerConfig
      */
     private $whitespacesFixerConfig;
     public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\IndentDetector $indentDetector, \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig)

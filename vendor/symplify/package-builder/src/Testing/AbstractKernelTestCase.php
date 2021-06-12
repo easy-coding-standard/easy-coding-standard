@@ -86,7 +86,7 @@ abstract class AbstractKernelTestCase extends TestCase
      *
      * @template T of object
      * @param class-string<T> $type
-     * @return object
+     * @return object|null
      */
     protected function getService(string $type)
     {

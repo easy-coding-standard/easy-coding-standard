@@ -29,15 +29,15 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
      */
     const ERROR_MESSAGE = 'Remove commented code like "// $one = 1000;"';
     /**
-     * @var CommentedContentResolver
+     * @var \Symplify\CodingStandard\Tokens\CommentedContentResolver
      */
     private $commentedContentResolver;
     /**
-     * @var PhpContentAnalyzer
+     * @var \Symplify\CodingStandard\Php\PhpContentAnalyzer
      */
     private $phpContentAnalyzer;
     /**
-     * @var Decommenter
+     * @var \Symplify\CodingStandard\DocBlock\Decommenter
      */
     private $decommenter;
     public function __construct(\Symplify\CodingStandard\Tokens\CommentedContentResolver $commentedContentResolver, \Symplify\CodingStandard\Php\PhpContentAnalyzer $phpContentAnalyzer, \Symplify\CodingStandard\DocBlock\Decommenter $decommenter)

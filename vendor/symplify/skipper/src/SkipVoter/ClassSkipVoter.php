@@ -14,23 +14,23 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassSkipVoter implements \ECSPrefix20210612\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
-     * @var ClassLikeExistenceChecker
+     * @var \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
     /**
-     * @var ParameterProvider
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
     /**
-     * @var SkipSkipper
+     * @var \Symplify\Skipper\Skipper\SkipSkipper
      */
     private $skipSkipper;
     /**
-     * @var OnlySkipper
+     * @var \Symplify\Skipper\Skipper\OnlySkipper
      */
     private $onlySkipper;
     /**
-     * @var SkippedClassResolver
+     * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver
      */
     private $skippedClassResolver;
     public function __construct(\ECSPrefix20210612\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker, \ECSPrefix20210612\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210612\Symplify\Skipper\Skipper\SkipSkipper $skipSkipper, \ECSPrefix20210612\Symplify\Skipper\Skipper\OnlySkipper $onlySkipper, \ECSPrefix20210612\Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver $skippedClassResolver)

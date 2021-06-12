@@ -50,7 +50,7 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
      */
     private $lineLength = self::DEFAULT_LINE_LENGHT;
     /**
-     * @var DocBlockLinesFactory
+     * @var \Symplify\CodingStandard\ValueObjectFactory\DocBlockLinesFactory
      */
     private $docBlockLinesFactory;
     public function __construct(\Symplify\CodingStandard\ValueObjectFactory\DocBlockLinesFactory $docBlockLinesFactory)

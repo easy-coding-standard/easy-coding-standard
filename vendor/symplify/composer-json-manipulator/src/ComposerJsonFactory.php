@@ -14,7 +14,7 @@ use ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo;
 final class ComposerJsonFactory
 {
     /**
-     * @var JsonFileManager
+     * @var \Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager
      */
     private $jsonFileManager;
     public function __construct(\ECSPrefix20210612\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager $jsonFileManager)

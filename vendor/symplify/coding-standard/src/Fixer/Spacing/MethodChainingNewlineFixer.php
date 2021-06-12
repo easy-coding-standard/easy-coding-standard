@@ -26,15 +26,15 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
      */
     const ERROR_MESSAGE = 'Each chain method call must be on own line';
     /**
-     * @var WhitespacesFixerConfig
+     * @var \PhpCsFixer\WhitespacesFixerConfig
      */
     private $whitespacesFixerConfig;
     /**
-     * @var BlockFinder
+     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder
      */
     private $blockFinder;
     /**
-     * @var ChainMethodCallAnalyzer
+     * @var \Symplify\CodingStandard\TokenAnalyzer\ChainMethodCallAnalyzer
      */
     private $chainMethodCallAnalyzer;
     public function __construct(\PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenAnalyzer\ChainMethodCallAnalyzer $chainMethodCallAnalyzer)

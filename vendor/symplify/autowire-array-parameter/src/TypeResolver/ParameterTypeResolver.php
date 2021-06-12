@@ -9,13 +9,13 @@ use ECSPrefix20210612\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlock
 final class ParameterTypeResolver
 {
     /**
-     * @var ParamTypeDocBlockResolver
-     */
-    private $paramTypeDocBlockResolver;
-    /**
      * @var array<string, string>
      */
     private $resolvedParameterTypesCached = [];
+    /**
+     * @var \Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver
+     */
+    private $paramTypeDocBlockResolver;
     public function __construct(\ECSPrefix20210612\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver $paramTypeDocBlockResolver)
     {
         $this->paramTypeDocBlockResolver = $paramTypeDocBlockResolver;

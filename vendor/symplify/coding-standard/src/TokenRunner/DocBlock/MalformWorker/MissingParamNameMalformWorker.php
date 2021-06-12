@@ -29,7 +29,7 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
      */
     const PARAM_WITH_NAME_REGEX = '#@param(.*?)\\$[\\w]+(.*?)\\n#';
     /**
-     * @var DocblockRelatedParamNamesResolver
+     * @var \Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver
      */
     private $docblockRelatedParamNamesResolver;
     public function __construct(\Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver $docblockRelatedParamNamesResolver)
