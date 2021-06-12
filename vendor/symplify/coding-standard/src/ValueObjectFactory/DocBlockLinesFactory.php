@@ -42,7 +42,7 @@ final class DocBlockLinesFactory
         $otherLines = [];
         $collectDescriptionLines = \true;
         foreach ($docBlockLines as $docBlockLine) {
-            if (\ECSPrefix20210612\Nette\Utils\Strings::startsWith($docBlockLine, '@') || \ECSPrefix20210612\Nette\Utils\Strings::startsWith($docBlockLine, '{@')) {
+            if (\strncmp($docBlockLine, '@', \strlen('@')) === 0 || \strncmp($docBlockLine, '{@', \strlen('{@')) === 0) {
                 // The line has a special meaning (it's an annotation, or something like {@inheritdoc})
                 $collectDescriptionLines = \false;
             }

@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
-use ECSPrefix20210612\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -135,7 +134,7 @@ CODE_SAMPLE
             return;
         }
         // already whitespace
-        if (\ECSPrefix20210612\Nette\Utils\Strings::contains($previousCloserToken->getContent(), "\n")) {
+        if (\strpos($previousCloserToken->getContent(), "\n") !== \false) {
             return;
         }
         $tokens->ensureWhitespaceAtIndex($preArrayCloserPosition, 1, $this->whitespacesFixerConfig->getLineEnding());
@@ -152,7 +151,7 @@ CODE_SAMPLE
             return;
         }
         // already is whitespace
-        if (\ECSPrefix20210612\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
+        if (\strpos($nextToken->getContent(), "\n") !== \false) {
             return;
         }
         $tokens->ensureWhitespaceAtIndex($postArrayOpenerPosition, 0, $this->whitespacesFixerConfig->getLineEnding());

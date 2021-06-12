@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Commenting;
 
-use ECSPrefix20210612\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -69,7 +68,7 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
             if (!$token->isGivenKind(\T_COMMENT)) {
                 continue;
             }
-            if (!\ECSPrefix20210612\Nette\Utils\Strings::startsWith($token->getContent(), '//')) {
+            if (\strncmp($token->getContent(), '//', \strlen('//')) !== 0) {
                 continue;
             }
             $startAndEnd = $this->commentedContentResolver->resolve($tokens, $i);
@@ -115,7 +114,7 @@ CODE_SAMPLE
         if ($preStartToken->getContent() === \PHP_EOL) {
             return $realStart - 1;
         }
-        if (\ECSPrefix20210612\Nette\Utils\Strings::endsWith($preStartToken->getContent(), '    ')) {
+        if (\substr_compare($preStartToken->getContent(), '    ', -\strlen('    ')) === 0) {
             return $realStart - 1;
         }
         return $realStart;

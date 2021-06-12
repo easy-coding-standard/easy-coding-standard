@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Annotation;
 
 use ECSPrefix20210612\Doctrine\Common\Annotations\DocLexer;
-use ECSPrefix20210612\Nette\Utils\Strings;
 use PhpCsFixer\AbstractDoctrineAnnotationFixer;
 use PhpCsFixer\Doctrine\Annotation\Token;
 use PhpCsFixer\Doctrine\Annotation\Tokens;
@@ -111,7 +110,7 @@ CODE_SAMPLE
     private function isDocOpener(\PhpCsFixer\Doctrine\Annotation\Token $token) : bool
     {
         if ($token->isType(\ECSPrefix20210612\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
-            return \ECSPrefix20210612\Nette\Utils\Strings::contains($token->getContent(), '*');
+            return \strpos($token->getContent(), '*') !== \false;
         }
         return \false;
     }
@@ -154,7 +153,7 @@ CODE_SAMPLE
         if (!$nextToken instanceof \PhpCsFixer\Doctrine\Annotation\Token) {
             return \true;
         }
-        if (!\ECSPrefix20210612\Nette\Utils\Strings::startsWith($nextToken->getContent(), 'ORM')) {
+        if (\strncmp($nextToken->getContent(), 'ORM', \strlen('ORM')) !== 0) {
             return \true;
         }
         // not an entity annotation, just some comment

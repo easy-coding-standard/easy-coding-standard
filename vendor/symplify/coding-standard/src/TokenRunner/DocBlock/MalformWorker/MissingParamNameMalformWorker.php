@@ -99,7 +99,7 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     }
     private function shouldSkipLine(\PhpCsFixer\DocBlock\Line $line) : bool
     {
-        if (!\ECSPrefix20210612\Nette\Utils\Strings::contains($line->getContent(), self::PARAM_ANNOTATOIN_START_REGEX)) {
+        if (\strpos($line->getContent(), self::PARAM_ANNOTATOIN_START_REGEX) === \false) {
             return \true;
         }
         // already has a param name

@@ -31,7 +31,7 @@ final class SmartFileInfo extends \ECSPrefix20210612\Symfony\Component\Finder\Sp
             throw new \ECSPrefix20210612\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File path "%s" was not found while creating "%s" object.', $filePath, self::class));
         }
         // real path doesn't work in PHAR: https://www.php.net/manual/en/function.realpath.php
-        if (\ECSPrefix20210612\Nette\Utils\Strings::startsWith($filePath, 'phar://')) {
+        if (\strncmp($filePath, 'phar://', \strlen('phar://')) === 0) {
             $relativeFilePath = $filePath;
             $relativeDirectoryPath = \dirname($filePath);
         } else {
@@ -90,11 +90,12 @@ final class SmartFileInfo extends \ECSPrefix20210612\Symfony\Component\Finder\Sp
     }
     public function endsWith(string $string) : bool
     {
-        return \ECSPrefix20210612\Nette\Utils\Strings::endsWith($this->getNormalizedRealPath(), $string);
+        return \substr_compare($this->getNormalizedRealPath(), $string, -\strlen($string)) === 0;
     }
     public function doesFnmatch(string $string) : bool
     {
-        if (\fnmatch($this->normalizePath($string), $this->getNormalizedRealPath())) {
+        $normalizedPath = $this->normalizePath($string);
+        if (\fnmatch($normalizedPath, $this->getNormalizedRealPath())) {
             return \true;
         }
         // in case of relative compare
@@ -111,7 +112,7 @@ final class SmartFileInfo extends \ECSPrefix20210612\Symfony\Component\Finder\Sp
     }
     public function startsWith(string $partialPath) : bool
     {
-        return \ECSPrefix20210612\Nette\Utils\Strings::startsWith($this->getNormalizedRealPath(), $partialPath);
+        return \strncmp($this->getNormalizedRealPath(), $partialPath, \strlen($partialPath)) === 0;
     }
     private function getNormalizedRealPath() : string
     {

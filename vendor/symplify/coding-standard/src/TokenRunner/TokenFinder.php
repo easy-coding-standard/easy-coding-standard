@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner;
 
-use ECSPrefix20210612\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpToken;
@@ -60,7 +59,7 @@ final class TokenFinder
         $rawTokensCount = \count($rawTokens);
         for ($i = $position; $i < $rawTokensCount; ++$i) {
             $token = $rawTokens[$i];
-            if (\ECSPrefix20210612\Nette\Utils\Strings::contains($token->text, \PHP_EOL)) {
+            if (\strpos($token->text, \PHP_EOL) !== \false) {
                 break;
             }
             $lastToken = $token;

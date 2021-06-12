@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace ECSPrefix20210612\Symplify\Skipper\SkipCriteriaResolver;
 
-use ECSPrefix20210612\Nette\Utils\Strings;
 use ECSPrefix20210612\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use ECSPrefix20210612\Symplify\Skipper\ValueObject\Option;
 use ECSPrefix20210612\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
@@ -46,7 +45,7 @@ final class SkippedPathsResolver
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }
-            if (\ECSPrefix20210612\Nette\Utils\Strings::contains($value, '*')) {
+            if (\strpos($value, '*') !== \false) {
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }

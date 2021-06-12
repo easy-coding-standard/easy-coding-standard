@@ -18,7 +18,7 @@ final class FunctionCallNameMatcher
     {
         try {
             $blockStart = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $position);
-        } catch (\Throwable $throwable) {
+        } catch (\Throwable $exception) {
             // not a block start
             return null;
         }

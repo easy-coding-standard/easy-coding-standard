@@ -9,9 +9,9 @@
     "require": {
         "php": ">=8.0",
         "nette\/utils": "^3.2",
-        "symfony\/finder": "^4.4|^5.3",
-        "symfony\/http-kernel": "^4.4|^5.3",
-        "symfony\/console": "^4.4|^5.3",
+        "symfony\/finder": "^5.3",
+        "symfony\/http-kernel": "^5.3",
+        "symfony\/console": "^5.3",
         "symfony\/dependency-injection": "^5.3",
         "symplify\/package-builder": "dev-main",
         "symplify\/console-package-builder": "dev-main",

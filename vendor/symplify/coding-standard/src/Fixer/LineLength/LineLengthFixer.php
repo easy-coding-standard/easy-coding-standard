@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
-use ECSPrefix20210612\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -244,6 +243,6 @@ CODE_SAMPLE
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return \false;
         }
-        return \ECSPrefix20210612\Nette\Utils\Strings::contains($nextToken->getContent(), '<<<');
+        return \strpos($nextToken->getContent(), '<<<') !== \false;
     }
 }

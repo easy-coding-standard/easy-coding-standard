@@ -57,7 +57,7 @@ final class StaticFixtureFinder
             try {
                 $smartFileInfo = new \ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
                 (yield [$smartFileInfo]);
-            } catch (\ECSPrefix20210612\Symplify\SmartFileSystem\Exception\FileNotFoundException $fileNotFoundException) {
+            } catch (\ECSPrefix20210612\Symplify\SmartFileSystem\Exception\FileNotFoundException $exception) {
             }
         }
     }
@@ -71,7 +71,7 @@ final class StaticFixtureFinder
             try {
                 $smartFileInfo = new \ECSPrefix20210612\Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
                 (yield $fileInfo->getRelativePathname() => [$smartFileInfo]);
-            } catch (\ECSPrefix20210612\Symplify\SmartFileSystem\Exception\FileNotFoundException $e) {
+            } catch (\ECSPrefix20210612\Symplify\SmartFileSystem\Exception\FileNotFoundException $exception) {
             }
         }
     }
