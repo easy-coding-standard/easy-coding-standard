@@ -12,9 +12,9 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
 {
     /**
      * @var string
-     * @see https://regex101.com/r/26Wy7Y/1
+     * @see https://regex101.com/r/4qyd2j/1
      */
-    const RETURN_VARIABLE_NAME_REGEX = '#(?<tag>@return)(?<type>\\s+[|\\\\\\w]+)?(\\s+)(?<' . self::VARIABLE_NAME_PART . '>\\$[\\w]+)#';
+    const RETURN_VARIABLE_NAME_REGEX = '#(?<tag>@(?:psalm-|phpstan-)?return)(?<type>\\s+[|\\\\\\w]+)?(\\s+)(?<' . self::VARIABLE_NAME_PART . '>\\$[\\w]+)#';
     /**
      * @var string[]
      */

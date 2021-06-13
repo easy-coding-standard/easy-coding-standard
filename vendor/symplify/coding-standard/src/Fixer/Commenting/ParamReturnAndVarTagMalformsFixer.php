@@ -38,9 +38,9 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
     const ERROR_MESSAGE = 'Fixes @param, @return, @var and inline @var annotations broken formats';
     /**
      * @var string
-     * @see https://regex101.com/r/8iqNuR/1
+     * @see https://regex101.com/r/Nlxkd9/1
      */
-    const TYPE_ANNOTATION_REGEX = '#@(param|return|var)#';
+    const TYPE_ANNOTATION_REGEX = '#@(psalm-|phpstan-)?(param|return|var)#';
     /**
      * @var mixed[]
      */

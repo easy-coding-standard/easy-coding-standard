@@ -17,9 +17,9 @@ final class SuperfluousVarNameMalformWorker implements \Symplify\CodingStandard\
     const THIS_VARIABLE_REGEX = '#\\$this$#';
     /**
      * @var string
-     * @see https://regex101.com/r/8LCnOl/1
+     * @see https://regex101.com/r/6XuSGV/1
      */
-    const VAR_VARIABLE_NAME_REGEX = '#(?<tag>@var)(?<type>\\s+[|\\\\\\w]+)?(\\s+)(?<propertyName>\\$[\\w]+)#';
+    const VAR_VARIABLE_NAME_REGEX = '#(?<tag>@(?:psalm-|phpstan-)?var)(?<type>\\s+[|\\\\\\w]+)?(\\s+)(?<propertyName>\\$[\\w]+)#';
     /**
      * @param Tokens<Token> $tokens
      */

@@ -11,9 +11,9 @@ final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\Toke
 {
     /**
      * @var string
-     * @see https://regex101.com/r/QtWnWv/3
+     * @see https://regex101.com/r/s1UkZs/1
      */
-    const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\\/\\*\\* @var )(?<type>[\\\\\\w\\|]+)(?<close>\\s+\\*\\/)$#';
+    const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\\/\\*\\* @(?:psalm-|phpstan-)?var )(?<type>[\\\\\\w\\|-|]+)(?<close>\\s+\\*\\/)$#';
     /**
      * @param Tokens<Token> $tokens
      */

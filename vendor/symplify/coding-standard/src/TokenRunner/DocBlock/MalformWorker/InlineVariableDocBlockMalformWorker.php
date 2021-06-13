@@ -14,7 +14,7 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
      * @var string
      * @see https://regex101.com/r/GkyV1C/1
      */
-    const SINGLE_ASTERISK_START_REGEX = '#^/\\*\\s+\\*(\\s+@var)#';
+    const SINGLE_ASTERISK_START_REGEX = '#^/\\*\\s+\\*(\\s+@(?:psalm-|phpstan-)?var)#';
     /**
      * @var string
      * @see https://regex101.com/r/9cfhFI/1
