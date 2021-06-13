@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210612\Symfony\Component\HttpKernel\DependencyInjection;
+namespace ECSPrefix20210613\Symfony\Component\HttpKernel\DependencyInjection;
 
-use ECSPrefix20210612\Psr\Container\ContainerInterface;
-use ECSPrefix20210612\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210612\Symfony\Component\HttpKernel\Fragment\FragmentHandler;
+use ECSPrefix20210613\Psr\Container\ContainerInterface;
+use ECSPrefix20210613\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20210613\Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 /**
  * Lazily loads fragment renderers from the dependency injection container.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class LazyLoadingFragmentHandler extends \ECSPrefix20210612\Symfony\Component\HttpKernel\Fragment\FragmentHandler
+class LazyLoadingFragmentHandler extends \ECSPrefix20210613\Symfony\Component\HttpKernel\Fragment\FragmentHandler
 {
     private $container;
     private $initialized = [];
-    public function __construct(\ECSPrefix20210612\Psr\Container\ContainerInterface $container, \ECSPrefix20210612\Symfony\Component\HttpFoundation\RequestStack $requestStack, bool $debug = \false)
+    public function __construct(\ECSPrefix20210613\Psr\Container\ContainerInterface $container, \ECSPrefix20210613\Symfony\Component\HttpFoundation\RequestStack $requestStack, bool $debug = \false)
     {
         $this->container = $container;
         parent::__construct($requestStack, [], $debug);

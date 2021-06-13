@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210612\Symfony\Component\HttpFoundation\Session\Storage;
+namespace ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage;
 
-use ECSPrefix20210612\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210613\Symfony\Component\HttpFoundation\Request;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210612\Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage::class);
+\class_exists(\ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage::class);
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class MockFileSessionStorageFactory implements \ECSPrefix20210612\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface
+class MockFileSessionStorageFactory implements \ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface
 {
     private $savePath;
     private $name;
@@ -24,7 +24,7 @@ class MockFileSessionStorageFactory implements \ECSPrefix20210612\Symfony\Compon
     /**
      * @see MockFileSessionStorage constructor.
      */
-    public function __construct(string $savePath = null, string $name = 'MOCKSESSID', \ECSPrefix20210612\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
+    public function __construct(string $savePath = null, string $name = 'MOCKSESSID', \ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
     {
         $this->savePath = $savePath;
         $this->name = $name;
@@ -33,8 +33,8 @@ class MockFileSessionStorageFactory implements \ECSPrefix20210612\Symfony\Compon
     /**
      * @param \Symfony\Component\HttpFoundation\Request|null $request
      */
-    public function createStorage($request) : \ECSPrefix20210612\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface
+    public function createStorage($request) : \ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface
     {
-        return new \ECSPrefix20210612\Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage($this->savePath, $this->name, $this->metaBag);
+        return new \ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage($this->savePath, $this->name, $this->metaBag);
     }
 }

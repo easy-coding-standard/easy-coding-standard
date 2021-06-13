@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
-use ECSPrefix20210612\Symfony\Component\Config\FileLocator;
-use ECSPrefix20210612\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix20210612\Symfony\Component\Config\Loader\LoaderResolver;
-use ECSPrefix20210612\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210612\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
+use ECSPrefix20210613\Symfony\Component\Config\FileLocator;
+use ECSPrefix20210613\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix20210613\Symfony\Component\Config\Loader\LoaderResolver;
+use ECSPrefix20210613\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210613\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
-use ECSPrefix20210612\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
-use ECSPrefix20210612\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210613\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
+use ECSPrefix20210613\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\FileHashComputer\FileHashComputerTest
  */
@@ -18,7 +18,7 @@ final class FileHashComputer
 {
     public function computeConfig(string $filePath) : string
     {
-        $containerBuilder = new \ECSPrefix20210612\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $containerBuilder = new \ECSPrefix20210613\Symfony\Component\DependencyInjection\ContainerBuilder();
         $loader = $this->createLoader($filePath, $containerBuilder);
         $loader->load($filePath);
         $parameterBag = $containerBuilder->getParameterBag();
@@ -40,14 +40,14 @@ final class FileHashComputer
         $serializedArray = \serialize($array);
         return \md5($serializedArray);
     }
-    private function createLoader(string $filePath, \ECSPrefix20210612\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \ECSPrefix20210612\Symfony\Component\Config\Loader\LoaderInterface
+    private function createLoader(string $filePath, \ECSPrefix20210613\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \ECSPrefix20210613\Symfony\Component\Config\Loader\LoaderInterface
     {
-        $fileLocator = new \ECSPrefix20210612\Symfony\Component\Config\FileLocator([\dirname($filePath)]);
-        $loaders = [new \ECSPrefix20210612\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \ECSPrefix20210612\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $fileLocator)];
-        $loaderResolver = new \ECSPrefix20210612\Symfony\Component\Config\Loader\LoaderResolver($loaders);
+        $fileLocator = new \ECSPrefix20210613\Symfony\Component\Config\FileLocator([\dirname($filePath)]);
+        $loaders = [new \ECSPrefix20210613\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \ECSPrefix20210613\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $fileLocator)];
+        $loaderResolver = new \ECSPrefix20210613\Symfony\Component\Config\Loader\LoaderResolver($loaders);
         $loader = $loaderResolver->resolve($filePath);
         if (!$loader) {
-            throw new \ECSPrefix20210612\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210613\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $loader;
     }

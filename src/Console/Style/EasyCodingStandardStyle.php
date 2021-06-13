@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use ECSPrefix20210612\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210612\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210612\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20210612\Symfony\Component\Console\Terminal;
+use ECSPrefix20210613\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210613\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210613\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210613\Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
-use ECSPrefix20210612\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use ECSPrefix20210612\Symplify\PackageBuilder\Reflection\PrivatesCaller;
-final class EasyCodingStandardStyle extends \ECSPrefix20210612\Symfony\Component\Console\Style\SymfonyStyle
+use ECSPrefix20210613\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix20210613\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+final class EasyCodingStandardStyle extends \ECSPrefix20210613\Symfony\Component\Console\Style\SymfonyStyle
 {
     /**
      * To fit in Linux/Windows terminal windows to prevent overflow.
@@ -22,7 +22,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210612\Symfony\Component
      * @var \Symfony\Component\Console\Terminal
      */
     private $terminal;
-    public function __construct(\ECSPrefix20210612\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210612\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210612\Symfony\Component\Console\Terminal $terminal)
+    public function __construct(\ECSPrefix20210613\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210613\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210613\Symfony\Component\Console\Terminal $terminal)
     {
         $this->terminal = $terminal;
         parent::__construct($input, $output);
@@ -49,9 +49,9 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210612\Symfony\Component
      */
     public function enableDebugProgressBar()
     {
-        $privatesAccessor = new \ECSPrefix20210612\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        $privatesAccessor = new \ECSPrefix20210613\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
         $progressBar = $privatesAccessor->getPrivateProperty($this, 'progressBar');
-        $privatesCaller = new \ECSPrefix20210612\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $privatesCaller = new \ECSPrefix20210613\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', ['debug']);
     }
     /**

@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210612\\Psr\\Container\\": "src\/"
+            "ECSPrefix20210613\\Psr\\Container\\": "src\/"
         }
     }
 }

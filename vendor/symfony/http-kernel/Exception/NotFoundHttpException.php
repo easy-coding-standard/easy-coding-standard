@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210612\Symfony\Component\HttpKernel\Exception;
+namespace ECSPrefix20210613\Symfony\Component\HttpKernel\Exception;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class NotFoundHttpException extends \ECSPrefix20210612\Symfony\Component\HttpKernel\Exception\HttpException
+class NotFoundHttpException extends \ECSPrefix20210613\Symfony\Component\HttpKernel\Exception\HttpException
 {
     /**
      * @param string|null     $message  The internal exception message
