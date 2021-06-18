@@ -29,7 +29,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
-    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, int $processedFilesCount) : int
+    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : int
     {
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
@@ -45,11 +45,11 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         $errorsArray = $this->createBaseErrorsArray($errorAndDiffResult);
         $codingStandardErrors = $errorAndDiffResult->getErrors();
         foreach ($codingStandardErrors as $codingStandardError) {
-            $errorsArray[self::FILES][$codingStandardError->getRelativeFilePathFromCwd()]['errors'][] = ['line' => $codingStandardError->getLine(), 'file_path' => $codingStandardError->getRelativeFilePathFromCwd(), 'message' => $codingStandardError->getMessage(), 'source_class' => $codingStandardError->getCheckerClass()];
+            $errorsArray[self::FILES][$codingStandardError->getRelativeFilePath()]['errors'][] = ['line' => $codingStandardError->getLine(), 'file_path' => $codingStandardError->getRelativeFilePath(), 'message' => $codingStandardError->getMessage(), 'source_class' => $codingStandardError->getCheckerClass()];
         }
         $fileDiffs = $errorAndDiffResult->getFileDiffs();
         foreach ($fileDiffs as $fileDiff) {
-            $errorsArray[self::FILES][$fileDiff->getRelativeFilePathFromCwd()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
+            $errorsArray[self::FILES][$fileDiff->getRelativeFilePath()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
         }
         return \ECSPrefix20210618\Nette\Utils\Json::encode($errorsArray, \ECSPrefix20210618\Nette\Utils\Json::PRETTY);
     }

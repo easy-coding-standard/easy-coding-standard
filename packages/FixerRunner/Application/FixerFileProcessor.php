@@ -16,11 +16,12 @@ use Symplify\CodingStandard\Fixer\Commenting\RemoveCommentedCodeFixer;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileSystem;
@@ -35,17 +36,9 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      */
     const MARKDOWN_EXCLUDED_FIXERS = [\PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer::class, \PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer::class, \PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer::class, \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class, \PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer::class, \Symplify\CodingStandard\Fixer\Commenting\RemoveCommentedCodeFixer::class];
     /**
-     * @var class-string[]
-     */
-    private $appliedFixers = [];
-    /**
      * @var FixerInterface[]
      */
     private $fixers = [];
-    /**
-     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
-     */
-    private $errorAndDiffCollector;
     /**
      * @var \Symplify\EasyCodingStandard\Configuration\Configuration
      */
@@ -79,11 +72,14 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      */
     private $targetFileInfoResolver;
     /**
+     * @var \Symplify\EasyCodingStandard\Error\FileDiffFactory
+     */
+    private $fileDiffFactory;
+    /**
      * @param FixerInterface[] $fixers
      */
-    public function __construct(\Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser $fileToTokensParser, \ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper $skipper, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider, \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver $targetFileInfoResolver, array $fixers = [])
+    public function __construct(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser $fileToTokensParser, \ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper $skipper, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider, \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver $targetFileInfoResolver, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $fixers = [])
     {
-        $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->configuration = $configuration;
         $this->fileToTokensParser = $fileToTokensParser;
         $this->skipper = $skipper;
@@ -92,6 +88,7 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         $this->smartFileSystem = $smartFileSystem;
         $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
         $this->targetFileInfoResolver = $targetFileInfoResolver;
+        $this->fileDiffFactory = $fileDiffFactory;
         $this->fixers = $this->sortFixers($fixers);
     }
     /**
@@ -101,18 +98,55 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     {
         return $this->fixers;
     }
-    public function processFile(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    /**
+     * @return array<FileDiff>
+     */
+    public function processFile(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
+        $errorsAndDiffs = [];
         $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
-        $this->appliedFixers = [];
+        $appliedFixers = [];
         foreach ($this->fixers as $fixer) {
             if ($this->shouldSkipForMarkdownHeredocCheck($fixer)) {
                 continue;
             }
-            $this->processTokensByFixer($smartFileInfo, $tokens, $fixer);
+            if ($this->processTokensByFixer($smartFileInfo, $tokens, $fixer)) {
+                $appliedFixers[] = \get_class($fixer);
+            }
+        }
+        if ($appliedFixers === []) {
+            return [];
         }
         $contents = $smartFileInfo->getContents();
-        if ($this->appliedFixers === []) {
+        $diff = $this->differ->diff($contents, $tokens->generateCode());
+        // some fixer with feature overlap can null each other
+        if ($diff === '') {
+            return [];
+        }
+        // file has changed
+        $targetFileInfo = $this->targetFileInfoResolver->resolveTargetFileInfo($smartFileInfo);
+        $errorsAndDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($targetFileInfo, $diff, $appliedFixers);
+        $tokenGeneratedCode = $tokens->generateCode();
+        if ($this->configuration->isFixer()) {
+            $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $tokenGeneratedCode);
+        }
+        \PhpCsFixer\Tokenizer\Tokens::clearCache();
+        return $errorsAndDiffs;
+    }
+    public function processFileToString(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    {
+        $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
+        $appliedFixers = [];
+        foreach ($this->fixers as $fixer) {
+            if ($this->shouldSkipForMarkdownHeredocCheck($fixer)) {
+                continue;
+            }
+            if ($this->processTokensByFixer($smartFileInfo, $tokens, $fixer)) {
+                $appliedFixers[] = \get_class($fixer);
+            }
+        }
+        $contents = $smartFileInfo->getContents();
+        if ($appliedFixers === []) {
             return $contents;
         }
         $diff = $this->differ->diff($contents, $tokens->generateCode());
@@ -120,15 +154,7 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         if ($diff === '') {
             return $contents;
         }
-        // file has changed
-        $targetFileInfo = $this->targetFileInfoResolver->resolveTargetFileInfo($smartFileInfo);
-        $this->errorAndDiffCollector->addDiffForFileInfo($targetFileInfo, $diff, $this->appliedFixers);
-        $tokenGeneratedCode = $tokens->generateCode();
-        if ($this->configuration->isFixer()) {
-            $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $tokenGeneratedCode);
-        }
-        \PhpCsFixer\Tokenizer\Tokens::clearCache();
-        return $tokenGeneratedCode;
+        return $tokens->generateCode();
     }
     /**
      * @param FixerInterface[] $fixers
@@ -143,12 +169,12 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
+     * @return bool If fixer applied
      */
-    private function processTokensByFixer(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Fixer\FixerInterface $fixer)
+    private function processTokensByFixer(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Fixer\FixerInterface $fixer) : bool
     {
         if ($this->shouldSkip($smartFileInfo, $fixer, $tokens)) {
-            return;
+            return \false;
         }
         // show current fixer in --debug / -vvv
         if ($this->easyCodingStandardStyle->isDebug()) {
@@ -160,11 +186,11 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
             throw new \Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException(\sprintf('Fixing of "%s" file by "%s" failed: %s in file %s on line %d', $smartFileInfo->getRelativeFilePath(), \get_class($fixer), $throwable->getMessage(), $throwable->getFile(), $throwable->getLine()), $throwable->getCode(), $throwable);
         }
         if (!$tokens->isChanged()) {
-            return;
+            return \false;
         }
-        $tokens->clearEmptyTokens();
         $tokens->clearChanged();
-        $this->appliedFixers[] = \get_class($fixer);
+        $tokens->clearEmptyTokens();
+        return \true;
     }
     /**
      * @param Tokens<Token> $tokens

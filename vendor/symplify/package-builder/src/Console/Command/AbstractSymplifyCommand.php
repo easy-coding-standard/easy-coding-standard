@@ -6,6 +6,7 @@ namespace ECSPrefix20210618\Symplify\PackageBuilder\Console\Command;
 use ECSPrefix20210618\Symfony\Component\Console\Command\Command;
 use ECSPrefix20210618\Symfony\Component\Console\Input\InputOption;
 use ECSPrefix20210618\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210618\Symfony\Contracts\Service\Attribute\Required;
 use ECSPrefix20210618\Symplify\PackageBuilder\ValueObject\Option;
 use ECSPrefix20210618\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix20210618\Symplify\SmartFileSystem\Finder\SmartFinder;
@@ -34,9 +35,9 @@ abstract class AbstractSymplifyCommand extends \ECSPrefix20210618\Symfony\Compon
         $this->addOption(\ECSPrefix20210618\Symplify\PackageBuilder\ValueObject\Option::CONFIG, 'c', \ECSPrefix20210618\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file');
     }
     /**
-     * @required
      * @return void
      */
+    #[Required]
     public function autowireAbstractSymplifyCommand(\ECSPrefix20210618\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20210618\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \ECSPrefix20210618\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
     {
         $this->symfonyStyle = $symfonyStyle;

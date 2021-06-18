@@ -3,8 +3,9 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
-use ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo;
-final class CodingStandardError
+use Symplify\EasyCodingStandard\Parallel\Contract\Serializable;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
+final class CodingStandardError implements \Symplify\EasyCodingStandard\Parallel\Contract\Serializable
 {
     /**
      * @var int
@@ -19,15 +20,15 @@ final class CodingStandardError
      */
     private $checkerClass;
     /**
-     * @var \Symplify\SmartFileSystem\SmartFileInfo
+     * @var string
      */
-    private $fileInfo;
-    public function __construct(int $line, string $message, string $checkerClass, \ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    private $relativeFilePath;
+    public function __construct(int $line, string $message, string $checkerClass, string $relativeFilePath)
     {
         $this->line = $line;
         $this->message = $message;
         $this->checkerClass = $checkerClass;
-        $this->fileInfo = $fileInfo;
+        $this->relativeFilePath = $relativeFilePath;
     }
     public function getLine() : int
     {
@@ -43,10 +44,25 @@ final class CodingStandardError
     }
     public function getFileWithLine() : string
     {
-        return $this->getRelativeFilePathFromCwd() . ':' . $this->line;
+        return $this->relativeFilePath . ':' . $this->line;
     }
-    public function getRelativeFilePathFromCwd() : string
+    public function getRelativeFilePath() : string
     {
-        return $this->fileInfo->getRelativeFilePathFromCwd();
+        return $this->relativeFilePath;
+    }
+    /**
+     * @return array<string, mixed>
+     */
+    public function jsonSerialize() : array
+    {
+        return [\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE => $this->line, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE => $this->message, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::CHECKER_CLASS => $this->checkerClass, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH => $this->relativeFilePath];
+    }
+    /**
+     * @param array{line: int, message: string, checker_class: string, relative_file_path: string} $json
+     * @return $this
+     */
+    public static function decode(array $json)
+    {
+        return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::CHECKER_CLASS], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH]);
     }
 }

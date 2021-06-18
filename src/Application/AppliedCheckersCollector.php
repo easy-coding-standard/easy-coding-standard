@@ -3,37 +3,32 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
-use Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException;
-use ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo;
 final class AppliedCheckersCollector
 {
     /**
-     * @var array<string, class-string[]>
+     * @var array<class-string|string>
      */
-    private $appliedCheckersByFile = [];
+    private $appliedCheckerClasses = [];
+    /**
+     * @param class-string|string $checkerClass
+     * @return void
+     */
+    public function addAppliedCheckerClass(string $checkerClass)
+    {
+        $this->appliedCheckerClasses[] = $checkerClass;
+    }
+    /**
+     * @return array<class-string|string>
+     */
+    public function getAppliedCheckerClasses() : array
+    {
+        return $this->appliedCheckerClasses;
+    }
     /**
      * @return void
      */
-    public function addFileInfoAndChecker(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $checker)
+    public function resetAppliedCheckerClasses()
     {
-        $this->appliedCheckersByFile[$smartFileInfo->getRealPath()][] = $checker;
-    }
-    /**
-     * @return class-string[]
-     */
-    public function getAppliedCheckersPerFileInfo(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
-    {
-        $this->ensureFileHasAppliedCheckers($smartFileInfo);
-        return $this->appliedCheckersByFile[$smartFileInfo->getRealPath()];
-    }
-    /**
-     * @return void
-     */
-    private function ensureFileHasAppliedCheckers(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
-    {
-        if (isset($this->appliedCheckersByFile[$smartFileInfo->getRealPath()])) {
-            return;
-        }
-        throw new \Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException(\sprintf('File "%s" was changed, but no responsible checkers were added to "%s".', $smartFileInfo->getRelativePathname(), self::class));
+        $this->appliedCheckerClasses = [];
     }
 }

@@ -8,6 +8,10 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
+use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo;
 final class EasyCodingStandardApplication
 {
@@ -35,7 +39,11 @@ final class EasyCodingStandardApplication
      * @var \Symplify\EasyCodingStandard\Application\SingleFileProcessor
      */
     private $singleFileProcessor;
-    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor)
+    /**
+     * @var \Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor
+     */
+    private $parallelFileProcessor;
+    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor $parallelFileProcessor)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -43,8 +51,12 @@ final class EasyCodingStandardApplication
         $this->configuration = $configuration;
         $this->fileFilter = $fileFilter;
         $this->singleFileProcessor = $singleFileProcessor;
+        $this->parallelFileProcessor = $parallelFileProcessor;
     }
-    public function run() : int
+    /**
+     * @return array<SystemError|FileDiff|CodingStandardError>
+     */
+    public function run() : array
     {
         // 1. find files in sources
         $files = $this->sourceFinder->find($this->configuration->getSources(), $this->configuration->doesMatchGitDiff());
@@ -57,31 +69,33 @@ final class EasyCodingStandardApplication
         // no files found
         $filesCount = \count($files);
         if ($filesCount === 0) {
-            return 0;
+            return [];
         }
+        // process found files by each processors
+        return $this->processFoundFiles($files);
+    }
+    /**
+     * @param SmartFileInfo[] $fileInfos
+     * @return array<SystemError|FileDiff|CodingStandardError>
+     */
+    private function processFoundFiles(array $fileInfos) : array
+    {
+        $fileInfoCount = \count($fileInfos);
         // 3. start progress bar
         if ($this->configuration->shouldShowProgressBar() && !$this->easyCodingStandardStyle->isDebug()) {
-            $this->easyCodingStandardStyle->progressStart($filesCount);
+            $this->easyCodingStandardStyle->progressStart($fileInfoCount);
             // show more data on progres bar
             if ($this->easyCodingStandardStyle->isVerbose()) {
                 $this->easyCodingStandardStyle->enableDebugProgressBar();
             }
         }
-        // 4. process found files by each processors
-        $this->processFoundFiles($files);
-        return $filesCount;
-    }
-    /**
-     * @param SmartFileInfo[] $fileInfos
-     * @return void
-     */
-    private function processFoundFiles(array $fileInfos)
-    {
+        $errorsAndDiffs = [];
         foreach ($fileInfos as $fileInfo) {
             if ($this->easyCodingStandardStyle->isDebug()) {
                 $this->easyCodingStandardStyle->writeln(' [file] ' . $fileInfo->getRelativeFilePathFromCwd());
             }
-            $this->singleFileProcessor->processFileInfo($fileInfo);
+            $currentErrorsAndDiffs = $this->singleFileProcessor->processFileInfo($fileInfo);
+            $errorsAndDiffs = \array_merge($errorsAndDiffs, $currentErrorsAndDiffs);
             if ($this->easyCodingStandardStyle->isDebug()) {
                 continue;
             }
@@ -90,5 +104,6 @@ final class EasyCodingStandardApplication
             }
             $this->easyCodingStandardStyle->progressAdvance();
         }
+        return $errorsAndDiffs;
     }
 }

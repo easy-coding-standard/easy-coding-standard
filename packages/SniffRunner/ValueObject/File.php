@@ -12,7 +12,6 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Util\Common;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo;
@@ -48,10 +47,6 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     private $fileInfo;
     /**
-     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
-     */
-    private $errorAndDiffCollector;
-    /**
      * @var \Symplify\Skipper\Skipper\Skipper
      */
     private $skipper;
@@ -63,9 +58,8 @@ final class File extends \PHP_CodeSniffer\Files\File
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
-        $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
@@ -109,14 +103,14 @@ final class File extends \PHP_CodeSniffer\Files\File
     }
     public function getErrorCount() : int
     {
-        throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public. Use "%s" service.', __METHOD__, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector::class));
+        throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public.', __METHOD__));
     }
     /**
      * @return mixed[]
      */
     public function getErrors() : array
     {
-        throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public. Use "%s" service.', __METHOD__, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector::class));
+        throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public.', __METHOD__));
     }
     /**
      * Delegate to addError().
@@ -125,7 +119,8 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0) : bool
     {
-        $this->appliedCheckersCollector->addFileInfoAndChecker($this->fileInfo, $this->resolveFullyQualifiedCode($code));
+        $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
+        $this->appliedCheckersCollector->addAppliedCheckerClass($fullyQualifiedCode);
         return !$this->shouldSkipError($error, $code, $data);
     }
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
@@ -148,7 +143,7 @@ final class File extends \PHP_CodeSniffer\Files\File
         return $this->addError($warning, $stackPtr, $code, $data, $severity, $fixable);
     }
     /**
-     * @param Sniff[][] $tokenListeners
+     * @param array<int|string, Sniff[]> $tokenListeners
      * @return void
      */
     public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
@@ -173,11 +168,7 @@ final class File extends \PHP_CodeSniffer\Files\File
             return $isFixable;
         }
         // do not add non-fixable errors twice
-        if ($this->fixer->loops > 0) {
-            return \false;
-        }
-        $this->errorAndDiffCollector->addErrorMessage($this->fileInfo, $line, $message, $this->resolveFullyQualifiedCode($sniffClassOrCode));
-        return \true;
+        return $this->fixer->loops === 0;
     }
     /**
      * @return void

@@ -10,7 +10,7 @@ use ECSPrefix20210618\Symfony\Component\Console\Input\InputDefinition;
 use ECSPrefix20210618\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20210618\Symfony\Component\Console\Input\InputOption;
 use ECSPrefix20210618\Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Application\VersionResolver;
+use Symplify\EasyCodingStandard\Application\Version\VersionResolver;
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -22,7 +22,7 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210618\Symf
      */
     public function __construct(array $commands)
     {
-        parent::__construct('EasyCodingStandard', \Symplify\EasyCodingStandard\Application\VersionResolver::PACKAGE_VERSION);
+        parent::__construct('EasyCodingStandard', \Symplify\EasyCodingStandard\Application\Version\VersionResolver::PACKAGE_VERSION);
         // @see https://tomasvotruba.com/blog/2020/10/26/the-bullet-proof-symfony-command-naming/
         $commandNaming = new \ECSPrefix20210618\Symplify\PackageBuilder\Console\Command\CommandNaming();
         foreach ($commands as $command) {

@@ -10,7 +10,6 @@ use PhpCsFixer\WhitespacesFixerConfig;
 use ECSPrefix20210618\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20210618\Symfony\Component\Console\Terminal;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
@@ -46,7 +45,6 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services->set(\ECSPrefix20210618\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20210618\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20210618\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
     $services->set(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle::class)->factory([\ECSPrefix20210618\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory::class), 'create']);
     $services->set(\PhpCsFixer\WhitespacesFixerConfig::class)->factory([\ECSPrefix20210618\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory::class), 'create']);
-    $services->set(\Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter::class);
     // code sniffer
     $services->set(\PHP_CodeSniffer\Fixer::class);
     // fixer

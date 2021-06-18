@@ -3,8 +3,9 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
-use ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo;
-final class SystemError
+use Symplify\EasyCodingStandard\Parallel\Contract\Serializable;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
+final class SystemError implements \Symplify\EasyCodingStandard\Parallel\Contract\Serializable
 {
     /**
      * @var int
@@ -15,14 +16,14 @@ final class SystemError
      */
     private $message;
     /**
-     * @var \Symplify\SmartFileSystem\SmartFileInfo
+     * @var string
      */
-    private $fileInfo;
-    public function __construct(int $line, string $message, \ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    private $relativeFilePath;
+    public function __construct(int $line, string $message, string $relativeFilePath)
     {
         $this->line = $line;
         $this->message = $message;
-        $this->fileInfo = $fileInfo;
+        $this->relativeFilePath = $relativeFilePath;
     }
     public function getMessage() : string
     {
@@ -30,6 +31,21 @@ final class SystemError
     }
     public function getFileWithLine() : string
     {
-        return $this->fileInfo->getRelativeFilePathFromCwd() . ':' . $this->line;
+        return $this->relativeFilePath . ':' . $this->line;
+    }
+    /**
+     * @return array{line: int, message: string, relative_file_path: string}
+     */
+    public function jsonSerialize() : array
+    {
+        return [\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE => $this->line, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE => $this->message, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH => $this->relativeFilePath];
+    }
+    /**
+     * @param array{message: string, relative_file_path: string, line: int} $json
+     * @return $this
+     */
+    public static function decode(array $json)
+    {
+        return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH]);
     }
 }

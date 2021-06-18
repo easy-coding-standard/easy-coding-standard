@@ -5,7 +5,9 @@ namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleFileProcessor
@@ -19,28 +21,24 @@ final class SingleFileProcessor
      */
     private $changedFilesDetector;
     /**
-     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector
-     */
-    private $errorAndDiffCollector;
-    /**
      * @var \Symplify\EasyCodingStandard\Application\FileProcessorCollector
      */
     private $fileProcessorCollector;
-    public function __construct(\ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
+    public function __construct(\ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
     {
         $this->skipper = $skipper;
         $this->changedFilesDetector = $changedFilesDetector;
-        $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->fileProcessorCollector = $fileProcessorCollector;
     }
     /**
-     * @return void
+     * @return array<SystemError|FileDiff|CodingStandardError>
      */
-    public function processFileInfo(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function processFileInfo(\ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
-            return;
+            return [];
         }
+        $errorsAndDiffs = [];
         try {
             $this->changedFilesDetector->addFileInfo($smartFileInfo);
             $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
@@ -48,11 +46,17 @@ final class SingleFileProcessor
                 if ($fileProcessor->getCheckers() === []) {
                     continue;
                 }
-                $fileProcessor->processFile($smartFileInfo);
+                $currentErrorsAndFileDiffs = $fileProcessor->processFile($smartFileInfo);
+                if ($currentErrorsAndFileDiffs === []) {
+                    continue;
+                }
+                $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
+                $errorsAndDiffs = \array_merge($errorsAndDiffs, $currentErrorsAndFileDiffs);
             }
         } catch (\ParseError $parseError) {
             $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
-            $this->errorAndDiffCollector->addSystemErrorMessage($smartFileInfo, $parseError->getLine(), $parseError->getMessage());
+            $errorsAndDiffs[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($parseError->getLine(), $parseError->getMessage(), $smartFileInfo->getRelativeFilePathFromCwd());
         }
+        return $errorsAndDiffs;
     }
 }

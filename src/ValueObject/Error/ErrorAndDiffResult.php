@@ -22,7 +22,7 @@ final class ErrorAndDiffResult
      * @param FileDiff[] $fileDiffs
      * @param SystemError[] $systemErrors
      */
-    public function __construct(array $codingStandardErrors, array $fileDiffs, array $systemErrors)
+    public function __construct(array $codingStandardErrors = [], array $fileDiffs = [], array $systemErrors = [])
     {
         $this->codingStandardErrors = $this->sortByFileAndLine($codingStandardErrors);
         $this->fileDiffs = $this->sortByFilePath($fileDiffs);
@@ -64,7 +64,7 @@ final class ErrorAndDiffResult
     private function sortByFileAndLine(array $errorMessages) : array
     {
         \usort($errorMessages, function (\Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $firstCodingStandardError, \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $secondCodingStandardError) : int {
-            return [$firstCodingStandardError->getRelativeFilePathFromCwd(), $firstCodingStandardError->getLine()] <=> [$secondCodingStandardError->getRelativeFilePathFromCwd(), $secondCodingStandardError->getLine()];
+            return [$firstCodingStandardError->getRelativeFilePath(), $firstCodingStandardError->getLine()] <=> [$secondCodingStandardError->getRelativeFilePath(), $secondCodingStandardError->getLine()];
         });
         return $errorMessages;
     }
@@ -75,7 +75,7 @@ final class ErrorAndDiffResult
     private function sortByFilePath(array $fileDiffs) : array
     {
         \uasort($fileDiffs, function (\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $firstFileDiff, \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $secondFileDiff) : int {
-            return $firstFileDiff->getRelativeFilePathFromCwd() <=> $secondFileDiff->getRelativeFilePathFromCwd();
+            return $firstFileDiff->getRelativeFilePath() <=> $secondFileDiff->getRelativeFilePath();
         });
         return $fileDiffs;
     }

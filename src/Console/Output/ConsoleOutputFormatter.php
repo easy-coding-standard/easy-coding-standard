@@ -28,13 +28,11 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->configuration = $configuration;
     }
-    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, int $processedFilesCount) : int
+    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : int
     {
         $this->reportFileDiffs($errorAndDiffResult->getFileDiffs());
+        $this->easyCodingStandardStyle->newLine(1);
         if ($errorAndDiffResult->getErrorCount() === 0 && $errorAndDiffResult->getFileDiffsCount() === 0) {
-            if ($processedFilesCount !== 0) {
-                $this->easyCodingStandardStyle->newLine();
-            }
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
             return \ECSPrefix20210618\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
@@ -58,7 +56,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         $i = 1;
         foreach ($fileDiffs as $fileDiff) {
             $this->easyCodingStandardStyle->newLine(2);
-            $boldNumberedMessage = \sprintf('<options=bold>%d) %s</>', $i, $fileDiff->getRelativeFilePathFromCwd());
+            $boldNumberedMessage = \sprintf('<options=bold>%d) %s</>', $i, $fileDiff->getRelativeFilePath());
             $this->easyCodingStandardStyle->writeln($boldNumberedMessage);
             ++$i;
             $this->easyCodingStandardStyle->newLine();

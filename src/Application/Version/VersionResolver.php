@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Application;
+namespace Symplify\EasyCodingStandard\Application\Version;
 
 use DateTime;
 use ECSPrefix20210618\Symfony\Component\Process\Process;
@@ -16,11 +16,11 @@ final class VersionResolver
     /**
      * @var string
      */
-    const PACKAGE_VERSION = '545e00e0794ef1a83414f4ba5a1c44332d52983d';
+    const PACKAGE_VERSION = '@package_version@';
     /**
      * @var string
      */
-    const RELEASE_DATE = '2021-06-18 10:14:10';
+    const RELEASE_DATE = '@release_date@';
     public static function resolvePackageVersion() : string
     {
         $process = new \ECSPrefix20210618\Symfony\Component\Process\Process(['git', 'log', '--pretty="%H"', '-n1', 'HEAD'], __DIR__);

@@ -5,7 +5,10 @@ namespace Symplify\EasyCodingStandard\Reporter;
 
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
-use Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory;
+use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 final class ProcessedFileReporter
 {
     /**
@@ -16,21 +19,31 @@ final class ProcessedFileReporter
      * @var \Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector
      */
     private $outputFormatterCollector;
-    /**
-     * @var \Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory
-     */
-    private $errorAndDiffResultFactory;
-    public function __construct(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory $errorAndDiffResultFactory)
+    public function __construct(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector $outputFormatterCollector)
     {
         $this->configuration = $configuration;
         $this->outputFormatterCollector = $outputFormatterCollector;
-        $this->errorAndDiffResultFactory = $errorAndDiffResultFactory;
     }
-    public function report(int $processedFileCount) : int
+    /**
+     * @param array<SystemError|FileDiff|CodingStandardError> $errorsAndDiffs
+     */
+    public function report(array $errorsAndDiffs) : int
     {
         $outputFormat = $this->configuration->getOutputFormat();
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
-        $errorAndDiffResult = $this->errorAndDiffResultFactory->create();
-        return $outputFormatter->report($errorAndDiffResult, $processedFileCount);
+        /** @var SystemError[] $systemErrors */
+        $systemErrors = \array_filter($errorsAndDiffs, function (object $object) {
+            return $object instanceof \Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
+        });
+        /** @var FileDiff[] $fileDiffs */
+        $fileDiffs = \array_filter($errorsAndDiffs, function (object $object) {
+            return $object instanceof \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+        });
+        /** @var CodingStandardError[] $codingStandardErrors */
+        $codingStandardErrors = \array_filter($errorsAndDiffs, function (object $object) {
+            return $object instanceof \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
+        });
+        $errorAndDiffResult = new \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult($codingStandardErrors, $fileDiffs, $systemErrors);
+        return $outputFormatter->report($errorAndDiffResult);
     }
 }
