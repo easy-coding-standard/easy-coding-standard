@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace ECSPrefix20210618\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Session handler using a PDO connection to read and write data.
@@ -37,7 +37,7 @@ namespace ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\Han
  * @author Michael Williams <michael.williams@funsational.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class PdoSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class PdoSessionHandler extends \ECSPrefix20210618\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     /**
      * No locking is done. This means sessions are prone to loss of data due to
@@ -233,6 +233,7 @@ class PdoSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFoundat
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function open($savePath, $sessionName)
     {
         $this->sessionExpired = \false;
@@ -244,6 +245,7 @@ class PdoSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFoundat
     /**
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function read($sessionId)
     {
         try {
@@ -256,6 +258,7 @@ class PdoSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFoundat
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function gc($maxlifetime)
     {
         // We delay gc() to close() so that it is executed outside the transactional and blocking read-write process.
@@ -322,6 +325,7 @@ class PdoSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFoundat
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function updateTimestamp($sessionId, $data)
     {
         $expiry = \time() + (int) \ini_get('session.gc_maxlifetime');
@@ -340,6 +344,7 @@ class PdoSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFoundat
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function close()
     {
         $this->commit();

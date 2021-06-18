@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210613\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20210618\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20210613\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
+use ECSPrefix20210618\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * This class builds an if expression.
  *
@@ -22,7 +22,7 @@ class ExprBuilder
     protected $node;
     public $ifPart;
     public $thenPart;
-    public function __construct(\ECSPrefix20210613\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
+    public function __construct(\ECSPrefix20210618\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->node = $node;
     }
@@ -33,7 +33,7 @@ class ExprBuilder
      */
     public function always(\Closure $then = null)
     {
-        $this->ifPart = function ($v) {
+        $this->ifPart = function () {
             return \true;
         };
         if (null !== $then) {
@@ -162,7 +162,7 @@ class ExprBuilder
      */
     public function thenEmptyArray()
     {
-        $this->thenPart = function ($v) {
+        $this->thenPart = function () {
             return [];
         };
         return $this;
@@ -192,8 +192,8 @@ class ExprBuilder
      */
     public function thenUnset()
     {
-        $this->thenPart = function ($v) {
-            throw new \ECSPrefix20210613\Symfony\Component\Config\Definition\Exception\UnsetKeyException('Unsetting key.');
+        $this->thenPart = function () {
+            throw new \ECSPrefix20210618\Symfony\Component\Config\Definition\Exception\UnsetKeyException('Unsetting key.');
         };
         return $this;
     }

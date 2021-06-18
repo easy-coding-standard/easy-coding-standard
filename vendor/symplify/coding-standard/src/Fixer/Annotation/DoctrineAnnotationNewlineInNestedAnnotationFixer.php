@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Annotation;
 
-use ECSPrefix20210613\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20210618\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\AbstractDoctrineAnnotationFixer;
 use PhpCsFixer\Doctrine\Annotation\Token;
 use PhpCsFixer\Doctrine\Annotation\Tokens;
@@ -11,13 +11,13 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\DoctrineBlockFinder;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20210613\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210618\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Annotation\DoctrineAnnotationNewlineInNestedAnnotationFixer\DoctrineAnnotationNewlineInNestedAnnotationFixerTest
  */
-final class DoctrineAnnotationNewlineInNestedAnnotationFixer extends \PhpCsFixer\AbstractDoctrineAnnotationFixer implements \ECSPrefix20210613\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class DoctrineAnnotationNewlineInNestedAnnotationFixer extends \PhpCsFixer\AbstractDoctrineAnnotationFixer implements \ECSPrefix20210618\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -45,9 +45,9 @@ final class DoctrineAnnotationNewlineInNestedAnnotationFixer extends \PhpCsFixer
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
-    public function getRuleDefinition() : \ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -86,7 +86,7 @@ CODE_SAMPLE
         for ($index = 0; $index < $tokenCount; ++$index) {
             /** @var Token $currentToken */
             $currentToken = $tokens[$index];
-            if (!$currentToken->isType(\ECSPrefix20210613\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            if (!$currentToken->isType(\ECSPrefix20210618\Doctrine\Common\Annotations\DocLexer::T_AT)) {
                 continue;
             }
             $previousTokenPosition = $index - 1;
@@ -97,9 +97,9 @@ CODE_SAMPLE
             if ($this->shouldSkip($index, $tokens, $previousToken)) {
                 continue;
             }
-            $tokens->insertAt($index, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210613\Doctrine\Common\Annotations\DocLexer::T_NONE, ' * '));
-            $tokens->insertAt($index, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210613\Doctrine\Common\Annotations\DocLexer::T_NONE, "\n"));
-            $tNone = $previousToken->isType(\ECSPrefix20210613\Doctrine\Common\Annotations\DocLexer::T_NONE);
+            $tokens->insertAt($index, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210618\Doctrine\Common\Annotations\DocLexer::T_NONE, ' * '));
+            $tokens->insertAt($index, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210618\Doctrine\Common\Annotations\DocLexer::T_NONE, "\n"));
+            $tNone = $previousToken->isType(\ECSPrefix20210618\Doctrine\Common\Annotations\DocLexer::T_NONE);
             // remove redundant space
             if ($tNone) {
                 $tokens->offsetUnset($previousTokenPosition);
@@ -109,7 +109,7 @@ CODE_SAMPLE
     }
     private function isDocOpener(\PhpCsFixer\Doctrine\Annotation\Token $token) : bool
     {
-        if ($token->isType(\ECSPrefix20210613\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+        if ($token->isType(\ECSPrefix20210618\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
             return \strpos($token->getContent(), '*') !== \false;
         }
         return \false;
@@ -123,7 +123,7 @@ CODE_SAMPLE
         /** @var Token $previousToken */
         $previousToken = $tokens->offsetGet($previousTokenPosition);
         // already a space → skip
-        if ($previousToken->isType(\ECSPrefix20210613\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+        if ($previousToken->isType(\ECSPrefix20210618\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
             return;
         }
         // reset
@@ -135,8 +135,8 @@ CODE_SAMPLE
             $this->currentBlockInfo = $this->doctrineBlockFinder->findInTokensByEdge($tokens, $previousTokenPosition);
         }
         if ($this->currentBlockInfo !== null) {
-            $tokens->insertAt($this->currentBlockInfo->getEnd(), new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210613\Doctrine\Common\Annotations\DocLexer::T_NONE, ' * '));
-            $tokens->insertAt($this->currentBlockInfo->getEnd(), new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210613\Doctrine\Common\Annotations\DocLexer::T_NONE, "\n"));
+            $tokens->insertAt($this->currentBlockInfo->getEnd(), new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210618\Doctrine\Common\Annotations\DocLexer::T_NONE, ' * '));
+            $tokens->insertAt($this->currentBlockInfo->getEnd(), new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210618\Doctrine\Common\Annotations\DocLexer::T_NONE, "\n"));
         }
     }
     /**

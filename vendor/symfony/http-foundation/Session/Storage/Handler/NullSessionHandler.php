@@ -8,18 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace ECSPrefix20210618\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Can be used in unit testing or in a situations where persisted sessions are not desired.
  *
  * @author Drak <drak@zikula.org>
  */
-class NullSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class NullSessionHandler extends \ECSPrefix20210618\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function close()
     {
         return \true;
@@ -27,6 +28,7 @@ class NullSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFounda
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function validateId($sessionId)
     {
         return \true;
@@ -41,6 +43,7 @@ class NullSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFounda
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function updateTimestamp($sessionId, $data)
     {
         return \true;
@@ -62,6 +65,7 @@ class NullSessionHandler extends \ECSPrefix20210613\Symfony\Component\HttpFounda
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function gc($maxlifetime)
     {
         return \true;

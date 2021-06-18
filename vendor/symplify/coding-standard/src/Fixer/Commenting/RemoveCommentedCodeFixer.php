@@ -13,15 +13,15 @@ use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\Php\PhpContentAnalyzer;
 use Symplify\CodingStandard\Tokens\CommentedContentResolver;
 use Symplify\CodingStandard\ValueObject\StartAndEnd;
-use ECSPrefix20210613\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210618\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://softwareengineering.stackexchange.com/a/394288/148956
  *
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\RemoveCommentedCodeFixer\RemoveCommentedCodeFixerTest
  */
-final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210613\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210618\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -89,9 +89,9 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
             $tokens->clearRange($realStart, $startAndEnd->getEnd());
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210613\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210618\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 // $one = 1;
 // $two = 2;
 // $three = 3;
