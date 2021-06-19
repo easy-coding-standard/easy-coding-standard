@@ -92,5 +92,9 @@ final class Option
     /**
      * @var string
      */
-    const INTERNAL_ERROR_COUNT_LIMIT = 'internal-error-count-limit';
+    const SYSTEM_ERROR_COUNT_LIMIT = 'system-error-count-limit';
+    /**
+     * @var string
+     */
+    const CONFIG = 'config';
 }

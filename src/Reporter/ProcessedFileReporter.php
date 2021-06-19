@@ -25,24 +25,18 @@ final class ProcessedFileReporter
         $this->outputFormatterCollector = $outputFormatterCollector;
     }
     /**
-     * @param array<SystemError|FileDiff|CodingStandardError> $errorsAndDiffs
+     * @param array<string, SystemError|FileDiff|CodingStandardError> $errorsAndDiffs
      */
     public function report(array $errorsAndDiffs) : int
     {
         $outputFormat = $this->configuration->getOutputFormat();
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
         /** @var SystemError[] $systemErrors */
-        $systemErrors = \array_filter($errorsAndDiffs, function (object $object) {
-            return $object instanceof \Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-        });
+        $systemErrors = $errorsAndDiffs['system_errors'] ?? [];
         /** @var FileDiff[] $fileDiffs */
-        $fileDiffs = \array_filter($errorsAndDiffs, function (object $object) {
-            return $object instanceof \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-        });
+        $fileDiffs = $errorsAndDiffs['file_diffs'] ?? [];
         /** @var CodingStandardError[] $codingStandardErrors */
-        $codingStandardErrors = \array_filter($errorsAndDiffs, function (object $object) {
-            return $object instanceof \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
-        });
+        $codingStandardErrors = $errorsAndDiffs['coding_standard_errors'] ?? [];
         $errorAndDiffResult = new \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult($codingStandardErrors, $fileDiffs, $systemErrors);
         return $outputFormatter->report($errorAndDiffResult);
     }

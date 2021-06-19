@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit905e2205a2216f7d877a164022cd7872
+class ComposerStaticInita42ab72f32cffd93a824f638d7805519
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1841,10 +1841,10 @@ class ComposerStaticInit905e2205a2216f7d877a164022cd7872
         'Symplify\\CodingStandard\\ValueObjectFactory\\DocBlockLinesFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObjectFactory/DocBlockLinesFactory.php',
         'Symplify\\CodingStandard\\ValueObject\\DocBlockLines' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/DocBlockLines.php',
         'Symplify\\CodingStandard\\ValueObject\\StartAndEnd' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/StartAndEnd.php',
-        'Symplify\\EasyCodingStandard\\Application\\AppliedCheckersCollector' => __DIR__ . '/../..' . '/src/Application/AppliedCheckersCollector.php',
         'Symplify\\EasyCodingStandard\\Application\\EasyCodingStandardApplication' => __DIR__ . '/../..' . '/src/Application/EasyCodingStandardApplication.php',
         'Symplify\\EasyCodingStandard\\Application\\FileProcessorCollector' => __DIR__ . '/../..' . '/src/Application/FileProcessorCollector.php',
         'Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor' => __DIR__ . '/../..' . '/src/Application/SingleFileProcessor.php',
+        'Symplify\\EasyCodingStandard\\Application\\SniffMetadataCollector' => __DIR__ . '/../..' . '/src/Application/SniffMetadataCollector.php',
         'Symplify\\EasyCodingStandard\\Application\\Version\\VersionResolver' => __DIR__ . '/../..' . '/src/Application/Version/VersionResolver.php',
         'Symplify\\EasyCodingStandard\\Bootstrap\\ConfigHasher' => __DIR__ . '/../..' . '/src/Bootstrap/ConfigHasher.php',
         'Symplify\\EasyCodingStandard\\Bundle\\EasyCodingStandardBundle' => __DIR__ . '/../..' . '/src/Bundle/EasyCodingStandardBundle.php',
@@ -1901,10 +1901,13 @@ class ComposerStaticInit905e2205a2216f7d877a164022cd7872
         'Symplify\\EasyCodingStandard\\Guard\\LoadedCheckersGuard' => __DIR__ . '/../..' . '/src/Guard/LoadedCheckersGuard.php',
         'Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel' => __DIR__ . '/../..' . '/src/HttpKernel/EasyCodingStandardKernel.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor' => __DIR__ . '/../..' . '/packages/Parallel/Application/ParallelFileProcessor.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\Command\\WorkerCommandLineFactory' => __DIR__ . '/../..' . '/packages/Parallel/Command/WorkerCommandLineFactory.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Contract\\Serializable' => __DIR__ . '/../..' . '/packages/Parallel/Contract/Serializable.php',
         'Symplify\\EasyCodingStandard\\Parallel\\CoreCountProvider' => __DIR__ . '/../..' . '/packages/Parallel/CoreCountProvider.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ScheduleFactory' => __DIR__ . '/../..' . '/packages/Parallel/ScheduleFactory.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Bridge' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Bridge.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Name' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Name.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ReactEvent' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/ReactEvent.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Schedule' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Schedule.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\StreamBuffer' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/StreamBuffer.php',
         'Symplify\\EasyCodingStandard\\Reporter\\ProcessedFileReporter' => __DIR__ . '/../..' . '/src/Reporter/ProcessedFileReporter.php',
@@ -1938,9 +1941,9 @@ class ComposerStaticInit905e2205a2216f7d877a164022cd7872
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit905e2205a2216f7d877a164022cd7872::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit905e2205a2216f7d877a164022cd7872::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit905e2205a2216f7d877a164022cd7872::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita42ab72f32cffd93a824f638d7805519::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita42ab72f32cffd93a824f638d7805519::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita42ab72f32cffd93a824f638d7805519::$classMap;
 
         }, null, ClassLoader::class);
     }

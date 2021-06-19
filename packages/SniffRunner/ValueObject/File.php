@@ -10,9 +10,10 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Util\Common;
-use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
+use Symplify\EasyCodingStandard\Application\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
+use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo;
 /**
@@ -51,17 +52,17 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     private $skipper;
     /**
-     * @var \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector
+     * @var \Symplify\EasyCodingStandard\Application\SniffMetadataCollector
      */
-    private $appliedCheckersCollector;
+    private $sniffMetadataCollector;
     /**
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\SniffMetadataCollector $sniffMetadataCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $this->skipper = $skipper;
-        $this->appliedCheckersCollector = $appliedCheckersCollector;
+        $this->sniffMetadataCollector = $sniffMetadataCollector;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->path = $path;
         $this->content = $content;
@@ -120,7 +121,7 @@ final class File extends \PHP_CodeSniffer\Files\File
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0) : bool
     {
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
-        $this->appliedCheckersCollector->addAppliedCheckerClass($fullyQualifiedCode);
+        $this->sniffMetadataCollector->addAppliedSniff($fullyQualifiedCode);
         return !$this->shouldSkipError($error, $code, $data);
     }
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
@@ -164,6 +165,8 @@ final class File extends \PHP_CodeSniffer\Files\File
             return \false;
         }
         $message = $data !== [] ? \vsprintf($message, $data) : $message;
+        $codingStandardError = new \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError($line, $message, $sniffClassOrCode, $this->getFilename());
+        $this->sniffMetadataCollector->addCodingStandardError($codingStandardError);
         if ($isFixable) {
             return $isFixable;
         }

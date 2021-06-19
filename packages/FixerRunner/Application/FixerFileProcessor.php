@@ -99,11 +99,10 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         return $this->fixers;
     }
     /**
-     * @return array<FileDiff>
+     * @return FileDiff[]
      */
     public function processFile(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
-        $errorsAndDiffs = [];
         $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
         $appliedFixers = [];
         foreach ($this->fixers as $fixer) {
@@ -123,15 +122,16 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         if ($diff === '') {
             return [];
         }
+        $fileDiffs = [];
         // file has changed
         $targetFileInfo = $this->targetFileInfoResolver->resolveTargetFileInfo($smartFileInfo);
-        $errorsAndDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($targetFileInfo, $diff, $appliedFixers);
+        $fileDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($targetFileInfo, $diff, $appliedFixers);
         $tokenGeneratedCode = $tokens->generateCode();
         if ($this->configuration->isFixer()) {
             $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $tokenGeneratedCode);
         }
         \PhpCsFixer\Tokenizer\Tokens::clearCache();
-        return $errorsAndDiffs;
+        return $fileDiffs;
     }
     public function processFileToString(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {

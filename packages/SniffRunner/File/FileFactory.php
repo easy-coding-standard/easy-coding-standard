@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Fixer;
-use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
+use Symplify\EasyCodingStandard\Application\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper;
@@ -23,22 +23,22 @@ final class FileFactory
      */
     private $skipper;
     /**
-     * @var \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector
+     * @var \Symplify\EasyCodingStandard\Application\SniffMetadataCollector
      */
-    private $appliedCheckersCollector;
+    private $sniffMetadataCollector;
     /**
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\SniffMetadataCollector $sniffMetadataCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $this->fixer = $fixer;
         $this->skipper = $skipper;
-        $this->appliedCheckersCollector = $appliedCheckersCollector;
+        $this->sniffMetadataCollector = $sniffMetadataCollector;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
     public function createFromFileInfo(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File
     {
-        return new \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File($smartFileInfo->getRelativeFilePath(), $smartFileInfo->getContents(), $this->fixer, $this->skipper, $this->appliedCheckersCollector, $this->easyCodingStandardStyle);
+        return new \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File($smartFileInfo->getRelativeFilePath(), $smartFileInfo->getContents(), $this->fixer, $this->skipper, $this->sniffMetadataCollector, $this->easyCodingStandardStyle);
     }
 }

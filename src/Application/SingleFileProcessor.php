@@ -3,11 +3,9 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
-use ParseError;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleFileProcessor
@@ -31,7 +29,7 @@ final class SingleFileProcessor
         $this->fileProcessorCollector = $fileProcessorCollector;
     }
     /**
-     * @return array<SystemError|FileDiff|CodingStandardError>
+     * @return array<FileDiff|CodingStandardError>
      */
     public function processFileInfo(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
@@ -39,23 +37,17 @@ final class SingleFileProcessor
             return [];
         }
         $errorsAndDiffs = [];
-        try {
-            $this->changedFilesDetector->addFileInfo($smartFileInfo);
-            $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
-            foreach ($fileProcessors as $fileProcessor) {
-                if ($fileProcessor->getCheckers() === []) {
-                    continue;
-                }
-                $currentErrorsAndFileDiffs = $fileProcessor->processFile($smartFileInfo);
-                if ($currentErrorsAndFileDiffs === []) {
-                    continue;
-                }
-                $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
-                $errorsAndDiffs = \array_merge($errorsAndDiffs, $currentErrorsAndFileDiffs);
+        $this->changedFilesDetector->addFileInfo($smartFileInfo);
+        $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
+        foreach ($fileProcessors as $fileProcessor) {
+            if ($fileProcessor->getCheckers() === []) {
+                continue;
             }
-        } catch (\ParseError $parseError) {
-            $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
-            $errorsAndDiffs[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($parseError->getLine(), $parseError->getMessage(), $smartFileInfo->getRelativeFilePathFromCwd());
+            $currentErrorsAndFileDiffs = $fileProcessor->processFile($smartFileInfo);
+            if ($currentErrorsAndFileDiffs === []) {
+                continue;
+            }
+            $errorsAndDiffs = \array_merge($errorsAndDiffs, $currentErrorsAndFileDiffs);
         }
         return $errorsAndDiffs;
     }
