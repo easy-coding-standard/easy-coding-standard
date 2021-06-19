@@ -7,101 +7,101 @@ $loader = require_once __DIR__.'/autoload.php';
 // Aliases for the whitelisted classes. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#class-whitelisting
 if (!class_exists('AutoloadIncluder', false) && !interface_exists('AutoloadIncluder', false) && !trait_exists('AutoloadIncluder', false)) {
-    spl_autoload_call('ECSPrefix20210618\AutoloadIncluder');
+    spl_autoload_call('ECSPrefix20210619\AutoloadIncluder');
 }
-if (!class_exists('ComposerAutoloaderInitba8dd3fad66405f05af71b4a38b89362', false) && !interface_exists('ComposerAutoloaderInitba8dd3fad66405f05af71b4a38b89362', false) && !trait_exists('ComposerAutoloaderInitba8dd3fad66405f05af71b4a38b89362', false)) {
-    spl_autoload_call('ECSPrefix20210618\ComposerAutoloaderInitba8dd3fad66405f05af71b4a38b89362');
+if (!class_exists('ComposerAutoloaderInitd68f0998a4f5944a5d39172b24ebaf5b', false) && !interface_exists('ComposerAutoloaderInitd68f0998a4f5944a5d39172b24ebaf5b', false) && !trait_exists('ComposerAutoloaderInitd68f0998a4f5944a5d39172b24ebaf5b', false)) {
+    spl_autoload_call('ECSPrefix20210619\ComposerAutoloaderInitd68f0998a4f5944a5d39172b24ebaf5b');
 }
 if (!class_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !interface_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !trait_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false)) {
-    spl_autoload_call('ECSPrefix20210618\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator');
+    spl_autoload_call('ECSPrefix20210619\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator');
 }
 if (!class_exists('Normalizer', false) && !interface_exists('Normalizer', false) && !trait_exists('Normalizer', false)) {
-    spl_autoload_call('ECSPrefix20210618\Normalizer');
+    spl_autoload_call('ECSPrefix20210619\Normalizer');
 }
 if (!class_exists('JsonException', false) && !interface_exists('JsonException', false) && !trait_exists('JsonException', false)) {
-    spl_autoload_call('ECSPrefix20210618\JsonException');
+    spl_autoload_call('ECSPrefix20210619\JsonException');
 }
 if (!class_exists('Attribute', false) && !interface_exists('Attribute', false) && !trait_exists('Attribute', false)) {
-    spl_autoload_call('ECSPrefix20210618\Attribute');
+    spl_autoload_call('ECSPrefix20210619\Attribute');
 }
 if (!class_exists('Stringable', false) && !interface_exists('Stringable', false) && !trait_exists('Stringable', false)) {
-    spl_autoload_call('ECSPrefix20210618\Stringable');
+    spl_autoload_call('ECSPrefix20210619\Stringable');
 }
 if (!class_exists('UnhandledMatchError', false) && !interface_exists('UnhandledMatchError', false) && !trait_exists('UnhandledMatchError', false)) {
-    spl_autoload_call('ECSPrefix20210618\UnhandledMatchError');
+    spl_autoload_call('ECSPrefix20210619\UnhandledMatchError');
 }
 if (!class_exists('ValueError', false) && !interface_exists('ValueError', false) && !trait_exists('ValueError', false)) {
-    spl_autoload_call('ECSPrefix20210618\ValueError');
+    spl_autoload_call('ECSPrefix20210619\ValueError');
 }
 if (!class_exists('ReturnTypeWillChange', false) && !interface_exists('ReturnTypeWillChange', false) && !trait_exists('ReturnTypeWillChange', false)) {
-    spl_autoload_call('ECSPrefix20210618\ReturnTypeWillChange');
+    spl_autoload_call('ECSPrefix20210619\ReturnTypeWillChange');
 }
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequireba8dd3fad66405f05af71b4a38b89362')) {
-    function composerRequireba8dd3fad66405f05af71b4a38b89362() {
-        return \ECSPrefix20210618\composerRequireba8dd3fad66405f05af71b4a38b89362(...func_get_args());
+if (!function_exists('composerRequired68f0998a4f5944a5d39172b24ebaf5b')) {
+    function composerRequired68f0998a4f5944a5d39172b24ebaf5b() {
+        return \ECSPrefix20210619\composerRequired68f0998a4f5944a5d39172b24ebaf5b(...func_get_args());
     }
 }
 if (!function_exists('sample')) {
     function sample() {
-        return \ECSPrefix20210618\sample(...func_get_args());
+        return \ECSPrefix20210619\sample(...func_get_args());
     }
 }
 if (!function_exists('foo')) {
     function foo() {
-        return \ECSPrefix20210618\foo(...func_get_args());
+        return \ECSPrefix20210619\foo(...func_get_args());
     }
 }
 if (!function_exists('bar')) {
     function bar() {
-        return \ECSPrefix20210618\bar(...func_get_args());
+        return \ECSPrefix20210619\bar(...func_get_args());
     }
 }
 if (!function_exists('baz')) {
     function baz() {
-        return \ECSPrefix20210618\baz(...func_get_args());
+        return \ECSPrefix20210619\baz(...func_get_args());
     }
 }
 if (!function_exists('xyz')) {
     function xyz() {
-        return \ECSPrefix20210618\xyz(...func_get_args());
+        return \ECSPrefix20210619\xyz(...func_get_args());
     }
 }
 if (!function_exists('printPHPCodeSnifferTestOutput')) {
     function printPHPCodeSnifferTestOutput() {
-        return \ECSPrefix20210618\printPHPCodeSnifferTestOutput(...func_get_args());
+        return \ECSPrefix20210619\printPHPCodeSnifferTestOutput(...func_get_args());
     }
 }
 if (!function_exists('setproctitle')) {
     function setproctitle() {
-        return \ECSPrefix20210618\setproctitle(...func_get_args());
+        return \ECSPrefix20210619\setproctitle(...func_get_args());
     }
 }
 if (!function_exists('array_is_list')) {
     function array_is_list() {
-        return \ECSPrefix20210618\array_is_list(...func_get_args());
+        return \ECSPrefix20210619\array_is_list(...func_get_args());
     }
 }
 if (!function_exists('enum_exists')) {
     function enum_exists() {
-        return \ECSPrefix20210618\enum_exists(...func_get_args());
+        return \ECSPrefix20210619\enum_exists(...func_get_args());
     }
 }
 if (!function_exists('includeIfExists')) {
     function includeIfExists() {
-        return \ECSPrefix20210618\includeIfExists(...func_get_args());
+        return \ECSPrefix20210619\includeIfExists(...func_get_args());
     }
 }
 if (!function_exists('dump')) {
     function dump() {
-        return \ECSPrefix20210618\dump(...func_get_args());
+        return \ECSPrefix20210619\dump(...func_get_args());
     }
 }
 if (!function_exists('dd')) {
     function dd() {
-        return \ECSPrefix20210618\dd(...func_get_args());
+        return \ECSPrefix20210619\dd(...func_get_args());
     }
 }
 

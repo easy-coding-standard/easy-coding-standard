@@ -13,8 +13,8 @@ use PHP_CodeSniffer\Util\Common;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
-use ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject\FileTest
  */
@@ -58,7 +58,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210618\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
@@ -146,7 +146,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      * @param array<int|string, Sniff[]> $tokenListeners
      * @return void
      */
-    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20210618\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         $this->tokenListeners = $tokenListeners;
         $this->fileInfo = $fileInfo;

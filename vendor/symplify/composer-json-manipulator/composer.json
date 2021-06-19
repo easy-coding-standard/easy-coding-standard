@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210618\\Symplify\\ComposerJsonManipulator\\": "src"
+            "ECSPrefix20210619\\Symplify\\ComposerJsonManipulator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210618\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
+            "ECSPrefix20210619\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
         }
     },
     "extra": {

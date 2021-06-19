@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210618\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210619\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210618\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20210618\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210619\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix20210619\Symfony\Component\DependencyInjection\Definition;
 /**
  * Represents a node in your service graph.
  *
@@ -34,11 +34,11 @@ class ServiceReferenceGraphNode
         $this->id = $id;
         $this->value = $value;
     }
-    public function addInEdge(\ECSPrefix20210618\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
+    public function addInEdge(\ECSPrefix20210619\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
     {
         $this->inEdges[] = $edge;
     }
-    public function addOutEdge(\ECSPrefix20210618\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
+    public function addOutEdge(\ECSPrefix20210619\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
     {
         $this->outEdges[] = $edge;
     }
@@ -49,7 +49,7 @@ class ServiceReferenceGraphNode
      */
     public function isAlias()
     {
-        return $this->value instanceof \ECSPrefix20210618\Symfony\Component\DependencyInjection\Alias;
+        return $this->value instanceof \ECSPrefix20210619\Symfony\Component\DependencyInjection\Alias;
     }
     /**
      * Checks if the value of this node is a Definition.
@@ -58,7 +58,7 @@ class ServiceReferenceGraphNode
      */
     public function isDefinition()
     {
-        return $this->value instanceof \ECSPrefix20210618\Symfony\Component\DependencyInjection\Definition;
+        return $this->value instanceof \ECSPrefix20210619\Symfony\Component\DependencyInjection\Definition;
     }
     /**
      * Returns the identifier.

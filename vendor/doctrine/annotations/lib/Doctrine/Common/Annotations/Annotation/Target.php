@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210618\Doctrine\Common\Annotations\Annotation;
+namespace ECSPrefix20210619\Doctrine\Common\Annotations\Annotation;
 
 use InvalidArgumentException;
 use function array_keys;
