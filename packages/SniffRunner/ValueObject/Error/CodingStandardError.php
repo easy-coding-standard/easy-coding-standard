@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\ValueObject\Error;
+namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error;
 
 use Symplify\EasyCodingStandard\Parallel\Contract\Serializable;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;

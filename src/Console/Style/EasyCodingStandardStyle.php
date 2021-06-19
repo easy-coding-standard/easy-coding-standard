@@ -7,7 +7,7 @@ use ECSPrefix20210619\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20210619\Symfony\Component\Console\Output\OutputInterface;
 use ECSPrefix20210619\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20210619\Symfony\Component\Console\Terminal;
-use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use ECSPrefix20210619\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use ECSPrefix20210619\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class EasyCodingStandardStyle extends \ECSPrefix20210619\Symfony\Component\Console\Style\SymfonyStyle
@@ -62,7 +62,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210619\Symfony\Component
         $separator = \str_repeat('-', $this->getTerminalWidth());
         $this->writeln(' ' . $separator);
     }
-    private function createMessageFromFileError(\Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $codingStandardError) : string
+    private function createMessageFromFileError(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError $codingStandardError) : string
     {
         $message = \sprintf('%s%s Reported by: "%s"', $codingStandardError->getMessage(), \PHP_EOL . \PHP_EOL, $codingStandardError->getCheckerClass());
         $message = $this->clearCrLfFromMessage($message);

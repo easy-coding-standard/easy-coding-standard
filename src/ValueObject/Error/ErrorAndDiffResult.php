@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 final class ErrorAndDiffResult
 {
     /**
@@ -63,7 +64,7 @@ final class ErrorAndDiffResult
      */
     private function sortByFileAndLine(array $errorMessages) : array
     {
-        \usort($errorMessages, function (\Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $firstCodingStandardError, \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $secondCodingStandardError) : int {
+        \usort($errorMessages, function (\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError $firstCodingStandardError, \Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError $secondCodingStandardError) : int {
             return [$firstCodingStandardError->getRelativeFilePath(), $firstCodingStandardError->getLine()] <=> [$secondCodingStandardError->getRelativeFilePath(), $secondCodingStandardError->getLine()];
         });
         return $errorMessages;

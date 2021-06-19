@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita42ab72f32cffd93a824f638d7805519
+class ComposerStaticInitcdbe4e79f791cbf6b30d63497f743cb3
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1844,7 +1844,6 @@ class ComposerStaticInita42ab72f32cffd93a824f638d7805519
         'Symplify\\EasyCodingStandard\\Application\\EasyCodingStandardApplication' => __DIR__ . '/../..' . '/src/Application/EasyCodingStandardApplication.php',
         'Symplify\\EasyCodingStandard\\Application\\FileProcessorCollector' => __DIR__ . '/../..' . '/src/Application/FileProcessorCollector.php',
         'Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor' => __DIR__ . '/../..' . '/src/Application/SingleFileProcessor.php',
-        'Symplify\\EasyCodingStandard\\Application\\SniffMetadataCollector' => __DIR__ . '/../..' . '/src/Application/SniffMetadataCollector.php',
         'Symplify\\EasyCodingStandard\\Application\\Version\\VersionResolver' => __DIR__ . '/../..' . '/src/Application/Version/VersionResolver.php',
         'Symplify\\EasyCodingStandard\\Bootstrap\\ConfigHasher' => __DIR__ . '/../..' . '/src/Bootstrap/ConfigHasher.php',
         'Symplify\\EasyCodingStandard\\Bundle\\EasyCodingStandardBundle' => __DIR__ . '/../..' . '/src/Bundle/EasyCodingStandardBundle.php',
@@ -1856,11 +1855,7 @@ class ComposerStaticInita42ab72f32cffd93a824f638d7805519
         'Symplify\\EasyCodingStandard\\Caching\\ValueObject\\CacheFilePaths' => __DIR__ . '/../..' . '/packages/Caching/ValueObject/CacheFilePaths.php',
         'Symplify\\EasyCodingStandard\\Caching\\ValueObject\\CacheItem' => __DIR__ . '/../..' . '/packages/Caching/ValueObject/CacheItem.php',
         'Symplify\\EasyCodingStandard\\Caching\\ValueObject\\Storage\\FileCacheStorage' => __DIR__ . '/../..' . '/packages/Caching/ValueObject/Storage/FileCacheStorage.php',
-        'Symplify\\EasyCodingStandard\\Configuration\\Configuration' => __DIR__ . '/../..' . '/src/Configuration/Configuration.php',
-        'Symplify\\EasyCodingStandard\\Configuration\\Exception\\ConflictingCheckersLoadedException' => __DIR__ . '/../..' . '/src/Configuration/Exception/ConflictingCheckersLoadedException.php',
-        'Symplify\\EasyCodingStandard\\Configuration\\Exception\\NoDirectoryException' => __DIR__ . '/../..' . '/src/Configuration/Exception/NoDirectoryException.php',
-        'Symplify\\EasyCodingStandard\\Configuration\\Exception\\NoMarkdownFileException' => __DIR__ . '/../..' . '/src/Configuration/Exception/NoMarkdownFileException.php',
-        'Symplify\\EasyCodingStandard\\Configuration\\Exception\\OutputFormatterNotFoundException' => __DIR__ . '/../..' . '/src/Configuration/Exception/OutputFormatterNotFoundException.php',
+        'Symplify\\EasyCodingStandard\\Configuration\\ConfigurationFactory' => __DIR__ . '/../..' . '/src/Configuration/ConfigurationFactory.php',
         'Symplify\\EasyCodingStandard\\Console\\Command\\AbstractCheckCommand' => __DIR__ . '/../..' . '/src/Console/Command/AbstractCheckCommand.php',
         'Symplify\\EasyCodingStandard\\Console\\Command\\CheckCommand' => __DIR__ . '/../..' . '/src/Console/Command/CheckCommand.php',
         'Symplify\\EasyCodingStandard\\Console\\Command\\InitCommand' => __DIR__ . '/../..' . '/src/Console/Command/InitCommand.php',
@@ -1884,7 +1879,9 @@ class ComposerStaticInita42ab72f32cffd93a824f638d7805519
         'Symplify\\EasyCodingStandard\\DependencyInjection\\Extension\\EasyCodingStandardExtension' => __DIR__ . '/../..' . '/src/DependencyInjection/Extension/EasyCodingStandardExtension.php',
         'Symplify\\EasyCodingStandard\\Error\\FileDiffFactory' => __DIR__ . '/../..' . '/src/Error/FileDiffFactory.php',
         'Symplify\\EasyCodingStandard\\Exception\\Application\\MissingCheckersForChangedFileException' => __DIR__ . '/../..' . '/src/Exception/Application/MissingCheckersForChangedFileException.php',
+        'Symplify\\EasyCodingStandard\\Exception\\Configuration\\ConflictingCheckersLoadedException' => __DIR__ . '/../..' . '/src/Exception/Configuration/ConflictingCheckersLoadedException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\FileNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/FileNotFoundException.php',
+        'Symplify\\EasyCodingStandard\\Exception\\Configuration\\OutputFormatterNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/OutputFormatterNotFoundException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\SourceNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/SourceNotFoundException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\WhitespaceConfigurationException' => __DIR__ . '/../..' . '/src/Exception/Configuration/WhitespaceConfigurationException.php',
         'Symplify\\EasyCodingStandard\\Exception\\NotSniffNorFixerException' => __DIR__ . '/../..' . '/src/Exception/NotSniffNorFixerException.php',
@@ -1912,11 +1909,13 @@ class ComposerStaticInita42ab72f32cffd93a824f638d7805519
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\StreamBuffer' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/StreamBuffer.php',
         'Symplify\\EasyCodingStandard\\Reporter\\ProcessedFileReporter' => __DIR__ . '/../..' . '/src/Reporter/ProcessedFileReporter.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Application\\SniffFileProcessor' => __DIR__ . '/../..' . '/packages/SniffRunner/Application/SniffFileProcessor.php',
+        'Symplify\\EasyCodingStandard\\SniffRunner\\DataCollector\\SniffMetadataCollector' => __DIR__ . '/../..' . '/packages/SniffRunner/DataCollector/SniffMetadataCollector.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Exception\\ClassNotFoundException' => __DIR__ . '/../..' . '/packages/SniffRunner/Exception/ClassNotFoundException.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Exception\\File\\FileNotFoundException' => __DIR__ . '/../..' . '/packages/SniffRunner/Exception/File/FileNotFoundException.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Exception\\File\\NotImplementedException' => __DIR__ . '/../..' . '/packages/SniffRunner/Exception/File/NotImplementedException.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\File\\FileFactory' => __DIR__ . '/../..' . '/packages/SniffRunner/File/FileFactory.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\PHP_CodeSniffer\\FixerFactory' => __DIR__ . '/../..' . '/packages/SniffRunner/PHP_CodeSniffer/FixerFactory.php',
+        'Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError' => __DIR__ . '/../..' . '/packages/SniffRunner/ValueObject/Error/CodingStandardError.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\File' => __DIR__ . '/../..' . '/packages/SniffRunner/ValueObject/File.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Application\\SnippetFormatterApplication' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Application/SnippetFormatterApplication.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Command\\CheckHeredocNowdocCommand' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Command/CheckHeredocNowdocCommand.php',
@@ -1924,11 +1923,12 @@ class ComposerStaticInita42ab72f32cffd93a824f638d7805519
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Formatter\\SnippetFormatter' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Formatter/SnippetFormatter.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Provider\\CurrentParentFileInfoProvider' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Provider/CurrentParentFileInfoProvider.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Reporter\\SnippetReporter' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Reporter/SnippetReporter.php',
+        'Symplify\\EasyCodingStandard\\SnippetFormatter\\ValueObject\\SnippetKind' => __DIR__ . '/../..' . '/packages/SnippetFormatter/ValueObject/SnippetKind.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\ValueObject\\SnippetPattern' => __DIR__ . '/../..' . '/packages/SnippetFormatter/ValueObject/SnippetPattern.php',
         'Symplify\\EasyCodingStandard\\Testing\\Contract\\ConfigAwareInterface' => __DIR__ . '/../..' . '/src/Testing/Contract/ConfigAwareInterface.php',
         'Symplify\\EasyCodingStandard\\Testing\\Exception\\ShouldNotHappenException' => __DIR__ . '/../..' . '/src/Testing/Exception/ShouldNotHappenException.php',
         'Symplify\\EasyCodingStandard\\Testing\\PHPUnit\\AbstractCheckerTestCase' => __DIR__ . '/../..' . '/src/Testing/PHPUnit/AbstractCheckerTestCase.php',
-        'Symplify\\EasyCodingStandard\\ValueObject\\Error\\CodingStandardError' => __DIR__ . '/../..' . '/src/ValueObject/Error/CodingStandardError.php',
+        'Symplify\\EasyCodingStandard\\ValueObject\\Configuration' => __DIR__ . '/../..' . '/src/ValueObject/Configuration.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\ErrorAndDiffResult' => __DIR__ . '/../..' . '/src/ValueObject/Error/ErrorAndDiffResult.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff' => __DIR__ . '/../..' . '/src/ValueObject/Error/FileDiff.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\SystemError' => __DIR__ . '/../..' . '/src/ValueObject/Error/SystemError.php',
@@ -1941,9 +1941,9 @@ class ComposerStaticInita42ab72f32cffd93a824f638d7805519
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita42ab72f32cffd93a824f638d7805519::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita42ab72f32cffd93a824f638d7805519::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita42ab72f32cffd93a824f638d7805519::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcdbe4e79f791cbf6b30d63497f743cb3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcdbe4e79f791cbf6b30d63497f743cb3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcdbe4e79f791cbf6b30d63497f743cb3::$classMap;
 
         }, null, ClassLoader::class);
     }

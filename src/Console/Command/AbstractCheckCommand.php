@@ -7,7 +7,7 @@ use ECSPrefix20210619\Symfony\Component\Console\Input\InputArgument;
 use ECSPrefix20210619\Symfony\Component\Console\Input\InputOption;
 use ECSPrefix20210619\Symfony\Contracts\Service\Attribute\Required;
 use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
-use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
@@ -15,10 +15,6 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20210619\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 abstract class AbstractCheckCommand extends \ECSPrefix20210619\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
-    /**
-     * @var \Symplify\EasyCodingStandard\Configuration\Configuration
-     */
-    protected $configuration;
     /**
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
@@ -32,12 +28,16 @@ abstract class AbstractCheckCommand extends \ECSPrefix20210619\Symplify\PackageB
      */
     protected $loadedCheckersGuard;
     /**
+     * @var \Symplify\EasyCodingStandard\Configuration\ConfigurationFactory
+     */
+    protected $configurationFactory;
+    /**
      * @return void
      */
     #[Required]
-    public function autowireAbstractCheckCommand(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication $easyCodingStandardApplication, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard $loadedCheckersGuard)
+    public function autowireAbstractCheckCommand(\Symplify\EasyCodingStandard\Configuration\ConfigurationFactory $configurationFactory, \Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication $easyCodingStandardApplication, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard $loadedCheckersGuard)
     {
-        $this->configuration = $configuration;
+        $this->configurationFactory = $configurationFactory;
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->loadedCheckersGuard = $loadedCheckersGuard;

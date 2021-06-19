@@ -5,11 +5,11 @@ namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
-use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix20210619\Symplify\EasyTesting\StaticFixtureSplitter;
 use ECSPrefix20210619\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use ECSPrefix20210619\Symplify\SmartFileSystem\FileSystemGuard;
@@ -73,11 +73,10 @@ abstract class AbstractCheckerTestCase extends \ECSPrefix20210619\Symplify\Packa
     protected function doTestFileInfoWithErrorCountOf(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $wrongFileInfo, int $expectedErrorCount)
     {
         $this->ensureSomeCheckersAreRegistered();
-        $errorsAndFileDiffs = $this->sniffFileProcessor->processFile($wrongFileInfo);
-        $errors = \array_filter($errorsAndFileDiffs, function (object $object) {
-            return $object instanceof \Symplify\EasyCodingStandard\ValueObject\Error\SystemError || $object instanceof \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
-        });
-        $message = \sprintf('There should be %d error(s) in "%s" file, but none found.', $expectedErrorCount, $wrongFileInfo->getRealPath());
+        $configuration = new \Symplify\EasyCodingStandard\ValueObject\Configuration();
+        $errorsAndFileDiffs = $this->sniffFileProcessor->processFile($wrongFileInfo, $configuration);
+        $errors = $errorsAndFileDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::CODING_STANDARD_ERRORS] ?? [];
+        $message = \sprintf('There should be %d errors in "%s" file, but none found.', $expectedErrorCount, $wrongFileInfo->getRealPath());
         $errorCount = \count($errors);
         $this->assertSame($expectedErrorCount, $errorCount, $message);
     }

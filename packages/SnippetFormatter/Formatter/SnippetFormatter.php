@@ -7,6 +7,8 @@ use ECSPrefix20210619\Nette\Utils\Strings;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
@@ -66,25 +68,25 @@ final class SnippetFormatter
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
     }
-    public function format(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $snippetRegex, string $kind) : string
+    public function format(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $snippetRegex, string $kind, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : string
     {
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
-        return \ECSPrefix20210619\Nette\Utils\Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use($kind) : string {
+        return \ECSPrefix20210619\Nette\Utils\Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use($kind, $configuration) : string {
             if (\strpos($match[self::CONTENT], '-----') !== \false) {
                 // do nothing
                 return $match[self::OPENING] . $match[self::CONTENT] . $match[self::CLOSING];
             }
-            return $this->fixContentAndPreserveFormatting($match, $kind);
+            return $this->fixContentAndPreserveFormatting($match, $kind, $configuration);
         });
     }
     /**
      * @param string[] $match
      */
-    private function fixContentAndPreserveFormatting(array $match, string $kind) : string
+    private function fixContentAndPreserveFormatting(array $match, string $kind, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : string
     {
-        return \str_replace(\PHP_EOL, '', $match[self::OPENING]) . \PHP_EOL . $this->fixContent($match[self::CONTENT], $kind) . \str_replace(\PHP_EOL, '', $match[self::CLOSING]);
+        return \str_replace(\PHP_EOL, '', $match[self::OPENING]) . \PHP_EOL . $this->fixContent($match[self::CONTENT], $kind, $configuration) . \str_replace(\PHP_EOL, '', $match[self::CLOSING]);
     }
-    private function fixContent(string $content, string $kind) : string
+    private function fixContent(string $content, string $kind, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : string
     {
         $temporaryFilePath = $this->createTemporaryFilePath($content);
         if (\strncmp(\trim($content), '<?php', \strlen('<?php')) !== 0) {
@@ -94,8 +96,8 @@ final class SnippetFormatter
         $this->smartFileSystem->dumpFile($temporaryFilePath, $fileContent);
         $temporaryFileInfo = new \ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo($temporaryFilePath);
         try {
-            $this->fixerFileProcessor->processFile($temporaryFileInfo);
-            $this->sniffFileProcessor->processFile($temporaryFileInfo);
+            $this->fixerFileProcessor->processFile($temporaryFileInfo, $configuration);
+            $this->sniffFileProcessor->processFile($temporaryFileInfo, $configuration);
             $fileContent = $temporaryFileInfo->getContents();
         } catch (\Throwable $exception) {
             // Skipped parsed error when processing php temporaryFile
@@ -104,7 +106,7 @@ final class SnippetFormatter
             $this->smartFileSystem->remove($temporaryFilePath);
         }
         $fileContent = \rtrim($fileContent, \PHP_EOL) . \PHP_EOL;
-        if ($kind === 'markdown') {
+        if ($kind === \Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind::MARKDOWN) {
             $fileContent = \ltrim($fileContent, \PHP_EOL);
             $fileContent = $this->removeOpeningTagAndStrictTypes($fileContent);
             return \ltrim($fileContent);

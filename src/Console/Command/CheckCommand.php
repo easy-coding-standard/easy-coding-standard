@@ -32,12 +32,8 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
             $this->loadedCheckersGuard->report();
             return \ECSPrefix20210619\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }
-        $this->configuration->resolveFromInput($input);
-        // CLI paths override parameter paths
-        if ($this->configuration->getSources() === []) {
-            $this->configuration->setSources($this->configuration->getPaths());
-        }
-        $errorsAndDiffs = $this->easyCodingStandardApplication->run();
-        return $this->processedFileReporter->report($errorsAndDiffs);
+        $configuration = $this->configurationFactory->createFromInput($input);
+        $errorsAndDiffs = $this->easyCodingStandardApplication->run($configuration);
+        return $this->processedFileReporter->report($errorsAndDiffs, $configuration);
     }
 }

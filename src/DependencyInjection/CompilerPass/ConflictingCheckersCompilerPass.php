@@ -13,7 +13,7 @@ use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use ECSPrefix20210619\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20210619\Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException;
+use Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException;
 final class ConflictingCheckersCompilerPass implements \ECSPrefix20210619\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
@@ -35,7 +35,7 @@ final class ConflictingCheckersCompilerPass implements \ECSPrefix20210619\Symfon
             if (!$this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
                 continue;
             }
-            throw new \Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException(\sprintf('Checkers "%s" mutually exclude each other. Use only one or exclude ' . 'the unwanted one in "parameters > skip" in your config.', \implode('" and "', $viceVersaMatchingCheckerGroup)));
+            throw new \Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException(\sprintf('Checkers "%s" mutually exclude each other. Use only one or exclude ' . 'the unwanted one in "parameters > skip" in your config.', \implode('" and "', $viceVersaMatchingCheckerGroup)));
         }
     }
     /**

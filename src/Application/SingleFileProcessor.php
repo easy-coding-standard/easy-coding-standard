@@ -4,7 +4,8 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20210619\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo;
@@ -29,9 +30,9 @@ final class SingleFileProcessor
         $this->fileProcessorCollector = $fileProcessorCollector;
     }
     /**
-     * @return array<FileDiff|CodingStandardError>
+     * @return array<string, array<FileDiff|CodingStandardError>>
      */
-    public function processFileInfo(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function processFileInfo(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
     {
         if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
             return [];
@@ -43,7 +44,7 @@ final class SingleFileProcessor
             if ($fileProcessor->getCheckers() === []) {
                 continue;
             }
-            $currentErrorsAndFileDiffs = $fileProcessor->processFile($smartFileInfo);
+            $currentErrorsAndFileDiffs = $fileProcessor->processFile($smartFileInfo, $configuration);
             if ($currentErrorsAndFileDiffs === []) {
                 continue;
             }

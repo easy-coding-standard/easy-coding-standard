@@ -7,14 +7,14 @@ use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
-use Symplify\EasyCodingStandard\Application\SniffMetadataCollector;
-use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver;
+use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
-use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileSystem;
@@ -40,15 +40,11 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      */
     private $fileFactory;
     /**
-     * @var \Symplify\EasyCodingStandard\Configuration\Configuration
-     */
-    private $configuration;
-    /**
      * @var \PhpCsFixer\Differ\DifferInterface
      */
     private $differ;
     /**
-     * @var \Symplify\EasyCodingStandard\Application\SniffMetadataCollector
+     * @var \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector
      */
     private $sniffMetadataCollector;
     /**
@@ -66,11 +62,10 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     /**
      * @param Sniff[] $sniffs
      */
-    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory $fileFactory, \Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\Application\SniffMetadataCollector $sniffMetadataCollector, \ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver $targetFileInfoResolver, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $sniffs = [])
+    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory $fileFactory, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver $targetFileInfoResolver, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $sniffs = [])
     {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
-        $this->configuration = $configuration;
         $this->differ = $differ;
         $this->sniffMetadataCollector = $sniffMetadataCollector;
         $this->smartFileSystem = $smartFileSystem;
@@ -100,9 +95,9 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         return $this->sniffs;
     }
     /**
-     * @return array<string, FileDiff|CodingStandardError>
+     * @return array<string, array<FileDiff|CodingStandardError>>
      */
-    public function processFile(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function processFile(\ECSPrefix20210619\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
     {
         $this->sniffMetadataCollector->reset();
         $errorsAndDiffs = [];
@@ -120,7 +115,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
             $fileDiff = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($smartFileInfo, $diff, $appliedCheckers);
             $errorsAndDiffs['file_diffs'][] = $fileDiff;
         }
-        if ($this->configuration->isFixer()) {
+        if ($configuration->isFixer()) {
             $this->smartFileSystem->dumpFile($file->getFilename(), $this->fixer->getContents());
         }
         return $errorsAndDiffs;

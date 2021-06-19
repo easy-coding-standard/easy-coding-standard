@@ -34,9 +34,8 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
             $this->loadedCheckersGuard->report();
             return \ECSPrefix20210619\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }
-        $this->configuration->resolveFromInput($input);
-        $sources = $this->configuration->getSources();
-        $phpFileInfos = $this->smartFinder->find($sources, '*.php', ['Fixture']);
-        return $this->snippetFormatterApplication->processFileInfosWithSnippetPattern($this->configuration, $phpFileInfos, \Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern::HERENOWDOC_SNIPPET_REGEX, 'heredocnowdox');
+        $configuration = $this->configurationFactory->createFromInput($input);
+        $phpFileInfos = $this->smartFinder->find($configuration->getSources(), '*.php', ['Fixture']);
+        return $this->snippetFormatterApplication->processFileInfosWithSnippetPattern($configuration, $phpFileInfos, \Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern::HERENOWDOC_SNIPPET_REGEX, 'heredocnowdox');
     }
 }

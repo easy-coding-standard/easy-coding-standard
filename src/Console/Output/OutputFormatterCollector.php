@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use Symplify\EasyCodingStandard\Configuration\Exception\OutputFormatterNotFoundException;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use Symplify\EasyCodingStandard\Exception\Configuration\OutputFormatterNotFoundException;
 final class OutputFormatterCollector
 {
     /**
@@ -27,6 +27,6 @@ final class OutputFormatterCollector
         }
         $outputFormatterKeys = \array_keys($this->outputFormatters);
         $errorMessage = \sprintf('Output formatter "%s" not found. Use one of: "%s".', $name, \implode('", "', $outputFormatterKeys));
-        throw new \Symplify\EasyCodingStandard\Configuration\Exception\OutputFormatterNotFoundException($errorMessage);
+        throw new \Symplify\EasyCodingStandard\Exception\Configuration\OutputFormatterNotFoundException($errorMessage);
     }
 }
