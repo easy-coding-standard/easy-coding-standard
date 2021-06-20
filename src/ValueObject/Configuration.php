@@ -35,9 +35,18 @@ final class Configuration
      */
     private $doesMatchGitDiff = \false;
     /**
-     * @param string[] $sources
+     * @var bool
      */
-    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $doesMatchGitDiff = \false)
+    private $isParallel = \false;
+    /**
+     * @var string|null
+     */
+    private $config;
+    /**
+     * @param string[] $sources
+     * @param string|null $config
+     */
+    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $doesMatchGitDiff = \false, bool $isParallel = \false, $config = null)
     {
         $this->isFixer = $isFixer;
         $this->shouldClearCache = $shouldClearCache;
@@ -46,6 +55,8 @@ final class Configuration
         $this->sources = $sources;
         $this->outputFormat = $outputFormat;
         $this->doesMatchGitDiff = $doesMatchGitDiff;
+        $this->isParallel = $isParallel;
+        $this->config = $config;
     }
     public function isFixer() : bool
     {
@@ -77,5 +88,16 @@ final class Configuration
     public function doesMatchGitDiff() : bool
     {
         return $this->doesMatchGitDiff;
+    }
+    public function isParallel() : bool
+    {
+        return $this->isParallel;
+    }
+    /**
+     * @return string|null
+     */
+    public function getConfig()
+    {
+        return $this->config;
     }
 }

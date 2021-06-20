@@ -17,4 +17,8 @@ final class Bridge
      * @var string
      */
     const SYSTEM_ERRORS = 'system_errors';
+    /**
+     * @var string
+     */
+    const SYSTEM_ERRORS_COUNT = 'system_errors_count';
 }

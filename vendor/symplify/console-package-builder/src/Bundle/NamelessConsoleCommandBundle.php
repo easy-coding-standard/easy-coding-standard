@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210619\Symplify\ConsolePackageBuilder\Bundle;
+namespace ECSPrefix20210620\Symplify\ConsolePackageBuilder\Bundle;
 
-use ECSPrefix20210619\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210619\Symfony\Component\HttpKernel\Bundle\Bundle;
-use ECSPrefix20210619\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass;
-final class NamelessConsoleCommandBundle extends \ECSPrefix20210619\Symfony\Component\HttpKernel\Bundle\Bundle
+use ECSPrefix20210620\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210620\Symfony\Component\HttpKernel\Bundle\Bundle;
+use ECSPrefix20210620\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass;
+final class NamelessConsoleCommandBundle extends \ECSPrefix20210620\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
      * @return void
      */
-    public function build(\ECSPrefix20210619\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function build(\ECSPrefix20210620\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $containerBuilder->addCompilerPass(new \ECSPrefix20210619\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass());
+        $containerBuilder->addCompilerPass(new \ECSPrefix20210620\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass());
     }
 }

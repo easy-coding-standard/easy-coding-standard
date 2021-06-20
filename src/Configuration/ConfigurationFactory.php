@@ -3,37 +3,42 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use ECSPrefix20210619\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210620\Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20210619\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210620\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class ConfigurationFactory
 {
     /**
      * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\ECSPrefix20210619\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\ECSPrefix20210620\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      */
-    public function createFromInput(\ECSPrefix20210619\Symfony\Component\Console\Input\InputInterface $input) : \Symplify\EasyCodingStandard\ValueObject\Configuration
+    public function createFromInput(\ECSPrefix20210620\Symfony\Component\Console\Input\InputInterface $input) : \Symplify\EasyCodingStandard\ValueObject\Configuration
     {
-        $sources = $this->resolvePaths($input);
+        $paths = $this->resolvePaths($input);
         $isFixer = (bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::FIX);
         $shouldClearCache = (bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::CLEAR_CACHE);
         $showProgressBar = $this->canShowProgressBar($input);
         $showErrorTable = !(bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_ERROR_TABLE);
         $doesMatchGitDiff = (bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::MATCH_GIT_DIFF);
         $outputFormat = (string) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT);
-        return new \Symplify\EasyCodingStandard\ValueObject\Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $sources, $outputFormat, $doesMatchGitDiff);
+        $isParallel = $this->parameterProvider->provideBoolParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL);
+        $config = $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::CONFIG);
+        if ($config !== null) {
+            $config = (string) $config;
+        }
+        return new \Symplify\EasyCodingStandard\ValueObject\Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $doesMatchGitDiff, $isParallel, $config);
     }
-    private function canShowProgressBar(\ECSPrefix20210619\Symfony\Component\Console\Input\InputInterface $input) : bool
+    private function canShowProgressBar(\ECSPrefix20210620\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         $notJsonOutput = $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT) !== \Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter::NAME;
         if (!$notJsonOutput) {
@@ -42,43 +47,41 @@ final class ConfigurationFactory
         return !(bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_PROGRESS_BAR);
     }
     /**
-     * @param string[] $sources
+     * @param string[] $paths
      * @return void
      */
-    private function ensureSourcesExists(array $sources)
+    private function ensurePathsExists(array $paths)
     {
-        foreach ($sources as $source) {
-            if (\file_exists($source)) {
+        foreach ($paths as $path) {
+            if (\file_exists($path)) {
                 continue;
             }
-            throw new \Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException(\sprintf('Source "%s" does not exist.', $source));
+            throw new \Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException(\sprintf('Source "%s" does not exist.', $path));
         }
     }
     /**
      * @return string[]
      */
-    private function resolvePaths(\ECSPrefix20210619\Symfony\Component\Console\Input\InputInterface $input) : array
+    private function resolvePaths(\ECSPrefix20210620\Symfony\Component\Console\Input\InputInterface $input) : array
     {
         /** @var string[] $paths */
         $paths = (array) $input->getArgument(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS);
-        if ($paths !== []) {
-            $sources = $paths;
-        } else {
+        if ($paths === []) {
             // if not paths are provided from CLI, use the config ones
-            $sources = $this->parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS);
+            $paths = $this->parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS);
         }
-        $this->ensureSourcesExists($sources);
-        return $this->normalizeSources($sources);
+        $this->ensurePathsExists($paths);
+        return $this->normalizePaths($paths);
     }
     /**
-     * @param string[] $sources
+     * @param string[] $paths
      * @return string[]
      */
-    private function normalizeSources(array $sources) : array
+    private function normalizePaths(array $paths) : array
     {
-        foreach ($sources as $key => $value) {
-            $sources[$key] = \rtrim($value, \DIRECTORY_SEPARATOR);
+        foreach ($paths as $key => $path) {
+            $paths[$key] = \rtrim($path, \DIRECTORY_SEPARATOR);
         }
-        return $sources;
+        return $paths;
     }
 }

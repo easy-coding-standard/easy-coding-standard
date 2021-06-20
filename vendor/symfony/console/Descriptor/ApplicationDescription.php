@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210619\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix20210620\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20210619\Symfony\Component\Console\Application;
-use ECSPrefix20210619\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210619\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix20210620\Symfony\Component\Console\Application;
+use ECSPrefix20210620\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210620\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  *
@@ -36,7 +36,7 @@ class ApplicationDescription
      * @var Command[]
      */
     private $aliases;
-    public function __construct(\ECSPrefix20210619\Symfony\Component\Console\Application $application, string $namespace = null, bool $showHidden = \false)
+    public function __construct(\ECSPrefix20210620\Symfony\Component\Console\Application $application, string $namespace = null, bool $showHidden = \false)
     {
         $this->application = $application;
         $this->namespace = $namespace;
@@ -62,10 +62,10 @@ class ApplicationDescription
     /**
      * @throws CommandNotFoundException
      */
-    public function getCommand(string $name) : \ECSPrefix20210619\Symfony\Component\Console\Command\Command
+    public function getCommand(string $name) : \ECSPrefix20210620\Symfony\Component\Console\Command\Command
     {
         if (!isset($this->commands[$name]) && !isset($this->aliases[$name])) {
-            throw new \ECSPrefix20210619\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
+            throw new \ECSPrefix20210620\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
         return $this->commands[$name] ?? $this->aliases[$name];
     }

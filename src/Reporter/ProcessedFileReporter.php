@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Reporter;
 
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
@@ -27,11 +28,11 @@ final class ProcessedFileReporter
         $outputFormat = $configuration->getOutputFormat();
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
         /** @var SystemError[] $systemErrors */
-        $systemErrors = $errorsAndDiffs['system_errors'] ?? [];
+        $systemErrors = $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS] ?? [];
         /** @var FileDiff[] $fileDiffs */
-        $fileDiffs = $errorsAndDiffs['file_diffs'] ?? [];
+        $fileDiffs = $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS] ?? [];
         /** @var CodingStandardError[] $codingStandardErrors */
-        $codingStandardErrors = $errorsAndDiffs['coding_standard_errors'] ?? [];
+        $codingStandardErrors = $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::CODING_STANDARD_ERRORS] ?? [];
         $errorAndDiffResult = new \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult($codingStandardErrors, $fileDiffs, $systemErrors);
         return $outputFormatter->report($errorAndDiffResult, $configuration);
     }

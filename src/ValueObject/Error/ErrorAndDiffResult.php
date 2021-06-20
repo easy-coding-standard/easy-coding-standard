@@ -15,13 +15,13 @@ final class ErrorAndDiffResult
      */
     private $fileDiffs = [];
     /**
-     * @var SystemError[]
+     * @var array<SystemError|string>
      */
     private $systemErrors = [];
     /**
      * @param CodingStandardError[] $codingStandardErrors
      * @param FileDiff[] $fileDiffs
-     * @param SystemError[] $systemErrors
+     * @param array<SystemError|string> $systemErrors
      */
     public function __construct(array $codingStandardErrors = [], array $fileDiffs = [], array $systemErrors = [])
     {
@@ -31,7 +31,11 @@ final class ErrorAndDiffResult
     }
     public function getErrorCount() : int
     {
-        return \count($this->codingStandardErrors) + \count($this->systemErrors);
+        return $this->getCodingStandardErrorCount() + \count($this->systemErrors);
+    }
+    public function getCodingStandardErrorCount() : int
+    {
+        return \count($this->codingStandardErrors);
     }
     public function getFileDiffsCount() : int
     {
@@ -45,7 +49,7 @@ final class ErrorAndDiffResult
         return $this->codingStandardErrors;
     }
     /**
-     * @return SystemError[]
+     * @return array<SystemError|string>
      */
     public function getSystemErrors() : array
     {
