@@ -1509,7 +1509,6 @@ return array(
     'Symplify\\CodingStandard\\Exception\\EdgeFindingException' => $vendorDir . '/symplify/coding-standard/src/Exception/EdgeFindingException.php',
     'Symplify\\CodingStandard\\Exception\\NotImplementedYetException' => $vendorDir . '/symplify/coding-standard/src/Exception/NotImplementedYetException.php',
     'Symplify\\CodingStandard\\Fixer\\AbstractSymplifyFixer' => $vendorDir . '/symplify/coding-standard/src/Fixer/AbstractSymplifyFixer.php',
-    'Symplify\\CodingStandard\\Fixer\\Annotation\\DoctrineAnnotationNewlineInNestedAnnotationFixer' => $vendorDir . '/symplify/coding-standard/src/Fixer/Annotation/DoctrineAnnotationNewlineInNestedAnnotationFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Annotation\\RemovePHPStormAnnotationFixer' => $vendorDir . '/symplify/coding-standard/src/Fixer/Annotation/RemovePHPStormAnnotationFixer.php',
     'Symplify\\CodingStandard\\Fixer\\ArrayNotation\\ArrayListItemNewlineFixer' => $vendorDir . '/symplify/coding-standard/src/Fixer/ArrayNotation/ArrayListItemNewlineFixer.php',
     'Symplify\\CodingStandard\\Fixer\\ArrayNotation\\ArrayOpenerAndCloserNewlineFixer' => $vendorDir . '/symplify/coding-standard/src/Fixer/ArrayNotation/ArrayOpenerAndCloserNewlineFixer.php',

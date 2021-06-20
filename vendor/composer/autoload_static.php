@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInited405fcc86226dbf4a3515826f989c6d
+class ComposerStaticInit388b41c7ec5f79350d63077d3279e210
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1776,7 +1776,6 @@ class ComposerStaticInited405fcc86226dbf4a3515826f989c6d
         'Symplify\\CodingStandard\\Exception\\EdgeFindingException' => __DIR__ . '/..' . '/symplify/coding-standard/src/Exception/EdgeFindingException.php',
         'Symplify\\CodingStandard\\Exception\\NotImplementedYetException' => __DIR__ . '/..' . '/symplify/coding-standard/src/Exception/NotImplementedYetException.php',
         'Symplify\\CodingStandard\\Fixer\\AbstractSymplifyFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/AbstractSymplifyFixer.php',
-        'Symplify\\CodingStandard\\Fixer\\Annotation\\DoctrineAnnotationNewlineInNestedAnnotationFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Annotation/DoctrineAnnotationNewlineInNestedAnnotationFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Annotation\\RemovePHPStormAnnotationFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Annotation/RemovePHPStormAnnotationFixer.php',
         'Symplify\\CodingStandard\\Fixer\\ArrayNotation\\ArrayListItemNewlineFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/ArrayNotation/ArrayListItemNewlineFixer.php',
         'Symplify\\CodingStandard\\Fixer\\ArrayNotation\\ArrayOpenerAndCloserNewlineFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/ArrayNotation/ArrayOpenerAndCloserNewlineFixer.php',
@@ -1944,9 +1943,9 @@ class ComposerStaticInited405fcc86226dbf4a3515826f989c6d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInited405fcc86226dbf4a3515826f989c6d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInited405fcc86226dbf4a3515826f989c6d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInited405fcc86226dbf4a3515826f989c6d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit388b41c7ec5f79350d63077d3279e210::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit388b41c7ec5f79350d63077d3279e210::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit388b41c7ec5f79350d63077d3279e210::$classMap;
 
         }, null, ClassLoader::class);
     }
