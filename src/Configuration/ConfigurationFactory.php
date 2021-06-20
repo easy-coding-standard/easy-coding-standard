@@ -40,6 +40,11 @@ final class ConfigurationFactory
     }
     private function canShowProgressBar(\ECSPrefix20210620\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
+        // --debug option shows more
+        $debug = (bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::DEBUG);
+        if ($debug) {
+            return \false;
+        }
         $notJsonOutput = $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT) !== \Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter::NAME;
         if (!$notJsonOutput) {
             return \false;

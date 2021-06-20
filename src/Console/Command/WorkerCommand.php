@@ -15,6 +15,7 @@ use Symplify\EasyCodingStandard\Parallel\ValueObject\Action;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent;
+use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use ECSPrefix20210620\Symplify\PackageBuilder\Console\ShellCode;
 use ECSPrefix20210620\Symplify\SmartFileSystem\SmartFileInfo;
@@ -63,6 +64,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
                 $errorAndFileDiffs = [];
                 $systemErrors = [];
                 foreach ($filePaths as $filePath) {
+                    throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException($filePath);
                     try {
                         $smartFileInfo = new \ECSPrefix20210620\Symplify\SmartFileSystem\SmartFileInfo($filePath);
                         $currentErrorsAndFileDiffs = $this->singleFileProcessor->processFileInfo($smartFileInfo, $configuration);
