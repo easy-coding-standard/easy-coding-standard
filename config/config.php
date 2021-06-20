@@ -16,6 +16,8 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::CACHE_NAMESPACE, $cacheNamespace);
     // parallel
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL, \false);
+    // how many files are processed in single process
+    $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_JOB_SIZE, 60);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::SYSTEM_ERROR_COUNT_LIMIT, 50);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, []);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS, ['php']);

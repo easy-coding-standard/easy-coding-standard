@@ -20,11 +20,6 @@ final class LoadedCheckersGuard
         $this->fileProcessorCollector = $fileProcessorCollector;
         $this->symfonyStyle = $symfonyStyle;
     }
-    public function areSomeCheckerRegistered() : bool
-    {
-        $checkerCount = $this->getCheckerCount();
-        return $checkerCount !== 0;
-    }
     /**
      * @return void
      */
@@ -44,13 +39,14 @@ final class LoadedCheckersGuard
         $this->symfonyStyle->writeln('  vendor/bin/ecs init');
         $this->symfonyStyle->newLine();
     }
-    private function getCheckerCount() : int
+    public function areSomeCheckersRegistered() : bool
     {
-        $checkerCount = 0;
         $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
         foreach ($fileProcessors as $fileProcessor) {
-            $checkerCount += \count($fileProcessor->getCheckers());
+            if ($fileProcessor->getCheckers()) {
+                return \true;
+            }
         }
-        return $checkerCount;
+        return \false;
     }
 }

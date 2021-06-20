@@ -3,17 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\ValueObject;
 
-/**
- * @enum
- */
-final class Action
+final class ReactCommand
 {
     /**
      * @var string
      */
-    const QUIT = 'quit';
-    /**
-     * @var string
-     */
-    const CHECK = 'check';
+    const ACTION = 'action';
 }

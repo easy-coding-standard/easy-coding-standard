@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit388b41c7ec5f79350d63077d3279e210
+class ComposerStaticInit9f56784c9c76d985037cce1b3066ef9a
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1902,10 +1902,10 @@ class ComposerStaticInit388b41c7ec5f79350d63077d3279e210
         'Symplify\\EasyCodingStandard\\Parallel\\CpuCoreCountProvider' => __DIR__ . '/../..' . '/packages/Parallel/CpuCoreCountProvider.php',
         'Symplify\\EasyCodingStandard\\Parallel\\FileSystem\\FilePathNormalizer' => __DIR__ . '/../..' . '/packages/Parallel/FileSystem/FilePathNormalizer.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ScheduleFactory' => __DIR__ . '/../..' . '/packages/Parallel/ScheduleFactory.php',
-        'Symplify\\EasyCodingStandard\\Parallel\\Scheduler' => __DIR__ . '/../..' . '/packages/Parallel/Scheduler.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Action' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Action.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Bridge' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Bridge.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Name' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Name.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ReactCommand' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/ReactCommand.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ReactEvent' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/ReactEvent.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Schedule' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Schedule.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\StreamBuffer' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/StreamBuffer.php',
@@ -1943,9 +1943,9 @@ class ComposerStaticInit388b41c7ec5f79350d63077d3279e210
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit388b41c7ec5f79350d63077d3279e210::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit388b41c7ec5f79350d63077d3279e210::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit388b41c7ec5f79350d63077d3279e210::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9f56784c9c76d985037cce1b3066ef9a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9f56784c9c76d985037cce1b3066ef9a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9f56784c9c76d985037cce1b3066ef9a::$classMap;
 
         }, null, ClassLoader::class);
     }

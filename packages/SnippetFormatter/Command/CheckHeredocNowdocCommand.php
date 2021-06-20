@@ -30,7 +30,7 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
     }
     protected function execute(\ECSPrefix20210620\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210620\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
-        if (!$this->loadedCheckersGuard->areSomeCheckerRegistered()) {
+        if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             $this->loadedCheckersGuard->report();
             return \ECSPrefix20210620\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }

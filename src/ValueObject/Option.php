@@ -97,4 +97,8 @@ final class Option
      * @var string
      */
     const CONFIG = 'config';
+    /**
+     * @var string
+     */
+    const PARALLEL_JOB_SIZE = 'parallel_job_size';
 }
