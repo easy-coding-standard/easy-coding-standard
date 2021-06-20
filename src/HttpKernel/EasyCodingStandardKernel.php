@@ -17,11 +17,26 @@ use ECSPrefix20210620\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class EasyCodingStandardKernel extends \ECSPrefix20210620\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
+     * To enable Kernel cache that is changed only when new services are needed.
+     *
+     * @var string
+     */
+    const CONTAINER_VERSION = 'v1';
+    /**
      * @return mixed[]
      */
     public function registerBundles()
     {
         return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20210620\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20210620\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20210620\Symplify\Skipper\Bundle\SkipperBundle()];
+    }
+    /**
+     * @return void
+     */
+    protected function prepareContainer(\ECSPrefix20210620\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    {
+        // works better with workers - see https://github.com/symfony/symfony/pull/32581
+        $containerBuilder->setParameter('container.dumper.inline_factories', \true);
+        parent::prepareContainer($containerBuilder);
     }
     /**
      * @param ContainerInterface|ContainerBuilder $container

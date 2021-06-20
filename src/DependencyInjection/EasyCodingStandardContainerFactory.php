@@ -13,7 +13,7 @@ final class EasyCodingStandardContainerFactory
 {
     public function createFromFromInput(\ECSPrefix20210620\Symfony\Component\Console\Input\InputInterface $input) : \ECSPrefix20210620\Symfony\Component\DependencyInjection\ContainerInterface
     {
-        $environment = 'prod' . \random_int(1, 100000);
+        $environment = 'easy_coding_standard_version_' . \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel::CONTAINER_VERSION;
         $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \ECSPrefix20210620\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
         $inputConfigFileInfos = [];
         $rootECSConfig = \getcwd() . \DIRECTORY_SEPARATOR . '/ecs.php';
