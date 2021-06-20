@@ -64,7 +64,6 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
                 $errorAndFileDiffs = [];
                 $systemErrors = [];
                 foreach ($filePaths as $filePath) {
-                    throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException($filePath);
                     try {
                         $smartFileInfo = new \ECSPrefix20210620\Symplify\SmartFileSystem\SmartFileInfo($filePath);
                         $currentErrorsAndFileDiffs = $this->singleFileProcessor->processFileInfo($smartFileInfo, $configuration);
