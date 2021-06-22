@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210620\Symfony\Component\HttpKernel\ControllerMetadata;
+namespace ECSPrefix20210622\Symfony\Component\HttpKernel\ControllerMetadata;
 
-use ECSPrefix20210620\Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
+use ECSPrefix20210622\Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
 /**
  * Responsible for storing metadata of an argument.
  *
@@ -38,7 +38,7 @@ class ArgumentMetadata
         $this->hasDefaultValue = $hasDefaultValue;
         $this->defaultValue = $defaultValue;
         $this->isNullable = $isNullable || null === $type || $hasDefaultValue && null === $defaultValue;
-        if (null === $attributes || $attributes instanceof \ECSPrefix20210620\Symfony\Component\HttpKernel\Attribute\ArgumentInterface) {
+        if (null === $attributes || $attributes instanceof \ECSPrefix20210622\Symfony\Component\HttpKernel\Attribute\ArgumentInterface) {
             trigger_deprecation('symfony/http-kernel', '5.3', 'The "%s" constructor expects an array of PHP attributes as last argument, %s given.', __CLASS__, \get_debug_type($attributes));
             $attributes = $attributes ? [$attributes] : [];
         }
@@ -117,7 +117,7 @@ class ArgumentMetadata
         if (!$this->attributes) {
             return null;
         }
-        return $this->attributes[0] instanceof \ECSPrefix20210620\Symfony\Component\HttpKernel\Attribute\ArgumentInterface ? $this->attributes[0] : null;
+        return $this->attributes[0] instanceof \ECSPrefix20210622\Symfony\Component\HttpKernel\Attribute\ArgumentInterface ? $this->attributes[0] : null;
     }
     /**
      * @return object[]

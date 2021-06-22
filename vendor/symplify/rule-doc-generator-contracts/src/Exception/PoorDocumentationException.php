@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210620\Symplify\RuleDocGenerator\Exception;
+namespace ECSPrefix20210622\Symplify\RuleDocGenerator\Exception;
 
 use Exception;
 final class PoorDocumentationException extends \Exception
