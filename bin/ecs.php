@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210622;
+namespace ECSPrefix20210623;
 
 // decoupled in own "*.php" file, so ECS, Rector and PHPStan works out of the box here
 use PHP_CodeSniffer\Util\Tokens;
-use ECSPrefix20210622\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix20210623\Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
-use ECSPrefix20210622\Symplify\PackageBuilder\Console\ShellCode;
-use ECSPrefix20210622\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix20210623\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210623\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 // performance boost
 \gc_disable();
 \define('__ECS_RUNNING__', \true);
 # 1. autoload
-$autoloadIncluder = new \ECSPrefix20210622\AutoloadIncluder();
+$autoloadIncluder = new \ECSPrefix20210623\AutoloadIncluder();
 if (\file_exists(__DIR__ . '/../preload.php')) {
     require_once __DIR__ . '/../preload.php';
 }
@@ -24,14 +24,14 @@ $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
 try {
-    $input = new \ECSPrefix20210622\Symfony\Component\Console\Input\ArgvInput();
+    $input = new \ECSPrefix20210623\Symfony\Component\Console\Input\ArgvInput();
     $ecsContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory();
     $container = $ecsContainerFactory->createFromFromInput($input);
 } catch (\Throwable $throwable) {
-    $symfonyStyleFactory = new \ECSPrefix20210622\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+    $symfonyStyleFactory = new \ECSPrefix20210623\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
     $symfonyStyle = $symfonyStyleFactory->create();
     $symfonyStyle->error($throwable->getMessage());
-    exit(\ECSPrefix20210622\Symplify\PackageBuilder\Console\ShellCode::ERROR);
+    exit(\ECSPrefix20210623\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 }
 $application = $container->get(\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication::class);
 exit($application->run());
@@ -128,4 +128,4 @@ final class AutoloadIncluder
 /**
  * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
  */
-\class_alias('ECSPrefix20210622\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('ECSPrefix20210623\\AutoloadIncluder', 'AutoloadIncluder', \false);

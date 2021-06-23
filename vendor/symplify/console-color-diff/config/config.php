@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210622;
+namespace ECSPrefix20210623;
 
-use ECSPrefix20210622\SebastianBergmann\Diff\Differ;
+use ECSPrefix20210623\SebastianBergmann\Diff\Differ;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix20210622\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix20210623\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('ECSPrefix20210622\Symplify\ConsoleColorDiff\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
-    $services->set(\ECSPrefix20210622\SebastianBergmann\Diff\Differ::class);
-    $services->set(\ECSPrefix20210622\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
+    $services->load('ECSPrefix20210623\Symplify\ConsoleColorDiff\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
+    $services->set(\ECSPrefix20210623\SebastianBergmann\Diff\Differ::class);
+    $services->set(\ECSPrefix20210623\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
 };
