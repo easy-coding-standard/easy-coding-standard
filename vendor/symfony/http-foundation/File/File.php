@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210623\Symfony\Component\HttpFoundation\File;
+namespace ECSPrefix20210624\Symfony\Component\HttpFoundation\File;
 
-use ECSPrefix20210623\Symfony\Component\HttpFoundation\File\Exception\FileException;
-use ECSPrefix20210623\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use ECSPrefix20210623\Symfony\Component\Mime\MimeTypes;
+use ECSPrefix20210624\Symfony\Component\HttpFoundation\File\Exception\FileException;
+use ECSPrefix20210624\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
+use ECSPrefix20210624\Symfony\Component\Mime\MimeTypes;
 /**
  * A file in the file system.
  *
@@ -31,7 +31,7 @@ class File extends \SplFileInfo
     public function __construct(string $path, bool $checkPath = \true)
     {
         if ($checkPath && !\is_file($path)) {
-            throw new \ECSPrefix20210623\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException($path);
+            throw new \ECSPrefix20210624\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException($path);
         }
         parent::__construct($path);
     }
@@ -50,10 +50,10 @@ class File extends \SplFileInfo
      */
     public function guessExtension()
     {
-        if (!\class_exists(\ECSPrefix20210623\Symfony\Component\Mime\MimeTypes::class)) {
+        if (!\class_exists(\ECSPrefix20210624\Symfony\Component\Mime\MimeTypes::class)) {
             throw new \LogicException('You cannot guess the extension as the Mime component is not installed. Try running "composer require symfony/mime".');
         }
-        return \ECSPrefix20210623\Symfony\Component\Mime\MimeTypes::getDefault()->getExtensions($this->getMimeType())[0] ?? null;
+        return \ECSPrefix20210624\Symfony\Component\Mime\MimeTypes::getDefault()->getExtensions($this->getMimeType())[0] ?? null;
     }
     /**
      * Returns the mime type of the file.
@@ -68,10 +68,10 @@ class File extends \SplFileInfo
      */
     public function getMimeType()
     {
-        if (!\class_exists(\ECSPrefix20210623\Symfony\Component\Mime\MimeTypes::class)) {
+        if (!\class_exists(\ECSPrefix20210624\Symfony\Component\Mime\MimeTypes::class)) {
             throw new \LogicException('You cannot guess the mime type as the Mime component is not installed. Try running "composer require symfony/mime".');
         }
-        return \ECSPrefix20210623\Symfony\Component\Mime\MimeTypes::getDefault()->guessMimeType($this->getPathname());
+        return \ECSPrefix20210624\Symfony\Component\Mime\MimeTypes::getDefault()->guessMimeType($this->getPathname());
     }
     /**
      * Moves the file to a new location.
@@ -89,7 +89,7 @@ class File extends \SplFileInfo
         $renamed = \rename($this->getPathname(), $target);
         \restore_error_handler();
         if (!$renamed) {
-            throw new \ECSPrefix20210623\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Could not move the file "%s" to "%s" (%s).', $this->getPathname(), $target, \strip_tags($error)));
+            throw new \ECSPrefix20210624\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Could not move the file "%s" to "%s" (%s).', $this->getPathname(), $target, \strip_tags($error)));
         }
         @\chmod($target, 0666 & ~\umask());
         return $target;
@@ -98,7 +98,7 @@ class File extends \SplFileInfo
     {
         $content = \file_get_contents($this->getPathname());
         if (\false === $content) {
-            throw new \ECSPrefix20210623\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Could not get the content of the file "%s".', $this->getPathname()));
+            throw new \ECSPrefix20210624\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Could not get the content of the file "%s".', $this->getPathname()));
         }
         return $content;
     }
@@ -109,10 +109,10 @@ class File extends \SplFileInfo
     {
         if (!\is_dir($directory)) {
             if (\false === @\mkdir($directory, 0777, \true) && !\is_dir($directory)) {
-                throw new \ECSPrefix20210623\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Unable to create the "%s" directory.', $directory));
+                throw new \ECSPrefix20210624\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Unable to create the "%s" directory.', $directory));
             }
         } elseif (!\is_writable($directory)) {
-            throw new \ECSPrefix20210623\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Unable to write in the "%s" directory.', $directory));
+            throw new \ECSPrefix20210624\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Unable to write in the "%s" directory.', $directory));
         }
         $target = \rtrim($directory, '/\\') . \DIRECTORY_SEPARATOR . (null === $name ? $this->getBasename() : $this->getName($name));
         return new self($target, \false);

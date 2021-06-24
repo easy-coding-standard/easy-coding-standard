@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210623\Symplify\ComposerJsonManipulator\ValueObject;
+namespace ECSPrefix20210624\Symplify\ComposerJsonManipulator\ValueObject;
 
 /**
  * @api

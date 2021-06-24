@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210623;
+namespace ECSPrefix20210624;
 
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer;

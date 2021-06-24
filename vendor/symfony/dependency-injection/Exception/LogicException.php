@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210623\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20210624\Symfony\Component\DependencyInjection\Exception;
 
 /**
  * Base LogicException for Dependency Injection component.
  */
-class LogicException extends \LogicException implements \ECSPrefix20210623\Symfony\Component\DependencyInjection\Exception\ExceptionInterface
+class LogicException extends \LogicException implements \ECSPrefix20210624\Symfony\Component\DependencyInjection\Exception\ExceptionInterface
 {
 }
