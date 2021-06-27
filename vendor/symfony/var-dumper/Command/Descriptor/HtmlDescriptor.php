@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210626\Symfony\Component\VarDumper\Command\Descriptor;
+namespace ECSPrefix20210627\Symfony\Component\VarDumper\Command\Descriptor;
 
-use ECSPrefix20210626\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210626\Symfony\Component\VarDumper\Cloner\Data;
-use ECSPrefix20210626\Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use ECSPrefix20210627\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210627\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210627\Symfony\Component\VarDumper\Dumper\HtmlDumper;
 /**
  * Describe collected data clones for html output.
  *
@@ -20,18 +20,18 @@ use ECSPrefix20210626\Symfony\Component\VarDumper\Dumper\HtmlDumper;
  *
  * @final
  */
-class HtmlDescriptor implements \ECSPrefix20210626\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
+class HtmlDescriptor implements \ECSPrefix20210627\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
 {
     private $dumper;
     private $initialized = \false;
-    public function __construct(\ECSPrefix20210626\Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper)
+    public function __construct(\ECSPrefix20210627\Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper)
     {
         $this->dumper = $dumper;
     }
     /**
      * @return void
      */
-    public function describe(\ECSPrefix20210626\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210626\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId)
+    public function describe(\ECSPrefix20210627\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210627\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId)
     {
         if (!$this->initialized) {
             $styles = \file_get_contents(__DIR__ . '/../../Resources/css/htmlDescriptor.css');

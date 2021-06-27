@@ -14,14 +14,14 @@ use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
 use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20210626\Symplify\PackageBuilder\ValueObject\MethodName;
-use ECSPrefix20210626\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210626\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210626\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210627\Symplify\PackageBuilder\ValueObject\MethodName;
+use ECSPrefix20210627\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210627\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210627\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\StandaloneLinePromotedPropertyFixer\StandaloneLinePromotedPropertyFixerTest
  */
-final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210626\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210627\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -74,15 +74,15 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
                 continue;
             }
             $functionName = $this->getFunctionName($tokens, $position);
-            if ($functionName !== \ECSPrefix20210626\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR) {
+            if ($functionName !== \ECSPrefix20210627\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR) {
                 continue;
             }
             $this->processFunction($tokens, $position);
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20210626\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20210627\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20210626\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210626\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210627\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210627\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class PromotedProperties
 {
     public function __construct(public int $age, private string $name)

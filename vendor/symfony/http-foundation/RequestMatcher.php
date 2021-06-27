@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210626\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210627\Symfony\Component\HttpFoundation;
 
 /**
  * RequestMatcher compares a pre-defined set of checks against a Request instance.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class RequestMatcher implements \ECSPrefix20210626\Symfony\Component\HttpFoundation\RequestMatcherInterface
+class RequestMatcher implements \ECSPrefix20210627\Symfony\Component\HttpFoundation\RequestMatcherInterface
 {
     /**
      * @var string|null
@@ -136,7 +136,7 @@ class RequestMatcher implements \ECSPrefix20210626\Symfony\Component\HttpFoundat
     /**
      * {@inheritdoc}
      */
-    public function matches(\ECSPrefix20210626\Symfony\Component\HttpFoundation\Request $request)
+    public function matches(\ECSPrefix20210627\Symfony\Component\HttpFoundation\Request $request)
     {
         if ($this->schemes && !\in_array($request->getScheme(), $this->schemes, \true)) {
             return \false;
@@ -162,7 +162,7 @@ class RequestMatcher implements \ECSPrefix20210626\Symfony\Component\HttpFoundat
         if (null !== $this->port && 0 < $this->port && $request->getPort() !== $this->port) {
             return \false;
         }
-        if (\ECSPrefix20210626\Symfony\Component\HttpFoundation\IpUtils::checkIp($request->getClientIp(), $this->ips)) {
+        if (\ECSPrefix20210627\Symfony\Component\HttpFoundation\IpUtils::checkIp($request->getClientIp(), $this->ips)) {
             return \true;
         }
         // Note to future implementors: add additional checks above the
