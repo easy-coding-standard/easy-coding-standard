@@ -20,4 +20,4 @@ jobs:
                     php-version: ${{ matrix.php_version }}
                     coverage: none
 
-            -   run: php bin/ecs check tests/Fixture --config tests/config/some_ecs.php --ansi
+            -   run: php bin/ecs check tests/Fixture --config tests/config/some_ecs.php --ansi --fix
