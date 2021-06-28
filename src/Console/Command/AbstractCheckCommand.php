@@ -32,9 +32,9 @@ abstract class AbstractCheckCommand extends \ECSPrefix20210628\Symplify\PackageB
      */
     protected $configurationFactory;
     /**
+     * @required
      * @return void
      */
-    #[Required]
     public function autowireAbstractCheckCommand(\Symplify\EasyCodingStandard\Configuration\ConfigurationFactory $configurationFactory, \Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication $easyCodingStandardApplication, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard $loadedCheckersGuard)
     {
         $this->configurationFactory = $configurationFactory;

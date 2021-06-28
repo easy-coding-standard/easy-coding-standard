@@ -35,9 +35,9 @@ abstract class AbstractSymplifyCommand extends \ECSPrefix20210628\Symfony\Compon
         $this->addOption(\ECSPrefix20210628\Symplify\PackageBuilder\ValueObject\Option::CONFIG, 'c', \ECSPrefix20210628\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file');
     }
     /**
+     * @required
      * @return void
      */
-    #[Required]
     public function autowireAbstractSymplifyCommand(\ECSPrefix20210628\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \ECSPrefix20210628\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20210628\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \ECSPrefix20210628\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
     {
         $this->symfonyStyle = $symfonyStyle;
