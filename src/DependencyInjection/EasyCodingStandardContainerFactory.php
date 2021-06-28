@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use ECSPrefix20210628\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20210628\Symfony\Component\DependencyInjection\ContainerInterface;
+use Symplify\EasyCodingStandard\Application\Version\VersionResolver;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use ECSPrefix20210628\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
@@ -13,7 +14,7 @@ final class EasyCodingStandardContainerFactory
 {
     public function createFromFromInput(\ECSPrefix20210628\Symfony\Component\Console\Input\InputInterface $input) : \ECSPrefix20210628\Symfony\Component\DependencyInjection\ContainerInterface
     {
-        $environment = 'easy_coding_standard_version_' . \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel::CONTAINER_VERSION;
+        $environment = $this->resolveEnvironment();
         $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \ECSPrefix20210628\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
         $inputConfigFileInfos = [];
         $rootECSConfig = \getcwd() . \DIRECTORY_SEPARATOR . '/ecs.php';
@@ -37,5 +38,12 @@ final class EasyCodingStandardContainerFactory
             $changedFilesDetector->setUsedConfigs($inputConfigFileInfos);
         }
         return $container;
+    }
+    private function resolveEnvironment() : string
+    {
+        if (\Symplify\EasyCodingStandard\Application\Version\VersionResolver::PACKAGE_VERSION === '@package_version@') {
+            return 'dev';
+        }
+        return 'prod_' . \Symplify\EasyCodingStandard\Application\Version\VersionResolver::PACKAGE_VERSION;
     }
 }

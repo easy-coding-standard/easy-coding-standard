@@ -1,9 +1,9 @@
-name: Bare Run
+name: Check Command Run
 
 on: [pull_request, push]
 
 jobs:
-    bare_run:
+    check_command_run:
         runs-on: ubuntu-latest
 
         strategy:
@@ -20,6 +20,4 @@ jobs:
                     php-version: ${{ matrix.php_version }}
                     coverage: none
 
-            -   run: php bin/ecs list --ansi --debug
-
-            -   run: php bin/ecs init --ansi --debug
+            -   run: php bin/ecs check tests/Fixture --config tests/config/some_ecs.php --ansi
