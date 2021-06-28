@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210627\Psr\Log;
+namespace ECSPrefix20210628\Psr\Log;
 
 /**
  * Basic Implementation of LoggerAwareInterface.
@@ -18,7 +18,7 @@ trait LoggerAwareTrait
      *
      * @param LoggerInterface $logger
      */
-    public function setLogger(\ECSPrefix20210627\Psr\Log\LoggerInterface $logger)
+    public function setLogger(\ECSPrefix20210628\Psr\Log\LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
