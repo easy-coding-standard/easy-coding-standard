@@ -3,21 +3,21 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210628\Clue\React\NDJson\Decoder;
-use ECSPrefix20210628\Clue\React\NDJson\Encoder;
-use ECSPrefix20210628\React\EventLoop\StreamSelectLoop;
-use ECSPrefix20210628\React\Stream\ReadableResourceStream;
-use ECSPrefix20210628\React\Stream\WritableResourceStream;
-use ECSPrefix20210628\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210628\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210629\Clue\React\NDJson\Decoder;
+use ECSPrefix20210629\Clue\React\NDJson\Encoder;
+use ECSPrefix20210629\React\EventLoop\StreamSelectLoop;
+use ECSPrefix20210629\React\Stream\ReadableResourceStream;
+use ECSPrefix20210629\React\Stream\WritableResourceStream;
+use ECSPrefix20210629\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210629\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Action;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use ECSPrefix20210628\Symplify\PackageBuilder\Console\ShellCode;
-use ECSPrefix20210628\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210629\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210629\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 /**
  * Inspired at https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92
@@ -41,11 +41,11 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         parent::configure();
         $this->setDescription('(Internal) Support for parallel process');
     }
-    protected function execute(\ECSPrefix20210628\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210628\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20210629\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210629\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $configuration = $this->configurationFactory->createFromInput($input);
-        $streamSelectLoop = new \ECSPrefix20210628\React\EventLoop\StreamSelectLoop();
-        $stdOutEncoder = new \ECSPrefix20210628\Clue\React\NDJson\Encoder(new \ECSPrefix20210628\React\Stream\WritableResourceStream(\STDOUT, $streamSelectLoop));
+        $streamSelectLoop = new \ECSPrefix20210629\React\EventLoop\StreamSelectLoop();
+        $stdOutEncoder = new \ECSPrefix20210629\Clue\React\NDJson\Encoder(new \ECSPrefix20210629\React\Stream\WritableResourceStream(\STDOUT, $streamSelectLoop));
         $handleErrorCallback = static function (\Throwable $throwable) use($stdOutEncoder) {
             $systemErrors = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($throwable->getLine(), $throwable->getMessage(), $throwable->getFile());
             $stdOutEncoder->write([\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS => [$systemErrors], \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILES_COUNT => 0, \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS_COUNT => 1]);
@@ -53,7 +53,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         };
         $stdOutEncoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::ERROR, $handleErrorCallback);
         // collectErrors from file processor
-        $decoder = new \ECSPrefix20210628\Clue\React\NDJson\Decoder(new \ECSPrefix20210628\React\Stream\ReadableResourceStream(\STDIN, $streamSelectLoop), \true);
+        $decoder = new \ECSPrefix20210629\Clue\React\NDJson\Decoder(new \ECSPrefix20210629\React\Stream\ReadableResourceStream(\STDIN, $streamSelectLoop), \true);
         $decoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::DATA, function (array $json) use($stdOutEncoder, $configuration) {
             $action = $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::ACTION];
             if ($action === \Symplify\EasyCodingStandard\Parallel\ValueObject\Action::CHECK) {
@@ -64,7 +64,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
                 $systemErrors = [];
                 foreach ($filePaths as $filePath) {
                     try {
-                        $smartFileInfo = new \ECSPrefix20210628\Symplify\SmartFileSystem\SmartFileInfo($filePath);
+                        $smartFileInfo = new \ECSPrefix20210629\Symplify\SmartFileSystem\SmartFileInfo($filePath);
                         $currentErrorsAndFileDiffs = $this->singleFileProcessor->processFileInfo($smartFileInfo, $configuration);
                         $errorAndFileDiffs = \array_merge($errorAndFileDiffs, $currentErrorsAndFileDiffs);
                     } catch (\Throwable $throwable) {
@@ -84,6 +84,6 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         });
         $decoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::ERROR, $handleErrorCallback);
         $streamSelectLoop->run();
-        return \ECSPrefix20210628\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \ECSPrefix20210629\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }
