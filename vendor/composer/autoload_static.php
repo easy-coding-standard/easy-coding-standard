@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite246825f1f3b340ae40dd918ea7185af
+class ComposerStaticInitcfbf271a558c85fa830998c4dbcba77c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -69,14 +69,19 @@ class ComposerStaticInite246825f1f3b340ae40dd918ea7185af
             'ECSPrefix20210703\\Symfony\\Component\\Console\\' => 44,
             'ECSPrefix20210703\\Symfony\\Component\\Config\\' => 43,
             'ECSPrefix20210703\\Stringy\\' => 26,
+            'ECSPrefix20210703\\React\\Stream\\' => 31,
+            'ECSPrefix20210703\\React\\EventLoop\\' => 34,
+            'ECSPrefix20210703\\React\\ChildProcess\\' => 37,
             'ECSPrefix20210703\\Psr\\Log\\' => 26,
             'ECSPrefix20210703\\Psr\\EventDispatcher\\' => 38,
             'ECSPrefix20210703\\Psr\\Container\\' => 32,
             'ECSPrefix20210703\\Psr\\Cache\\' => 28,
+            'ECSPrefix20210703\\Evenement\\' => 28,
             'ECSPrefix20210703\\Doctrine\\Common\\Lexer\\' => 40,
             'ECSPrefix20210703\\Doctrine\\Common\\Annotations\\' => 46,
             'ECSPrefix20210703\\Composer\\XdebugHandler\\' => 41,
             'ECSPrefix20210703\\Composer\\Semver\\' => 34,
+            'ECSPrefix20210703\\Clue\\React\\NDJson\\' => 36,
         ),
     );
 
@@ -238,6 +243,18 @@ class ComposerStaticInite246825f1f3b340ae40dd918ea7185af
         array (
             0 => __DIR__ . '/..' . '/danielstjules/stringy/src',
         ),
+        'ECSPrefix20210703\\React\\Stream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/stream/src',
+        ),
+        'ECSPrefix20210703\\React\\EventLoop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/event-loop/src',
+        ),
+        'ECSPrefix20210703\\React\\ChildProcess\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/child-process/src',
+        ),
         'ECSPrefix20210703\\Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -253,6 +270,10 @@ class ComposerStaticInite246825f1f3b340ae40dd918ea7185af
         'ECSPrefix20210703\\Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'ECSPrefix20210703\\Evenement\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/evenement/evenement/src/Evenement',
         ),
         'ECSPrefix20210703\\Doctrine\\Common\\Lexer\\' => 
         array (
@@ -270,11 +291,17 @@ class ComposerStaticInite246825f1f3b340ae40dd918ea7185af
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
         ),
+        'ECSPrefix20210703\\Clue\\React\\NDJson\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/clue/ndjson-react/src',
+        ),
     );
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'ECSPrefix20210703\\Clue\\React\\NDJson\\Decoder' => __DIR__ . '/..' . '/clue/ndjson-react/src/Decoder.php',
+        'ECSPrefix20210703\\Clue\\React\\NDJson\\Encoder' => __DIR__ . '/..' . '/clue/ndjson-react/src/Encoder.php',
         'ECSPrefix20210703\\Composer\\Semver\\Comparator' => __DIR__ . '/..' . '/composer/semver/src/Comparator.php',
         'ECSPrefix20210703\\Composer\\Semver\\CompilingMatcher' => __DIR__ . '/..' . '/composer/semver/src/CompilingMatcher.php',
         'ECSPrefix20210703\\Composer\\Semver\\Constraint\\Bound' => __DIR__ . '/..' . '/composer/semver/src/Constraint/Bound.php',
@@ -315,6 +342,9 @@ class ComposerStaticInite246825f1f3b340ae40dd918ea7185af
         'ECSPrefix20210703\\Doctrine\\Common\\Annotations\\SimpleAnnotationReader' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/SimpleAnnotationReader.php',
         'ECSPrefix20210703\\Doctrine\\Common\\Annotations\\TokenParser' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/TokenParser.php',
         'ECSPrefix20210703\\Doctrine\\Common\\Lexer\\AbstractLexer' => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php',
+        'ECSPrefix20210703\\Evenement\\EventEmitter' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitter.php',
+        'ECSPrefix20210703\\Evenement\\EventEmitterInterface' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterInterface.php',
+        'ECSPrefix20210703\\Evenement\\EventEmitterTrait' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterTrait.php',
         'ECSPrefix20210703\\Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix20210703\\Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix20210703\\Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -384,6 +414,29 @@ class ComposerStaticInite246825f1f3b340ae40dd918ea7185af
         'ECSPrefix20210703\\Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/DummyTest.php',
         'ECSPrefix20210703\\Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'ECSPrefix20210703\\Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
+        'ECSPrefix20210703\\React\\ChildProcess\\Process' => __DIR__ . '/..' . '/react/child-process/src/Process.php',
+        'ECSPrefix20210703\\React\\EventLoop\\ExtEvLoop' => __DIR__ . '/..' . '/react/event-loop/src/ExtEvLoop.php',
+        'ECSPrefix20210703\\React\\EventLoop\\ExtEventLoop' => __DIR__ . '/..' . '/react/event-loop/src/ExtEventLoop.php',
+        'ECSPrefix20210703\\React\\EventLoop\\ExtLibevLoop' => __DIR__ . '/..' . '/react/event-loop/src/ExtLibevLoop.php',
+        'ECSPrefix20210703\\React\\EventLoop\\ExtLibeventLoop' => __DIR__ . '/..' . '/react/event-loop/src/ExtLibeventLoop.php',
+        'ECSPrefix20210703\\React\\EventLoop\\ExtUvLoop' => __DIR__ . '/..' . '/react/event-loop/src/ExtUvLoop.php',
+        'ECSPrefix20210703\\React\\EventLoop\\Factory' => __DIR__ . '/..' . '/react/event-loop/src/Factory.php',
+        'ECSPrefix20210703\\React\\EventLoop\\LoopInterface' => __DIR__ . '/..' . '/react/event-loop/src/LoopInterface.php',
+        'ECSPrefix20210703\\React\\EventLoop\\SignalsHandler' => __DIR__ . '/..' . '/react/event-loop/src/SignalsHandler.php',
+        'ECSPrefix20210703\\React\\EventLoop\\StreamSelectLoop' => __DIR__ . '/..' . '/react/event-loop/src/StreamSelectLoop.php',
+        'ECSPrefix20210703\\React\\EventLoop\\Tick\\FutureTickQueue' => __DIR__ . '/..' . '/react/event-loop/src/Tick/FutureTickQueue.php',
+        'ECSPrefix20210703\\React\\EventLoop\\TimerInterface' => __DIR__ . '/..' . '/react/event-loop/src/TimerInterface.php',
+        'ECSPrefix20210703\\React\\EventLoop\\Timer\\Timer' => __DIR__ . '/..' . '/react/event-loop/src/Timer/Timer.php',
+        'ECSPrefix20210703\\React\\EventLoop\\Timer\\Timers' => __DIR__ . '/..' . '/react/event-loop/src/Timer/Timers.php',
+        'ECSPrefix20210703\\React\\Stream\\CompositeStream' => __DIR__ . '/..' . '/react/stream/src/CompositeStream.php',
+        'ECSPrefix20210703\\React\\Stream\\DuplexResourceStream' => __DIR__ . '/..' . '/react/stream/src/DuplexResourceStream.php',
+        'ECSPrefix20210703\\React\\Stream\\DuplexStreamInterface' => __DIR__ . '/..' . '/react/stream/src/DuplexStreamInterface.php',
+        'ECSPrefix20210703\\React\\Stream\\ReadableResourceStream' => __DIR__ . '/..' . '/react/stream/src/ReadableResourceStream.php',
+        'ECSPrefix20210703\\React\\Stream\\ReadableStreamInterface' => __DIR__ . '/..' . '/react/stream/src/ReadableStreamInterface.php',
+        'ECSPrefix20210703\\React\\Stream\\ThroughStream' => __DIR__ . '/..' . '/react/stream/src/ThroughStream.php',
+        'ECSPrefix20210703\\React\\Stream\\Util' => __DIR__ . '/..' . '/react/stream/src/Util.php',
+        'ECSPrefix20210703\\React\\Stream\\WritableResourceStream' => __DIR__ . '/..' . '/react/stream/src/WritableResourceStream.php',
+        'ECSPrefix20210703\\React\\Stream\\WritableStreamInterface' => __DIR__ . '/..' . '/react/stream/src/WritableStreamInterface.php',
         'ECSPrefix20210703\\SebastianBergmann\\Diff\\Chunk' => __DIR__ . '/..' . '/sebastian/diff/src/Chunk.php',
         'ECSPrefix20210703\\SebastianBergmann\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/ConfigurationException.php',
         'ECSPrefix20210703\\SebastianBergmann\\Diff\\Diff' => __DIR__ . '/..' . '/sebastian/diff/src/Diff.php',
@@ -1943,9 +1996,9 @@ class ComposerStaticInite246825f1f3b340ae40dd918ea7185af
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite246825f1f3b340ae40dd918ea7185af::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite246825f1f3b340ae40dd918ea7185af::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite246825f1f3b340ae40dd918ea7185af::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcfbf271a558c85fa830998c4dbcba77c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcfbf271a558c85fa830998c4dbcba77c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcfbf271a558c85fa830998c4dbcba77c::$classMap;
 
         }, null, ClassLoader::class);
     }
