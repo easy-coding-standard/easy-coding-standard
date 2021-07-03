@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210629\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210703\Symfony\Component\Config\Resource;
 
-use ECSPrefix20210629\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210629\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
-use ECSPrefix20210629\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix20210703\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210703\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use ECSPrefix20210703\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @final
  */
-class ReflectionClassResource implements \ECSPrefix20210629\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class ReflectionClassResource implements \ECSPrefix20210703\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $files = [];
     private $className;
@@ -145,6 +145,9 @@ class ReflectionClassResource implements \ECSPrefix20210629\Symfony\Component\Co
                 (yield \print_r(isset($defaults[$p->name]) && !\is_object($defaults[$p->name]) ? $defaults[$p->name] : null, \true));
             }
         }
+        $defined = \Closure::bind(static function ($c) {
+            return \defined($c);
+        }, null, $class->name);
         foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED) as $m) {
             if (\PHP_VERSION_ID >= 80000) {
                 foreach ($m->getAttributes() as $a) {
@@ -167,7 +170,7 @@ class ReflectionClassResource implements \ECSPrefix20210629\Symfony\Component\Co
                     $defaults[$p->name] = null;
                     continue;
                 }
-                if (!$p->isDefaultValueConstant() || \defined($p->getDefaultValueConstantName())) {
+                if (!$p->isDefaultValueConstant() || $defined($p->getDefaultValueConstantName())) {
                     $defaults[$p->name] = $p->getDefaultValue();
                     continue;
                 }
@@ -198,18 +201,18 @@ class ReflectionClassResource implements \ECSPrefix20210629\Symfony\Component\Co
         if ($class->isAbstract() || $class->isInterface() || $class->isTrait()) {
             return;
         }
-        if (\interface_exists(\ECSPrefix20210629\Symfony\Component\EventDispatcher\EventSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210629\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
-            (yield \ECSPrefix20210629\Symfony\Component\EventDispatcher\EventSubscriberInterface::class);
+        if (\interface_exists(\ECSPrefix20210703\Symfony\Component\EventDispatcher\EventSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210703\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
+            (yield \ECSPrefix20210703\Symfony\Component\EventDispatcher\EventSubscriberInterface::class);
             (yield \print_r($class->name::getSubscribedEvents(), \true));
         }
-        if (\interface_exists(\ECSPrefix20210629\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210629\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class)) {
-            (yield \ECSPrefix20210629\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class);
+        if (\interface_exists(\ECSPrefix20210703\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210703\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class)) {
+            (yield \ECSPrefix20210703\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class);
             foreach ($class->name::getHandledMessages() as $key => $value) {
                 (yield $key . \print_r($value, \true));
             }
         }
-        if (\interface_exists(\ECSPrefix20210629\Symfony\Contracts\Service\ServiceSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210629\Symfony\Contracts\Service\ServiceSubscriberInterface::class)) {
-            (yield \ECSPrefix20210629\Symfony\Contracts\Service\ServiceSubscriberInterface::class);
+        if (\interface_exists(\ECSPrefix20210703\Symfony\Contracts\Service\ServiceSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210703\Symfony\Contracts\Service\ServiceSubscriberInterface::class)) {
+            (yield \ECSPrefix20210703\Symfony\Contracts\Service\ServiceSubscriberInterface::class);
             (yield \print_r($class->name::getSubscribedServices(), \true));
         }
     }

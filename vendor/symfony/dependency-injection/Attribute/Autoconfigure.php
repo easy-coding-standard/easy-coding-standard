@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210629\Symfony\Component\DependencyInjection\Attribute;
+namespace ECSPrefix20210703\Symfony\Component\DependencyInjection\Attribute;
 
 /**
  * An attribute to tell how a base type should be autoconfigured.
  *
  * @author Nicolas Grekas <p@tchwork.com>
- * @Attribute
+ * @annotation
  */
 class Autoconfigure
 {

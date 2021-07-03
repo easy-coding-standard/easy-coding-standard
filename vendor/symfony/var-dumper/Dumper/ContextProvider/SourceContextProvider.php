@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210629\Symfony\Component\VarDumper\Dumper\ContextProvider;
+namespace ECSPrefix20210703\Symfony\Component\VarDumper\Dumper\ContextProvider;
 
-use ECSPrefix20210629\Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
-use ECSPrefix20210629\Symfony\Component\VarDumper\Cloner\VarCloner;
-use ECSPrefix20210629\Symfony\Component\VarDumper\Dumper\HtmlDumper;
-use ECSPrefix20210629\Symfony\Component\VarDumper\VarDumper;
-use ECSPrefix20210629\Twig\Template;
+use ECSPrefix20210703\Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
+use ECSPrefix20210703\Symfony\Component\VarDumper\Cloner\VarCloner;
+use ECSPrefix20210703\Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use ECSPrefix20210703\Symfony\Component\VarDumper\VarDumper;
+use ECSPrefix20210703\Twig\Template;
 /**
  * Tries to provide context from sources (class name, file, line, code excerpt, ...).
  *
  * @author Nicolas Grekas <p@tchwork.com>
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-final class SourceContextProvider implements \ECSPrefix20210629\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface
+final class SourceContextProvider implements \ECSPrefix20210703\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface
 {
     private $limit;
     private $charset;
     private $projectDir;
     private $fileLinkFormatter;
-    public function __construct(string $charset = null, string $projectDir = null, \ECSPrefix20210629\Symfony\Component\HttpKernel\Debug\FileLinkFormatter $fileLinkFormatter = null, int $limit = 9)
+    public function __construct(string $charset = null, string $projectDir = null, \ECSPrefix20210703\Symfony\Component\HttpKernel\Debug\FileLinkFormatter $fileLinkFormatter = null, int $limit = 9)
     {
         $this->charset = $charset;
         $this->projectDir = $projectDir;
@@ -45,7 +45,7 @@ final class SourceContextProvider implements \ECSPrefix20210629\Symfony\Componen
         $name = \false;
         $fileExcerpt = \false;
         for ($i = 2; $i < $this->limit; ++$i) {
-            if (isset($trace[$i]['class'], $trace[$i]['function']) && 'dump' === $trace[$i]['function'] && \ECSPrefix20210629\Symfony\Component\VarDumper\VarDumper::class === $trace[$i]['class']) {
+            if (isset($trace[$i]['class'], $trace[$i]['function']) && 'dump' === $trace[$i]['function'] && \ECSPrefix20210703\Symfony\Component\VarDumper\VarDumper::class === $trace[$i]['class']) {
                 $file = $trace[$i]['file'] ?? $file;
                 $line = $trace[$i]['line'] ?? $line;
                 while (++$i < $this->limit) {
@@ -53,7 +53,7 @@ final class SourceContextProvider implements \ECSPrefix20210629\Symfony\Componen
                         $file = $trace[$i]['file'];
                         $line = $trace[$i]['line'];
                         break;
-                    } elseif (isset($trace[$i]['object']) && $trace[$i]['object'] instanceof \ECSPrefix20210629\Twig\Template) {
+                    } elseif (isset($trace[$i]['object']) && $trace[$i]['object'] instanceof \ECSPrefix20210703\Twig\Template) {
                         $template = $trace[$i]['object'];
                         $name = $template->getTemplateName();
                         $src = \method_exists($template, 'getSourceContext') ? $template->getSourceContext()->getCode() : (\method_exists($template, 'getSource') ? $template->getSource() : \false);
@@ -96,12 +96,12 @@ final class SourceContextProvider implements \ECSPrefix20210629\Symfony\Componen
     private function htmlEncode(string $s) : string
     {
         $html = '';
-        $dumper = new \ECSPrefix20210629\Symfony\Component\VarDumper\Dumper\HtmlDumper(function ($line) use(&$html) {
+        $dumper = new \ECSPrefix20210703\Symfony\Component\VarDumper\Dumper\HtmlDumper(function ($line) use(&$html) {
             $html .= $line;
         }, $this->charset);
         $dumper->setDumpHeader('');
         $dumper->setDumpBoundaries('', '');
-        $cloner = new \ECSPrefix20210629\Symfony\Component\VarDumper\Cloner\VarCloner();
+        $cloner = new \ECSPrefix20210703\Symfony\Component\VarDumper\Cloner\VarCloner();
         $dumper->dump($cloner->cloneVar($s));
         return \substr(\strip_tags($html), 1, -1);
     }

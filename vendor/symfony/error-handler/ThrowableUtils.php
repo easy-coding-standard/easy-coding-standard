@@ -8,16 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210629\Symfony\Component\ErrorHandler;
+namespace ECSPrefix20210703\Symfony\Component\ErrorHandler;
 
+use ECSPrefix20210703\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
 /**
  * @internal
  */
 class ThrowableUtils
 {
-    public static function getSeverity(\Throwable $throwable) : int
+    /**
+     * @param SilencedErrorContext|\Throwable
+     */
+    public static function getSeverity($throwable) : int
     {
-        if ($throwable instanceof \ErrorException) {
+        if ($throwable instanceof \ErrorException || $throwable instanceof \ECSPrefix20210703\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
             return $throwable->getSeverity();
         }
         if ($throwable instanceof \ParseError) {

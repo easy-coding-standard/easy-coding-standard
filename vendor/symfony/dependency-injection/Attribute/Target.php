@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210629\Symfony\Component\DependencyInjection\Attribute;
+namespace ECSPrefix20210703\Symfony\Component\DependencyInjection\Attribute;
 
-use ECSPrefix20210629\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210703\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * An attribute to tell how a dependency is used and hint named autowiring aliases.
  *
  * @author Nicolas Grekas <p@tchwork.com>
- * @Attribute
+ * @annotation
  */
 final class Target
 {
@@ -39,7 +39,7 @@ final class Target
             } else {
                 $function = $function->name;
             }
-            throw new \ECSPrefix20210629\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid #[Target] name "%s" on parameter "$%s" of "%s()": the first character must be a letter.', $name, $parameter->name, $function));
+            throw new \ECSPrefix20210703\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid #[Target] name "%s" on parameter "$%s" of "%s()": the first character must be a letter.', $name, $parameter->name, $function));
         }
         return $name;
     }

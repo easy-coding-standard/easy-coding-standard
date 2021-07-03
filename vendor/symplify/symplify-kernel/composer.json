@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210629\\Symplify\\SymplifyKernel\\": "src"
+            "ECSPrefix20210703\\Symplify\\SymplifyKernel\\": "src"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "9.4-dev"
+            "dev-main": "9.5-dev"
         }
     },
     "minimum-stability": "dev",

@@ -18,7 +18,7 @@ final class TokensInliner
         $this->tokenSkipper = $tokenSkipper;
     }
     /**
-     * @param Tokens|Token[] $tokens
+     * @param Tokens<Token> $tokens
      * @return void
      */
     public function inlineItems(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)

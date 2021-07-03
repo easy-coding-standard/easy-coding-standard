@@ -14,17 +14,17 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210629\\Symplify\\SmartFileSystem\\": "src"
+            "ECSPrefix20210703\\Symplify\\SmartFileSystem\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210629\\Symplify\\SmartFileSystem\\Tests\\": "tests"
+            "ECSPrefix20210703\\Symplify\\SmartFileSystem\\Tests\\": "tests"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "9.4-dev"
+            "dev-main": "9.5-dev"
         }
     },
     "minimum-stability": "dev",

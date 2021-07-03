@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210629\Symfony\Component\HttpKernel\Attribute;
+namespace ECSPrefix20210703\Symfony\Component\HttpKernel\Attribute;
 
 /**
  * Service tag to autoconfigure controllers.
- * @Attribute
+ * @annotation
  */
 class AsController
 {

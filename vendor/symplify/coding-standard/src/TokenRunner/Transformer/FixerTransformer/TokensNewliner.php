@@ -42,7 +42,7 @@ final class TokensNewliner
         $this->indentResolver = $indentResolver;
     }
     /**
-     * @param Tokens|Token[] $tokens
+     * @param Tokens<Token> $tokens
      * @return void
      */
     public function breakItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $kind = \Symplify\CodingStandard\TokenRunner\ValueObject\LineKind::CALLS)
@@ -75,7 +75,7 @@ final class TokensNewliner
     /**
      * Has already newline? usually the last line => skip to prevent double spacing
      *
-     * @param Tokens|Token[] $tokens
+     * @param Tokens<Token> $tokens
      */
     private function isLastItem(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
@@ -87,7 +87,7 @@ final class TokensNewliner
         return \strpos($tokenContent, $this->whitespacesFixerConfig->getLineEnding()) !== \false;
     }
     /**
-     * @param Tokens|Token[] $tokens
+     * @param Tokens<Token> $tokens
      */
     private function isFollowedByComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $i) : bool
     {

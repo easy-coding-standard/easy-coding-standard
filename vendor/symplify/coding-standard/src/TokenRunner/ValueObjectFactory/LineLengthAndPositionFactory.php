@@ -7,7 +7,7 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition;
-use ECSPrefix20210629\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20210703\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class LineLengthAndPositionFactory
 {
     /**
@@ -39,14 +39,14 @@ final class LineLengthAndPositionFactory
         return new \Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition($length, $currentPosition);
     }
     /**
-     * @param Tokens|Token[] $tokens
+     * @param Tokens<Token> $tokens
      */
     private function isNewLineOrOpenTag(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
-        if (\strncmp($tokens[$position]->getContent(), \ECSPrefix20210629\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar(), \strlen(\ECSPrefix20210629\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) === 0) {
+        if (\strncmp($tokens[$position]->getContent(), \ECSPrefix20210703\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar(), \strlen(\ECSPrefix20210703\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) === 0) {
             return \true;
         }
         return $tokens[$position]->isGivenKind(\T_OPEN_TAG);

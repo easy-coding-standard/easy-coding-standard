@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210629\Symfony\Contracts\Service\Attribute;
+namespace ECSPrefix20210703\Symfony\Contracts\Service\Attribute;
 
 /**
  * A required dependency.
@@ -17,7 +17,7 @@ namespace ECSPrefix20210629\Symfony\Contracts\Service\Attribute;
  * considered during the instantiation process of the containing class.
  *
  * @author Alexander M. Turek <me@derrabus.de>
- * @Attribute
+ * @annotation
  */
 final class Required
 {

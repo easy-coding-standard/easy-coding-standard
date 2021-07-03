@@ -19,17 +19,17 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210629\\Symplify\\PackageBuilder\\": "src"
+            "ECSPrefix20210703\\Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210629\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "ECSPrefix20210703\\Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "9.4-dev"
+            "dev-main": "9.5-dev"
         }
     },
     "minimum-stability": "dev",

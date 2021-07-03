@@ -9,12 +9,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210629\\Symplify\\RuleDocGenerator\\": "src"
+            "ECSPrefix20210703\\Symplify\\RuleDocGenerator\\": "src"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "9.4-dev"
+            "dev-main": "9.5-dev"
         }
     },
     "minimum-stability": "dev",

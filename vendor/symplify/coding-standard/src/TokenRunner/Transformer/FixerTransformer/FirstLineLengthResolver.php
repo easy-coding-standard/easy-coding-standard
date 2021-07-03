@@ -9,7 +9,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory;
-use ECSPrefix20210629\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20210703\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class FirstLineLengthResolver
 {
     /**
@@ -21,7 +21,7 @@ final class FirstLineLengthResolver
         $this->lineLengthAndPositionFactory = $lineLengthAndPositionFactory;
     }
     /**
-     * @param Tokens|Token[] $tokens
+     * @param Tokens<Token> $tokens
      */
     public function resolveFromTokensAndStartPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : int
     {
@@ -36,7 +36,7 @@ final class FirstLineLengthResolver
         // includes indent in the beginning
         $lineLength += \strlen($currentToken->getContent());
         // minus end of lines, do not count line feeds as characters
-        $endOfLineCount = \substr_count($currentToken->getContent(), \ECSPrefix20210629\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar());
+        $endOfLineCount = \substr_count($currentToken->getContent(), \ECSPrefix20210703\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar());
         $lineLength -= $endOfLineCount;
         // compute from here to end of line
         $currentPosition = $blockInfo->getStart() + 1;
@@ -60,14 +60,14 @@ final class FirstLineLengthResolver
         return $lineLength;
     }
     /**
-     * @param Tokens|Token[] $tokens
+     * @param Tokens<Token> $tokens
      */
     private function isEndOFArgumentsLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
     {
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
-        if (\strncmp($tokens[$position]->getContent(), \ECSPrefix20210629\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar(), \strlen(\ECSPrefix20210629\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) === 0) {
+        if (\strncmp($tokens[$position]->getContent(), \ECSPrefix20210703\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar(), \strlen(\ECSPrefix20210703\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) === 0) {
             return \true;
         }
         return $tokens[$position]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA);

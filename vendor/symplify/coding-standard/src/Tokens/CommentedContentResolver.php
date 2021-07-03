@@ -6,7 +6,7 @@ namespace Symplify\CodingStandard\Tokens;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\ValueObject\StartAndEnd;
-use ECSPrefix20210629\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210703\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * Heavily inspired by
  *
@@ -33,7 +33,7 @@ final class CommentedContentResolver
     {
         $token = $tokens[$position];
         if (!$token->isGivenKind(\T_COMMENT)) {
-            throw new \ECSPrefix20210629\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210703\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $lastLineSeen = $this->lineResolver->resolve($tokens, $position);
         $startPosition = $position;
