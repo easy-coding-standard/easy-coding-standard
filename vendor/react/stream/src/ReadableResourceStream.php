@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20210703\React\Stream;
+namespace ECSPrefix20210705\React\Stream;
 
-use ECSPrefix20210703\Evenement\EventEmitter;
-use ECSPrefix20210703\React\EventLoop\LoopInterface;
+use ECSPrefix20210705\Evenement\EventEmitter;
+use ECSPrefix20210705\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class ReadableResourceStream extends \ECSPrefix20210703\Evenement\EventEmitter implements \ECSPrefix20210703\React\Stream\ReadableStreamInterface
+final class ReadableResourceStream extends \ECSPrefix20210705\Evenement\EventEmitter implements \ECSPrefix20210705\React\Stream\ReadableStreamInterface
 {
     /**
      * @var resource
@@ -33,7 +33,7 @@ final class ReadableResourceStream extends \ECSPrefix20210703\Evenement\EventEmi
     private $bufferSize;
     private $closed = \false;
     private $listening = \false;
-    public function __construct($stream, \ECSPrefix20210703\React\EventLoop\LoopInterface $loop, $readChunkSize = null)
+    public function __construct($stream, \ECSPrefix20210705\React\EventLoop\LoopInterface $loop, $readChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -82,9 +82,9 @@ final class ReadableResourceStream extends \ECSPrefix20210703\Evenement\EventEmi
             $this->listening = \true;
         }
     }
-    public function pipe(\ECSPrefix20210703\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\ECSPrefix20210705\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \ECSPrefix20210703\React\Stream\Util::pipe($this, $dest, $options);
+        return \ECSPrefix20210705\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {

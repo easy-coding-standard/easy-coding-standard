@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="<?php 
-namespace ECSPrefix20210703;
+namespace ECSPrefix20210705;
 
 echo $this->charset;
 ?>" />
