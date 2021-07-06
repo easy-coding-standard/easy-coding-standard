@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210705\\Symfony\\Contracts\\HttpClient\\": ""
+            "ECSPrefix20210706\\Symfony\\Contracts\\HttpClient\\": ""
         }
     },
     "minimum-stability": "dev",

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210705\Symfony\Component\Stopwatch;
+namespace ECSPrefix20210706\Symfony\Component\Stopwatch;
 
 /**
  * Stopwatch section.
@@ -100,7 +100,7 @@ class Section
     public function startEvent(string $name, $category)
     {
         if (!isset($this->events[$name])) {
-            $this->events[$name] = new \ECSPrefix20210705\Symfony\Component\Stopwatch\StopwatchEvent($this->origin ?: \microtime(\true) * 1000, $category, $this->morePrecision, $name);
+            $this->events[$name] = new \ECSPrefix20210706\Symfony\Component\Stopwatch\StopwatchEvent($this->origin ?: \microtime(\true) * 1000, $category, $this->morePrecision, $name);
         }
         return $this->events[$name]->start();
     }

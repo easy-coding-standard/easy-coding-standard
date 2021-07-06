@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210705;
+namespace ECSPrefix20210706;
 
 if ('cli-server' !== \PHP_SAPI) {
     // safe guard against unwanted execution

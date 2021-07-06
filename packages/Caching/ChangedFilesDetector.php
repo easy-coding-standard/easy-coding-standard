@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
-use ECSPrefix20210705\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210706\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
  */
@@ -41,7 +41,7 @@ final class ChangedFilesDetector
     /**
      * @return void
      */
-    public function addFileInfo(\ECSPrefix20210705\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function addFileInfo(\ECSPrefix20210706\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $currentValue = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
@@ -50,12 +50,12 @@ final class ChangedFilesDetector
     /**
      * @return void
      */
-    public function invalidateFileInfo(\ECSPrefix20210705\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function invalidateFileInfo(\ECSPrefix20210706\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $this->cache->clean($cacheKey);
     }
-    public function hasFileInfoChanged(\ECSPrefix20210705\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function hasFileInfoChanged(\ECSPrefix20210706\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
@@ -94,7 +94,7 @@ final class ChangedFilesDetector
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
         $this->cache->save(self::CONFIGURATION_HASH_KEY, self::FILE_HASH, $configurationHash);
     }
-    private function fileInfoToKey(\ECSPrefix20210705\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function fileInfoToKey(\ECSPrefix20210706\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         return \sha1($smartFileInfo->getRelativeFilePathFromCwd());
     }

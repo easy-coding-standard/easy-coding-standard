@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20210705\React\EventLoop;
+namespace ECSPrefix20210706\React\EventLoop;
 
-use ECSPrefix20210705\React\EventLoop\Tick\FutureTickQueue;
-use ECSPrefix20210705\React\EventLoop\Timer\Timer;
+use ECSPrefix20210706\React\EventLoop\Tick\FutureTickQueue;
+use ECSPrefix20210706\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-uv` based event loop.
@@ -15,7 +15,7 @@ use SplObjectStorage;
  *
  * @see https://github.com/bwoebi/php-uv
  */
-final class ExtUvLoop implements \ECSPrefix20210705\React\EventLoop\LoopInterface
+final class ExtUvLoop implements \ECSPrefix20210706\React\EventLoop\LoopInterface
 {
     private $uv;
     private $futureTickQueue;
@@ -33,10 +33,10 @@ final class ExtUvLoop implements \ECSPrefix20210705\React\EventLoop\LoopInterfac
             throw new \BadMethodCallException('Cannot create LibUvLoop, ext-uv extension missing');
         }
         $this->uv = \uv_loop_new();
-        $this->futureTickQueue = new \ECSPrefix20210705\React\EventLoop\Tick\FutureTickQueue();
+        $this->futureTickQueue = new \ECSPrefix20210706\React\EventLoop\Tick\FutureTickQueue();
         $this->timers = new \SplObjectStorage();
         $this->streamListener = $this->createStreamListener();
-        $this->signals = new \ECSPrefix20210705\React\EventLoop\SignalsHandler();
+        $this->signals = new \ECSPrefix20210706\React\EventLoop\SignalsHandler();
     }
     /**
      * Returns the underlying ext-uv event loop. (Internal ReactPHP use only.)
@@ -98,7 +98,7 @@ final class ExtUvLoop implements \ECSPrefix20210705\React\EventLoop\LoopInterfac
      */
     public function addTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20210705\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \ECSPrefix20210706\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $that = $this;
         $timers = $this->timers;
         $callback = function () use($timer, $timers, $that) {
@@ -117,7 +117,7 @@ final class ExtUvLoop implements \ECSPrefix20210705\React\EventLoop\LoopInterfac
      */
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20210705\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \ECSPrefix20210706\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $callback = function () use($timer) {
             \call_user_func($timer->getCallback(), $timer);
         };
@@ -130,7 +130,7 @@ final class ExtUvLoop implements \ECSPrefix20210705\React\EventLoop\LoopInterfac
     /**
      * {@inheritdoc}
      */
-    public function cancelTimer(\ECSPrefix20210705\React\EventLoop\TimerInterface $timer)
+    public function cancelTimer(\ECSPrefix20210706\React\EventLoop\TimerInterface $timer)
     {
         if (isset($this->timers[$timer])) {
             @\uv_timer_stop($this->timers[$timer]);
@@ -149,8 +149,8 @@ final class ExtUvLoop implements \ECSPrefix20210705\React\EventLoop\LoopInterfac
         $this->signals->add($signal, $listener);
         if (!isset($this->signalEvents[$signal])) {
             $signals = $this->signals;
-            $this->signalEvents[$signal] = \ECSPrefix20210705\uv_signal_init($this->uv);
-            \ECSPrefix20210705\uv_signal_start($this->signalEvents[$signal], function () use($signals, $signal) {
+            $this->signalEvents[$signal] = \ECSPrefix20210706\uv_signal_init($this->uv);
+            \ECSPrefix20210706\uv_signal_start($this->signalEvents[$signal], function () use($signals, $signal) {
                 $signals->call($signal);
             }, $signal);
         }
@@ -196,7 +196,7 @@ final class ExtUvLoop implements \ECSPrefix20210705\React\EventLoop\LoopInterfac
     private function addStream($stream)
     {
         if (!isset($this->streamEvents[(int) $stream])) {
-            $this->streamEvents[(int) $stream] = \ECSPrefix20210705\uv_poll_init_socket($this->uv, $stream);
+            $this->streamEvents[(int) $stream] = \ECSPrefix20210706\uv_poll_init_socket($this->uv, $stream);
         }
         if ($this->streamEvents[(int) $stream] !== \false) {
             $this->pollStream($stream);

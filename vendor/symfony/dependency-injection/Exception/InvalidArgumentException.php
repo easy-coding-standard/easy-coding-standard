@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210705\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20210706\Symfony\Component\DependencyInjection\Exception;
 
 /**
  * Base InvalidArgumentException for Dependency Injection component.
  *
  * @author Bulat Shakirzyanov <bulat@theopenskyproject.com>
  */
-class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210705\Symfony\Component\DependencyInjection\Exception\ExceptionInterface
+class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210706\Symfony\Component\DependencyInjection\Exception\ExceptionInterface
 {
 }

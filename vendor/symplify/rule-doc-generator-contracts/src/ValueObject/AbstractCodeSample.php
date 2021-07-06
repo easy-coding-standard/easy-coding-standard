@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210705\Symplify\RuleDocGenerator\ValueObject;
+namespace ECSPrefix20210706\Symplify\RuleDocGenerator\ValueObject;
 
-use ECSPrefix20210705\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use ECSPrefix20210705\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
-abstract class AbstractCodeSample implements \ECSPrefix20210705\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
+use ECSPrefix20210706\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use ECSPrefix20210706\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
+abstract class AbstractCodeSample implements \ECSPrefix20210706\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
 {
     /**
      * @var string
@@ -20,11 +20,11 @@ abstract class AbstractCodeSample implements \ECSPrefix20210705\Symplify\RuleDoc
         $badCode = \trim($badCode);
         $goodCode = \trim($goodCode);
         if ($badCode === '') {
-            throw new \ECSPrefix20210705\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException('Bad sample good code cannot be empty');
+            throw new \ECSPrefix20210706\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException('Bad sample good code cannot be empty');
         }
         if ($goodCode === $badCode) {
             $errorMessage = \sprintf('Good and bad code cannot be identical: "%s"', $goodCode);
-            throw new \ECSPrefix20210705\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($errorMessage);
+            throw new \ECSPrefix20210706\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($errorMessage);
         }
         $this->goodCode = $goodCode;
         $this->badCode = $badCode;
