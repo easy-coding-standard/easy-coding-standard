@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210706;
+namespace ECSPrefix20210707;
 
-use ECSPrefix20210706\Symfony\Component\Console\Application;
+use ECSPrefix20210707\Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix20210706\Symplify\EasyTesting\Console\EasyTestingConsoleApplication;
-use ECSPrefix20210706\Symplify\PackageBuilder\Console\Command\CommandNaming;
+use ECSPrefix20210707\Symplify\EasyTesting\Console\EasyTestingConsoleApplication;
+use ECSPrefix20210707\Symplify\PackageBuilder\Console\Command\CommandNaming;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('ECSPrefix20210706\Symplify\EasyTesting\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/DataProvider', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
+    $services->load('ECSPrefix20210707\Symplify\EasyTesting\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/DataProvider', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
     // console
-    $services->set(\ECSPrefix20210706\Symplify\EasyTesting\Console\EasyTestingConsoleApplication::class);
-    $services->alias(\ECSPrefix20210706\Symfony\Component\Console\Application::class, \ECSPrefix20210706\Symplify\EasyTesting\Console\EasyTestingConsoleApplication::class);
-    $services->set(\ECSPrefix20210706\Symplify\PackageBuilder\Console\Command\CommandNaming::class);
+    $services->set(\ECSPrefix20210707\Symplify\EasyTesting\Console\EasyTestingConsoleApplication::class);
+    $services->alias(\ECSPrefix20210707\Symfony\Component\Console\Application::class, \ECSPrefix20210707\Symplify\EasyTesting\Console\EasyTestingConsoleApplication::class);
+    $services->set(\ECSPrefix20210707\Symplify\PackageBuilder\Console\Command\CommandNaming::class);
 };

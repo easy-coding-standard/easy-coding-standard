@@ -6,7 +6,7 @@ namespace Symplify\CodingStandard\TokenRunner;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpToken;
-use ECSPrefix20210706\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210707\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class TokenFinder
 {
     /**
@@ -73,7 +73,7 @@ final class TokenFinder
     {
         $previousPosition = $position - 1;
         if (!isset($tokens[$previousPosition])) {
-            throw new \ECSPrefix20210706\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210707\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $tokens[$previousPosition];
     }
@@ -95,6 +95,6 @@ final class TokenFinder
                 return $position;
             }
         }
-        throw new \ECSPrefix20210706\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        throw new \ECSPrefix20210707\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
 }

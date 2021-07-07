@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210706\Symfony\Component\HttpFoundation\File\Exception;
+namespace ECSPrefix20210707\Symfony\Component\HttpFoundation\File\Exception;
 
-class UnexpectedTypeException extends \ECSPrefix20210706\Symfony\Component\HttpFoundation\File\Exception\FileException
+class UnexpectedTypeException extends \ECSPrefix20210707\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
     public function __construct($value, string $expectedType)
     {

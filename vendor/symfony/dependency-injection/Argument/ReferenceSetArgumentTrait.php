@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210706\Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix20210707\Symfony\Component\DependencyInjection\Argument;
 
-use ECSPrefix20210706\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210706\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210707\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210707\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
@@ -39,8 +39,8 @@ trait ReferenceSetArgumentTrait
     public function setValues(array $values)
     {
         foreach ($values as $k => $v) {
-            if (null !== $v && !$v instanceof \ECSPrefix20210706\Symfony\Component\DependencyInjection\Reference) {
-                throw new \ECSPrefix20210706\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A "%s" must hold only Reference instances, "%s" given.', __CLASS__, \get_debug_type($v)));
+            if (null !== $v && !$v instanceof \ECSPrefix20210707\Symfony\Component\DependencyInjection\Reference) {
+                throw new \ECSPrefix20210707\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A "%s" must hold only Reference instances, "%s" given.', __CLASS__, \get_debug_type($v)));
             }
         }
         $this->values = $values;
