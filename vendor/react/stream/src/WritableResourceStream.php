@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210707\React\Stream;
+namespace ECSPrefix20210708\React\Stream;
 
-use ECSPrefix20210707\Evenement\EventEmitter;
-use ECSPrefix20210707\React\EventLoop\LoopInterface;
-final class WritableResourceStream extends \ECSPrefix20210707\Evenement\EventEmitter implements \ECSPrefix20210707\React\Stream\WritableStreamInterface
+use ECSPrefix20210708\Evenement\EventEmitter;
+use ECSPrefix20210708\React\EventLoop\LoopInterface;
+final class WritableResourceStream extends \ECSPrefix20210708\Evenement\EventEmitter implements \ECSPrefix20210708\React\Stream\WritableStreamInterface
 {
     private $stream;
     private $loop;
@@ -20,7 +20,7 @@ final class WritableResourceStream extends \ECSPrefix20210707\Evenement\EventEmi
     private $writable = \true;
     private $closed = \false;
     private $data = '';
-    public function __construct($stream, \ECSPrefix20210707\React\EventLoop\LoopInterface $loop, $writeBufferSoftLimit = null, $writeChunkSize = null)
+    public function __construct($stream, \ECSPrefix20210708\React\EventLoop\LoopInterface $loop, $writeBufferSoftLimit = null, $writeChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');

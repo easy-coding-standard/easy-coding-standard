@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210707\Symfony\Component\Config\Loader;
+namespace ECSPrefix20210708\Symfony\Component\Config\Loader;
 
 /**
  * Placeholder for a parameter.

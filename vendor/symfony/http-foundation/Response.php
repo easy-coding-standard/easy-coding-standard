@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210707\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210708\Symfony\Component\HttpFoundation;
 
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210707\Symfony\Component\HttpFoundation\ResponseHeaderBag::class);
+\class_exists(\ECSPrefix20210708\Symfony\Component\HttpFoundation\ResponseHeaderBag::class);
 /**
  * Response represents an HTTP response.
  *
@@ -232,7 +232,7 @@ class Response
      */
     public function __construct($content = '', int $status = 200, array $headers = [])
     {
-        $this->headers = new \ECSPrefix20210707\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
+        $this->headers = new \ECSPrefix20210708\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
         $this->setContent($content);
         $this->setStatusCode($status);
         $this->setProtocolVersion('1.0');
@@ -286,7 +286,7 @@ class Response
      *
      * @return $this
      */
-    public function prepare(\ECSPrefix20210707\Symfony\Component\HttpFoundation\Request $request)
+    public function prepare(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request)
     {
         $headers = $this->headers;
         if ($this->isInformational() || $this->isEmpty()) {
@@ -993,7 +993,7 @@ class Response
      *
      * @final
      */
-    public function isNotModified(\ECSPrefix20210707\Symfony\Component\HttpFoundation\Request $request) : bool
+    public function isNotModified(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request) : bool
     {
         if (!$request->isMethodCacheable()) {
             return \false;
@@ -1157,7 +1157,7 @@ class Response
      * @final
      * @return void
      */
-    protected function ensureIEOverSSLCompatibility(\ECSPrefix20210707\Symfony\Component\HttpFoundation\Request $request)
+    protected function ensureIEOverSSLCompatibility(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request)
     {
         if (\false !== \stripos($this->headers->get('Content-Disposition') ?? '', 'attachment') && 1 == \preg_match('/MSIE (.*?);/i', $request->server->get('HTTP_USER_AGENT') ?? '', $match) && \true === $request->isSecure()) {
             if ((int) \preg_replace('/(MSIE )(.*?);/', '$2', $match[0]) < 9) {
