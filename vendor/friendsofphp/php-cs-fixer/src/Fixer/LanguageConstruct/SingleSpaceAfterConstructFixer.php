@@ -42,9 +42,10 @@ final class SingleSpaceAfterConstructFixer extends \PhpCsFixer\AbstractFixer imp
     private $fixTokenMap = [];
     /**
      * {@inheritdoc}
+     * @param mixed[] $configuration
      * @return void
      */
-    public function configure(array $configuration)
+    public function configure($configuration)
     {
         parent::configure($configuration);
         // @TODO: drop condition when PHP 8.0+ is required
@@ -92,16 +93,19 @@ yield  from  baz();
     }
     /**
      * {@inheritdoc}
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate($tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound(\array_values($this->fixTokenMap)) && !$tokens->hasAlternativeSyntax();
     }
     /**
      * {@inheritdoc}
+     * @param \SplFileInfo $file
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix($file, $tokens)
     {
         $tokenKinds = \array_values($this->fixTokenMap);
         for ($index = $tokens->count() - 2; $index >= 0; --$index) {

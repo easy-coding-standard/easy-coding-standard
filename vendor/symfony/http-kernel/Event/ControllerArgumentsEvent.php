@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Event;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows filtering of controller arguments.
  *
@@ -24,14 +24,14 @@ use ECSPrefix20210708\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-final class ControllerArgumentsEvent extends \ECSPrefix20210708\Symfony\Component\HttpKernel\Event\KernelEvent
+final class ControllerArgumentsEvent extends \ECSPrefix20210710\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $controller;
     private $arguments;
     /**
      * @param int|null $requestType
      */
-    public function __construct(\ECSPrefix20210708\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request, $requestType)
+    public function __construct(\ECSPrefix20210710\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \ECSPrefix20210710\Symfony\Component\HttpFoundation\Request $request, $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->controller = $controller;
@@ -41,7 +41,10 @@ final class ControllerArgumentsEvent extends \ECSPrefix20210708\Symfony\Componen
     {
         return $this->controller;
     }
-    public function setController(callable $controller)
+    /**
+     * @param callable $controller
+     */
+    public function setController($controller)
     {
         $this->controller = $controller;
     }
@@ -49,7 +52,10 @@ final class ControllerArgumentsEvent extends \ECSPrefix20210708\Symfony\Componen
     {
         return $this->arguments;
     }
-    public function setArguments(array $arguments)
+    /**
+     * @param mixed[] $arguments
+     */
+    public function setArguments($arguments)
     {
         $this->arguments = $arguments;
     }

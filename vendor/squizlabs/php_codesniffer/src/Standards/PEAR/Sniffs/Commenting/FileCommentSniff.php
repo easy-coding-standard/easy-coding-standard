@@ -39,7 +39,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Find the next non whitespace token.
@@ -203,7 +203,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    protected function processCategory($phpcsFile, array $tags)
+    protected function processCategory($phpcsFile, $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -239,7 +239,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    protected function processPackage($phpcsFile, array $tags)
+    protected function processPackage($phpcsFile, $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -285,7 +285,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    protected function processSubpackage($phpcsFile, array $tags)
+    protected function processSubpackage($phpcsFile, $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -322,7 +322,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    protected function processAuthor($phpcsFile, array $tags)
+    protected function processAuthor($phpcsFile, $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -349,7 +349,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    protected function processCopyright($phpcsFile, array $tags)
+    protected function processCopyright($phpcsFile, $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -387,7 +387,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    protected function processLicense($phpcsFile, array $tags)
+    protected function processLicense($phpcsFile, $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -413,7 +413,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    protected function processVersion($phpcsFile, array $tags)
+    protected function processVersion($phpcsFile, $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {

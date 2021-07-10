@@ -17,5 +17,8 @@ namespace PhpCsFixer\FixerDefinition;
  */
 interface VersionSpecificCodeSampleInterface extends \PhpCsFixer\FixerDefinition\CodeSampleInterface
 {
-    public function isSuitableFor(int $version) : bool;
+    /**
+     * @param int $version
+     */
+    public function isSuitableFor($version) : bool;
 }

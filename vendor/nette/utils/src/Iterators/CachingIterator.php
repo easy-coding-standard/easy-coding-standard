@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210708\Nette\Iterators;
+namespace ECSPrefix20210710\Nette\Iterators;
 
-use ECSPrefix20210708\Nette;
+use ECSPrefix20210710\Nette;
 /**
  * Smarter caching iterator.
  *
@@ -38,21 +38,23 @@ class CachingIterator extends \CachingIterator implements \Countable
         } elseif ($iterator instanceof \Traversable) {
             $iterator = new \IteratorIterator($iterator);
         } else {
-            throw new \ECSPrefix20210708\Nette\InvalidArgumentException(\sprintf('Invalid argument passed to %s; array or Traversable expected, %s given.', self::class, \is_object($iterator) ? \get_class($iterator) : \gettype($iterator)));
+            throw new \ECSPrefix20210710\Nette\InvalidArgumentException(\sprintf('Invalid argument passed to %s; array or Traversable expected, %s given.', self::class, \is_object($iterator) ? \get_class($iterator) : \gettype($iterator)));
         }
         parent::__construct($iterator, 0);
     }
     /**
      * Is the current element the first one?
+     * @param int|null $gridWidth
      */
-    public function isFirst(int $gridWidth = null) : bool
+    public function isFirst($gridWidth = null) : bool
     {
         return $this->counter === 1 || $gridWidth && $this->counter !== 0 && ($this->counter - 1) % $gridWidth === 0;
     }
     /**
      * Is the current element the last one?
+     * @param int|null $gridWidth
      */
-    public function isLast(int $gridWidth = null) : bool
+    public function isLast($gridWidth = null) : bool
     {
         return !$this->hasNext() || $gridWidth && $this->counter % $gridWidth === 0;
     }
@@ -93,7 +95,7 @@ class CachingIterator extends \CachingIterator implements \Countable
         if ($inner instanceof \Countable) {
             return $inner->count();
         } else {
-            throw new \ECSPrefix20210708\Nette\NotSupportedException('Iterator is not countable.');
+            throw new \ECSPrefix20210710\Nette\NotSupportedException('Iterator is not countable.');
         }
     }
     /**

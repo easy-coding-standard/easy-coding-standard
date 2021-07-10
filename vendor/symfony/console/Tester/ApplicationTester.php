@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Console\Tester;
+namespace ECSPrefix20210710\Symfony\Component\Console\Tester;
 
-use ECSPrefix20210708\Symfony\Component\Console\Application;
-use ECSPrefix20210708\Symfony\Component\Console\Input\ArrayInput;
+use ECSPrefix20210710\Symfony\Component\Console\Application;
+use ECSPrefix20210710\Symfony\Component\Console\Input\ArrayInput;
 /**
  * Eases the testing of console applications.
  *
@@ -28,7 +28,7 @@ class ApplicationTester
     private $application;
     private $input;
     private $statusCode;
-    public function __construct(\ECSPrefix20210708\Symfony\Component\Console\Application $application)
+    public function __construct(\ECSPrefix20210710\Symfony\Component\Console\Application $application)
     {
         $this->application = $application;
     }
@@ -43,10 +43,12 @@ class ApplicationTester
      *  * capture_stderr_separately: Make output of stdOut and stdErr separately available
      *
      * @return int The command exit code
+     * @param mixed[] $input
+     * @param mixed[] $options
      */
-    public function run(array $input, array $options = [])
+    public function run($input, $options = [])
     {
-        $this->input = new \ECSPrefix20210708\Symfony\Component\Console\Input\ArrayInput($input);
+        $this->input = new \ECSPrefix20210710\Symfony\Component\Console\Input\ArrayInput($input);
         if (isset($options['interactive'])) {
             $this->input->setInteractive($options['interactive']);
         }

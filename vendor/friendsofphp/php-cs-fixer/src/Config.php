@@ -138,8 +138,9 @@ class Config implements \PhpCsFixer\ConfigInterface
     }
     /**
      * {@inheritdoc}
+     * @param string $cacheFile
      */
-    public function setCacheFile(string $cacheFile) : \PhpCsFixer\ConfigInterface
+    public function setCacheFile($cacheFile) : \PhpCsFixer\ConfigInterface
     {
         $this->cacheFile = $cacheFile;
         return $this;
@@ -155,32 +156,36 @@ class Config implements \PhpCsFixer\ConfigInterface
     }
     /**
      * {@inheritdoc}
+     * @param string $format
      */
-    public function setFormat(string $format) : \PhpCsFixer\ConfigInterface
+    public function setFormat($format) : \PhpCsFixer\ConfigInterface
     {
         $this->format = $format;
         return $this;
     }
     /**
      * {@inheritdoc}
+     * @param bool $hideProgress
      */
-    public function setHideProgress(bool $hideProgress) : \PhpCsFixer\ConfigInterface
+    public function setHideProgress($hideProgress) : \PhpCsFixer\ConfigInterface
     {
         $this->hideProgress = $hideProgress;
         return $this;
     }
     /**
      * {@inheritdoc}
+     * @param string $indent
      */
-    public function setIndent(string $indent) : \PhpCsFixer\ConfigInterface
+    public function setIndent($indent) : \PhpCsFixer\ConfigInterface
     {
         $this->indent = $indent;
         return $this;
     }
     /**
      * {@inheritdoc}
+     * @param string $lineEnding
      */
-    public function setLineEnding(string $lineEnding) : \PhpCsFixer\ConfigInterface
+    public function setLineEnding($lineEnding) : \PhpCsFixer\ConfigInterface
     {
         $this->lineEnding = $lineEnding;
         return $this;
@@ -196,24 +201,27 @@ class Config implements \PhpCsFixer\ConfigInterface
     }
     /**
      * {@inheritdoc}
+     * @param bool $isRiskyAllowed
      */
-    public function setRiskyAllowed(bool $isRiskyAllowed) : \PhpCsFixer\ConfigInterface
+    public function setRiskyAllowed($isRiskyAllowed) : \PhpCsFixer\ConfigInterface
     {
         $this->isRiskyAllowed = $isRiskyAllowed;
         return $this;
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $rules
      */
-    public function setRules(array $rules) : \PhpCsFixer\ConfigInterface
+    public function setRules($rules) : \PhpCsFixer\ConfigInterface
     {
         $this->rules = $rules;
         return $this;
     }
     /**
      * {@inheritdoc}
+     * @param bool $usingCache
      */
-    public function setUsingCache(bool $usingCache) : \PhpCsFixer\ConfigInterface
+    public function setUsingCache($usingCache) : \PhpCsFixer\ConfigInterface
     {
         $this->usingCache = $usingCache;
         return $this;

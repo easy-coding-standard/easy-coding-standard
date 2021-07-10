@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\HttpCache;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Response;
 /**
  * Esi implements the ESI capabilities to Request and Response instances.
  *
@@ -23,7 +23,7 @@ use ECSPrefix20210708\Symfony\Component\HttpFoundation\Response;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Esi extends \ECSPrefix20210708\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
+class Esi extends \ECSPrefix20210710\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
 {
     public function getName()
     {
@@ -31,8 +31,9 @@ class Esi extends \ECSPrefix20210708\Symfony\Component\HttpKernel\HttpCache\Abst
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function addSurrogateControl(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Response $response)
+    public function addSurrogateControl($response)
     {
         if (\false !== \strpos($response->getContent(), '<esi:include')) {
             $response->headers->set('Surrogate-Control', 'content="ESI/1.0"');
@@ -40,8 +41,12 @@ class Esi extends \ECSPrefix20210708\Symfony\Component\HttpKernel\HttpCache\Abst
     }
     /**
      * {@inheritdoc}
+     * @param string $uri
+     * @param string|null $alt
+     * @param bool $ignoreErrors
+     * @param string $comment
      */
-    public function renderIncludeTag(string $uri, string $alt = null, bool $ignoreErrors = \true, string $comment = '')
+    public function renderIncludeTag($uri, $alt = null, $ignoreErrors = \true, $comment = '')
     {
         $html = \sprintf('<esi:include src="%s"%s%s />', $uri, $ignoreErrors ? ' onerror="continue"' : '', $alt ? \sprintf(' alt="%s"', $alt) : '');
         if (!empty($comment)) {
@@ -51,8 +56,10 @@ class Esi extends \ECSPrefix20210708\Symfony\Component\HttpKernel\HttpCache\Abst
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function process(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210708\Symfony\Component\HttpFoundation\Response $response)
+    public function process($request, $response)
     {
         $type = $response->headers->get('Content-Type');
         if (empty($type)) {

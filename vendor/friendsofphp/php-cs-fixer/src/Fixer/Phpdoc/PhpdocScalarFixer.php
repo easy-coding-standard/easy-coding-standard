@@ -90,8 +90,9 @@ function sample($a, $b, $c)
     }
     /**
      * {@inheritdoc}
+     * @param string $type
      */
-    protected function normalize(string $type) : string
+    protected function normalize($type) : string
     {
         if (\in_array($type, $this->configuration['types'], \true)) {
             return self::$types[$type];

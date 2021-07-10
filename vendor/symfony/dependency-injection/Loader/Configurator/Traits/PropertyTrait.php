@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
 trait PropertyTrait
 {
@@ -16,8 +16,9 @@ trait PropertyTrait
      * Sets a specific property.
      *
      * @return $this
+     * @param string $name
      */
-    public final function property(string $name, $value)
+    public final function property($name, $value)
     {
         $this->definition->setProperty($name, static::processValue($value, \true));
         return $this;

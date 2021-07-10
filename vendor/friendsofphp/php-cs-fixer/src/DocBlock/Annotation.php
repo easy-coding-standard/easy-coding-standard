@@ -172,7 +172,7 @@ final class Annotation
      * @param string[] $types
      * @return void
      */
-    public function setTypes(array $types)
+    public function setTypes($types)
     {
         $pattern = '/' . \preg_quote($this->getTypesContent(), '/') . '/';
         $this->lines[0]->setContent(\PhpCsFixer\Preg::replace($pattern, \implode('|', $types), $this->lines[0]->getContent(), 1));

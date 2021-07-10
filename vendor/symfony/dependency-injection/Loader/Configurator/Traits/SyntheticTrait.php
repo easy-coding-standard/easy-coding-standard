@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
 trait SyntheticTrait
 {
@@ -17,8 +17,9 @@ trait SyntheticTrait
      * container, but dynamically injected.
      *
      * @return $this
+     * @param bool $synthetic
      */
-    public final function synthetic(bool $synthetic = \true)
+    public final function synthetic($synthetic = \true)
     {
         $this->definition->setSynthetic($synthetic);
         return $this;

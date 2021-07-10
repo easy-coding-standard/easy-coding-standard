@@ -30,8 +30,9 @@ final class PhpdocInlineTagNormalizerFixer extends \PhpCsFixer\AbstractFixer imp
 {
     /**
      * {@inheritdoc}
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate($tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -54,9 +55,11 @@ final class PhpdocInlineTagNormalizerFixer extends \PhpCsFixer\AbstractFixer imp
     }
     /**
      * {@inheritdoc}
+     * @param \SplFileInfo $file
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix($file, $tokens)
     {
         if (!$this->configuration['tags']) {
             return;

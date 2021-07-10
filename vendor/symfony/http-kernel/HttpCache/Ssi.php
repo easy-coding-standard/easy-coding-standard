@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\HttpCache;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Response;
 /**
  * Ssi implements the SSI capabilities to Request and Response instances.
  *
  * @author Sebastian Krebs <krebs.seb@gmail.com>
  */
-class Ssi extends \ECSPrefix20210708\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
+class Ssi extends \ECSPrefix20210710\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
 {
     /**
      * {@inheritdoc}
@@ -28,8 +28,9 @@ class Ssi extends \ECSPrefix20210708\Symfony\Component\HttpKernel\HttpCache\Abst
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function addSurrogateControl(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Response $response)
+    public function addSurrogateControl($response)
     {
         if (\false !== \strpos($response->getContent(), '<!--#include')) {
             $response->headers->set('Surrogate-Control', 'content="SSI/1.0"');
@@ -37,15 +38,21 @@ class Ssi extends \ECSPrefix20210708\Symfony\Component\HttpKernel\HttpCache\Abst
     }
     /**
      * {@inheritdoc}
+     * @param string $uri
+     * @param string|null $alt
+     * @param bool $ignoreErrors
+     * @param string $comment
      */
-    public function renderIncludeTag(string $uri, string $alt = null, bool $ignoreErrors = \true, string $comment = '')
+    public function renderIncludeTag($uri, $alt = null, $ignoreErrors = \true, $comment = '')
     {
         return \sprintf('<!--#include virtual="%s" -->', $uri);
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function process(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210708\Symfony\Component\HttpFoundation\Response $response)
+    public function process($request, $response)
     {
         $type = $response->headers->get('Content-Type');
         if (empty($type)) {

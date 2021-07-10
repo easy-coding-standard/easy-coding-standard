@@ -1,15 +1,15 @@
 <?php
 
-namespace ECSPrefix20210708\Clue\React\NDJson;
+namespace ECSPrefix20210710\Clue\React\NDJson;
 
-use ECSPrefix20210708\Evenement\EventEmitter;
-use ECSPrefix20210708\React\Stream\ReadableStreamInterface;
-use ECSPrefix20210708\React\Stream\Util;
-use ECSPrefix20210708\React\Stream\WritableStreamInterface;
+use ECSPrefix20210710\Evenement\EventEmitter;
+use ECSPrefix20210710\React\Stream\ReadableStreamInterface;
+use ECSPrefix20210710\React\Stream\Util;
+use ECSPrefix20210710\React\Stream\WritableStreamInterface;
 /**
  * The Decoder / Parser reads from a plain stream and emits data objects for each JSON element
  */
-class Decoder extends \ECSPrefix20210708\Evenement\EventEmitter implements \ECSPrefix20210708\React\Stream\ReadableStreamInterface
+class Decoder extends \ECSPrefix20210710\Evenement\EventEmitter implements \ECSPrefix20210710\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $assoc;
@@ -27,7 +27,7 @@ class Decoder extends \ECSPrefix20210708\Evenement\EventEmitter implements \ECSP
      * @param int $maxlength
      * @throws \BadMethodCallException
      */
-    public function __construct(\ECSPrefix20210708\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
+    public function __construct(\ECSPrefix20210710\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
     {
         // @codeCoverageIgnoreStart
         if ($options !== 0 && \PHP_VERSION < 5.4) {
@@ -74,9 +74,13 @@ class Decoder extends \ECSPrefix20210708\Evenement\EventEmitter implements \ECSP
     {
         $this->input->resume();
     }
-    public function pipe(\ECSPrefix20210708\React\Stream\WritableStreamInterface $dest, array $options = array())
+    /**
+     * @param \React\Stream\WritableStreamInterface $dest
+     * @param mixed[] $options
+     */
+    public function pipe($dest, $options = array())
     {
-        \ECSPrefix20210708\React\Stream\Util::pipe($this, $dest, $options);
+        \ECSPrefix20210710\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     /** @internal */
@@ -124,8 +128,9 @@ class Decoder extends \ECSPrefix20210708\Evenement\EventEmitter implements \ECSP
             $this->close();
         }
     }
-    /** @internal */
-    public function handleError(\Exception $error)
+    /** @internal
+     * @param \Exception $error */
+    public function handleError($error)
     {
         $this->emit('error', array($error));
         $this->close();

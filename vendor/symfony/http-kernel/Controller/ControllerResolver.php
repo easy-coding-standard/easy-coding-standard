@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Controller;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Controller;
 
-use ECSPrefix20210708\Psr\Log\LoggerInterface;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Psr\Log\LoggerInterface;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
 /**
  * This implementation uses the '_controller' request attribute to determine
  * the controller to execute.
@@ -19,17 +19,18 @@ use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class ControllerResolver implements \ECSPrefix20210708\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
+class ControllerResolver implements \ECSPrefix20210710\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
 {
     private $logger;
-    public function __construct(\ECSPrefix20210708\Psr\Log\LoggerInterface $logger = null)
+    public function __construct(\ECSPrefix20210710\Psr\Log\LoggerInterface $logger = null)
     {
         $this->logger = $logger;
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function getController(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request)
+    public function getController($request)
     {
         if (!($controller = $request->attributes->get('_controller'))) {
             if (null !== $this->logger) {
@@ -97,8 +98,9 @@ class ControllerResolver implements \ECSPrefix20210708\Symfony\Component\HttpKer
      * @return callable A PHP callable
      *
      * @throws \InvalidArgumentException When the controller cannot be created
+     * @param string $controller
      */
-    protected function createController(string $controller)
+    protected function createController($controller)
     {
         if (\false === \strpos($controller, '::')) {
             $controller = $this->instantiateController($controller);
@@ -138,8 +140,9 @@ class ControllerResolver implements \ECSPrefix20210708\Symfony\Component\HttpKer
      * Returns an instantiated controller.
      *
      * @return object
+     * @param string $class
      */
-    protected function instantiateController(string $class)
+    protected function instantiateController($class)
     {
         return new $class();
     }

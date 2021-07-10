@@ -73,13 +73,13 @@ class Notifysend implements \PHP_CodeSniffer\Reports\Report
      * its data should be counted in the grand totals.
      *
      * @param array                 $report      Prepared report data.
-     * @param \PHP_CodeSniffer\File $phpcsFile   The file being reported on.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being reported on.
      * @param bool                  $showSources Show sources?
      * @param int                   $width       Maximum allowed line width.
      *
      * @return bool
      */
-    public function generateFileReport($report, \PHP_CodeSniffer\Files\File $phpcsFile, $showSources = \false, $width = 80)
+    public function generateFileReport($report, $phpcsFile, $showSources = \false, $width = 80)
     {
         echo $report['filename'] . \PHP_EOL;
         // We want this file counted in the total number

@@ -83,8 +83,9 @@ interface ConfigInterface
     /**
      * Sets the path to the cache file.
      * @return $this
+     * @param string $cacheFile
      */
-    public function setCacheFile(string $cacheFile);
+    public function setCacheFile($cacheFile);
     /**
      * @return $this
      * @param mixed[] $finder
@@ -92,20 +93,24 @@ interface ConfigInterface
     public function setFinder($finder);
     /**
      * @return $this
+     * @param string $format
      */
-    public function setFormat(string $format);
+    public function setFormat($format);
     /**
      * @return $this
+     * @param bool $hideProgress
      */
-    public function setHideProgress(bool $hideProgress);
+    public function setHideProgress($hideProgress);
     /**
      * @return $this
+     * @param string $indent
      */
-    public function setIndent(string $indent);
+    public function setIndent($indent);
     /**
      * @return $this
+     * @param string $lineEnding
      */
-    public function setLineEnding(string $lineEnding);
+    public function setLineEnding($lineEnding);
     /**
      * Set PHP executable.
      * @return $this
@@ -115,8 +120,9 @@ interface ConfigInterface
     /**
      * Set if it is allowed to run risky fixers.
      * @return $this
+     * @param bool $isRiskyAllowed
      */
-    public function setRiskyAllowed(bool $isRiskyAllowed);
+    public function setRiskyAllowed($isRiskyAllowed);
     /**
      * Set rules.
      *
@@ -125,10 +131,12 @@ interface ConfigInterface
      * Value for fixer may be bool (turn it on or off) or array of configuration
      * (turn it on and contains configuration for FixerInterface::configure method).
      * @return $this
+     * @param mixed[] $rules
      */
-    public function setRules(array $rules);
+    public function setRules($rules);
     /**
      * @return $this
+     * @param bool $usingCache
      */
-    public function setUsingCache(bool $usingCache);
+    public function setUsingCache($usingCache);
 }

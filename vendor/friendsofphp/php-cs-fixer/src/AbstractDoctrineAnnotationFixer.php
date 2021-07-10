@@ -32,16 +32,19 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
     private $classyElements;
     /**
      * {@inheritdoc}
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate($tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
+     * @param \SplFileInfo $file
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix($file, $tokens)
     {
         // fetch indexes one time, this is safe as we never add or remove a token during fixing
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
@@ -58,9 +61,10 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Fixes Doctrine annotations from the given PHPDoc style comment.
+     * @param DoctrineAnnotationTokens $doctrineAnnotationTokens
      * @return void
      */
-    protected abstract function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens);
+    protected abstract function fixAnnotations($doctrineAnnotationTokens);
     /**
      * {@inheritdoc}
      */

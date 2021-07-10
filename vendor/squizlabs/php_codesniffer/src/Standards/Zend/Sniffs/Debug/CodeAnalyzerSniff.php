@@ -37,7 +37,7 @@ class CodeAnalyzerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return int
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If ZendCodeAnalyzer could not be run.
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         $analyzerPath = \PHP_CodeSniffer\Config::getExecutablePath('zend_ca');
         if ($analyzerPath === null) {

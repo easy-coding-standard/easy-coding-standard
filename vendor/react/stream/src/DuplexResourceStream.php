@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20210708\React\Stream;
+namespace ECSPrefix20210710\React\Stream;
 
-use ECSPrefix20210708\Evenement\EventEmitter;
-use ECSPrefix20210708\React\EventLoop\LoopInterface;
+use ECSPrefix20210710\Evenement\EventEmitter;
+use ECSPrefix20210710\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class DuplexResourceStream extends \ECSPrefix20210708\Evenement\EventEmitter implements \ECSPrefix20210708\React\Stream\DuplexStreamInterface
+final class DuplexResourceStream extends \ECSPrefix20210710\Evenement\EventEmitter implements \ECSPrefix20210710\React\Stream\DuplexStreamInterface
 {
     private $stream;
     private $loop;
@@ -31,7 +31,7 @@ final class DuplexResourceStream extends \ECSPrefix20210708\Evenement\EventEmitt
     private $writable = \true;
     private $closing = \false;
     private $listening = \false;
-    public function __construct($stream, \ECSPrefix20210708\React\EventLoop\LoopInterface $loop, $readChunkSize = null, \ECSPrefix20210708\React\Stream\WritableStreamInterface $buffer = null)
+    public function __construct($stream, \ECSPrefix20210710\React\EventLoop\LoopInterface $loop, $readChunkSize = null, \ECSPrefix20210710\React\Stream\WritableStreamInterface $buffer = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -58,7 +58,7 @@ final class DuplexResourceStream extends \ECSPrefix20210708\Evenement\EventEmitt
             \stream_set_read_buffer($stream, 0);
         }
         if ($buffer === null) {
-            $buffer = new \ECSPrefix20210708\React\Stream\WritableResourceStream($stream, $loop);
+            $buffer = new \ECSPrefix20210710\React\Stream\WritableResourceStream($stream, $loop);
         }
         $this->stream = $stream;
         $this->loop = $loop;
@@ -130,9 +130,13 @@ final class DuplexResourceStream extends \ECSPrefix20210708\Evenement\EventEmitt
         $this->pause();
         $this->buffer->end($data);
     }
-    public function pipe(\ECSPrefix20210708\React\Stream\WritableStreamInterface $dest, array $options = array())
+    /**
+     * @param \React\Stream\WritableStreamInterface $dest
+     * @param mixed[] $options
+     */
+    public function pipe($dest, $options = array())
     {
-        return \ECSPrefix20210708\React\Stream\Util::pipe($this, $dest, $options);
+        return \ECSPrefix20210710\React\Stream\Util::pipe($this, $dest, $options);
     }
     /** @internal */
     public function handleData($stream)

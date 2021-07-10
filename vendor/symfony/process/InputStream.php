@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Process;
+namespace ECSPrefix20210710\Symfony\Component\Process;
 
-use ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException;
+use ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException;
 /**
  * Provides a way to continuously write to the input of a Process until the InputStream is closed.
  *
@@ -24,8 +24,9 @@ class InputStream implements \IteratorAggregate
     private $open = \true;
     /**
      * Sets a callback that is called when the write buffer becomes empty.
+     * @param callable|null $onEmpty
      */
-    public function onEmpty(callable $onEmpty = null)
+    public function onEmpty($onEmpty = null)
     {
         $this->onEmpty = $onEmpty;
     }
@@ -41,9 +42,9 @@ class InputStream implements \IteratorAggregate
             return;
         }
         if ($this->isClosed()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException(\sprintf('"%s" is closed.', static::class));
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException(\sprintf('"%s" is closed.', static::class));
         }
-        $this->input[] = \ECSPrefix20210708\Symfony\Component\Process\ProcessUtils::validateInput(__METHOD__, $input);
+        $this->input[] = \ECSPrefix20210710\Symfony\Component\Process\ProcessUtils::validateInput(__METHOD__, $input);
     }
     /**
      * Closes the write buffer.

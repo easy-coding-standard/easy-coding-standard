@@ -32,9 +32,12 @@ final class FopenFlagOrderFixer extends \PhpCsFixer\AbstractFopenFlagFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Order the flags in `fopen` calls, `b` and `t` must be last.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = fopen(\$foo, 'br+');\n")], null, 'Risky when the function `fopen` is overridden.');
     }
     /**
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param int $argumentStartIndex
+     * @param int $argumentEndIndex
      * @return void
      */
-    protected function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex)
+    protected function fixFopenFlagToken($tokens, $argumentStartIndex, $argumentEndIndex)
     {
         $argumentFlagIndex = null;
         for ($i = $argumentStartIndex; $i <= $argumentEndIndex; ++$i) {

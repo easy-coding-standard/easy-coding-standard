@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210708\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
+namespace ECSPrefix20210710\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
 
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class AutowireInterfacesCompilerPass implements \ECSPrefix20210708\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class AutowireInterfacesCompilerPass implements \ECSPrefix20210710\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var mixed[]
@@ -19,9 +19,10 @@ final class AutowireInterfacesCompilerPass implements \ECSPrefix20210708\Symfony
         $this->typesToAutowire = $typesToAutowire;
     }
     /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      * @return void
      */
-    public function process(\ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process($containerBuilder)
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $definition) {

@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix20210710\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20210708\Symfony\Component\Console\Application;
-use ECSPrefix20210708\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210708\Symfony\Component\Console\Helper\Helper;
-use ECSPrefix20210708\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210708\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20210708\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210708\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210710\Symfony\Component\Console\Application;
+use ECSPrefix20210710\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210710\Symfony\Component\Console\Helper\Helper;
+use ECSPrefix20210710\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20210710\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20210710\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210710\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Markdown descriptor.
  *
@@ -24,12 +24,14 @@ use ECSPrefix20210708\Symfony\Component\Console\Output\OutputInterface;
  *
  * @internal
  */
-class MarkdownDescriptor extends \ECSPrefix20210708\Symfony\Component\Console\Descriptor\Descriptor
+class MarkdownDescriptor extends \ECSPrefix20210710\Symfony\Component\Console\Descriptor\Descriptor
 {
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param mixed[] $options
      */
-    public function describe(\ECSPrefix20210708\Symfony\Component\Console\Output\OutputInterface $output, $object, array $options = [])
+    public function describe($output, $object, $options = [])
     {
         $decorated = $output->isDecorated();
         $output->setDecorated(\false);
@@ -38,22 +40,28 @@ class MarkdownDescriptor extends \ECSPrefix20210708\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
+     * @param string $content
+     * @param bool $decorated
      */
-    protected function write(string $content, bool $decorated = \true)
+    protected function write($content, $decorated = \true)
     {
         parent::write($content, $decorated);
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
+     * @param mixed[] $options
      */
-    protected function describeInputArgument(\ECSPrefix20210708\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
+    protected function describeInputArgument($argument, $options = [])
     {
         $this->write('#### `' . ($argument->getName() ?: '<none>') . "`\n\n" . ($argument->getDescription() ? \preg_replace('/\\s*[\\r\\n]\\s*/', "\n", $argument->getDescription()) . "\n\n" : '') . '* Is required: ' . ($argument->isRequired() ? 'yes' : 'no') . "\n" . '* Is array: ' . ($argument->isArray() ? 'yes' : 'no') . "\n" . '* Default: `' . \str_replace("\n", '', \var_export($argument->getDefault(), \true)) . '`');
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputOption $option
+     * @param mixed[] $options
      */
-    protected function describeInputOption(\ECSPrefix20210708\Symfony\Component\Console\Input\InputOption $option, array $options = [])
+    protected function describeInputOption($option, $options = [])
     {
         $name = '--' . $option->getName();
         if ($option->isNegatable()) {
@@ -66,8 +74,10 @@ class MarkdownDescriptor extends \ECSPrefix20210708\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
+     * @param mixed[] $options
      */
-    protected function describeInputDefinition(\ECSPrefix20210708\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
+    protected function describeInputDefinition($definition, $options = [])
     {
         if ($showArguments = \count($definition->getArguments()) > 0) {
             $this->write('### Arguments');
@@ -93,17 +103,19 @@ class MarkdownDescriptor extends \ECSPrefix20210708\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Command\Command $command
+     * @param mixed[] $options
      */
-    protected function describeCommand(\ECSPrefix20210708\Symfony\Component\Console\Command\Command $command, array $options = [])
+    protected function describeCommand($command, $options = [])
     {
         if ($options['short'] ?? \false) {
-            $this->write('`' . $command->getName() . "`\n" . \str_repeat('-', \ECSPrefix20210708\Symfony\Component\Console\Helper\Helper::width($command->getName()) + 2) . "\n\n" . ($command->getDescription() ? $command->getDescription() . "\n\n" : '') . '### Usage' . "\n\n" . \array_reduce($command->getAliases(), function ($carry, $usage) {
+            $this->write('`' . $command->getName() . "`\n" . \str_repeat('-', \ECSPrefix20210710\Symfony\Component\Console\Helper\Helper::width($command->getName()) + 2) . "\n\n" . ($command->getDescription() ? $command->getDescription() . "\n\n" : '') . '### Usage' . "\n\n" . \array_reduce($command->getAliases(), function ($carry, $usage) {
                 return $carry . '* `' . $usage . '`' . "\n";
             }));
             return;
         }
         $command->mergeApplicationDefinition(\false);
-        $this->write('`' . $command->getName() . "`\n" . \str_repeat('-', \ECSPrefix20210708\Symfony\Component\Console\Helper\Helper::width($command->getName()) + 2) . "\n\n" . ($command->getDescription() ? $command->getDescription() . "\n\n" : '') . '### Usage' . "\n\n" . \array_reduce(\array_merge([$command->getSynopsis()], $command->getAliases(), $command->getUsages()), function ($carry, $usage) {
+        $this->write('`' . $command->getName() . "`\n" . \str_repeat('-', \ECSPrefix20210710\Symfony\Component\Console\Helper\Helper::width($command->getName()) + 2) . "\n\n" . ($command->getDescription() ? $command->getDescription() . "\n\n" : '') . '### Usage' . "\n\n" . \array_reduce(\array_merge([$command->getSynopsis()], $command->getAliases(), $command->getUsages()), function ($carry, $usage) {
             return $carry . '* `' . $usage . '`' . "\n";
         }));
         if ($help = $command->getProcessedHelp()) {
@@ -118,15 +130,17 @@ class MarkdownDescriptor extends \ECSPrefix20210708\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Application $application
+     * @param mixed[] $options
      */
-    protected function describeApplication(\ECSPrefix20210708\Symfony\Component\Console\Application $application, array $options = [])
+    protected function describeApplication($application, $options = [])
     {
         $describedNamespace = $options['namespace'] ?? null;
-        $description = new \ECSPrefix20210708\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);
+        $description = new \ECSPrefix20210710\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);
         $title = $this->getApplicationTitle($application);
-        $this->write($title . "\n" . \str_repeat('=', \ECSPrefix20210708\Symfony\Component\Console\Helper\Helper::width($title)));
+        $this->write($title . "\n" . \str_repeat('=', \ECSPrefix20210710\Symfony\Component\Console\Helper\Helper::width($title)));
         foreach ($description->getNamespaces() as $namespace) {
-            if (\ECSPrefix20210708\Symfony\Component\Console\Descriptor\ApplicationDescription::GLOBAL_NAMESPACE !== $namespace['id']) {
+            if (\ECSPrefix20210710\Symfony\Component\Console\Descriptor\ApplicationDescription::GLOBAL_NAMESPACE !== $namespace['id']) {
                 $this->write("\n\n");
                 $this->write('**' . $namespace['id'] . ':**');
             }
@@ -142,7 +156,7 @@ class MarkdownDescriptor extends \ECSPrefix20210708\Symfony\Component\Console\De
             }
         }
     }
-    private function getApplicationTitle(\ECSPrefix20210708\Symfony\Component\Console\Application $application) : string
+    private function getApplicationTitle(\ECSPrefix20210710\Symfony\Component\Console\Application $application) : string
     {
         if ('UNKNOWN' !== $application->getName()) {
             if ('UNKNOWN' !== $application->getVersion()) {

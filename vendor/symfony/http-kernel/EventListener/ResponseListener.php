@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * ResponseListener fixes the Response headers based on the Request.
  *
@@ -20,7 +20,7 @@ use ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class ResponseListener implements \ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ResponseListener implements \ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $charset;
     public function __construct(string $charset)
@@ -29,8 +29,9 @@ class ResponseListener implements \ECSPrefix20210708\Symfony\Component\EventDisp
     }
     /**
      * Filters the Response.
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse(\ECSPrefix20210708\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onKernelResponse($event)
     {
         if (!$event->isMainRequest()) {
             return;
@@ -43,6 +44,6 @@ class ResponseListener implements \ECSPrefix20210708\Symfony\Component\EventDisp
     }
     public static function getSubscribedEvents() : array
     {
-        return [\ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
+        return [\ECSPrefix20210710\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
     }
 }

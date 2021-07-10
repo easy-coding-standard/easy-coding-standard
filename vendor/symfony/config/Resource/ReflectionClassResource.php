@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210710\Symfony\Component\Config\Resource;
 
-use ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210708\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
-use ECSPrefix20210708\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210710\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use ECSPrefix20210710\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @final
  */
-class ReflectionClassResource implements \ECSPrefix20210708\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class ReflectionClassResource implements \ECSPrefix20210710\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $files = [];
     private $className;
@@ -33,8 +33,9 @@ class ReflectionClassResource implements \ECSPrefix20210708\Symfony\Component\Co
     }
     /**
      * {@inheritdoc}
+     * @param int $timestamp
      */
-    public function isFresh(int $timestamp) : bool
+    public function isFresh($timestamp) : bool
     {
         if (null === $this->hash) {
             $this->hash = $this->computeHash();
@@ -201,18 +202,18 @@ class ReflectionClassResource implements \ECSPrefix20210708\Symfony\Component\Co
         if ($class->isAbstract() || $class->isInterface() || $class->isTrait()) {
             return;
         }
-        if (\interface_exists(\ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
-            (yield \ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface::class);
+        if (\interface_exists(\ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
+            (yield \ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface::class);
             (yield \print_r($class->name::getSubscribedEvents(), \true));
         }
-        if (\interface_exists(\ECSPrefix20210708\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210708\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class)) {
-            (yield \ECSPrefix20210708\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class);
+        if (\interface_exists(\ECSPrefix20210710\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210710\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class)) {
+            (yield \ECSPrefix20210710\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class);
             foreach ($class->name::getHandledMessages() as $key => $value) {
                 (yield $key . \print_r($value, \true));
             }
         }
-        if (\interface_exists(\ECSPrefix20210708\Symfony\Contracts\Service\ServiceSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210708\Symfony\Contracts\Service\ServiceSubscriberInterface::class)) {
-            (yield \ECSPrefix20210708\Symfony\Contracts\Service\ServiceSubscriberInterface::class);
+        if (\interface_exists(\ECSPrefix20210710\Symfony\Contracts\Service\ServiceSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20210710\Symfony\Contracts\Service\ServiceSubscriberInterface::class)) {
+            (yield \ECSPrefix20210710\Symfony\Contracts\Service\ServiceSubscriberInterface::class);
             (yield \print_r($class->name::getSubscribedServices(), \true));
         }
     }

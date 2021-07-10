@@ -39,9 +39,10 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
     private $typesToFix = [];
     /**
      * {@inheritdoc}
+     * @param mixed[] $configuration
      * @return void
      */
-    public function configure(array $configuration)
+    public function configure($configuration)
     {
         parent::configure($configuration);
         $this->typesToFix = \array_merge(...\array_map(static function (string $group) {
@@ -87,8 +88,9 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
     }
     /**
      * {@inheritdoc}
+     * @param string $type
      */
-    protected function normalize(string $type) : string
+    protected function normalize($type) : string
     {
         $lower = \strtolower($type);
         return \in_array($lower, $this->typesToFix, \true) ? $lower : $type;

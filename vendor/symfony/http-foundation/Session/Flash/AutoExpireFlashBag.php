@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\Flash;
+namespace ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\Flash;
 
 /**
  * AutoExpireFlashBag flash message container.
  *
  * @author Drak <drak@zikula.org>
  */
-class AutoExpireFlashBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface
+class AutoExpireFlashBag implements \ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface
 {
     private $name = 'flashes';
     private $flashes = ['display' => [], 'new' => []];
@@ -34,14 +34,18 @@ class AutoExpireFlashBag implements \ECSPrefix20210708\Symfony\Component\HttpFou
     {
         return $this->name;
     }
-    public function setName(string $name)
+    /**
+     * @param string $name
+     */
+    public function setName($name)
     {
         $this->name = $name;
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $flashes
      */
-    public function initialize(array &$flashes)
+    public function initialize(&$flashes)
     {
         $this->flashes =& $flashes;
         // The logic: messages from the last request will be stored in new, so we move them to previous
@@ -52,15 +56,18 @@ class AutoExpireFlashBag implements \ECSPrefix20210708\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
+     * @param string $type
      */
-    public function add(string $type, $message)
+    public function add($type, $message)
     {
         $this->flashes['new'][$type][] = $message;
     }
     /**
      * {@inheritdoc}
+     * @param string $type
+     * @param mixed[] $default
      */
-    public function peek(string $type, array $default = [])
+    public function peek($type, $default = [])
     {
         return $this->has($type) ? $this->flashes['display'][$type] : $default;
     }
@@ -73,8 +80,10 @@ class AutoExpireFlashBag implements \ECSPrefix20210708\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
+     * @param string $type
+     * @param mixed[] $default
      */
-    public function get(string $type, array $default = [])
+    public function get($type, $default = [])
     {
         $return = $default;
         if (!$this->has($type)) {
@@ -97,22 +106,25 @@ class AutoExpireFlashBag implements \ECSPrefix20210708\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $messages
      */
-    public function setAll(array $messages)
+    public function setAll($messages)
     {
         $this->flashes['new'] = $messages;
     }
     /**
      * {@inheritdoc}
+     * @param string $type
      */
-    public function set(string $type, $messages)
+    public function set($type, $messages)
     {
         $this->flashes['new'][$type] = (array) $messages;
     }
     /**
      * {@inheritdoc}
+     * @param string $type
      */
-    public function has(string $type)
+    public function has($type)
     {
         return \array_key_exists($type, $this->flashes['display']) && $this->flashes['display'][$type];
     }

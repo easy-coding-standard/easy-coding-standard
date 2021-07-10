@@ -23,16 +23,19 @@ abstract class AbstractFopenFlagFixer extends \PhpCsFixer\AbstractFunctionRefere
 {
     /**
      * {@inheritdoc}
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate($tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_STRING, \T_CONSTANT_ENCAPSED_STRING]);
     }
     /**
      * {@inheritdoc}
+     * @param \SplFileInfo $file
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix($file, $tokens)
     {
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $index = 0;
@@ -57,10 +60,16 @@ abstract class AbstractFopenFlagFixer extends \PhpCsFixer\AbstractFunctionRefere
         }
     }
     /**
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param int $argumentStartIndex
+     * @param int $argumentEndIndex
      * @return void
      */
-    protected abstract function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex);
-    protected function isValidModeString(string $mode) : bool
+    protected abstract function fixFopenFlagToken($tokens, $argumentStartIndex, $argumentEndIndex);
+    /**
+     * @param string $mode
+     */
+    protected function isValidModeString($mode) : bool
     {
         $modeLength = \strlen($mode);
         if ($modeLength < 1 || $modeLength > 13) {

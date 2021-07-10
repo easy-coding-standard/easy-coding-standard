@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210710\Symfony\Component\Config\Resource;
 
 /**
  * ComposerResource tracks the PHP version and Composer dependencies.
@@ -17,7 +17,7 @@ namespace ECSPrefix20210708\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class ComposerResource implements \ECSPrefix20210708\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class ComposerResource implements \ECSPrefix20210710\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $vendors;
     private static $runtimeVendors;
@@ -39,8 +39,9 @@ class ComposerResource implements \ECSPrefix20210708\Symfony\Component\Config\Re
     }
     /**
      * {@inheritdoc}
+     * @param int $timestamp
      */
-    public function isFresh(int $timestamp) : bool
+    public function isFresh($timestamp) : bool
     {
         self::refresh();
         return \array_values(self::$runtimeVendors) === \array_values($this->vendors);

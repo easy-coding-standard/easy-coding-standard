@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Console\Event;
+namespace ECSPrefix20210710\Symfony\Component\Console\Event;
 
-use ECSPrefix20210708\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210708\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210708\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210710\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210710\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210710\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Allows to handle throwables thrown while running a command.
  *
  * @author Wouter de Jong <wouter@wouterj.nl>
  */
-final class ConsoleErrorEvent extends \ECSPrefix20210708\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleErrorEvent extends \ECSPrefix20210710\Symfony\Component\Console\Event\ConsoleEvent
 {
     private $error;
     private $exitCode;
-    public function __construct(\ECSPrefix20210708\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210708\Symfony\Component\Console\Output\OutputInterface $output, \Throwable $error, \ECSPrefix20210708\Symfony\Component\Console\Command\Command $command = null)
+    public function __construct(\ECSPrefix20210710\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210710\Symfony\Component\Console\Output\OutputInterface $output, \Throwable $error, \ECSPrefix20210710\Symfony\Component\Console\Command\Command $command = null)
     {
         parent::__construct($command, $input, $output);
         $this->error = $error;
@@ -32,16 +32,18 @@ final class ConsoleErrorEvent extends \ECSPrefix20210708\Symfony\Component\Conso
         return $this->error;
     }
     /**
+     * @param \Throwable $error
      * @return void
      */
-    public function setError(\Throwable $error)
+    public function setError($error)
     {
         $this->error = $error;
     }
     /**
+     * @param int $exitCode
      * @return void
      */
-    public function setExitCode(int $exitCode)
+    public function setExitCode($exitCode)
     {
         $this->exitCode = $exitCode;
         $r = new \ReflectionProperty($this->error, 'code');

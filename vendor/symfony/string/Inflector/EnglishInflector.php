@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\String\Inflector;
+namespace ECSPrefix20210710\Symfony\Component\String\Inflector;
 
-final class EnglishInflector implements \ECSPrefix20210708\Symfony\Component\String\Inflector\InflectorInterface
+final class EnglishInflector implements \ECSPrefix20210710\Symfony\Component\String\Inflector\InflectorInterface
 {
     /**
      * Map English plural to singular suffixes.
@@ -247,8 +247,9 @@ final class EnglishInflector implements \ECSPrefix20210708\Symfony\Component\Str
     ];
     /**
      * {@inheritdoc}
+     * @param string $plural
      */
-    public function singularize(string $plural) : array
+    public function singularize($plural) : array
     {
         $pluralRev = \strrev($plural);
         $lowerPluralRev = \strtolower($pluralRev);
@@ -311,8 +312,9 @@ final class EnglishInflector implements \ECSPrefix20210708\Symfony\Component\Str
     }
     /**
      * {@inheritdoc}
+     * @param string $singular
      */
-    public function pluralize(string $singular) : array
+    public function pluralize($singular) : array
     {
         $singularRev = \strrev($singular);
         $lowerSingularRev = \strtolower($singularRev);

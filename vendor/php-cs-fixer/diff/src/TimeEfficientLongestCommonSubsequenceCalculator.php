@@ -14,8 +14,10 @@ final class TimeEfficientLongestCommonSubsequenceCalculator implements \PhpCsFix
 {
     /**
      * {@inheritdoc}
+     * @param mixed[] $from
+     * @param mixed[] $to
      */
-    public function calculate(array $from, array $to)
+    public function calculate($from, $to)
     {
         $common = [];
         $fromLength = \count($from);

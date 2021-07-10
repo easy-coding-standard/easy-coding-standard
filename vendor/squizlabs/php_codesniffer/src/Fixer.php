@@ -100,7 +100,7 @@ class Fixer
      *
      * @return void
      */
-    public function startFile(\PHP_CodeSniffer\Files\File $phpcsFile)
+    public function startFile($phpcsFile)
     {
         $this->currentFile = $phpcsFile;
         $this->numFixes = 0;

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210708\Nette\Utils;
+namespace ECSPrefix20210710\Nette\Utils;
 
-use ECSPrefix20210708\Nette;
+use ECSPrefix20210710\Nette;
 /**
  * Validation utilities.
  */
@@ -31,7 +31,7 @@ class Validators
         // pseudo-types
         'callable' => [self::class, 'isCallable'],
         'iterable' => 'is_iterable',
-        'list' => [\ECSPrefix20210708\Nette\Utils\Arrays::class, 'isList'],
+        'list' => [\ECSPrefix20210710\Nette\Utils\Arrays::class, 'isList'],
         'mixed' => [self::class, 'isMixed'],
         'none' => [self::class, 'isNone'],
         'number' => [self::class, 'isNumber'],
@@ -60,14 +60,16 @@ class Validators
         'type' => [self::class, 'isType'],
     ];
     /** @var array<string,callable> */
-    protected static $counters = ['string' => 'strlen', 'unicode' => [\ECSPrefix20210708\Nette\Utils\Strings::class, 'length'], 'array' => 'count', 'list' => 'count', 'alnum' => 'strlen', 'alpha' => 'strlen', 'digit' => 'strlen', 'lower' => 'strlen', 'space' => 'strlen', 'upper' => 'strlen', 'xdigit' => 'strlen'];
+    protected static $counters = ['string' => 'strlen', 'unicode' => [\ECSPrefix20210710\Nette\Utils\Strings::class, 'length'], 'array' => 'count', 'list' => 'count', 'alnum' => 'strlen', 'alpha' => 'strlen', 'digit' => 'strlen', 'lower' => 'strlen', 'space' => 'strlen', 'upper' => 'strlen', 'xdigit' => 'strlen'];
     /**
      * Verifies that the value is of expected types separated by pipe.
      * @param  mixed  $value
      * @throws AssertionException
+     * @param string $expected
+     * @param string $label
      * @return void
      */
-    public static function assert($value, string $expected, string $label = 'variable')
+    public static function assert($value, $expected, $label = 'variable')
     {
         if (!static::is($value, $expected)) {
             $expected = \str_replace(['|', ':'], [' or ', ' in range '], $expected);
@@ -78,7 +80,7 @@ class Validators
             } elseif (\is_object($value)) {
                 $type .= ' ' . \get_class($value);
             }
-            throw new \ECSPrefix20210708\Nette\Utils\AssertionException("The {$label} expects to be {$expected}, {$type} given.");
+            throw new \ECSPrefix20210710\Nette\Utils\AssertionException("The {$label} expects to be {$expected}, {$type} given.");
         }
     }
     /**
@@ -86,12 +88,14 @@ class Validators
      * @param  mixed[]  $array
      * @param  int|string  $key
      * @throws AssertionException
+     * @param string|null $expected
+     * @param string $label
      * @return void
      */
-    public static function assertField(array $array, $key, string $expected = null, string $label = "item '%' in array")
+    public static function assertField($array, $key, $expected = null, $label = "item '%' in array")
     {
         if (!\array_key_exists($key, $array)) {
-            throw new \ECSPrefix20210708\Nette\Utils\AssertionException('Missing ' . \str_replace('%', $key, $label) . '.');
+            throw new \ECSPrefix20210710\Nette\Utils\AssertionException('Missing ' . \str_replace('%', $key, $label) . '.');
         } elseif ($expected) {
             static::assert($array[$key], $expected, \str_replace('%', $key, $label));
         }
@@ -99,8 +103,9 @@ class Validators
     /**
      * Verifies that the value is of expected types separated by pipe.
      * @param  mixed  $value
+     * @param string $expected
      */
-    public static function is($value, string $expected) : bool
+    public static function is($value, $expected) : bool
     {
         foreach (\explode('|', $expected) as $item) {
             if (\substr($item, -2) === '[]') {
@@ -124,7 +129,7 @@ class Validators
                     continue;
                 }
             } elseif ($type === 'pattern') {
-                if (\ECSPrefix20210708\Nette\Utils\Strings::match($value, '|^' . ($item[1] ?? '') . '$|D')) {
+                if (\ECSPrefix20210710\Nette\Utils\Strings::match($value, '|^' . ($item[1] ?? '') . '$|D')) {
                     return \true;
                 }
                 continue;
@@ -151,8 +156,9 @@ class Validators
     /**
      * Finds whether all values are of expected types separated by pipe.
      * @param  mixed[]  $values
+     * @param string $expected
      */
-    public static function everyIs($values, string $expected) : bool
+    public static function everyIs($values, $expected) : bool
     {
         foreach ($values as $value) {
             if (!static::is($value, $expected)) {
@@ -222,14 +228,15 @@ class Validators
      */
     public static function isList($value) : bool
     {
-        return \ECSPrefix20210708\Nette\Utils\Arrays::isList($value);
+        return \ECSPrefix20210710\Nette\Utils\Arrays::isList($value);
     }
     /**
      * Checks if the value is in the given range [min, max], where the upper or lower limit can be omitted (null).
      * Numbers, strings and DateTime objects can be compared.
      * @param  mixed  $value
+     * @param mixed[] $range
      */
-    public static function isInRange($value, array $range) : bool
+    public static function isInRange($value, $range) : bool
     {
         if ($value === null || !(isset($range[0]) || isset($range[1]))) {
             return \false;
@@ -250,8 +257,9 @@ class Validators
     }
     /**
      * Checks if the value is a valid email address. It does not verify that the domain actually exists, only the syntax is verified.
+     * @param string $value
      */
-    public static function isEmail(string $value) : bool
+    public static function isEmail($value) : bool
     {
         $atom = "[-a-z0-9!#\$%&'*+/=?^_`{|}~]";
         // RFC 5322 unquoted characters in local-part
@@ -269,8 +277,9 @@ XX
     }
     /**
      * Checks if the value is a valid URL address.
+     * @param string $value
      */
-    public static function isUrl(string $value) : bool
+    public static function isUrl($value) : bool
     {
         $alpha = "a-z€-ÿ";
         return (bool) \preg_match(<<<XX
@@ -291,22 +300,25 @@ XX
     }
     /**
      * Checks if the value is a valid URI address, that is, actually a string beginning with a syntactically valid schema.
+     * @param string $value
      */
-    public static function isUri(string $value) : bool
+    public static function isUri($value) : bool
     {
         return (bool) \preg_match('#^[a-z\\d+\\.-]+:\\S+$#Di', $value);
     }
     /**
      * Checks whether the input is a class, interface or trait.
+     * @param string $type
      */
-    public static function isType(string $type) : bool
+    public static function isType($type) : bool
     {
         return \class_exists($type) || \interface_exists($type) || \trait_exists($type);
     }
     /**
      * Checks whether the input is a valid PHP identifier.
+     * @param string $value
      */
-    public static function isPhpIdentifier(string $value) : bool
+    public static function isPhpIdentifier($value) : bool
     {
         return \is_string($value) && \preg_match('#^[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*$#D', $value);
     }

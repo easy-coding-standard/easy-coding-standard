@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Console\Output;
+namespace ECSPrefix20210710\Symfony\Component\Console\Output;
 
-use ECSPrefix20210708\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20210710\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * OutputInterface is the interface implemented by all Output classes.
  *
@@ -33,18 +33,19 @@ interface OutputInterface
      * @param bool            $newline  Whether to add a newline
      * @param int             $options  A bitmask of options (one of the OUTPUT or VERBOSITY constants), 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
      */
-    public function write($messages, bool $newline = \false, int $options = 0);
+    public function write($messages, $newline = \false, $options = 0);
     /**
      * Writes a message to the output and adds a newline at the end.
      *
      * @param string|iterable $messages The message as an iterable of strings or a single string
      * @param int             $options  A bitmask of options (one of the OUTPUT or VERBOSITY constants), 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
      */
-    public function writeln($messages, int $options = 0);
+    public function writeln($messages, $options = 0);
     /**
      * Sets the verbosity of the output.
+     * @param int $level
      */
-    public function setVerbosity(int $level);
+    public function setVerbosity($level);
     /**
      * Gets the current verbosity of the output.
      *
@@ -77,15 +78,19 @@ interface OutputInterface
     public function isDebug();
     /**
      * Sets the decorated flag.
+     * @param bool $decorated
      */
-    public function setDecorated(bool $decorated);
+    public function setDecorated($decorated);
     /**
      * Gets the decorated flag.
      *
      * @return bool true if the output will decorate messages, false otherwise
      */
     public function isDecorated();
-    public function setFormatter(\ECSPrefix20210708\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter);
+    /**
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     */
+    public function setFormatter($formatter);
     /**
      * Returns current output formatter instance.
      *

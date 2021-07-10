@@ -19,9 +19,11 @@ final class NullDiffer implements \PhpCsFixer\Differ\DifferInterface
 {
     /**
      * {@inheritdoc}
+     * @param string $old
+     * @param string $new
      * @param \SplFileInfo|null $file
      */
-    public function diff(string $old, string $new, $file = null) : string
+    public function diff($old, $new, $file = null) : string
     {
         return '';
     }

@@ -17,5 +17,8 @@ namespace PhpCsFixer\FixerDefinition;
  */
 interface VersionSpecificationInterface
 {
-    public function isSatisfiedBy(int $version) : bool;
+    /**
+     * @param int $version
+     */
+    public function isSatisfiedBy($version) : bool;
 }

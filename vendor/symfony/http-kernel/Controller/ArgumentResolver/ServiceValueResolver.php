@@ -8,29 +8,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-use ECSPrefix20210708\Psr\Container\ContainerInterface;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use ECSPrefix20210710\Psr\Container\ContainerInterface;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Yields a service keyed by _controller and argument name.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class ServiceValueResolver implements \ECSPrefix20210708\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
+final class ServiceValueResolver implements \ECSPrefix20210710\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     private $container;
-    public function __construct(\ECSPrefix20210708\Psr\Container\ContainerInterface $container)
+    public function __construct(\ECSPrefix20210710\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      */
-    public function supports(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210708\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
+    public function supports($request, $argument) : bool
     {
         $controller = $request->attributes->get('_controller');
         if (\is_array($controller) && \is_callable($controller, \true) && \is_string($controller[0])) {
@@ -48,9 +50,11 @@ final class ServiceValueResolver implements \ECSPrefix20210708\Symfony\Component
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      * @return mixed[]
      */
-    public function resolve(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210708\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function resolve($request, $argument)
     {
         if (\is_array($controller = $request->attributes->get('_controller'))) {
             $controller = $controller[0] . '::' . $controller[1];
@@ -64,7 +68,7 @@ final class ServiceValueResolver implements \ECSPrefix20210708\Symfony\Component
         }
         try {
             (yield $this->container->get($controller)->get($argument->getName()));
-        } catch (\ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
+        } catch (\ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
             $what = \sprintf('argument $%s of "%s()"', $argument->getName(), $controller);
             $message = \preg_replace('/service "\\.service_locator\\.[^"]++"/', $what, $e->getMessage());
             if ($e->getMessage() === $message) {

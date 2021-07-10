@@ -8,24 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Fragment;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Fragment;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\Controller\ControllerReference;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\UriSigner;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\Controller\ControllerReference;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\UriSigner;
 /**
  * Generates a fragment URI.
  *
  * @author Kévin Dunglas <kevin@dunglas.fr>
  * @author Fabien Potencier <fabien@symfony.com>
  */
-final class FragmentUriGenerator implements \ECSPrefix20210708\Symfony\Component\HttpKernel\Fragment\FragmentUriGeneratorInterface
+final class FragmentUriGenerator implements \ECSPrefix20210710\Symfony\Component\HttpKernel\Fragment\FragmentUriGeneratorInterface
 {
     private $fragmentPath;
     private $signer;
     private $requestStack;
-    public function __construct(string $fragmentPath, \ECSPrefix20210708\Symfony\Component\HttpKernel\UriSigner $signer = null, \ECSPrefix20210708\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
+    public function __construct(string $fragmentPath, \ECSPrefix20210710\Symfony\Component\HttpKernel\UriSigner $signer = null, \ECSPrefix20210710\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
     {
         $this->fragmentPath = $fragmentPath;
         $this->signer = $signer;
@@ -33,8 +33,13 @@ final class FragmentUriGenerator implements \ECSPrefix20210708\Symfony\Component
     }
     /**
      * {@inheritDoc}
+     * @param \Symfony\Component\HttpKernel\Controller\ControllerReference $controller
+     * @param \Symfony\Component\HttpFoundation\Request|null $request
+     * @param bool $absolute
+     * @param bool $strict
+     * @param bool $sign
      */
-    public function generate(\ECSPrefix20210708\Symfony\Component\HttpKernel\Controller\ControllerReference $controller, \ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request = null, bool $absolute = \false, bool $strict = \true, bool $sign = \true) : string
+    public function generate($controller, $request = null, $absolute = \false, $strict = \true, $sign = \true) : string
     {
         if (null === $request && (null === $this->requestStack || null === ($request = $this->requestStack->getCurrentRequest()))) {
             throw new \LogicException('Generating a fragment URL can only be done when handling a Request.');

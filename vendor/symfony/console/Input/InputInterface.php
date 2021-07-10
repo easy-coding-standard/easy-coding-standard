@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Console\Input;
+namespace ECSPrefix20210710\Symfony\Component\Console\Input;
 
-use ECSPrefix20210708\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210708\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix20210710\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210710\Symfony\Component\Console\Exception\RuntimeException;
 /**
  * InputInterface is the interface implemented by all input classes.
  *
@@ -38,7 +38,7 @@ interface InputInterface
      *
      * @return bool true if the value is contained in the raw parameters
      */
-    public function hasParameterOption($values, bool $onlyParams = \false);
+    public function hasParameterOption($values, $onlyParams = \false);
     /**
      * Returns the value of a raw option (not parsed).
      *
@@ -53,13 +53,14 @@ interface InputInterface
      *
      * @return mixed The option value
      */
-    public function getParameterOption($values, $default = \false, bool $onlyParams = \false);
+    public function getParameterOption($values, $default = \false, $onlyParams = \false);
     /**
      * Binds the current Input instance with the given arguments and options.
      *
      * @throws RuntimeException
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
-    public function bind(\ECSPrefix20210708\Symfony\Component\Console\Input\InputDefinition $definition);
+    public function bind($definition);
     /**
      * Validates the input.
      *
@@ -78,16 +79,18 @@ interface InputInterface
      * @return string|string[]|null The argument value
      *
      * @throws InvalidArgumentException When argument given doesn't exist
+     * @param string $name
      */
-    public function getArgument(string $name);
+    public function getArgument($name);
     /**
      * Sets an argument value by name.
      *
      * @param string|string[]|null $value The argument value
      *
      * @throws InvalidArgumentException When argument given doesn't exist
+     * @param string $name
      */
-    public function setArgument(string $name, $value);
+    public function setArgument($name, $value);
     /**
      * Returns true if an InputArgument object exists by name or position.
      *
@@ -108,22 +111,25 @@ interface InputInterface
      * @return string|string[]|bool|null The option value
      *
      * @throws InvalidArgumentException When option given doesn't exist
+     * @param string $name
      */
-    public function getOption(string $name);
+    public function getOption($name);
     /**
      * Sets an option value by name.
      *
      * @param string|string[]|bool|null $value The option value
      *
      * @throws InvalidArgumentException When option given doesn't exist
+     * @param string $name
      */
-    public function setOption(string $name, $value);
+    public function setOption($name, $value);
     /**
      * Returns true if an InputOption object exists by name.
      *
      * @return bool true if the InputOption object exists, false otherwise
+     * @param string $name
      */
-    public function hasOption(string $name);
+    public function hasOption($name);
     /**
      * Is this input means interactive?
      *
@@ -132,6 +138,7 @@ interface InputInterface
     public function isInteractive();
     /**
      * Sets the input interactivity.
+     * @param bool $interactive
      */
-    public function setInteractive(bool $interactive);
+    public function setInteractive($interactive);
 }

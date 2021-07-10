@@ -8,13 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\ErrorHandler\ErrorEnhancer;
+namespace ECSPrefix20210710\Symfony\Component\ErrorHandler\ErrorEnhancer;
 
 interface ErrorEnhancerInterface
 {
     /**
      * Returns an \Throwable instance if the class is able to improve the error, null otherwise.
+     * @param \Throwable $error
      * @return \Throwable|null
      */
-    public function enhance(\Throwable $error);
+    public function enhance($error);
 }

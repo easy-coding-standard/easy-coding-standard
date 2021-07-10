@@ -58,10 +58,10 @@ final class CodingStandardError implements \Symplify\EasyCodingStandard\Parallel
         return [\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE => $this->line, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE => $this->message, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::CHECKER_CLASS => $this->checkerClass, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH => $this->relativeFilePath];
     }
     /**
-     * @param array{line: int, message: string, checker_class: string, relative_file_path: string} $json
+     * @param mixed[] $json
      * @return $this
      */
-    public static function decode(array $json)
+    public static function decode($json)
     {
         return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::CHECKER_CLASS], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH]);
     }

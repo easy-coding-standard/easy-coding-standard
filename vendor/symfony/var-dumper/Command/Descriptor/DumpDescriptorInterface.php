@@ -8,17 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\VarDumper\Command\Descriptor;
+namespace ECSPrefix20210710\Symfony\Component\VarDumper\Command\Descriptor;
 
-use ECSPrefix20210708\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210708\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210710\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210710\Symfony\Component\VarDumper\Cloner\Data;
 /**
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
 interface DumpDescriptorInterface
 {
     /**
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
+     * @param mixed[] $context
+     * @param int $clientId
      * @return void
      */
-    public function describe(\ECSPrefix20210708\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210708\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId);
+    public function describe($output, $data, $context, $clientId);
 }

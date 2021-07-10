@@ -8,40 +8,44 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210710\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Definition;
 /**
  * @author Alexander M. Turek <me@derrabus.de>
  */
-final class AttributeAutoconfigurationPass extends \ECSPrefix20210708\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+final class AttributeAutoconfigurationPass extends \ECSPrefix20210710\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @return void
      */
-    public function process(\ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         if (80000 > \PHP_VERSION_ID || !$container->getAutoconfiguredAttributes()) {
             return;
         }
         parent::process($container);
     }
-    protected function processValue($value, bool $isRoot = \false)
+    /**
+     * @param bool $isRoot
+     */
+    protected function processValue($value, $isRoot = \false)
     {
-        if (!$value instanceof \ECSPrefix20210708\Symfony\Component\DependencyInjection\Definition || !$value->isAutoconfigured() || $value->isAbstract() || $value->hasTag('container.ignore_attributes') || !($reflector = $this->container->getReflectionClass($value->getClass(), \false))) {
+        if (!$value instanceof \ECSPrefix20210710\Symfony\Component\DependencyInjection\Definition || !$value->isAutoconfigured() || $value->isAbstract() || $value->hasTag('container.ignore_attributes') || !($reflector = $this->container->getReflectionClass($value->getClass(), \false))) {
             return parent::processValue($value, $isRoot);
         }
         $autoconfiguredAttributes = $this->container->getAutoconfiguredAttributes();
         $instanceof = $value->getInstanceofConditionals();
-        $conditionals = $instanceof[$reflector->getName()] ?? new \ECSPrefix20210708\Symfony\Component\DependencyInjection\ChildDefinition('');
+        $conditionals = $instanceof[$reflector->getName()] ?? new \ECSPrefix20210710\Symfony\Component\DependencyInjection\ChildDefinition('');
         foreach ($reflector->getAttributes() as $attribute) {
             if ($configurator = $autoconfiguredAttributes[$attribute->getName()] ?? null) {
                 $configurator($conditionals, $attribute->newInstance(), $reflector);
             }
         }
-        if (!isset($instanceof[$reflector->getName()]) && new \ECSPrefix20210708\Symfony\Component\DependencyInjection\ChildDefinition('') != $conditionals) {
+        if (!isset($instanceof[$reflector->getName()]) && new \ECSPrefix20210710\Symfony\Component\DependencyInjection\ChildDefinition('') != $conditionals) {
             $instanceof[$reflector->getName()] = $conditionals;
             $value->setInstanceofConditionals($instanceof);
         }

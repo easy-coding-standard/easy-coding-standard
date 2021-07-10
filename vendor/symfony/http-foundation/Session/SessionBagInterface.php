@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpFoundation\Session;
+namespace ECSPrefix20210710\Symfony\Component\HttpFoundation\Session;
 
 /**
  * Session Bag store.
@@ -25,8 +25,9 @@ interface SessionBagInterface
     public function getName();
     /**
      * Initializes the Bag.
+     * @param mixed[] $array
      */
-    public function initialize(array &$array);
+    public function initialize(&$array);
     /**
      * Gets the storage key for this bag.
      *

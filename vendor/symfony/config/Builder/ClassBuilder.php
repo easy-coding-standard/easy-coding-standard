@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Builder;
+namespace ECSPrefix20210710\Symfony\Component\Config\Builder;
 
 /**
  * Build PHP classes to generate config.
@@ -102,29 +102,38 @@ BODY
         $this->require[] = $class;
     }
     /**
+     * @param string $class
      * @return void
      */
-    public function addUse(string $class)
+    public function addUse($class)
     {
         $this->use[$class] = \true;
     }
     /**
+     * @param string $interface
      * @return void
      */
-    public function addImplements(string $interface)
+    public function addImplements($interface)
     {
         $this->implements[] = '\\' . \ltrim($interface, '\\');
     }
     /**
+     * @param string $name
+     * @param string $body
+     * @param mixed[] $params
      * @return void
      */
-    public function addMethod(string $name, string $body, array $params = [])
+    public function addMethod($name, $body, $params = [])
     {
-        $this->methods[] = new \ECSPrefix20210708\Symfony\Component\Config\Builder\Method(\strtr($body, ['NAME' => $this->camelCase($name)] + $params));
+        $this->methods[] = new \ECSPrefix20210710\Symfony\Component\Config\Builder\Method(\strtr($body, ['NAME' => $this->camelCase($name)] + $params));
     }
-    public function addProperty(string $name, string $classType = null) : \ECSPrefix20210708\Symfony\Component\Config\Builder\Property
+    /**
+     * @param string $name
+     * @param string|null $classType
+     */
+    public function addProperty($name, $classType = null) : \ECSPrefix20210710\Symfony\Component\Config\Builder\Property
     {
-        $property = new \ECSPrefix20210708\Symfony\Component\Config\Builder\Property($name, $this->camelCase($name));
+        $property = new \ECSPrefix20210710\Symfony\Component\Config\Builder\Property($name, $this->camelCase($name));
         if (null !== $classType) {
             $property->setType($classType);
         }

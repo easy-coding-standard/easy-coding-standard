@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Finder\Comparator;
+namespace ECSPrefix20210710\Symfony\Component\Finder\Comparator;
 
 /**
  * Comparator.
@@ -28,7 +28,10 @@ class Comparator
     {
         return $this->target;
     }
-    public function setTarget(string $target)
+    /**
+     * @param string $target
+     */
+    public function setTarget($target)
     {
         $this->target = $target;
     }
@@ -45,8 +48,9 @@ class Comparator
      * Sets the comparison operator.
      *
      * @throws \InvalidArgumentException
+     * @param string $operator
      */
-    public function setOperator(string $operator)
+    public function setOperator($operator)
     {
         if ('' === $operator) {
             $operator = '==';

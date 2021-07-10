@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Console\Command;
+namespace ECSPrefix20210710\Symfony\Component\Console\Command;
 
-use ECSPrefix20210708\Symfony\Component\Console\Application;
-use ECSPrefix20210708\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix20210708\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20210708\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210708\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210710\Symfony\Component\Console\Application;
+use ECSPrefix20210710\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix20210710\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20210710\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210710\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class LazyCommand extends \ECSPrefix20210708\Symfony\Component\Console\Command\Command
+final class LazyCommand extends \ECSPrefix20210710\Symfony\Component\Console\Command\Command
 {
     private $command;
     private $isEnabled;
@@ -39,9 +39,10 @@ final class LazyCommand extends \ECSPrefix20210708\Symfony\Component\Console\Com
         $this->getCommand()->ignoreValidationErrors();
     }
     /**
+     * @param \Symfony\Component\Console\Application|null $application
      * @return void
      */
-    public function setApplication(\ECSPrefix20210708\Symfony\Component\Console\Application $application = null)
+    public function setApplication($application = null)
     {
         if ($this->command instanceof parent) {
             $this->command->setApplication($application);
@@ -49,9 +50,10 @@ final class LazyCommand extends \ECSPrefix20210708\Symfony\Component\Console\Com
         parent::setApplication($application);
     }
     /**
+     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
      * @return void
      */
-    public function setHelperSet(\ECSPrefix20210708\Symfony\Component\Console\Helper\HelperSet $helperSet)
+    public function setHelperSet($helperSet)
     {
         if ($this->command instanceof parent) {
             $this->command->setHelperSet($helperSet);
@@ -72,17 +74,19 @@ final class LazyCommand extends \ECSPrefix20210708\Symfony\Component\Console\Com
     }
     /**
      * @return $this
+     * @param callable $code
      */
-    public function setCode(callable $code)
+    public function setCode($code)
     {
         $this->getCommand()->setCode($code);
         return $this;
     }
     /**
      * @internal
+     * @param bool $mergeArgs
      * @return void
      */
-    public function mergeApplicationDefinition(bool $mergeArgs = \true)
+    public function mergeApplicationDefinition($mergeArgs = \true)
     {
         $this->getCommand()->mergeApplicationDefinition($mergeArgs);
     }
@@ -94,42 +98,50 @@ final class LazyCommand extends \ECSPrefix20210708\Symfony\Component\Console\Com
         $this->getCommand()->setDefinition($definition);
         return $this;
     }
-    public function getDefinition() : \ECSPrefix20210708\Symfony\Component\Console\Input\InputDefinition
+    public function getDefinition() : \ECSPrefix20210710\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getDefinition();
     }
-    public function getNativeDefinition() : \ECSPrefix20210708\Symfony\Component\Console\Input\InputDefinition
+    public function getNativeDefinition() : \ECSPrefix20210710\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getNativeDefinition();
     }
     /**
      * @return $this
+     * @param string $name
+     * @param int|null $mode
+     * @param string $description
      */
-    public function addArgument(string $name, int $mode = null, string $description = '', $default = null)
+    public function addArgument($name, $mode = null, $description = '', $default = null)
     {
         $this->getCommand()->addArgument($name, $mode, $description, $default);
         return $this;
     }
     /**
      * @return $this
+     * @param string $name
+     * @param int|null $mode
+     * @param string $description
      */
-    public function addOption(string $name, $shortcut = null, int $mode = null, string $description = '', $default = null)
+    public function addOption($name, $shortcut = null, $mode = null, $description = '', $default = null)
     {
         $this->getCommand()->addOption($name, $shortcut, $mode, $description, $default);
         return $this;
     }
     /**
      * @return $this
+     * @param string $title
      */
-    public function setProcessTitle(string $title)
+    public function setProcessTitle($title)
     {
         $this->getCommand()->setProcessTitle($title);
         return $this;
     }
     /**
      * @return $this
+     * @param string $help
      */
-    public function setHelp(string $help)
+    public function setHelp($help)
     {
         $this->getCommand()->setHelp($help);
         return $this;
@@ -142,14 +154,18 @@ final class LazyCommand extends \ECSPrefix20210708\Symfony\Component\Console\Com
     {
         return $this->getCommand()->getProcessedHelp();
     }
-    public function getSynopsis(bool $short = \false) : string
+    /**
+     * @param bool $short
+     */
+    public function getSynopsis($short = \false) : string
     {
         return $this->getCommand()->getSynopsis($short);
     }
     /**
      * @return $this
+     * @param string $usage
      */
-    public function addUsage(string $usage)
+    public function addUsage($usage)
     {
         $this->getCommand()->addUsage($usage);
         return $this;
@@ -160,8 +176,9 @@ final class LazyCommand extends \ECSPrefix20210708\Symfony\Component\Console\Com
     }
     /**
      * @return mixed
+     * @param string $name
      */
-    public function getHelper(string $name)
+    public function getHelper($name)
     {
         return $this->getCommand()->getHelper($name);
     }

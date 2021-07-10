@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210708\Doctrine\Common\Lexer;
+namespace ECSPrefix20210710\Doctrine\Common\Lexer;
 
 use ReflectionClass;
 use const PREG_SPLIT_DELIM_CAPTURE;
@@ -143,7 +143,7 @@ abstract class AbstractLexer
      *
      * @return bool
      */
-    public function isNextTokenAny(array $tokens)
+    public function isNextTokenAny($tokens)
     {
         return $this->lookahead !== null && \in_array($this->lookahead['type'], $tokens, \true);
     }

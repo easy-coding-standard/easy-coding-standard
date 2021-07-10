@@ -17,5 +17,8 @@ namespace PhpCsFixer\Cache;
  */
 interface DirectoryInterface
 {
-    public function getRelativePathTo(string $file) : string;
+    /**
+     * @param string $file
+     */
+    public function getRelativePathTo($file) : string;
 }

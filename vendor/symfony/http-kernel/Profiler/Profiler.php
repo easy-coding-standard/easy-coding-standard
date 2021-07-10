@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler;
 
-use ECSPrefix20210708\Psr\Log\LoggerInterface;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
-use ECSPrefix20210708\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20210710\Psr\Log\LoggerInterface;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
+use ECSPrefix20210710\Symfony\Contracts\Service\ResetInterface;
 /**
  * Profiler.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInterface
+class Profiler implements \ECSPrefix20210710\Symfony\Contracts\Service\ResetInterface
 {
     private $storage;
     /**
@@ -32,7 +32,7 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
     private $logger;
     private $initiallyEnabled = \true;
     private $enabled = \true;
-    public function __construct(\ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface $storage, \ECSPrefix20210708\Psr\Log\LoggerInterface $logger = null, bool $enable = \true)
+    public function __construct(\ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface $storage, \ECSPrefix20210710\Psr\Log\LoggerInterface $logger = null, bool $enable = \true)
     {
         $this->storage = $storage;
         $this->logger = $logger;
@@ -56,8 +56,9 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
      * Loads the Profile for the given Response.
      *
      * @return Profile|null A Profile instance
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function loadProfileFromResponse(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Response $response)
+    public function loadProfileFromResponse($response)
     {
         if (!($token = $response->headers->get('X-Debug-Token'))) {
             return null;
@@ -68,8 +69,9 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
      * Loads the Profile for the given token.
      *
      * @return Profile|null A Profile instance
+     * @param string $token
      */
-    public function loadProfile(string $token)
+    public function loadProfile($token)
     {
         return $this->storage->read($token);
     }
@@ -77,12 +79,13 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
      * Saves a Profile.
      *
      * @return bool
+     * @param \Symfony\Component\HttpKernel\Profiler\Profile $profile
      */
-    public function saveProfile(\ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profile $profile)
+    public function saveProfile($profile)
     {
         // late collect
         foreach ($profile->getCollectors() as $collector) {
-            if ($collector instanceof \ECSPrefix20210708\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface) {
+            if ($collector instanceof \ECSPrefix20210710\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface) {
                 $collector->lateCollect();
             }
         }
@@ -111,8 +114,9 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
      * @param string|null $ip
      * @param string|null $url
      * @param string|null $method
+     * @param string|null $statusCode
      */
-    public function find($ip, $url, $limit, $method, $start, $end, string $statusCode = null)
+    public function find($ip, $url, $limit, $method, $start, $end, $statusCode = null)
     {
         return $this->storage->find($ip, $url, $limit, $method, $this->getTimestamp($start), $this->getTimestamp($end), $statusCode);
     }
@@ -120,20 +124,23 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
      * Collects data for the given Response.
      *
      * @return Profile|null A Profile instance or null if the profiler is disabled
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Throwable|null $exception
      */
-    public function collect(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210708\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect($request, $response, $exception = null)
     {
         if (\false === $this->enabled) {
             return null;
         }
-        $profile = new \ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profile(\substr(\hash('sha256', \uniqid(\mt_rand(), \true)), 0, 6));
+        $profile = new \ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler\Profile(\substr(\hash('sha256', \uniqid(\mt_rand(), \true)), 0, 6));
         $profile->setTime(\time());
         $profile->setUrl($request->getUri());
         $profile->setMethod($request->getMethod());
         $profile->setStatusCode($response->getStatusCode());
         try {
             $profile->setIp($request->getClientIp());
-        } catch (\ECSPrefix20210708\Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException $e) {
+        } catch (\ECSPrefix20210710\Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException $e) {
             $profile->setIp('Unknown');
         }
         if ($prevToken = $response->headers->get('X-Debug-Token')) {
@@ -168,7 +175,7 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
      *
      * @param DataCollectorInterface[] $collectors An array of collectors
      */
-    public function set(array $collectors = [])
+    public function set($collectors = [])
     {
         $this->collectors = [];
         foreach ($collectors as $collector) {
@@ -177,8 +184,9 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
     }
     /**
      * Adds a Collector.
+     * @param \Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $collector
      */
-    public function add(\ECSPrefix20210708\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $collector)
+    public function add($collector)
     {
         $this->collectors[$collector->getName()] = $collector;
     }
@@ -189,7 +197,7 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
      *
      * @return bool
      */
-    public function has(string $name)
+    public function has($name)
     {
         return isset($this->collectors[$name]);
     }
@@ -202,7 +210,7 @@ class Profiler implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInte
      *
      * @throws \InvalidArgumentException if the collector does not exist
      */
-    public function get(string $name)
+    public function get($name)
     {
         if (!isset($this->collectors[$name])) {
             throw new \InvalidArgumentException(\sprintf('Collector "%s" does not exist.', $name));

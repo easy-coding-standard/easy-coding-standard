@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\Attribute;
+namespace ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\Attribute;
 
-trigger_deprecation('symfony/http-foundation', '5.3', 'The "%s" class is deprecated.', \ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag::class);
+trigger_deprecation('symfony/http-foundation', '5.3', 'The "%s" class is deprecated.', \ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag::class);
 /**
  * This class provides structured storage of session attributes using
  * a name spacing character in the key.
@@ -19,7 +19,7 @@ trigger_deprecation('symfony/http-foundation', '5.3', 'The "%s" class is depreca
  *
  * @deprecated since Symfony 5.3
  */
-class NamespacedAttributeBag extends \ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag
+class NamespacedAttributeBag extends \ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag
 {
     private $namespaceCharacter;
     /**
@@ -33,8 +33,9 @@ class NamespacedAttributeBag extends \ECSPrefix20210708\Symfony\Component\HttpFo
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function has(string $name)
+    public function has($name)
     {
         // reference mismatch: if fixed, re-introduced in array_key_exists; keep as it is
         $attributes = $this->resolveAttributePath($name);
@@ -46,8 +47,9 @@ class NamespacedAttributeBag extends \ECSPrefix20210708\Symfony\Component\HttpFo
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function get(string $name, $default = null)
+    public function get($name, $default = null)
     {
         // reference mismatch: if fixed, re-introduced in array_key_exists; keep as it is
         $attributes = $this->resolveAttributePath($name);
@@ -59,8 +61,9 @@ class NamespacedAttributeBag extends \ECSPrefix20210708\Symfony\Component\HttpFo
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function set(string $name, $value)
+    public function set($name, $value)
     {
         $attributes =& $this->resolveAttributePath($name, \true);
         $name = $this->resolveKey($name);
@@ -68,8 +71,9 @@ class NamespacedAttributeBag extends \ECSPrefix20210708\Symfony\Component\HttpFo
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function remove(string $name)
+    public function remove($name)
     {
         $retval = null;
         $attributes =& $this->resolveAttributePath($name);
@@ -90,7 +94,7 @@ class NamespacedAttributeBag extends \ECSPrefix20210708\Symfony\Component\HttpFo
      *
      * @return array|null
      */
-    protected function &resolveAttributePath(string $name, bool $writeContext = \false)
+    protected function &resolveAttributePath($name, $writeContext = \false)
     {
         $array =& $this->attributes;
         $name = 0 === \strpos($name, $this->namespaceCharacter) ? \substr($name, 1) : $name;
@@ -125,8 +129,9 @@ class NamespacedAttributeBag extends \ECSPrefix20210708\Symfony\Component\HttpFo
      * This is the last part in a dot separated string.
      *
      * @return string
+     * @param string $name
      */
-    protected function resolveKey(string $name)
+    protected function resolveKey($name)
     {
         if (\false !== ($pos = \strrpos($name, $this->namespaceCharacter))) {
             $name = \substr($name, $pos + 1);

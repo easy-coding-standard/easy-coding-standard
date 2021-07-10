@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\RequestMatcherInterface;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\Event\TerminateEvent;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profiler;
+use ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\RequestMatcherInterface;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\Event\TerminateEvent;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler\Profiler;
 /**
  * ProfilerListener collects data for the current request by listening to the kernel events.
  *
@@ -25,7 +25,7 @@ use ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profiler;
  *
  * @final
  */
-class ProfilerListener implements \ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ProfilerListener implements \ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     protected $profiler;
     protected $matcher;
@@ -39,7 +39,7 @@ class ProfilerListener implements \ECSPrefix20210708\Symfony\Component\EventDisp
      * @param bool $onlyException    True if the profiler only collects data when an exception occurs, false otherwise
      * @param bool $onlyMainRequests True if the profiler only collects data when the request is the main request, false otherwise
      */
-    public function __construct(\ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profiler $profiler, \ECSPrefix20210708\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20210708\Symfony\Component\HttpFoundation\RequestMatcherInterface $matcher = null, bool $onlyException = \false, bool $onlyMainRequests = \false)
+    public function __construct(\ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler\Profiler $profiler, \ECSPrefix20210710\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20210710\Symfony\Component\HttpFoundation\RequestMatcherInterface $matcher = null, bool $onlyException = \false, bool $onlyMainRequests = \false)
     {
         $this->profiler = $profiler;
         $this->matcher = $matcher;
@@ -51,8 +51,9 @@ class ProfilerListener implements \ECSPrefix20210708\Symfony\Component\EventDisp
     }
     /**
      * Handles the onKernelException event.
+     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onKernelException(\ECSPrefix20210708\Symfony\Component\HttpKernel\Event\ExceptionEvent $event)
+    public function onKernelException($event)
     {
         if ($this->onlyMainRequests && !$event->isMainRequest()) {
             return;
@@ -61,8 +62,9 @@ class ProfilerListener implements \ECSPrefix20210708\Symfony\Component\EventDisp
     }
     /**
      * Handles the onKernelResponse event.
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse(\ECSPrefix20210708\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onKernelResponse($event)
     {
         if ($this->onlyMainRequests && !$event->isMainRequest()) {
             return;
@@ -82,7 +84,10 @@ class ProfilerListener implements \ECSPrefix20210708\Symfony\Component\EventDisp
         $this->profiles[$request] = $profile;
         $this->parents[$request] = $this->requestStack->getParentRequest();
     }
-    public function onKernelTerminate(\ECSPrefix20210708\Symfony\Component\HttpKernel\Event\TerminateEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\TerminateEvent $event
+     */
+    public function onKernelTerminate($event)
     {
         // attach children to parents
         foreach ($this->profiles as $request) {
@@ -101,6 +106,6 @@ class ProfilerListener implements \ECSPrefix20210708\Symfony\Component\EventDisp
     }
     public static function getSubscribedEvents() : array
     {
-        return [\ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onKernelResponse', -100], \ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION => ['onKernelException', 0], \ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents::TERMINATE => ['onKernelTerminate', -1024]];
+        return [\ECSPrefix20210710\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onKernelResponse', -100], \ECSPrefix20210710\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION => ['onKernelException', 0], \ECSPrefix20210710\Symfony\Component\HttpKernel\KernelEvents::TERMINATE => ['onKernelTerminate', -1024]];
     }
 }

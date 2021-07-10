@@ -41,7 +41,10 @@ final class UnifiedDiffOutputBuilder extends \PhpCsFixer\Diff\Output\AbstractChu
         $this->header = $header;
         $this->addLineNumbers = $addLineNumbers;
     }
-    public function getDiff(array $diff)
+    /**
+     * @param mixed[] $diff
+     */
+    public function getDiff($diff)
     {
         $buffer = \fopen('php://memory', 'r+b');
         if ('' !== $this->header) {

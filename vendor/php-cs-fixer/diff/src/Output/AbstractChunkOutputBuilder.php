@@ -21,7 +21,7 @@ abstract class AbstractChunkOutputBuilder implements \PhpCsFixer\Diff\Output\Dif
      *
      * @return array
      */
-    protected function getCommonChunks(array $diff, $lineThreshold = 5)
+    protected function getCommonChunks($diff, $lineThreshold = 5)
     {
         $diffSize = \count($diff);
         $capturing = \false;

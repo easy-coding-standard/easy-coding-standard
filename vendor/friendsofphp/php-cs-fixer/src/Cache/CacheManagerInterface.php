@@ -19,9 +19,15 @@ namespace PhpCsFixer\Cache;
  */
 interface CacheManagerInterface
 {
-    public function needFixing(string $file, string $fileContent) : bool;
     /**
+     * @param string $file
+     * @param string $fileContent
+     */
+    public function needFixing($file, $fileContent) : bool;
+    /**
+     * @param string $file
+     * @param string $fileContent
      * @return void
      */
-    public function setFile(string $file, string $fileContent);
+    public function setFile($file, $fileContent);
 }

@@ -24,7 +24,7 @@ class ValidVariableNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSni
      *
      * @return void
      */
-    protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processVariable($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $varName = \ltrim($tokens[$stackPtr]['content'], '$');
@@ -99,7 +99,7 @@ class ValidVariableNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSni
      *
      * @return void
      */
-    protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processMemberVar($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $varName = \ltrim($tokens[$stackPtr]['content'], '$');
@@ -142,7 +142,7 @@ class ValidVariableNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSni
      *
      * @return void
      */
-    protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processVariableInString($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (\preg_match_all('|[^\\\\]\\${?([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)|', $tokens[$stackPtr]['content'], $matches) !== 0) {

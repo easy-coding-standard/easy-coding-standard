@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210708\Doctrine\Common\Annotations;
+namespace ECSPrefix20210710\Doctrine\Common\Annotations;
 
 use InvalidArgumentException;
 use ReflectionClass;
@@ -33,7 +33,7 @@ use function var_export;
  *             in version 2.0.0 of doctrine/annotations. Please use the
  *             {@see \Doctrine\Common\Annotations\PsrCachedReader} instead.
  */
-class FileCacheReader implements \ECSPrefix20210708\Doctrine\Common\Annotations\Reader
+class FileCacheReader implements \ECSPrefix20210710\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $reader;
@@ -54,7 +54,7 @@ class FileCacheReader implements \ECSPrefix20210708\Doctrine\Common\Annotations\
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(\ECSPrefix20210708\Doctrine\Common\Annotations\Reader $reader, $cacheDir, $debug = \false, $umask = 02)
+    public function __construct(\ECSPrefix20210710\Doctrine\Common\Annotations\Reader $reader, $cacheDir, $debug = \false, $umask = 02)
     {
         if (!\is_int($umask)) {
             throw new \InvalidArgumentException(\sprintf('The parameter umask must be an integer, was: %s', \gettype($umask)));
@@ -69,8 +69,9 @@ class FileCacheReader implements \ECSPrefix20210708\Doctrine\Common\Annotations\
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionClass $class
      */
-    public function getClassAnnotations(\ReflectionClass $class)
+    public function getClassAnnotations($class)
     {
         if (!isset($this->classNameHashes[$class->name])) {
             $this->classNameHashes[$class->name] = \sha1($class->name);
@@ -96,8 +97,9 @@ class FileCacheReader implements \ECSPrefix20210708\Doctrine\Common\Annotations\
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotations(\ReflectionProperty $property)
+    public function getPropertyAnnotations($property)
     {
         $class = $property->getDeclaringClass();
         if (!isset($this->classNameHashes[$class->name])) {
@@ -124,8 +126,9 @@ class FileCacheReader implements \ECSPrefix20210708\Doctrine\Common\Annotations\
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotations(\ReflectionMethod $method)
+    public function getMethodAnnotations($method)
     {
         $class = $method->getDeclaringClass();
         if (!isset($this->classNameHashes[$class->name])) {
@@ -185,8 +188,9 @@ EXCEPTION
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionClass $class
      */
-    public function getClassAnnotation(\ReflectionClass $class, $annotationName)
+    public function getClassAnnotation($class, $annotationName)
     {
         $annotations = $this->getClassAnnotations($class);
         foreach ($annotations as $annotation) {
@@ -198,8 +202,9 @@ EXCEPTION
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
+    public function getMethodAnnotation($method, $annotationName)
     {
         $annotations = $this->getMethodAnnotations($method);
         foreach ($annotations as $annotation) {
@@ -211,8 +216,9 @@ EXCEPTION
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
+    public function getPropertyAnnotation($property, $annotationName)
     {
         $annotations = $this->getPropertyAnnotations($property);
         foreach ($annotations as $annotation) {

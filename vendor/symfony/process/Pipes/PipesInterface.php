@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Process\Pipes;
+namespace ECSPrefix20210710\Symfony\Component\Process\Pipes;
 
 /**
  * PipesInterface manages descriptors and pipes for the use of proc_open.
@@ -38,7 +38,7 @@ interface PipesInterface
      *
      * @return string[] An array of read data indexed by their fd
      */
-    public function readAndWrite(bool $blocking, bool $close = \false) : array;
+    public function readAndWrite($blocking, $close = \false) : array;
     /**
      * Returns if the current state has open file handles or pipes.
      */

@@ -32,7 +32,7 @@ class OpenTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         if ($stackPtr !== 0) {
             // This rule only applies if the open tag is on the first line of the file.

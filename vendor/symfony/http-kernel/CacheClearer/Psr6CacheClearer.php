@@ -8,30 +8,39 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\CacheClearer;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\CacheClearer;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class Psr6CacheClearer implements \ECSPrefix20210708\Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface
+class Psr6CacheClearer implements \ECSPrefix20210710\Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface
 {
     private $pools = [];
     public function __construct(array $pools = [])
     {
         $this->pools = $pools;
     }
-    public function hasPool(string $name)
+    /**
+     * @param string $name
+     */
+    public function hasPool($name)
     {
         return isset($this->pools[$name]);
     }
-    public function getPool(string $name)
+    /**
+     * @param string $name
+     */
+    public function getPool($name)
     {
         if (!$this->hasPool($name)) {
             throw new \InvalidArgumentException(\sprintf('Cache pool not found: "%s".', $name));
         }
         return $this->pools[$name];
     }
-    public function clearPool(string $name)
+    /**
+     * @param string $name
+     */
+    public function clearPool($name)
     {
         if (!isset($this->pools[$name])) {
             throw new \InvalidArgumentException(\sprintf('Cache pool not found: "%s".', $name));
@@ -40,8 +49,9 @@ class Psr6CacheClearer implements \ECSPrefix20210708\Symfony\Component\HttpKerne
     }
     /**
      * {@inheritdoc}
+     * @param string $cacheDir
      */
-    public function clear(string $cacheDir)
+    public function clear($cacheDir)
     {
         foreach ($this->pools as $pool) {
             $pool->clear();

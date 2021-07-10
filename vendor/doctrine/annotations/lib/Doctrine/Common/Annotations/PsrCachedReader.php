@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210708\Doctrine\Common\Annotations;
+namespace ECSPrefix20210710\Doctrine\Common\Annotations;
 
-use ECSPrefix20210708\Psr\Cache\CacheItemPoolInterface;
+use ECSPrefix20210710\Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -17,7 +17,7 @@ use function time;
 /**
  * A cache aware annotation reader.
  */
-final class PsrCachedReader implements \ECSPrefix20210708\Doctrine\Common\Annotations\Reader
+final class PsrCachedReader implements \ECSPrefix20210710\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $delegate;
@@ -29,7 +29,7 @@ final class PsrCachedReader implements \ECSPrefix20210708\Doctrine\Common\Annota
     private $loadedAnnotations = [];
     /** @var int[] */
     private $loadedFilemtimes = [];
-    public function __construct(\ECSPrefix20210708\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20210708\Psr\Cache\CacheItemPoolInterface $cache, bool $debug = \false)
+    public function __construct(\ECSPrefix20210710\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20210710\Psr\Cache\CacheItemPoolInterface $cache, bool $debug = \false)
     {
         $this->delegate = $reader;
         $this->cache = $cache;
@@ -37,8 +37,9 @@ final class PsrCachedReader implements \ECSPrefix20210708\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionClass $class
      */
-    public function getClassAnnotations(\ReflectionClass $class)
+    public function getClassAnnotations($class)
     {
         $cacheKey = $class->getName();
         if (isset($this->loadedAnnotations[$cacheKey])) {
@@ -49,8 +50,9 @@ final class PsrCachedReader implements \ECSPrefix20210708\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionClass $class
      */
-    public function getClassAnnotation(\ReflectionClass $class, $annotationName)
+    public function getClassAnnotation($class, $annotationName)
     {
         foreach ($this->getClassAnnotations($class) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -61,8 +63,9 @@ final class PsrCachedReader implements \ECSPrefix20210708\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotations(\ReflectionProperty $property)
+    public function getPropertyAnnotations($property)
     {
         $class = $property->getDeclaringClass();
         $cacheKey = $class->getName() . '$' . $property->getName();
@@ -74,8 +77,9 @@ final class PsrCachedReader implements \ECSPrefix20210708\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
+    public function getPropertyAnnotation($property, $annotationName)
     {
         foreach ($this->getPropertyAnnotations($property) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -86,8 +90,9 @@ final class PsrCachedReader implements \ECSPrefix20210708\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotations(\ReflectionMethod $method)
+    public function getMethodAnnotations($method)
     {
         $class = $method->getDeclaringClass();
         $cacheKey = $class->getName() . '#' . $method->getName();
@@ -99,8 +104,9 @@ final class PsrCachedReader implements \ECSPrefix20210708\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
+     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
+    public function getMethodAnnotation($method, $annotationName)
     {
         foreach ($this->getMethodAnnotations($method) as $annot) {
             if ($annot instanceof $annotationName) {

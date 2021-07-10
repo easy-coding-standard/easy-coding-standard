@@ -5,14 +5,15 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210708\Nette\Utils;
+namespace ECSPrefix20210710\Nette\Utils;
 
 class Helpers
 {
     /**
      * Executes a callback and returns the captured output as a string.
+     * @param callable $func
      */
-    public static function capture(callable $func) : string
+    public static function capture($func) : string
     {
         \ob_start(function () {
         });
@@ -31,7 +32,7 @@ class Helpers
     public static function getLastError() : string
     {
         $message = \error_get_last()['message'] ?? '';
-        $message = \ini_get('html_errors') ? \ECSPrefix20210708\Nette\Utils\Html::htmlToText($message) : $message;
+        $message = \ini_get('html_errors') ? \ECSPrefix20210710\Nette\Utils\Html::htmlToText($message) : $message;
         $message = \preg_replace('#^\\w+\\(.*?\\): #', '', $message);
         return $message;
     }
@@ -47,9 +48,10 @@ class Helpers
     /**
      * Looks for a string from possibilities that is most similar to value, but not the same (for 8-bit encoding).
      * @param  string[]  $possibilities
+     * @param string $value
      * @return string|null
      */
-    public static function getSuggestion(array $possibilities, string $value)
+    public static function getSuggestion($possibilities, $value)
     {
         $best = null;
         $min = (\strlen($value) / 4 + 1) * 10 + 0.1;

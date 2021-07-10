@@ -7,6 +7,10 @@ use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 interface OutputFormatterInterface
 {
-    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int;
+    /**
+     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
+     * @param \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration
+     */
+    public function report($errorAndDiffResult, $configuration) : int;
     public function getName() : string;
 }

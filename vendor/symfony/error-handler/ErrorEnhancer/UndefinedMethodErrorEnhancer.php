@@ -8,22 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\ErrorHandler\ErrorEnhancer;
+namespace ECSPrefix20210710\Symfony\Component\ErrorHandler\ErrorEnhancer;
 
-use ECSPrefix20210708\Symfony\Component\ErrorHandler\Error\FatalError;
-use ECSPrefix20210708\Symfony\Component\ErrorHandler\Error\UndefinedMethodError;
+use ECSPrefix20210710\Symfony\Component\ErrorHandler\Error\FatalError;
+use ECSPrefix20210710\Symfony\Component\ErrorHandler\Error\UndefinedMethodError;
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class UndefinedMethodErrorEnhancer implements \ECSPrefix20210708\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface
+class UndefinedMethodErrorEnhancer implements \ECSPrefix20210710\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface
 {
     /**
      * {@inheritdoc}
+     * @param \Throwable $error
      * @return \Throwable|null
      */
-    public function enhance(\Throwable $error)
+    public function enhance($error)
     {
-        if ($error instanceof \ECSPrefix20210708\Symfony\Component\ErrorHandler\Error\FatalError) {
+        if ($error instanceof \ECSPrefix20210710\Symfony\Component\ErrorHandler\Error\FatalError) {
             return null;
         }
         $message = $error->getMessage();
@@ -36,7 +37,7 @@ class UndefinedMethodErrorEnhancer implements \ECSPrefix20210708\Symfony\Compone
         $message = \sprintf('Attempted to call an undefined method named "%s" of class "%s".', $methodName, $className);
         if ('' === $methodName || !\class_exists($className) || null === ($methods = \get_class_methods($className))) {
             // failed to get the class or its methods on which an unknown method was called (for example on an anonymous class)
-            return new \ECSPrefix20210708\Symfony\Component\ErrorHandler\Error\UndefinedMethodError($message, $error);
+            return new \ECSPrefix20210710\Symfony\Component\ErrorHandler\Error\UndefinedMethodError($message, $error);
         }
         $candidates = [];
         foreach ($methods as $definedMethodName) {
@@ -55,6 +56,6 @@ class UndefinedMethodErrorEnhancer implements \ECSPrefix20210708\Symfony\Compone
             }
             $message .= "\nDid you mean to call " . $candidates;
         }
-        return new \ECSPrefix20210708\Symfony\Component\ErrorHandler\Error\UndefinedMethodError($message, $error);
+        return new \ECSPrefix20210710\Symfony\Component\ErrorHandler\Error\UndefinedMethodError($message, $error);
     }
 }

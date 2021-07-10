@@ -27,6 +27,7 @@ interface ReporterInterface
      * Process changed files array. Returns generated report.
      *
      * @return string
+     * @param \PhpCsFixer\Console\Report\ListSetsReport\ReportSummary $reportSummary
      */
-    public function generate(\PhpCsFixer\Console\Report\ListSetsReport\ReportSummary $reportSummary);
+    public function generate($reportSummary);
 }

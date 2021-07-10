@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler;
 
 /**
  * ProfilerStorageInterface.
@@ -37,21 +37,23 @@ interface ProfilerStorageInterface
      * @param string|null $url
      * @param string|null $method
      */
-    public function find($ip, $url, $limit, $method, int $start = null, int $end = null) : array;
+    public function find($ip, $url, $limit, $method, $start = null, $end = null) : array;
     /**
      * Reads data associated with the given token.
      *
      * The method returns false if the token does not exist in the storage.
      *
      * @return Profile|null The profile associated with token
+     * @param string $token
      */
-    public function read(string $token);
+    public function read($token);
     /**
      * Saves a Profile.
      *
      * @return bool Write operation successful
+     * @param \Symfony\Component\HttpKernel\Profiler\Profile $profile
      */
-    public function write(\ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool;
+    public function write($profile) : bool;
     /**
      * Purges all data from the database.
      */

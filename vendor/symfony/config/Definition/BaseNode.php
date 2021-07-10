@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Definition;
+namespace ECSPrefix20210710\Symfony\Component\Config\Definition;
 
-use ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\Exception;
-use ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
-use ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
+use ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\Exception;
+use ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
+use ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * The base node class.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\Definition\NodeInterface
+abstract class BaseNode implements \ECSPrefix20210710\Symfony\Component\Config\Definition\NodeInterface
 {
     const DEFAULT_PATH_SEPARATOR = '.';
     private static $placeholderUniquePrefixes = [];
@@ -40,7 +40,7 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
      * @throws \InvalidArgumentException if the name contains a period
      * @param string|null $name
      */
-    public function __construct($name, \ECSPrefix20210708\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
+    public function __construct($name, \ECSPrefix20210710\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
     {
         if (\false !== \strpos($name = (string) $name, $pathSeparator)) {
             throw new \InvalidArgumentException('The name must not contain ".' . $pathSeparator . '".');
@@ -56,9 +56,11 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
      * successfully processed the configuration value is returned as is, thus preserving the placeholder.
      *
      * @internal
+     * @param string $placeholder
+     * @param mixed[] $values
      * @return void
      */
-    public static function setPlaceholder(string $placeholder, array $values)
+    public static function setPlaceholder($placeholder, $values)
     {
         if (!$values) {
             throw new \InvalidArgumentException('At least one value must be provided.');
@@ -72,9 +74,10 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
      * placeholder. An exact match provided by {@see setPlaceholder()} might take precedence.
      *
      * @internal
+     * @param string $prefix
      * @return void
      */
-    public static function setPlaceholderUniquePrefix(string $prefix)
+    public static function setPlaceholderUniquePrefix($prefix)
     {
         self::$placeholderUniquePrefixes[] = $prefix;
     }
@@ -89,21 +92,26 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
         self::$placeholderUniquePrefixes = [];
         self::$placeholders = [];
     }
-    public function setAttribute(string $key, $value)
+    /**
+     * @param string $key
+     */
+    public function setAttribute($key, $value)
     {
         $this->attributes[$key] = $value;
     }
     /**
      * @return mixed
+     * @param string $key
      */
-    public function getAttribute(string $key, $default = null)
+    public function getAttribute($key, $default = null)
     {
         return $this->attributes[$key] ?? $default;
     }
     /**
      * @return bool
+     * @param string $key
      */
-    public function hasAttribute(string $key)
+    public function hasAttribute($key)
     {
         return isset($this->attributes[$key]);
     }
@@ -114,18 +122,25 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
     {
         return $this->attributes;
     }
-    public function setAttributes(array $attributes)
+    /**
+     * @param mixed[] $attributes
+     */
+    public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
     }
-    public function removeAttribute(string $key)
+    /**
+     * @param string $key
+     */
+    public function removeAttribute($key)
     {
         unset($this->attributes[$key]);
     }
     /**
      * Sets an info message.
+     * @param string $info
      */
-    public function setInfo(string $info)
+    public function setInfo($info)
     {
         $this->setAttribute('info', $info);
     }
@@ -171,7 +186,7 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
      *
      * @param bool $boolean Required node
      */
-    public function setRequired(bool $boolean)
+    public function setRequired($boolean)
     {
         $this->required = $boolean;
     }
@@ -206,8 +221,9 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
     }
     /**
      * Sets if this node can be overridden.
+     * @param bool $allow
      */
-    public function setAllowOverwrite(bool $allow)
+    public function setAllowOverwrite($allow)
     {
         $this->allowOverwrite = $allow;
     }
@@ -216,7 +232,7 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
      *
      * @param \Closure[] $closures An array of Closures used for normalization
      */
-    public function setNormalizationClosures(array $closures)
+    public function setNormalizationClosures($closures)
     {
         $this->normalizationClosures = $closures;
     }
@@ -225,7 +241,7 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
      *
      * @param \Closure[] $closures An array of Closures used for final validation
      */
-    public function setFinalValidationClosures(array $closures)
+    public function setFinalValidationClosures($closures)
     {
         $this->finalValidationClosures = $closures;
     }
@@ -255,7 +271,7 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
      *
      * @deprecated since Symfony 5.1, use "getDeprecation()" instead.
      */
-    public function getDeprecationMessage(string $node, string $path)
+    public function getDeprecationMessage($node, $path)
     {
         trigger_deprecation('symfony/config', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($node, $path)['message'];
@@ -264,7 +280,7 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
      * @param string $node The configuration node name
      * @param string $path The path of the node
      */
-    public function getDeprecation(string $node, string $path) : array
+    public function getDeprecation($node, $path) : array
     {
         return ['package' => $this->deprecation['package'] ?? '', 'version' => $this->deprecation['version'] ?? '', 'message' => \strtr($this->deprecation['message'] ?? '', ['%node%' => $node, '%path%' => $path])];
     }
@@ -291,7 +307,7 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
     public final function merge($leftSide, $rightSide)
     {
         if (!$this->allowOverwrite) {
-            throw new \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException(\sprintf('Configuration path "%s" cannot be overwritten. You have to define all options for this path, and any of its sub-paths in one configuration section.', $this->getPath()));
+            throw new \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException(\sprintf('Configuration path "%s" cannot be overwritten. You have to define all options for this path, and any of its sub-paths in one configuration section.', $this->getPath()));
         }
         if ($leftSide !== ($leftPlaceholders = self::resolvePlaceholderValue($leftSide))) {
             foreach ($leftPlaceholders as $leftPlaceholder) {
@@ -395,13 +411,13 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
         foreach ($this->finalValidationClosures as $closure) {
             try {
                 $value = $closure($value);
-            } catch (\ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\Exception $e) {
-                if ($e instanceof \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\UnsetKeyException && null !== $this->handlingPlaceholder) {
+            } catch (\ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\Exception $e) {
+                if ($e instanceof \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\UnsetKeyException && null !== $this->handlingPlaceholder) {
                     continue;
                 }
                 throw $e;
             } catch (\Exception $e) {
-                throw new \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('Invalid configuration for path "%s": ', $this->getPath()) . $e->getMessage(), $e->getCode(), $e);
+                throw new \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('Invalid configuration for path "%s": ', $this->getPath()) . $e->getMessage(), $e->getCode(), $e);
             }
         }
         return $value;
@@ -480,7 +496,7 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
     private function doValidateType($value)
     {
         if (null !== $this->handlingPlaceholder && !$this->allowPlaceholders()) {
-            $e = new \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('A dynamic value is not compatible with a "%s" node type at path "%s".', static::class, $this->getPath()));
+            $e = new \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('A dynamic value is not compatible with a "%s" node type at path "%s".', static::class, $this->getPath()));
             $e->setPath($this->getPath());
             throw $e;
         }
@@ -491,7 +507,7 @@ abstract class BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\D
         $knownTypes = \array_keys(self::$placeholders[$this->handlingPlaceholder]);
         $validTypes = $this->getValidPlaceholderTypes();
         if ($validTypes && \array_diff($knownTypes, $validTypes)) {
-            $e = new \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('Invalid type for path "%s". Expected %s, but got %s.', $this->getPath(), 1 === \count($validTypes) ? '"' . \reset($validTypes) . '"' : 'one of "' . \implode('", "', $validTypes) . '"', 1 === \count($knownTypes) ? '"' . \reset($knownTypes) . '"' : 'one of "' . \implode('", "', $knownTypes) . '"'));
+            $e = new \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('Invalid type for path "%s". Expected %s, but got %s.', $this->getPath(), 1 === \count($validTypes) ? '"' . \reset($validTypes) . '"' : 'one of "' . \implode('", "', $validTypes) . '"', 1 === \count($knownTypes) ? '"' . \reset($knownTypes) . '"' : 'one of "' . \implode('", "', $knownTypes) . '"'));
             if ($hint = $this->getInfo()) {
                 $e->addHint($hint);
             }

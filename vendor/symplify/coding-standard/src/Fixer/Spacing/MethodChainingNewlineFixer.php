@@ -13,13 +13,13 @@ use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenAnalyzer\ChainMethodCallAnalyzer;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20210708\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210710\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\MethodChainingNewlineFixer\MethodChainingNewlineFixerTest
  */
-final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210708\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210710\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -59,15 +59,16 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate($tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_OBJECT_OPERATOR]);
     }
     /**
      * @param Tokens<Token> $tokens
+     * @param \SplFileInfo $file
      * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix($file, $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($index = 1, $count = \count($tokens); $index < $count; ++$index) {
@@ -82,9 +83,9 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
             ++$index;
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $someClass->firstCall()->secondCall();
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'

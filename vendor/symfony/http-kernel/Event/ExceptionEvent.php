@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Event;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows to create a response for a thrown exception.
  *
@@ -25,14 +25,14 @@ use ECSPrefix20210708\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ExceptionEvent extends \ECSPrefix20210708\Symfony\Component\HttpKernel\Event\RequestEvent
+final class ExceptionEvent extends \ECSPrefix20210710\Symfony\Component\HttpKernel\Event\RequestEvent
 {
     private $throwable;
     /**
      * @var bool
      */
     private $allowCustomResponseCode = \false;
-    public function __construct(\ECSPrefix20210708\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request, int $requestType, \Throwable $e)
+    public function __construct(\ECSPrefix20210710\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210710\Symfony\Component\HttpFoundation\Request $request, int $requestType, \Throwable $e)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->setThrowable($e);
@@ -45,9 +45,10 @@ final class ExceptionEvent extends \ECSPrefix20210708\Symfony\Component\HttpKern
      * Replaces the thrown exception.
      *
      * This exception will be thrown if no response is set in the event.
+     * @param \Throwable $exception
      * @return void
      */
-    public function setThrowable(\Throwable $exception)
+    public function setThrowable($exception)
     {
         $this->throwable = $exception;
     }

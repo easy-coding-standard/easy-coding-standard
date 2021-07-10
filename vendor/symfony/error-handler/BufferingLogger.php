@@ -8,21 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\ErrorHandler;
+namespace ECSPrefix20210710\Symfony\Component\ErrorHandler;
 
-use ECSPrefix20210708\Psr\Log\AbstractLogger;
+use ECSPrefix20210710\Psr\Log\AbstractLogger;
 /**
  * A buffering logger that stacks logs for later.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class BufferingLogger extends \ECSPrefix20210708\Psr\Log\AbstractLogger
+class BufferingLogger extends \ECSPrefix20210710\Psr\Log\AbstractLogger
 {
     private $logs = [];
     /**
+     * @param mixed[] $context
      * @return void
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, $context = [])
     {
         $this->logs[] = [$level, $message, $context];
     }

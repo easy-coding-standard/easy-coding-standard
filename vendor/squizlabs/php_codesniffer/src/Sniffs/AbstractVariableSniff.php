@@ -50,7 +50,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected final function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected final function processTokenWithinScope($phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING || $tokens[$stackPtr]['code'] === T_HEREDOC) {
@@ -120,7 +120,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected final function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected final function processTokenOutsideScope($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // These variables are not member vars.
@@ -149,7 +149,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected abstract function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
+    protected abstract function processMemberVar($phpcsFile, $stackPtr);
     /**
      * Called to process normal member vars.
      *
@@ -162,7 +162,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected abstract function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
+    protected abstract function processVariable($phpcsFile, $stackPtr);
     /**
      * Called to process variables found in double quoted strings or heredocs.
      *
@@ -179,6 +179,6 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected abstract function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
+    protected abstract function processVariableInString($phpcsFile, $stackPtr);
 }
 //end class

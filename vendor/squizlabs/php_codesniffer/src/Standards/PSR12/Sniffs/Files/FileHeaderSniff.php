@@ -33,7 +33,7 @@ class FileHeaderSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int|null
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $possibleHeaders = [];
@@ -112,7 +112,7 @@ class FileHeaderSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return array
      */
-    public function getHeaderLines(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function getHeaderLines($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $next = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
@@ -225,7 +225,7 @@ class FileHeaderSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int|null
      */
-    public function processHeaderLines(\PHP_CodeSniffer\Files\File $phpcsFile, $headerLines)
+    public function processHeaderLines($phpcsFile, $headerLines)
     {
         $tokens = $phpcsFile->getTokens();
         $found = [];

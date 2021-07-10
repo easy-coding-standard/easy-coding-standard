@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\DependencyInjection;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\DependencyInjection;
 
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * This extension sub-class provides first-class integration with the
  * Config/Definition Component.
@@ -23,17 +23,21 @@ use ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class ConfigurableExtension extends \ECSPrefix20210708\Symfony\Component\HttpKernel\DependencyInjection\Extension
+abstract class ConfigurableExtension extends \ECSPrefix20210710\Symfony\Component\HttpKernel\DependencyInjection\Extension
 {
     /**
      * {@inheritdoc}
+     * @param mixed[] $configs
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public final function load(array $configs, \ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public final function load($configs, $container)
     {
         $this->loadInternal($this->processConfiguration($this->getConfiguration($configs, $container), $configs), $container);
     }
     /**
      * Configures the passed container according to the merged configuration.
+     * @param mixed[] $mergedConfig
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected abstract function loadInternal(array $mergedConfig, \ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder $container);
+    protected abstract function loadInternal($mergedConfig, $container);
 }

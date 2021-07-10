@@ -224,7 +224,7 @@ class Reporter
      *
      * @return void
      */
-    public function cacheFileReport(\PHP_CodeSniffer\Files\File $phpcsFile)
+    public function cacheFileReport($phpcsFile)
     {
         if (isset($this->config->reports) === \false) {
             // This happens during unit testing, or any time someone just wants
@@ -280,7 +280,7 @@ class Reporter
      *
      * @return array
      */
-    public function prepareFileReport(\PHP_CodeSniffer\Files\File $phpcsFile)
+    public function prepareFileReport($phpcsFile)
     {
         $report = ['filename' => \PHP_CodeSniffer\Util\Common::stripBasepath($phpcsFile->getFilename(), $this->config->basepath), 'errors' => $phpcsFile->getErrorCount(), 'warnings' => $phpcsFile->getWarningCount(), 'fixable' => $phpcsFile->getFixableCount(), 'messages' => []];
         if ($report['errors'] === 0 && $report['warnings'] === 0) {

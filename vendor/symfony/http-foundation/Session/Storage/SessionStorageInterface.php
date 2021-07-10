@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\Storage;
+namespace ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\Storage;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 /**
  * StorageInterface.
  *
@@ -41,8 +41,9 @@ interface SessionStorageInterface
     public function getId();
     /**
      * Sets the session ID.
+     * @param string $id
      */
-    public function setId(string $id);
+    public function setId($id);
     /**
      * Returns the session name.
      *
@@ -51,8 +52,9 @@ interface SessionStorageInterface
     public function getName();
     /**
      * Sets the session name.
+     * @param string $name
      */
-    public function setName(string $name);
+    public function setName($name);
     /**
      * Regenerates id that represents this storage.
      *
@@ -82,7 +84,7 @@ interface SessionStorageInterface
      *
      * @throws \RuntimeException If an error occurs while regenerating this storage
      */
-    public function regenerate(bool $destroy = \false, int $lifetime = null);
+    public function regenerate($destroy = \false, $lifetime = null);
     /**
      * Force the session to be saved and closed.
      *
@@ -105,12 +107,14 @@ interface SessionStorageInterface
      * @return SessionBagInterface
      *
      * @throws \InvalidArgumentException If the bag does not exist
+     * @param string $name
      */
-    public function getBag(string $name);
+    public function getBag($name);
     /**
      * Registers a SessionBagInterface for use.
+     * @param \Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
      */
-    public function registerBag(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag);
+    public function registerBag($bag);
     /**
      * @return MetadataBag
      */

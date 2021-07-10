@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210710\Symfony\Component\HttpFoundation;
 
 /**
  * Http utility functions.
@@ -54,7 +54,7 @@ class IpUtils
      * @return bool Whether the request IP matches the IP, or whether the request IP is within the CIDR subnet
      * @param string|null $requestIp
      */
-    public static function checkIp4($requestIp, string $ip)
+    public static function checkIp4($requestIp, $ip)
     {
         $cacheKey = $requestIp . '-' . $ip;
         if (isset(self::$checkedIps[$cacheKey])) {
@@ -95,7 +95,7 @@ class IpUtils
      * @throws \RuntimeException When IPV6 support is not enabled
      * @param string|null $requestIp
      */
-    public static function checkIp6($requestIp, string $ip)
+    public static function checkIp6($requestIp, $ip)
     {
         $cacheKey = $requestIp . '-' . $ip;
         if (isset(self::$checkedIps[$cacheKey])) {
@@ -135,8 +135,9 @@ class IpUtils
      * Anonymizes an IP/IPv6.
      *
      * Removes the last byte for v4 and the last 8 bytes for v6 IPs
+     * @param string $ip
      */
-    public static function anonymize(string $ip) : string
+    public static function anonymize($ip) : string
     {
         $wrappedIPv6 = \false;
         if ('[' === \substr($ip, 0, 1) && ']' === \substr($ip, -1, 1)) {

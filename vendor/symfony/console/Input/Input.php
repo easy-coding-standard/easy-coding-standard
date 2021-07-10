@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Console\Input;
+namespace ECSPrefix20210710\Symfony\Component\Console\Input;
 
-use ECSPrefix20210708\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210708\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix20210710\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210710\Symfony\Component\Console\Exception\RuntimeException;
 /**
  * Input is the base class for all concrete Input classes.
  *
@@ -23,17 +23,17 @@ use ECSPrefix20210708\Symfony\Component\Console\Exception\RuntimeException;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Input implements \ECSPrefix20210708\Symfony\Component\Console\Input\InputInterface, \ECSPrefix20210708\Symfony\Component\Console\Input\StreamableInputInterface
+abstract class Input implements \ECSPrefix20210710\Symfony\Component\Console\Input\InputInterface, \ECSPrefix20210710\Symfony\Component\Console\Input\StreamableInputInterface
 {
     protected $definition;
     protected $stream;
     protected $options = [];
     protected $arguments = [];
     protected $interactive = \true;
-    public function __construct(\ECSPrefix20210708\Symfony\Component\Console\Input\InputDefinition $definition = null)
+    public function __construct(\ECSPrefix20210710\Symfony\Component\Console\Input\InputDefinition $definition = null)
     {
         if (null === $definition) {
-            $this->definition = new \ECSPrefix20210708\Symfony\Component\Console\Input\InputDefinition();
+            $this->definition = new \ECSPrefix20210710\Symfony\Component\Console\Input\InputDefinition();
         } else {
             $this->bind($definition);
             $this->validate();
@@ -41,8 +41,9 @@ abstract class Input implements \ECSPrefix20210708\Symfony\Component\Console\Inp
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
-    public function bind(\ECSPrefix20210708\Symfony\Component\Console\Input\InputDefinition $definition)
+    public function bind($definition)
     {
         $this->arguments = [];
         $this->options = [];
@@ -64,7 +65,7 @@ abstract class Input implements \ECSPrefix20210708\Symfony\Component\Console\Inp
             return !\array_key_exists($argument, $givenArguments) && $definition->getArgument($argument)->isRequired();
         });
         if (\count($missingArguments) > 0) {
-            throw new \ECSPrefix20210708\Symfony\Component\Console\Exception\RuntimeException(\sprintf('Not enough arguments (missing: "%s").', \implode(', ', $missingArguments)));
+            throw new \ECSPrefix20210710\Symfony\Component\Console\Exception\RuntimeException(\sprintf('Not enough arguments (missing: "%s").', \implode(', ', $missingArguments)));
         }
     }
     /**
@@ -76,8 +77,9 @@ abstract class Input implements \ECSPrefix20210708\Symfony\Component\Console\Inp
     }
     /**
      * {@inheritdoc}
+     * @param bool $interactive
      */
-    public function setInteractive(bool $interactive)
+    public function setInteractive($interactive)
     {
         $this->interactive = $interactive;
     }
@@ -90,21 +92,23 @@ abstract class Input implements \ECSPrefix20210708\Symfony\Component\Console\Inp
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function getArgument(string $name)
+    public function getArgument($name)
     {
         if (!$this->definition->hasArgument($name)) {
-            throw new \ECSPrefix20210708\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
+            throw new \ECSPrefix20210710\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
         return $this->arguments[$name] ?? $this->definition->getArgument($name)->getDefault();
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function setArgument(string $name, $value)
+    public function setArgument($name, $value)
     {
         if (!$this->definition->hasArgument($name)) {
-            throw new \ECSPrefix20210708\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
+            throw new \ECSPrefix20210710\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
         $this->arguments[$name] = $value;
     }
@@ -124,8 +128,9 @@ abstract class Input implements \ECSPrefix20210708\Symfony\Component\Console\Inp
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function getOption(string $name)
+    public function getOption($name)
     {
         if ($this->definition->hasNegation($name)) {
             if (null === ($value = $this->getOption($this->definition->negationToName($name)))) {
@@ -134,27 +139,29 @@ abstract class Input implements \ECSPrefix20210708\Symfony\Component\Console\Inp
             return !$value;
         }
         if (!$this->definition->hasOption($name)) {
-            throw new \ECSPrefix20210708\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
+            throw new \ECSPrefix20210710\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
         }
         return \array_key_exists($name, $this->options) ? $this->options[$name] : $this->definition->getOption($name)->getDefault();
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function setOption(string $name, $value)
+    public function setOption($name, $value)
     {
         if ($this->definition->hasNegation($name)) {
             $this->options[$this->definition->negationToName($name)] = !$value;
             return;
         } elseif (!$this->definition->hasOption($name)) {
-            throw new \ECSPrefix20210708\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
+            throw new \ECSPrefix20210710\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
         }
         $this->options[$name] = $value;
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function hasOption(string $name)
+    public function hasOption($name)
     {
         return $this->definition->hasOption($name) || $this->definition->hasNegation($name);
     }
@@ -162,8 +169,9 @@ abstract class Input implements \ECSPrefix20210708\Symfony\Component\Console\Inp
      * Escapes a token through escapeshellarg if it contains unsafe chars.
      *
      * @return string
+     * @param string $token
      */
-    public function escapeToken(string $token)
+    public function escapeToken($token)
     {
         return \preg_match('{^[\\w-]+$}', $token) ? $token : \escapeshellarg($token);
     }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Composer\XdebugHandler;
+namespace ECSPrefix20210710\Composer\XdebugHandler;
 
 /**
  * Process utility functions
@@ -59,7 +59,7 @@ class Process
      *
      * @return string The escaped command line
      */
-    public static function escapeShellCommand(array $args)
+    public static function escapeShellCommand($args)
     {
         $cmd = self::escape(\array_shift($args), \true, \true);
         foreach ($args as $arg) {

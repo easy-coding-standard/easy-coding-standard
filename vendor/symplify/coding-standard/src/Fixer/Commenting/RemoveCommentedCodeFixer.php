@@ -13,15 +13,16 @@ use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\Php\PhpContentAnalyzer;
 use Symplify\CodingStandard\Tokens\CommentedContentResolver;
 use Symplify\CodingStandard\ValueObject\StartAndEnd;
-use ECSPrefix20210708\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210710\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://softwareengineering.stackexchange.com/a/394288/148956
+ * @deprecated This rule is seriously buggy. Don't use it. We're working on a better replacement
+ * @see https://github.com/symplify/symplify/issues/3395
  *
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\RemoveCommentedCodeFixer\RemoveCommentedCodeFixerTest
  */
-final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210708\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210710\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -52,15 +53,16 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate($tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
     /**
      * @param Tokens<Token> $tokens
+     * @param \SplFileInfo $file
      * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix($file, $tokens)
     {
         $contentWithPositions = [];
         for ($i = 0; $i < $tokens->count(); ++$i) {
@@ -89,9 +91,9 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
             $tokens->clearRange($realStart, $startAndEnd->getEnd());
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210708\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 // $one = 1;
 // $two = 2;
 // $three = 3;

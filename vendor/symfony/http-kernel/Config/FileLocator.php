@@ -8,27 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Config;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Config;
 
-use ECSPrefix20210708\Symfony\Component\Config\FileLocator as BaseFileLocator;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\KernelInterface;
+use ECSPrefix20210710\Symfony\Component\Config\FileLocator as BaseFileLocator;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\KernelInterface;
 /**
  * FileLocator uses the KernelInterface to locate resources in bundles.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FileLocator extends \ECSPrefix20210708\Symfony\Component\Config\FileLocator
+class FileLocator extends \ECSPrefix20210710\Symfony\Component\Config\FileLocator
 {
     private $kernel;
-    public function __construct(\ECSPrefix20210708\Symfony\Component\HttpKernel\KernelInterface $kernel)
+    public function __construct(\ECSPrefix20210710\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {
         $this->kernel = $kernel;
         parent::__construct();
     }
     /**
      * {@inheritdoc}
+     * @param string $file
+     * @param string|null $currentPath
+     * @param bool $first
      */
-    public function locate(string $file, string $currentPath = null, bool $first = \true)
+    public function locate($file, $currentPath = null, $first = \true)
     {
         if (isset($file[0]) && '@' === $file[0]) {
             $resource = $this->kernel->locateResource($file);

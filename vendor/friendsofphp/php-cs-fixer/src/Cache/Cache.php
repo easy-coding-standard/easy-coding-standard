@@ -35,14 +35,18 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
     {
         return $this->signature;
     }
-    public function has(string $file) : bool
+    /**
+     * @param string $file
+     */
+    public function has($file) : bool
     {
         return \array_key_exists($file, $this->hashes);
     }
     /**
+     * @param string $file
      * @return int|null
      */
-    public function get(string $file)
+    public function get($file)
     {
         if (!$this->has($file)) {
             return null;
@@ -50,16 +54,19 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
         return $this->hashes[$file];
     }
     /**
+     * @param string $file
+     * @param int $hash
      * @return void
      */
-    public function set(string $file, int $hash)
+    public function set($file, $hash)
     {
         $this->hashes[$file] = $hash;
     }
     /**
+     * @param string $file
      * @return void
      */
-    public function clear(string $file)
+    public function clear($file)
     {
         unset($this->hashes[$file]);
     }
@@ -75,8 +82,9 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
      * @throws \InvalidArgumentException
      *
      * @return Cache
+     * @param string $json
      */
-    public static function fromJson(string $json)
+    public static function fromJson($json)
     {
         $data = \json_decode($json, \true);
         if (null === $data && \JSON_ERROR_NONE !== \json_last_error()) {

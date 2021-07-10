@@ -32,7 +32,7 @@ class ClassFileNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         $fullPath = \basename($phpcsFile->getFilename());
         $fileName = \substr($fullPath, 0, \strrpos($fullPath, '.'));

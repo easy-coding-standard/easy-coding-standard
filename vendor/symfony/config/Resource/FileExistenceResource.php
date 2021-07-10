@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210710\Symfony\Component\Config\Resource;
 
 /**
  * FileExistenceResource represents a resource stored on the filesystem.
@@ -20,7 +20,7 @@ namespace ECSPrefix20210708\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class FileExistenceResource implements \ECSPrefix20210708\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class FileExistenceResource implements \ECSPrefix20210710\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $resource;
     private $exists;
@@ -48,8 +48,9 @@ class FileExistenceResource implements \ECSPrefix20210708\Symfony\Component\Conf
     }
     /**
      * {@inheritdoc}
+     * @param int $timestamp
      */
-    public function isFresh(int $timestamp) : bool
+    public function isFresh($timestamp) : bool
     {
         return \file_exists($this->resource) === $this->exists;
     }

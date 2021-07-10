@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\DependencyInjection;
+namespace ECSPrefix20210710\Symfony\Component\DependencyInjection;
 
-use ECSPrefix20210708\Psr\Container\ContainerInterface as PsrContainerInterface;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix20210710\Psr\Container\ContainerInterface as PsrContainerInterface;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 /**
  * ContainerInterface is the interface implemented by service container classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-interface ContainerInterface extends \ECSPrefix20210708\Psr\Container\ContainerInterface
+interface ContainerInterface extends \ECSPrefix20210710\Psr\Container\ContainerInterface
 {
     const RUNTIME_EXCEPTION_ON_INVALID_REFERENCE = 0;
     const EXCEPTION_ON_INVALID_REFERENCE = 1;
@@ -30,8 +30,9 @@ interface ContainerInterface extends \ECSPrefix20210708\Psr\Container\ContainerI
     /**
      * Sets a service.
      * @param object|null $service
+     * @param string $id
      */
-    public function set(string $id, $service);
+    public function set($id, $service);
     /**
      * Gets a service.
      *
@@ -58,8 +59,9 @@ interface ContainerInterface extends \ECSPrefix20210708\Psr\Container\ContainerI
      * Check for whether or not a service has been initialized.
      *
      * @return bool true if the service has been initialized, false otherwise
+     * @param string $id
      */
-    public function initialized(string $id);
+    public function initialized($id);
     /**
      * Gets a parameter.
      *
@@ -69,7 +71,7 @@ interface ContainerInterface extends \ECSPrefix20210708\Psr\Container\ContainerI
      *
      * @throws InvalidArgumentException if the parameter is not defined
      */
-    public function getParameter(string $name);
+    public function getParameter($name);
     /**
      * Checks if a parameter exists.
      *
@@ -77,12 +79,12 @@ interface ContainerInterface extends \ECSPrefix20210708\Psr\Container\ContainerI
      *
      * @return bool The presence of parameter in container
      */
-    public function hasParameter(string $name);
+    public function hasParameter($name);
     /**
      * Sets a parameter.
      *
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value
      */
-    public function setParameter(string $name, $value);
+    public function setParameter($name, $value);
 }

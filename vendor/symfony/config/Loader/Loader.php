@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Loader;
+namespace ECSPrefix20210710\Symfony\Component\Config\Loader;
 
-use ECSPrefix20210708\Symfony\Component\Config\Exception\LoaderLoadException;
+use ECSPrefix20210710\Symfony\Component\Config\Exception\LoaderLoadException;
 /**
  * Loader is the abstract class used by all built-in loaders.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Loader implements \ECSPrefix20210708\Symfony\Component\Config\Loader\LoaderInterface
+abstract class Loader implements \ECSPrefix20210710\Symfony\Component\Config\Loader\LoaderInterface
 {
     protected $resolver;
     protected $env;
@@ -33,8 +33,9 @@ abstract class Loader implements \ECSPrefix20210708\Symfony\Component\Config\Loa
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
      */
-    public function setResolver(\ECSPrefix20210708\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver)
+    public function setResolver($resolver)
     {
         $this->resolver = $resolver;
     }
@@ -46,7 +47,7 @@ abstract class Loader implements \ECSPrefix20210708\Symfony\Component\Config\Loa
      *
      * @return mixed
      */
-    public function import($resource, string $type = null)
+    public function import($resource, $type = null)
     {
         return $this->resolve($resource, $type)->load($resource, $type);
     }
@@ -60,14 +61,14 @@ abstract class Loader implements \ECSPrefix20210708\Symfony\Component\Config\Loa
      *
      * @throws LoaderLoadException If no loader is found
      */
-    public function resolve($resource, string $type = null)
+    public function resolve($resource, $type = null)
     {
         if ($this->supports($resource, $type)) {
             return $this;
         }
         $loader = null === $this->resolver ? \false : $this->resolver->resolve($resource, $type);
         if (\false === $loader) {
-            throw new \ECSPrefix20210708\Symfony\Component\Config\Exception\LoaderLoadException($resource, null, 0, null, $type);
+            throw new \ECSPrefix20210710\Symfony\Component\Config\Exception\LoaderLoadException($resource, null, 0, null, $type);
         }
         return $loader;
     }

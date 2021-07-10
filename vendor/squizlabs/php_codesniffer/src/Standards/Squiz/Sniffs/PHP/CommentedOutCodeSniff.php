@@ -47,7 +47,7 @@ class CommentedOutCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return int|void Integer stack pointer to skip forward or void to continue
      *                  normal file processing.
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Ignore comments at the end of code blocks.

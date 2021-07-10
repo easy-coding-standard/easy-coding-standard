@@ -50,8 +50,9 @@ final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\Ver
     }
     /**
      * {@inheritdoc}
+     * @param int $version
      */
-    public function isSuitableFor(int $version) : bool
+    public function isSuitableFor($version) : bool
     {
         return $this->versionSpecification->isSatisfiedBy($version);
     }

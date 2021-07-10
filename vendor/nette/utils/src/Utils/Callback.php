@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210708\Nette\Utils;
+namespace ECSPrefix20210710\Nette\Utils;
 
-use ECSPrefix20210708\Nette;
+use ECSPrefix20210710\Nette;
 use function is_array, is_object, is_string;
 /**
  * PHP callable tools.
@@ -18,14 +18,15 @@ final class Callback
     /**
      * @param  string|object|callable  $callable  class, object, callable
      * @deprecated use Closure::fromCallable()
+     * @param string|null $method
      */
-    public static function closure($callable, string $method = null) : \Closure
+    public static function closure($callable, $method = null) : \Closure
     {
         \trigger_error(__METHOD__ . '() is deprecated, use Closure::fromCallable().', \E_USER_DEPRECATED);
         try {
             return \Closure::fromCallable($method === null ? $callable : [$callable, $method]);
         } catch (\TypeError $e) {
-            throw new \ECSPrefix20210708\Nette\InvalidArgumentException($e->getMessage());
+            throw new \ECSPrefix20210710\Nette\InvalidArgumentException($e->getMessage());
         }
     }
     /**
@@ -43,8 +44,9 @@ final class Callback
      * Invokes callback with an array of parameters.
      * @return mixed
      * @deprecated
+     * @param mixed[] $args
      */
-    public static function invokeArgs($callable, array $args = [])
+    public static function invokeArgs($callable, $args = [])
     {
         \trigger_error(__METHOD__ . '() is deprecated, use native invoking.', \E_USER_DEPRECATED);
         self::check($callable);
@@ -53,12 +55,15 @@ final class Callback
     /**
      * Invokes internal PHP function with own error handler.
      * @return mixed
+     * @param string $function
+     * @param mixed[] $args
+     * @param callable $onError
      */
-    public static function invokeSafe(string $function, array $args, callable $onError)
+    public static function invokeSafe($function, $args, $onError)
     {
         $prev = \set_error_handler(function ($severity, $message, $file) use($onError, &$prev, $function) {
             if ($file === __FILE__) {
-                $msg = \ini_get('html_errors') ? \ECSPrefix20210708\Nette\Utils\Html::htmlToText($message) : $message;
+                $msg = \ini_get('html_errors') ? \ECSPrefix20210710\Nette\Utils\Html::htmlToText($message) : $message;
                 $msg = \preg_replace("#^{$function}\\(.*?\\): #", '', $msg);
                 if ($onError($msg, $severity) !== \false) {
                     return null;
@@ -78,11 +83,12 @@ final class Callback
      * @param  mixed  $callable
      * @return callable
      * @throws Nette\InvalidArgumentException
+     * @param bool $syntax
      */
-    public static function check($callable, bool $syntax = \false)
+    public static function check($callable, $syntax = \false)
     {
         if (!\is_callable($callable, $syntax)) {
-            throw new \ECSPrefix20210708\Nette\InvalidArgumentException($syntax ? 'Given value is not a callable type.' : \sprintf("Callback '%s' is not callable.", self::toString($callable)));
+            throw new \ECSPrefix20210710\Nette\InvalidArgumentException($syntax ? 'Given value is not a callable type.' : \sprintf("Callback '%s' is not callable.", self::toString($callable)));
         }
         return $callable;
     }
@@ -125,15 +131,17 @@ final class Callback
     }
     /**
      * Checks whether PHP callback is function or static method.
+     * @param callable $callable
      */
-    public static function isStatic(callable $callable) : bool
+    public static function isStatic($callable) : bool
     {
         return \is_array($callable) ? \is_string($callable[0]) : \is_string($callable);
     }
     /**
      * Unwraps closure created by Closure::fromCallable().
+     * @param \Closure $closure
      */
-    public static function unwrap(\Closure $closure) : callable
+    public static function unwrap($closure) : callable
     {
         $r = new \ReflectionFunction($closure);
         if (\substr($r->name, -1) === '}') {

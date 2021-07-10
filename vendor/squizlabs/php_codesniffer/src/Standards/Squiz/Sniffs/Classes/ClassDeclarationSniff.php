@@ -23,7 +23,7 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\Class
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         // We want all the errors from the PSR2 standard, plus some of our own.
         parent::process($phpcsFile, $stackPtr);
@@ -45,7 +45,7 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\Class
      *
      * @return void
      */
-    public function processOpen(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function processOpen($phpcsFile, $stackPtr)
     {
         parent::processOpen($phpcsFile, $stackPtr);
         $tokens = $phpcsFile->getTokens();
@@ -80,7 +80,7 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\Class
      *
      * @return void
      */
-    public function processClose(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function processClose($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_closer']) === \false) {

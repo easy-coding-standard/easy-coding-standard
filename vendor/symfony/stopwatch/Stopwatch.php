@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Stopwatch;
+namespace ECSPrefix20210710\Symfony\Component\Stopwatch;
 
-use ECSPrefix20210708\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20210710\Symfony\Contracts\Service\ResetInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210708\Symfony\Component\Stopwatch\Section::class);
+\class_exists(\ECSPrefix20210710\Symfony\Component\Stopwatch\Section::class);
 /**
  * Stopwatch provides a way to profile code.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInterface
+class Stopwatch implements \ECSPrefix20210710\Symfony\Contracts\Service\ResetInterface
 {
     /**
      * @var bool
@@ -54,7 +54,7 @@ class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInt
      *
      * @throws \LogicException When the section to re-open is not reachable
      */
-    public function openSection(string $id = null)
+    public function openSection($id = null)
     {
         $current = \end($this->activeSections);
         if (null !== $id && null === $current->get($id)) {
@@ -72,8 +72,9 @@ class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInt
      * @see getSectionEvents()
      *
      * @throws \LogicException When there's no started section to be stopped
+     * @param string $id
      */
-    public function stopSection(string $id)
+    public function stopSection($id)
     {
         $this->stop('__section__');
         if (1 == \count($this->activeSections)) {
@@ -86,8 +87,10 @@ class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInt
      * Starts an event.
      *
      * @return StopwatchEvent
+     * @param string $name
+     * @param string|null $category
      */
-    public function start(string $name, string $category = null)
+    public function start($name, $category = null)
     {
         return \end($this->activeSections)->startEvent($name, $category);
     }
@@ -95,8 +98,9 @@ class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInt
      * Checks if the event was started.
      *
      * @return bool
+     * @param string $name
      */
-    public function isStarted(string $name)
+    public function isStarted($name)
     {
         return \end($this->activeSections)->isEventStarted($name);
     }
@@ -104,8 +108,9 @@ class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInt
      * Stops an event.
      *
      * @return StopwatchEvent
+     * @param string $name
      */
-    public function stop(string $name)
+    public function stop($name)
     {
         return \end($this->activeSections)->stopEvent($name);
     }
@@ -113,8 +118,9 @@ class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInt
      * Stops then restarts an event.
      *
      * @return StopwatchEvent
+     * @param string $name
      */
-    public function lap(string $name)
+    public function lap($name)
     {
         return \end($this->activeSections)->stopEvent($name)->start();
     }
@@ -122,8 +128,9 @@ class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInt
      * Returns a specific event by name.
      *
      * @return StopwatchEvent
+     * @param string $name
      */
-    public function getEvent(string $name)
+    public function getEvent($name)
     {
         return \end($this->activeSections)->getEvent($name);
     }
@@ -131,8 +138,9 @@ class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInt
      * Gets all events for a given section.
      *
      * @return StopwatchEvent[]
+     * @param string $id
      */
-    public function getSectionEvents(string $id)
+    public function getSectionEvents($id)
     {
         return isset($this->sections[$id]) ? $this->sections[$id]->getEvents() : [];
     }
@@ -141,6 +149,6 @@ class Stopwatch implements \ECSPrefix20210708\Symfony\Contracts\Service\ResetInt
      */
     public function reset()
     {
-        $this->sections = $this->activeSections = ['__root__' => new \ECSPrefix20210708\Symfony\Component\Stopwatch\Section(null, $this->morePrecision)];
+        $this->sections = $this->activeSections = ['__root__' => new \ECSPrefix20210710\Symfony\Component\Stopwatch\Section(null, $this->morePrecision)];
     }
 }

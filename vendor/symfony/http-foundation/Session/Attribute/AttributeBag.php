@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\Attribute;
+namespace ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\Attribute;
 
 /**
  * This class relates to session attribute storage.
  */
-class AttributeBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface, \IteratorAggregate, \Countable
+class AttributeBag implements \ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface, \IteratorAggregate, \Countable
 {
     private $name = 'attributes';
     private $storageKey;
@@ -32,14 +32,18 @@ class AttributeBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundatio
     {
         return $this->name;
     }
-    public function setName(string $name)
+    /**
+     * @param string $name
+     */
+    public function setName($name)
     {
         $this->name = $name;
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $attributes
      */
-    public function initialize(array &$attributes)
+    public function initialize(&$attributes)
     {
         $this->attributes =& $attributes;
     }
@@ -52,22 +56,25 @@ class AttributeBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundatio
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function has(string $name)
+    public function has($name)
     {
         return \array_key_exists($name, $this->attributes);
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function get(string $name, $default = null)
+    public function get($name, $default = null)
     {
         return \array_key_exists($name, $this->attributes) ? $this->attributes[$name] : $default;
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function set(string $name, $value)
+    public function set($name, $value)
     {
         $this->attributes[$name] = $value;
     }
@@ -80,8 +87,9 @@ class AttributeBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundatio
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $attributes
      */
-    public function replace(array $attributes)
+    public function replace($attributes)
     {
         $this->attributes = [];
         foreach ($attributes as $key => $value) {
@@ -90,8 +98,9 @@ class AttributeBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundatio
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function remove(string $name)
+    public function remove($name)
     {
         $retval = null;
         if (\array_key_exists($name, $this->attributes)) {

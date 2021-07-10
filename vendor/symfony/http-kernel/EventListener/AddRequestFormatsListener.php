@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20210710\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Adds configured formats to each request.
  *
@@ -20,7 +20,7 @@ use ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class AddRequestFormatsListener implements \ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class AddRequestFormatsListener implements \ECSPrefix20210710\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     protected $formats;
     public function __construct(array $formats)
@@ -29,8 +29,9 @@ class AddRequestFormatsListener implements \ECSPrefix20210708\Symfony\Component\
     }
     /**
      * Adds request formats.
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest(\ECSPrefix20210708\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    public function onKernelRequest($event)
     {
         $request = $event->getRequest();
         foreach ($this->formats as $format => $mimeTypes) {
@@ -42,6 +43,6 @@ class AddRequestFormatsListener implements \ECSPrefix20210708\Symfony\Component\
      */
     public static function getSubscribedEvents() : array
     {
-        return [\ECSPrefix20210708\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 100]];
+        return [\ECSPrefix20210710\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 100]];
     }
 }

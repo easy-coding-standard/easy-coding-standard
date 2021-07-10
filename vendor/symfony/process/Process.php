@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Process;
+namespace ECSPrefix20210710\Symfony\Component\Process;
 
-use ECSPrefix20210708\Symfony\Component\Process\Exception\InvalidArgumentException;
-use ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException;
-use ECSPrefix20210708\Symfony\Component\Process\Exception\ProcessFailedException;
-use ECSPrefix20210708\Symfony\Component\Process\Exception\ProcessSignaledException;
-use ECSPrefix20210708\Symfony\Component\Process\Exception\ProcessTimedOutException;
-use ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException;
-use ECSPrefix20210708\Symfony\Component\Process\Pipes\PipesInterface;
-use ECSPrefix20210708\Symfony\Component\Process\Pipes\UnixPipes;
-use ECSPrefix20210708\Symfony\Component\Process\Pipes\WindowsPipes;
+use ECSPrefix20210710\Symfony\Component\Process\Exception\InvalidArgumentException;
+use ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException;
+use ECSPrefix20210710\Symfony\Component\Process\Exception\ProcessFailedException;
+use ECSPrefix20210710\Symfony\Component\Process\Exception\ProcessSignaledException;
+use ECSPrefix20210710\Symfony\Component\Process\Exception\ProcessTimedOutException;
+use ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException;
+use ECSPrefix20210710\Symfony\Component\Process\Pipes\PipesInterface;
+use ECSPrefix20210710\Symfony\Component\Process\Pipes\UnixPipes;
+use ECSPrefix20210710\Symfony\Component\Process\Pipes\WindowsPipes;
 /**
  * Process is a thin wrapper around proc_* functions to easily
  * start independent PHP processes.
@@ -131,7 +131,7 @@ class Process implements \IteratorAggregate
     public function __construct(array $command, string $cwd = null, array $env = null, $input = null, $timeout = 60)
     {
         if (!\function_exists('proc_open')) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException('The Process class relies on proc_open, which is not available on your PHP installation.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException('The Process class relies on proc_open, which is not available on your PHP installation.');
         }
         $this->commandline = $command;
         $this->cwd = $cwd;
@@ -173,7 +173,7 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException When proc_open is not installed
      */
-    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, $timeout = 60)
+    public static function fromShellCommandline($command, $cwd = null, $env = null, $input = null, $timeout = 60)
     {
         $process = new static([], $cwd, $env, $input, $timeout);
         $process->commandline = $command;
@@ -221,8 +221,9 @@ class Process implements \IteratorAggregate
      * @throws LogicException           In case a callback is provided and output has been disabled
      *
      * @final
+     * @param mixed[] $env
      */
-    public function run(callable $callback = null, array $env = []) : int
+    public function run($callback = null, $env = []) : int
     {
         $this->start($callback, $env);
         return $this->wait();
@@ -238,11 +239,13 @@ class Process implements \IteratorAggregate
      * @throws ProcessFailedException if the process didn't terminate successfully
      *
      * @final
+     * @param callable|null $callback
+     * @param mixed[] $env
      */
-    public function mustRun(callable $callback = null, array $env = [])
+    public function mustRun($callback = null, $env = [])
     {
         if (0 !== $this->run($callback, $env)) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\ProcessFailedException($this);
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\ProcessFailedException($this);
         }
         return $this;
     }
@@ -264,11 +267,12 @@ class Process implements \IteratorAggregate
      * @throws RuntimeException When process can't be launched
      * @throws RuntimeException When process is already running
      * @throws LogicException   In case a callback is provided and output has been disabled
+     * @param mixed[] $env
      */
-    public function start(callable $callback = null, array $env = [])
+    public function start($callback = null, $env = [])
     {
         if ($this->isRunning()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException('Process is already running.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException('Process is already running.');
         }
         $this->resetProcessData();
         $this->starttime = $this->lastOutputTime = \microtime(\true);
@@ -307,11 +311,11 @@ class Process implements \IteratorAggregate
             }
         }
         if (!\is_dir($this->cwd)) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException(\sprintf('The provided cwd "%s" does not exist.', $this->cwd));
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException(\sprintf('The provided cwd "%s" does not exist.', $this->cwd));
         }
         $this->process = @\proc_open($commandline, $descriptors, $this->processPipes->pipes, $this->cwd, $envPairs, $this->options);
         if (!\is_resource($this->process)) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException('Unable to launch a new process.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException('Unable to launch a new process.');
         }
         $this->status = self::STATUS_STARTED;
         if (isset($descriptors[3])) {
@@ -339,11 +343,12 @@ class Process implements \IteratorAggregate
      * @see start()
      *
      * @final
+     * @param mixed[] $env
      */
-    public function restart(callable $callback = null, array $env = [])
+    public function restart($callback = null, $env = [])
     {
         if ($this->isRunning()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException('Process is already running.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException('Process is already running.');
         }
         $process = clone $this;
         $process->start($callback, $env);
@@ -364,14 +369,14 @@ class Process implements \IteratorAggregate
      * @throws ProcessSignaledException When process stopped after receiving signal
      * @throws LogicException           When process is not yet started
      */
-    public function wait(callable $callback = null)
+    public function wait($callback = null)
     {
         $this->requireProcessIsStarted(__FUNCTION__);
         $this->updateStatus(\false);
         if (null !== $callback) {
             if (!$this->processPipes->haveReadSupport()) {
                 $this->stop(0);
-                throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException('Pass the callback to the "Process::start" method or call enableOutput to use a callback with "Process::wait".');
+                throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException('Pass the callback to the "Process::start" method or call enableOutput to use a callback with "Process::wait".');
             }
             $this->callback = $this->buildCallback($callback);
         }
@@ -385,7 +390,7 @@ class Process implements \IteratorAggregate
             \usleep(1000);
         }
         if ($this->processInformation['signaled'] && $this->processInformation['termsig'] !== $this->latestSignal) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\ProcessSignaledException($this);
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\ProcessSignaledException($this);
         }
         return $this->exitcode;
     }
@@ -399,14 +404,15 @@ class Process implements \IteratorAggregate
      * @throws RuntimeException         When process timed out
      * @throws LogicException           When process is not yet started
      * @throws ProcessTimedOutException In case the timeout was reached
+     * @param callable $callback
      */
-    public function waitUntil(callable $callback) : bool
+    public function waitUntil($callback) : bool
     {
         $this->requireProcessIsStarted(__FUNCTION__);
         $this->updateStatus(\false);
         if (!$this->processPipes->haveReadSupport()) {
             $this->stop(0);
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException('Pass the callback to the "Process::start" method or call enableOutput to use a callback with "Process::waitUntil".');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException('Pass the callback to the "Process::start" method or call enableOutput to use a callback with "Process::waitUntil".');
         }
         $callback = $this->buildCallback($callback);
         $ready = \false;
@@ -450,7 +456,7 @@ class Process implements \IteratorAggregate
      * @throws RuntimeException In case --enable-sigchild is activated and the process can't be killed
      * @throws RuntimeException In case of failure
      */
-    public function signal(int $signal)
+    public function signal($signal)
     {
         $this->doSignal($signal, \true);
         return $this;
@@ -466,10 +472,10 @@ class Process implements \IteratorAggregate
     public function disableOutput()
     {
         if ($this->isRunning()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException('Disabling output while the process is running is not possible.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException('Disabling output while the process is running is not possible.');
         }
         if (null !== $this->idleTimeout) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException('Output can not be disabled while an idle timeout is set.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException('Output can not be disabled while an idle timeout is set.');
         }
         $this->outputDisabled = \true;
         return $this;
@@ -484,7 +490,7 @@ class Process implements \IteratorAggregate
     public function enableOutput()
     {
         if ($this->isRunning()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException('Enabling output while the process is running is not possible.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException('Enabling output while the process is running is not possible.');
         }
         $this->outputDisabled = \false;
         return $this;
@@ -709,7 +715,7 @@ class Process implements \IteratorAggregate
     {
         $this->requireProcessIsTerminated(__FUNCTION__);
         if ($this->isSigchildEnabled() && -1 === $this->processInformation['termsig']) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException('This PHP has been compiled with --enable-sigchild. Term signal can not be retrieved.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException('This PHP has been compiled with --enable-sigchild. Term signal can not be retrieved.');
         }
         return $this->processInformation['termsig'];
     }
@@ -788,12 +794,12 @@ class Process implements \IteratorAggregate
     /**
      * Stops the process.
      *
-     * @param int|float $timeout The timeout in seconds
+     * @param float $timeout The timeout in seconds
      * @param int       $signal  A POSIX signal to send in case the process has not stop at timeout, default is SIGKILL (9)
      *
      * @return int|null The exit-code of the process or null if it's not running
      */
-    public function stop(float $timeout = 10, int $signal = null)
+    public function stop($timeout = 10, $signal = null)
     {
         $timeoutMicro = \microtime(\true) + $timeout;
         if ($this->isRunning()) {
@@ -821,8 +827,9 @@ class Process implements \IteratorAggregate
      * Adds a line to the STDOUT stream.
      *
      * @internal
+     * @param string $line
      */
-    public function addOutput(string $line)
+    public function addOutput($line)
     {
         $this->lastOutputTime = \microtime(\true);
         \fseek($this->stdout, 0, \SEEK_END);
@@ -833,8 +840,9 @@ class Process implements \IteratorAggregate
      * Adds a line to the STDERR stream.
      *
      * @internal
+     * @param string $line
      */
-    public function addErrorOutput(string $line)
+    public function addErrorOutput($line)
     {
         $this->lastOutputTime = \microtime(\true);
         \fseek($this->stderr, 0, \SEEK_END);
@@ -906,7 +914,7 @@ class Process implements \IteratorAggregate
     public function setIdleTimeout($timeout)
     {
         if (null !== $timeout && $this->outputDisabled) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException('Idle timeout can not be set while the output is disabled.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException('Idle timeout can not be set while the output is disabled.');
         }
         $this->idleTimeout = $this->validateTimeout($timeout);
         return $this;
@@ -917,14 +925,15 @@ class Process implements \IteratorAggregate
      * @return $this
      *
      * @throws RuntimeException In case the TTY mode is not supported
+     * @param bool $tty
      */
-    public function setTty(bool $tty)
+    public function setTty($tty)
     {
         if ('\\' === \DIRECTORY_SEPARATOR && $tty) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException('TTY mode is not supported on Windows platform.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException('TTY mode is not supported on Windows platform.');
         }
         if ($tty && !self::isTtySupported()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException('TTY mode requires /dev/tty to be read/writable.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException('TTY mode requires /dev/tty to be read/writable.');
         }
         $this->tty = $tty;
         return $this;
@@ -942,8 +951,9 @@ class Process implements \IteratorAggregate
      * Sets PTY mode.
      *
      * @return $this
+     * @param bool $bool
      */
-    public function setPty(bool $bool)
+    public function setPty($bool)
     {
         $this->pty = $bool;
         return $this;
@@ -975,8 +985,9 @@ class Process implements \IteratorAggregate
      * Sets the current working directory.
      *
      * @return $this
+     * @param string $cwd
      */
-    public function setWorkingDirectory(string $cwd)
+    public function setWorkingDirectory($cwd)
     {
         $this->cwd = $cwd;
         return $this;
@@ -1005,7 +1016,7 @@ class Process implements \IteratorAggregate
      *
      * @return $this
      */
-    public function setEnv(array $env)
+    public function setEnv($env)
     {
         // Process can not handle env values that are arrays
         $env = \array_filter($env, function ($value) {
@@ -1037,9 +1048,9 @@ class Process implements \IteratorAggregate
     public function setInput($input)
     {
         if ($this->isRunning()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException('Input can not be set while the process is running.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException('Input can not be set while the process is running.');
         }
-        $this->input = \ECSPrefix20210708\Symfony\Component\Process\ProcessUtils::validateInput(__METHOD__, $input);
+        $this->input = \ECSPrefix20210710\Symfony\Component\Process\ProcessUtils::validateInput(__METHOD__, $input);
         return $this;
     }
     /**
@@ -1057,11 +1068,11 @@ class Process implements \IteratorAggregate
         }
         if (null !== $this->timeout && $this->timeout < \microtime(\true) - $this->starttime) {
             $this->stop(0);
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\ProcessTimedOutException($this, \ECSPrefix20210708\Symfony\Component\Process\Exception\ProcessTimedOutException::TYPE_GENERAL);
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\ProcessTimedOutException($this, \ECSPrefix20210710\Symfony\Component\Process\Exception\ProcessTimedOutException::TYPE_GENERAL);
         }
         if (null !== $this->idleTimeout && $this->idleTimeout < \microtime(\true) - $this->lastOutputTime) {
             $this->stop(0);
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\ProcessTimedOutException($this, \ECSPrefix20210708\Symfony\Component\Process\Exception\ProcessTimedOutException::TYPE_IDLE);
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\ProcessTimedOutException($this, \ECSPrefix20210710\Symfony\Component\Process\Exception\ProcessTimedOutException::TYPE_IDLE);
         }
     }
     /**
@@ -1070,7 +1081,7 @@ class Process implements \IteratorAggregate
     public function getStartTime() : float
     {
         if (!$this->isStarted()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException('Start time is only available after process start.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException('Start time is only available after process start.');
         }
         return $this->starttime;
     }
@@ -1081,18 +1092,19 @@ class Process implements \IteratorAggregate
      *
      * Enabling the "create_new_console" option allows a subprocess to continue
      * to run after the main process exited, on both Windows and *nix
+     * @param mixed[] $options
      */
-    public function setOptions(array $options)
+    public function setOptions($options)
     {
         if ($this->isRunning()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException('Setting options while the process is running is not possible.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException('Setting options while the process is running is not possible.');
         }
         $defaultOptions = $this->options;
         $existingOptions = ['blocking_pipes', 'create_process_group', 'create_new_console'];
         foreach ($options as $key => $value) {
             if (!\in_array($key, $existingOptions)) {
                 $this->options = $defaultOptions;
-                throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException(\sprintf('Invalid option "%s" passed to "%s()". Supported options are "%s".', $key, __METHOD__, \implode('", "', $existingOptions)));
+                throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException(\sprintf('Invalid option "%s" passed to "%s()". Supported options are "%s".', $key, __METHOD__, \implode('", "', $existingOptions)));
             }
             $this->options[$key] = $value;
         }
@@ -1133,9 +1145,9 @@ class Process implements \IteratorAggregate
             $this->input->rewind();
         }
         if ('\\' === \DIRECTORY_SEPARATOR) {
-            $this->processPipes = new \ECSPrefix20210708\Symfony\Component\Process\Pipes\WindowsPipes($this->input, !$this->outputDisabled || $this->hasCallback);
+            $this->processPipes = new \ECSPrefix20210710\Symfony\Component\Process\Pipes\WindowsPipes($this->input, !$this->outputDisabled || $this->hasCallback);
         } else {
-            $this->processPipes = new \ECSPrefix20210708\Symfony\Component\Process\Pipes\UnixPipes($this->isTty(), $this->isPty(), $this->input, !$this->outputDisabled || $this->hasCallback);
+            $this->processPipes = new \ECSPrefix20210710\Symfony\Component\Process\Pipes\UnixPipes($this->isTty(), $this->isPty(), $this->input, !$this->outputDisabled || $this->hasCallback);
         }
         return $this->processPipes->getDescriptors();
     }
@@ -1149,7 +1161,7 @@ class Process implements \IteratorAggregate
      *
      * @return \Closure A PHP closure
      */
-    protected function buildCallback(callable $callback = null)
+    protected function buildCallback($callback = null)
     {
         if ($this->outputDisabled) {
             return function ($type, $data) use($callback) : bool {
@@ -1171,7 +1183,7 @@ class Process implements \IteratorAggregate
      *
      * @param bool $blocking Whether to use a blocking read call
      */
-    protected function updateStatus(bool $blocking)
+    protected function updateStatus($blocking)
     {
         if (self::STATUS_STARTED !== $this->status) {
             return;
@@ -1214,7 +1226,7 @@ class Process implements \IteratorAggregate
     private function readPipesForOutput(string $caller, bool $blocking = \false)
     {
         if ($this->outputDisabled) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException('Output has been disabled.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException('Output has been disabled.');
         }
         $this->requireProcessIsStarted($caller);
         $this->updateStatus($blocking);
@@ -1232,7 +1244,7 @@ class Process implements \IteratorAggregate
         if (0.0 === $timeout) {
             $timeout = null;
         } elseif ($timeout < 0) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\InvalidArgumentException('The timeout value must be a valid positive integer or float number.');
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\InvalidArgumentException('The timeout value must be a valid positive integer or float number.');
         }
         return $timeout;
     }
@@ -1316,7 +1328,7 @@ class Process implements \IteratorAggregate
     {
         if (null === ($pid = $this->getPid())) {
             if ($throwException) {
-                throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException('Can not send signal on a non running process.');
+                throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException('Can not send signal on a non running process.');
             }
             return \false;
         }
@@ -1324,7 +1336,7 @@ class Process implements \IteratorAggregate
             \exec(\sprintf('taskkill /F /T /PID %d 2>&1', $pid), $output, $exitCode);
             if ($exitCode && $this->isRunning()) {
                 if ($throwException) {
-                    throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException(\sprintf('Unable to kill the process (%s).', \implode(' ', $output)));
+                    throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException(\sprintf('Unable to kill the process (%s).', \implode(' ', $output)));
                 }
                 return \false;
             }
@@ -1338,7 +1350,7 @@ class Process implements \IteratorAggregate
             }
             if (!$ok) {
                 if ($throwException) {
-                    throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\RuntimeException(\sprintf('Error while sending signal "%s".', $signal));
+                    throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\RuntimeException(\sprintf('Error while sending signal "%s".', $signal));
                 }
                 return \false;
             }
@@ -1393,7 +1405,7 @@ class Process implements \IteratorAggregate
     private function requireProcessIsStarted(string $functionName)
     {
         if (!$this->isStarted()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException(\sprintf('Process must be started before calling "%s()".', $functionName));
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException(\sprintf('Process must be started before calling "%s()".', $functionName));
         }
     }
     /**
@@ -1404,7 +1416,7 @@ class Process implements \IteratorAggregate
     private function requireProcessIsTerminated(string $functionName)
     {
         if (!$this->isTerminated()) {
-            throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\LogicException(\sprintf('Process must be terminated before calling "%s()".', $functionName));
+            throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\LogicException(\sprintf('Process must be terminated before calling "%s()".', $functionName));
         }
     }
     /**
@@ -1432,7 +1444,7 @@ class Process implements \IteratorAggregate
     {
         return \preg_replace_callback('/"\\$\\{:([_a-zA-Z]++[_a-zA-Z0-9]*+)\\}"/', function ($matches) use($commandline, $env) {
             if (!isset($env[$matches[1]]) || \false === $env[$matches[1]]) {
-                throw new \ECSPrefix20210708\Symfony\Component\Process\Exception\InvalidArgumentException(\sprintf('Command line is missing a value for parameter "%s": ', $matches[1]) . $commandline);
+                throw new \ECSPrefix20210710\Symfony\Component\Process\Exception\InvalidArgumentException(\sprintf('Command line is missing a value for parameter "%s": ', $matches[1]) . $commandline);
             }
             return $this->escapeArgument($env[$matches[1]]);
         }, $commandline);

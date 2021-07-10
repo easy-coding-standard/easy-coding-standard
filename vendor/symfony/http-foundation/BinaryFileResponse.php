@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210710\Symfony\Component\HttpFoundation;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\File\Exception\FileException;
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\File\File;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\File\Exception\FileException;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\File\File;
 /**
  * BinaryFileResponse represents an HTTP response delivering a file.
  *
@@ -21,7 +21,7 @@ use ECSPrefix20210708\Symfony\Component\HttpFoundation\File\File;
  * @author Jordan Alliot <jordan.alliot@gmail.com>
  * @author Sergey Linnik <linniksa@gmail.com>
  */
-class BinaryFileResponse extends \ECSPrefix20210708\Symfony\Component\HttpFoundation\Response
+class BinaryFileResponse extends \ECSPrefix20210710\Symfony\Component\HttpFoundation\Response
 {
     protected static $trustXSendfileTypeHeader = \false;
     /**
@@ -61,7 +61,7 @@ class BinaryFileResponse extends \ECSPrefix20210708\Symfony\Component\HttpFounda
      *
      * @deprecated since Symfony 5.2, use __construct() instead.
      */
-    public static function create($file = null, int $status = 200, array $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
+    public static function create($file = null, $status = 200, $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
     {
         trigger_deprecation('symfony/http-foundation', '5.2', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($file, $status, $headers, $public, $contentDisposition, $autoEtag, $autoLastModified);
@@ -74,18 +74,21 @@ class BinaryFileResponse extends \ECSPrefix20210708\Symfony\Component\HttpFounda
      * @return $this
      *
      * @throws FileException
+     * @param string|null $contentDisposition
+     * @param bool $autoEtag
+     * @param bool $autoLastModified
      */
-    public function setFile($file, string $contentDisposition = null, bool $autoEtag = \false, bool $autoLastModified = \true)
+    public function setFile($file, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
     {
-        if (!$file instanceof \ECSPrefix20210708\Symfony\Component\HttpFoundation\File\File) {
+        if (!$file instanceof \ECSPrefix20210710\Symfony\Component\HttpFoundation\File\File) {
             if ($file instanceof \SplFileInfo) {
-                $file = new \ECSPrefix20210708\Symfony\Component\HttpFoundation\File\File($file->getPathname());
+                $file = new \ECSPrefix20210710\Symfony\Component\HttpFoundation\File\File($file->getPathname());
             } else {
-                $file = new \ECSPrefix20210708\Symfony\Component\HttpFoundation\File\File((string) $file);
+                $file = new \ECSPrefix20210710\Symfony\Component\HttpFoundation\File\File((string) $file);
             }
         }
         if (!$file->isReadable()) {
-            throw new \ECSPrefix20210708\Symfony\Component\HttpFoundation\File\Exception\FileException('File must be readable.');
+            throw new \ECSPrefix20210710\Symfony\Component\HttpFoundation\File\Exception\FileException('File must be readable.');
         }
         $this->file = $file;
         if ($autoEtag) {
@@ -133,7 +136,7 @@ class BinaryFileResponse extends \ECSPrefix20210708\Symfony\Component\HttpFounda
      *
      * @return $this
      */
-    public function setContentDisposition(string $disposition, string $filename = '', string $filenameFallback = '')
+    public function setContentDisposition($disposition, $filename = '', $filenameFallback = '')
     {
         if ('' === $filename) {
             $filename = $this->file->getFilename();
@@ -155,8 +158,9 @@ class BinaryFileResponse extends \ECSPrefix20210708\Symfony\Component\HttpFounda
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function prepare(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request)
+    public function prepare($request)
     {
         if (!$this->headers->has('Content-Type')) {
             $this->headers->set('Content-Type', $this->file->getMimeType() ?: 'application/octet-stream');
@@ -186,7 +190,7 @@ class BinaryFileResponse extends \ECSPrefix20210708\Symfony\Component\HttpFounda
             if ('x-accel-redirect' === \strtolower($type)) {
                 // Do X-Accel-Mapping substitutions.
                 // @link https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/#x-accel-redirect
-                $parts = \ECSPrefix20210708\Symfony\Component\HttpFoundation\HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
+                $parts = \ECSPrefix20210710\Symfony\Component\HttpFoundation\HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
                 foreach ($parts as $part) {
                     list($pathPrefix, $location) = $part;
                     if (\substr($path, 0, \strlen($pathPrefix)) === $pathPrefix) {
@@ -301,8 +305,9 @@ class BinaryFileResponse extends \ECSPrefix20210708\Symfony\Component\HttpFounda
      * Note: If the X-Sendfile header is used, the deleteFileAfterSend setting will not be used.
      *
      * @return $this
+     * @param bool $shouldDelete
      */
-    public function deleteFileAfterSend(bool $shouldDelete = \true)
+    public function deleteFileAfterSend($shouldDelete = \true)
     {
         $this->deleteFileAfterSend = $shouldDelete;
         return $this;

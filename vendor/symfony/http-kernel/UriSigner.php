@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
 /**
  * Signs URIs.
  *
@@ -36,8 +36,9 @@ class UriSigner
      * which value depends on the URI and the secret.
      *
      * @return string The signed URI
+     * @param string $uri
      */
-    public function sign(string $uri)
+    public function sign($uri)
     {
         $url = \parse_url($uri);
         if (isset($url['query'])) {
@@ -53,8 +54,9 @@ class UriSigner
      * Checks that a URI contains the correct hash.
      *
      * @return bool True if the URI is signed correctly, false otherwise
+     * @param string $uri
      */
-    public function check(string $uri)
+    public function check($uri)
     {
         $url = \parse_url($uri);
         if (isset($url['query'])) {
@@ -69,7 +71,10 @@ class UriSigner
         unset($params[$this->parameter]);
         return \hash_equals($this->computeHash($this->buildUrl($url, $params)), $hash);
     }
-    public function checkRequest(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request) : bool
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    public function checkRequest($request) : bool
     {
         $qs = ($qs = $request->server->get('QUERY_STRING')) ? '?' . $qs : '';
         // we cannot use $request->getUri() here as we want to work with the original URI (no query string reordering)

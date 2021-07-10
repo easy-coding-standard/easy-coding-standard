@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\DependencyInjection;
+namespace ECSPrefix20210710\Symfony\Component\DependencyInjection;
 
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 class Alias
 {
     private $id;
@@ -35,8 +35,9 @@ class Alias
      * Sets if this Alias is public.
      *
      * @return $this
+     * @param bool $boolean
      */
-    public function setPublic(bool $boolean)
+    public function setPublic($boolean)
     {
         $this->public = $boolean;
         return $this;
@@ -47,8 +48,9 @@ class Alias
      * @return $this
      *
      * @deprecated since Symfony 5.2, use setPublic() instead
+     * @param bool $boolean
      */
-    public function setPrivate(bool $boolean)
+    public function setPrivate($boolean)
     {
         trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s()" method is deprecated, use "setPublic()" instead.', __METHOD__);
         return $this->setPublic(!$boolean);
@@ -93,10 +95,10 @@ class Alias
         }
         if ('' !== $message) {
             if (\preg_match('#[\\r\\n]|\\*/#', $message)) {
-                throw new \ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Invalid characters found in deprecation template.');
+                throw new \ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Invalid characters found in deprecation template.');
             }
             if (\false === \strpos($message, '%alias_id%')) {
-                throw new \ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The deprecation template must contain the "%alias_id%" placeholder.');
+                throw new \ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The deprecation template must contain the "%alias_id%" placeholder.');
             }
         }
         $this->deprecation = $status ? ['package' => $package, 'version' => $version, 'message' => $message ?: self::$defaultDeprecationTemplate] : [];
@@ -108,8 +110,9 @@ class Alias
     }
     /**
      * @deprecated since Symfony 5.1, use "getDeprecation()" instead.
+     * @param string $id
      */
-    public function getDeprecationMessage(string $id) : string
+    public function getDeprecationMessage($id) : string
     {
         trigger_deprecation('symfony/dependency-injection', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($id)['message'];
@@ -117,7 +120,7 @@ class Alias
     /**
      * @param string $id Service id relying on this definition
      */
-    public function getDeprecation(string $id) : array
+    public function getDeprecation($id) : array
     {
         return ['package' => $this->deprecation['package'], 'version' => $this->deprecation['version'], 'message' => \str_replace('%alias_id%', $id, $this->deprecation['message'])];
     }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\CacheWarmer;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\CacheWarmer;
 
 /**
  * Interface for classes that support warming their cache.
@@ -21,6 +21,7 @@ interface WarmableInterface
      * Warms up the cache.
      *
      * @return string[] A list of classes or files to preload on PHP 7.4+
+     * @param string $cacheDir
      */
-    public function warmUp(string $cacheDir);
+    public function warmUp($cacheDir);
 }

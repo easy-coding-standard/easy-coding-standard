@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Log;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Log;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Request;
 /**
  * DebugLoggerInterface.
  *
@@ -26,14 +26,16 @@ interface DebugLoggerInterface
      * It can also have an optional context key containing an array.
      *
      * @return array An array of logs
+     * @param \Symfony\Component\HttpFoundation\Request|null $request
      */
-    public function getLogs(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request = null);
+    public function getLogs($request = null);
     /**
      * Returns the number of errors.
      *
      * @return int The number of errors
+     * @param \Symfony\Component\HttpFoundation\Request|null $request
      */
-    public function countErrors(\ECSPrefix20210708\Symfony\Component\HttpFoundation\Request $request = null);
+    public function countErrors($request = null);
     /**
      * Removes all log records.
      */

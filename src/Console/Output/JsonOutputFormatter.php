@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use ECSPrefix20210708\Nette\Utils\Json;
+use ECSPrefix20210710\Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
-use ECSPrefix20210708\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210710\Symplify\PackageBuilder\Console\ShellCode;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Console\Output\JsonOutputFormatterTest
  */
@@ -30,18 +30,25 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
-    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
+    /**
+     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
+     * @param \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration
+     */
+    public function report($errorAndDiffResult, $configuration) : int
     {
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
         $errorCount = $errorAndDiffResult->getErrorCount();
-        return $errorCount === 0 ? \ECSPrefix20210708\Symplify\PackageBuilder\Console\ShellCode::SUCCESS : \ECSPrefix20210708\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+        return $errorCount === 0 ? \ECSPrefix20210710\Symplify\PackageBuilder\Console\ShellCode::SUCCESS : \ECSPrefix20210710\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     public function getName() : string
     {
         return self::NAME;
     }
-    public function createJsonContent(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : string
+    /**
+     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
+     */
+    public function createJsonContent($errorAndDiffResult) : string
     {
         $errorsArray = $this->createBaseErrorsArray($errorAndDiffResult);
         $codingStandardErrors = $errorAndDiffResult->getErrors();
@@ -52,7 +59,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         foreach ($fileDiffs as $fileDiff) {
             $errorsArray[self::FILES][$fileDiff->getRelativeFilePath()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
         }
-        return \ECSPrefix20210708\Nette\Utils\Json::encode($errorsArray, \ECSPrefix20210708\Nette\Utils\Json::PRETTY);
+        return \ECSPrefix20210710\Nette\Utils\Json::encode($errorsArray, \ECSPrefix20210710\Nette\Utils\Json::PRETTY);
     }
     /**
      * @return mixed[]

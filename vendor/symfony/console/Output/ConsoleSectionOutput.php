@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Console\Output;
+namespace ECSPrefix20210710\Symfony\Component\Console\Output;
 
-use ECSPrefix20210708\Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use ECSPrefix20210708\Symfony\Component\Console\Helper\Helper;
-use ECSPrefix20210708\Symfony\Component\Console\Terminal;
+use ECSPrefix20210710\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20210710\Symfony\Component\Console\Helper\Helper;
+use ECSPrefix20210710\Symfony\Component\Console\Terminal;
 /**
  * @author Pierre du Plessis <pdples@gmail.com>
  * @author Gabriel Ostrolucký <gabriel.ostrolucky@gmail.com>
  */
-class ConsoleSectionOutput extends \ECSPrefix20210708\Symfony\Component\Console\Output\StreamOutput
+class ConsoleSectionOutput extends \ECSPrefix20210710\Symfony\Component\Console\Output\StreamOutput
 {
     private $content = [];
     private $lines = 0;
@@ -27,19 +27,19 @@ class ConsoleSectionOutput extends \ECSPrefix20210708\Symfony\Component\Console\
      * @param resource               $stream
      * @param ConsoleSectionOutput[] $sections
      */
-    public function __construct($stream, array &$sections, int $verbosity, bool $decorated, \ECSPrefix20210708\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function __construct($stream, array &$sections, int $verbosity, bool $decorated, \ECSPrefix20210710\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         parent::__construct($stream, $verbosity, $decorated, $formatter);
         \array_unshift($sections, $this);
         $this->sections =& $sections;
-        $this->terminal = new \ECSPrefix20210708\Symfony\Component\Console\Terminal();
+        $this->terminal = new \ECSPrefix20210710\Symfony\Component\Console\Terminal();
     }
     /**
      * Clears previous output for this section.
      *
      * @param int $lines Number of lines to clear. If null, then the entire output of this section is cleared
      */
-    public function clear(int $lines = null)
+    public function clear($lines = null)
     {
         if (empty($this->content) || !$this->isDecorated()) {
             return;
@@ -70,8 +70,9 @@ class ConsoleSectionOutput extends \ECSPrefix20210708\Symfony\Component\Console\
     }
     /**
      * @internal
+     * @param string $input
      */
-    public function addContent(string $input)
+    public function addContent($input)
     {
         foreach (\explode(\PHP_EOL, $input) as $lineContent) {
             $this->lines += \ceil($this->getDisplayLength($lineContent) / $this->terminal->getWidth()) ?: 1;
@@ -118,6 +119,6 @@ class ConsoleSectionOutput extends \ECSPrefix20210708\Symfony\Component\Console\
     }
     private function getDisplayLength(string $text) : int
     {
-        return \ECSPrefix20210708\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20210708\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), \str_replace("\t", '        ', $text)));
+        return \ECSPrefix20210710\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20210710\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), \str_replace("\t", '        ', $text)));
     }
 }

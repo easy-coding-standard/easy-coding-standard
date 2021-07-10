@@ -38,7 +38,7 @@ class EndFileNewlineSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         // Skip to the end of the file.
         $tokens = $phpcsFile->getTokens();

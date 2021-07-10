@@ -51,8 +51,9 @@ final class VersionSpecification implements \PhpCsFixer\FixerDefinition\VersionS
     }
     /**
      * {@inheritdoc}
+     * @param int $version
      */
-    public function isSatisfiedBy(int $version) : bool
+    public function isSatisfiedBy($version) : bool
     {
         if (null !== $this->minimum && $version < $this->minimum) {
             return \false;

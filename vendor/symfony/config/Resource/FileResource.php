@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210710\Symfony\Component\Config\Resource;
 
 /**
  * FileResource represents a resource stored on the filesystem.
@@ -19,7 +19,7 @@ namespace ECSPrefix20210708\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class FileResource implements \ECSPrefix20210708\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class FileResource implements \ECSPrefix20210710\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     /**
      * @var string|false
@@ -53,8 +53,9 @@ class FileResource implements \ECSPrefix20210708\Symfony\Component\Config\Resour
     }
     /**
      * {@inheritdoc}
+     * @param int $timestamp
      */
-    public function isFresh(int $timestamp) : bool
+    public function isFresh($timestamp) : bool
     {
         return \false !== ($filemtime = @\filemtime($this->resource)) && $filemtime <= $timestamp;
     }

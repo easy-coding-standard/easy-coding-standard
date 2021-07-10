@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler;
+namespace ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler;
 
 /**
  * Storage for profiler using files.
  *
  * @author Alexandre Salomé <alexandre.salome@gmail.com>
  */
-class FileProfilerStorage implements \ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface
+class FileProfilerStorage implements \ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface
 {
     /**
      * Folder where profiler data are stored.
@@ -42,13 +42,15 @@ class FileProfilerStorage implements \ECSPrefix20210708\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
-     * @param string|null $statusCode
      * @param string|null $ip
      * @param string|null $url
      * @param int|null $limit
      * @param string|null $method
+     * @param int|null $start
+     * @param int|null $end
+     * @param string|null $statusCode
      */
-    public function find($ip, $url, $limit, $method, int $start = null, int $end = null, $statusCode = null) : array
+    public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null) : array
     {
         $file = $this->getIndexFilename();
         if (!\file_exists($file)) {
@@ -93,9 +95,10 @@ class FileProfilerStorage implements \ECSPrefix20210708\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
+     * @param string $token
      * @return \Symfony\Component\HttpKernel\Profiler\Profile|null
      */
-    public function read(string $token)
+    public function read($token)
     {
         if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;
@@ -109,8 +112,9 @@ class FileProfilerStorage implements \ECSPrefix20210708\Symfony\Component\HttpKe
      * {@inheritdoc}
      *
      * @throws \RuntimeException
+     * @param \Symfony\Component\HttpKernel\Profiler\Profile $profile
      */
-    public function write(\ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool
+    public function write($profile) : bool
     {
         $file = $this->getFilename($profile->getToken());
         $profileIndexed = \is_file($file);
@@ -125,7 +129,7 @@ class FileProfilerStorage implements \ECSPrefix20210708\Symfony\Component\HttpKe
         // when there are errors in sub-requests, the parent and/or children tokens
         // may equal the profile token, resulting in infinite loops
         $parentToken = $profile->getParentToken() !== $profileToken ? $profile->getParentToken() : null;
-        $childrenToken = \array_filter(\array_map(function (\ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profile $p) use($profileToken) {
+        $childrenToken = \array_filter(\array_map(function (\ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler\Profile $p) use($profileToken) {
             return $profileToken !== $p->getToken() ? $p->getToken() : null;
         }, $profile->getChildren()));
         // Store profile
@@ -152,8 +156,9 @@ class FileProfilerStorage implements \ECSPrefix20210708\Symfony\Component\HttpKe
      * Gets filename to store data, associated to the token.
      *
      * @return string The profile filename
+     * @param string $token
      */
-    protected function getFilename(string $token)
+    protected function getFilename($token)
     {
         // Uses 4 last characters, because first are mostly the same.
         $folderA = \substr($token, -2, 2);
@@ -207,9 +212,14 @@ class FileProfilerStorage implements \ECSPrefix20210708\Symfony\Component\HttpKe
         }
         return '' === $line ? null : $line;
     }
-    protected function createProfileFromData(string $token, array $data, \ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
+    /**
+     * @param string $token
+     * @param mixed[] $data
+     * @param \Symfony\Component\HttpKernel\Profiler\Profile|null $parent
+     */
+    protected function createProfileFromData($token, $data, $parent = null)
     {
-        $profile = new \ECSPrefix20210708\Symfony\Component\HttpKernel\Profiler\Profile($token);
+        $profile = new \ECSPrefix20210710\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);
         $profile->setMethod($data['method']);
         $profile->setUrl($data['url']);

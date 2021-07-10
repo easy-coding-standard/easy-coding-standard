@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210710\Symfony\Component\Config\Resource;
 
 /**
  * DirectoryResource represents a resources stored in a subdirectory tree.
@@ -17,7 +17,7 @@ namespace ECSPrefix20210708\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class DirectoryResource implements \ECSPrefix20210708\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class DirectoryResource implements \ECSPrefix20210710\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $resource;
     private $pattern;
@@ -59,8 +59,9 @@ class DirectoryResource implements \ECSPrefix20210708\Symfony\Component\Config\R
     }
     /**
      * {@inheritdoc}
+     * @param int $timestamp
      */
-    public function isFresh(int $timestamp) : bool
+    public function isFresh($timestamp) : bool
     {
         if (!\is_dir($this->resource)) {
             return \false;

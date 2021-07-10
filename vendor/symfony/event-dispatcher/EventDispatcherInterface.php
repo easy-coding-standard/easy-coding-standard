@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20210710\Symfony\Component\EventDispatcher;
 
-use ECSPrefix20210708\Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
+use ECSPrefix20210710\Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
 /**
  * The EventDispatcherInterface is the central point of Symfony's event listener system.
  * Listeners are registered on the manager and events are dispatched through the
@@ -18,7 +18,7 @@ use ECSPrefix20210708\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-interface EventDispatcherInterface extends \ECSPrefix20210708\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
+interface EventDispatcherInterface extends \ECSPrefix20210710\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
 {
     /**
      * Adds an event listener that listens on the specified events.
@@ -26,28 +26,35 @@ interface EventDispatcherInterface extends \ECSPrefix20210708\Symfony\Contracts\
      * @param callable $listener The listener
      * @param int      $priority The higher this value, the earlier an event
      *                           listener will be triggered in the chain (defaults to 0)
+     * @param string $eventName
      */
-    public function addListener(string $eventName, $listener, int $priority = 0);
+    public function addListener($eventName, $listener, $priority = 0);
     /**
      * Adds an event subscriber.
      *
      * The subscriber is asked for all the events it is
      * interested in and added as a listener for these events.
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function addSubscriber(\ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
+    public function addSubscriber($subscriber);
     /**
      * Removes an event listener from the specified events.
      *
      * @param callable $listener The listener to remove
+     * @param string $eventName
      */
-    public function removeListener(string $eventName, $listener);
-    public function removeSubscriber(\ECSPrefix20210708\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
+    public function removeListener($eventName, $listener);
+    /**
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
+     */
+    public function removeSubscriber($subscriber);
     /**
      * Gets the listeners of a specific event or all listeners sorted by descending priority.
      *
      * @return array The event listeners for the specified event, or all event listeners by event name
+     * @param string|null $eventName
      */
-    public function getListeners(string $eventName = null);
+    public function getListeners($eventName = null);
     /**
      * Gets the listener priority for a specific event.
      *
@@ -56,12 +63,14 @@ interface EventDispatcherInterface extends \ECSPrefix20210708\Symfony\Contracts\
      * @param callable $listener The listener
      *
      * @return int|null The event listener priority
+     * @param string $eventName
      */
-    public function getListenerPriority(string $eventName, $listener);
+    public function getListenerPriority($eventName, $listener);
     /**
      * Checks whether an event has any registered listeners.
      *
      * @return bool true if the specified event has any listeners, false otherwise
+     * @param string|null $eventName
      */
-    public function hasListeners(string $eventName = null);
+    public function hasListeners($eventName = null);
 }

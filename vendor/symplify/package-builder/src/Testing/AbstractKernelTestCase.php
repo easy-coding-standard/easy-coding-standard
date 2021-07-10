@@ -42,7 +42,7 @@ abstract class AbstractKernelTestCase extends TestCase
      * @param class-string<KernelInterface> $kernelClass
      * @param string[]|SmartFileInfo[] $configs
      */
-    protected function bootKernelWithConfigs(string $kernelClass, array $configs): KernelInterface
+    protected function bootKernelWithConfigs($kernelClass, $configs): KernelInterface
     {
         // unwrap file infos to real paths
         $configFilePaths = $this->resolveConfigFilePaths($configs);
@@ -61,7 +61,7 @@ abstract class AbstractKernelTestCase extends TestCase
      * @param class-string<KernelInterface> $kernelClass
      * @param string[]|SmartFileInfo[] $configs
      */
-    protected function bootKernelWithConfigsAndStaticCache(string $kernelClass, array $configs): KernelInterface
+    protected function bootKernelWithConfigsAndStaticCache($kernelClass, $configs): KernelInterface
     {
         // unwrap file infos to real paths
         $configFilePaths = $this->resolveConfigFilePaths($configs);
@@ -87,7 +87,7 @@ abstract class AbstractKernelTestCase extends TestCase
      * @param class-string<T> $type
      * @return object
      */
-    protected function getService(string $type)
+    protected function getService($type)
     {
         if (self::$container === null) {
             throw new ShouldNotHappenException('First, crewate container with booKernel(KernelClass::class)');
@@ -103,9 +103,10 @@ abstract class AbstractKernelTestCase extends TestCase
     }
 
     /**
+     * @param string $kernelClass
      * @return void
      */
-    protected function bootKernel(string $kernelClass)
+    protected function bootKernel($kernelClass)
     {
         $this->ensureKernelShutdown();
 
@@ -147,7 +148,7 @@ abstract class AbstractKernelTestCase extends TestCase
     /**
      * @param string[] $configs
      */
-    protected function resolveConfigsHash(array $configs): string
+    protected function resolveConfigsHash($configs): string
     {
         $configsHash = '';
         foreach ($configs as $config) {
@@ -161,7 +162,7 @@ abstract class AbstractKernelTestCase extends TestCase
      * @param string[]|SmartFileInfo[] $configs
      * @return string[]
      */
-    protected function resolveConfigFilePaths(array $configs): array
+    protected function resolveConfigFilePaths($configs): array
     {
         $configFilePaths = [];
 

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20210710\Symfony\Component\EventDispatcher;
 
-use ECSPrefix20210708\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20210710\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Event encapsulation class.
  *
@@ -18,7 +18,7 @@ use ECSPrefix20210708\Symfony\Contracts\EventDispatcher\Event;
  *
  * @author Drak <drak@zikula.org>
  */
-class GenericEvent extends \ECSPrefix20210708\Symfony\Contracts\EventDispatcher\Event implements \ArrayAccess, \IteratorAggregate
+class GenericEvent extends \ECSPrefix20210710\Symfony\Contracts\EventDispatcher\Event implements \ArrayAccess, \IteratorAggregate
 {
     protected $subject;
     protected $arguments;
@@ -48,8 +48,9 @@ class GenericEvent extends \ECSPrefix20210708\Symfony\Contracts\EventDispatcher\
      * @return mixed Contents of array key
      *
      * @throws \InvalidArgumentException if key is not found
+     * @param string $key
      */
-    public function getArgument(string $key)
+    public function getArgument($key)
     {
         if ($this->hasArgument($key)) {
             return $this->arguments[$key];
@@ -62,8 +63,9 @@ class GenericEvent extends \ECSPrefix20210708\Symfony\Contracts\EventDispatcher\
      * @param mixed $value Value
      *
      * @return $this
+     * @param string $key
      */
-    public function setArgument(string $key, $value)
+    public function setArgument($key, $value)
     {
         $this->arguments[$key] = $value;
         return $this;
@@ -81,8 +83,9 @@ class GenericEvent extends \ECSPrefix20210708\Symfony\Contracts\EventDispatcher\
      * Set args property.
      *
      * @return $this
+     * @param mixed[] $args
      */
-    public function setArguments(array $args = [])
+    public function setArguments($args = [])
     {
         $this->arguments = $args;
         return $this;
@@ -91,8 +94,9 @@ class GenericEvent extends \ECSPrefix20210708\Symfony\Contracts\EventDispatcher\
      * Has argument.
      *
      * @return bool
+     * @param string $key
      */
-    public function hasArgument(string $key)
+    public function hasArgument($key)
     {
         return \array_key_exists($key, $this->arguments);
     }

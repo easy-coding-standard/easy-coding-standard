@@ -32,7 +32,7 @@ class ClassCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commentin
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $type = \strtolower($tokens[$stackPtr]['content']);
@@ -72,7 +72,7 @@ class ClassCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commentin
      *
      * @return void
      */
-    protected function processVersion($phpcsFile, array $tags)
+    protected function processVersion($phpcsFile, $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {

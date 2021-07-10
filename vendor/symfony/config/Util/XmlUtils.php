@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Util;
+namespace ECSPrefix20210710\Symfony\Component\Config\Util;
 
-use ECSPrefix20210708\Symfony\Component\Config\Util\Exception\InvalidXmlException;
-use ECSPrefix20210708\Symfony\Component\Config\Util\Exception\XmlParsingException;
+use ECSPrefix20210710\Symfony\Component\Config\Util\Exception\InvalidXmlException;
+use ECSPrefix20210710\Symfony\Component\Config\Util\Exception\XmlParsingException;
 /**
  * XMLUtils is a bunch of utility methods to XML operations.
  *
@@ -41,7 +41,7 @@ class XmlUtils
      * @throws InvalidXmlException When parsing of XML with schema or callable produces any errors unrelated to the XML parsing itself
      * @throws \RuntimeException   When DOM extension is missing
      */
-    public static function parse(string $content, $schemaOrCallable = null)
+    public static function parse($content, $schemaOrCallable = null)
     {
         if (!\extension_loaded('dom')) {
             throw new \LogicException('Extension DOM is required.');
@@ -57,7 +57,7 @@ class XmlUtils
             if (\LIBXML_VERSION < 20900) {
                 \libxml_disable_entity_loader($disableEntities);
             }
-            throw new \ECSPrefix20210708\Symfony\Component\Config\Util\Exception\XmlParsingException(\implode("\n", static::getXmlErrors($internalErrors)));
+            throw new \ECSPrefix20210710\Symfony\Component\Config\Util\Exception\XmlParsingException(\implode("\n", static::getXmlErrors($internalErrors)));
         }
         $dom->normalizeDocument();
         \libxml_use_internal_errors($internalErrors);
@@ -66,7 +66,7 @@ class XmlUtils
         }
         foreach ($dom->childNodes as $child) {
             if (\XML_DOCUMENT_TYPE_NODE === $child->nodeType) {
-                throw new \ECSPrefix20210708\Symfony\Component\Config\Util\Exception\XmlParsingException('Document types are not allowed.');
+                throw new \ECSPrefix20210710\Symfony\Component\Config\Util\Exception\XmlParsingException('Document types are not allowed.');
             }
         }
         if (null !== $schemaOrCallable) {
@@ -84,14 +84,14 @@ class XmlUtils
                 $valid = @$dom->schemaValidateSource($schemaSource);
             } else {
                 \libxml_use_internal_errors($internalErrors);
-                throw new \ECSPrefix20210708\Symfony\Component\Config\Util\Exception\XmlParsingException('The schemaOrCallable argument has to be a valid path to XSD file or callable.');
+                throw new \ECSPrefix20210710\Symfony\Component\Config\Util\Exception\XmlParsingException('The schemaOrCallable argument has to be a valid path to XSD file or callable.');
             }
             if (!$valid) {
                 $messages = static::getXmlErrors($internalErrors);
                 if (empty($messages)) {
-                    throw new \ECSPrefix20210708\Symfony\Component\Config\Util\Exception\InvalidXmlException('The XML is not valid.', 0, $e);
+                    throw new \ECSPrefix20210710\Symfony\Component\Config\Util\Exception\InvalidXmlException('The XML is not valid.', 0, $e);
                 }
-                throw new \ECSPrefix20210708\Symfony\Component\Config\Util\Exception\XmlParsingException(\implode("\n", $messages), 0, $e);
+                throw new \ECSPrefix20210710\Symfony\Component\Config\Util\Exception\XmlParsingException(\implode("\n", $messages), 0, $e);
             }
         }
         \libxml_clear_errors();
@@ -110,7 +110,7 @@ class XmlUtils
      * @throws XmlParsingException       When XML parsing returns any errors
      * @throws \RuntimeException         When DOM extension is missing
      */
-    public static function loadFile(string $file, $schemaOrCallable = null)
+    public static function loadFile($file, $schemaOrCallable = null)
     {
         if (!\is_file($file)) {
             throw new \InvalidArgumentException(\sprintf('Resource "%s" is not a file.', $file));
@@ -124,8 +124,8 @@ class XmlUtils
         }
         try {
             return static::parse($content, $schemaOrCallable);
-        } catch (\ECSPrefix20210708\Symfony\Component\Config\Util\Exception\InvalidXmlException $e) {
-            throw new \ECSPrefix20210708\Symfony\Component\Config\Util\Exception\XmlParsingException(\sprintf('The XML file "%s" is not valid.', $file), 0, $e->getPrevious());
+        } catch (\ECSPrefix20210710\Symfony\Component\Config\Util\Exception\InvalidXmlException $e) {
+            throw new \ECSPrefix20210710\Symfony\Component\Config\Util\Exception\XmlParsingException(\sprintf('The XML file "%s" is not valid.', $file), 0, $e->getPrevious());
         }
     }
     /**
@@ -148,7 +148,7 @@ class XmlUtils
      *
      * @return mixed
      */
-    public static function convertDomElementToArray(\DOMElement $element, bool $checkPrefix = \true)
+    public static function convertDomElementToArray($element, $checkPrefix = \true)
     {
         $prefix = (string) $element->prefix;
         $empty = \true;
@@ -231,7 +231,10 @@ class XmlUtils
                 return $value;
         }
     }
-    protected static function getXmlErrors(bool $internalErrors)
+    /**
+     * @param bool $internalErrors
+     */
+    protected static function getXmlErrors($internalErrors)
     {
         $errors = [];
         foreach (\libxml_get_errors() as $error) {

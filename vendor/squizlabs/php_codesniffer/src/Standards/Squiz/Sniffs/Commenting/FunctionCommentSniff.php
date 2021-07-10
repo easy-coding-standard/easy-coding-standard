@@ -37,7 +37,7 @@ class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commen
      *
      * @return void
      */
-    protected function processReturn(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $commentStart)
+    protected function processReturn($phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
         $return = null;
@@ -171,7 +171,7 @@ class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commen
      *
      * @return void
      */
-    protected function processThrows(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $commentStart)
+    protected function processThrows($phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
         if ($this->skipIfInheritdoc === \true) {
@@ -240,7 +240,7 @@ class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commen
      *
      * @return void
      */
-    protected function processParams(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $commentStart)
+    protected function processParams($phpcsFile, $stackPtr, $commentStart)
     {
         if ($this->phpVersion === null) {
             $this->phpVersion = \PHP_CodeSniffer\Config::getConfigData('php_version');
@@ -525,7 +525,7 @@ class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commen
      *
      * @return void
      */
-    protected function checkSpacingAfterParamType(\PHP_CodeSniffer\Files\File $phpcsFile, $param, $maxType, $spacing = 1)
+    protected function checkSpacingAfterParamType($phpcsFile, $param, $maxType, $spacing = 1)
     {
         // Check number of spaces after the type.
         $spaces = $maxType - \strlen($param['type']) + $spacing;
@@ -570,7 +570,7 @@ class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commen
      *
      * @return void
      */
-    protected function checkSpacingAfterParamName(\PHP_CodeSniffer\Files\File $phpcsFile, $param, $maxVar, $spacing = 1)
+    protected function checkSpacingAfterParamName($phpcsFile, $param, $maxVar, $spacing = 1)
     {
         // Check number of spaces after the var name.
         $spaces = $maxVar - \strlen($param['var']) + $spacing;
@@ -615,7 +615,7 @@ class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commen
      *
      * @return boolean TRUE if the docblock contains only {@inheritdoc} (case-insensitive).
      */
-    protected function checkInheritdoc(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $commentStart)
+    protected function checkInheritdoc($phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
         $allowedTokens = [T_DOC_COMMENT_OPEN_TAG, T_DOC_COMMENT_WHITESPACE, T_DOC_COMMENT_STAR];

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210708\Psr\Cache;
+namespace ECSPrefix20210710\Psr\Cache;
 
 /**
  * CacheItemPoolInterface generates CacheItemInterface objects.
@@ -29,7 +29,7 @@ interface CacheItemPoolInterface
      * @return CacheItemInterface
      *   The corresponding Cache Item.
      */
-    public function getItem(string $key) : \ECSPrefix20210708\Psr\Cache\CacheItemInterface;
+    public function getItem($key) : \ECSPrefix20210710\Psr\Cache\CacheItemInterface;
     /**
      * Returns a traversable set of cache items.
      *
@@ -46,7 +46,7 @@ interface CacheItemPoolInterface
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    public function getItems(array $keys = []);
+    public function getItems($keys = []);
     /**
      * Confirms if the cache contains specified cache item.
      *
@@ -64,7 +64,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if item exists in the cache, false otherwise.
      */
-    public function hasItem(string $key) : bool;
+    public function hasItem($key) : bool;
     /**
      * Deletes all items in the pool.
      *
@@ -85,7 +85,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully removed. False if there was an error.
      */
-    public function deleteItem(string $key) : bool;
+    public function deleteItem($key) : bool;
     /**
      * Removes multiple items from the pool.
      *
@@ -99,7 +99,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the items were successfully removed. False if there was an error.
      */
-    public function deleteItems(array $keys) : bool;
+    public function deleteItems($keys) : bool;
     /**
      * Persists a cache item immediately.
      *
@@ -109,7 +109,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully persisted. False if there was an error.
      */
-    public function save(\ECSPrefix20210708\Psr\Cache\CacheItemInterface $item) : bool;
+    public function save($item) : bool;
     /**
      * Sets a cache item to be persisted later.
      *
@@ -119,7 +119,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
      */
-    public function saveDeferred(\ECSPrefix20210708\Psr\Cache\CacheItemInterface $item) : bool;
+    public function saveDeferred($item) : bool;
     /**
      * Persists any deferred cache items.
      *

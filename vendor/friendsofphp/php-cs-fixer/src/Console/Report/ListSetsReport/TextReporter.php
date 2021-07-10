@@ -29,8 +29,9 @@ final class TextReporter implements \PhpCsFixer\Console\Report\ListSetsReport\Re
     }
     /**
      * {@inheritdoc}
+     * @param \PhpCsFixer\Console\Report\ListSetsReport\ReportSummary $reportSummary
      */
-    public function generate(\PhpCsFixer\Console\Report\ListSetsReport\ReportSummary $reportSummary)
+    public function generate($reportSummary)
     {
         $output = '';
         $i = 0;

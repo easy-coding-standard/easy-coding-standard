@@ -83,9 +83,10 @@ final class Line
     }
     /**
      * Set the content of this line.
+     * @param string $content
      * @return void
      */
-    public function setContent(string $content)
+    public function setContent($content)
     {
         $this->content = $content;
     }

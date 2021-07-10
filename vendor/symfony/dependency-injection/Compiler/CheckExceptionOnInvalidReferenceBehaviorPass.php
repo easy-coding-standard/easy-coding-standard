@@ -8,24 +8,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210710\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Reference;
 /**
  * Checks that all references are pointing to a valid service.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210708\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210710\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $serviceLocatorContextIds = [];
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $this->serviceLocatorContextIds = [];
         foreach ($container->findTaggedServiceIds('container.service_locator_context') as $id => $tags) {
@@ -38,12 +39,15 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210708\Sy
             $this->serviceLocatorContextIds = [];
         }
     }
-    protected function processValue($value, bool $isRoot = \false)
+    /**
+     * @param bool $isRoot
+     */
+    protected function processValue($value, $isRoot = \false)
     {
-        if (!$value instanceof \ECSPrefix20210708\Symfony\Component\DependencyInjection\Reference) {
+        if (!$value instanceof \ECSPrefix20210710\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);
         }
-        if (\ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $value->getInvalidBehavior() || $this->container->has($id = (string) $value)) {
+        if (\ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $value->getInvalidBehavior() || $this->container->has($id = (string) $value)) {
             return $value;
         }
         $currentId = $this->currentId;
@@ -56,13 +60,13 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210708\Sy
                     if ($k !== $id) {
                         $currentId = $k . '" in the container provided to "' . $currentId;
                     }
-                    throw new \ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $currentId, null, $this->getAlternatives($id));
+                    throw new \ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $currentId, null, $this->getAlternatives($id));
                 }
             }
         }
         if ('.' === $currentId[0] && $graph->hasNode($currentId)) {
             foreach ($graph->getNode($currentId)->getInEdges() as $edge) {
-                if (!$edge->getValue() instanceof \ECSPrefix20210708\Symfony\Component\DependencyInjection\Reference || \ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $edge->getValue()->getInvalidBehavior()) {
+                if (!$edge->getValue() instanceof \ECSPrefix20210710\Symfony\Component\DependencyInjection\Reference || \ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $edge->getValue()->getInvalidBehavior()) {
                     continue;
                 }
                 $sourceId = $edge->getSourceNode()->getId();
@@ -72,7 +76,7 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210708\Sy
                 }
             }
         }
-        throw new \ECSPrefix20210708\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $currentId, null, $this->getAlternatives($id));
+        throw new \ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $currentId, null, $this->getAlternatives($id));
     }
     private function getAlternatives(string $id) : array
     {

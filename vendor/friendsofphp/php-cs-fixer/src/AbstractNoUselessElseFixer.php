@@ -26,7 +26,11 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
         // should be run before NoWhitespaceInBlankLineFixer, NoExtraBlankLinesFixer, BracesFixer and after NoEmptyStatementFixer.
         return 39;
     }
-    protected function isSuperfluousElse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    /**
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param int $index
+     */
+    protected function isSuperfluousElse($tokens, $index) : bool
     {
         $previousBlockStart = $index;
         do {

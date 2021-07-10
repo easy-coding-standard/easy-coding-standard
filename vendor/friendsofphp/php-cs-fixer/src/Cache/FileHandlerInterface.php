@@ -25,7 +25,8 @@ interface FileHandlerInterface
      */
     public function read();
     /**
+     * @param \PhpCsFixer\Cache\CacheInterface $cache
      * @return void
      */
-    public function write(\PhpCsFixer\Cache\CacheInterface $cache);
+    public function write($cache);
 }

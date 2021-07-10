@@ -84,15 +84,21 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
     {
         throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
     }
-    public function needFixing(string $file, string $fileContent) : bool
+    /**
+     * @param string $file
+     * @param string $fileContent
+     */
+    public function needFixing($file, $fileContent) : bool
     {
         $file = $this->cacheDirectory->getRelativePathTo($file);
         return !$this->cache->has($file) || $this->cache->get($file) !== $this->calcHash($fileContent);
     }
     /**
+     * @param string $file
+     * @param string $fileContent
      * @return void
      */
-    public function setFile(string $file, string $fileContent)
+    public function setFile($file, $fileContent)
     {
         $file = $this->cacheDirectory->getRelativePathTo($file);
         $hash = $this->calcHash($fileContent);

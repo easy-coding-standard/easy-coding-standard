@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Config\Definition;
+namespace ECSPrefix20210710\Symfony\Component\Config\Definition;
 
-use ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
+use ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * Represents an Array node in the config tree.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\BaseNode implements \ECSPrefix20210708\Symfony\Component\Config\Definition\PrototypeNodeInterface
+class ArrayNode extends \ECSPrefix20210710\Symfony\Component\Config\Definition\BaseNode implements \ECSPrefix20210710\Symfony\Component\Config\Definition\PrototypeNodeInterface
 {
     protected $xmlRemappings = [];
     protected $children = [];
@@ -71,7 +71,7 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
      *
      * @param array $remappings An array of the form [[string, string]]
      */
-    public function setXmlRemappings(array $remappings)
+    public function setXmlRemappings($remappings)
     {
         $this->xmlRemappings = $remappings;
     }
@@ -87,29 +87,33 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
     /**
      * Sets whether to add default values for this array if it has not been
      * defined in any of the configuration files.
+     * @param bool $boolean
      */
-    public function setAddIfNotSet(bool $boolean)
+    public function setAddIfNotSet($boolean)
     {
         $this->addIfNotSet = $boolean;
     }
     /**
      * Sets whether false is allowed as value indicating that the array should be unset.
+     * @param bool $allow
      */
-    public function setAllowFalse(bool $allow)
+    public function setAllowFalse($allow)
     {
         $this->allowFalse = $allow;
     }
     /**
      * Sets whether new keys can be defined in subsequent configurations.
+     * @param bool $allow
      */
-    public function setAllowNewKeys(bool $allow)
+    public function setAllowNewKeys($allow)
     {
         $this->allowNewKeys = $allow;
     }
     /**
      * Sets if deep merging should occur.
+     * @param bool $boolean
      */
-    public function setPerformDeepMerging(bool $boolean)
+    public function setPerformDeepMerging($boolean)
     {
         $this->performDeepMerging = $boolean;
     }
@@ -119,15 +123,16 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
      * @param bool $boolean To allow extra keys
      * @param bool $remove  To remove extra keys
      */
-    public function setIgnoreExtraKeys(bool $boolean, bool $remove = \true)
+    public function setIgnoreExtraKeys($boolean, $remove = \true)
     {
         $this->ignoreExtraKeys = $boolean;
         $this->removeExtraKeys = $this->ignoreExtraKeys && $remove;
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -159,8 +164,9 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
      *
      * @throws \InvalidArgumentException when the child node has no name
      * @throws \InvalidArgumentException when the child node's name is not unique
+     * @param \Symfony\Component\Config\Definition\NodeInterface $node
      */
-    public function addChild(\ECSPrefix20210708\Symfony\Component\Config\Definition\NodeInterface $node)
+    public function addChild($node)
     {
         $name = $node->getName();
         if (!\strlen($name)) {
@@ -180,7 +186,7 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
     protected function finalizeValue($value)
     {
         if (\false === $value) {
-            throw new \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\UnsetKeyException(\sprintf('Unsetting key for path "%s", value: %s.', $this->getPath(), \json_encode($value)));
+            throw new \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\UnsetKeyException(\sprintf('Unsetting key for path "%s", value: %s.', $this->getPath(), \json_encode($value)));
         }
         foreach ($this->children as $name => $child) {
             if (!\array_key_exists($name, $value)) {
@@ -191,7 +197,7 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
                     } else {
                         $message .= '.';
                     }
-                    $ex = new \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException($message);
+                    $ex = new \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException($message);
                     $ex->setPath($this->getPath());
                     throw $ex;
                 }
@@ -206,7 +212,7 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
             }
             try {
                 $value[$name] = $child->finalize($value[$name]);
-            } catch (\ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\UnsetKeyException $e) {
+            } catch (\ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\UnsetKeyException $e) {
                 unset($value[$name]);
             }
         }
@@ -218,7 +224,7 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
     protected function validateType($value)
     {
         if (!\is_array($value) && (!$this->allowFalse || \false !== $value)) {
-            $ex = new \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('Invalid type for path "%s". Expected "array", but got "%s"', $this->getPath(), \get_debug_type($value)));
+            $ex = new \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('Invalid type for path "%s". Expected "array", but got "%s"', $this->getPath(), \get_debug_type($value)));
             if ($hint = $this->getInfo()) {
                 $ex->addHint($hint);
             }
@@ -242,7 +248,7 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
             if (isset($this->children[$name])) {
                 try {
                     $normalized[$name] = $this->children[$name]->normalize($val);
-                } catch (\ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\UnsetKeyException $e) {
+                } catch (\ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\UnsetKeyException $e) {
                 }
                 unset($value[$name]);
             } elseif (!$this->removeExtraKeys) {
@@ -271,7 +277,7 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
             } else {
                 $msg .= \sprintf('. Available option%s %s "%s".', 1 === \count($proposals) ? '' : 's', 1 === \count($proposals) ? 'is' : 'are', \implode('", "', $proposals));
             }
-            $ex = new \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException($msg);
+            $ex = new \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException($msg);
             $ex->setPath($this->getPath());
             throw $ex;
         }
@@ -281,14 +287,15 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
      * Remaps multiple singular values to a single plural value.
      *
      * @return array The remapped values
+     * @param mixed[] $value
      */
-    protected function remapXml(array $value)
+    protected function remapXml($value)
     {
         foreach ($this->xmlRemappings as list($singular, $plural)) {
             if (!isset($value[$singular])) {
                 continue;
             }
-            $value[$plural] = \ECSPrefix20210708\Symfony\Component\Config\Definition\Processor::normalizeConfig($value, $singular, $plural);
+            $value[$plural] = \ECSPrefix20210710\Symfony\Component\Config\Definition\Processor::normalizeConfig($value, $singular, $plural);
             unset($value[$singular]);
         }
         return $value;
@@ -313,7 +320,7 @@ class ArrayNode extends \ECSPrefix20210708\Symfony\Component\Config\Definition\B
             // no conflict
             if (!\array_key_exists($k, $leftSide)) {
                 if (!$this->allowNewKeys) {
-                    $ex = new \ECSPrefix20210708\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file. If you are trying to overwrite an element, make sure you redefine it with the same name.', $this->getPath()));
+                    $ex = new \ECSPrefix20210710\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file. If you are trying to overwrite an element, make sure you redefine it with the same name.', $this->getPath()));
                     $ex->setPath($this->getPath());
                     throw $ex;
                 }

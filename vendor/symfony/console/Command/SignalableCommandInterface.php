@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Console\Command;
+namespace ECSPrefix20210710\Symfony\Component\Console\Command;
 
 /**
  * Interface for command reacting to signal.
@@ -23,7 +23,8 @@ interface SignalableCommandInterface
     public function getSubscribedSignals() : array;
     /**
      * The method will be called when the application is signaled.
+     * @param int $signal
      * @return void
      */
-    public function handleSignal(int $signal);
+    public function handleSignal($signal);
 }

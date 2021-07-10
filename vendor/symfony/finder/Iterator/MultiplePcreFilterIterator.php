@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20210710\Symfony\Component\Finder\Iterator;
 
 /**
  * MultiplePcreFilterIterator filters files using patterns (regexps, globs or strings).
@@ -42,8 +42,9 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      * apply a different behavior.
      *
      * @return bool
+     * @param string $string
      */
-    protected function isAccepted(string $string)
+    protected function isAccepted($string)
     {
         // should at least not match one rule to exclude
         foreach ($this->noMatchRegexps as $regex) {
@@ -67,8 +68,9 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      * Checks whether the string is a regex.
      *
      * @return bool
+     * @param string $str
      */
-    protected function isRegex(string $str)
+    protected function isRegex($str)
     {
         if (\preg_match('/^(.{3,}?)[imsxuADU]*$/', $str, $m)) {
             $start = \substr($m[1], 0, 1);
@@ -88,6 +90,7 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      * Converts string into regexp.
      *
      * @return string
+     * @param string $str
      */
-    protected abstract function toRegex(string $str);
+    protected abstract function toRegex($str);
 }

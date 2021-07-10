@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\Storage;
+namespace ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\Storage;
 
-use ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+use ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 /**
  * Metadata container.
  *
@@ -18,7 +18,7 @@ use ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\SessionBagInterfa
  *
  * @author Drak <drak@zikula.org>
  */
-class MetadataBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundation\Session\SessionBagInterface
+class MetadataBag implements \ECSPrefix20210710\Symfony\Component\HttpFoundation\Session\SessionBagInterface
 {
     const CREATED = 'c';
     const UPDATED = 'u';
@@ -56,8 +56,9 @@ class MetadataBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundation
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $array
      */
-    public function initialize(array &$array)
+    public function initialize(&$array)
     {
         $this->meta =& $array;
         if (isset($array[self::CREATED])) {
@@ -87,7 +88,7 @@ class MetadataBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundation
      *                      to expire with browser session. Time is in seconds, and is
      *                      not a Unix timestamp.
      */
-    public function stampNew(int $lifetime = null)
+    public function stampNew($lifetime = null)
     {
         $this->stampCreated($lifetime);
     }
@@ -132,8 +133,9 @@ class MetadataBag implements \ECSPrefix20210708\Symfony\Component\HttpFoundation
     }
     /**
      * Sets name.
+     * @param string $name
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
     }

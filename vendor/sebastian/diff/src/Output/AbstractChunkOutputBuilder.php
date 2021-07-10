@@ -9,16 +9,18 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\SebastianBergmann\Diff\Output;
+namespace ECSPrefix20210710\SebastianBergmann\Diff\Output;
 
 use function count;
-abstract class AbstractChunkOutputBuilder implements \ECSPrefix20210708\SebastianBergmann\Diff\Output\DiffOutputBuilderInterface
+abstract class AbstractChunkOutputBuilder implements \ECSPrefix20210710\SebastianBergmann\Diff\Output\DiffOutputBuilderInterface
 {
     /**
      * Takes input of the diff array and returns the common parts.
      * Iterates through diff line by line.
+     * @param mixed[] $diff
+     * @param int $lineThreshold
      */
-    protected function getCommonChunks(array $diff, int $lineThreshold = 5) : array
+    protected function getCommonChunks($diff, $lineThreshold = 5) : array
     {
         $diffSize = \count($diff);
         $capturing = \false;

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix20210708\Symfony\Component\Config\Loader\Loader;
-use ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210710\Symfony\Component\Config\Loader\Loader;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * ClosureLoader loads service definitions from a PHP closure.
  *
@@ -19,25 +19,27 @@ use ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ClosureLoader extends \ECSPrefix20210708\Symfony\Component\Config\Loader\Loader
+class ClosureLoader extends \ECSPrefix20210710\Symfony\Component\Config\Loader\Loader
 {
     private $container;
-    public function __construct(\ECSPrefix20210708\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $env = null)
+    public function __construct(\ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $env = null)
     {
         $this->container = $container;
         parent::__construct($env);
     }
     /**
      * {@inheritdoc}
+     * @param string|null $type
      */
-    public function load($resource, string $type = null)
+    public function load($resource, $type = null)
     {
         $resource($this->container, $this->env);
     }
     /**
      * {@inheritdoc}
+     * @param string|null $type
      */
-    public function supports($resource, string $type = null)
+    public function supports($resource, $type = null)
     {
         return $resource instanceof \Closure;
     }

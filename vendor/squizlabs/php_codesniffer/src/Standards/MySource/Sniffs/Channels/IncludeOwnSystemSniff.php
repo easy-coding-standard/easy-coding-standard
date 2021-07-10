@@ -32,7 +32,7 @@ class IncludeOwnSystemSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         $fileName = $phpcsFile->getFilename();
         $matches = [];
@@ -74,7 +74,7 @@ class IncludeOwnSystemSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return string
      */
-    protected function getIncludedClassFromToken($phpcsFile, array $tokens, $stackPtr)
+    protected function getIncludedClassFromToken($phpcsFile, $tokens, $stackPtr)
     {
         return \false;
     }

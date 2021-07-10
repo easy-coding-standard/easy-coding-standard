@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210710\Symfony\Component\HttpFoundation;
 
 /**
  * RedirectResponse represents an HTTP response doing a redirect.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class RedirectResponse extends \ECSPrefix20210708\Symfony\Component\HttpFoundation\Response
+class RedirectResponse extends \ECSPrefix20210710\Symfony\Component\HttpFoundation\Response
 {
     protected $targetUrl;
     /**
@@ -49,8 +49,10 @@ class RedirectResponse extends \ECSPrefix20210708\Symfony\Component\HttpFoundati
      * @return static
      *
      * @deprecated since Symfony 5.1, use __construct() instead.
+     * @param int $status
+     * @param mixed[] $headers
      */
-    public static function create($url = '', int $status = 302, array $headers = [])
+    public static function create($url = '', $status = 302, $headers = [])
     {
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($url, $status, $headers);
@@ -70,8 +72,9 @@ class RedirectResponse extends \ECSPrefix20210708\Symfony\Component\HttpFoundati
      * @return $this
      *
      * @throws \InvalidArgumentException
+     * @param string $url
      */
-    public function setTargetUrl(string $url)
+    public function setTargetUrl($url)
     {
         if ('' === $url) {
             throw new \InvalidArgumentException('Cannot redirect to an empty URL.');

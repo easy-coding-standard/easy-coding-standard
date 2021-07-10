@@ -2,9 +2,7 @@
 
 
 
-/**
- * @annotation
- */
+#[Attribute(\Attribute::TARGET_CLASS)]
 final class Attribute
 {
     const TARGET_CLASS = 1;
@@ -22,7 +20,4 @@ final class Attribute
         $this->flags = $flags;
     }
 }
-/**
- * @annotation
- */
 

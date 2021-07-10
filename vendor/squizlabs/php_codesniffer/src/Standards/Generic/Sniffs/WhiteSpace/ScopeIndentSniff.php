@@ -106,7 +106,7 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process($phpcsFile, $stackPtr)
     {
         $debug = \PHP_CodeSniffer\Config::getConfigData('scope_indent_debug');
         if ($debug !== null) {
@@ -1217,7 +1217,7 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return bool
      */
-    protected function adjustIndent(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $length, $change)
+    protected function adjustIndent($phpcsFile, $stackPtr, $length, $change)
     {
         $tokens = $phpcsFile->getTokens();
         // We don't adjust indents outside of PHP.

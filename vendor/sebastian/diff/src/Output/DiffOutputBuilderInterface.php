@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210708\SebastianBergmann\Diff\Output;
+namespace ECSPrefix20210710\SebastianBergmann\Diff\Output;
 
 /**
  * Defines how an output builder should take a generated
@@ -17,5 +17,8 @@ namespace ECSPrefix20210708\SebastianBergmann\Diff\Output;
  */
 interface DiffOutputBuilderInterface
 {
-    public function getDiff(array $diff) : string;
+    /**
+     * @param mixed[] $diff
+     */
+    public function getDiff($diff) : string;
 }

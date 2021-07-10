@@ -51,7 +51,10 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     {
         return \true;
     }
-    protected abstract function isSkippedType(string $type) : bool;
+    /**
+     * @param string $type
+     */
+    protected abstract function isSkippedType($type) : bool;
     /**
      * {@inheritdoc}
      */
@@ -61,9 +64,10 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     }
     /**
      * @param int $index The index of the function token
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return int|null
      */
-    protected function findFunctionDocComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    protected function findFunctionDocComment($tokens, $index)
     {
         do {
             $index = $tokens->getPrevNonWhitespace($index);
@@ -75,8 +79,11 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     }
     /**
      * @return Annotation[]
+     * @param string $name
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param int $docCommentIndex
      */
-    protected function getAnnotationsFromDocComment(string $name, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docCommentIndex) : array
+    protected function getAnnotationsFromDocComment($name, $tokens, $docCommentIndex) : array
     {
         $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
         $namespace = $namespacesAnalyzer->getNamespaceAt($tokens, $docCommentIndex);
@@ -87,8 +94,10 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     }
     /**
      * @return Token[]
+     * @param string $type
+     * @param bool $isNullable
      */
-    protected function createTypeDeclarationTokens(string $type, bool $isNullable) : array
+    protected function createTypeDeclarationTokens($type, $isNullable) : array
     {
         static $specialTypes = ['array' => [\PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, 'array'], 'callable' => [\T_CALLABLE, 'callable'], 'static' => [\T_STATIC, 'static']];
         $newTokens = [];
@@ -117,9 +126,11 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         return $newTokens;
     }
     /**
+     * @param \PhpCsFixer\DocBlock\Annotation $annotation
+     * @param bool $isReturnType
      * @return mixed[]|null
      */
-    protected function getCommonTypeFromAnnotation(\PhpCsFixer\DocBlock\Annotation $annotation, bool $isReturnType)
+    protected function getCommonTypeFromAnnotation($annotation, $isReturnType)
     {
         $typesExpression = $annotation->getTypeExpression();
         $commonType = $typesExpression->getCommonType();
@@ -148,7 +159,10 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         }
         return [$commonType, $isNullable];
     }
-    protected final function isValidSyntax(string $code) : bool
+    /**
+     * @param string $code
+     */
+    protected final function isValidSyntax($code) : bool
     {
         if (!isset(self::$syntaxValidationCache[$code])) {
             try {

@@ -22,10 +22,12 @@ interface LinterInterface
     public function isAsync() : bool;
     /**
      * Lint PHP file.
+     * @param string $path
      */
-    public function lintFile(string $path) : \PhpCsFixer\Linter\LintingResultInterface;
+    public function lintFile($path) : \PhpCsFixer\Linter\LintingResultInterface;
     /**
      * Lint PHP code.
+     * @param string $source
      */
-    public function lintSource(string $source) : \PhpCsFixer\Linter\LintingResultInterface;
+    public function lintSource($source) : \PhpCsFixer\Linter\LintingResultInterface;
 }

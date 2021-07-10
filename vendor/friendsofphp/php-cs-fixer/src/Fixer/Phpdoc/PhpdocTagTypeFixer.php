@@ -23,8 +23,8 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20210708\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix20210708\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix20210710\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20210710\Symfony\Component\OptionsResolver\Options;
 /**
  * @author SpacePossum
  */
@@ -32,8 +32,9 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
 {
     /**
      * {@inheritdoc}
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate($tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -56,9 +57,11 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
     }
     /**
      * {@inheritdoc}
+     * @param \SplFileInfo $file
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix($file, $tokens)
     {
         if (!$this->configuration['tags']) {
             return;
@@ -97,11 +100,11 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('tags', 'The list of tags to fix'))->setAllowedTypes(['array'])->setAllowedValues([function ($value) {
             foreach ($value as $type) {
                 if (!\in_array($type, ['annotation', 'inline'], \true)) {
-                    throw new \ECSPrefix20210708\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException("Unknown tag type \"{$type}\".");
+                    throw new \ECSPrefix20210710\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException("Unknown tag type \"{$type}\".");
                 }
             }
             return \true;
-        }])->setDefault(['api' => 'annotation', 'author' => 'annotation', 'copyright' => 'annotation', 'deprecated' => 'annotation', 'example' => 'annotation', 'global' => 'annotation', 'inheritDoc' => 'annotation', 'internal' => 'annotation', 'license' => 'annotation', 'method' => 'annotation', 'package' => 'annotation', 'param' => 'annotation', 'property' => 'annotation', 'return' => 'annotation', 'see' => 'annotation', 'since' => 'annotation', 'throws' => 'annotation', 'todo' => 'annotation', 'uses' => 'annotation', 'var' => 'annotation', 'version' => 'annotation'])->setNormalizer(function (\ECSPrefix20210708\Symfony\Component\OptionsResolver\Options $options, $value) {
+        }])->setDefault(['api' => 'annotation', 'author' => 'annotation', 'copyright' => 'annotation', 'deprecated' => 'annotation', 'example' => 'annotation', 'global' => 'annotation', 'inheritDoc' => 'annotation', 'internal' => 'annotation', 'license' => 'annotation', 'method' => 'annotation', 'package' => 'annotation', 'param' => 'annotation', 'property' => 'annotation', 'return' => 'annotation', 'see' => 'annotation', 'since' => 'annotation', 'throws' => 'annotation', 'todo' => 'annotation', 'uses' => 'annotation', 'var' => 'annotation', 'version' => 'annotation'])->setNormalizer(function (\ECSPrefix20210710\Symfony\Component\OptionsResolver\Options $options, $value) {
             $normalized = [];
             foreach ($value as $tag => $type) {
                 $normalized[\strtolower($tag)] = $type;
