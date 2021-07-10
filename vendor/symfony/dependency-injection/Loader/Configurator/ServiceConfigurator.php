@@ -17,7 +17,6 @@ use ECSPrefix20210710\Symfony\Component\DependencyInjection\Definition;
  */
 class ServiceConfigurator extends \ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
-    const FACTORY = 'services';
     use Traits\AbstractTrait;
     use Traits\ArgumentTrait;
     use Traits\AutoconfigureTrait;
@@ -37,11 +36,15 @@ class ServiceConfigurator extends \ECSPrefix20210710\Symfony\Component\Dependenc
     use Traits\ShareTrait;
     use Traits\SyntheticTrait;
     use Traits\TagTrait;
+    const FACTORY = 'services';
     private $container;
     private $instanceof;
     private $allowParent;
     private $path;
     private $destructed = \false;
+    /**
+     * @param string|null $id
+     */
     public function __construct(\ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210710\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, string $path = null)
     {
         $this->container = $container;

@@ -1396,17 +1396,17 @@
         },
         {
             "name": "symfony\/console",
-            "version": "v5.3.2",
-            "version_normalized": "5.3.2.0",
+            "version": "5.4.x-dev",
+            "version_normalized": "5.4.9999999.9999999-dev",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/console.git",
-                "reference": "649730483885ff2ca99ca0560ef0e5f6b03f2ac1"
+                "reference": "1fc8b5e92968090cf2104f58d5a65da71cad570a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/649730483885ff2ca99ca0560ef0e5f6b03f2ac1",
-                "reference": "649730483885ff2ca99ca0560ef0e5f6b03f2ac1",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/1fc8b5e92968090cf2104f58d5a65da71cad570a",
+                "reference": "1fc8b5e92968090cf2104f58d5a65da71cad570a",
                 "shasum": ""
             },
             "require": {
@@ -1416,7 +1416,7 @@
                 "symfony\/polyfill-php73": "^1.8",
                 "symfony\/polyfill-php80": "^1.15",
                 "symfony\/service-contracts": "^1.1|^2",
-                "symfony\/string": "^5.1"
+                "symfony\/string": "^5.1|^6.0"
             },
             "conflict": {
                 "symfony\/dependency-injection": "<4.4",
@@ -1430,12 +1430,12 @@
             },
             "require-dev": {
                 "psr\/log": "~1.0",
-                "symfony\/config": "^4.4|^5.0",
-                "symfony\/dependency-injection": "^4.4|^5.0",
-                "symfony\/event-dispatcher": "^4.4|^5.0",
-                "symfony\/lock": "^4.4|^5.0",
-                "symfony\/process": "^4.4|^5.0",
-                "symfony\/var-dumper": "^4.4|^5.0"
+                "symfony\/config": "^4.4|^5.0|^6.0",
+                "symfony\/dependency-injection": "^4.4|^5.0|^6.0",
+                "symfony\/event-dispatcher": "^4.4|^5.0|^6.0",
+                "symfony\/lock": "^4.4|^5.0|^6.0",
+                "symfony\/process": "^4.4|^5.0|^6.0",
+                "symfony\/var-dumper": "^4.4|^5.0|^6.0"
             },
             "suggest": {
                 "psr\/log": "For using the console logger",
@@ -1443,7 +1443,7 @@
                 "symfony\/lock": "",
                 "symfony\/process": ""
             },
-            "time": "2021-06-12T09:42:48+00:00",
+            "time": "2021-07-06T15:01:37+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1477,7 +1477,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/console\/tree\/v5.3.2"
+                "source": "https:\/\/github.com\/symfony\/console\/tree\/5.4"
             },
             "funding": [
                 {
@@ -1497,17 +1497,17 @@
         },
         {
             "name": "symfony\/dependency-injection",
-            "version": "v5.3.3",
-            "version_normalized": "5.3.3.0",
+            "version": "5.4.x-dev",
+            "version_normalized": "5.4.9999999.9999999-dev",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/dependency-injection.git",
-                "reference": "e421c4f161848740ad1fcf09b12391ddca168d95"
+                "reference": "ae427fe8e8ee4597021c622e5b85ca00ea826edc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/e421c4f161848740ad1fcf09b12391ddca168d95",
-                "reference": "e421c4f161848740ad1fcf09b12391ddca168d95",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/ae427fe8e8ee4597021c622e5b85ca00ea826edc",
+                "reference": "ae427fe8e8ee4597021c622e5b85ca00ea826edc",
                 "shasum": ""
             },
             "require": {
@@ -1529,9 +1529,9 @@
                 "symfony\/service-implementation": "1.0|2.0"
             },
             "require-dev": {
-                "symfony\/config": "^5.3",
-                "symfony\/expression-language": "^4.4|^5.0",
-                "symfony\/yaml": "^4.4|^5.0"
+                "symfony\/config": "^5.3|^6.0",
+                "symfony\/expression-language": "^4.4|^5.0|^6.0",
+                "symfony\/yaml": "^4.4|^5.0|^6.0"
             },
             "suggest": {
                 "symfony\/config": "",
@@ -1540,7 +1540,7 @@
                 "symfony\/proxy-manager-bridge": "Generate service proxies to lazy load them",
                 "symfony\/yaml": ""
             },
-            "time": "2021-06-24T08:13:00+00:00",
+            "time": "2021-07-05T13:29:30+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1568,7 +1568,7 @@
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/dependency-injection\/tree\/v5.3.3"
+                "source": "https:\/\/github.com\/symfony\/dependency-injection\/tree\/5.4"
             },
             "funding": [
                 {
@@ -3432,12 +3432,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "9fd38b74fa85644a9fe36d2c2f1c09f3b21994a4"
+                "reference": "ce9eb98f7ff97a5dd4884ddbc000d6b093dd8575"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/dependency-injection": "^5.3.x-dev",
                 "symplify\/package-builder": "dev-main"
             },
             "require-dev": {
@@ -3533,13 +3533,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "1a2ea44a83aafa782ff886dd751928d1197921e1"
+                "reference": "c86980a69ed6e506626107b4c65b274250bc1966"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symfony\/config": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/dependency-injection": "^5.3.x-dev",
                 "symfony\/filesystem": "^5.3",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/package-builder": "dev-main",
@@ -3582,14 +3582,14 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-color-diff",
-                "reference": "b38bcba94b535e6cd20f92d7a2b1bc5be8411f9c"
+                "reference": "2288b31eb104aaf71b2223ce34bbbeeb2489d239"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "sebastian\/diff": "^4.0",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/console": "^5.3.x-dev",
+                "symfony\/dependency-injection": "^5.3.x-dev",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/package-builder": "dev-main"
             },
@@ -3630,12 +3630,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-package-builder",
-                "reference": "746458299e12affde55945b391edf5be902f2d43"
+                "reference": "397286afd7283cc479ec0229027c134a44977a92"
             },
             "require": {
                 "php": ">=8.0",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/console": "^5.3.x-dev",
+                "symfony\/dependency-injection": "^5.3.x-dev",
                 "symplify\/symplify-kernel": "dev-main"
             },
             "require-dev": {
@@ -3677,13 +3677,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "38bbacea01b773f8a3f7521c73605ca461bd1708"
+                "reference": "35d4fcdb04e95cc0d8b22eb65ad59d985608cadd"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/console": "^5.3.x-dev",
+                "symfony\/dependency-injection": "^5.3.x-dev",
                 "symfony\/finder": "^5.3",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/console-package-builder": "dev-main",
@@ -3731,15 +3731,15 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "3cc4730f61bc3164def0021fa6d29483016dced2"
+                "reference": "4410458f2e9efdeee7fdfff81ef87f620f67b7e0"
             },
             "require": {
                 "nette\/neon": "^3.2",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symfony\/config": "^5.3",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/console": "^5.3.x-dev",
+                "symfony\/dependency-injection": "^5.3.x-dev",
                 "symfony\/finder": "^5.3",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/easy-testing": "dev-main",
@@ -3818,13 +3818,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "aa122c015ca9b1487861c3e9eb18670435559fbf"
+                "reference": "4ab61c5d399f278236b9464d9c44770a3c43b62c"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symfony\/config": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/dependency-injection": "^5.3.x-dev",
                 "symfony\/filesystem": "^5.3",
                 "symfony\/finder": "^5.3",
                 "symplify\/package-builder": "dev-main",
@@ -3914,12 +3914,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "a171afbcee227ee27b9830190f672b908974ad1f"
+                "reference": "9947fa381a3c663c4e7b36634baa0b1ccdb0b6cf"
             },
             "require": {
                 "php": ">=8.0",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/console": "^5.3.x-dev",
+                "symfony\/dependency-injection": "^5.3.x-dev",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/autowire-array-parameter": "dev-main",
                 "symplify\/composer-json-manipulator": "dev-main",

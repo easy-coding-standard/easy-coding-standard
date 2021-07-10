@@ -240,6 +240,7 @@ class SymfonyStyle extends \ECSPrefix20210710\Symfony\Component\Console\Style\Ou
      * {@inheritdoc}
      * @param string $question
      * @param string|null $default
+     * @param callable|null $validator
      */
     public function ask($question, $default = null, $validator = null)
     {
@@ -250,6 +251,7 @@ class SymfonyStyle extends \ECSPrefix20210710\Symfony\Component\Console\Style\Ou
     /**
      * {@inheritdoc}
      * @param string $question
+     * @param callable|null $validator
      */
     public function askHidden($question, $validator = null)
     {
@@ -260,6 +262,8 @@ class SymfonyStyle extends \ECSPrefix20210710\Symfony\Component\Console\Style\Ou
     }
     /**
      * {@inheritdoc}
+     * @param string $question
+     * @param bool $default
      */
     public function confirm($question, $default = \true)
     {

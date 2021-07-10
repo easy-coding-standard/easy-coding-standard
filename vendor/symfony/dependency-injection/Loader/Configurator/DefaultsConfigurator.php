@@ -17,11 +17,11 @@ use ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\InvalidArg
  */
 class DefaultsConfigurator extends \ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
-    const FACTORY = 'defaults';
     use Traits\AutoconfigureTrait;
     use Traits\AutowireTrait;
     use Traits\BindTrait;
     use Traits\PublicTrait;
+    const FACTORY = 'defaults';
     private $path;
     public function __construct(\ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210710\Symfony\Component\DependencyInjection\Definition $definition, string $path = null)
     {

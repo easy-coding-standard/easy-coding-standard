@@ -96,22 +96,18 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
     /**
      * Gets a parameter.
      *
-     * @param string $name The parameter name
-     *
-     * @return array|bool|float|int|string|null The parameter value
+     * @return array|bool|string|int|float|null
      *
      * @throws InvalidArgumentException if the parameter is not defined
+     * @param string $name
      */
     public function getParameter($name)
     {
         return $this->parameterBag->get($name);
     }
     /**
-     * Checks if a parameter exists.
-     *
-     * @param string $name The parameter name
-     *
      * @return bool The presence of parameter in container
+     * @param string $name
      */
     public function hasParameter($name)
     {
@@ -120,8 +116,8 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
     /**
      * Sets a parameter.
      *
-     * @param string $name  The parameter name
-     * @param mixed  $value The parameter value
+     * @param string                           $name  The parameter name
+     * @param array|bool|string|int|float|null $value The parameter value
      */
     public function setParameter($name, $value)
     {
@@ -189,9 +185,6 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
     /**
      * Gets a service.
      *
-     * @param string $id              The service identifier
-     * @param int    $invalidBehavior The behavior when the service does not exist
-     *
      * @return object|null The associated service
      *
      * @throws ServiceCircularReferenceException When a circular reference is detected
@@ -199,6 +192,8 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
      * @throws \Exception                        if an exception has been thrown when the service has been resolved
      *
      * @see Reference
+     * @param string $id
+     * @param int $invalidBehavior
      */
     public function get($id, $invalidBehavior = 1)
     {
@@ -254,9 +249,8 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
     /**
      * Returns true if the given service has actually been initialized.
      *
-     * @param string $id The service identifier
-     *
      * @return bool true if service has already been initialized, false otherwise
+     * @param string $id
      */
     public function initialized($id)
     {
@@ -306,9 +300,8 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
     /**
      * Camelizes a string.
      *
-     * @param string $id A string to camelize
-     *
      * @return string The camelized string
+     * @param string $id
      */
     public static function camelize($id)
     {
@@ -317,9 +310,8 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
     /**
      * A string to underscore.
      *
-     * @param string $id The string to underscore
-     *
      * @return string The underscored string
+     * @param string $id
      */
     public static function underscore($id)
     {
@@ -327,6 +319,7 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
     }
     /**
      * Creates a service by requiring its factory file.
+     * @param string $file
      */
     protected function load($file)
     {
@@ -335,11 +328,10 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
     /**
      * Fetches a variable from the environment.
      *
-     * @param string $name The name of the environment variable
-     *
      * @return mixed The value to use for the provided environment variable name
      *
      * @throws EnvNotFoundException When the environment variable is not found and has no default value
+     * @param string $name
      */
     protected function getEnv($name)
     {
@@ -353,9 +345,7 @@ class Container implements \ECSPrefix20210710\Symfony\Component\DependencyInject
             $this->set($id, new \ECSPrefix20210710\Symfony\Component\DependencyInjection\ServiceLocator([]));
         }
         if (!$this->getEnv) {
-            $this->getEnv = new \ReflectionMethod($this, __FUNCTION__);
-            $this->getEnv->setAccessible(\true);
-            $this->getEnv = $this->getEnv->getClosure($this);
+            $this->getEnv = \Closure::fromCallable([$this, 'getEnv']);
         }
         $processors = $this->get($id);
         if (\false !== ($i = \strpos($name, ':'))) {

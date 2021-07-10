@@ -33,6 +33,7 @@ class ServiceLocator implements \ECSPrefix20210710\Symfony\Contracts\Service\Ser
      * {@inheritdoc}
      *
      * @return mixed
+     * @param string $id
      */
     public function get($id)
     {

@@ -343,7 +343,7 @@ class AutowirePass extends \ECSPrefix20210710\Symfony\Component\DependencyInject
         }
         $this->ambiguousServiceTypes[$type][] = $id;
     }
-    private function createTypeNotFoundMessageCallback(\ECSPrefix20210710\Symfony\Component\DependencyInjection\TypedReference $reference, string $label) : callable
+    private function createTypeNotFoundMessageCallback(\ECSPrefix20210710\Symfony\Component\DependencyInjection\TypedReference $reference, string $label) : \Closure
     {
         if (null === $this->typesClone->container) {
             $this->typesClone->container = new \ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder($this->container->getParameterBag());

@@ -45,6 +45,8 @@ class TrimmedBufferOutput extends \ECSPrefix20210710\Symfony\Component\Console\O
     }
     /**
      * {@inheritdoc}
+     * @param string $message
+     * @param bool $newline
      */
     protected function doWrite($message, $newline)
     {

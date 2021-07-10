@@ -338,6 +338,7 @@ return array(
     'ECSPrefix20210710\\Symfony\\Component\\Console\\Terminal' => $vendorDir . '/symfony/console/Terminal.php',
     'ECSPrefix20210710\\Symfony\\Component\\Console\\Tester\\ApplicationTester' => $vendorDir . '/symfony/console/Tester/ApplicationTester.php',
     'ECSPrefix20210710\\Symfony\\Component\\Console\\Tester\\CommandTester' => $vendorDir . '/symfony/console/Tester/CommandTester.php',
+    'ECSPrefix20210710\\Symfony\\Component\\Console\\Tester\\Constraint\\CommandIsSuccessful' => $vendorDir . '/symfony/console/Tester/Constraint/CommandIsSuccessful.php',
     'ECSPrefix20210710\\Symfony\\Component\\Console\\Tester\\TesterTrait' => $vendorDir . '/symfony/console/Tester/TesterTrait.php',
     'ECSPrefix20210710\\Symfony\\Component\\DependencyInjection\\Alias' => $vendorDir . '/symfony/dependency-injection/Alias.php',
     'ECSPrefix20210710\\Symfony\\Component\\DependencyInjection\\Argument\\AbstractArgument' => $vendorDir . '/symfony/dependency-injection/Argument/AbstractArgument.php',

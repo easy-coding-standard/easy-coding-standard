@@ -24,12 +24,12 @@ class ParameterNotFoundException extends \ECSPrefix20210710\Symfony\Component\De
     private $alternatives;
     private $nonNestedAlternative;
     /**
-     * @param string      $key                  The requested parameter key
-     * @param string      $sourceId             The service id that references the non-existent parameter
-     * @param string      $sourceKey            The parameter key that references the non-existent parameter
-     * @param \Throwable  $previous             The previous exception
-     * @param string[]    $alternatives         Some parameter name alternatives
-     * @param string|null $nonNestedAlternative The alternative parameter name when the user expected dot notation for nested parameters
+     * @param string          $key                  The requested parameter key
+     * @param string|null     $sourceId             The service id that references the non-existent parameter
+     * @param string|null     $sourceKey            The parameter key that references the non-existent parameter
+     * @param \Throwable|null $previous             The previous exception
+     * @param string[]        $alternatives         Some parameter name alternatives
+     * @param string|null     $nonNestedAlternative The alternative parameter name when the user expected dot notation for nested parameters
      */
     public function __construct(string $key, string $sourceId = null, string $sourceKey = null, \Throwable $previous = null, array $alternatives = [], string $nonNestedAlternative = null)
     {
@@ -73,11 +73,17 @@ class ParameterNotFoundException extends \ECSPrefix20210710\Symfony\Component\De
     {
         return $this->sourceKey;
     }
+    /**
+     * @param string|null $sourceId
+     */
     public function setSourceId($sourceId)
     {
         $this->sourceId = $sourceId;
         $this->updateRepr();
     }
+    /**
+     * @param string|null $sourceKey
+     */
     public function setSourceKey($sourceKey)
     {
         $this->sourceKey = $sourceKey;

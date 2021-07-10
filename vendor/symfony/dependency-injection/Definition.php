@@ -20,6 +20,7 @@ use ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\OutOfBound
  */
 class Definition
 {
+    const DEFAULT_DEPRECATION_TEMPLATE = 'The "%service_id%" service is deprecated. You should stop using it, as it will be removed in the future.';
     private $class;
     private $file;
     private $factory;
@@ -41,7 +42,6 @@ class Definition
     private $bindings = [];
     private $errors = [];
     protected $arguments = [];
-    private static $defaultDeprecationTemplate = 'The "%service_id%" service is deprecated. You should stop using it, as it will be removed in the future.';
     /**
      * @internal
      *
@@ -661,7 +661,7 @@ class Definition
             }
         }
         $this->changes['deprecated'] = \true;
-        $this->deprecation = $status ? ['package' => $package, 'version' => $version, 'message' => $message ?: self::$defaultDeprecationTemplate] : [];
+        $this->deprecation = $status ? ['package' => $package, 'version' => $version, 'message' => $message ?: self::DEFAULT_DEPRECATION_TEMPLATE] : [];
         return $this;
     }
     /**
@@ -698,7 +698,7 @@ class Definition
     /**
      * Sets a configurator to call after the service is fully initialized.
      *
-     * @param string|array|Reference $configurator A PHP function, reference or an array containing a class/Reference and a method to call
+     * @param string|array|Reference|null $configurator A PHP function, reference or an array containing a class/Reference and a method to call
      *
      * @return $this
      */

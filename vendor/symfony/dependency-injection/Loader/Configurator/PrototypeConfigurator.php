@@ -17,7 +17,6 @@ use ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
  */
 class PrototypeConfigurator extends \ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
-    const FACTORY = 'load';
     use Traits\AbstractTrait;
     use Traits\ArgumentTrait;
     use Traits\AutoconfigureTrait;
@@ -33,6 +32,7 @@ class PrototypeConfigurator extends \ECSPrefix20210710\Symfony\Component\Depende
     use Traits\PublicTrait;
     use Traits\ShareTrait;
     use Traits\TagTrait;
+    const FACTORY = 'load';
     private $loader;
     private $resource;
     private $excludes;

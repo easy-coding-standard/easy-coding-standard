@@ -114,6 +114,7 @@ abstract class Input implements \ECSPrefix20210710\Symfony\Component\Console\Inp
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
     public function hasArgument($name)
     {

@@ -19,8 +19,6 @@ use ECSPrefix20210710\Symfony\Component\Console\Output\OutputInterface;
 interface DescriptorInterface
 {
     /**
-     * Describes an object if supported.
-     *
      * @param object $object
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param mixed[] $options

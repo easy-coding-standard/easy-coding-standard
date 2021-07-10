@@ -16,7 +16,6 @@ use ECSPrefix20210710\Symfony\Component\DependencyInjection\Definition;
  */
 class InstanceofConfigurator extends \ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
-    const FACTORY = 'instanceof';
     use Traits\AutowireTrait;
     use Traits\BindTrait;
     use Traits\CallTrait;
@@ -26,6 +25,7 @@ class InstanceofConfigurator extends \ECSPrefix20210710\Symfony\Component\Depend
     use Traits\PublicTrait;
     use Traits\ShareTrait;
     use Traits\TagTrait;
+    const FACTORY = 'instanceof';
     private $path;
     public function __construct(\ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210710\Symfony\Component\DependencyInjection\Definition $definition, string $id, string $path = null)
     {

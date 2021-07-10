@@ -10,10 +10,12 @@
  */
 namespace ECSPrefix20210710\Symfony\Component\Console\Tester;
 
+use ECSPrefix20210710\PHPUnit\Framework\Assert;
 use ECSPrefix20210710\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20210710\Symfony\Component\Console\Output\ConsoleOutput;
 use ECSPrefix20210710\Symfony\Component\Console\Output\OutputInterface;
 use ECSPrefix20210710\Symfony\Component\Console\Output\StreamOutput;
+use ECSPrefix20210710\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful;
 /**
  * @author Amrouche Hamza <hamza.simperfit@gmail.com>
  */
@@ -93,6 +95,14 @@ trait TesterTrait
             throw new \RuntimeException('Status code not initialized, did you execute the command before requesting the status code?');
         }
         return $this->statusCode;
+    }
+    /**
+     * @param string $message
+     * @return void
+     */
+    public function assertCommandIsSuccessful($message = '')
+    {
+        \ECSPrefix20210710\PHPUnit\Framework\Assert::assertThat($this->statusCode, new \ECSPrefix20210710\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful(), $message);
     }
     /**
      * Sets the user inputs.

@@ -149,7 +149,7 @@ abstract class Output implements \ECSPrefix20210710\Symfony\Component\Console\Ou
                     $message = \strip_tags($this->formatter->format($message));
                     break;
             }
-            $this->doWrite($message, $newline);
+            $this->doWrite($message ?? '', $newline);
         }
     }
     /**

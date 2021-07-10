@@ -11,6 +11,7 @@
 namespace ECSPrefix20210710\Symfony\Component\DependencyInjection\Compiler;
 
 use ECSPrefix20210710\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210710\Symfony\Component\DependencyInjection\Reference;
 /**
  * This is a directed graph of your services.
  *
@@ -67,7 +68,7 @@ class ServiceReferenceGraph
      * @param string|null $sourceId
      * @param string|null $destId
      */
-    public function connect($sourceId, $sourceValue, $destId, $destValue = null, $reference = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
+    public function connect($sourceId, $sourceValue, $destId, $destValue = null, \ECSPrefix20210710\Symfony\Component\DependencyInjection\Reference $reference = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
     {
         if (null === $sourceId || null === $destId) {
             return;

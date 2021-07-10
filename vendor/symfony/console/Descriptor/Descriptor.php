@@ -30,6 +30,7 @@ abstract class Descriptor implements \ECSPrefix20210710\Symfony\Component\Consol
     protected $output;
     /**
      * {@inheritdoc}
+     * @param object $object
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param mixed[] $options
      */

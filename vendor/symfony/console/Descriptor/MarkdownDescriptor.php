@@ -28,6 +28,7 @@ class MarkdownDescriptor extends \ECSPrefix20210710\Symfony\Component\Console\De
 {
     /**
      * {@inheritdoc}
+     * @param object $object
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param mixed[] $options
      */

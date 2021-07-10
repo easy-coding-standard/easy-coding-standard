@@ -82,6 +82,8 @@ class ConsoleSectionOutput extends \ECSPrefix20210710\Symfony\Component\Console\
     }
     /**
      * {@inheritdoc}
+     * @param string $message
+     * @param bool $newline
      */
     protected function doWrite($message, $newline)
     {

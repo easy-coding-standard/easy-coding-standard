@@ -32,6 +32,7 @@ class ServiceLocator extends \ECSPrefix20210710\Symfony\Component\DependencyInje
      * {@inheritdoc}
      *
      * @return mixed
+     * @param string $id
      */
     public function get($id)
     {

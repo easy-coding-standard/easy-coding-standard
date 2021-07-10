@@ -30,8 +30,8 @@ class Question
     private $trimmable = \true;
     private $multiline = \false;
     /**
-     * @param string $question The question to ask to the user
-     * @param mixed  $default  The default answer to return if the user enters nothing
+     * @param string                     $question The question to ask to the user
+     * @param string|bool|int|float|null $default  The default answer to return if the user enters nothing
      */
     public function __construct(string $question, $default = null)
     {
@@ -50,7 +50,7 @@ class Question
     /**
      * Returns the default answer.
      *
-     * @return mixed
+     * @return string|bool|int|float|null
      */
     public function getDefault()
     {
@@ -86,11 +86,10 @@ class Question
     /**
      * Sets whether the user response must be hidden or not.
      *
-     * @param bool $hidden
-     *
      * @return $this
      *
      * @throws LogicException In case the autocompleter is also used
+     * @param bool $hidden
      */
     public function setHidden($hidden)
     {
@@ -112,9 +111,8 @@ class Question
     /**
      * Sets whether to fallback on non-hidden question if the response can not be hidden.
      *
-     * @param bool $fallback
-     *
      * @return $this
+     * @param bool $fallback
      */
     public function setHiddenFallback($fallback)
     {

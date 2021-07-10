@@ -30,6 +30,9 @@ class ContainerBag extends \ECSPrefix20210710\Symfony\Component\DependencyInject
     }
     /**
      * {@inheritdoc}
+     *
+     * @return array|bool|string|int|float|null
+     * @param string $name
      */
     public function get($name)
     {
@@ -37,6 +40,9 @@ class ContainerBag extends \ECSPrefix20210710\Symfony\Component\DependencyInject
     }
     /**
      * {@inheritdoc}
+     *
+     * @return bool
+     * @param string $name
      */
     public function has($name)
     {

@@ -48,11 +48,8 @@ interface ContainerInterface extends \ECSPrefix20210710\Psr\Container\ContainerI
      */
     public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE);
     /**
-     * Returns true if the given service is defined.
-     *
-     * @param string $id The service identifier
-     *
      * @return bool true if the service is defined, false otherwise
+     * @param string $id
      */
     public function has($id);
     /**
@@ -63,28 +60,22 @@ interface ContainerInterface extends \ECSPrefix20210710\Psr\Container\ContainerI
      */
     public function initialized($id);
     /**
-     * Gets a parameter.
-     *
-     * @param string $name The parameter name
-     *
-     * @return array|bool|float|int|string|null The parameter value
+     * @return array|bool|string|int|float|null
      *
      * @throws InvalidArgumentException if the parameter is not defined
+     * @param string $name
      */
     public function getParameter($name);
     /**
-     * Checks if a parameter exists.
-     *
-     * @param string $name The parameter name
-     *
-     * @return bool The presence of parameter in container
+     * @return bool
+     * @param string $name
      */
     public function hasParameter($name);
     /**
      * Sets a parameter.
      *
-     * @param string $name  The parameter name
-     * @param mixed  $value The parameter value
+     * @param string                           $name  The parameter name
+     * @param array|bool|string|int|float|null $value The parameter value
      */
     public function setParameter($name, $value);
 }
