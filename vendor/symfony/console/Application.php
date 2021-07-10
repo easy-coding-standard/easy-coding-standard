@@ -1013,7 +1013,7 @@ class Application implements \ECSPrefix20210710\Symfony\Contracts\Service\ResetI
      */
     public function setDefaultCommand($commandName, $isSingleCommand = \false)
     {
-        $this->defaultCommand = $commandName;
+        $this->defaultCommand = \explode('|', \ltrim($commandName, '|'))[0];
         if ($isSingleCommand) {
             // Ensure the command exist
             $this->find($commandName);

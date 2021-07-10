@@ -187,7 +187,7 @@ class AutowirePass extends \ECSPrefix20210710\Symfony\Component\DependencyInject
                     }
                     if (\ECSPrefix20210710\Symfony\Component\DependencyInjection\Attribute\TaggedLocator::class === $attribute->getName()) {
                         $attribute = $attribute->newInstance();
-                        $arguments[$index] = new \ECSPrefix20210710\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument(new \ECSPrefix20210710\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($attribute->tag, $attribute->indexAttribute));
+                        $arguments[$index] = new \ECSPrefix20210710\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument(new \ECSPrefix20210710\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($attribute->tag, $attribute->indexAttribute, null, \true));
                         break;
                     }
                 }

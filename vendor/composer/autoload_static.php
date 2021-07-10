@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite3e355744f516fb26dc8e7626e4e0e2d
+class ComposerStaticInit8291a156a4c208446d2c5df968e54bd5
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -33,6 +33,7 @@ class ComposerStaticInite3e355744f516fb26dc8e7626e4e0e2d
         ),
         'E' => 
         array (
+            'ECSPrefix20210710\\Webmozart\\Assert\\' => 35,
             'ECSPrefix20210710\\Symplify\\SymplifyKernel\\' => 42,
             'ECSPrefix20210710\\Symplify\\SmartFileSystem\\' => 43,
             'ECSPrefix20210710\\Symplify\\Skipper\\' => 35,
@@ -98,6 +99,10 @@ class ComposerStaticInite3e355744f516fb26dc8e7626e4e0e2d
         'PhpCsFixer\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src',
+        ),
+        'ECSPrefix20210710\\Webmozart\\Assert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
         'ECSPrefix20210710\\Symplify\\SymplifyKernel\\' => 
         array (
@@ -1353,6 +1358,9 @@ class ComposerStaticInite3e355744f516fb26dc8e7626e4e0e2d
         'ECSPrefix20210710\\Symplify\\SymplifyKernel\\Strings\\KernelUniqueHasher' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Strings/KernelUniqueHasher.php',
         'ECSPrefix20210710\\Symplify\\SymplifyKernel\\Strings\\StringsConverter' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Strings/StringsConverter.php',
         'ECSPrefix20210710\\Symplify\\SymplifyKernel\\ValueObject\\KernelBootAndApplicationRun' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/ValueObject/KernelBootAndApplicationRun.php',
+        'ECSPrefix20210710\\Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
+        'ECSPrefix20210710\\Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
+        'ECSPrefix20210710\\Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'PhpCsFixer\\AbstractDoctrineAnnotationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractDoctrineAnnotationFixer.php',
@@ -2000,9 +2008,9 @@ class ComposerStaticInite3e355744f516fb26dc8e7626e4e0e2d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite3e355744f516fb26dc8e7626e4e0e2d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite3e355744f516fb26dc8e7626e4e0e2d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite3e355744f516fb26dc8e7626e4e0e2d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8291a156a4c208446d2c5df968e54bd5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8291a156a4c208446d2c5df968e54bd5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8291a156a4c208446d2c5df968e54bd5::$classMap;
 
         }, null, ClassLoader::class);
     }

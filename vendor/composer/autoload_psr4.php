@@ -9,6 +9,7 @@ return array(
     'Symplify\\EasyCodingStandard\\' => array($baseDir . '/src', $baseDir . '/packages'),
     'Symplify\\CodingStandard\\' => array($vendorDir . '/symplify/coding-standard/src'),
     'PhpCsFixer\\' => array($vendorDir . '/friendsofphp/php-cs-fixer/src'),
+    'ECSPrefix20210710\\Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'ECSPrefix20210710\\Symplify\\SymplifyKernel\\' => array($vendorDir . '/symplify/symplify-kernel/src'),
     'ECSPrefix20210710\\Symplify\\SmartFileSystem\\' => array($vendorDir . '/symplify/smart-file-system/src'),
     'ECSPrefix20210710\\Symplify\\Skipper\\' => array($vendorDir . '/symplify/skipper/src'),
