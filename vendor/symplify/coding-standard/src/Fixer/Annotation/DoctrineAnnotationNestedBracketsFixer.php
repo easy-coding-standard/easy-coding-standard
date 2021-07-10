@@ -105,9 +105,6 @@ CODE_SAMPLE
         /** @var Token[] $docCommentTokens */
         $docCommentTokens = $tokens->findGivenKind(\T_DOC_COMMENT);
         foreach ($docCommentTokens as $index => $docCommentToken) {
-            if (!$this->doctrineAnnotationElementAnalyzer->detect($tokens, $index)) {
-                continue;
-            }
             $doctrineAnnotationTokens = \PhpCsFixer\Doctrine\Annotation\Tokens::createFromDocComment($docCommentToken, []);
             $this->fixAnnotations($doctrineAnnotationTokens, $useDeclarations);
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doctrineAnnotationTokens->getCode()]);

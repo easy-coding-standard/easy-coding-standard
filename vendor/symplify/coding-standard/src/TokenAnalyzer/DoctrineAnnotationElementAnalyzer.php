@@ -16,30 +16,6 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 final class DoctrineAnnotationElementAnalyzer
 {
     /**
-     * @param Tokens<\PhpCsFixer\Tokenizer\Token> $tokens
-     */
-    public function detect(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
-    {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
-        $classyElements = $tokensAnalyzer->getClassyElements();
-        do {
-            $index = $tokens->getNextMeaningfulToken($index);
-            if ($index === null) {
-                return \false;
-            }
-        } while ($tokens[$index]->isGivenKind([\T_ABSTRACT, \T_FINAL]));
-        if ($tokens[$index]->isClassy()) {
-            return \true;
-        }
-        while ($tokens[$index]->isGivenKind([\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_NS_SEPARATOR, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE])) {
-            $index = $tokens->getNextMeaningfulToken($index);
-            if (!\is_int($index)) {
-                return \false;
-            }
-        }
-        return isset($classyElements[$index]);
-    }
-    /**
      * We look for "(@SomeAnnotation"
      *
      * @param DoctrineAnnotationTokens<Token> $doctrineAnnotationTokens
