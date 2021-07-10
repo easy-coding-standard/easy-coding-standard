@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\HttpKernel;
 
+use ECSPrefix20210710\Nette\Utils\FileSystem;
 use ECSPrefix20210710\Symfony\Component\Config\Loader\DelegatingLoader;
 use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerInterface;
@@ -26,12 +27,9 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210710\Symplify\Symplif
     }
     public function getCacheDir() : string
     {
-        // the PACKAGE_VERSION constant helps to rebuild cache on new release, but just once
-        $cacheDirectory = \sys_get_temp_dir() . '/ecs_' . \get_current_user();
-        if (\Symplify\EasyCodingStandard\Application\Version\VersionResolver::PACKAGE_VERSION !== '@package_version@') {
-            $cacheDirectory .= '_' . \Symplify\EasyCodingStandard\Application\Version\VersionResolver::PACKAGE_VERSION;
-        }
-        return $cacheDirectory;
+        $cacheDir = \sys_get_temp_dir() . '/ecs_' . \get_current_user() . '_' . \random_int(0, 100000);
+        \ECSPrefix20210710\Nette\Utils\FileSystem::createDir($cacheDir);
+        return $cacheDir;
     }
     public function getLogDir() : string
     {

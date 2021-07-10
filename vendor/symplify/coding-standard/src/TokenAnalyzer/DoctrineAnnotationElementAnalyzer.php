@@ -5,10 +5,7 @@ namespace Symplify\CodingStandard\TokenAnalyzer;
 
 use ECSPrefix20210710\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token;
-use PhpCsFixer\Doctrine\Annotation\Tokens as DoctrineAnnotationTokens;
-use PhpCsFixer\Tokenizer\CT;
-use PhpCsFixer\Tokenizer\Tokens;
-use PhpCsFixer\Tokenizer\TokensAnalyzer;
+use PhpCsFixer\Doctrine\Annotation\Tokens;
 /**
  * Copied from \PhpCsFixer\AbstractDoctrineAnnotationFixer::nextElementAcceptsDoctrineAnnotations() so it can be used as
  * a normal service
@@ -18,7 +15,7 @@ final class DoctrineAnnotationElementAnalyzer
     /**
      * We look for "(@SomeAnnotation"
      *
-     * @param DoctrineAnnotationTokens<Token> $doctrineAnnotationTokens
+     * @param Tokens<Token> $doctrineAnnotationTokens
      */
     public function isOpeningBracketFollowedByAnnotation(\PhpCsFixer\Doctrine\Annotation\Token $token, \PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens, int $braceIndex) : bool
     {
