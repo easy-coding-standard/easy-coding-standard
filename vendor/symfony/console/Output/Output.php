@@ -42,9 +42,8 @@ abstract class Output implements \ECSPrefix20210710\Symfony\Component\Console\Ou
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
-    public function setFormatter($formatter)
+    public function setFormatter(\ECSPrefix20210710\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         $this->formatter = $formatter;
     }
@@ -57,9 +56,8 @@ abstract class Output implements \ECSPrefix20210710\Symfony\Component\Console\Ou
     }
     /**
      * {@inheritdoc}
-     * @param bool $decorated
      */
-    public function setDecorated($decorated)
+    public function setDecorated(bool $decorated)
     {
         $this->formatter->setDecorated($decorated);
     }
@@ -72,9 +70,8 @@ abstract class Output implements \ECSPrefix20210710\Symfony\Component\Console\Ou
     }
     /**
      * {@inheritdoc}
-     * @param int $level
      */
-    public function setVerbosity($level)
+    public function setVerbosity(int $level)
     {
         $this->verbosity = $level;
     }
@@ -115,18 +112,15 @@ abstract class Output implements \ECSPrefix20210710\Symfony\Component\Console\Ou
     }
     /**
      * {@inheritdoc}
-     * @param int $options
      */
-    public function writeln($messages, $options = self::OUTPUT_NORMAL)
+    public function writeln($messages, int $options = self::OUTPUT_NORMAL)
     {
         $this->write($messages, \true, $options);
     }
     /**
      * {@inheritdoc}
-     * @param bool $newline
-     * @param int $options
      */
-    public function write($messages, $newline = \false, $options = self::OUTPUT_NORMAL)
+    public function write($messages, bool $newline = \false, int $options = self::OUTPUT_NORMAL)
     {
         if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];
@@ -154,8 +148,6 @@ abstract class Output implements \ECSPrefix20210710\Symfony\Component\Console\Ou
     }
     /**
      * Writes a message to the output.
-     * @param string $message
-     * @param bool $newline
      */
-    protected abstract function doWrite($message, $newline);
+    protected abstract function doWrite(string $message, bool $newline);
 }

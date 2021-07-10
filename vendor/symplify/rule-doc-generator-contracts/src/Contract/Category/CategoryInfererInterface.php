@@ -7,8 +7,7 @@ use ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 interface CategoryInfererInterface
 {
     /**
-     * @param \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition
      * @return string|null
      */
-    public function infer($ruleDefinition);
+    public function infer(\ECSPrefix20210710\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition);
 }

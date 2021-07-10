@@ -31,7 +31,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210710\Symfony\Component
      * @param CodingStandardError[] $codingStandardErrors
      * @return void
      */
-    public function printErrors($codingStandardErrors)
+    public function printErrors(array $codingStandardErrors)
     {
         /** @var CodingStandardError $codingStandardError */
         foreach ($codingStandardErrors as $codingStandardError) {
