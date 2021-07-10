@@ -47,16 +47,15 @@ final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixe
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_OPEN_TAG, \T_WHITESPACE, \T_DECLARE, \T_STRING, '=', \T_LNUMBER, ';']);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \SplFileInfo $file
      * @return void
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $sequenceLocation = $tokens->findSequence($this->declareStrictTypeTokens, 1, 15);
         if ($sequenceLocation === null) {

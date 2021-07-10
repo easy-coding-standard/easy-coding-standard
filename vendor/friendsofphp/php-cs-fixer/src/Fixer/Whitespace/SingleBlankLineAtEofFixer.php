@@ -45,19 +45,16 @@ final class SingleBlankLineAtEofFixer extends \PhpCsFixer\AbstractFixer implemen
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $count = $tokens->count();
         if ($count && !$tokens[$count - 1]->isGivenKind([\T_INLINE_HTML, \T_CLOSE_TAG, \T_OPEN_TAG])) {

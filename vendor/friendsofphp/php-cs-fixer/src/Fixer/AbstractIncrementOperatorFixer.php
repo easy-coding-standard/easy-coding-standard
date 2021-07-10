@@ -16,11 +16,7 @@ use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Tokenizer\Tokens;
 abstract class AbstractIncrementOperatorFixer extends \PhpCsFixer\AbstractFixer
 {
-    /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param int $index
-     */
-    protected final function findStart($tokens, $index) : int
+    protected final function findStart(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
         do {
             $index = $tokens->getPrevMeaningfulToken($index);

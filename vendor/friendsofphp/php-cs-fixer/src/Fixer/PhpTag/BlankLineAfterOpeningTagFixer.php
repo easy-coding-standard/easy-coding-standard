@@ -43,19 +43,16 @@ final class BlankLineAfterOpeningTagFixer extends \PhpCsFixer\AbstractFixer impl
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_OPEN_TAG);
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         // ignore files with short open tag and ignore non-monolithic files

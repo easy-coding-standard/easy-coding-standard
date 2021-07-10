@@ -23,9 +23,8 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
 {
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_ELSE, \T_ELSEIF]);
     }
@@ -48,11 +47,9 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if ($this->isElseif($tokens, $index) && $this->isSuperfluousElse($tokens, $index)) {

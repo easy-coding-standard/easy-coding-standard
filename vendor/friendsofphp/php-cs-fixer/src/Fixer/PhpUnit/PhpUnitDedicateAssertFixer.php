@@ -36,10 +36,9 @@ final class PhpUnitDedicateAssertFixer extends \PhpCsFixer\Fixer\AbstractPhpUnit
     private $functions = [];
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         // assertions added in 3.0: assertArrayNotHasKey assertArrayHasKey assertFileNotExists assertFileExists assertNotNull, assertNull
@@ -102,12 +101,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param int $startIndex
-     * @param int $endIndex
      * @return void
      */
-    protected function applyPhpUnitClassFix($tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
         foreach ($this->getPreviousAssertCall($tokens, $startIndex, $endIndex) as $assertCall) {
             // test and fix for assertTrue/False to dedicated asserts

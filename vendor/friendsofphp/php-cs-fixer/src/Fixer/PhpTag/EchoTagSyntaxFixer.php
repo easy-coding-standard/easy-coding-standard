@@ -68,9 +68,8 @@ EOT;
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if (self::FORMAT_SHORT === $this->configuration[self::OPTION_FORMAT]) {
             return $tokens->isAnyTokenKindsFound([\T_ECHO, \T_PRINT]);
@@ -86,11 +85,9 @@ EOT;
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (self::FORMAT_SHORT === $this->configuration[self::OPTION_FORMAT]) {
             $this->longToShort($tokens);

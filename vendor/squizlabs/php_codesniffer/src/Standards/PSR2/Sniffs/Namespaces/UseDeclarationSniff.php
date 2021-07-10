@@ -33,7 +33,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process($phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         if ($this->shouldIgnoreUse($phpcsFile, $stackPtr) === \true) {
             return;

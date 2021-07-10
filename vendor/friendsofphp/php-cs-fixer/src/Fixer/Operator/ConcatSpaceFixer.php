@@ -31,10 +31,9 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     private $fixCallback;
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         if ('one' === $this->configuration['spacing']) {
@@ -61,19 +60,16 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('.');
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $callBack = $this->fixCallback;
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {

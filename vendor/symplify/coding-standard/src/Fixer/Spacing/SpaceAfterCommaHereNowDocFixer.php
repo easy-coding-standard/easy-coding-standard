@@ -29,16 +29,15 @@ final class SpaceAfterCommaHereNowDocFixer extends \Symplify\CodingStandard\Fixe
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_START_HEREDOC, T_START_NOWDOC]);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \SplFileInfo $file
      * @return void
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {

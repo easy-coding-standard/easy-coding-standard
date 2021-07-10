@@ -42,19 +42,16 @@ $foo->__INVOKE(1);
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING) && $tokens->isAnyTokenKindsFound(\array_merge([\T_FUNCTION, \T_DOUBLE_COLON], \PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds()));
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $inClass = 0;
         $tokenCount = \count($tokens);

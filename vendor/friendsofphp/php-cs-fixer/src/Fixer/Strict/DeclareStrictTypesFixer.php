@@ -44,9 +44,8 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= 70000 && isset($tokens[0]) && $tokens[0]->isGivenKind(\T_OPEN_TAG);
     }
@@ -59,11 +58,9 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // check if the declaration is already done
         $searchIndex = $tokens->getNextMeaningfulToken(0);

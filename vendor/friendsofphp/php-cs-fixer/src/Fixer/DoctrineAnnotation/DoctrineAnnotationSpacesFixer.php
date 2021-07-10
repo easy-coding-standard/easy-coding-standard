@@ -53,10 +53,9 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Doctrine\Annotation\Tokens $tokens
      * @return void
      */
-    protected function fixAnnotations($tokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
     {
         if ($this->configuration['around_parentheses']) {
             $this->fixSpacesAroundParentheses($tokens);

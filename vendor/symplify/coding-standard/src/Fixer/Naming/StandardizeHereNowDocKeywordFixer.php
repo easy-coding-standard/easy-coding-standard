@@ -52,16 +52,15 @@ final class StandardizeHereNowDocKeywordFixer extends \Symplify\CodingStandard\F
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_START_HEREDOC, T_START_NOWDOC]);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \SplFileInfo $file
      * @return void
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -90,10 +89,9 @@ CODE_SAMPLE
 , [self::KEYWORD => 'CODE_SNIPPET'])]);
     }
     /**
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         $this->keyword = $configuration[self::KEYWORD] ?? self::DEFAULT_KEYWORD;
     }

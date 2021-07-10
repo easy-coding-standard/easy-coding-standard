@@ -87,7 +87,7 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([
             // "["
@@ -106,10 +106,9 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \SplFileInfo $file
      * @return void
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -166,10 +165,9 @@ CODE_SAMPLE
         return 5;
     }
     /**
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         $this->lineLength = $configuration[self::LINE_LENGTH] ?? self::DEFAULT_LINE_LENGHT;
         $this->breakLongLines = $configuration[self::BREAK_LONG_LINES] ?? \true;

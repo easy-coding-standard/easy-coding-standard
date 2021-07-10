@@ -67,12 +67,9 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param int $startIndex
-     * @param int $endIndex
      * @return void
      */
-    protected function applyPhpUnitClassFix($tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
         if ('annotation' === $this->configuration['style']) {
             $this->applyTestAnnotation($tokens, $startIndex, $endIndex);

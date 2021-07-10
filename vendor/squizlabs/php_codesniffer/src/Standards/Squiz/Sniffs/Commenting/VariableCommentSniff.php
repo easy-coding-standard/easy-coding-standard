@@ -23,7 +23,7 @@ class VariableCommentSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      *
      * @return void
      */
-    public function processMemberVar($phpcsFile, $stackPtr)
+    public function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $ignore = [\T_PUBLIC, \T_PRIVATE, \T_PROTECTED, \T_VAR, \T_STATIC, \T_WHITESPACE, \T_STRING, \T_NS_SEPARATOR, T_NULLABLE];
@@ -123,7 +123,7 @@ class VariableCommentSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      *
      * @return void
      */
-    protected function processVariable($phpcsFile, $stackPtr)
+    protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
     }
     //end processVariable()
@@ -138,7 +138,7 @@ class VariableCommentSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      *
      * @return void
      */
-    protected function processVariableInString($phpcsFile, $stackPtr)
+    protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
     }
     //end processVariableInString()

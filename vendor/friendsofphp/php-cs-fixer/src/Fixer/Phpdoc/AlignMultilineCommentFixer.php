@@ -33,10 +33,9 @@ final class AlignMultilineCommentFixer extends \PhpCsFixer\AbstractFixer impleme
     private $tokenKinds;
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->tokenKinds = [\T_DOC_COMMENT];
@@ -79,19 +78,16 @@ with a line not prefixed with asterisk
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound($this->tokenKinds);
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         foreach ($tokens as $index => $token) {

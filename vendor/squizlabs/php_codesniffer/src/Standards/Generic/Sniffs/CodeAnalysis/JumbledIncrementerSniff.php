@@ -52,7 +52,7 @@ class JumbledIncrementerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process($phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $token = $tokens[$stackPtr];
@@ -91,7 +91,7 @@ class JumbledIncrementerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return string[] List of all found incrementer variables.
      */
-    protected function findIncrementers($tokens, $token)
+    protected function findIncrementers(array $tokens, array $token)
     {
         // Skip invalid statement.
         if (isset($token['parenthesis_opener']) === \false) {

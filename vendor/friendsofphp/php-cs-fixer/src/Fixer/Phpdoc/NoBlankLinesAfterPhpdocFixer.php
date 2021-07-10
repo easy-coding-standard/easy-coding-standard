@@ -25,9 +25,8 @@ final class NoBlankLinesAfterPhpdocFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -58,11 +57,9 @@ class Bar {}
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         static $forbiddenSuccessors = [\T_DOC_COMMENT, \T_COMMENT, \T_WHITESPACE, \T_RETURN, \T_THROW, \T_GOTO, \T_CONTINUE, \T_BREAK, \T_DECLARE, \T_USE];
         foreach ($tokens as $index => $token) {

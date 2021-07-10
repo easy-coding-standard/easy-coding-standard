@@ -21,10 +21,7 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
     {
         return \false;
     }
-    /**
-     * @param \SplFileInfo $file
-     */
-    public function supports($file) : bool
+    public function supports(\SplFileInfo $file) : bool
     {
         return \true;
     }
@@ -32,16 +29,15 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
      * @return Token[]
      * @param Tokens<Token> $tokens
      */
-    protected function reverseTokens($tokens) : array
+    protected function reverseTokens(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
         return \array_reverse($tokens->toArray(), \true);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $index
      * @return \PhpCsFixer\Tokenizer\Token|null
      */
-    protected function getNextMeaningfulToken($tokens, $index)
+    protected function getNextMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
         $nextMeaninfulTokenPosition = $tokens->getNextMeaningfulToken($index);
         if ($nextMeaninfulTokenPosition === null) {
@@ -51,10 +47,9 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param int $index
      * @return \PhpCsFixer\Tokenizer\Token|null
      */
-    protected function getPreviousToken($tokens, $index)
+    protected function getPreviousToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
         $previousIndex = $index - 1;
         if (!isset($tokens[$previousIndex])) {

@@ -19,8 +19,7 @@ use PhpCsFixer\WhitespacesFixerConfig;
 interface WhitespacesAwareFixerInterface extends \PhpCsFixer\Fixer\FixerInterface
 {
     /**
-     * @param \PhpCsFixer\WhitespacesFixerConfig $config
      * @return void
      */
-    public function setWhitespacesConfig($config);
+    public function setWhitespacesConfig(\PhpCsFixer\WhitespacesFixerConfig $config);
 }

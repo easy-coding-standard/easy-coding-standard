@@ -80,7 +80,7 @@ CODE_SAMPLE
      * @param array<string, string[]> $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         $annotationsClasses = $configuration[self::ANNOTATION_CLASSES] ?? [];
         \ECSPrefix20210710\Webmozart\Assert\Assert::isArray($annotationsClasses);
@@ -90,16 +90,15 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \SplFileInfo $fileInfo
      * @return void
      */
-    public function fix($fileInfo, $tokens)
+    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $useDeclarations = $this->namespaceUsesAnalyzer->getDeclarationsFromTokens($tokens);
         // fetch indexes one time, this is safe as we never add or remove a token during fixing

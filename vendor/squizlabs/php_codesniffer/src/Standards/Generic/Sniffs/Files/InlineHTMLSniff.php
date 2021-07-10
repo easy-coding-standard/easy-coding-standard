@@ -40,7 +40,7 @@ class InlineHTMLSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int|null
      */
-    public function process($phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         // Allow a byte-order mark.
         $tokens = $phpcsFile->getTokens();

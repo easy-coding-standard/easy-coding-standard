@@ -42,12 +42,9 @@ final class FopenFlagsFixer extends \PhpCsFixer\AbstractFopenFlagFixer implement
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('b_mode', 'The `b` flag must be used (`true`) or omitted (`false`).'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param int $argumentStartIndex
-     * @param int $argumentEndIndex
      * @return void
      */
-    protected function fixFopenFlagToken($tokens, $argumentStartIndex, $argumentEndIndex)
+    protected function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex)
     {
         $argumentFlagIndex = null;
         for ($i = $argumentStartIndex; $i <= $argumentEndIndex; ++$i) {

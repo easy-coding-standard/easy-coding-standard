@@ -32,9 +32,8 @@ final class DirConstantFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_FILE);
     }
@@ -49,11 +48,9 @@ final class DirConstantFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $currIndex = 0;
         while (null !== $currIndex) {

@@ -37,16 +37,15 @@ final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fi
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_COMMENT]);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \SplFileInfo $file
      * @return void
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $reversedTokens = $this->reverseTokens($tokens);
         foreach ($reversedTokens as $index => $token) {

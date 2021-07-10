@@ -36,10 +36,9 @@ final class PhpUnitExpectationFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFix
     private $methodMap = [];
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->methodMap = ['setExpectedException' => 'expectExceptionMessage'];
@@ -143,12 +142,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param int $startIndex
-     * @param int $endIndex
      * @return void
      */
-    protected function applyPhpUnitClassFix($tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
     {
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperator) {
             $this->applyPhpUnitClassFixWithObjectOperator($tokens, $startIndex, $endIndex, $objectOperator);

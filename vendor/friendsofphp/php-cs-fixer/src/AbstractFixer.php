@@ -58,11 +58,9 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
         }
     }
     /**
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    public final function fix($file, $tokens)
+    public final function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if ($this instanceof \PhpCsFixer\Fixer\ConfigurableFixerInterface && null === $this->configuration) {
             throw new \PhpCsFixer\ConfigurationException\RequiredFixerConfigurationException($this->getName(), 'Configuration is required.');
@@ -96,17 +94,15 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
      */
-    public function supports($file) : bool
+    public function supports(\SplFileInfo $file) : bool
     {
         return \true;
     }
     /**
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         if (!$this instanceof \PhpCsFixer\Fixer\ConfigurableFixerInterface) {
             throw new \LogicException('Cannot configure using Abstract parent, child not implementing "PhpCsFixer\\Fixer\\ConfigurableFixerInterface".');
@@ -141,10 +137,9 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
         return $this->configurationDefinition;
     }
     /**
-     * @param \PhpCsFixer\WhitespacesFixerConfig $config
      * @return void
      */
-    public function setWhitespacesConfig($config)
+    public function setWhitespacesConfig(\PhpCsFixer\WhitespacesFixerConfig $config)
     {
         if (!$this instanceof \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface) {
             throw new \LogicException('Cannot run method for class not implementing "PhpCsFixer\\Fixer\\WhitespacesAwareFixerInterface".');
@@ -152,11 +147,9 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
         $this->whitespacesConfig = $config;
     }
     /**
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected abstract function applyFix($file, $tokens);
+    protected abstract function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens);
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         if (!$this instanceof \PhpCsFixer\Fixer\ConfigurableFixerInterface) {

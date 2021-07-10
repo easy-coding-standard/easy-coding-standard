@@ -50,19 +50,16 @@ final class SwitchCaseSemicolonToColonFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_CASE, \T_DEFAULT]);
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if ($token->isGivenKind(\T_CASE)) {
@@ -74,11 +71,9 @@ final class SwitchCaseSemicolonToColonFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param int $index
      * @return void
      */
-    protected function fixSwitchCase($tokens, $index)
+    protected function fixSwitchCase(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
         $ternariesCount = 0;
         do {
@@ -104,11 +99,9 @@ final class SwitchCaseSemicolonToColonFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param int $index
      * @return void
      */
-    protected function fixSwitchDefault($tokens, $index)
+    protected function fixSwitchDefault(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
     {
         do {
             if ($tokens[$index]->equalsAny([':', ';', [\T_DOUBLE_ARROW]])) {

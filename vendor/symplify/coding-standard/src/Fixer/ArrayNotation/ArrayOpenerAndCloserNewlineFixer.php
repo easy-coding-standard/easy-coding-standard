@@ -72,7 +72,7 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if (!$tokens->isAnyTokenKindsFound(\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds::ARRAY_OPEN_TOKENS)) {
             return \false;
@@ -81,10 +81,9 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \SplFileInfo $fileInfo
      * @return void
      */
-    public function fix($fileInfo, $tokens)
+    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $blockInfos = $this->arrayBlockInfoFinder->findArrayOpenerBlockInfos($tokens);
         foreach ($blockInfos as $blockInfo) {

@@ -43,10 +43,9 @@ final class DoctrineAnnotationBracesFixer extends \PhpCsFixer\AbstractDoctrineAn
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Doctrine\Annotation\Tokens $tokens
      * @return void
      */
-    protected function fixAnnotations($tokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
     {
         if ('without_braces' === $this->configuration['syntax']) {
             $this->removesBracesFromAnnotations($tokens);

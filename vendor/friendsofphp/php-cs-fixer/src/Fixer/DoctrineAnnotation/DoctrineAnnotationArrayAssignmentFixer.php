@@ -54,10 +54,9 @@ final class DoctrineAnnotationArrayAssignmentFixer extends \PhpCsFixer\AbstractD
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Doctrine\Annotation\Tokens $tokens
      * @return void
      */
-    protected function fixAnnotations($tokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
     {
         $scopes = [];
         foreach ($tokens as $token) {

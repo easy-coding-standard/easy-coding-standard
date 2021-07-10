@@ -56,10 +56,9 @@ final class NativeFunctionInvocationFixer extends \PhpCsFixer\AbstractFixer impl
      */
     private $functionFilter;
     /**
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->functionFilter = $this->getFunctionFilter();
@@ -129,9 +128,8 @@ $c = get_class($d);
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -144,11 +142,9 @@ $c = get_class($d);
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if ('all' === $this->configuration['scope']) {
             $this->fixFunctionCalls($tokens, $this->functionFilter, 0, \count($tokens) - 1, \false);

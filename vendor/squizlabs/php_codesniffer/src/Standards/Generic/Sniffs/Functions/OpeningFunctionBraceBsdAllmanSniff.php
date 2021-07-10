@@ -45,7 +45,7 @@ class OpeningFunctionBraceBsdAllmanSniff implements \PHP_CodeSniffer\Sniffs\Snif
      *
      * @return void
      */
-    public function process($phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_opener']) === \false) {

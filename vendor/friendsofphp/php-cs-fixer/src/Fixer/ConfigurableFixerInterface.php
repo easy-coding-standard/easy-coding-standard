@@ -37,7 +37,7 @@ interface ConfigurableFixerInterface extends \PhpCsFixer\Fixer\FixerInterface
      * @throws InvalidFixerConfigurationException
      * @return void
      */
-    public function configure($configuration);
+    public function configure(array $configuration);
     /**
      * Defines the available configuration options of the fixer.
      */

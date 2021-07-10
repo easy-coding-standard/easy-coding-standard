@@ -32,7 +32,7 @@ class DisallowShortArraySyntaxSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process($phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $phpcsFile->recordMetric($stackPtr, 'Short array syntax used', 'yes');
         $error = 'Short array syntax is not allowed';

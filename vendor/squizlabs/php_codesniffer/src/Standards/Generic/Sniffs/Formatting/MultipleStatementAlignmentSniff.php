@@ -66,7 +66,7 @@ class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process($phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Ignore assignments used in a condition, like an IF or FOR.

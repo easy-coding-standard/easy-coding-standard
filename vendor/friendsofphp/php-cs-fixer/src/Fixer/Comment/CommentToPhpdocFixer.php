@@ -37,9 +37,8 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     private $ignoredTags = [];
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
@@ -70,10 +69,9 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->ignoredTags = \array_map(static function (string $tag) {
@@ -89,11 +87,9 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $commentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\CommentsAnalyzer();
         for ($index = 0, $limit = \count($tokens); $index < $limit; ++$index) {

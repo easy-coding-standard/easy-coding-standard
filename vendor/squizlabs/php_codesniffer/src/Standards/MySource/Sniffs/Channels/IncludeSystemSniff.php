@@ -37,7 +37,7 @@ class IncludeSystemSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenWithinScope($phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine the name of the class that the static function
@@ -162,7 +162,7 @@ class IncludeSystemSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenOutsideScope($phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === \T_EXTENDS) {
@@ -238,7 +238,7 @@ class IncludeSystemSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return string
      */
-    protected function getIncludedClassFromToken($phpcsFile, $tokens, $stackPtr)
+    protected function getIncludedClassFromToken(\PHP_CodeSniffer\Files\File $phpcsFile, array $tokens, $stackPtr)
     {
         if (\strtolower($tokens[$stackPtr]['content']) === 'includesystem') {
             $systemName = $phpcsFile->findNext(\T_CONSTANT_ENCAPSED_STRING, $stackPtr + 1);

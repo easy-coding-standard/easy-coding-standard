@@ -64,16 +64,15 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \SplFileInfo $file
      * @return void
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -113,7 +112,7 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
      * @param array<string, int> $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         $this->lineLength = $configuration[self::LINE_LENGTH] ?? self::DEFAULT_LINE_LENGHT;
     }

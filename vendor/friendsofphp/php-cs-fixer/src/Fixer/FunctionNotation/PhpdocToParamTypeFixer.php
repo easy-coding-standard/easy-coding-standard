@@ -59,9 +59,8 @@ function bar($foo) {}
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isCandidate($tokens) : bool
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= self::MINIMUM_PHP_VERSION && $tokens->isTokenKindFound(\T_FUNCTION);
     }
@@ -75,20 +74,15 @@ function bar($foo) {}
     {
         return 8;
     }
-    /**
-     * @param string $type
-     */
-    protected function isSkippedType($type) : bool
+    protected function isSkippedType(string $type) : bool
     {
         return isset(self::SKIPPED_TYPES[$type]);
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return void
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
