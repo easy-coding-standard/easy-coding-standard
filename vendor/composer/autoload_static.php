@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc7d7e373c13f7234b279c3544bf3cada
+class ComposerStaticInit9d38db1370f2a9e0088d819ed82f171f
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1833,7 +1833,6 @@ class ComposerStaticInitc7d7e373c13f7234b279c3544bf3cada
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symplify\\CodingStandard\\Bundle\\SymplifyCodingStandardBundle' => __DIR__ . '/..' . '/symplify/coding-standard/src/Bundle/SymplifyCodingStandardBundle.php',
         'Symplify\\CodingStandard\\DependencyInjection\\Extension\\SymplifyCodingStandardExtension' => __DIR__ . '/..' . '/symplify/coding-standard/src/DependencyInjection/Extension/SymplifyCodingStandardExtension.php',
-        'Symplify\\CodingStandard\\DocBlock\\Decommenter' => __DIR__ . '/..' . '/symplify/coding-standard/src/DocBlock/Decommenter.php',
         'Symplify\\CodingStandard\\DocBlock\\UselessDocBlockCleaner' => __DIR__ . '/..' . '/symplify/coding-standard/src/DocBlock/UselessDocBlockCleaner.php',
         'Symplify\\CodingStandard\\Exception\\EdgeFindingException' => __DIR__ . '/..' . '/symplify/coding-standard/src/Exception/EdgeFindingException.php',
         'Symplify\\CodingStandard\\Exception\\NotImplementedYetException' => __DIR__ . '/..' . '/symplify/coding-standard/src/Exception/NotImplementedYetException.php',
@@ -1844,7 +1843,6 @@ class ComposerStaticInitc7d7e373c13f7234b279c3544bf3cada
         'Symplify\\CodingStandard\\Fixer\\ArrayNotation\\ArrayOpenerAndCloserNewlineFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/ArrayNotation/ArrayOpenerAndCloserNewlineFixer.php',
         'Symplify\\CodingStandard\\Fixer\\ArrayNotation\\StandaloneLineInMultilineArrayFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/ArrayNotation/StandaloneLineInMultilineArrayFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Commenting\\ParamReturnAndVarTagMalformsFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Commenting/ParamReturnAndVarTagMalformsFixer.php',
-        'Symplify\\CodingStandard\\Fixer\\Commenting\\RemoveCommentedCodeFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Commenting/RemoveCommentedCodeFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Commenting\\RemoveUselessDefaultCommentFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Commenting/RemoveUselessDefaultCommentFixer.php',
         'Symplify\\CodingStandard\\Fixer\\LineLength\\DocBlockLineLengthFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/LineLength/DocBlockLineLengthFixer.php',
         'Symplify\\CodingStandard\\Fixer\\LineLength\\LineLengthFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/LineLength/LineLengthFixer.php',
@@ -1854,7 +1852,6 @@ class ComposerStaticInitc7d7e373c13f7234b279c3544bf3cada
         'Symplify\\CodingStandard\\Fixer\\Spacing\\SpaceAfterCommaHereNowDocFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Spacing/SpaceAfterCommaHereNowDocFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLinePromotedPropertyFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Spacing/StandaloneLinePromotedPropertyFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Strict\\BlankLineAfterStrictTypesFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Strict/BlankLineAfterStrictTypesFixer.php',
-        'Symplify\\CodingStandard\\Php\\PhpContentAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Php/PhpContentAnalyzer.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\ChainMethodCallAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/ChainMethodCallAnalyzer.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\DocblockRelatedParamNamesResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/DocblockRelatedParamNamesResolver.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\DoctrineAnnotationElementAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/DoctrineAnnotationElementAnalyzer.php',
@@ -1899,7 +1896,6 @@ class ComposerStaticInitc7d7e373c13f7234b279c3544bf3cada
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\Wrapper\\FixerWrapper\\ArrayWrapper' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/Wrapper/FixerWrapper/ArrayWrapper.php',
         'Symplify\\CodingStandard\\TokenRunner\\Whitespace\\IndentResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Whitespace/IndentResolver.php',
         'Symplify\\CodingStandard\\TokenRunner\\Wrapper\\FixerWrapper\\ArrayWrapperFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Wrapper/FixerWrapper/ArrayWrapperFactory.php',
-        'Symplify\\CodingStandard\\Tokens\\CommentedContentResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/Tokens/CommentedContentResolver.php',
         'Symplify\\CodingStandard\\Tokens\\CommentedLineTrimmer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Tokens/CommentedLineTrimmer.php',
         'Symplify\\CodingStandard\\Tokens\\LineResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/Tokens/LineResolver.php',
         'Symplify\\CodingStandard\\ValueObjectFactory\\DocBlockLinesFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObjectFactory/DocBlockLinesFactory.php',
@@ -2008,9 +2004,9 @@ class ComposerStaticInitc7d7e373c13f7234b279c3544bf3cada
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc7d7e373c13f7234b279c3544bf3cada::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc7d7e373c13f7234b279c3544bf3cada::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc7d7e373c13f7234b279c3544bf3cada::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9d38db1370f2a9e0088d819ed82f171f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9d38db1370f2a9e0088d819ed82f171f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9d38db1370f2a9e0088d819ed82f171f::$classMap;
 
         }, null, ClassLoader::class);
     }
