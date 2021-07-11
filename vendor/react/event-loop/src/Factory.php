@@ -1,17 +1,24 @@
 <?php
 
-namespace ECSPrefix20210710\React\EventLoop;
+namespace ECSPrefix20210711\React\EventLoop;
 
 /**
- * The `Factory` class exists as a convenient way to pick the best available event loop implementation.
+ * [Deprecated] The `Factory` class exists as a convenient way to pick the best available event loop implementation.
+ *
+ * @deprecated 1.2.0 See Loop instead.
+ * @see Loop
  */
 final class Factory
 {
     /**
-     * Creates a new event loop instance
+     * [Deprecated] Creates a new event loop instance
      *
      * ```php
+     * // deprecated
      * $loop = React\EventLoop\Factory::create();
+     *
+     * // new
+     * $loop = React\EventLoop\Loop::get();
      * ```
      *
      * This method always returns an instance implementing `LoopInterface`,
@@ -19,25 +26,42 @@ final class Factory
      *
      * This method should usually only be called once at the beginning of the program.
      *
+     * @deprecated 1.2.0 See Loop::get() instead.
+     * @see Loop::get()
+     *
      * @return LoopInterface
      */
     public static function create()
     {
+        $loop = self::construct();
+        \ECSPrefix20210711\React\EventLoop\Loop::set($loop);
+        return $loop;
+    }
+    /**
+     * @internal
+     * @return LoopInterface
+     */
+    private static function construct()
+    {
         // @codeCoverageIgnoreStart
         if (\function_exists('uv_loop_new')) {
             // only use ext-uv on PHP 7
-            return new \ECSPrefix20210710\React\EventLoop\ExtUvLoop();
-        } elseif (\class_exists('ECSPrefix20210710\\libev\\EventLoop', \false)) {
-            return new \ECSPrefix20210710\React\EventLoop\ExtLibevLoop();
-        } elseif (\class_exists('EvLoop', \false)) {
-            return new \ECSPrefix20210710\React\EventLoop\ExtEvLoop();
-        } elseif (\class_exists('EventBase', \false)) {
-            return new \ECSPrefix20210710\React\EventLoop\ExtEventLoop();
-        } elseif (\function_exists('event_base_new') && \PHP_MAJOR_VERSION === 5) {
-            // only use ext-libevent on PHP 5 for now
-            return new \ECSPrefix20210710\React\EventLoop\ExtLibeventLoop();
+            return new \ECSPrefix20210711\React\EventLoop\ExtUvLoop();
         }
-        return new \ECSPrefix20210710\React\EventLoop\StreamSelectLoop();
+        if (\class_exists('ECSPrefix20210711\\libev\\EventLoop', \false)) {
+            return new \ECSPrefix20210711\React\EventLoop\ExtLibevLoop();
+        }
+        if (\class_exists('EvLoop', \false)) {
+            return new \ECSPrefix20210711\React\EventLoop\ExtEvLoop();
+        }
+        if (\class_exists('EventBase', \false)) {
+            return new \ECSPrefix20210711\React\EventLoop\ExtEventLoop();
+        }
+        if (\function_exists('event_base_new') && \PHP_MAJOR_VERSION === 5) {
+            // only use ext-libevent on PHP 5 for now
+            return new \ECSPrefix20210711\React\EventLoop\ExtLibeventLoop();
+        }
+        return new \ECSPrefix20210711\React\EventLoop\StreamSelectLoop();
         // @codeCoverageIgnoreEnd
     }
 }

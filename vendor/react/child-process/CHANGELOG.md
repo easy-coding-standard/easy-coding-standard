@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.6.3 (2021-07-11)
+
+A major new feature release, see [**release announcement**](https://clue.engineering/2021/announcing-reactphp-default-loop).
+
+*   Feature: Simplify usage by supporting new [default loop](https://reactphp.org/event-loop/#loop).
+    (#87 by @clue)
+
+    ```php
+    // old (still supported)
+    $process = new React\ChildProcess\Process($command);
+    $process->start($loop);
+
+    // new (using default loop)
+    $process = new React\ChildProcess\Process($command);
+    $process->start();
+    ```
+
 ## 0.6.2 (2021-02-05)
 
 *   Feature: Support PHP 8 and add non-blocking I/O support on Windows with PHP 8.

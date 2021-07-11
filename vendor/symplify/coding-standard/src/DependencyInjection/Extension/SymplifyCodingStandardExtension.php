@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\DependencyInjection\Extension;
 
-use ECSPrefix20210710\Symfony\Component\Config\FileLocator;
-use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210710\Symfony\Component\DependencyInjection\Extension\Extension;
-use ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-final class SymplifyCodingStandardExtension extends \ECSPrefix20210710\Symfony\Component\DependencyInjection\Extension\Extension
+use ECSPrefix20210711\Symfony\Component\Config\FileLocator;
+use ECSPrefix20210711\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210711\Symfony\Component\DependencyInjection\Extension\Extension;
+use ECSPrefix20210711\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+final class SymplifyCodingStandardExtension extends \ECSPrefix20210711\Symfony\Component\DependencyInjection\Extension\Extension
 {
     /**
      * @param string[] $configs
@@ -17,7 +17,7 @@ final class SymplifyCodingStandardExtension extends \ECSPrefix20210710\Symfony\C
     public function load($configs, $containerBuilder)
     {
         // needed for parameter shifting of sniff/fixer params
-        $phpFileLoader = new \ECSPrefix20210710\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20210710\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
+        $phpFileLoader = new \ECSPrefix20210711\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20210711\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
         $phpFileLoader->load('config.php');
     }
 }

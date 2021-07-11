@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210710\Symfony\Contracts\EventDispatcher;
+namespace ECSPrefix20210711\Symfony\Contracts\EventDispatcher;
 
-use ECSPrefix20210710\Psr\EventDispatcher\StoppableEventInterface;
+use ECSPrefix20210711\Psr\EventDispatcher\StoppableEventInterface;
 /**
  * Event is the base class for classes containing event data.
  *
@@ -26,7 +26,7 @@ use ECSPrefix20210710\Psr\EventDispatcher\StoppableEventInterface;
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class Event implements \ECSPrefix20210710\Psr\EventDispatcher\StoppableEventInterface
+class Event implements \ECSPrefix20210711\Psr\EventDispatcher\StoppableEventInterface
 {
     private $propagationStopped = \false;
     /**

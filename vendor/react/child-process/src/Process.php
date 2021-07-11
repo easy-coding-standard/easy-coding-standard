@@ -1,15 +1,16 @@
 <?php
 
-namespace ECSPrefix20210710\React\ChildProcess;
+namespace ECSPrefix20210711\React\ChildProcess;
 
-use ECSPrefix20210710\Evenement\EventEmitter;
-use ECSPrefix20210710\React\EventLoop\LoopInterface;
-use ECSPrefix20210710\React\Stream\ReadableResourceStream;
-use ECSPrefix20210710\React\Stream\ReadableStreamInterface;
-use ECSPrefix20210710\React\Stream\WritableResourceStream;
-use ECSPrefix20210710\React\Stream\WritableStreamInterface;
-use ECSPrefix20210710\React\Stream\DuplexResourceStream;
-use ECSPrefix20210710\React\Stream\DuplexStreamInterface;
+use ECSPrefix20210711\Evenement\EventEmitter;
+use ECSPrefix20210711\React\EventLoop\Loop;
+use ECSPrefix20210711\React\EventLoop\LoopInterface;
+use ECSPrefix20210711\React\Stream\ReadableResourceStream;
+use ECSPrefix20210711\React\Stream\ReadableStreamInterface;
+use ECSPrefix20210711\React\Stream\WritableResourceStream;
+use ECSPrefix20210711\React\Stream\WritableStreamInterface;
+use ECSPrefix20210711\React\Stream\DuplexResourceStream;
+use ECSPrefix20210711\React\Stream\DuplexStreamInterface;
 /**
  * Process component.
  *
@@ -26,7 +27,7 @@ use ECSPrefix20210710\React\Stream\DuplexStreamInterface;
  *
  *     ```php
  *     $process = new Process('sleep 10');
- *     $process->start($loop);
+ *     $process->start();
  *
  *     $process->on('exit', function ($code, $term) {
  *         if ($term === null) {
@@ -54,7 +55,7 @@ use ECSPrefix20210710\React\Stream\DuplexStreamInterface;
  *     Accordingly, if either of these pipes is in a paused state (`pause()` method
  *     or internally due to a `pipe()` call), this detection may not trigger.
  */
-class Process extends \ECSPrefix20210710\Evenement\EventEmitter
+class Process extends \ECSPrefix20210711\Evenement\EventEmitter
 {
     /**
      * @var WritableStreamInterface|null|DuplexStreamInterface|ReadableStreamInterface
@@ -140,15 +141,22 @@ class Process extends \ECSPrefix20210710\Evenement\EventEmitter
      * After the process is started, the standard I/O streams will be constructed
      * and available via public properties.
      *
-     * @param LoopInterface $loop        Loop interface for stream construction
-     * @param float         $interval    Interval to periodically monitor process state (seconds)
+     * This method takes an optional `LoopInterface|null $loop` parameter that can be used to
+     * pass the event loop instance to use for this process. You can use a `null` value
+     * here in order to use the [default loop](https://github.com/reactphp/event-loop#loop).
+     * This value SHOULD NOT be given unless you're sure you want to explicitly use a
+     * given event loop instance.
+     *
+     * @param ?LoopInterface $loop        Loop interface for stream construction
+     * @param float          $interval    Interval to periodically monitor process state (seconds)
      * @throws \RuntimeException If the process is already running or fails to start
      */
-    public function start($loop, $interval = 0.1)
+    public function start($loop = null, $interval = 0.1)
     {
         if ($this->isRunning()) {
             throw new \RuntimeException('Process is already running');
         }
+        $loop = $loop ?: \ECSPrefix20210711\React\EventLoop\Loop::get();
         $cmd = $this->cmd;
         $fdSpec = $this->fds;
         $sigchild = null;
@@ -209,11 +217,11 @@ class Process extends \ECSPrefix20210710\Evenement\EventEmitter
             $meta = \stream_get_meta_data($fd);
             $mode = $meta['mode'] === '' ? $this->fds[$n][1] === 'r' ? 'w' : 'r' : $meta['mode'];
             if ($mode === 'r+') {
-                $stream = new \ECSPrefix20210710\React\Stream\DuplexResourceStream($fd, $loop);
+                $stream = new \ECSPrefix20210711\React\Stream\DuplexResourceStream($fd, $loop);
             } elseif ($mode === 'w') {
-                $stream = new \ECSPrefix20210710\React\Stream\WritableResourceStream($fd, $loop);
+                $stream = new \ECSPrefix20210711\React\Stream\WritableResourceStream($fd, $loop);
             } else {
-                $stream = new \ECSPrefix20210710\React\Stream\ReadableResourceStream($fd, $loop);
+                $stream = new \ECSPrefix20210711\React\Stream\ReadableResourceStream($fd, $loop);
                 $stream->on('close', $streamCloseHandler);
                 $closeCount++;
             }

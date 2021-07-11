@@ -12,23 +12,45 @@
         "ReactPHP"
     ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian L\u00fcck",
+            "homepage": "https:\/\/clue.engineering\/",
+            "email": "christian@clue.engineering"
+        },
+        {
+            "name": "Cees-Jan Kiewiet",
+            "homepage": "https:\/\/wyrihaximus.net\/",
+            "email": "reactphp@ceesjankiewiet.nl"
+        },
+        {
+            "name": "Jan Sorgalla",
+            "homepage": "https:\/\/sorgalla.com\/",
+            "email": "jsorgalla@gmail.com"
+        },
+        {
+            "name": "Chris Boden",
+            "homepage": "https:\/\/cboden.dev\/",
+            "email": "cboden@gmail.com"
+        }
+    ],
     "require": {
         "php": ">=5.3.8",
-        "react\/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3.5",
+        "react\/event-loop": "^1.2",
         "evenement\/evenement": "^3.0 || ^2.0 || ^1.0"
     },
     "require-dev": {
-        "phpunit\/phpunit": "^7.0 || ^6.4 || ^5.7 || ^4.8.35",
+        "phpunit\/phpunit": "^9.3 || ^5.7 || ^4.8.35",
         "clue\/stream-filter": "~1.2"
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210710\\React\\Stream\\": "src"
+            "ECSPrefix20210711\\React\\Stream\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210710\\React\\Tests\\Stream\\": "tests"
+            "ECSPrefix20210711\\React\\Tests\\Stream\\": "tests"
         }
     }
 }

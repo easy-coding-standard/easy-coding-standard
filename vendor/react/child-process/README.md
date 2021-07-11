@@ -1,4 +1,4 @@
-# Child Process
+# ChildProcess
 
 [![CI status](https://github.com/reactphp/child-process/workflows/CI/badge.svg)](https://github.com/reactphp/child-process/actions)
 
@@ -29,10 +29,8 @@ as [Streams](https://github.com/reactphp/stream).
 ## Quickstart example
 
 ```php
-$loop = React\EventLoop\Factory::create();
-
 $process = new React\ChildProcess\Process('echo foo');
-$process->start($loop);
+$process->start();
 
 $process->stdout->on('data', function ($chunk) {
     echo $chunk;
@@ -41,8 +39,6 @@ $process->stdout->on('data', function ($chunk) {
 $process->on('exit', function($exitCode, $termSignal) {
     echo 'Process exited with code ' . $exitCode . PHP_EOL;
 });
-
-$loop->run();
 ```
 
 See also the [examples](examples).
@@ -80,7 +76,7 @@ you can use any of their events and methods as usual:
 
 ```php
 $process = new Process($command);
-$process->start($loop);
+$process->start();
 
 $process->stdout->on('data', function ($chunk) {
     echo $chunk;
@@ -113,7 +109,7 @@ The `Process` class allows you to pass any kind of command line string:
 
 ```php
 $process = new Process('echo test');
-$process->start($loop);
+$process->start();
 ```
 
 The command line string usually consists of a whitespace-separated list with
@@ -129,7 +125,7 @@ $bin = 'C:\\Program files (x86)\\PHP\\php.exe';
 $file = 'C:\\Users\\me\\Desktop\\Application\\main.php';
 
 $process = new Process(escapeshellarg($bin) . ' ' . escapeshellarg($file));
-$process->start($loop);
+$process->start();
 ```
 
 By default, PHP will launch processes by wrapping the given command line string
@@ -146,7 +142,7 @@ streams from the wrapping shell command like this:
 
 ```php
 $process = new Process('echo run && demo || echo failed');
-$process->start($loop);
+$process->start();
 ```
 
 > Note that [Windows support](#windows-compatibility) is limited in that it
@@ -168,7 +164,7 @@ boundary between each sub-command like this:
 
 ```php
 $process = new Process('cat first && echo --- && cat second');
-$process->start($loop);
+$process->start();
 ```
 
 As an alternative, considering launching one process at a time and listening on
@@ -177,11 +173,11 @@ This will give you an opportunity to configure the subsequent process I/O stream
 
 ```php
 $first = new Process('cat first');
-$first->start($loop);
+$first->start();
 
-$first->on('exit', function () use ($loop) {
+$first->on('exit', function () {
     $second = new Process('cat second');
-    $second->start($loop);
+    $second->start();
 });
 ```
 
@@ -191,7 +187,7 @@ also applies to running the most simple single command:
 
 ```php
 $process = new Process('yes');
-$process->start($loop);
+$process->start();
 ```
 
 This will actually spawn a command hierarchy similar to this on Unix:
@@ -212,7 +208,7 @@ wrapping shell process to be replaced by our process:
 
 ```php
 $process = new Process('exec yes');
-$process->start($loop);
+$process->start();
 ```
 
 This will show a resulting command hierarchy similar to this:
@@ -244,7 +240,7 @@ arguments:
 
 ```php
 $process = new Process('sleep 10');
-$process->start($loop);
+$process->start();
 
 $process->on('exit', function ($code, $term) {
     if ($term === null) {
@@ -292,9 +288,9 @@ accordingly when terminating a process:
 
 ```php
 $process = new Process('sleep 10');
-$process->start($loop);
+$process->start();
 
-$loop->addTimer(2.0, function () use ($process) {
+Loop::addTimer(2.0, function () use ($process) {
     foreach ($process->pipes as $pipe) {
         $pipe->close();
     }
@@ -308,9 +304,9 @@ inherited process pipes as [mentioned above](#command).
 
 ```php
 $process = new Process('exec sleep 10');
-$process->start($loop);
+$process->start();
 
-$loop->addTimer(2.0, function () use ($process) {
+Loop::addTimer(2.0, function () use ($process) {
     $process->terminate();
 });
 ```
@@ -321,9 +317,9 @@ For example, the following can be used to "soft-close" a `cat` process:
 
 ```php
 $process = new Process('cat');
-$process->start($loop);
+$process->start();
 
-$loop->addTimer(2.0, function () use ($process) {
+Loop::addTimer(2.0, function () use ($process) {
     $process->stdin->end();
 });
 ```
@@ -366,7 +362,7 @@ $fds = array(
 );
 
 $process = new Process($cmd, null, null, $fds);
-$process->start($loop);
+$process->start();
 ```
 
 Unless your use case has special requirements that demand otherwise, you're
@@ -429,7 +425,7 @@ instead throw a `LogicException` on Windows by default:
 ```php
 // throws LogicException on Windows
 $process = new Process('ping example.com');
-$process->start($loop);
+$process->start();
 ```
 
 There are a number of alternatives and workarounds as detailed below if you want
@@ -449,7 +445,7 @@ to run a child process on Windows, each with its own set of pros and cons:
             ['socket']
         ]
     );
-    $process->start($loop);
+    $process->start();
 
     $process->stdout->on('data', function ($chunk) {
         echo $chunk;
@@ -471,7 +467,7 @@ to run a child process on Windows, each with its own set of pros and cons:
 
     ```php
     $process = new Process('ping example.com', null, null, array());
-    $process->start($loop);
+    $process->start();
 
     $process->on('exit', function ($exitcode) {
         echo 'exit with ' . $exitcode . PHP_EOL;
@@ -494,7 +490,7 @@ to run a child process on Windows, each with its own set of pros and cons:
         $stdout = tmpfile(),
         array('file', 'nul', 'w')
     ));
-    $process->start($loop);
+    $process->start();
 
     $process->on('exit', function ($exitcode) use ($stdout) {
         echo 'exit with ' . $exitcode . PHP_EOL;
@@ -520,7 +516,7 @@ to run a child process on Windows, each with its own set of pros and cons:
     omit any actual standard I/O pipes like this:
 
     ```php
-    $server = new React\Socket\Server('127.0.0.1:0', $loop);
+    $server = new React\Socket\Server('127.0.0.1:0');
     $server->on('connection', function (React\Socket\ConnectionInterface $connection) {
         $connection->on('data', function ($chunk) {
             echo $chunk;
@@ -529,7 +525,7 @@ to run a child process on Windows, each with its own set of pros and cons:
 
     $command = 'ping example.com | foobar ' . escapeshellarg($server->getAddress());
     $process = new Process($command, null, null, array());
-    $process->start($loop);
+    $process->start();
 
     $process->on('exit', function ($exitcode) use ($server) {
         $server->close();
@@ -560,7 +556,7 @@ to run a child process on Windows, each with its own set of pros and cons:
     $code = '$s=stream_socket_client($argv[1]);do{fwrite($s,$d=fread(STDIN, 8192));}while(isset($d[0]));';
     $command = 'ping example.com | php -r ' . escapeshellarg($code) . ' ' . escapeshellarg($server->getAddress());
     $process = new Process($command, null, null, array());
-    $process->start($loop);
+    $process->start();
     ```
 
     See also [example #23](examples/23-forward-socket.php).
@@ -580,7 +576,7 @@ particular, this means that shell built-in functions such as `echo hello` or
 
 ```php
 $process = new Process('cmd /c echo hello', null, null, $pipes);
-$process->start($loop);
+$process->start();
 ```
 
 ## Install
@@ -591,7 +587,7 @@ The recommended way to install this library is [through Composer](https://getcom
 This will install the latest supported version:
 
 ```bash
-$ composer require react/child-process:^0.6.2
+$ composer require react/child-process:^0.6.3
 ```
 
 See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.

@@ -3,33 +3,31 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\HttpKernel;
 
-use ECSPrefix20210710\Nette\Utils\FileSystem;
-use ECSPrefix20210710\Symfony\Component\Config\Loader\DelegatingLoader;
-use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210710\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210710\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20210711\Nette\Utils\FileSystem;
+use ECSPrefix20210711\Symfony\Component\Config\Loader\DelegatingLoader;
+use ECSPrefix20210711\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210711\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210711\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
-use ECSPrefix20210710\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
+use ECSPrefix20210711\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\Application\Version\VersionResolver;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
-use ECSPrefix20210710\Symplify\Skipper\Bundle\SkipperBundle;
-use ECSPrefix20210710\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use ECSPrefix20210710\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class EasyCodingStandardKernel extends \ECSPrefix20210710\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use ECSPrefix20210711\Symplify\Skipper\Bundle\SkipperBundle;
+use ECSPrefix20210711\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use ECSPrefix20210711\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class EasyCodingStandardKernel extends \ECSPrefix20210711\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @return mixed[]
      */
     public function registerBundles()
     {
-        return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20210710\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20210710\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20210710\Symplify\Skipper\Bundle\SkipperBundle()];
+        return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20210711\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20210711\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20210711\Symplify\Skipper\Bundle\SkipperBundle()];
     }
     public function getCacheDir() : string
     {
-        $cacheDir = \sys_get_temp_dir() . '/ecs_' . \get_current_user() . '_' . \random_int(0, 100000);
-        \ECSPrefix20210710\Nette\Utils\FileSystem::createDir($cacheDir);
-        return $cacheDir;
+        return \sys_get_temp_dir() . '/ecs_' . \get_current_user();
     }
     public function getLogDir() : string
     {
@@ -38,6 +36,17 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210710\Symplify\Symplif
             $logDirectory .= '_' . \Symplify\EasyCodingStandard\Application\Version\VersionResolver::PACKAGE_VERSION;
         }
         return $logDirectory;
+    }
+    /**
+     * @return void
+     */
+    public function boot()
+    {
+        $cacheDir = $this->getCacheDir();
+        // Rebuild the container on each run
+        \ECSPrefix20210711\Nette\Utils\FileSystem::delete($cacheDir);
+        \ECSPrefix20210711\Nette\Utils\FileSystem::createDir($cacheDir);
+        parent::boot();
     }
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
@@ -52,7 +61,7 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210710\Symplify\Symplif
     /**
      * @param ContainerInterface|ContainerBuilder $container
      */
-    protected function getContainerLoader($container) : \ECSPrefix20210710\Symfony\Component\Config\Loader\DelegatingLoader
+    protected function getContainerLoader($container) : \ECSPrefix20210711\Symfony\Component\Config\Loader\DelegatingLoader
     {
         $delegatingLoaderFactory = new \Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory();
         return $delegatingLoaderFactory->createFromContainerBuilderAndKernel($container, $this);

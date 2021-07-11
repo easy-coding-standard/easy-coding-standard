@@ -1,5 +1,46 @@
 # Changelog
 
+## 1.2.0 (2021-07-11)
+
+A major new feature release, see [**release announcement**](https://clue.engineering/2021/announcing-reactphp-default-loop).
+
+*   Feature: Introduce new concept of default loop with the new `Loop` class.
+    (#226 by @WyriHaximus, #229, #231 and #232 by @clue)
+
+    The `Loop` class exists as a convenient global accessor for the event loop.
+    It provides all methods that exist on the `LoopInterface` as static methods and
+    will automatically execute the loop at the end of the program:
+
+    ```php
+    $timer = Loop::addPeriodicTimer(0.1, function () {
+        echo 'Tick' . PHP_EOL;
+    });
+
+    Loop::addTimer(1.0, function () use ($timer) {
+        Loop::cancelTimer($timer);
+        echo 'Done' . PHP_EOL;
+    });
+    ```
+
+    The explicit loop instructions are still valid and may still be useful in some applications,
+    especially for a transition period towards the more concise style.
+    The `Loop::get()` method can be used to get the currently active event loop instance.
+
+    ```php
+    // deprecated
+    $loop = React\EventLoop\Factory::create();
+
+    // new
+    $loop = React\EventLoop\Loop::get();
+    ```
+
+*   Minor documentation improvements and mark legacy extensions as deprecated.
+    (#234 by @SimonFrings, #214 by @WyriHaximus and #233 and #235 by @nhedger)
+
+*   Improve test suite, use GitHub actions for continuous integration (CI),
+    update PHPUnit config and run tests on PHP 8.
+    (#212 and #215 by @SimonFrings and #230 by @clue)
+
 ## 1.1.1 (2020-01-01)
 
 *   Fix: Fix reporting connection refused errors with `ExtUvLoop` on Linux and `StreamSelectLoop` on Windows.
@@ -7,6 +48,9 @@
 
 *   Fix: Fix unsupported EventConfig and `SEGFAULT` on shutdown with `ExtEventLoop` on Windows.
     (#205 by @clue)
+
+*   Fix: Prevent interval overflow for timers very far in the future with `ExtUvLoop`.
+    (#196 by @PabloKowalczyk)
 
 *   Fix: Check PCNTL functions for signal support instead of PCNTL extension with `StreamSelectLoop`.
     (#195 by @clue)

@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.2.0 (2021-07-11)
+
+A major new feature release, see [**release announcement**](https://clue.engineering/2021/announcing-reactphp-default-loop).
+
+*   Feature: Simplify usage by supporting new [default loop](https://reactphp.org/event-loop/#loop).
+    (#159 by @clue)
+
+    ```php
+    // old (still supported)
+    $stream = new ReadableResourceStream($resource, $loop);
+    $stream = new WritabeResourceStream($resource, $loop);
+    $stream = new DuplexResourceStream($resource, $loop);
+
+    // new (using default loop)
+    $stream = new ReadableResourceStream($resource);
+    $stream = new WritabeResourceStream($resource);
+    $stream = new DuplexResourceStream($resource);
+    ```
+
+*   Improve test suite, use GitHub actions for continuous integration (CI),
+    update PHPUnit config, run tests on PHP 8 and add full core team to the license.
+    (#153, #156 and #157 by @SimonFrings and #154 by @WyriHaximus)
+
 ## 1.1.1 (2020-05-04)
 
 *   Fix: Fix faulty write buffer behavior when sending large data chunks over TLS (Mac OS X only).
