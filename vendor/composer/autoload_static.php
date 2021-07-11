@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit39eaa6e8604155e33ac757396a7057ee
+class ComposerStaticInit468240051c9f19c52f334dd21f8561c4
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1897,7 +1897,6 @@ class ComposerStaticInit39eaa6e8604155e33ac757396a7057ee
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\Wrapper\\FixerWrapper\\ArrayWrapper' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/Wrapper/FixerWrapper/ArrayWrapper.php',
         'Symplify\\CodingStandard\\TokenRunner\\Whitespace\\IndentResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Whitespace/IndentResolver.php',
         'Symplify\\CodingStandard\\TokenRunner\\Wrapper\\FixerWrapper\\ArrayWrapperFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Wrapper/FixerWrapper/ArrayWrapperFactory.php',
-        'Symplify\\CodingStandard\\Tokens\\CommentedLineTrimmer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Tokens/CommentedLineTrimmer.php',
         'Symplify\\CodingStandard\\Tokens\\LineResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/Tokens/LineResolver.php',
         'Symplify\\CodingStandard\\ValueObjectFactory\\DocBlockLinesFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObjectFactory/DocBlockLinesFactory.php',
         'Symplify\\CodingStandard\\ValueObject\\DocBlockLines' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/DocBlockLines.php',
@@ -2005,9 +2004,9 @@ class ComposerStaticInit39eaa6e8604155e33ac757396a7057ee
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit39eaa6e8604155e33ac757396a7057ee::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit39eaa6e8604155e33ac757396a7057ee::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit39eaa6e8604155e33ac757396a7057ee::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit468240051c9f19c52f334dd21f8561c4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit468240051c9f19c52f334dd21f8561c4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit468240051c9f19c52f334dd21f8561c4::$classMap;
 
         }, null, ClassLoader::class);
     }

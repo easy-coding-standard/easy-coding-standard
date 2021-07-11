@@ -1600,7 +1600,6 @@ return array(
     'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\Wrapper\\FixerWrapper\\ArrayWrapper' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/ValueObject/Wrapper/FixerWrapper/ArrayWrapper.php',
     'Symplify\\CodingStandard\\TokenRunner\\Whitespace\\IndentResolver' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/Whitespace/IndentResolver.php',
     'Symplify\\CodingStandard\\TokenRunner\\Wrapper\\FixerWrapper\\ArrayWrapperFactory' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/Wrapper/FixerWrapper/ArrayWrapperFactory.php',
-    'Symplify\\CodingStandard\\Tokens\\CommentedLineTrimmer' => $vendorDir . '/symplify/coding-standard/src/Tokens/CommentedLineTrimmer.php',
     'Symplify\\CodingStandard\\Tokens\\LineResolver' => $vendorDir . '/symplify/coding-standard/src/Tokens/LineResolver.php',
     'Symplify\\CodingStandard\\ValueObjectFactory\\DocBlockLinesFactory' => $vendorDir . '/symplify/coding-standard/src/ValueObjectFactory/DocBlockLinesFactory.php',
     'Symplify\\CodingStandard\\ValueObject\\DocBlockLines' => $vendorDir . '/symplify/coding-standard/src/ValueObject/DocBlockLines.php',
