@@ -5,7 +5,6 @@ namespace Symplify\CodingStandard\TokenRunner;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use PhpToken;
 use ECSPrefix20210711\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class TokenFinder
 {
@@ -19,52 +18,6 @@ final class TokenFinder
             return $this->findPreviousTokenByPosition($tokens, $position);
         }
         return $this->findPreviousTokenByToken($tokens, $position);
-    }
-    /**
-     * @param PhpToken[] $tokens
-     * @return \PhpToken|null
-     */
-    public function getNextMeaninfulToken(array $tokens, int $position)
-    {
-        $tokens = $this->getNextMeaninfulTokens($tokens, $position, 1);
-        return $tokens[0] ?? null;
-    }
-    /**
-     * @param PhpToken[] $tokens
-     * @return PhpToken[]
-     */
-    public function getNextMeaninfulTokens(array $tokens, int $position, int $count) : array
-    {
-        $foundTokens = [];
-        $tokensCount = \count($tokens);
-        for ($i = $position; $i < $tokensCount; ++$i) {
-            $token = $tokens[$i];
-            if ($token->is(\T_WHITESPACE)) {
-                continue;
-            }
-            if (\count($foundTokens) === $count) {
-                break;
-            }
-            $foundTokens[] = $token;
-        }
-        return $foundTokens;
-    }
-    /**
-     * @param PhpToken[] $rawTokens
-     * @return \PhpToken|null
-     */
-    public function getSameRowLastToken(array $rawTokens, int $position)
-    {
-        $lastToken = null;
-        $rawTokensCount = \count($rawTokens);
-        for ($i = $position; $i < $rawTokensCount; ++$i) {
-            $token = $rawTokens[$i];
-            if (\strpos($token->text, \PHP_EOL) !== \false) {
-                break;
-            }
-            $lastToken = $token;
-        }
-        return $lastToken;
     }
     /**
      * @param Tokens<Token> $tokens
