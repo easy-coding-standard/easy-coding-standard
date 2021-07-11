@@ -16,6 +16,9 @@ use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
 use ECSPrefix20210711\Symplify\Skipper\Bundle\SkipperBundle;
 use ECSPrefix20210711\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use ECSPrefix20210711\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+/**
+ * @see \Symplify\EasyCodingStandard\Tests\HttpKernel\EasyCodingStandardKernelTest
+ */
 final class EasyCodingStandardKernel extends \ECSPrefix20210711\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
