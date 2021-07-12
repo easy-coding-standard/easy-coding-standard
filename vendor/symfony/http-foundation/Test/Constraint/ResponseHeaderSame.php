@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210711\Symfony\Component\HttpFoundation\Test\Constraint;
+namespace ECSPrefix20210712\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use ECSPrefix20210711\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210711\Symfony\Component\HttpFoundation\Response;
-final class ResponseHeaderSame extends \ECSPrefix20210711\PHPUnit\Framework\Constraint\Constraint
+use ECSPrefix20210712\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210712\Symfony\Component\HttpFoundation\Response;
+final class ResponseHeaderSame extends \ECSPrefix20210712\PHPUnit\Framework\Constraint\Constraint
 {
     private $headerName;
     private $expectedValue;

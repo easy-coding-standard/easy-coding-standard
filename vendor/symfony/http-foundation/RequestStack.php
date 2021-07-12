@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210711\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210712\Symfony\Component\HttpFoundation;
 
-use ECSPrefix20210711\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
-use ECSPrefix20210711\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use ECSPrefix20210712\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
+use ECSPrefix20210712\Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * Request stack that controls the lifecycle of requests.
  *
@@ -109,11 +109,11 @@ class RequestStack
      *
      * @throws SessionNotFoundException
      */
-    public function getSession() : \ECSPrefix20210711\Symfony\Component\HttpFoundation\Session\SessionInterface
+    public function getSession() : \ECSPrefix20210712\Symfony\Component\HttpFoundation\Session\SessionInterface
     {
         if (null !== ($request = \end($this->requests) ?: null) && $request->hasSession()) {
             return $request->getSession();
         }
-        throw new \ECSPrefix20210711\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException();
+        throw new \ECSPrefix20210712\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException();
     }
 }

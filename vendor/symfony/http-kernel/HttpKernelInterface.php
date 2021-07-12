@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210711\Symfony\Component\HttpKernel;
+namespace ECSPrefix20210712\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210711\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210711\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210712\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210712\Symfony\Component\HttpFoundation\Response;
 /**
  * HttpKernelInterface handles a Request to convert it to a Response.
  *

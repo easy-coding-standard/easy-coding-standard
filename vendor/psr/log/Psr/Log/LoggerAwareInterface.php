@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210711\Psr\Log;
+namespace ECSPrefix20210712\Psr\Log;
 
 /**
  * Describes a logger-aware instance.

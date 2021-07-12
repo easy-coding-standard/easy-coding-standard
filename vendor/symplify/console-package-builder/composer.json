@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210711\\Symplify\\ConsolePackageBuilder\\": "src"
+            "ECSPrefix20210712\\Symplify\\ConsolePackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210711\\Symplify\\ConsolePackageBuilder\\Tests\\": "tests"
+            "ECSPrefix20210712\\Symplify\\ConsolePackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {
