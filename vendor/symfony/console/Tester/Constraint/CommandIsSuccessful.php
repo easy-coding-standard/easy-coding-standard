@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210712\Symfony\Component\Console\Tester\Constraint;
+namespace ECSPrefix20210713\Symfony\Component\Console\Tester\Constraint;
 
-use ECSPrefix20210712\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210712\Symfony\Component\Console\Command\Command;
-final class CommandIsSuccessful extends \ECSPrefix20210712\PHPUnit\Framework\Constraint\Constraint
+use ECSPrefix20210713\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210713\Symfony\Component\Console\Command\Command;
+final class CommandIsSuccessful extends \ECSPrefix20210713\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * {@inheritdoc}
@@ -26,7 +26,7 @@ final class CommandIsSuccessful extends \ECSPrefix20210712\PHPUnit\Framework\Con
      */
     protected function matches($other) : bool
     {
-        return \ECSPrefix20210712\Symfony\Component\Console\Command\Command::SUCCESS === $other;
+        return \ECSPrefix20210713\Symfony\Component\Console\Command\Command::SUCCESS === $other;
     }
     /**
      * {@inheritdoc}

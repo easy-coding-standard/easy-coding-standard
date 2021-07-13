@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210712\Symfony\Component\Console\Output;
+namespace ECSPrefix20210713\Symfony\Component\Console\Output;
 
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class BufferedOutput extends \ECSPrefix20210712\Symfony\Component\Console\Output\Output
+class BufferedOutput extends \ECSPrefix20210713\Symfony\Component\Console\Output\Output
 {
     private $buffer = '';
     /**

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210712\Symfony\Component\Config\Builder;
+namespace ECSPrefix20210713\Symfony\Component\Config\Builder;
 
-use ECSPrefix20210712\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix20210713\Symfony\Component\Config\Definition\ConfigurationInterface;
 /**
  * Generates ConfigBuilders to help create valid config.
  *

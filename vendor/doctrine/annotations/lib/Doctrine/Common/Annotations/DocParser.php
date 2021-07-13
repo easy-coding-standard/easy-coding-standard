@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20210712\Doctrine\Common\Annotations;
+namespace ECSPrefix20210713\Doctrine\Common\Annotations;
 
-use ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attribute;
-use ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attributes;
-use ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Enum;
-use ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
-use ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target;
+use ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attribute;
+use ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attributes;
+use ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Enum;
+use ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
+use ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionProperty;
@@ -53,7 +53,7 @@ final class DocParser
      *
      * @phpstan-var list<int>
      */
-    private static $classIdentifiers = [\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER, \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_TRUE, \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_FALSE, \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_NULL];
+    private static $classIdentifiers = [\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER, \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_TRUE, \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_FALSE, \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_NULL];
     /**
      * The lexer.
      *
@@ -126,7 +126,7 @@ final class DocParser
      *
      * @var array<class-string, mixed[]>
      */
-    private static $annotationMetadata = [\ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::class => ['is_annotation' => \true, 'has_constructor' => \true, 'has_named_argument_constructor' => \false, 'properties' => [], 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => 'value', 'attribute_types' => ['value' => ['required' => \false, 'type' => 'array', 'array_type' => 'string', 'value' => 'array<string>']]], \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attribute::class => ['is_annotation' => \true, 'has_constructor' => \false, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_ANNOTATION', 'targets' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::TARGET_ANNOTATION, 'default_property' => 'name', 'properties' => ['name' => 'name', 'type' => 'type', 'required' => 'required'], 'attribute_types' => ['value' => ['required' => \true, 'type' => 'string', 'value' => 'string'], 'type' => ['required' => \true, 'type' => 'string', 'value' => 'string'], 'required' => ['required' => \false, 'type' => 'boolean', 'value' => 'boolean']]], \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attributes::class => ['is_annotation' => \true, 'has_constructor' => \false, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => 'value', 'properties' => ['value' => 'value'], 'attribute_types' => ['value' => ['type' => 'array', 'required' => \true, 'array_type' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attribute::class, 'value' => 'array<' . \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attribute::class . '>']]], \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Enum::class => ['is_annotation' => \true, 'has_constructor' => \true, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_PROPERTY', 'targets' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY, 'default_property' => 'value', 'properties' => ['value' => 'value'], 'attribute_types' => ['value' => ['type' => 'array', 'required' => \true], 'literal' => ['type' => 'array', 'required' => \false]]], \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor::class => ['is_annotation' => \true, 'has_constructor' => \false, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => null, 'properties' => [], 'attribute_types' => []]];
+    private static $annotationMetadata = [\ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::class => ['is_annotation' => \true, 'has_constructor' => \true, 'has_named_argument_constructor' => \false, 'properties' => [], 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => 'value', 'attribute_types' => ['value' => ['required' => \false, 'type' => 'array', 'array_type' => 'string', 'value' => 'array<string>']]], \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attribute::class => ['is_annotation' => \true, 'has_constructor' => \false, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_ANNOTATION', 'targets' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::TARGET_ANNOTATION, 'default_property' => 'name', 'properties' => ['name' => 'name', 'type' => 'type', 'required' => 'required'], 'attribute_types' => ['value' => ['required' => \true, 'type' => 'string', 'value' => 'string'], 'type' => ['required' => \true, 'type' => 'string', 'value' => 'string'], 'required' => ['required' => \false, 'type' => 'boolean', 'value' => 'boolean']]], \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attributes::class => ['is_annotation' => \true, 'has_constructor' => \false, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => 'value', 'properties' => ['value' => 'value'], 'attribute_types' => ['value' => ['type' => 'array', 'required' => \true, 'array_type' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attribute::class, 'value' => 'array<' . \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attribute::class . '>']]], \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Enum::class => ['is_annotation' => \true, 'has_constructor' => \true, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_PROPERTY', 'targets' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY, 'default_property' => 'value', 'properties' => ['value' => 'value'], 'attribute_types' => ['value' => ['type' => 'array', 'required' => \true], 'literal' => ['type' => 'array', 'required' => \false]]], \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor::class => ['is_annotation' => \true, 'has_constructor' => \false, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => null, 'properties' => [], 'attribute_types' => []]];
     /**
      * Hash-map for handle types declaration.
      *
@@ -144,7 +144,7 @@ final class DocParser
      */
     public function __construct()
     {
-        $this->lexer = new \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer();
+        $this->lexer = new \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer();
     }
     /**
      * Sets the annotation names that are ignored during the parsing process.
@@ -307,7 +307,7 @@ final class DocParser
      * @param string       $expected Expected string.
      * @param mixed[]|null $token    Optional token.
      */
-    private function syntaxError(string $expected, $token = null) : \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException
+    private function syntaxError(string $expected, $token = null) : \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException
     {
         if ($token === null) {
             $token = $this->lexer->lookahead;
@@ -318,7 +318,7 @@ final class DocParser
             $message .= ' in ' . $this->context;
         }
         $message .= '.';
-        return \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::syntaxError($message);
+        return \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::syntaxError($message);
     }
     /**
      * Attempts to check if a class exists or not. This never goes through the PHP autoloading mechanism
@@ -336,7 +336,7 @@ final class DocParser
             return $this->classExists[$fqcn] = \true;
         }
         // final check, does this class exist?
-        return $this->classExists[$fqcn] = \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationRegistry::loadAnnotationClass($fqcn);
+        return $this->classExists[$fqcn] = \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationRegistry::loadAnnotationClass($fqcn);
     }
     /**
      * Collects parsing metadata for a given annotation class
@@ -353,37 +353,37 @@ final class DocParser
             self::$metadataParser = new self();
             self::$metadataParser->setIgnoreNotImportedAnnotations(\true);
             self::$metadataParser->setIgnoredAnnotationNames($this->ignoredAnnotationNames);
-            self::$metadataParser->setImports(['enum' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Enum::class, 'target' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::class, 'attribute' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attribute::class, 'attributes' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attributes::class, 'namedargumentconstructor' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor::class]);
+            self::$metadataParser->setImports(['enum' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Enum::class, 'target' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::class, 'attribute' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attribute::class, 'attributes' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attributes::class, 'namedargumentconstructor' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor::class]);
             // Make sure that annotations from metadata are loaded
-            \class_exists(\ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Enum::class);
-            \class_exists(\ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::class);
-            \class_exists(\ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attribute::class);
-            \class_exists(\ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attributes::class);
-            \class_exists(\ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor::class);
+            \class_exists(\ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Enum::class);
+            \class_exists(\ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::class);
+            \class_exists(\ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attribute::class);
+            \class_exists(\ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attributes::class);
+            \class_exists(\ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor::class);
         }
         $class = new \ReflectionClass($name);
         $docComment = $class->getDocComment();
         // Sets default values for annotation metadata
         $constructor = $class->getConstructor();
-        $metadata = ['default_property' => null, 'has_constructor' => $constructor !== null && $constructor->getNumberOfParameters() > 0, 'constructor_args' => [], 'properties' => [], 'property_types' => [], 'attribute_types' => [], 'targets_literal' => null, 'targets' => \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::TARGET_ALL, 'is_annotation' => \strpos($docComment, '@Annotation') !== \false];
-        $metadata['has_named_argument_constructor'] = $metadata['has_constructor'] && $class->implementsInterface(\ECSPrefix20210712\Doctrine\Common\Annotations\NamedArgumentConstructorAnnotation::class);
+        $metadata = ['default_property' => null, 'has_constructor' => $constructor !== null && $constructor->getNumberOfParameters() > 0, 'constructor_args' => [], 'properties' => [], 'property_types' => [], 'attribute_types' => [], 'targets_literal' => null, 'targets' => \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::TARGET_ALL, 'is_annotation' => \strpos($docComment, '@Annotation') !== \false];
+        $metadata['has_named_argument_constructor'] = $metadata['has_constructor'] && $class->implementsInterface(\ECSPrefix20210713\Doctrine\Common\Annotations\NamedArgumentConstructorAnnotation::class);
         // verify that the class is really meant to be an annotation
         if ($metadata['is_annotation']) {
-            self::$metadataParser->setTarget(\ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
+            self::$metadataParser->setTarget(\ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
             foreach (self::$metadataParser->parse($docComment, 'class @' . $name) as $annotation) {
-                if ($annotation instanceof \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target) {
+                if ($annotation instanceof \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target) {
                     $metadata['targets'] = $annotation->targets;
                     $metadata['targets_literal'] = $annotation->literal;
                     continue;
                 }
-                if ($annotation instanceof \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor) {
+                if ($annotation instanceof \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor) {
                     $metadata['has_named_argument_constructor'] = $metadata['has_constructor'];
                     if ($metadata['has_named_argument_constructor']) {
                         // choose the first argument as the default property
                         $metadata['default_property'] = $constructor->getParameters()[0]->getName();
                     }
                 }
-                if (!$annotation instanceof \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attributes) {
+                if (!$annotation instanceof \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attributes) {
                     continue;
                 }
                 foreach ($annotation->value as $attribute) {
@@ -399,7 +399,7 @@ final class DocParser
                     if ($propertyComment === \false) {
                         continue;
                     }
-                    $attribute = new \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attribute();
+                    $attribute = new \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attribute();
                     $attribute->required = \strpos($propertyComment, '@Required') !== \false;
                     $attribute->name = $property->name;
                     $attribute->type = \strpos($propertyComment, '@var') !== \false && \preg_match('/@var\\s+([^\\s]+)/', $propertyComment, $matches) ? $matches[1] : 'mixed';
@@ -409,9 +409,9 @@ final class DocParser
                         continue;
                     }
                     $context = 'property ' . $class->name . '::$' . $property->name;
-                    self::$metadataParser->setTarget(\ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY);
+                    self::$metadataParser->setTarget(\ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY);
                     foreach (self::$metadataParser->parse($propertyComment, $context) as $annotation) {
-                        if (!$annotation instanceof \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Enum) {
+                        if (!$annotation instanceof \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Enum) {
                             continue;
                         }
                         $metadata['enum'][$property->name]['value'] = $annotation->value;
@@ -434,7 +434,7 @@ final class DocParser
      * @param mixed[] $metadata
      * @return void
      */
-    private function collectAttributeTypeMetadata(array &$metadata, \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Attribute $attribute)
+    private function collectAttributeTypeMetadata(array &$metadata, \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Attribute $attribute)
     {
         // handle internal type declaration
         $type = self::$typeMap[$attribute->type] ?? $attribute->type;
@@ -480,7 +480,7 @@ final class DocParser
     {
         $annotations = [];
         while ($this->lexer->lookahead !== null) {
-            if ($this->lexer->lookahead['type'] !== \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_AT) {
+            if ($this->lexer->lookahead['type'] !== \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_AT) {
                 $this->lexer->moveNext();
                 continue;
             }
@@ -492,7 +492,7 @@ final class DocParser
             // make sure the @ is followed by either a namespace separator, or
             // an identifier token
             $peek = $this->lexer->glimpse();
-            if ($peek === null || $peek['type'] !== \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_NAMESPACE_SEPARATOR && !\in_array($peek['type'], self::$classIdentifiers, \true) || $peek['position'] !== $this->lexer->lookahead['position'] + 1) {
+            if ($peek === null || $peek['type'] !== \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_NAMESPACE_SEPARATOR && !\in_array($peek['type'], self::$classIdentifiers, \true) || $peek['position'] !== $this->lexer->lookahead['position'] + 1) {
                 $this->lexer->moveNext();
                 continue;
             }
@@ -519,10 +519,10 @@ final class DocParser
      */
     private function Annotation()
     {
-        $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_AT);
+        $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_AT);
         // check if we have an annotation
         $name = $this->Identifier();
-        if ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_MINUS) && $this->lexer->nextTokenIsAdjacent()) {
+        if ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_MINUS) && $this->lexer->nextTokenIsAdjacent()) {
             // Annotations with dashes, such as "@foo-" or "@foo-bar", are to be discarded
             return \false;
         }
@@ -556,7 +556,7 @@ final class DocParser
                 if ($this->isIgnoredAnnotation($name)) {
                     return \false;
                 }
-                throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'EXCEPTION'
+                throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'EXCEPTION'
 The annotation "@%s" in %s was never imported. Did you maybe forget to add a "use" statement for this annotation?
 EXCEPTION
 , $name, $this->context));
@@ -564,7 +564,7 @@ EXCEPTION
         }
         $name = \ltrim($name, '\\');
         if (!$this->classExists($name)) {
-            throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf('The annotation "@%s" in %s does not exist, or could not be auto-loaded.', $name, $this->context));
+            throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf('The annotation "@%s" in %s does not exist, or could not be auto-loaded.', $name, $this->context));
         }
         // at this point, $name contains the fully qualified class name of the
         // annotation, and it is also guaranteed that this class exists, and
@@ -578,7 +578,7 @@ EXCEPTION
             if ($this->isIgnoredAnnotation($originalName) || $this->isIgnoredAnnotation($name)) {
                 return \false;
             }
-            throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'EXCEPTION'
+            throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'EXCEPTION'
 The class "%s" is not annotated with @Annotation.
 Are you sure this class can be used as annotation?
 If so, then you need to add @Annotation to the _class_ doc comment of "%s".
@@ -587,12 +587,12 @@ EXCEPTION
 , $name, $name, $originalName, $this->context));
         }
         //if target is nested annotation
-        $target = $this->isNestedAnnotation ? \ECSPrefix20210712\Doctrine\Common\Annotations\Annotation\Target::TARGET_ANNOTATION : $this->target;
+        $target = $this->isNestedAnnotation ? \ECSPrefix20210713\Doctrine\Common\Annotations\Annotation\Target::TARGET_ANNOTATION : $this->target;
         // Next will be nested
         $this->isNestedAnnotation = \true;
         //if annotation does not support current target
         if ((self::$annotationMetadata[$name]['targets'] & $target) === 0 && $target) {
-            throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'EXCEPTION'
+            throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'EXCEPTION'
 Annotation @%s is not allowed to be declared on %s. You may only use this annotation on these code elements: %s.
 EXCEPTION
 , $originalName, $this->context, self::$annotationMetadata[$name]['targets_literal']));
@@ -604,7 +604,7 @@ EXCEPTION
             foreach (self::$annotationMetadata[$name]['enum'] as $property => $enum) {
                 // checks if the attribute is a valid enumerator
                 if (isset($values[$property]) && !\in_array($values[$property], $enum['value'])) {
-                    throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::enumeratorError($property, $name, $this->context, $enum['literal'], $values[$property]);
+                    throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::enumeratorError($property, $name, $this->context, $enum['literal'], $values[$property]);
                 }
             }
         }
@@ -616,7 +616,7 @@ EXCEPTION
             // handle a not given attribute or null value
             if (!isset($values[$property])) {
                 if ($type['required']) {
-                    throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::requiredError($property, $originalName, $this->context, 'a(n) ' . $type['value']);
+                    throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::requiredError($property, $originalName, $this->context, 'a(n) ' . $type['value']);
                 }
                 continue;
             }
@@ -629,12 +629,12 @@ EXCEPTION
                 if (isset($type['array_type'])) {
                     foreach ($values[$property] as $item) {
                         if (\gettype($item) !== $type['array_type'] && !$item instanceof $type['array_type']) {
-                            throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::attributeTypeError($property, $originalName, $this->context, 'either a(n) ' . $type['array_type'] . ', or an array of ' . $type['array_type'] . 's', $item);
+                            throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::attributeTypeError($property, $originalName, $this->context, 'either a(n) ' . $type['array_type'] . ', or an array of ' . $type['array_type'] . 's', $item);
                         }
                     }
                 }
             } elseif (\gettype($values[$property]) !== $type['type'] && !$values[$property] instanceof $type['type']) {
-                throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::attributeTypeError($property, $originalName, $this->context, 'a(n) ' . $type['value'], $values[$property]);
+                throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::attributeTypeError($property, $originalName, $this->context, 'a(n) ' . $type['value'], $values[$property]);
             }
         }
         if (self::$annotationMetadata[$name]['has_named_argument_constructor']) {
@@ -647,7 +647,7 @@ EXCEPTION
             }
             foreach ($values as $property => $value) {
                 if (!isset(self::$annotationMetadata[$name]['constructor_args'][$property])) {
-                    throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf(<<<'EXCEPTION'
+                    throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf(<<<'EXCEPTION'
 The annotation @%s declared on %s does not have a property named "%s"
 that can be set through its named arguments constructor.
 Available named arguments: %s
@@ -667,7 +667,7 @@ EXCEPTION
         foreach ($values as $property => $value) {
             if (!isset(self::$annotationMetadata[$name]['properties'][$property])) {
                 if ($property !== 'value') {
-                    throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf(<<<'EXCEPTION'
+                    throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf(<<<'EXCEPTION'
 The annotation @%s declared on %s does not have a property named "%s".
 Available properties: %s
 EXCEPTION
@@ -676,7 +676,7 @@ EXCEPTION
                 // handle the case if the property has no annotations
                 $property = self::$annotationMetadata[$name]['default_property'];
                 if (!$property) {
-                    throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf('The annotation @%s declared on %s does not accept any values, but got %s.', $originalName, $this->context, \json_encode($values)));
+                    throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf('The annotation @%s declared on %s does not accept any values, but got %s.', $originalName, $this->context, \json_encode($values)));
                 }
             }
             $instance->{$property} = $value;
@@ -694,14 +694,14 @@ EXCEPTION
     private function MethodCall() : array
     {
         $values = [];
-        if (!$this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+        if (!$this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
             return $values;
         }
-        $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS);
-        if (!$this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS)) {
+        $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS);
+        if (!$this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS)) {
             $values = $this->Values();
         }
-        $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS);
+        $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS);
         return $values;
     }
     /**
@@ -715,9 +715,9 @@ EXCEPTION
     private function Values() : array
     {
         $values = [$this->Value()];
-        while ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_COMMA)) {
-            $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_COMMA);
-            if ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS)) {
+        while ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_COMMA)) {
+            $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_COMMA);
+            if ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS)) {
                 break;
             }
             $token = $this->lexer->lookahead;
@@ -789,7 +789,7 @@ EXCEPTION
             return \substr($identifier, 1, $this->getClassConstantPositionInIdentifier($identifier) - 1);
         }
         if (!\defined($identifier)) {
-            throw \ECSPrefix20210712\Doctrine\Common\Annotations\AnnotationException::semanticalErrorConstants($identifier, $this->context);
+            throw \ECSPrefix20210713\Doctrine\Common\Annotations\AnnotationException::semanticalErrorConstants($identifier, $this->context);
         }
         return \constant($identifier);
     }
@@ -821,8 +821,8 @@ EXCEPTION
         }
         $this->lexer->moveNext();
         $className = $this->lexer->token['value'];
-        while ($this->lexer->lookahead !== null && $this->lexer->lookahead['position'] === $this->lexer->token['position'] + \strlen($this->lexer->token['value']) && $this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_NAMESPACE_SEPARATOR)) {
-            $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_NAMESPACE_SEPARATOR);
+        while ($this->lexer->lookahead !== null && $this->lexer->lookahead['position'] === $this->lexer->token['position'] + \strlen($this->lexer->token['value']) && $this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_NAMESPACE_SEPARATOR)) {
+            $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_NAMESPACE_SEPARATOR);
             $this->matchAny(self::$classIdentifiers);
             $className .= '\\' . $this->lexer->token['value'];
         }
@@ -839,7 +839,7 @@ EXCEPTION
     private function Value()
     {
         $peek = $this->lexer->glimpse();
-        if ($peek['type'] === \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_EQUALS) {
+        if ($peek['type'] === \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_EQUALS) {
             return $this->FieldAssignment();
         }
         return $this->PlainValue();
@@ -854,33 +854,33 @@ EXCEPTION
      */
     private function PlainValue()
     {
-        if ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES)) {
+        if ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES)) {
             return $this->Arrayx();
         }
-        if ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+        if ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_AT)) {
             return $this->Annotation();
         }
-        if ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER)) {
+        if ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER)) {
             return $this->Constant();
         }
         switch ($this->lexer->lookahead['type']) {
-            case \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_STRING:
-                $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_STRING);
+            case \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_STRING:
+                $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_STRING);
                 return $this->lexer->token['value'];
-            case \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_INTEGER:
-                $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_INTEGER);
+            case \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_INTEGER:
+                $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_INTEGER);
                 return (int) $this->lexer->token['value'];
-            case \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_FLOAT:
-                $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_FLOAT);
+            case \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_FLOAT:
+                $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_FLOAT);
                 return (float) $this->lexer->token['value'];
-            case \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_TRUE:
-                $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_TRUE);
+            case \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_TRUE:
+                $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_TRUE);
                 return \true;
-            case \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_FALSE:
-                $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_FALSE);
+            case \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_FALSE:
+                $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_FALSE);
                 return \false;
-            case \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_NULL:
-                $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_NULL);
+            case \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_NULL:
+                $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_NULL);
                 return null;
             default:
                 throw $this->syntaxError('PlainValue');
@@ -895,9 +895,9 @@ EXCEPTION
      */
     private function FieldAssignment() : \stdClass
     {
-        $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER);
+        $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER);
         $fieldName = $this->lexer->token['value'];
-        $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_EQUALS);
+        $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_EQUALS);
         $item = new \stdClass();
         $item->name = $fieldName;
         $item->value = $this->PlainValue();
@@ -914,22 +914,22 @@ EXCEPTION
     private function Arrayx() : array
     {
         $array = $values = [];
-        $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES);
+        $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES);
         // If the array is empty, stop parsing and return.
-        if ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES)) {
-            $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES);
+        if ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES)) {
+            $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES);
             return $array;
         }
         $values[] = $this->ArrayEntry();
-        while ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_COMMA)) {
-            $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_COMMA);
+        while ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_COMMA)) {
+            $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_COMMA);
             // optional trailing comma
-            if ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES)) {
+            if ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES)) {
                 break;
             }
             $values[] = $this->ArrayEntry();
         }
-        $this->match(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES);
+        $this->match(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES);
         foreach ($values as $value) {
             list($key, $val) = $value;
             if ($key !== null) {
@@ -953,14 +953,14 @@ EXCEPTION
     private function ArrayEntry() : array
     {
         $peek = $this->lexer->glimpse();
-        if ($peek['type'] === \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_EQUALS || $peek['type'] === \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_COLON) {
-            if ($this->lexer->isNextToken(\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER)) {
+        if ($peek['type'] === \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_EQUALS || $peek['type'] === \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_COLON) {
+            if ($this->lexer->isNextToken(\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER)) {
                 $key = $this->Constant();
             } else {
-                $this->matchAny([\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_INTEGER, \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_STRING]);
+                $this->matchAny([\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_INTEGER, \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_STRING]);
                 $key = $this->lexer->token['value'];
             }
-            $this->matchAny([\ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_EQUALS, \ECSPrefix20210712\Doctrine\Common\Annotations\DocLexer::T_COLON]);
+            $this->matchAny([\ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_EQUALS, \ECSPrefix20210713\Doctrine\Common\Annotations\DocLexer::T_COLON]);
             return [$key, $this->PlainValue()];
         }
         return [null, $this->Value()];
