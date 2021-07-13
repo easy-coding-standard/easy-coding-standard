@@ -37,7 +37,7 @@ final class DoctrineBlockFinder
     {
         /** @var Token $token */
         $token = $tokens[$position];
-        $blockType = $this->getBlockTypeByToken($token);
+        $blockType = $this->blockFinder->getBlockTypeByContent($token->getContent());
         if (\in_array($token->getContent(), self::START_EDGES, \true)) {
             $blockStart = $position;
             $blockEnd = $this->findOppositeBlockEdge($tokens, $blockType, $blockStart);
@@ -46,10 +46,6 @@ final class DoctrineBlockFinder
             $blockStart = $this->findOppositeBlockEdge($tokens, $blockType, $blockEnd, \false);
         }
         return new \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo($blockStart, $blockEnd);
-    }
-    private function getBlockTypeByToken(\PhpCsFixer\Doctrine\Annotation\Token $token) : int
-    {
-        return $this->blockFinder->getBlockTypeByContent($token->getContent());
     }
     /**
      * @param Tokens<Token> $tokens
