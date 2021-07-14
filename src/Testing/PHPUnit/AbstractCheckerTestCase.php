@@ -10,11 +10,11 @@ use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20210713\Symplify\EasyTesting\StaticFixtureSplitter;
-use ECSPrefix20210713\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use ECSPrefix20210713\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix20210713\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractCheckerTestCase extends \ECSPrefix20210713\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface
+use ECSPrefix20210714\Symplify\EasyTesting\StaticFixtureSplitter;
+use ECSPrefix20210714\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use ECSPrefix20210714\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix20210714\Symplify\SmartFileSystem\SmartFileInfo;
+abstract class AbstractCheckerTestCase extends \ECSPrefix20210714\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface
 {
     /**
      * @var string[]
@@ -46,7 +46,7 @@ abstract class AbstractCheckerTestCase extends \ECSPrefix20210713\Symplify\Packa
      */
     protected function doTestFileInfo($fileInfo)
     {
-        $staticFixtureSplitter = new \ECSPrefix20210713\Symplify\EasyTesting\StaticFixtureSplitter();
+        $staticFixtureSplitter = new \ECSPrefix20210714\Symplify\EasyTesting\StaticFixtureSplitter();
         $inputFileInfoAndExpectedFileInfo = $staticFixtureSplitter->splitFileInfoToLocalInputAndExpectedFileInfos($fileInfo);
         $this->doTestWrongToFixedFile($inputFileInfoAndExpectedFileInfo->getInputFileInfo(), $inputFileInfoAndExpectedFileInfo->getExpectedFileInfoRealPath(), $fileInfo);
     }
@@ -87,7 +87,7 @@ abstract class AbstractCheckerTestCase extends \ECSPrefix20210713\Symplify\Packa
     /**
      * @return void
      */
-    private function doTestWrongToFixedFile(\ECSPrefix20210713\Symplify\SmartFileSystem\SmartFileInfo $wrongFileInfo, string $fixedFile, \ECSPrefix20210713\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
+    private function doTestWrongToFixedFile(\ECSPrefix20210714\Symplify\SmartFileSystem\SmartFileInfo $wrongFileInfo, string $fixedFile, \ECSPrefix20210714\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
     {
         $this->ensureSomeCheckersAreRegistered();
         if ($this->fixerFileProcessor->getCheckers() !== []) {
@@ -127,7 +127,7 @@ abstract class AbstractCheckerTestCase extends \ECSPrefix20210713\Symplify\Packa
     /**
      * @return void
      */
-    private function assertStringEqualsWithFileLocation(string $file, string $processedFileContent, \ECSPrefix20210713\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
+    private function assertStringEqualsWithFileLocation(string $file, string $processedFileContent, \ECSPrefix20210714\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
     {
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
         $this->assertStringEqualsFile($file, $processedFileContent, $relativeFilePathFromCwd);
@@ -138,7 +138,7 @@ abstract class AbstractCheckerTestCase extends \ECSPrefix20210713\Symplify\Packa
     private function getValidatedConfigs() : array
     {
         $config = $this->provideConfig();
-        $fileSystemGuard = new \ECSPrefix20210713\Symplify\SmartFileSystem\FileSystemGuard();
+        $fileSystemGuard = new \ECSPrefix20210714\Symplify\SmartFileSystem\FileSystemGuard();
         $fileSystemGuard->ensureFileExists($config, static::class);
         return [$config];
     }

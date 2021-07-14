@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20210713\React\Stream;
+namespace ECSPrefix20210714\React\Stream;
 
-use ECSPrefix20210713\Evenement\EventEmitter;
-use ECSPrefix20210713\React\EventLoop\Loop;
-use ECSPrefix20210713\React\EventLoop\LoopInterface;
-final class WritableResourceStream extends \ECSPrefix20210713\Evenement\EventEmitter implements \ECSPrefix20210713\React\Stream\WritableStreamInterface
+use ECSPrefix20210714\Evenement\EventEmitter;
+use ECSPrefix20210714\React\EventLoop\Loop;
+use ECSPrefix20210714\React\EventLoop\LoopInterface;
+final class WritableResourceStream extends \ECSPrefix20210714\Evenement\EventEmitter implements \ECSPrefix20210714\React\Stream\WritableStreamInterface
 {
     private $stream;
     /** @var LoopInterface */
@@ -22,7 +22,7 @@ final class WritableResourceStream extends \ECSPrefix20210713\Evenement\EventEmi
     private $writable = \true;
     private $closed = \false;
     private $data = '';
-    public function __construct($stream, \ECSPrefix20210713\React\EventLoop\LoopInterface $loop = null, $writeBufferSoftLimit = null, $writeChunkSize = null)
+    public function __construct($stream, \ECSPrefix20210714\React\EventLoop\LoopInterface $loop = null, $writeBufferSoftLimit = null, $writeChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -38,7 +38,7 @@ final class WritableResourceStream extends \ECSPrefix20210713\Evenement\EventEmi
             throw new \RuntimeException('Unable to set stream resource to non-blocking mode');
         }
         $this->stream = $stream;
-        $this->loop = $loop ?: \ECSPrefix20210713\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20210714\React\EventLoop\Loop::get();
         $this->softLimit = $writeBufferSoftLimit === null ? 65536 : (int) $writeBufferSoftLimit;
         $this->writeChunkSize = $writeChunkSize === null ? -1 : (int) $writeChunkSize;
     }

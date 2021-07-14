@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210713\Doctrine\Common\Annotations;
+namespace ECSPrefix20210714\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use ReflectionMethod;
@@ -10,11 +10,11 @@ use function get_class;
 /**
  * Allows the reader to be used in-place of Doctrine's reader.
  */
-class IndexedReader implements \ECSPrefix20210713\Doctrine\Common\Annotations\Reader
+class IndexedReader implements \ECSPrefix20210714\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $delegate;
-    public function __construct(\ECSPrefix20210713\Doctrine\Common\Annotations\Reader $reader)
+    public function __construct(\ECSPrefix20210714\Doctrine\Common\Annotations\Reader $reader)
     {
         $this->delegate = $reader;
     }

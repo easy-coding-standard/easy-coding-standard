@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Contract\Application;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20210713\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210714\Symplify\SmartFileSystem\SmartFileInfo;
 interface FileProcessorInterface
 {
     /**
