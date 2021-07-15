@@ -1,15 +1,15 @@
 <?php
 
-namespace ECSPrefix20210714\Clue\React\NDJson;
+namespace ECSPrefix20210715\Clue\React\NDJson;
 
-use ECSPrefix20210714\Evenement\EventEmitter;
-use ECSPrefix20210714\React\Stream\ReadableStreamInterface;
-use ECSPrefix20210714\React\Stream\Util;
-use ECSPrefix20210714\React\Stream\WritableStreamInterface;
+use ECSPrefix20210715\Evenement\EventEmitter;
+use ECSPrefix20210715\React\Stream\ReadableStreamInterface;
+use ECSPrefix20210715\React\Stream\Util;
+use ECSPrefix20210715\React\Stream\WritableStreamInterface;
 /**
  * The Decoder / Parser reads from a plain stream and emits data objects for each JSON element
  */
-class Decoder extends \ECSPrefix20210714\Evenement\EventEmitter implements \ECSPrefix20210714\React\Stream\ReadableStreamInterface
+class Decoder extends \ECSPrefix20210715\Evenement\EventEmitter implements \ECSPrefix20210715\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $assoc;
@@ -27,7 +27,7 @@ class Decoder extends \ECSPrefix20210714\Evenement\EventEmitter implements \ECSP
      * @param int $maxlength
      * @throws \BadMethodCallException
      */
-    public function __construct(\ECSPrefix20210714\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
+    public function __construct(\ECSPrefix20210715\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
     {
         // @codeCoverageIgnoreStart
         if ($options !== 0 && \PHP_VERSION < 5.4) {
@@ -80,7 +80,7 @@ class Decoder extends \ECSPrefix20210714\Evenement\EventEmitter implements \ECSP
      */
     public function pipe($dest, $options = array())
     {
-        \ECSPrefix20210714\React\Stream\Util::pipe($this, $dest, $options);
+        \ECSPrefix20210715\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     /** @internal */

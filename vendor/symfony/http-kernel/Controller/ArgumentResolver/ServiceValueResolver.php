@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210714\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+namespace ECSPrefix20210715\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-use ECSPrefix20210714\Psr\Container\ContainerInterface;
-use ECSPrefix20210714\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20210714\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210714\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use ECSPrefix20210714\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use ECSPrefix20210715\Psr\Container\ContainerInterface;
+use ECSPrefix20210715\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210715\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210715\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use ECSPrefix20210715\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Yields a service keyed by _controller and argument name.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class ServiceValueResolver implements \ECSPrefix20210714\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
+final class ServiceValueResolver implements \ECSPrefix20210715\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     private $container;
-    public function __construct(\ECSPrefix20210714\Psr\Container\ContainerInterface $container)
+    public function __construct(\ECSPrefix20210715\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -68,7 +68,7 @@ final class ServiceValueResolver implements \ECSPrefix20210714\Symfony\Component
         }
         try {
             (yield $this->container->get($controller)->get($argument->getName()));
-        } catch (\ECSPrefix20210714\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
+        } catch (\ECSPrefix20210715\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
             $what = \sprintf('argument $%s of "%s()"', $argument->getName(), $controller);
             $message = \preg_replace('/service "\\.service_locator\\.[^"]++"/', $what, $e->getMessage());
             if ($e->getMessage() === $message) {
