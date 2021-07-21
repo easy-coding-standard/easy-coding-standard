@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20210715\React\Stream;
+namespace ECSPrefix20210721\React\Stream;
 
-use ECSPrefix20210715\Evenement\EventEmitter;
-use ECSPrefix20210715\React\EventLoop\Loop;
-use ECSPrefix20210715\React\EventLoop\LoopInterface;
+use ECSPrefix20210721\Evenement\EventEmitter;
+use ECSPrefix20210721\React\EventLoop\Loop;
+use ECSPrefix20210721\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class ReadableResourceStream extends \ECSPrefix20210715\Evenement\EventEmitter implements \ECSPrefix20210715\React\Stream\ReadableStreamInterface
+final class ReadableResourceStream extends \ECSPrefix20210721\Evenement\EventEmitter implements \ECSPrefix20210721\React\Stream\ReadableStreamInterface
 {
     /**
      * @var resource
@@ -35,7 +35,7 @@ final class ReadableResourceStream extends \ECSPrefix20210715\Evenement\EventEmi
     private $bufferSize;
     private $closed = \false;
     private $listening = \false;
-    public function __construct($stream, \ECSPrefix20210715\React\EventLoop\LoopInterface $loop = null, $readChunkSize = null)
+    public function __construct($stream, \ECSPrefix20210721\React\EventLoop\LoopInterface $loop = null, $readChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -62,7 +62,7 @@ final class ReadableResourceStream extends \ECSPrefix20210715\Evenement\EventEmi
             \stream_set_read_buffer($stream, 0);
         }
         $this->stream = $stream;
-        $this->loop = $loop ?: \ECSPrefix20210715\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20210721\React\EventLoop\Loop::get();
         $this->bufferSize = $readChunkSize === null ? 65536 : (int) $readChunkSize;
         $this->resume();
     }
@@ -90,7 +90,7 @@ final class ReadableResourceStream extends \ECSPrefix20210715\Evenement\EventEmi
      */
     public function pipe($dest, $options = array())
     {
-        return \ECSPrefix20210715\React\Stream\Util::pipe($this, $dest, $options);
+        return \ECSPrefix20210721\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {

@@ -15,16 +15,16 @@ namespace PhpCsFixer\Console\Command;
 use PhpCsFixer\Documentation\DocumentationGenerator;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSets;
-use ECSPrefix20210715\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210715\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210715\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210715\Symfony\Component\Filesystem\Filesystem;
-use ECSPrefix20210715\Symfony\Component\Finder\Finder;
-use ECSPrefix20210715\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20210721\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210721\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210721\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210721\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix20210721\Symfony\Component\Finder\Finder;
+use ECSPrefix20210721\Symfony\Component\Finder\SplFileInfo;
 /**
  * @internal
  */
-final class DocumentationCommand extends \ECSPrefix20210715\Symfony\Component\Console\Command\Command
+final class DocumentationCommand extends \ECSPrefix20210721\Symfony\Component\Console\Command\Command
 {
     protected static $defaultName = 'documentation';
     /**
@@ -65,7 +65,7 @@ final class DocumentationCommand extends \ECSPrefix20210715\Symfony\Component\Co
      */
     private function generateFixersDocs(array $fixers)
     {
-        $filesystem = new \ECSPrefix20210715\Symfony\Component\Filesystem\Filesystem();
+        $filesystem = new \ECSPrefix20210721\Symfony\Component\Filesystem\Filesystem();
         // Array of existing fixer docs.
         // We first override existing files, and then we will delete files that are no longer needed.
         // We cannot remove all files first, as generation of docs is re-using existing docs to extract code-samples for
@@ -76,7 +76,7 @@ final class DocumentationCommand extends \ECSPrefix20210715\Symfony\Component\Co
             $filesystem->dumpFile($this->generator->getFixerDocumentationFilePath($fixer), $this->generator->generateFixerDocumentation($fixer));
         }
         /** @var SplFileInfo $file */
-        foreach ((new \ECSPrefix20210715\Symfony\Component\Finder\Finder())->files()->in($this->generator->getFixersDocumentationDirectoryPath())->notPath($docForFixerRelativePaths) as $file) {
+        foreach ((new \ECSPrefix20210721\Symfony\Component\Finder\Finder())->files()->in($this->generator->getFixersDocumentationDirectoryPath())->notPath($docForFixerRelativePaths) as $file) {
             $filesystem->remove($file->getPathname());
         }
         $index = $this->generator->getFixersDocumentationIndexFilePath();
@@ -89,9 +89,9 @@ final class DocumentationCommand extends \ECSPrefix20210715\Symfony\Component\Co
      */
     private function generateRuleSetsDocs(array $fixers)
     {
-        $filesystem = new \ECSPrefix20210715\Symfony\Component\Filesystem\Filesystem();
+        $filesystem = new \ECSPrefix20210721\Symfony\Component\Filesystem\Filesystem();
         /** @var SplFileInfo $file */
-        foreach ((new \ECSPrefix20210715\Symfony\Component\Finder\Finder())->files()->in($this->generator->getRuleSetsDocumentationDirectoryPath()) as $file) {
+        foreach ((new \ECSPrefix20210721\Symfony\Component\Finder\Finder())->files()->in($this->generator->getRuleSetsDocumentationDirectoryPath()) as $file) {
             $filesystem->remove($file->getPathname());
         }
         $index = $this->generator->getRuleSetsDocumentationIndexFilePath();
