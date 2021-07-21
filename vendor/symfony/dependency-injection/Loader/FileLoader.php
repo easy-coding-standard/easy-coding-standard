@@ -82,7 +82,7 @@ abstract class FileLoader extends \ECSPrefix20210721\Symfony\Component\Config\Lo
      */
     public function registerClasses($prototype, $namespace, $resource, $exclude = null)
     {
-        if ('\\' !== \substr($namespace, -1)) {
+        if (\substr_compare($namespace, '\\', -\strlen('\\')) !== 0) {
             throw new \ECSPrefix20210721\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Namespace prefix must end with a "\\": "%s".', $namespace));
         }
         if (!\preg_match('/^(?:[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*+\\\\)++$/', $namespace)) {
@@ -175,7 +175,7 @@ abstract class FileLoader extends \ECSPrefix20210721\Symfony\Component\Config\Lo
         foreach ($this->glob($pattern, \true, $resource, \false, \false, $excludePaths) as $path => $info) {
             if (null === $prefixLen) {
                 $prefixLen = \strlen($resource->getPrefix());
-                if ($excludePrefix && 0 !== \strpos($excludePrefix, $resource->getPrefix())) {
+                if ($excludePrefix && \strncmp($excludePrefix, $resource->getPrefix(), \strlen($resource->getPrefix())) !== 0) {
                     throw new \ECSPrefix20210721\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid "exclude" pattern when importing classes for "%s": make sure your "exclude" pattern (%s) is a subset of the "resource" pattern (%s).', $namespace, $excludePattern, $pattern));
                 }
             }

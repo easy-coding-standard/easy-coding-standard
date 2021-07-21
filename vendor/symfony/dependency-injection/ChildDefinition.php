@@ -85,7 +85,7 @@ class ChildDefinition extends \ECSPrefix20210721\Symfony\Component\DependencyInj
     {
         if (\is_int($index)) {
             $this->arguments['index_' . $index] = $value;
-        } elseif (0 === \strpos($index, '$')) {
+        } elseif (\strncmp($index, '$', \strlen('$')) === 0) {
             $this->arguments[$index] = $value;
         } else {
             throw new \ECSPrefix20210721\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The argument must be an existing index or the name of a constructor\'s parameter.');

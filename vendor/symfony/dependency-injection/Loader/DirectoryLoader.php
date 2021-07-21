@@ -46,6 +46,6 @@ class DirectoryLoader extends \ECSPrefix20210721\Symfony\Component\DependencyInj
         if ('directory' === $type) {
             return \true;
         }
-        return null === $type && \is_string($resource) && '/' === \substr($resource, -1);
+        return null === $type && \is_string($resource) && \substr_compare($resource, '/', -\strlen('/')) === 0;
     }
 }

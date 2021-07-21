@@ -48,7 +48,7 @@ class OutputFormatter implements \ECSPrefix20210721\Symfony\Component\Console\Fo
      */
     public static function escapeTrailingBackslash($text) : string
     {
-        if ('\\' === \substr($text, -1)) {
+        if (\substr_compare($text, '\\', -\strlen('\\')) === 0) {
             $len = \strlen($text);
             $text = \rtrim($text, '\\');
             $text = \str_replace("\0", '', $text);
@@ -163,7 +163,7 @@ class OutputFormatter implements \ECSPrefix20210721\Symfony\Component\Console\Fo
             }
         }
         $output .= $this->applyCurrentStyle(\substr($message, $offset), $output, $width, $currentLineLength);
-        if (\false !== \strpos($output, "\0")) {
+        if (\strpos($output, "\0") !== \false) {
             return \strtr($output, ["\0" => '\\', '\\<' => '<']);
         }
         return \str_replace('\\<', '<', $output);

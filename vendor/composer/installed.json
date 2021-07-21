@@ -1465,12 +1465,12 @@
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/console.git",
-                "reference": "151e8dbd22851a7a4d3bb38c1afd50f8cf621f07"
+                "reference": "c85b7001e8560e7e65978e93ec6e8d5b2bf453a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/151e8dbd22851a7a4d3bb38c1afd50f8cf621f07",
-                "reference": "151e8dbd22851a7a4d3bb38c1afd50f8cf621f07",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/c85b7001e8560e7e65978e93ec6e8d5b2bf453a8",
+                "reference": "c85b7001e8560e7e65978e93ec6e8d5b2bf453a8",
                 "shasum": ""
             },
             "require": {
@@ -1478,7 +1478,7 @@
                 "symfony\/deprecation-contracts": "^2.1",
                 "symfony\/polyfill-mbstring": "~1.0",
                 "symfony\/polyfill-php73": "^1.8",
-                "symfony\/polyfill-php80": "^1.15",
+                "symfony\/polyfill-php80": "^1.16",
                 "symfony\/service-contracts": "^1.1|^2",
                 "symfony\/string": "^5.1|^6.0"
             },
@@ -1508,7 +1508,7 @@
                 "symfony\/lock": "",
                 "symfony\/process": ""
             },
-            "time": "2021-07-21T09:16:13+00:00",
+            "time": "2021-07-21T12:43:48+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1567,19 +1567,19 @@
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/dependency-injection.git",
-                "reference": "342534bcfc515f97968751ec5d038cdfc3248614"
+                "reference": "01de5c712338a28286d548b434d8e49281b6d46d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/342534bcfc515f97968751ec5d038cdfc3248614",
-                "reference": "342534bcfc515f97968751ec5d038cdfc3248614",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/01de5c712338a28286d548b434d8e49281b6d46d",
+                "reference": "01de5c712338a28286d548b434d8e49281b6d46d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
                 "psr\/container": "^1.1.1",
                 "symfony\/deprecation-contracts": "^2.1",
-                "symfony\/polyfill-php80": "^1.15",
+                "symfony\/polyfill-php80": "^1.16",
                 "symfony\/service-contracts": "^1.1.6|^2"
             },
             "conflict": {
@@ -1605,7 +1605,7 @@
                 "symfony\/proxy-manager-bridge": "Generate service proxies to lazy load them",
                 "symfony\/yaml": ""
             },
-            "time": "2021-07-18T16:31:21+00:00",
+            "time": "2021-07-21T12:43:48+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
