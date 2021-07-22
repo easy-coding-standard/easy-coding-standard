@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210721\Symplify\PackageBuilder\Console;
+namespace ECSPrefix20210722\Symplify\PackageBuilder\Console;
 
 final class ShellCode
 {

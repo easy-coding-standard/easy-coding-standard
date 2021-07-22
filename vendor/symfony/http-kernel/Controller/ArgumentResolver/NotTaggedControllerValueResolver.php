@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210721\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+namespace ECSPrefix20210722\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-use ECSPrefix20210721\Psr\Container\ContainerInterface;
-use ECSPrefix20210721\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20210721\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210721\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use ECSPrefix20210721\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use ECSPrefix20210722\Psr\Container\ContainerInterface;
+use ECSPrefix20210722\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210722\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210722\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use ECSPrefix20210722\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Provides an intuitive error message when controller fails because it is not registered as a service.
  *
  * @author Simeon Kolev <simeon.kolev9@gmail.com>
  */
-final class NotTaggedControllerValueResolver implements \ECSPrefix20210721\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
+final class NotTaggedControllerValueResolver implements \ECSPrefix20210722\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     private $container;
-    public function __construct(\ECSPrefix20210721\Psr\Container\ContainerInterface $container)
+    public function __construct(\ECSPrefix20210722\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -68,6 +68,6 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20210721\Symfo
         }
         $what = \sprintf('argument $%s of "%s()"', $argument->getName(), $controller);
         $message = \sprintf('Could not resolve %s, maybe you forgot to register the controller as a service or missed tagging it with the "controller.service_arguments"?', $what);
-        throw new \ECSPrefix20210721\Symfony\Component\DependencyInjection\Exception\RuntimeException($message);
+        throw new \ECSPrefix20210722\Symfony\Component\DependencyInjection\Exception\RuntimeException($message);
     }
 }

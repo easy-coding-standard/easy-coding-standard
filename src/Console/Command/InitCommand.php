@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210721\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210721\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210721\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-use ECSPrefix20210721\Symplify\PackageBuilder\Console\ShellCode;
-final class InitCommand extends \ECSPrefix20210721\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20210722\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210722\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210722\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use ECSPrefix20210722\Symplify\PackageBuilder\Console\ShellCode;
+final class InitCommand extends \ECSPrefix20210722\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @return void
@@ -29,6 +29,6 @@ final class InitCommand extends \ECSPrefix20210721\Symplify\PackageBuilder\Conso
         } else {
             $this->symfonyStyle->warning('The "ecs.php" configuration file already exists');
         }
-        return \ECSPrefix20210721\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \ECSPrefix20210722\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

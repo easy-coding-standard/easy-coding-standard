@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210721\Symfony\Component\ErrorHandler\ErrorRenderer;
+namespace ECSPrefix20210722\Symfony\Component\ErrorHandler\ErrorRenderer;
 
-use ECSPrefix20210721\Symfony\Component\ErrorHandler\Exception\FlattenException;
-use ECSPrefix20210721\Symfony\Component\VarDumper\Cloner\VarCloner;
-use ECSPrefix20210721\Symfony\Component\VarDumper\Dumper\CliDumper;
+use ECSPrefix20210722\Symfony\Component\ErrorHandler\Exception\FlattenException;
+use ECSPrefix20210722\Symfony\Component\VarDumper\Cloner\VarCloner;
+use ECSPrefix20210722\Symfony\Component\VarDumper\Dumper\CliDumper;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210721\Symfony\Component\VarDumper\Dumper\CliDumper::class);
+\class_exists(\ECSPrefix20210722\Symfony\Component\VarDumper\Dumper\CliDumper::class);
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class CliErrorRenderer implements \ECSPrefix20210721\Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface
+class CliErrorRenderer implements \ECSPrefix20210722\Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface
 {
     /**
      * {@inheritdoc}
      * @param \Throwable $exception
      */
-    public function render($exception) : \ECSPrefix20210721\Symfony\Component\ErrorHandler\Exception\FlattenException
+    public function render($exception) : \ECSPrefix20210722\Symfony\Component\ErrorHandler\Exception\FlattenException
     {
-        $cloner = new \ECSPrefix20210721\Symfony\Component\VarDumper\Cloner\VarCloner();
-        $dumper = new class extends \ECSPrefix20210721\Symfony\Component\VarDumper\Dumper\CliDumper
+        $cloner = new \ECSPrefix20210722\Symfony\Component\VarDumper\Cloner\VarCloner();
+        $dumper = new class extends \ECSPrefix20210722\Symfony\Component\VarDumper\Dumper\CliDumper
         {
             protected function supportsColors() : bool
             {
@@ -40,6 +40,6 @@ class CliErrorRenderer implements \ECSPrefix20210721\Symfony\Component\ErrorHand
                 }
             }
         };
-        return \ECSPrefix20210721\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)->setAsString($dumper->dump($cloner->cloneVar($exception), \true));
+        return \ECSPrefix20210722\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)->setAsString($dumper->dump($cloner->cloneVar($exception), \true));
     }
 }

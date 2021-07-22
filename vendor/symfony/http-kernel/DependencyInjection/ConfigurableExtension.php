@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210721\Symfony\Component\HttpKernel\DependencyInjection;
+namespace ECSPrefix20210722\Symfony\Component\HttpKernel\DependencyInjection;
 
-use ECSPrefix20210721\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210722\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * This extension sub-class provides first-class integration with the
  * Config/Definition Component.
@@ -23,7 +23,7 @@ use ECSPrefix20210721\Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class ConfigurableExtension extends \ECSPrefix20210721\Symfony\Component\HttpKernel\DependencyInjection\Extension
+abstract class ConfigurableExtension extends \ECSPrefix20210722\Symfony\Component\HttpKernel\DependencyInjection\Extension
 {
     /**
      * {@inheritdoc}

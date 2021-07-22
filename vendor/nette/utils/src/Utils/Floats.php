@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210721\Nette\Utils;
+namespace ECSPrefix20210722\Nette\Utils;
 
-use ECSPrefix20210721\Nette;
+use ECSPrefix20210722\Nette;
 /**
  * Floating-point numbers comparison.
  */
