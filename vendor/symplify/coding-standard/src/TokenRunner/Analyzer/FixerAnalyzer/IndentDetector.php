@@ -37,6 +37,6 @@ final class IndentDetector
     }
     private function containsOnlySpaces(string $tokenContent) : bool
     {
-        return '' === \trim($tokenContent, ' ');
+        return \trim($tokenContent, ' ') === '';
     }
 }
