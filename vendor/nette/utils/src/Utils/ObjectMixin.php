@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210722\Nette\Utils;
+namespace ECSPrefix20210723\Nette\Utils;
 
-use ECSPrefix20210722\Nette;
+use ECSPrefix20210723\Nette;
 /**
  * Nette\Object behaviour mixin.
  * @deprecated
@@ -22,7 +22,7 @@ final class ObjectMixin
     public static function getSuggestion($possibilities, $value)
     {
         \trigger_error(__METHOD__ . '() has been renamed to Nette\\Utils\\ObjectHelpers::getSuggestion()', \E_USER_DEPRECATED);
-        return \ECSPrefix20210722\Nette\Utils\ObjectHelpers::getSuggestion($possibilities, $value);
+        return \ECSPrefix20210723\Nette\Utils\ObjectHelpers::getSuggestion($possibilities, $value);
     }
     /**
      * @return void

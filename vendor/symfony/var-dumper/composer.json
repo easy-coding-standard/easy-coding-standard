@@ -43,7 +43,7 @@
             "Resources\/functions\/dump.php"
         ],
         "psr-4": {
-            "ECSPrefix20210722\\Symfony\\Component\\VarDumper\\": ""
+            "ECSPrefix20210723\\Symfony\\Component\\VarDumper\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"
