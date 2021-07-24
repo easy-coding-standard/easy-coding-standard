@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20210723\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20210724\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * @author Kévin Gomez <contact@kevingomez.fr>
  *
@@ -48,7 +48,7 @@ final class CheckstyleReporter implements \PhpCsFixer\Console\Report\FixReport\R
             }
         }
         $dom->formatOutput = \true;
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210723\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
+        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210724\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
     }
     private function createError(\DOMDocument $dom, string $appliedFixer) : \DOMElement
     {

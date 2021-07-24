@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210723\Symfony\Component\Process\Exception;
+namespace ECSPrefix20210724\Symfony\Component\Process\Exception;
 
 /**
  * Marker Interface for the Process Component.

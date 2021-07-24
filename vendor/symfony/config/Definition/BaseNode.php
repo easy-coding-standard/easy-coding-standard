@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210723\Symfony\Component\Config\Definition;
+namespace ECSPrefix20210724\Symfony\Component\Config\Definition;
 
-use ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\Exception;
-use ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
-use ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
+use ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\Exception;
+use ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
+use ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * The base node class.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class BaseNode implements \ECSPrefix20210723\Symfony\Component\Config\Definition\NodeInterface
+abstract class BaseNode implements \ECSPrefix20210724\Symfony\Component\Config\Definition\NodeInterface
 {
     const DEFAULT_PATH_SEPARATOR = '.';
     private static $placeholderUniquePrefixes = [];
@@ -40,7 +40,7 @@ abstract class BaseNode implements \ECSPrefix20210723\Symfony\Component\Config\D
      * @throws \InvalidArgumentException if the name contains a period
      * @param string|null $name
      */
-    public function __construct($name, \ECSPrefix20210723\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
+    public function __construct($name, \ECSPrefix20210724\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
     {
         if (\false !== \strpos($name = (string) $name, $pathSeparator)) {
             throw new \InvalidArgumentException('The name must not contain ".' . $pathSeparator . '".');
@@ -307,7 +307,7 @@ abstract class BaseNode implements \ECSPrefix20210723\Symfony\Component\Config\D
     public final function merge($leftSide, $rightSide)
     {
         if (!$this->allowOverwrite) {
-            throw new \ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException(\sprintf('Configuration path "%s" cannot be overwritten. You have to define all options for this path, and any of its sub-paths in one configuration section.', $this->getPath()));
+            throw new \ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException(\sprintf('Configuration path "%s" cannot be overwritten. You have to define all options for this path, and any of its sub-paths in one configuration section.', $this->getPath()));
         }
         if ($leftSide !== ($leftPlaceholders = self::resolvePlaceholderValue($leftSide))) {
             foreach ($leftPlaceholders as $leftPlaceholder) {
@@ -411,13 +411,13 @@ abstract class BaseNode implements \ECSPrefix20210723\Symfony\Component\Config\D
         foreach ($this->finalValidationClosures as $closure) {
             try {
                 $value = $closure($value);
-            } catch (\ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\Exception $e) {
-                if ($e instanceof \ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\UnsetKeyException && null !== $this->handlingPlaceholder) {
+            } catch (\ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\Exception $e) {
+                if ($e instanceof \ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\UnsetKeyException && null !== $this->handlingPlaceholder) {
                     continue;
                 }
                 throw $e;
             } catch (\Exception $e) {
-                throw new \ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('Invalid configuration for path "%s": ', $this->getPath()) . $e->getMessage(), $e->getCode(), $e);
+                throw new \ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('Invalid configuration for path "%s": ', $this->getPath()) . $e->getMessage(), $e->getCode(), $e);
             }
         }
         return $value;
@@ -496,7 +496,7 @@ abstract class BaseNode implements \ECSPrefix20210723\Symfony\Component\Config\D
     private function doValidateType($value)
     {
         if (null !== $this->handlingPlaceholder && !$this->allowPlaceholders()) {
-            $e = new \ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('A dynamic value is not compatible with a "%s" node type at path "%s".', static::class, $this->getPath()));
+            $e = new \ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('A dynamic value is not compatible with a "%s" node type at path "%s".', static::class, $this->getPath()));
             $e->setPath($this->getPath());
             throw $e;
         }
@@ -507,7 +507,7 @@ abstract class BaseNode implements \ECSPrefix20210723\Symfony\Component\Config\D
         $knownTypes = \array_keys(self::$placeholders[$this->handlingPlaceholder]);
         $validTypes = $this->getValidPlaceholderTypes();
         if ($validTypes && \array_diff($knownTypes, $validTypes)) {
-            $e = new \ECSPrefix20210723\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('Invalid type for path "%s". Expected %s, but got %s.', $this->getPath(), 1 === \count($validTypes) ? '"' . \reset($validTypes) . '"' : 'one of "' . \implode('", "', $validTypes) . '"', 1 === \count($knownTypes) ? '"' . \reset($knownTypes) . '"' : 'one of "' . \implode('", "', $knownTypes) . '"'));
+            $e = new \ECSPrefix20210724\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('Invalid type for path "%s". Expected %s, but got %s.', $this->getPath(), 1 === \count($validTypes) ? '"' . \reset($validTypes) . '"' : 'one of "' . \implode('", "', $validTypes) . '"', 1 === \count($knownTypes) ? '"' . \reset($knownTypes) . '"' : 'one of "' . \implode('", "', $knownTypes) . '"'));
             if ($hint = $this->getInfo()) {
                 $e->addHint($hint);
             }

@@ -16,8 +16,8 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardErro
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20210723\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20210723\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210724\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210724\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
  */
@@ -58,7 +58,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     /**
      * @param Sniff[] $sniffs
      */
-    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory $fileFactory, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \ECSPrefix20210723\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $sniffs = [])
+    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory $fileFactory, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \ECSPrefix20210724\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $sniffs = [])
     {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
@@ -150,7 +150,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      * @param array<int|string, Sniff[]> $tokenListeners
      * @return void
      */
-    private function fixFile(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\File $file, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210723\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $tokenListeners)
+    private function fixFile(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\File $file, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210724\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $tokenListeners)
     {
         $previousContent = $smartFileInfo->getContents();
         $this->fixer->loops = 0;

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210723\Symplify\PackageBuilder\Reflection;
+namespace ECSPrefix20210724\Symplify\PackageBuilder\Reflection;
 
 use ReflectionClass;
 final class ClassLikeExistenceChecker

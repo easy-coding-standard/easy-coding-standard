@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210723\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210723\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210724\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210724\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
-use ECSPrefix20210723\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210724\Symplify\PackageBuilder\Console\ShellCode;
 final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
@@ -34,7 +34,7 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
     {
         if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             $this->loadedCheckersGuard->report();
-            return \ECSPrefix20210723\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+            return \ECSPrefix20210724\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }
         $configuration = $this->configurationFactory->createFromInput($input);
         $errorsAndDiffs = $this->easyCodingStandardApplication->run($configuration, $input);
