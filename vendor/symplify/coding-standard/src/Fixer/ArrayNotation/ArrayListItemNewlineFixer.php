@@ -66,7 +66,7 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
      * @param Tokens<Token> $tokens
      * @return void
      */
-    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $arrayBlockInfos = $this->arrayBlockInfoFinder->findArrayOpenerBlockInfos($tokens);
         foreach ($arrayBlockInfos as $arrayBlockInfo) {

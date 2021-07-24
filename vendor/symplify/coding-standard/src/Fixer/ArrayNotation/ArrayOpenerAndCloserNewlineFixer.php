@@ -83,7 +83,7 @@ CODE_SAMPLE
      * @param Tokens<Token> $tokens
      * @return void
      */
-    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $blockInfos = $this->arrayBlockInfoFinder->findArrayOpenerBlockInfos($tokens);
         foreach ($blockInfos as $blockInfo) {

@@ -64,7 +64,7 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
      * @param Tokens<Token> $tokens
      * @return void
      */
-    public function fix(\SplFileInfo $splFileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {

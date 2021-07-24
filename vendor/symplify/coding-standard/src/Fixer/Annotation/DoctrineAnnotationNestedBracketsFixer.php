@@ -98,7 +98,7 @@ CODE_SAMPLE
      * @param Tokens<Token> $tokens
      * @return void
      */
-    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $useDeclarations = $this->namespaceUsesAnalyzer->getDeclarationsFromTokens($tokens);
         // fetch indexes one time, this is safe as we never add or remove a token during fixing
