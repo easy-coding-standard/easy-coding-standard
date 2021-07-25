@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210724\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20210725\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
 trait ClassTrait
 {

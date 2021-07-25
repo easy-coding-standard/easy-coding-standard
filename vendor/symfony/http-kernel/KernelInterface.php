@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210724\Symfony\Component\HttpKernel;
+namespace ECSPrefix20210725\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210724\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix20210724\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210724\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20210725\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix20210725\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210725\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 /**
  * The Kernel is the heart of the Symfony system.
  *
@@ -24,7 +24,7 @@ use ECSPrefix20210724\Symfony\Component\HttpKernel\Bundle\BundleInterface;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-interface KernelInterface extends \ECSPrefix20210724\Symfony\Component\HttpKernel\HttpKernelInterface
+interface KernelInterface extends \ECSPrefix20210725\Symfony\Component\HttpKernel\HttpKernelInterface
 {
     /**
      * Returns an array of bundles to register.

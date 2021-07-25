@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210724\Symfony\Component\HttpFoundation\Test\Constraint;
+namespace ECSPrefix20210725\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use ECSPrefix20210724\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210724\Symfony\Component\HttpFoundation\Request;
-final class RequestAttributeValueSame extends \ECSPrefix20210724\PHPUnit\Framework\Constraint\Constraint
+use ECSPrefix20210725\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210725\Symfony\Component\HttpFoundation\Request;
+final class RequestAttributeValueSame extends \ECSPrefix20210725\PHPUnit\Framework\Constraint\Constraint
 {
     private $name;
     private $value;
