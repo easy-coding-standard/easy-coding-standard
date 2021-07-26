@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210725\React\Stream;
+namespace ECSPrefix20210726\React\Stream;
 
-use ECSPrefix20210725\Evenement\EventEmitter;
+use ECSPrefix20210726\Evenement\EventEmitter;
 use InvalidArgumentException;
 /**
  * The `ThroughStream` implements the
@@ -72,7 +72,7 @@ use InvalidArgumentException;
  * @see DuplexStreamInterface::close()
  * @see WritableStreamInterface::pipe()
  */
-final class ThroughStream extends \ECSPrefix20210725\Evenement\EventEmitter implements \ECSPrefix20210725\React\Stream\DuplexStreamInterface
+final class ThroughStream extends \ECSPrefix20210726\Evenement\EventEmitter implements \ECSPrefix20210726\React\Stream\DuplexStreamInterface
 {
     private $readable = \true;
     private $writable = \true;
@@ -105,7 +105,7 @@ final class ThroughStream extends \ECSPrefix20210725\Evenement\EventEmitter impl
      */
     public function pipe($dest, $options = array())
     {
-        return \ECSPrefix20210725\React\Stream\Util::pipe($this, $dest, $options);
+        return \ECSPrefix20210726\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function isReadable()
     {

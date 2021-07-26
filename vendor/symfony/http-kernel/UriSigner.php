@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210725\Symfony\Component\HttpKernel;
+namespace ECSPrefix20210726\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210725\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210726\Symfony\Component\HttpFoundation\Request;
 /**
  * Signs URIs.
  *

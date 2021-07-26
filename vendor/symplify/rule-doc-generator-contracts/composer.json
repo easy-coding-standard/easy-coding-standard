@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210725\\Symplify\\RuleDocGenerator\\": "src"
+            "ECSPrefix20210726\\Symplify\\RuleDocGenerator\\": "src"
         }
     },
     "extra": {
