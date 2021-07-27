@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace ECSPrefix20210727\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Memcached based session storage handler based on the Memcached class
@@ -18,7 +18,7 @@ namespace ECSPrefix20210726\Symfony\Component\HttpFoundation\Session\Storage\Han
  *
  * @author Drak <drak@zikula.org>
  */
-class MemcachedSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class MemcachedSessionHandler extends \ECSPrefix20210727\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     private $memcached;
     /**
@@ -89,12 +89,13 @@ class MemcachedSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpF
         return $result || \Memcached::RES_NOTFOUND == $this->memcached->getResultCode();
     }
     /**
-     * @return bool
+     * @return int|false
      */
+    #[\ReturnTypeWillChange]
     public function gc($maxlifetime)
     {
         // not required here because memcached will auto expire the records anyhow.
-        return \true;
+        return 0;
     }
     /**
      * Return a Memcached instance.

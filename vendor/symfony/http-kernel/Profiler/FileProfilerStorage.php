@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpKernel\Profiler;
+namespace ECSPrefix20210727\Symfony\Component\HttpKernel\Profiler;
 
 /**
  * Storage for profiler using files.
  *
  * @author Alexandre Salomé <alexandre.salome@gmail.com>
  */
-class FileProfilerStorage implements \ECSPrefix20210726\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface
+class FileProfilerStorage implements \ECSPrefix20210727\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface
 {
     /**
      * Folder where profiler data are stored.
@@ -32,7 +32,7 @@ class FileProfilerStorage implements \ECSPrefix20210726\Symfony\Component\HttpKe
      */
     public function __construct(string $dsn)
     {
-        if (0 !== \strpos($dsn, 'file:')) {
+        if (\strncmp($dsn, 'file:', \strlen('file:')) !== 0) {
             throw new \RuntimeException(\sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
         }
         $this->folder = \substr($dsn, 5);
@@ -63,7 +63,7 @@ class FileProfilerStorage implements \ECSPrefix20210726\Symfony\Component\HttpKe
             $values = \str_getcsv($line);
             list($csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode) = $values;
             $csvTime = (int) $csvTime;
-            if ($ip && \false === \strpos($csvIp, $ip) || $url && \false === \strpos($csvUrl, $url) || $method && \false === \strpos($csvMethod, $method) || $statusCode && \false === \strpos($csvStatusCode, $statusCode)) {
+            if ($ip && \strpos($csvIp, $ip) === \false || $url && \strpos($csvUrl, $url) === \false || $method && \strpos($csvMethod, $method) === \false || $statusCode && \strpos($csvStatusCode, $statusCode) === \false) {
                 continue;
             }
             if (!empty($start) && $csvTime < $start) {
@@ -129,7 +129,7 @@ class FileProfilerStorage implements \ECSPrefix20210726\Symfony\Component\HttpKe
         // when there are errors in sub-requests, the parent and/or children tokens
         // may equal the profile token, resulting in infinite loops
         $parentToken = $profile->getParentToken() !== $profileToken ? $profile->getParentToken() : null;
-        $childrenToken = \array_filter(\array_map(function (\ECSPrefix20210726\Symfony\Component\HttpKernel\Profiler\Profile $p) use($profileToken) {
+        $childrenToken = \array_filter(\array_map(function (\ECSPrefix20210727\Symfony\Component\HttpKernel\Profiler\Profile $p) use($profileToken) {
             return $profileToken !== $p->getToken() ? $p->getToken() : null;
         }, $profile->getChildren()));
         // Store profile
@@ -219,7 +219,7 @@ class FileProfilerStorage implements \ECSPrefix20210726\Symfony\Component\HttpKe
      */
     protected function createProfileFromData($token, $data, $parent = null)
     {
-        $profile = new \ECSPrefix20210726\Symfony\Component\HttpKernel\Profiler\Profile($token);
+        $profile = new \ECSPrefix20210727\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);
         $profile->setMethod($data['method']);
         $profile->setUrl($data['url']);

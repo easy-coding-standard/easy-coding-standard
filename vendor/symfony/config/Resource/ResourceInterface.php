@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210727\Symfony\Component\Config\Resource;
 
 /**
  * ResourceInterface is the interface that must be implemented by all Resource classes.
@@ -25,8 +25,6 @@ interface ResourceInterface
      * to be identical for different ResourceInterface instances referring to the same
      * resource; and it should be unlikely to collide with that of other, unrelated
      * resource instances.
-     *
-     * @return string A string representation unique to the underlying Resource
      */
     public function __toString();
 }

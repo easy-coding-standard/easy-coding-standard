@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpKernel\Controller;
+namespace ECSPrefix20210727\Symfony\Component\HttpKernel\Controller;
 
-use ECSPrefix20210726\Psr\Log\LoggerInterface;
-use ECSPrefix20210726\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210727\Psr\Log\LoggerInterface;
+use ECSPrefix20210727\Symfony\Component\HttpFoundation\Request;
 /**
  * This implementation uses the '_controller' request attribute to determine
  * the controller to execute.
@@ -19,10 +19,10 @@ use ECSPrefix20210726\Symfony\Component\HttpFoundation\Request;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class ControllerResolver implements \ECSPrefix20210726\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
+class ControllerResolver implements \ECSPrefix20210727\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
 {
     private $logger;
-    public function __construct(\ECSPrefix20210726\Psr\Log\LoggerInterface $logger = null)
+    public function __construct(\ECSPrefix20210727\Psr\Log\LoggerInterface $logger = null)
     {
         $this->logger = $logger;
     }
@@ -102,7 +102,7 @@ class ControllerResolver implements \ECSPrefix20210726\Symfony\Component\HttpKer
      */
     protected function createController($controller)
     {
-        if (\false === \strpos($controller, '::')) {
+        if (\strpos($controller, '::') === \false) {
             $controller = $this->instantiateController($controller);
             if (!\is_callable($controller)) {
                 throw new \InvalidArgumentException($this->getControllerError($controller));
@@ -149,7 +149,7 @@ class ControllerResolver implements \ECSPrefix20210726\Symfony\Component\HttpKer
     private function getControllerError($callable) : string
     {
         if (\is_string($callable)) {
-            if (\false !== \strpos($callable, '::')) {
+            if (\strpos($callable, '::') !== \false) {
                 $callable = \explode('::', $callable, 2);
             } else {
                 return \sprintf('Function "%s" does not exist.', $callable);
@@ -178,7 +178,7 @@ class ControllerResolver implements \ECSPrefix20210726\Symfony\Component\HttpKer
         $alternatives = [];
         foreach ($collection as $item) {
             $lev = \levenshtein($method, $item);
-            if ($lev <= \strlen($method) / 3 || \false !== \strpos($item, $method)) {
+            if ($lev <= \strlen($method) / 3 || \strpos($item, $method) !== \false) {
                 $alternatives[] = $item;
             }
         }

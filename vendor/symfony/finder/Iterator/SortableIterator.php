@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20210727\Symfony\Component\Finder\Iterator;
 
 /**
  * SortableIterator applies a sort on a given Iterator.
@@ -27,8 +27,7 @@ class SortableIterator implements \IteratorAggregate
     private $iterator;
     private $sort;
     /**
-     * @param \Traversable $iterator The Iterator to filter
-     * @param int|callable $sort     The sort type (SORT_BY_NAME, SORT_BY_TYPE, or a PHP callback)
+     * @param int|callable $sort The sort type (SORT_BY_NAME, SORT_BY_TYPE, or a PHP callback)
      *
      * @throws \InvalidArgumentException
      */

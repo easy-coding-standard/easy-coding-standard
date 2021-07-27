@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpKernel\Profiler;
+namespace ECSPrefix20210727\Symfony\Component\HttpKernel\Profiler;
 
-use ECSPrefix20210726\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
+use ECSPrefix20210727\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 /**
  * Profile.
  *
@@ -135,10 +135,7 @@ class Profile
      */
     public function getTime()
     {
-        if (null === $this->time) {
-            return 0;
-        }
-        return $this->time;
+        return $this->time ?? 0;
     }
     /**
      * @param int $time

@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\ErrorHandler;
+namespace ECSPrefix20210727\Symfony\Component\ErrorHandler;
 
-use ECSPrefix20210726\Composer\InstalledVersions;
-use ECSPrefix20210726\Doctrine\Common\Persistence\Proxy as LegacyProxy;
-use ECSPrefix20210726\Doctrine\Persistence\Proxy;
-use ECSPrefix20210726\Mockery\MockInterface;
-use ECSPrefix20210726\Phake\IMock;
-use ECSPrefix20210726\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
-use ECSPrefix20210726\PHPUnit\Framework\MockObject\MockObject;
-use ECSPrefix20210726\Prophecy\Prophecy\ProphecySubjectInterface;
-use ECSPrefix20210726\ProxyManager\Proxy\ProxyInterface;
+use ECSPrefix20210727\Composer\InstalledVersions;
+use ECSPrefix20210727\Doctrine\Common\Persistence\Proxy as LegacyProxy;
+use ECSPrefix20210727\Doctrine\Persistence\Proxy;
+use ECSPrefix20210727\Mockery\MockInterface;
+use ECSPrefix20210727\Phake\IMock;
+use ECSPrefix20210727\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
+use ECSPrefix20210727\PHPUnit\Framework\MockObject\MockObject;
+use ECSPrefix20210727\Prophecy\Prophecy\ProphecySubjectInterface;
+use ECSPrefix20210727\ProxyManager\Proxy\ProxyInterface;
 /**
  * Autoloader checking if the class is really defined in the file found.
  *
@@ -89,7 +89,7 @@ class DebugClassLoader
             } elseif (\substr($test, -\strlen($file)) === $file) {
                 // filesystem is case insensitive and realpath() normalizes the case of characters
                 self::$caseCheck = 1;
-            } elseif (\false !== \stripos(\PHP_OS, 'darwin')) {
+            } elseif ('Darwin' === \PHP_OS_FAMILY) {
                 // on MacOSX, HFS+ is case insensitive but realpath() doesn't normalize the case of characters
                 self::$caseCheck = 2;
             } else {
@@ -114,8 +114,8 @@ class DebugClassLoader
     public static function enable()
     {
         // Ensures we don't hit https://bugs.php.net/42098
-        \class_exists(\ECSPrefix20210726\Symfony\Component\ErrorHandler\ErrorHandler::class);
-        \class_exists(\ECSPrefix20210726\Psr\Log\LogLevel::class);
+        \class_exists(\ECSPrefix20210727\Symfony\Component\ErrorHandler\ErrorHandler::class);
+        \class_exists(\ECSPrefix20210727\Psr\Log\LogLevel::class);
         if (!\is_array($functions = \spl_autoload_functions())) {
             return;
         }
@@ -167,7 +167,7 @@ class DebugClassLoader
         foreach ($offsets as $getSymbols => $i) {
             $symbols = $getSymbols();
             for (; $i < \count($symbols); ++$i) {
-                if (!\is_subclass_of($symbols[$i], \ECSPrefix20210726\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210726\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210726\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210726\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210726\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210726\Mockery\MockInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210726\Phake\IMock::class)) {
+                if (!\is_subclass_of($symbols[$i], \ECSPrefix20210727\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210727\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210727\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210727\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210727\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210727\Mockery\MockInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210727\Phake\IMock::class)) {
                     $loader->checkClass($symbols[$i]);
                 }
             }
@@ -331,7 +331,7 @@ class DebugClassLoader
                         self::$method[$class] = self::$method[$use];
                     }
                 } elseif (!$refl->isInterface()) {
-                    if (!\strncmp($vendor, \str_replace('_', '\\', $use), $vendorLen) && 0 === \strpos($className, 'Symfony\\') && (!\class_exists(\ECSPrefix20210726\Composer\InstalledVersions::class) || 'symfony/symfony' !== \ECSPrefix20210726\Composer\InstalledVersions::getRootPackage()['name'])) {
+                    if (!\strncmp($vendor, \str_replace('_', '\\', $use), $vendorLen) && 0 === \strpos($className, 'Symfony\\') && (!\class_exists(\ECSPrefix20210727\Composer\InstalledVersions::class) || 'symfony/symfony' !== \ECSPrefix20210727\Composer\InstalledVersions::getRootPackage()['name'])) {
                         // skip "same vendor" @method deprecations for Symfony\* classes unless symfony/symfony is being tested
                         continue;
                     }
@@ -421,7 +421,7 @@ class DebugClassLoader
                 }
                 $canAddReturnType = \false !== \strpos($refl->getFileName(), \DIRECTORY_SEPARATOR . 'Tests' . \DIRECTORY_SEPARATOR) || $refl->isFinal() || $method->isFinal() || $method->isPrivate() || '' === (self::$internal[$class] ?? null) && !$refl->isAbstract() || '' === (self::$final[$class] ?? null) || \preg_match('/@(final|internal)$/m', $doc);
             }
-            if (null !== ($returnType = self::$returnTypes[$class][$method->name] ?? self::MAGIC_METHODS[$method->name] ?? null) && !$method->hasReturnType() && !($doc && \preg_match('/\\n\\s+\\* @return +(\\S+)/', $doc))) {
+            if (null !== ($returnType = self::$returnTypes[$class][$method->name] ?? self::MAGIC_METHODS[$method->name] ?? null) && !$method->hasReturnType() && !($doc && \preg_match('/\\n\\s+\\* @return +([^\\s<(]+)/', $doc))) {
                 list($normalizedType, $returnType, $declaringClass, $declaringFile) = \is_string($returnType) ? [$returnType, $returnType, '', ''] : $returnType;
                 if ('void' === $normalizedType) {
                     $canAddReturnType = \false;
@@ -442,7 +442,7 @@ class DebugClassLoader
                 continue;
             }
             $matches = [];
-            if (!$method->hasReturnType() && (\false !== \strpos($doc, '@return') && \preg_match('/\\n\\s+\\* @return +(\\S+)/', $doc, $matches) || 'void' !== (self::MAGIC_METHODS[$method->name] ?? 'void'))) {
+            if (!$method->hasReturnType() && (\false !== \strpos($doc, '@return') && \preg_match('/\\n\\s+\\* @return +([^\\s<(]+)/', $doc, $matches) || 'void' !== (self::MAGIC_METHODS[$method->name] ?? 'void'))) {
                 $matches = $matches ?: [1 => self::MAGIC_METHODS[$method->name]];
                 $this->setReturnType($matches[1], $method, $parent);
                 if (isset(self::$returnTypes[$class][$method->name][0]) && $canAddReturnType) {
@@ -464,7 +464,7 @@ class DebugClassLoader
                     $finalOrInternal = \true;
                 }
             }
-            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \ECSPrefix20210726\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
+            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \ECSPrefix20210727\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
                 continue;
             }
             if (!\preg_match_all('#\\n\\s+\\* @param +((?(?!callable *\\().*?|callable *\\(.*\\).*?))(?<= )\\$([a-zA-Z0-9_\\x7f-\\xff]++)#', $doc, $matches, \PREG_SET_ORDER)) {

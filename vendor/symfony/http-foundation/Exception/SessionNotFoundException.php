@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpFoundation\Exception;
+namespace ECSPrefix20210727\Symfony\Component\HttpFoundation\Exception;
 
 /**
  * Raised when a session does not exists. This happens in the following cases:
@@ -17,9 +17,9 @@ namespace ECSPrefix20210726\Symfony\Component\HttpFoundation\Exception;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class SessionNotFoundException extends \LogicException implements \ECSPrefix20210726\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface
+class SessionNotFoundException extends \LogicException implements \ECSPrefix20210727\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface
 {
-    public function __construct($message = 'There is currently no session available.', $code = 0, \Throwable $previous = null)
+    public function __construct(string $message = 'There is currently no session available.', int $code = 0, \Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

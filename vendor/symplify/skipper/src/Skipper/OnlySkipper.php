@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210726\Symplify\Skipper\Skipper;
+namespace ECSPrefix20210727\Symplify\Skipper\Skipper;
 
-use ECSPrefix20210726\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20210726\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210727\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20210727\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\Skipper\Tests\Skipper\Only\OnlySkipperTest
  */
@@ -14,7 +14,7 @@ final class OnlySkipper
      * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\ECSPrefix20210726\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\ECSPrefix20210727\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
@@ -23,7 +23,7 @@ final class OnlySkipper
      * @param object|string $checker
      * @return bool|null
      */
-    public function doesMatchOnly($checker, \ECSPrefix20210726\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only)
+    public function doesMatchOnly($checker, \ECSPrefix20210727\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only)
     {
         foreach ($only as $onlyClass => $onlyFiles) {
             if (\is_int($onlyClass)) {

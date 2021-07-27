@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\VarDumper\Server;
+namespace ECSPrefix20210727\Symfony\Component\VarDumper\Server;
 
-use ECSPrefix20210726\Symfony\Component\VarDumper\Cloner\Data;
-use ECSPrefix20210726\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface;
+use ECSPrefix20210727\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210727\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface;
 /**
  * Forwards serialized Data clones to a server.
  *
@@ -28,7 +28,7 @@ class Connection
      */
     public function __construct(string $host, array $contextProviders = [])
     {
-        if (\false === \strpos($host, '://')) {
+        if (\strpos($host, '://') === \false) {
             $host = 'tcp://' . $host;
         }
         $this->host = $host;
@@ -71,7 +71,7 @@ class Connection
         }
         return \false;
     }
-    private static function nullErrorHandler($t, $m)
+    private static function nullErrorHandler(int $t, string $m)
     {
         // no-op
     }

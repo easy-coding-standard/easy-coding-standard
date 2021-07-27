@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210727\Symfony\Component\Config\Resource;
 
 /**
  * FileResource represents a resource stored on the filesystem.
@@ -19,7 +19,7 @@ namespace ECSPrefix20210726\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class FileResource implements \ECSPrefix20210726\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class FileResource implements \ECSPrefix20210727\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     /**
      * @var string|false
@@ -37,9 +37,6 @@ class FileResource implements \ECSPrefix20210726\Symfony\Component\Config\Resour
             throw new \InvalidArgumentException(\sprintf('The file "%s" does not exist.', $resource));
         }
     }
-    /**
-     * {@inheritdoc}
-     */
     public function __toString() : string
     {
         return $this->resource;

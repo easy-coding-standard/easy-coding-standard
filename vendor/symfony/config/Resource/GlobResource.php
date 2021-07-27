@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210727\Symfony\Component\Config\Resource;
 
-use ECSPrefix20210726\Symfony\Component\Finder\Finder;
-use ECSPrefix20210726\Symfony\Component\Finder\Glob;
+use ECSPrefix20210727\Symfony\Component\Finder\Finder;
+use ECSPrefix20210727\Symfony\Component\Finder\Glob;
 /**
  * GlobResource represents a set of resources stored on the filesystem.
  *
@@ -21,7 +21,7 @@ use ECSPrefix20210726\Symfony\Component\Finder\Glob;
  *
  * @final
  */
-class GlobResource implements \IteratorAggregate, \ECSPrefix20210726\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class GlobResource implements \IteratorAggregate, \ECSPrefix20210727\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $prefix;
     private $pattern;
@@ -54,9 +54,6 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210726\Symfony\Com
     {
         return $this->prefix;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function __toString() : string
     {
         return 'glob.' . $this->prefix . (int) $this->recursive . $this->pattern . (int) $this->forExclusion . \implode("\0", $this->excludedPrefixes);
@@ -98,10 +95,10 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210726\Symfony\Com
         }
         $prefix = \str_replace('\\', '/', $this->prefix);
         $paths = null;
-        if (0 !== \strpos($this->prefix, 'phar://') && \false === \strpos($this->pattern, '/**/')) {
-            if ($this->globBrace || \false === \strpos($this->pattern, '{')) {
+        if (\strncmp($this->prefix, 'phar://', \strlen('phar://')) !== 0 && \strpos($this->pattern, '/**/') === \false) {
+            if ($this->globBrace || \strpos($this->pattern, '{') === \false) {
                 $paths = \glob($this->prefix . $this->pattern, \GLOB_NOSORT | $this->globBrace);
-            } elseif (\false === \strpos($this->pattern, '\\') || !\preg_match('/\\\\[,{}]/', $this->pattern)) {
+            } elseif (\strpos($this->pattern, '\\') === \false || !\preg_match('/\\\\[,{}]/', $this->pattern)) {
                 foreach ($this->expandGlob($this->pattern) as $p) {
                     $paths[] = \glob($this->prefix . $p, \GLOB_NOSORT);
                 }
@@ -144,11 +141,11 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210726\Symfony\Com
             }
             return;
         }
-        if (!\class_exists(\ECSPrefix20210726\Symfony\Component\Finder\Finder::class)) {
+        if (!\class_exists(\ECSPrefix20210727\Symfony\Component\Finder\Finder::class)) {
             throw new \LogicException(\sprintf('Extended glob pattern "%s" cannot be used as the Finder component is not installed.', $this->pattern));
         }
-        $finder = new \ECSPrefix20210726\Symfony\Component\Finder\Finder();
-        $regex = \ECSPrefix20210726\Symfony\Component\Finder\Glob::toRegex($this->pattern);
+        $finder = new \ECSPrefix20210727\Symfony\Component\Finder\Finder();
+        $regex = \ECSPrefix20210727\Symfony\Component\Finder\Glob::toRegex($this->pattern);
         if ($this->recursive) {
             $regex = \substr_replace($regex, '(/|$)', -2, 1);
         }
@@ -192,7 +189,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210726\Symfony\Com
         }
         $j = 0;
         foreach ($patterns as $i => $p) {
-            if (\false !== \strpos($p, '{')) {
+            if (\strpos($p, '{') !== \false) {
                 $p = $this->expandGlob($p);
                 \array_splice($paths, $i + $j, 1, $p);
                 $j += \count($p) - 1;

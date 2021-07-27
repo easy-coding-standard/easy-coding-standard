@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpKernel\DataCollector;
+namespace ECSPrefix20210727\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210726\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210726\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210727\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210727\Symfony\Component\HttpFoundation\Response;
 /**
  * MemoryDataCollector.
  *
@@ -19,7 +19,7 @@ use ECSPrefix20210726\Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
-class MemoryDataCollector extends \ECSPrefix20210726\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210726\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class MemoryDataCollector extends \ECSPrefix20210727\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210727\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
 {
     public function __construct()
     {
@@ -91,9 +91,9 @@ class MemoryDataCollector extends \ECSPrefix20210726\Symfony\Component\HttpKerne
         }
         $memoryLimit = \strtolower($memoryLimit);
         $max = \strtolower(\ltrim($memoryLimit, '+'));
-        if (0 === \strpos($max, '0x')) {
+        if (\strncmp($max, '0x', \strlen('0x')) === 0) {
             $max = \intval($max, 16);
-        } elseif (0 === \strpos($max, '0')) {
+        } elseif (\strncmp($max, '0', \strlen('0')) === 0) {
             $max = \intval($max, 8);
         } else {
             $max = (int) $max;

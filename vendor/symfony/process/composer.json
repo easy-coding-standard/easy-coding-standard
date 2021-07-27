@@ -17,11 +17,11 @@
     ],
     "require": {
         "php": ">=7.2.5",
-        "symfony\/polyfill-php80": "^1.15"
+        "symfony\/polyfill-php80": "^1.16"
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210726\\Symfony\\Component\\Process\\": ""
+            "ECSPrefix20210727\\Symfony\\Component\\Process\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

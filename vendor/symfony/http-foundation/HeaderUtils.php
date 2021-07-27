@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210727\Symfony\Component\HttpFoundation;
 
 /**
  * HTTP header utility functions.
@@ -166,11 +166,11 @@ class HeaderUtils
             throw new \InvalidArgumentException('The filename fallback must only contain ASCII characters.');
         }
         // percent characters aren't safe in fallback.
-        if (\false !== \strpos($filenameFallback, '%')) {
+        if (\strpos($filenameFallback, '%') !== \false) {
             throw new \InvalidArgumentException('The filename fallback cannot contain the "%" character.');
         }
         // path separators aren't allowed in either.
-        if (\false !== \strpos($filename, '/') || \false !== \strpos($filename, '\\') || \false !== \strpos($filenameFallback, '/') || \false !== \strpos($filenameFallback, '\\')) {
+        if (\strpos($filename, '/') !== \false || \strpos($filename, '\\') !== \false || \strpos($filenameFallback, '/') !== \false || \strpos($filenameFallback, '\\') !== \false) {
             throw new \InvalidArgumentException('The filename and the fallback cannot contain the "/" and "\\" characters.');
         }
         $params = ['filename' => $filenameFallback];

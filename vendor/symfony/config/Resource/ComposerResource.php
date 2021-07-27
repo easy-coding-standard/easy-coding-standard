@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210727\Symfony\Component\Config\Resource;
 
 /**
  * ComposerResource tracks the PHP version and Composer dependencies.
@@ -17,7 +17,7 @@ namespace ECSPrefix20210726\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class ComposerResource implements \ECSPrefix20210726\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class ComposerResource implements \ECSPrefix20210727\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $vendors;
     private static $runtimeVendors;
@@ -30,9 +30,6 @@ class ComposerResource implements \ECSPrefix20210726\Symfony\Component\Config\Re
     {
         return \array_keys($this->vendors);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function __toString() : string
     {
         return __CLASS__;
@@ -50,7 +47,7 @@ class ComposerResource implements \ECSPrefix20210726\Symfony\Component\Config\Re
     {
         self::$runtimeVendors = [];
         foreach (\get_declared_classes() as $class) {
-            if ('C' === $class[0] && 0 === \strpos($class, 'ComposerAutoloaderInit')) {
+            if ('C' === $class[0] && \strncmp($class, 'ComposerAutoloaderInit', \strlen('ComposerAutoloaderInit')) === 0) {
                 $r = new \ReflectionClass($class);
                 $v = \dirname($r->getFileName(), 2);
                 if (\is_file($v . '/composer/installed.json')) {

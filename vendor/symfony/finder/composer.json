@@ -16,11 +16,12 @@
         }
     ],
     "require": {
-        "php": ">=7.2.5"
+        "php": ">=7.2.5",
+        "symfony\/polyfill-php80": "^1.16"
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210726\\Symfony\\Component\\Finder\\": ""
+            "ECSPrefix20210727\\Symfony\\Component\\Finder\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

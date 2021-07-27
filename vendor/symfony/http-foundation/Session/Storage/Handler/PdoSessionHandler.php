@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace ECSPrefix20210727\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Session handler using a PDO connection to read and write data.
@@ -37,7 +37,7 @@ namespace ECSPrefix20210726\Symfony\Component\HttpFoundation\Session\Storage\Han
  * @author Michael Williams <michael.williams@funsational.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class PdoSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class PdoSessionHandler extends \ECSPrefix20210727\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     /**
      * No locking is done. This means sessions are prone to loss of data due to
@@ -157,7 +157,7 @@ class PdoSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFoundat
             }
             $this->pdo = $pdoOrDsn;
             $this->driver = $this->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME);
-        } elseif (\is_string($pdoOrDsn) && \false !== \strpos($pdoOrDsn, '://')) {
+        } elseif (\is_string($pdoOrDsn) && \strpos($pdoOrDsn, '://') !== \false) {
             $this->dsn = $this->buildDsnFromUrl($pdoOrDsn);
         } else {
             $this->dsn = $pdoOrDsn;
@@ -256,7 +256,7 @@ class PdoSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFoundat
         }
     }
     /**
-     * @return bool
+     * @return int|false
      */
     #[\ReturnTypeWillChange]
     public function gc($maxlifetime)
@@ -264,7 +264,7 @@ class PdoSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFoundat
         // We delay gc() to close() so that it is executed outside the transactional and blocking read-write process.
         // This way, pruning expired sessions does not block them from being started while the current session is used.
         $this->gcCalled = \true;
-        return \true;
+        return 0;
     }
     /**
      * {@inheritdoc}
@@ -312,7 +312,7 @@ class PdoSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFoundat
                     $insertStmt->execute();
                 } catch (\PDOException $e) {
                     // Handle integrity violation SQLSTATE 23000 (or a subclass like 23505 in Postgres) for duplicate keys
-                    if (0 === \strpos($e->getCode(), '23')) {
+                    if (\strncmp($e->getCode(), '23', \strlen('23')) === 0) {
                         $updateStmt->execute();
                     } else {
                         throw $e;
@@ -424,7 +424,7 @@ class PdoSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFoundat
         ];
         $driver = $driverAliasMap[$params['scheme']] ?? $params['scheme'];
         // Doctrine DBAL supports passing its internal pdo_* driver names directly too (allowing both dashes and underscores). This allows supporting the same here.
-        if (0 === \strpos($driver, 'pdo_') || 0 === \strpos($driver, 'pdo-')) {
+        if (\strncmp($driver, 'pdo_', \strlen('pdo_')) === 0 || \strncmp($driver, 'pdo-', \strlen('pdo-')) === 0) {
             $driver = \substr($driver, 4);
         }
         $dsn = null;
@@ -597,7 +597,7 @@ class PdoSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFoundat
                 } catch (\PDOException $e) {
                     // Catch duplicate key error because other connection created the session already.
                     // It would only not be the case when the other connection destroyed the session.
-                    if (0 === \strpos($e->getCode(), '23')) {
+                    if (\strncmp($e->getCode(), '23', \strlen('23')) === 0) {
                         // Retrieve finished session data written by concurrent connection by restarting the loop.
                         // We have to start a new transaction as a failed query will mark the current transaction as
                         // aborted in PostgreSQL and disallow further queries within it.

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20210727\Symfony\Component\Finder\Iterator;
 
 /**
  * ExcludeDirectoryFilterIterator filters out directories.
@@ -32,7 +32,7 @@ class ExcludeDirectoryFilterIterator extends \FilterIterator implements \Recursi
         $patterns = [];
         foreach ($directories as $directory) {
             $directory = \rtrim($directory, '/');
-            if (!$this->isRecursive || \false !== \strpos($directory, '/')) {
+            if (!$this->isRecursive || \strpos($directory, '/') !== \false) {
                 $patterns[] = \preg_quote($directory, '#');
             } else {
                 $this->excludedDirs[$directory] = \true;
@@ -67,6 +67,9 @@ class ExcludeDirectoryFilterIterator extends \FilterIterator implements \Recursi
     {
         return $this->isRecursive && $this->iterator->hasChildren();
     }
+    /**
+     * @return self
+     */
     public function getChildren()
     {
         $children = new self($this->iterator->getChildren(), []);

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpKernel\Exception;
+namespace ECSPrefix20210727\Symfony\Component\HttpKernel\Exception;
 
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
@@ -32,7 +32,7 @@ class ControllerDoesNotReturnResponseException extends \LogicException
      */
     private function parseControllerDefinition(callable $controller)
     {
-        if (\is_string($controller) && \false !== \strpos($controller, '::')) {
+        if (\is_string($controller) && \strpos($controller, '::') !== \false) {
             $controller = \explode('::', $controller);
         }
         if (\is_array($controller)) {

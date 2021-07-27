@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210727\Symfony\Component\HttpFoundation;
 
-use ECSPrefix20210726\Symfony\Component\HttpFoundation\File\UploadedFile;
+use ECSPrefix20210727\Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * FileBag is a container for uploaded files.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Bulat Shakirzyanov <mallluhuct@gmail.com>
  */
-class FileBag extends \ECSPrefix20210726\Symfony\Component\HttpFoundation\ParameterBag
+class FileBag extends \ECSPrefix20210727\Symfony\Component\HttpFoundation\ParameterBag
 {
     const FILE_KEYS = ['error', 'name', 'size', 'tmp_name', 'type'];
     /**
@@ -42,7 +42,7 @@ class FileBag extends \ECSPrefix20210726\Symfony\Component\HttpFoundation\Parame
      */
     public function set($key, $value)
     {
-        if (!\is_array($value) && !$value instanceof \ECSPrefix20210726\Symfony\Component\HttpFoundation\File\UploadedFile) {
+        if (!\is_array($value) && !$value instanceof \ECSPrefix20210727\Symfony\Component\HttpFoundation\File\UploadedFile) {
             throw new \InvalidArgumentException('An uploaded file must be an array or an instance of UploadedFile.');
         }
         parent::set($key, $this->convertFileInformation($value));
@@ -66,24 +66,24 @@ class FileBag extends \ECSPrefix20210726\Symfony\Component\HttpFoundation\Parame
      */
     protected function convertFileInformation($file)
     {
-        if ($file instanceof \ECSPrefix20210726\Symfony\Component\HttpFoundation\File\UploadedFile) {
+        if ($file instanceof \ECSPrefix20210727\Symfony\Component\HttpFoundation\File\UploadedFile) {
             return $file;
         }
-        if (\is_array($file)) {
-            $file = $this->fixPhpFilesArray($file);
-            $keys = \array_keys($file);
-            \sort($keys);
-            if (self::FILE_KEYS == $keys) {
-                if (\UPLOAD_ERR_NO_FILE == $file['error']) {
-                    $file = null;
-                } else {
-                    $file = new \ECSPrefix20210726\Symfony\Component\HttpFoundation\File\UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['error'], \false);
-                }
+        $file = $this->fixPhpFilesArray($file);
+        $keys = \array_keys($file);
+        \sort($keys);
+        if (self::FILE_KEYS == $keys) {
+            if (\UPLOAD_ERR_NO_FILE == $file['error']) {
+                $file = null;
             } else {
-                $file = \array_map([$this, 'convertFileInformation'], $file);
-                if (\array_keys($keys) === $keys) {
-                    $file = \array_filter($file);
-                }
+                $file = new \ECSPrefix20210727\Symfony\Component\HttpFoundation\File\UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['error'], \false);
+            }
+        } else {
+            $file = \array_map(function ($v) {
+                return $v instanceof \ECSPrefix20210727\Symfony\Component\HttpFoundation\File\UploadedFile || \is_array($v) ? $this->convertFileInformation($v) : $v;
+            }, $file);
+            if (\array_keys($keys) === $keys) {
+                $file = \array_filter($file);
             }
         }
         return $file;
@@ -100,12 +100,13 @@ class FileBag extends \ECSPrefix20210726\Symfony\Component\HttpFoundation\Parame
      * It's safe to pass an already converted array, in which case this method
      * just returns the original array unmodified.
      *
-     * @param array $data
-     *
      * @return array
+     * @param mixed[] $data
      */
     protected function fixPhpFilesArray($data)
     {
+        // Remove extra key added by PHP 8.1.
+        unset($data['full_path']);
         $keys = \array_keys($data);
         \sort($keys);
         if (self::FILE_KEYS != $keys || !isset($data['name']) || !\is_array($data['name'])) {

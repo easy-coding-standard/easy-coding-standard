@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace ECSPrefix20210727\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Session handler using the mongodb/mongodb package and MongoDB driver extension.
@@ -18,7 +18,7 @@ namespace ECSPrefix20210726\Symfony\Component\HttpFoundation\Session\Storage\Han
  * @see https://packagist.org/packages/mongodb/mongodb
  * @see https://php.net/mongodb
  */
-class MongoDbSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class MongoDbSessionHandler extends \ECSPrefix20210727\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     private $mongo;
     /**
@@ -47,7 +47,7 @@ class MongoDbSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFou
      * A TTL collections can be used on MongoDB 2.2+ to cleanup expired sessions
      * automatically. Such an index can for example look like this:
      *
-     *     db.<session-collection>.ensureIndex(
+     *     db.<session-collection>.createIndex(
      *         { "<expiry-field>": 1 },
      *         { "expireAfterSeconds": 0 }
      *     )
@@ -59,7 +59,7 @@ class MongoDbSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFou
      *
      * @throws \InvalidArgumentException When "database" or "collection" not provided
      */
-    public function __construct(\ECSPrefix20210726\MongoDB\Client $mongo, array $options)
+    public function __construct(\ECSPrefix20210727\MongoDB\Client $mongo, array $options)
     {
         if (!isset($options['database']) || !isset($options['collection'])) {
             throw new \InvalidArgumentException('You must provide the "database" and "collection" option for MongoDBSessionHandler.');
@@ -84,12 +84,12 @@ class MongoDbSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFou
         return \true;
     }
     /**
-     * @return bool
+     * @return int|false
      */
+    #[\ReturnTypeWillChange]
     public function gc($maxlifetime)
     {
-        $this->getCollection()->deleteMany([$this->options['expiry_field'] => ['$lt' => new \MongoDB\BSON\UTCDateTime()]]);
-        return \true;
+        return $this->getCollection()->deleteMany([$this->options['expiry_field'] => ['$lt' => new \MongoDB\BSON\UTCDateTime()]])->getDeletedCount();
     }
     /**
      * {@inheritdoc}
@@ -124,7 +124,7 @@ class MongoDbSessionHandler extends \ECSPrefix20210726\Symfony\Component\HttpFou
         }
         return $dbData[$this->options['data_field']]->getData();
     }
-    private function getCollection() : \ECSPrefix20210726\MongoDB\Collection
+    private function getCollection() : \ECSPrefix20210727\MongoDB\Collection
     {
         if (null === $this->collection) {
             $this->collection = $this->mongo->selectCollection($this->options['database'], $this->options['collection']);

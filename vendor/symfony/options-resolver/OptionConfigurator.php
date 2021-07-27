@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210726\Symfony\Component\OptionsResolver;
+namespace ECSPrefix20210727\Symfony\Component\OptionsResolver;
 
-use ECSPrefix20210726\Symfony\Component\OptionsResolver\Exception\AccessException;
+use ECSPrefix20210727\Symfony\Component\OptionsResolver\Exception\AccessException;
 final class OptionConfigurator
 {
     private $name;
     private $resolver;
-    public function __construct(string $name, \ECSPrefix20210726\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
+    public function __construct(string $name, \ECSPrefix20210727\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
     {
         $this->name = $name;
         $this->resolver = $resolver;
@@ -23,8 +23,6 @@ final class OptionConfigurator
     }
     /**
      * Adds allowed types for this option.
-     *
-     * @param string ...$types One or more accepted types
      *
      * @return $this
      *
@@ -87,8 +85,6 @@ final class OptionConfigurator
     }
     /**
      * Sets the normalizer for this option.
-     *
-     * @param \Closure $normalizer The normalizer
      *
      * @return $this
      *
