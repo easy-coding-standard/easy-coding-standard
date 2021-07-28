@@ -11,17 +11,17 @@ use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
-use ECSPrefix20210727\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210727\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210728\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210728\Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException;
-final class ConflictingCheckersCompilerPass implements \ECSPrefix20210727\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class ConflictingCheckersCompilerPass implements \ECSPrefix20210728\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * These groups do the opposite of each other, e.g. Yoda vs NoYoda.
      *
      * @var string[][]
      */
-    const CONFLICTING_CHECKER_GROUPS = [['ECSPrefix20210727\\SlevomatCodingStandard\\Sniffs\\ControlStructures\\DisallowYodaComparisonSniff', \PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer::class], [\PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], [\PhpCsFixer\Fixer\Casing\ConstantCaseFixer::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], ['ECSPrefix20210727\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer::class], ['ECSPrefix20210727\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class], [\PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff::class, \PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer::class]];
+    const CONFLICTING_CHECKER_GROUPS = [['ECSPrefix20210728\\SlevomatCodingStandard\\Sniffs\\ControlStructures\\DisallowYodaComparisonSniff', \PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer::class], [\PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], [\PhpCsFixer\Fixer\Casing\ConstantCaseFixer::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], ['ECSPrefix20210728\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer::class], ['ECSPrefix20210728\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class], [\PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff::class, \PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer::class]];
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      * @return void

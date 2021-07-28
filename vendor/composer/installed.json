@@ -28,7 +28,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Clue\\React\\NDJson\\": "src\/"
+                    "ECSPrefix20210728\\Clue\\React\\NDJson\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -99,7 +99,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Composer\\Semver\\": "src"
+                    "ECSPrefix20210728\\Composer\\Semver\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -179,7 +179,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Composer\\XdebugHandler\\": "src"
+                    "ECSPrefix20210728\\Composer\\XdebugHandler\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -245,7 +245,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Stringy\\": "src\/"
+                    "ECSPrefix20210728\\Stringy\\": "src\/"
                 },
                 "files": [
                     "src\/Create.php"
@@ -314,7 +314,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
+                    "ECSPrefix20210728\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -389,7 +389,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
+                    "ECSPrefix20210728\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -465,7 +465,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Evenement\\": "src\/Evenement\/"
+                    "ECSPrefix20210728\\Evenement\\": "src\/Evenement\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -819,7 +819,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Psr\\Cache\\": "src\/"
+                    "ECSPrefix20210728\\Psr\\Cache\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -866,7 +866,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Psr\\Container\\": "src\/"
+                    "ECSPrefix20210728\\Psr\\Container\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -922,7 +922,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Psr\\EventDispatcher\\": "src\/"
+                    "ECSPrefix20210728\\Psr\\EventDispatcher\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -975,7 +975,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Psr\\Log\\": "Psr\/Log\/"
+                    "ECSPrefix20210728\\Psr\\Log\\": "Psr\/Log\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1031,7 +1031,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\React\\ChildProcess\\": "src"
+                    "ECSPrefix20210728\\React\\ChildProcess\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1113,7 +1113,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\React\\EventLoop\\": "src"
+                    "ECSPrefix20210728\\React\\EventLoop\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1192,7 +1192,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\React\\Stream\\": "src"
+                    "ECSPrefix20210728\\React\\Stream\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1417,7 +1417,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\Config\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\Config\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1465,12 +1465,12 @@
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/console.git",
-                "reference": "c85b7001e8560e7e65978e93ec6e8d5b2bf453a8"
+                "reference": "25e16fd41a9a3836c6619bd9ed6a6180a83b26d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/c85b7001e8560e7e65978e93ec6e8d5b2bf453a8",
-                "reference": "c85b7001e8560e7e65978e93ec6e8d5b2bf453a8",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/25e16fd41a9a3836c6619bd9ed6a6180a83b26d5",
+                "reference": "25e16fd41a9a3836c6619bd9ed6a6180a83b26d5",
                 "shasum": ""
             },
             "require": {
@@ -1508,12 +1508,12 @@
                 "symfony\/lock": "",
                 "symfony\/process": ""
             },
-            "time": "2021-07-21T12:43:48+00:00",
+            "time": "2021-07-27T17:15:07+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\Console\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\Console\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1610,7 +1610,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\DependencyInjection\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\DependencyInjection\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1751,7 +1751,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\ErrorHandler\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\ErrorHandler\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1839,7 +1839,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\EventDispatcher\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\EventDispatcher\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1916,7 +1916,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Contracts\\EventDispatcher\\": ""
+                    "ECSPrefix20210728\\Symfony\\Contracts\\EventDispatcher\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1987,7 +1987,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\Filesystem\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\Filesystem\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2052,7 +2052,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\Finder\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\Finder\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2128,7 +2128,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Contracts\\HttpClient\\": ""
+                    "ECSPrefix20210728\\Symfony\\Contracts\\HttpClient\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2209,7 +2209,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\HttpFoundation\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\HttpFoundation\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2324,7 +2324,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\HttpKernel\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\HttpKernel\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2391,7 +2391,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\OptionsResolver\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\OptionsResolver\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2472,7 +2472,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Polyfill\\Ctype\\": ""
+                    "ECSPrefix20210728\\Symfony\\Polyfill\\Ctype\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2554,7 +2554,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
+                    "ECSPrefix20210728\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2638,7 +2638,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                    "ECSPrefix20210728\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2725,7 +2725,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Polyfill\\Mbstring\\": ""
+                    "ECSPrefix20210728\\Symfony\\Polyfill\\Mbstring\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2805,7 +2805,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Polyfill\\Php72\\": ""
+                    "ECSPrefix20210728\\Symfony\\Polyfill\\Php72\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2884,7 +2884,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Polyfill\\Php73\\": ""
+                    "ECSPrefix20210728\\Symfony\\Polyfill\\Php73\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2966,7 +2966,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Polyfill\\Php80\\": ""
+                    "ECSPrefix20210728\\Symfony\\Polyfill\\Php80\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -3052,7 +3052,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Polyfill\\Php81\\": ""
+                    "ECSPrefix20210728\\Symfony\\Polyfill\\Php81\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -3126,7 +3126,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\Process\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\Process\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3203,7 +3203,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Contracts\\Service\\": ""
+                    "ECSPrefix20210728\\Symfony\\Contracts\\Service\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3273,7 +3273,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\Stopwatch\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\Stopwatch\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3348,7 +3348,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\String\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\String\\": ""
                 },
                 "files": [
                     "Resources\/functions.php"
@@ -3446,7 +3446,7 @@
                     "Resources\/functions\/dump.php"
                 ],
                 "psr-4": {
-                    "ECSPrefix20210727\\Symfony\\Component\\VarDumper\\": ""
+                    "ECSPrefix20210728\\Symfony\\Component\\VarDumper\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3518,12 +3518,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\AutowireArrayParameter\\": "src"
+                    "ECSPrefix20210728\\Symplify\\AutowireArrayParameter\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
+                    "ECSPrefix20210728\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3623,12 +3623,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\ComposerJsonManipulator\\": "src"
+                    "ECSPrefix20210728\\Symplify\\ComposerJsonManipulator\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
+                    "ECSPrefix20210728\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3671,12 +3671,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\ConsoleColorDiff\\": "src"
+                    "ECSPrefix20210728\\Symplify\\ConsoleColorDiff\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\ConsoleColorDiff\\Tests\\": "tests"
+                    "ECSPrefix20210728\\Symplify\\ConsoleColorDiff\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3718,12 +3718,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\ConsolePackageBuilder\\": "src"
+                    "ECSPrefix20210728\\Symplify\\ConsolePackageBuilder\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\ConsolePackageBuilder\\Tests\\": "tests"
+                    "ECSPrefix20210728\\Symplify\\ConsolePackageBuilder\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3772,12 +3772,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\EasyTesting\\": "src"
+                    "ECSPrefix20210728\\Symplify\\EasyTesting\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\EasyTesting\\Tests\\": "tests"
+                    "ECSPrefix20210728\\Symplify\\EasyTesting\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3823,12 +3823,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\PackageBuilder\\": "src"
+                    "ECSPrefix20210728\\Symplify\\PackageBuilder\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\PackageBuilder\\Tests\\": "tests"
+                    "ECSPrefix20210728\\Symplify\\PackageBuilder\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3864,7 +3864,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\RuleDocGenerator\\": "src"
+                    "ECSPrefix20210728\\Symplify\\RuleDocGenerator\\": "src"
                 }
             },
             "license": [
@@ -3909,12 +3909,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\Skipper\\": "src"
+                    "ECSPrefix20210728\\Symplify\\Skipper\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\Skipper\\Tests\\": "tests"
+                    "ECSPrefix20210728\\Symplify\\Skipper\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3955,12 +3955,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\SmartFileSystem\\": "src"
+                    "ECSPrefix20210728\\Symplify\\SmartFileSystem\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\SmartFileSystem\\Tests\\": "tests"
+                    "ECSPrefix20210728\\Symplify\\SmartFileSystem\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -4004,7 +4004,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Symplify\\SymplifyKernel\\": "src"
+                    "ECSPrefix20210728\\Symplify\\SymplifyKernel\\": "src"
                 }
             },
             "license": [
@@ -4053,7 +4053,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210727\\Webmozart\\Assert\\": "src\/"
+                    "ECSPrefix20210728\\Webmozart\\Assert\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",

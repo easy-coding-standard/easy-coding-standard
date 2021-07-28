@@ -32,7 +32,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210727\\Symfony\\Component\\HttpFoundation\\": ""
+            "ECSPrefix20210728\\Symfony\\Component\\HttpFoundation\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"
