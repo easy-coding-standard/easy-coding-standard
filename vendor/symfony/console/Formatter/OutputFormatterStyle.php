@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210728\Symfony\Component\Console\Formatter;
+namespace ECSPrefix20210730\Symfony\Component\Console\Formatter;
 
-use ECSPrefix20210728\Symfony\Component\Console\Color;
+use ECSPrefix20210730\Symfony\Component\Console\Color;
 /**
  * Formatter style class for defining styles.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class OutputFormatterStyle implements \ECSPrefix20210728\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+class OutputFormatterStyle implements \ECSPrefix20210730\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
 {
     private $color;
     private $foreground;
@@ -32,7 +32,7 @@ class OutputFormatterStyle implements \ECSPrefix20210728\Symfony\Component\Conso
      */
     public function __construct(string $foreground = null, string $background = null, array $options = [])
     {
-        $this->color = new \ECSPrefix20210728\Symfony\Component\Console\Color($this->foreground = $foreground ?: '', $this->background = $background ?: '', $this->options = $options);
+        $this->color = new \ECSPrefix20210730\Symfony\Component\Console\Color($this->foreground = $foreground ?: '', $this->background = $background ?: '', $this->options = $options);
     }
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class OutputFormatterStyle implements \ECSPrefix20210728\Symfony\Component\Conso
      */
     public function setForeground($color = null)
     {
-        $this->color = new \ECSPrefix20210728\Symfony\Component\Console\Color($this->foreground = $color ?: '', $this->background, $this->options);
+        $this->color = new \ECSPrefix20210730\Symfony\Component\Console\Color($this->foreground = $color ?: '', $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
@@ -48,7 +48,7 @@ class OutputFormatterStyle implements \ECSPrefix20210728\Symfony\Component\Conso
      */
     public function setBackground($color = null)
     {
-        $this->color = new \ECSPrefix20210728\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
+        $this->color = new \ECSPrefix20210730\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
     }
     /**
      * @param string $url
@@ -65,7 +65,7 @@ class OutputFormatterStyle implements \ECSPrefix20210728\Symfony\Component\Conso
     public function setOption($option)
     {
         $this->options[] = $option;
-        $this->color = new \ECSPrefix20210728\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
+        $this->color = new \ECSPrefix20210730\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
@@ -77,7 +77,7 @@ class OutputFormatterStyle implements \ECSPrefix20210728\Symfony\Component\Conso
         if (\false !== $pos) {
             unset($this->options[$pos]);
         }
-        $this->color = new \ECSPrefix20210728\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
+        $this->color = new \ECSPrefix20210730\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
@@ -85,7 +85,7 @@ class OutputFormatterStyle implements \ECSPrefix20210728\Symfony\Component\Conso
      */
     public function setOptions($options)
     {
-        $this->color = new \ECSPrefix20210728\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options = $options);
+        $this->color = new \ECSPrefix20210730\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options = $options);
     }
     /**
      * {@inheritdoc}

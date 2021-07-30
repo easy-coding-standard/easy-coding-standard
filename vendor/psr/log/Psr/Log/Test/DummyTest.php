@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210728\Psr\Log\Test;
+namespace ECSPrefix20210730\Psr\Log\Test;
 
 /**
  * This class is internal and does not follow the BC promise.

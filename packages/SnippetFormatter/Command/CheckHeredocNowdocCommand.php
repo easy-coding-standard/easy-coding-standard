@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Command;
 
-use ECSPrefix20210728\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210728\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210730\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210730\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
 use Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication;
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
-use ECSPrefix20210728\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210730\Symplify\PackageBuilder\Console\ShellCode;
 final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
@@ -36,7 +36,7 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
     {
         if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             $this->loadedCheckersGuard->report();
-            return \ECSPrefix20210728\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+            return \ECSPrefix20210730\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }
         $configuration = $this->configurationFactory->createFromInput($input);
         $phpFileInfos = $this->smartFinder->find($configuration->getSources(), '*.php', ['Fixture']);

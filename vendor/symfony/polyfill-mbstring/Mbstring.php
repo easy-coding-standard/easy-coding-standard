@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210728\Symfony\Polyfill\Mbstring;
+namespace ECSPrefix20210730\Symfony\Polyfill\Mbstring;
 
 /**
  * Partial mbstring implementation in PHP, iconv based, UTF-8 centric.
@@ -67,10 +67,10 @@ namespace ECSPrefix20210728\Symfony\Polyfill\Mbstring;
 final class Mbstring
 {
     const MB_CASE_FOLD = \PHP_INT_MAX;
+    const CASE_FOLD = [['µ', 'ſ', "ͅ", 'ς', "ϐ", "ϑ", "ϕ", "ϖ", "ϰ", "ϱ", "ϵ", "ẛ", "ι"], ['μ', 's', 'ι', 'σ', 'β', 'θ', 'φ', 'π', 'κ', 'ρ', 'ε', "ṡ", 'ι']];
     private static $encodingList = ['ASCII', 'UTF-8'];
     private static $language = 'neutral';
     private static $internalEncoding = 'UTF-8';
-    private static $caseFold = [['µ', 'ſ', "ͅ", 'ς', "ϐ", "ϑ", "ϕ", "ϖ", "ϰ", "ϱ", "ϵ", "ẛ", "ι"], ['μ', 's', 'ι', 'σ', 'β', 'θ', 'φ', 'π', 'κ', 'ρ', 'ε', "ṡ", 'ι']];
     public static function mb_convert_encoding($s, $toEncoding, $fromEncoding = null)
     {
         if (\is_array($fromEncoding) || \false !== \strpos($fromEncoding, ',')) {
@@ -251,7 +251,7 @@ final class Mbstring
                 $map = $upper;
             } else {
                 if (self::MB_CASE_FOLD === $mode) {
-                    $s = \str_replace(self::$caseFold[0], self::$caseFold[1], $s);
+                    $s = \str_replace(self::CASE_FOLD[0], self::CASE_FOLD[1], $s);
                 }
                 static $lower = null;
                 if (null === $lower) {
