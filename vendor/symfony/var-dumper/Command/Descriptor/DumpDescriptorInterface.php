@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210730\Symfony\Component\VarDumper\Command\Descriptor;
+namespace ECSPrefix20210801\Symfony\Component\VarDumper\Command\Descriptor;
 
-use ECSPrefix20210730\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210730\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210801\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210801\Symfony\Component\VarDumper\Cloner\Data;
 /**
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */

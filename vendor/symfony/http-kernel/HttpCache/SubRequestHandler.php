@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210730\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20210801\Symfony\Component\HttpKernel\HttpCache;
 
-use ECSPrefix20210730\Symfony\Component\HttpFoundation\IpUtils;
-use ECSPrefix20210730\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210730\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210730\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210801\Symfony\Component\HttpFoundation\IpUtils;
+use ECSPrefix20210801\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210801\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210801\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -27,15 +27,15 @@ class SubRequestHandler
      * @param int $type
      * @param bool $catch
      */
-    public static function handle($kernel, $request, $type, $catch) : \ECSPrefix20210730\Symfony\Component\HttpFoundation\Response
+    public static function handle($kernel, $request, $type, $catch) : \ECSPrefix20210801\Symfony\Component\HttpFoundation\Response
     {
         // save global state related to trusted headers and proxies
-        $trustedProxies = \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::getTrustedProxies();
-        $trustedHeaderSet = \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::getTrustedHeaderSet();
+        $trustedProxies = \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::getTrustedProxies();
+        $trustedHeaderSet = \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::getTrustedHeaderSet();
         // remove untrusted values
         $remoteAddr = $request->server->get('REMOTE_ADDR');
-        if (!\ECSPrefix20210730\Symfony\Component\HttpFoundation\IpUtils::checkIp($remoteAddr, $trustedProxies)) {
-            $trustedHeaders = ['FORWARDED' => $trustedHeaderSet & \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED, 'X_FORWARDED_FOR' => $trustedHeaderSet & \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR, 'X_FORWARDED_HOST' => $trustedHeaderSet & \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_HOST, 'X_FORWARDED_PROTO' => $trustedHeaderSet & \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PROTO, 'X_FORWARDED_PORT' => $trustedHeaderSet & \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PORT];
+        if (!\ECSPrefix20210801\Symfony\Component\HttpFoundation\IpUtils::checkIp($remoteAddr, $trustedProxies)) {
+            $trustedHeaders = ['FORWARDED' => $trustedHeaderSet & \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED, 'X_FORWARDED_FOR' => $trustedHeaderSet & \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR, 'X_FORWARDED_HOST' => $trustedHeaderSet & \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_HOST, 'X_FORWARDED_PROTO' => $trustedHeaderSet & \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PROTO, 'X_FORWARDED_PORT' => $trustedHeaderSet & \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PORT];
             foreach (\array_filter($trustedHeaders) as $name => $key) {
                 $request->headers->remove($name);
                 $request->server->remove('HTTP_' . $name);
@@ -53,16 +53,16 @@ class SubRequestHandler
             $trustedValues[] = \sprintf('for="%s"', $remoteAddr);
         }
         // set trusted values, reusing as much as possible the global trusted settings
-        if (\ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED & $trustedHeaderSet) {
+        if (\ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED & $trustedHeaderSet) {
             $trustedValues[0] .= \sprintf(';host="%s";proto=%s', $request->getHttpHost(), $request->getScheme());
             $request->headers->set('Forwarded', $v = \implode(', ', $trustedValues));
             $request->server->set('HTTP_FORWARDED', $v);
         }
-        if (\ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR & $trustedHeaderSet) {
+        if (\ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR & $trustedHeaderSet) {
             $request->headers->set('X-Forwarded-For', $v = \implode(', ', $trustedIps));
             $request->server->set('HTTP_X_FORWARDED_FOR', $v);
-        } elseif (!(\ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED & $trustedHeaderSet)) {
-            \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::setTrustedProxies($trustedProxies, $trustedHeaderSet | \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR);
+        } elseif (!(\ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED & $trustedHeaderSet)) {
+            \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::setTrustedProxies($trustedProxies, $trustedHeaderSet | \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR);
             $request->headers->set('X-Forwarded-For', $v = \implode(', ', $trustedIps));
             $request->server->set('HTTP_X_FORWARDED_FOR', $v);
         }
@@ -70,14 +70,14 @@ class SubRequestHandler
         // which is the core responsibility of this method
         $request->server->set('REMOTE_ADDR', '127.0.0.1');
         // ensure 127.0.0.1 is set as trusted proxy
-        if (!\ECSPrefix20210730\Symfony\Component\HttpFoundation\IpUtils::checkIp('127.0.0.1', $trustedProxies)) {
-            \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::setTrustedProxies(\array_merge($trustedProxies, ['127.0.0.1']), \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::getTrustedHeaderSet());
+        if (!\ECSPrefix20210801\Symfony\Component\HttpFoundation\IpUtils::checkIp('127.0.0.1', $trustedProxies)) {
+            \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::setTrustedProxies(\array_merge($trustedProxies, ['127.0.0.1']), \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::getTrustedHeaderSet());
         }
         try {
             return $kernel->handle($request, $type, $catch);
         } finally {
             // restore global state
-            \ECSPrefix20210730\Symfony\Component\HttpFoundation\Request::setTrustedProxies($trustedProxies, $trustedHeaderSet);
+            \ECSPrefix20210801\Symfony\Component\HttpFoundation\Request::setTrustedProxies($trustedProxies, $trustedHeaderSet);
         }
     }
 }

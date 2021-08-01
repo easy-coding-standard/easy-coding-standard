@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210730\Symfony\Component\Console\Formatter;
+namespace ECSPrefix20210801\Symfony\Component\Console\Formatter;
 
 /**
  * Formatter interface for console output.
