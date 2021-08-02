@@ -45,7 +45,7 @@ final class ClassAttributesSeparationFixer extends \PhpCsFixer\AbstractFixer imp
      */
     const SPACING_ONE = 'one';
     const SUPPORTED_SPACINGS = [self::SPACING_NONE, self::SPACING_ONE];
-    const SUPPORTED_TYPES = ['const', 'method', 'property'];
+    const SUPPORTED_TYPES = ['const', 'method', 'property', 'trait_import'];
     /**
      * @var array<string, string>
      */
@@ -149,7 +149,7 @@ class Sample
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'Dictionary of `const|method|property` => `none|one` values.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'Dictionary of `const|method|property|trait_import` => `none|one` values.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) {
             foreach ($option as $type => $spacing) {
                 if (!\in_array($type, self::SUPPORTED_TYPES, \true)) {
                     throw new \ECSPrefix20210802\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected element type, expected any of "%s", got "%s".', \implode('", "', self::SUPPORTED_TYPES), \gettype($type) . '#' . $type));
@@ -159,7 +159,7 @@ class Sample
                 }
             }
             return \true;
-        }])->setDefault(['const' => self::SPACING_ONE, 'method' => self::SPACING_ONE, 'property' => self::SPACING_ONE])->getOption()]);
+        }])->setDefault(['const' => self::SPACING_ONE, 'method' => self::SPACING_ONE, 'property' => self::SPACING_ONE, 'trait_import' => self::SPACING_ONE])->getOption()]);
     }
     /**
      * Fix spacing below an element of a class, interface or trait.
@@ -215,14 +215,14 @@ class Sample
         // find out where the element definition starts
         $firstElementAttributeIndex = $elementIndex;
         for ($i = $elementIndex; $i > $classStartIndex; --$i) {
-            $nonWhiteAbove = $tokens->getNonWhitespaceSibling($i, -1);
+            $nonWhiteAbove = $tokens->getPrevNonWhitespace($i);
             if (null !== $nonWhiteAbove && $tokens[$nonWhiteAbove]->isGivenKind($methodAttr)) {
                 $firstElementAttributeIndex = $nonWhiteAbove;
             } else {
                 break;
             }
         }
-        // deal with comments above a element
+        // deal with comments above an element
         if ($tokens[$nonWhiteAbove]->isGivenKind(\T_COMMENT)) {
             if (1 === $firstElementAttributeIndex - $nonWhiteAbove) {
                 // no white space found between comment and element start
@@ -242,7 +242,7 @@ class Sample
                 $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, 1);
                 //    ... and make sure there is blank line above the comment (with the exception when it is directly after a class opening)
                 $nonWhiteAbove = $this->findCommentBlockStart($tokens, $nonWhiteAbove);
-                $nonWhiteAboveComment = $tokens->getNonWhitespaceSibling($nonWhiteAbove, -1);
+                $nonWhiteAboveComment = $tokens->getPrevNonWhitespace($nonWhiteAbove);
                 $this->correctLineBreaks($tokens, $nonWhiteAboveComment, $nonWhiteAbove, $nonWhiteAboveComment === $classStartIndex ? 1 : 2);
             } else {
                 // 2. The comment belongs to the code above the element,
@@ -256,7 +256,7 @@ class Sample
             // there should be one linebreak between the element and the PHPDoc above it
             $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, 1);
             // there should be one blank line between the PHPDoc and whatever is above (with the exception when it is directly after a class opening)
-            $nonWhiteAbovePHPDoc = $tokens->getNonWhitespaceSibling($nonWhiteAbove, -1);
+            $nonWhiteAbovePHPDoc = $tokens->getPrevNonWhitespace($nonWhiteAbove);
             $this->correctLineBreaks($tokens, $nonWhiteAbovePHPDoc, $nonWhiteAbove, $nonWhiteAbovePHPDoc === $classStartIndex ? 1 : 2);
             return;
         }
@@ -266,7 +266,7 @@ class Sample
             $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, 1);
             // make sure there is blank line above the comment (with the exception when it is directly after a class opening)
             $nonWhiteAbove = $this->findAttributeBlockStart($tokens, $nonWhiteAbove);
-            $nonWhiteAboveComment = $tokens->getNonWhitespaceSibling($nonWhiteAbove, -1);
+            $nonWhiteAboveComment = $tokens->getPrevNonWhitespace($nonWhiteAbove);
             $this->correctLineBreaks($tokens, $nonWhiteAboveComment, $nonWhiteAbove, $nonWhiteAboveComment === $classStartIndex ? 1 : 2);
             return;
         }

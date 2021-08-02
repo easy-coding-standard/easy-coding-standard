@@ -94,7 +94,7 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        $annotationsAsserts = [static function (array $values) {
+        $annotationsAsserts = [static function (array $values) : bool {
             foreach ($values as $value) {
                 if (!\is_string($value) || '' === $value) {
                     return \false;
@@ -102,7 +102,7 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
             }
             return \true;
         }];
-        $annotationsNormalizer = static function (\ECSPrefix20210802\Symfony\Component\OptionsResolver\Options $options, array $value) {
+        $annotationsNormalizer = static function (\ECSPrefix20210802\Symfony\Component\OptionsResolver\Options $options, array $value) : array {
             $newValue = [];
             foreach ($value as $key) {
                 if ('@' === $key[0]) {
@@ -130,7 +130,9 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
         $doc = new \PhpCsFixer\DocBlock\DocBlock($docToken->getContent());
         $tags = [];
         foreach ($doc->getAnnotations() as $annotation) {
-            \PhpCsFixer\Preg::match('/@\\S+(?=\\s|$)/', $annotation->getContent(), $matches);
+            if (1 !== \PhpCsFixer\Preg::match('/@\\S+(?=\\s|$)/', $annotation->getContent(), $matches)) {
+                continue;
+            }
             $tag = \strtolower(\substr(\array_shift($matches), 1));
             foreach ($this->configuration['annotation_exclude'] as $tagStart => $true) {
                 if (0 === \strpos($tag, $tagStart)) {

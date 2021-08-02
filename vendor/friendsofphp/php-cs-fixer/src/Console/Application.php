@@ -36,7 +36,7 @@ use ECSPrefix20210802\Symfony\Component\Console\Output\OutputInterface;
  */
 final class Application extends \ECSPrefix20210802\Symfony\Component\Console\Application
 {
-    const VERSION = '3.0.0';
+    const VERSION = '3.0.1';
     const VERSION_CODENAME = 'Constitution';
     /**
      * @var ToolInfo
@@ -79,8 +79,7 @@ final class Application extends \ECSPrefix20210802\Symfony\Component\Console\App
         }
         $result = parent::doRun($input, $output);
         if (null !== $stdErr && $output->getVerbosity() >= \ECSPrefix20210802\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
-            $triggeredDeprecations = \array_unique(\PhpCsFixer\Utils::getTriggeredDeprecations());
-            \sort($triggeredDeprecations);
+            $triggeredDeprecations = \PhpCsFixer\Utils::getTriggeredDeprecations();
             if ($triggeredDeprecations) {
                 $stdErr->writeln('');
                 $stdErr->writeln($stdErr->isDecorated() ? '<bg=yellow;fg=black;>Detected deprecations in use:</>' : 'Detected deprecations in use:');

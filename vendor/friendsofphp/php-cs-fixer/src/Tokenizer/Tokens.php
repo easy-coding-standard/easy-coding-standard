@@ -279,7 +279,7 @@ class Tokens extends \SplFixedArray
      */
     public function ensureWhitespaceAtIndex($index, $indexOffset, $whitespace) : bool
     {
-        $removeLastCommentLine = static function (self $tokens, int $index, int $indexOffset, string $whitespace) {
+        $removeLastCommentLine = static function (self $tokens, int $index, int $indexOffset, string $whitespace) : string {
             $token = $tokens[$index];
             if (1 === $indexOffset && $token->isGivenKind(\T_OPEN_TAG)) {
                 if (0 === \strpos($whitespace, "\r\n")) {

@@ -55,9 +55,9 @@ echo "Hello!";
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokensOrg)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        $content = $tokensOrg->generateCode();
+        $content = $tokens->generateCode();
         // replace all <? with <?php to replace all short open tags even without short_open_tag option enabled
         $newContent = \PhpCsFixer\Preg::replace('/<\\?(?:phP|pHp|pHP|Php|PhP|PHp|PHP)?(\\s|$)/', '<?php$1', $content, -1, $count);
         if (!$count) {
@@ -68,9 +68,9 @@ echo "Hello!";
          * with
          * > echo '<?php ';
          */
-        $tokens = \PhpCsFixer\Tokenizer\Tokens::fromCode($newContent);
+        $newTokens = \PhpCsFixer\Tokenizer\Tokens::fromCode($newContent);
         $tokensOldContentLength = 0;
-        foreach ($tokens as $index => $token) {
+        foreach ($newTokens as $index => $token) {
             if ($token->isGivenKind(\T_OPEN_TAG)) {
                 $tokenContent = $token->getContent();
                 if ('<?php' !== \strtolower(\substr($content, $tokensOldContentLength, 5))) {
@@ -98,11 +98,11 @@ echo "Hello!";
                         }
                     }
                 }
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $tokenContent]);
-                $token = $tokens[$index];
+                $newTokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $tokenContent]);
+                $token = $newTokens[$index];
             }
             $tokensOldContentLength += \strlen($token->getContent());
         }
-        $tokensOrg->overrideRange(0, $tokensOrg->count() - 1, $tokens);
+        $tokens->overrideRange(0, $tokens->count() - 1, $newTokens);
     }
 }

@@ -26,6 +26,9 @@ use ECSPrefix20210802\Symfony\Component\Finder\SplFileInfo;
  */
 final class DocumentationCommand extends \ECSPrefix20210802\Symfony\Component\Console\Command\Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'documentation';
     /**
      * @var DocumentationGenerator

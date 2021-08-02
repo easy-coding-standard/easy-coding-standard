@@ -14,6 +14,7 @@ namespace PhpCsFixer\Console\Command;
 
 use PhpCsFixer\ConfigurationException\InvalidConfigurationException;
 use PhpCsFixer\Console\Report\ListSetsReport\ReporterFactory;
+use PhpCsFixer\Console\Report\ListSetsReport\ReporterInterface;
 use PhpCsFixer\Console\Report\ListSetsReport\ReportSummary;
 use PhpCsFixer\Console\Report\ListSetsReport\TextReporter;
 use PhpCsFixer\RuleSet\RuleSets;
@@ -29,6 +30,9 @@ use ECSPrefix20210802\Symfony\Component\Console\Output\OutputInterface;
  */
 final class ListSetsCommand extends \ECSPrefix20210802\Symfony\Component\Console\Command\Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'list-sets';
     /**
      * {@inheritdoc}
@@ -53,7 +57,7 @@ final class ListSetsCommand extends \ECSPrefix20210802\Symfony\Component\Console
     /**
      * @param string $format
      */
-    private function resolveReporterWithFactory($format, \PhpCsFixer\Console\Report\ListSetsReport\ReporterFactory $factory)
+    private function resolveReporterWithFactory($format, \PhpCsFixer\Console\Report\ListSetsReport\ReporterFactory $factory) : \PhpCsFixer\Console\Report\ListSetsReport\ReporterInterface
     {
         try {
             $factory->registerBuiltInReporters();

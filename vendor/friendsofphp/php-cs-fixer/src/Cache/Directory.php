@@ -28,6 +28,7 @@ final class Directory implements \PhpCsFixer\Cache\DirectoryInterface
         $this->directoryName = $directoryName;
     }
     /**
+     * {@inheritdoc}
      * @param string $file
      */
     public function getRelativePathTo($file) : string

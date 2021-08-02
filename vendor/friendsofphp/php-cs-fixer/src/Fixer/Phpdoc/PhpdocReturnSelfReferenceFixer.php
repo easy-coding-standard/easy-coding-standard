@@ -31,6 +31,9 @@ use ECSPrefix20210802\Symfony\Component\OptionsResolver\Options;
  */
 final class PhpdocReturnSelfReferenceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
+    /**
+     * @var string[]
+     */
     private static $toTypes = ['$this', 'static', 'self'];
     /**
      * {@inheritdoc}

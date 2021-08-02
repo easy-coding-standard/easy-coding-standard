@@ -16,6 +16,7 @@ use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -60,6 +61,7 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         static $map = null;
         if (null === $map) {
             $trueToken = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'true']);
@@ -72,7 +74,7 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
                 continue;
             }
             $lowercaseContent = \strtolower($token->getContent());
-            if ($token->isGivenKind(\T_STRING) && isset($map[$lowercaseContent])) {
+            if (isset($map[$lowercaseContent]) && $functionsAnalyzer->isGlobalFunctionCall($tokens, $index)) {
                 $this->fixFunction($tokens, $index, $map[$lowercaseContent]);
             }
         }

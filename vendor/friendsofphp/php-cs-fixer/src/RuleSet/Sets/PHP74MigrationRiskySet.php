@@ -24,6 +24,6 @@ final class PHP74MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDe
     }
     public function getDescription() : string
     {
-        return 'Rules to improve code for PHP 7.1 compatibility.';
+        return 'Rules to improve code for PHP 7.4 compatibility.';
     }
 }

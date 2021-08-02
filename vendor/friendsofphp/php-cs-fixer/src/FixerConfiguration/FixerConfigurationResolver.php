@@ -59,7 +59,7 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
                     if (\array_key_exists($name, $options)) {
                         throw new \ECSPrefix20210802\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Aliased option "%s"/"%s" is passed multiple times.', $name, $alias));
                     }
-                    \PhpCsFixer\Utils::triggerDeprecation(\sprintf('Option "%s" is deprecated, use "%s" instead.', $alias, $name));
+                    \PhpCsFixer\Utils::triggerDeprecation(new \RuntimeException(\sprintf('Option "%s" is deprecated, use "%s" instead.', $alias, $name)));
                     $options[$name] = $options[$alias];
                     unset($options[$alias]);
                 }

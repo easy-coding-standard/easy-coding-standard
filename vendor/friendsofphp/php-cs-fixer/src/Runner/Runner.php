@@ -98,6 +98,7 @@ final class Runner
         $finderIterator = $finder instanceof \IteratorAggregate ? $finder->getIterator() : $finder;
         $fileFilteredFileIterator = new \PhpCsFixer\Runner\FileFilterIterator($finderIterator, $this->eventDispatcher, $this->cacheManager);
         $collection = $this->linter->isAsync() ? new \PhpCsFixer\Runner\FileCachingLintingIterator($fileFilteredFileIterator, $this->linter) : new \PhpCsFixer\Runner\FileLintingIterator($fileFilteredFileIterator, $this->linter);
+        /** @var \SplFileInfo $file */
         foreach ($collection as $file) {
             $fixInfo = $this->fixFile($file, $collection->currentLintingResult());
             // we do not need Tokens to still caching just fixed file - so clear the cache

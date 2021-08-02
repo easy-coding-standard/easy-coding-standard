@@ -40,6 +40,9 @@ final class DocumentationGenerator
      * @var FullDiffer
      */
     private $differ;
+    /**
+     * @var string
+     */
     private $path;
     public function __construct()
     {

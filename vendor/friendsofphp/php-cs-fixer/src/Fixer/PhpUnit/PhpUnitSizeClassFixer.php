@@ -124,20 +124,18 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
      */
     private function splitUpDocBlock(array $lines, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : array
     {
-        $lineContent = $this->getSingleLineDocBlockEntry($lines);
+        $lineContent = $this->getSingleLineDocBlockEntry($lines[0]);
         $lineEnd = $this->whitespacesConfig->getLineEnding();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));
         return [new \PhpCsFixer\DocBlock\Line('/**' . $lineEnd), new \PhpCsFixer\DocBlock\Line($originalIndent . ' * ' . $lineContent . $lineEnd), new \PhpCsFixer\DocBlock\Line($originalIndent . ' */')];
     }
     /**
      * @todo check whether it's doable to use \PhpCsFixer\DocBlock\DocBlock::getSingleLineDocBlockEntry instead
-     *
-     * @param Line[] $lines
      */
-    private function getSingleLineDocBlockEntry(array $lines) : string
+    private function getSingleLineDocBlockEntry(\PhpCsFixer\DocBlock\Line $line) : string
     {
-        $line = $lines[0];
-        $line = \str_replace('*/', '', $line->getContent());
+        $line = $line->getContent();
+        $line = \str_replace('*/', '', $line);
         $line = \trim($line);
         $line = \str_split($line);
         $i = \count($line);

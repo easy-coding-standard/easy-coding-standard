@@ -66,13 +66,13 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // These cause syntax errors.
-        static $excludeFuncNames = [[\T_STRING, '__construct'], [\T_STRING, '__destruct'], [\T_STRING, '__clone']];
+        static $excludedFunctions = [[\T_STRING, '__construct'], [\T_STRING, '__destruct'], [\T_STRING, '__clone'], [\T_STRING, '__isset'], [\T_STRING, '__sleep'], [\T_STRING, '__serialize'], [\T_STRING, '__set_state'], [\T_STRING, '__debugInfo']];
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
                 continue;
             }
-            $funcName = $tokens->getNextMeaningfulToken($index);
-            if ($tokens[$funcName]->equalsAny($excludeFuncNames, \false)) {
+            $functionName = $tokens->getNextMeaningfulToken($index);
+            if ($tokens[$functionName]->equalsAny($excludedFunctions, \false)) {
                 continue;
             }
             $startIndex = $tokens->getNextTokenOfKind($index, ['{', ';']);

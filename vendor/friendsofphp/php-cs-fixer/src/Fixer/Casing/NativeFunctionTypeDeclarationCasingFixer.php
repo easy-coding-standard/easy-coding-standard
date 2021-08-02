@@ -123,17 +123,15 @@ final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\Abstrac
         if (null === $type) {
             return;
         }
-        $argumentStartIndex = $type->getStartIndex();
-        $argumentExpectedEndIndex = $type->isNullable() ? $tokens->getNextMeaningfulToken($argumentStartIndex) : $argumentStartIndex;
-        if ($argumentExpectedEndIndex !== $type->getEndIndex()) {
-            return;
-            // the type to fix is always unqualified and so is always composed of one token and possible a nullable '?' one
+        for ($index = $type->getStartIndex(); $index <= $type->getEndIndex(); ++$index) {
+            if ($tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(\T_NS_SEPARATOR)) {
+                continue;
+            }
+            $lowerCasedName = \strtolower($tokens[$index]->getContent());
+            if (!isset($this->hints[$lowerCasedName])) {
+                continue;
+            }
+            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$tokens[$index]->getId(), $lowerCasedName]);
         }
-        $lowerCasedName = \strtolower($type->getName());
-        if (!isset($this->hints[$lowerCasedName])) {
-            return;
-            // check of type is of interest based on name (slower check than previous index based)
-        }
-        $tokens[$argumentExpectedEndIndex] = new \PhpCsFixer\Tokenizer\Token([$tokens[$argumentExpectedEndIndex]->getId(), $lowerCasedName]);
     }
 }

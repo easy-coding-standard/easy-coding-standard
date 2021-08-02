@@ -30,6 +30,9 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class ListSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
+    /**
+     * @var null|int
+     */
     private $candidateTokenKind;
     /**
      * Use 'syntax' => 'long'|'short'.

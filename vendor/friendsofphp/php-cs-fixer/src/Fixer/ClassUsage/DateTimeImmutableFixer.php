@@ -74,6 +74,10 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
             if (!$token->isGivenKind(\T_STRING)) {
                 continue;
             }
+            $prevIndex = $tokens->getPrevMeaningfulToken($index);
+            if ($tokens[$prevIndex]->isGivenKind(\T_FUNCTION)) {
+                continue;
+            }
             $lowercaseContent = \strtolower($token->getContent());
             if ('datetime' === $lowercaseContent) {
                 $this->fixClassUsage($tokens, $index, $isInNamespace, $isImported);

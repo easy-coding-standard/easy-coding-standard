@@ -28,6 +28,9 @@ use ECSPrefix20210802\Symfony\Component\Console\Output\OutputInterface;
  */
 final class HelpCommand extends \ECSPrefix20210802\Symfony\Component\Console\Command\HelpCommand
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'help';
     /**
      * @param mixed $value

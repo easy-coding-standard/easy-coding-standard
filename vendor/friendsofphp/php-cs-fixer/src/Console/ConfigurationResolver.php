@@ -104,15 +104,39 @@ final class ConfigurationResolver
      */
     private $options = ['allow-risky' => null, 'cache-file' => null, 'config' => null, 'diff' => null, 'dry-run' => null, 'format' => null, 'path' => [], 'path-mode' => self::PATH_MODE_OVERRIDE, 'rules' => null, 'show-progress' => null, 'stop-on-violation' => null, 'using-cache' => null, 'verbosity' => null];
     private $cacheFile;
+    /**
+     * @var null|CacheManagerInterface
+     */
     private $cacheManager;
+    /**
+     * @var null|DifferInterface
+     */
     private $differ;
+    /**
+     * @var null|Directory
+     */
     private $directory;
+    /**
+     * @var null|iterable
+     */
     private $finder;
     private $format;
+    /**
+     * @var null|Linter
+     */
     private $linter;
     private $path;
+    /**
+     * @var null|string
+     */
     private $progress;
+    /**
+     * @var null|RuleSet
+     */
     private $ruleSet;
+    /**
+     * @var null|bool
+     */
     private $usingCache;
     /**
      * @var FixerFactory
@@ -527,7 +551,7 @@ final class ConfigurationResolver
             if (isset($rules[$fixerName]) && $fixer instanceof \PhpCsFixer\Fixer\DeprecatedFixerInterface) {
                 $successors = $fixer->getSuccessorsNames();
                 $messageEnd = [] === $successors ? \sprintf(' and will be removed in version %d.0.', \PhpCsFixer\Console\Application::getMajorVersion() + 1) : \sprintf('. Use %s instead.', \str_replace('`', '"', \PhpCsFixer\Utils::naturalLanguageJoinWithBackticks($successors)));
-                \PhpCsFixer\Utils::triggerDeprecation("Rule \"{$fixerName}\" is deprecated{$messageEnd}");
+                \PhpCsFixer\Utils::triggerDeprecation(new \RuntimeException("Rule \"{$fixerName}\" is deprecated{$messageEnd}"));
             }
         }
     }

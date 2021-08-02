@@ -139,7 +139,7 @@ namespace {
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        $constantChecker = static function (array $value) {
+        $constantChecker = static function (array $value) : bool {
             foreach ($value as $constantName) {
                 if (!\is_string($constantName) || '' === \trim($constantName) || \trim($constantName) !== $constantName) {
                     throw new \ECSPrefix20210802\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($constantName) ? \get_class($constantName) : \gettype($constantName)));

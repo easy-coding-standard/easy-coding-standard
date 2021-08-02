@@ -273,12 +273,26 @@ final class TokensAnalyzer
                 return \false;
             }
         }
+        // check for attribute: `#[Foo]`
+        if (\defined('T_ATTRIBUTE') && $this->tokens[$prevIndex]->isGivenKind(\T_ATTRIBUTE)) {
+            return \false;
+        }
         // check for goto label
         if ($this->tokens[$nextIndex]->equals(':')) {
             if (null === $this->gotoLabelAnalyzer) {
                 $this->gotoLabelAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer();
             }
             if ($this->gotoLabelAnalyzer->belongsToGoToLabel($this->tokens, $nextIndex)) {
+                return \false;
+            }
+        }
+        // check for non-capturing catches
+        while ($this->tokens[$prevIndex]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \T_STRING])) {
+            $prevIndex = $this->tokens->getPrevMeaningfulToken($prevIndex);
+        }
+        if ($this->tokens[$prevIndex]->equals('(')) {
+            $prevPrevIndex = $this->tokens->getPrevMeaningfulToken($prevIndex);
+            if ($this->tokens[$prevPrevIndex]->isGivenKind(\T_CATCH)) {
                 return \false;
             }
         }
@@ -399,8 +413,6 @@ final class TokensAnalyzer
                 // >>=
                 \T_XOR_EQUAL => \true,
                 // ^=
-                \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION => \true,
-                // |
                 \T_SPACESHIP => \true,
                 // <=>
                 \T_COALESCE => \true,

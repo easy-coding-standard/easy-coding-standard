@@ -56,10 +56,10 @@ final class DoctrineAnnotationArrayAssignmentFixer extends \PhpCsFixer\AbstractD
      * {@inheritdoc}
      * @return void
      */
-    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens)
     {
         $scopes = [];
-        foreach ($tokens as $token) {
+        foreach ($doctrineAnnotationTokens as $token) {
             if ($token->isType(\ECSPrefix20210802\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
                 $scopes[] = 'annotation';
                 continue;

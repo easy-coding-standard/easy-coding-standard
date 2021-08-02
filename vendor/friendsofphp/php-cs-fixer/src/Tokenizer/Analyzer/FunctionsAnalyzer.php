@@ -146,14 +146,17 @@ final class FunctionsAnalyzer
             return \false;
         }
         $operatorIndex = $tokens->getPrevMeaningfulToken($index);
-        if (!$tokens->offsetExists($operatorIndex)) {
+        if (null === $operatorIndex) {
+            return \false;
+        }
+        if (!$tokens[$operatorIndex]->isObjectOperator() && !$tokens[$operatorIndex]->isGivenKind(\T_DOUBLE_COLON)) {
             return \false;
         }
         $referenceIndex = $tokens->getPrevMeaningfulToken($operatorIndex);
-        if (!$tokens->offsetExists($referenceIndex)) {
+        if (null === $referenceIndex) {
             return \false;
         }
-        return $tokens[$operatorIndex]->isObjectOperator() && $tokens[$referenceIndex]->equals([\T_VARIABLE, '$this'], \false) || $tokens[$operatorIndex]->isGivenKind(\T_DOUBLE_COLON) && $tokens[$referenceIndex]->equals([\T_STRING, 'self'], \false) || $tokens[$operatorIndex]->isGivenKind(\T_DOUBLE_COLON) && $tokens[$referenceIndex]->equals([\T_STATIC, 'static'], \false);
+        return $tokens[$referenceIndex]->equalsAny([[\T_VARIABLE, '$this'], [\T_STRING, 'self'], [\T_STATIC, 'static']], \false);
     }
     /**
      * @return void

@@ -20,17 +20,53 @@ use PhpCsFixer\Fixer\FixerInterface;
  */
 class Config implements \PhpCsFixer\ConfigInterface
 {
+    /**
+     * @var string
+     */
     private $cacheFile = '.php-cs-fixer.cache';
+    /**
+     * @var FixerInterface[]
+     */
     private $customFixers = [];
+    /**
+     * @var null|iterable
+     */
     private $finder;
+    /**
+     * @var string
+     */
     private $format = 'txt';
+    /**
+     * @var bool
+     */
     private $hideProgress = \false;
+    /**
+     * @var string
+     */
     private $indent = '    ';
+    /**
+     * @var bool
+     */
     private $isRiskyAllowed = \false;
+    /**
+     * @var string
+     */
     private $lineEnding = "\n";
+    /**
+     * @var string
+     */
     private $name;
+    /**
+     * @var null|string
+     */
     private $phpExecutable;
+    /**
+     * @var array
+     */
     private $rules = ['@PSR12' => \true];
+    /**
+     * @var bool
+     */
     private $usingCache = \true;
     public function __construct(string $name = 'default')
     {

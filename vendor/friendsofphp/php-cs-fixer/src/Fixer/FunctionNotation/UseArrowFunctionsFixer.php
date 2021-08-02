@@ -147,9 +147,14 @@ SAMPLE
      */
     private function transform(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, $useStart, $useEnd, int $braceOpen, int $return, int $semicolon, int $braceClose)
     {
+        $tokensToInsert = [new \PhpCsFixer\Tokenizer\Token([\T_DOUBLE_ARROW, '=>'])];
+        if ($tokens->getNextMeaningfulToken($return) === $semicolon) {
+            $tokensToInsert[] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+            $tokensToInsert[] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'null']);
+        }
         $tokens->clearRange($semicolon, $braceClose);
         $tokens->clearRange($braceOpen + 1, $return);
-        $tokens[$braceOpen] = new \PhpCsFixer\Tokenizer\Token([\T_DOUBLE_ARROW, '=>']);
+        $tokens->overrideRange($braceOpen, $braceOpen, $tokensToInsert);
         if ($useStart) {
             $tokens->clearRange($useStart, $useEnd);
         }

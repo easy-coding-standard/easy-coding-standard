@@ -113,7 +113,7 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
             }
             $name = $option->getName();
             if (\array_key_exists($name, $configuration)) {
-                \PhpCsFixer\Utils::triggerDeprecation(\sprintf('Option "%s" for rule "%s" is deprecated and will be removed in version %d.0. %s', $name, $this->getName(), \PhpCsFixer\Console\Application::getMajorVersion() + 1, \str_replace('`', '"', $option->getDeprecationMessage())), \InvalidArgumentException::class);
+                \PhpCsFixer\Utils::triggerDeprecation(new \InvalidArgumentException(\sprintf('Option "%s" for rule "%s" is deprecated and will be removed in version %d.0. %s', $name, $this->getName(), \PhpCsFixer\Console\Application::getMajorVersion() + 1, \str_replace('`', '"', $option->getDeprecationMessage()))));
             }
         }
         try {

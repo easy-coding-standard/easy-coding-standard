@@ -33,7 +33,13 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
+    /**
+     * @var null|int
+     */
     private $candidateTokenKind;
+    /**
+     * @var null|string
+     */
     private $fixCallback;
     /**
      * {@inheritdoc}

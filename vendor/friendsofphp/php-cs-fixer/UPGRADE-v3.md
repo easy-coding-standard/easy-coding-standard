@@ -3,6 +3,8 @@ UPGRADE GUIDE FROM 2.x to 3.0
 
 This is guide for upgrade from version 2.x to 3.0 for using the CLI tool.
 
+*Before following this guide, install [v2.19](https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/tag/v2.19.0) and run in verbose mode (`php-cs-fixer fix -v`) or in future mode (`PHP_CS_FIXER_FUTURE_MODE=1 php-cs-fixer fix`) to identify deprecations and fix them first.*
+
 Rename of files
 ---------------
 
@@ -21,7 +23,7 @@ CLI options
 |                  |                 |                                                 | `udiff`                                |
 | --show-progress  | --show-progress | Type of progress indicator                      | Allowed values were modified:          |
 |                  |                 |                                                 | `run-in` and `estimating` was removed, |
-|                  |                 |                                                 | `estimating-max` was removed to `dots` |
+|                  |                 |                                                 | `estimating-max` was renamed to `dots` |
 | --rules          | --rules         | Default value changed from @PSR2 to @PSR12      |                                        |
 | --config --rules |                 |                                                 | No longer allowed to pass both         |
 

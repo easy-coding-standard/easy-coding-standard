@@ -129,7 +129,7 @@ final class OrderedTraitsFixer extends \PhpCsFixer\AbstractFixer
         /**
          * @return string
          */
-        $toTraitName = static function (\PhpCsFixer\Tokenizer\Tokens $use) {
+        $toTraitName = static function (\PhpCsFixer\Tokenizer\Tokens $use) : string {
             $string = '';
             foreach ($use as $token) {
                 if ($token->equalsAny([';', '{'])) {

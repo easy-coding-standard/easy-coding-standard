@@ -55,16 +55,16 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
      * {@inheritdoc}
      * @return void
      */
-    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens)
     {
         if ($this->configuration['around_parentheses']) {
-            $this->fixSpacesAroundParentheses($tokens);
+            $this->fixSpacesAroundParentheses($doctrineAnnotationTokens);
         }
         if ($this->configuration['around_commas']) {
-            $this->fixSpacesAroundCommas($tokens);
+            $this->fixSpacesAroundCommas($doctrineAnnotationTokens);
         }
         if (null !== $this->configuration['before_argument_assignments'] || null !== $this->configuration['after_argument_assignments'] || null !== $this->configuration['before_array_assignments_equals'] || null !== $this->configuration['after_array_assignments_equals'] || null !== $this->configuration['before_array_assignments_colon'] || null !== $this->configuration['after_array_assignments_colon']) {
-            $this->fixAroundAssignments($tokens);
+            $this->fixAroundAssignments($doctrineAnnotationTokens);
         }
     }
     /**

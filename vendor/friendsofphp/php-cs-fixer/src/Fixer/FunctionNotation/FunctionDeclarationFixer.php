@@ -41,6 +41,9 @@ final class FunctionDeclarationFixer extends \PhpCsFixer\AbstractFixer implement
      */
     const SPACING_ONE = 'one';
     const SUPPORTED_SPACINGS = [self::SPACING_NONE, self::SPACING_ONE];
+    /**
+     * @var string
+     */
     private $singleLineWhitespaceOptions = " \t";
     /**
      * {@inheritdoc}

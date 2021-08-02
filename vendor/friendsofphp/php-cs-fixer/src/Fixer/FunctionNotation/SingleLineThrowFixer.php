@@ -27,7 +27,6 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     const REMOVE_WHITESPACE_AFTER_TOKENS = ['['];
     const REMOVE_WHITESPACE_AROUND_TOKENS = ['(', [\T_DOUBLE_COLON]];
     const REMOVE_WHITESPACE_BEFORE_TOKENS = [')', ']', ',', ';'];
-    const THROW_END_TOKENS = [';', '(', '{', '}'];
     /**
      * {@inheritdoc}
      */
@@ -49,7 +48,6 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
      */
     public function getPriority() : int
     {
-        // must be fun before ConcatSpaceFixer
         return 36;
     }
     /**
@@ -62,11 +60,16 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
             if (!$tokens[$index]->isGivenKind(\T_THROW)) {
                 continue;
             }
-            /** @var int $endCandidateIndex */
-            $endCandidateIndex = $tokens->getNextTokenOfKind($index, self::THROW_END_TOKENS);
-            while ($tokens[$endCandidateIndex]->equals('(')) {
-                $closingBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endCandidateIndex);
-                $endCandidateIndex = $tokens->getNextTokenOfKind($closingBraceIndex, self::THROW_END_TOKENS);
+            $endCandidateIndex = $tokens->getNextMeaningfulToken($index);
+            while (!$tokens[$endCandidateIndex]->equalsAny([')', ']', ',', ';'])) {
+                $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$endCandidateIndex]);
+                if (null !== $blockType) {
+                    if (\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE === $blockType['type']) {
+                        break;
+                    }
+                    $endCandidateIndex = $tokens->findBlockEnd($blockType['type'], $endCandidateIndex);
+                }
+                $endCandidateIndex = $tokens->getNextMeaningfulToken($endCandidateIndex);
             }
             $this->trimNewLines($tokens, $index, $tokens->getPrevMeaningfulToken($endCandidateIndex));
         }

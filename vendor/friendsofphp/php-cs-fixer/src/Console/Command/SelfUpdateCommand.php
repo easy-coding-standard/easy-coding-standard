@@ -32,6 +32,9 @@ use ECSPrefix20210802\Symfony\Component\Console\Output\OutputInterface;
  */
 final class SelfUpdateCommand extends \ECSPrefix20210802\Symfony\Component\Console\Command\Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'self-update';
     /**
      * @var NewVersionCheckerInterface

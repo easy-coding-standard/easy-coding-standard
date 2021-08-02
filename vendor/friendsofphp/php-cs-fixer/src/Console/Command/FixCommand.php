@@ -41,6 +41,9 @@ use ECSPrefix20210802\Symfony\Component\Stopwatch\Stopwatch;
  */
 final class FixCommand extends \ECSPrefix20210802\Symfony\Component\Console\Command\Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'fix';
     /**
      * @var EventDispatcherInterface

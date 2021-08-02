@@ -30,6 +30,9 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class AlignMultilineCommentFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
 {
+    /**
+     * @var null|int[]
+     */
     private $tokenKinds;
     /**
      * {@inheritdoc}

@@ -32,7 +32,7 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
     /**
      * @var array
      */
-    private static $argumentCounts = ['getrandmax' => [0], 'mt_rand' => [1, 2], 'rand' => [0, 2], 'srand' => [0, 1]];
+    private static $argumentCounts = ['getrandmax' => [0], 'mt_rand' => [1, 2], 'rand' => [0, 2], 'srand' => [0, 1], 'random_int' => [0, 2]];
     /**
      * {@inheritdoc}
      * @return void
@@ -49,7 +49,7 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces `rand`, `srand`, `getrandmax` functions calls with their `mt_*` analogs.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n", ['replacements' => ['getrandmax' => 'mt_getrandmax']]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = rand(\$b, \$c);\n", ['replacements' => ['rand' => 'random_int']])], null, 'Risky when the configured functions are overridden.');
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces `rand`, `srand`, `getrandmax` functions calls with their `mt_*` analogs or `random_int`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n", ['replacements' => ['getrandmax' => 'mt_getrandmax']]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = rand(\$b, \$c);\n", ['replacements' => ['rand' => 'random_int']])], null, 'Risky when the configured functions are overridden. Or when relying on the seed based generating of the numbers.');
     }
     /**
      * {@inheritdoc}
@@ -107,6 +107,11 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
                 }
             }
             return \true;
-        }])->setDefault(['getrandmax' => 'mt_getrandmax', 'rand' => 'mt_rand', 'srand' => 'mt_srand'])->getOption()]);
+        }])->setDefault([
+            'getrandmax' => 'mt_getrandmax',
+            'rand' => 'mt_rand',
+            // @TODO change to `random_int` as default on 4.0
+            'srand' => 'mt_srand',
+        ])->getOption()]);
     }
 }

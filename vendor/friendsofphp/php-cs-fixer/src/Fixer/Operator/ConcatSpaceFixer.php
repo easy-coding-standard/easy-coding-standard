@@ -28,6 +28,9 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
+    /**
+     * @var null|string
+     */
     private $fixCallback;
     /**
      * {@inheritdoc}

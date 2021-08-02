@@ -30,6 +30,15 @@ use ECSPrefix20210802\Symfony\Component\OptionsResolver\Options;
  */
 final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
+    const TAG_REGEX = '/^(?:
+        (?<tag>
+            (?:@(?<tag_name>.+?)(?:\\s.+)?)
+        )
+        |
+        {(?<inlined_tag>
+            (?:@(?<inlined_tag_name>.+?)(?:\\s.+)?)
+        )}
+    )$/x';
     /**
      * {@inheritdoc}
      */
@@ -71,19 +80,26 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
                 return \preg_quote($tag, '/');
             }, \array_keys($this->configuration['tags'])))), $token->getContent(), -1, \PREG_SPLIT_DELIM_CAPTURE);
             for ($i = 1, $max = \count($parts) - 1; $i < $max; $i += 2) {
-                if (!\PhpCsFixer\Preg::match('/^{?(@(.*?)(?:\\s[^}]*)?)}?$/', $parts[$i], $matches)) {
+                if (!\PhpCsFixer\Preg::match(self::TAG_REGEX, $parts[$i], $matches)) {
                     continue;
                 }
-                $tag = \strtolower($matches[2]);
-                if (!isset($this->configuration['tags'][$tag])) {
+                if ('' !== $matches['tag']) {
+                    $tag = $matches['tag'];
+                    $tagName = $matches['tag_name'];
+                } else {
+                    $tag = $matches['inlined_tag'];
+                    $tagName = $matches['inlined_tag_name'];
+                }
+                $tagName = \strtolower($tagName);
+                if (!isset($this->configuration['tags'][$tagName])) {
                     continue;
                 }
-                if ('inline' === $this->configuration['tags'][$tag]) {
-                    $parts[$i] = '{' . $matches[1] . '}';
+                if ('inline' === $this->configuration['tags'][$tagName]) {
+                    $parts[$i] = '{' . $tag . '}';
                     continue;
                 }
                 if (!$this->tagIsSurroundedByText($parts, $i)) {
-                    $parts[$i] = $matches[1];
+                    $parts[$i] = $tag;
                 }
             }
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, \implode('', $parts)]);
@@ -113,7 +129,7 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
     {
         return \PhpCsFixer\Preg::match('/(^|\\R)\\h*[^@\\s]\\N*/', $this->cleanComment($parts[$index - 1])) || \PhpCsFixer\Preg::match('/^.*?\\R\\s*[^@\\s]/', $this->cleanComment($parts[$index + 1]));
     }
-    private function cleanComment(string $comment)
+    private function cleanComment(string $comment) : string
     {
         $comment = \PhpCsFixer\Preg::replace('/^\\/\\*\\*|\\*\\/$/', '', $comment);
         return \PhpCsFixer\Preg::replace('/(\\R)(\\h*\\*)?\\h*/', '$1', $comment);

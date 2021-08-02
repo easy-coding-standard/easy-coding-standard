@@ -491,17 +491,17 @@
         },
         {
             "name": "friendsofphp\/php-cs-fixer",
-            "version": "v3.0.0",
-            "version_normalized": "3.0.0.0",
+            "version": "v3.0.1",
+            "version_normalized": "3.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer.git",
-                "reference": "c15377bdfa8d1ecf186f1deadec39c89984e1167"
+                "reference": "64c554bcef3c3b4702fcf34c227a316b47139b66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/FriendsOfPHP\/PHP-CS-Fixer\/zipball\/c15377bdfa8d1ecf186f1deadec39c89984e1167",
-                "reference": "c15377bdfa8d1ecf186f1deadec39c89984e1167",
+                "url": "https:\/\/api.github.com\/repos\/FriendsOfPHP\/PHP-CS-Fixer\/zipball\/64c554bcef3c3b4702fcf34c227a316b47139b66",
+                "reference": "64c554bcef3c3b4702fcf34c227a316b47139b66",
                 "shasum": ""
             },
             "require": {
@@ -542,7 +542,7 @@
                 "ext-mbstring": "For handling non-UTF8 characters.",
                 "symfony\/polyfill-mbstring": "When enabling `ext-mbstring` is not possible."
             },
-            "time": "2021-05-03T21:51:58+00:00",
+            "time": "2021-08-02T17:57:52+00:00",
             "bin": [
                 "php-cs-fixer"
             ],
@@ -570,7 +570,7 @@
             "description": "A tool to automatically fix PHP code style",
             "support": {
                 "issues": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer\/issues",
-                "source": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer\/tree\/v3.0.0"
+                "source": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer\/tree\/v3.0.1"
             },
             "funding": [
                 {
@@ -3543,10 +3543,10 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "213f6d15963d9e5495381c730f272b0cdb2f20dc"
+                "reference": "fbac10e7faf08a5ae37c6df81ab688868ea90707"
             },
             "require": {
-                "friendsofphp\/php-cs-fixer": "^3.0",
+                "friendsofphp\/php-cs-fixer": "^3.0.1",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symplify\/autowire-array-parameter": "dev-main",
