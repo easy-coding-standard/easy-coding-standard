@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210801\Psr\Log;
+namespace ECSPrefix20210802\Psr\Log;
 
 /**
  * Basic Implementation of LoggerAwareInterface.

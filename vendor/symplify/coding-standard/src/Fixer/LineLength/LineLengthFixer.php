@@ -16,16 +16,16 @@ use Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
 use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20210801\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix20210801\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210801\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use ECSPrefix20210801\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use ECSPrefix20210801\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210802\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix20210802\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210802\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix20210802\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210802\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\LineLengthFixerTest
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\ConfiguredLineLengthFixerTest
  */
-final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210801\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface, \ECSPrefix20210801\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210802\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface, \ECSPrefix20210802\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @api
@@ -129,9 +129,9 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
             }
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20210801\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20210802\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20210801\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210801\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210802\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210802\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 function some($veryLong, $superLong, $oneMoreTime)
 {
 }
@@ -175,7 +175,7 @@ CODE_SAMPLE
     }
     public function getConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        throw new \ECSPrefix20210801\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        throw new \ECSPrefix20210802\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
     /**
      * @param Tokens<Token> $tokens

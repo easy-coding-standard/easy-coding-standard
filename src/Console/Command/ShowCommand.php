@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210801\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210801\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210802\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210802\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use ECSPrefix20210801\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-use ECSPrefix20210801\Symplify\PackageBuilder\Console\ShellCode;
-final class ShowCommand extends \ECSPrefix20210801\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20210802\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use ECSPrefix20210802\Symplify\PackageBuilder\Console\ShellCode;
+final class ShowCommand extends \ECSPrefix20210802\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @var \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor
@@ -58,13 +58,13 @@ final class ShowCommand extends \ECSPrefix20210801\Symplify\PackageBuilder\Conso
     {
         if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             $this->loadedCheckersGuard->report();
-            return \ECSPrefix20210801\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+            return \ECSPrefix20210802\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }
         $totalCheckerCount = \count($this->sniffFileProcessor->getCheckers()) + \count($this->fixerFileProcessor->getCheckers());
         $this->checkerListReporter->report($this->sniffFileProcessor->getCheckers(), 'PHP_CodeSniffer');
         $this->checkerListReporter->report($this->fixerFileProcessor->getCheckers(), 'PHP-CS-Fixer');
         $successMessage = \sprintf('Loaded %d checker%s in total', $totalCheckerCount, $totalCheckerCount === 1 ? '' : 's');
         $this->easyCodingStandardStyle->success($successMessage);
-        return \ECSPrefix20210801\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \ECSPrefix20210802\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

@@ -15,10 +15,10 @@ namespace PhpCsFixer\Console\Command;
 use PhpCsFixer\FixerConfiguration\AllowedValueSubset;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\Preg;
-use ECSPrefix20210801\Symfony\Component\Console\Command\HelpCommand as BaseHelpCommand;
-use ECSPrefix20210801\Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use ECSPrefix20210801\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210801\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210802\Symfony\Component\Console\Command\HelpCommand as BaseHelpCommand;
+use ECSPrefix20210802\Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use ECSPrefix20210802\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210802\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
@@ -26,7 +26,7 @@ use ECSPrefix20210801\Symfony\Component\Console\Output\OutputInterface;
  *
  * @internal
  */
-final class HelpCommand extends \ECSPrefix20210801\Symfony\Component\Console\Command\HelpCommand
+final class HelpCommand extends \ECSPrefix20210802\Symfony\Component\Console\Command\HelpCommand
 {
     protected static $defaultName = 'help';
     /**
@@ -71,7 +71,7 @@ final class HelpCommand extends \ECSPrefix20210801\Symfony\Component\Console\Com
      */
     protected function initialize($input, $output)
     {
-        $output->getFormatter()->setStyle('url', new \ECSPrefix20210801\Symfony\Component\Console\Formatter\OutputFormatterStyle('blue'));
+        $output->getFormatter()->setStyle('url', new \ECSPrefix20210802\Symfony\Component\Console\Formatter\OutputFormatterStyle('blue'));
     }
     /**
      * Wraps a string to the given number of characters, ignoring style tags.
