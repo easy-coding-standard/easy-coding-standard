@@ -1,0 +1,87 @@
+<?php
+
+declare (strict_types=1);
+/*
+ * This file is part of PHPUnit.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+
+use function json_decode;
+use function sprintf;
+use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210803\PHPUnit\Util\Json;
+use ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure;
+/**
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+ */
+final class JsonMatches extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+{
+    /**
+     * @var string
+     */
+    private $value;
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
+    /**
+     * Returns a string representation of the object.
+     */
+    public function toString() : string
+    {
+        return \sprintf('matches JSON string "%s"', $this->value);
+    }
+    /**
+     * Evaluates the constraint for parameter $other. Returns true if the
+     * constraint is met, false otherwise.
+     *
+     * This method can be overridden to implement the evaluation algorithm.
+     *
+     * @param mixed $other value or object to evaluate
+     */
+    protected function matches($other) : bool
+    {
+        [$error, $recodedOther] = \ECSPrefix20210803\PHPUnit\Util\Json::canonicalize($other);
+        if ($error) {
+            return \false;
+        }
+        [$error, $recodedValue] = \ECSPrefix20210803\PHPUnit\Util\Json::canonicalize($this->value);
+        if ($error) {
+            return \false;
+        }
+        return $recodedOther == $recodedValue;
+    }
+    /**
+     * Throws an exception for the given compared value and test description.
+     *
+     * @param mixed             $other             evaluated value or object
+     * @param string            $description       Additional information about the test
+     * @param ComparisonFailure $comparisonFailure
+     *
+     * @throws \PHPUnit\Framework\Exception
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     *
+     * @psalm-return never-return
+     */
+    protected function fail($other, $description, \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure $comparisonFailure = null) : void
+    {
+        if ($comparisonFailure === null) {
+            [$error, $recodedOther] = \ECSPrefix20210803\PHPUnit\Util\Json::canonicalize($other);
+            if ($error) {
+                parent::fail($other, $description);
+            }
+            [$error, $recodedValue] = \ECSPrefix20210803\PHPUnit\Util\Json::canonicalize($this->value);
+            if ($error) {
+                parent::fail($other, $description);
+            }
+            $comparisonFailure = new \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure(\json_decode($this->value), \json_decode($other), \ECSPrefix20210803\PHPUnit\Util\Json::prettify($recodedValue), \ECSPrefix20210803\PHPUnit\Util\Json::prettify($recodedOther), \false, 'Failed asserting that two json values are equal.');
+        }
+        parent::fail($other, $description, $comparisonFailure);
+    }
+}

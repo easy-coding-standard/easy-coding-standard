@@ -1,0 +1,44 @@
+<?php
+
+declare (strict_types=1);
+/*
+ * This file is part of PHPUnit.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+
+use DOMDocument;
+use DOMElement;
+use ECSPrefix20210803\PHPUnit\Util\Xml\SnapshotNodeList;
+/**
+ * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ */
+final class MoveWhitelistDirectoriesToCoverage implements \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Migration
+{
+    /**
+     * @throws MigrationException
+     */
+    public function migrate(\DOMDocument $document) : void
+    {
+        $whitelist = $document->getElementsByTagName('whitelist')->item(0);
+        if ($whitelist === null) {
+            return;
+        }
+        $coverage = $document->getElementsByTagName('coverage')->item(0);
+        if (!$coverage instanceof \DOMElement) {
+            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\MigrationException('Unexpected state - No coverage element');
+        }
+        $include = $document->createElement('include');
+        $coverage->appendChild($include);
+        foreach (\ECSPrefix20210803\PHPUnit\Util\Xml\SnapshotNodeList::fromNodeList($whitelist->childNodes) as $child) {
+            if (!$child instanceof \DOMElement || $child->nodeName !== 'directory') {
+                continue;
+            }
+            $include->appendChild($child);
+        }
+    }
+}

@@ -1,0 +1,130 @@
+<?php
+
+declare (strict_types=1);
+/*
+ * This file is part of PHPUnit.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace ECSPrefix20210803\PHPUnit\Runner;
+
+use function is_dir;
+use function is_file;
+use function substr;
+use ECSPrefix20210803\PHPUnit\Framework\Exception;
+use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
+use ReflectionClass;
+use ReflectionException;
+use ECSPrefix20210803\SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
+/**
+ * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ */
+abstract class BaseTestRunner
+{
+    /**
+     * @var int
+     */
+    public const STATUS_UNKNOWN = -1;
+    /**
+     * @var int
+     */
+    public const STATUS_PASSED = 0;
+    /**
+     * @var int
+     */
+    public const STATUS_SKIPPED = 1;
+    /**
+     * @var int
+     */
+    public const STATUS_INCOMPLETE = 2;
+    /**
+     * @var int
+     */
+    public const STATUS_FAILURE = 3;
+    /**
+     * @var int
+     */
+    public const STATUS_ERROR = 4;
+    /**
+     * @var int
+     */
+    public const STATUS_RISKY = 5;
+    /**
+     * @var int
+     */
+    public const STATUS_WARNING = 6;
+    /**
+     * @var string
+     */
+    public const SUITE_METHODNAME = 'suite';
+    /**
+     * Returns the loader to be used.
+     */
+    public function getLoader() : \ECSPrefix20210803\PHPUnit\Runner\TestSuiteLoader
+    {
+        return new \ECSPrefix20210803\PHPUnit\Runner\StandardTestSuiteLoader();
+    }
+    /**
+     * Returns the Test corresponding to the given suite.
+     * This is a template method, subclasses override
+     * the runFailed() and clearStatus() methods.
+     *
+     * @param string|string[] $suffixes
+     *
+     * @throws Exception
+     */
+    public function getTest(string $suiteClassFile, $suffixes = '') : ?\ECSPrefix20210803\PHPUnit\Framework\TestSuite
+    {
+        if (\is_dir($suiteClassFile)) {
+            /** @var string[] $files */
+            $files = (new \ECSPrefix20210803\SebastianBergmann\FileIterator\Facade())->getFilesAsArray($suiteClassFile, $suffixes);
+            $suite = new \ECSPrefix20210803\PHPUnit\Framework\TestSuite($suiteClassFile);
+            $suite->addTestFiles($files);
+            return $suite;
+        }
+        if (\is_file($suiteClassFile) && \substr($suiteClassFile, -5, 5) === '.phpt') {
+            $suite = new \ECSPrefix20210803\PHPUnit\Framework\TestSuite();
+            $suite->addTestFile($suiteClassFile);
+            return $suite;
+        }
+        try {
+            $testClass = $this->loadSuiteClass($suiteClassFile);
+        } catch (\ECSPrefix20210803\PHPUnit\Exception $e) {
+            $this->runFailed($e->getMessage());
+            return null;
+        }
+        try {
+            $suiteMethod = $testClass->getMethod(self::SUITE_METHODNAME);
+            if (!$suiteMethod->isStatic()) {
+                $this->runFailed('suite() method must be static.');
+                return null;
+            }
+            $test = $suiteMethod->invoke(null, $testClass->getName());
+        } catch (\ReflectionException $e) {
+            $test = new \ECSPrefix20210803\PHPUnit\Framework\TestSuite($testClass);
+        }
+        $this->clearStatus();
+        return $test;
+    }
+    /**
+     * Returns the loaded ReflectionClass for a suite name.
+     */
+    protected function loadSuiteClass(string $suiteClassFile) : \ReflectionClass
+    {
+        return $this->getLoader()->load($suiteClassFile);
+    }
+    /**
+     * Clears the status message.
+     */
+    protected function clearStatus() : void
+    {
+    }
+    /**
+     * Override to define how to handle a failed loading of
+     * a test suite.
+     */
+    protected abstract function runFailed(string $message) : void;
+}
