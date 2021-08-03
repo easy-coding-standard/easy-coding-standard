@@ -1,6 +1,6 @@
 <?php
 
-
+namespace ECSPrefix20210803;
 
 #[Attribute(\Attribute::TARGET_CLASS)]
 final class Attribute
@@ -20,4 +20,4 @@ final class Attribute
         $this->flags = $flags;
     }
 }
-
+\class_alias('ECSPrefix20210803\\Attribute', 'Attribute', \false);
