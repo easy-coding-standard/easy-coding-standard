@@ -135,3 +135,7 @@ final class SmartFileInfo extends \ECSPrefix20210803\Symfony\Component\Finder\Sp
         return \str_replace('\\', '/', $path);
     }
 }
+/**
+ * @see \Symplify\SmartFileSystem\Tests\SmartFileInfo\SmartFileInfoTest
+ */
+\class_alias('ECSPrefix20210803\\Symplify\\SmartFileSystem\\SmartFileInfo', 'Symplify\\SmartFileSystem\\SmartFileInfo', \false);

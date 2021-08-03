@@ -9,8 +9,8 @@ $loader = require_once __DIR__.'/autoload.php';
 if (!class_exists('AutoloadIncluder', false) && !interface_exists('AutoloadIncluder', false) && !trait_exists('AutoloadIncluder', false)) {
     spl_autoload_call('ECSPrefix20210803\AutoloadIncluder');
 }
-if (!class_exists('ComposerAutoloaderInit46d379ed8bdaa2a532badb7ff67bd403', false) && !interface_exists('ComposerAutoloaderInit46d379ed8bdaa2a532badb7ff67bd403', false) && !trait_exists('ComposerAutoloaderInit46d379ed8bdaa2a532badb7ff67bd403', false)) {
-    spl_autoload_call('ECSPrefix20210803\ComposerAutoloaderInit46d379ed8bdaa2a532badb7ff67bd403');
+if (!class_exists('ComposerAutoloaderInit3f6d8e51272edeb8cae8300dd9d5bfbc', false) && !interface_exists('ComposerAutoloaderInit3f6d8e51272edeb8cae8300dd9d5bfbc', false) && !trait_exists('ComposerAutoloaderInit3f6d8e51272edeb8cae8300dd9d5bfbc', false)) {
+    spl_autoload_call('ECSPrefix20210803\ComposerAutoloaderInit3f6d8e51272edeb8cae8300dd9d5bfbc');
 }
 if (!class_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !interface_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !trait_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false)) {
     spl_autoload_call('ECSPrefix20210803\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator');
@@ -36,12 +36,15 @@ if (!class_exists('ValueError', false) && !interface_exists('ValueError', false)
 if (!class_exists('ReturnTypeWillChange', false) && !interface_exists('ReturnTypeWillChange', false) && !trait_exists('ReturnTypeWillChange', false)) {
     spl_autoload_call('ECSPrefix20210803\ReturnTypeWillChange');
 }
+if (!class_exists('Symplify\SmartFileSystem\SmartFileInfo', false) && !interface_exists('Symplify\SmartFileSystem\SmartFileInfo', false) && !trait_exists('Symplify\SmartFileSystem\SmartFileInfo', false)) {
+    spl_autoload_call('ECSPrefix20210803\Symplify\SmartFileSystem\SmartFileInfo');
+}
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire46d379ed8bdaa2a532badb7ff67bd403')) {
-    function composerRequire46d379ed8bdaa2a532badb7ff67bd403() {
-        return \ECSPrefix20210803\composerRequire46d379ed8bdaa2a532badb7ff67bd403(...func_get_args());
+if (!function_exists('composerRequire3f6d8e51272edeb8cae8300dd9d5bfbc')) {
+    function composerRequire3f6d8e51272edeb8cae8300dd9d5bfbc() {
+        return \ECSPrefix20210803\composerRequire3f6d8e51272edeb8cae8300dd9d5bfbc(...func_get_args());
     }
 }
 if (!function_exists('sample')) {
