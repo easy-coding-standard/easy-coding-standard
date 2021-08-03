@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210802\Symfony\Component\HttpFoundation\Session\Flash;
+namespace ECSPrefix20210803\Symfony\Component\HttpFoundation\Session\Flash;
 
-use ECSPrefix20210802\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+use ECSPrefix20210803\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 /**
  * FlashBagInterface.
  *
  * @author Drak <drak@zikula.org>
  */
-interface FlashBagInterface extends \ECSPrefix20210802\Symfony\Component\HttpFoundation\Session\SessionBagInterface
+interface FlashBagInterface extends \ECSPrefix20210803\Symfony\Component\HttpFoundation\Session\SessionBagInterface
 {
     /**
      * Adds a flash message for the given type.

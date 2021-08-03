@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210802\Symfony\Component\ErrorHandler;
+namespace ECSPrefix20210803\Symfony\Component\ErrorHandler;
 
-use ECSPrefix20210802\Psr\Log\AbstractLogger;
+use ECSPrefix20210803\Psr\Log\AbstractLogger;
 /**
  * A buffering logger that stacks logs for later.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class BufferingLogger extends \ECSPrefix20210802\Psr\Log\AbstractLogger
+class BufferingLogger extends \ECSPrefix20210803\Psr\Log\AbstractLogger
 {
     private $logs = [];
     /**

@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210802\Nette\Utils;
+namespace ECSPrefix20210803\Nette\Utils;
 
-use ECSPrefix20210802\Nette;
-use ECSPrefix20210802\Nette\HtmlStringable;
+use ECSPrefix20210803\Nette;
+use ECSPrefix20210803\Nette\HtmlStringable;
 use function is_array, is_float, is_object, is_string;
 /**
  * HTML helper.
@@ -227,7 +227,7 @@ use function is_array, is_float, is_object, is_string;
  * @method self width(?int $val)
  * @method self wrap(?string $val)
  */
-class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20210802\Nette\HtmlStringable
+class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20210803\Nette\HtmlStringable
 {
     use Nette\SmartObject;
     /** @var array<string, mixed>  element's attributes */
@@ -259,7 +259,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
             $el->setText($attrs);
         }
         if (isset($parts[1])) {
-            foreach (\ECSPrefix20210802\Nette\Utils\Strings::matchAll($parts[1] . ' ', '#([a-z0-9:-]+)(?:=(["\'])?(.*?)(?(2)\\2|\\s))?#i') as $m) {
+            foreach (\ECSPrefix20210803\Nette\Utils\Strings::matchAll($parts[1] . ' ', '#([a-z0-9:-]+)(?:=(["\'])?(.*?)(?(2)\\2|\\s))?#i') as $m) {
                 $el->attrs[$m[1]] = $m[3] ?? \true;
             }
         }
@@ -521,7 +521,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function setText($text)
     {
-        if (!$text instanceof \ECSPrefix20210802\Nette\HtmlStringable) {
+        if (!$text instanceof \ECSPrefix20210803\Nette\HtmlStringable) {
             $text = \htmlspecialchars((string) $text, \ENT_NOQUOTES, 'UTF-8');
         }
         $this->children = [(string) $text];
@@ -550,7 +550,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public function addText($text)
     {
-        if (!$text instanceof \ECSPrefix20210802\Nette\HtmlStringable) {
+        if (!$text instanceof \ECSPrefix20210803\Nette\HtmlStringable) {
             $text = \htmlspecialchars((string) $text, \ENT_NOQUOTES, 'UTF-8');
         }
         return $this->insert(null, $text);
@@ -728,7 +728,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
                 continue;
             } elseif (\is_array($value)) {
                 if (\strncmp($key, 'data-', 5) === 0) {
-                    $value = \ECSPrefix20210802\Nette\Utils\Json::encode($value);
+                    $value = \ECSPrefix20210803\Nette\Utils\Json::encode($value);
                 } else {
                     $tmp = null;
                     foreach ($value as $k => $v) {
