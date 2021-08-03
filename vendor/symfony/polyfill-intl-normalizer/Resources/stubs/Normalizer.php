@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210803;
+
 
 class Normalizer extends \ECSPrefix20210803\Symfony\Polyfill\Intl\Normalizer\Normalizer
 {
@@ -17,4 +17,4 @@ class Normalizer extends \ECSPrefix20210803\Symfony\Polyfill\Intl\Normalizer\Nor
     const NFC = 16;
     const NFKC = 32;
 }
-\class_alias('ECSPrefix20210803\\Normalizer', 'Normalizer', \false);
+

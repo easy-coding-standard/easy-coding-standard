@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60
+class ComposerStaticInitf64998baf71c8146b1e1eb6c7ffbcd8c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -303,8 +303,8 @@ class ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60
     );
 
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'ECSPrefix20210803\\Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'ECSPrefix20210803\\Clue\\React\\NDJson\\Decoder' => __DIR__ . '/..' . '/clue/ndjson-react/src/Decoder.php',
         'ECSPrefix20210803\\Clue\\React\\NDJson\\Encoder' => __DIR__ . '/..' . '/clue/ndjson-react/src/Encoder.php',
         'ECSPrefix20210803\\Composer\\Semver\\Comparator' => __DIR__ . '/..' . '/composer/semver/src/Comparator.php',
@@ -350,7 +350,6 @@ class ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60
         'ECSPrefix20210803\\Evenement\\EventEmitter' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitter.php',
         'ECSPrefix20210803\\Evenement\\EventEmitterInterface' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterInterface.php',
         'ECSPrefix20210803\\Evenement\\EventEmitterTrait' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterTrait.php',
-        'ECSPrefix20210803\\JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'ECSPrefix20210803\\Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix20210803\\Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix20210803\\Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -399,7 +398,6 @@ class ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60
         'ECSPrefix20210803\\Nette\\Utils\\Strings' => __DIR__ . '/..' . '/nette/utils/src/Utils/Strings.php',
         'ECSPrefix20210803\\Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'ECSPrefix20210803\\Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
-        'ECSPrefix20210803\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'ECSPrefix20210803\\Psr\\Cache\\CacheException' => __DIR__ . '/..' . '/psr/cache/src/CacheException.php',
         'ECSPrefix20210803\\Psr\\Cache\\CacheItemInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemInterface.php',
         'ECSPrefix20210803\\Psr\\Cache\\CacheItemPoolInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemPoolInterface.php',
@@ -442,7 +440,6 @@ class ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60
         'ECSPrefix20210803\\React\\Stream\\Util' => __DIR__ . '/..' . '/react/stream/src/Util.php',
         'ECSPrefix20210803\\React\\Stream\\WritableResourceStream' => __DIR__ . '/..' . '/react/stream/src/WritableResourceStream.php',
         'ECSPrefix20210803\\React\\Stream\\WritableStreamInterface' => __DIR__ . '/..' . '/react/stream/src/WritableStreamInterface.php',
-        'ECSPrefix20210803\\ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'ECSPrefix20210803\\SebastianBergmann\\Diff\\Chunk' => __DIR__ . '/..' . '/sebastian/diff/src/Chunk.php',
         'ECSPrefix20210803\\SebastianBergmann\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/ConfigurationException.php',
         'ECSPrefix20210803\\SebastianBergmann\\Diff\\Diff' => __DIR__ . '/..' . '/sebastian/diff/src/Diff.php',
@@ -459,7 +456,6 @@ class ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60
         'ECSPrefix20210803\\SebastianBergmann\\Diff\\Output\\UnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/UnifiedDiffOutputBuilder.php',
         'ECSPrefix20210803\\SebastianBergmann\\Diff\\Parser' => __DIR__ . '/..' . '/sebastian/diff/src/Parser.php',
         'ECSPrefix20210803\\SebastianBergmann\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
-        'ECSPrefix20210803\\Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'ECSPrefix20210803\\Stringy\\StaticStringy' => __DIR__ . '/..' . '/danielstjules/stringy/src/StaticStringy.php',
         'ECSPrefix20210803\\Stringy\\Stringy' => __DIR__ . '/..' . '/danielstjules/stringy/src/Stringy.php',
         'ECSPrefix20210803\\Symfony\\Component\\Config\\Builder\\ClassBuilder' => __DIR__ . '/..' . '/symfony/config/Builder/ClassBuilder.php',
@@ -1360,11 +1356,11 @@ class ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60
         'ECSPrefix20210803\\Symplify\\SymplifyKernel\\Strings\\KernelUniqueHasher' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Strings/KernelUniqueHasher.php',
         'ECSPrefix20210803\\Symplify\\SymplifyKernel\\Strings\\StringsConverter' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Strings/StringsConverter.php',
         'ECSPrefix20210803\\Symplify\\SymplifyKernel\\ValueObject\\KernelBootAndApplicationRun' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/ValueObject/KernelBootAndApplicationRun.php',
-        'ECSPrefix20210803\\UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
-        'ECSPrefix20210803\\ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'ECSPrefix20210803\\Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'ECSPrefix20210803\\Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
         'ECSPrefix20210803\\Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
+        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'PhpCsFixer\\AbstractDoctrineAnnotationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractDoctrineAnnotationFixer.php',
         'PhpCsFixer\\AbstractFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractFixer.php',
         'PhpCsFixer\\AbstractFopenFlagFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractFopenFlagFixer.php',
@@ -1831,6 +1827,8 @@ class ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60
         'PhpCsFixer\\Utils' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Utils.php',
         'PhpCsFixer\\WhitespacesFixerConfig' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/WhitespacesFixerConfig.php',
         'PhpCsFixer\\WordMatcher' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/WordMatcher.php',
+        'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symplify\\CodingStandard\\Bundle\\SymplifyCodingStandardBundle' => __DIR__ . '/..' . '/symplify/coding-standard/src/Bundle/SymplifyCodingStandardBundle.php',
         'Symplify\\CodingStandard\\DependencyInjection\\Extension\\SymplifyCodingStandardExtension' => __DIR__ . '/..' . '/symplify/coding-standard/src/DependencyInjection/Extension/SymplifyCodingStandardExtension.php',
         'Symplify\\CodingStandard\\DocBlock\\UselessDocBlockCleaner' => __DIR__ . '/..' . '/symplify/coding-standard/src/DocBlock/UselessDocBlockCleaner.php',
@@ -1996,14 +1994,16 @@ class ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\SystemError' => __DIR__ . '/../..' . '/src/ValueObject/Error/SystemError.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Option' => __DIR__ . '/../..' . '/src/ValueObject/Option.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Set\\SetList' => __DIR__ . '/../..' . '/src/ValueObject/Set/SetList.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit420f3b20d55c6e18e85c982f9d579b60::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf64998baf71c8146b1e1eb6c7ffbcd8c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf64998baf71c8146b1e1eb6c7ffbcd8c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf64998baf71c8146b1e1eb6c7ffbcd8c::$classMap;
 
         }, null, ClassLoader::class);
     }
