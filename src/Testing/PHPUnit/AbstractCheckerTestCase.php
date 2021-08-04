@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
-use PHPUnit\Framework\TestCase;
+use use PHPUnit\Framework\TestCase;
 use ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
@@ -15,7 +15,7 @@ use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix20210804\Symplify\EasyTesting\StaticFixtureSplitter;
 use ECSPrefix20210804\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractCheckerTestCase extends \ECSPrefix20210804\PHPUnit\Framework\TestCase implements \Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface
+abstract class AbstractCheckerTestCase extends \use PHPUnit\Framework\TestCase implements \Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface
 {
     /**
      * @var string[]
