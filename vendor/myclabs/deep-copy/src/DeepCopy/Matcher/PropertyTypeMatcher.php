@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Matcher;
+namespace ECSPrefix20210804\DeepCopy\Matcher;
 
-use ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper;
+use ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper;
 use ReflectionException;
 /**
  * Matches a property by its type.
@@ -12,7 +12,7 @@ use ReflectionException;
  *
  * @final
  */
-class PropertyTypeMatcher implements \ECSPrefix20210803\DeepCopy\Matcher\Matcher
+class PropertyTypeMatcher implements \ECSPrefix20210804\DeepCopy\Matcher\Matcher
 {
     /**
      * @var string
@@ -31,7 +31,7 @@ class PropertyTypeMatcher implements \ECSPrefix20210803\DeepCopy\Matcher\Matcher
     public function matches($object, $property)
     {
         try {
-            $reflectionProperty = \ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper::getProperty($object, $property);
+            $reflectionProperty = \ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper::getProperty($object, $property);
         } catch (\ReflectionException $exception) {
             return \false;
         }

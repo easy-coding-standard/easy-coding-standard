@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml;
 
 use function sprintf;
 use DOMElement;
 use DOMNode;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
@@ -70,30 +70,30 @@ final class Totals
         $this->linesNode->setAttribute('code', (string) $ncloc);
         $this->linesNode->setAttribute('executable', (string) $executable);
         $this->linesNode->setAttribute('executed', (string) $executed);
-        $this->linesNode->setAttribute('percent', $executable === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($executed, $executable)->asFloat()));
+        $this->linesNode->setAttribute('percent', $executable === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($executed, $executable)->asFloat()));
     }
     public function setNumClasses(int $count, int $tested) : void
     {
         $this->classesNode->setAttribute('count', (string) $count);
         $this->classesNode->setAttribute('tested', (string) $tested);
-        $this->classesNode->setAttribute('percent', $count === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($tested, $count)->asFloat()));
+        $this->classesNode->setAttribute('percent', $count === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($tested, $count)->asFloat()));
     }
     public function setNumTraits(int $count, int $tested) : void
     {
         $this->traitsNode->setAttribute('count', (string) $count);
         $this->traitsNode->setAttribute('tested', (string) $tested);
-        $this->traitsNode->setAttribute('percent', $count === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($tested, $count)->asFloat()));
+        $this->traitsNode->setAttribute('percent', $count === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($tested, $count)->asFloat()));
     }
     public function setNumMethods(int $count, int $tested) : void
     {
         $this->methodsNode->setAttribute('count', (string) $count);
         $this->methodsNode->setAttribute('tested', (string) $tested);
-        $this->methodsNode->setAttribute('percent', $count === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($tested, $count)->asFloat()));
+        $this->methodsNode->setAttribute('percent', $count === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($tested, $count)->asFloat()));
     }
     public function setNumFunctions(int $count, int $tested) : void
     {
         $this->functionsNode->setAttribute('count', (string) $count);
         $this->functionsNode->setAttribute('tested', (string) $tested);
-        $this->functionsNode->setAttribute('percent', $count === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($tested, $count)->asFloat()));
+        $this->functionsNode->setAttribute('percent', $count === 0 ? '0' : \sprintf('%01.2F', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($tested, $count)->asFloat()));
     }
 }

@@ -9,18 +9,18 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function get_class;
 use function is_object;
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
 use ReflectionClass;
 use ReflectionException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-class ClassHasAttribute extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+class ClassHasAttribute extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var string
@@ -49,7 +49,7 @@ class ClassHasAttribute extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\
             return (new \ReflectionClass($other))->hasProperty($this->attributeName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\PhpDocumentor;
+namespace ECSPrefix20210804\Prophecy\PhpDocumentor;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag\MethodTag as LegacyMethodTag;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Method;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag\MethodTag as LegacyMethodTag;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Method;
 /**
  * @author Théo FIDRY <theo.fidry@gmail.com>
  *

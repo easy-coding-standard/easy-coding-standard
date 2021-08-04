@@ -9,14 +9,14 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner;
+namespace ECSPrefix20210804\PHPUnit\Runner;
 
 use function array_slice;
 use function dirname;
 use function explode;
 use function implode;
 use function strpos;
-use ECSPrefix20210803\SebastianBergmann\Version as VersionId;
+use ECSPrefix20210804\SebastianBergmann\Version as VersionId;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
@@ -39,7 +39,7 @@ final class Version
             return self::$pharVersion;
         }
         if (self::$version === '') {
-            self::$version = (new \ECSPrefix20210803\SebastianBergmann\Version('9.5.8', \dirname(__DIR__, 2)))->getVersion();
+            self::$version = (new \ECSPrefix20210804\SebastianBergmann\Version('9.5.8', \dirname(__DIR__, 2)))->getVersion();
         }
         return self::$version;
     }

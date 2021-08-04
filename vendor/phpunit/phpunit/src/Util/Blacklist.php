@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 /**
  * @deprecated Use ExcludeList instead
@@ -20,7 +20,7 @@ final class Blacklist
 {
     public static function addDirectory(string $directory) : void
     {
-        \ECSPrefix20210803\PHPUnit\Util\ExcludeList::addDirectory($directory);
+        \ECSPrefix20210804\PHPUnit\Util\ExcludeList::addDirectory($directory);
     }
     /**
      * @throws Exception
@@ -29,13 +29,13 @@ final class Blacklist
      */
     public function getBlacklistedDirectories() : array
     {
-        return (new \ECSPrefix20210803\PHPUnit\Util\ExcludeList())->getExcludedDirectories();
+        return (new \ECSPrefix20210804\PHPUnit\Util\ExcludeList())->getExcludedDirectories();
     }
     /**
      * @throws Exception
      */
     public function isBlacklisted(string $file) : bool
     {
-        return (new \ECSPrefix20210803\PHPUnit\Util\ExcludeList())->isExcluded($file);
+        return (new \ECSPrefix20210804\PHPUnit\Util\ExcludeList())->isExcluded($file);
     }
 }

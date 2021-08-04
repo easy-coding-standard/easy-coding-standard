@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
 use function is_resource;
 /**
  * Compares resources for equality.
  */
-class ResourceComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\Comparator
+class ResourceComparator extends \ECSPrefix20210804\SebastianBergmann\Comparator\Comparator
 {
     /**
      * Returns whether the comparator can compare two values.
@@ -43,7 +43,7 @@ class ResourceComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator
     public function assertEquals($expected, $actual, $delta = 0.0, $canonicalize = \false, $ignoreCase = \false)
     {
         if ($actual != $expected) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure($expected, $actual, $this->exporter->export($expected), $this->exporter->export($actual));
+            throw new \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure($expected, $actual, $this->exporter->export($expected), $this->exporter->export($actual));
         }
     }
 }

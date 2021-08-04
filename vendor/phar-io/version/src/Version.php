@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Version;
+namespace ECSPrefix20210804\PharIo\Version;
 
 class Version
 {
@@ -28,10 +28,10 @@ class Version
         $this->ensureVersionStringIsValid($versionString);
         $this->originalVersionString = $versionString;
     }
-    public function getPreReleaseSuffix() : \ECSPrefix20210803\PharIo\Version\PreReleaseSuffix
+    public function getPreReleaseSuffix() : \ECSPrefix20210804\PharIo\Version\PreReleaseSuffix
     {
         if ($this->preReleaseSuffix === null) {
-            throw new \ECSPrefix20210803\PharIo\Version\NoPreReleaseSuffixException('No pre-release suffix set');
+            throw new \ECSPrefix20210804\PharIo\Version\NoPreReleaseSuffixException('No pre-release suffix set');
         }
         return $this->preReleaseSuffix;
     }
@@ -51,11 +51,11 @@ class Version
     {
         return $this->preReleaseSuffix !== null;
     }
-    public function equals(\ECSPrefix20210803\PharIo\Version\Version $other) : bool
+    public function equals(\ECSPrefix20210804\PharIo\Version\Version $other) : bool
     {
         return $this->getVersionString() === $other->getVersionString();
     }
-    public function isGreaterThan(\ECSPrefix20210803\PharIo\Version\Version $version) : bool
+    public function isGreaterThan(\ECSPrefix20210804\PharIo\Version\Version $version) : bool
     {
         if ($version->getMajor()->getValue() > $this->getMajor()->getValue()) {
             return \false;
@@ -86,15 +86,15 @@ class Version
         }
         return $this->getPreReleaseSuffix()->isGreaterThan($version->getPreReleaseSuffix());
     }
-    public function getMajor() : \ECSPrefix20210803\PharIo\Version\VersionNumber
+    public function getMajor() : \ECSPrefix20210804\PharIo\Version\VersionNumber
     {
         return $this->major;
     }
-    public function getMinor() : \ECSPrefix20210803\PharIo\Version\VersionNumber
+    public function getMinor() : \ECSPrefix20210804\PharIo\Version\VersionNumber
     {
         return $this->minor;
     }
-    public function getPatch() : \ECSPrefix20210803\PharIo\Version\VersionNumber
+    public function getPatch() : \ECSPrefix20210804\PharIo\Version\VersionNumber
     {
         return $this->patch;
     }
@@ -105,11 +105,11 @@ class Version
      */
     private function parseVersion(array $matches) : void
     {
-        $this->major = new \ECSPrefix20210803\PharIo\Version\VersionNumber((int) $matches['Major']);
-        $this->minor = new \ECSPrefix20210803\PharIo\Version\VersionNumber((int) $matches['Minor']);
-        $this->patch = isset($matches['Patch']) ? new \ECSPrefix20210803\PharIo\Version\VersionNumber((int) $matches['Patch']) : new \ECSPrefix20210803\PharIo\Version\VersionNumber(0);
+        $this->major = new \ECSPrefix20210804\PharIo\Version\VersionNumber((int) $matches['Major']);
+        $this->minor = new \ECSPrefix20210804\PharIo\Version\VersionNumber((int) $matches['Minor']);
+        $this->patch = isset($matches['Patch']) ? new \ECSPrefix20210804\PharIo\Version\VersionNumber((int) $matches['Patch']) : new \ECSPrefix20210804\PharIo\Version\VersionNumber(0);
         if (isset($matches['PreReleaseSuffix'])) {
-            $this->preReleaseSuffix = new \ECSPrefix20210803\PharIo\Version\PreReleaseSuffix($matches['PreReleaseSuffix']);
+            $this->preReleaseSuffix = new \ECSPrefix20210804\PharIo\Version\PreReleaseSuffix($matches['PreReleaseSuffix']);
         }
     }
     /**
@@ -132,7 +132,7 @@ class Version
             )?       
         $/xi';
         if (\preg_match($regex, $version, $matches) !== 1) {
-            throw new \ECSPrefix20210803\PharIo\Version\InvalidVersionException(\sprintf("Version string '%s' does not follow SemVer semantics", $version));
+            throw new \ECSPrefix20210804\PharIo\Version\InvalidVersionException(\sprintf("Version string '%s' does not follow SemVer semantics", $version));
         }
         $this->parseVersion($matches);
     }

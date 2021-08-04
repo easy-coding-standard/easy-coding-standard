@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\Generator\Node;
+namespace ECSPrefix20210804\Prophecy\Doubler\Generator\Node;
 
-use ECSPrefix20210803\Prophecy\Doubler\Generator\TypeHintReference;
-use ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\TypeHintReference;
+use ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException;
 /**
  * Method node.
  *
@@ -34,11 +34,11 @@ class MethodNode
      * @param string $name
      * @param string $code
      */
-    public function __construct($name, $code = null, \ECSPrefix20210803\Prophecy\Doubler\Generator\TypeHintReference $typeHintReference = null)
+    public function __construct($name, $code = null, \ECSPrefix20210804\Prophecy\Doubler\Generator\TypeHintReference $typeHintReference = null)
     {
         $this->name = $name;
         $this->code = $code;
-        $this->returnTypeNode = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode();
+        $this->returnTypeNode = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode();
     }
     public function getVisibility()
     {
@@ -51,7 +51,7 @@ class MethodNode
     {
         $visibility = \strtolower($visibility);
         if (!\in_array($visibility, array('public', 'private', 'protected'))) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf('`%s` method visibility is not supported.', $visibility));
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf('`%s` method visibility is not supported.', $visibility));
         }
         $this->visibility = $visibility;
     }
@@ -75,7 +75,7 @@ class MethodNode
     {
         return $this->name;
     }
-    public function addArgument(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode $argument)
+    public function addArgument(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode $argument)
     {
         $this->arguments[] = $argument;
     }
@@ -94,7 +94,7 @@ class MethodNode
     {
         return (bool) $this->returnTypeNode->getNonNullTypes();
     }
-    public function setReturnTypeNode(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode $returnTypeNode) : void
+    public function setReturnTypeNode(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode $returnTypeNode) : void
     {
         $this->returnTypeNode = $returnTypeNode;
     }
@@ -104,7 +104,7 @@ class MethodNode
      */
     public function setReturnType($type = null)
     {
-        $this->returnTypeNode = $type === '' || $type === null ? new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode() : new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode($type);
+        $this->returnTypeNode = $type === '' || $type === null ? new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode() : new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode($type);
     }
     /**
      * @deprecated use setReturnTypeNode instead
@@ -113,9 +113,9 @@ class MethodNode
     public function setNullableReturnType($bool = \true)
     {
         if ($bool) {
-            $this->returnTypeNode = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode('null', ...$this->returnTypeNode->getTypes());
+            $this->returnTypeNode = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode('null', ...$this->returnTypeNode->getTypes());
         } else {
-            $this->returnTypeNode = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode(...$this->returnTypeNode->getNonNullTypes());
+            $this->returnTypeNode = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode(...$this->returnTypeNode->getNonNullTypes());
         }
     }
     /**
@@ -129,7 +129,7 @@ class MethodNode
         }
         return null;
     }
-    public function getReturnTypeNode() : \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode
+    public function getReturnTypeNode() : \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode
     {
         return $this->returnTypeNode;
     }
@@ -159,7 +159,7 @@ class MethodNode
     {
         $this->code = \sprintf('return parent::%s(%s);', $this->getName(), \implode(', ', \array_map(array($this, 'generateArgument'), $this->arguments)));
     }
-    private function generateArgument(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode $arg)
+    private function generateArgument(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode $arg)
     {
         $argument = '$' . $arg->getName();
         if ($arg->isVariadic()) {

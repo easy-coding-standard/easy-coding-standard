@@ -9,25 +9,25 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub;
 
 use function call_user_func_array;
 use function get_class;
 use function is_array;
 use function is_object;
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ReturnCallback implements \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Stub
+final class ReturnCallback implements \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Stub
 {
     private $callback;
     public function __construct($callback)
     {
         $this->callback = $callback;
     }
-    public function invoke(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation)
+    public function invoke(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation)
     {
         return \call_user_func_array($this->callback, $invocation->getParameters());
     }

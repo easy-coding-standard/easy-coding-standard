@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI;
+namespace ECSPrefix20210804\PHPUnit\TextUI;
 
 use const PATH_SEPARATOR;
 use const PHP_EOL;
@@ -38,30 +38,30 @@ use function stream_resolve_include_path;
 use function strpos;
 use function trim;
 use function version_compare;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
-use ECSPrefix20210803\PHPUnit\Runner\Extension\PharLoader;
-use ECSPrefix20210803\PHPUnit\Runner\StandardTestSuiteLoader;
-use ECSPrefix20210803\PHPUnit\Runner\TestSuiteLoader;
-use ECSPrefix20210803\PHPUnit\Runner\Version;
-use ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Builder;
-use ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Configuration;
-use ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Exception as ArgumentsException;
-use ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Mapper;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\FilterMapper;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Generator;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Loader;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Migrator;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\PhpHandler;
-use ECSPrefix20210803\PHPUnit\Util\FileLoader;
-use ECSPrefix20210803\PHPUnit\Util\Filesystem;
-use ECSPrefix20210803\PHPUnit\Util\Printer;
-use ECSPrefix20210803\PHPUnit\Util\TextTestListRenderer;
-use ECSPrefix20210803\PHPUnit\Util\Xml\SchemaDetector;
-use ECSPrefix20210803\PHPUnit\Util\XmlTestListRenderer;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Runner\Extension\PharLoader;
+use ECSPrefix20210804\PHPUnit\Runner\StandardTestSuiteLoader;
+use ECSPrefix20210804\PHPUnit\Runner\TestSuiteLoader;
+use ECSPrefix20210804\PHPUnit\Runner\Version;
+use ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Builder;
+use ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Configuration;
+use ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Exception as ArgumentsException;
+use ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Mapper;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\FilterMapper;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Generator;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Loader;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Migrator;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\PhpHandler;
+use ECSPrefix20210804\PHPUnit\Util\FileLoader;
+use ECSPrefix20210804\PHPUnit\Util\Filesystem;
+use ECSPrefix20210804\PHPUnit\Util\Printer;
+use ECSPrefix20210804\PHPUnit\Util\TextTestListRenderer;
+use ECSPrefix20210804\PHPUnit\Util\Xml\SchemaDetector;
+use ECSPrefix20210804\PHPUnit\Util\XmlTestListRenderer;
 use ReflectionClass;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Filter;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer;
-use ECSPrefix20210803\SebastianBergmann\Timer\Timer;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Filter;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer;
+use ECSPrefix20210804\SebastianBergmann\Timer\Timer;
 use Throwable;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -92,7 +92,7 @@ class Command
         try {
             return (new static())->run($_SERVER['argv'], $exit);
         } catch (\Throwable $t) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\RuntimeException($t->getMessage(), (int) $t->getCode(), $t);
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\RuntimeException($t->getMessage(), (int) $t->getCode(), $t);
         }
     }
     /**
@@ -102,7 +102,7 @@ class Command
     {
         $this->handleArguments($argv);
         $runner = $this->createRunner();
-        if ($this->arguments['test'] instanceof \ECSPrefix20210803\PHPUnit\Framework\TestSuite) {
+        if ($this->arguments['test'] instanceof \ECSPrefix20210804\PHPUnit\Framework\TestSuite) {
             $suite = $this->arguments['test'];
         } else {
             $suite = $runner->getTest($this->arguments['test'], $this->arguments['testSuffixes']);
@@ -125,11 +125,11 @@ class Command
         } catch (\Throwable $t) {
             print $t->getMessage() . \PHP_EOL;
         }
-        $return = \ECSPrefix20210803\PHPUnit\TextUI\TestRunner::FAILURE_EXIT;
+        $return = \ECSPrefix20210804\PHPUnit\TextUI\TestRunner::FAILURE_EXIT;
         if (isset($result) && $result->wasSuccessful()) {
-            $return = \ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
+            $return = \ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
         } elseif (!isset($result) || $result->errorCount() > 0) {
-            $return = \ECSPrefix20210803\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT;
+            $return = \ECSPrefix20210804\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT;
         }
         if ($exit) {
             exit($return);
@@ -139,9 +139,9 @@ class Command
     /**
      * Create a TestRunner, override in subclasses.
      */
-    protected function createRunner() : \ECSPrefix20210803\PHPUnit\TextUI\TestRunner
+    protected function createRunner() : \ECSPrefix20210804\PHPUnit\TextUI\TestRunner
     {
-        return new \ECSPrefix20210803\PHPUnit\TextUI\TestRunner($this->arguments['loader']);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\TestRunner($this->arguments['loader']);
     }
     /**
      * Handles the command-line arguments.
@@ -191,30 +191,30 @@ class Command
     protected function handleArguments(array $argv) : void
     {
         try {
-            $arguments = (new \ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Builder())->fromParameters($argv, \array_keys($this->longOptions));
-        } catch (\ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Exception $e) {
+            $arguments = (new \ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Builder())->fromParameters($argv, \array_keys($this->longOptions));
+        } catch (\ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Exception $e) {
             $this->exitWithErrorMessage($e->getMessage());
         }
-        \assert(isset($arguments) && $arguments instanceof \ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Configuration);
+        \assert(isset($arguments) && $arguments instanceof \ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Configuration);
         if ($arguments->hasGenerateConfiguration() && $arguments->generateConfiguration()) {
             $this->generateConfiguration();
         }
         if ($arguments->hasAtLeastVersion()) {
-            if (\version_compare(\ECSPrefix20210803\PHPUnit\Runner\Version::id(), $arguments->atLeastVersion(), '>=')) {
-                exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+            if (\version_compare(\ECSPrefix20210804\PHPUnit\Runner\Version::id(), $arguments->atLeastVersion(), '>=')) {
+                exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
             }
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::FAILURE_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::FAILURE_EXIT);
         }
         if ($arguments->hasVersion() && $arguments->version()) {
             $this->printVersionString();
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
         }
         if ($arguments->hasCheckVersion() && $arguments->checkVersion()) {
             $this->handleVersionCheck();
         }
         if ($arguments->hasHelp()) {
             $this->showHelp();
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
         }
         if ($arguments->hasUnrecognizedOrderBy()) {
             $this->exitWithErrorMessage(\sprintf('unrecognized --order-by option: %s', $arguments->unrecognizedOrderBy()));
@@ -227,7 +227,7 @@ class Command
         if ($arguments->hasIncludePath()) {
             \ini_set('include_path', $arguments->includePath() . \PATH_SEPARATOR . \ini_get('include_path'));
         }
-        $this->arguments = (new \ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Mapper())->mapToLegacyArray($arguments);
+        $this->arguments = (new \ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Mapper())->mapToLegacyArray($arguments);
         $this->handleCustomOptions($arguments->unrecognizedOptions());
         $this->handleCustomTestSuite();
         if (!isset($this->arguments['testSuffixes'])) {
@@ -258,19 +258,19 @@ class Command
         if ($arguments->hasMigrateConfiguration() && $arguments->migrateConfiguration()) {
             if (!isset($this->arguments['configuration'])) {
                 print 'No configuration file found to migrate.' . \PHP_EOL;
-                exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
+                exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
             }
             $this->migrateConfiguration(\realpath($this->arguments['configuration']));
         }
         if (isset($this->arguments['configuration'])) {
             try {
-                $this->arguments['configurationObject'] = (new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Loader())->load($this->arguments['configuration']);
+                $this->arguments['configurationObject'] = (new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Loader())->load($this->arguments['configuration']);
             } catch (\Throwable $e) {
                 print $e->getMessage() . \PHP_EOL;
-                exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::FAILURE_EXIT);
+                exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::FAILURE_EXIT);
             }
             $phpunitConfiguration = $this->arguments['configurationObject']->phpunit();
-            (new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\PhpHandler())->handle($this->arguments['configurationObject']->php());
+            (new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\PhpHandler())->handle($this->arguments['configurationObject']->php());
             if (isset($this->arguments['bootstrap'])) {
                 $this->handleBootstrap($this->arguments['bootstrap']);
             } elseif ($phpunitConfiguration->hasBootstrap()) {
@@ -280,7 +280,7 @@ class Command
                 $this->arguments['stderr'] = $phpunitConfiguration->stderr();
             }
             if (!isset($this->arguments['noExtensions']) && $phpunitConfiguration->hasExtensionsDirectory() && \extension_loaded('phar')) {
-                $result = (new \ECSPrefix20210803\PHPUnit\Runner\Extension\PharLoader())->loadPharExtensionsInDirectory($phpunitConfiguration->extensionsDirectory());
+                $result = (new \ECSPrefix20210804\PHPUnit\Runner\Extension\PharLoader())->loadPharExtensionsInDirectory($phpunitConfiguration->extensionsDirectory());
                 $this->arguments['loadedExtensions'] = $result['loadedExtensions'];
                 $this->arguments['notLoadedExtensions'] = $result['notLoadedExtensions'];
                 unset($result);
@@ -301,11 +301,11 @@ class Command
             }
             if (!isset($this->arguments['test'])) {
                 try {
-                    $this->arguments['test'] = (new \ECSPrefix20210803\PHPUnit\TextUI\TestSuiteMapper())->map($this->arguments['configurationObject']->testSuite(), $this->arguments['testsuite'] ?? '');
-                } catch (\ECSPrefix20210803\PHPUnit\TextUI\Exception $e) {
+                    $this->arguments['test'] = (new \ECSPrefix20210804\PHPUnit\TextUI\TestSuiteMapper())->map($this->arguments['configurationObject']->testSuite(), $this->arguments['testsuite'] ?? '');
+                } catch (\ECSPrefix20210804\PHPUnit\TextUI\Exception $e) {
                     $this->printVersionString();
                     print $e->getMessage() . \PHP_EOL;
-                    exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
+                    exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
                 }
             }
         } elseif (isset($this->arguments['bootstrap'])) {
@@ -319,7 +319,7 @@ class Command
         }
         if (!isset($this->arguments['test'])) {
             $this->showHelp();
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
         }
     }
     /**
@@ -327,12 +327,12 @@ class Command
      *
      * @deprecated see https://github.com/sebastianbergmann/phpunit/issues/4039
      */
-    protected function handleLoader(string $loaderClass, string $loaderFile = '') : ?\ECSPrefix20210803\PHPUnit\Runner\TestSuiteLoader
+    protected function handleLoader(string $loaderClass, string $loaderFile = '') : ?\ECSPrefix20210804\PHPUnit\Runner\TestSuiteLoader
     {
         $this->warnings[] = 'Using a custom test suite loader is deprecated';
         if (!\class_exists($loaderClass, \false)) {
             if ($loaderFile == '') {
-                $loaderFile = \ECSPrefix20210803\PHPUnit\Util\Filesystem::classNameToFilename($loaderClass);
+                $loaderFile = \ECSPrefix20210804\PHPUnit\Util\Filesystem::classNameToFilename($loaderClass);
             }
             $loaderFile = \stream_resolve_include_path($loaderFile);
             if ($loaderFile) {
@@ -348,16 +348,16 @@ class Command
                 $class = new \ReflectionClass($loaderClass);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\TextUI\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\TextUI\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
-            if ($class->implementsInterface(\ECSPrefix20210803\PHPUnit\Runner\TestSuiteLoader::class) && $class->isInstantiable()) {
+            if ($class->implementsInterface(\ECSPrefix20210804\PHPUnit\Runner\TestSuiteLoader::class) && $class->isInstantiable()) {
                 $object = $class->newInstance();
-                \assert($object instanceof \ECSPrefix20210803\PHPUnit\Runner\TestSuiteLoader);
+                \assert($object instanceof \ECSPrefix20210804\PHPUnit\Runner\TestSuiteLoader);
                 return $object;
             }
         }
-        if ($loaderClass == \ECSPrefix20210803\PHPUnit\Runner\StandardTestSuiteLoader::class) {
+        if ($loaderClass == \ECSPrefix20210804\PHPUnit\Runner\StandardTestSuiteLoader::class) {
             return null;
         }
         $this->exitWithErrorMessage(\sprintf('Could not use "%s" as loader.', $loaderClass));
@@ -372,7 +372,7 @@ class Command
     {
         if (!\class_exists($printerClass, \false)) {
             if ($printerFile === '') {
-                $printerFile = \ECSPrefix20210803\PHPUnit\Util\Filesystem::classNameToFilename($printerClass);
+                $printerFile = \ECSPrefix20210804\PHPUnit\Util\Filesystem::classNameToFilename($printerClass);
             }
             $printerFile = \stream_resolve_include_path($printerFile);
             if ($printerFile) {
@@ -390,16 +390,16 @@ class Command
             $class = new \ReflectionClass($printerClass);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
             // @codeCoverageIgnoreEnd
         }
-        if (!$class->implementsInterface(\ECSPrefix20210803\PHPUnit\TextUI\ResultPrinter::class)) {
-            $this->exitWithErrorMessage(\sprintf('Could not use "%s" as printer: class does not implement %s', $printerClass, \ECSPrefix20210803\PHPUnit\TextUI\ResultPrinter::class));
+        if (!$class->implementsInterface(\ECSPrefix20210804\PHPUnit\TextUI\ResultPrinter::class)) {
+            $this->exitWithErrorMessage(\sprintf('Could not use "%s" as printer: class does not implement %s', $printerClass, \ECSPrefix20210804\PHPUnit\TextUI\ResultPrinter::class));
         }
         if (!$class->isInstantiable()) {
             $this->exitWithErrorMessage(\sprintf('Could not use "%s" as printer: class cannot be instantiated', $printerClass));
         }
-        if ($class->isSubclassOf(\ECSPrefix20210803\PHPUnit\TextUI\ResultPrinter::class)) {
+        if ($class->isSubclassOf(\ECSPrefix20210804\PHPUnit\TextUI\ResultPrinter::class)) {
             return $printerClass;
         }
         $outputStream = isset($this->arguments['stderr']) ? 'php://stderr' : null;
@@ -411,9 +411,9 @@ class Command
     protected function handleBootstrap(string $filename) : void
     {
         try {
-            \ECSPrefix20210803\PHPUnit\Util\FileLoader::checkAndLoad($filename);
+            \ECSPrefix20210804\PHPUnit\Util\FileLoader::checkAndLoad($filename);
         } catch (\Throwable $t) {
-            if ($t instanceof \ECSPrefix20210803\PHPUnit\Exception) {
+            if ($t instanceof \ECSPrefix20210804\PHPUnit\Exception) {
                 $this->exitWithErrorMessage($t->getMessage());
             }
             $this->exitWithErrorMessage(\sprintf('Error in bootstrap script: %s:%s%s', \get_class($t), \PHP_EOL, $t->getMessage()));
@@ -423,13 +423,13 @@ class Command
     {
         $this->printVersionString();
         $latestVersion = \file_get_contents('https://phar.phpunit.de/latest-version-of/phpunit');
-        $isOutdated = \version_compare($latestVersion, \ECSPrefix20210803\PHPUnit\Runner\Version::id(), '>');
+        $isOutdated = \version_compare($latestVersion, \ECSPrefix20210804\PHPUnit\Runner\Version::id(), '>');
         if ($isOutdated) {
             \printf('You are not using the latest version of PHPUnit.' . \PHP_EOL . 'The latest version is PHPUnit %s.' . \PHP_EOL, $latestVersion);
         } else {
             print 'You are using the latest version of PHPUnit.' . \PHP_EOL;
         }
-        exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+        exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
     }
     /**
      * Show the help message.
@@ -437,7 +437,7 @@ class Command
     protected function showHelp() : void
     {
         $this->printVersionString();
-        (new \ECSPrefix20210803\PHPUnit\TextUI\Help())->writeToConsole();
+        (new \ECSPrefix20210804\PHPUnit\TextUI\Help())->writeToConsole();
     }
     /**
      * Custom callback for test suite discovery.
@@ -450,16 +450,16 @@ class Command
         if ($this->versionStringPrinted) {
             return;
         }
-        print \ECSPrefix20210803\PHPUnit\Runner\Version::getVersionString() . \PHP_EOL . \PHP_EOL;
+        print \ECSPrefix20210804\PHPUnit\Runner\Version::getVersionString() . \PHP_EOL . \PHP_EOL;
         $this->versionStringPrinted = \true;
     }
     private function exitWithErrorMessage(string $message) : void
     {
         $this->printVersionString();
         print $message . \PHP_EOL;
-        exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::FAILURE_EXIT);
+        exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::FAILURE_EXIT);
     }
-    private function handleListGroups(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite, bool $exit) : int
+    private function handleListGroups(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite, bool $exit) : int
     {
         $this->printVersionString();
         print 'Available test group(s):' . \PHP_EOL;
@@ -472,9 +472,9 @@ class Command
             \printf(' - %s' . \PHP_EOL, $group);
         }
         if ($exit) {
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
         }
-        return \ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
+        return \ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
     }
     /**
      * @throws \PHPUnit\Framework\Exception
@@ -488,36 +488,36 @@ class Command
             \printf(' - %s' . \PHP_EOL, $testSuite->name());
         }
         if ($exit) {
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
         }
-        return \ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
+        return \ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    private function handleListTests(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite, bool $exit) : int
+    private function handleListTests(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite, bool $exit) : int
     {
         $this->printVersionString();
-        $renderer = new \ECSPrefix20210803\PHPUnit\Util\TextTestListRenderer();
+        $renderer = new \ECSPrefix20210804\PHPUnit\Util\TextTestListRenderer();
         print $renderer->render($suite);
         if ($exit) {
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
         }
-        return \ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
+        return \ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    private function handleListTestsXml(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite, string $target, bool $exit) : int
+    private function handleListTestsXml(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite, string $target, bool $exit) : int
     {
         $this->printVersionString();
-        $renderer = new \ECSPrefix20210803\PHPUnit\Util\XmlTestListRenderer();
+        $renderer = new \ECSPrefix20210804\PHPUnit\Util\XmlTestListRenderer();
         \file_put_contents($target, $renderer->render($suite));
         \printf('Wrote list of tests that would have been run to %s' . \PHP_EOL, $target);
         if ($exit) {
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
         }
-        return \ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
+        return \ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT;
     }
     private function generateConfiguration() : void
     {
@@ -543,29 +543,29 @@ class Command
         if ($cacheDirectory === '') {
             $cacheDirectory = '.phpunit.cache';
         }
-        $generator = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Generator();
-        \file_put_contents('phpunit.xml', $generator->generateDefaultConfiguration(\ECSPrefix20210803\PHPUnit\Runner\Version::series(), $bootstrapScript, $testsDirectory, $src, $cacheDirectory));
+        $generator = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Generator();
+        \file_put_contents('phpunit.xml', $generator->generateDefaultConfiguration(\ECSPrefix20210804\PHPUnit\Runner\Version::series(), $bootstrapScript, $testsDirectory, $src, $cacheDirectory));
         print \PHP_EOL . 'Generated phpunit.xml in ' . \getcwd() . '.' . \PHP_EOL;
         print 'Make sure to exclude the ' . $cacheDirectory . ' directory from version control.' . \PHP_EOL;
-        exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+        exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
     }
     private function migrateConfiguration(string $filename) : void
     {
         $this->printVersionString();
-        if (!(new \ECSPrefix20210803\PHPUnit\Util\Xml\SchemaDetector())->detect($filename)->detected()) {
+        if (!(new \ECSPrefix20210804\PHPUnit\Util\Xml\SchemaDetector())->detect($filename)->detected()) {
             print $filename . ' does not need to be migrated.' . \PHP_EOL;
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
         }
         \copy($filename, $filename . '.bak');
         print 'Created backup:         ' . $filename . '.bak' . \PHP_EOL;
         try {
-            \file_put_contents($filename, (new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Migrator())->migrate($filename));
+            \file_put_contents($filename, (new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Migrator())->migrate($filename));
             print 'Migrated configuration: ' . $filename . \PHP_EOL;
         } catch (\Throwable $t) {
             print 'Migration failed: ' . $t->getMessage() . \PHP_EOL;
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
         }
-        exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+        exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
     }
     private function handleCustomOptions(array $unrecognizedOptions) : void
     {
@@ -583,7 +583,7 @@ class Command
             }
         }
     }
-    private function handleWarmCoverageCache(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Configuration $configuration) : void
+    private function handleWarmCoverageCache(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Configuration $configuration) : void
     {
         $this->printVersionString();
         if (isset($this->arguments['coverageCacheDirectory'])) {
@@ -592,11 +592,11 @@ class Command
             $cacheDirectory = $configuration->codeCoverage()->cacheDirectory()->path();
         } else {
             print 'Cache for static analysis has not been configured' . \PHP_EOL;
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
         }
-        $filter = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Filter();
+        $filter = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Filter();
         if ($configuration->codeCoverage()->hasNonEmptyListOfFilesToBeIncludedInCodeCoverageReport()) {
-            (new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\FilterMapper())->map($filter, $configuration->codeCoverage());
+            (new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\FilterMapper())->map($filter, $configuration->codeCoverage());
         } elseif (isset($this->arguments['coverageFilter'])) {
             if (!\is_array($this->arguments['coverageFilter'])) {
                 $coverageFilterDirectories = [$this->arguments['coverageFilter']];
@@ -608,14 +608,14 @@ class Command
             }
         } else {
             print 'Filter for code coverage has not been configured' . \PHP_EOL;
-            exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
+            exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::EXCEPTION_EXIT);
         }
-        $timer = new \ECSPrefix20210803\SebastianBergmann\Timer\Timer();
+        $timer = new \ECSPrefix20210804\SebastianBergmann\Timer\Timer();
         $timer->start();
         print 'Warming cache for static analysis ... ';
-        (new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer())->warmCache($cacheDirectory, !$configuration->codeCoverage()->disableCodeCoverageIgnore(), $configuration->codeCoverage()->ignoreDeprecatedCodeUnits(), $filter);
+        (new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer())->warmCache($cacheDirectory, !$configuration->codeCoverage()->disableCodeCoverageIgnore(), $configuration->codeCoverage()->ignoreDeprecatedCodeUnits(), $filter);
         print 'done [' . $timer->stop()->asString() . ']' . \PHP_EOL;
-        exit(\ECSPrefix20210803\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
+        exit(\ECSPrefix20210804\PHPUnit\TextUI\TestRunner::SUCCESS_EXIT);
     }
     private function configurationFileInDirectory(string $directory) : ?string
     {

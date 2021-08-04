@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
-class BundlesElement extends \ECSPrefix20210803\PharIo\Manifest\ManifestElement
+class BundlesElement extends \ECSPrefix20210804\PharIo\Manifest\ManifestElement
 {
-    public function getComponentElements() : \ECSPrefix20210803\PharIo\Manifest\ComponentElementCollection
+    public function getComponentElements() : \ECSPrefix20210804\PharIo\Manifest\ComponentElementCollection
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\ComponentElementCollection($this->getChildrenByName('component'));
+        return new \ECSPrefix20210804\PharIo\Manifest\ComponentElementCollection($this->getChildrenByName('component'));
     }
 }

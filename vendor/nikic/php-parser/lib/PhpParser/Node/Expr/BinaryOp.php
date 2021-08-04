@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node\Expr;
+namespace ECSPrefix20210804\PhpParser\Node\Expr;
 
-use ECSPrefix20210803\PhpParser\Node\Expr;
-abstract class BinaryOp extends \ECSPrefix20210803\PhpParser\Node\Expr
+use ECSPrefix20210804\PhpParser\Node\Expr;
+abstract class BinaryOp extends \ECSPrefix20210804\PhpParser\Node\Expr
 {
     /** @var Expr The left hand side expression */
     public $left;
@@ -17,7 +17,7 @@ abstract class BinaryOp extends \ECSPrefix20210803\PhpParser\Node\Expr
      * @param Expr  $right      The right hand side expression
      * @param array $attributes Additional attributes
      */
-    public function __construct(\ECSPrefix20210803\PhpParser\Node\Expr $left, \ECSPrefix20210803\PhpParser\Node\Expr $right, array $attributes = [])
+    public function __construct(\ECSPrefix20210804\PhpParser\Node\Expr $left, \ECSPrefix20210804\PhpParser\Node\Expr $right, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->left = $left;

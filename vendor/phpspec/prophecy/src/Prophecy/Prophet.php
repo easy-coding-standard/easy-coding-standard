@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy;
+namespace ECSPrefix20210804\Prophecy;
 
-use ECSPrefix20210803\Prophecy\Doubler\CachedDoubler;
-use ECSPrefix20210803\Prophecy\Doubler\Doubler;
-use ECSPrefix20210803\Prophecy\Doubler\LazyDouble;
-use ECSPrefix20210803\Prophecy\Doubler\ClassPatch;
-use ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy;
-use ECSPrefix20210803\Prophecy\Prophecy\RevealerInterface;
-use ECSPrefix20210803\Prophecy\Prophecy\Revealer;
-use ECSPrefix20210803\Prophecy\Call\CallCenter;
-use ECSPrefix20210803\Prophecy\Util\StringUtil;
-use ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException;
-use ECSPrefix20210803\Prophecy\Exception\Prediction\AggregateException;
+use ECSPrefix20210804\Prophecy\Doubler\CachedDoubler;
+use ECSPrefix20210804\Prophecy\Doubler\Doubler;
+use ECSPrefix20210804\Prophecy\Doubler\LazyDouble;
+use ECSPrefix20210804\Prophecy\Doubler\ClassPatch;
+use ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy;
+use ECSPrefix20210804\Prophecy\Prophecy\RevealerInterface;
+use ECSPrefix20210804\Prophecy\Prophecy\Revealer;
+use ECSPrefix20210804\Prophecy\Call\CallCenter;
+use ECSPrefix20210804\Prophecy\Util\StringUtil;
+use ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException;
+use ECSPrefix20210804\Prophecy\Exception\Prediction\AggregateException;
 /**
  * Prophet creates prophecies.
  *
@@ -42,23 +42,23 @@ class Prophet
      * @param null|RevealerInterface $revealer
      * @param null|StringUtil        $util
      */
-    public function __construct(\ECSPrefix20210803\Prophecy\Doubler\Doubler $doubler = null, \ECSPrefix20210803\Prophecy\Prophecy\RevealerInterface $revealer = null, \ECSPrefix20210803\Prophecy\Util\StringUtil $util = null)
+    public function __construct(\ECSPrefix20210804\Prophecy\Doubler\Doubler $doubler = null, \ECSPrefix20210804\Prophecy\Prophecy\RevealerInterface $revealer = null, \ECSPrefix20210804\Prophecy\Util\StringUtil $util = null)
     {
         if (null === $doubler) {
-            $doubler = new \ECSPrefix20210803\Prophecy\Doubler\CachedDoubler();
-            $doubler->registerClassPatch(new \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\SplFileInfoPatch());
-            $doubler->registerClassPatch(new \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\TraversablePatch());
-            $doubler->registerClassPatch(new \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ThrowablePatch());
-            $doubler->registerClassPatch(new \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\DisableConstructorPatch());
-            $doubler->registerClassPatch(new \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ProphecySubjectPatch());
-            $doubler->registerClassPatch(new \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ReflectionClassNewInstancePatch());
-            $doubler->registerClassPatch(new \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\HhvmExceptionPatch());
-            $doubler->registerClassPatch(new \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\MagicCallPatch());
-            $doubler->registerClassPatch(new \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\KeywordPatch());
+            $doubler = new \ECSPrefix20210804\Prophecy\Doubler\CachedDoubler();
+            $doubler->registerClassPatch(new \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\SplFileInfoPatch());
+            $doubler->registerClassPatch(new \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\TraversablePatch());
+            $doubler->registerClassPatch(new \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ThrowablePatch());
+            $doubler->registerClassPatch(new \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\DisableConstructorPatch());
+            $doubler->registerClassPatch(new \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ProphecySubjectPatch());
+            $doubler->registerClassPatch(new \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ReflectionClassNewInstancePatch());
+            $doubler->registerClassPatch(new \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\HhvmExceptionPatch());
+            $doubler->registerClassPatch(new \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\MagicCallPatch());
+            $doubler->registerClassPatch(new \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\KeywordPatch());
         }
         $this->doubler = $doubler;
-        $this->revealer = $revealer ?: new \ECSPrefix20210803\Prophecy\Prophecy\Revealer();
-        $this->util = $util ?: new \ECSPrefix20210803\Prophecy\Util\StringUtil();
+        $this->revealer = $revealer ?: new \ECSPrefix20210804\Prophecy\Prophecy\Revealer();
+        $this->util = $util ?: new \ECSPrefix20210804\Prophecy\Util\StringUtil();
     }
     /**
      * Creates new object prophecy.
@@ -69,7 +69,7 @@ class Prophet
      */
     public function prophesize($classOrInterface = null)
     {
-        $this->prophecies[] = $prophecy = new \ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy(new \ECSPrefix20210803\Prophecy\Doubler\LazyDouble($this->doubler), new \ECSPrefix20210803\Prophecy\Call\CallCenter($this->util), $this->revealer);
+        $this->prophecies[] = $prophecy = new \ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy(new \ECSPrefix20210804\Prophecy\Doubler\LazyDouble($this->doubler), new \ECSPrefix20210804\Prophecy\Call\CallCenter($this->util), $this->revealer);
         if ($classOrInterface && \class_exists($classOrInterface)) {
             return $prophecy->willExtend($classOrInterface);
         }
@@ -103,11 +103,11 @@ class Prophet
      */
     public function checkPredictions()
     {
-        $exception = new \ECSPrefix20210803\Prophecy\Exception\Prediction\AggregateException("Some predictions failed:\n");
+        $exception = new \ECSPrefix20210804\Prophecy\Exception\Prediction\AggregateException("Some predictions failed:\n");
         foreach ($this->prophecies as $prophecy) {
             try {
                 $prophecy->checkProphecyMethodsPredictions();
-            } catch (\ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException $e) {
+            } catch (\ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException $e) {
                 $exception->append($e);
             }
         }

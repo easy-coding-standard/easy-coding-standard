@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class License
 {
@@ -17,7 +17,7 @@ class License
     private $name;
     /** @var Url */
     private $url;
-    public function __construct(string $name, \ECSPrefix20210803\PharIo\Manifest\Url $url)
+    public function __construct(string $name, \ECSPrefix20210804\PharIo\Manifest\Url $url)
     {
         $this->name = $name;
         $this->url = $url;
@@ -26,7 +26,7 @@ class License
     {
         return $this->name;
     }
-    public function getUrl() : \ECSPrefix20210803\PharIo\Manifest\Url
+    public function getUrl() : \ECSPrefix20210804\PharIo\Manifest\Url
     {
         return $this->url;
     }

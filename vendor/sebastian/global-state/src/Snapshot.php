@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\GlobalState;
+namespace ECSPrefix20210804\SebastianBergmann\GlobalState;
 
 use function array_keys;
 use function array_merge;
@@ -30,8 +30,8 @@ use function is_scalar;
 use function serialize;
 use function unserialize;
 use ReflectionClass;
-use ECSPrefix20210803\SebastianBergmann\ObjectReflector\ObjectReflector;
-use ECSPrefix20210803\SebastianBergmann\RecursionContext\Context;
+use ECSPrefix20210804\SebastianBergmann\ObjectReflector\ObjectReflector;
+use ECSPrefix20210804\SebastianBergmann\RecursionContext\Context;
 use Throwable;
 /**
  * A snapshot of global state.
@@ -89,9 +89,9 @@ class Snapshot
     /**
      * Creates a snapshot of the current global state.
      */
-    public function __construct(\ECSPrefix20210803\SebastianBergmann\GlobalState\ExcludeList $excludeList = null, bool $includeGlobalVariables = \true, bool $includeStaticAttributes = \true, bool $includeConstants = \true, bool $includeFunctions = \true, bool $includeClasses = \true, bool $includeInterfaces = \true, bool $includeTraits = \true, bool $includeIniSettings = \true, bool $includeIncludedFiles = \true)
+    public function __construct(\ECSPrefix20210804\SebastianBergmann\GlobalState\ExcludeList $excludeList = null, bool $includeGlobalVariables = \true, bool $includeStaticAttributes = \true, bool $includeConstants = \true, bool $includeFunctions = \true, bool $includeClasses = \true, bool $includeInterfaces = \true, bool $includeTraits = \true, bool $includeIniSettings = \true, bool $includeIncludedFiles = \true)
     {
-        $this->excludeList = $excludeList ?: new \ECSPrefix20210803\SebastianBergmann\GlobalState\ExcludeList();
+        $this->excludeList = $excludeList ?: new \ECSPrefix20210804\SebastianBergmann\GlobalState\ExcludeList();
         if ($includeConstants) {
             $this->snapshotConstants();
         }
@@ -119,7 +119,7 @@ class Snapshot
         }
         $this->traits = \get_declared_traits();
     }
-    public function excludeList() : \ECSPrefix20210803\SebastianBergmann\GlobalState\ExcludeList
+    public function excludeList() : \ECSPrefix20210804\SebastianBergmann\GlobalState\ExcludeList
     {
         return $this->excludeList;
     }
@@ -315,7 +315,7 @@ class Snapshot
         if (isset(\func_get_args()[1])) {
             $processed = \func_get_args()[1];
         } else {
-            $processed = new \ECSPrefix20210803\SebastianBergmann\RecursionContext\Context();
+            $processed = new \ECSPrefix20210804\SebastianBergmann\RecursionContext\Context();
         }
         $result = [];
         if ($processed->contains($variable)) {
@@ -337,7 +337,7 @@ class Snapshot
             }
         } else {
             $result[] = $variable;
-            foreach ((new \ECSPrefix20210803\SebastianBergmann\ObjectReflector\ObjectReflector())->getAttributes($variable) as $value) {
+            foreach ((new \ECSPrefix20210804\SebastianBergmann\ObjectReflector\ObjectReflector())->getAttributes($variable) as $value) {
                 if (!\is_array($value) && !\is_object($value) && !\is_resource($value)) {
                     continue;
                 }

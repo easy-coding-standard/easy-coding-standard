@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class Author
 {
@@ -17,7 +17,7 @@ class Author
     private $name;
     /** @var Email */
     private $email;
-    public function __construct(string $name, \ECSPrefix20210803\PharIo\Manifest\Email $email)
+    public function __construct(string $name, \ECSPrefix20210804\PharIo\Manifest\Email $email)
     {
         $this->name = $name;
         $this->email = $email;
@@ -30,7 +30,7 @@ class Author
     {
         return $this->name;
     }
-    public function getEmail() : \ECSPrefix20210803\PharIo\Manifest\Email
+    public function getEmail() : \ECSPrefix20210804\PharIo\Manifest\Email
     {
         return $this->email;
     }

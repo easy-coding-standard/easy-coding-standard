@@ -9,11 +9,11 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 use function array_keys;
 use function get_object_vars;
-use ECSPrefix20210803\PHPUnit\Util\Filter;
+use ECSPrefix20210804\PHPUnit\Util\Filter;
 use RuntimeException;
 use Throwable;
 /**
@@ -38,7 +38,7 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-class Exception extends \RuntimeException implements \ECSPrefix20210803\PHPUnit\Exception
+class Exception extends \RuntimeException implements \ECSPrefix20210804\PHPUnit\Exception
 {
     /**
      * @var array
@@ -54,8 +54,8 @@ class Exception extends \RuntimeException implements \ECSPrefix20210803\PHPUnit\
     }
     public function __toString() : string
     {
-        $string = \ECSPrefix20210803\PHPUnit\Framework\TestFailure::exceptionToString($this);
-        if ($trace = \ECSPrefix20210803\PHPUnit\Util\Filter::getFilteredStacktrace($this)) {
+        $string = \ECSPrefix20210804\PHPUnit\Framework\TestFailure::exceptionToString($this);
+        if ($trace = \ECSPrefix20210804\PHPUnit\Util\Filter::getFilteredStacktrace($this)) {
             $string .= "\n" . $trace;
         }
         return $string;

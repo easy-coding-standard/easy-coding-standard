@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Version;
+namespace ECSPrefix20210804\PharIo\Version;
 
-class SpecificMajorAndMinorVersionConstraint extends \ECSPrefix20210803\PharIo\Version\AbstractVersionConstraint
+class SpecificMajorAndMinorVersionConstraint extends \ECSPrefix20210804\PharIo\Version\AbstractVersionConstraint
 {
     /** @var int */
     private $major;
@@ -23,7 +23,7 @@ class SpecificMajorAndMinorVersionConstraint extends \ECSPrefix20210803\PharIo\V
         $this->major = $major;
         $this->minor = $minor;
     }
-    public function complies(\ECSPrefix20210803\PharIo\Version\Version $version) : bool
+    public function complies(\ECSPrefix20210804\PharIo\Version\Version $version) : bool
     {
         if ($version->getMajor()->getValue() !== $this->major) {
             return \false;

@@ -1,15 +1,15 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\TypeFilter\Date;
+namespace ECSPrefix20210804\DeepCopy\TypeFilter\Date;
 
 use DateInterval;
-use ECSPrefix20210803\DeepCopy\TypeFilter\TypeFilter;
+use ECSPrefix20210804\DeepCopy\TypeFilter\TypeFilter;
 /**
  * @final
  *
  * @deprecated Will be removed in 2.0. This filter will no longer be necessary in PHP 7.1+.
  */
-class DateIntervalFilter implements \ECSPrefix20210803\DeepCopy\TypeFilter\TypeFilter
+class DateIntervalFilter implements \ECSPrefix20210804\DeepCopy\TypeFilter\TypeFilter
 {
     /**
      * {@inheritdoc}

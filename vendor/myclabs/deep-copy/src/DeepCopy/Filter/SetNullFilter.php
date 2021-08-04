@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Filter;
+namespace ECSPrefix20210804\DeepCopy\Filter;
 
-use ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper;
+use ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper;
 /**
  * @final
  */
-class SetNullFilter implements \ECSPrefix20210803\DeepCopy\Filter\Filter
+class SetNullFilter implements \ECSPrefix20210804\DeepCopy\Filter\Filter
 {
     /**
      * Sets the object property to null.
@@ -15,7 +15,7 @@ class SetNullFilter implements \ECSPrefix20210803\DeepCopy\Filter\Filter
      */
     public function apply($object, $property, $objectCopier)
     {
-        $reflectionProperty = \ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper::getProperty($object, $property);
+        $reflectionProperty = \ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper::getProperty($object, $property);
         $reflectionProperty->setAccessible(\true);
         $reflectionProperty->setValue($object, null);
     }

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Exporter;
+namespace ECSPrefix20210804\SebastianBergmann\Exporter;
 
 use function bin2hex;
 use function count;
@@ -32,7 +32,7 @@ use function str_replace;
 use function strlen;
 use function substr;
 use function var_export;
-use ECSPrefix20210803\SebastianBergmann\RecursionContext\Context;
+use ECSPrefix20210804\SebastianBergmann\RecursionContext\Context;
 use SplObjectStorage;
 /**
  * A nifty utility for visualizing PHP variables.
@@ -79,7 +79,7 @@ class Exporter
         $result = [];
         $exporter = new self();
         if (!$context) {
-            $context = new \ECSPrefix20210803\SebastianBergmann\RecursionContext\Context();
+            $context = new \ECSPrefix20210804\SebastianBergmann\RecursionContext\Context();
         }
         $array = $data;
         $context->add($data);
@@ -211,7 +211,7 @@ class Exporter
         }
         $whitespace = \str_repeat(' ', (int) (4 * $indentation));
         if (!$processed) {
-            $processed = new \ECSPrefix20210803\SebastianBergmann\RecursionContext\Context();
+            $processed = new \ECSPrefix20210804\SebastianBergmann\RecursionContext\Context();
         }
         if (\is_array($value)) {
             if (($key = $processed->contains($value)) !== \false) {

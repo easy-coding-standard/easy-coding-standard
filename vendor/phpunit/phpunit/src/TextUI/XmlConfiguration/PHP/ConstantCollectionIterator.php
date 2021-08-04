@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use function count;
 use function iterator_count;
@@ -28,7 +28,7 @@ final class ConstantCollectionIterator implements \Countable, \Iterator
      * @var int
      */
     private $position;
-    public function __construct(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\ConstantCollection $constants)
+    public function __construct(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\ConstantCollection $constants)
     {
         $this->constants = $constants->asArray();
     }
@@ -48,7 +48,7 @@ final class ConstantCollectionIterator implements \Countable, \Iterator
     {
         return $this->position;
     }
-    public function current() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Constant
+    public function current() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Constant
     {
         return $this->constants[$this->position];
     }

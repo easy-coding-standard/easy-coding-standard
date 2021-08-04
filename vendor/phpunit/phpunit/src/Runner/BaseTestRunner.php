@@ -9,16 +9,16 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner;
+namespace ECSPrefix20210804\PHPUnit\Runner;
 
 use function is_dir;
 use function is_file;
 use function substr;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
 use ReflectionClass;
 use ReflectionException;
-use ECSPrefix20210803\SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
+use ECSPrefix20210804\SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -63,9 +63,9 @@ abstract class BaseTestRunner
     /**
      * Returns the loader to be used.
      */
-    public function getLoader() : \ECSPrefix20210803\PHPUnit\Runner\TestSuiteLoader
+    public function getLoader() : \ECSPrefix20210804\PHPUnit\Runner\TestSuiteLoader
     {
-        return new \ECSPrefix20210803\PHPUnit\Runner\StandardTestSuiteLoader();
+        return new \ECSPrefix20210804\PHPUnit\Runner\StandardTestSuiteLoader();
     }
     /**
      * Returns the Test corresponding to the given suite.
@@ -76,23 +76,23 @@ abstract class BaseTestRunner
      *
      * @throws Exception
      */
-    public function getTest(string $suiteClassFile, $suffixes = '') : ?\ECSPrefix20210803\PHPUnit\Framework\TestSuite
+    public function getTest(string $suiteClassFile, $suffixes = '') : ?\ECSPrefix20210804\PHPUnit\Framework\TestSuite
     {
         if (\is_dir($suiteClassFile)) {
             /** @var string[] $files */
-            $files = (new \ECSPrefix20210803\SebastianBergmann\FileIterator\Facade())->getFilesAsArray($suiteClassFile, $suffixes);
-            $suite = new \ECSPrefix20210803\PHPUnit\Framework\TestSuite($suiteClassFile);
+            $files = (new \ECSPrefix20210804\SebastianBergmann\FileIterator\Facade())->getFilesAsArray($suiteClassFile, $suffixes);
+            $suite = new \ECSPrefix20210804\PHPUnit\Framework\TestSuite($suiteClassFile);
             $suite->addTestFiles($files);
             return $suite;
         }
         if (\is_file($suiteClassFile) && \substr($suiteClassFile, -5, 5) === '.phpt') {
-            $suite = new \ECSPrefix20210803\PHPUnit\Framework\TestSuite();
+            $suite = new \ECSPrefix20210804\PHPUnit\Framework\TestSuite();
             $suite->addTestFile($suiteClassFile);
             return $suite;
         }
         try {
             $testClass = $this->loadSuiteClass($suiteClassFile);
-        } catch (\ECSPrefix20210803\PHPUnit\Exception $e) {
+        } catch (\ECSPrefix20210804\PHPUnit\Exception $e) {
             $this->runFailed($e->getMessage());
             return null;
         }
@@ -104,7 +104,7 @@ abstract class BaseTestRunner
             }
             $test = $suiteMethod->invoke(null, $testClass->getName());
         } catch (\ReflectionException $e) {
-            $test = new \ECSPrefix20210803\PHPUnit\Framework\TestSuite($testClass);
+            $test = new \ECSPrefix20210804\PHPUnit\Framework\TestSuite($testClass);
         }
         $this->clearStatus();
         return $test;

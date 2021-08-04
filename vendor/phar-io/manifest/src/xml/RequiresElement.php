@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
-class RequiresElement extends \ECSPrefix20210803\PharIo\Manifest\ManifestElement
+class RequiresElement extends \ECSPrefix20210804\PharIo\Manifest\ManifestElement
 {
-    public function getPHPElement() : \ECSPrefix20210803\PharIo\Manifest\PhpElement
+    public function getPHPElement() : \ECSPrefix20210804\PharIo\Manifest\PhpElement
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\PhpElement($this->getChildByName('php'));
+        return new \ECSPrefix20210804\PharIo\Manifest\PhpElement($this->getChildByName('php'));
     }
 }

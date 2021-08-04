@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function gettype;
 use function is_array;
@@ -26,7 +26,7 @@ use function sprintf;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsType extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+final class IsType extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var string
@@ -94,7 +94,7 @@ final class IsType extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Const
     public function __construct(string $type)
     {
         if (!isset(self::KNOWN_TYPES[$type])) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception(\sprintf('Type specified for PHPUnit\\Framework\\Constraint\\IsType <%s> ' . 'is not a valid type.', $type));
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception(\sprintf('Type specified for PHPUnit\\Framework\\Constraint\\IsType <%s> ' . 'is not a valid type.', $type));
         }
         $this->type = $type;
     }

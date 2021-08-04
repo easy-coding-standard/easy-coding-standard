@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\RecursionContext;
+namespace ECSPrefix20210804\SebastianBergmann\RecursionContext;
 
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
@@ -76,7 +76,7 @@ final class Context
         if (\is_object($value)) {
             return $this->addObject($value);
         }
-        throw new \ECSPrefix20210803\SebastianBergmann\RecursionContext\InvalidArgumentException('Only arrays and objects are supported');
+        throw new \ECSPrefix20210804\SebastianBergmann\RecursionContext\InvalidArgumentException('Only arrays and objects are supported');
     }
     /**
      * Checks if the given value exists within the context.
@@ -99,7 +99,7 @@ final class Context
         if (\is_object($value)) {
             return $this->containsObject($value);
         }
-        throw new \ECSPrefix20210803\SebastianBergmann\RecursionContext\InvalidArgumentException('Only arrays and objects are supported');
+        throw new \ECSPrefix20210804\SebastianBergmann\RecursionContext\InvalidArgumentException('Only arrays and objects are supported');
     }
     /**
      * @return bool|int

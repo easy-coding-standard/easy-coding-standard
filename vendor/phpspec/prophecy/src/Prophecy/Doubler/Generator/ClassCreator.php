@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\Generator;
+namespace ECSPrefix20210804\Prophecy\Doubler\Generator;
 
-use ECSPrefix20210803\Prophecy\Exception\Doubler\ClassCreatorException;
+use ECSPrefix20210804\Prophecy\Exception\Doubler\ClassCreatorException;
 /**
  * Class creator.
  * Creates specific class in current environment.
@@ -25,9 +25,9 @@ class ClassCreator
      *
      * @param ClassCodeGenerator $generator
      */
-    public function __construct(\ECSPrefix20210803\Prophecy\Doubler\Generator\ClassCodeGenerator $generator = null)
+    public function __construct(\ECSPrefix20210804\Prophecy\Doubler\Generator\ClassCodeGenerator $generator = null)
     {
-        $this->generator = $generator ?: new \ECSPrefix20210803\Prophecy\Doubler\Generator\ClassCodeGenerator();
+        $this->generator = $generator ?: new \ECSPrefix20210804\Prophecy\Doubler\Generator\ClassCodeGenerator();
     }
     /**
      * Creates class.
@@ -39,15 +39,15 @@ class ClassCreator
      *
      * @throws \Prophecy\Exception\Doubler\ClassCreatorException
      */
-    public function create($classname, \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $class)
+    public function create($classname, \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $class)
     {
         $code = $this->generator->generate($classname, $class);
         $return = eval($code);
         if (!\class_exists($classname, \false)) {
             if (\count($class->getInterfaces())) {
-                throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\ClassCreatorException(\sprintf('Could not double `%s` and implement interfaces: [%s].', $class->getParentClass(), \implode(', ', $class->getInterfaces())), $class);
+                throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\ClassCreatorException(\sprintf('Could not double `%s` and implement interfaces: [%s].', $class->getParentClass(), \implode(', ', $class->getInterfaces())), $class);
             }
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\ClassCreatorException(\sprintf('Could not double `%s`.', $class->getParentClass()), $class);
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\ClassCreatorException(\sprintf('Could not double `%s`.', $class->getParentClass()), $class);
         }
         return $return;
     }

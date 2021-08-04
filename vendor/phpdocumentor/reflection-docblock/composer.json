@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210803\\phpDocumentor\\Reflection\\": "src"
+            "ECSPrefix20210804\\phpDocumentor\\Reflection\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210803\\phpDocumentor\\Reflection\\": "tests\/unit"
+            "ECSPrefix20210804\\phpDocumentor\\Reflection\\": "tests\/unit"
         }
     },
     "extra": {

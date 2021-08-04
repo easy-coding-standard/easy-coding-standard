@@ -1,13 +1,13 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Filter\Doctrine;
+namespace ECSPrefix20210804\DeepCopy\Filter\Doctrine;
 
-use ECSPrefix20210803\DeepCopy\Filter\Filter;
-use ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper;
+use ECSPrefix20210804\DeepCopy\Filter\Filter;
+use ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper;
 /**
  * @final
  */
-class DoctrineCollectionFilter implements \ECSPrefix20210803\DeepCopy\Filter\Filter
+class DoctrineCollectionFilter implements \ECSPrefix20210804\DeepCopy\Filter\Filter
 {
     /**
      * Copies the object property doctrine collection.
@@ -16,7 +16,7 @@ class DoctrineCollectionFilter implements \ECSPrefix20210803\DeepCopy\Filter\Fil
      */
     public function apply($object, $property, $objectCopier)
     {
-        $reflectionProperty = \ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper::getProperty($object, $property);
+        $reflectionProperty = \ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper::getProperty($object, $property);
         $reflectionProperty->setAccessible(\true);
         $oldCollection = $reflectionProperty->getValue($object);
         $newCollection = $oldCollection->map(function ($item) use($objectCopier) {

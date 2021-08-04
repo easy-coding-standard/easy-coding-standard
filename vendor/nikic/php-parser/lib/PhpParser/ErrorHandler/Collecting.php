@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\ErrorHandler;
+namespace ECSPrefix20210804\PhpParser\ErrorHandler;
 
-use ECSPrefix20210803\PhpParser\Error;
-use ECSPrefix20210803\PhpParser\ErrorHandler;
+use ECSPrefix20210804\PhpParser\Error;
+use ECSPrefix20210804\PhpParser\ErrorHandler;
 /**
  * Error handler that collects all errors into an array.
  *
  * This allows graceful handling of errors.
  */
-class Collecting implements \ECSPrefix20210803\PhpParser\ErrorHandler
+class Collecting implements \ECSPrefix20210804\PhpParser\ErrorHandler
 {
     /** @var Error[] Collected errors */
     private $errors = [];
-    public function handleError(\ECSPrefix20210803\PhpParser\Error $error)
+    public function handleError(\ECSPrefix20210804\PhpParser\Error $error)
     {
         $this->errors[] = $error;
     }

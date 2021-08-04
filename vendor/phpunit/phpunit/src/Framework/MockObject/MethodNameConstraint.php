@@ -9,16 +9,16 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use function is_string;
 use function sprintf;
 use function strtolower;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class MethodNameConstraint extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+final class MethodNameConstraint extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var string

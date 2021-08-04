@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class Url
 {
@@ -32,7 +32,7 @@ class Url
     private function ensureUrlIsValid($url) : void
     {
         if (\filter_var($url, \FILTER_VALIDATE_URL) === \false) {
-            throw new \ECSPrefix20210803\PharIo\Manifest\InvalidUrlException();
+            throw new \ECSPrefix20210804\PharIo\Manifest\InvalidUrlException();
         }
     }
 }

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 use const PHP_EOL;
 use function array_diff;
@@ -37,11 +37,11 @@ use function strpos;
 use function substr;
 use Iterator;
 use IteratorAggregate;
-use ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner;
-use ECSPrefix20210803\PHPUnit\Runner\Filter\Factory;
-use ECSPrefix20210803\PHPUnit\Runner\PhptTestCase;
-use ECSPrefix20210803\PHPUnit\Util\FileLoader;
-use ECSPrefix20210803\PHPUnit\Util\Test as TestUtil;
+use ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner;
+use ECSPrefix20210804\PHPUnit\Runner\Filter\Factory;
+use ECSPrefix20210804\PHPUnit\Runner\PhptTestCase;
+use ECSPrefix20210804\PHPUnit\Util\FileLoader;
+use ECSPrefix20210804\PHPUnit\Util\Test as TestUtil;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
@@ -49,7 +49,7 @@ use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framework\Reorderable, \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing, \ECSPrefix20210803\PHPUnit\Framework\Test
+class TestSuite implements \IteratorAggregate, \ECSPrefix20210804\PHPUnit\Framework\Reorderable, \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing, \ECSPrefix20210804\PHPUnit\Framework\Test
 {
     /**
      * Enable or disable the backup and restoration of the $GLOBALS array.
@@ -147,7 +147,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
     public function __construct($theClass = '', string $name = '')
     {
         if (!\is_string($theClass) && !$theClass instanceof \ReflectionClass) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'ReflectionClass object or string');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'ReflectionClass object or string');
         }
         $this->declaredClasses = \get_declared_classes();
         if (!$theClass instanceof \ReflectionClass) {
@@ -158,7 +158,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
                 try {
                     $theClass = new \ReflectionClass($theClass);
                 } catch (\ReflectionException $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
                 }
                 // @codeCoverageIgnoreEnd
             } else {
@@ -166,7 +166,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
                 return;
             }
         }
-        if (!$theClass->isSubclassOf(\ECSPrefix20210803\PHPUnit\Framework\TestCase::class)) {
+        if (!$theClass->isSubclassOf(\ECSPrefix20210804\PHPUnit\Framework\TestCase::class)) {
             $this->setName((string) $theClass);
             return;
         }
@@ -177,23 +177,23 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
         }
         $constructor = $theClass->getConstructor();
         if ($constructor !== null && !$constructor->isPublic()) {
-            $this->addTest(new \ECSPrefix20210803\PHPUnit\Framework\WarningTestCase(\sprintf('Class "%s" has no public constructor.', $theClass->getName())));
+            $this->addTest(new \ECSPrefix20210804\PHPUnit\Framework\WarningTestCase(\sprintf('Class "%s" has no public constructor.', $theClass->getName())));
             return;
         }
         foreach ($theClass->getMethods() as $method) {
-            if ($method->getDeclaringClass()->getName() === \ECSPrefix20210803\PHPUnit\Framework\Assert::class) {
+            if ($method->getDeclaringClass()->getName() === \ECSPrefix20210804\PHPUnit\Framework\Assert::class) {
                 continue;
             }
-            if ($method->getDeclaringClass()->getName() === \ECSPrefix20210803\PHPUnit\Framework\TestCase::class) {
+            if ($method->getDeclaringClass()->getName() === \ECSPrefix20210804\PHPUnit\Framework\TestCase::class) {
                 continue;
             }
-            if (!\ECSPrefix20210803\PHPUnit\Util\Test::isTestMethod($method)) {
+            if (!\ECSPrefix20210804\PHPUnit\Util\Test::isTestMethod($method)) {
                 continue;
             }
             $this->addTestMethod($theClass, $method);
         }
         if (empty($this->tests)) {
-            $this->addTest(new \ECSPrefix20210803\PHPUnit\Framework\WarningTestCase(\sprintf('No tests found in class "%s".', $theClass->getName())));
+            $this->addTest(new \ECSPrefix20210804\PHPUnit\Framework\WarningTestCase(\sprintf('No tests found in class "%s".', $theClass->getName())));
         }
         $this->testCase = \true;
     }
@@ -209,13 +209,13 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
      *
      * @param array $groups
      */
-    public function addTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, $groups = []) : void
+    public function addTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, $groups = []) : void
     {
         try {
             $class = new \ReflectionClass($test);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         if (!$class->isAbstract()) {
@@ -234,7 +234,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
                     $this->groups[$group][] = $test;
                 }
             }
-            if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+            if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
                 $test->setGroups($groups);
             }
         }
@@ -249,14 +249,14 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
     public function addTestSuite($testClass) : void
     {
         if (!(\is_object($testClass) || \is_string($testClass) && \class_exists($testClass))) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'class name or object');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'class name or object');
         }
         if (!\is_object($testClass)) {
             try {
                 $testClass = new \ReflectionClass($testClass);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
         }
@@ -264,12 +264,12 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
             $this->addTest($testClass);
         } elseif ($testClass instanceof \ReflectionClass) {
             $suiteMethod = \false;
-            if (!$testClass->isAbstract() && $testClass->hasMethod(\ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::SUITE_METHODNAME)) {
+            if (!$testClass->isAbstract() && $testClass->hasMethod(\ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::SUITE_METHODNAME)) {
                 try {
-                    $method = $testClass->getMethod(\ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::SUITE_METHODNAME);
+                    $method = $testClass->getMethod(\ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::SUITE_METHODNAME);
                     // @codeCoverageIgnoreStart
                 } catch (\ReflectionException $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
                 }
                 // @codeCoverageIgnoreEnd
                 if ($method->isStatic()) {
@@ -277,11 +277,11 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
                     $suiteMethod = \true;
                 }
             }
-            if (!$suiteMethod && !$testClass->isAbstract() && $testClass->isSubclassOf(\ECSPrefix20210803\PHPUnit\Framework\TestCase::class)) {
+            if (!$suiteMethod && !$testClass->isAbstract() && $testClass->isSubclassOf(\ECSPrefix20210804\PHPUnit\Framework\TestCase::class)) {
                 $this->addTest(new self($testClass));
             }
         } else {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception();
         }
     }
     public function addWarning(string $warning) : void
@@ -301,14 +301,14 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
     public function addTestFile(string $filename) : void
     {
         if (\is_file($filename) && \substr($filename, -5) === '.phpt') {
-            $this->addTest(new \ECSPrefix20210803\PHPUnit\Runner\PhptTestCase($filename));
+            $this->addTest(new \ECSPrefix20210804\PHPUnit\Runner\PhptTestCase($filename));
             $this->declaredClasses = \get_declared_classes();
             return;
         }
         $numTests = \count($this->tests);
         // The given file may contain further stub classes in addition to the
         // test class itself. Figure out the actual test class.
-        $filename = \ECSPrefix20210803\PHPUnit\Util\FileLoader::checkAndLoad($filename);
+        $filename = \ECSPrefix20210804\PHPUnit\Util\FileLoader::checkAndLoad($filename);
         $newClasses = \array_diff(\get_declared_classes(), $this->declaredClasses);
         // The diff is empty in case a parent class (with test methods) is added
         // AFTER a child class that inherited from it. To account for that case,
@@ -333,7 +333,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
                     $class = new \ReflectionClass($className);
                     // @codeCoverageIgnoreStart
                 } catch (\ReflectionException $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
                 }
                 // @codeCoverageIgnoreEnd
                 if ($class->getFileName() == $filename) {
@@ -348,25 +348,25 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
                 $class = new \ReflectionClass($className);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
             if (\dirname($class->getFileName()) === __DIR__) {
                 continue;
             }
             if (!$class->isAbstract()) {
-                if ($class->hasMethod(\ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::SUITE_METHODNAME)) {
+                if ($class->hasMethod(\ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::SUITE_METHODNAME)) {
                     try {
-                        $method = $class->getMethod(\ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::SUITE_METHODNAME);
+                        $method = $class->getMethod(\ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::SUITE_METHODNAME);
                         // @codeCoverageIgnoreStart
                     } catch (\ReflectionException $e) {
-                        throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                        throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
                     }
                     // @codeCoverageIgnoreEnd
                     if ($method->isStatic()) {
                         $this->addTest($method->invoke(null, $className));
                     }
-                } elseif ($class->implementsInterface(\ECSPrefix20210803\PHPUnit\Framework\Test::class)) {
+                } elseif ($class->implementsInterface(\ECSPrefix20210804\PHPUnit\Framework\Test::class)) {
                     $expectedClassName = $shortName;
                     if (($pos = \strpos($expectedClassName, '.')) !== \false) {
                         $expectedClassName = \substr($expectedClassName, 0, $pos);
@@ -445,7 +445,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws Warning
      */
-    public function run(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result = null) : \ECSPrefix20210803\PHPUnit\Framework\TestResult
+    public function run(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result = null) : \ECSPrefix20210804\PHPUnit\Framework\TestResult
     {
         if ($result === null) {
             $result = $this->createResult();
@@ -455,20 +455,20 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
         }
         /** @psalm-var class-string $className */
         $className = $this->name;
-        $hookMethods = \ECSPrefix20210803\PHPUnit\Util\Test::getHookMethods($className);
+        $hookMethods = \ECSPrefix20210804\PHPUnit\Util\Test::getHookMethods($className);
         $result->startTestSuite($this);
         $test = null;
         if ($this->testCase && \class_exists($this->name, \false)) {
             try {
                 foreach ($hookMethods['beforeClass'] as $beforeClassMethod) {
                     if (\method_exists($this->name, $beforeClassMethod)) {
-                        if ($missingRequirements = \ECSPrefix20210803\PHPUnit\Util\Test::getMissingRequirements($this->name, $beforeClassMethod)) {
+                        if ($missingRequirements = \ECSPrefix20210804\PHPUnit\Util\Test::getMissingRequirements($this->name, $beforeClassMethod)) {
                             $this->markTestSuiteSkipped(\implode(\PHP_EOL, $missingRequirements));
                         }
                         \call_user_func([$this->name, $beforeClassMethod]);
                     }
                 }
-            } catch (\ECSPrefix20210803\PHPUnit\Framework\SkippedTestSuiteError $error) {
+            } catch (\ECSPrefix20210804\PHPUnit\Framework\SkippedTestSuiteError $error) {
                 foreach ($this->tests() as $test) {
                     $result->startTest($test);
                     $result->addFailure($test, $error, 0);
@@ -487,7 +487,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
                         $result->addError($test, $t, 0);
                         $errorAdded = \true;
                     } else {
-                        $result->addFailure($test, new \ECSPrefix20210803\PHPUnit\Framework\SkippedTestError('Test skipped because of an error in hook method'), 0);
+                        $result->addFailure($test, new \ECSPrefix20210804\PHPUnit\Framework\SkippedTestError('Test skipped because of an error in hook method'), 0);
                     }
                     $result->endTest($test, 0);
                 }
@@ -499,7 +499,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
             if ($result->shouldStop()) {
                 break;
             }
-            if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase || $test instanceof self) {
+            if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase || $test instanceof self) {
                 $test->setBeStrictAboutChangesToGlobalState($this->beStrictAboutChangesToGlobalState);
                 $test->setBackupGlobals($this->backupGlobals);
                 $test->setBackupStaticAttributes($this->backupStaticAttributes);
@@ -514,7 +514,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
                         \call_user_func([$this->name, $afterClassMethod]);
                     } catch (\Throwable $t) {
                         $message = "Exception in {$this->name}::{$afterClassMethod}" . \PHP_EOL . $t->getMessage();
-                        $error = new \ECSPrefix20210803\PHPUnit\Framework\SyntheticError($message, 0, $t->getFile(), $t->getLine(), $t->getTrace());
+                        $error = new \ECSPrefix20210804\PHPUnit\Framework\SyntheticError($message, 0, $t->getFile(), $t->getLine(), $t->getTrace());
                         $placeholderTest = clone $test;
                         $placeholderTest->setName($afterClassMethod);
                         $result->startTest($placeholderTest);
@@ -564,7 +564,7 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
      */
     public function markTestSuiteSkipped($message = '') : void
     {
-        throw new \ECSPrefix20210803\PHPUnit\Framework\SkippedTestSuiteError($message);
+        throw new \ECSPrefix20210804\PHPUnit\Framework\SkippedTestSuiteError($message);
     }
     /**
      * @param bool $beStrictAboutChangesToGlobalState
@@ -598,13 +598,13 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
      */
     public function getIterator() : \Iterator
     {
-        $iterator = new \ECSPrefix20210803\PHPUnit\Framework\TestSuiteIterator($this);
+        $iterator = new \ECSPrefix20210804\PHPUnit\Framework\TestSuiteIterator($this);
         if ($this->iteratorFilter !== null) {
             $iterator = $this->iteratorFilter->factory($iterator, $this);
         }
         return $iterator;
     }
-    public function injectFilter(\ECSPrefix20210803\PHPUnit\Runner\Filter\Factory $filter) : void
+    public function injectFilter(\ECSPrefix20210804\PHPUnit\Runner\Filter\Factory $filter) : void
     {
         $this->iteratorFilter = $filter;
         foreach ($this as $test) {
@@ -628,15 +628,15 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
         if ($this->providedTests === null) {
             $this->providedTests = [];
             if (\is_callable($this->sortId(), \true)) {
-                $this->providedTests[] = new \ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency($this->sortId());
+                $this->providedTests[] = new \ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency($this->sortId());
             }
             foreach ($this->tests as $test) {
-                if (!$test instanceof \ECSPrefix20210803\PHPUnit\Framework\Reorderable) {
+                if (!$test instanceof \ECSPrefix20210804\PHPUnit\Framework\Reorderable) {
                     // @codeCoverageIgnoreStart
                     continue;
                     // @codeCoverageIgnoreEnd
                 }
-                $this->providedTests = \ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency::mergeUnique($this->providedTests, $test->provides());
+                $this->providedTests = \ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency::mergeUnique($this->providedTests, $test->provides());
             }
         }
         return $this->providedTests;
@@ -649,14 +649,14 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
         if ($this->requiredTests === null) {
             $this->requiredTests = [];
             foreach ($this->tests as $test) {
-                if (!$test instanceof \ECSPrefix20210803\PHPUnit\Framework\Reorderable) {
+                if (!$test instanceof \ECSPrefix20210804\PHPUnit\Framework\Reorderable) {
                     // @codeCoverageIgnoreStart
                     continue;
                     // @codeCoverageIgnoreEnd
                 }
-                $this->requiredTests = \ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency::mergeUnique(\ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency::filterInvalid($this->requiredTests), $test->requires());
+                $this->requiredTests = \ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency::mergeUnique(\ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency::filterInvalid($this->requiredTests), $test->requires());
             }
-            $this->requiredTests = \ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency::diff($this->requiredTests, $this->provides());
+            $this->requiredTests = \ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency::diff($this->requiredTests, $this->provides());
         }
         return $this->requiredTests;
     }
@@ -667,9 +667,9 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
     /**
      * Creates a default TestResult object.
      */
-    protected function createResult() : \ECSPrefix20210803\PHPUnit\Framework\TestResult
+    protected function createResult() : \ECSPrefix20210804\PHPUnit\Framework\TestResult
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\TestResult();
+        return new \ECSPrefix20210804\PHPUnit\Framework\TestResult();
     }
     /**
      * @throws Exception
@@ -677,11 +677,11 @@ class TestSuite implements \IteratorAggregate, \ECSPrefix20210803\PHPUnit\Framew
     protected function addTestMethod(\ReflectionClass $class, \ReflectionMethod $method) : void
     {
         $methodName = $method->getName();
-        $test = (new \ECSPrefix20210803\PHPUnit\Framework\TestBuilder())->build($class, $methodName);
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase || $test instanceof \ECSPrefix20210803\PHPUnit\Framework\DataProviderTestSuite) {
-            $test->setDependencies(\ECSPrefix20210803\PHPUnit\Util\Test::getDependencies($class->getName(), $methodName));
+        $test = (new \ECSPrefix20210804\PHPUnit\Framework\TestBuilder())->build($class, $methodName);
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase || $test instanceof \ECSPrefix20210804\PHPUnit\Framework\DataProviderTestSuite) {
+            $test->setDependencies(\ECSPrefix20210804\PHPUnit\Util\Test::getDependencies($class->getName(), $methodName));
         }
-        $this->addTest($test, \ECSPrefix20210803\PHPUnit\Util\Test::getGroups($class->getName(), $methodName));
+        $this->addTest($test, \ECSPrefix20210804\PHPUnit\Util\Test::getGroups($class->getName(), $methodName));
     }
     private function clearCaches() : void
     {

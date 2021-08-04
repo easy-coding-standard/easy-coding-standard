@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Version;
+namespace ECSPrefix20210804\PharIo\Version;
 
-class AndVersionConstraintGroup extends \ECSPrefix20210803\PharIo\Version\AbstractVersionConstraint
+class AndVersionConstraintGroup extends \ECSPrefix20210804\PharIo\Version\AbstractVersionConstraint
 {
     /** @var VersionConstraint[] */
     private $constraints = [];
@@ -23,7 +23,7 @@ class AndVersionConstraintGroup extends \ECSPrefix20210803\PharIo\Version\Abstra
         parent::__construct($originalValue);
         $this->constraints = $constraints;
     }
-    public function complies(\ECSPrefix20210803\PharIo\Version\Version $version) : bool
+    public function complies(\ECSPrefix20210804\PharIo\Version\Version $version) : bool
     {
         foreach ($this->constraints as $constraint) {
             if (!$constraint->complies($version)) {

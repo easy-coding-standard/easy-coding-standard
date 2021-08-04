@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection;
+namespace ECSPrefix20210804\phpDocumentor\Reflection;
 
 /**
  * The location where an element occurs within a file.

@@ -9,14 +9,14 @@ declare (strict_types=1);
  *
  * @link http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description;
 /**
  * Parses a tag definition for a DocBlock.
  */
-abstract class BaseTag implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag
+abstract class BaseTag implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag
 {
     /** @var string Name of the tag */
     protected $name = '';
@@ -31,14 +31,14 @@ abstract class BaseTag implements \ECSPrefix20210803\phpDocumentor\Reflection\Do
     {
         return $this->name;
     }
-    public function getDescription() : ?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description
+    public function getDescription() : ?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description
     {
         return $this->description;
     }
-    public function render(?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string
+    public function render(?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string
     {
         if ($formatter === null) {
-            $formatter = new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+            $formatter = new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
         }
         return $formatter->format($this);
     }

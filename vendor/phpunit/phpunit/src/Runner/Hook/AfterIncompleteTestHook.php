@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner;
+namespace ECSPrefix20210804\PHPUnit\Runner;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-interface AfterIncompleteTestHook extends \ECSPrefix20210803\PHPUnit\Runner\TestHook
+interface AfterIncompleteTestHook extends \ECSPrefix20210804\PHPUnit\Runner\TestHook
 {
     public function executeAfterIncompleteTest(string $test, string $message, float $time) : void;
 }

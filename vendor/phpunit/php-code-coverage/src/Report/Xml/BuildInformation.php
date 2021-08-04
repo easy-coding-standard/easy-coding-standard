@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml;
 
 use function constant;
 use function phpversion;
 use DateTimeImmutable;
 use DOMElement;
-use ECSPrefix20210803\SebastianBergmann\Environment\Runtime;
+use ECSPrefix20210804\SebastianBergmann\Environment\Runtime;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
@@ -29,7 +29,7 @@ final class BuildInformation
     {
         $this->contextNode = $contextNode;
     }
-    public function setRuntimeInformation(\ECSPrefix20210803\SebastianBergmann\Environment\Runtime $runtime) : void
+    public function setRuntimeInformation(\ECSPrefix20210804\SebastianBergmann\Environment\Runtime $runtime) : void
     {
         $runtimeNode = $this->nodeByName('runtime');
         $runtimeNode->setAttribute('name', $runtime->getName());

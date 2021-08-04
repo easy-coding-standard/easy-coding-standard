@@ -9,15 +9,15 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use DOMDocument;
 use DOMElement;
-use ECSPrefix20210803\PHPUnit\Util\Xml\SnapshotNodeList;
+use ECSPrefix20210804\PHPUnit\Util\Xml\SnapshotNodeList;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class RemoveLogTypes implements \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Migration
+final class RemoveLogTypes implements \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Migration
 {
     public function migrate(\DOMDocument $document) : void
     {
@@ -25,7 +25,7 @@ final class RemoveLogTypes implements \ECSPrefix20210803\PHPUnit\TextUI\XmlConfi
         if (!$logging instanceof \DOMElement) {
             return;
         }
-        foreach (\ECSPrefix20210803\PHPUnit\Util\Xml\SnapshotNodeList::fromNodeList($logging->getElementsByTagName('log')) as $logNode) {
+        foreach (\ECSPrefix20210804\PHPUnit\Util\Xml\SnapshotNodeList::fromNodeList($logging->getElementsByTagName('log')) as $logNode) {
             switch ($logNode->getAttribute('type')) {
                 case 'json':
                 case 'tap':

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI;
+namespace ECSPrefix20210804\PHPUnit\TextUI;
 
 use const PHP_EOL;
 use function array_map;
@@ -26,26 +26,26 @@ use function str_pad;
 use function str_repeat;
 use function strlen;
 use function vsprintf;
-use ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
-use ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException;
-use ECSPrefix20210803\PHPUnit\Framework\Test;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Framework\TestFailure;
-use ECSPrefix20210803\PHPUnit\Framework\TestResult;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
-use ECSPrefix20210803\PHPUnit\Framework\Warning;
-use ECSPrefix20210803\PHPUnit\Runner\PhptTestCase;
-use ECSPrefix20210803\PHPUnit\Util\Color;
-use ECSPrefix20210803\PHPUnit\Util\Printer;
-use ECSPrefix20210803\SebastianBergmann\Environment\Console;
-use ECSPrefix20210803\SebastianBergmann\Timer\ResourceUsageFormatter;
-use ECSPrefix20210803\SebastianBergmann\Timer\Timer;
+use ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException;
+use ECSPrefix20210804\PHPUnit\Framework\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Framework\TestFailure;
+use ECSPrefix20210804\PHPUnit\Framework\TestResult;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Framework\Warning;
+use ECSPrefix20210804\PHPUnit\Runner\PhptTestCase;
+use ECSPrefix20210804\PHPUnit\Util\Color;
+use ECSPrefix20210804\PHPUnit\Util\Printer;
+use ECSPrefix20210804\SebastianBergmann\Environment\Console;
+use ECSPrefix20210804\SebastianBergmann\Timer\ResourceUsageFormatter;
+use ECSPrefix20210804\SebastianBergmann\Timer\Timer;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \ECSPrefix20210803\PHPUnit\TextUI\ResultPrinter
+class DefaultResultPrinter extends \ECSPrefix20210804\PHPUnit\Util\Printer implements \ECSPrefix20210804\PHPUnit\TextUI\ResultPrinter
 {
     public const EVENT_TEST_START = 0;
     public const EVENT_TEST_END = 1;
@@ -124,12 +124,12 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
     {
         parent::__construct($out);
         if (!\in_array($colors, self::AVAILABLE_COLORS, \true)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(3, \vsprintf('value from "%s", "%s" or "%s"', self::AVAILABLE_COLORS));
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(3, \vsprintf('value from "%s", "%s" or "%s"', self::AVAILABLE_COLORS));
         }
         if (!\is_int($numberOfColumns) && $numberOfColumns !== 'max') {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(5, 'integer or "max"');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(5, 'integer or "max"');
         }
-        $console = new \ECSPrefix20210803\SebastianBergmann\Environment\Console();
+        $console = new \ECSPrefix20210804\SebastianBergmann\Environment\Console();
         $maxNumberOfColumns = $console->getNumberOfColumns();
         if ($numberOfColumns === 'max' || $numberOfColumns !== 80 && $numberOfColumns > $maxNumberOfColumns) {
             $numberOfColumns = $maxNumberOfColumns;
@@ -143,10 +143,10 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
         } else {
             $this->colors = self::COLOR_ALWAYS === $colors;
         }
-        $this->timer = new \ECSPrefix20210803\SebastianBergmann\Timer\Timer();
+        $this->timer = new \ECSPrefix20210804\SebastianBergmann\Timer\Timer();
         $this->timer->start();
     }
-    public function printResult(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    public function printResult(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->printHeader($result);
         $this->printErrors($result);
@@ -162,7 +162,7 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
     /**
      * An error occurred.
      */
-    public function addError(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addError(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->writeProgressWithColor('fg-red, bold', 'E');
         $this->lastTestFailed = \true;
@@ -170,7 +170,7 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
     /**
      * A failure occurred.
      */
-    public function addFailure(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
+    public function addFailure(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
     {
         $this->writeProgressWithColor('bg-red, fg-white', 'F');
         $this->lastTestFailed = \true;
@@ -178,7 +178,7 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
     /**
      * A warning occurred.
      */
-    public function addWarning(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\Warning $e, float $time) : void
+    public function addWarning(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\Warning $e, float $time) : void
     {
         $this->writeProgressWithColor('fg-yellow, bold', 'W');
         $this->lastTestFailed = \true;
@@ -186,7 +186,7 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
     /**
      * Incomplete test.
      */
-    public function addIncompleteTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addIncompleteTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->writeProgressWithColor('fg-yellow, bold', 'I');
         $this->lastTestFailed = \true;
@@ -194,7 +194,7 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
     /**
      * Risky test.
      */
-    public function addRiskyTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addRiskyTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->writeProgressWithColor('fg-yellow, bold', 'R');
         $this->lastTestFailed = \true;
@@ -202,7 +202,7 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
     /**
      * Skipped test.
      */
-    public function addSkippedTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addSkippedTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->writeProgressWithColor('fg-cyan, bold', 'S');
         $this->lastTestFailed = \true;
@@ -210,7 +210,7 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
     /**
      * A testsuite started.
      */
-    public function startTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function startTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
         if ($this->numTests == -1) {
             $this->numTests = \count($suite);
@@ -221,36 +221,36 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
     /**
      * A testsuite ended.
      */
-    public function endTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function endTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
     }
     /**
      * A test started.
      */
-    public function startTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : void
+    public function startTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : void
     {
         if ($this->debug) {
-            $this->write(\sprintf("Test '%s' started\n", \ECSPrefix20210803\PHPUnit\Util\Test::describeAsString($test)));
+            $this->write(\sprintf("Test '%s' started\n", \ECSPrefix20210804\PHPUnit\Util\Test::describeAsString($test)));
         }
     }
     /**
      * A test ended.
      */
-    public function endTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, float $time) : void
+    public function endTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, float $time) : void
     {
         if ($this->debug) {
-            $this->write(\sprintf("Test '%s' ended\n", \ECSPrefix20210803\PHPUnit\Util\Test::describeAsString($test)));
+            $this->write(\sprintf("Test '%s' ended\n", \ECSPrefix20210804\PHPUnit\Util\Test::describeAsString($test)));
         }
         if (!$this->lastTestFailed) {
             $this->writeProgress('.');
         }
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             $this->numAssertions += $test->getNumAssertions();
-        } elseif ($test instanceof \ECSPrefix20210803\PHPUnit\Runner\PhptTestCase) {
+        } elseif ($test instanceof \ECSPrefix20210804\PHPUnit\Runner\PhptTestCase) {
             $this->numAssertions++;
         }
         $this->lastTestFailed = \false;
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase && !$test->hasExpectationOnOutput()) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase && !$test->hasExpectationOnOutput()) {
             $this->write($test->getActualOutput());
         }
     }
@@ -273,16 +273,16 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
         }
         $this->defectListPrinted = \true;
     }
-    protected function printDefect(\ECSPrefix20210803\PHPUnit\Framework\TestFailure $defect, int $count) : void
+    protected function printDefect(\ECSPrefix20210804\PHPUnit\Framework\TestFailure $defect, int $count) : void
     {
         $this->printDefectHeader($defect, $count);
         $this->printDefectTrace($defect);
     }
-    protected function printDefectHeader(\ECSPrefix20210803\PHPUnit\Framework\TestFailure $defect, int $count) : void
+    protected function printDefectHeader(\ECSPrefix20210804\PHPUnit\Framework\TestFailure $defect, int $count) : void
     {
         $this->write(\sprintf("\n%d) %s\n", $count, $defect->getTestName()));
     }
-    protected function printDefectTrace(\ECSPrefix20210803\PHPUnit\Framework\TestFailure $defect) : void
+    protected function printDefectTrace(\ECSPrefix20210804\PHPUnit\Framework\TestFailure $defect) : void
     {
         $e = $defect->thrownException();
         $this->write((string) $e);
@@ -290,37 +290,37 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
             $this->write("\nCaused by\n" . $e);
         }
     }
-    protected function printErrors(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    protected function printErrors(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->printDefects($result->errors(), 'error');
     }
-    protected function printFailures(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    protected function printFailures(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->printDefects($result->failures(), 'failure');
     }
-    protected function printWarnings(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    protected function printWarnings(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->printDefects($result->warnings(), 'warning');
     }
-    protected function printIncompletes(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    protected function printIncompletes(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->printDefects($result->notImplemented(), 'incomplete test');
     }
-    protected function printRisky(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    protected function printRisky(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->printDefects($result->risky(), 'risky test');
     }
-    protected function printSkipped(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    protected function printSkipped(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->printDefects($result->skipped(), 'skipped test');
     }
-    protected function printHeader(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    protected function printHeader(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         if (\count($result) > 0) {
-            $this->write(\PHP_EOL . \PHP_EOL . (new \ECSPrefix20210803\SebastianBergmann\Timer\ResourceUsageFormatter())->resourceUsage($this->timer->stop()) . \PHP_EOL . \PHP_EOL);
+            $this->write(\PHP_EOL . \PHP_EOL . (new \ECSPrefix20210804\SebastianBergmann\Timer\ResourceUsageFormatter())->resourceUsage($this->timer->stop()) . \PHP_EOL . \PHP_EOL);
         }
     }
-    protected function printFooter(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    protected function printFooter(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         if (\count($result) === 0) {
             $this->writeWithColor('fg-black, bg-yellow', 'No tests executed!');
@@ -395,7 +395,7 @@ class DefaultResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imple
         $padding = \max(\array_map('\\strlen', $lines));
         $styledLines = [];
         foreach ($lines as $line) {
-            $styledLines[] = \ECSPrefix20210803\PHPUnit\Util\Color::colorize($color, \str_pad($line, $padding));
+            $styledLines[] = \ECSPrefix20210804\PHPUnit\Util\Color::colorize($color, \str_pad($line, $padding));
         }
         return \implode(\PHP_EOL, $styledLines);
     }

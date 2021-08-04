@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\ClassPatch;
+namespace ECSPrefix20210804\Prophecy\Doubler\ClassPatch;
 
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode;
 /**
  * SplFileInfo patch.
  * Makes SplFileInfo and derivative classes usable with Prophecy.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class SplFileInfoPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface
+class SplFileInfoPatch implements \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface
 {
     /**
      * Supports everything that extends SplFileInfo.
@@ -27,7 +27,7 @@ class SplFileInfoPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch
      *
      * @return bool
      */
-    public function supports(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function supports(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         if (null === $node->getParentClass()) {
             return \false;
@@ -39,12 +39,12 @@ class SplFileInfoPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch
      *
      * @param ClassNode $node
      */
-    public function apply(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function apply(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         if ($node->hasMethod('__construct')) {
             $constructor = $node->getMethod('__construct');
         } else {
-            $constructor = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode('__construct');
+            $constructor = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode('__construct');
             $node->addMethod($constructor);
         }
         if ($this->nodeIsDirectoryIterator($node)) {
@@ -76,7 +76,7 @@ class SplFileInfoPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch
      * @param ClassNode $node
      * @return boolean
      */
-    private function nodeIsDirectoryIterator(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    private function nodeIsDirectoryIterator(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         $parent = $node->getParentClass();
         return 'DirectoryIterator' === $parent || \is_subclass_of($parent, 'DirectoryIterator');
@@ -85,7 +85,7 @@ class SplFileInfoPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch
      * @param ClassNode $node
      * @return boolean
      */
-    private function nodeIsSplFileObject(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    private function nodeIsSplFileObject(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         $parent = $node->getParentClass();
         return 'SplFileObject' === $parent || \is_subclass_of($parent, 'SplFileObject');
@@ -94,7 +94,7 @@ class SplFileInfoPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch
      * @param ClassNode $node
      * @return boolean
      */
-    private function nodeIsSymfonySplFileInfo(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    private function nodeIsSymfonySplFileInfo(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         $parent = $node->getParentClass();
         return 'Symfony\\Component\\Finder\\SplFileInfo' === $parent;

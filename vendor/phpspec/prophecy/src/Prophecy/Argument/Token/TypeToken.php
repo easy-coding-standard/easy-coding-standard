@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Argument\Token;
+namespace ECSPrefix20210804\Prophecy\Argument\Token;
 
-use ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException;
+use ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException;
 /**
  * Value type token.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class TypeToken implements \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface
+class TypeToken implements \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface
 {
     private $type;
     /**
@@ -26,7 +26,7 @@ class TypeToken implements \ECSPrefix20210803\Prophecy\Argument\Token\TokenInter
     {
         $checker = "is_{$type}";
         if (!\function_exists($checker) && !\interface_exists($type) && !\class_exists($type)) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf('Type or class name expected as an argument to TypeToken, but got %s.', $type));
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf('Type or class name expected as an argument to TypeToken, but got %s.', $type));
         }
         $this->type = $type;
     }

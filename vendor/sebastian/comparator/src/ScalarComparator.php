@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
 use function is_object;
 use function is_scalar;
@@ -20,7 +20,7 @@ use function strtolower;
 /**
  * Compares scalar or NULL values for equality.
  */
-class ScalarComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\Comparator
+class ScalarComparator extends \ECSPrefix20210804\SebastianBergmann\Comparator\Comparator
 {
     /**
      * Returns whether the comparator can compare two values.
@@ -62,10 +62,10 @@ class ScalarComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\C
             }
         }
         if ($expectedToCompare !== $actualToCompare && \is_string($expected) && \is_string($actual)) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure($expected, $actual, $this->exporter->export($expected), $this->exporter->export($actual), \false, 'Failed asserting that two strings are equal.');
+            throw new \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure($expected, $actual, $this->exporter->export($expected), $this->exporter->export($actual), \false, 'Failed asserting that two strings are equal.');
         }
         if ($expectedToCompare != $actualToCompare) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure(
+            throw new \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure(
                 $expected,
                 $actual,
                 // no diff is required

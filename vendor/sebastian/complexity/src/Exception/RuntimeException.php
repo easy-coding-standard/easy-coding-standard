@@ -9,8 +9,8 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Complexity;
+namespace ECSPrefix20210804\SebastianBergmann\Complexity;
 
-final class RuntimeException extends \RuntimeException implements \ECSPrefix20210803\SebastianBergmann\Complexity\Exception
+final class RuntimeException extends \RuntimeException implements \ECSPrefix20210804\SebastianBergmann\Complexity\Exception
 {
 }

@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\Types;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\Types;
 
 use ArrayIterator;
 use InvalidArgumentException;
@@ -66,7 +66,7 @@ final class ContextFactory
      *
      * @see Context for more information on Contexts.
      */
-    public function createFromReflector(\Reflector $reflector) : \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context
+    public function createFromReflector(\Reflector $reflector) : \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context
     {
         if ($reflector instanceof \ReflectionClass) {
             //phpcs:ignore SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable
@@ -87,7 +87,7 @@ final class ContextFactory
         }
         throw new \UnexpectedValueException('Unhandled \\Reflector instance given:  ' . \get_class($reflector));
     }
-    private function createFromReflectionParameter(\ReflectionParameter $parameter) : \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context
+    private function createFromReflectionParameter(\ReflectionParameter $parameter) : \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context
     {
         $class = $parameter->getDeclaringClass();
         if (!$class) {
@@ -97,21 +97,21 @@ final class ContextFactory
         /** @var ReflectionClass<object> $class */
         return $this->createFromReflectionClass($class);
     }
-    private function createFromReflectionMethod(\ReflectionMethod $method) : \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context
+    private function createFromReflectionMethod(\ReflectionMethod $method) : \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context
     {
         //phpcs:ignore SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable
         /** @var ReflectionClass<object> $class */
         $class = $method->getDeclaringClass();
         return $this->createFromReflectionClass($class);
     }
-    private function createFromReflectionProperty(\ReflectionProperty $property) : \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context
+    private function createFromReflectionProperty(\ReflectionProperty $property) : \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context
     {
         //phpcs:ignore SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable
         /** @var ReflectionClass<object> $class */
         $class = $property->getDeclaringClass();
         return $this->createFromReflectionClass($class);
     }
-    private function createFromReflectionClassConstant(\ReflectionClassConstant $constant) : \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context
+    private function createFromReflectionClassConstant(\ReflectionClassConstant $constant) : \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context
     {
         //phpcs:ignore SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable
         /** @var ReflectionClass<object> $class */
@@ -121,7 +121,7 @@ final class ContextFactory
     /**
      * @param ReflectionClass<object> $class
      */
-    private function createFromReflectionClass(\ReflectionClass $class) : \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context
+    private function createFromReflectionClass(\ReflectionClass $class) : \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context
     {
         $fileName = $class->getFileName();
         $namespace = $class->getNamespaceName();
@@ -132,7 +132,7 @@ final class ContextFactory
             }
             return $this->createForNamespace($namespace, $contents);
         }
-        return new \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context($namespace, []);
+        return new \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context($namespace, []);
     }
     /**
      * Build a Context for a namespace in the provided file contents.
@@ -143,7 +143,7 @@ final class ContextFactory
      * this method first normalizes.
      * @param string $fileContents The file's contents to retrieve the aliases from with the given namespace.
      */
-    public function createForNamespace(string $namespace, string $fileContents) : \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context
+    public function createForNamespace(string $namespace, string $fileContents) : \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context
     {
         $namespace = \trim($namespace, '\\');
         $useStatements = [];
@@ -183,7 +183,7 @@ final class ContextFactory
             }
             $tokens->next();
         }
-        return new \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context($namespace, $useStatements);
+        return new \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context($namespace, $useStatements);
     }
     /**
      * Deduce the name from tokens when we are at the T_NAMESPACE token.

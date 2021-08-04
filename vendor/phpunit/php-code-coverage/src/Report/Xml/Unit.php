@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml;
 
 use DOMElement;
 /**
@@ -44,10 +44,10 @@ final class Unit
         }
         $node->setAttribute('name', $namespace);
     }
-    public function addMethod(string $name) : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Method
+    public function addMethod(string $name) : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Method
     {
         $node = $this->contextNode->appendChild($this->contextNode->ownerDocument->createElementNS('https://schema.phpunit.de/coverage/1.0', 'method'));
-        return new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Method($node, $name);
+        return new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Method($node, $name);
     }
     private function setName(string $name) : void
     {

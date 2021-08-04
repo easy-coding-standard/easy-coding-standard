@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject;
 /**
  * Compares PHPUnit\Framework\MockObject\MockObject instances for equality.
  */
-class MockObjectComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\ObjectComparator
+class MockObjectComparator extends \ECSPrefix20210804\SebastianBergmann\Comparator\ObjectComparator
 {
     /**
      * Returns whether the comparator can compare two values.
@@ -27,7 +27,7 @@ class MockObjectComparator extends \ECSPrefix20210803\SebastianBergmann\Comparat
      */
     public function accepts($expected, $actual)
     {
-        return $expected instanceof \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject && $actual instanceof \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject;
+        return $expected instanceof \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject && $actual instanceof \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject;
     }
     /**
      * Converts an object to an array containing all of its private, protected

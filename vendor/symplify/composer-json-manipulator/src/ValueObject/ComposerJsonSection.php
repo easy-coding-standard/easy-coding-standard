@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\Symplify\ComposerJsonManipulator\ValueObject;
+namespace ECSPrefix20210804\Symplify\ComposerJsonManipulator\ValueObject;
 
 /**
  * @api
@@ -100,7 +100,7 @@ final class ComposerJsonSection
     /**
      * @var string
      */
-    const SUGGESTS = 'suggests';
+    const SUGGEST = 'suggest';
     /**
      * @var string
      */

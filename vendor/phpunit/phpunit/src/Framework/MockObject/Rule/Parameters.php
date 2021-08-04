@@ -9,21 +9,21 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule;
 
 use function count;
 use function get_class;
 use function sprintf;
 use Exception;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsAnything;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsAnything;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Parameters implements \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\ParametersRule
+final class Parameters implements \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\ParametersRule
 {
     /**
      * @var Constraint[]
@@ -43,8 +43,8 @@ final class Parameters implements \ECSPrefix20210803\PHPUnit\Framework\MockObjec
     public function __construct(array $parameters)
     {
         foreach ($parameters as $parameter) {
-            if (!$parameter instanceof \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint) {
-                $parameter = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual($parameter);
+            if (!$parameter instanceof \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint) {
+                $parameter = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual($parameter);
             }
             $this->parameters[] = $parameter;
         }
@@ -63,13 +63,13 @@ final class Parameters implements \ECSPrefix20210803\PHPUnit\Framework\MockObjec
     /**
      * @throws Exception
      */
-    public function apply(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : void
+    public function apply(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : void
     {
         $this->invocation = $invocation;
         $this->parameterVerificationResult = null;
         try {
             $this->parameterVerificationResult = $this->doVerify();
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException $e) {
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException $e) {
             $this->parameterVerificationResult = $e;
             throw $this->parameterVerificationResult;
         }
@@ -96,7 +96,7 @@ final class Parameters implements \ECSPrefix20210803\PHPUnit\Framework\MockObjec
             return $this->guardAgainstDuplicateEvaluationOfParameterConstraints();
         }
         if ($this->invocation === null) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException('Mocked method does not exist.');
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException('Mocked method does not exist.');
         }
         if (\count($this->invocation->getParameters()) < \count($this->parameters)) {
             $message = 'Parameter count for invocation %s is too low.';
@@ -104,10 +104,10 @@ final class Parameters implements \ECSPrefix20210803\PHPUnit\Framework\MockObjec
             // `->withAnyParameters()`.
             //
             // @see https://github.com/sebastianbergmann/phpunit-mock-objects/issues/199
-            if (\count($this->parameters) === 1 && \get_class($this->parameters[0]) === \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsAnything::class) {
+            if (\count($this->parameters) === 1 && \get_class($this->parameters[0]) === \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsAnything::class) {
                 $message .= "\nTo allow 0 or more parameters with any value, omit ->with() or use ->withAnyParameters() instead.";
             }
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException(\sprintf($message, $this->invocation->toString()));
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException(\sprintf($message, $this->invocation->toString()));
         }
         foreach ($this->parameters as $i => $parameter) {
             $parameter->evaluate($this->invocation->getParameters()[$i], \sprintf('Parameter %s for invocation %s does not match expected ' . 'value.', $i, $this->invocation->toString()));
@@ -119,7 +119,7 @@ final class Parameters implements \ECSPrefix20210803\PHPUnit\Framework\MockObjec
      */
     private function guardAgainstDuplicateEvaluationOfParameterConstraints() : bool
     {
-        if ($this->parameterVerificationResult instanceof \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException) {
+        if ($this->parameterVerificationResult instanceof \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException) {
             throw $this->parameterVerificationResult;
         }
         return (bool) $this->parameterVerificationResult;

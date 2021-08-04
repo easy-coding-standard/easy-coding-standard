@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
-class ContainsElement extends \ECSPrefix20210803\PharIo\Manifest\ManifestElement
+class ContainsElement extends \ECSPrefix20210804\PharIo\Manifest\ManifestElement
 {
     public function getName() : string
     {
@@ -25,8 +25,8 @@ class ContainsElement extends \ECSPrefix20210803\PharIo\Manifest\ManifestElement
     {
         return $this->getAttributeValue('type');
     }
-    public function getExtensionElement() : \ECSPrefix20210803\PharIo\Manifest\ExtensionElement
+    public function getExtensionElement() : \ECSPrefix20210804\PharIo\Manifest\ExtensionElement
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\ExtensionElement($this->getChildByName('extension'));
+        return new \ECSPrefix20210804\PharIo\Manifest\ExtensionElement($this->getChildByName('extension'));
     }
 }

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\Xml;
+namespace ECSPrefix20210804\PHPUnit\Util\Xml;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -19,15 +19,15 @@ final class SchemaDetector
     /**
      * @throws Exception
      */
-    public function detect(string $filename) : \ECSPrefix20210803\PHPUnit\Util\Xml\SchemaDetectionResult
+    public function detect(string $filename) : \ECSPrefix20210804\PHPUnit\Util\Xml\SchemaDetectionResult
     {
-        $document = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->loadFile($filename, \false, \true, \true);
+        $document = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->loadFile($filename, \false, \true, \true);
         foreach (['9.2', '8.5'] as $candidate) {
-            $schema = (new \ECSPrefix20210803\PHPUnit\Util\Xml\SchemaFinder())->find($candidate);
-            if (!(new \ECSPrefix20210803\PHPUnit\Util\Xml\Validator())->validate($document, $schema)->hasValidationErrors()) {
-                return new \ECSPrefix20210803\PHPUnit\Util\Xml\SuccessfulSchemaDetectionResult($candidate);
+            $schema = (new \ECSPrefix20210804\PHPUnit\Util\Xml\SchemaFinder())->find($candidate);
+            if (!(new \ECSPrefix20210804\PHPUnit\Util\Xml\Validator())->validate($document, $schema)->hasValidationErrors()) {
+                return new \ECSPrefix20210804\PHPUnit\Util\Xml\SuccessfulSchemaDetectionResult($candidate);
             }
         }
-        return new \ECSPrefix20210803\PHPUnit\Util\Xml\FailedSchemaDetectionResult();
+        return new \ECSPrefix20210804\PHPUnit\Util\Xml\FailedSchemaDetectionResult();
     }
 }

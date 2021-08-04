@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder;
 
 use function array_map;
 use function array_merge;
@@ -17,31 +17,31 @@ use function count;
 use function in_array;
 use function is_string;
 use function strtolower;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\ConfigurableMethod;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\InvocationHandler;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Matcher;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\MatcherAlreadyRegisteredException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Exception;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnArgument;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnCallback;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnReference;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnSelf;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnStub;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnValueMap;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Stub;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\ConfigurableMethod;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\InvocationHandler;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Matcher;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\MatcherAlreadyRegisteredException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnArgument;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnCallback;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnReference;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnSelf;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnStub;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnValueMap;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Stub;
 use Throwable;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder\InvocationStubber, \ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder\MethodNameMatch
+final class InvocationMocker implements \ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder\InvocationStubber, \ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder\MethodNameMatch
 {
     /**
      * @var InvocationHandler
@@ -55,7 +55,7 @@ final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\Moc
      * @var ConfigurableMethod[]
      */
     private $configurableMethods;
-    public function __construct(\ECSPrefix20210803\PHPUnit\Framework\MockObject\InvocationHandler $handler, \ECSPrefix20210803\PHPUnit\Framework\MockObject\Matcher $matcher, \ECSPrefix20210803\PHPUnit\Framework\MockObject\ConfigurableMethod ...$configurableMethods)
+    public function __construct(\ECSPrefix20210804\PHPUnit\Framework\MockObject\InvocationHandler $handler, \ECSPrefix20210804\PHPUnit\Framework\MockObject\Matcher $matcher, \ECSPrefix20210804\PHPUnit\Framework\MockObject\ConfigurableMethod ...$configurableMethods)
     {
         $this->invocationHandler = $handler;
         $this->matcher = $matcher;
@@ -74,7 +74,7 @@ final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\Moc
     /**
      * @return $this
      */
-    public function will(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Stub $stub) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder\Identity
+    public function will(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Stub $stub) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder\Identity
     {
         $this->matcher->setStub($stub);
         return $this;
@@ -89,47 +89,47 @@ final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\Moc
     {
         if (\count($nextValues) === 0) {
             $this->ensureTypeOfReturnValues([$value]);
-            $stub = $value instanceof \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Stub ? $value : new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnStub($value);
+            $stub = $value instanceof \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Stub ? $value : new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnStub($value);
         } else {
             $values = \array_merge([$value], $nextValues);
             $this->ensureTypeOfReturnValues($values);
-            $stub = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls($values);
+            $stub = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls($values);
         }
         return $this->will($stub);
     }
     public function willReturnReference(&$reference) : self
     {
-        $stub = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnReference($reference);
+        $stub = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnReference($reference);
         return $this->will($stub);
     }
     public function willReturnMap(array $valueMap) : self
     {
-        $stub = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnValueMap($valueMap);
+        $stub = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnValueMap($valueMap);
         return $this->will($stub);
     }
     public function willReturnArgument($argumentIndex) : self
     {
-        $stub = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnArgument($argumentIndex);
+        $stub = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnArgument($argumentIndex);
         return $this->will($stub);
     }
     public function willReturnCallback($callback) : self
     {
-        $stub = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnCallback($callback);
+        $stub = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnCallback($callback);
         return $this->will($stub);
     }
     public function willReturnSelf() : self
     {
-        $stub = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnSelf();
+        $stub = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnSelf();
         return $this->will($stub);
     }
     public function willReturnOnConsecutiveCalls(...$values) : self
     {
-        $stub = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls($values);
+        $stub = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls($values);
         return $this->will($stub);
     }
     public function willThrowException(\Throwable $exception) : self
     {
-        $stub = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Exception($exception);
+        $stub = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Exception($exception);
         return $this->will($stub);
     }
     /**
@@ -152,7 +152,7 @@ final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\Moc
     public function with(...$arguments) : self
     {
         $this->ensureParametersCanBeConfigured();
-        $this->matcher->setParametersRule(new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\Parameters($arguments));
+        $this->matcher->setParametersRule(new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\Parameters($arguments));
         return $this;
     }
     /**
@@ -167,7 +167,7 @@ final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\Moc
     public function withConsecutive(...$arguments) : self
     {
         $this->ensureParametersCanBeConfigured();
-        $this->matcher->setParametersRule(new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\ConsecutiveParameters($arguments));
+        $this->matcher->setParametersRule(new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\ConsecutiveParameters($arguments));
         return $this;
     }
     /**
@@ -179,7 +179,7 @@ final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\Moc
     public function withAnyParameters() : self
     {
         $this->ensureParametersCanBeConfigured();
-        $this->matcher->setParametersRule(new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyParameters());
+        $this->matcher->setParametersRule(new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyParameters());
         return $this;
     }
     /**
@@ -194,15 +194,15 @@ final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\Moc
     public function method($constraint) : self
     {
         if ($this->matcher->hasMethodNameRule()) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException();
         }
-        $configurableMethodNames = \array_map(static function (\ECSPrefix20210803\PHPUnit\Framework\MockObject\ConfigurableMethod $configurable) {
+        $configurableMethodNames = \array_map(static function (\ECSPrefix20210804\PHPUnit\Framework\MockObject\ConfigurableMethod $configurable) {
             return \strtolower($configurable->getName());
         }, $this->configurableMethods);
         if (\is_string($constraint) && !\in_array(\strtolower($constraint), $configurableMethodNames, \true)) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException($constraint);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException($constraint);
         }
-        $this->matcher->setMethodNameRule(new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\MethodName($constraint));
+        $this->matcher->setMethodNameRule(new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\MethodName($constraint));
         return $this;
     }
     /**
@@ -212,13 +212,13 @@ final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\Moc
     private function ensureParametersCanBeConfigured() : void
     {
         if (!$this->matcher->hasMethodNameRule()) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException();
         }
         if ($this->matcher->hasParametersRule()) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException();
         }
     }
-    private function getConfiguredMethod() : ?\ECSPrefix20210803\PHPUnit\Framework\MockObject\ConfigurableMethod
+    private function getConfiguredMethod() : ?\ECSPrefix20210804\PHPUnit\Framework\MockObject\ConfigurableMethod
     {
         $configuredMethod = null;
         foreach ($this->configurableMethods as $configurableMethod) {
@@ -242,7 +242,7 @@ final class InvocationMocker implements \ECSPrefix20210803\PHPUnit\Framework\Moc
         }
         foreach ($values as $value) {
             if (!$configuredMethod->mayReturn($value)) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\IncompatibleReturnValueException($configuredMethod, $value);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\IncompatibleReturnValueException($configuredMethod, $value);
             }
         }
     }

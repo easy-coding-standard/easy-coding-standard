@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule;
 
 use function is_string;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodNameConstraint;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodNameConstraint;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -33,10 +33,10 @@ final class MethodName
     public function __construct($constraint)
     {
         if (\is_string($constraint)) {
-            $constraint = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodNameConstraint($constraint);
+            $constraint = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodNameConstraint($constraint);
         }
-        if (!$constraint instanceof \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'PHPUnit\\Framework\\Constraint\\Constraint object or string');
+        if (!$constraint instanceof \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint) {
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'PHPUnit\\Framework\\Constraint\\Constraint object or string');
         }
         $this->constraint = $constraint;
     }
@@ -48,7 +48,7 @@ final class MethodName
      * @throws \PHPUnit\Framework\ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function matches(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
+    public function matches(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
     {
         return $this->matchesName($invocation->getMethodName());
     }

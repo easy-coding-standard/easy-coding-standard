@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use function class_exists;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class MockTrait implements \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockType
+final class MockTrait implements \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockType
 {
     /**
      * @var string

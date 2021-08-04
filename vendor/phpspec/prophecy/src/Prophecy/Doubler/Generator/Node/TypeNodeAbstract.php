@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210803\Prophecy\Doubler\Generator\Node;
+namespace ECSPrefix20210804\Prophecy\Doubler\Generator\Node;
 
-use ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException;
+use ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException;
 abstract class TypeNodeAbstract
 {
     /** @var string[] */
@@ -66,16 +66,16 @@ abstract class TypeNodeAbstract
     protected function guardIsValidType()
     {
         if ($this->types == ['null' => 'null']) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException('Type cannot be standalone null');
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException('Type cannot be standalone null');
         }
         if ($this->types == ['false' => 'false']) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException('Type cannot be standalone false');
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException('Type cannot be standalone false');
         }
         if ($this->types == ['false' => 'false', 'null' => 'null']) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException('Type cannot be nullable false');
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException('Type cannot be nullable false');
         }
         if (\PHP_VERSION_ID >= 80000 && isset($this->types['mixed']) && \count($this->types) !== 1) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException('mixed cannot be part of a union');
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException('mixed cannot be part of a union');
         }
     }
 }

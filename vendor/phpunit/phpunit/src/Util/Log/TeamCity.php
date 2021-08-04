@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\Log;
+namespace ECSPrefix20210804\PHPUnit\Util\Log;
 
 use function class_exists;
 use function count;
@@ -24,26 +24,26 @@ use function print_r;
 use function round;
 use function str_replace;
 use function stripos;
-use ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError;
-use ECSPrefix20210803\PHPUnit\Framework\ExceptionWrapper;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\PHPUnit\Framework\Test;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Framework\TestFailure;
-use ECSPrefix20210803\PHPUnit\Framework\TestResult;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
-use ECSPrefix20210803\PHPUnit\Framework\Warning;
-use ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrinter;
-use ECSPrefix20210803\PHPUnit\Util\Exception;
-use ECSPrefix20210803\PHPUnit\Util\Filter;
+use ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError;
+use ECSPrefix20210804\PHPUnit\Framework\ExceptionWrapper;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Framework\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Framework\TestFailure;
+use ECSPrefix20210804\PHPUnit\Framework\TestResult;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Framework\Warning;
+use ECSPrefix20210804\PHPUnit\TextUI\DefaultResultPrinter;
+use ECSPrefix20210804\PHPUnit\Util\Exception;
+use ECSPrefix20210804\PHPUnit\Util\Filter;
 use ReflectionClass;
 use ReflectionException;
-use ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure;
+use ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrinter
+final class TeamCity extends \ECSPrefix20210804\PHPUnit\TextUI\DefaultResultPrinter
 {
     /**
      * @var bool
@@ -57,7 +57,7 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
      * @var false|int
      */
     private $flowId;
-    public function printResult(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    public function printResult(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->printHeader($result);
         $this->printFooter($result);
@@ -65,26 +65,26 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
     /**
      * An error occurred.
      */
-    public function addError(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addError(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->printEvent('testFailed', ['name' => $test->getName(), 'message' => self::getMessage($t), 'details' => self::getDetails($t), 'duration' => self::toMilliseconds($time)]);
     }
     /**
      * A warning occurred.
      */
-    public function addWarning(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\Warning $e, float $time) : void
+    public function addWarning(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\Warning $e, float $time) : void
     {
         $this->write(self::getMessage($e) . \PHP_EOL);
     }
     /**
      * A failure occurred.
      */
-    public function addFailure(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
+    public function addFailure(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
     {
         $parameters = ['name' => $test->getName(), 'message' => self::getMessage($e), 'details' => self::getDetails($e), 'duration' => self::toMilliseconds($time)];
-        if ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException) {
+        if ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException) {
             $comparisonFailure = $e->getComparisonFailure();
-            if ($comparisonFailure instanceof \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure) {
+            if ($comparisonFailure instanceof \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure) {
                 $expectedString = $comparisonFailure->getExpectedAsString();
                 if ($expectedString === null || empty($expectedString)) {
                     $expectedString = self::getPrimitiveValueAsString($comparisonFailure->getExpected());
@@ -105,21 +105,21 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
     /**
      * Incomplete test.
      */
-    public function addIncompleteTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addIncompleteTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->printIgnoredTest($test->getName(), $t, $time);
     }
     /**
      * Risky test.
      */
-    public function addRiskyTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addRiskyTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->addError($test, $t, $time);
     }
     /**
      * Skipped test.
      */
-    public function addSkippedTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addSkippedTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $testName = $test->getName();
         if ($this->startedTestName !== $testName) {
@@ -137,7 +137,7 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
     /**
      * A testsuite started.
      */
-    public function startTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function startTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
         if (\stripos(\ini_get('disable_functions'), 'getmypid') === \false) {
             $this->flowId = \getmypid();
@@ -169,7 +169,7 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
     /**
      * A testsuite ended.
      */
-    public function endTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function endTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
         $suiteName = $suite->getName();
         if (empty($suiteName)) {
@@ -187,12 +187,12 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
     /**
      * A test started.
      */
-    public function startTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : void
+    public function startTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : void
     {
         $testName = $test->getName();
         $this->startedTestName = $testName;
         $params = ['name' => $testName];
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             $className = \get_class($test);
             $fileName = self::getFileName($className);
             $params['locationHint'] = "php_qn://{$fileName}::\\{$className}::{$testName}";
@@ -202,7 +202,7 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
     /**
      * A test ended.
      */
-    public function endTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, float $time) : void
+    public function endTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, float $time) : void
     {
         parent::endTest($test, $time);
         $this->printEvent('testFinished', ['name' => $test->getName(), 'duration' => self::toMilliseconds($time)]);
@@ -225,7 +225,7 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
     private static function getMessage(\Throwable $t) : string
     {
         $message = '';
-        if ($t instanceof \ECSPrefix20210803\PHPUnit\Framework\ExceptionWrapper) {
+        if ($t instanceof \ECSPrefix20210804\PHPUnit\Framework\ExceptionWrapper) {
             if ($t->getClassName() !== '') {
                 $message .= $t->getClassName();
             }
@@ -237,11 +237,11 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
     }
     private static function getDetails(\Throwable $t) : string
     {
-        $stackTrace = \ECSPrefix20210803\PHPUnit\Util\Filter::getFilteredStacktrace($t);
-        $previous = $t instanceof \ECSPrefix20210803\PHPUnit\Framework\ExceptionWrapper ? $t->getPreviousWrapped() : $t->getPrevious();
+        $stackTrace = \ECSPrefix20210804\PHPUnit\Util\Filter::getFilteredStacktrace($t);
+        $previous = $t instanceof \ECSPrefix20210804\PHPUnit\Framework\ExceptionWrapper ? $t->getPreviousWrapped() : $t->getPrevious();
         while ($previous) {
-            $stackTrace .= "\nCaused by\n" . \ECSPrefix20210803\PHPUnit\Framework\TestFailure::exceptionToString($previous) . "\n" . \ECSPrefix20210803\PHPUnit\Util\Filter::getFilteredStacktrace($previous);
-            $previous = $previous instanceof \ECSPrefix20210803\PHPUnit\Framework\ExceptionWrapper ? $previous->getPreviousWrapped() : $previous->getPrevious();
+            $stackTrace .= "\nCaused by\n" . \ECSPrefix20210804\PHPUnit\Framework\TestFailure::exceptionToString($previous) . "\n" . \ECSPrefix20210804\PHPUnit\Util\Filter::getFilteredStacktrace($previous);
+            $previous = $previous instanceof \ECSPrefix20210804\PHPUnit\Framework\ExceptionWrapper ? $previous->getPreviousWrapped() : $previous->getPrevious();
         }
         return ' ' . \str_replace("\n", "\n ", $stackTrace);
     }
@@ -271,7 +271,7 @@ final class TeamCity extends \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrin
             return (new \ReflectionClass($className))->getFileName();
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }

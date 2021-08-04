@@ -9,16 +9,16 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
 use ReflectionClass;
 use ReflectionException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class ClassHasStaticAttribute extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasAttribute
+final class ClassHasStaticAttribute extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasAttribute
 {
     /**
      * Returns a string representation of the constraint.
@@ -42,7 +42,7 @@ final class ClassHasStaticAttribute extends \ECSPrefix20210803\PHPUnit\Framework
             }
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         return \false;

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function array_map;
 use function count;
@@ -19,7 +19,7 @@ use function preg_replace;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class LogicalNot extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\UnaryOperator
+final class LogicalNot extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\UnaryOperator
 {
     public static function negate(string $string) : string
     {
@@ -78,7 +78,7 @@ final class LogicalNot extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\U
      *
      * See Constraint::reduce() for more.
      */
-    protected function reduce() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+    protected function reduce() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
     {
         $constraint = $this->constraint();
         if ($constraint instanceof self) {

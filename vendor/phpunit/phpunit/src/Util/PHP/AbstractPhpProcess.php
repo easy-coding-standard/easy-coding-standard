@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\PHP;
+namespace ECSPrefix20210804\PHPUnit\Util\PHP;
 
 use const DIRECTORY_SEPARATOR;
 use const PHP_SAPI;
@@ -29,14 +29,14 @@ use function trim;
 use function unserialize;
 use __PHP_Incomplete_Class;
 use ErrorException;
-use ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
-use ECSPrefix20210803\PHPUnit\Framework\SyntheticError;
-use ECSPrefix20210803\PHPUnit\Framework\Test;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Framework\TestFailure;
-use ECSPrefix20210803\PHPUnit\Framework\TestResult;
-use ECSPrefix20210803\SebastianBergmann\Environment\Runtime;
+use ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\SyntheticError;
+use ECSPrefix20210804\PHPUnit\Framework\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Framework\TestFailure;
+use ECSPrefix20210804\PHPUnit\Framework\TestResult;
+use ECSPrefix20210804\SebastianBergmann\Environment\Runtime;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -69,13 +69,13 @@ abstract class AbstractPhpProcess
     public static function factory() : self
     {
         if (\DIRECTORY_SEPARATOR === '\\') {
-            return new \ECSPrefix20210803\PHPUnit\Util\PHP\WindowsPhpProcess();
+            return new \ECSPrefix20210804\PHPUnit\Util\PHP\WindowsPhpProcess();
         }
-        return new \ECSPrefix20210803\PHPUnit\Util\PHP\DefaultPhpProcess();
+        return new \ECSPrefix20210804\PHPUnit\Util\PHP\DefaultPhpProcess();
     }
     public function __construct()
     {
-        $this->runtime = new \ECSPrefix20210803\SebastianBergmann\Environment\Runtime();
+        $this->runtime = new \ECSPrefix20210804\SebastianBergmann\Environment\Runtime();
     }
     /**
      * Defines if should use STDERR redirection or not.
@@ -156,7 +156,7 @@ abstract class AbstractPhpProcess
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function runTestJob(string $job, \ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    public function runTestJob(string $job, \ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $result->startTest($test);
         $_result = $this->runJob($job);
@@ -211,11 +211,11 @@ abstract class AbstractPhpProcess
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    private function processChildResult(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\TestResult $result, string $stdout, string $stderr) : void
+    private function processChildResult(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\TestResult $result, string $stdout, string $stderr) : void
     {
         $time = 0;
         if (!empty($stderr)) {
-            $result->addError($test, new \ECSPrefix20210803\PHPUnit\Framework\Exception(\trim($stderr)), $time);
+            $result->addError($test, new \ECSPrefix20210804\PHPUnit\Framework\Exception(\trim($stderr)), $time);
         } else {
             \set_error_handler(
                 /**
@@ -232,12 +232,12 @@ abstract class AbstractPhpProcess
                 $childResult = \unserialize(\str_replace("#!/usr/bin/env php\n", '', $stdout));
                 \restore_error_handler();
                 if ($childResult === \false) {
-                    $result->addFailure($test, new \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError('Test was run in child process and ended unexpectedly'), $time);
+                    $result->addFailure($test, new \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError('Test was run in child process and ended unexpectedly'), $time);
                 }
             } catch (\ErrorException $e) {
                 \restore_error_handler();
                 $childResult = \false;
-                $result->addError($test, new \ECSPrefix20210803\PHPUnit\Framework\Exception(\trim($stdout), 0, $e), $time);
+                $result->addError($test, new \ECSPrefix20210804\PHPUnit\Framework\Exception(\trim($stdout), 0, $e), $time);
             }
             if ($childResult !== \false) {
                 if (!empty($childResult['output'])) {
@@ -247,7 +247,7 @@ abstract class AbstractPhpProcess
                 $test->setResult($childResult['testResult']);
                 $test->addToAssertionCount($childResult['numAssertions']);
                 $childResult = $childResult['result'];
-                \assert($childResult instanceof \ECSPrefix20210803\PHPUnit\Framework\TestResult);
+                \assert($childResult instanceof \ECSPrefix20210804\PHPUnit\Framework\TestResult);
                 if ($result->getCollectCodeCoverageInformation()) {
                     $result->getCodeCoverage()->merge($childResult->getCodeCoverage());
                 }
@@ -283,7 +283,7 @@ abstract class AbstractPhpProcess
      *
      * @see https://github.com/sebastianbergmann/phpunit/issues/74
      */
-    private function getException(\ECSPrefix20210803\PHPUnit\Framework\TestFailure $error) : \ECSPrefix20210803\PHPUnit\Framework\Exception
+    private function getException(\ECSPrefix20210804\PHPUnit\Framework\TestFailure $error) : \ECSPrefix20210804\PHPUnit\Framework\Exception
     {
         $exception = $error->thrownException();
         if ($exception instanceof \__PHP_Incomplete_Class) {
@@ -292,7 +292,7 @@ abstract class AbstractPhpProcess
                 $key = \substr($key, \strrpos($key, "\0") + 1);
                 $exceptionArray[$key] = $value;
             }
-            $exception = new \ECSPrefix20210803\PHPUnit\Framework\SyntheticError(\sprintf('%s: %s', $exceptionArray['_PHP_Incomplete_Class_Name'], $exceptionArray['message']), $exceptionArray['code'], $exceptionArray['file'], $exceptionArray['line'], $exceptionArray['trace']);
+            $exception = new \ECSPrefix20210804\PHPUnit\Framework\SyntheticError(\sprintf('%s: %s', $exceptionArray['_PHP_Incomplete_Class_Name'], $exceptionArray['message']), $exceptionArray['code'], $exceptionArray['file'], $exceptionArray['line'], $exceptionArray['trace']);
         }
         return $exception;
     }

@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Argument\Token;
+namespace ECSPrefix20210804\Prophecy\Argument\Token;
 
-use ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure;
-use ECSPrefix20210803\Prophecy\Comparator\Factory as ComparatorFactory;
-use ECSPrefix20210803\Prophecy\Util\StringUtil;
+use ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure;
+use ECSPrefix20210804\Prophecy\Comparator\Factory as ComparatorFactory;
+use ECSPrefix20210804\Prophecy\Util\StringUtil;
 /**
  * Object state-checker token.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class ObjectStateToken implements \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface
+class ObjectStateToken implements \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface
 {
     private $name;
     private $value;
@@ -32,12 +32,12 @@ class ObjectStateToken implements \ECSPrefix20210803\Prophecy\Argument\Token\Tok
      * @param null|StringUtil   $util
      * @param ComparatorFactory $comparatorFactory
      */
-    public function __construct($methodName, $value, \ECSPrefix20210803\Prophecy\Util\StringUtil $util = null, \ECSPrefix20210803\Prophecy\Comparator\Factory $comparatorFactory = null)
+    public function __construct($methodName, $value, \ECSPrefix20210804\Prophecy\Util\StringUtil $util = null, \ECSPrefix20210804\Prophecy\Comparator\Factory $comparatorFactory = null)
     {
         $this->name = $methodName;
         $this->value = $value;
-        $this->util = $util ?: new \ECSPrefix20210803\Prophecy\Util\StringUtil();
-        $this->comparatorFactory = $comparatorFactory ?: \ECSPrefix20210803\Prophecy\Comparator\Factory::getInstance();
+        $this->util = $util ?: new \ECSPrefix20210804\Prophecy\Util\StringUtil();
+        $this->comparatorFactory = $comparatorFactory ?: \ECSPrefix20210804\Prophecy\Comparator\Factory::getInstance();
     }
     /**
      * Scores 8 if argument is an object, which method returns expected value.
@@ -54,7 +54,7 @@ class ObjectStateToken implements \ECSPrefix20210803\Prophecy\Argument\Token\Tok
             try {
                 $comparator->assertEquals($this->value, $actual);
                 return 8;
-            } catch (\ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure $failure) {
+            } catch (\ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure $failure) {
                 return \false;
             }
         }

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Prediction;
+namespace ECSPrefix20210804\Prophecy\Prediction;
 
-use ECSPrefix20210803\Prophecy\Call\Call;
-use ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy;
-use ECSPrefix20210803\Prophecy\Prophecy\MethodProphecy;
+use ECSPrefix20210804\Prophecy\Call\Call;
+use ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy;
+use ECSPrefix20210804\Prophecy\Prophecy\MethodProphecy;
 /**
  * Prediction interface.
  * Predictions are logical test blocks, tied to `should...` keyword.
@@ -31,5 +31,5 @@ interface PredictionInterface
      * @throws object
      * @return void
      */
-    public function check(array $calls, \ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy $object, \ECSPrefix20210803\Prophecy\Prophecy\MethodProphecy $method);
+    public function check(array $calls, \ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy $object, \ECSPrefix20210804\Prophecy\Prophecy\MethodProphecy $method);
 }

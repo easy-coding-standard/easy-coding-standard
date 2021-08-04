@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Lexer\TokenEmulator;
+namespace ECSPrefix20210804\PhpParser\Lexer\TokenEmulator;
 
 /**
  * Reverses emulation direction of the inner emulator.
  */
-final class ReverseEmulator extends \ECSPrefix20210803\PhpParser\Lexer\TokenEmulator\TokenEmulator
+final class ReverseEmulator extends \ECSPrefix20210804\PhpParser\Lexer\TokenEmulator\TokenEmulator
 {
     /** @var TokenEmulator Inner emulator */
     private $emulator;
-    public function __construct(\ECSPrefix20210803\PhpParser\Lexer\TokenEmulator\TokenEmulator $emulator)
+    public function __construct(\ECSPrefix20210804\PhpParser\Lexer\TokenEmulator\TokenEmulator $emulator)
     {
         $this->emulator = $emulator;
     }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node\Expr;
+namespace ECSPrefix20210804\PhpParser\Node\Expr;
 
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Expr;
-use ECSPrefix20210803\PhpParser\Node\FunctionLike;
-class ArrowFunction extends \ECSPrefix20210803\PhpParser\Node\Expr implements \ECSPrefix20210803\PhpParser\Node\FunctionLike
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Expr;
+use ECSPrefix20210804\PhpParser\Node\FunctionLike;
+class ArrowFunction extends \ECSPrefix20210804\PhpParser\Node\Expr implements \ECSPrefix20210804\PhpParser\Node\FunctionLike
 {
     /** @var bool */
     public $static;
@@ -37,7 +37,7 @@ class ArrowFunction extends \ECSPrefix20210803\PhpParser\Node\Expr implements \E
         $this->byRef = $subNodes['byRef'] ?? \false;
         $this->params = $subNodes['params'] ?? [];
         $returnType = $subNodes['returnType'] ?? null;
-        $this->returnType = \is_string($returnType) ? new \ECSPrefix20210803\PhpParser\Node\Identifier($returnType) : $returnType;
+        $this->returnType = \is_string($returnType) ? new \ECSPrefix20210804\PhpParser\Node\Identifier($returnType) : $returnType;
         $this->expr = $subNodes['expr'] ?? null;
         $this->attrGroups = $subNodes['attrGroups'] ?? [];
     }
@@ -66,7 +66,7 @@ class ArrowFunction extends \ECSPrefix20210803\PhpParser\Node\Expr implements \E
      */
     public function getStmts() : array
     {
-        return [new \ECSPrefix20210803\PhpParser\Node\Stmt\Return_($this->expr)];
+        return [new \ECSPrefix20210804\PhpParser\Node\Stmt\Return_($this->expr)];
     }
     public function getType() : string
     {

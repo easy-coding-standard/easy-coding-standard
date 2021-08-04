@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml;
 
 use const DIRECTORY_SEPARATOR;
 use const PHP_EOL;
@@ -29,16 +29,16 @@ use function strlen;
 use function substr;
 use DateTimeImmutable;
 use DOMDocument;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory as DirectoryUtil;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\PathExistsButIsNotDirectoryException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File as FileNode;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Version;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\XmlException;
-use ECSPrefix20210803\SebastianBergmann\Environment\Runtime;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory as DirectoryUtil;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\PathExistsButIsNotDirectoryException;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File as FileNode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Version;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\XmlException;
+use ECSPrefix20210804\SebastianBergmann\Environment\Runtime;
 final class Facade
 {
     /**
@@ -60,7 +60,7 @@ final class Facade
     /**
      * @throws XmlException
      */
-    public function process(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, string $target) : void
+    public function process(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, string $target) : void
     {
         if (\substr($target, -1, 1) !== \DIRECTORY_SEPARATOR) {
             $target .= \DIRECTORY_SEPARATOR;
@@ -68,7 +68,7 @@ final class Facade
         $this->target = $target;
         $this->initTargetDirectory($target);
         $report = $coverage->getReport();
-        $this->project = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Project($coverage->getReport()->name());
+        $this->project = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Project($coverage->getReport()->name());
         $this->setBuildInformation();
         $this->processTests($coverage->getTests());
         $this->processDirectory($report, $this->project);
@@ -77,9 +77,9 @@ final class Facade
     private function setBuildInformation() : void
     {
         $buildNode = $this->project->buildInformation();
-        $buildNode->setRuntimeInformation(new \ECSPrefix20210803\SebastianBergmann\Environment\Runtime());
+        $buildNode->setRuntimeInformation(new \ECSPrefix20210804\SebastianBergmann\Environment\Runtime());
         $buildNode->setBuildTime(new \DateTimeImmutable());
-        $buildNode->setGeneratorVersions($this->phpUnitVersion, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Version::id());
+        $buildNode->setGeneratorVersions($this->phpUnitVersion, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Version::id());
     }
     /**
      * @throws PathExistsButIsNotDirectoryException
@@ -89,18 +89,18 @@ final class Facade
     {
         if (\is_file($directory)) {
             if (!\is_dir($directory)) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\PathExistsButIsNotDirectoryException($directory);
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\PathExistsButIsNotDirectoryException($directory);
             }
             if (!\is_writable($directory)) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException($directory);
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException($directory);
             }
         }
-        \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory::create($directory);
+        \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory::create($directory);
     }
     /**
      * @throws XmlException
      */
-    private function processDirectory(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory $directory, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Node $context) : void
+    private function processDirectory(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory $directory, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Node $context) : void
     {
         $directoryName = $directory->name();
         if ($this->project->projectSourceDirectory() === $directoryName) {
@@ -118,12 +118,12 @@ final class Facade
     /**
      * @throws XmlException
      */
-    private function processFile(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File $file, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Directory $context) : void
+    private function processFile(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File $file, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Directory $context) : void
     {
         $fileObject = $context->addFile($file->name(), $file->id() . '.xml');
         $this->setTotals($file, $fileObject->totals());
         $path = \substr($file->pathAsString(), \strlen($this->project->projectSourceDirectory()));
-        $fileReport = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Report($path);
+        $fileReport = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Report($path);
         $this->setTotals($file, $fileReport->totals());
         foreach ($file->classesAndTraits() as $unit) {
             $this->processUnit($unit, $fileReport);
@@ -144,7 +144,7 @@ final class Facade
         $fileReport->source()->setSourceCode(\file_get_contents($file->pathAsString()));
         $this->saveDocument($fileReport->asDom(), $file->id());
     }
-    private function processUnit(array $unit, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Report $report) : void
+    private function processUnit(array $unit, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Report $report) : void
     {
         if (isset($unit['className'])) {
             $unitObject = $report->classObject($unit['className']);
@@ -162,7 +162,7 @@ final class Facade
             $methodObject->setTotals((string) $method['executableLines'], (string) $method['executedLines'], (string) $method['coverage']);
         }
     }
-    private function processFunction(array $function, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Report $report) : void
+    private function processFunction(array $function, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Report $report) : void
     {
         $functionObject = $report->functionObject($function['functionName']);
         $functionObject->setSignature($function['signature']);
@@ -177,7 +177,7 @@ final class Facade
             $testsObject->addTest($test, $result);
         }
     }
-    private function setTotals(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode $node, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Totals $totals) : void
+    private function setTotals(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode $node, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Totals $totals) : void
     {
         $loc = $node->linesOfCode();
         $totals->setNumLines($loc->linesOfCode(), $loc->commentLinesOfCode(), $loc->nonCommentLinesOfCode(), $node->numberOfExecutableLines(), $node->numberOfExecutedLines());
@@ -215,7 +215,7 @@ final class Facade
             foreach (\libxml_get_errors() as $error) {
                 $message .= \PHP_EOL . $error->message;
             }
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\XmlException($message);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\XmlException($message);
         }
         \libxml_clear_errors();
         \libxml_use_internal_errors($xmlErrorHandling);

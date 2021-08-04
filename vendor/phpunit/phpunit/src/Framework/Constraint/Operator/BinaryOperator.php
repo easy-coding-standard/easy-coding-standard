@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function array_map;
 use function array_values;
@@ -17,13 +17,13 @@ use function count;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class BinaryOperator extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Operator
+abstract class BinaryOperator extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Operator
 {
     /**
      * @var Constraint[]
      */
     private $constraints = [];
-    public static function fromConstraints(\ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint ...$constraints) : self
+    public static function fromConstraints(\ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint ...$constraints) : self
     {
         $constraint = new static();
         $constraint->constraints = $constraints;
@@ -82,7 +82,7 @@ abstract class BinaryOperator extends \ECSPrefix20210803\PHPUnit\Framework\Const
     /**
      * Returns true if the $constraint needs to be wrapped with braces.
      */
-    protected final function constraintNeedsParentheses(\ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint $constraint) : bool
+    protected final function constraintNeedsParentheses(\ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint $constraint) : bool
     {
         return $this->arity() > 1 && parent::constraintNeedsParentheses($constraint);
     }
@@ -93,9 +93,9 @@ abstract class BinaryOperator extends \ECSPrefix20210803\PHPUnit\Framework\Const
      *
      * See Constraint::reduce() for more.
      */
-    protected function reduce() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+    protected function reduce() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
     {
-        if ($this->arity() === 1 && $this->constraints[0] instanceof \ECSPrefix20210803\PHPUnit\Framework\Constraint\Operator) {
+        if ($this->arity() === 1 && $this->constraints[0] instanceof \ECSPrefix20210804\PHPUnit\Framework\Constraint\Operator) {
             return $this->constraints[0]->reduce();
         }
         return parent::reduce();
@@ -106,7 +106,7 @@ abstract class BinaryOperator extends \ECSPrefix20210803\PHPUnit\Framework\Const
      * @param Constraint $constraint operand constraint
      * @param int        $position   position of $constraint in this expression
      */
-    private function constraintToString(\ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint $constraint, int $position) : string
+    private function constraintToString(\ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint $constraint, int $position) : string
     {
         $prefix = '';
         if ($position > 0) {

@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Prophecy;
+namespace ECSPrefix20210804\Prophecy\Prophecy;
 
-use ECSPrefix20210803\Prophecy\Argument;
-use ECSPrefix20210803\Prophecy\Prophet;
-use ECSPrefix20210803\Prophecy\Promise;
-use ECSPrefix20210803\Prophecy\Prediction;
-use ECSPrefix20210803\Prophecy\Exception\Doubler\MethodNotFoundException;
-use ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException;
-use ECSPrefix20210803\Prophecy\Exception\Prophecy\MethodProphecyException;
+use ECSPrefix20210804\Prophecy\Argument;
+use ECSPrefix20210804\Prophecy\Prophet;
+use ECSPrefix20210804\Prophecy\Promise;
+use ECSPrefix20210804\Prophecy\Prediction;
+use ECSPrefix20210804\Prophecy\Exception\Doubler\MethodNotFoundException;
+use ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException;
+use ECSPrefix20210804\Prophecy\Exception\Prophecy\MethodProphecyException;
 use ReflectionNamedType;
 use ReflectionType;
 use ReflectionUnionType;
@@ -44,17 +44,17 @@ class MethodProphecy
      *
      * @throws \Prophecy\Exception\Doubler\MethodNotFoundException If method not found
      */
-    public function __construct(\ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy $objectProphecy, $methodName, $arguments = null)
+    public function __construct(\ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy $objectProphecy, $methodName, $arguments = null)
     {
         $double = $objectProphecy->reveal();
         if (!\method_exists($double, $methodName)) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\MethodNotFoundException(\sprintf('Method `%s::%s()` is not defined.', \get_class($double), $methodName), \get_class($double), $methodName, $arguments);
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\MethodNotFoundException(\sprintf('Method `%s::%s()` is not defined.', \get_class($double), $methodName), \get_class($double), $methodName, $arguments);
         }
         $this->objectProphecy = $objectProphecy;
         $this->methodName = $methodName;
         $reflectedMethod = new \ReflectionMethod($double, $methodName);
         if ($reflectedMethod->isFinal()) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Prophecy\MethodProphecyException(\sprintf("Can not add prophecy for a method `%s::%s()`\n" . "as it is a final method.", \get_class($double), $methodName), $this);
+            throw new \ECSPrefix20210804\Prophecy\Exception\Prophecy\MethodProphecyException(\sprintf("Can not add prophecy for a method `%s::%s()`\n" . "as it is a final method.", \get_class($double), $methodName), $this);
         }
         if (null !== $arguments) {
             $this->withArguments($arguments);
@@ -116,7 +116,7 @@ class MethodProphecy
                             yield;
                         })();
                     default:
-                        $prophet = new \ECSPrefix20210803\Prophecy\Prophet();
+                        $prophet = new \ECSPrefix20210804\Prophecy\Prophet();
                         return $prophet->prophesize($defaultType)->reveal();
                 }
             });
@@ -134,10 +134,10 @@ class MethodProphecy
     public function withArguments($arguments)
     {
         if (\is_array($arguments)) {
-            $arguments = new \ECSPrefix20210803\Prophecy\Argument\ArgumentsWildcard($arguments);
+            $arguments = new \ECSPrefix20210804\Prophecy\Argument\ArgumentsWildcard($arguments);
         }
-        if (!$arguments instanceof \ECSPrefix20210803\Prophecy\Argument\ArgumentsWildcard) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf("Either an array or an instance of ArgumentsWildcard expected as\n" . 'a `MethodProphecy::withArguments()` argument, but got %s.', \gettype($arguments)));
+        if (!$arguments instanceof \ECSPrefix20210804\Prophecy\Argument\ArgumentsWildcard) {
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf("Either an array or an instance of ArgumentsWildcard expected as\n" . 'a `MethodProphecy::withArguments()` argument, but got %s.', \gettype($arguments)));
         }
         $this->argumentsWildcard = $arguments;
         return $this;
@@ -154,10 +154,10 @@ class MethodProphecy
     public function will($promise)
     {
         if (\is_callable($promise)) {
-            $promise = new \ECSPrefix20210803\Prophecy\Promise\CallbackPromise($promise);
+            $promise = new \ECSPrefix20210804\Prophecy\Promise\CallbackPromise($promise);
         }
-        if (!$promise instanceof \ECSPrefix20210803\Prophecy\Promise\PromiseInterface) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf('Expected callable or instance of PromiseInterface, but got %s.', \gettype($promise)));
+        if (!$promise instanceof \ECSPrefix20210804\Prophecy\Promise\PromiseInterface) {
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf('Expected callable or instance of PromiseInterface, but got %s.', \gettype($promise)));
         }
         $this->bindToObjectProphecy();
         $this->promise = $promise;
@@ -173,9 +173,9 @@ class MethodProphecy
     public function willReturn()
     {
         if ($this->voidReturnType) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Prophecy\MethodProphecyException("The method \"{$this->methodName}\" has a void return type, and so cannot return anything", $this);
+            throw new \ECSPrefix20210804\Prophecy\Exception\Prophecy\MethodProphecyException("The method \"{$this->methodName}\" has a void return type, and so cannot return anything", $this);
         }
-        return $this->will(new \ECSPrefix20210803\Prophecy\Promise\ReturnPromise(\func_get_args()));
+        return $this->will(new \ECSPrefix20210804\Prophecy\Promise\ReturnPromise(\func_get_args()));
     }
     /**
      * @param array $items
@@ -188,10 +188,10 @@ class MethodProphecy
     public function willYield($items, $return = null)
     {
         if ($this->voidReturnType) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Prophecy\MethodProphecyException("The method \"{$this->methodName}\" has a void return type, and so cannot yield anything", $this);
+            throw new \ECSPrefix20210804\Prophecy\Exception\Prophecy\MethodProphecyException("The method \"{$this->methodName}\" has a void return type, and so cannot yield anything", $this);
         }
         if (!\is_array($items)) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf('Expected array, but got %s.', \gettype($items)));
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf('Expected array, but got %s.', \gettype($items)));
         }
         $generator = function () use($items, $return) {
             yield from $items;
@@ -211,9 +211,9 @@ class MethodProphecy
     public function willReturnArgument($index = 0)
     {
         if ($this->voidReturnType) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Prophecy\MethodProphecyException("The method \"{$this->methodName}\" has a void return type", $this);
+            throw new \ECSPrefix20210804\Prophecy\Exception\Prophecy\MethodProphecyException("The method \"{$this->methodName}\" has a void return type", $this);
         }
-        return $this->will(new \ECSPrefix20210803\Prophecy\Promise\ReturnArgumentPromise($index));
+        return $this->will(new \ECSPrefix20210804\Prophecy\Promise\ReturnArgumentPromise($index));
     }
     /**
      * Sets throw promise to the prophecy.
@@ -226,7 +226,7 @@ class MethodProphecy
      */
     public function willThrow($exception)
     {
-        return $this->will(new \ECSPrefix20210803\Prophecy\Promise\ThrowPromise($exception));
+        return $this->will(new \ECSPrefix20210804\Prophecy\Promise\ThrowPromise($exception));
     }
     /**
      * Sets custom prediction to the prophecy.
@@ -240,10 +240,10 @@ class MethodProphecy
     public function should($prediction)
     {
         if (\is_callable($prediction)) {
-            $prediction = new \ECSPrefix20210803\Prophecy\Prediction\CallbackPrediction($prediction);
+            $prediction = new \ECSPrefix20210804\Prophecy\Prediction\CallbackPrediction($prediction);
         }
-        if (!$prediction instanceof \ECSPrefix20210803\Prophecy\Prediction\PredictionInterface) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf('Expected callable or instance of PredictionInterface, but got %s.', \gettype($prediction)));
+        if (!$prediction instanceof \ECSPrefix20210804\Prophecy\Prediction\PredictionInterface) {
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf('Expected callable or instance of PredictionInterface, but got %s.', \gettype($prediction)));
         }
         $this->bindToObjectProphecy();
         $this->prediction = $prediction;
@@ -258,7 +258,7 @@ class MethodProphecy
      */
     public function shouldBeCalled()
     {
-        return $this->should(new \ECSPrefix20210803\Prophecy\Prediction\CallPrediction());
+        return $this->should(new \ECSPrefix20210804\Prophecy\Prediction\CallPrediction());
     }
     /**
      * Sets no calls prediction to the prophecy.
@@ -269,7 +269,7 @@ class MethodProphecy
      */
     public function shouldNotBeCalled()
     {
-        return $this->should(new \ECSPrefix20210803\Prophecy\Prediction\NoCallsPrediction());
+        return $this->should(new \ECSPrefix20210804\Prophecy\Prediction\NoCallsPrediction());
     }
     /**
      * Sets call times prediction to the prophecy.
@@ -282,7 +282,7 @@ class MethodProphecy
      */
     public function shouldBeCalledTimes($count)
     {
-        return $this->should(new \ECSPrefix20210803\Prophecy\Prediction\CallTimesPrediction($count));
+        return $this->should(new \ECSPrefix20210804\Prophecy\Prediction\CallTimesPrediction($count));
     }
     /**
      * Sets call times prediction to the prophecy.
@@ -307,10 +307,10 @@ class MethodProphecy
     public function shouldHave($prediction)
     {
         if (\is_callable($prediction)) {
-            $prediction = new \ECSPrefix20210803\Prophecy\Prediction\CallbackPrediction($prediction);
+            $prediction = new \ECSPrefix20210804\Prophecy\Prediction\CallbackPrediction($prediction);
         }
-        if (!$prediction instanceof \ECSPrefix20210803\Prophecy\Prediction\PredictionInterface) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf('Expected callable or instance of PredictionInterface, but got %s.', \gettype($prediction)));
+        if (!$prediction instanceof \ECSPrefix20210804\Prophecy\Prediction\PredictionInterface) {
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf('Expected callable or instance of PredictionInterface, but got %s.', \gettype($prediction)));
         }
         if (null === $this->promise && !$this->voidReturnType) {
             $this->willReturn();
@@ -334,7 +334,7 @@ class MethodProphecy
      */
     public function shouldHaveBeenCalled()
     {
-        return $this->shouldHave(new \ECSPrefix20210803\Prophecy\Prediction\CallPrediction());
+        return $this->shouldHave(new \ECSPrefix20210804\Prophecy\Prediction\CallPrediction());
     }
     /**
      * Checks no calls prediction.
@@ -345,7 +345,7 @@ class MethodProphecy
      */
     public function shouldNotHaveBeenCalled()
     {
-        return $this->shouldHave(new \ECSPrefix20210803\Prophecy\Prediction\NoCallsPrediction());
+        return $this->shouldHave(new \ECSPrefix20210804\Prophecy\Prediction\NoCallsPrediction());
     }
     /**
      * Checks no calls prediction.
@@ -370,7 +370,7 @@ class MethodProphecy
      */
     public function shouldHaveBeenCalledTimes($count)
     {
-        return $this->shouldHave(new \ECSPrefix20210803\Prophecy\Prediction\CallTimesPrediction($count));
+        return $this->shouldHave(new \ECSPrefix20210804\Prophecy\Prediction\CallTimesPrediction($count));
     }
     /**
      * Checks call times prediction.

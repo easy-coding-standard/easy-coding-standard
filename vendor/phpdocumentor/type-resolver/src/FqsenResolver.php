@@ -9,10 +9,10 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection;
+namespace ECSPrefix20210804\phpDocumentor\Reflection;
 
 use InvalidArgumentException;
-use ECSPrefix20210803\phpDocumentor\Reflection\Types\Context;
+use ECSPrefix20210804\phpDocumentor\Reflection\Types\Context;
 use function explode;
 use function implode;
 use function strpos;
@@ -25,13 +25,13 @@ class FqsenResolver
 {
     /** @var string Definition of the NAMESPACE operator in PHP */
     private const OPERATOR_NAMESPACE = '\\';
-    public function resolve(string $fqsen, ?\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context = null) : \ECSPrefix20210803\phpDocumentor\Reflection\Fqsen
+    public function resolve(string $fqsen, ?\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context = null) : \ECSPrefix20210804\phpDocumentor\Reflection\Fqsen
     {
         if ($context === null) {
-            $context = new \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context('');
+            $context = new \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context('');
         }
         if ($this->isFqsen($fqsen)) {
-            return new \ECSPrefix20210803\phpDocumentor\Reflection\Fqsen($fqsen);
+            return new \ECSPrefix20210804\phpDocumentor\Reflection\Fqsen($fqsen);
         }
         return $this->resolvePartialStructuralElementName($fqsen, $context);
     }
@@ -48,7 +48,7 @@ class FqsenResolver
      *
      * @throws InvalidArgumentException When type is not a valid FQSEN.
      */
-    private function resolvePartialStructuralElementName(string $type, \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context) : \ECSPrefix20210803\phpDocumentor\Reflection\Fqsen
+    private function resolvePartialStructuralElementName(string $type, \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context) : \ECSPrefix20210804\phpDocumentor\Reflection\Fqsen
     {
         $typeParts = \explode(self::OPERATOR_NAMESPACE, $type, 2);
         $namespaceAliases = $context->getNamespaceAliases();
@@ -58,9 +58,9 @@ class FqsenResolver
             if ($namespace !== '') {
                 $namespace .= self::OPERATOR_NAMESPACE;
             }
-            return new \ECSPrefix20210803\phpDocumentor\Reflection\Fqsen(self::OPERATOR_NAMESPACE . $namespace . $type);
+            return new \ECSPrefix20210804\phpDocumentor\Reflection\Fqsen(self::OPERATOR_NAMESPACE . $namespace . $type);
         }
         $typeParts[0] = $namespaceAliases[$typeParts[0]];
-        return new \ECSPrefix20210803\phpDocumentor\Reflection\Fqsen(self::OPERATOR_NAMESPACE . \implode(self::OPERATOR_NAMESPACE, $typeParts));
+        return new \ECSPrefix20210804\phpDocumentor\Reflection\Fqsen(self::OPERATOR_NAMESPACE . \implode(self::OPERATOR_NAMESPACE, $typeParts));
     }
 }

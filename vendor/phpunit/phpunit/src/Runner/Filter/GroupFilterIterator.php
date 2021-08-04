@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner\Filter;
+namespace ECSPrefix20210804\PHPUnit\Runner\Filter;
 
 use function array_map;
 use function array_merge;
 use function in_array;
 use function spl_object_hash;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
 use RecursiveFilterIterator;
 use RecursiveIterator;
 /**
@@ -27,7 +27,7 @@ abstract class GroupFilterIterator extends \RecursiveFilterIterator
      * @var string[]
      */
     protected $groupTests = [];
-    public function __construct(\RecursiveIterator $iterator, array $groups, \ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite)
+    public function __construct(\RecursiveIterator $iterator, array $groups, \ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite)
     {
         parent::__construct($iterator);
         foreach ($suite->getGroupDetails() as $group => $tests) {
@@ -40,7 +40,7 @@ abstract class GroupFilterIterator extends \RecursiveFilterIterator
     public function accept() : bool
     {
         $test = $this->getInnerIterator()->current();
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestSuite) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestSuite) {
             return \true;
         }
         return $this->doAccept(\spl_object_hash($test));

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -296,7 +296,7 @@ final class PHPUnit
     public function cacheResultFile() : string
     {
         if (!$this->hasCacheResultFile()) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Cache result file is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Cache result file is not configured');
         }
         return (string) $this->cacheResultFile;
     }
@@ -357,7 +357,7 @@ final class PHPUnit
     public function bootstrap() : string
     {
         if (!$this->hasBootstrap()) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Bootstrap script is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Bootstrap script is not configured');
         }
         return (string) $this->bootstrap;
     }
@@ -426,7 +426,7 @@ final class PHPUnit
     public function extensionsDirectory() : string
     {
         if (!$this->hasExtensionsDirectory()) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Extensions directory is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Extensions directory is not configured');
         }
         return (string) $this->extensionsDirectory;
     }
@@ -447,7 +447,7 @@ final class PHPUnit
     public function testSuiteLoaderClass() : string
     {
         if (!$this->hasTestSuiteLoaderClass()) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('TestSuiteLoader class is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('TestSuiteLoader class is not configured');
         }
         return (string) $this->testSuiteLoaderClass;
     }
@@ -468,7 +468,7 @@ final class PHPUnit
     public function testSuiteLoaderFile() : string
     {
         if (!$this->hasTestSuiteLoaderFile()) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('TestSuiteLoader sourcecode file is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('TestSuiteLoader sourcecode file is not configured');
         }
         return (string) $this->testSuiteLoaderFile;
     }
@@ -485,7 +485,7 @@ final class PHPUnit
     public function printerClass() : string
     {
         if (!$this->hasPrinterClass()) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('ResultPrinter class is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('ResultPrinter class is not configured');
         }
         return (string) $this->printerClass;
     }
@@ -502,7 +502,7 @@ final class PHPUnit
     public function printerFile() : string
     {
         if (!$this->hasPrinterFile()) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('ResultPrinter sourcecode file is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('ResultPrinter sourcecode file is not configured');
         }
         return (string) $this->printerFile;
     }
@@ -563,7 +563,7 @@ final class PHPUnit
     public function defaultTestSuite() : string
     {
         if (!$this->hasDefaultTestSuite()) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Default test suite is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Default test suite is not configured');
         }
         return (string) $this->defaultTestSuite;
     }

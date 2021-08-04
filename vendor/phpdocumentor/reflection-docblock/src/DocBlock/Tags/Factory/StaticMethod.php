@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Factory;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Factory;
 
 /**
  * @deprecated This contract is totally covered by Tag contract. Every class using StaticMethod also use Tag

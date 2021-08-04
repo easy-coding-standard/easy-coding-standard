@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeUnit;
+namespace ECSPrefix20210804\SebastianBergmann\CodeUnit;
 
 use function array_keys;
 use function array_merge;
@@ -34,7 +34,7 @@ final class Mapper
     /**
      * @psalm-return array<string,list<int>>
      */
-    public function codeUnitsToSourceLines(\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection $codeUnits) : array
+    public function codeUnitsToSourceLines(\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection $codeUnits) : array
     {
         $result = [];
         foreach ($codeUnits as $codeUnit) {
@@ -55,12 +55,12 @@ final class Mapper
      * @throws InvalidCodeUnitException
      * @throws ReflectionException
      */
-    public function stringToCodeUnits(string $unit) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection
+    public function stringToCodeUnits(string $unit) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection
     {
         if (\strpos($unit, '::') !== \false) {
             list($firstPart, $secondPart) = \explode('::', $unit);
             if (empty($firstPart) && $this->isUserDefinedFunction($secondPart)) {
-                return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forFunction($secondPart));
+                return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forFunction($secondPart));
             }
             if ($this->isUserDefinedClass($firstPart)) {
                 if ($secondPart === '<public>') {
@@ -82,50 +82,50 @@ final class Mapper
                     return $this->publicAndProtectedMethodsOfClass($firstPart);
                 }
                 if ($this->isUserDefinedMethod($firstPart, $secondPart)) {
-                    return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forClassMethod($firstPart, $secondPart));
+                    return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forClassMethod($firstPart, $secondPart));
                 }
             }
             if ($this->isUserDefinedInterface($firstPart)) {
-                return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forInterfaceMethod($firstPart, $secondPart));
+                return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forInterfaceMethod($firstPart, $secondPart));
             }
             if ($this->isUserDefinedTrait($firstPart)) {
-                return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forTraitMethod($firstPart, $secondPart));
+                return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forTraitMethod($firstPart, $secondPart));
             }
         } else {
             if ($this->isUserDefinedClass($unit)) {
-                $units = [\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forClass($unit)];
+                $units = [\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forClass($unit)];
                 foreach ($this->reflectorForClass($unit)->getTraits() as $trait) {
                     if (!$trait->isUserDefined()) {
                         // @codeCoverageIgnoreStart
                         continue;
                         // @codeCoverageIgnoreEnd
                     }
-                    $units[] = \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forTrait($trait->getName());
+                    $units[] = \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forTrait($trait->getName());
                 }
-                return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromArray($units);
+                return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromArray($units);
             }
             if ($this->isUserDefinedInterface($unit)) {
-                return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forInterface($unit));
+                return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forInterface($unit));
             }
             if ($this->isUserDefinedTrait($unit)) {
-                return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forTrait($unit));
+                return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forTrait($unit));
             }
             if ($this->isUserDefinedFunction($unit)) {
-                return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forFunction($unit));
+                return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromList(\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forFunction($unit));
             }
             $unit = \str_replace('<extended>', '', $unit);
             if ($this->isUserDefinedClass($unit)) {
                 return $this->classAndParentClassesAndTraits($unit);
             }
         }
-        throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a valid code unit', $unit));
+        throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a valid code unit', $unit));
     }
     /**
      * @psalm-param class-string $className
      *
      * @throws ReflectionException
      */
-    private function publicMethodsOfClass(string $className) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection
+    private function publicMethodsOfClass(string $className) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection
     {
         return $this->methodsOfClass($className, \ReflectionMethod::IS_PUBLIC);
     }
@@ -134,7 +134,7 @@ final class Mapper
      *
      * @throws ReflectionException
      */
-    private function publicAndProtectedMethodsOfClass(string $className) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection
+    private function publicAndProtectedMethodsOfClass(string $className) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection
     {
         return $this->methodsOfClass($className, \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED);
     }
@@ -143,7 +143,7 @@ final class Mapper
      *
      * @throws ReflectionException
      */
-    private function publicAndPrivateMethodsOfClass(string $className) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection
+    private function publicAndPrivateMethodsOfClass(string $className) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection
     {
         return $this->methodsOfClass($className, \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PRIVATE);
     }
@@ -152,7 +152,7 @@ final class Mapper
      *
      * @throws ReflectionException
      */
-    private function protectedMethodsOfClass(string $className) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection
+    private function protectedMethodsOfClass(string $className) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection
     {
         return $this->methodsOfClass($className, \ReflectionMethod::IS_PROTECTED);
     }
@@ -161,7 +161,7 @@ final class Mapper
      *
      * @throws ReflectionException
      */
-    private function protectedAndPrivateMethodsOfClass(string $className) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection
+    private function protectedAndPrivateMethodsOfClass(string $className) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection
     {
         return $this->methodsOfClass($className, \ReflectionMethod::IS_PROTECTED | \ReflectionMethod::IS_PRIVATE);
     }
@@ -170,7 +170,7 @@ final class Mapper
      *
      * @throws ReflectionException
      */
-    private function privateMethodsOfClass(string $className) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection
+    private function privateMethodsOfClass(string $className) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection
     {
         return $this->methodsOfClass($className, \ReflectionMethod::IS_PRIVATE);
     }
@@ -179,25 +179,25 @@ final class Mapper
      *
      * @throws ReflectionException
      */
-    private function methodsOfClass(string $className, int $filter) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection
+    private function methodsOfClass(string $className, int $filter) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection
     {
         $units = [];
         foreach ($this->reflectorForClass($className)->getMethods($filter) as $method) {
             if (!$method->isUserDefined()) {
                 continue;
             }
-            $units[] = \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forClassMethod($className, $method->getName());
+            $units[] = \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forClassMethod($className, $method->getName());
         }
-        return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromArray($units);
+        return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromArray($units);
     }
     /**
      * @psalm-param class-string $className
      *
      * @throws ReflectionException
      */
-    private function classAndParentClassesAndTraits(string $className) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection
+    private function classAndParentClassesAndTraits(string $className) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection
     {
-        $units = [\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forClass($className)];
+        $units = [\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forClass($className)];
         $reflector = $this->reflectorForClass($className);
         foreach ($this->reflectorForClass($className)->getTraits() as $trait) {
             if (!$trait->isUserDefined()) {
@@ -205,23 +205,23 @@ final class Mapper
                 continue;
                 // @codeCoverageIgnoreEnd
             }
-            $units[] = \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forTrait($trait->getName());
+            $units[] = \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forTrait($trait->getName());
         }
         while ($reflector = $reflector->getParentClass()) {
             if (!$reflector->isUserDefined()) {
                 break;
             }
-            $units[] = \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forClass($reflector->getName());
+            $units[] = \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forClass($reflector->getName());
             foreach ($reflector->getTraits() as $trait) {
                 if (!$trait->isUserDefined()) {
                     // @codeCoverageIgnoreStart
                     continue;
                     // @codeCoverageIgnoreEnd
                 }
-                $units[] = \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::forTrait($trait->getName());
+                $units[] = \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::forTrait($trait->getName());
             }
         }
-        return \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromArray($units);
+        return \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromArray($units);
     }
     /**
      * @psalm-param class-string $className
@@ -234,7 +234,7 @@ final class Mapper
             return new \ReflectionClass($className);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -250,7 +250,7 @@ final class Mapper
             return (new \ReflectionFunction($functionName))->isUserDefined();
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -266,7 +266,7 @@ final class Mapper
             return (new \ReflectionClass($className))->isUserDefined();
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -282,7 +282,7 @@ final class Mapper
             return (new \ReflectionClass($interfaceName))->isUserDefined();
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -298,7 +298,7 @@ final class Mapper
             return (new \ReflectionClass($traitName))->isUserDefined();
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -321,7 +321,7 @@ final class Mapper
             return (new \ReflectionMethod($className, $methodName))->isUserDefined();
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }

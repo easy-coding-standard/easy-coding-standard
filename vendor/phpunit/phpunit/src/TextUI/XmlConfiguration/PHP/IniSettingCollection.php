@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use function count;
 use Countable;
@@ -31,7 +31,7 @@ final class IniSettingCollection implements \Countable, \IteratorAggregate
     {
         return new self(...$iniSettings);
     }
-    private function __construct(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\IniSetting ...$iniSettings)
+    private function __construct(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\IniSetting ...$iniSettings)
     {
         $this->iniSettings = $iniSettings;
     }
@@ -46,8 +46,8 @@ final class IniSettingCollection implements \Countable, \IteratorAggregate
     {
         return \count($this->iniSettings);
     }
-    public function getIterator() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\IniSettingCollectionIterator
+    public function getIterator() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\IniSettingCollectionIterator
     {
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\IniSettingCollectionIterator($this);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\IniSettingCollectionIterator($this);
     }
 }

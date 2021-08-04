@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner;
+namespace ECSPrefix20210804\PHPUnit\Runner;
 
 use const DIRECTORY_SEPARATOR;
 use const LOCK_EX;
@@ -23,11 +23,11 @@ use function is_dir;
 use function is_file;
 use function json_decode;
 use function json_encode;
-use ECSPrefix20210803\PHPUnit\Util\Filesystem;
+use ECSPrefix20210804\PHPUnit\Util\Filesystem;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class DefaultTestResultCache implements \ECSPrefix20210803\PHPUnit\Runner\TestResultCache
+final class DefaultTestResultCache implements \ECSPrefix20210804\PHPUnit\Runner\TestResultCache
 {
     /**
      * @var int
@@ -36,7 +36,7 @@ final class DefaultTestResultCache implements \ECSPrefix20210803\PHPUnit\Runner\
     /**
      * @psalm-var list<int>
      */
-    private const ALLOWED_TEST_STATUSES = [\ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING];
+    private const ALLOWED_TEST_STATUSES = [\ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING];
     /**
      * @var string
      */
@@ -69,7 +69,7 @@ final class DefaultTestResultCache implements \ECSPrefix20210803\PHPUnit\Runner\
     }
     public function getState(string $testName) : int
     {
-        return $this->defects[$testName] ?? \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_UNKNOWN;
+        return $this->defects[$testName] ?? \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_UNKNOWN;
     }
     public function setTime(string $testName, float $time) : void
     {
@@ -104,8 +104,8 @@ final class DefaultTestResultCache implements \ECSPrefix20210803\PHPUnit\Runner\
      */
     public function persist() : void
     {
-        if (!\ECSPrefix20210803\PHPUnit\Util\Filesystem::createDirectory(\dirname($this->cacheFilename))) {
-            throw new \ECSPrefix20210803\PHPUnit\Runner\Exception(\sprintf('Cannot create directory "%s" for result cache file', $this->cacheFilename));
+        if (!\ECSPrefix20210804\PHPUnit\Util\Filesystem::createDirectory(\dirname($this->cacheFilename))) {
+            throw new \ECSPrefix20210804\PHPUnit\Runner\Exception(\sprintf('Cannot create directory "%s" for result cache file', $this->cacheFilename));
         }
         \file_put_contents($this->cacheFilename, \json_encode(['version' => self::VERSION, 'defects' => $this->defects, 'times' => $this->times]), \LOCK_EX);
     }

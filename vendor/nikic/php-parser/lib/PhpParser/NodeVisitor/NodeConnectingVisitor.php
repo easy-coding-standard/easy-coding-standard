@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\NodeVisitor;
+namespace ECSPrefix20210804\PhpParser\NodeVisitor;
 
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\NodeVisitorAbstract;
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\NodeVisitorAbstract;
 /**
  * Visitor that connects a child node to its parent node
  * as well as its sibling nodes.
@@ -14,7 +14,7 @@ use ECSPrefix20210803\PhpParser\NodeVisitorAbstract;
  * node can be accessed through <code>$node->getAttribute('previous')</code>,
  * and the next node can be accessed through <code>$node->getAttribute('next')</code>.
  */
-final class NodeConnectingVisitor extends \ECSPrefix20210803\PhpParser\NodeVisitorAbstract
+final class NodeConnectingVisitor extends \ECSPrefix20210804\PhpParser\NodeVisitorAbstract
 {
     /**
      * @var Node[]
@@ -29,7 +29,7 @@ final class NodeConnectingVisitor extends \ECSPrefix20210803\PhpParser\NodeVisit
         $this->stack = [];
         $this->previous = null;
     }
-    public function enterNode(\ECSPrefix20210803\PhpParser\Node $node)
+    public function enterNode(\ECSPrefix20210804\PhpParser\Node $node)
     {
         if (!empty($this->stack)) {
             $node->setAttribute('parent', $this->stack[\count($this->stack) - 1]);
@@ -40,7 +40,7 @@ final class NodeConnectingVisitor extends \ECSPrefix20210803\PhpParser\NodeVisit
         }
         $this->stack[] = $node;
     }
-    public function leaveNode(\ECSPrefix20210803\PhpParser\Node $node)
+    public function leaveNode(\ECSPrefix20210804\PhpParser\Node $node)
     {
         $this->previous = $node;
         \array_pop($this->stack);

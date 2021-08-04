@@ -9,16 +9,16 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Type;
+namespace ECSPrefix20210804\SebastianBergmann\Type;
 
-final class MixedType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
+final class MixedType extends \ECSPrefix20210804\SebastianBergmann\Type\Type
 {
     /**
      * @param \SebastianBergmann\Type\Type $other
      */
     public function isAssignable($other) : bool
     {
-        return !$other instanceof \ECSPrefix20210803\SebastianBergmann\Type\VoidType;
+        return !$other instanceof \ECSPrefix20210804\SebastianBergmann\Type\VoidType;
     }
     public function asString() : string
     {

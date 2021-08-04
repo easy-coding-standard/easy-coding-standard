@@ -9,18 +9,18 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class CachingUncoveredFileAnalyser extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\Cache implements \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser
+final class CachingUncoveredFileAnalyser extends \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\Cache implements \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser
 {
     /**
      * @var UncoveredFileAnalyser
      */
     private $uncoveredFileAnalyser;
-    public function __construct(string $directory, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser $uncoveredFileAnalyser)
+    public function __construct(string $directory, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser $uncoveredFileAnalyser)
     {
         parent::__construct($directory);
         $this->uncoveredFileAnalyser = $uncoveredFileAnalyser;

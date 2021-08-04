@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Html;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Html;
 
 use const ENT_COMPAT;
 use const ENT_HTML401;
@@ -96,14 +96,14 @@ use function str_replace;
 use function substr;
 use function token_get_all;
 use function trim;
-use ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File as FileNode;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage;
-use ECSPrefix20210803\SebastianBergmann\Template\Template;
+use ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File as FileNode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage;
+use ECSPrefix20210804\SebastianBergmann\Template\Template;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Html\Renderer
+final class File extends \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Html\Renderer
 {
     /**
      * @psalm-var array<int,true>
@@ -117,10 +117,10 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
      * @var int
      */
     private $htmlSpecialCharsFlags = \ENT_COMPAT | \ENT_HTML401 | \ENT_SUBSTITUTE;
-    public function render(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File $node, string $file) : void
+    public function render(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File $node, string $file) : void
     {
         $templateName = $this->templatePath . ($this->hasBranchCoverage ? 'file_branch.html' : 'file.html');
-        $template = new \ECSPrefix20210803\SebastianBergmann\Template\Template($templateName, '{{', '}}');
+        $template = new \ECSPrefix20210804\SebastianBergmann\Template\Template($templateName, '{{', '}}');
         $this->setCommonTemplateVariables($template, $node);
         $template->setVar(['items' => $this->renderItems($node), 'lines' => $this->renderSourceWithLineCoverage($node), 'legend' => '<p><span class="success"><strong>Executed</strong></span><span class="danger"><strong>Not Executed</strong></span><span class="warning"><strong>Dead Code</strong></span></p>', 'structure' => '']);
         $template->renderTo($file . '.html');
@@ -131,19 +131,19 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
             $template->renderTo($file . '_path.html');
         }
     }
-    private function renderItems(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File $node) : string
+    private function renderItems(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File $node) : string
     {
         $templateName = $this->templatePath . ($this->hasBranchCoverage ? 'file_item_branch.html' : 'file_item.html');
-        $template = new \ECSPrefix20210803\SebastianBergmann\Template\Template($templateName, '{{', '}}');
+        $template = new \ECSPrefix20210804\SebastianBergmann\Template\Template($templateName, '{{', '}}');
         $methodTemplateName = $this->templatePath . ($this->hasBranchCoverage ? 'method_item_branch.html' : 'method_item.html');
-        $methodItemTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($methodTemplateName, '{{', '}}');
+        $methodItemTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($methodTemplateName, '{{', '}}');
         $items = $this->renderItemTemplate($template, ['name' => 'Total', 'numClasses' => $node->numberOfClassesAndTraits(), 'numTestedClasses' => $node->numberOfTestedClassesAndTraits(), 'numMethods' => $node->numberOfFunctionsAndMethods(), 'numTestedMethods' => $node->numberOfTestedFunctionsAndMethods(), 'linesExecutedPercent' => $node->percentageOfExecutedLines()->asFloat(), 'linesExecutedPercentAsString' => $node->percentageOfExecutedLines()->asString(), 'numExecutedLines' => $node->numberOfExecutedLines(), 'numExecutableLines' => $node->numberOfExecutableLines(), 'branchesExecutedPercent' => $node->percentageOfExecutedBranches()->asFloat(), 'branchesExecutedPercentAsString' => $node->percentageOfExecutedBranches()->asString(), 'numExecutedBranches' => $node->numberOfExecutedBranches(), 'numExecutableBranches' => $node->numberOfExecutableBranches(), 'pathsExecutedPercent' => $node->percentageOfExecutedPaths()->asFloat(), 'pathsExecutedPercentAsString' => $node->percentageOfExecutedPaths()->asString(), 'numExecutedPaths' => $node->numberOfExecutedPaths(), 'numExecutablePaths' => $node->numberOfExecutablePaths(), 'testedMethodsPercent' => $node->percentageOfTestedFunctionsAndMethods()->asFloat(), 'testedMethodsPercentAsString' => $node->percentageOfTestedFunctionsAndMethods()->asString(), 'testedClassesPercent' => $node->percentageOfTestedClassesAndTraits()->asFloat(), 'testedClassesPercentAsString' => $node->percentageOfTestedClassesAndTraits()->asString(), 'crap' => '<abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr>']);
         $items .= $this->renderFunctionItems($node->functions(), $methodItemTemplate);
         $items .= $this->renderTraitOrClassItems($node->traits(), $template, $methodItemTemplate);
         $items .= $this->renderTraitOrClassItems($node->classes(), $template, $methodItemTemplate);
         return $items;
     }
-    private function renderTraitOrClassItems(array $items, \ECSPrefix20210803\SebastianBergmann\Template\Template $template, \ECSPrefix20210803\SebastianBergmann\Template\Template $methodItemTemplate) : string
+    private function renderTraitOrClassItems(array $items, \ECSPrefix20210804\SebastianBergmann\Template\Template $template, \ECSPrefix20210804\SebastianBergmann\Template\Template $methodItemTemplate) : string
     {
         $buffer = '';
         if (empty($items)) {
@@ -163,9 +163,9 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
             if ($item['executableLines'] > 0) {
                 $numClasses = 1;
                 $numTestedClasses = $numTestedMethods === $numMethods ? 1 : 0;
-                $linesExecutedPercentAsString = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedLines'], $item['executableLines'])->asString();
-                $branchesExecutedPercentAsString = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedBranches'], $item['executableBranches'])->asString();
-                $pathsExecutedPercentAsString = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedPaths'], $item['executablePaths'])->asString();
+                $linesExecutedPercentAsString = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedLines'], $item['executableLines'])->asString();
+                $branchesExecutedPercentAsString = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedBranches'], $item['executableBranches'])->asString();
+                $pathsExecutedPercentAsString = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedPaths'], $item['executablePaths'])->asString();
             } else {
                 $numClasses = 0;
                 $numTestedClasses = 0;
@@ -173,16 +173,16 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
                 $branchesExecutedPercentAsString = 'n/a';
                 $pathsExecutedPercentAsString = 'n/a';
             }
-            $testedMethodsPercentage = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numTestedMethods, $numMethods);
-            $testedClassesPercentage = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numTestedMethods === $numMethods ? 1 : 0, 1);
-            $buffer .= $this->renderItemTemplate($template, ['name' => $this->abbreviateClassName($name), 'numClasses' => $numClasses, 'numTestedClasses' => $numTestedClasses, 'numMethods' => $numMethods, 'numTestedMethods' => $numTestedMethods, 'linesExecutedPercent' => \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedLines'], $item['executableLines'])->asFloat(), 'linesExecutedPercentAsString' => $linesExecutedPercentAsString, 'numExecutedLines' => $item['executedLines'], 'numExecutableLines' => $item['executableLines'], 'branchesExecutedPercent' => \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedBranches'], $item['executableBranches'])->asFloat(), 'branchesExecutedPercentAsString' => $branchesExecutedPercentAsString, 'numExecutedBranches' => $item['executedBranches'], 'numExecutableBranches' => $item['executableBranches'], 'pathsExecutedPercent' => \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedPaths'], $item['executablePaths'])->asFloat(), 'pathsExecutedPercentAsString' => $pathsExecutedPercentAsString, 'numExecutedPaths' => $item['executedPaths'], 'numExecutablePaths' => $item['executablePaths'], 'testedMethodsPercent' => $testedMethodsPercentage->asFloat(), 'testedMethodsPercentAsString' => $testedMethodsPercentage->asString(), 'testedClassesPercent' => $testedClassesPercentage->asFloat(), 'testedClassesPercentAsString' => $testedClassesPercentage->asString(), 'crap' => $item['crap']]);
+            $testedMethodsPercentage = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numTestedMethods, $numMethods);
+            $testedClassesPercentage = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numTestedMethods === $numMethods ? 1 : 0, 1);
+            $buffer .= $this->renderItemTemplate($template, ['name' => $this->abbreviateClassName($name), 'numClasses' => $numClasses, 'numTestedClasses' => $numTestedClasses, 'numMethods' => $numMethods, 'numTestedMethods' => $numTestedMethods, 'linesExecutedPercent' => \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedLines'], $item['executableLines'])->asFloat(), 'linesExecutedPercentAsString' => $linesExecutedPercentAsString, 'numExecutedLines' => $item['executedLines'], 'numExecutableLines' => $item['executableLines'], 'branchesExecutedPercent' => \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedBranches'], $item['executableBranches'])->asFloat(), 'branchesExecutedPercentAsString' => $branchesExecutedPercentAsString, 'numExecutedBranches' => $item['executedBranches'], 'numExecutableBranches' => $item['executableBranches'], 'pathsExecutedPercent' => \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedPaths'], $item['executablePaths'])->asFloat(), 'pathsExecutedPercentAsString' => $pathsExecutedPercentAsString, 'numExecutedPaths' => $item['executedPaths'], 'numExecutablePaths' => $item['executablePaths'], 'testedMethodsPercent' => $testedMethodsPercentage->asFloat(), 'testedMethodsPercentAsString' => $testedMethodsPercentage->asString(), 'testedClassesPercent' => $testedClassesPercentage->asFloat(), 'testedClassesPercentAsString' => $testedClassesPercentage->asString(), 'crap' => $item['crap']]);
             foreach ($item['methods'] as $method) {
                 $buffer .= $this->renderFunctionOrMethodItem($methodItemTemplate, $method, '&nbsp;');
             }
         }
         return $buffer;
     }
-    private function renderFunctionItems(array $functions, \ECSPrefix20210803\SebastianBergmann\Template\Template $template) : string
+    private function renderFunctionItems(array $functions, \ECSPrefix20210804\SebastianBergmann\Template\Template $template) : string
     {
         if (empty($functions)) {
             return '';
@@ -193,7 +193,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
         }
         return $buffer;
     }
-    private function renderFunctionOrMethodItem(\ECSPrefix20210803\SebastianBergmann\Template\Template $template, array $item, string $indent = '') : string
+    private function renderFunctionOrMethodItem(\ECSPrefix20210804\SebastianBergmann\Template\Template $template, array $item, string $indent = '') : string
     {
         $numMethods = 0;
         $numTestedMethods = 0;
@@ -203,16 +203,16 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
                 $numTestedMethods = 1;
             }
         }
-        $executedLinesPercentage = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedLines'], $item['executableLines']);
-        $executedBranchesPercentage = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedBranches'], $item['executableBranches']);
-        $executedPathsPercentage = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedPaths'], $item['executablePaths']);
-        $testedMethodsPercentage = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numTestedMethods, 1);
+        $executedLinesPercentage = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedLines'], $item['executableLines']);
+        $executedBranchesPercentage = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedBranches'], $item['executableBranches']);
+        $executedPathsPercentage = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($item['executedPaths'], $item['executablePaths']);
+        $testedMethodsPercentage = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numTestedMethods, 1);
         return $this->renderItemTemplate($template, ['name' => \sprintf('%s<a href="#%d"><abbr title="%s">%s</abbr></a>', $indent, $item['startLine'], \htmlspecialchars($item['signature'], $this->htmlSpecialCharsFlags), $item['functionName'] ?? $item['methodName']), 'numMethods' => $numMethods, 'numTestedMethods' => $numTestedMethods, 'linesExecutedPercent' => $executedLinesPercentage->asFloat(), 'linesExecutedPercentAsString' => $executedLinesPercentage->asString(), 'numExecutedLines' => $item['executedLines'], 'numExecutableLines' => $item['executableLines'], 'branchesExecutedPercent' => $executedBranchesPercentage->asFloat(), 'branchesExecutedPercentAsString' => $executedBranchesPercentage->asString(), 'numExecutedBranches' => $item['executedBranches'], 'numExecutableBranches' => $item['executableBranches'], 'pathsExecutedPercent' => $executedPathsPercentage->asFloat(), 'pathsExecutedPercentAsString' => $executedPathsPercentage->asString(), 'numExecutedPaths' => $item['executedPaths'], 'numExecutablePaths' => $item['executablePaths'], 'testedMethodsPercent' => $testedMethodsPercentage->asFloat(), 'testedMethodsPercentAsString' => $testedMethodsPercentage->asString(), 'crap' => $item['crap']]);
     }
-    private function renderSourceWithLineCoverage(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File $node) : string
+    private function renderSourceWithLineCoverage(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File $node) : string
     {
-        $linesTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
+        $linesTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
+        $singleLineTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
         $coverageData = $node->lineCoverageData();
         $testData = $node->testData();
         $codeLines = $this->loadFile($node->pathAsString());
@@ -258,10 +258,10 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
         $linesTemplate->setVar(['lines' => $lines]);
         return $linesTemplate->render();
     }
-    private function renderSourceWithBranchCoverage(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File $node) : string
+    private function renderSourceWithBranchCoverage(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File $node) : string
     {
-        $linesTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
+        $linesTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
+        $singleLineTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
         $functionCoverageData = $node->functionCoverageData();
         $testData = $node->testData();
         $codeLines = $this->loadFile($node->pathAsString());
@@ -318,10 +318,10 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
         $linesTemplate->setVar(['lines' => $lines]);
         return $linesTemplate->render();
     }
-    private function renderSourceWithPathCoverage(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File $node) : string
+    private function renderSourceWithPathCoverage(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File $node) : string
     {
-        $linesTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
+        $linesTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
+        $singleLineTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
         $functionCoverageData = $node->functionCoverageData();
         $testData = $node->testData();
         $codeLines = $this->loadFile($node->pathAsString());
@@ -381,9 +381,9 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
         $linesTemplate->setVar(['lines' => $lines]);
         return $linesTemplate->render();
     }
-    private function renderBranchStructure(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File $node) : string
+    private function renderBranchStructure(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File $node) : string
     {
-        $branchesTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'branches.html.dist', '{{', '}}');
+        $branchesTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'branches.html.dist', '{{', '}}');
         $coverageData = $node->functionCoverageData();
         $testData = $node->testData();
         $codeLines = $this->loadFile($node->pathAsString());
@@ -408,8 +408,8 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
     }
     private function renderBranchLines(array $branch, array $codeLines, array $testData) : string
     {
-        $linesTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
+        $linesTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
+        $singleLineTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
         $lines = '';
         $branchLines = \range($branch['line_start'], $branch['line_end']);
         \sort($branchLines);
@@ -455,9 +455,9 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
         $linesTemplate->setVar(['lines' => $lines]);
         return $linesTemplate->render();
     }
-    private function renderPathStructure(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File $node) : string
+    private function renderPathStructure(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File $node) : string
     {
-        $pathsTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'paths.html.dist', '{{', '}}');
+        $pathsTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'paths.html.dist', '{{', '}}');
         $coverageData = $node->functionCoverageData();
         $testData = $node->testData();
         $codeLines = $this->loadFile($node->pathAsString());
@@ -485,8 +485,8 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
     }
     private function renderPathLines(array $path, array $branches, array $codeLines, array $testData) : string
     {
-        $linesTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
-        $singleLineTemplate = new \ECSPrefix20210803\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
+        $linesTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'lines.html.dist', '{{', '}}');
+        $singleLineTemplate = new \ECSPrefix20210804\SebastianBergmann\Template\Template($this->templatePath . 'line.html.dist', '{{', '}}');
         $lines = '';
         foreach ($path['path'] as $branchId) {
             $branchLines = \range($branches[$branchId]['line_start'], $branches[$branchId]['line_end']);
@@ -534,7 +534,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
         $linesTemplate->setVar(['lines' => $lines]);
         return $linesTemplate->render();
     }
-    private function renderLine(\ECSPrefix20210803\SebastianBergmann\Template\Template $template, int $lineNumber, string $lineContent, string $class, string $popover) : string
+    private function renderLine(\ECSPrefix20210804\SebastianBergmann\Template\Template $template, int $lineNumber, string $lineContent, string $class, string $popover) : string
     {
         $template->setVar(['lineNumber' => $lineNumber, 'lineContent' => $lineContent, 'class' => $class, 'popover' => $popover]);
         return $template->render();
@@ -617,7 +617,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
         $testCSS = '';
         if ($testData['fromTestcase']) {
             switch ($testData['status']) {
-                case \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED:
+                case \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED:
                     switch ($testData['size']) {
                         case 'small':
                             $testCSS = ' class="covered-by-small-tests"';
@@ -630,14 +630,14 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Repor
                             break;
                     }
                     break;
-                case \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED:
-                case \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE:
-                case \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY:
-                case \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING:
+                case \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED:
+                case \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE:
+                case \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY:
+                case \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING:
                     $testCSS = ' class="warning"';
                     break;
-                case \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE:
-                case \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR:
+                case \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE:
+                case \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR:
                     $testCSS = ' class="danger"';
                     break;
             }

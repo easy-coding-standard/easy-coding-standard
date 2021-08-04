@@ -9,11 +9,11 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
 use RuntimeException;
-use ECSPrefix20210803\SebastianBergmann\Diff\Differ;
-use ECSPrefix20210803\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use ECSPrefix20210804\SebastianBergmann\Diff\Differ;
+use ECSPrefix20210804\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 /**
  * Thrown when an assertion for string equality failed.
  */
@@ -103,7 +103,7 @@ class ComparisonFailure extends \RuntimeException
         if (!$this->actualAsString && !$this->expectedAsString) {
             return '';
         }
-        $differ = new \ECSPrefix20210803\SebastianBergmann\Diff\Differ(new \ECSPrefix20210803\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder("\n--- Expected\n+++ Actual\n"));
+        $differ = new \ECSPrefix20210804\SebastianBergmann\Diff\Differ(new \ECSPrefix20210804\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder("\n--- Expected\n+++ Actual\n"));
         return $differ->diff($this->expectedAsString, $this->actualAsString);
     }
     /**

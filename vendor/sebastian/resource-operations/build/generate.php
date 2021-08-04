@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace ECSPrefix20210803;
+namespace ECSPrefix20210804;
 
 /*
  * This file is part of resource-operations.

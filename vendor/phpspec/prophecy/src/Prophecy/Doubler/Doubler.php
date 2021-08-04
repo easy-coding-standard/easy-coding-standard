@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler;
+namespace ECSPrefix20210804\Prophecy\Doubler;
 
-use ECSPrefix20210803\Doctrine\Instantiator\Instantiator;
-use ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\ClassMirror;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\ClassCreator;
-use ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException;
+use ECSPrefix20210804\Doctrine\Instantiator\Instantiator;
+use ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\ClassMirror;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\ClassCreator;
+use ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException;
 use ReflectionClass;
 /**
  * Cached class doubler.
@@ -42,11 +42,11 @@ class Doubler
      * @param ClassCreator  $creator
      * @param NameGenerator $namer
      */
-    public function __construct(\ECSPrefix20210803\Prophecy\Doubler\Generator\ClassMirror $mirror = null, \ECSPrefix20210803\Prophecy\Doubler\Generator\ClassCreator $creator = null, \ECSPrefix20210803\Prophecy\Doubler\NameGenerator $namer = null)
+    public function __construct(\ECSPrefix20210804\Prophecy\Doubler\Generator\ClassMirror $mirror = null, \ECSPrefix20210804\Prophecy\Doubler\Generator\ClassCreator $creator = null, \ECSPrefix20210804\Prophecy\Doubler\NameGenerator $namer = null)
     {
-        $this->mirror = $mirror ?: new \ECSPrefix20210803\Prophecy\Doubler\Generator\ClassMirror();
-        $this->creator = $creator ?: new \ECSPrefix20210803\Prophecy\Doubler\Generator\ClassCreator();
-        $this->namer = $namer ?: new \ECSPrefix20210803\Prophecy\Doubler\NameGenerator();
+        $this->mirror = $mirror ?: new \ECSPrefix20210804\Prophecy\Doubler\Generator\ClassMirror();
+        $this->creator = $creator ?: new \ECSPrefix20210804\Prophecy\Doubler\Generator\ClassCreator();
+        $this->namer = $namer ?: new \ECSPrefix20210804\Prophecy\Doubler\NameGenerator();
     }
     /**
      * Returns list of registered class patches.
@@ -62,10 +62,10 @@ class Doubler
      *
      * @param ClassPatchInterface $patch
      */
-    public function registerClassPatch(\ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface $patch)
+    public function registerClassPatch(\ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface $patch)
     {
         $this->patches[] = $patch;
-        @\usort($this->patches, function (\ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface $patch1, \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface $patch2) {
+        @\usort($this->patches, function (\ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface $patch1, \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface $patch2) {
             return $patch2->getPriority() - $patch1->getPriority();
         });
     }
@@ -84,7 +84,7 @@ class Doubler
     {
         foreach ($interfaces as $interface) {
             if (!$interface instanceof \ReflectionClass) {
-                throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf("[ReflectionClass \$interface1 [, ReflectionClass \$interface2]] array expected as\n" . "a second argument to `Doubler::double(...)`, but got %s.", \is_object($interface) ? \get_class($interface) . ' class' : \gettype($interface)));
+                throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf("[ReflectionClass \$interface1 [, ReflectionClass \$interface2]] array expected as\n" . "a second argument to `Doubler::double(...)`, but got %s.", \is_object($interface) ? \get_class($interface) . ' class' : \gettype($interface)));
             }
         }
         $classname = $this->createDoubleClass($class, $interfaces);
@@ -96,7 +96,7 @@ class Doubler
             return $reflection->newInstance();
         }
         if (!$this->instantiator) {
-            $this->instantiator = new \ECSPrefix20210803\Doctrine\Instantiator\Instantiator();
+            $this->instantiator = new \ECSPrefix20210804\Doctrine\Instantiator\Instantiator();
         }
         return $this->instantiator->instantiate($classname);
     }

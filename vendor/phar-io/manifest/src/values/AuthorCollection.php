@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class AuthorCollection implements \Countable, \IteratorAggregate
 {
     /** @var Author[] */
     private $authors = [];
-    public function add(\ECSPrefix20210803\PharIo\Manifest\Author $author) : void
+    public function add(\ECSPrefix20210804\PharIo\Manifest\Author $author) : void
     {
         $this->authors[] = $author;
     }
@@ -30,8 +30,8 @@ class AuthorCollection implements \Countable, \IteratorAggregate
     {
         return \count($this->authors);
     }
-    public function getIterator() : \ECSPrefix20210803\PharIo\Manifest\AuthorCollectionIterator
+    public function getIterator() : \ECSPrefix20210804\PharIo\Manifest\AuthorCollectionIterator
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\AuthorCollectionIterator($this);
+        return new \ECSPrefix20210804\PharIo\Manifest\AuthorCollectionIterator($this);
     }
 }

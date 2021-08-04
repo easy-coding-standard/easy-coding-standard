@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
-class InvalidApplicationNameException extends \InvalidArgumentException implements \ECSPrefix20210803\PharIo\Manifest\Exception
+class InvalidApplicationNameException extends \InvalidArgumentException implements \ECSPrefix20210804\PharIo\Manifest\Exception
 {
     public const InvalidFormat = 2;
 }

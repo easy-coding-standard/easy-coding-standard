@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20210803\Prophecy\Util;
+namespace ECSPrefix20210804\Prophecy\Util;
 
-use ECSPrefix20210803\Prophecy\Prophecy\ProphecyInterface;
-use ECSPrefix20210803\SebastianBergmann\RecursionContext\Context;
+use ECSPrefix20210804\Prophecy\Prophecy\ProphecyInterface;
+use ECSPrefix20210804\SebastianBergmann\RecursionContext\Context;
 /*
  * This file is part of the Prophecy.
  * (c) Konstantin Kudryashov <ever.zet@gmail.com>
@@ -121,7 +121,7 @@ class ExportUtil
         }
         $whitespace = \str_repeat(' ', 4 * $indentation);
         if (!$processed) {
-            $processed = new \ECSPrefix20210803\SebastianBergmann\RecursionContext\Context();
+            $processed = new \ECSPrefix20210804\SebastianBergmann\RecursionContext\Context();
         }
         if (\is_array($value)) {
             if (($key = $processed->contains($value)) !== \false) {

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use function count;
 use Countable;
@@ -31,7 +31,7 @@ final class FileCollection implements \Countable, \IteratorAggregate
     {
         return new self(...$files);
     }
-    private function __construct(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File ...$files)
+    private function __construct(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File ...$files)
     {
         $this->files = $files;
     }
@@ -46,9 +46,9 @@ final class FileCollection implements \Countable, \IteratorAggregate
     {
         return \count($this->files);
     }
-    public function getIterator() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\FileCollectionIterator
+    public function getIterator() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\FileCollectionIterator
     {
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\FileCollectionIterator($this);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\FileCollectionIterator($this);
     }
     public function isEmpty() : bool
     {

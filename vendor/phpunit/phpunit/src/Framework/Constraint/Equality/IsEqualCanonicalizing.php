@@ -9,19 +9,19 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function is_string;
 use function sprintf;
 use function strpos;
 use function trim;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure;
-use ECSPrefix20210803\SebastianBergmann\Comparator\Factory as ComparatorFactory;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure;
+use ECSPrefix20210804\SebastianBergmann\Comparator\Factory as ComparatorFactory;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsEqualCanonicalizing extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+final class IsEqualCanonicalizing extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var mixed
@@ -51,15 +51,15 @@ final class IsEqualCanonicalizing extends \ECSPrefix20210803\PHPUnit\Framework\C
         if ($this->value === $other) {
             return \true;
         }
-        $comparatorFactory = \ECSPrefix20210803\SebastianBergmann\Comparator\Factory::getInstance();
+        $comparatorFactory = \ECSPrefix20210804\SebastianBergmann\Comparator\Factory::getInstance();
         try {
             $comparator = $comparatorFactory->getComparatorFor($this->value, $other);
             $comparator->assertEquals($this->value, $other, 0.0, \true, \false);
-        } catch (\ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure $f) {
+        } catch (\ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure $f) {
             if ($returnResult) {
                 return \false;
             }
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException(\trim($description . "\n" . $f->getMessage()), $f);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException(\trim($description . "\n" . $f->getMessage()), $f);
         }
         return \true;
     }

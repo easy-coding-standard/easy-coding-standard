@@ -9,10 +9,10 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\Types\Context as TypeContext;
-use ECSPrefix20210803\phpDocumentor\Reflection\Utils;
+use ECSPrefix20210804\phpDocumentor\Reflection\Types\Context as TypeContext;
+use ECSPrefix20210804\phpDocumentor\Reflection\Utils;
 use function count;
 use function explode;
 use function implode;
@@ -48,14 +48,14 @@ class DescriptionFactory
     /**
      * Initializes this factory with the means to construct (inline) tags.
      */
-    public function __construct(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
+    public function __construct(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
     {
         $this->tagFactory = $tagFactory;
     }
     /**
      * Returns the parsed text of this description.
      */
-    public function create(string $contents, ?\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context = null) : \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description
+    public function create(string $contents, ?\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context = null) : \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description
     {
         $tokens = $this->lex($contents);
         $count = \count($tokens);
@@ -72,7 +72,7 @@ class DescriptionFactory
         for ($i = 0; $i < $count; $i += 2) {
             $tokens[$i] = \str_replace(['{@}', '{}', '%'], ['@', '}', '%%'], $tokens[$i]);
         }
-        return new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description(\implode('', $tokens), $tags);
+        return new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description(\implode('', $tokens), $tags);
     }
     /**
      * Strips the contents from superfluous whitespace and splits the description into a series of tokens.
@@ -86,7 +86,7 @@ class DescriptionFactory
         if (\strpos($contents, '{@') === \false) {
             return [$contents];
         }
-        return \ECSPrefix20210803\phpDocumentor\Reflection\Utils::pregSplit('/\\{
+        return \ECSPrefix20210804\phpDocumentor\Reflection\Utils::pregSplit('/\\{
                 # "{@}" is not a valid inline tag. This ensures that we do not treat it as one, but treat it literally.
                 (?!@\\})
                 # We want to capture the whole tag line, but without the inline tag delimiters.

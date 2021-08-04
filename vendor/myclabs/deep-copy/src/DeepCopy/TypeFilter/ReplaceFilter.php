@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\TypeFilter;
+namespace ECSPrefix20210804\DeepCopy\TypeFilter;
 
 /**
  * @final
  */
-class ReplaceFilter implements \ECSPrefix20210803\DeepCopy\TypeFilter\TypeFilter
+class ReplaceFilter implements \ECSPrefix20210804\DeepCopy\TypeFilter\TypeFilter
 {
     /**
      * @var callable

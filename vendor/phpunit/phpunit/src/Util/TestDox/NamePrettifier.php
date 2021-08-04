@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\TestDox;
+namespace ECSPrefix20210804\PHPUnit\Util\TestDox;
 
 use function array_key_exists;
 use function array_keys;
@@ -41,14 +41,14 @@ use function strtolower;
 use function strtoupper;
 use function substr;
 use function trim;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Util\Color;
-use ECSPrefix20210803\PHPUnit\Util\Exception as UtilException;
-use ECSPrefix20210803\PHPUnit\Util\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Util\Color;
+use ECSPrefix20210804\PHPUnit\Util\Exception as UtilException;
+use ECSPrefix20210804\PHPUnit\Util\Test;
 use ReflectionException;
 use ReflectionMethod;
 use ReflectionObject;
-use ECSPrefix20210803\SebastianBergmann\Exporter\Exporter;
+use ECSPrefix20210804\SebastianBergmann\Exporter\Exporter;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -74,11 +74,11 @@ final class NamePrettifier
     public function prettifyTestClass(string $className) : string
     {
         try {
-            $annotations = \ECSPrefix20210803\PHPUnit\Util\Test::parseTestMethodAnnotations($className);
+            $annotations = \ECSPrefix20210804\PHPUnit\Util\Test::parseTestMethodAnnotations($className);
             if (isset($annotations['class']['testdox'][0])) {
                 return $annotations['class']['testdox'][0];
             }
-        } catch (\ECSPrefix20210803\PHPUnit\Util\Exception $e) {
+        } catch (\ECSPrefix20210804\PHPUnit\Util\Exception $e) {
             // ignore, determine className by parsing the provided name
         }
         $parts = \explode('\\', $className);
@@ -122,9 +122,9 @@ final class NamePrettifier
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function prettifyTestCase(\ECSPrefix20210803\PHPUnit\Framework\TestCase $test) : string
+    public function prettifyTestCase(\ECSPrefix20210804\PHPUnit\Framework\TestCase $test) : string
     {
-        $annotations = \ECSPrefix20210803\PHPUnit\Util\Test::parseTestMethodAnnotations(\get_class($test), $test->getName(\false));
+        $annotations = \ECSPrefix20210804\PHPUnit\Util\Test::parseTestMethodAnnotations(\get_class($test), $test->getName(\false));
         $annotationWithPlaceholders = \false;
         $callback = static function (string $variable) : string {
             return \sprintf('/%s(?=\\b)/', \preg_quote($variable, '/'));
@@ -146,15 +146,15 @@ final class NamePrettifier
         }
         return $result;
     }
-    public function prettifyDataSet(\ECSPrefix20210803\PHPUnit\Framework\TestCase $test) : string
+    public function prettifyDataSet(\ECSPrefix20210804\PHPUnit\Framework\TestCase $test) : string
     {
         if (!$this->useColor) {
             return $test->getDataSetAsString(\false);
         }
         if (\is_int($test->dataName())) {
-            $data = \ECSPrefix20210803\PHPUnit\Util\Color::dim(' with data set ') . \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-cyan', (string) $test->dataName());
+            $data = \ECSPrefix20210804\PHPUnit\Util\Color::dim(' with data set ') . \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-cyan', (string) $test->dataName());
         } else {
-            $data = \ECSPrefix20210803\PHPUnit\Util\Color::dim(' with ') . \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-cyan', \ECSPrefix20210803\PHPUnit\Util\Color::visualizeWhitespace((string) $test->dataName()));
+            $data = \ECSPrefix20210804\PHPUnit\Util\Color::dim(' with ') . \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-cyan', \ECSPrefix20210804\PHPUnit\Util\Color::visualizeWhitespace((string) $test->dataName()));
         }
         return $data;
     }
@@ -206,13 +206,13 @@ final class NamePrettifier
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    private function mapTestMethodParameterNamesToProvidedDataValues(\ECSPrefix20210803\PHPUnit\Framework\TestCase $test) : array
+    private function mapTestMethodParameterNamesToProvidedDataValues(\ECSPrefix20210804\PHPUnit\Framework\TestCase $test) : array
     {
         try {
             $reflector = new \ReflectionMethod(\get_class($test), $test->getName(\false));
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         $providedData = [];
@@ -225,7 +225,7 @@ final class NamePrettifier
                     $providedDataValues[$i] = $parameter->getDefaultValue();
                     // @codeCoverageIgnoreStart
                 } catch (\ReflectionException $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
                 }
                 // @codeCoverageIgnoreEnd
             }
@@ -242,11 +242,11 @@ final class NamePrettifier
                 $value = \gettype($value);
             }
             if (\is_bool($value) || \is_int($value) || \is_float($value)) {
-                $value = (new \ECSPrefix20210803\SebastianBergmann\Exporter\Exporter())->export($value);
+                $value = (new \ECSPrefix20210804\SebastianBergmann\Exporter\Exporter())->export($value);
             }
             if (\is_string($value) && $value === '') {
                 if ($this->useColor) {
-                    $value = \ECSPrefix20210803\PHPUnit\Util\Color::colorize('dim,underlined', 'empty');
+                    $value = \ECSPrefix20210804\PHPUnit\Util\Color::colorize('dim,underlined', 'empty');
                 } else {
                     $value = "''";
                 }
@@ -255,7 +255,7 @@ final class NamePrettifier
         }
         if ($this->useColor) {
             $providedData = \array_map(static function ($value) {
-                return \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-cyan', \ECSPrefix20210803\PHPUnit\Util\Color::visualizeWhitespace((string) $value, \true));
+                return \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-cyan', \ECSPrefix20210804\PHPUnit\Util\Color::visualizeWhitespace((string) $value, \true));
             }, $providedData);
         }
         return $providedData;

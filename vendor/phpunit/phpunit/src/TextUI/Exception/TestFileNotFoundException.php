@@ -9,14 +9,14 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI;
+namespace ECSPrefix20210804\PHPUnit\TextUI;
 
 use function sprintf;
 use RuntimeException;
 /**
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-final class TestFileNotFoundException extends \RuntimeException implements \ECSPrefix20210803\PHPUnit\TextUI\Exception
+final class TestFileNotFoundException extends \RuntimeException implements \ECSPrefix20210804\PHPUnit\TextUI\Exception
 {
     public function __construct(string $path)
     {

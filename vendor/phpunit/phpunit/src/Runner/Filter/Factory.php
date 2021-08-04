@@ -9,14 +9,14 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner\Filter;
+namespace ECSPrefix20210804\PHPUnit\Runner\Filter;
 
 use function assert;
 use function sprintf;
 use FilterIterator;
 use Iterator;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
-use ECSPrefix20210803\PHPUnit\Runner\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Runner\Exception;
 use RecursiveFilterIterator;
 use ReflectionClass;
 /**
@@ -36,11 +36,11 @@ final class Factory
     public function addFilter(\ReflectionClass $filter, $args) : void
     {
         if (!$filter->isSubclassOf(\RecursiveFilterIterator::class)) {
-            throw new \ECSPrefix20210803\PHPUnit\Runner\Exception(\sprintf('Class "%s" does not extend RecursiveFilterIterator', $filter->name));
+            throw new \ECSPrefix20210804\PHPUnit\Runner\Exception(\sprintf('Class "%s" does not extend RecursiveFilterIterator', $filter->name));
         }
         $this->filters[] = [$filter, $args];
     }
-    public function factory(\Iterator $iterator, \ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : \FilterIterator
+    public function factory(\Iterator $iterator, \ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : \FilterIterator
     {
         foreach ($this->filters as $filter) {
             [$class, $args] = $filter;

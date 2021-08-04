@@ -9,17 +9,17 @@ declare (strict_types=1);
  *
  * @link http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use ECSPrefix20210803\phpDocumentor\Reflection\Types\Context as TypeContext;
-use ECSPrefix20210803\Webmozart\Assert\Assert;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use ECSPrefix20210804\phpDocumentor\Reflection\Types\Context as TypeContext;
+use ECSPrefix20210804\Webmozart\Assert\Assert;
 use function preg_match;
 /**
  * Reflection class for a {@}version tag in a Docblock.
  */
-final class Version extends \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Version extends \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string */
     protected $name = 'version';
@@ -40,13 +40,13 @@ final class Version extends \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock
     )';
     /** @var string|null The version vector. */
     private $version;
-    public function __construct(?string $version = null, ?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct(?string $version = null, ?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \ECSPrefix20210803\Webmozart\Assert\Assert::nullOrStringNotEmpty($version);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::nullOrStringNotEmpty($version);
         $this->version = $version;
         $this->description = $description;
     }
-    public static function create(?string $body, ?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, ?\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context = null) : ?self
+    public static function create(?string $body, ?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, ?\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context = null) : ?self
     {
         if (empty($body)) {
             return new static();

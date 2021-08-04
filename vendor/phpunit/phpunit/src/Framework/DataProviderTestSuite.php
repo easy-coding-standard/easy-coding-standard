@@ -9,14 +9,14 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 use function explode;
-use ECSPrefix20210803\PHPUnit\Util\Test as TestUtil;
+use ECSPrefix20210804\PHPUnit\Util\Test as TestUtil;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class DataProviderTestSuite extends \ECSPrefix20210803\PHPUnit\Framework\TestSuite
+final class DataProviderTestSuite extends \ECSPrefix20210804\PHPUnit\Framework\TestSuite
 {
     /**
      * @var list<ExecutionOrderDependency>
@@ -29,7 +29,7 @@ final class DataProviderTestSuite extends \ECSPrefix20210803\PHPUnit\Framework\T
     {
         $this->dependencies = $dependencies;
         foreach ($this->tests as $test) {
-            if (!$test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+            if (!$test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
                 // @codeCoverageIgnoreStart
                 continue;
                 // @codeCoverageIgnoreStart
@@ -43,7 +43,7 @@ final class DataProviderTestSuite extends \ECSPrefix20210803\PHPUnit\Framework\T
     public function provides() : array
     {
         if ($this->providedTests === null) {
-            $this->providedTests = [new \ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency($this->getName())];
+            $this->providedTests = [new \ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency($this->getName())];
         }
         return $this->providedTests;
     }
@@ -64,6 +64,6 @@ final class DataProviderTestSuite extends \ECSPrefix20210803\PHPUnit\Framework\T
     public function getSize() : int
     {
         [$className, $methodName] = \explode('::', $this->getName());
-        return \ECSPrefix20210803\PHPUnit\Util\Test::getSize($className, $methodName);
+        return \ECSPrefix20210804\PHPUnit\Util\Test::getSize($className, $methodName);
     }
 }

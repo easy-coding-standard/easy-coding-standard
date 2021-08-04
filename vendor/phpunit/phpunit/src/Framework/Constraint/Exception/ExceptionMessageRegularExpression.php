@@ -9,15 +9,15 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function sprintf;
 use Exception;
-use ECSPrefix20210803\PHPUnit\Util\RegularExpression as RegularExpressionUtil;
+use ECSPrefix20210804\PHPUnit\Util\RegularExpression as RegularExpressionUtil;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class ExceptionMessageRegularExpression extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+final class ExceptionMessageRegularExpression extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var string
@@ -42,9 +42,9 @@ final class ExceptionMessageRegularExpression extends \ECSPrefix20210803\PHPUnit
      */
     protected function matches($other) : bool
     {
-        $match = \ECSPrefix20210803\PHPUnit\Util\RegularExpression::safeMatch($this->expectedMessageRegExp, $other->getMessage());
+        $match = \ECSPrefix20210804\PHPUnit\Util\RegularExpression::safeMatch($this->expectedMessageRegExp, $other->getMessage());
         if ($match === \false) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception("Invalid expected exception message regex given: '{$this->expectedMessageRegExp}'");
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception("Invalid expected exception message regex given: '{$this->expectedMessageRegExp}'");
         }
         return $match === 1;
     }

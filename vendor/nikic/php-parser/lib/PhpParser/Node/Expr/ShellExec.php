@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node\Expr;
+namespace ECSPrefix20210804\PhpParser\Node\Expr;
 
-use ECSPrefix20210803\PhpParser\Node\Expr;
-class ShellExec extends \ECSPrefix20210803\PhpParser\Node\Expr
+use ECSPrefix20210804\PhpParser\Node\Expr;
+class ShellExec extends \ECSPrefix20210804\PhpParser\Node\Expr
 {
     /** @var array Encapsed string array */
     public $parts;

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Parser;
+namespace ECSPrefix20210804\PhpParser\Parser;
 
-use ECSPrefix20210803\PhpParser\Error;
-use ECSPrefix20210803\PhpParser\ErrorHandler;
-use ECSPrefix20210803\PhpParser\Parser;
-class Multiple implements \ECSPrefix20210803\PhpParser\Parser
+use ECSPrefix20210804\PhpParser\Error;
+use ECSPrefix20210804\PhpParser\ErrorHandler;
+use ECSPrefix20210804\PhpParser\Parser;
+class Multiple implements \ECSPrefix20210804\PhpParser\Parser
 {
     /** @var Parser[] List of parsers to try, in order of preference */
     private $parsers;
@@ -23,10 +23,10 @@ class Multiple implements \ECSPrefix20210803\PhpParser\Parser
     {
         $this->parsers = $parsers;
     }
-    public function parse(string $code, \ECSPrefix20210803\PhpParser\ErrorHandler $errorHandler = null)
+    public function parse(string $code, \ECSPrefix20210804\PhpParser\ErrorHandler $errorHandler = null)
     {
         if (null === $errorHandler) {
-            $errorHandler = new \ECSPrefix20210803\PhpParser\ErrorHandler\Throwing();
+            $errorHandler = new \ECSPrefix20210804\PhpParser\ErrorHandler\Throwing();
         }
         list($firstStmts, $firstError) = $this->tryParse($this->parsers[0], $errorHandler, $code);
         if ($firstError === null) {
@@ -40,13 +40,13 @@ class Multiple implements \ECSPrefix20210803\PhpParser\Parser
         }
         throw $firstError;
     }
-    private function tryParse(\ECSPrefix20210803\PhpParser\Parser $parser, \ECSPrefix20210803\PhpParser\ErrorHandler $errorHandler, $code)
+    private function tryParse(\ECSPrefix20210804\PhpParser\Parser $parser, \ECSPrefix20210804\PhpParser\ErrorHandler $errorHandler, $code)
     {
         $stmts = null;
         $error = null;
         try {
             $stmts = $parser->parse($code, $errorHandler);
-        } catch (\ECSPrefix20210803\PhpParser\Error $error) {
+        } catch (\ECSPrefix20210804\PhpParser\Error $error) {
         }
         return [$stmts, $error];
     }

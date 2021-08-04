@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210803\Prophecy\Doubler\Generator;
+namespace ECSPrefix20210804\Prophecy\Doubler\Generator;
 
 /**
  * Tells whether a keyword refers to a class or to a built-in type for the

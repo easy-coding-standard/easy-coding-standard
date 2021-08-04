@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Matcher;
+namespace ECSPrefix20210804\DeepCopy\Matcher;
 
 /**
  * @final
  */
-class PropertyNameMatcher implements \ECSPrefix20210803\DeepCopy\Matcher\Matcher
+class PropertyNameMatcher implements \ECSPrefix20210804\DeepCopy\Matcher\Matcher
 {
     /**
      * @var string

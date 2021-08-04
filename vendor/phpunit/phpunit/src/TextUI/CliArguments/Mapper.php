@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\CliArguments;
+namespace ECSPrefix20210804\PHPUnit\TextUI\CliArguments;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -19,7 +19,7 @@ final class Mapper
     /**
      * @throws Exception
      */
-    public function mapToLegacyArray(\ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Configuration $arguments) : array
+    public function mapToLegacyArray(\ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Configuration $arguments) : array
     {
         $result = ['extensions' => [], 'listGroups' => \false, 'listSuites' => \false, 'listTests' => \false, 'listTestsXml' => \false, 'loader' => null, 'useDefaultConfiguration' => \true, 'loadedExtensions' => [], 'unavailableExtensions' => [], 'notLoadedExtensions' => []];
         if ($arguments->hasColors()) {

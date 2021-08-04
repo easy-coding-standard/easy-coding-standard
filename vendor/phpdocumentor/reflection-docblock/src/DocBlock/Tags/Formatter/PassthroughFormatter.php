@@ -9,17 +9,17 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 use function trim;
-class PassthroughFormatter implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter
+class PassthroughFormatter implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter
 {
     /**
      * Formats the given tag to return a simple plain text version.
      */
-    public function format(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag $tag) : string
+    public function format(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag $tag) : string
     {
         return \trim('@' . $tag->getName() . ' ' . $tag);
     }

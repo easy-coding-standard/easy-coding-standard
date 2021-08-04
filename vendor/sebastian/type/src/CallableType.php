@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Type;
+namespace ECSPrefix20210804\SebastianBergmann\Type;
 
 use function assert;
 use function class_exists;
@@ -24,7 +24,7 @@ use Closure;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionObject;
-final class CallableType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
+final class CallableType extends \ECSPrefix20210804\SebastianBergmann\Type\Type
 {
     /**
      * @var bool
@@ -40,13 +40,13 @@ final class CallableType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
      */
     public function isAssignable($other) : bool
     {
-        if ($this->allowsNull && $other instanceof \ECSPrefix20210803\SebastianBergmann\Type\NullType) {
+        if ($this->allowsNull && $other instanceof \ECSPrefix20210804\SebastianBergmann\Type\NullType) {
             return \true;
         }
         if ($other instanceof self) {
             return \true;
         }
-        if ($other instanceof \ECSPrefix20210803\SebastianBergmann\Type\ObjectType) {
+        if ($other instanceof \ECSPrefix20210804\SebastianBergmann\Type\ObjectType) {
             if ($this->isClosure($other)) {
                 return \true;
             }
@@ -54,7 +54,7 @@ final class CallableType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
                 return \true;
             }
         }
-        if ($other instanceof \ECSPrefix20210803\SebastianBergmann\Type\SimpleType) {
+        if ($other instanceof \ECSPrefix20210804\SebastianBergmann\Type\SimpleType) {
             if ($this->isFunction($other)) {
                 return \true;
             }
@@ -75,14 +75,14 @@ final class CallableType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
     {
         return $this->allowsNull;
     }
-    private function isClosure(\ECSPrefix20210803\SebastianBergmann\Type\ObjectType $type) : bool
+    private function isClosure(\ECSPrefix20210804\SebastianBergmann\Type\ObjectType $type) : bool
     {
         return !$type->className()->isNamespaced() && $type->className()->simpleName() === \Closure::class;
     }
     /**
      * @throws RuntimeException
      */
-    private function hasInvokeMethod(\ECSPrefix20210803\SebastianBergmann\Type\ObjectType $type) : bool
+    private function hasInvokeMethod(\ECSPrefix20210804\SebastianBergmann\Type\ObjectType $type) : bool
     {
         $className = $type->className()->qualifiedName();
         \assert(\class_exists($className));
@@ -90,7 +90,7 @@ final class CallableType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
             $class = new \ReflectionClass($className);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Type\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\Type\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
             // @codeCoverageIgnoreEnd
         }
         if ($class->hasMethod('__invoke')) {
@@ -98,14 +98,14 @@ final class CallableType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
         }
         return \false;
     }
-    private function isFunction(\ECSPrefix20210803\SebastianBergmann\Type\SimpleType $type) : bool
+    private function isFunction(\ECSPrefix20210804\SebastianBergmann\Type\SimpleType $type) : bool
     {
         if (!\is_string($type->value())) {
             return \false;
         }
         return \function_exists($type->value());
     }
-    private function isObjectCallback(\ECSPrefix20210803\SebastianBergmann\Type\SimpleType $type) : bool
+    private function isObjectCallback(\ECSPrefix20210804\SebastianBergmann\Type\SimpleType $type) : bool
     {
         if (!\is_array($type->value())) {
             return \false;
@@ -119,7 +119,7 @@ final class CallableType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
         list($object, $methodName) = $type->value();
         return (new \ReflectionObject($object))->hasMethod($methodName);
     }
-    private function isClassCallback(\ECSPrefix20210803\SebastianBergmann\Type\SimpleType $type) : bool
+    private function isClassCallback(\ECSPrefix20210804\SebastianBergmann\Type\SimpleType $type) : bool
     {
         if (!\is_string($type->value()) && !\is_array($type->value())) {
             return \false;
@@ -149,7 +149,7 @@ final class CallableType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
             }
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Type\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\Type\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
             // @codeCoverageIgnoreEnd
         }
         return \false;

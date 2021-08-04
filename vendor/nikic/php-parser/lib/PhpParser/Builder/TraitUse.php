@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Builder;
+namespace ECSPrefix20210804\PhpParser\Builder;
 
-use ECSPrefix20210803\PhpParser\Builder;
-use ECSPrefix20210803\PhpParser\BuilderHelpers;
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Stmt;
-class TraitUse implements \ECSPrefix20210803\PhpParser\Builder
+use ECSPrefix20210804\PhpParser\Builder;
+use ECSPrefix20210804\PhpParser\BuilderHelpers;
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Stmt;
+class TraitUse implements \ECSPrefix20210804\PhpParser\Builder
 {
     protected $traits = [];
     protected $adaptations = [];
@@ -31,7 +31,7 @@ class TraitUse implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function and($trait)
     {
-        $this->traits[] = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeName($trait);
+        $this->traits[] = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeName($trait);
         return $this;
     }
     /**
@@ -43,8 +43,8 @@ class TraitUse implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function with($adaptation)
     {
-        $adaptation = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeNode($adaptation);
-        if (!$adaptation instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\TraitUseAdaptation) {
+        $adaptation = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeNode($adaptation);
+        if (!$adaptation instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\TraitUseAdaptation) {
             throw new \LogicException('Adaptation must have type TraitUseAdaptation');
         }
         $this->adaptations[] = $adaptation;
@@ -55,8 +55,8 @@ class TraitUse implements \ECSPrefix20210803\PhpParser\Builder
      *
      * @return Node The built node
      */
-    public function getNode() : \ECSPrefix20210803\PhpParser\Node
+    public function getNode() : \ECSPrefix20210804\PhpParser\Node
     {
-        return new \ECSPrefix20210803\PhpParser\Node\Stmt\TraitUse($this->traits, $this->adaptations);
+        return new \ECSPrefix20210804\PhpParser\Node\Stmt\TraitUse($this->traits, $this->adaptations);
     }
 }

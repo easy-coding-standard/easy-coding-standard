@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class BundledComponentCollectionIterator implements \Iterator
 {
@@ -17,7 +17,7 @@ class BundledComponentCollectionIterator implements \Iterator
     private $bundledComponents;
     /** @var int */
     private $position = 0;
-    public function __construct(\ECSPrefix20210803\PharIo\Manifest\BundledComponentCollection $bundledComponents)
+    public function __construct(\ECSPrefix20210804\PharIo\Manifest\BundledComponentCollection $bundledComponents)
     {
         $this->bundledComponents = $bundledComponents->getBundledComponents();
     }
@@ -33,7 +33,7 @@ class BundledComponentCollectionIterator implements \Iterator
     {
         return $this->position;
     }
-    public function current() : \ECSPrefix20210803\PharIo\Manifest\BundledComponent
+    public function current() : \ECSPrefix20210804\PharIo\Manifest\BundledComponent
     {
         return $this->bundledComponents[$this->position];
     }

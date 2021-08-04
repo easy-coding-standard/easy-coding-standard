@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI;
+namespace ECSPrefix20210804\PHPUnit\TextUI;
 
 use const PHP_EOL;
 use function count;
@@ -20,8 +20,8 @@ use function str_pad;
 use function str_repeat;
 use function strlen;
 use function wordwrap;
-use ECSPrefix20210803\PHPUnit\Util\Color;
-use ECSPrefix20210803\SebastianBergmann\Environment\Console;
+use ECSPrefix20210804\PHPUnit\Util\Color;
+use ECSPrefix20210804\SebastianBergmann\Environment\Console;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -44,10 +44,10 @@ final class Help
     public function __construct(?int $width = null, ?bool $withColor = null)
     {
         if ($width === null) {
-            $width = (new \ECSPrefix20210803\SebastianBergmann\Environment\Console())->getNumberOfColumns();
+            $width = (new \ECSPrefix20210804\SebastianBergmann\Environment\Console())->getNumberOfColumns();
         }
         if ($withColor === null) {
-            $this->hasColor = (new \ECSPrefix20210803\SebastianBergmann\Environment\Console())->hasColorSupport();
+            $this->hasColor = (new \ECSPrefix20210804\SebastianBergmann\Environment\Console())->hasColorSupport();
         } else {
             $this->hasColor = $withColor;
         }
@@ -96,7 +96,7 @@ final class Help
     private function writeWithColor() : void
     {
         foreach (self::HELP_TEXT as $section => $options) {
-            print \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-yellow', "{$section}:") . \PHP_EOL;
+            print \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-yellow', "{$section}:") . \PHP_EOL;
             foreach ($options as $option) {
                 if (isset($option['spacer'])) {
                     print \PHP_EOL;
@@ -105,9 +105,9 @@ final class Help
                     print self::LEFT_MARGIN . $option['text'] . \PHP_EOL;
                 }
                 if (isset($option['arg'])) {
-                    $arg = \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-green', \str_pad($option['arg'], $this->maxArgLength));
+                    $arg = \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-green', \str_pad($option['arg'], $this->maxArgLength));
                     $arg = \preg_replace_callback('/(<[^>]+>)/', static function ($matches) {
-                        return \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-cyan', $matches[0]);
+                        return \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-cyan', $matches[0]);
                     }, $arg);
                     $desc = \explode(\PHP_EOL, \wordwrap($option['desc'], $this->maxDescLength, \PHP_EOL));
                     print self::LEFT_MARGIN . $arg . ' ' . $desc[0] . \PHP_EOL;

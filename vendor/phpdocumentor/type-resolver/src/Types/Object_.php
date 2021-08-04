@@ -9,11 +9,11 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\Types;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\Types;
 
 use InvalidArgumentException;
-use ECSPrefix20210803\phpDocumentor\Reflection\Fqsen;
-use ECSPrefix20210803\phpDocumentor\Reflection\Type;
+use ECSPrefix20210804\phpDocumentor\Reflection\Fqsen;
+use ECSPrefix20210804\phpDocumentor\Reflection\Type;
 use function strpos;
 /**
  * Value Object representing an object.
@@ -24,7 +24,7 @@ use function strpos;
  *
  * @psalm-immutable
  */
-final class Object_ implements \ECSPrefix20210803\phpDocumentor\Reflection\Type
+final class Object_ implements \ECSPrefix20210804\phpDocumentor\Reflection\Type
 {
     /** @var Fqsen|null */
     private $fqsen;
@@ -33,7 +33,7 @@ final class Object_ implements \ECSPrefix20210803\phpDocumentor\Reflection\Type
      *
      * @throws InvalidArgumentException When provided $fqsen is not a valid type.
      */
-    public function __construct(?\ECSPrefix20210803\phpDocumentor\Reflection\Fqsen $fqsen = null)
+    public function __construct(?\ECSPrefix20210804\phpDocumentor\Reflection\Fqsen $fqsen = null)
     {
         if (\strpos((string) $fqsen, '::') !== \false || \strpos((string) $fqsen, '()') !== \false) {
             throw new \InvalidArgumentException('Object types can only refer to a class, interface or trait but a method, function, constant or ' . 'property was received: ' . (string) $fqsen);
@@ -43,7 +43,7 @@ final class Object_ implements \ECSPrefix20210803\phpDocumentor\Reflection\Type
     /**
      * Returns the FQSEN associated with this object.
      */
-    public function getFqsen() : ?\ECSPrefix20210803\phpDocumentor\Reflection\Fqsen
+    public function getFqsen() : ?\ECSPrefix20210804\phpDocumentor\Reflection\Fqsen
     {
         return $this->fqsen;
     }

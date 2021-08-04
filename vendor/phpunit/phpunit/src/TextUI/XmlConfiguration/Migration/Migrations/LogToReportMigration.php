@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use function sprintf;
 use DOMDocument;
@@ -18,7 +18,7 @@ use DOMXPath;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract class LogToReportMigration implements \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Migration
+abstract class LogToReportMigration implements \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Migration
 {
     /**
      * @throws MigrationException
@@ -27,7 +27,7 @@ abstract class LogToReportMigration implements \ECSPrefix20210803\PHPUnit\TextUI
     {
         $coverage = $document->getElementsByTagName('coverage')->item(0);
         if (!$coverage instanceof \DOMElement) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\MigrationException('Unexpected state - No coverage element');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\MigrationException('Unexpected state - No coverage element');
         }
         $logNode = $this->findLogNode($document);
         if ($logNode === null) {

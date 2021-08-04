@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Builder;
+namespace ECSPrefix20210804\PhpParser\Builder;
 
-use ECSPrefix20210803\PhpParser;
-use ECSPrefix20210803\PhpParser\BuilderHelpers;
-abstract class Declaration implements \ECSPrefix20210803\PhpParser\Builder
+use ECSPrefix20210804\PhpParser;
+use ECSPrefix20210804\PhpParser\BuilderHelpers;
+abstract class Declaration implements \ECSPrefix20210804\PhpParser\Builder
 {
     protected $attributes = [];
     public abstract function addStmt($stmt);
@@ -32,7 +32,7 @@ abstract class Declaration implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function setDocComment($docComment)
     {
-        $this->attributes['comments'] = [\ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeDocComment($docComment)];
+        $this->attributes['comments'] = [\ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeDocComment($docComment)];
         return $this;
     }
 }

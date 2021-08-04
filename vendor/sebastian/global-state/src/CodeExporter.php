@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\GlobalState;
+namespace ECSPrefix20210804\SebastianBergmann\GlobalState;
 
 use const PHP_EOL;
 use function is_array;
@@ -22,7 +22,7 @@ use function var_export;
  */
 final class CodeExporter
 {
-    public function constants(\ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot $snapshot) : string
+    public function constants(\ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot $snapshot) : string
     {
         $result = '';
         foreach ($snapshot->constants() as $name => $value) {
@@ -30,7 +30,7 @@ final class CodeExporter
         }
         return $result;
     }
-    public function globalVariables(\ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot $snapshot) : string
+    public function globalVariables(\ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot $snapshot) : string
     {
         $result = <<<'EOT'
 call_user_func(
@@ -49,7 +49,7 @@ EOT;
         }
         return $result;
     }
-    public function iniSettings(\ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot $snapshot) : string
+    public function iniSettings(\ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot $snapshot) : string
     {
         $result = '';
         foreach ($snapshot->iniSettings() as $key => $value) {

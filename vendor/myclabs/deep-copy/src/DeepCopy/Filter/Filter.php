@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Filter;
+namespace ECSPrefix20210804\DeepCopy\Filter;
 
 /**
  * Filter to apply to a property while copying an object

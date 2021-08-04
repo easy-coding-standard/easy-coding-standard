@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Template;
+namespace ECSPrefix20210804\SebastianBergmann\Template;
 
 use function array_merge;
 use function file_exists;
@@ -55,7 +55,7 @@ final class Template
         } elseif (\file_exists($distFile)) {
             $this->template = \file_get_contents($distFile);
         } else {
-            throw new \ECSPrefix20210803\SebastianBergmann\Template\InvalidArgumentException(\sprintf('Failed to load template "%s"', $file));
+            throw new \ECSPrefix20210804\SebastianBergmann\Template\InvalidArgumentException(\sprintf('Failed to load template "%s"', $file));
         }
     }
     public function setVar(array $values, bool $merge = \true) : void
@@ -80,7 +80,7 @@ final class Template
     public function renderTo(string $target) : void
     {
         if (!\file_put_contents($target, $this->render())) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Template\RuntimeException(\sprintf('Writing rendered result to "%s" failed', $target));
+            throw new \ECSPrefix20210804\SebastianBergmann\Template\RuntimeException(\sprintf('Writing rendered result to "%s" failed', $target));
         }
     }
 }

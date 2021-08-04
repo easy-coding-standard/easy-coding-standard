@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\ClassPatch;
+namespace ECSPrefix20210804\Prophecy\Doubler\ClassPatch;
 
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode;
 /**
  * ReflectionClass::newInstance patch.
  * Makes first argument of newInstance optional, since it works but signature is misleading
  *
  * @author Florian Klein <florian.klein@free.fr>
  */
-class ReflectionClassNewInstancePatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface
+class ReflectionClassNewInstancePatch implements \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface
 {
     /**
      * Supports ReflectionClass
@@ -26,7 +26,7 @@ class ReflectionClassNewInstancePatch implements \ECSPrefix20210803\Prophecy\Dou
      *
      * @return bool
      */
-    public function supports(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function supports(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         return 'ReflectionClass' === $node->getParentClass();
     }
@@ -35,7 +35,7 @@ class ReflectionClassNewInstancePatch implements \ECSPrefix20210803\Prophecy\Dou
      *
      * @param ClassNode $node
      */
-    public function apply(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function apply(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         foreach ($node->getMethod('newInstance')->getArguments() as $argument) {
             $argument->setDefault(null);

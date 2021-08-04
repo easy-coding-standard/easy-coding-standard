@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use const DIRECTORY_SEPARATOR;
 use function array_diff;
@@ -38,7 +38,7 @@ final class FileLoader
         $includePathFilename = \stream_resolve_include_path($filename);
         $localFile = __DIR__ . \DIRECTORY_SEPARATOR . $filename;
         if (!$includePathFilename || $includePathFilename === $localFile || !self::isReadable($includePathFilename)) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception(\sprintf('Cannot open file "%s".' . "\n", $filename));
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception(\sprintf('Cannot open file "%s".' . "\n", $filename));
         }
         self::load($includePathFilename);
         return $includePathFilename;

@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Example;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Example;
 use function array_slice;
 use function file;
 use function getcwd;
@@ -33,7 +33,7 @@ class ExampleFinder
     /**
      * Attempts to find the example contents for the given descriptor.
      */
-    public function find(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Example $example) : string
+    public function find(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Example $example) : string
     {
         $filename = $example->getFilePath();
         $file = $this->getExampleFileContents($filename);

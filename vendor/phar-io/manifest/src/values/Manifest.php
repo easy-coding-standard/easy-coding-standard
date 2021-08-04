@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
-use ECSPrefix20210803\PharIo\Version\Version;
+use ECSPrefix20210804\PharIo\Version\Version;
 class Manifest
 {
     /** @var ApplicationName */
@@ -26,7 +26,7 @@ class Manifest
     private $requirements;
     /** @var BundledComponentCollection */
     private $bundledComponents;
-    public function __construct(\ECSPrefix20210803\PharIo\Manifest\ApplicationName $name, \ECSPrefix20210803\PharIo\Version\Version $version, \ECSPrefix20210803\PharIo\Manifest\Type $type, \ECSPrefix20210803\PharIo\Manifest\CopyrightInformation $copyrightInformation, \ECSPrefix20210803\PharIo\Manifest\RequirementCollection $requirements, \ECSPrefix20210803\PharIo\Manifest\BundledComponentCollection $bundledComponents)
+    public function __construct(\ECSPrefix20210804\PharIo\Manifest\ApplicationName $name, \ECSPrefix20210804\PharIo\Version\Version $version, \ECSPrefix20210804\PharIo\Manifest\Type $type, \ECSPrefix20210804\PharIo\Manifest\CopyrightInformation $copyrightInformation, \ECSPrefix20210804\PharIo\Manifest\RequirementCollection $requirements, \ECSPrefix20210804\PharIo\Manifest\BundledComponentCollection $bundledComponents)
     {
         $this->name = $name;
         $this->version = $version;
@@ -35,27 +35,27 @@ class Manifest
         $this->requirements = $requirements;
         $this->bundledComponents = $bundledComponents;
     }
-    public function getName() : \ECSPrefix20210803\PharIo\Manifest\ApplicationName
+    public function getName() : \ECSPrefix20210804\PharIo\Manifest\ApplicationName
     {
         return $this->name;
     }
-    public function getVersion() : \ECSPrefix20210803\PharIo\Version\Version
+    public function getVersion() : \ECSPrefix20210804\PharIo\Version\Version
     {
         return $this->version;
     }
-    public function getType() : \ECSPrefix20210803\PharIo\Manifest\Type
+    public function getType() : \ECSPrefix20210804\PharIo\Manifest\Type
     {
         return $this->type;
     }
-    public function getCopyrightInformation() : \ECSPrefix20210803\PharIo\Manifest\CopyrightInformation
+    public function getCopyrightInformation() : \ECSPrefix20210804\PharIo\Manifest\CopyrightInformation
     {
         return $this->copyrightInformation;
     }
-    public function getRequirements() : \ECSPrefix20210803\PharIo\Manifest\RequirementCollection
+    public function getRequirements() : \ECSPrefix20210804\PharIo\Manifest\RequirementCollection
     {
         return $this->requirements;
     }
-    public function getBundledComponents() : \ECSPrefix20210803\PharIo\Manifest\BundledComponentCollection
+    public function getBundledComponents() : \ECSPrefix20210804\PharIo\Manifest\BundledComponentCollection
     {
         return $this->bundledComponents;
     }
@@ -71,7 +71,7 @@ class Manifest
     {
         return $this->type->isExtension();
     }
-    public function isExtensionFor(\ECSPrefix20210803\PharIo\Manifest\ApplicationName $application, \ECSPrefix20210803\PharIo\Version\Version $version = null) : bool
+    public function isExtensionFor(\ECSPrefix20210804\PharIo\Manifest\ApplicationName $application, \ECSPrefix20210804\PharIo\Version\Version $version = null) : bool
     {
         if (!$this->isExtension()) {
             return \false;

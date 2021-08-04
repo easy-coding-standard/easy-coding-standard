@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function count;
 use function is_array;
@@ -20,12 +20,12 @@ use EmptyIterator;
 use Generator;
 use Iterator;
 use IteratorAggregate;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
 use Traversable;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-class Count extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+class Count extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var int
@@ -65,7 +65,7 @@ class Count extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
                 try {
                     $other = $other->getIterator();
                 } catch (\Exception $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), $e->getCode(), $e);
                 }
             }
             $iterator = $other;

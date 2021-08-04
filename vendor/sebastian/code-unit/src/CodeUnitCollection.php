@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeUnit;
+namespace ECSPrefix20210804\SebastianBergmann\CodeUnit;
 
 use function array_merge;
 use function count;
@@ -52,9 +52,9 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
     {
         return $this->codeUnits;
     }
-    public function getIterator() : \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
+    public function getIterator() : \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollectionIterator
     {
-        return new \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollectionIterator($this);
+        return new \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollectionIterator($this);
     }
     public function count() : int
     {
@@ -75,7 +75,7 @@ final class CodeUnitCollection implements \Countable, \IteratorAggregate
     /**
      * @return void
      */
-    private function add(\ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit $item)
+    private function add(\ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit $item)
     {
         $this->codeUnits[] = $item;
     }

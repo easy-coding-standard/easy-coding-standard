@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Html;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Html;
 
 use function array_values;
 use function arsort;
@@ -20,19 +20,19 @@ use function floor;
 use function json_encode;
 use function sprintf;
 use function str_replace;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
-use ECSPrefix20210803\SebastianBergmann\Template\Template;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
+use ECSPrefix20210804\SebastianBergmann\Template\Template;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class Dashboard extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Html\Renderer
+final class Dashboard extends \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Html\Renderer
 {
-    public function render(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory $node, string $file) : void
+    public function render(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory $node, string $file) : void
     {
         $classes = $node->classesAndTraits();
         $templateName = $this->templatePath . ($this->hasBranchCoverage ? 'dashboard_branch.html' : 'dashboard.html');
-        $template = new \ECSPrefix20210803\SebastianBergmann\Template\Template($templateName, '{{', '}}');
+        $template = new \ECSPrefix20210804\SebastianBergmann\Template\Template($templateName, '{{', '}}');
         $this->setCommonTemplateVariables($template, $node);
         $baseLink = $node->id() . '/';
         $complexity = $this->complexity($classes, $baseLink);
@@ -42,7 +42,7 @@ final class Dashboard extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\
         $template->setVar(['insufficient_coverage_classes' => $insufficientCoverage['class'], 'insufficient_coverage_methods' => $insufficientCoverage['method'], 'project_risks_classes' => $projectRisks['class'], 'project_risks_methods' => $projectRisks['method'], 'complexity_class' => $complexity['class'], 'complexity_method' => $complexity['method'], 'class_coverage_distribution' => $coverageDistribution['class'], 'method_coverage_distribution' => $coverageDistribution['method']]);
         $template->renderTo($file);
     }
-    protected function activeBreadcrumb(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : string
+    protected function activeBreadcrumb(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : string
     {
         return \sprintf('         <li class="breadcrumb-item"><a href="index.html">%s</a></li>' . "\n" . '         <li class="breadcrumb-item active">(Dashboard)</li>' . "\n", $node->name());
     }

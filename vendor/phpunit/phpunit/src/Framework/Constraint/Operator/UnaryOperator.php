@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function count;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class UnaryOperator extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Operator
+abstract class UnaryOperator extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Operator
 {
     /**
      * @var Constraint
@@ -105,14 +105,14 @@ abstract class UnaryOperator extends \ECSPrefix20210803\PHPUnit\Framework\Constr
     /**
      * Provides access to $this->constraint for subclasses.
      */
-    protected final function constraint() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+    protected final function constraint() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
     {
         return $this->constraint;
     }
     /**
      * Returns true if the $constraint needs to be wrapped with parentheses.
      */
-    protected function constraintNeedsParentheses(\ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint $constraint) : bool
+    protected function constraintNeedsParentheses(\ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint $constraint) : bool
     {
         $constraint = $constraint->reduce();
         return $constraint instanceof self || parent::constraintNeedsParentheses($constraint);

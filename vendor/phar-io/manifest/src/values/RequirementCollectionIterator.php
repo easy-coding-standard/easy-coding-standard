@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class RequirementCollectionIterator implements \Iterator
 {
@@ -17,7 +17,7 @@ class RequirementCollectionIterator implements \Iterator
     private $requirements;
     /** @var int */
     private $position = 0;
-    public function __construct(\ECSPrefix20210803\PharIo\Manifest\RequirementCollection $requirements)
+    public function __construct(\ECSPrefix20210804\PharIo\Manifest\RequirementCollection $requirements)
     {
         $this->requirements = $requirements->getRequirements();
     }
@@ -33,7 +33,7 @@ class RequirementCollectionIterator implements \Iterator
     {
         return $this->position;
     }
-    public function current() : \ECSPrefix20210803\PharIo\Manifest\Requirement
+    public function current() : \ECSPrefix20210804\PharIo\Manifest\Requirement
     {
         return $this->requirements[$this->position];
     }

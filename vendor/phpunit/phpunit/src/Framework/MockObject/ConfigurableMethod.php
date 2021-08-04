@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
-use ECSPrefix20210803\SebastianBergmann\Type\Type;
+use ECSPrefix20210804\SebastianBergmann\Type\Type;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -25,7 +25,7 @@ final class ConfigurableMethod
      * @var Type
      */
     private $returnType;
-    public function __construct(string $name, \ECSPrefix20210803\SebastianBergmann\Type\Type $returnType)
+    public function __construct(string $name, \ECSPrefix20210804\SebastianBergmann\Type\Type $returnType)
     {
         $this->name = $name;
         $this->returnType = $returnType;
@@ -39,7 +39,7 @@ final class ConfigurableMethod
         if ($value === null && $this->returnType->allowsNull()) {
             return \true;
         }
-        return $this->returnType->isAssignable(\ECSPrefix20210803\SebastianBergmann\Type\Type::fromValue($value, \false));
+        return $this->returnType->isAssignable(\ECSPrefix20210804\SebastianBergmann\Type\Type::fromValue($value, \false));
     }
     public function getReturnTypeDeclaration() : string
     {

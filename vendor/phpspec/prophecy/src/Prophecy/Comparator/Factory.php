@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Comparator;
+namespace ECSPrefix20210804\Prophecy\Comparator;
 
-use ECSPrefix20210803\SebastianBergmann\Comparator\Factory as BaseFactory;
+use ECSPrefix20210804\SebastianBergmann\Comparator\Factory as BaseFactory;
 /**
  * Prophecy comparator factory.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-final class Factory extends \ECSPrefix20210803\SebastianBergmann\Comparator\Factory
+final class Factory extends \ECSPrefix20210804\SebastianBergmann\Comparator\Factory
 {
     /**
      * @var Factory
@@ -25,8 +25,8 @@ final class Factory extends \ECSPrefix20210803\SebastianBergmann\Comparator\Fact
     public function __construct()
     {
         parent::__construct();
-        $this->register(new \ECSPrefix20210803\Prophecy\Comparator\ClosureComparator());
-        $this->register(new \ECSPrefix20210803\Prophecy\Comparator\ProphecyComparator());
+        $this->register(new \ECSPrefix20210804\Prophecy\Comparator\ClosureComparator());
+        $this->register(new \ECSPrefix20210804\Prophecy\Comparator\ProphecyComparator());
     }
     /**
      * @return Factory
@@ -34,7 +34,7 @@ final class Factory extends \ECSPrefix20210803\SebastianBergmann\Comparator\Fact
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new \ECSPrefix20210803\Prophecy\Comparator\Factory();
+            self::$instance = new \ECSPrefix20210804\Prophecy\Comparator\Factory();
         }
         return self::$instance;
     }

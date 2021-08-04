@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function json_decode;
 use function json_last_error;
@@ -17,7 +17,7 @@ use function sprintf;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsJson extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+final class IsJson extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * Returns a string representation of the constraint.
@@ -59,7 +59,7 @@ final class IsJson extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Const
             return 'an empty string is valid JSON';
         }
         \json_decode($other);
-        $error = (string) \ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatchesErrorMessageProvider::determineJsonError((string) \json_last_error());
+        $error = (string) \ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatchesErrorMessageProvider::determineJsonError((string) \json_last_error());
         return \sprintf('%s is valid JSON (%s)', $this->exporter()->shortenedExport($other), $error);
     }
 }

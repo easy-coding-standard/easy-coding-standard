@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report;
 
 use const PHP_EOL;
 use function array_map;
@@ -19,9 +19,9 @@ use function max;
 use function sprintf;
 use function str_pad;
 use function strlen;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage;
 final class Text
 {
     /**
@@ -71,7 +71,7 @@ final class Text
         $this->showUncoveredFiles = $showUncoveredFiles;
         $this->showOnlySummary = $showOnlySummary;
     }
-    public function process(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, bool $showColors = \false) : string
+    public function process(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, bool $showColors = \false) : string
     {
         $hasBranchCoverage = !empty($coverage->getData(\true)->functionCoverage());
         $output = \PHP_EOL . \PHP_EOL;
@@ -87,15 +87,15 @@ final class Text
             $colors['header'] = self::COLOR_HEADER;
             $colors['eol'] = self::COLOR_EOL;
         }
-        $classes = \sprintf('  Classes: %6s (%d/%d)', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfTestedClassesAndTraits(), $report->numberOfClassesAndTraits())->asString(), $report->numberOfTestedClassesAndTraits(), $report->numberOfClassesAndTraits());
-        $methods = \sprintf('  Methods: %6s (%d/%d)', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfTestedMethods(), $report->numberOfMethods())->asString(), $report->numberOfTestedMethods(), $report->numberOfMethods());
+        $classes = \sprintf('  Classes: %6s (%d/%d)', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfTestedClassesAndTraits(), $report->numberOfClassesAndTraits())->asString(), $report->numberOfTestedClassesAndTraits(), $report->numberOfClassesAndTraits());
+        $methods = \sprintf('  Methods: %6s (%d/%d)', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfTestedMethods(), $report->numberOfMethods())->asString(), $report->numberOfTestedMethods(), $report->numberOfMethods());
         $paths = '';
         $branches = '';
         if ($hasBranchCoverage) {
-            $paths = \sprintf('  Paths:   %6s (%d/%d)', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfExecutedPaths(), $report->numberOfExecutablePaths())->asString(), $report->numberOfExecutedPaths(), $report->numberOfExecutablePaths());
-            $branches = \sprintf('  Branches:   %6s (%d/%d)', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfExecutedBranches(), $report->numberOfExecutableBranches())->asString(), $report->numberOfExecutedBranches(), $report->numberOfExecutableBranches());
+            $paths = \sprintf('  Paths:   %6s (%d/%d)', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfExecutedPaths(), $report->numberOfExecutablePaths())->asString(), $report->numberOfExecutedPaths(), $report->numberOfExecutablePaths());
+            $branches = \sprintf('  Branches:   %6s (%d/%d)', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfExecutedBranches(), $report->numberOfExecutableBranches())->asString(), $report->numberOfExecutedBranches(), $report->numberOfExecutableBranches());
         }
-        $lines = \sprintf('  Lines:   %6s (%d/%d)', \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfExecutedLines(), $report->numberOfExecutableLines())->asString(), $report->numberOfExecutedLines(), $report->numberOfExecutableLines());
+        $lines = \sprintf('  Lines:   %6s (%d/%d)', \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($report->numberOfExecutedLines(), $report->numberOfExecutableLines())->asString(), $report->numberOfExecutedLines(), $report->numberOfExecutableLines());
         $padding = \max(\array_map('strlen', [$classes, $methods, $lines]));
         if ($this->showOnlySummary) {
             $title = 'Code Coverage Report Summary:';
@@ -121,7 +121,7 @@ final class Text
         }
         $classCoverage = [];
         foreach ($report as $item) {
-            if (!$item instanceof \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File) {
+            if (!$item instanceof \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File) {
                 continue;
             }
             $classes = $item->classesAndTraits();
@@ -178,7 +178,7 @@ final class Text
     }
     private function coverageColor(int $numberOfCoveredElements, int $totalNumberOfElements) : string
     {
-        $coverage = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numberOfCoveredElements, $totalNumberOfElements);
+        $coverage = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numberOfCoveredElements, $totalNumberOfElements);
         if ($coverage->asFloat() >= $this->highLowerBound) {
             return self::COLOR_GREEN;
         }
@@ -190,7 +190,7 @@ final class Text
     private function printCoverageCounts(int $numberOfCoveredElements, int $totalNumberOfElements, int $precision) : string
     {
         $format = '%' . $precision . 's';
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numberOfCoveredElements, $totalNumberOfElements)->asFixedWidthString() . ' (' . \sprintf($format, $numberOfCoveredElements) . '/' . \sprintf($format, $totalNumberOfElements) . ')';
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($numberOfCoveredElements, $totalNumberOfElements)->asFixedWidthString() . ' (' . \sprintf($format, $numberOfCoveredElements) . '/' . \sprintf($format, $totalNumberOfElements) . ')';
     }
     /**
      * @param false|string $string

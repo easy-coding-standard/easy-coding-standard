@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use const PHP_OS;
 use const PHP_VERSION;
@@ -39,22 +39,22 @@ use function strpos;
 use function strtolower;
 use function trim;
 use function version_compare;
-use ECSPrefix20210803\PHPUnit\Framework\Assert;
-use ECSPrefix20210803\PHPUnit\Framework\CodeCoverageException;
-use ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency;
-use ECSPrefix20210803\PHPUnit\Framework\InvalidCoversTargetException;
-use ECSPrefix20210803\PHPUnit\Framework\SelfDescribing;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Framework\Warning;
-use ECSPrefix20210803\PHPUnit\Runner\Version;
-use ECSPrefix20210803\PHPUnit\Util\Annotation\Registry;
+use ECSPrefix20210804\PHPUnit\Framework\Assert;
+use ECSPrefix20210804\PHPUnit\Framework\CodeCoverageException;
+use ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency;
+use ECSPrefix20210804\PHPUnit\Framework\InvalidCoversTargetException;
+use ECSPrefix20210804\PHPUnit\Framework\SelfDescribing;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Framework\Warning;
+use ECSPrefix20210804\PHPUnit\Runner\Version;
+use ECSPrefix20210804\PHPUnit\Util\Annotation\Registry;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
-use ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection;
-use ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException;
-use ECSPrefix20210803\SebastianBergmann\CodeUnit\Mapper;
-use ECSPrefix20210803\SebastianBergmann\Environment\OperatingSystem;
+use ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection;
+use ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException;
+use ECSPrefix20210804\SebastianBergmann\CodeUnit\Mapper;
+use ECSPrefix20210804\SebastianBergmann\Environment\OperatingSystem;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -83,19 +83,19 @@ final class Test
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public static function describe(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : array
+    public static function describe(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : array
     {
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             return [\get_class($test), $test->getName()];
         }
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing) {
             return ['', $test->toString()];
         }
         return ['', \get_class($test)];
     }
-    public static function describeAsString(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : string
+    public static function describeAsString(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : string
     {
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing) {
             return $test->toString();
         }
         return \get_class($test);
@@ -124,7 +124,7 @@ final class Test
     {
         return self::getLinesToBeCoveredOrUsed($className, $methodName, 'uses');
     }
-    public static function requiresCodeCoverageDataCollection(\ECSPrefix20210803\PHPUnit\Framework\TestCase $test) : bool
+    public static function requiresCodeCoverageDataCollection(\ECSPrefix20210804\PHPUnit\Framework\TestCase $test) : bool
     {
         $annotations = self::parseTestMethodAnnotations(\get_class($test), $test->getName(\false));
         // If there is no @covers annotation but a @coversNothing annotation on
@@ -152,7 +152,7 @@ final class Test
      */
     public static function getRequirements(string $className, string $methodName) : array
     {
-        return self::mergeArraysRecursively(\ECSPrefix20210803\PHPUnit\Util\Annotation\Registry::getInstance()->forClassName($className)->requirements(), \ECSPrefix20210803\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($className, $methodName)->requirements());
+        return self::mergeArraysRecursively(\ECSPrefix20210804\PHPUnit\Util\Annotation\Registry::getInstance()->forClassName($className)->requirements(), \ECSPrefix20210804\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($className, $methodName)->requirements());
     }
     /**
      * Returns the missing requirements for a test.
@@ -167,33 +167,33 @@ final class Test
         $missing = [];
         $hint = null;
         if (!empty($required['PHP'])) {
-            $operator = new \ECSPrefix20210803\PHPUnit\Util\VersionComparisonOperator(empty($required['PHP']['operator']) ? '>=' : $required['PHP']['operator']);
+            $operator = new \ECSPrefix20210804\PHPUnit\Util\VersionComparisonOperator(empty($required['PHP']['operator']) ? '>=' : $required['PHP']['operator']);
             if (!\version_compare(\PHP_VERSION, $required['PHP']['version'], $operator->asString())) {
                 $missing[] = \sprintf('PHP %s %s is required.', $operator->asString(), $required['PHP']['version']);
                 $hint = 'PHP';
             }
         } elseif (!empty($required['PHP_constraint'])) {
-            $version = new \ECSPrefix20210803\PharIo\Version\Version(self::sanitizeVersionNumber(\PHP_VERSION));
+            $version = new \ECSPrefix20210804\PharIo\Version\Version(self::sanitizeVersionNumber(\PHP_VERSION));
             if (!$required['PHP_constraint']['constraint']->complies($version)) {
                 $missing[] = \sprintf('PHP version does not match the required constraint %s.', $required['PHP_constraint']['constraint']->asString());
                 $hint = 'PHP_constraint';
             }
         }
         if (!empty($required['PHPUnit'])) {
-            $phpunitVersion = \ECSPrefix20210803\PHPUnit\Runner\Version::id();
-            $operator = new \ECSPrefix20210803\PHPUnit\Util\VersionComparisonOperator(empty($required['PHPUnit']['operator']) ? '>=' : $required['PHPUnit']['operator']);
+            $phpunitVersion = \ECSPrefix20210804\PHPUnit\Runner\Version::id();
+            $operator = new \ECSPrefix20210804\PHPUnit\Util\VersionComparisonOperator(empty($required['PHPUnit']['operator']) ? '>=' : $required['PHPUnit']['operator']);
             if (!\version_compare($phpunitVersion, $required['PHPUnit']['version'], $operator->asString())) {
                 $missing[] = \sprintf('PHPUnit %s %s is required.', $operator->asString(), $required['PHPUnit']['version']);
                 $hint = $hint ?? 'PHPUnit';
             }
         } elseif (!empty($required['PHPUnit_constraint'])) {
-            $phpunitVersion = new \ECSPrefix20210803\PharIo\Version\Version(self::sanitizeVersionNumber(\ECSPrefix20210803\PHPUnit\Runner\Version::id()));
+            $phpunitVersion = new \ECSPrefix20210804\PharIo\Version\Version(self::sanitizeVersionNumber(\ECSPrefix20210804\PHPUnit\Runner\Version::id()));
             if (!$required['PHPUnit_constraint']['constraint']->complies($phpunitVersion)) {
                 $missing[] = \sprintf('PHPUnit version does not match the required constraint %s.', $required['PHPUnit_constraint']['constraint']->asString());
                 $hint = $hint ?? 'PHPUnit_constraint';
             }
         }
-        if (!empty($required['OSFAMILY']) && $required['OSFAMILY'] !== (new \ECSPrefix20210803\SebastianBergmann\Environment\OperatingSystem())->getFamily()) {
+        if (!empty($required['OSFAMILY']) && $required['OSFAMILY'] !== (new \ECSPrefix20210804\SebastianBergmann\Environment\OperatingSystem())->getFamily()) {
             $missing[] = \sprintf('Operating system %s is required.', $required['OSFAMILY']);
             $hint = $hint ?? 'OSFAMILY';
         }
@@ -239,7 +239,7 @@ final class Test
         if (!empty($required['extension_versions'])) {
             foreach ($required['extension_versions'] as $extension => $req) {
                 $actualVersion = \phpversion($extension);
-                $operator = new \ECSPrefix20210803\PHPUnit\Util\VersionComparisonOperator(empty($req['operator']) ? '>=' : $req['operator']);
+                $operator = new \ECSPrefix20210804\PHPUnit\Util\VersionComparisonOperator(empty($req['operator']) ? '>=' : $req['operator']);
                 if ($actualVersion === \false || !\version_compare($actualVersion, $req['version'], $operator->asString())) {
                     $missing[] = \sprintf('Extension %s %s %s is required.', $extension, $operator->asString(), $req['version']);
                     $hint = $hint ?? 'extension_' . $extension;
@@ -260,18 +260,18 @@ final class Test
      */
     public static function getProvidedData(string $className, string $methodName) : ?array
     {
-        return \ECSPrefix20210803\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($className, $methodName)->getProvidedData();
+        return \ECSPrefix20210804\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($className, $methodName)->getProvidedData();
     }
     /**
      * @psalm-param class-string $className
      */
     public static function parseTestMethodAnnotations(string $className, ?string $methodName = '') : array
     {
-        $registry = \ECSPrefix20210803\PHPUnit\Util\Annotation\Registry::getInstance();
+        $registry = \ECSPrefix20210804\PHPUnit\Util\Annotation\Registry::getInstance();
         if ($methodName !== null) {
             try {
                 return ['method' => $registry->forMethod($className, $methodName)->symbolAnnotations(), 'class' => $registry->forClassName($className)->symbolAnnotations()];
-            } catch (\ECSPrefix20210803\PHPUnit\Util\Exception $methodNotFound) {
+            } catch (\ECSPrefix20210804\PHPUnit\Util\Exception $methodNotFound) {
                 // ignored
             }
         }
@@ -282,7 +282,7 @@ final class Test
      */
     public static function getInlineAnnotations(string $className, string $methodName) : array
     {
-        return \ECSPrefix20210803\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($className, $methodName)->getInlineAnnotations();
+        return \ECSPrefix20210804\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($className, $methodName)->getInlineAnnotations();
     }
     /** @psalm-param class-string $className */
     public static function getBackupSettings(string $className, string $methodName) : array
@@ -304,7 +304,7 @@ final class Test
         // Normalize dependency name to className::methodName
         $dependencies = [];
         foreach ($dependsAnnotations as $value) {
-            $dependencies[] = \ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency::createFromDependsAnnotation($className, $value);
+            $dependencies[] = \ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency::createFromDependsAnnotation($className, $value);
         }
         return \array_unique($dependencies);
     }
@@ -394,13 +394,13 @@ final class Test
             self::$hookMethods[$className] = self::emptyHookMethodsArray();
             try {
                 foreach ((new \ReflectionClass($className))->getMethods() as $method) {
-                    if ($method->getDeclaringClass()->getName() === \ECSPrefix20210803\PHPUnit\Framework\Assert::class) {
+                    if ($method->getDeclaringClass()->getName() === \ECSPrefix20210804\PHPUnit\Framework\Assert::class) {
                         continue;
                     }
-                    if ($method->getDeclaringClass()->getName() === \ECSPrefix20210803\PHPUnit\Framework\TestCase::class) {
+                    if ($method->getDeclaringClass()->getName() === \ECSPrefix20210804\PHPUnit\Framework\TestCase::class) {
                         continue;
                     }
-                    $docBlock = \ECSPrefix20210803\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($className, $method->getName());
+                    $docBlock = \ECSPrefix20210804\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($className, $method->getName());
                     if ($method->isStatic()) {
                         if ($docBlock->isHookToBeExecutedBeforeClass()) {
                             \array_unshift(self::$hookMethods[$className]['beforeClass'], $method->getName());
@@ -435,7 +435,7 @@ final class Test
         if (\strpos($method->getName(), 'test') === 0) {
             return \true;
         }
-        return \array_key_exists('test', \ECSPrefix20210803\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($method->getDeclaringClass()->getName(), $method->getName())->symbolAnnotations());
+        return \array_key_exists('test', \ECSPrefix20210804\PHPUnit\Util\Annotation\Registry::getInstance()->forMethod($method->getDeclaringClass()->getName(), $method->getName())->symbolAnnotations());
     }
     /**
      * @throws CodeCoverageException
@@ -447,7 +447,7 @@ final class Test
         $classShortcut = null;
         if (!empty($annotations['class'][$mode . 'DefaultClass'])) {
             if (\count($annotations['class'][$mode . 'DefaultClass']) > 1) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\CodeCoverageException(\sprintf('More than one @%sClass annotation in class or interface "%s".', $mode, $className));
+                throw new \ECSPrefix20210804\PHPUnit\Framework\CodeCoverageException(\sprintf('More than one @%sClass annotation in class or interface "%s".', $mode, $className));
             }
             $classShortcut = $annotations['class'][$mode . 'DefaultClass'][0];
         }
@@ -455,8 +455,8 @@ final class Test
         if (isset($annotations['method'][$mode])) {
             $list = \array_merge($list, $annotations['method'][$mode]);
         }
-        $codeUnits = \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnitCollection::fromArray([]);
-        $mapper = new \ECSPrefix20210803\SebastianBergmann\CodeUnit\Mapper();
+        $codeUnits = \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnitCollection::fromArray([]);
+        $mapper = new \ECSPrefix20210804\SebastianBergmann\CodeUnit\Mapper();
         foreach (\array_unique($list) as $element) {
             if ($classShortcut && \strncmp($element, '::', 2) === 0) {
                 $element = $classShortcut . $element;
@@ -465,12 +465,12 @@ final class Test
             $element = \explode(' ', $element);
             $element = $element[0];
             if ($mode === 'covers' && \interface_exists($element)) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\InvalidCoversTargetException(\sprintf('Trying to @cover interface "%s".', $element));
+                throw new \ECSPrefix20210804\PHPUnit\Framework\InvalidCoversTargetException(\sprintf('Trying to @cover interface "%s".', $element));
             }
             try {
                 $codeUnits = $codeUnits->mergeWith($mapper->stringToCodeUnits($element));
-            } catch (\ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\InvalidCoversTargetException(\sprintf('"@%s %s" is invalid', $mode, $element), (int) $e->getCode(), $e);
+            } catch (\ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException $e) {
+                throw new \ECSPrefix20210804\PHPUnit\Framework\InvalidCoversTargetException(\sprintf('"@%s %s" is invalid', $mode, $element), (int) $e->getCode(), $e);
             }
         }
         return $mapper->codeUnitsToSourceLines($codeUnits);

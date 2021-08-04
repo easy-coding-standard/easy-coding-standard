@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Prophecy;
+namespace ECSPrefix20210804\Prophecy\Prophecy;
 
 /**
  * Basic prophecies revealer.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class Revealer implements \ECSPrefix20210803\Prophecy\Prophecy\RevealerInterface
+class Revealer implements \ECSPrefix20210804\Prophecy\Prophecy\RevealerInterface
 {
     /**
      * Unwraps value(s).
@@ -32,7 +32,7 @@ class Revealer implements \ECSPrefix20210803\Prophecy\Prophecy\RevealerInterface
         if (!\is_object($value)) {
             return $value;
         }
-        if ($value instanceof \ECSPrefix20210803\Prophecy\Prophecy\ProphecyInterface) {
+        if ($value instanceof \ECSPrefix20210804\Prophecy\Prophecy\ProphecyInterface) {
             $value = $value->reveal();
         }
         return $value;

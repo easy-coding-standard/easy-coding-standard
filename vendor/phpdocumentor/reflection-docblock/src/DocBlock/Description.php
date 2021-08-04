@@ -9,10 +9,10 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
 use function vsprintf;
 /**
  * Object representing to description for a DocBlock.
@@ -82,10 +82,10 @@ class Description
      * Renders this description as a string where the provided formatter will format the tags in the expected string
      * format.
      */
-    public function render(?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string
+    public function render(?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string
     {
         if ($formatter === null) {
-            $formatter = new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+            $formatter = new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
         }
         $tags = [];
         foreach ($this->tags as $tag) {

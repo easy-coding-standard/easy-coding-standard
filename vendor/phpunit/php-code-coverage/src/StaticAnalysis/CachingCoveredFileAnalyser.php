@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis;
 
-use ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode;
+use ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class CachingCoveredFileAnalyser extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\Cache implements \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser
+final class CachingCoveredFileAnalyser extends \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\Cache implements \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser
 {
     /**
      * @var CoveredFileAnalyser
@@ -25,7 +25,7 @@ final class CachingCoveredFileAnalyser extends \ECSPrefix20210803\SebastianBergm
      * @var array
      */
     private $cache = [];
-    public function __construct(string $directory, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser $coveredFileAnalyser)
+    public function __construct(string $directory, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser $coveredFileAnalyser)
     {
         parent::__construct($directory);
         $this->coveredFileAnalyser = $coveredFileAnalyser;
@@ -51,7 +51,7 @@ final class CachingCoveredFileAnalyser extends \ECSPrefix20210803\SebastianBergm
         }
         return $this->cache[$filename]['functionsIn'];
     }
-    public function linesOfCodeFor(string $filename) : \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode
+    public function linesOfCodeFor(string $filename) : \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode
     {
         if (!isset($this->cache[$filename])) {
             $this->process($filename);
@@ -68,7 +68,7 @@ final class CachingCoveredFileAnalyser extends \ECSPrefix20210803\SebastianBergm
     public function process(string $filename) : void
     {
         if ($this->has($filename, __CLASS__)) {
-            $this->cache[$filename] = $this->read($filename, __CLASS__, [\ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode::class]);
+            $this->cache[$filename] = $this->read($filename, __CLASS__, [\ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode::class]);
             return;
         }
         $this->cache[$filename] = ['classesIn' => $this->coveredFileAnalyser->classesIn($filename), 'traitsIn' => $this->coveredFileAnalyser->traitsIn($filename), 'functionsIn' => $this->coveredFileAnalyser->functionsIn($filename), 'linesOfCodeFor' => $this->coveredFileAnalyser->linesOfCodeFor($filename), 'ignoredLinesFor' => $this->coveredFileAnalyser->ignoredLinesFor($filename)];

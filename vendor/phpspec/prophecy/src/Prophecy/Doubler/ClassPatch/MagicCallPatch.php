@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\ClassPatch;
+namespace ECSPrefix20210804\Prophecy\Doubler\ClassPatch;
 
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode;
-use ECSPrefix20210803\Prophecy\PhpDocumentor\ClassAndInterfaceTagRetriever;
-use ECSPrefix20210803\Prophecy\PhpDocumentor\MethodTagRetrieverInterface;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode;
+use ECSPrefix20210804\Prophecy\PhpDocumentor\ClassAndInterfaceTagRetriever;
+use ECSPrefix20210804\Prophecy\PhpDocumentor\MethodTagRetrieverInterface;
 /**
  * Discover Magical API using "@method" PHPDoc format.
  *
@@ -22,13 +22,13 @@ use ECSPrefix20210803\Prophecy\PhpDocumentor\MethodTagRetrieverInterface;
  * @author Kévin Dunglas <dunglas@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class MagicCallPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface
+class MagicCallPatch implements \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface
 {
     const MAGIC_METHODS_WITH_ARGUMENTS = ['__call', '__callStatic', '__get', '__isset', '__set', '__set_state', '__unserialize', '__unset'];
     private $tagRetriever;
-    public function __construct(\ECSPrefix20210803\Prophecy\PhpDocumentor\MethodTagRetrieverInterface $tagRetriever = null)
+    public function __construct(\ECSPrefix20210804\Prophecy\PhpDocumentor\MethodTagRetrieverInterface $tagRetriever = null)
     {
-        $this->tagRetriever = null === $tagRetriever ? new \ECSPrefix20210803\Prophecy\PhpDocumentor\ClassAndInterfaceTagRetriever() : $tagRetriever;
+        $this->tagRetriever = null === $tagRetriever ? new \ECSPrefix20210804\Prophecy\PhpDocumentor\ClassAndInterfaceTagRetriever() : $tagRetriever;
     }
     /**
      * Support any class
@@ -37,7 +37,7 @@ class MagicCallPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\C
      *
      * @return boolean
      */
-    public function supports(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function supports(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         return \true;
     }
@@ -46,7 +46,7 @@ class MagicCallPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\C
      *
      * @param ClassNode $node
      */
-    public function apply(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function apply(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         $types = \array_filter($node->getInterfaces(), function ($interface) {
             return 0 !== \strpos($interface, 'Prophecy\\');
@@ -62,11 +62,11 @@ class MagicCallPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\C
                         continue;
                     }
                     if (!$reflectionClass->hasMethod($methodName)) {
-                        $methodNode = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode($methodName);
+                        $methodNode = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode($methodName);
                         // only magic methods can have a contract that needs to be enforced
                         if (\in_array($methodName, self::MAGIC_METHODS_WITH_ARGUMENTS)) {
                             foreach ($tag->getArguments() as $argument) {
-                                $argumentNode = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode($argument['name']);
+                                $argumentNode = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode($argument['name']);
                                 $methodNode->addArgument($argumentNode);
                             }
                         }

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml;
 
 use DOMDocument;
 use DOMElement;
@@ -31,22 +31,22 @@ class File
         $this->dom = $context->ownerDocument;
         $this->contextNode = $context;
     }
-    public function totals() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Totals
+    public function totals() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Totals
     {
         $totalsContainer = $this->contextNode->firstChild;
         if (!$totalsContainer) {
             $totalsContainer = $this->contextNode->appendChild($this->dom->createElementNS('https://schema.phpunit.de/coverage/1.0', 'totals'));
         }
-        return new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Totals($totalsContainer);
+        return new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Totals($totalsContainer);
     }
-    public function lineCoverage(string $line) : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Coverage
+    public function lineCoverage(string $line) : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Coverage
     {
         $coverage = $this->contextNode->getElementsByTagNameNS('https://schema.phpunit.de/coverage/1.0', 'coverage')->item(0);
         if (!$coverage) {
             $coverage = $this->contextNode->appendChild($this->dom->createElementNS('https://schema.phpunit.de/coverage/1.0', 'coverage'));
         }
         $lineNode = $coverage->appendChild($this->dom->createElementNS('https://schema.phpunit.de/coverage/1.0', 'line'));
-        return new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Coverage($lineNode, $line);
+        return new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Coverage($lineNode, $line);
     }
     protected function contextNode() : \DOMElement
     {

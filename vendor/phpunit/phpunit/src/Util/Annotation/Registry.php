@@ -9,10 +9,10 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\Annotation;
+namespace ECSPrefix20210804\PHPUnit\Util\Annotation;
 
 use function array_key_exists;
-use ECSPrefix20210803\PHPUnit\Util\Exception;
+use ECSPrefix20210804\PHPUnit\Util\Exception;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
@@ -41,7 +41,7 @@ final class Registry
      * @throws Exception
      * @psalm-param class-string $class
      */
-    public function forClassName(string $class) : \ECSPrefix20210803\PHPUnit\Util\Annotation\DocBlock
+    public function forClassName(string $class) : \ECSPrefix20210804\PHPUnit\Util\Annotation\DocBlock
     {
         if (\array_key_exists($class, $this->classDocBlocks)) {
             return $this->classDocBlocks[$class];
@@ -50,16 +50,16 @@ final class Registry
             $reflection = new \ReflectionClass($class);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
-        return $this->classDocBlocks[$class] = \ECSPrefix20210803\PHPUnit\Util\Annotation\DocBlock::ofClass($reflection);
+        return $this->classDocBlocks[$class] = \ECSPrefix20210804\PHPUnit\Util\Annotation\DocBlock::ofClass($reflection);
     }
     /**
      * @throws Exception
      * @psalm-param class-string $classInHierarchy
      */
-    public function forMethod(string $classInHierarchy, string $method) : \ECSPrefix20210803\PHPUnit\Util\Annotation\DocBlock
+    public function forMethod(string $classInHierarchy, string $method) : \ECSPrefix20210804\PHPUnit\Util\Annotation\DocBlock
     {
         if (isset($this->methodDocBlocks[$classInHierarchy][$method])) {
             return $this->methodDocBlocks[$classInHierarchy][$method];
@@ -68,9 +68,9 @@ final class Registry
             $reflection = new \ReflectionMethod($classInHierarchy, $method);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
-        return $this->methodDocBlocks[$classInHierarchy][$method] = \ECSPrefix20210803\PHPUnit\Util\Annotation\DocBlock::ofMethod($reflection, $classInHierarchy);
+        return $this->methodDocBlocks[$classInHierarchy][$method] = \ECSPrefix20210804\PHPUnit\Util\Annotation\DocBlock::ofMethod($reflection, $classInHierarchy);
     }
 }

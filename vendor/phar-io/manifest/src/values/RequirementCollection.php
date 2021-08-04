@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class RequirementCollection implements \Countable, \IteratorAggregate
 {
     /** @var Requirement[] */
     private $requirements = [];
-    public function add(\ECSPrefix20210803\PharIo\Manifest\Requirement $requirement) : void
+    public function add(\ECSPrefix20210804\PharIo\Manifest\Requirement $requirement) : void
     {
         $this->requirements[] = $requirement;
     }
@@ -30,8 +30,8 @@ class RequirementCollection implements \Countable, \IteratorAggregate
     {
         return \count($this->requirements);
     }
-    public function getIterator() : \ECSPrefix20210803\PharIo\Manifest\RequirementCollectionIterator
+    public function getIterator() : \ECSPrefix20210804\PharIo\Manifest\RequirementCollectionIterator
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\RequirementCollectionIterator($this);
+        return new \ECSPrefix20210804\PharIo\Manifest\RequirementCollectionIterator($this);
     }
 }

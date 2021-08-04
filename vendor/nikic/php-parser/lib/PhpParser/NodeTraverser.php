@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser;
+namespace ECSPrefix20210804\PhpParser;
 
-class NodeTraverser implements \ECSPrefix20210803\PhpParser\NodeTraverserInterface
+class NodeTraverser implements \ECSPrefix20210804\PhpParser\NodeTraverserInterface
 {
     /**
      * If NodeVisitor::enterNode() returns DONT_TRAVERSE_CHILDREN, child nodes
@@ -49,7 +49,7 @@ class NodeTraverser implements \ECSPrefix20210803\PhpParser\NodeTraverserInterfa
      *
      * @param NodeVisitor $visitor Visitor to add
      */
-    public function addVisitor(\ECSPrefix20210803\PhpParser\NodeVisitor $visitor)
+    public function addVisitor(\ECSPrefix20210804\PhpParser\NodeVisitor $visitor)
     {
         $this->visitors[] = $visitor;
     }
@@ -58,7 +58,7 @@ class NodeTraverser implements \ECSPrefix20210803\PhpParser\NodeTraverserInterfa
      *
      * @param NodeVisitor $visitor
      */
-    public function removeVisitor(\ECSPrefix20210803\PhpParser\NodeVisitor $visitor)
+    public function removeVisitor(\ECSPrefix20210804\PhpParser\NodeVisitor $visitor)
     {
         foreach ($this->visitors as $index => $storedVisitor) {
             if ($storedVisitor === $visitor) {
@@ -97,7 +97,7 @@ class NodeTraverser implements \ECSPrefix20210803\PhpParser\NodeTraverserInterfa
      *
      * @return Node Result of traversal (may be original node or new one)
      */
-    protected function traverseNode(\ECSPrefix20210803\PhpParser\Node $node) : \ECSPrefix20210803\PhpParser\Node
+    protected function traverseNode(\ECSPrefix20210804\PhpParser\Node $node) : \ECSPrefix20210804\PhpParser\Node
     {
         foreach ($node->getSubNodeNames() as $name) {
             $subNode =& $node->{$name};
@@ -106,13 +106,13 @@ class NodeTraverser implements \ECSPrefix20210803\PhpParser\NodeTraverserInterfa
                 if ($this->stopTraversal) {
                     break;
                 }
-            } elseif ($subNode instanceof \ECSPrefix20210803\PhpParser\Node) {
+            } elseif ($subNode instanceof \ECSPrefix20210804\PhpParser\Node) {
                 $traverseChildren = \true;
                 $breakVisitorIndex = null;
                 foreach ($this->visitors as $visitorIndex => $visitor) {
                     $return = $visitor->enterNode($subNode);
                     if (null !== $return) {
-                        if ($return instanceof \ECSPrefix20210803\PhpParser\Node) {
+                        if ($return instanceof \ECSPrefix20210804\PhpParser\Node) {
                             $this->ensureReplacementReasonable($subNode, $return);
                             $subNode = $return;
                         } elseif (self::DONT_TRAVERSE_CHILDREN === $return) {
@@ -138,7 +138,7 @@ class NodeTraverser implements \ECSPrefix20210803\PhpParser\NodeTraverserInterfa
                 foreach ($this->visitors as $visitorIndex => $visitor) {
                     $return = $visitor->leaveNode($subNode);
                     if (null !== $return) {
-                        if ($return instanceof \ECSPrefix20210803\PhpParser\Node) {
+                        if ($return instanceof \ECSPrefix20210804\PhpParser\Node) {
                             $this->ensureReplacementReasonable($subNode, $return);
                             $subNode = $return;
                         } elseif (self::STOP_TRAVERSAL === $return) {
@@ -169,13 +169,13 @@ class NodeTraverser implements \ECSPrefix20210803\PhpParser\NodeTraverserInterfa
     {
         $doNodes = [];
         foreach ($nodes as $i => &$node) {
-            if ($node instanceof \ECSPrefix20210803\PhpParser\Node) {
+            if ($node instanceof \ECSPrefix20210804\PhpParser\Node) {
                 $traverseChildren = \true;
                 $breakVisitorIndex = null;
                 foreach ($this->visitors as $visitorIndex => $visitor) {
                     $return = $visitor->enterNode($node);
                     if (null !== $return) {
-                        if ($return instanceof \ECSPrefix20210803\PhpParser\Node) {
+                        if ($return instanceof \ECSPrefix20210804\PhpParser\Node) {
                             $this->ensureReplacementReasonable($node, $return);
                             $node = $return;
                         } elseif (self::DONT_TRAVERSE_CHILDREN === $return) {
@@ -201,7 +201,7 @@ class NodeTraverser implements \ECSPrefix20210803\PhpParser\NodeTraverserInterfa
                 foreach ($this->visitors as $visitorIndex => $visitor) {
                     $return = $visitor->leaveNode($node);
                     if (null !== $return) {
-                        if ($return instanceof \ECSPrefix20210803\PhpParser\Node) {
+                        if ($return instanceof \ECSPrefix20210804\PhpParser\Node) {
                             $this->ensureReplacementReasonable($node, $return);
                             $node = $return;
                         } elseif (\is_array($return)) {
@@ -236,10 +236,10 @@ class NodeTraverser implements \ECSPrefix20210803\PhpParser\NodeTraverserInterfa
     }
     private function ensureReplacementReasonable($old, $new)
     {
-        if ($old instanceof \ECSPrefix20210803\PhpParser\Node\Stmt && $new instanceof \ECSPrefix20210803\PhpParser\Node\Expr) {
+        if ($old instanceof \ECSPrefix20210804\PhpParser\Node\Stmt && $new instanceof \ECSPrefix20210804\PhpParser\Node\Expr) {
             throw new \LogicException("Trying to replace statement ({$old->getType()}) " . "with expression ({$new->getType()}). Are you missing a " . "Stmt_Expression wrapper?");
         }
-        if ($old instanceof \ECSPrefix20210803\PhpParser\Node\Expr && $new instanceof \ECSPrefix20210803\PhpParser\Node\Stmt) {
+        if ($old instanceof \ECSPrefix20210804\PhpParser\Node\Expr && $new instanceof \ECSPrefix20210804\PhpParser\Node\Stmt) {
             throw new \LogicException("Trying to replace expression ({$old->getType()}) " . "with statement ({$new->getType()})");
         }
     }

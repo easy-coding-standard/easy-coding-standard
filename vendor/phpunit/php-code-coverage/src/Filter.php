@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage;
 
 use function array_keys;
 use function is_file;
 use function realpath;
 use function strpos;
-use ECSPrefix20210803\SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
+use ECSPrefix20210804\SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
 final class Filter
 {
     /**
@@ -28,7 +28,7 @@ final class Filter
     private $isFileCache = [];
     public function includeDirectory(string $directory, string $suffix = '.php', string $prefix = '') : void
     {
-        foreach ((new \ECSPrefix20210803\SebastianBergmann\FileIterator\Facade())->getFilesAsArray($directory, $suffix, $prefix) as $file) {
+        foreach ((new \ECSPrefix20210804\SebastianBergmann\FileIterator\Facade())->getFilesAsArray($directory, $suffix, $prefix) as $file) {
             $this->includeFile($file);
         }
     }
@@ -51,7 +51,7 @@ final class Filter
     }
     public function excludeDirectory(string $directory, string $suffix = '.php', string $prefix = '') : void
     {
-        foreach ((new \ECSPrefix20210803\SebastianBergmann\FileIterator\Facade())->getFilesAsArray($directory, $suffix, $prefix) as $file) {
+        foreach ((new \ECSPrefix20210804\SebastianBergmann\FileIterator\Facade())->getFilesAsArray($directory, $suffix, $prefix) as $file) {
             $this->excludeFile($file);
         }
     }

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Symfony\Component\HttpKernel\DataCollector;
+namespace ECSPrefix20210804\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210803\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210803\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210804\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210804\Symfony\Component\HttpFoundation\Response;
 /**
  * MemoryDataCollector.
  *
@@ -19,7 +19,7 @@ use ECSPrefix20210803\Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
-class MemoryDataCollector extends \ECSPrefix20210803\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210803\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class MemoryDataCollector extends \ECSPrefix20210804\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210804\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
 {
     public function __construct()
     {

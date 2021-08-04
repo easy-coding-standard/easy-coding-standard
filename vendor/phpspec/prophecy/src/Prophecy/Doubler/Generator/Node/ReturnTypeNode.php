@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20210803\Prophecy\Doubler\Generator\Node;
+namespace ECSPrefix20210804\Prophecy\Doubler\Generator\Node;
 
-use ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException;
-final class ReturnTypeNode extends \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\TypeNodeAbstract
+use ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException;
+final class ReturnTypeNode extends \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\TypeNodeAbstract
 {
     protected function getRealType(string $type) : string
     {
@@ -15,7 +15,7 @@ final class ReturnTypeNode extends \ECSPrefix20210803\Prophecy\Doubler\Generator
     protected function guardIsValidType()
     {
         if (isset($this->types['void']) && \count($this->types) !== 1) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException('void cannot be part of a union');
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException('void cannot be part of a union');
         }
         parent::guardIsValidType();
     }

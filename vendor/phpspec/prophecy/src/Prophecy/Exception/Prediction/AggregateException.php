@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Exception\Prediction;
+namespace ECSPrefix20210804\Prophecy\Exception\Prediction;
 
-use ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy;
-class AggregateException extends \RuntimeException implements \ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException
+use ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy;
+class AggregateException extends \RuntimeException implements \ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException
 {
     private $exceptions = array();
     private $objectProphecy;
-    public function append(\ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException $exception)
+    public function append(\ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException $exception)
     {
         $message = $exception->getMessage();
         $message = \strtr($message, array("\n" => "\n  ")) . "\n";
@@ -30,7 +30,7 @@ class AggregateException extends \RuntimeException implements \ECSPrefix20210803
     {
         return $this->exceptions;
     }
-    public function setObjectProphecy(\ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy $objectProphecy)
+    public function setObjectProphecy(\ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy $objectProphecy)
     {
         $this->objectProphecy = $objectProphecy;
     }

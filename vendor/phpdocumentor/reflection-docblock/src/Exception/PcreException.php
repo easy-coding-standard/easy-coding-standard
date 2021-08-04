@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\phpDocumentor\Reflection\Exception;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\Exception;
 
 use InvalidArgumentException;
 use const PREG_BACKTRACK_LIMIT_ERROR;

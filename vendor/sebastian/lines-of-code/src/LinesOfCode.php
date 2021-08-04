@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\LinesOfCode;
+namespace ECSPrefix20210804\SebastianBergmann\LinesOfCode;
 
 /**
  * @psalm-immutable
@@ -39,19 +39,19 @@ final class LinesOfCode
     public function __construct(int $linesOfCode, int $commentLinesOfCode, int $nonCommentLinesOfCode, int $logicalLinesOfCode)
     {
         if ($linesOfCode < 0) {
-            throw new \ECSPrefix20210803\SebastianBergmann\LinesOfCode\NegativeValueException('$linesOfCode must not be negative');
+            throw new \ECSPrefix20210804\SebastianBergmann\LinesOfCode\NegativeValueException('$linesOfCode must not be negative');
         }
         if ($commentLinesOfCode < 0) {
-            throw new \ECSPrefix20210803\SebastianBergmann\LinesOfCode\NegativeValueException('$commentLinesOfCode must not be negative');
+            throw new \ECSPrefix20210804\SebastianBergmann\LinesOfCode\NegativeValueException('$commentLinesOfCode must not be negative');
         }
         if ($nonCommentLinesOfCode < 0) {
-            throw new \ECSPrefix20210803\SebastianBergmann\LinesOfCode\NegativeValueException('$nonCommentLinesOfCode must not be negative');
+            throw new \ECSPrefix20210804\SebastianBergmann\LinesOfCode\NegativeValueException('$nonCommentLinesOfCode must not be negative');
         }
         if ($logicalLinesOfCode < 0) {
-            throw new \ECSPrefix20210803\SebastianBergmann\LinesOfCode\NegativeValueException('$logicalLinesOfCode must not be negative');
+            throw new \ECSPrefix20210804\SebastianBergmann\LinesOfCode\NegativeValueException('$logicalLinesOfCode must not be negative');
         }
         if ($linesOfCode - $commentLinesOfCode !== $nonCommentLinesOfCode) {
-            throw new \ECSPrefix20210803\SebastianBergmann\LinesOfCode\IllogicalValuesException('$linesOfCode !== $commentLinesOfCode + $nonCommentLinesOfCode');
+            throw new \ECSPrefix20210804\SebastianBergmann\LinesOfCode\IllogicalValuesException('$linesOfCode !== $commentLinesOfCode + $nonCommentLinesOfCode');
         }
         $this->linesOfCode = $linesOfCode;
         $this->commentLinesOfCode = $commentLinesOfCode;

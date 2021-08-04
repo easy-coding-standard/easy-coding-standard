@@ -9,17 +9,17 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node;
 
 use function array_filter;
 use function count;
 use function range;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\CrapIndex;
-use ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\CrapIndex;
+use ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode
+final class File extends \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode
 {
     /**
      * @var array
@@ -105,7 +105,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\
      * @var array
      */
     private $codeUnitsByLine = [];
-    public function __construct(string $name, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode $parent, array $lineCoverageData, array $functionCoverageData, array $testData, array $classes, array $traits, array $functions, \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode $linesOfCode)
+    public function __construct(string $name, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode $parent, array $lineCoverageData, array $functionCoverageData, array $testData, array $classes, array $traits, array $functions, \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode $linesOfCode)
     {
         parent::__construct($name, $parent);
         $this->lineCoverageData = $lineCoverageData;
@@ -142,7 +142,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\
     {
         return $this->functions;
     }
-    public function linesOfCode() : \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode
+    public function linesOfCode() : \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode
     {
         return $this->linesOfCode;
     }
@@ -296,7 +296,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\
                 $methodBranchCoverage = $method['executableBranches'] ? $method['executedBranches'] / $method['executableBranches'] * 100 : 0;
                 $methodPathCoverage = $method['executablePaths'] ? $method['executedPaths'] / $method['executablePaths'] * 100 : 0;
                 $method['coverage'] = $methodBranchCoverage ?: $methodLineCoverage;
-                $method['crap'] = (new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\CrapIndex($method['ccn'], $methodPathCoverage ?: $methodLineCoverage))->asString();
+                $method['crap'] = (new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\CrapIndex($method['ccn'], $methodPathCoverage ?: $methodLineCoverage))->asString();
                 $trait['ccn'] += $method['ccn'];
             }
             unset($method);
@@ -304,7 +304,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\
             $traitBranchCoverage = $trait['executableBranches'] ? $trait['executedBranches'] / $trait['executableBranches'] * 100 : 0;
             $traitPathCoverage = $trait['executablePaths'] ? $trait['executedPaths'] / $trait['executablePaths'] * 100 : 0;
             $trait['coverage'] = $traitBranchCoverage ?: $traitLineCoverage;
-            $trait['crap'] = (new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\CrapIndex($trait['ccn'], $traitPathCoverage ?: $traitLineCoverage))->asString();
+            $trait['crap'] = (new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\CrapIndex($trait['ccn'], $traitPathCoverage ?: $traitLineCoverage))->asString();
             if ($trait['executableLines'] > 0 && $trait['coverage'] === 100) {
                 $this->numTestedClasses++;
             }
@@ -316,7 +316,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\
                 $methodBranchCoverage = $method['executableBranches'] ? $method['executedBranches'] / $method['executableBranches'] * 100 : 0;
                 $methodPathCoverage = $method['executablePaths'] ? $method['executedPaths'] / $method['executablePaths'] * 100 : 0;
                 $method['coverage'] = $methodBranchCoverage ?: $methodLineCoverage;
-                $method['crap'] = (new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\CrapIndex($method['ccn'], $methodPathCoverage ?: $methodLineCoverage))->asString();
+                $method['crap'] = (new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\CrapIndex($method['ccn'], $methodPathCoverage ?: $methodLineCoverage))->asString();
                 $class['ccn'] += $method['ccn'];
             }
             unset($method);
@@ -324,7 +324,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\
             $classBranchCoverage = $class['executableBranches'] ? $class['executedBranches'] / $class['executableBranches'] * 100 : 0;
             $classPathCoverage = $class['executablePaths'] ? $class['executedPaths'] / $class['executablePaths'] * 100 : 0;
             $class['coverage'] = $classBranchCoverage ?: $classLineCoverage;
-            $class['crap'] = (new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\CrapIndex($class['ccn'], $classPathCoverage ?: $classLineCoverage))->asString();
+            $class['crap'] = (new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\CrapIndex($class['ccn'], $classPathCoverage ?: $classLineCoverage))->asString();
             if ($class['executableLines'] > 0 && $class['coverage'] === 100) {
                 $this->numTestedClasses++;
             }
@@ -335,7 +335,7 @@ final class File extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\
             $functionBranchCoverage = $function['executableBranches'] ? $function['executedBranches'] / $function['executableBranches'] * 100 : 0;
             $functionPathCoverage = $function['executablePaths'] ? $function['executedPaths'] / $function['executablePaths'] * 100 : 0;
             $function['coverage'] = $functionBranchCoverage ?: $functionLineCoverage;
-            $function['crap'] = (new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\CrapIndex($function['ccn'], $functionPathCoverage ?: $functionLineCoverage))->asString();
+            $function['crap'] = (new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\CrapIndex($function['ccn'], $functionPathCoverage ?: $functionLineCoverage))->asString();
             if ($function['coverage'] === 100) {
                 $this->numTestedFunctions++;
             }

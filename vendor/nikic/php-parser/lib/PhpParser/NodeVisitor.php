@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser;
+namespace ECSPrefix20210804\PhpParser;
 
 interface NodeVisitor
 {
@@ -34,7 +34,7 @@ interface NodeVisitor
      *
      * @return null|int|Node Replacement node (or special return value)
      */
-    public function enterNode(\ECSPrefix20210803\PhpParser\Node $node);
+    public function enterNode(\ECSPrefix20210804\PhpParser\Node $node);
     /**
      * Called when leaving a node.
      *
@@ -54,7 +54,7 @@ interface NodeVisitor
      *
      * @return null|int|Node|Node[] Replacement node (or special return value)
      */
-    public function leaveNode(\ECSPrefix20210803\PhpParser\Node $node);
+    public function leaveNode(\ECSPrefix20210804\PhpParser\Node $node);
     /**
      * Called once after traversal.
      *

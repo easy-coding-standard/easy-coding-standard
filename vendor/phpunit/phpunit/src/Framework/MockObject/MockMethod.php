@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use const DIRECTORY_SEPARATOR;
 use function implode;
@@ -24,12 +24,12 @@ use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionUnionType;
-use ECSPrefix20210803\SebastianBergmann\Template\Exception as TemplateException;
-use ECSPrefix20210803\SebastianBergmann\Template\Template;
-use ECSPrefix20210803\SebastianBergmann\Type\ReflectionMapper;
-use ECSPrefix20210803\SebastianBergmann\Type\Type;
-use ECSPrefix20210803\SebastianBergmann\Type\UnknownType;
-use ECSPrefix20210803\SebastianBergmann\Type\VoidType;
+use ECSPrefix20210804\SebastianBergmann\Template\Exception as TemplateException;
+use ECSPrefix20210804\SebastianBergmann\Template\Template;
+use ECSPrefix20210804\SebastianBergmann\Type\ReflectionMapper;
+use ECSPrefix20210804\SebastianBergmann\Type\Type;
+use ECSPrefix20210804\SebastianBergmann\Type\UnknownType;
+use ECSPrefix20210804\SebastianBergmann\Type\VoidType;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -110,13 +110,13 @@ final class MockMethod
         } else {
             $deprecation = null;
         }
-        return new self($method->getDeclaringClass()->getName(), $method->getName(), $cloneArguments, $modifier, self::getMethodParametersForDeclaration($method), self::getMethodParametersForCall($method), (new \ECSPrefix20210803\SebastianBergmann\Type\ReflectionMapper())->fromMethodReturnType($method), $reference, $callOriginalMethod, $method->isStatic(), $deprecation);
+        return new self($method->getDeclaringClass()->getName(), $method->getName(), $cloneArguments, $modifier, self::getMethodParametersForDeclaration($method), self::getMethodParametersForCall($method), (new \ECSPrefix20210804\SebastianBergmann\Type\ReflectionMapper())->fromMethodReturnType($method), $reference, $callOriginalMethod, $method->isStatic(), $deprecation);
     }
     public static function fromName(string $fullClassName, string $methodName, bool $cloneArguments) : self
     {
-        return new self($fullClassName, $methodName, $cloneArguments, 'public', '', '', new \ECSPrefix20210803\SebastianBergmann\Type\UnknownType(), '', \false, \false, null);
+        return new self($fullClassName, $methodName, $cloneArguments, 'public', '', '', new \ECSPrefix20210804\SebastianBergmann\Type\UnknownType(), '', \false, \false, null);
     }
-    public function __construct(string $className, string $methodName, bool $cloneArguments, string $modifier, string $argumentsForDeclaration, string $argumentsForCall, \ECSPrefix20210803\SebastianBergmann\Type\Type $returnType, string $reference, bool $callOriginalMethod, bool $static, ?string $deprecation)
+    public function __construct(string $className, string $methodName, bool $cloneArguments, string $modifier, string $argumentsForDeclaration, string $argumentsForCall, \ECSPrefix20210804\SebastianBergmann\Type\Type $returnType, string $reference, bool $callOriginalMethod, bool $static, ?string $deprecation)
     {
         $this->className = $className;
         $this->methodName = $methodName;
@@ -141,7 +141,7 @@ final class MockMethod
     {
         if ($this->static) {
             $templateFile = 'mocked_static_method.tpl';
-        } elseif ($this->returnType instanceof \ECSPrefix20210803\SebastianBergmann\Type\VoidType) {
+        } elseif ($this->returnType instanceof \ECSPrefix20210804\SebastianBergmann\Type\VoidType) {
             $templateFile = \sprintf('%s_method_void.tpl', $this->callOriginalMethod ? 'proxied' : 'mocked');
         } else {
             $templateFile = \sprintf('%s_method.tpl', $this->callOriginalMethod ? 'proxied' : 'mocked');
@@ -157,21 +157,21 @@ final class MockMethod
         $template->setVar(['arguments_decl' => $this->argumentsForDeclaration, 'arguments_call' => $this->argumentsForCall, 'return_declaration' => !empty($this->returnType->asString()) ? ': ' . $this->returnType->asString() : '', 'return_type' => $this->returnType->asString(), 'arguments_count' => !empty($this->argumentsForCall) ? \substr_count($this->argumentsForCall, ',') + 1 : 0, 'class_name' => $this->className, 'method_name' => $this->methodName, 'modifier' => $this->modifier, 'reference' => $this->reference, 'clone_arguments' => $this->cloneArguments ? 'true' : 'false', 'deprecation' => $deprecation]);
         return $template->render();
     }
-    public function getReturnType() : \ECSPrefix20210803\SebastianBergmann\Type\Type
+    public function getReturnType() : \ECSPrefix20210804\SebastianBergmann\Type\Type
     {
         return $this->returnType;
     }
     /**
      * @throws RuntimeException
      */
-    private function getTemplate(string $template) : \ECSPrefix20210803\SebastianBergmann\Template\Template
+    private function getTemplate(string $template) : \ECSPrefix20210804\SebastianBergmann\Template\Template
     {
         $filename = __DIR__ . \DIRECTORY_SEPARATOR . 'Generator' . \DIRECTORY_SEPARATOR . $template;
         if (!isset(self::$templates[$filename])) {
             try {
-                self::$templates[$filename] = new \ECSPrefix20210803\SebastianBergmann\Template\Template($filename);
-            } catch (\ECSPrefix20210803\SebastianBergmann\Template\Exception $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+                self::$templates[$filename] = new \ECSPrefix20210804\SebastianBergmann\Template\Template($filename);
+            } catch (\ECSPrefix20210804\SebastianBergmann\Template\Exception $e) {
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
             }
         }
         return self::$templates[$filename];
@@ -266,7 +266,7 @@ final class MockMethod
             return (string) \var_export($parameter->getDefaultValue(), \true);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }

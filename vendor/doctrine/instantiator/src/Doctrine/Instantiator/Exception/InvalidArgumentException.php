@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210803\Doctrine\Instantiator\Exception;
+namespace ECSPrefix20210804\Doctrine\Instantiator\Exception;
 
 use InvalidArgumentException as BaseInvalidArgumentException;
 use ReflectionClass;
@@ -10,7 +10,7 @@ use function trait_exists;
 /**
  * Exception for invalid arguments provided to the instantiator
  */
-class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210803\Doctrine\Instantiator\Exception\ExceptionInterface
+class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210804\Doctrine\Instantiator\Exception\ExceptionInterface
 {
     /**
      * @return $this

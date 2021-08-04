@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeUnit;
+namespace ECSPrefix20210804\SebastianBergmann\CodeUnit;
 
 /**
  * @psalm-immutable
  */
-final class FunctionUnit extends \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit
+final class FunctionUnit extends \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit
 {
     /**
      * @psalm-assert-if-true FunctionUnit $this

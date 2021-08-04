@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node\Stmt;
+namespace ECSPrefix20210804\PhpParser\Node\Stmt;
 
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\FunctionLike;
-class ClassMethod extends \ECSPrefix20210803\PhpParser\Node\Stmt implements \ECSPrefix20210803\PhpParser\Node\FunctionLike
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\FunctionLike;
+class ClassMethod extends \ECSPrefix20210804\PhpParser\Node\Stmt implements \ECSPrefix20210804\PhpParser\Node\FunctionLike
 {
     /** @var int Flags */
     public $flags;
@@ -40,10 +40,10 @@ class ClassMethod extends \ECSPrefix20210803\PhpParser\Node\Stmt implements \ECS
         $this->attributes = $attributes;
         $this->flags = $subNodes['flags'] ?? $subNodes['type'] ?? 0;
         $this->byRef = $subNodes['byRef'] ?? \false;
-        $this->name = \is_string($name) ? new \ECSPrefix20210803\PhpParser\Node\Identifier($name) : $name;
+        $this->name = \is_string($name) ? new \ECSPrefix20210804\PhpParser\Node\Identifier($name) : $name;
         $this->params = $subNodes['params'] ?? [];
         $returnType = $subNodes['returnType'] ?? null;
-        $this->returnType = \is_string($returnType) ? new \ECSPrefix20210803\PhpParser\Node\Identifier($returnType) : $returnType;
+        $this->returnType = \is_string($returnType) ? new \ECSPrefix20210804\PhpParser\Node\Identifier($returnType) : $returnType;
         $this->stmts = \array_key_exists('stmts', $subNodes) ? $subNodes['stmts'] : [];
         $this->attrGroups = $subNodes['attrGroups'] ?? [];
     }
@@ -78,7 +78,7 @@ class ClassMethod extends \ECSPrefix20210803\PhpParser\Node\Stmt implements \ECS
      */
     public function isPublic() : bool
     {
-        return ($this->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC) !== 0 || ($this->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::VISIBILITY_MODIFIER_MASK) === 0;
+        return ($this->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC) !== 0 || ($this->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::VISIBILITY_MODIFIER_MASK) === 0;
     }
     /**
      * Whether the method is protected.
@@ -87,7 +87,7 @@ class ClassMethod extends \ECSPrefix20210803\PhpParser\Node\Stmt implements \ECS
      */
     public function isProtected() : bool
     {
-        return (bool) ($this->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
+        return (bool) ($this->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
     }
     /**
      * Whether the method is private.
@@ -96,7 +96,7 @@ class ClassMethod extends \ECSPrefix20210803\PhpParser\Node\Stmt implements \ECS
      */
     public function isPrivate() : bool
     {
-        return (bool) ($this->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
+        return (bool) ($this->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
     }
     /**
      * Whether the method is abstract.
@@ -105,7 +105,7 @@ class ClassMethod extends \ECSPrefix20210803\PhpParser\Node\Stmt implements \ECS
      */
     public function isAbstract() : bool
     {
-        return (bool) ($this->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT);
+        return (bool) ($this->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT);
     }
     /**
      * Whether the method is final.
@@ -114,7 +114,7 @@ class ClassMethod extends \ECSPrefix20210803\PhpParser\Node\Stmt implements \ECS
      */
     public function isFinal() : bool
     {
-        return (bool) ($this->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
+        return (bool) ($this->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
     }
     /**
      * Whether the method is static.
@@ -123,7 +123,7 @@ class ClassMethod extends \ECSPrefix20210803\PhpParser\Node\Stmt implements \ECS
      */
     public function isStatic() : bool
     {
-        return (bool) ($this->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
+        return (bool) ($this->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
     }
     /**
      * Whether the method is magic.

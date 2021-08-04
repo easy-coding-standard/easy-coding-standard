@@ -9,10 +9,10 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Type;
+namespace ECSPrefix20210804\SebastianBergmann\Type;
 
 use function strtolower;
-final class SimpleType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
+final class SimpleType extends \ECSPrefix20210804\SebastianBergmann\Type\Type
 {
     /**
      * @var string
@@ -37,7 +37,7 @@ final class SimpleType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
      */
     public function isAssignable($other) : bool
     {
-        if ($this->allowsNull && $other instanceof \ECSPrefix20210803\SebastianBergmann\Type\NullType) {
+        if ($this->allowsNull && $other instanceof \ECSPrefix20210804\SebastianBergmann\Type\NullType) {
             return \true;
         }
         if ($this->name === 'bool' && $other->name() === 'false') {

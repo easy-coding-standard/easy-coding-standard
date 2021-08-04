@@ -36,12 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210803\\Prophecy\\": "src\/Prophecy"
+            "ECSPrefix20210804\\Prophecy\\": "src\/Prophecy"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210803\\Fixtures\\Prophecy\\": "fixtures"
+            "ECSPrefix20210804\\Fixtures\\Prophecy\\": "fixtures"
         }
     },
     "extra": {

@@ -9,18 +9,18 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use function sprintf;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class IncompatibleReturnValueException extends \ECSPrefix20210803\PHPUnit\Framework\Exception implements \ECSPrefix20210803\PHPUnit\Framework\MockObject\Exception
+final class IncompatibleReturnValueException extends \ECSPrefix20210804\PHPUnit\Framework\Exception implements \ECSPrefix20210804\PHPUnit\Framework\MockObject\Exception
 {
     /**
      * @param mixed $value
      */
-    public function __construct(\ECSPrefix20210803\PHPUnit\Framework\MockObject\ConfigurableMethod $method, $value)
+    public function __construct(\ECSPrefix20210804\PHPUnit\Framework\MockObject\ConfigurableMethod $method, $value)
     {
         parent::__construct(\sprintf('Method %s may not return value of type %s, its return declaration is "%s"', $method->getName(), \is_object($value) ? \get_class($value) : \gettype($value), $method->getReturnTypeDeclaration()));
     }

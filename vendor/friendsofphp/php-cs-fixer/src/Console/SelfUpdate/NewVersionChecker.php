@@ -12,9 +12,9 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Console\SelfUpdate;
 
-use ECSPrefix20210803\Composer\Semver\Comparator;
-use ECSPrefix20210803\Composer\Semver\Semver;
-use ECSPrefix20210803\Composer\Semver\VersionParser;
+use ECSPrefix20210804\Composer\Semver\Comparator;
+use ECSPrefix20210804\Composer\Semver\Semver;
+use ECSPrefix20210804\Composer\Semver\VersionParser;
 /**
  * @internal
  */
@@ -35,7 +35,7 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
     public function __construct(\PhpCsFixer\Console\SelfUpdate\GithubClientInterface $githubClient)
     {
         $this->githubClient = $githubClient;
-        $this->versionParser = new \ECSPrefix20210803\Composer\Semver\VersionParser();
+        $this->versionParser = new \ECSPrefix20210804\Composer\Semver\VersionParser();
     }
     /**
      * {@inheritdoc}
@@ -55,7 +55,7 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
         $this->retrieveAvailableVersions();
         $semverConstraint = '^' . $majorVersion;
         foreach ($this->availableVersions as $availableVersion) {
-            if (\ECSPrefix20210803\Composer\Semver\Semver::satisfies($availableVersion, $semverConstraint)) {
+            if (\ECSPrefix20210804\Composer\Semver\Semver::satisfies($availableVersion, $semverConstraint)) {
                 return $availableVersion;
             }
         }
@@ -70,10 +70,10 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
     {
         $versionA = $this->versionParser->normalize($versionA);
         $versionB = $this->versionParser->normalize($versionB);
-        if (\ECSPrefix20210803\Composer\Semver\Comparator::lessThan($versionA, $versionB)) {
+        if (\ECSPrefix20210804\Composer\Semver\Comparator::lessThan($versionA, $versionB)) {
             return -1;
         }
-        if (\ECSPrefix20210803\Composer\Semver\Comparator::greaterThan($versionA, $versionB)) {
+        if (\ECSPrefix20210804\Composer\Semver\Comparator::greaterThan($versionA, $versionB)) {
             return 1;
         }
         return 0;
@@ -90,13 +90,13 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
             $version = $tag['name'];
             try {
                 $this->versionParser->normalize($version);
-                if ('stable' === \ECSPrefix20210803\Composer\Semver\VersionParser::parseStability($version)) {
+                if ('stable' === \ECSPrefix20210804\Composer\Semver\VersionParser::parseStability($version)) {
                     $this->availableVersions[] = $version;
                 }
             } catch (\UnexpectedValueException $exception) {
                 // not a valid version tag
             }
         }
-        $this->availableVersions = \ECSPrefix20210803\Composer\Semver\Semver::rsort($this->availableVersions);
+        $this->availableVersions = \ECSPrefix20210804\Composer\Semver\Semver::rsort($this->availableVersions);
     }
 }

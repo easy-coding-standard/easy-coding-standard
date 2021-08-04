@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage;
 
 use function is_dir;
 use function mkdir;
@@ -26,7 +26,7 @@ final class Directory
     {
         $success = !(!\is_dir($directory) && !@\mkdir($directory, 0777, \true) && !\is_dir($directory));
         if (!$success) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\DirectoryCouldNotBeCreatedException(\sprintf('Directory "%s" could not be created', $directory));
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\DirectoryCouldNotBeCreatedException(\sprintf('Directory "%s" could not be created', $directory));
         }
     }
 }

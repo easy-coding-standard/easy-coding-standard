@@ -9,11 +9,11 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use function array_diff;
 use function array_merge;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
 use ReflectionClass;
 /**
  * @psalm-template MockedType
@@ -87,11 +87,11 @@ final class MockBuilder
      *
      * @psalm-param class-string<MockedType>|string|string[] $type
      */
-    public function __construct(\ECSPrefix20210803\PHPUnit\Framework\TestCase $testCase, $type)
+    public function __construct(\ECSPrefix20210804\PHPUnit\Framework\TestCase $testCase, $type)
     {
         $this->testCase = $testCase;
         $this->type = $type;
-        $this->generator = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Generator();
+        $this->generator = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Generator();
     }
     /**
      * Creates a mock object using a fluent interface.
@@ -108,7 +108,7 @@ final class MockBuilder
      *
      * @psalm-return MockObject&MockedType
      */
-    public function getMock() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    public function getMock() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         $object = $this->generator->getMock($this->type, !$this->emptyMethodsArray ? $this->methods : null, $this->constructorArgs, $this->mockClassName, $this->originalConstructor, $this->originalClone, $this->autoload, $this->cloneArguments, $this->callOriginalMethods, $this->proxyTarget, $this->allowMockingUnknownTypes, $this->returnValueGeneration);
         $this->testCase->registerMockObject($object);
@@ -123,7 +123,7 @@ final class MockBuilder
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function getMockForAbstractClass() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    public function getMockForAbstractClass() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         $object = $this->generator->getMockForAbstractClass($this->type, $this->constructorArgs, $this->mockClassName, $this->originalConstructor, $this->originalClone, $this->autoload, $this->methods, $this->cloneArguments);
         $this->testCase->registerMockObject($object);
@@ -138,7 +138,7 @@ final class MockBuilder
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function getMockForTrait() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    public function getMockForTrait() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         $object = $this->generator->getMockForTrait($this->type, $this->constructorArgs, $this->mockClassName, $this->originalConstructor, $this->originalClone, $this->autoload, $this->methods, $this->cloneArguments);
         $this->testCase->registerMockObject($object);
@@ -180,12 +180,12 @@ final class MockBuilder
             $reflector = new \ReflectionClass($this->type);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         foreach ($methods as $method) {
             if (!$reflector->hasMethod($method)) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\CannotUseOnlyMethodsException($this->type, $method);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\CannotUseOnlyMethodsException($this->type, $method);
             }
         }
         $this->methods = \array_merge($this->methods ?? [], $methods);
@@ -212,12 +212,12 @@ final class MockBuilder
             $reflector = new \ReflectionClass($this->type);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         foreach ($methods as $method) {
             if ($reflector->hasMethod($method)) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\CannotUseAddMethodsException($this->type, $method);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\CannotUseAddMethodsException($this->type, $method);
             }
         }
         $this->methods = \array_merge($this->methods ?? [], $methods);

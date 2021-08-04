@@ -9,9 +9,9 @@
  *  @link      http://phpdoc.org
  */
 declare (strict_types=1);
-namespace ECSPrefix20210803\phpDocumentor\Reflection\Types;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\Types;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\Type;
+use ECSPrefix20210804\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing a Compound Type.
  *
@@ -21,7 +21,7 @@ use ECSPrefix20210803\phpDocumentor\Reflection\Type;
  *
  * @psalm-immutable
  */
-final class Intersection extends \ECSPrefix20210803\phpDocumentor\Reflection\Types\AggregatedType
+final class Intersection extends \ECSPrefix20210804\phpDocumentor\Reflection\Types\AggregatedType
 {
     /**
      * Initializes a intersection type (i.e. `\A&\B`) and tests if the provided types all implement the Type interface.

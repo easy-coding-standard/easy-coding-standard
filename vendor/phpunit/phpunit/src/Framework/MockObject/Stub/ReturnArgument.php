@@ -9,14 +9,14 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub;
 
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ReturnArgument implements \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Stub
+final class ReturnArgument implements \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Stub
 {
     /**
      * @var int
@@ -26,7 +26,7 @@ final class ReturnArgument implements \ECSPrefix20210803\PHPUnit\Framework\MockO
     {
         $this->argumentIndex = $argumentIndex;
     }
-    public function invoke(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation)
+    public function invoke(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation)
     {
         if (isset($invocation->getParameters()[$this->argumentIndex])) {
             return $invocation->getParameters()[$this->argumentIndex];

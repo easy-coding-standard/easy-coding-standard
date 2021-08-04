@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Matcher;
+namespace ECSPrefix20210804\DeepCopy\Matcher;
 
 interface Matcher
 {

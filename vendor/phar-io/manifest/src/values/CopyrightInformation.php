@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class CopyrightInformation
 {
@@ -17,16 +17,16 @@ class CopyrightInformation
     private $authors;
     /** @var License */
     private $license;
-    public function __construct(\ECSPrefix20210803\PharIo\Manifest\AuthorCollection $authors, \ECSPrefix20210803\PharIo\Manifest\License $license)
+    public function __construct(\ECSPrefix20210804\PharIo\Manifest\AuthorCollection $authors, \ECSPrefix20210804\PharIo\Manifest\License $license)
     {
         $this->authors = $authors;
         $this->license = $license;
     }
-    public function getAuthors() : \ECSPrefix20210803\PharIo\Manifest\AuthorCollection
+    public function getAuthors() : \ECSPrefix20210804\PharIo\Manifest\AuthorCollection
     {
         return $this->authors;
     }
-    public function getLicense() : \ECSPrefix20210803\PharIo\Manifest\License
+    public function getLicense() : \ECSPrefix20210804\PharIo\Manifest\License
     {
         return $this->license;
     }

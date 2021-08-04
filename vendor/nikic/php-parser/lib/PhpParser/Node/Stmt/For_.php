@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node\Stmt;
+namespace ECSPrefix20210804\PhpParser\Node\Stmt;
 
-use ECSPrefix20210803\PhpParser\Node;
-class For_ extends \ECSPrefix20210803\PhpParser\Node\Stmt
+use ECSPrefix20210804\PhpParser\Node;
+class For_ extends \ECSPrefix20210804\PhpParser\Node\Stmt
 {
     /** @var Node\Expr[] Init expressions */
     public $init;

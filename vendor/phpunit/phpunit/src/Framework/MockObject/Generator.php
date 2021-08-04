@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use const DIRECTORY_SEPARATOR;
 use const PHP_EOL;
@@ -42,16 +42,16 @@ use function strpos;
 use function strtolower;
 use function substr;
 use function trait_exists;
-use ECSPrefix20210803\Doctrine\Instantiator\Exception\ExceptionInterface as InstantiatorException;
-use ECSPrefix20210803\Doctrine\Instantiator\Instantiator;
+use ECSPrefix20210804\Doctrine\Instantiator\Exception\ExceptionInterface as InstantiatorException;
+use ECSPrefix20210804\Doctrine\Instantiator\Instantiator;
 use Exception;
 use Iterator;
 use IteratorAggregate;
-use ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException;
+use ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException;
 use ReflectionClass;
 use ReflectionMethod;
-use ECSPrefix20210803\SebastianBergmann\Template\Exception as TemplateException;
-use ECSPrefix20210803\SebastianBergmann\Template\Template;
+use ECSPrefix20210804\SebastianBergmann\Template\Exception as TemplateException;
+use ECSPrefix20210804\SebastianBergmann\Template\Template;
 use SoapClient;
 use SoapFault;
 use Throwable;
@@ -88,25 +88,25 @@ final class Generator
      * @throws RuntimeException
      * @throws UnknownTypeException
      */
-    public function getMock(string $type, $methods = [], array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, bool $cloneArguments = \true, bool $callOriginalMethods = \false, object $proxyTarget = null, bool $allowMockingUnknownTypes = \true, bool $returnValueGeneration = \true) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    public function getMock(string $type, $methods = [], array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, bool $cloneArguments = \true, bool $callOriginalMethods = \false, object $proxyTarget = null, bool $allowMockingUnknownTypes = \true, bool $returnValueGeneration = \true) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         if (!\is_array($methods) && null !== $methods) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'array');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'array');
         }
         if ($type === 'Traversable' || $type === '\\Traversable') {
             $type = 'Iterator';
         }
         if (!$allowMockingUnknownTypes && !\class_exists($type, $callAutoload) && !\interface_exists($type, $callAutoload)) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\UnknownTypeException($type);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\UnknownTypeException($type);
         }
         if (null !== $methods) {
             foreach ($methods as $method) {
                 if (!\preg_match('~[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*~', (string) $method)) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\InvalidMethodNameException((string) $method);
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\InvalidMethodNameException((string) $method);
                 }
             }
             if ($methods !== \array_unique($methods)) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\DuplicateMethodException($methods);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\DuplicateMethodException($methods);
             }
         }
         if ($mockClassName !== '' && \class_exists($mockClassName, \false)) {
@@ -114,15 +114,15 @@ final class Generator
                 $reflector = new \ReflectionClass($mockClassName);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
-            if (!$reflector->implementsInterface(\ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject::class)) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ClassAlreadyExistsException($mockClassName);
+            if (!$reflector->implementsInterface(\ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject::class)) {
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ClassAlreadyExistsException($mockClassName);
             }
         }
         if (!$callOriginalConstructor && $callOriginalMethods) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\OriginalConstructorInvocationRequiredException();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\OriginalConstructorInvocationRequiredException();
         }
         $mock = $this->generate($type, $methods, $mockClassName, $callOriginalClone, $callAutoload, $cloneArguments, $callOriginalMethods);
         return $this->getObject($mock, $type, $callOriginalConstructor, $callAutoload, $arguments, $callOriginalMethods, $proxyTarget, $returnValueGeneration);
@@ -148,14 +148,14 @@ final class Generator
      * @throws UnknownClassException
      * @throws UnknownTypeException
      */
-    public function getMockForAbstractClass(string $originalClassName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, array $mockedMethods = null, bool $cloneArguments = \true) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    public function getMockForAbstractClass(string $originalClassName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, array $mockedMethods = null, bool $cloneArguments = \true) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         if (\class_exists($originalClassName, $callAutoload) || \interface_exists($originalClassName, $callAutoload)) {
             try {
                 $reflector = new \ReflectionClass($originalClassName);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
             $methods = $mockedMethods;
@@ -169,7 +169,7 @@ final class Generator
             }
             return $this->getMock($originalClassName, $methods, $arguments, $mockClassName, $callOriginalConstructor, $callOriginalClone, $callAutoload, $cloneArguments);
         }
-        throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\UnknownClassException($originalClassName);
+        throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\UnknownClassException($originalClassName);
     }
     /**
      * Returns a mock object for the specified trait with all abstract methods
@@ -190,15 +190,15 @@ final class Generator
      * @throws UnknownTraitException
      * @throws UnknownTypeException
      */
-    public function getMockForTrait(string $traitName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, array $mockedMethods = null, bool $cloneArguments = \true) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    public function getMockForTrait(string $traitName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, array $mockedMethods = null, bool $cloneArguments = \true) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         if (!\trait_exists($traitName, $callAutoload)) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\UnknownTraitException($traitName);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\UnknownTraitException($traitName);
         }
         $className = $this->generateClassName($traitName, '', 'Trait_');
         $classTemplate = $this->getTemplate('trait_class.tpl');
         $classTemplate->setVar(['prologue' => 'abstract ', 'class_name' => $className['className'], 'trait_name' => $traitName]);
-        $mockTrait = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockTrait($classTemplate->render(), $className['className']);
+        $mockTrait = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockTrait($classTemplate->render(), $className['className']);
         $mockTrait->generate();
         return $this->getMockForAbstractClass($className['className'], $arguments, $mockClassName, $callOriginalConstructor, $callOriginalClone, $callAutoload, $mockedMethods, $cloneArguments);
     }
@@ -214,19 +214,19 @@ final class Generator
     public function getObjectForTrait(string $traitName, string $traitClassName = '', bool $callAutoload = \true, bool $callOriginalConstructor = \false, array $arguments = []) : object
     {
         if (!\trait_exists($traitName, $callAutoload)) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\UnknownTraitException($traitName);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\UnknownTraitException($traitName);
         }
         $className = $this->generateClassName($traitName, $traitClassName, 'Trait_');
         $classTemplate = $this->getTemplate('trait_class.tpl');
         $classTemplate->setVar(['prologue' => '', 'class_name' => $className['className'], 'trait_name' => $traitName]);
-        return $this->getObject(new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockTrait($classTemplate->render(), $className['className']), '', $callOriginalConstructor, $callAutoload, $arguments);
+        return $this->getObject(new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockTrait($classTemplate->render(), $className['className']), '', $callOriginalConstructor, $callAutoload, $arguments);
     }
     /**
      * @throws ClassIsFinalException
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function generate(string $type, array $methods = null, string $mockClassName = '', bool $callOriginalClone = \true, bool $callAutoload = \true, bool $cloneArguments = \true, bool $callOriginalMethods = \false) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockClass
+    public function generate(string $type, array $methods = null, string $mockClassName = '', bool $callOriginalClone = \true, bool $callAutoload = \true, bool $cloneArguments = \true, bool $callOriginalMethods = \false) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockClass
     {
         if ($mockClassName !== '') {
             return $this->generateMock($type, $methods, $mockClassName, $callOriginalClone, $callAutoload, $cloneArguments, $callOriginalMethods);
@@ -244,7 +244,7 @@ final class Generator
     public function generateClassFromWsdl(string $wsdlFile, string $className, array $methods = [], array $options = []) : string
     {
         if (!\extension_loaded('soap')) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\SoapExtensionNotAvailableException();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\SoapExtensionNotAvailableException();
         }
         $options = \array_merge($options, ['cache_wsdl' => \WSDL_CACHE_NONE]);
         try {
@@ -252,7 +252,7 @@ final class Generator
             $_methods = \array_unique($client->__getFunctions());
             unset($client);
         } catch (\SoapFault $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
         }
         \sort($_methods);
         $methodTemplate = $this->getTemplate('wsdl_method.tpl');
@@ -302,7 +302,7 @@ final class Generator
             $class = new \ReflectionClass($className);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         $methods = [];
@@ -324,13 +324,13 @@ final class Generator
             $class = new \ReflectionClass($className);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         $methods = [];
         foreach ($class->getMethods() as $method) {
             if (($method->isPublic() || $method->isAbstract()) && $this->canMockMethod($method)) {
-                $methods[] = \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockMethod::fromReflection($method, $callOriginalMethods, $cloneArguments);
+                $methods[] = \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockMethod::fromReflection($method, $callOriginalMethods, $cloneArguments);
             }
         }
         return $methods;
@@ -346,12 +346,12 @@ final class Generator
             $class = new \ReflectionClass($interfaceName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         $methods = [];
         foreach ($class->getMethods() as $method) {
-            $methods[] = \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockMethod::fromReflection($method, \false, $cloneArguments);
+            $methods[] = \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockMethod::fromReflection($method, \false, $cloneArguments);
         }
         return $methods;
     }
@@ -368,7 +368,7 @@ final class Generator
             // @codeCoverageIgnoreStart
             $interface = new \ReflectionClass($interfaceName);
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         $methods = [];
@@ -384,7 +384,7 @@ final class Generator
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    private function getObject(\ECSPrefix20210803\PHPUnit\Framework\MockObject\MockType $mockClass, $type = '', bool $callOriginalConstructor = \false, bool $callAutoload = \false, array $arguments = [], bool $callOriginalMethods = \false, object $proxyTarget = null, bool $returnValueGeneration = \true)
+    private function getObject(\ECSPrefix20210804\PHPUnit\Framework\MockObject\MockType $mockClass, $type = '', bool $callOriginalConstructor = \false, bool $callAutoload = \false, array $arguments = [], bool $callOriginalMethods = \false, object $proxyTarget = null, bool $returnValueGeneration = \true)
     {
         $className = $mockClass->generate();
         if ($callOriginalConstructor) {
@@ -395,16 +395,16 @@ final class Generator
                     $class = new \ReflectionClass($className);
                     // @codeCoverageIgnoreStart
                 } catch (\ReflectionException $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
                 }
                 // @codeCoverageIgnoreEnd
                 $object = $class->newInstanceArgs($arguments);
             }
         } else {
             try {
-                $object = (new \ECSPrefix20210803\Doctrine\Instantiator\Instantiator())->instantiate($className);
-            } catch (\ECSPrefix20210803\Doctrine\Instantiator\Exception\ExceptionInterface $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\RuntimeException($e->getMessage());
+                $object = (new \ECSPrefix20210804\Doctrine\Instantiator\Instantiator())->instantiate($className);
+            } catch (\ECSPrefix20210804\Doctrine\Instantiator\Exception\ExceptionInterface $e) {
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\RuntimeException($e->getMessage());
             }
         }
         if ($callOriginalMethods) {
@@ -416,7 +416,7 @@ final class Generator
                         $class = new \ReflectionClass($type);
                         // @codeCoverageIgnoreStart
                     } catch (\ReflectionException $e) {
-                        throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                        throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
                     }
                     // @codeCoverageIgnoreEnd
                     $proxyTarget = $class->newInstanceArgs($arguments);
@@ -424,7 +424,7 @@ final class Generator
             }
             $object->__phpunit_setOriginalObject($proxyTarget);
         }
-        if ($object instanceof \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject) {
+        if ($object instanceof \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject) {
             $object->__phpunit_setReturnValueGeneration($returnValueGeneration);
         }
         return $object;
@@ -434,7 +434,7 @@ final class Generator
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    private function generateMock(string $type, ?array $explicitMethods, string $mockClassName, bool $callOriginalClone, bool $callAutoload, bool $cloneArguments, bool $callOriginalMethods) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockClass
+    private function generateMock(string $type, ?array $explicitMethods, string $mockClassName, bool $callOriginalClone, bool $callAutoload, bool $cloneArguments, bool $callOriginalMethods) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockClass
     {
         $classTemplate = $this->getTemplate('mocked_class.tpl');
         $additionalInterfaces = [];
@@ -443,7 +443,7 @@ final class Generator
         $isClass = \false;
         $isInterface = \false;
         $class = null;
-        $mockMethods = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockMethodSet();
+        $mockMethods = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockMethodSet();
         $_mockClassName = $this->generateClassName($type, $mockClassName, 'Mock_');
         if (\class_exists($_mockClassName['fullClassName'], $callAutoload)) {
             $isClass = \true;
@@ -462,11 +462,11 @@ final class Generator
                 $class = new \ReflectionClass($_mockClassName['fullClassName']);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
             if ($class->isFinal()) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ClassIsFinalException($_mockClassName['fullClassName']);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ClassIsFinalException($_mockClassName['fullClassName']);
             }
             // @see https://github.com/sebastianbergmann/phpunit/issues/2995
             if ($isInterface && $class->implementsInterface(\Throwable::class)) {
@@ -477,7 +477,7 @@ final class Generator
                     $class = new \ReflectionClass($actualClassName);
                     // @codeCoverageIgnoreStart
                 } catch (\ReflectionException $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
                 }
                 // @codeCoverageIgnoreEnd
                 foreach ($this->userDefinedInterfaceMethods($_mockClassName['fullClassName']) as $method) {
@@ -487,14 +487,14 @@ final class Generator
                             $classMethod = $class->getMethod($methodName);
                             // @codeCoverageIgnoreStart
                         } catch (\ReflectionException $e) {
-                            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
                         }
                         // @codeCoverageIgnoreEnd
                         if (!$this->canMockMethod($classMethod)) {
                             continue;
                         }
                     }
-                    $mockMethods->addMethods(\ECSPrefix20210803\PHPUnit\Framework\MockObject\MockMethod::fromReflection($method, $callOriginalMethods, $cloneArguments));
+                    $mockMethods->addMethods(\ECSPrefix20210804\PHPUnit\Framework\MockObject\MockMethod::fromReflection($method, $callOriginalMethods, $cloneArguments));
                 }
                 $_mockClassName = $this->generateClassName($actualClassName, $_mockClassName['className'], 'Mock_');
             }
@@ -508,7 +508,7 @@ final class Generator
                     $cloneMethod = $class->getMethod('__clone');
                     // @codeCoverageIgnoreStart
                 } catch (\ReflectionException $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
                 }
                 // @codeCoverageIgnoreEnd
                 if (!$cloneMethod->isFinal()) {
@@ -535,14 +535,14 @@ final class Generator
                         $method = $class->getMethod($methodName);
                         // @codeCoverageIgnoreStart
                     } catch (\ReflectionException $e) {
-                        throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                        throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
                     }
                     // @codeCoverageIgnoreEnd
                     if ($this->canMockMethod($method)) {
-                        $mockMethods->addMethods(\ECSPrefix20210803\PHPUnit\Framework\MockObject\MockMethod::fromReflection($method, $callOriginalMethods, $cloneArguments));
+                        $mockMethods->addMethods(\ECSPrefix20210804\PHPUnit\Framework\MockObject\MockMethod::fromReflection($method, $callOriginalMethods, $cloneArguments));
                     }
                 } else {
-                    $mockMethods->addMethods(\ECSPrefix20210803\PHPUnit\Framework\MockObject\MockMethod::fromName($_mockClassName['fullClassName'], $methodName, $cloneArguments));
+                    $mockMethods->addMethods(\ECSPrefix20210804\PHPUnit\Framework\MockObject\MockMethod::fromName($_mockClassName['fullClassName'], $methodName, $cloneArguments));
                 }
             }
         }
@@ -550,7 +550,7 @@ final class Generator
         $configurable = [];
         foreach ($mockMethods->asArray() as $mockMethod) {
             $mockedMethods .= $mockMethod->generateCode();
-            $configurable[] = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ConfigurableMethod($mockMethod->getName(), $mockMethod->getReturnType());
+            $configurable[] = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ConfigurableMethod($mockMethod->getName(), $mockMethod->getReturnType());
         }
         $method = '';
         if (!$mockMethods->hasMethod('method') && (!isset($class) || !$class->hasMethod('method'))) {
@@ -564,7 +564,7 @@ final class Generator
             $cloneTrait = \PHP_EOL . '    use \\PHPUnit\\Framework\\MockObject\\UnmockedCloneMethod;';
         }
         $classTemplate->setVar(['prologue' => $prologue ?? '', 'epilogue' => $epilogue ?? '', 'class_declaration' => $this->generateMockClassDeclaration($_mockClassName, $isInterface, $additionalInterfaces), 'clone' => $cloneTrait, 'mock_class_name' => $_mockClassName['className'], 'mocked_methods' => $mockedMethods, 'method' => $method]);
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockClass($classTemplate->render(), $_mockClassName['className'], $configurable);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockClass($classTemplate->render(), $_mockClassName['className'], $configurable);
     }
     private function generateClassName(string $type, string $className, string $prefix) : array
     {
@@ -590,7 +590,7 @@ final class Generator
     private function generateMockClassDeclaration(array $mockClassName, bool $isInterface, array $additionalInterfaces = []) : string
     {
         $buffer = 'class ';
-        $additionalInterfaces[] = \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject::class;
+        $additionalInterfaces[] = \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject::class;
         $interfaces = \implode(', ', $additionalInterfaces);
         if ($isInterface) {
             $buffer .= \sprintf('%s implements %s', $mockClassName['className'], $interfaces);
@@ -617,14 +617,14 @@ final class Generator
     /**
      * @throws RuntimeException
      */
-    private function getTemplate(string $template) : \ECSPrefix20210803\SebastianBergmann\Template\Template
+    private function getTemplate(string $template) : \ECSPrefix20210804\SebastianBergmann\Template\Template
     {
         $filename = __DIR__ . \DIRECTORY_SEPARATOR . 'Generator' . \DIRECTORY_SEPARATOR . $template;
         if (!isset(self::$templates[$filename])) {
             try {
-                self::$templates[$filename] = new \ECSPrefix20210803\SebastianBergmann\Template\Template($filename);
-            } catch (\ECSPrefix20210803\SebastianBergmann\Template\Exception $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+                self::$templates[$filename] = new \ECSPrefix20210804\SebastianBergmann\Template\Template($filename);
+            } catch (\ECSPrefix20210804\SebastianBergmann\Template\Exception $e) {
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
             }
         }
         return self::$templates[$filename];

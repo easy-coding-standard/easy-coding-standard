@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Html;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Html;
 
 use function array_pop;
 use function count;
@@ -17,12 +17,12 @@ use function phpversion;
 use function sprintf;
 use function str_repeat;
 use function substr_count;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File as FileNode;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Version;
-use ECSPrefix20210803\SebastianBergmann\Environment\Runtime;
-use ECSPrefix20210803\SebastianBergmann\Template\Template;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File as FileNode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Version;
+use ECSPrefix20210804\SebastianBergmann\Environment\Runtime;
+use ECSPrefix20210804\SebastianBergmann\Template\Template;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
@@ -63,10 +63,10 @@ abstract class Renderer
         $this->date = $date;
         $this->lowUpperBound = $lowUpperBound;
         $this->highLowerBound = $highLowerBound;
-        $this->version = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Version::id();
+        $this->version = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Version::id();
         $this->hasBranchCoverage = $hasBranchCoverage;
     }
-    protected function renderItemTemplate(\ECSPrefix20210803\SebastianBergmann\Template\Template $template, array $data) : string
+    protected function renderItemTemplate(\ECSPrefix20210804\SebastianBergmann\Template\Template $template, array $data) : string
     {
         $numSeparator = '&nbsp;/&nbsp;';
         if (isset($data['numClasses']) && $data['numClasses'] > 0) {
@@ -122,17 +122,17 @@ abstract class Renderer
         $template->setVar(['icon' => $data['icon'] ?? '', 'crap' => $data['crap'] ?? '', 'name' => $data['name'], 'lines_bar' => $linesBar, 'lines_executed_percent' => $data['linesExecutedPercentAsString'], 'lines_level' => $linesLevel, 'lines_number' => $linesNumber, 'paths_bar' => $pathsBar, 'paths_executed_percent' => $data['pathsExecutedPercentAsString'], 'paths_level' => $pathsLevel, 'paths_number' => $pathsNumber, 'branches_bar' => $branchesBar, 'branches_executed_percent' => $data['branchesExecutedPercentAsString'], 'branches_level' => $branchesLevel, 'branches_number' => $branchesNumber, 'methods_bar' => $methodsBar, 'methods_tested_percent' => $data['testedMethodsPercentAsString'], 'methods_level' => $methodsLevel, 'methods_number' => $methodsNumber, 'classes_bar' => $classesBar, 'classes_tested_percent' => $data['testedClassesPercentAsString'] ?? '', 'classes_level' => $classesLevel, 'classes_number' => $classesNumber]);
         return $template->render();
     }
-    protected function setCommonTemplateVariables(\ECSPrefix20210803\SebastianBergmann\Template\Template $template, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : void
+    protected function setCommonTemplateVariables(\ECSPrefix20210804\SebastianBergmann\Template\Template $template, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : void
     {
         $template->setVar(['id' => $node->id(), 'full_path' => $node->pathAsString(), 'path_to_root' => $this->pathToRoot($node), 'breadcrumbs' => $this->breadcrumbs($node), 'date' => $this->date, 'version' => $this->version, 'runtime' => $this->runtimeString(), 'generator' => $this->generator, 'low_upper_bound' => $this->lowUpperBound, 'high_lower_bound' => $this->highLowerBound]);
     }
-    protected function breadcrumbs(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : string
+    protected function breadcrumbs(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : string
     {
         $breadcrumbs = '';
         $path = $node->pathAsArray();
         $pathToRoot = [];
         $max = \count($path);
-        if ($node instanceof \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File) {
+        if ($node instanceof \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File) {
             $max--;
         }
         for ($i = 0; $i < $max; $i++) {
@@ -147,23 +147,23 @@ abstract class Renderer
         }
         return $breadcrumbs;
     }
-    protected function activeBreadcrumb(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : string
+    protected function activeBreadcrumb(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : string
     {
         $buffer = \sprintf('         <li class="breadcrumb-item active">%s</li>' . "\n", $node->name());
-        if ($node instanceof \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory) {
+        if ($node instanceof \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory) {
             $buffer .= '         <li class="breadcrumb-item">(<a href="dashboard.html">Dashboard</a>)</li>' . "\n";
         }
         return $buffer;
     }
-    protected function inactiveBreadcrumb(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode $node, string $pathToRoot) : string
+    protected function inactiveBreadcrumb(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode $node, string $pathToRoot) : string
     {
         return \sprintf('         <li class="breadcrumb-item"><a href="%sindex.html">%s</a></li>' . "\n", $pathToRoot, $node->name());
     }
-    protected function pathToRoot(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : string
+    protected function pathToRoot(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode $node) : string
     {
         $id = $node->id();
         $depth = \substr_count($id, '/');
-        if ($id !== 'index' && $node instanceof \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory) {
+        if ($id !== 'index' && $node instanceof \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory) {
             $depth++;
         }
         return \str_repeat('../', $depth);
@@ -172,7 +172,7 @@ abstract class Renderer
     {
         $level = $this->colorLevel($percent);
         $templateName = $this->templatePath . ($this->hasBranchCoverage ? 'coverage_bar_branch.html' : 'coverage_bar.html');
-        $template = new \ECSPrefix20210803\SebastianBergmann\Template\Template($templateName, '{{', '}}');
+        $template = new \ECSPrefix20210804\SebastianBergmann\Template\Template($templateName, '{{', '}}');
         $template->setVar(['level' => $level, 'percent' => \sprintf('%.2F', $percent)]);
         return $template->render();
     }
@@ -188,7 +188,7 @@ abstract class Renderer
     }
     private function runtimeString() : string
     {
-        $runtime = new \ECSPrefix20210803\SebastianBergmann\Environment\Runtime();
+        $runtime = new \ECSPrefix20210804\SebastianBergmann\Environment\Runtime();
         $buffer = \sprintf('<a href="%s" target="_top">%s %s</a>', $runtime->getVendorUrl(), $runtime->getName(), $runtime->getVersion());
         if ($runtime->hasPHPDBGCodeCoverage()) {
             return $buffer;

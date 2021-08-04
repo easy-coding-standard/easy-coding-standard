@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\Xml;
+namespace ECSPrefix20210804\PHPUnit\Util\Xml;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -27,6 +27,6 @@ abstract class SchemaDetectionResult
      */
     public function version() : string
     {
-        throw new \ECSPrefix20210803\PHPUnit\Util\Xml\Exception('No supported schema was detected');
+        throw new \ECSPrefix20210804\PHPUnit\Util\Xml\Exception('No supported schema was detected');
     }
 }

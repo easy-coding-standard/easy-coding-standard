@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Type;
+namespace ECSPrefix20210804\SebastianBergmann\Type;
 
-final class GenericObjectType extends \ECSPrefix20210803\SebastianBergmann\Type\Type
+final class GenericObjectType extends \ECSPrefix20210804\SebastianBergmann\Type\Type
 {
     /**
      * @var bool
@@ -26,10 +26,10 @@ final class GenericObjectType extends \ECSPrefix20210803\SebastianBergmann\Type\
      */
     public function isAssignable($other) : bool
     {
-        if ($this->allowsNull && $other instanceof \ECSPrefix20210803\SebastianBergmann\Type\NullType) {
+        if ($this->allowsNull && $other instanceof \ECSPrefix20210804\SebastianBergmann\Type\NullType) {
             return \true;
         }
-        if (!$other instanceof \ECSPrefix20210803\SebastianBergmann\Type\ObjectType) {
+        if (!$other instanceof \ECSPrefix20210804\SebastianBergmann\Type\ObjectType) {
             return \false;
         }
         return \true;

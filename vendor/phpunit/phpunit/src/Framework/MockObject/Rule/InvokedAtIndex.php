@@ -9,18 +9,18 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule;
 
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  *
  * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4297
  * @codeCoverageIgnore
  */
-final class InvokedAtIndex extends \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvocationOrder
+final class InvokedAtIndex extends \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvocationOrder
 {
     /**
      * @var int
@@ -41,7 +41,7 @@ final class InvokedAtIndex extends \ECSPrefix20210803\PHPUnit\Framework\MockObje
     {
         return 'invoked at sequence index ' . $this->sequenceIndex;
     }
-    public function matches(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
+    public function matches(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
     {
         $this->currentIndex++;
         return $this->currentIndex == $this->sequenceIndex;
@@ -55,10 +55,10 @@ final class InvokedAtIndex extends \ECSPrefix20210803\PHPUnit\Framework\MockObje
     public function verify() : void
     {
         if ($this->currentIndex < $this->sequenceIndex) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException(\sprintf('The expected invocation at index %s was never reached.', $this->sequenceIndex));
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException(\sprintf('The expected invocation at index %s was never reached.', $this->sequenceIndex));
         }
     }
-    protected function invokedDo(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : void
+    protected function invokedDo(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : void
     {
     }
 }

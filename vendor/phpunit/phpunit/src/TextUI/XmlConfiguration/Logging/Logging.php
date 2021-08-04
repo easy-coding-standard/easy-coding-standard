@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging;
 
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html as TestDoxHtml;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml as TestDoxXml;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html as TestDoxHtml;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml as TestDoxXml;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  * @psalm-immutable
@@ -45,7 +45,7 @@ final class Logging
      * @var ?TestDoxXml
      */
     private $testDoxXml;
-    public function __construct(?\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Junit $junit, ?\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Text $text, ?\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity $teamCity, ?\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html $testDoxHtml, ?\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text $testDoxText, ?\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml $testDoxXml)
+    public function __construct(?\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Junit $junit, ?\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Text $text, ?\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity $teamCity, ?\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html $testDoxHtml, ?\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text $testDoxText, ?\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml $testDoxXml)
     {
         $this->junit = $junit;
         $this->text = $text;
@@ -58,10 +58,10 @@ final class Logging
     {
         return $this->junit !== null;
     }
-    public function junit() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Junit
+    public function junit() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Junit
     {
         if ($this->junit === null) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "JUnit XML" is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "JUnit XML" is not configured');
         }
         return $this->junit;
     }
@@ -69,10 +69,10 @@ final class Logging
     {
         return $this->text !== null;
     }
-    public function text() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Text
+    public function text() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Text
     {
         if ($this->text === null) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "Text" is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "Text" is not configured');
         }
         return $this->text;
     }
@@ -80,10 +80,10 @@ final class Logging
     {
         return $this->teamCity !== null;
     }
-    public function teamCity() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity
+    public function teamCity() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity
     {
         if ($this->teamCity === null) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "Team City" is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "Team City" is not configured');
         }
         return $this->teamCity;
     }
@@ -91,10 +91,10 @@ final class Logging
     {
         return $this->testDoxHtml !== null;
     }
-    public function testDoxHtml() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html
+    public function testDoxHtml() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html
     {
         if ($this->testDoxHtml === null) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "TestDox HTML" is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "TestDox HTML" is not configured');
         }
         return $this->testDoxHtml;
     }
@@ -102,10 +102,10 @@ final class Logging
     {
         return $this->testDoxText !== null;
     }
-    public function testDoxText() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text
+    public function testDoxText() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text
     {
         if ($this->testDoxText === null) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "TestDox Text" is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "TestDox Text" is not configured');
         }
         return $this->testDoxText;
     }
@@ -113,10 +113,10 @@ final class Logging
     {
         return $this->testDoxXml !== null;
     }
-    public function testDoxXml() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml
+    public function testDoxXml() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml
     {
         if ($this->testDoxXml === null) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "TestDox XML" is not configured');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception('Logger "TestDox XML" is not configured');
         }
         return $this->testDoxXml;
     }

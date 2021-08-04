@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node\Stmt;
+namespace ECSPrefix20210804\PhpParser\Node\Stmt;
 
-use ECSPrefix20210803\PhpParser\Node\Name;
-use ECSPrefix20210803\PhpParser\Node\Stmt;
-class GroupUse extends \ECSPrefix20210803\PhpParser\Node\Stmt
+use ECSPrefix20210804\PhpParser\Node\Name;
+use ECSPrefix20210804\PhpParser\Node\Stmt;
+class GroupUse extends \ECSPrefix20210804\PhpParser\Node\Stmt
 {
     /** @var int Type of group use */
     public $type;
@@ -21,7 +21,7 @@ class GroupUse extends \ECSPrefix20210803\PhpParser\Node\Stmt
      * @param int      $type       Type of group use
      * @param array    $attributes Additional attributes
      */
-    public function __construct(\ECSPrefix20210803\PhpParser\Node\Name $prefix, array $uses, int $type = \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL, array $attributes = [])
+    public function __construct(\ECSPrefix20210804\PhpParser\Node\Name $prefix, array $uses, int $type = \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->type = $type;

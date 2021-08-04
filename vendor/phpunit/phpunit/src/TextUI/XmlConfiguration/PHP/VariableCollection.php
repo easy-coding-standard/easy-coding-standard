@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use function count;
 use Countable;
@@ -31,7 +31,7 @@ final class VariableCollection implements \Countable, \IteratorAggregate
     {
         return new self(...$variables);
     }
-    private function __construct(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Variable ...$variables)
+    private function __construct(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Variable ...$variables)
     {
         $this->variables = $variables;
     }
@@ -46,8 +46,8 @@ final class VariableCollection implements \Countable, \IteratorAggregate
     {
         return \count($this->variables);
     }
-    public function getIterator() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollectionIterator
+    public function getIterator() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollectionIterator
     {
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollectionIterator($this);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollectionIterator($this);
     }
 }

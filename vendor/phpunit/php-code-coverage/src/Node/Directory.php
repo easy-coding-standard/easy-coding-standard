@@ -9,17 +9,17 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node;
 
 use function array_merge;
 use function count;
 use IteratorAggregate;
 use RecursiveIteratorIterator;
-use ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode;
+use ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class Directory extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode implements \IteratorAggregate
+final class Directory extends \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode implements \IteratorAggregate
 {
     /**
      * @var AbstractNode[]
@@ -121,7 +121,7 @@ final class Directory extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\
     }
     public function getIterator() : \RecursiveIteratorIterator
     {
-        return new \RecursiveIteratorIterator(new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Iterator($this), \RecursiveIteratorIterator::SELF_FIRST);
+        return new \RecursiveIteratorIterator(new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Iterator($this), \RecursiveIteratorIterator::SELF_FIRST);
     }
     public function addDirectory(string $name) : self
     {
@@ -130,7 +130,7 @@ final class Directory extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\
         $this->directories[] =& $this->children[\count($this->children) - 1];
         return $directory;
     }
-    public function addFile(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File $file) : void
+    public function addFile(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File $file) : void
     {
         $this->children[] = $file;
         $this->files[] =& $this->children[\count($this->children) - 1];
@@ -179,10 +179,10 @@ final class Directory extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\
         }
         return $this->functions;
     }
-    public function linesOfCode() : \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode
+    public function linesOfCode() : \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode
     {
         if ($this->linesOfCode === null) {
-            $this->linesOfCode = new \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode(0, 0, 0, 0);
+            $this->linesOfCode = new \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode(0, 0, 0, 0);
             foreach ($this->children as $child) {
                 $this->linesOfCode = $this->linesOfCode->plus($child->linesOfCode());
             }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210803\Doctrine\Instantiator\Exception;
+namespace ECSPrefix20210804\Doctrine\Instantiator\Exception;
 
 use Exception;
 use ReflectionClass;
@@ -9,7 +9,7 @@ use function sprintf;
 /**
  * Exception for given parameters causing invalid/unexpected state on instantiation
  */
-class UnexpectedValueException extends \UnexpectedValueException implements \ECSPrefix20210803\Doctrine\Instantiator\Exception\ExceptionInterface
+class UnexpectedValueException extends \UnexpectedValueException implements \ECSPrefix20210804\Doctrine\Instantiator\Exception\ExceptionInterface
 {
     /**
      * @template T of object

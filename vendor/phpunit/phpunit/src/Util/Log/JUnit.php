@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\Log;
+namespace ECSPrefix20210804\PHPUnit\Util\Log;
 
 use function class_exists;
 use function get_class;
@@ -19,25 +19,25 @@ use function str_replace;
 use function trim;
 use DOMDocument;
 use DOMElement;
-use ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError;
-use ECSPrefix20210803\PHPUnit\Framework\ExceptionWrapper;
-use ECSPrefix20210803\PHPUnit\Framework\SelfDescribing;
-use ECSPrefix20210803\PHPUnit\Framework\Test;
-use ECSPrefix20210803\PHPUnit\Framework\TestFailure;
-use ECSPrefix20210803\PHPUnit\Framework\TestListener;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
-use ECSPrefix20210803\PHPUnit\Framework\Warning;
-use ECSPrefix20210803\PHPUnit\Util\Exception;
-use ECSPrefix20210803\PHPUnit\Util\Filter;
-use ECSPrefix20210803\PHPUnit\Util\Printer;
-use ECSPrefix20210803\PHPUnit\Util\Xml;
+use ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError;
+use ECSPrefix20210804\PHPUnit\Framework\ExceptionWrapper;
+use ECSPrefix20210804\PHPUnit\Framework\SelfDescribing;
+use ECSPrefix20210804\PHPUnit\Framework\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestFailure;
+use ECSPrefix20210804\PHPUnit\Framework\TestListener;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Framework\Warning;
+use ECSPrefix20210804\PHPUnit\Util\Exception;
+use ECSPrefix20210804\PHPUnit\Util\Filter;
+use ECSPrefix20210804\PHPUnit\Util\Printer;
+use ECSPrefix20210804\PHPUnit\Util\Xml;
 use ReflectionClass;
 use ReflectionException;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \ECSPrefix20210803\PHPUnit\Framework\TestListener
+final class JUnit extends \ECSPrefix20210804\PHPUnit\Util\Printer implements \ECSPrefix20210804\PHPUnit\Framework\TestListener
 {
     /**
      * @var DOMDocument
@@ -114,7 +114,7 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
     /**
      * An error occurred.
      */
-    public function addError(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addError(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->doAddFault($test, $t, 'error');
         $this->testSuiteErrors[$this->testSuiteLevel]++;
@@ -122,7 +122,7 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
     /**
      * A warning occurred.
      */
-    public function addWarning(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\Warning $e, float $time) : void
+    public function addWarning(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\Warning $e, float $time) : void
     {
         $this->doAddFault($test, $e, 'warning');
         $this->testSuiteWarnings[$this->testSuiteLevel]++;
@@ -130,7 +130,7 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
     /**
      * A failure occurred.
      */
-    public function addFailure(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
+    public function addFailure(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
     {
         $this->doAddFault($test, $e, 'failure');
         $this->testSuiteFailures[$this->testSuiteLevel]++;
@@ -138,14 +138,14 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
     /**
      * Incomplete test.
      */
-    public function addIncompleteTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addIncompleteTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->doAddSkipped();
     }
     /**
      * Risky test.
      */
-    public function addRiskyTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addRiskyTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         if (!$this->reportRiskyTests) {
             return;
@@ -156,14 +156,14 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
     /**
      * Skipped test.
      */
-    public function addSkippedTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addSkippedTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         $this->doAddSkipped();
     }
     /**
      * A testsuite started.
      */
-    public function startTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function startTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
         $testSuite = $this->document->createElement('testsuite');
         $testSuite->setAttribute('name', $suite->getName());
@@ -192,7 +192,7 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
     /**
      * A testsuite ended.
      */
-    public function endTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function endTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
         $this->testSuites[$this->testSuiteLevel]->setAttribute('tests', (string) $this->testSuiteTests[$this->testSuiteLevel]);
         $this->testSuites[$this->testSuiteLevel]->setAttribute('assertions', (string) $this->testSuiteAssertions[$this->testSuiteLevel]);
@@ -215,7 +215,7 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
     /**
      * A test started.
      */
-    public function startTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : void
+    public function startTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : void
     {
         $usesDataprovider = \false;
         if (\method_exists($test, 'usesDataProvider')) {
@@ -227,7 +227,7 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
             $class = new \ReflectionClass($test);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         $methodName = $test->getName(!$usesDataprovider);
@@ -236,7 +236,7 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
                 $method = $class->getMethod($methodName);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
             $testCase->setAttribute('class', $class->getName());
@@ -249,7 +249,7 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
     /**
      * A test ended.
      */
-    public function endTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, float $time) : void
+    public function endTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, float $time) : void
     {
         $numAssertions = 0;
         if (\method_exists($test, 'getNumAssertions')) {
@@ -266,7 +266,7 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
             $testOutput = $test->hasOutput() ? $test->getActualOutput() : '';
         }
         if (!empty($testOutput)) {
-            $systemOut = $this->document->createElement('system-out', \ECSPrefix20210803\PHPUnit\Util\Xml::prepareString($testOutput));
+            $systemOut = $this->document->createElement('system-out', \ECSPrefix20210804\PHPUnit\Util\Xml::prepareString($testOutput));
             $this->currentTestCase->appendChild($systemOut);
         }
         $this->currentTestCase = null;
@@ -278,19 +278,19 @@ final class JUnit extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \EC
     {
         return $this->document->saveXML();
     }
-    private function doAddFault(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, string $type) : void
+    private function doAddFault(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, string $type) : void
     {
         if ($this->currentTestCase === null) {
             return;
         }
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing) {
             $buffer = $test->toString() . "\n";
         } else {
             $buffer = '';
         }
-        $buffer .= \trim(\ECSPrefix20210803\PHPUnit\Framework\TestFailure::exceptionToString($t) . "\n" . \ECSPrefix20210803\PHPUnit\Util\Filter::getFilteredStacktrace($t));
-        $fault = $this->document->createElement($type, \ECSPrefix20210803\PHPUnit\Util\Xml::prepareString($buffer));
-        if ($t instanceof \ECSPrefix20210803\PHPUnit\Framework\ExceptionWrapper) {
+        $buffer .= \trim(\ECSPrefix20210804\PHPUnit\Framework\TestFailure::exceptionToString($t) . "\n" . \ECSPrefix20210804\PHPUnit\Util\Filter::getFilteredStacktrace($t));
+        $fault = $this->document->createElement($type, \ECSPrefix20210804\PHPUnit\Util\Xml::prepareString($buffer));
+        if ($t instanceof \ECSPrefix20210804\PHPUnit\Framework\ExceptionWrapper) {
             $fault->setAttribute('type', $t->getClassName());
         } else {
             $fault->setAttribute('type', \get_class($t));

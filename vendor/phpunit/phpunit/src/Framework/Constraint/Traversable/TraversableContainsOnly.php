@@ -9,14 +9,14 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
 use Traversable;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class TraversableContainsOnly extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+final class TraversableContainsOnly extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var Constraint
@@ -32,9 +32,9 @@ final class TraversableContainsOnly extends \ECSPrefix20210803\PHPUnit\Framework
     public function __construct(string $type, bool $isNativeType = \true)
     {
         if ($isNativeType) {
-            $this->constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType($type);
+            $this->constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType($type);
         } else {
-            $this->constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsInstanceOf($type);
+            $this->constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsInstanceOf($type);
         }
         $this->type = $type;
     }

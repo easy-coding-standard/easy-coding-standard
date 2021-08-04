@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 use DOMElement;
 use DOMNodeList;
@@ -25,7 +25,7 @@ class ManifestElement
     protected function getAttributeValue(string $name) : string
     {
         if (!$this->element->hasAttribute($name)) {
-            throw new \ECSPrefix20210803\PharIo\Manifest\ManifestElementException(\sprintf('Attribute %s not set on element %s', $name, $this->element->localName));
+            throw new \ECSPrefix20210804\PharIo\Manifest\ManifestElementException(\sprintf('Attribute %s not set on element %s', $name, $this->element->localName));
         }
         return $this->element->getAttribute($name);
     }
@@ -33,7 +33,7 @@ class ManifestElement
     {
         $element = $this->element->getElementsByTagNameNS(self::XMLNS, $elementName)->item(0);
         if (!$element instanceof \DOMElement) {
-            throw new \ECSPrefix20210803\PharIo\Manifest\ManifestElementException(\sprintf('Element %s missing', $elementName));
+            throw new \ECSPrefix20210804\PharIo\Manifest\ManifestElementException(\sprintf('Element %s missing', $elementName));
         }
         return $element;
     }
@@ -41,7 +41,7 @@ class ManifestElement
     {
         $elementList = $this->element->getElementsByTagNameNS(self::XMLNS, $elementName);
         if ($elementList->length === 0) {
-            throw new \ECSPrefix20210803\PharIo\Manifest\ManifestElementException(\sprintf('Element(s) %s missing', $elementName));
+            throw new \ECSPrefix20210804\PharIo\Manifest\ManifestElementException(\sprintf('Element(s) %s missing', $elementName));
         }
         return $elementList;
     }

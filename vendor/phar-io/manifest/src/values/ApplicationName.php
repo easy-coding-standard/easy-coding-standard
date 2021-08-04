@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class ApplicationName
 {
@@ -24,14 +24,14 @@ class ApplicationName
     {
         return $this->name;
     }
-    public function isEqual(\ECSPrefix20210803\PharIo\Manifest\ApplicationName $name) : bool
+    public function isEqual(\ECSPrefix20210804\PharIo\Manifest\ApplicationName $name) : bool
     {
         return $this->name === $name->name;
     }
     private function ensureValidFormat(string $name) : void
     {
         if (!\preg_match('#\\w/\\w#', $name)) {
-            throw new \ECSPrefix20210803\PharIo\Manifest\InvalidApplicationNameException(\sprintf('Format of name "%s" is not valid - expected: vendor/packagename', $name), \ECSPrefix20210803\PharIo\Manifest\InvalidApplicationNameException::InvalidFormat);
+            throw new \ECSPrefix20210804\PharIo\Manifest\InvalidApplicationNameException(\sprintf('Format of name "%s" is not valid - expected: vendor/packagename', $name), \ECSPrefix20210804\PharIo\Manifest\InvalidApplicationNameException::InvalidFormat);
         }
     }
 }

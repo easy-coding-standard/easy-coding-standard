@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Timer;
+namespace ECSPrefix20210804\SebastianBergmann\Timer;
 
 use function array_pop;
 use function hrtime;
@@ -26,11 +26,11 @@ final class Timer
     /**
      * @throws NoActiveTimerException
      */
-    public function stop() : \ECSPrefix20210803\SebastianBergmann\Timer\Duration
+    public function stop() : \ECSPrefix20210804\SebastianBergmann\Timer\Duration
     {
         if (empty($this->startTimes)) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Timer\NoActiveTimerException('Timer::start() has to be called before Timer::stop()');
+            throw new \ECSPrefix20210804\SebastianBergmann\Timer\NoActiveTimerException('Timer::start() has to be called before Timer::stop()');
         }
-        return \ECSPrefix20210803\SebastianBergmann\Timer\Duration::fromNanoseconds((float) \hrtime(\true) - \array_pop($this->startTimes));
+        return \ECSPrefix20210804\SebastianBergmann\Timer\Duration::fromNanoseconds((float) \hrtime(\true) - \array_pop($this->startTimes));
     }
 }

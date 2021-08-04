@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class IncompleteTestCase extends \ECSPrefix20210803\PHPUnit\Framework\TestCase
+final class IncompleteTestCase extends \ECSPrefix20210804\PHPUnit\Framework\TestCase
 {
     /**
      * @var bool

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report;
 
 use function count;
 use function dirname;
@@ -17,16 +17,16 @@ use function file_put_contents;
 use function range;
 use function time;
 use DOMImplementation;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File;
 final class Cobertura
 {
     /**
      * @throws WriteOperationFailedException
      */
-    public function process(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, ?string $target = null, ?string $name = null) : string
+    public function process(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, ?string $target = null, ?string $name = null) : string
     {
         $time = (string) \time();
         $report = $coverage->getReport();
@@ -61,7 +61,7 @@ final class Cobertura
         $coverageElement->appendChild($packagesElement);
         $complexity = 0;
         foreach ($report as $item) {
-            if (!$item instanceof \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File) {
+            if (!$item instanceof \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File) {
                 continue;
             }
             $packageElement = $document->createElement('package');
@@ -207,9 +207,9 @@ final class Cobertura
         $coverageElement->setAttribute('complexity', (string) $complexity);
         $buffer = $document->saveXML();
         if ($target !== null) {
-            \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory::create(\dirname($target));
+            \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory::create(\dirname($target));
             if (@\file_put_contents($target, $buffer) === \false) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException($target);
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException($target);
             }
         }
         return $buffer;

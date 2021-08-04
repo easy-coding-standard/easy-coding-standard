@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node\Stmt;
+namespace ECSPrefix20210804\PhpParser\Node\Stmt;
 
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Expr;
-class StaticVar extends \ECSPrefix20210803\PhpParser\Node\Stmt
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Expr;
+class StaticVar extends \ECSPrefix20210804\PhpParser\Node\Stmt
 {
     /** @var Expr\Variable Variable */
     public $var;
@@ -18,7 +18,7 @@ class StaticVar extends \ECSPrefix20210803\PhpParser\Node\Stmt
      * @param null|Node\Expr $default    Default value
      * @param array          $attributes Additional attributes
      */
-    public function __construct(\ECSPrefix20210803\PhpParser\Node\Expr\Variable $var, \ECSPrefix20210803\PhpParser\Node\Expr $default = null, array $attributes = [])
+    public function __construct(\ECSPrefix20210804\PhpParser\Node\Expr\Variable $var, \ECSPrefix20210804\PhpParser\Node\Expr $default = null, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->var = $var;

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser;
+namespace ECSPrefix20210804\PhpParser;
 
-use ECSPrefix20210803\PhpParser\Node\Expr\Include_;
-use ECSPrefix20210803\PhpParser\Node\Stmt\Class_;
-use ECSPrefix20210803\PhpParser\Node\Stmt\GroupUse;
-use ECSPrefix20210803\PhpParser\Node\Stmt\Use_;
-use ECSPrefix20210803\PhpParser\Node\Stmt\UseUse;
+use ECSPrefix20210804\PhpParser\Node\Expr\Include_;
+use ECSPrefix20210804\PhpParser\Node\Stmt\Class_;
+use ECSPrefix20210804\PhpParser\Node\Stmt\GroupUse;
+use ECSPrefix20210804\PhpParser\Node\Stmt\Use_;
+use ECSPrefix20210804\PhpParser\Node\Stmt\UseUse;
 class NodeDumper
 {
     private $dumpComments;
@@ -45,7 +45,7 @@ class NodeDumper
     }
     protected function dumpRecursive($node)
     {
-        if ($node instanceof \ECSPrefix20210803\PhpParser\Node) {
+        if ($node instanceof \ECSPrefix20210804\PhpParser\Node) {
             $r = $node->getType();
             if ($this->dumpPositions && null !== ($p = $this->dumpPosition($node))) {
                 $r .= $p;
@@ -63,9 +63,9 @@ class NodeDumper
                 } elseif (\is_scalar($value)) {
                     if ('flags' === $key || 'newModifier' === $key) {
                         $r .= $this->dumpFlags($value);
-                    } elseif ('type' === $key && $node instanceof \ECSPrefix20210803\PhpParser\Node\Expr\Include_) {
+                    } elseif ('type' === $key && $node instanceof \ECSPrefix20210804\PhpParser\Node\Expr\Include_) {
                         $r .= $this->dumpIncludeType($value);
-                    } elseif ('type' === $key && ($node instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\Use_ || $node instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\UseUse || $node instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\GroupUse)) {
+                    } elseif ('type' === $key && ($node instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\Use_ || $node instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\UseUse || $node instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\GroupUse)) {
                         $r .= $this->dumpUseType($value);
                     } else {
                         $r .= $value;
@@ -93,7 +93,7 @@ class NodeDumper
                     $r .= \str_replace("\n", "\n    ", $this->dumpRecursive($value));
                 }
             }
-        } elseif ($node instanceof \ECSPrefix20210803\PhpParser\Comment) {
+        } elseif ($node instanceof \ECSPrefix20210804\PhpParser\Comment) {
             return $node->getReformattedText();
         } else {
             throw new \InvalidArgumentException('Can only dump nodes and arrays.');
@@ -103,25 +103,25 @@ class NodeDumper
     protected function dumpFlags($flags)
     {
         $strs = [];
-        if ($flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC) {
+        if ($flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC) {
             $strs[] = 'MODIFIER_PUBLIC';
         }
-        if ($flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED) {
+        if ($flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED) {
             $strs[] = 'MODIFIER_PROTECTED';
         }
-        if ($flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE) {
+        if ($flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE) {
             $strs[] = 'MODIFIER_PRIVATE';
         }
-        if ($flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT) {
+        if ($flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT) {
             $strs[] = 'MODIFIER_ABSTRACT';
         }
-        if ($flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC) {
+        if ($flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC) {
             $strs[] = 'MODIFIER_STATIC';
         }
-        if ($flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL) {
+        if ($flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL) {
             $strs[] = 'MODIFIER_FINAL';
         }
-        if ($flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_READONLY) {
+        if ($flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_READONLY) {
             $strs[] = 'MODIFIER_READONLY';
         }
         if ($strs) {
@@ -132,7 +132,7 @@ class NodeDumper
     }
     protected function dumpIncludeType($type)
     {
-        $map = [\ECSPrefix20210803\PhpParser\Node\Expr\Include_::TYPE_INCLUDE => 'TYPE_INCLUDE', \ECSPrefix20210803\PhpParser\Node\Expr\Include_::TYPE_INCLUDE_ONCE => 'TYPE_INCLUDE_ONCE', \ECSPrefix20210803\PhpParser\Node\Expr\Include_::TYPE_REQUIRE => 'TYPE_REQUIRE', \ECSPrefix20210803\PhpParser\Node\Expr\Include_::TYPE_REQUIRE_ONCE => 'TYPE_REQUIRE_ONCE'];
+        $map = [\ECSPrefix20210804\PhpParser\Node\Expr\Include_::TYPE_INCLUDE => 'TYPE_INCLUDE', \ECSPrefix20210804\PhpParser\Node\Expr\Include_::TYPE_INCLUDE_ONCE => 'TYPE_INCLUDE_ONCE', \ECSPrefix20210804\PhpParser\Node\Expr\Include_::TYPE_REQUIRE => 'TYPE_REQUIRE', \ECSPrefix20210804\PhpParser\Node\Expr\Include_::TYPE_REQUIRE_ONCE => 'TYPE_REQUIRE_ONCE'];
         if (!isset($map[$type])) {
             return $type;
         }
@@ -140,7 +140,7 @@ class NodeDumper
     }
     protected function dumpUseType($type)
     {
-        $map = [\ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN => 'TYPE_UNKNOWN', \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL => 'TYPE_NORMAL', \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION => 'TYPE_FUNCTION', \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT => 'TYPE_CONSTANT'];
+        $map = [\ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN => 'TYPE_UNKNOWN', \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL => 'TYPE_NORMAL', \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION => 'TYPE_FUNCTION', \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT => 'TYPE_CONSTANT'];
         if (!isset($map[$type])) {
             return $type;
         }
@@ -153,7 +153,7 @@ class NodeDumper
      *
      * @return string|null Dump of position, or null if position information not available
      */
-    protected function dumpPosition(\ECSPrefix20210803\PhpParser\Node $node)
+    protected function dumpPosition(\ECSPrefix20210804\PhpParser\Node $node)
     {
         if (!$node->hasAttribute('startLine') || !$node->hasAttribute('endLine')) {
             return null;

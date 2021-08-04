@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use const DIRECTORY_SEPARATOR;
 use function class_exists;
@@ -20,42 +20,42 @@ use function realpath;
 use function sprintf;
 use function strpos;
 use function sys_get_temp_dir;
-use ECSPrefix20210803\Composer\Autoload\ClassLoader;
-use ECSPrefix20210803\DeepCopy\DeepCopy;
-use ECSPrefix20210803\Doctrine\Instantiator\Instantiator;
-use ECSPrefix20210803\PharIo\Manifest\Manifest;
-use ECSPrefix20210803\PharIo\Version\Version as PharIoVersion;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
-use ECSPrefix20210803\phpDocumentor\Reflection\Project;
-use ECSPrefix20210803\phpDocumentor\Reflection\Type;
-use ECSPrefix20210803\PhpParser\Parser;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\Prophecy\Prophet;
+use ECSPrefix20210804\Composer\Autoload\ClassLoader;
+use ECSPrefix20210804\DeepCopy\DeepCopy;
+use ECSPrefix20210804\Doctrine\Instantiator\Instantiator;
+use ECSPrefix20210804\PharIo\Manifest\Manifest;
+use ECSPrefix20210804\PharIo\Version\Version as PharIoVersion;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
+use ECSPrefix20210804\phpDocumentor\Reflection\Project;
+use ECSPrefix20210804\phpDocumentor\Reflection\Type;
+use ECSPrefix20210804\PhpParser\Parser;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\Prophecy\Prophet;
 use ReflectionClass;
 use ReflectionException;
-use ECSPrefix20210803\SebastianBergmann\CliParser\Parser as CliParser;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage;
-use ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit;
-use ECSPrefix20210803\SebastianBergmann\CodeUnitReverseLookup\Wizard;
-use ECSPrefix20210803\SebastianBergmann\Comparator\Comparator;
-use ECSPrefix20210803\SebastianBergmann\Complexity\Calculator;
-use ECSPrefix20210803\SebastianBergmann\Diff\Diff;
-use ECSPrefix20210803\SebastianBergmann\Environment\Runtime;
-use ECSPrefix20210803\SebastianBergmann\Exporter\Exporter;
-use ECSPrefix20210803\SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
-use ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot;
-use ECSPrefix20210803\SebastianBergmann\Invoker\Invoker;
-use ECSPrefix20210803\SebastianBergmann\LinesOfCode\Counter;
-use ECSPrefix20210803\SebastianBergmann\ObjectEnumerator\Enumerator;
-use ECSPrefix20210803\SebastianBergmann\RecursionContext\Context;
-use ECSPrefix20210803\SebastianBergmann\ResourceOperations\ResourceOperations;
-use ECSPrefix20210803\SebastianBergmann\Template\Template;
-use ECSPrefix20210803\SebastianBergmann\Timer\Timer;
-use ECSPrefix20210803\SebastianBergmann\Type\TypeName;
-use ECSPrefix20210803\SebastianBergmann\Version;
-use ECSPrefix20210803\Symfony\Polyfill\Ctype\Ctype;
-use ECSPrefix20210803\TheSeer\Tokenizer\Tokenizer;
-use ECSPrefix20210803\Webmozart\Assert\Assert;
+use ECSPrefix20210804\SebastianBergmann\CliParser\Parser as CliParser;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage;
+use ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit;
+use ECSPrefix20210804\SebastianBergmann\CodeUnitReverseLookup\Wizard;
+use ECSPrefix20210804\SebastianBergmann\Comparator\Comparator;
+use ECSPrefix20210804\SebastianBergmann\Complexity\Calculator;
+use ECSPrefix20210804\SebastianBergmann\Diff\Diff;
+use ECSPrefix20210804\SebastianBergmann\Environment\Runtime;
+use ECSPrefix20210804\SebastianBergmann\Exporter\Exporter;
+use ECSPrefix20210804\SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
+use ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot;
+use ECSPrefix20210804\SebastianBergmann\Invoker\Invoker;
+use ECSPrefix20210804\SebastianBergmann\LinesOfCode\Counter;
+use ECSPrefix20210804\SebastianBergmann\ObjectEnumerator\Enumerator;
+use ECSPrefix20210804\SebastianBergmann\RecursionContext\Context;
+use ECSPrefix20210804\SebastianBergmann\ResourceOperations\ResourceOperations;
+use ECSPrefix20210804\SebastianBergmann\Template\Template;
+use ECSPrefix20210804\SebastianBergmann\Timer\Timer;
+use ECSPrefix20210804\SebastianBergmann\Type\TypeName;
+use ECSPrefix20210804\SebastianBergmann\Version;
+use ECSPrefix20210804\Symfony\Polyfill\Ctype\Ctype;
+use ECSPrefix20210804\TheSeer\Tokenizer\Tokenizer;
+use ECSPrefix20210804\Webmozart\Assert\Assert;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
@@ -66,73 +66,73 @@ final class ExcludeList
      */
     private const EXCLUDED_CLASS_NAMES = [
         // composer
-        \ECSPrefix20210803\Composer\Autoload\ClassLoader::class => 1,
+        \ECSPrefix20210804\Composer\Autoload\ClassLoader::class => 1,
         // doctrine/instantiator
-        \ECSPrefix20210803\Doctrine\Instantiator\Instantiator::class => 1,
+        \ECSPrefix20210804\Doctrine\Instantiator\Instantiator::class => 1,
         // myclabs/deepcopy
-        \ECSPrefix20210803\DeepCopy\DeepCopy::class => 1,
+        \ECSPrefix20210804\DeepCopy\DeepCopy::class => 1,
         // nikic/php-parser
-        \ECSPrefix20210803\PhpParser\Parser::class => 1,
+        \ECSPrefix20210804\PhpParser\Parser::class => 1,
         // phar-io/manifest
-        \ECSPrefix20210803\PharIo\Manifest\Manifest::class => 1,
+        \ECSPrefix20210804\PharIo\Manifest\Manifest::class => 1,
         // phar-io/version
-        \ECSPrefix20210803\PharIo\Version\Version::class => 1,
+        \ECSPrefix20210804\PharIo\Version\Version::class => 1,
         // phpdocumentor/reflection-common
-        \ECSPrefix20210803\phpDocumentor\Reflection\Project::class => 1,
+        \ECSPrefix20210804\phpDocumentor\Reflection\Project::class => 1,
         // phpdocumentor/reflection-docblock
-        \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock::class => 1,
+        \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock::class => 1,
         // phpdocumentor/type-resolver
-        \ECSPrefix20210803\phpDocumentor\Reflection\Type::class => 1,
+        \ECSPrefix20210804\phpDocumentor\Reflection\Type::class => 1,
         // phpspec/prophecy
-        \ECSPrefix20210803\Prophecy\Prophet::class => 1,
+        \ECSPrefix20210804\Prophecy\Prophet::class => 1,
         // phpunit/phpunit
-        \ECSPrefix20210803\PHPUnit\Framework\TestCase::class => 2,
+        \ECSPrefix20210804\PHPUnit\Framework\TestCase::class => 2,
         // phpunit/php-code-coverage
-        \ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage::class => 1,
         // phpunit/php-file-iterator
-        \ECSPrefix20210803\SebastianBergmann\FileIterator\Facade::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\FileIterator\Facade::class => 1,
         // phpunit/php-invoker
-        \ECSPrefix20210803\SebastianBergmann\Invoker\Invoker::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Invoker\Invoker::class => 1,
         // phpunit/php-text-template
-        \ECSPrefix20210803\SebastianBergmann\Template\Template::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Template\Template::class => 1,
         // phpunit/php-timer
-        \ECSPrefix20210803\SebastianBergmann\Timer\Timer::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Timer\Timer::class => 1,
         // sebastian/cli-parser
-        \ECSPrefix20210803\SebastianBergmann\CliParser\Parser::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\CliParser\Parser::class => 1,
         // sebastian/code-unit
-        \ECSPrefix20210803\SebastianBergmann\CodeUnit\CodeUnit::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\CodeUnit\CodeUnit::class => 1,
         // sebastian/code-unit-reverse-lookup
-        \ECSPrefix20210803\SebastianBergmann\CodeUnitReverseLookup\Wizard::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\CodeUnitReverseLookup\Wizard::class => 1,
         // sebastian/comparator
-        \ECSPrefix20210803\SebastianBergmann\Comparator\Comparator::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Comparator\Comparator::class => 1,
         // sebastian/complexity
-        \ECSPrefix20210803\SebastianBergmann\Complexity\Calculator::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Complexity\Calculator::class => 1,
         // sebastian/diff
-        \ECSPrefix20210803\SebastianBergmann\Diff\Diff::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Diff\Diff::class => 1,
         // sebastian/environment
-        \ECSPrefix20210803\SebastianBergmann\Environment\Runtime::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Environment\Runtime::class => 1,
         // sebastian/exporter
-        \ECSPrefix20210803\SebastianBergmann\Exporter\Exporter::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Exporter\Exporter::class => 1,
         // sebastian/global-state
-        \ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot::class => 1,
         // sebastian/lines-of-code
-        \ECSPrefix20210803\SebastianBergmann\LinesOfCode\Counter::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\LinesOfCode\Counter::class => 1,
         // sebastian/object-enumerator
-        \ECSPrefix20210803\SebastianBergmann\ObjectEnumerator\Enumerator::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\ObjectEnumerator\Enumerator::class => 1,
         // sebastian/recursion-context
-        \ECSPrefix20210803\SebastianBergmann\RecursionContext\Context::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\RecursionContext\Context::class => 1,
         // sebastian/resource-operations
-        \ECSPrefix20210803\SebastianBergmann\ResourceOperations\ResourceOperations::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\ResourceOperations\ResourceOperations::class => 1,
         // sebastian/type
-        \ECSPrefix20210803\SebastianBergmann\Type\TypeName::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Type\TypeName::class => 1,
         // sebastian/version
-        \ECSPrefix20210803\SebastianBergmann\Version::class => 1,
+        \ECSPrefix20210804\SebastianBergmann\Version::class => 1,
         // symfony/polyfill-ctype
-        \ECSPrefix20210803\Symfony\Polyfill\Ctype\Ctype::class => 1,
+        \ECSPrefix20210804\Symfony\Polyfill\Ctype\Ctype::class => 1,
         // theseer/tokenizer
-        \ECSPrefix20210803\TheSeer\Tokenizer\Tokenizer::class => 1,
+        \ECSPrefix20210804\TheSeer\Tokenizer\Tokenizer::class => 1,
         // webmozart/assert
-        \ECSPrefix20210803\Webmozart\Assert\Assert::class => 1,
+        \ECSPrefix20210804\Webmozart\Assert\Assert::class => 1,
     ];
     /**
      * @var string[]
@@ -141,7 +141,7 @@ final class ExcludeList
     public static function addDirectory(string $directory) : void
     {
         if (!\is_dir($directory)) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception(\sprintf('"%s" is not a directory', $directory));
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception(\sprintf('"%s" is not a directory', $directory));
         }
         self::$directories[] = \realpath($directory);
     }
@@ -186,7 +186,7 @@ final class ExcludeList
                     $directory = (new \ReflectionClass($className))->getFileName();
                     // @codeCoverageIgnoreStart
                 } catch (\ReflectionException $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
                 }
                 // @codeCoverageIgnoreEnd
                 for ($i = 0; $i < $parent; $i++) {

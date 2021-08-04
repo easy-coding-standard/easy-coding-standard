@@ -9,15 +9,15 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver;
 
 use function sprintf;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\BranchAndPathCoverageNotSupportedException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\DeadCodeDetectionNotSupportedException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Filter;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\BranchAndPathCoverageNotSupportedException;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\DeadCodeDetectionNotSupportedException;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Filter;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\NoCodeCoverageDriverAvailableException;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\NoCodeCoverageDriverWithPathCoverageSupportAvailableException;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
@@ -71,9 +71,9 @@ abstract class Driver
      *
      * @deprecated Use DriverSelector::forLineCoverage() instead
      */
-    public static function forLineCoverage(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Filter $filter) : self
+    public static function forLineCoverage(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Filter $filter) : self
     {
-        return (new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Selector())->forLineCoverage($filter);
+        return (new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Selector())->forLineCoverage($filter);
     }
     /**
      * @throws NoCodeCoverageDriverWithPathCoverageSupportAvailableException
@@ -83,9 +83,9 @@ abstract class Driver
      *
      * @deprecated Use DriverSelector::forLineAndPathCoverage() instead
      */
-    public static function forLineAndPathCoverage(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Filter $filter) : self
+    public static function forLineAndPathCoverage(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Filter $filter) : self
     {
-        return (new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Selector())->forLineAndPathCoverage($filter);
+        return (new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Selector())->forLineAndPathCoverage($filter);
     }
     public function canCollectBranchAndPathCoverage() : bool
     {
@@ -101,7 +101,7 @@ abstract class Driver
     public function enableBranchAndPathCoverage() : void
     {
         if (!$this->canCollectBranchAndPathCoverage()) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\BranchAndPathCoverageNotSupportedException(\sprintf('%s does not support branch and path coverage', $this->nameAndVersion()));
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\BranchAndPathCoverageNotSupportedException(\sprintf('%s does not support branch and path coverage', $this->nameAndVersion()));
         }
         $this->collectBranchAndPathCoverage = \true;
     }
@@ -123,7 +123,7 @@ abstract class Driver
     public function enableDeadCodeDetection() : void
     {
         if (!$this->canDetectDeadCode()) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\DeadCodeDetectionNotSupportedException(\sprintf('%s does not support dead code detection', $this->nameAndVersion()));
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\DeadCodeDetectionNotSupportedException(\sprintf('%s does not support dead code detection', $this->nameAndVersion()));
         }
         $this->detectDeadCode = \true;
     }
@@ -133,5 +133,5 @@ abstract class Driver
     }
     public abstract function nameAndVersion() : string;
     public abstract function start() : void;
-    public abstract function stop() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData;
+    public abstract function stop() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData;
 }

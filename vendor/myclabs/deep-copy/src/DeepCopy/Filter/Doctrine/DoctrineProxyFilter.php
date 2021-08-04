@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Filter\Doctrine;
+namespace ECSPrefix20210804\DeepCopy\Filter\Doctrine;
 
-use ECSPrefix20210803\DeepCopy\Filter\Filter;
+use ECSPrefix20210804\DeepCopy\Filter\Filter;
 /**
  * @final
  */
-class DoctrineProxyFilter implements \ECSPrefix20210803\DeepCopy\Filter\Filter
+class DoctrineProxyFilter implements \ECSPrefix20210804\DeepCopy\Filter\Filter
 {
     /**
      * Triggers the magic method __load() on a Doctrine Proxy class to load the

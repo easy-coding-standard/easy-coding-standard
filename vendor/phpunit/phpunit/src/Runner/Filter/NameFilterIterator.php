@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner\Filter;
+namespace ECSPrefix20210804\PHPUnit\Runner\Filter;
 
 use function end;
 use function implode;
@@ -17,10 +17,10 @@ use function preg_match;
 use function sprintf;
 use function str_replace;
 use Exception;
-use ECSPrefix20210803\PHPUnit\Framework\ErrorTestCase;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
-use ECSPrefix20210803\PHPUnit\Framework\WarningTestCase;
-use ECSPrefix20210803\PHPUnit\Util\RegularExpression;
+use ECSPrefix20210804\PHPUnit\Framework\ErrorTestCase;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Framework\WarningTestCase;
+use ECSPrefix20210804\PHPUnit\Util\RegularExpression;
 use RecursiveFilterIterator;
 use RecursiveIterator;
 /**
@@ -54,11 +54,11 @@ final class NameFilterIterator extends \RecursiveFilterIterator
     public function accept() : bool
     {
         $test = $this->getInnerIterator()->current();
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestSuite) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestSuite) {
             return \true;
         }
-        $tmp = \ECSPrefix20210803\PHPUnit\Util\Test::describe($test);
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\ErrorTestCase || $test instanceof \ECSPrefix20210803\PHPUnit\Framework\WarningTestCase) {
+        $tmp = \ECSPrefix20210804\PHPUnit\Util\Test::describe($test);
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\ErrorTestCase || $test instanceof \ECSPrefix20210804\PHPUnit\Framework\WarningTestCase) {
             $name = $test->getMessage();
         } elseif ($tmp[0] !== '') {
             $name = \implode('::', $tmp);
@@ -77,7 +77,7 @@ final class NameFilterIterator extends \RecursiveFilterIterator
      */
     private function setFilter(string $filter) : void
     {
-        if (\ECSPrefix20210803\PHPUnit\Util\RegularExpression::safeMatch($filter, '') === \false) {
+        if (\ECSPrefix20210804\PHPUnit\Util\RegularExpression::safeMatch($filter, '') === \false) {
             // Handles:
             //  * testAssertEqualsSucceeds#4
             //  * testAssertEqualsSucceeds#4-8

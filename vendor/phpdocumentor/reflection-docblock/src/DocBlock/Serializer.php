@@ -9,11 +9,11 @@ declare (strict_types=1);
  *
  * @link http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
 use function sprintf;
 use function str_repeat;
 use function str_replace;
@@ -43,13 +43,13 @@ class Serializer
      * @param int|null  $lineLength      The max length of a line or NULL to disable line wrapping.
      * @param Formatter $tagFormatter    A custom tag formatter, defaults to PassthroughFormatter.
      */
-    public function __construct(int $indent = 0, string $indentString = ' ', bool $indentFirstLine = \true, ?int $lineLength = null, ?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter $tagFormatter = null)
+    public function __construct(int $indent = 0, string $indentString = ' ', bool $indentFirstLine = \true, ?int $lineLength = null, ?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter $tagFormatter = null)
     {
         $this->indent = $indent;
         $this->indentString = $indentString;
         $this->isFirstLineIndented = $indentFirstLine;
         $this->lineLength = $lineLength;
-        $this->tagFormatter = $tagFormatter ?: new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+        $this->tagFormatter = $tagFormatter ?: new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
     }
     /**
      * Generate a DocBlock comment.
@@ -58,7 +58,7 @@ class Serializer
      *
      * @return string The serialized doc block.
      */
-    public function getDocComment(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock $docblock) : string
+    public function getDocComment(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock $docblock) : string
     {
         $indent = \str_repeat($this->indentString, $this->indent);
         $firstIndent = $this->isFirstLineIndented ? $indent : '';
@@ -81,7 +81,7 @@ class Serializer
     {
         return \str_replace("\n", \sprintf("\n%s * ", $indent), $text);
     }
-    private function getSummaryAndDescriptionTextBlock(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock $docblock, ?int $wrapLength) : string
+    private function getSummaryAndDescriptionTextBlock(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock $docblock, ?int $wrapLength) : string
     {
         $text = $docblock->getSummary() . ((string) $docblock->getDescription() ? "\n\n" . $docblock->getDescription() : '');
         if ($wrapLength !== null) {
@@ -90,7 +90,7 @@ class Serializer
         }
         return $text;
     }
-    private function addTagBlock(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock $docblock, ?int $wrapLength, string $indent, string $comment) : string
+    private function addTagBlock(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock $docblock, ?int $wrapLength, string $indent, string $comment) : string
     {
         foreach ($docblock->getTags() as $tag) {
             $tagText = $this->tagFormatter->format($tag);

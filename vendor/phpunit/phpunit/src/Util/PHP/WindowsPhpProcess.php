@@ -9,17 +9,17 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\PHP;
+namespace ECSPrefix20210804\PHPUnit\Util\PHP;
 
 use const PHP_MAJOR_VERSION;
 use function tmpfile;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  *
  * @see https://bugs.php.net/bug.php?id=51800
  */
-final class WindowsPhpProcess extends \ECSPrefix20210803\PHPUnit\Util\PHP\DefaultPhpProcess
+final class WindowsPhpProcess extends \ECSPrefix20210804\PHPUnit\Util\PHP\DefaultPhpProcess
 {
     public function getCommand(array $settings, string $file = null) : string
     {
@@ -34,7 +34,7 @@ final class WindowsPhpProcess extends \ECSPrefix20210803\PHPUnit\Util\PHP\Defaul
     protected function getHandles() : array
     {
         if (\false === ($stdout_handle = \tmpfile())) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception('A temporary file could not be created; verify that your TEMP environment variable is writable');
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception('A temporary file could not be created; verify that your TEMP environment variable is writable');
         }
         return [1 => $stdout_handle];
     }

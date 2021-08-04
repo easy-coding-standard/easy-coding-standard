@@ -9,21 +9,21 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\Type;
+use ECSPrefix20210804\phpDocumentor\Reflection\Type;
 use function in_array;
 use function strlen;
 use function substr;
 use function trim;
-abstract class TagWithType extends \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\BaseTag
+abstract class TagWithType extends \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\BaseTag
 {
     /** @var ?Type */
     protected $type;
     /**
      * Returns the type section of the variable.
      */
-    public function getType() : ?\ECSPrefix20210803\phpDocumentor\Reflection\Type
+    public function getType() : ?\ECSPrefix20210804\phpDocumentor\Reflection\Type
     {
         return $this->type;
     }

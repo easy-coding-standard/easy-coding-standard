@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage;
 
 use function array_diff;
 use function array_diff_key;
@@ -24,20 +24,20 @@ use function get_class;
 use function is_array;
 use function is_file;
 use function sort;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Runner\PhptTestCase;
-use ECSPrefix20210803\PHPUnit\Util\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Runner\PhptTestCase;
+use ECSPrefix20210804\PHPUnit\Util\Test;
 use ReflectionClass;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Builder;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CachingCoveredFileAnalyser;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CachingUncoveredFileAnalyser;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\ParsingCoveredFileAnalyser;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\ParsingUncoveredFileAnalyser;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser;
-use ECSPrefix20210803\SebastianBergmann\CodeUnitReverseLookup\Wizard;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Builder;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CachingCoveredFileAnalyser;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CachingUncoveredFileAnalyser;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\ParsingCoveredFileAnalyser;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\ParsingUncoveredFileAnalyser;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser;
+use ECSPrefix20210804\SebastianBergmann\CodeUnitReverseLookup\Wizard;
 /**
  * Provides collection functionality for PHP code coverage information.
  */
@@ -108,19 +108,19 @@ final class CodeCoverage
      * @var ?string
      */
     private $cacheDirectory;
-    public function __construct(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver $driver, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Filter $filter)
+    public function __construct(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver $driver, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Filter $filter)
     {
         $this->driver = $driver;
         $this->filter = $filter;
-        $this->data = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData();
-        $this->wizard = new \ECSPrefix20210803\SebastianBergmann\CodeUnitReverseLookup\Wizard();
+        $this->data = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData();
+        $this->wizard = new \ECSPrefix20210804\SebastianBergmann\CodeUnitReverseLookup\Wizard();
     }
     /**
      * Returns the code coverage information as a graph of node objects.
      */
-    public function getReport() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory
+    public function getReport() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory
     {
-        return (new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Builder($this->coveredFileAnalyser()))->build($this);
+        return (new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Builder($this->coveredFileAnalyser()))->build($this);
     }
     /**
      * Clears collected code coverage data.
@@ -128,20 +128,20 @@ final class CodeCoverage
     public function clear() : void
     {
         $this->currentId = null;
-        $this->data = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData();
+        $this->data = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData();
         $this->tests = [];
     }
     /**
      * Returns the filter object used.
      */
-    public function filter() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Filter
+    public function filter() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Filter
     {
         return $this->filter;
     }
     /**
      * Returns the collected code coverage data.
      */
-    public function getData(bool $raw = \false) : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData
+    public function getData(bool $raw = \false) : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData
     {
         if (!$raw) {
             if ($this->processUncoveredFiles) {
@@ -155,7 +155,7 @@ final class CodeCoverage
     /**
      * Sets the coverage data.
      */
-    public function setData(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData $data) : void
+    public function setData(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData $data) : void
     {
         $this->data = $data;
     }
@@ -191,10 +191,10 @@ final class CodeCoverage
      *
      * @param array|false $linesToBeCovered
      */
-    public function stop(bool $append = \true, $linesToBeCovered = [], array $linesToBeUsed = []) : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData
+    public function stop(bool $append = \true, $linesToBeCovered = [], array $linesToBeUsed = []) : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData
     {
         if (!\is_array($linesToBeCovered) && $linesToBeCovered !== \false) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\InvalidArgumentException('$linesToBeCovered must be an array or false');
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\InvalidArgumentException('$linesToBeCovered must be an array or false');
         }
         $data = $this->driver->stop();
         $this->append($data, null, $append, $linesToBeCovered, $linesToBeUsed);
@@ -211,13 +211,13 @@ final class CodeCoverage
      * @throws TestIdMissingException
      * @throws ReflectionException
      */
-    public function append(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData $rawData, $id = null, bool $append = \true, $linesToBeCovered = [], array $linesToBeUsed = []) : void
+    public function append(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData $rawData, $id = null, bool $append = \true, $linesToBeCovered = [], array $linesToBeUsed = []) : void
     {
         if ($id === null) {
             $id = $this->currentId;
         }
         if ($id === null) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\TestIdMissingException();
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\TestIdMissingException();
         }
         $this->applyFilter($rawData);
         if ($this->useAnnotationsForIgnoringCode) {
@@ -235,19 +235,19 @@ final class CodeCoverage
             $size = 'unknown';
             $status = -1;
             $fromTestcase = \false;
-            if ($id instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+            if ($id instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
                 $fromTestcase = \true;
                 $_size = $id->getSize();
-                if ($_size === \ECSPrefix20210803\PHPUnit\Util\Test::SMALL) {
+                if ($_size === \ECSPrefix20210804\PHPUnit\Util\Test::SMALL) {
                     $size = 'small';
-                } elseif ($_size === \ECSPrefix20210803\PHPUnit\Util\Test::MEDIUM) {
+                } elseif ($_size === \ECSPrefix20210804\PHPUnit\Util\Test::MEDIUM) {
                     $size = 'medium';
-                } elseif ($_size === \ECSPrefix20210803\PHPUnit\Util\Test::LARGE) {
+                } elseif ($_size === \ECSPrefix20210804\PHPUnit\Util\Test::LARGE) {
                     $size = 'large';
                 }
                 $status = $id->getStatus();
                 $id = \get_class($id) . '::' . $id->getName();
-            } elseif ($id instanceof \ECSPrefix20210803\PHPUnit\Runner\PhptTestCase) {
+            } elseif ($id instanceof \ECSPrefix20210804\PHPUnit\Runner\PhptTestCase) {
                 $fromTestcase = \true;
                 $size = 'large';
                 $id = $id->getName();
@@ -326,7 +326,7 @@ final class CodeCoverage
     public function cacheDirectory() : string
     {
         if (!$this->cachesStaticAnalysis()) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysisCacheNotConfiguredException('The static analysis cache is not configured');
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysisCacheNotConfiguredException('The static analysis cache is not configured');
         }
         return $this->cacheDirectory;
     }
@@ -361,7 +361,7 @@ final class CodeCoverage
      * @throws UnintentionallyCoveredCodeException
      * @throws ReflectionException
      */
-    private function applyCoversAnnotationFilter(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData $rawData, $linesToBeCovered, array $linesToBeUsed) : void
+    private function applyCoversAnnotationFilter(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData $rawData, $linesToBeCovered, array $linesToBeUsed) : void
     {
         if ($linesToBeCovered === \false) {
             $rawData->clear();
@@ -370,7 +370,7 @@ final class CodeCoverage
         if (empty($linesToBeCovered)) {
             return;
         }
-        if ($this->checkForUnintentionallyCoveredCode && (!$this->currentId instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase || !$this->currentId->isMedium() && !$this->currentId->isLarge())) {
+        if ($this->checkForUnintentionallyCoveredCode && (!$this->currentId instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase || !$this->currentId->isMedium() && !$this->currentId->isLarge())) {
             $this->performUnintentionallyCoveredCodeCheck($rawData, $linesToBeCovered, $linesToBeUsed);
         }
         $rawLineData = $rawData->lineCoverage();
@@ -384,7 +384,7 @@ final class CodeCoverage
             }
         }
     }
-    private function applyFilter(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData $data) : void
+    private function applyFilter(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData $data) : void
     {
         if ($this->filter->isEmpty()) {
             return;
@@ -395,7 +395,7 @@ final class CodeCoverage
             }
         }
     }
-    private function applyIgnoredLinesFilter(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData $data) : void
+    private function applyIgnoredLinesFilter(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData $data) : void
     {
         foreach (\array_keys($data->lineCoverage()) as $filename) {
             if (!$this->filter->isFile($filename)) {
@@ -412,7 +412,7 @@ final class CodeCoverage
         $uncoveredFiles = \array_diff($this->filter->files(), $this->data->coveredFiles());
         foreach ($uncoveredFiles as $uncoveredFile) {
             if (\is_file($uncoveredFile)) {
-                $this->append(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData::fromUncoveredFile($uncoveredFile, $this->uncoveredFileAnalyser()), self::UNCOVERED_FILES);
+                $this->append(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData::fromUncoveredFile($uncoveredFile, $this->uncoveredFileAnalyser()), self::UNCOVERED_FILES);
             }
         }
     }
@@ -434,7 +434,7 @@ final class CodeCoverage
      * @throws UnintentionallyCoveredCodeException
      * @throws ReflectionException
      */
-    private function performUnintentionallyCoveredCodeCheck(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData $data, array $linesToBeCovered, array $linesToBeUsed) : void
+    private function performUnintentionallyCoveredCodeCheck(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData $data, array $linesToBeCovered, array $linesToBeUsed) : void
     {
         $allowedLines = $this->getAllowedLines($linesToBeCovered, $linesToBeUsed);
         $unintentionallyCoveredUnits = [];
@@ -447,7 +447,7 @@ final class CodeCoverage
         }
         $unintentionallyCoveredUnits = $this->processUnintentionallyCoveredUnits($unintentionallyCoveredUnits);
         if (!empty($unintentionallyCoveredUnits)) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException($unintentionallyCoveredUnits);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException($unintentionallyCoveredUnits);
         }
     }
     private function getAllowedLines(array $linesToBeCovered, array $linesToBeUsed) : array
@@ -491,30 +491,30 @@ final class CodeCoverage
                     }
                 }
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
             }
         }
         return \array_values($unintentionallyCoveredUnits);
     }
-    private function coveredFileAnalyser() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser
+    private function coveredFileAnalyser() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser
     {
         if ($this->coveredFileAnalyser !== null) {
             return $this->coveredFileAnalyser;
         }
-        $this->coveredFileAnalyser = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\ParsingCoveredFileAnalyser($this->useAnnotationsForIgnoringCode, $this->ignoreDeprecatedCode);
+        $this->coveredFileAnalyser = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\ParsingCoveredFileAnalyser($this->useAnnotationsForIgnoringCode, $this->ignoreDeprecatedCode);
         if ($this->cachesStaticAnalysis()) {
-            $this->coveredFileAnalyser = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CachingCoveredFileAnalyser($this->cacheDirectory, $this->coveredFileAnalyser);
+            $this->coveredFileAnalyser = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CachingCoveredFileAnalyser($this->cacheDirectory, $this->coveredFileAnalyser);
         }
         return $this->coveredFileAnalyser;
     }
-    private function uncoveredFileAnalyser() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser
+    private function uncoveredFileAnalyser() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser
     {
         if ($this->uncoveredFileAnalyser !== null) {
             return $this->uncoveredFileAnalyser;
         }
-        $this->uncoveredFileAnalyser = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\ParsingUncoveredFileAnalyser();
+        $this->uncoveredFileAnalyser = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\ParsingUncoveredFileAnalyser();
         if ($this->cachesStaticAnalysis()) {
-            $this->uncoveredFileAnalyser = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CachingUncoveredFileAnalyser($this->cacheDirectory, $this->uncoveredFileAnalyser);
+            $this->uncoveredFileAnalyser = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CachingUncoveredFileAnalyser($this->cacheDirectory, $this->uncoveredFileAnalyser);
         }
         return $this->uncoveredFileAnalyser;
     }

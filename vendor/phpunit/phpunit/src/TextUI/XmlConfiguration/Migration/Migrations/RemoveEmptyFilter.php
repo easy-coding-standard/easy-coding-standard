@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use function sprintf;
 use DOMDocument;
@@ -17,7 +17,7 @@ use DOMElement;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class RemoveEmptyFilter implements \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Migration
+final class RemoveEmptyFilter implements \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Migration
 {
     /**
      * @throws MigrationException
@@ -41,10 +41,10 @@ final class RemoveEmptyFilter implements \ECSPrefix20210803\PHPUnit\TextUI\XmlCo
     private function ensureEmpty(\DOMElement $element) : void
     {
         if ($element->attributes->length > 0) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\MigrationException(\sprintf('%s element has unexpected attributes', $element->nodeName));
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\MigrationException(\sprintf('%s element has unexpected attributes', $element->nodeName));
         }
         if ($element->getElementsByTagName('*')->length > 0) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\MigrationException(\sprintf('%s element has unexpected children', $element->nodeName));
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\MigrationException(\sprintf('%s element has unexpected children', $element->nodeName));
         }
     }
 }

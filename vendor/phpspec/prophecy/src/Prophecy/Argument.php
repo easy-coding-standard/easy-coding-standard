@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy;
+namespace ECSPrefix20210804\Prophecy;
 
-use ECSPrefix20210803\Prophecy\Argument\Token;
+use ECSPrefix20210804\Prophecy\Argument\Token;
 /**
  * Argument tokens shortcuts.
  *
@@ -27,7 +27,7 @@ class Argument
      */
     public static function exact($value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\ExactValueToken($value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\ExactValueToken($value);
     }
     /**
      * Checks that argument is of specific type or instance of specific class.
@@ -38,7 +38,7 @@ class Argument
      */
     public static function type($type)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\TypeToken($type);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\TypeToken($type);
     }
     /**
      * Checks that argument object has specific state.
@@ -50,7 +50,7 @@ class Argument
      */
     public static function which($methodName, $value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\ObjectStateToken($methodName, $value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\ObjectStateToken($methodName, $value);
     }
     /**
      * Checks that argument matches provided callback.
@@ -61,7 +61,7 @@ class Argument
      */
     public static function that($callback)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\CallbackToken($callback);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\CallbackToken($callback);
     }
     /**
      * Matches any single value.
@@ -70,7 +70,7 @@ class Argument
      */
     public static function any()
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\AnyValueToken();
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\AnyValueToken();
     }
     /**
      * Matches all values to the rest of the signature.
@@ -79,7 +79,7 @@ class Argument
      */
     public static function cetera()
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\AnyValuesToken();
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\AnyValuesToken();
     }
     /**
      * Checks that argument matches all tokens
@@ -90,7 +90,7 @@ class Argument
      */
     public static function allOf()
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\LogicalAndToken(\func_get_args());
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\LogicalAndToken(\func_get_args());
     }
     /**
      * Checks that argument array or countable object has exact number of elements.
@@ -101,7 +101,7 @@ class Argument
      */
     public static function size($value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\ArrayCountToken($value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\ArrayCountToken($value);
     }
     /**
      * Checks that argument array contains (key, value) pair
@@ -113,7 +113,7 @@ class Argument
      */
     public static function withEntry($key, $value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\ArrayEntryToken($key, $value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\ArrayEntryToken($key, $value);
     }
     /**
      * Checks that arguments array entries all match value
@@ -124,7 +124,7 @@ class Argument
      */
     public static function withEveryEntry($value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\ArrayEveryEntryToken($value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\ArrayEveryEntryToken($value);
     }
     /**
      * Checks that argument array contains value
@@ -135,7 +135,7 @@ class Argument
      */
     public static function containing($value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\ArrayEntryToken(self::any(), $value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\ArrayEntryToken(self::any(), $value);
     }
     /**
      * Checks that argument array has key
@@ -146,7 +146,7 @@ class Argument
      */
     public static function withKey($key)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\ArrayEntryToken($key, self::any());
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\ArrayEntryToken($key, self::any());
     }
     /**
      * Checks that argument does not match the value|token.
@@ -157,7 +157,7 @@ class Argument
      */
     public static function not($value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\LogicalNotToken($value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\LogicalNotToken($value);
     }
     /**
      * @param string $value
@@ -166,7 +166,7 @@ class Argument
      */
     public static function containingString($value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\StringContainsToken($value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\StringContainsToken($value);
     }
     /**
      * Checks that argument is identical value.
@@ -177,7 +177,7 @@ class Argument
      */
     public static function is($value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\IdenticalValueToken($value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\IdenticalValueToken($value);
     }
     /**
      * Check that argument is same value when rounding to the
@@ -190,7 +190,7 @@ class Argument
      */
     public static function approximate($value, $precision = 0)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\ApproximateValueToken($value, $precision);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\ApproximateValueToken($value, $precision);
     }
     /**
      * Checks that argument is in array.
@@ -201,7 +201,7 @@ class Argument
      */
     public static function in($value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\InArrayToken($value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\InArrayToken($value);
     }
     /**
      * Checks that argument is not in array.
@@ -212,6 +212,6 @@ class Argument
      */
     public static function notIn($value)
     {
-        return new \ECSPrefix20210803\Prophecy\Argument\Token\NotInArrayToken($value);
+        return new \ECSPrefix20210804\Prophecy\Argument\Token\NotInArrayToken($value);
     }
 }

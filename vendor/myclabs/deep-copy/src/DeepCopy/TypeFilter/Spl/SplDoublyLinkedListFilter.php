@@ -1,18 +1,18 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\TypeFilter\Spl;
+namespace ECSPrefix20210804\DeepCopy\TypeFilter\Spl;
 
 use Closure;
-use ECSPrefix20210803\DeepCopy\DeepCopy;
-use ECSPrefix20210803\DeepCopy\TypeFilter\TypeFilter;
+use ECSPrefix20210804\DeepCopy\DeepCopy;
+use ECSPrefix20210804\DeepCopy\TypeFilter\TypeFilter;
 use SplDoublyLinkedList;
 /**
  * @final
  */
-class SplDoublyLinkedListFilter implements \ECSPrefix20210803\DeepCopy\TypeFilter\TypeFilter
+class SplDoublyLinkedListFilter implements \ECSPrefix20210804\DeepCopy\TypeFilter\TypeFilter
 {
     private $copier;
-    public function __construct(\ECSPrefix20210803\DeepCopy\DeepCopy $copier)
+    public function __construct(\ECSPrefix20210804\DeepCopy\DeepCopy $copier)
     {
         $this->copier = $copier;
     }
@@ -36,6 +36,6 @@ class SplDoublyLinkedListFilter implements \ECSPrefix20210803\DeepCopy\TypeFilte
             }
             return $list;
         };
-        return \Closure::bind($copy, null, \ECSPrefix20210803\DeepCopy\DeepCopy::class);
+        return \Closure::bind($copy, null, \ECSPrefix20210804\DeepCopy\DeepCopy::class);
     }
 }

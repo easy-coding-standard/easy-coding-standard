@@ -9,13 +9,13 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag;
 interface Formatter
 {
     /**
      * Formats a tag into a string representation according to a specific format, such as Markdown.
      */
-    public function format(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag $tag) : string;
+    public function format(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag $tag) : string;
 }

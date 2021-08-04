@@ -9,22 +9,22 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
-use ECSPrefix20210803\PharIo\Version\AnyVersionConstraint;
-use ECSPrefix20210803\PharIo\Version\Version;
-use ECSPrefix20210803\PharIo\Version\VersionConstraint;
+use ECSPrefix20210804\PharIo\Version\AnyVersionConstraint;
+use ECSPrefix20210804\PharIo\Version\Version;
+use ECSPrefix20210804\PharIo\Version\VersionConstraint;
 use XMLWriter;
 /** @psalm-suppress MissingConstructor */
 class ManifestSerializer
 {
     /** @var XMLWriter */
     private $xmlWriter;
-    public function serializeToFile(\ECSPrefix20210803\PharIo\Manifest\Manifest $manifest, string $filename) : void
+    public function serializeToFile(\ECSPrefix20210804\PharIo\Manifest\Manifest $manifest, string $filename) : void
     {
         \file_put_contents($filename, $this->serializeToString($manifest));
     }
-    public function serializeToString(\ECSPrefix20210803\PharIo\Manifest\Manifest $manifest) : string
+    public function serializeToString(\ECSPrefix20210804\PharIo\Manifest\Manifest $manifest) : string
     {
         $this->startDocument();
         $this->addContains($manifest->getName(), $manifest->getVersion(), $manifest->getType());
@@ -50,7 +50,7 @@ class ManifestSerializer
         $this->xmlWriter->endDocument();
         return $this->xmlWriter->outputMemory();
     }
-    private function addContains(\ECSPrefix20210803\PharIo\Manifest\ApplicationName $name, \ECSPrefix20210803\PharIo\Version\Version $version, \ECSPrefix20210803\PharIo\Manifest\Type $type) : void
+    private function addContains(\ECSPrefix20210804\PharIo\Manifest\ApplicationName $name, \ECSPrefix20210804\PharIo\Version\Version $version, \ECSPrefix20210804\PharIo\Manifest\Type $type) : void
     {
         $this->xmlWriter->startElement('contains');
         $this->xmlWriter->writeAttribute('name', $name->asString());
@@ -72,7 +72,7 @@ class ManifestSerializer
         }
         $this->xmlWriter->endElement();
     }
-    private function addCopyright(\ECSPrefix20210803\PharIo\Manifest\CopyrightInformation $copyrightInformation) : void
+    private function addCopyright(\ECSPrefix20210804\PharIo\Manifest\CopyrightInformation $copyrightInformation) : void
     {
         $this->xmlWriter->startElement('copyright');
         foreach ($copyrightInformation->getAuthors() as $author) {
@@ -88,16 +88,16 @@ class ManifestSerializer
         $this->xmlWriter->endElement();
         $this->xmlWriter->endElement();
     }
-    private function addRequirements(\ECSPrefix20210803\PharIo\Manifest\RequirementCollection $requirementCollection) : void
+    private function addRequirements(\ECSPrefix20210804\PharIo\Manifest\RequirementCollection $requirementCollection) : void
     {
-        $phpRequirement = new \ECSPrefix20210803\PharIo\Version\AnyVersionConstraint();
+        $phpRequirement = new \ECSPrefix20210804\PharIo\Version\AnyVersionConstraint();
         $extensions = [];
         foreach ($requirementCollection as $requirement) {
-            if ($requirement instanceof \ECSPrefix20210803\PharIo\Manifest\PhpVersionRequirement) {
+            if ($requirement instanceof \ECSPrefix20210804\PharIo\Manifest\PhpVersionRequirement) {
                 $phpRequirement = $requirement->getVersionConstraint();
                 continue;
             }
-            if ($requirement instanceof \ECSPrefix20210803\PharIo\Manifest\PhpExtensionRequirement) {
+            if ($requirement instanceof \ECSPrefix20210804\PharIo\Manifest\PhpExtensionRequirement) {
                 $extensions[] = $requirement->asString();
             }
         }
@@ -112,7 +112,7 @@ class ManifestSerializer
         $this->xmlWriter->endElement();
         $this->xmlWriter->endElement();
     }
-    private function addBundles(\ECSPrefix20210803\PharIo\Manifest\BundledComponentCollection $bundledComponentCollection) : void
+    private function addBundles(\ECSPrefix20210804\PharIo\Manifest\BundledComponentCollection $bundledComponentCollection) : void
     {
         if (\count($bundledComponentCollection) === 0) {
             return;
@@ -126,7 +126,7 @@ class ManifestSerializer
         }
         $this->xmlWriter->endElement();
     }
-    private function addExtension(\ECSPrefix20210803\PharIo\Manifest\ApplicationName $applicationName, \ECSPrefix20210803\PharIo\Version\VersionConstraint $versionConstraint) : void
+    private function addExtension(\ECSPrefix20210804\PharIo\Manifest\ApplicationName $applicationName, \ECSPrefix20210804\PharIo\Version\VersionConstraint $versionConstraint) : void
     {
         $this->xmlWriter->startElement('extension');
         $this->xmlWriter->writeAttribute('for', $applicationName->asString());

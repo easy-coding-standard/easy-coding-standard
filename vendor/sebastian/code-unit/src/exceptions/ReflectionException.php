@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeUnit;
+namespace ECSPrefix20210804\SebastianBergmann\CodeUnit;
 
 use RuntimeException;
-final class ReflectionException extends \RuntimeException implements \ECSPrefix20210803\SebastianBergmann\CodeUnit\Exception
+final class ReflectionException extends \RuntimeException implements \ECSPrefix20210804\SebastianBergmann\CodeUnit\Exception
 {
 }

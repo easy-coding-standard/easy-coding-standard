@@ -9,10 +9,10 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage;
 
 use function dirname;
-use ECSPrefix20210803\SebastianBergmann\Version as VersionId;
+use ECSPrefix20210804\SebastianBergmann\Version as VersionId;
 final class Version
 {
     /**
@@ -22,7 +22,7 @@ final class Version
     public static function id() : string
     {
         if (self::$version === null) {
-            self::$version = (new \ECSPrefix20210803\SebastianBergmann\Version('9.2.6', \dirname(__DIR__)))->getVersion();
+            self::$version = (new \ECSPrefix20210804\SebastianBergmann\Version('9.2.6', \dirname(__DIR__)))->getVersion();
         }
         return self::$version;
     }

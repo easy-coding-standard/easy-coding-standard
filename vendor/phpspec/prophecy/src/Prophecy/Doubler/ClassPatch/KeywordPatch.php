@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\ClassPatch;
+namespace ECSPrefix20210804\Prophecy\Doubler\ClassPatch;
 
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode;
 /**
  * Remove method functionality from the double which will clash with php keywords.
  *
  * @author Milan Magudia <milan@magudia.com>
  */
-class KeywordPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface
+class KeywordPatch implements \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface
 {
     /**
      * Support any class
@@ -25,7 +25,7 @@ class KeywordPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\Cla
      *
      * @return boolean
      */
-    public function supports(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function supports(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         return \true;
     }
@@ -34,7 +34,7 @@ class KeywordPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\Cla
      *
      * @param ClassNode $node
      */
-    public function apply(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function apply(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         $methodNames = \array_keys($node->getMethods());
         $methodsToRemove = \array_intersect($methodNames, $this->getKeywords());

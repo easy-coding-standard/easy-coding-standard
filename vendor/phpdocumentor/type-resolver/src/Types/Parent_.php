@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\Types;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\Types;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\Type;
+use ECSPrefix20210804\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing the 'parent' type.
  *
@@ -19,7 +19,7 @@ use ECSPrefix20210803\phpDocumentor\Reflection\Type;
  *
  * @psalm-immutable
  */
-final class Parent_ implements \ECSPrefix20210803\phpDocumentor\Reflection\Type
+final class Parent_ implements \ECSPrefix20210804\phpDocumentor\Reflection\Type
 {
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.

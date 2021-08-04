@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use function array_unshift;
 use function defined;
@@ -18,8 +18,8 @@ use function is_file;
 use function realpath;
 use function sprintf;
 use function strpos;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
-use ECSPrefix20210803\PHPUnit\Framework\SyntheticError;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\SyntheticError;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -32,11 +32,11 @@ final class Filter
     public static function getFilteredStacktrace(\Throwable $t) : string
     {
         $filteredStacktrace = '';
-        if ($t instanceof \ECSPrefix20210803\PHPUnit\Framework\SyntheticError) {
+        if ($t instanceof \ECSPrefix20210804\PHPUnit\Framework\SyntheticError) {
             $eTrace = $t->getSyntheticTrace();
             $eFile = $t->getSyntheticFile();
             $eLine = $t->getSyntheticLine();
-        } elseif ($t instanceof \ECSPrefix20210803\PHPUnit\Framework\Exception) {
+        } elseif ($t instanceof \ECSPrefix20210804\PHPUnit\Framework\Exception) {
             $eTrace = $t->getSerializableTrace();
             $eFile = $t->getFile();
             $eLine = $t->getLine();
@@ -52,7 +52,7 @@ final class Filter
             \array_unshift($eTrace, ['file' => $eFile, 'line' => $eLine]);
         }
         $prefix = \defined('__PHPUNIT_PHAR_ROOT__') ? __PHPUNIT_PHAR_ROOT__ : \false;
-        $excludeList = new \ECSPrefix20210803\PHPUnit\Util\ExcludeList();
+        $excludeList = new \ECSPrefix20210804\PHPUnit\Util\ExcludeList();
         foreach ($eTrace as $frame) {
             if (self::shouldPrintFrame($frame, $prefix, $excludeList)) {
                 $filteredStacktrace .= \sprintf("%s:%s\n", $frame['file'], $frame['line'] ?? '?');
@@ -60,7 +60,7 @@ final class Filter
         }
         return $filteredStacktrace;
     }
-    private static function shouldPrintFrame(array $frame, $prefix, \ECSPrefix20210803\PHPUnit\Util\ExcludeList $excludeList) : bool
+    private static function shouldPrintFrame(array $frame, $prefix, \ECSPrefix20210804\PHPUnit\Util\ExcludeList $excludeList) : bool
     {
         if (!isset($frame['file'])) {
             return \false;
@@ -75,7 +75,7 @@ final class Filter
         }
         return \is_file($file) && self::fileIsExcluded($file, $excludeList) && $fileIsNotPrefixed && $file !== $script;
     }
-    private static function fileIsExcluded(string $file, \ECSPrefix20210803\PHPUnit\Util\ExcludeList $excludeList) : bool
+    private static function fileIsExcluded(string $file, \ECSPrefix20210804\PHPUnit\Util\ExcludeList $excludeList) : bool
     {
         return (empty($GLOBALS['__PHPUNIT_ISOLATION_EXCLUDE_LIST']) || !\in_array($file, $GLOBALS['__PHPUNIT_ISOLATION_EXCLUDE_LIST'], \true)) && !$excludeList->isExcluded($file);
     }

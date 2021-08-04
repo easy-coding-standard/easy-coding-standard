@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Argument\Token;
+namespace ECSPrefix20210804\Prophecy\Argument\Token;
 
-use ECSPrefix20210803\Prophecy\Util\StringUtil;
+use ECSPrefix20210804\Prophecy\Util\StringUtil;
 /**
  * Identical value token.
  *
  * @author Florian Voutzinos <florian@voutzinos.com>
  */
-class IdenticalValueToken implements \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface
+class IdenticalValueToken implements \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface
 {
     private $value;
     private $string;
@@ -27,10 +27,10 @@ class IdenticalValueToken implements \ECSPrefix20210803\Prophecy\Argument\Token\
      * @param mixed      $value
      * @param StringUtil $util
      */
-    public function __construct($value, \ECSPrefix20210803\Prophecy\Util\StringUtil $util = null)
+    public function __construct($value, \ECSPrefix20210804\Prophecy\Util\StringUtil $util = null)
     {
         $this->value = $value;
-        $this->util = $util ?: new \ECSPrefix20210803\Prophecy\Util\StringUtil();
+        $this->util = $util ?: new \ECSPrefix20210804\Prophecy\Util\StringUtil();
     }
     /**
      * Scores 11 if argument matches preset value.

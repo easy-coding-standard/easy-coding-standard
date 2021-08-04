@@ -9,14 +9,14 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 use function max;
 use function str_repeat;
 use function strlen;
-class AlignFormatter implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter
+class AlignFormatter implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter
 {
     /** @var int The maximum tag name length. */
     protected $maxLen = 0;
@@ -32,7 +32,7 @@ class AlignFormatter implements \ECSPrefix20210803\phpDocumentor\Reflection\DocB
     /**
      * Formats the given tag to return a simple plain text version.
      */
-    public function format(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag $tag) : string
+    public function format(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag $tag) : string
     {
         return '@' . $tag->getName() . \str_repeat(' ', $this->maxLen - \strlen($tag->getName()) + 1) . $tag;
     }

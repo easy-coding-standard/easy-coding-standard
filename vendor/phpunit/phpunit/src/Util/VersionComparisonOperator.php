@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use function in_array;
 use function sprintf;
@@ -43,7 +43,7 @@ final class VersionComparisonOperator
     private function ensureOperatorIsValid(string $operator) : void
     {
         if (!\in_array($operator, ['<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne'], \true)) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception(\sprintf('"%s" is not a valid version_compare() operator', $operator));
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception(\sprintf('"%s" is not a valid version_compare() operator', $operator));
         }
     }
 }

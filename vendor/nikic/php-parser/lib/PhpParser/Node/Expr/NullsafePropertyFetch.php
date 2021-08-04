@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node\Expr;
+namespace ECSPrefix20210804\PhpParser\Node\Expr;
 
-use ECSPrefix20210803\PhpParser\Node\Expr;
-use ECSPrefix20210803\PhpParser\Node\Identifier;
-class NullsafePropertyFetch extends \ECSPrefix20210803\PhpParser\Node\Expr
+use ECSPrefix20210804\PhpParser\Node\Expr;
+use ECSPrefix20210804\PhpParser\Node\Identifier;
+class NullsafePropertyFetch extends \ECSPrefix20210804\PhpParser\Node\Expr
 {
     /** @var Expr Variable holding object */
     public $var;
@@ -18,11 +18,11 @@ class NullsafePropertyFetch extends \ECSPrefix20210803\PhpParser\Node\Expr
      * @param string|Identifier|Expr $name       Property name
      * @param array                  $attributes Additional attributes
      */
-    public function __construct(\ECSPrefix20210803\PhpParser\Node\Expr $var, $name, array $attributes = [])
+    public function __construct(\ECSPrefix20210804\PhpParser\Node\Expr $var, $name, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->var = $var;
-        $this->name = \is_string($name) ? new \ECSPrefix20210803\PhpParser\Node\Identifier($name) : $name;
+        $this->name = \is_string($name) ? new \ECSPrefix20210804\PhpParser\Node\Identifier($name) : $name;
     }
     public function getSubNodeNames() : array
     {

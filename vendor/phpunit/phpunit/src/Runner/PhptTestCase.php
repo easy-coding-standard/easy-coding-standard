@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner;
+namespace ECSPrefix20210804\PHPUnit\Runner;
 
 use const DEBUG_BACKTRACE_IGNORE_ARGS;
 use const DIRECTORY_SEPARATOR;
@@ -44,27 +44,27 @@ use function unlink;
 use function unserialize;
 use function var_export;
 use function version_compare;
-use ECSPrefix20210803\PHPUnit\Framework\Assert;
-use ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError;
-use ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\PHPUnit\Framework\IncompleteTestError;
-use ECSPrefix20210803\PHPUnit\Framework\PHPTAssertionFailedError;
-use ECSPrefix20210803\PHPUnit\Framework\Reorderable;
-use ECSPrefix20210803\PHPUnit\Framework\SelfDescribing;
-use ECSPrefix20210803\PHPUnit\Framework\SkippedTestError;
-use ECSPrefix20210803\PHPUnit\Framework\SyntheticSkippedError;
-use ECSPrefix20210803\PHPUnit\Framework\Test;
-use ECSPrefix20210803\PHPUnit\Framework\TestResult;
-use ECSPrefix20210803\PHPUnit\Util\PHP\AbstractPhpProcess;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData;
-use ECSPrefix20210803\SebastianBergmann\Template\Template;
-use ECSPrefix20210803\SebastianBergmann\Timer\Timer;
+use ECSPrefix20210804\PHPUnit\Framework\Assert;
+use ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError;
+use ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Framework\IncompleteTestError;
+use ECSPrefix20210804\PHPUnit\Framework\PHPTAssertionFailedError;
+use ECSPrefix20210804\PHPUnit\Framework\Reorderable;
+use ECSPrefix20210804\PHPUnit\Framework\SelfDescribing;
+use ECSPrefix20210804\PHPUnit\Framework\SkippedTestError;
+use ECSPrefix20210804\PHPUnit\Framework\SyntheticSkippedError;
+use ECSPrefix20210804\PHPUnit\Framework\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestResult;
+use ECSPrefix20210804\PHPUnit\Util\PHP\AbstractPhpProcess;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData;
+use ECSPrefix20210804\SebastianBergmann\Template\Template;
+use ECSPrefix20210804\SebastianBergmann\Timer\Timer;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorderable, \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing, \ECSPrefix20210803\PHPUnit\Framework\Test
+final class PhptTestCase implements \ECSPrefix20210804\PHPUnit\Framework\Reorderable, \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing, \ECSPrefix20210804\PHPUnit\Framework\Test
 {
     /**
      * @var string
@@ -83,13 +83,13 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
      *
      * @throws Exception
      */
-    public function __construct(string $filename, \ECSPrefix20210803\PHPUnit\Util\PHP\AbstractPhpProcess $phpUtil = null)
+    public function __construct(string $filename, \ECSPrefix20210804\PHPUnit\Util\PHP\AbstractPhpProcess $phpUtil = null)
     {
         if (!\is_file($filename)) {
-            throw new \ECSPrefix20210803\PHPUnit\Runner\Exception(\sprintf('File "%s" does not exist.', $filename));
+            throw new \ECSPrefix20210804\PHPUnit\Runner\Exception(\sprintf('File "%s" does not exist.', $filename));
         }
         $this->filename = $filename;
-        $this->phpUtil = $phpUtil ?: \ECSPrefix20210803\PHPUnit\Util\PHP\AbstractPhpProcess::factory();
+        $this->phpUtil = $phpUtil ?: \ECSPrefix20210804\PHPUnit\Util\PHP\AbstractPhpProcess::factory();
     }
     /**
      * Counts the number of test cases executed by run(TestResult result).
@@ -106,16 +106,16 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws Exception
      */
-    public function run(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result = null) : \ECSPrefix20210803\PHPUnit\Framework\TestResult
+    public function run(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result = null) : \ECSPrefix20210804\PHPUnit\Framework\TestResult
     {
         if ($result === null) {
-            $result = new \ECSPrefix20210803\PHPUnit\Framework\TestResult();
+            $result = new \ECSPrefix20210804\PHPUnit\Framework\TestResult();
         }
         try {
             $sections = $this->parse();
-        } catch (\ECSPrefix20210803\PHPUnit\Runner\Exception $e) {
+        } catch (\ECSPrefix20210804\PHPUnit\Runner\Exception $e) {
             $result->startTest($this);
-            $result->addFailure($this, new \ECSPrefix20210803\PHPUnit\Framework\SkippedTestError($e->getMessage()), 0);
+            $result->addFailure($this, new \ECSPrefix20210804\PHPUnit\Framework\SkippedTestError($e->getMessage()), 0);
             $result->endTest($this, 0);
             return $result;
         }
@@ -159,7 +159,7 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
             }
             $this->renderForCoverage($code, $pathCoverage, $codeCoverageCacheDirectory);
         }
-        $timer = new \ECSPrefix20210803\SebastianBergmann\Timer\Timer();
+        $timer = new \ECSPrefix20210804\SebastianBergmann\Timer\Timer();
         $timer->start();
         $jobResult = $this->phpUtil->runJob($code, $this->stringifyIni($settings));
         $time = $timer->stop()->asSeconds();
@@ -169,11 +169,11 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
         }
         try {
             $this->assertPhptExpectation($sections, $this->output);
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError $e) {
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError $e) {
             $failure = $e;
             if ($xfail !== \false) {
-                $failure = new \ECSPrefix20210803\PHPUnit\Framework\IncompleteTestError($xfail, 0, $e);
-            } elseif ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException) {
+                $failure = new \ECSPrefix20210804\PHPUnit\Framework\IncompleteTestError($xfail, 0, $e);
+            } elseif ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException) {
                 $comparisonFailure = $e->getComparisonFailure();
                 if ($comparisonFailure) {
                     $diff = $comparisonFailure->getDiff();
@@ -182,14 +182,14 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
                 }
                 $hint = $this->getLocationHintFromDiff($diff, $sections);
                 $trace = \array_merge($hint, \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS));
-                $failure = new \ECSPrefix20210803\PHPUnit\Framework\PHPTAssertionFailedError($e->getMessage(), 0, $trace[0]['file'], $trace[0]['line'], $trace, $comparisonFailure ? $diff : '');
+                $failure = new \ECSPrefix20210804\PHPUnit\Framework\PHPTAssertionFailedError($e->getMessage(), 0, $trace[0]['file'], $trace[0]['line'], $trace, $comparisonFailure ? $diff : '');
             }
             $result->addFailure($this, $failure, $time);
         } catch (\Throwable $t) {
             $result->addError($this, $t, $time);
         }
         if ($xfail !== \false && $result->allCompletelyImplemented()) {
-            $result->addFailure($this, new \ECSPrefix20210803\PHPUnit\Framework\IncompleteTestError('XFAIL section but test passes'), $time);
+            $result->addFailure($this, new \ECSPrefix20210804\PHPUnit\Framework\IncompleteTestError('XFAIL section but test passes'), $time);
         }
         $this->runClean($sections, $result->getCollectCodeCoverageInformation());
         $result->endTest($this, $time);
@@ -296,18 +296,18 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
                 $sectionContent = \preg_replace('/\\r\\n/', "\n", \trim($sections[$sectionName]));
                 $expected = $sectionName === 'EXPECTREGEX' ? "/{$sectionContent}/" : $sectionContent;
                 if ($expected === '') {
-                    throw new \ECSPrefix20210803\PHPUnit\Runner\Exception('No PHPT expectation found');
+                    throw new \ECSPrefix20210804\PHPUnit\Runner\Exception('No PHPT expectation found');
                 }
-                \ECSPrefix20210803\PHPUnit\Framework\Assert::$sectionAssertion($expected, $actual);
+                \ECSPrefix20210804\PHPUnit\Framework\Assert::$sectionAssertion($expected, $actual);
                 return;
             }
         }
-        throw new \ECSPrefix20210803\PHPUnit\Runner\Exception('No PHPT assertion found');
+        throw new \ECSPrefix20210804\PHPUnit\Runner\Exception('No PHPT assertion found');
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    private function runSkip(array &$sections, \ECSPrefix20210803\PHPUnit\Framework\TestResult $result, array $settings) : bool
+    private function runSkip(array &$sections, \ECSPrefix20210804\PHPUnit\Framework\TestResult $result, array $settings) : bool
     {
         if (!isset($sections['SKIPIF'])) {
             return \false;
@@ -321,7 +321,7 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
             }
             $hint = $this->getLocationHint($message, $sections, 'SKIPIF');
             $trace = \array_merge($hint, \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS));
-            $result->addFailure($this, new \ECSPrefix20210803\PHPUnit\Framework\SyntheticSkippedError($message, 0, $trace[0]['file'], $trace[0]['line'], $trace), 0);
+            $result->addFailure($this, new \ECSPrefix20210804\PHPUnit\Framework\SyntheticSkippedError($message, 0, $trace[0]['file'], $trace[0]['line'], $trace), 0);
             $result->endTest($this, 0);
             return \true;
         }
@@ -354,7 +354,7 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
                 continue;
             }
             if (empty($section)) {
-                throw new \ECSPrefix20210803\PHPUnit\Runner\Exception('Invalid PHPT file: empty section header');
+                throw new \ECSPrefix20210804\PHPUnit\Runner\Exception('Invalid PHPT file: empty section header');
             }
             $sections[$section] .= $line;
         }
@@ -364,11 +364,11 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
         }
         $this->parseExternal($sections);
         if (!$this->validate($sections)) {
-            throw new \ECSPrefix20210803\PHPUnit\Runner\Exception('Invalid PHPT file');
+            throw new \ECSPrefix20210804\PHPUnit\Runner\Exception('Invalid PHPT file');
         }
         foreach ($unsupportedSections as $section) {
             if (isset($sections[$section])) {
-                throw new \ECSPrefix20210803\PHPUnit\Runner\Exception("PHPUnit does not support PHPT {$section} sections");
+                throw new \ECSPrefix20210804\PHPUnit\Runner\Exception("PHPUnit does not support PHPT {$section} sections");
             }
         }
         return $sections;
@@ -384,7 +384,7 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
             if (isset($sections[$section . '_EXTERNAL'])) {
                 $externalFilename = \trim($sections[$section . '_EXTERNAL']);
                 if (!\is_file($testDirectory . $externalFilename) || !\is_readable($testDirectory . $externalFilename)) {
-                    throw new \ECSPrefix20210803\PHPUnit\Runner\Exception(\sprintf('Could not load --%s-- %s for PHPT file', $section . '_EXTERNAL', $testDirectory . $externalFilename));
+                    throw new \ECSPrefix20210804\PHPUnit\Runner\Exception(\sprintf('Could not load --%s-- %s for PHPT file', $section . '_EXTERNAL', $testDirectory . $externalFilename));
                 }
                 $sections[$section] = \file_get_contents($testDirectory . $externalFilename);
             }
@@ -426,7 +426,7 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
     private function renderForCoverage(string &$job, bool $pathCoverage, ?string $codeCoverageCacheDirectory) : void
     {
         $files = $this->getCoverageFiles();
-        $template = new \ECSPrefix20210803\SebastianBergmann\Template\Template(__DIR__ . '/../Util/PHP/Template/PhptTestCase.tpl');
+        $template = new \ECSPrefix20210804\SebastianBergmann\Template\Template(__DIR__ . '/../Util/PHP/Template/PhptTestCase.tpl');
         $composerAutoload = '\'\'';
         if (\defined('PHPUNIT_COMPOSER_INSTALL')) {
             $composerAutoload = \var_export(PHPUNIT_COMPOSER_INSTALL, \true);
@@ -448,16 +448,16 @@ final class PhptTestCase implements \ECSPrefix20210803\PHPUnit\Framework\Reorder
         \file_put_contents($files['job'], $job);
         $job = $template->render();
     }
-    private function cleanupForCoverage() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData
+    private function cleanupForCoverage() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData
     {
-        $coverage = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData::fromXdebugWithoutPathCoverage([]);
+        $coverage = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData::fromXdebugWithoutPathCoverage([]);
         $files = $this->getCoverageFiles();
         if (\is_file($files['coverage'])) {
             $buffer = @\file_get_contents($files['coverage']);
             if ($buffer !== \false) {
                 $coverage = @\unserialize($buffer);
                 if ($coverage === \false) {
-                    $coverage = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData::fromXdebugWithoutPathCoverage([]);
+                    $coverage = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData::fromXdebugWithoutPathCoverage([]);
                 }
             }
         }

@@ -9,10 +9,10 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection;
+namespace ECSPrefix20210804\phpDocumentor\Reflection;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag;
-use ECSPrefix20210803\Webmozart\Assert\Assert;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag;
+use ECSPrefix20210804\Webmozart\Assert\Assert;
 final class DocBlock
 {
     /** @var string The opening line for this docblock. */
@@ -34,11 +34,11 @@ final class DocBlock
      * @param Types\Context  $context  The context in which the DocBlock occurs.
      * @param Location       $location The location within the file that this DocBlock occurs in.
      */
-    public function __construct(string $summary = '', ?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description $description = null, array $tags = [], ?\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context = null, ?\ECSPrefix20210803\phpDocumentor\Reflection\Location $location = null, bool $isTemplateStart = \false, bool $isTemplateEnd = \false)
+    public function __construct(string $summary = '', ?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description $description = null, array $tags = [], ?\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context = null, ?\ECSPrefix20210804\phpDocumentor\Reflection\Location $location = null, bool $isTemplateStart = \false, bool $isTemplateEnd = \false)
     {
-        \ECSPrefix20210803\Webmozart\Assert\Assert::allIsInstanceOf($tags, \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag::class);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::allIsInstanceOf($tags, \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag::class);
         $this->summary = $summary;
-        $this->description = $description ?: new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description('');
+        $this->description = $description ?: new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description('');
         foreach ($tags as $tag) {
             $this->addTag($tag);
         }
@@ -51,21 +51,21 @@ final class DocBlock
     {
         return $this->summary;
     }
-    public function getDescription() : \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description
+    public function getDescription() : \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description
     {
         return $this->description;
     }
     /**
      * Returns the current context.
      */
-    public function getContext() : ?\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context
+    public function getContext() : ?\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context
     {
         return $this->context;
     }
     /**
      * Returns the current location.
      */
-    public function getLocation() : ?\ECSPrefix20210803\phpDocumentor\Reflection\Location
+    public function getLocation() : ?\ECSPrefix20210804\phpDocumentor\Reflection\Location
     {
         return $this->location;
     }
@@ -148,7 +148,7 @@ final class DocBlock
      *
      * @param Tag $tagToRemove The tag to remove.
      */
-    public function removeTag(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag $tagToRemove) : void
+    public function removeTag(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag $tagToRemove) : void
     {
         foreach ($this->tags as $key => $tag) {
             if ($tag === $tagToRemove) {
@@ -162,7 +162,7 @@ final class DocBlock
      *
      * @param Tag $tag The tag to add.
      */
-    private function addTag(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag $tag) : void
+    private function addTag(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag $tag) : void
     {
         $this->tags[] = $tag;
     }

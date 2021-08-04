@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210803\Doctrine\Instantiator;
+namespace ECSPrefix20210804\Doctrine\Instantiator;
 
-use ECSPrefix20210803\Doctrine\Instantiator\Exception\ExceptionInterface;
+use ECSPrefix20210804\Doctrine\Instantiator\Exception\ExceptionInterface;
 /**
  * Instantiator provides utility methods to build objects without invoking their constructors
  */

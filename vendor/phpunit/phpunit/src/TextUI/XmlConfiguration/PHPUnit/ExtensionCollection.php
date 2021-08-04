@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use IteratorAggregate;
 /**
@@ -29,7 +29,7 @@ final class ExtensionCollection implements \IteratorAggregate
     {
         return new self(...$extensions);
     }
-    private function __construct(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Extension ...$extensions)
+    private function __construct(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Extension ...$extensions)
     {
         $this->extensions = $extensions;
     }
@@ -40,8 +40,8 @@ final class ExtensionCollection implements \IteratorAggregate
     {
         return $this->extensions;
     }
-    public function getIterator() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\ExtensionCollectionIterator
+    public function getIterator() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\ExtensionCollectionIterator
     {
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\ExtensionCollectionIterator($this);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\ExtensionCollectionIterator($this);
     }
 }

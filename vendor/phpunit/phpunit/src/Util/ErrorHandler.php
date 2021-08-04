@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use const E_DEPRECATED;
 use const E_NOTICE;
@@ -21,10 +21,10 @@ use const E_WARNING;
 use function error_reporting;
 use function restore_error_handler;
 use function set_error_handler;
-use ECSPrefix20210803\PHPUnit\Framework\Error\Deprecated;
-use ECSPrefix20210803\PHPUnit\Framework\Error\Error;
-use ECSPrefix20210803\PHPUnit\Framework\Error\Notice;
-use ECSPrefix20210803\PHPUnit\Framework\Error\Warning;
+use ECSPrefix20210804\PHPUnit\Framework\Error\Deprecated;
+use ECSPrefix20210804\PHPUnit\Framework\Error\Error;
+use ECSPrefix20210804\PHPUnit\Framework\Error\Notice;
+use ECSPrefix20210804\PHPUnit\Framework\Error\Warning;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -86,24 +86,24 @@ final class ErrorHandler
                 if (!$this->convertNoticesToExceptions) {
                     return \false;
                 }
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Error\Notice($errorString, $errorNumber, $errorFile, $errorLine);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Error\Notice($errorString, $errorNumber, $errorFile, $errorLine);
             case \E_WARNING:
             case \E_USER_WARNING:
                 if (!$this->convertWarningsToExceptions) {
                     return \false;
                 }
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Error\Warning($errorString, $errorNumber, $errorFile, $errorLine);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Error\Warning($errorString, $errorNumber, $errorFile, $errorLine);
             case \E_DEPRECATED:
             case \E_USER_DEPRECATED:
                 if (!$this->convertDeprecationsToExceptions) {
                     return \false;
                 }
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Error\Deprecated($errorString, $errorNumber, $errorFile, $errorLine);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Error\Deprecated($errorString, $errorNumber, $errorFile, $errorLine);
             default:
                 if (!$this->convertErrorsToExceptions) {
                     return \false;
                 }
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Error\Error($errorString, $errorNumber, $errorFile, $errorLine);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Error\Error($errorString, $errorNumber, $errorFile, $errorLine);
         }
     }
     public function register() : void

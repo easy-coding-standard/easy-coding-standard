@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Builder;
+namespace ECSPrefix20210804\PhpParser\Builder;
 
-use ECSPrefix20210803\PhpParser\Builder;
-use ECSPrefix20210803\PhpParser\BuilderHelpers;
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Stmt;
-class Use_ implements \ECSPrefix20210803\PhpParser\Builder
+use ECSPrefix20210804\PhpParser\Builder;
+use ECSPrefix20210804\PhpParser\BuilderHelpers;
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Stmt;
+class Use_ implements \ECSPrefix20210804\PhpParser\Builder
 {
     protected $name;
     protected $type;
@@ -20,7 +20,7 @@ class Use_ implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function __construct($name, int $type)
     {
-        $this->name = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeName($name);
+        $this->name = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeName($name);
         $this->type = $type;
     }
     /**
@@ -40,8 +40,8 @@ class Use_ implements \ECSPrefix20210803\PhpParser\Builder
      *
      * @return Stmt\Use_ The built node
      */
-    public function getNode() : \ECSPrefix20210803\PhpParser\Node
+    public function getNode() : \ECSPrefix20210804\PhpParser\Node
     {
-        return new \ECSPrefix20210803\PhpParser\Node\Stmt\Use_([new \ECSPrefix20210803\PhpParser\Node\Stmt\UseUse($this->name, $this->alias)], $this->type);
+        return new \ECSPrefix20210804\PhpParser\Node\Stmt\Use_([new \ECSPrefix20210804\PhpParser\Node\Stmt\UseUse($this->name, $this->alias)], $this->type);
     }
 }

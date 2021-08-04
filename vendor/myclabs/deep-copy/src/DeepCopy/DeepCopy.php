@@ -1,20 +1,20 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy;
+namespace ECSPrefix20210804\DeepCopy;
 
 use ArrayObject;
 use DateInterval;
 use DateTimeInterface;
 use DateTimeZone;
-use ECSPrefix20210803\DeepCopy\Exception\CloneException;
-use ECSPrefix20210803\DeepCopy\Filter\Filter;
-use ECSPrefix20210803\DeepCopy\Matcher\Matcher;
-use ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper;
-use ECSPrefix20210803\DeepCopy\TypeFilter\Date\DateIntervalFilter;
-use ECSPrefix20210803\DeepCopy\TypeFilter\Spl\ArrayObjectFilter;
-use ECSPrefix20210803\DeepCopy\TypeFilter\Spl\SplDoublyLinkedListFilter;
-use ECSPrefix20210803\DeepCopy\TypeFilter\TypeFilter;
-use ECSPrefix20210803\DeepCopy\TypeMatcher\TypeMatcher;
+use ECSPrefix20210804\DeepCopy\Exception\CloneException;
+use ECSPrefix20210804\DeepCopy\Filter\Filter;
+use ECSPrefix20210804\DeepCopy\Matcher\Matcher;
+use ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper;
+use ECSPrefix20210804\DeepCopy\TypeFilter\Date\DateIntervalFilter;
+use ECSPrefix20210804\DeepCopy\TypeFilter\Spl\ArrayObjectFilter;
+use ECSPrefix20210804\DeepCopy\TypeFilter\Spl\SplDoublyLinkedListFilter;
+use ECSPrefix20210804\DeepCopy\TypeFilter\TypeFilter;
+use ECSPrefix20210804\DeepCopy\TypeMatcher\TypeMatcher;
 use ReflectionObject;
 use ReflectionProperty;
 use SplDoublyLinkedList;
@@ -54,9 +54,9 @@ class DeepCopy
     public function __construct($useCloneMethod = \false)
     {
         $this->useCloneMethod = $useCloneMethod;
-        $this->addTypeFilter(new \ECSPrefix20210803\DeepCopy\TypeFilter\Spl\ArrayObjectFilter($this), new \ECSPrefix20210803\DeepCopy\TypeMatcher\TypeMatcher(\ArrayObject::class));
-        $this->addTypeFilter(new \ECSPrefix20210803\DeepCopy\TypeFilter\Date\DateIntervalFilter(), new \ECSPrefix20210803\DeepCopy\TypeMatcher\TypeMatcher(\DateInterval::class));
-        $this->addTypeFilter(new \ECSPrefix20210803\DeepCopy\TypeFilter\Spl\SplDoublyLinkedListFilter($this), new \ECSPrefix20210803\DeepCopy\TypeMatcher\TypeMatcher(\SplDoublyLinkedList::class));
+        $this->addTypeFilter(new \ECSPrefix20210804\DeepCopy\TypeFilter\Spl\ArrayObjectFilter($this), new \ECSPrefix20210804\DeepCopy\TypeMatcher\TypeMatcher(\ArrayObject::class));
+        $this->addTypeFilter(new \ECSPrefix20210804\DeepCopy\TypeFilter\Date\DateIntervalFilter(), new \ECSPrefix20210804\DeepCopy\TypeMatcher\TypeMatcher(\DateInterval::class));
+        $this->addTypeFilter(new \ECSPrefix20210804\DeepCopy\TypeFilter\Spl\SplDoublyLinkedListFilter($this), new \ECSPrefix20210804\DeepCopy\TypeMatcher\TypeMatcher(\SplDoublyLinkedList::class));
     }
     /**
      * If enabled, will not throw an exception when coming across an uncloneable property.
@@ -82,15 +82,15 @@ class DeepCopy
         $this->hashMap = [];
         return $this->recursiveCopy($object);
     }
-    public function addFilter(\ECSPrefix20210803\DeepCopy\Filter\Filter $filter, \ECSPrefix20210803\DeepCopy\Matcher\Matcher $matcher)
+    public function addFilter(\ECSPrefix20210804\DeepCopy\Filter\Filter $filter, \ECSPrefix20210804\DeepCopy\Matcher\Matcher $matcher)
     {
         $this->filters[] = ['matcher' => $matcher, 'filter' => $filter];
     }
-    public function prependFilter(\ECSPrefix20210803\DeepCopy\Filter\Filter $filter, \ECSPrefix20210803\DeepCopy\Matcher\Matcher $matcher)
+    public function prependFilter(\ECSPrefix20210804\DeepCopy\Filter\Filter $filter, \ECSPrefix20210804\DeepCopy\Matcher\Matcher $matcher)
     {
         \array_unshift($this->filters, ['matcher' => $matcher, 'filter' => $filter]);
     }
-    public function addTypeFilter(\ECSPrefix20210803\DeepCopy\TypeFilter\TypeFilter $filter, \ECSPrefix20210803\DeepCopy\TypeMatcher\TypeMatcher $matcher)
+    public function addTypeFilter(\ECSPrefix20210804\DeepCopy\TypeFilter\TypeFilter $filter, \ECSPrefix20210804\DeepCopy\TypeMatcher\TypeMatcher $matcher)
     {
         $this->typeFilters[] = ['matcher' => $matcher, 'filter' => $filter];
     }
@@ -149,7 +149,7 @@ class DeepCopy
                 $this->hashMap[$objectHash] = $object;
                 return $object;
             }
-            throw new \ECSPrefix20210803\DeepCopy\Exception\CloneException(\sprintf('The class "%s" is not cloneable.', $reflectedObject->getName()));
+            throw new \ECSPrefix20210804\DeepCopy\Exception\CloneException(\sprintf('The class "%s" is not cloneable.', $reflectedObject->getName()));
         }
         $newObject = clone $object;
         $this->hashMap[$objectHash] = $newObject;
@@ -159,7 +159,7 @@ class DeepCopy
         if ($newObject instanceof \DateTimeInterface || $newObject instanceof \DateTimeZone) {
             return $newObject;
         }
-        foreach (\ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper::getProperties($reflectedObject) as $property) {
+        foreach (\ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper::getProperties($reflectedObject) as $property) {
             $this->copyObjectProperty($newObject, $property);
         }
         return $newObject;

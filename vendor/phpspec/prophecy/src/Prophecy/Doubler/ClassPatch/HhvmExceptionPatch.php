@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\ClassPatch;
+namespace ECSPrefix20210804\Prophecy\Doubler\ClassPatch;
 
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode;
 /**
  * Exception patch for HHVM to remove the stubs from special methods
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class HhvmExceptionPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface
+class HhvmExceptionPatch implements \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface
 {
     /**
      * Supports exceptions on HHVM.
@@ -25,7 +25,7 @@ class HhvmExceptionPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPat
      *
      * @return bool
      */
-    public function supports(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function supports(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         if (!\defined('HHVM_VERSION')) {
             return \false;
@@ -39,7 +39,7 @@ class HhvmExceptionPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPat
      *
      * @return void
      */
-    public function apply(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function apply(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         if ($node->hasMethod('setTraceOptions')) {
             $node->getMethod('setTraceOptions')->useParentCode();

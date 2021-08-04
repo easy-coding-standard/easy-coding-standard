@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use const JSON_PRETTY_PRINT;
 use const JSON_UNESCAPED_SLASHES;
@@ -21,7 +21,7 @@ use function json_decode;
 use function json_encode;
 use function json_last_error;
 use function ksort;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -36,7 +36,7 @@ final class Json
     {
         $decodedJson = \json_decode($json, \false);
         if (\json_last_error()) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception('Cannot prettify invalid json');
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception('Cannot prettify invalid json');
         }
         return \json_encode($decodedJson, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE);
     }

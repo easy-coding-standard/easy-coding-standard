@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 use const LC_ALL;
 use const LC_COLLATE;
@@ -64,61 +64,61 @@ use function strpos;
 use function substr;
 use function trim;
 use function var_export;
-use ECSPrefix20210803\DeepCopy\DeepCopy;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\Exception as ExceptionConstraint;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\ExceptionCode;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\ExceptionMessage;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\ExceptionMessageRegularExpression;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalOr;
-use ECSPrefix20210803\PHPUnit\Framework\Error\Deprecated;
-use ECSPrefix20210803\PHPUnit\Framework\Error\Error;
-use ECSPrefix20210803\PHPUnit\Framework\Error\Notice;
-use ECSPrefix20210803\PHPUnit\Framework\Error\Warning as WarningError;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Generator as MockGenerator;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\MockBuilder;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount as AnyInvokedCountMatcher;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtIndex as InvokedAtIndexMatcher;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastCount as InvokedAtLeastCountMatcher;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastOnce as InvokedAtLeastOnceMatcher;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtMostCount as InvokedAtMostCountMatcher;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedCount as InvokedCountMatcher;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls as ConsecutiveCallsStub;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Exception as ExceptionStub;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnArgument as ReturnArgumentStub;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnCallback as ReturnCallbackStub;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnSelf as ReturnSelfStub;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnStub;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnValueMap as ReturnValueMapStub;
-use ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner;
-use ECSPrefix20210803\PHPUnit\Runner\PhptTestCase;
-use ECSPrefix20210803\PHPUnit\Util\Exception as UtilException;
-use ECSPrefix20210803\PHPUnit\Util\GlobalState;
-use ECSPrefix20210803\PHPUnit\Util\PHP\AbstractPhpProcess;
-use ECSPrefix20210803\PHPUnit\Util\Test as TestUtil;
-use ECSPrefix20210803\PHPUnit\Util\Type;
-use ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException;
-use ECSPrefix20210803\Prophecy\Prophecy\MethodProphecy;
-use ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy;
-use ECSPrefix20210803\Prophecy\Prophet;
+use ECSPrefix20210804\DeepCopy\DeepCopy;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\Exception as ExceptionConstraint;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\ExceptionCode;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\ExceptionMessage;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\ExceptionMessageRegularExpression;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalOr;
+use ECSPrefix20210804\PHPUnit\Framework\Error\Deprecated;
+use ECSPrefix20210804\PHPUnit\Framework\Error\Error;
+use ECSPrefix20210804\PHPUnit\Framework\Error\Notice;
+use ECSPrefix20210804\PHPUnit\Framework\Error\Warning as WarningError;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Generator as MockGenerator;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\MockBuilder;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount as AnyInvokedCountMatcher;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtIndex as InvokedAtIndexMatcher;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastCount as InvokedAtLeastCountMatcher;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastOnce as InvokedAtLeastOnceMatcher;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtMostCount as InvokedAtMostCountMatcher;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedCount as InvokedCountMatcher;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls as ConsecutiveCallsStub;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Exception as ExceptionStub;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnArgument as ReturnArgumentStub;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnCallback as ReturnCallbackStub;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnSelf as ReturnSelfStub;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnStub;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnValueMap as ReturnValueMapStub;
+use ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner;
+use ECSPrefix20210804\PHPUnit\Runner\PhptTestCase;
+use ECSPrefix20210804\PHPUnit\Util\Exception as UtilException;
+use ECSPrefix20210804\PHPUnit\Util\GlobalState;
+use ECSPrefix20210804\PHPUnit\Util\PHP\AbstractPhpProcess;
+use ECSPrefix20210804\PHPUnit\Util\Test as TestUtil;
+use ECSPrefix20210804\PHPUnit\Util\Type;
+use ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException;
+use ECSPrefix20210804\Prophecy\Prophecy\MethodProphecy;
+use ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy;
+use ECSPrefix20210804\Prophecy\Prophet;
 use ReflectionClass;
 use ReflectionException;
-use ECSPrefix20210803\SebastianBergmann\Comparator\Comparator;
-use ECSPrefix20210803\SebastianBergmann\Comparator\Factory as ComparatorFactory;
-use ECSPrefix20210803\SebastianBergmann\Diff\Differ;
-use ECSPrefix20210803\SebastianBergmann\Exporter\Exporter;
-use ECSPrefix20210803\SebastianBergmann\GlobalState\ExcludeList;
-use ECSPrefix20210803\SebastianBergmann\GlobalState\Restorer;
-use ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot;
-use ECSPrefix20210803\SebastianBergmann\ObjectEnumerator\Enumerator;
-use ECSPrefix20210803\SebastianBergmann\Template\Template;
+use ECSPrefix20210804\SebastianBergmann\Comparator\Comparator;
+use ECSPrefix20210804\SebastianBergmann\Comparator\Factory as ComparatorFactory;
+use ECSPrefix20210804\SebastianBergmann\Diff\Differ;
+use ECSPrefix20210804\SebastianBergmann\Exporter\Exporter;
+use ECSPrefix20210804\SebastianBergmann\GlobalState\ExcludeList;
+use ECSPrefix20210804\SebastianBergmann\GlobalState\Restorer;
+use ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot;
+use ECSPrefix20210804\SebastianBergmann\ObjectEnumerator\Enumerator;
+use ECSPrefix20210804\SebastianBergmann\Template\Template;
 use SoapClient;
 use Throwable;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert implements \ECSPrefix20210803\PHPUnit\Framework\Reorderable, \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing, \ECSPrefix20210803\PHPUnit\Framework\Test
+abstract class TestCase extends \ECSPrefix20210804\PHPUnit\Framework\Assert implements \ECSPrefix20210804\PHPUnit\Framework\Reorderable, \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing, \ECSPrefix20210804\PHPUnit\Framework\Test
 {
     private const LOCALE_CATEGORIES = [\LC_ALL, \LC_COLLATE, \LC_CTYPE, \LC_MONETARY, \LC_NUMERIC, \LC_TIME];
     /**
@@ -224,7 +224,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     /**
      * @var int
      */
-    private $status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_UNKNOWN;
+    private $status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_UNKNOWN;
     /**
      * @var string
      */
@@ -309,54 +309,54 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * Returns a matcher that matches when the method is executed
      * zero or more times.
      */
-    public static function any() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount
+    public static function any() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount();
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount();
     }
     /**
      * Returns a matcher that matches when the method is never executed.
      */
-    public static function never() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedCount
+    public static function never() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedCount
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedCount(0);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedCount(0);
     }
     /**
      * Returns a matcher that matches when the method is executed
      * at least N times.
      */
-    public static function atLeast(int $requiredInvocations) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastCount
+    public static function atLeast(int $requiredInvocations) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastCount
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastCount($requiredInvocations);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastCount($requiredInvocations);
     }
     /**
      * Returns a matcher that matches when the method is executed at least once.
      */
-    public static function atLeastOnce() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastOnce
+    public static function atLeastOnce() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastOnce
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastOnce();
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtLeastOnce();
     }
     /**
      * Returns a matcher that matches when the method is executed exactly once.
      */
-    public static function once() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedCount
+    public static function once() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedCount
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedCount(1);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedCount(1);
     }
     /**
      * Returns a matcher that matches when the method is executed
      * exactly $count times.
      */
-    public static function exactly(int $count) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedCount
+    public static function exactly(int $count) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedCount
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedCount($count);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedCount($count);
     }
     /**
      * Returns a matcher that matches when the method is executed
      * at most N times.
      */
-    public static function atMost(int $allowedInvocations) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtMostCount
+    public static function atMost(int $allowedInvocations) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtMostCount
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtMostCount($allowedInvocations);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtMostCount($allowedInvocations);
     }
     /**
      * Returns a matcher that matches when the method is executed
@@ -365,7 +365,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4297
      * @codeCoverageIgnore
      */
-    public static function at(int $index) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtIndex
+    public static function at(int $index) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtIndex
     {
         $stack = \debug_backtrace();
         while (!empty($stack)) {
@@ -375,40 +375,40 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
                 break;
             }
         }
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedAtIndex($index);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedAtIndex($index);
     }
-    public static function returnValue($value) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnStub
+    public static function returnValue($value) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnStub
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnStub($value);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnStub($value);
     }
-    public static function returnValueMap(array $valueMap) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnValueMap
+    public static function returnValueMap(array $valueMap) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnValueMap
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnValueMap($valueMap);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnValueMap($valueMap);
     }
-    public static function returnArgument(int $argumentIndex) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnArgument
+    public static function returnArgument(int $argumentIndex) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnArgument
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnArgument($argumentIndex);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnArgument($argumentIndex);
     }
-    public static function returnCallback($callback) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnCallback
+    public static function returnCallback($callback) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnCallback
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnCallback($callback);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnCallback($callback);
     }
     /**
      * Returns the current object.
      *
      * This method is useful when mocking a fluent interface.
      */
-    public static function returnSelf() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnSelf
+    public static function returnSelf() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnSelf
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ReturnSelf();
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ReturnSelf();
     }
-    public static function throwException(\Throwable $exception) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Exception
+    public static function throwException(\Throwable $exception) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Exception
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Exception($exception);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Exception($exception);
     }
-    public static function onConsecutiveCalls(...$args) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls
+    public static function onConsecutiveCalls(...$args) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls($args);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls($args);
     }
     /**
      * @param int|string $dataName
@@ -459,7 +459,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
             $class = new \ReflectionClass($this);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         $buffer = \sprintf('%s::%s', $class->name, $this->getName(\false));
@@ -489,16 +489,16 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     {
         // @codeCoverageIgnoreStart
         switch ($exception) {
-            case \ECSPrefix20210803\PHPUnit\Framework\Error\Deprecated::class:
+            case \ECSPrefix20210804\PHPUnit\Framework\Error\Deprecated::class:
                 $this->addWarning('Support for using expectException() with PHPUnit\\Framework\\Error\\Deprecated is deprecated and will be removed in PHPUnit 10. Use expectDeprecation() instead.');
                 break;
-            case \ECSPrefix20210803\PHPUnit\Framework\Error\Error::class:
+            case \ECSPrefix20210804\PHPUnit\Framework\Error\Error::class:
                 $this->addWarning('Support for using expectException() with PHPUnit\\Framework\\Error\\Error is deprecated and will be removed in PHPUnit 10. Use expectError() instead.');
                 break;
-            case \ECSPrefix20210803\PHPUnit\Framework\Error\Notice::class:
+            case \ECSPrefix20210804\PHPUnit\Framework\Error\Notice::class:
                 $this->addWarning('Support for using expectException() with PHPUnit\\Framework\\Error\\Notice is deprecated and will be removed in PHPUnit 10. Use expectNotice() instead.');
                 break;
-            case \ECSPrefix20210803\PHPUnit\Framework\Error\Warning::class:
+            case \ECSPrefix20210804\PHPUnit\Framework\Error\Warning::class:
                 $this->addWarning('Support for using expectException() with PHPUnit\\Framework\\Error\\Warning is deprecated and will be removed in PHPUnit 10. Use expectWarning() instead.');
                 break;
         }
@@ -537,7 +537,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     }
     public function expectDeprecation() : void
     {
-        $this->expectedException = \ECSPrefix20210803\PHPUnit\Framework\Error\Deprecated::class;
+        $this->expectedException = \ECSPrefix20210804\PHPUnit\Framework\Error\Deprecated::class;
     }
     public function expectDeprecationMessage(string $message) : void
     {
@@ -549,7 +549,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     }
     public function expectNotice() : void
     {
-        $this->expectedException = \ECSPrefix20210803\PHPUnit\Framework\Error\Notice::class;
+        $this->expectedException = \ECSPrefix20210804\PHPUnit\Framework\Error\Notice::class;
     }
     public function expectNoticeMessage(string $message) : void
     {
@@ -561,7 +561,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     }
     public function expectWarning() : void
     {
-        $this->expectedException = \ECSPrefix20210803\PHPUnit\Framework\Error\Warning::class;
+        $this->expectedException = \ECSPrefix20210804\PHPUnit\Framework\Error\Warning::class;
     }
     public function expectWarningMessage(string $message) : void
     {
@@ -573,7 +573,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     }
     public function expectError() : void
     {
-        $this->expectedException = \ECSPrefix20210803\PHPUnit\Framework\Error\Error::class;
+        $this->expectedException = \ECSPrefix20210804\PHPUnit\Framework\Error\Error::class;
     }
     public function expectErrorMessage(string $message) : void
     {
@@ -589,7 +589,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     }
     public function markAsRisky() : void
     {
-        $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY;
+        $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY;
     }
     public function getStatusMessage() : string
     {
@@ -598,7 +598,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     public function hasFailed() : bool
     {
         $status = $this->getStatus();
-        return $status === \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE || $status === \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR;
+        return $status === \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE || $status === \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR;
     }
     /**
      * Runs the test case and collects the results in a TestResult object.
@@ -610,15 +610,15 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @throws CodeCoverageException
      * @throws UtilException
      */
-    public function run(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result = null) : \ECSPrefix20210803\PHPUnit\Framework\TestResult
+    public function run(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result = null) : \ECSPrefix20210804\PHPUnit\Framework\TestResult
     {
         if ($result === null) {
             $result = $this->createResult();
         }
-        if (!$this instanceof \ECSPrefix20210803\PHPUnit\Framework\ErrorTestCase && !$this instanceof \ECSPrefix20210803\PHPUnit\Framework\WarningTestCase) {
+        if (!$this instanceof \ECSPrefix20210804\PHPUnit\Framework\ErrorTestCase && !$this instanceof \ECSPrefix20210804\PHPUnit\Framework\WarningTestCase) {
             $this->setTestResultObject($result);
         }
-        if (!$this instanceof \ECSPrefix20210803\PHPUnit\Framework\ErrorTestCase && !$this instanceof \ECSPrefix20210803\PHPUnit\Framework\WarningTestCase && !$this instanceof \ECSPrefix20210803\PHPUnit\Framework\SkippedTestCase && !$this->handleDependencies()) {
+        if (!$this instanceof \ECSPrefix20210804\PHPUnit\Framework\ErrorTestCase && !$this instanceof \ECSPrefix20210804\PHPUnit\Framework\WarningTestCase && !$this instanceof \ECSPrefix20210804\PHPUnit\Framework\SkippedTestCase && !$this->handleDependencies()) {
             return $result;
         }
         if ($this->runInSeparateProcess()) {
@@ -627,19 +627,19 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
                 $class = new \ReflectionClass($this);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
             if ($runEntireClass) {
-                $template = new \ECSPrefix20210803\SebastianBergmann\Template\Template(__DIR__ . '/../Util/PHP/Template/TestCaseClass.tpl');
+                $template = new \ECSPrefix20210804\SebastianBergmann\Template\Template(__DIR__ . '/../Util/PHP/Template/TestCaseClass.tpl');
             } else {
-                $template = new \ECSPrefix20210803\SebastianBergmann\Template\Template(__DIR__ . '/../Util/PHP/Template/TestCaseMethod.tpl');
+                $template = new \ECSPrefix20210804\SebastianBergmann\Template\Template(__DIR__ . '/../Util/PHP/Template/TestCaseMethod.tpl');
             }
             if ($this->preserveGlobalState) {
-                $constants = \ECSPrefix20210803\PHPUnit\Util\GlobalState::getConstantsAsString();
-                $globals = \ECSPrefix20210803\PHPUnit\Util\GlobalState::getGlobalsAsString();
-                $includedFiles = \ECSPrefix20210803\PHPUnit\Util\GlobalState::getIncludedFilesAsString();
-                $iniSettings = \ECSPrefix20210803\PHPUnit\Util\GlobalState::getIniSettingsAsString();
+                $constants = \ECSPrefix20210804\PHPUnit\Util\GlobalState::getConstantsAsString();
+                $globals = \ECSPrefix20210804\PHPUnit\Util\GlobalState::getGlobalsAsString();
+                $includedFiles = \ECSPrefix20210804\PHPUnit\Util\GlobalState::getIncludedFilesAsString();
+                $iniSettings = \ECSPrefix20210804\PHPUnit\Util\GlobalState::getIniSettingsAsString();
             } else {
                 $constants = '';
                 if (!empty($GLOBALS['__PHPUNIT_BOOTSTRAP'])) {
@@ -701,7 +701,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
                 $var['methodName'] = $this->name;
             }
             $template->setVar($var);
-            $php = \ECSPrefix20210803\PHPUnit\Util\PHP\AbstractPhpProcess::factory();
+            $php = \ECSPrefix20210804\PHPUnit\Util\PHP\AbstractPhpProcess::factory();
             $php->runTestJob($template->render(), $this, $result);
         } else {
             $result->run($this);
@@ -716,14 +716,14 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @psalm-param class-string<RealInstanceType> $className
      * @psalm-return MockBuilder<RealInstanceType>
      */
-    public function getMockBuilder(string $className) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockBuilder
+    public function getMockBuilder(string $className) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockBuilder
     {
         $this->recordDoubledType($className);
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockBuilder($this, $className);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockBuilder($this, $className);
     }
-    public function registerComparator(\ECSPrefix20210803\SebastianBergmann\Comparator\Comparator $comparator) : void
+    public function registerComparator(\ECSPrefix20210804\SebastianBergmann\Comparator\Comparator $comparator) : void
     {
-        \ECSPrefix20210803\SebastianBergmann\Comparator\Factory::getInstance()->register($comparator);
+        \ECSPrefix20210804\SebastianBergmann\Comparator\Factory::getInstance()->register($comparator);
         $this->customComparators[] = $comparator;
     }
     /**
@@ -770,7 +770,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      */
     public function getSize() : int
     {
-        return \ECSPrefix20210803\PHPUnit\Util\Test::getSize(static::class, $this->getName(\false));
+        return \ECSPrefix20210804\PHPUnit\Util\Test::getSize(static::class, $this->getName(\false));
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -779,7 +779,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      */
     public function hasSize() : bool
     {
-        return $this->getSize() !== \ECSPrefix20210803\PHPUnit\Util\Test::UNKNOWN;
+        return $this->getSize() !== \ECSPrefix20210804\PHPUnit\Util\Test::UNKNOWN;
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -788,7 +788,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      */
     public function isSmall() : bool
     {
-        return $this->getSize() === \ECSPrefix20210803\PHPUnit\Util\Test::SMALL;
+        return $this->getSize() === \ECSPrefix20210804\PHPUnit\Util\Test::SMALL;
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -797,7 +797,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      */
     public function isMedium() : bool
     {
-        return $this->getSize() === \ECSPrefix20210803\PHPUnit\Util\Test::MEDIUM;
+        return $this->getSize() === \ECSPrefix20210804\PHPUnit\Util\Test::MEDIUM;
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -806,7 +806,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      */
     public function isLarge() : bool
     {
-        return $this->getSize() === \ECSPrefix20210803\PHPUnit\Util\Test::LARGE;
+        return $this->getSize() === \ECSPrefix20210804\PHPUnit\Util\Test::LARGE;
     }
     /**
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
@@ -894,7 +894,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
         $this->startOutputBuffering();
         \clearstatcache();
         $currentWorkingDirectory = \getcwd();
-        $hookMethods = \ECSPrefix20210803\PHPUnit\Util\Test::getHookMethods(static::class);
+        $hookMethods = \ECSPrefix20210804\PHPUnit\Util\Test::getHookMethods(static::class);
         $hasMetRequirements = \false;
         try {
             $this->checkRequirements();
@@ -917,27 +917,27 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
                 $this->{$method}();
             }
             if (!empty($this->warnings)) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Warning(\implode("\n", \array_unique($this->warnings)));
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Warning(\implode("\n", \array_unique($this->warnings)));
             }
-            $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED;
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\IncompleteTest $e) {
-            $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE;
+            $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED;
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\IncompleteTest $e) {
+            $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE;
             $this->statusMessage = $e->getMessage();
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\SkippedTest $e) {
-            $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED;
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\SkippedTest $e) {
+            $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED;
             $this->statusMessage = $e->getMessage();
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\Warning $e) {
-            $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING;
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\Warning $e) {
+            $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING;
             $this->statusMessage = $e->getMessage();
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError $e) {
-            $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE;
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError $e) {
+            $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE;
             $this->statusMessage = $e->getMessage();
-        } catch (\ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException $e) {
-            $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE;
+        } catch (\ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException $e) {
+            $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE;
             $this->statusMessage = $e->getMessage();
         } catch (\Throwable $_e) {
             $e = $_e;
-            $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR;
+            $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR;
             $this->statusMessage = $_e->getMessage();
         }
         $this->mockObjects = [];
@@ -960,11 +960,11 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
         }
         try {
             $this->stopOutputBuffering();
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\RiskyTestError $_e) {
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\RiskyTestError $_e) {
             $e = $e ?? $_e;
         }
         if (isset($_e)) {
-            $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR;
+            $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR;
             $this->statusMessage = $_e->getMessage();
         }
         \clearstatcache();
@@ -990,8 +990,8 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
         }
         // Workaround for missing "finally".
         if (isset($e)) {
-            if ($e instanceof \ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException) {
-                $e = new \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError($e->getMessage());
+            if ($e instanceof \ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException) {
+                $e = new \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError($e->getMessage());
             }
             $this->onNotSuccessfulTest($e);
         }
@@ -1003,7 +1003,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     {
         $this->name = $name;
         if (\is_callable($this->sortId(), \true)) {
-            $this->providedTests = [new \ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency($this->sortId())];
+            $this->providedTests = [new \ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency($this->sortId())];
         }
     }
     /**
@@ -1110,21 +1110,21 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     /**
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public function getTestResultObject() : ?\ECSPrefix20210803\PHPUnit\Framework\TestResult
+    public function getTestResultObject() : ?\ECSPrefix20210804\PHPUnit\Framework\TestResult
     {
         return $this->result;
     }
     /**
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public function setTestResultObject(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    public function setTestResultObject(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->result = $result;
     }
     /**
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public function registerMockObject(\ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject $mockObject) : void
+    public function registerMockObject(\ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject $mockObject) : void
     {
         $this->mockObjects[] = $mockObject;
     }
@@ -1173,7 +1173,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
                 $buffer .= \sprintf(' with data set "%s"', $this->dataName);
             }
             if ($includeData) {
-                $exporter = new \ECSPrefix20210803\SebastianBergmann\Exporter\Exporter();
+                $exporter = new \ECSPrefix20210804\SebastianBergmann\Exporter\Exporter();
                 $buffer .= \sprintf(' (%s)', $exporter->shortenedRecursiveExport($this->data));
             }
         }
@@ -1240,7 +1240,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     protected function runTest()
     {
         if (\trim($this->name) === '') {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception('PHPUnit\\Framework\\TestCase::$name must be a non-blank string.');
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception('PHPUnit\\Framework\\TestCase::$name must be a non-blank string.');
         }
         $testArguments = \array_merge($this->data, $this->dependencyInput);
         $this->registerMockObjectsFromTestArguments($testArguments);
@@ -1251,34 +1251,34 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
                 throw $exception;
             }
             if ($this->expectedException !== null) {
-                if ($this->expectedException === \ECSPrefix20210803\PHPUnit\Framework\Error\Error::class) {
-                    $this->assertThat($exception, \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalOr::fromConstraints(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\Exception(\ECSPrefix20210803\PHPUnit\Framework\Error\Error::class), new \ECSPrefix20210803\PHPUnit\Framework\Constraint\Exception(\Error::class)));
+                if ($this->expectedException === \ECSPrefix20210804\PHPUnit\Framework\Error\Error::class) {
+                    $this->assertThat($exception, \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalOr::fromConstraints(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\Exception(\ECSPrefix20210804\PHPUnit\Framework\Error\Error::class), new \ECSPrefix20210804\PHPUnit\Framework\Constraint\Exception(\Error::class)));
                 } else {
-                    $this->assertThat($exception, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\Exception($this->expectedException));
+                    $this->assertThat($exception, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\Exception($this->expectedException));
                 }
             }
             if ($this->expectedExceptionMessage !== null) {
-                $this->assertThat($exception, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ExceptionMessage($this->expectedExceptionMessage));
+                $this->assertThat($exception, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ExceptionMessage($this->expectedExceptionMessage));
             }
             if ($this->expectedExceptionMessageRegExp !== null) {
-                $this->assertThat($exception, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ExceptionMessageRegularExpression($this->expectedExceptionMessageRegExp));
+                $this->assertThat($exception, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ExceptionMessageRegularExpression($this->expectedExceptionMessageRegExp));
             }
             if ($this->expectedExceptionCode !== null) {
-                $this->assertThat($exception, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ExceptionCode($this->expectedExceptionCode));
+                $this->assertThat($exception, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ExceptionCode($this->expectedExceptionCode));
             }
             return;
         }
         if ($this->expectedException !== null) {
-            $this->assertThat(null, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\Exception($this->expectedException));
+            $this->assertThat(null, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\Exception($this->expectedException));
         } elseif ($this->expectedExceptionMessage !== null) {
             $this->numAssertions++;
-            throw new \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError(\sprintf('Failed asserting that exception with message "%s" is thrown', $this->expectedExceptionMessage));
+            throw new \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError(\sprintf('Failed asserting that exception with message "%s" is thrown', $this->expectedExceptionMessage));
         } elseif ($this->expectedExceptionMessageRegExp !== null) {
             $this->numAssertions++;
-            throw new \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError(\sprintf('Failed asserting that exception with message matching "%s" is thrown', $this->expectedExceptionMessageRegExp));
+            throw new \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError(\sprintf('Failed asserting that exception with message matching "%s" is thrown', $this->expectedExceptionMessageRegExp));
         } elseif ($this->expectedExceptionCode !== null) {
             $this->numAssertions++;
-            throw new \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError(\sprintf('Failed asserting that exception with code "%s" is thrown', $this->expectedExceptionCode));
+            throw new \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError(\sprintf('Failed asserting that exception with code "%s" is thrown', $this->expectedExceptionCode));
         }
         return $testResult;
     }
@@ -1295,7 +1295,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
         if ($currentValue !== \false) {
             $this->iniSettings[$varName] = $currentValue;
         } else {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception(\sprintf('INI setting "%s" could not be set to "%s".', $varName, $newValue));
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception(\sprintf('INI setting "%s" could not be set to "%s".', $varName, $newValue));
         }
     }
     /**
@@ -1307,19 +1307,19 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     protected function setLocale(...$args) : void
     {
         if (\count($args) < 2) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception();
         }
         [$category, $locale] = $args;
         if (!\in_array($category, self::LOCALE_CATEGORIES, \true)) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception();
         }
         if (!\is_array($locale) && !\is_string($locale)) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception();
         }
         $this->locale[$category] = \setlocale($category, 0);
         $result = \setlocale(...$args);
         if ($result === \false) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception('The locale functionality is not implemented on your platform, ' . 'the specified locale does not exist or the category name is ' . 'invalid.');
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception('The locale functionality is not implemented on your platform, ' . 'the specified locale does not exist or the category name is ' . 'invalid.');
         }
     }
     /**
@@ -1329,7 +1329,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @psalm-param    class-string<RealInstanceType> $originalClassName
      * @psalm-return   Stub&RealInstanceType
      */
-    protected function createStub(string $originalClassName) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub
+    protected function createStub(string $originalClassName) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub
     {
         return $this->createMockObject($originalClassName);
     }
@@ -1340,7 +1340,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @psalm-param class-string<RealInstanceType> $originalClassName
      * @psalm-return MockObject&RealInstanceType
      */
-    protected function createMock(string $originalClassName) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    protected function createMock(string $originalClassName) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         return $this->createMockObject($originalClassName);
     }
@@ -1351,7 +1351,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @psalm-param class-string<RealInstanceType> $originalClassName
      * @psalm-return MockObject&RealInstanceType
      */
-    protected function createConfiguredMock(string $originalClassName, array $configuration) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    protected function createConfiguredMock(string $originalClassName, array $configuration) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         $o = $this->createMockObject($originalClassName);
         foreach ($configuration as $method => $return) {
@@ -1368,13 +1368,13 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @psalm-param class-string<RealInstanceType> $originalClassName
      * @psalm-return MockObject&RealInstanceType
      */
-    protected function createPartialMock(string $originalClassName, array $methods) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    protected function createPartialMock(string $originalClassName, array $methods) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         try {
             $reflector = new \ReflectionClass($originalClassName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
         $mockedMethodsThatDontExist = \array_filter($methods, static function (string $method) use($reflector) {
@@ -1392,7 +1392,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @psalm-param class-string<RealInstanceType> $originalClassName
      * @psalm-return MockObject&RealInstanceType
      */
-    protected function createTestProxy(string $originalClassName, array $constructorArguments = []) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    protected function createTestProxy(string $originalClassName, array $constructorArguments = []) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder($originalClassName)->setConstructorArgs($constructorArguments)->enableProxyingToOriginalMethods()->getMock();
     }
@@ -1420,7 +1420,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @psalm-param class-string<RealInstanceType> $originalClassName
      * @psalm-return MockObject&RealInstanceType
      */
-    protected function getMockForAbstractClass(string $originalClassName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, array $mockedMethods = [], bool $cloneArguments = \false) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    protected function getMockForAbstractClass(string $originalClassName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, array $mockedMethods = [], bool $cloneArguments = \false) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         $this->recordDoubledType($originalClassName);
         $mockObject = $this->getMockObjectGenerator()->getMockForAbstractClass($originalClassName, $arguments, $mockClassName, $callOriginalConstructor, $callOriginalClone, $callAutoload, $mockedMethods, $cloneArguments);
@@ -1434,7 +1434,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      * @psalm-param class-string<RealInstanceType>|string $originalClassName
      * @psalm-return MockObject&RealInstanceType
      */
-    protected function getMockFromWsdl(string $wsdlFile, string $originalClassName = '', string $mockClassName = '', array $methods = [], bool $callOriginalConstructor = \true, array $options = []) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    protected function getMockFromWsdl(string $wsdlFile, string $originalClassName = '', string $mockClassName = '', array $methods = [], bool $callOriginalConstructor = \true, array $options = []) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         $this->recordDoubledType(\SoapClient::class);
         if ($originalClassName === '') {
@@ -1455,7 +1455,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      *
      * @psalm-param trait-string $traitName
      */
-    protected function getMockForTrait(string $traitName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, array $mockedMethods = [], bool $cloneArguments = \false) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    protected function getMockForTrait(string $traitName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = \true, bool $callOriginalClone = \true, bool $callAutoload = \true, array $mockedMethods = [], bool $cloneArguments = \false) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         $this->recordDoubledType($traitName);
         $mockObject = $this->getMockObjectGenerator()->getMockForTrait($traitName, $arguments, $mockClassName, $callOriginalConstructor, $callOriginalClone, $callAutoload, $mockedMethods, $cloneArguments);
@@ -1479,7 +1479,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      *
      * @psalm-param class-string|null $classOrInterface
      */
-    protected function prophesize(?string $classOrInterface = null) : \ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy
+    protected function prophesize(?string $classOrInterface = null) : \ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy
     {
         $this->addWarning('PHPUnit\\Framework\\TestCase::prophesize() is deprecated and will be removed in PHPUnit 10. Please use the trait provided by phpspec/prophecy-phpunit.');
         if (\is_string($classOrInterface)) {
@@ -1492,9 +1492,9 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      *
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    protected function createResult() : \ECSPrefix20210803\PHPUnit\Framework\TestResult
+    protected function createResult() : \ECSPrefix20210804\PHPUnit\Framework\TestResult
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\TestResult();
+        return new \ECSPrefix20210804\PHPUnit\Framework\TestResult();
     }
     /**
      * Performs assertions shared by all tests of a test case.
@@ -1561,7 +1561,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
         if (!$this->name || !\method_exists($this, $this->name)) {
             return;
         }
-        $missingRequirements = \ECSPrefix20210803\PHPUnit\Util\Test::getMissingRequirements(static::class, $this->name);
+        $missingRequirements = \ECSPrefix20210804\PHPUnit\Util\Test::getMissingRequirements(static::class, $this->name);
         if (!empty($missingRequirements)) {
             $this->markTestSkipped(\implode(\PHP_EOL, $missingRequirements));
         }
@@ -1604,12 +1604,12 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
                 return \false;
             }
             if (isset($passed[$dependencyTarget])) {
-                if ($passed[$dependencyTarget]['size'] != \ECSPrefix20210803\PHPUnit\Util\Test::UNKNOWN && $this->getSize() != \ECSPrefix20210803\PHPUnit\Util\Test::UNKNOWN && $passed[$dependencyTarget]['size'] > $this->getSize()) {
-                    $this->result->addError($this, new \ECSPrefix20210803\PHPUnit\Framework\SkippedTestError('This test depends on a test that is larger than itself.'), 0);
+                if ($passed[$dependencyTarget]['size'] != \ECSPrefix20210804\PHPUnit\Util\Test::UNKNOWN && $this->getSize() != \ECSPrefix20210804\PHPUnit\Util\Test::UNKNOWN && $passed[$dependencyTarget]['size'] > $this->getSize()) {
+                    $this->result->addError($this, new \ECSPrefix20210804\PHPUnit\Framework\SkippedTestError('This test depends on a test that is larger than itself.'), 0);
                     return \false;
                 }
                 if ($dependency->useDeepClone()) {
-                    $deepCopy = new \ECSPrefix20210803\DeepCopy\DeepCopy();
+                    $deepCopy = new \ECSPrefix20210804\DeepCopy\DeepCopy();
                     $deepCopy->skipUncloneable(\false);
                     $this->dependencyInput[$dependencyTarget] = $deepCopy->copy($passed[$dependencyTarget]['result']);
                 } elseif ($dependency->useShallowClone()) {
@@ -1625,32 +1625,32 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     }
     private function markSkippedForNotSpecifyingDependency() : void
     {
-        $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED;
+        $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED;
         $this->result->startTest($this);
-        $this->result->addError($this, new \ECSPrefix20210803\PHPUnit\Framework\SkippedTestError('This method has an invalid @depends annotation.'), 0);
+        $this->result->addError($this, new \ECSPrefix20210804\PHPUnit\Framework\SkippedTestError('This method has an invalid @depends annotation.'), 0);
         $this->result->endTest($this, 0);
     }
-    private function markSkippedForMissingDependency(\ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency $dependency) : void
+    private function markSkippedForMissingDependency(\ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency $dependency) : void
     {
-        $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED;
+        $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED;
         $this->result->startTest($this);
-        $this->result->addError($this, new \ECSPrefix20210803\PHPUnit\Framework\SkippedTestError(\sprintf('This test depends on "%s" to pass.', $dependency->getTarget())), 0);
+        $this->result->addError($this, new \ECSPrefix20210804\PHPUnit\Framework\SkippedTestError(\sprintf('This test depends on "%s" to pass.', $dependency->getTarget())), 0);
         $this->result->endTest($this, 0);
     }
-    private function markWarningForUncallableDependency(\ECSPrefix20210803\PHPUnit\Framework\ExecutionOrderDependency $dependency) : void
+    private function markWarningForUncallableDependency(\ECSPrefix20210804\PHPUnit\Framework\ExecutionOrderDependency $dependency) : void
     {
-        $this->status = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING;
+        $this->status = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING;
         $this->result->startTest($this);
-        $this->result->addWarning($this, new \ECSPrefix20210803\PHPUnit\Framework\Warning(\sprintf('This test depends on "%s" which does not exist.', $dependency->getTarget())), 0);
+        $this->result->addWarning($this, new \ECSPrefix20210804\PHPUnit\Framework\Warning(\sprintf('This test depends on "%s" which does not exist.', $dependency->getTarget())), 0);
         $this->result->endTest($this, 0);
     }
     /**
      * Get the mock object generator, creating it if it doesn't exist.
      */
-    private function getMockObjectGenerator() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Generator
+    private function getMockObjectGenerator() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Generator
     {
         if ($this->mockObjectGenerator === null) {
-            $this->mockObjectGenerator = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Generator();
+            $this->mockObjectGenerator = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Generator();
         }
         return $this->mockObjectGenerator;
     }
@@ -1669,7 +1669,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
             while (\ob_get_level() >= $this->outputBufferingLevel) {
                 \ob_end_clean();
             }
-            throw new \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError('Test code or tested code did not (only) close its own output buffers');
+            throw new \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError('Test code or tested code did not (only) close its own output buffers');
         }
         $this->output = \ob_get_contents();
         if ($this->outputCallback !== \false) {
@@ -1692,17 +1692,17 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
      */
     private function restoreGlobalState() : void
     {
-        if (!$this->snapshot instanceof \ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot) {
+        if (!$this->snapshot instanceof \ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot) {
             return;
         }
         if ($this->beStrictAboutChangesToGlobalState) {
             try {
                 $this->compareGlobalStateSnapshots($this->snapshot, $this->createGlobalStateSnapshot($this->backupGlobals === \true));
-            } catch (\ECSPrefix20210803\PHPUnit\Framework\RiskyTestError $rte) {
+            } catch (\ECSPrefix20210804\PHPUnit\Framework\RiskyTestError $rte) {
                 // Intentionally left empty
             }
         }
-        $restorer = new \ECSPrefix20210803\SebastianBergmann\GlobalState\Restorer();
+        $restorer = new \ECSPrefix20210804\SebastianBergmann\GlobalState\Restorer();
         if ($this->backupGlobals) {
             $restorer->restoreGlobalVariables($this->snapshot);
         }
@@ -1714,9 +1714,9 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
             throw $rte;
         }
     }
-    private function createGlobalStateSnapshot(bool $backupGlobals) : \ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot
+    private function createGlobalStateSnapshot(bool $backupGlobals) : \ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot
     {
-        $excludeList = new \ECSPrefix20210803\SebastianBergmann\GlobalState\ExcludeList();
+        $excludeList = new \ECSPrefix20210804\SebastianBergmann\GlobalState\ExcludeList();
         foreach ($this->backupGlobalsExcludeList as $globalVariable) {
             $excludeList->addGlobalVariable($globalVariable);
         }
@@ -1728,15 +1728,15 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
         }
         if (!\defined('PHPUNIT_TESTSUITE')) {
             $excludeList->addClassNamePrefix('PHPUnit');
-            $excludeList->addClassNamePrefix('ECSPrefix20210803\\SebastianBergmann\\CodeCoverage');
-            $excludeList->addClassNamePrefix('ECSPrefix20210803\\SebastianBergmann\\FileIterator');
-            $excludeList->addClassNamePrefix('ECSPrefix20210803\\SebastianBergmann\\Invoker');
-            $excludeList->addClassNamePrefix('ECSPrefix20210803\\SebastianBergmann\\Template');
-            $excludeList->addClassNamePrefix('ECSPrefix20210803\\SebastianBergmann\\Timer');
+            $excludeList->addClassNamePrefix('ECSPrefix20210804\\SebastianBergmann\\CodeCoverage');
+            $excludeList->addClassNamePrefix('ECSPrefix20210804\\SebastianBergmann\\FileIterator');
+            $excludeList->addClassNamePrefix('ECSPrefix20210804\\SebastianBergmann\\Invoker');
+            $excludeList->addClassNamePrefix('ECSPrefix20210804\\SebastianBergmann\\Template');
+            $excludeList->addClassNamePrefix('ECSPrefix20210804\\SebastianBergmann\\Timer');
             $excludeList->addClassNamePrefix('Symfony');
-            $excludeList->addClassNamePrefix('ECSPrefix20210803\\Doctrine\\Instantiator');
+            $excludeList->addClassNamePrefix('ECSPrefix20210804\\Doctrine\\Instantiator');
             $excludeList->addClassNamePrefix('Prophecy');
-            $excludeList->addStaticAttribute(\ECSPrefix20210803\SebastianBergmann\Comparator\Factory::class, 'instance');
+            $excludeList->addStaticAttribute(\ECSPrefix20210804\SebastianBergmann\Comparator\Factory::class, 'instance');
             foreach ($this->backupStaticAttributesExcludeList as $class => $attributes) {
                 foreach ($attributes as $attribute) {
                     $excludeList->addStaticAttribute($class, $attribute);
@@ -1751,13 +1751,13 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
                 }
             }
         }
-        return new \ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot($excludeList, $backupGlobals, (bool) $this->backupStaticAttributes, \false, \false, \false, \false, \false, \false, \false);
+        return new \ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot($excludeList, $backupGlobals, (bool) $this->backupStaticAttributes, \false, \false, \false, \false, \false, \false, \false);
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws RiskyTestError
      */
-    private function compareGlobalStateSnapshots(\ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot $before, \ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot $after) : void
+    private function compareGlobalStateSnapshots(\ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot $before, \ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot $after) : void
     {
         $backupGlobals = $this->backupGlobals === null || $this->backupGlobals;
         if ($backupGlobals) {
@@ -1774,25 +1774,25 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     private function compareGlobalStateSnapshotPart(array $before, array $after, string $header) : void
     {
         if ($before != $after) {
-            $differ = new \ECSPrefix20210803\SebastianBergmann\Diff\Differ($header);
-            $exporter = new \ECSPrefix20210803\SebastianBergmann\Exporter\Exporter();
+            $differ = new \ECSPrefix20210804\SebastianBergmann\Diff\Differ($header);
+            $exporter = new \ECSPrefix20210804\SebastianBergmann\Exporter\Exporter();
             $diff = $differ->diff($exporter->export($before), $exporter->export($after));
-            throw new \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError($diff);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError($diff);
         }
     }
-    private function getProphet() : \ECSPrefix20210803\Prophecy\Prophet
+    private function getProphet() : \ECSPrefix20210804\Prophecy\Prophet
     {
         if ($this->prophet === null) {
-            $this->prophet = new \ECSPrefix20210803\Prophecy\Prophet();
+            $this->prophet = new \ECSPrefix20210804\Prophecy\Prophet();
         }
         return $this->prophet;
     }
     /**
      * @throws \SebastianBergmann\ObjectEnumerator\InvalidArgumentException
      */
-    private function shouldInvocationMockerBeReset(\ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject $mock) : bool
+    private function shouldInvocationMockerBeReset(\ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject $mock) : bool
     {
-        $enumerator = new \ECSPrefix20210803\SebastianBergmann\ObjectEnumerator\Enumerator();
+        $enumerator = new \ECSPrefix20210804\SebastianBergmann\ObjectEnumerator\Enumerator();
         foreach ($enumerator->enumerate($this->dependencyInput) as $object) {
             if ($mock === $object) {
                 return \false;
@@ -1811,15 +1811,15 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     private function registerMockObjectsFromTestArguments(array $testArguments, array &$visited = []) : void
     {
         if ($this->registerMockObjectsFromTestArgumentsRecursively) {
-            foreach ((new \ECSPrefix20210803\SebastianBergmann\ObjectEnumerator\Enumerator())->enumerate($testArguments) as $object) {
-                if ($object instanceof \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject) {
+            foreach ((new \ECSPrefix20210804\SebastianBergmann\ObjectEnumerator\Enumerator())->enumerate($testArguments) as $object) {
+                if ($object instanceof \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject) {
                     $this->registerMockObject($object);
                 }
             }
         } else {
             foreach ($testArguments as $testArgument) {
-                if ($testArgument instanceof \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject) {
-                    if (\ECSPrefix20210803\PHPUnit\Util\Type::isCloneable($testArgument)) {
+                if ($testArgument instanceof \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject) {
+                    if (\ECSPrefix20210804\PHPUnit\Util\Type::isCloneable($testArgument)) {
                         $testArgument = clone $testArgument;
                     }
                     $this->registerMockObject($testArgument);
@@ -1832,14 +1832,14 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     }
     private function setDoesNotPerformAssertionsFromAnnotation() : void
     {
-        $annotations = \ECSPrefix20210803\PHPUnit\Util\Test::parseTestMethodAnnotations(static::class, $this->name);
+        $annotations = \ECSPrefix20210804\PHPUnit\Util\Test::parseTestMethodAnnotations(static::class, $this->name);
         if (isset($annotations['method']['doesNotPerformAssertions'])) {
             $this->doesNotPerformAssertions = \true;
         }
     }
     private function unregisterCustomComparators() : void
     {
-        $factory = \ECSPrefix20210803\SebastianBergmann\Comparator\Factory::getInstance();
+        $factory = \ECSPrefix20210804\SebastianBergmann\Comparator\Factory::getInstance();
         foreach ($this->customComparators as $comparator) {
             $factory->unregister($comparator);
         }
@@ -1868,7 +1868,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
         if ($this->expectedException !== null || $this->expectedExceptionCode !== null || $this->expectedExceptionMessage !== null || $this->expectedExceptionMessageRegExp !== null) {
             $result = \true;
         }
-        if ($throwable instanceof \ECSPrefix20210803\PHPUnit\Framework\Exception) {
+        if ($throwable instanceof \ECSPrefix20210804\PHPUnit\Framework\Exception) {
             $result = \false;
         }
         if (\is_string($this->expectedException)) {
@@ -1876,10 +1876,10 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
                 $reflector = new \ReflectionClass($this->expectedException);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
-            if ($this->expectedException === 'PHPUnit\\Framework\\Exception' || $this->expectedException === '\\PHPUnit\\Framework\\Exception' || $reflector->isSubclassOf(\ECSPrefix20210803\PHPUnit\Framework\Exception::class)) {
+            if ($this->expectedException === 'PHPUnit\\Framework\\Exception' || $this->expectedException === '\\PHPUnit\\Framework\\Exception' || $reflector->isSubclassOf(\ECSPrefix20210804\PHPUnit\Framework\Exception::class)) {
                 $result = \true;
             }
         }
@@ -1887,7 +1887,7 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
     }
     private function runInSeparateProcess() : bool
     {
-        return ($this->runTestInSeparateProcess || $this->runClassInSeparateProcess) && !$this->inIsolation && !$this instanceof \ECSPrefix20210803\PHPUnit\Runner\PhptTestCase;
+        return ($this->runTestInSeparateProcess || $this->runClassInSeparateProcess) && !$this->inIsolation && !$this instanceof \ECSPrefix20210804\PHPUnit\Runner\PhptTestCase;
     }
     private function isCallableTestMethod(string $dependency) : bool
     {
@@ -1911,14 +1911,14 @@ abstract class TestCase extends \ECSPrefix20210803\PHPUnit\Framework\Assert impl
         } catch (\ReflectionException $e) {
             return \false;
         }
-        return \ECSPrefix20210803\PHPUnit\Util\Test::isTestMethod($method);
+        return \ECSPrefix20210804\PHPUnit\Util\Test::isTestMethod($method);
     }
     /**
      * @psalm-template RealInstanceType of object
      * @psalm-param class-string<RealInstanceType> $originalClassName
      * @psalm-return MockObject&RealInstanceType
      */
-    private function createMockObject(string $originalClassName) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\MockObject
+    private function createMockObject(string $originalClassName) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder($originalClassName)->disableOriginalConstructor()->disableOriginalClone()->disableArgumentCloning()->disallowMockingUnknownTypes()->getMock();
     }

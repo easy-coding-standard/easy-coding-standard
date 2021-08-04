@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\Generator;
+namespace ECSPrefix20210804\Prophecy\Doubler\Generator;
 
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\TypeNodeAbstract;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\TypeNodeAbstract;
 /**
  * Class code creator.
  * Generates PHP code for specific class node tree.
@@ -20,7 +20,7 @@ use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\TypeNodeAbstract;
  */
 class ClassCodeGenerator
 {
-    public function __construct(\ECSPrefix20210803\Prophecy\Doubler\Generator\TypeHintReference $typeHintReference = null)
+    public function __construct(\ECSPrefix20210804\Prophecy\Doubler\Generator\TypeHintReference $typeHintReference = null)
     {
     }
     /**
@@ -31,7 +31,7 @@ class ClassCodeGenerator
      *
      * @return string
      */
-    public function generate($classname, \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $class)
+    public function generate($classname, \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $class)
     {
         $parts = \explode('\\', $classname);
         $classname = \array_pop($parts);
@@ -49,13 +49,13 @@ class ClassCodeGenerator
         $code .= "\n}";
         return \sprintf("namespace %s {\n%s\n}", $namespace, $code);
     }
-    private function generateMethod(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode $method)
+    private function generateMethod(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode $method)
     {
         $php = \sprintf("%s %s function %s%s(%s)%s {\n", $method->getVisibility(), $method->isStatic() ? 'static' : '', $method->returnsReference() ? '&' : '', $method->getName(), \implode(', ', $this->generateArguments($method->getArguments())), ($ret = $this->generateTypes($method->getReturnTypeNode())) ? ': ' . $ret : '');
         $php .= $method->getCode() . "\n";
         return $php . '}';
     }
-    private function generateTypes(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\TypeNodeAbstract $typeNode) : string
+    private function generateTypes(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\TypeNodeAbstract $typeNode) : string
     {
         if (!$typeNode->getTypes()) {
             return '';
@@ -69,7 +69,7 @@ class ClassCodeGenerator
     }
     private function generateArguments(array $arguments)
     {
-        return \array_map(function (\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode $argument) {
+        return \array_map(function (\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode $argument) {
             $php = $this->generateTypes($argument->getTypeNode());
             $php .= ' ' . ($argument->isPassedByReference() ? '&' : '');
             $php .= $argument->isVariadic() ? '...' : '';

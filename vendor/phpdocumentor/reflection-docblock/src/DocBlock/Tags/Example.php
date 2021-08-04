@@ -9,10 +9,10 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag;
-use ECSPrefix20210803\Webmozart\Assert\Assert;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag;
+use ECSPrefix20210804\Webmozart\Assert\Assert;
 use function array_key_exists;
 use function preg_match;
 use function rawurlencode;
@@ -22,7 +22,7 @@ use function trim;
 /**
  * Reflection class for a {@}example tag in a Docblock.
  */
-final class Example implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag, \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Example implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag, \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string Path to a file to use as an example. May also be an absolute URI. */
     private $filePath;
@@ -39,9 +39,9 @@ final class Example implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBl
     private $content;
     public function __construct(string $filePath, bool $isURI, int $startingLine, int $lineCount, ?string $content)
     {
-        \ECSPrefix20210803\Webmozart\Assert\Assert::stringNotEmpty($filePath);
-        \ECSPrefix20210803\Webmozart\Assert\Assert::greaterThanEq($startingLine, 1);
-        \ECSPrefix20210803\Webmozart\Assert\Assert::greaterThanEq($lineCount, 0);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::stringNotEmpty($filePath);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::greaterThanEq($startingLine, 1);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::greaterThanEq($lineCount, 0);
         $this->filePath = $filePath;
         $this->startingLine = $startingLine;
         $this->lineCount = $lineCount;
@@ -65,7 +65,7 @@ final class Example implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBl
     {
         return $this->content;
     }
-    public static function create(string $body) : ?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag
+    public static function create(string $body) : ?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag
     {
         // File component: File path in quotes or File URI / Source information
         if (!\preg_match('/^\\s*(?:(\\"[^\\"]+\\")|(\\S+))(?:\\s+(.*))?$/sux', $body, $matches)) {
@@ -137,10 +137,10 @@ final class Example implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBl
     {
         return 'example';
     }
-    public function render(?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string
+    public function render(?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string
     {
         if ($formatter === null) {
-            $formatter = new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+            $formatter = new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
         }
         return $formatter->format($this);
     }

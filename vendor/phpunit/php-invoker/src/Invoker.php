@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Invoker;
+namespace ECSPrefix20210804\SebastianBergmann\Invoker;
 
 use const SIGALRM;
 use function call_user_func_array;
@@ -31,10 +31,10 @@ final class Invoker
     public function invoke(callable $callable, array $arguments, int $timeout)
     {
         if (!$this->canInvokeWithTimeout()) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Invoker\ProcessControlExtensionNotLoadedException('The pcntl (process control) extension for PHP is required');
+            throw new \ECSPrefix20210804\SebastianBergmann\Invoker\ProcessControlExtensionNotLoadedException('The pcntl (process control) extension for PHP is required');
         }
         \pcntl_signal(\SIGALRM, function () : void {
-            throw new \ECSPrefix20210803\SebastianBergmann\Invoker\TimeoutException(\sprintf('Execution aborted after %d second%s', $this->timeout, $this->timeout === 1 ? '' : 's'));
+            throw new \ECSPrefix20210804\SebastianBergmann\Invoker\TimeoutException(\sprintf('Execution aborted after %d second%s', $this->timeout, $this->timeout === 1 ? '' : 's'));
         }, \true);
         $this->timeout = $timeout;
         \pcntl_async_signals(\true);

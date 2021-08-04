@@ -9,10 +9,10 @@ declare (strict_types=1);
  *
  * @link http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
 
 use InvalidArgumentException;
-use ECSPrefix20210803\phpDocumentor\Reflection\Types\Context as TypeContext;
+use ECSPrefix20210804\phpDocumentor\Reflection\Types\Context as TypeContext;
 interface TagFactory
 {
     /**
@@ -45,7 +45,7 @@ interface TagFactory
      *
      * @throws InvalidArgumentException If an invalid tag line was presented.
      */
-    public function create(string $tagLine, ?\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context = null) : \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag;
+    public function create(string $tagLine, ?\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context = null) : \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag;
     /**
      * Registers a service with the Service Locator using the FQCN of the class or the alias, if provided.
      *

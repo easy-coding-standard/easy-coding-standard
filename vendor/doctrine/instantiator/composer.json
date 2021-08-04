@@ -29,14 +29,14 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210803\\Doctrine\\Instantiator\\": "src\/Doctrine\/Instantiator\/"
+            "ECSPrefix20210804\\Doctrine\\Instantiator\\": "src\/Doctrine\/Instantiator\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210803\\DoctrineTest\\InstantiatorPerformance\\": "tests\/DoctrineTest\/InstantiatorPerformance\/",
-            "ECSPrefix20210803\\DoctrineTest\\InstantiatorTest\\": "tests\/DoctrineTest\/InstantiatorTest\/",
-            "ECSPrefix20210803\\DoctrineTest\\InstantiatorTestAsset\\": "tests\/DoctrineTest\/InstantiatorTestAsset\/"
+            "ECSPrefix20210804\\DoctrineTest\\InstantiatorPerformance\\": "tests\/DoctrineTest\/InstantiatorPerformance\/",
+            "ECSPrefix20210804\\DoctrineTest\\InstantiatorTest\\": "tests\/DoctrineTest\/InstantiatorTest\/",
+            "ECSPrefix20210804\\DoctrineTest\\InstantiatorTestAsset\\": "tests\/DoctrineTest\/InstantiatorTestAsset\/"
         }
     }
 }

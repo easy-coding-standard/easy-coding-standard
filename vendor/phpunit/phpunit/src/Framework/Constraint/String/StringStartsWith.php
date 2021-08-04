@@ -9,15 +9,15 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function strlen;
 use function strpos;
-use ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException;
+use ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class StringStartsWith extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+final class StringStartsWith extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var string
@@ -26,7 +26,7 @@ final class StringStartsWith extends \ECSPrefix20210803\PHPUnit\Framework\Constr
     public function __construct(string $prefix)
     {
         if (\strlen($prefix) === 0) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'non-empty string');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'non-empty string');
         }
         $this->prefix = $prefix;
     }

@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 interface Tag
 {
     public function getName() : string;
@@ -21,6 +21,6 @@ interface Tag
      * @phpstan-return ?Tag
      */
     public static function create(string $body);
-    public function render(?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string;
+    public function render(?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string;
     public function __toString() : string;
 }

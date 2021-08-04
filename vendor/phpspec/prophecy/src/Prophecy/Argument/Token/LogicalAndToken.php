@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Argument\Token;
+namespace ECSPrefix20210804\Prophecy\Argument\Token;
 
 /**
  * Logical AND token.
  *
  * @author Boris Mikhaylov <kaguxmail@gmail.com>
  */
-class LogicalAndToken implements \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface
+class LogicalAndToken implements \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface
 {
     private $tokens = array();
     /**
@@ -24,8 +24,8 @@ class LogicalAndToken implements \ECSPrefix20210803\Prophecy\Argument\Token\Toke
     public function __construct(array $arguments)
     {
         foreach ($arguments as $argument) {
-            if (!$argument instanceof \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface) {
-                $argument = new \ECSPrefix20210803\Prophecy\Argument\Token\ExactValueToken($argument);
+            if (!$argument instanceof \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface) {
+                $argument = new \ECSPrefix20210804\Prophecy\Argument\Token\ExactValueToken($argument);
             }
             $this->tokens[] = $argument;
         }

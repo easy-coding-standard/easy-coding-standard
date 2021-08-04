@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage;
 
 use function array_key_exists;
 use function array_keys;
@@ -18,7 +18,7 @@ use function array_unique;
 use function count;
 use function is_array;
 use function ksort;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
@@ -39,13 +39,13 @@ final class ProcessedCodeCoverageData
      * @var array
      */
     private $functionCoverage = [];
-    public function initializeUnseenData(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData $rawData) : void
+    public function initializeUnseenData(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData $rawData) : void
     {
         foreach ($rawData->lineCoverage() as $file => $lines) {
             if (!isset($this->lineCoverage[$file])) {
                 $this->lineCoverage[$file] = [];
                 foreach ($lines as $k => $v) {
-                    $this->lineCoverage[$file][$k] = $v === \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver::LINE_NOT_EXECUTABLE ? null : [];
+                    $this->lineCoverage[$file][$k] = $v === \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver::LINE_NOT_EXECUTABLE ? null : [];
                 }
             }
         }
@@ -59,11 +59,11 @@ final class ProcessedCodeCoverageData
             }
         }
     }
-    public function markCodeAsExecutedByTestCase(string $testCaseId, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData $executedCode) : void
+    public function markCodeAsExecutedByTestCase(string $testCaseId, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData $executedCode) : void
     {
         foreach ($executedCode->lineCoverage() as $file => $lines) {
             foreach ($lines as $k => $v) {
-                if ($v === \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver::LINE_EXECUTED) {
+                if ($v === \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver::LINE_EXECUTED) {
                     $this->lineCoverage[$file][$k][] = $testCaseId;
                 }
             }
@@ -71,12 +71,12 @@ final class ProcessedCodeCoverageData
         foreach ($executedCode->functionCoverage() as $file => $functions) {
             foreach ($functions as $functionName => $functionData) {
                 foreach ($functionData['branches'] as $branchId => $branchData) {
-                    if ($branchData['hit'] === \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver::BRANCH_HIT) {
+                    if ($branchData['hit'] === \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver::BRANCH_HIT) {
                         $this->functionCoverage[$file][$functionName]['branches'][$branchId]['hit'][] = $testCaseId;
                     }
                 }
                 foreach ($functionData['paths'] as $pathId => $pathData) {
-                    if ($pathData['hit'] === \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver::BRANCH_HIT) {
+                    if ($pathData['hit'] === \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver::BRANCH_HIT) {
                         $this->functionCoverage[$file][$functionName]['paths'][$pathId]['hit'][] = $testCaseId;
                     }
                 }

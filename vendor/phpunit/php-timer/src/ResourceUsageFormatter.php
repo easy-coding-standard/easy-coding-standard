@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Timer;
+namespace ECSPrefix20210804\SebastianBergmann\Timer;
 
 use function is_float;
 use function memory_get_peak_usage;
@@ -21,7 +21,7 @@ final class ResourceUsageFormatter
      * @psalm-var array<string,int>
      */
     private const SIZES = ['GB' => 1073741824, 'MB' => 1048576, 'KB' => 1024];
-    public function resourceUsage(\ECSPrefix20210803\SebastianBergmann\Timer\Duration $duration) : string
+    public function resourceUsage(\ECSPrefix20210804\SebastianBergmann\Timer\Duration $duration) : string
     {
         return \sprintf('Time: %s, Memory: %s', $duration->asString(), $this->bytesToString(\memory_get_peak_usage(\true)));
     }
@@ -31,12 +31,12 @@ final class ResourceUsageFormatter
     public function resourceUsageSinceStartOfRequest() : string
     {
         if (!isset($_SERVER['REQUEST_TIME_FLOAT'])) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Timer\TimeSinceStartOfRequestNotAvailableException('Cannot determine time at which the request started because $_SERVER[\'REQUEST_TIME_FLOAT\'] is not available');
+            throw new \ECSPrefix20210804\SebastianBergmann\Timer\TimeSinceStartOfRequestNotAvailableException('Cannot determine time at which the request started because $_SERVER[\'REQUEST_TIME_FLOAT\'] is not available');
         }
         if (!\is_float($_SERVER['REQUEST_TIME_FLOAT'])) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Timer\TimeSinceStartOfRequestNotAvailableException('Cannot determine time at which the request started because $_SERVER[\'REQUEST_TIME_FLOAT\'] is not of type float');
+            throw new \ECSPrefix20210804\SebastianBergmann\Timer\TimeSinceStartOfRequestNotAvailableException('Cannot determine time at which the request started because $_SERVER[\'REQUEST_TIME_FLOAT\'] is not of type float');
         }
-        return $this->resourceUsage(\ECSPrefix20210803\SebastianBergmann\Timer\Duration::fromMicroseconds(1000000 * (\microtime(\true) - $_SERVER['REQUEST_TIME_FLOAT'])));
+        return $this->resourceUsage(\ECSPrefix20210804\SebastianBergmann\Timer\Duration::fromMicroseconds(1000000 * (\microtime(\true) - $_SERVER['REQUEST_TIME_FLOAT'])));
     }
     private function bytesToString(int $bytes) : string
     {

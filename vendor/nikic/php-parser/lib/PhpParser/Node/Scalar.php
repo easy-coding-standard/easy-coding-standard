@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node;
+namespace ECSPrefix20210804\PhpParser\Node;
 
-abstract class Scalar extends \ECSPrefix20210803\PhpParser\Node\Expr
+abstract class Scalar extends \ECSPrefix20210804\PhpParser\Node\Expr
 {
 }

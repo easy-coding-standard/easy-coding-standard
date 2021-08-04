@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Builder;
+namespace ECSPrefix20210804\PhpParser\Builder;
 
-use ECSPrefix20210803\PhpParser;
-use ECSPrefix20210803\PhpParser\BuilderHelpers;
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Name;
-use ECSPrefix20210803\PhpParser\Node\Stmt;
-class Interface_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
+use ECSPrefix20210804\PhpParser;
+use ECSPrefix20210804\PhpParser\BuilderHelpers;
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Name;
+use ECSPrefix20210804\PhpParser\Node\Stmt;
+class Interface_ extends \ECSPrefix20210804\PhpParser\Builder\Declaration
 {
     protected $name;
     protected $extends = [];
@@ -35,7 +35,7 @@ class Interface_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
     public function extend(...$interfaces)
     {
         foreach ($interfaces as $interface) {
-            $this->extends[] = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeName($interface);
+            $this->extends[] = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeName($interface);
         }
         return $this;
     }
@@ -48,10 +48,10 @@ class Interface_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      */
     public function addStmt($stmt)
     {
-        $stmt = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeNode($stmt);
-        if ($stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\ClassConst) {
+        $stmt = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeNode($stmt);
+        if ($stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\ClassConst) {
             $this->constants[] = $stmt;
-        } elseif ($stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\ClassMethod) {
+        } elseif ($stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\ClassMethod) {
             // we erase all statements in the body of an interface method
             $stmt->stmts = null;
             $this->methods[] = $stmt;
@@ -69,7 +69,7 @@ class Interface_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      */
     public function addAttribute($attribute)
     {
-        $this->attributeGroups[] = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
         return $this;
     }
     /**
@@ -77,8 +77,8 @@ class Interface_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      *
      * @return Stmt\Interface_ The built interface node
      */
-    public function getNode() : \ECSPrefix20210803\PhpParser\Node
+    public function getNode() : \ECSPrefix20210804\PhpParser\Node
     {
-        return new \ECSPrefix20210803\PhpParser\Node\Stmt\Interface_($this->name, ['extends' => $this->extends, 'stmts' => \array_merge($this->constants, $this->methods), 'attrGroups' => $this->attributeGroups], $this->attributes);
+        return new \ECSPrefix20210804\PhpParser\Node\Stmt\Interface_($this->name, ['extends' => $this->extends, 'stmts' => \array_merge($this->constants, $this->methods), 'attrGroups' => $this->attributeGroups], $this->attributes);
     }
 }

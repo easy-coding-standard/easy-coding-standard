@@ -8,24 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\PhpDocumentor;
+namespace ECSPrefix20210804\Prophecy\PhpDocumentor;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Method;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlockFactory;
-use ECSPrefix20210803\phpDocumentor\Reflection\Types\ContextFactory;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Method;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlockFactory;
+use ECSPrefix20210804\phpDocumentor\Reflection\Types\ContextFactory;
 /**
  * @author Théo FIDRY <theo.fidry@gmail.com>
  *
  * @internal
  */
-final class ClassTagRetriever implements \ECSPrefix20210803\Prophecy\PhpDocumentor\MethodTagRetrieverInterface
+final class ClassTagRetriever implements \ECSPrefix20210804\Prophecy\PhpDocumentor\MethodTagRetrieverInterface
 {
     private $docBlockFactory;
     private $contextFactory;
     public function __construct()
     {
-        $this->docBlockFactory = \ECSPrefix20210803\phpDocumentor\Reflection\DocBlockFactory::createInstance();
-        $this->contextFactory = new \ECSPrefix20210803\phpDocumentor\Reflection\Types\ContextFactory();
+        $this->docBlockFactory = \ECSPrefix20210804\phpDocumentor\Reflection\DocBlockFactory::createInstance();
+        $this->contextFactory = new \ECSPrefix20210804\phpDocumentor\Reflection\Types\ContextFactory();
     }
     /**
      * @param \ReflectionClass $reflectionClass
@@ -38,7 +38,7 @@ final class ClassTagRetriever implements \ECSPrefix20210803\Prophecy\PhpDocument
             $phpdoc = $this->docBlockFactory->create($reflectionClass, $this->contextFactory->createFromReflector($reflectionClass));
             $methods = array();
             foreach ($phpdoc->getTagsByName('method') as $tag) {
-                if ($tag instanceof \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Method) {
+                if ($tag instanceof \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Method) {
                     $methods[] = $tag;
                 }
             }

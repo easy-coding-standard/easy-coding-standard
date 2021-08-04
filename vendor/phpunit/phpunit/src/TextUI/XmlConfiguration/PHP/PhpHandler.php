@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use const PATH_SEPARATOR;
 use function constant;
@@ -25,7 +25,7 @@ use function putenv;
  */
 final class PhpHandler
 {
-    public function handle(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Php $configuration) : void
+    public function handle(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Php $configuration) : void
     {
         $this->handleIncludePaths($configuration->includePaths());
         $this->handleIniSettings($configuration->iniSettings());
@@ -39,7 +39,7 @@ final class PhpHandler
         $this->handleVariables('_FILES', $configuration->filesVariables());
         $this->handleVariables('_REQUEST', $configuration->requestVariables());
     }
-    private function handleIncludePaths(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\DirectoryCollection $includePaths) : void
+    private function handleIncludePaths(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\DirectoryCollection $includePaths) : void
     {
         if (!$includePaths->isEmpty()) {
             $includePathsAsStrings = [];
@@ -49,7 +49,7 @@ final class PhpHandler
             \ini_set('include_path', \implode(\PATH_SEPARATOR, $includePathsAsStrings) . \PATH_SEPARATOR . \ini_get('include_path'));
         }
     }
-    private function handleIniSettings(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\IniSettingCollection $iniSettings) : void
+    private function handleIniSettings(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\IniSettingCollection $iniSettings) : void
     {
         foreach ($iniSettings as $iniSetting) {
             $value = $iniSetting->value();
@@ -59,7 +59,7 @@ final class PhpHandler
             \ini_set($iniSetting->name(), $value);
         }
     }
-    private function handleConstants(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\ConstantCollection $constants) : void
+    private function handleConstants(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\ConstantCollection $constants) : void
     {
         foreach ($constants as $constant) {
             if (!\defined($constant->name())) {
@@ -67,25 +67,25 @@ final class PhpHandler
             }
         }
     }
-    private function handleGlobalVariables(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection $variables) : void
+    private function handleGlobalVariables(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection $variables) : void
     {
         foreach ($variables as $variable) {
             $GLOBALS[$variable->name()] = $variable->value();
         }
     }
-    private function handleServerVariables(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection $variables) : void
+    private function handleServerVariables(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection $variables) : void
     {
         foreach ($variables as $variable) {
             $_SERVER[$variable->name()] = $variable->value();
         }
     }
-    private function handleVariables(string $target, \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection $variables) : void
+    private function handleVariables(string $target, \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection $variables) : void
     {
         foreach ($variables as $variable) {
             $GLOBALS[$target][$variable->name()] = $variable->value();
         }
     }
-    private function handleEnvVariables(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection $variables) : void
+    private function handleEnvVariables(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection $variables) : void
     {
         foreach ($variables as $variable) {
             $name = $variable->name();

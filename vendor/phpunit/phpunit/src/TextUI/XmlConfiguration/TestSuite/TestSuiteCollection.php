@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use function count;
 use Countable;
@@ -31,7 +31,7 @@ final class TestSuiteCollection implements \Countable, \IteratorAggregate
     {
         return new self(...$testSuites);
     }
-    private function __construct(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestSuite ...$testSuites)
+    private function __construct(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestSuite ...$testSuites)
     {
         $this->testSuites = $testSuites;
     }
@@ -46,9 +46,9 @@ final class TestSuiteCollection implements \Countable, \IteratorAggregate
     {
         return \count($this->testSuites);
     }
-    public function getIterator() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestSuiteCollectionIterator
+    public function getIterator() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestSuiteCollectionIterator
     {
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestSuiteCollectionIterator($this);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestSuiteCollectionIterator($this);
     }
     public function isEmpty() : bool
     {

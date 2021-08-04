@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 use DOMDocument;
 use DOMElement;
@@ -18,14 +18,14 @@ class ManifestDocument
     public const XMLNS = 'https://phar.io/xml/manifest/1.0';
     /** @var DOMDocument */
     private $dom;
-    public static function fromFile(string $filename) : \ECSPrefix20210803\PharIo\Manifest\ManifestDocument
+    public static function fromFile(string $filename) : \ECSPrefix20210804\PharIo\Manifest\ManifestDocument
     {
         if (!\file_exists($filename)) {
-            throw new \ECSPrefix20210803\PharIo\Manifest\ManifestDocumentException(\sprintf('File "%s" not found', $filename));
+            throw new \ECSPrefix20210804\PharIo\Manifest\ManifestDocumentException(\sprintf('File "%s" not found', $filename));
         }
         return self::fromString(\file_get_contents($filename));
     }
-    public static function fromString(string $xmlString) : \ECSPrefix20210803\PharIo\Manifest\ManifestDocument
+    public static function fromString(string $xmlString) : \ECSPrefix20210804\PharIo\Manifest\ManifestDocument
     {
         $prev = \libxml_use_internal_errors(\true);
         \libxml_clear_errors();
@@ -34,7 +34,7 @@ class ManifestDocument
         $errors = \libxml_get_errors();
         \libxml_use_internal_errors($prev);
         if (\count($errors) !== 0) {
-            throw new \ECSPrefix20210803\PharIo\Manifest\ManifestDocumentLoadingException($errors);
+            throw new \ECSPrefix20210804\PharIo\Manifest\ManifestDocumentLoadingException($errors);
         }
         return new self($dom);
     }
@@ -43,38 +43,38 @@ class ManifestDocument
         $this->ensureCorrectDocumentType($dom);
         $this->dom = $dom;
     }
-    public function getContainsElement() : \ECSPrefix20210803\PharIo\Manifest\ContainsElement
+    public function getContainsElement() : \ECSPrefix20210804\PharIo\Manifest\ContainsElement
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\ContainsElement($this->fetchElementByName('contains'));
+        return new \ECSPrefix20210804\PharIo\Manifest\ContainsElement($this->fetchElementByName('contains'));
     }
-    public function getCopyrightElement() : \ECSPrefix20210803\PharIo\Manifest\CopyrightElement
+    public function getCopyrightElement() : \ECSPrefix20210804\PharIo\Manifest\CopyrightElement
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\CopyrightElement($this->fetchElementByName('copyright'));
+        return new \ECSPrefix20210804\PharIo\Manifest\CopyrightElement($this->fetchElementByName('copyright'));
     }
-    public function getRequiresElement() : \ECSPrefix20210803\PharIo\Manifest\RequiresElement
+    public function getRequiresElement() : \ECSPrefix20210804\PharIo\Manifest\RequiresElement
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\RequiresElement($this->fetchElementByName('requires'));
+        return new \ECSPrefix20210804\PharIo\Manifest\RequiresElement($this->fetchElementByName('requires'));
     }
     public function hasBundlesElement() : bool
     {
         return $this->dom->getElementsByTagNameNS(self::XMLNS, 'bundles')->length === 1;
     }
-    public function getBundlesElement() : \ECSPrefix20210803\PharIo\Manifest\BundlesElement
+    public function getBundlesElement() : \ECSPrefix20210804\PharIo\Manifest\BundlesElement
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\BundlesElement($this->fetchElementByName('bundles'));
+        return new \ECSPrefix20210804\PharIo\Manifest\BundlesElement($this->fetchElementByName('bundles'));
     }
     private function ensureCorrectDocumentType(\DOMDocument $dom) : void
     {
         $root = $dom->documentElement;
         if ($root->localName !== 'phar' || $root->namespaceURI !== self::XMLNS) {
-            throw new \ECSPrefix20210803\PharIo\Manifest\ManifestDocumentException('Not a phar.io manifest document');
+            throw new \ECSPrefix20210804\PharIo\Manifest\ManifestDocumentException('Not a phar.io manifest document');
         }
     }
     private function fetchElementByName(string $elementName) : \DOMElement
     {
         $element = $this->dom->getElementsByTagNameNS(self::XMLNS, $elementName)->item(0);
         if (!$element instanceof \DOMElement) {
-            throw new \ECSPrefix20210803\PharIo\Manifest\ManifestDocumentException(\sprintf('Element %s missing', $elementName));
+            throw new \ECSPrefix20210804\PharIo\Manifest\ManifestDocumentException(\sprintf('Element %s missing', $elementName));
         }
         return $element;
     }

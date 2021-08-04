@@ -9,15 +9,15 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\TestDox;
+namespace ECSPrefix20210804\PHPUnit\Util\TestDox;
 
-use ECSPrefix20210803\PHPUnit\Framework\TestResult;
+use ECSPrefix20210804\PHPUnit\Framework\TestResult;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TextResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\ResultPrinter
+final class TextResultPrinter extends \ECSPrefix20210804\PHPUnit\Util\TestDox\ResultPrinter
 {
-    public function printResult(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    public function printResult(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
     }
     /**

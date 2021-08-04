@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report;
 
 use function count;
 use function dirname;
@@ -20,16 +20,16 @@ use function max;
 use function range;
 use function time;
 use DOMDocument;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File;
 final class Clover
 {
     /**
      * @throws WriteOperationFailedException
      */
-    public function process(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, ?string $target = null, ?string $name = null) : string
+    public function process(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, ?string $target = null, ?string $name = null) : string
     {
         $time = (string) \time();
         $xmlDocument = new \DOMDocument('1.0', 'UTF-8');
@@ -46,7 +46,7 @@ final class Clover
         $packages = [];
         $report = $coverage->getReport();
         foreach ($report as $item) {
-            if (!$item instanceof \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File) {
+            if (!$item instanceof \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File) {
                 continue;
             }
             /* @var File $item */
@@ -178,9 +178,9 @@ final class Clover
         $xmlProject->appendChild($xmlMetrics);
         $buffer = $xmlDocument->saveXML();
         if ($target !== null) {
-            \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory::create(\dirname($target));
+            \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory::create(\dirname($target));
             if (@\file_put_contents($target, $buffer) === \false) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException($target);
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException($target);
             }
         }
         return $buffer;

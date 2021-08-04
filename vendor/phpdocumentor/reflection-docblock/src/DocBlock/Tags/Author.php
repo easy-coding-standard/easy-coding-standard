@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags;
 
 use InvalidArgumentException;
 use function filter_var;
@@ -19,7 +19,7 @@ use const FILTER_VALIDATE_EMAIL;
 /**
  * Reflection class for an {@}author tag in a Docblock.
  */
-final class Author extends \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Author extends \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string register that this is the author tag. */
     protected $name = 'author';

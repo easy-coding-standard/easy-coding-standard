@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 use function array_keys;
 use function get_class;
 use function spl_object_hash;
-use ECSPrefix20210803\PHPUnit\Util\Filter;
+use ECSPrefix20210804\PHPUnit\Util\Filter;
 use Throwable;
 /**
  * Wraps Exceptions thrown by code under test.
@@ -27,7 +27,7 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ExceptionWrapper extends \ECSPrefix20210803\PHPUnit\Framework\Exception
+final class ExceptionWrapper extends \ECSPrefix20210804\PHPUnit\Framework\Exception
 {
     /**
      * @var string
@@ -46,8 +46,8 @@ final class ExceptionWrapper extends \ECSPrefix20210803\PHPUnit\Framework\Except
     }
     public function __toString() : string
     {
-        $string = \ECSPrefix20210803\PHPUnit\Framework\TestFailure::exceptionToString($this);
-        if ($trace = \ECSPrefix20210803\PHPUnit\Util\Filter::getFilteredStacktrace($this)) {
+        $string = \ECSPrefix20210804\PHPUnit\Framework\TestFailure::exceptionToString($this);
+        if ($trace = \ECSPrefix20210804\PHPUnit\Util\Filter::getFilteredStacktrace($this)) {
             $string .= "\n" . $trace;
         }
         if ($this->previous) {

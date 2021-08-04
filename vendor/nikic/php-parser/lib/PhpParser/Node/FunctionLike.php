@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node;
+namespace ECSPrefix20210804\PhpParser\Node;
 
-use ECSPrefix20210803\PhpParser\Node;
-interface FunctionLike extends \ECSPrefix20210803\PhpParser\Node
+use ECSPrefix20210804\PhpParser\Node;
+interface FunctionLike extends \ECSPrefix20210804\PhpParser\Node
 {
     /**
      * Whether to return by reference

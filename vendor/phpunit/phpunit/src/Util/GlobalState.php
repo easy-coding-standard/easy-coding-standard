@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use function array_keys;
 use function array_reverse;
@@ -50,7 +50,7 @@ final class GlobalState
      */
     public static function processIncludedFilesAsString(array $files) : string
     {
-        $excludeList = new \ECSPrefix20210803\PHPUnit\Util\ExcludeList();
+        $excludeList = new \ECSPrefix20210804\PHPUnit\Util\ExcludeList();
         $prefix = \false;
         $result = '';
         if (\defined('__PHPUNIT_PHAR__')) {

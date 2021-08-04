@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20210803\PhpParser;
+namespace ECSPrefix20210804\PhpParser;
 
-use ECSPrefix20210803\PhpParser\Node\Expr;
-use ECSPrefix20210803\PhpParser\Node\Scalar;
+use ECSPrefix20210804\PhpParser\Node\Expr;
+use ECSPrefix20210804\PhpParser\Node\Scalar;
 /**
  * Evaluates constant expressions.
  *
@@ -36,8 +36,8 @@ class ConstExprEvaluator
      */
     public function __construct(callable $fallbackEvaluator = null)
     {
-        $this->fallbackEvaluator = $fallbackEvaluator ?? function (\ECSPrefix20210803\PhpParser\Node\Expr $expr) {
-            throw new \ECSPrefix20210803\PhpParser\ConstExprEvaluationException("Expression of type {$expr->getType()} cannot be evaluated");
+        $this->fallbackEvaluator = $fallbackEvaluator ?? function (\ECSPrefix20210804\PhpParser\Node\Expr $expr) {
+            throw new \ECSPrefix20210804\PhpParser\ConstExprEvaluationException("Expression of type {$expr->getType()} cannot be evaluated");
         };
     }
     /**
@@ -57,7 +57,7 @@ class ConstExprEvaluator
      *
      * @throws ConstExprEvaluationException if the expression cannot be evaluated or an error occurred
      */
-    public function evaluateSilently(\ECSPrefix20210803\PhpParser\Node\Expr $expr)
+    public function evaluateSilently(\ECSPrefix20210804\PhpParser\Node\Expr $expr)
     {
         \set_error_handler(function ($num, $str, $file, $line) {
             throw new \ErrorException($str, 0, $num, $file, $line);
@@ -65,8 +65,8 @@ class ConstExprEvaluator
         try {
             return $this->evaluate($expr);
         } catch (\Throwable $e) {
-            if (!$e instanceof \ECSPrefix20210803\PhpParser\ConstExprEvaluationException) {
-                $e = new \ECSPrefix20210803\PhpParser\ConstExprEvaluationException("An error occurred during constant expression evaluation", 0, $e);
+            if (!$e instanceof \ECSPrefix20210804\PhpParser\ConstExprEvaluationException) {
+                $e = new \ECSPrefix20210804\PhpParser\ConstExprEvaluationException("An error occurred during constant expression evaluation", 0, $e);
             }
             throw $e;
         } finally {
@@ -90,46 +90,46 @@ class ConstExprEvaluator
      *
      * @throws ConstExprEvaluationException if the expression cannot be evaluated
      */
-    public function evaluateDirectly(\ECSPrefix20210803\PhpParser\Node\Expr $expr)
+    public function evaluateDirectly(\ECSPrefix20210804\PhpParser\Node\Expr $expr)
     {
         return $this->evaluate($expr);
     }
-    private function evaluate(\ECSPrefix20210803\PhpParser\Node\Expr $expr)
+    private function evaluate(\ECSPrefix20210804\PhpParser\Node\Expr $expr)
     {
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Scalar\LNumber || $expr instanceof \ECSPrefix20210803\PhpParser\Node\Scalar\DNumber || $expr instanceof \ECSPrefix20210803\PhpParser\Node\Scalar\String_) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Scalar\LNumber || $expr instanceof \ECSPrefix20210804\PhpParser\Node\Scalar\DNumber || $expr instanceof \ECSPrefix20210804\PhpParser\Node\Scalar\String_) {
             return $expr->value;
         }
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\Array_) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\Array_) {
             return $this->evaluateArray($expr);
         }
         // Unary operators
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\UnaryPlus) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\UnaryPlus) {
             return +$this->evaluate($expr->expr);
         }
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\UnaryMinus) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\UnaryMinus) {
             return -$this->evaluate($expr->expr);
         }
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\BooleanNot) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\BooleanNot) {
             return !$this->evaluate($expr->expr);
         }
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\BitwiseNot) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\BitwiseNot) {
             return ~$this->evaluate($expr->expr);
         }
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\BinaryOp) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\BinaryOp) {
             return $this->evaluateBinaryOp($expr);
         }
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\Ternary) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\Ternary) {
             return $this->evaluateTernary($expr);
         }
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\ArrayDimFetch && null !== $expr->dim) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\ArrayDimFetch && null !== $expr->dim) {
             return $this->evaluate($expr->var)[$this->evaluate($expr->dim)];
         }
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\ConstFetch) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\ConstFetch) {
             return $this->evaluateConstFetch($expr);
         }
         return ($this->fallbackEvaluator)($expr);
     }
-    private function evaluateArray(\ECSPrefix20210803\PhpParser\Node\Expr\Array_ $expr)
+    private function evaluateArray(\ECSPrefix20210804\PhpParser\Node\Expr\Array_ $expr)
     {
         $array = [];
         foreach ($expr->items as $item) {
@@ -141,16 +141,16 @@ class ConstExprEvaluator
         }
         return $array;
     }
-    private function evaluateTernary(\ECSPrefix20210803\PhpParser\Node\Expr\Ternary $expr)
+    private function evaluateTernary(\ECSPrefix20210804\PhpParser\Node\Expr\Ternary $expr)
     {
         if (null === $expr->if) {
             return $this->evaluate($expr->cond) ?: $this->evaluate($expr->else);
         }
         return $this->evaluate($expr->cond) ? $this->evaluate($expr->if) : $this->evaluate($expr->else);
     }
-    private function evaluateBinaryOp(\ECSPrefix20210803\PhpParser\Node\Expr\BinaryOp $expr)
+    private function evaluateBinaryOp(\ECSPrefix20210804\PhpParser\Node\Expr\BinaryOp $expr)
     {
-        if ($expr instanceof \ECSPrefix20210803\PhpParser\Node\Expr\BinaryOp\Coalesce && $expr->left instanceof \ECSPrefix20210803\PhpParser\Node\Expr\ArrayDimFetch) {
+        if ($expr instanceof \ECSPrefix20210804\PhpParser\Node\Expr\BinaryOp\Coalesce && $expr->left instanceof \ECSPrefix20210804\PhpParser\Node\Expr\ArrayDimFetch) {
             // This needs to be special cased to respect BP_VAR_IS fetch semantics
             return $this->evaluate($expr->left->var)[$this->evaluate($expr->left->dim)] ?? $this->evaluate($expr->right);
         }
@@ -216,7 +216,7 @@ class ConstExprEvaluator
         }
         throw new \Exception('Should not happen');
     }
-    private function evaluateConstFetch(\ECSPrefix20210803\PhpParser\Node\Expr\ConstFetch $expr)
+    private function evaluateConstFetch(\ECSPrefix20210804\PhpParser\Node\Expr\ConstFetch $expr)
     {
         $name = $expr->name->toLowerString();
         switch ($name) {

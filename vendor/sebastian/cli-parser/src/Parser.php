@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CliParser;
+namespace ECSPrefix20210804\SebastianBergmann\CliParser;
 
 use function array_map;
 use function array_merge;
@@ -91,7 +91,7 @@ final class Parser
             $option = $arg[$i];
             $optionArgument = null;
             if ($arg[$i] === ':' || ($spec = \strstr($shortOptions, $option)) === \false) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CliParser\UnknownOptionException('-' . $option);
+                throw new \ECSPrefix20210804\SebastianBergmann\CliParser\UnknownOptionException('-' . $option);
             }
             \assert(\is_string($spec));
             if (\strlen($spec) > 1 && $spec[1] === ':') {
@@ -102,7 +102,7 @@ final class Parser
                 if (!(\strlen($spec) > 2 && $spec[2] === ':')) {
                     $optionArgument = \current($args);
                     if (!$optionArgument) {
-                        throw new \ECSPrefix20210803\SebastianBergmann\CliParser\RequiredOptionArgumentMissingException('-' . $option);
+                        throw new \ECSPrefix20210804\SebastianBergmann\CliParser\RequiredOptionArgumentMissingException('-' . $option);
                     }
                     \assert(\is_string($optionArgument));
                     \next($args);
@@ -137,23 +137,23 @@ final class Parser
             }
             $opt_rest = \substr($longOption, $optionLength);
             if ($opt_rest !== '' && $i + 1 < $count && $option[0] !== '=' && \strpos($longOptions[$i + 1], $option) === 0) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CliParser\AmbiguousOptionException('--' . $option);
+                throw new \ECSPrefix20210804\SebastianBergmann\CliParser\AmbiguousOptionException('--' . $option);
             }
             if (\substr($longOption, -1) === '=') {
                 /* @noinspection StrlenInEmptyStringCheckContextInspection */
                 if (\substr($longOption, -2) !== '==' && !\strlen((string) $optionArgument)) {
                     if (\false === ($optionArgument = \current($args))) {
-                        throw new \ECSPrefix20210803\SebastianBergmann\CliParser\RequiredOptionArgumentMissingException('--' . $option);
+                        throw new \ECSPrefix20210804\SebastianBergmann\CliParser\RequiredOptionArgumentMissingException('--' . $option);
                     }
                     \next($args);
                 }
             } elseif ($optionArgument) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CliParser\OptionDoesNotAllowArgumentException('--' . $option);
+                throw new \ECSPrefix20210804\SebastianBergmann\CliParser\OptionDoesNotAllowArgumentException('--' . $option);
             }
             $fullOption = '--' . \preg_replace('/={1,2}$/', '', $longOption);
             $opts[] = [$fullOption, $optionArgument];
             return;
         }
-        throw new \ECSPrefix20210803\SebastianBergmann\CliParser\UnknownOptionException('--' . $option);
+        throw new \ECSPrefix20210804\SebastianBergmann\CliParser\UnknownOptionException('--' . $option);
     }
 }

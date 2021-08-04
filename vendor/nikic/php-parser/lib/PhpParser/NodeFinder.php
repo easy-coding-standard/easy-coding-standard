@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser;
+namespace ECSPrefix20210804\PhpParser;
 
-use ECSPrefix20210803\PhpParser\NodeVisitor\FindingVisitor;
-use ECSPrefix20210803\PhpParser\NodeVisitor\FirstFindingVisitor;
+use ECSPrefix20210804\PhpParser\NodeVisitor\FindingVisitor;
+use ECSPrefix20210804\PhpParser\NodeVisitor\FirstFindingVisitor;
 class NodeFinder
 {
     /**
@@ -20,8 +20,8 @@ class NodeFinder
         if (!\is_array($nodes)) {
             $nodes = [$nodes];
         }
-        $visitor = new \ECSPrefix20210803\PhpParser\NodeVisitor\FindingVisitor($filter);
-        $traverser = new \ECSPrefix20210803\PhpParser\NodeTraverser();
+        $visitor = new \ECSPrefix20210804\PhpParser\NodeVisitor\FindingVisitor($filter);
+        $traverser = new \ECSPrefix20210804\PhpParser\NodeTraverser();
         $traverser->addVisitor($visitor);
         $traverser->traverse($nodes);
         return $visitor->getFoundNodes();
@@ -53,8 +53,8 @@ class NodeFinder
         if (!\is_array($nodes)) {
             $nodes = [$nodes];
         }
-        $visitor = new \ECSPrefix20210803\PhpParser\NodeVisitor\FirstFindingVisitor($filter);
-        $traverser = new \ECSPrefix20210803\PhpParser\NodeTraverser();
+        $visitor = new \ECSPrefix20210804\PhpParser\NodeVisitor\FirstFindingVisitor($filter);
+        $traverser = new \ECSPrefix20210804\PhpParser\NodeTraverser();
         $traverser->addVisitor($visitor);
         $traverser->traverse($nodes);
         return $visitor->getFoundNode();

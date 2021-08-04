@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use const ENT_QUOTES;
 use function assert;
@@ -104,7 +104,7 @@ final class Xml
                         $variable = (new \ReflectionClass($className))->newInstanceArgs($constructorArgs);
                         // @codeCoverageIgnoreStart
                     } catch (\ReflectionException $e) {
-                        throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                        throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
                     }
                     // @codeCoverageIgnoreEnd
                 } else {

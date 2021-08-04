@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210803\Doctrine\Instantiator;
+namespace ECSPrefix20210804\Doctrine\Instantiator;
 
 use ArrayIterator;
-use ECSPrefix20210803\Doctrine\Instantiator\Exception\InvalidArgumentException;
-use ECSPrefix20210803\Doctrine\Instantiator\Exception\UnexpectedValueException;
+use ECSPrefix20210804\Doctrine\Instantiator\Exception\InvalidArgumentException;
+use ECSPrefix20210804\Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
@@ -16,7 +16,7 @@ use function set_error_handler;
 use function sprintf;
 use function strlen;
 use function unserialize;
-final class Instantiator implements \ECSPrefix20210803\Doctrine\Instantiator\InstantiatorInterface
+final class Instantiator implements \ECSPrefix20210804\Doctrine\Instantiator\InstantiatorInterface
 {
     /**
      * Markers used internally by PHP to define whether {@see \unserialize} should invoke
@@ -107,11 +107,11 @@ final class Instantiator implements \ECSPrefix20210803\Doctrine\Instantiator\Ins
     private function getReflectionClass(string $className) : \ReflectionClass
     {
         if (!\class_exists($className)) {
-            throw \ECSPrefix20210803\Doctrine\Instantiator\Exception\InvalidArgumentException::fromNonExistingClass($className);
+            throw \ECSPrefix20210804\Doctrine\Instantiator\Exception\InvalidArgumentException::fromNonExistingClass($className);
         }
         $reflection = new \ReflectionClass($className);
         if ($reflection->isAbstract()) {
-            throw \ECSPrefix20210803\Doctrine\Instantiator\Exception\InvalidArgumentException::fromAbstractClass($reflection);
+            throw \ECSPrefix20210804\Doctrine\Instantiator\Exception\InvalidArgumentException::fromAbstractClass($reflection);
         }
         return $reflection;
     }
@@ -125,7 +125,7 @@ final class Instantiator implements \ECSPrefix20210803\Doctrine\Instantiator\Ins
     private function checkIfUnSerializationIsSupported(\ReflectionClass $reflectionClass, string $serializedString)
     {
         \set_error_handler(static function (int $code, string $message, string $file, int $line) use($reflectionClass, &$error) : bool {
-            $error = \ECSPrefix20210803\Doctrine\Instantiator\Exception\UnexpectedValueException::fromUncleanUnSerialization($reflectionClass, $message, $code, $file, $line);
+            $error = \ECSPrefix20210804\Doctrine\Instantiator\Exception\UnexpectedValueException::fromUncleanUnSerialization($reflectionClass, $message, $code, $file, $line);
             return \true;
         });
         try {
@@ -149,7 +149,7 @@ final class Instantiator implements \ECSPrefix20210803\Doctrine\Instantiator\Ins
         try {
             \unserialize($serializedString);
         } catch (\Exception $exception) {
-            throw \ECSPrefix20210803\Doctrine\Instantiator\Exception\UnexpectedValueException::fromSerializationTriggeredException($reflectionClass, $exception);
+            throw \ECSPrefix20210804\Doctrine\Instantiator\Exception\UnexpectedValueException::fromSerializationTriggeredException($reflectionClass, $exception);
         }
     }
     /**

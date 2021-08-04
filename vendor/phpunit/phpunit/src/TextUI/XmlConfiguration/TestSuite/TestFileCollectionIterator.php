@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use function count;
 use function iterator_count;
@@ -28,7 +28,7 @@ final class TestFileCollectionIterator implements \Countable, \Iterator
      * @var int
      */
     private $position;
-    public function __construct(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestFileCollection $files)
+    public function __construct(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestFileCollection $files)
     {
         $this->files = $files->asArray();
     }
@@ -48,7 +48,7 @@ final class TestFileCollectionIterator implements \Countable, \Iterator
     {
         return $this->position;
     }
-    public function current() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestFile
+    public function current() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestFile
     {
         return $this->files[$this->position];
     }

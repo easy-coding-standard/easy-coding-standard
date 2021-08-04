@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage;
 
 use function array_diff;
 use function array_diff_key;
@@ -20,8 +20,8 @@ use function count;
 use function file;
 use function in_array;
 use function range;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
@@ -73,11 +73,11 @@ final class RawCodeCoverageData
         }
         return new self($lineCoverage, $functionCoverage);
     }
-    public static function fromUncoveredFile(string $filename, \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser $uncoveredFileAnalyser) : self
+    public static function fromUncoveredFile(string $filename, \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\UncoveredFileAnalyser $uncoveredFileAnalyser) : self
     {
         $lineCoverage = [];
         foreach ($uncoveredFileAnalyser->executableLinesIn($filename) as $line) {
-            $lineCoverage[$line] = \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver::LINE_NOT_EXECUTED;
+            $lineCoverage[$line] = \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver::LINE_NOT_EXECUTED;
         }
         return new self([$filename => $lineCoverage], []);
     }

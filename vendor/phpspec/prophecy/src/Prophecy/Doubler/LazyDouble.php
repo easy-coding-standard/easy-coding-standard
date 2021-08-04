@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler;
+namespace ECSPrefix20210804\Prophecy\Doubler;
 
-use ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException;
-use ECSPrefix20210803\Prophecy\Exception\Doubler\ClassNotFoundException;
-use ECSPrefix20210803\Prophecy\Exception\Doubler\InterfaceNotFoundException;
+use ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException;
+use ECSPrefix20210804\Prophecy\Exception\Doubler\ClassNotFoundException;
+use ECSPrefix20210804\Prophecy\Exception\Doubler\InterfaceNotFoundException;
 use ReflectionClass;
 /**
  * Lazy double.
@@ -32,7 +32,7 @@ class LazyDouble
      *
      * @param Doubler $doubler
      */
-    public function __construct(\ECSPrefix20210803\Prophecy\Doubler\Doubler $doubler)
+    public function __construct(\ECSPrefix20210804\Prophecy\Doubler\Doubler $doubler)
     {
         $this->doubler = $doubler;
     }
@@ -47,11 +47,11 @@ class LazyDouble
     public function setParentClass($class)
     {
         if (null !== $this->double) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException('Can not extend class with already instantiated double.');
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException('Can not extend class with already instantiated double.');
         }
         if (!$class instanceof \ReflectionClass) {
             if (!\class_exists($class)) {
-                throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\ClassNotFoundException(\sprintf('Class %s not found.', $class), $class);
+                throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\ClassNotFoundException(\sprintf('Class %s not found.', $class), $class);
             }
             $class = new \ReflectionClass($class);
         }
@@ -68,11 +68,11 @@ class LazyDouble
     public function addInterface($interface)
     {
         if (null !== $this->double) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException('Can not implement interface with already instantiated double.');
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException('Can not implement interface with already instantiated double.');
         }
         if (!$interface instanceof \ReflectionClass) {
             if (!\interface_exists($interface)) {
-                throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\InterfaceNotFoundException(\sprintf('Interface %s not found.', $interface), $interface);
+                throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\InterfaceNotFoundException(\sprintf('Interface %s not found.', $interface), $interface);
             }
             $interface = new \ReflectionClass($interface);
         }

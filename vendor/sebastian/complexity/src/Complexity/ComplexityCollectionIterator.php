@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Complexity;
+namespace ECSPrefix20210804\SebastianBergmann\Complexity;
 
 use Iterator;
 final class ComplexityCollectionIterator implements \Iterator
@@ -22,7 +22,7 @@ final class ComplexityCollectionIterator implements \Iterator
      * @var int
      */
     private $position = 0;
-    public function __construct(\ECSPrefix20210803\SebastianBergmann\Complexity\ComplexityCollection $items)
+    public function __construct(\ECSPrefix20210804\SebastianBergmann\Complexity\ComplexityCollection $items)
     {
         $this->items = $items->asArray();
     }
@@ -41,7 +41,7 @@ final class ComplexityCollectionIterator implements \Iterator
     {
         return $this->position;
     }
-    public function current() : \ECSPrefix20210803\SebastianBergmann\Complexity\Complexity
+    public function current() : \ECSPrefix20210804\SebastianBergmann\Complexity\Complexity
     {
         return $this->items[$this->position];
     }

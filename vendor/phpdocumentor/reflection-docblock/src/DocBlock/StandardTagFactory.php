@@ -9,34 +9,34 @@ declare (strict_types=1);
  *
  * @link http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock;
 
 use InvalidArgumentException;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Author;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Covers;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Generic;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\InvalidTag;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Link as LinkTag;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Method;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Param;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Property;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\PropertyRead;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\PropertyWrite;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Return_;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\See as SeeTag;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Since;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Source;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Throws;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Uses;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Var_;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Version;
-use ECSPrefix20210803\phpDocumentor\Reflection\FqsenResolver;
-use ECSPrefix20210803\phpDocumentor\Reflection\Types\Context as TypeContext;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Author;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Covers;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Generic;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\InvalidTag;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Link as LinkTag;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Method;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Param;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Property;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\PropertyRead;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\PropertyWrite;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\See as SeeTag;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Since;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Source;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Throws;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Uses;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Version;
+use ECSPrefix20210804\phpDocumentor\Reflection\FqsenResolver;
+use ECSPrefix20210804\phpDocumentor\Reflection\Types\Context as TypeContext;
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
-use ECSPrefix20210803\Webmozart\Assert\Assert;
+use ECSPrefix20210804\Webmozart\Assert\Assert;
 use function array_merge;
 use function array_slice;
 use function call_user_func_array;
@@ -62,7 +62,7 @@ use function trim;
  * When you want to use a Tag of your own with custom handling you need to call the `registerTagHandler` method, pass
  * the name of the tag and a Fully Qualified Class Name pointing to a class that implements the Tag interface.
  */
-final class StandardTagFactory implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\TagFactory
+final class StandardTagFactory implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\TagFactory
 {
     /** PCRE regular expression matching a tag name. */
     public const REGEX_TAGNAME = '[\\w\\-\\_\\\\:]+';
@@ -71,25 +71,25 @@ final class StandardTagFactory implements \ECSPrefix20210803\phpDocumentor\Refle
      *                               FQCN to a class that handles it as an array value.
      */
     private $tagHandlerMappings = [
-        'author' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Author::class,
-        'covers' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Covers::class,
-        'deprecated' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Deprecated::class,
+        'author' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Author::class,
+        'covers' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Covers::class,
+        'deprecated' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Deprecated::class,
         // 'example'        => '\phpDocumentor\Reflection\DocBlock\Tags\Example',
-        'link' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Link::class,
-        'method' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Method::class,
-        'param' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Param::class,
-        'property-read' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\PropertyRead::class,
-        'property' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Property::class,
-        'property-write' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\PropertyWrite::class,
-        'return' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Return_::class,
-        'see' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\See::class,
-        'since' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Since::class,
-        'source' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Source::class,
-        'throw' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Throws::class,
-        'throws' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Throws::class,
-        'uses' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Uses::class,
-        'var' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Var_::class,
-        'version' => \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Version::class,
+        'link' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Link::class,
+        'method' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Method::class,
+        'param' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Param::class,
+        'property-read' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\PropertyRead::class,
+        'property' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Property::class,
+        'property-write' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\PropertyWrite::class,
+        'return' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Return_::class,
+        'see' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\See::class,
+        'since' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Since::class,
+        'source' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Source::class,
+        'throw' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Throws::class,
+        'throws' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Throws::class,
+        'uses' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Uses::class,
+        'var' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Var_::class,
+        'version' => \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Version::class,
     ];
     /**
      * @var array<class-string<Tag>> An array with a anotation s a key, and an
@@ -118,18 +118,18 @@ final class StandardTagFactory implements \ECSPrefix20210803\phpDocumentor\Refle
      *
      * @param array<class-string<Tag>> $tagHandlers
      */
-    public function __construct(\ECSPrefix20210803\phpDocumentor\Reflection\FqsenResolver $fqsenResolver, ?array $tagHandlers = null)
+    public function __construct(\ECSPrefix20210804\phpDocumentor\Reflection\FqsenResolver $fqsenResolver, ?array $tagHandlers = null)
     {
         $this->fqsenResolver = $fqsenResolver;
         if ($tagHandlers !== null) {
             $this->tagHandlerMappings = $tagHandlers;
         }
-        $this->addService($fqsenResolver, \ECSPrefix20210803\phpDocumentor\Reflection\FqsenResolver::class);
+        $this->addService($fqsenResolver, \ECSPrefix20210804\phpDocumentor\Reflection\FqsenResolver::class);
     }
-    public function create(string $tagLine, ?\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context = null) : \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag
+    public function create(string $tagLine, ?\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context = null) : \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag
     {
         if (!$context) {
-            $context = new \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context('');
+            $context = new \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context('');
         }
         [$tagName, $tagBody] = $this->extractTagParts($tagLine);
         return $this->createTag(\trim($tagBody), $tagName, $context);
@@ -147,9 +147,9 @@ final class StandardTagFactory implements \ECSPrefix20210803\phpDocumentor\Refle
     }
     public function registerTagHandler(string $tagName, string $handler) : void
     {
-        \ECSPrefix20210803\Webmozart\Assert\Assert::stringNotEmpty($tagName);
-        \ECSPrefix20210803\Webmozart\Assert\Assert::classExists($handler);
-        \ECSPrefix20210803\Webmozart\Assert\Assert::implementsInterface($handler, \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag::class);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::stringNotEmpty($tagName);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::classExists($handler);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::implementsInterface($handler, \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag::class);
         if (\strpos($tagName, '\\') && $tagName[0] !== '\\') {
             throw new \InvalidArgumentException('A namespaced tag must have a leading backslash as it must be fully qualified');
         }
@@ -175,18 +175,18 @@ final class StandardTagFactory implements \ECSPrefix20210803\phpDocumentor\Refle
      * Creates a new tag object with the given name and body or returns null if the tag name was recognized but the
      * body was invalid.
      */
-    private function createTag(string $body, string $name, \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context) : \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag
+    private function createTag(string $body, string $name, \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context) : \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag
     {
         $handlerClassName = $this->findHandlerClassName($name, $context);
         $arguments = $this->getArgumentsForParametersFromWiring($this->fetchParametersForHandlerFactoryMethod($handlerClassName), $this->getServiceLocatorWithDynamicParameters($context, $name, $body));
         try {
             $callable = [$handlerClassName, 'create'];
-            \ECSPrefix20210803\Webmozart\Assert\Assert::isCallable($callable);
+            \ECSPrefix20210804\Webmozart\Assert\Assert::isCallable($callable);
             /** @phpstan-var callable(string): ?Tag $callable */
             $tag = \call_user_func_array($callable, $arguments);
-            return $tag ?? \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\InvalidTag::create($body, $name);
+            return $tag ?? \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\InvalidTag::create($body, $name);
         } catch (\InvalidArgumentException $e) {
-            return \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\InvalidTag::create($body, $name)->withError($e);
+            return \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\InvalidTag::create($body, $name)->withError($e);
         }
     }
     /**
@@ -194,9 +194,9 @@ final class StandardTagFactory implements \ECSPrefix20210803\phpDocumentor\Refle
      *
      * @return class-string<Tag>
      */
-    private function findHandlerClassName(string $tagName, \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context) : string
+    private function findHandlerClassName(string $tagName, \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context) : string
     {
-        $handlerClassName = \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Generic::class;
+        $handlerClassName = \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Generic::class;
         if (isset($this->tagHandlerMappings[$tagName])) {
             $handlerClassName = $this->tagHandlerMappings[$tagName];
         } elseif ($this->isAnnotation($tagName)) {
@@ -274,9 +274,9 @@ final class StandardTagFactory implements \ECSPrefix20210803\phpDocumentor\Refle
      *
      * @return mixed[]
      */
-    private function getServiceLocatorWithDynamicParameters(\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context, string $tagName, string $tagBody) : array
+    private function getServiceLocatorWithDynamicParameters(\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context, string $tagName, string $tagBody) : array
     {
-        return \array_merge($this->serviceLocator, ['name' => $tagName, 'body' => $tagBody, \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context::class => $context]);
+        return \array_merge($this->serviceLocator, ['name' => $tagName, 'body' => $tagBody, \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context::class => $context]);
     }
     /**
      * Returns whether the given tag belongs to an annotation.

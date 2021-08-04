@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection;
+namespace ECSPrefix20210804\phpDocumentor\Reflection;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\Exception\PcreException;
+use ECSPrefix20210804\phpDocumentor\Reflection\Exception\PcreException;
 use function preg_last_error;
 use function preg_split as php_preg_split;
 abstract class Utils
@@ -46,7 +46,7 @@ abstract class Utils
     {
         $parts = \preg_split($pattern, $subject, $limit, $flags);
         if ($parts === \false) {
-            throw \ECSPrefix20210803\phpDocumentor\Reflection\Exception\PcreException::createFromPhpError(\preg_last_error());
+            throw \ECSPrefix20210804\phpDocumentor\Reflection\Exception\PcreException::createFromPhpError(\preg_last_error());
         }
         return $parts;
     }

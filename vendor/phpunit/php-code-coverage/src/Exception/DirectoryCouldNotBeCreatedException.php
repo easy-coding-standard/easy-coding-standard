@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage;
 
 use RuntimeException;
-final class DirectoryCouldNotBeCreatedException extends \RuntimeException implements \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Exception
+final class DirectoryCouldNotBeCreatedException extends \RuntimeException implements \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Exception
 {
 }

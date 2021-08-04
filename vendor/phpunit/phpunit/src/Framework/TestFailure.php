@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 use function get_class;
 use function sprintf;
 use function trim;
-use ECSPrefix20210803\PHPUnit\Framework\Error\Error;
+use ECSPrefix20210804\PHPUnit\Framework\Error\Error;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -38,12 +38,12 @@ final class TestFailure
      */
     public static function exceptionToString(\Throwable $e) : string
     {
-        if ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing) {
+        if ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing) {
             $buffer = $e->toString();
-            if ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException && $e->getComparisonFailure()) {
+            if ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException && $e->getComparisonFailure()) {
                 $buffer .= $e->getComparisonFailure()->getDiff();
             }
-            if ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\PHPTAssertionFailedError) {
+            if ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\PHPTAssertionFailedError) {
                 $buffer .= $e->getDiff();
             }
             if (!empty($buffer)) {
@@ -51,10 +51,10 @@ final class TestFailure
             }
             return $buffer;
         }
-        if ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\Error\Error) {
+        if ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\Error\Error) {
             return $e->getMessage() . "\n";
         }
-        if ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\ExceptionWrapper) {
+        if ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\ExceptionWrapper) {
             return $e->getClassName() . ': ' . $e->getMessage() . "\n";
         }
         return \get_class($e) . ': ' . $e->getMessage() . "\n";
@@ -62,14 +62,14 @@ final class TestFailure
     /**
      * Constructs a TestFailure with the given test and exception.
      */
-    public function __construct(\ECSPrefix20210803\PHPUnit\Framework\Test $failedTest, \Throwable $t)
+    public function __construct(\ECSPrefix20210804\PHPUnit\Framework\Test $failedTest, \Throwable $t)
     {
-        if ($failedTest instanceof \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing) {
+        if ($failedTest instanceof \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing) {
             $this->testName = $failedTest->toString();
         } else {
             $this->testName = \get_class($failedTest);
         }
-        if (!$failedTest instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase || !$failedTest->isInIsolation()) {
+        if (!$failedTest instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase || !$failedTest->isInIsolation()) {
             $this->failedTest = $failedTest;
         }
         $this->thrownException = $t;
@@ -103,7 +103,7 @@ final class TestFailure
      *
      * @see Exception
      */
-    public function failedTest() : ?\ECSPrefix20210803\PHPUnit\Framework\Test
+    public function failedTest() : ?\ECSPrefix20210804\PHPUnit\Framework\Test
     {
         return $this->failedTest;
     }
@@ -127,6 +127,6 @@ final class TestFailure
      */
     public function isFailure() : bool
     {
-        return $this->thrownException() instanceof \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError;
+        return $this->thrownException() instanceof \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError;
     }
 }

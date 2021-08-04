@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use const DIRECTORY_SEPARATOR;
 use const PHP_VERSION;
@@ -30,34 +30,34 @@ use DOMDocument;
 use DOMElement;
 use DOMNodeList;
 use DOMXPath;
-use ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter;
-use ECSPrefix20210803\PHPUnit\Runner\Version;
-use ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrinter;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\Directory as FilterDirectory;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\DirectoryCollection as FilterDirectoryCollection;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Clover;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Cobertura;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Crap4j;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Html as CodeCoverageHtml;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php as CodeCoveragePhp;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text as CodeCoverageText;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Xml as CodeCoverageXml;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Junit;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Logging;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html as TestDoxHtml;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml as TestDoxXml;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Text;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestSuite as TestSuiteConfiguration;
-use ECSPrefix20210803\PHPUnit\Util\TestDox\CliTestDoxPrinter;
-use ECSPrefix20210803\PHPUnit\Util\VersionComparisonOperator;
-use ECSPrefix20210803\PHPUnit\Util\Xml;
-use ECSPrefix20210803\PHPUnit\Util\Xml\Exception as XmlException;
-use ECSPrefix20210803\PHPUnit\Util\Xml\Loader as XmlLoader;
-use ECSPrefix20210803\PHPUnit\Util\Xml\SchemaFinder;
-use ECSPrefix20210803\PHPUnit\Util\Xml\Validator;
+use ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter;
+use ECSPrefix20210804\PHPUnit\Runner\Version;
+use ECSPrefix20210804\PHPUnit\TextUI\DefaultResultPrinter;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\Directory as FilterDirectory;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\DirectoryCollection as FilterDirectoryCollection;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Clover;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Cobertura;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Crap4j;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Html as CodeCoverageHtml;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php as CodeCoveragePhp;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text as CodeCoverageText;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Xml as CodeCoverageXml;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Junit;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Logging;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html as TestDoxHtml;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml as TestDoxXml;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Text;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestSuite as TestSuiteConfiguration;
+use ECSPrefix20210804\PHPUnit\Util\TestDox\CliTestDoxPrinter;
+use ECSPrefix20210804\PHPUnit\Util\VersionComparisonOperator;
+use ECSPrefix20210804\PHPUnit\Util\Xml;
+use ECSPrefix20210804\PHPUnit\Util\Xml\Exception as XmlException;
+use ECSPrefix20210804\PHPUnit\Util\Xml\Loader as XmlLoader;
+use ECSPrefix20210804\PHPUnit\Util\Xml\SchemaFinder;
+use ECSPrefix20210804\PHPUnit\Util\Xml\Validator;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -66,22 +66,22 @@ final class Loader
     /**
      * @throws Exception
      */
-    public function load(string $filename) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Configuration
+    public function load(string $filename) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Configuration
     {
         try {
-            $document = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->loadFile($filename, \false, \true, \true);
-        } catch (\ECSPrefix20210803\PHPUnit\Util\Xml\Exception $e) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            $document = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->loadFile($filename, \false, \true, \true);
+        } catch (\ECSPrefix20210804\PHPUnit\Util\Xml\Exception $e) {
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         $xpath = new \DOMXPath($document);
         try {
-            $xsdFilename = (new \ECSPrefix20210803\PHPUnit\Util\Xml\SchemaFinder())->find(\ECSPrefix20210803\PHPUnit\Runner\Version::series());
-        } catch (\ECSPrefix20210803\PHPUnit\Util\Xml\Exception $e) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            $xsdFilename = (new \ECSPrefix20210804\PHPUnit\Util\Xml\SchemaFinder())->find(\ECSPrefix20210804\PHPUnit\Runner\Version::series());
+        } catch (\ECSPrefix20210804\PHPUnit\Util\Xml\Exception $e) {
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Configuration($filename, (new \ECSPrefix20210803\PHPUnit\Util\Xml\Validator())->validate($document, $xsdFilename), $this->extensions($filename, $xpath), $this->codeCoverage($filename, $xpath, $document), $this->groups($xpath), $this->testdoxGroups($xpath), $this->listeners($filename, $xpath), $this->logging($filename, $xpath), $this->php($filename, $xpath), $this->phpunit($filename, $document), $this->testSuite($filename, $xpath));
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Configuration($filename, (new \ECSPrefix20210804\PHPUnit\Util\Xml\Validator())->validate($document, $xsdFilename), $this->extensions($filename, $xpath), $this->codeCoverage($filename, $xpath, $document), $this->groups($xpath), $this->testdoxGroups($xpath), $this->listeners($filename, $xpath), $this->logging($filename, $xpath), $this->php($filename, $xpath), $this->phpunit($filename, $document), $this->testSuite($filename, $xpath));
     }
-    public function logging(string $filename, \DOMXPath $xpath) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Logging
+    public function logging(string $filename, \DOMXPath $xpath) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Logging
     {
         if ($xpath->query('logging/log')->length !== 0) {
             return $this->legacyLogging($filename, $xpath);
@@ -89,36 +89,36 @@ final class Loader
         $junit = null;
         $element = $this->element($xpath, 'logging/junit');
         if ($element) {
-            $junit = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Junit(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
+            $junit = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Junit(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
         }
         $text = null;
         $element = $this->element($xpath, 'logging/text');
         if ($element) {
-            $text = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Text(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
+            $text = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Text(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
         }
         $teamCity = null;
         $element = $this->element($xpath, 'logging/teamcity');
         if ($element) {
-            $teamCity = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
+            $teamCity = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
         }
         $testDoxHtml = null;
         $element = $this->element($xpath, 'logging/testdoxHtml');
         if ($element) {
-            $testDoxHtml = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
+            $testDoxHtml = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
         }
         $testDoxText = null;
         $element = $this->element($xpath, 'logging/testdoxText');
         if ($element) {
-            $testDoxText = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
+            $testDoxText = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
         }
         $testDoxXml = null;
         $element = $this->element($xpath, 'logging/testdoxXml');
         if ($element) {
-            $testDoxXml = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
+            $testDoxXml = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Logging($junit, $text, $teamCity, $testDoxHtml, $testDoxText, $testDoxXml);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Logging($junit, $text, $teamCity, $testDoxHtml, $testDoxText, $testDoxXml);
     }
-    public function legacyLogging(string $filename, \DOMXPath $xpath) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Logging
+    public function legacyLogging(string $filename, \DOMXPath $xpath) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Logging
     {
         $junit = null;
         $teamCity = null;
@@ -136,37 +136,37 @@ final class Loader
             $target = $this->toAbsolutePath($filename, $target);
             switch ($type) {
                 case 'plain':
-                    $text = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Text(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target));
+                    $text = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Text(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target));
                     break;
                 case 'junit':
-                    $junit = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Junit(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target));
+                    $junit = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Junit(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target));
                     break;
                 case 'teamcity':
-                    $teamCity = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target));
+                    $teamCity = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target));
                     break;
                 case 'testdox-html':
-                    $testDoxHtml = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target));
+                    $testDoxHtml = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target));
                     break;
                 case 'testdox-text':
-                    $testDoxText = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target));
+                    $testDoxText = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target));
                     break;
                 case 'testdox-xml':
-                    $testDoxXml = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target));
+                    $testDoxXml = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target));
                     break;
             }
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Logging\Logging($junit, $text, $teamCity, $testDoxHtml, $testDoxText, $testDoxXml);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Logging\Logging($junit, $text, $teamCity, $testDoxHtml, $testDoxText, $testDoxXml);
     }
-    private function extensions(string $filename, \DOMXPath $xpath) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\ExtensionCollection
+    private function extensions(string $filename, \DOMXPath $xpath) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\ExtensionCollection
     {
         $extensions = [];
         foreach ($xpath->query('extensions/extension') as $extension) {
             \assert($extension instanceof \DOMElement);
             $extensions[] = $this->getElementConfigurationParameters($filename, $extension);
         }
-        return \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\ExtensionCollection::fromArray($extensions);
+        return \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\ExtensionCollection::fromArray($extensions);
     }
-    private function getElementConfigurationParameters(string $filename, \DOMElement $element) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Extension
+    private function getElementConfigurationParameters(string $filename, \DOMElement $element) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Extension
     {
         /** @psalm-var class-string $class */
         $class = (string) $element->getAttribute('class');
@@ -175,7 +175,7 @@ final class Loader
         if ($element->getAttribute('file')) {
             $file = $this->toAbsolutePath($filename, (string) $element->getAttribute('file'), \true);
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Extension($class, $file, $arguments);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Extension($class, $file, $arguments);
     }
     private function toAbsolutePath(string $filename, string $path, bool $useIncludePath = \false) : string
     {
@@ -226,13 +226,13 @@ final class Loader
                 if ($argument->tagName === 'file' || $argument->tagName === 'directory') {
                     $arguments[] = $this->toAbsolutePath($filename, (string) $argument->textContent);
                 } else {
-                    $arguments[] = \ECSPrefix20210803\PHPUnit\Util\Xml::xmlToVariable($argument);
+                    $arguments[] = \ECSPrefix20210804\PHPUnit\Util\Xml::xmlToVariable($argument);
                 }
             }
         }
         return $arguments;
     }
-    private function codeCoverage(string $filename, \DOMXPath $xpath, \DOMDocument $document) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage
+    private function codeCoverage(string $filename, \DOMXPath $xpath, \DOMDocument $document) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage
     {
         if ($xpath->query('filter/whitelist')->length !== 0) {
             return $this->legacyCodeCoverage($filename, $xpath, $document);
@@ -247,7 +247,7 @@ final class Loader
         if ($element) {
             $cacheDirectory = $this->getStringAttribute($element, 'cacheDirectory');
             if ($cacheDirectory !== null) {
-                $cacheDirectory = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Directory($this->toAbsolutePath($filename, $cacheDirectory));
+                $cacheDirectory = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Directory($this->toAbsolutePath($filename, $cacheDirectory));
             }
             $pathCoverage = $this->getBooleanAttribute($element, 'pathCoverage', \false);
             $includeUncoveredFiles = $this->getBooleanAttribute($element, 'includeUncoveredFiles', \true);
@@ -258,44 +258,44 @@ final class Loader
         $clover = null;
         $element = $this->element($xpath, 'coverage/report/clover');
         if ($element) {
-            $clover = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Clover(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
+            $clover = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Clover(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
         }
         $cobertura = null;
         $element = $this->element($xpath, 'coverage/report/cobertura');
         if ($element) {
-            $cobertura = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Cobertura(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
+            $cobertura = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Cobertura(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
         }
         $crap4j = null;
         $element = $this->element($xpath, 'coverage/report/crap4j');
         if ($element) {
-            $crap4j = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Crap4j(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))), $this->getIntegerAttribute($element, 'threshold', 30));
+            $crap4j = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Crap4j(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))), $this->getIntegerAttribute($element, 'threshold', 30));
         }
         $html = null;
         $element = $this->element($xpath, 'coverage/report/html');
         if ($element) {
-            $html = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Html(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Directory($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputDirectory'))), $this->getIntegerAttribute($element, 'lowUpperBound', 50), $this->getIntegerAttribute($element, 'highLowerBound', 90));
+            $html = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Html(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Directory($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputDirectory'))), $this->getIntegerAttribute($element, 'lowUpperBound', 50), $this->getIntegerAttribute($element, 'highLowerBound', 90));
         }
         $php = null;
         $element = $this->element($xpath, 'coverage/report/php');
         if ($element) {
-            $php = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
+            $php = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))));
         }
         $text = null;
         $element = $this->element($xpath, 'coverage/report/text');
         if ($element) {
-            $text = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))), $this->getBooleanAttribute($element, 'showUncoveredFiles', \false), $this->getBooleanAttribute($element, 'showOnlySummary', \false));
+            $text = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputFile'))), $this->getBooleanAttribute($element, 'showUncoveredFiles', \false), $this->getBooleanAttribute($element, 'showOnlySummary', \false));
         }
         $xml = null;
         $element = $this->element($xpath, 'coverage/report/xml');
         if ($element) {
-            $xml = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Xml(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Directory($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputDirectory'))));
+            $xml = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Xml(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Directory($this->toAbsolutePath($filename, (string) $this->getStringAttribute($element, 'outputDirectory'))));
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage($cacheDirectory, $this->readFilterDirectories($filename, $xpath, 'coverage/include/directory'), $this->readFilterFiles($filename, $xpath, 'coverage/include/file'), $this->readFilterDirectories($filename, $xpath, 'coverage/exclude/directory'), $this->readFilterFiles($filename, $xpath, 'coverage/exclude/file'), $pathCoverage, $includeUncoveredFiles, $processUncoveredFiles, $ignoreDeprecatedCodeUnits, $disableCodeCoverageIgnore, $clover, $cobertura, $crap4j, $html, $php, $text, $xml);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage($cacheDirectory, $this->readFilterDirectories($filename, $xpath, 'coverage/include/directory'), $this->readFilterFiles($filename, $xpath, 'coverage/include/file'), $this->readFilterDirectories($filename, $xpath, 'coverage/exclude/directory'), $this->readFilterFiles($filename, $xpath, 'coverage/exclude/file'), $pathCoverage, $includeUncoveredFiles, $processUncoveredFiles, $ignoreDeprecatedCodeUnits, $disableCodeCoverageIgnore, $clover, $cobertura, $crap4j, $html, $php, $text, $xml);
     }
     /**
      * @deprecated
      */
-    private function legacyCodeCoverage(string $filename, \DOMXPath $xpath, \DOMDocument $document) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage
+    private function legacyCodeCoverage(string $filename, \DOMXPath $xpath, \DOMDocument $document) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage
     {
         $ignoreDeprecatedCodeUnits = $this->getBooleanAttribute($document->documentElement, 'ignoreDeprecatedCodeUnitsFromCodeCoverage', \false);
         $disableCodeCoverageIgnore = $this->getBooleanAttribute($document->documentElement, 'disableCodeCoverageIgnore', \false);
@@ -327,29 +327,29 @@ final class Loader
             $target = $this->toAbsolutePath($filename, $target);
             switch ($type) {
                 case 'coverage-clover':
-                    $clover = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Clover(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target));
+                    $clover = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Clover(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target));
                     break;
                 case 'coverage-cobertura':
-                    $cobertura = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Cobertura(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target));
+                    $cobertura = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Cobertura(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target));
                     break;
                 case 'coverage-crap4j':
-                    $crap4j = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Crap4j(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target), $this->getIntegerAttribute($log, 'threshold', 30));
+                    $crap4j = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Crap4j(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target), $this->getIntegerAttribute($log, 'threshold', 30));
                     break;
                 case 'coverage-html':
-                    $html = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Html(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Directory($target), $this->getIntegerAttribute($log, 'lowUpperBound', 50), $this->getIntegerAttribute($log, 'highLowerBound', 90));
+                    $html = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Html(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Directory($target), $this->getIntegerAttribute($log, 'lowUpperBound', 50), $this->getIntegerAttribute($log, 'highLowerBound', 90));
                     break;
                 case 'coverage-php':
-                    $php = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target));
+                    $php = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target));
                     break;
                 case 'coverage-text':
-                    $text = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($target), $this->getBooleanAttribute($log, 'showUncoveredFiles', \false), $this->getBooleanAttribute($log, 'showOnlySummary', \false));
+                    $text = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($target), $this->getBooleanAttribute($log, 'showUncoveredFiles', \false), $this->getBooleanAttribute($log, 'showOnlySummary', \false));
                     break;
                 case 'coverage-xml':
-                    $xml = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Xml(new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Directory($target));
+                    $xml = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Xml(new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Directory($target));
                     break;
             }
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage(null, $this->readFilterDirectories($filename, $xpath, 'filter/whitelist/directory'), $this->readFilterFiles($filename, $xpath, 'filter/whitelist/file'), $this->readFilterDirectories($filename, $xpath, 'filter/whitelist/exclude/directory'), $this->readFilterFiles($filename, $xpath, 'filter/whitelist/exclude/file'), \false, $includeUncoveredFiles, $processUncoveredFiles, $ignoreDeprecatedCodeUnits, $disableCodeCoverageIgnore, $clover, $cobertura, $crap4j, $html, $php, $text, $xml);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage(null, $this->readFilterDirectories($filename, $xpath, 'filter/whitelist/directory'), $this->readFilterFiles($filename, $xpath, 'filter/whitelist/file'), $this->readFilterDirectories($filename, $xpath, 'filter/whitelist/exclude/directory'), $this->readFilterFiles($filename, $xpath, 'filter/whitelist/exclude/file'), \false, $includeUncoveredFiles, $processUncoveredFiles, $ignoreDeprecatedCodeUnits, $disableCodeCoverageIgnore, $clover, $cobertura, $crap4j, $html, $php, $text, $xml);
     }
     /**
      * If $value is 'false' or 'true', this returns the value that $value represents.
@@ -371,7 +371,7 @@ final class Loader
         }
         return $default;
     }
-    private function readFilterDirectories(string $filename, \DOMXPath $xpath, string $query) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\DirectoryCollection
+    private function readFilterDirectories(string $filename, \DOMXPath $xpath, string $query) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\DirectoryCollection
     {
         $directories = [];
         foreach ($xpath->query($query) as $directoryNode) {
@@ -380,49 +380,49 @@ final class Loader
             if (!$directoryPath) {
                 continue;
             }
-            $directories[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\Directory($this->toAbsolutePath($filename, $directoryPath), $directoryNode->hasAttribute('prefix') ? (string) $directoryNode->getAttribute('prefix') : '', $directoryNode->hasAttribute('suffix') ? (string) $directoryNode->getAttribute('suffix') : '.php', $directoryNode->hasAttribute('group') ? (string) $directoryNode->getAttribute('group') : 'DEFAULT');
+            $directories[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\Directory($this->toAbsolutePath($filename, $directoryPath), $directoryNode->hasAttribute('prefix') ? (string) $directoryNode->getAttribute('prefix') : '', $directoryNode->hasAttribute('suffix') ? (string) $directoryNode->getAttribute('suffix') : '.php', $directoryNode->hasAttribute('group') ? (string) $directoryNode->getAttribute('group') : 'DEFAULT');
         }
-        return \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\DirectoryCollection::fromArray($directories);
+        return \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Filter\DirectoryCollection::fromArray($directories);
     }
-    private function readFilterFiles(string $filename, \DOMXPath $xpath, string $query) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\FileCollection
+    private function readFilterFiles(string $filename, \DOMXPath $xpath, string $query) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\FileCollection
     {
         $files = [];
         foreach ($xpath->query($query) as $file) {
             $filePath = (string) $file->textContent;
             if ($filePath) {
-                $files[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, $filePath));
+                $files[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, $filePath));
             }
         }
-        return \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\FileCollection::fromArray($files);
+        return \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\FileCollection::fromArray($files);
     }
-    private function groups(\DOMXPath $xpath) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Groups
+    private function groups(\DOMXPath $xpath) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Groups
     {
         return $this->parseGroupConfiguration($xpath, 'groups');
     }
-    private function testdoxGroups(\DOMXPath $xpath) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Groups
+    private function testdoxGroups(\DOMXPath $xpath) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Groups
     {
         return $this->parseGroupConfiguration($xpath, 'testdoxGroups');
     }
-    private function parseGroupConfiguration(\DOMXPath $xpath, string $root) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Groups
+    private function parseGroupConfiguration(\DOMXPath $xpath, string $root) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Groups
     {
         $include = [];
         $exclude = [];
         foreach ($xpath->query($root . '/include/group') as $group) {
-            $include[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Group((string) $group->textContent);
+            $include[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Group((string) $group->textContent);
         }
         foreach ($xpath->query($root . '/exclude/group') as $group) {
-            $exclude[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Group((string) $group->textContent);
+            $exclude[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Group((string) $group->textContent);
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Groups(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\GroupCollection::fromArray($include), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\GroupCollection::fromArray($exclude));
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Groups(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\GroupCollection::fromArray($include), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\GroupCollection::fromArray($exclude));
     }
-    private function listeners(string $filename, \DOMXPath $xpath) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\ExtensionCollection
+    private function listeners(string $filename, \DOMXPath $xpath) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\ExtensionCollection
     {
         $listeners = [];
         foreach ($xpath->query('listeners/listener') as $listener) {
             \assert($listener instanceof \DOMElement);
             $listeners[] = $this->getElementConfigurationParameters($filename, $listener);
         }
-        return \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\ExtensionCollection::fromArray($listeners);
+        return \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\ExtensionCollection::fromArray($listeners);
     }
     private function getBooleanAttribute(\DOMElement $element, string $attribute, bool $default) : bool
     {
@@ -452,25 +452,25 @@ final class Loader
         }
         return $default;
     }
-    private function php(string $filename, \DOMXPath $xpath) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Php
+    private function php(string $filename, \DOMXPath $xpath) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Php
     {
         $includePaths = [];
         foreach ($xpath->query('php/includePath') as $includePath) {
             $path = (string) $includePath->textContent;
             if ($path) {
-                $includePaths[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Directory($this->toAbsolutePath($filename, $path));
+                $includePaths[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Directory($this->toAbsolutePath($filename, $path));
             }
         }
         $iniSettings = [];
         foreach ($xpath->query('php/ini') as $ini) {
             \assert($ini instanceof \DOMElement);
-            $iniSettings[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\IniSetting((string) $ini->getAttribute('name'), (string) $ini->getAttribute('value'));
+            $iniSettings[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\IniSetting((string) $ini->getAttribute('name'), (string) $ini->getAttribute('value'));
         }
         $constants = [];
         foreach ($xpath->query('php/const') as $const) {
             \assert($const instanceof \DOMElement);
             $value = (string) $const->getAttribute('value');
-            $constants[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Constant((string) $const->getAttribute('name'), $this->getBoolean($value, $value));
+            $constants[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Constant((string) $const->getAttribute('name'), $this->getBoolean($value, $value));
         }
         $variables = ['var' => [], 'env' => [], 'post' => [], 'get' => [], 'cookie' => [], 'server' => [], 'files' => [], 'request' => []];
         foreach (['var', 'env', 'post', 'get', 'cookie', 'server', 'files', 'request'] as $array) {
@@ -489,21 +489,21 @@ final class Loader
                 if (!$verbatim) {
                     $value = $this->getBoolean($value, $value);
                 }
-                $variables[$array][] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Variable($name, $value, $force);
+                $variables[$array][] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Variable($name, $value, $force);
             }
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Php(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\DirectoryCollection::fromArray($includePaths), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\IniSettingCollection::fromArray($iniSettings), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\ConstantCollection::fromArray($constants), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['var']), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['env']), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['post']), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['get']), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['cookie']), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['server']), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['files']), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['request']));
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Php(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\DirectoryCollection::fromArray($includePaths), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\IniSettingCollection::fromArray($iniSettings), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\ConstantCollection::fromArray($constants), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['var']), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['env']), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['post']), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['get']), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['cookie']), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['server']), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['files']), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\VariableCollection::fromArray($variables['request']));
     }
-    private function phpunit(string $filename, \DOMDocument $document) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\PHPUnit
+    private function phpunit(string $filename, \DOMDocument $document) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\PHPUnit
     {
-        $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFAULT;
+        $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFAULT;
         $defectsFirst = \false;
         $resolveDependencies = $this->getBooleanAttribute($document->documentElement, 'resolveDependencies', \true);
         if ($document->documentElement->hasAttribute('executionOrder')) {
             foreach (\explode(',', $document->documentElement->getAttribute('executionOrder')) as $order) {
                 switch ($order) {
                     case 'default':
-                        $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFAULT;
+                        $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFAULT;
                         $defectsFirst = \false;
                         $resolveDependencies = \true;
                         break;
@@ -517,16 +517,16 @@ final class Loader
                         $defectsFirst = \true;
                         break;
                     case 'duration':
-                        $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_DURATION;
+                        $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_DURATION;
                         break;
                     case 'random':
-                        $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_RANDOMIZED;
+                        $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_RANDOMIZED;
                         break;
                     case 'reverse':
-                        $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_REVERSED;
+                        $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_REVERSED;
                         break;
                     case 'size':
-                        $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_SIZE;
+                        $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_SIZE;
                         break;
                 }
             }
@@ -538,7 +538,7 @@ final class Loader
             if ($printerClass !== null) {
                 $conflictBetweenPrinterClassAndTestdox = \true;
             }
-            $printerClass = \ECSPrefix20210803\PHPUnit\Util\TestDox\CliTestDoxPrinter::class;
+            $printerClass = \ECSPrefix20210804\PHPUnit\Util\TestDox\CliTestDoxPrinter::class;
         }
         $cacheResultFile = $this->getStringAttribute($document->documentElement, 'cacheResultFile');
         if ($cacheResultFile !== null) {
@@ -560,18 +560,18 @@ final class Loader
         if ($printerFile !== null) {
             $printerFile = $this->toAbsolutePath($filename, $printerFile);
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\PHPUnit($this->getBooleanAttribute($document->documentElement, 'cacheResult', \true), $cacheResultFile, $this->getColumns($document), $this->getColors($document), $this->getBooleanAttribute($document->documentElement, 'stderr', \false), $this->getBooleanAttribute($document->documentElement, 'noInteraction', \false), $this->getBooleanAttribute($document->documentElement, 'verbose', \false), $this->getBooleanAttribute($document->documentElement, 'reverseDefectList', \false), $this->getBooleanAttribute($document->documentElement, 'convertDeprecationsToExceptions', \true), $this->getBooleanAttribute($document->documentElement, 'convertErrorsToExceptions', \true), $this->getBooleanAttribute($document->documentElement, 'convertNoticesToExceptions', \true), $this->getBooleanAttribute($document->documentElement, 'convertWarningsToExceptions', \true), $this->getBooleanAttribute($document->documentElement, 'forceCoversAnnotation', \false), $bootstrap, $this->getBooleanAttribute($document->documentElement, 'processIsolation', \false), $this->getBooleanAttribute($document->documentElement, 'failOnEmptyTestSuite', \false), $this->getBooleanAttribute($document->documentElement, 'failOnIncomplete', \false), $this->getBooleanAttribute($document->documentElement, 'failOnRisky', \false), $this->getBooleanAttribute($document->documentElement, 'failOnSkipped', \false), $this->getBooleanAttribute($document->documentElement, 'failOnWarning', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnDefect', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnError', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnFailure', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnWarning', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnIncomplete', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnRisky', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnSkipped', \false), $extensionsDirectory, $this->getStringAttribute($document->documentElement, 'testSuiteLoaderClass'), $testSuiteLoaderFile, $printerClass, $printerFile, $this->getBooleanAttribute($document->documentElement, 'beStrictAboutChangesToGlobalState', \false), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutOutputDuringTests', \false), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutResourceUsageDuringSmallTests', \false), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutTestsThatDoNotTestAnything', \true), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutTodoAnnotatedTests', \false), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutCoversAnnotation', \false), $this->getBooleanAttribute($document->documentElement, 'enforceTimeLimit', \false), $this->getIntegerAttribute($document->documentElement, 'defaultTimeLimit', 1), $this->getIntegerAttribute($document->documentElement, 'timeoutForSmallTests', 1), $this->getIntegerAttribute($document->documentElement, 'timeoutForMediumTests', 10), $this->getIntegerAttribute($document->documentElement, 'timeoutForLargeTests', 60), $this->getStringAttribute($document->documentElement, 'defaultTestSuite'), $executionOrder, $resolveDependencies, $defectsFirst, $this->getBooleanAttribute($document->documentElement, 'backupGlobals', \false), $this->getBooleanAttribute($document->documentElement, 'backupStaticAttributes', \false), $this->getBooleanAttribute($document->documentElement, 'registerMockObjectsFromTestArgumentsRecursively', \false), $conflictBetweenPrinterClassAndTestdox);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\PHPUnit($this->getBooleanAttribute($document->documentElement, 'cacheResult', \true), $cacheResultFile, $this->getColumns($document), $this->getColors($document), $this->getBooleanAttribute($document->documentElement, 'stderr', \false), $this->getBooleanAttribute($document->documentElement, 'noInteraction', \false), $this->getBooleanAttribute($document->documentElement, 'verbose', \false), $this->getBooleanAttribute($document->documentElement, 'reverseDefectList', \false), $this->getBooleanAttribute($document->documentElement, 'convertDeprecationsToExceptions', \true), $this->getBooleanAttribute($document->documentElement, 'convertErrorsToExceptions', \true), $this->getBooleanAttribute($document->documentElement, 'convertNoticesToExceptions', \true), $this->getBooleanAttribute($document->documentElement, 'convertWarningsToExceptions', \true), $this->getBooleanAttribute($document->documentElement, 'forceCoversAnnotation', \false), $bootstrap, $this->getBooleanAttribute($document->documentElement, 'processIsolation', \false), $this->getBooleanAttribute($document->documentElement, 'failOnEmptyTestSuite', \false), $this->getBooleanAttribute($document->documentElement, 'failOnIncomplete', \false), $this->getBooleanAttribute($document->documentElement, 'failOnRisky', \false), $this->getBooleanAttribute($document->documentElement, 'failOnSkipped', \false), $this->getBooleanAttribute($document->documentElement, 'failOnWarning', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnDefect', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnError', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnFailure', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnWarning', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnIncomplete', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnRisky', \false), $this->getBooleanAttribute($document->documentElement, 'stopOnSkipped', \false), $extensionsDirectory, $this->getStringAttribute($document->documentElement, 'testSuiteLoaderClass'), $testSuiteLoaderFile, $printerClass, $printerFile, $this->getBooleanAttribute($document->documentElement, 'beStrictAboutChangesToGlobalState', \false), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutOutputDuringTests', \false), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutResourceUsageDuringSmallTests', \false), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutTestsThatDoNotTestAnything', \true), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutTodoAnnotatedTests', \false), $this->getBooleanAttribute($document->documentElement, 'beStrictAboutCoversAnnotation', \false), $this->getBooleanAttribute($document->documentElement, 'enforceTimeLimit', \false), $this->getIntegerAttribute($document->documentElement, 'defaultTimeLimit', 1), $this->getIntegerAttribute($document->documentElement, 'timeoutForSmallTests', 1), $this->getIntegerAttribute($document->documentElement, 'timeoutForMediumTests', 10), $this->getIntegerAttribute($document->documentElement, 'timeoutForLargeTests', 60), $this->getStringAttribute($document->documentElement, 'defaultTestSuite'), $executionOrder, $resolveDependencies, $defectsFirst, $this->getBooleanAttribute($document->documentElement, 'backupGlobals', \false), $this->getBooleanAttribute($document->documentElement, 'backupStaticAttributes', \false), $this->getBooleanAttribute($document->documentElement, 'registerMockObjectsFromTestArgumentsRecursively', \false), $conflictBetweenPrinterClassAndTestdox);
     }
     private function getColors(\DOMDocument $document) : string
     {
-        $colors = \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrinter::COLOR_DEFAULT;
+        $colors = \ECSPrefix20210804\PHPUnit\TextUI\DefaultResultPrinter::COLOR_DEFAULT;
         if ($document->documentElement->hasAttribute('colors')) {
             /* only allow boolean for compatibility with previous versions
                'always' only allowed from command line */
             if ($this->getBoolean($document->documentElement->getAttribute('colors'), \false)) {
-                $colors = \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrinter::COLOR_AUTO;
+                $colors = \ECSPrefix20210804\PHPUnit\TextUI\DefaultResultPrinter::COLOR_AUTO;
             } else {
-                $colors = \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrinter::COLOR_NEVER;
+                $colors = \ECSPrefix20210804\PHPUnit\TextUI\DefaultResultPrinter::COLOR_NEVER;
             }
         }
         return $colors;
@@ -590,7 +590,7 @@ final class Loader
         }
         return $columns;
     }
-    private function testSuite(string $filename, \DOMXPath $xpath) : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestSuiteCollection
+    private function testSuite(string $filename, \DOMXPath $xpath) : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestSuiteCollection
     {
         $testSuites = [];
         foreach ($this->getTestSuiteElements($xpath) as $element) {
@@ -598,7 +598,7 @@ final class Loader
             foreach ($element->getElementsByTagName('exclude') as $excludeNode) {
                 $excludeFile = (string) $excludeNode->textContent;
                 if ($excludeFile) {
-                    $exclude[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, $excludeFile));
+                    $exclude[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\File($this->toAbsolutePath($filename, $excludeFile));
                 }
             }
             $directories = [];
@@ -620,11 +620,11 @@ final class Loader
                 if ($directoryNode->hasAttribute('phpVersion')) {
                     $phpVersion = (string) $directoryNode->getAttribute('phpVersion');
                 }
-                $phpVersionOperator = new \ECSPrefix20210803\PHPUnit\Util\VersionComparisonOperator('>=');
+                $phpVersionOperator = new \ECSPrefix20210804\PHPUnit\Util\VersionComparisonOperator('>=');
                 if ($directoryNode->hasAttribute('phpVersionOperator')) {
-                    $phpVersionOperator = new \ECSPrefix20210803\PHPUnit\Util\VersionComparisonOperator((string) $directoryNode->getAttribute('phpVersionOperator'));
+                    $phpVersionOperator = new \ECSPrefix20210804\PHPUnit\Util\VersionComparisonOperator((string) $directoryNode->getAttribute('phpVersionOperator'));
                 }
-                $directories[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestDirectory($this->toAbsolutePath($filename, $directory), $prefix, $suffix, $phpVersion, $phpVersionOperator);
+                $directories[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestDirectory($this->toAbsolutePath($filename, $directory), $prefix, $suffix, $phpVersion, $phpVersionOperator);
             }
             $files = [];
             foreach ($element->getElementsByTagName('file') as $fileNode) {
@@ -637,15 +637,15 @@ final class Loader
                 if ($fileNode->hasAttribute('phpVersion')) {
                     $phpVersion = (string) $fileNode->getAttribute('phpVersion');
                 }
-                $phpVersionOperator = new \ECSPrefix20210803\PHPUnit\Util\VersionComparisonOperator('>=');
+                $phpVersionOperator = new \ECSPrefix20210804\PHPUnit\Util\VersionComparisonOperator('>=');
                 if ($fileNode->hasAttribute('phpVersionOperator')) {
-                    $phpVersionOperator = new \ECSPrefix20210803\PHPUnit\Util\VersionComparisonOperator((string) $fileNode->getAttribute('phpVersionOperator'));
+                    $phpVersionOperator = new \ECSPrefix20210804\PHPUnit\Util\VersionComparisonOperator((string) $fileNode->getAttribute('phpVersionOperator'));
                 }
-                $files[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestFile($this->toAbsolutePath($filename, $file), $phpVersion, $phpVersionOperator);
+                $files[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestFile($this->toAbsolutePath($filename, $file), $phpVersion, $phpVersionOperator);
             }
-            $testSuites[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestSuite((string) $element->getAttribute('name'), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestDirectoryCollection::fromArray($directories), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestFileCollection::fromArray($files), \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\FileCollection::fromArray($exclude));
+            $testSuites[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestSuite((string) $element->getAttribute('name'), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestDirectoryCollection::fromArray($directories), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestFileCollection::fromArray($files), \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\FileCollection::fromArray($exclude));
         }
-        return \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestSuiteCollection::fromArray($testSuites);
+        return \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestSuiteCollection::fromArray($testSuites);
     }
     /**
      * @return DOMElement[]

@@ -9,19 +9,19 @@ declare (strict_types=1);
  *
  * @link http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Reference;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Reference;
 
-use ECSPrefix20210803\Webmozart\Assert\Assert;
+use ECSPrefix20210804\Webmozart\Assert\Assert;
 /**
  * Url reference used by {@see \phpDocumentor\Reflection\DocBlock\Tags\See}
  */
-final class Url implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
+final class Url implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
 {
     /** @var string */
     private $uri;
     public function __construct(string $uri)
     {
-        \ECSPrefix20210803\Webmozart\Assert\Assert::stringNotEmpty($uri);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::stringNotEmpty($uri);
         $this->uri = $uri;
     }
     public function __toString() : string

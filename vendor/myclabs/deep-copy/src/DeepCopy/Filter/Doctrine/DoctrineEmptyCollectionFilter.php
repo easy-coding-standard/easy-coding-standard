@@ -1,14 +1,14 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Filter\Doctrine;
+namespace ECSPrefix20210804\DeepCopy\Filter\Doctrine;
 
-use ECSPrefix20210803\DeepCopy\Filter\Filter;
-use ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper;
-use ECSPrefix20210803\Doctrine\Common\Collections\ArrayCollection;
+use ECSPrefix20210804\DeepCopy\Filter\Filter;
+use ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper;
+use ECSPrefix20210804\Doctrine\Common\Collections\ArrayCollection;
 /**
  * @final
  */
-class DoctrineEmptyCollectionFilter implements \ECSPrefix20210803\DeepCopy\Filter\Filter
+class DoctrineEmptyCollectionFilter implements \ECSPrefix20210804\DeepCopy\Filter\Filter
 {
     /**
      * Sets the object property to an empty doctrine collection.
@@ -19,8 +19,8 @@ class DoctrineEmptyCollectionFilter implements \ECSPrefix20210803\DeepCopy\Filte
      */
     public function apply($object, $property, $objectCopier)
     {
-        $reflectionProperty = \ECSPrefix20210803\DeepCopy\Reflection\ReflectionHelper::getProperty($object, $property);
+        $reflectionProperty = \ECSPrefix20210804\DeepCopy\Reflection\ReflectionHelper::getProperty($object, $property);
         $reflectionProperty->setAccessible(\true);
-        $reflectionProperty->setValue($object, new \ECSPrefix20210803\Doctrine\Common\Collections\ArrayCollection());
+        $reflectionProperty->setValue($object, new \ECSPrefix20210804\Doctrine\Common\Collections\ArrayCollection());
     }
 }

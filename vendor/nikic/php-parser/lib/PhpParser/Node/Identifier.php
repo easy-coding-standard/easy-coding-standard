@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node;
+namespace ECSPrefix20210804\PhpParser\Node;
 
-use ECSPrefix20210803\PhpParser\NodeAbstract;
+use ECSPrefix20210804\PhpParser\NodeAbstract;
 /**
  * Represents a non-namespaced name. Namespaced names are represented using Name nodes.
  */
-class Identifier extends \ECSPrefix20210803\PhpParser\NodeAbstract
+class Identifier extends \ECSPrefix20210804\PhpParser\NodeAbstract
 {
     /** @var string Identifier as string */
     public $name;

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210803\Prophecy\Exception\Doubler;
+namespace ECSPrefix20210804\Prophecy\Exception\Doubler;
 
-class MethodNotExtendableException extends \ECSPrefix20210803\Prophecy\Exception\Doubler\DoubleException
+class MethodNotExtendableException extends \ECSPrefix20210804\Prophecy\Exception\Doubler\DoubleException
 {
     private $methodName;
     private $className;

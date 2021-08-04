@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210803\PhpParser\Parser;
+namespace ECSPrefix20210804\PhpParser\Parser;
 
 /* GENERATED file based on grammar/tokens.y */
 final class Tokens

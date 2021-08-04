@@ -9,15 +9,15 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI;
+namespace ECSPrefix20210804\PHPUnit\TextUI;
 
-use ECSPrefix20210803\PHPUnit\Framework\TestListener;
-use ECSPrefix20210803\PHPUnit\Framework\TestResult;
+use ECSPrefix20210804\PHPUnit\Framework\TestListener;
+use ECSPrefix20210804\PHPUnit\Framework\TestResult;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-interface ResultPrinter extends \ECSPrefix20210803\PHPUnit\Framework\TestListener
+interface ResultPrinter extends \ECSPrefix20210804\PHPUnit\Framework\TestListener
 {
-    public function printResult(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void;
+    public function printResult(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void;
     public function write(string $buffer) : void;
 }

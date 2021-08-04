@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Exception\Prediction;
+namespace ECSPrefix20210804\Prophecy\Exception\Prediction;
 
 use RuntimeException;
 /**
@@ -17,6 +17,6 @@ use RuntimeException;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class FailedPredictionException extends \RuntimeException implements \ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException
+class FailedPredictionException extends \RuntimeException implements \ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException
 {
 }

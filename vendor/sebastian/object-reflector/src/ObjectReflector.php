@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\ObjectReflector;
+namespace ECSPrefix20210804\SebastianBergmann\ObjectReflector;
 
 use function count;
 use function explode;
@@ -25,7 +25,7 @@ class ObjectReflector
     public function getAttributes($object) : array
     {
         if (!\is_object($object)) {
-            throw new \ECSPrefix20210803\SebastianBergmann\ObjectReflector\InvalidArgumentException();
+            throw new \ECSPrefix20210804\SebastianBergmann\ObjectReflector\InvalidArgumentException();
         }
         $attributes = [];
         $className = \get_class($object);

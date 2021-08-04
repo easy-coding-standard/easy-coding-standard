@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Argument\Token;
+namespace ECSPrefix20210804\Prophecy\Argument\Token;
 
 /**
  * Logical NOT token.
  *
  * @author Boris Mikhaylov <kaguxmail@gmail.com>
  */
-class LogicalNotToken implements \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface
+class LogicalNotToken implements \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface
 {
     /** @var \Prophecy\Argument\Token\TokenInterface  */
     private $token;
@@ -24,7 +24,7 @@ class LogicalNotToken implements \ECSPrefix20210803\Prophecy\Argument\Token\Toke
      */
     public function __construct($value)
     {
-        $this->token = $value instanceof \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface ? $value : new \ECSPrefix20210803\Prophecy\Argument\Token\ExactValueToken($value);
+        $this->token = $value instanceof \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface ? $value : new \ECSPrefix20210804\Prophecy\Argument\Token\ExactValueToken($value);
     }
     /**
      * Scores 4 when preset token does not match the argument.

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
 class AuthorCollectionIterator implements \Iterator
 {
@@ -17,7 +17,7 @@ class AuthorCollectionIterator implements \Iterator
     private $authors;
     /** @var int */
     private $position = 0;
-    public function __construct(\ECSPrefix20210803\PharIo\Manifest\AuthorCollection $authors)
+    public function __construct(\ECSPrefix20210804\PharIo\Manifest\AuthorCollection $authors)
     {
         $this->authors = $authors->getAuthors();
     }
@@ -33,7 +33,7 @@ class AuthorCollectionIterator implements \Iterator
     {
         return $this->position;
     }
-    public function current() : \ECSPrefix20210803\PharIo\Manifest\Author
+    public function current() : \ECSPrefix20210804\PharIo\Manifest\Author
     {
         return $this->authors[$this->position];
     }

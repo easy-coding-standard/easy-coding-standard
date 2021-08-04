@@ -9,18 +9,18 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function sprintf;
 use Countable;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\PHPUnit\Framework\SelfDescribing;
-use ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure;
-use ECSPrefix20210803\SebastianBergmann\Exporter\Exporter;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Framework\SelfDescribing;
+use ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure;
+use ECSPrefix20210804\SebastianBergmann\Exporter\Exporter;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class Constraint implements \Countable, \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing
+abstract class Constraint implements \Countable, \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing
 {
     /**
      * @var ?Exporter
@@ -60,10 +60,10 @@ abstract class Constraint implements \Countable, \ECSPrefix20210803\PHPUnit\Fram
     {
         return 1;
     }
-    protected function exporter() : \ECSPrefix20210803\SebastianBergmann\Exporter\Exporter
+    protected function exporter() : \ECSPrefix20210804\SebastianBergmann\Exporter\Exporter
     {
         if ($this->exporter === null) {
-            $this->exporter = new \ECSPrefix20210803\SebastianBergmann\Exporter\Exporter();
+            $this->exporter = new \ECSPrefix20210804\SebastianBergmann\Exporter\Exporter();
         }
         return $this->exporter;
     }
@@ -92,7 +92,7 @@ abstract class Constraint implements \Countable, \ECSPrefix20210803\PHPUnit\Fram
      *
      * @psalm-return never-return
      */
-    protected function fail($other, $description, \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure $comparisonFailure = null) : void
+    protected function fail($other, $description, \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure $comparisonFailure = null) : void
     {
         $failureDescription = \sprintf('Failed asserting that %s.', $this->failureDescription($other));
         $additionalFailureDescription = $this->additionalFailureDescription($other);
@@ -102,7 +102,7 @@ abstract class Constraint implements \Countable, \ECSPrefix20210803\PHPUnit\Fram
         if (!empty($description)) {
             $failureDescription = $description . "\n" . $failureDescription;
         }
-        throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException($failureDescription, $comparisonFailure);
+        throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException($failureDescription, $comparisonFailure);
     }
     /**
      * Return additional failure description where needed.
@@ -148,7 +148,7 @@ abstract class Constraint implements \Countable, \ECSPrefix20210803\PHPUnit\Fram
      * @param Operator $operator the $operator of the expression
      * @param mixed    $role     role of $this constraint in the $operator expression
      */
-    protected function toStringInContext(\ECSPrefix20210803\PHPUnit\Framework\Constraint\Operator $operator, $role) : string
+    protected function toStringInContext(\ECSPrefix20210804\PHPUnit\Framework\Constraint\Operator $operator, $role) : string
     {
         return '';
     }
@@ -168,7 +168,7 @@ abstract class Constraint implements \Countable, \ECSPrefix20210803\PHPUnit\Fram
      * @param mixed    $role     role of $this constraint in the $operator expression
      * @param mixed    $other    evaluated value or object
      */
-    protected function failureDescriptionInContext(\ECSPrefix20210803\PHPUnit\Framework\Constraint\Operator $operator, $role, $other) : string
+    protected function failureDescriptionInContext(\ECSPrefix20210804\PHPUnit\Framework\Constraint\Operator $operator, $role, $other) : string
     {
         $string = $this->toStringInContext($operator, $role);
         if ($string === '') {

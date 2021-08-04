@@ -9,20 +9,20 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use function assert;
 use function implode;
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyParameters;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvocationOrder;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedCount;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\MethodName;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\ParametersRule;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Stub;
-use ECSPrefix20210803\PHPUnit\Framework\TestFailure;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyParameters;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvocationOrder;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedCount;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\MethodName;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\ParametersRule;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Stub;
+use ECSPrefix20210804\PHPUnit\Framework\TestFailure;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -52,23 +52,23 @@ final class Matcher
      * @var Stub
      */
     private $stub;
-    public function __construct(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvocationOrder $rule)
+    public function __construct(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvocationOrder $rule)
     {
         $this->invocationRule = $rule;
     }
     public function hasMatchers() : bool
     {
-        return !$this->invocationRule instanceof \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
+        return !$this->invocationRule instanceof \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
     }
     public function hasMethodNameRule() : bool
     {
         return $this->methodNameRule !== null;
     }
-    public function getMethodNameRule() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\MethodName
+    public function getMethodNameRule() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\MethodName
     {
         return $this->methodNameRule;
     }
-    public function setMethodNameRule(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\MethodName $rule) : void
+    public function setMethodNameRule(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\MethodName $rule) : void
     {
         $this->methodNameRule = $rule;
     }
@@ -76,11 +76,11 @@ final class Matcher
     {
         return $this->parametersRule !== null;
     }
-    public function setParametersRule(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\ParametersRule $rule) : void
+    public function setParametersRule(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\ParametersRule $rule) : void
     {
         $this->parametersRule = $rule;
     }
-    public function setStub(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Stub $stub) : void
+    public function setStub(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Stub $stub) : void
     {
         $this->stub = $stub;
     }
@@ -94,15 +94,15 @@ final class Matcher
      * @throws MethodNameNotConfiguredException
      * @throws RuntimeException
      */
-    public function invoked(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation)
+    public function invoked(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation)
     {
         if ($this->methodNameRule === null) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException();
         }
         if ($this->afterMatchBuilderId !== null) {
             $matcher = $invocation->getObject()->__phpunit_getInvocationHandler()->lookupMatcher($this->afterMatchBuilderId);
             if (!$matcher) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MatchBuilderNotFoundException($this->afterMatchBuilderId);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MatchBuilderNotFoundException($this->afterMatchBuilderId);
             }
             \assert($matcher instanceof self);
             if ($matcher->invocationRule->hasBeenInvoked()) {
@@ -114,8 +114,8 @@ final class Matcher
             if ($this->parametersRule !== null) {
                 $this->parametersRule->apply($invocation);
             }
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException(\sprintf("Expectation failed for %s when %s\n%s", $this->methodNameRule->toString(), $this->invocationRule->toString(), $e->getMessage()), $e->getComparisonFailure());
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException $e) {
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException(\sprintf("Expectation failed for %s when %s\n%s", $this->methodNameRule->toString(), $this->invocationRule->toString(), $e->getMessage()), $e->getComparisonFailure());
         }
         if ($this->stub) {
             return $this->stub->invoke($invocation);
@@ -129,12 +129,12 @@ final class Matcher
      * @throws MethodNameNotConfiguredException
      * @throws RuntimeException
      */
-    public function matches(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
+    public function matches(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
     {
         if ($this->afterMatchBuilderId !== null) {
             $matcher = $invocation->getObject()->__phpunit_getInvocationHandler()->lookupMatcher($this->afterMatchBuilderId);
             if (!$matcher) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MatchBuilderNotFoundException($this->afterMatchBuilderId);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MatchBuilderNotFoundException($this->afterMatchBuilderId);
             }
             \assert($matcher instanceof self);
             if (!$matcher->invocationRule->hasBeenInvoked()) {
@@ -142,7 +142,7 @@ final class Matcher
             }
         }
         if ($this->methodNameRule === null) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException();
         }
         if (!$this->invocationRule->matches($invocation)) {
             return \false;
@@ -151,8 +151,8 @@ final class Matcher
             if (!$this->methodNameRule->matches($invocation)) {
                 return \false;
             }
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException(\sprintf("Expectation failed for %s when %s\n%s", $this->methodNameRule->toString(), $this->invocationRule->toString(), $e->getMessage()), $e->getComparisonFailure());
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException $e) {
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException(\sprintf("Expectation failed for %s when %s\n%s", $this->methodNameRule->toString(), $this->invocationRule->toString(), $e->getMessage()), $e->getComparisonFailure());
         }
         return \true;
     }
@@ -164,20 +164,20 @@ final class Matcher
     public function verify() : void
     {
         if ($this->methodNameRule === null) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MethodNameNotConfiguredException();
         }
         try {
             $this->invocationRule->verify();
             if ($this->parametersRule === null) {
-                $this->parametersRule = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyParameters();
+                $this->parametersRule = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyParameters();
             }
-            $invocationIsAny = $this->invocationRule instanceof \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
-            $invocationIsNever = $this->invocationRule instanceof \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvokedCount && $this->invocationRule->isNever();
+            $invocationIsAny = $this->invocationRule instanceof \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
+            $invocationIsNever = $this->invocationRule instanceof \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvokedCount && $this->invocationRule->isNever();
             if (!$invocationIsAny && !$invocationIsNever) {
                 $this->parametersRule->verify();
             }
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException(\sprintf("Expectation failed for %s when %s.\n%s", $this->methodNameRule->toString(), $this->invocationRule->toString(), \ECSPrefix20210803\PHPUnit\Framework\TestFailure::exceptionToString($e)));
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException $e) {
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException(\sprintf("Expectation failed for %s when %s.\n%s", $this->methodNameRule->toString(), $this->invocationRule->toString(), \ECSPrefix20210804\PHPUnit\Framework\TestFailure::exceptionToString($e)));
         }
     }
     public function toString() : string

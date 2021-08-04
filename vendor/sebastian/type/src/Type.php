@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Type;
+namespace ECSPrefix20210804\SebastianBergmann\Type;
 
 use function get_class;
 use function gettype;
@@ -23,15 +23,15 @@ abstract class Type
     public static function fromValue($value, $allowsNull)
     {
         if ($value === \false) {
-            return new \ECSPrefix20210803\SebastianBergmann\Type\FalseType();
+            return new \ECSPrefix20210804\SebastianBergmann\Type\FalseType();
         }
         $typeName = \gettype($value);
         if ($typeName === 'object') {
-            return new \ECSPrefix20210803\SebastianBergmann\Type\ObjectType(\ECSPrefix20210803\SebastianBergmann\Type\TypeName::fromQualifiedName(\get_class($value)), $allowsNull);
+            return new \ECSPrefix20210804\SebastianBergmann\Type\ObjectType(\ECSPrefix20210804\SebastianBergmann\Type\TypeName::fromQualifiedName(\get_class($value)), $allowsNull);
         }
         $type = self::fromName($typeName, $allowsNull);
-        if ($type instanceof \ECSPrefix20210803\SebastianBergmann\Type\SimpleType) {
-            $type = new \ECSPrefix20210803\SebastianBergmann\Type\SimpleType($typeName, $allowsNull, $value);
+        if ($type instanceof \ECSPrefix20210804\SebastianBergmann\Type\SimpleType) {
+            $type = new \ECSPrefix20210804\SebastianBergmann\Type\SimpleType($typeName, $allowsNull, $value);
         }
         return $type;
     }
@@ -44,19 +44,19 @@ abstract class Type
     {
         switch (\strtolower($typeName)) {
             case 'callable':
-                return new \ECSPrefix20210803\SebastianBergmann\Type\CallableType($allowsNull);
+                return new \ECSPrefix20210804\SebastianBergmann\Type\CallableType($allowsNull);
             case 'false':
-                return new \ECSPrefix20210803\SebastianBergmann\Type\FalseType();
+                return new \ECSPrefix20210804\SebastianBergmann\Type\FalseType();
             case 'iterable':
-                return new \ECSPrefix20210803\SebastianBergmann\Type\IterableType($allowsNull);
+                return new \ECSPrefix20210804\SebastianBergmann\Type\IterableType($allowsNull);
             case 'null':
-                return new \ECSPrefix20210803\SebastianBergmann\Type\NullType();
+                return new \ECSPrefix20210804\SebastianBergmann\Type\NullType();
             case 'object':
-                return new \ECSPrefix20210803\SebastianBergmann\Type\GenericObjectType($allowsNull);
+                return new \ECSPrefix20210804\SebastianBergmann\Type\GenericObjectType($allowsNull);
             case 'unknown type':
-                return new \ECSPrefix20210803\SebastianBergmann\Type\UnknownType();
+                return new \ECSPrefix20210804\SebastianBergmann\Type\UnknownType();
             case 'void':
-                return new \ECSPrefix20210803\SebastianBergmann\Type\VoidType();
+                return new \ECSPrefix20210804\SebastianBergmann\Type\VoidType();
             case 'array':
             case 'bool':
             case 'boolean':
@@ -68,9 +68,9 @@ abstract class Type
             case 'resource':
             case 'resource (closed)':
             case 'string':
-                return new \ECSPrefix20210803\SebastianBergmann\Type\SimpleType($typeName, $allowsNull);
+                return new \ECSPrefix20210804\SebastianBergmann\Type\SimpleType($typeName, $allowsNull);
             default:
-                return new \ECSPrefix20210803\SebastianBergmann\Type\ObjectType(\ECSPrefix20210803\SebastianBergmann\Type\TypeName::fromQualifiedName($typeName), $allowsNull);
+                return new \ECSPrefix20210804\SebastianBergmann\Type\ObjectType(\ECSPrefix20210804\SebastianBergmann\Type\TypeName::fromQualifiedName($typeName), $allowsNull);
         }
     }
     public function asString() : string

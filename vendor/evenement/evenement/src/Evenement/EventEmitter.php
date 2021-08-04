@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Evenement;
+namespace ECSPrefix20210804\Evenement;
 
-class EventEmitter implements \ECSPrefix20210803\Evenement\EventEmitterInterface
+class EventEmitter implements \ECSPrefix20210804\Evenement\EventEmitterInterface
 {
     use EventEmitterTrait;
 }

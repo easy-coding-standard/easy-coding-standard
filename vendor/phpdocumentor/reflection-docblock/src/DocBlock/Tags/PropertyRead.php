@@ -9,15 +9,15 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use ECSPrefix20210803\phpDocumentor\Reflection\Type;
-use ECSPrefix20210803\phpDocumentor\Reflection\TypeResolver;
-use ECSPrefix20210803\phpDocumentor\Reflection\Types\Context as TypeContext;
-use ECSPrefix20210803\phpDocumentor\Reflection\Utils;
-use ECSPrefix20210803\Webmozart\Assert\Assert;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use ECSPrefix20210804\phpDocumentor\Reflection\Type;
+use ECSPrefix20210804\phpDocumentor\Reflection\TypeResolver;
+use ECSPrefix20210804\phpDocumentor\Reflection\Types\Context as TypeContext;
+use ECSPrefix20210804\phpDocumentor\Reflection\Utils;
+use ECSPrefix20210804\Webmozart\Assert\Assert;
 use function array_shift;
 use function array_unshift;
 use function implode;
@@ -27,26 +27,26 @@ use const PREG_SPLIT_DELIM_CAPTURE;
 /**
  * Reflection class for a {@}property-read tag in a Docblock.
  */
-final class PropertyRead extends \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\TagWithType implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class PropertyRead extends \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\TagWithType implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string|null */
     protected $variableName;
-    public function __construct(?string $variableName, ?\ECSPrefix20210803\phpDocumentor\Reflection\Type $type = null, ?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct(?string $variableName, ?\ECSPrefix20210804\phpDocumentor\Reflection\Type $type = null, ?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \ECSPrefix20210803\Webmozart\Assert\Assert::string($variableName);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::string($variableName);
         $this->name = 'property-read';
         $this->variableName = $variableName;
         $this->type = $type;
         $this->description = $description;
     }
-    public static function create(string $body, ?\ECSPrefix20210803\phpDocumentor\Reflection\TypeResolver $typeResolver = null, ?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, ?\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context = null) : self
+    public static function create(string $body, ?\ECSPrefix20210804\phpDocumentor\Reflection\TypeResolver $typeResolver = null, ?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, ?\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context = null) : self
     {
-        \ECSPrefix20210803\Webmozart\Assert\Assert::stringNotEmpty($body);
-        \ECSPrefix20210803\Webmozart\Assert\Assert::notNull($typeResolver);
-        \ECSPrefix20210803\Webmozart\Assert\Assert::notNull($descriptionFactory);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::stringNotEmpty($body);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::notNull($typeResolver);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::notNull($descriptionFactory);
         [$firstPart, $body] = self::extractTypeFromBody($body);
         $type = null;
-        $parts = \ECSPrefix20210803\phpDocumentor\Reflection\Utils::pregSplit('/(\\s+)/Su', $body, 2, \PREG_SPLIT_DELIM_CAPTURE);
+        $parts = \ECSPrefix20210804\phpDocumentor\Reflection\Utils::pregSplit('/(\\s+)/Su', $body, 2, \PREG_SPLIT_DELIM_CAPTURE);
         $variableName = '';
         // if the first item that is encountered is not a variable; it is a type
         if ($firstPart && $firstPart[0] !== '$') {
@@ -61,7 +61,7 @@ final class PropertyRead extends \ECSPrefix20210803\phpDocumentor\Reflection\Doc
             if ($type) {
                 \array_shift($parts);
             }
-            \ECSPrefix20210803\Webmozart\Assert\Assert::notNull($variableName);
+            \ECSPrefix20210804\Webmozart\Assert\Assert::notNull($variableName);
             $variableName = \substr($variableName, 1);
         }
         $description = $descriptionFactory->create(\implode('', $parts), $context);

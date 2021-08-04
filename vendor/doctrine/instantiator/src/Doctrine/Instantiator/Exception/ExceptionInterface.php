@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210803\Doctrine\Instantiator\Exception;
+namespace ECSPrefix20210804\Doctrine\Instantiator\Exception;
 
 use Throwable;
 /**

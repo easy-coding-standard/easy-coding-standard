@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser;
+namespace ECSPrefix20210804\PhpParser;
 
-abstract class NodeAbstract implements \ECSPrefix20210803\PhpParser\Node, \JsonSerializable
+abstract class NodeAbstract implements \ECSPrefix20210804\PhpParser\Node, \JsonSerializable
 {
     protected $attributes;
     /**
@@ -115,7 +115,7 @@ abstract class NodeAbstract implements \ECSPrefix20210803\PhpParser\Node, \JsonS
         $comments = $this->getComments();
         for ($i = \count($comments) - 1; $i >= 0; $i--) {
             $comment = $comments[$i];
-            if ($comment instanceof \ECSPrefix20210803\PhpParser\Comment\Doc) {
+            if ($comment instanceof \ECSPrefix20210804\PhpParser\Comment\Doc) {
                 return $comment;
             }
         }
@@ -128,11 +128,11 @@ abstract class NodeAbstract implements \ECSPrefix20210803\PhpParser\Node, \JsonS
      *
      * @param Comment\Doc $docComment Doc comment to set
      */
-    public function setDocComment(\ECSPrefix20210803\PhpParser\Comment\Doc $docComment)
+    public function setDocComment(\ECSPrefix20210804\PhpParser\Comment\Doc $docComment)
     {
         $comments = $this->getComments();
         for ($i = \count($comments) - 1; $i >= 0; $i--) {
-            if ($comments[$i] instanceof \ECSPrefix20210803\PhpParser\Comment\Doc) {
+            if ($comments[$i] instanceof \ECSPrefix20210804\PhpParser\Comment\Doc) {
                 // Replace existing doc comment.
                 $comments[$i] = $docComment;
                 $this->setAttribute('comments', $comments);

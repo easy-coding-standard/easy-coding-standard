@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\Annotation;
+namespace ECSPrefix20210804\PHPUnit\Util\Annotation;
 
 use const JSON_ERROR_NONE;
 use const PREG_OFFSET_CAPTURE;
@@ -42,12 +42,12 @@ use function strpos;
 use function strtolower;
 use function substr;
 use function trim;
-use ECSPrefix20210803\PharIo\Version\VersionConstraintParser;
-use ECSPrefix20210803\PHPUnit\Framework\InvalidDataProviderException;
-use ECSPrefix20210803\PHPUnit\Framework\SkippedTestError;
-use ECSPrefix20210803\PHPUnit\Framework\Warning;
-use ECSPrefix20210803\PHPUnit\Util\Exception;
-use ECSPrefix20210803\PHPUnit\Util\InvalidDataSetException;
+use ECSPrefix20210804\PharIo\Version\VersionConstraintParser;
+use ECSPrefix20210804\PHPUnit\Framework\InvalidDataProviderException;
+use ECSPrefix20210804\PHPUnit\Framework\SkippedTestError;
+use ECSPrefix20210804\PHPUnit\Framework\Warning;
+use ECSPrefix20210804\PHPUnit\Util\Exception;
+use ECSPrefix20210804\PHPUnit\Util\InvalidDataSetException;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunctionAbstract;
@@ -176,11 +176,11 @@ final class DocBlock
                     continue;
                 }
                 try {
-                    $versionConstraintParser = new \ECSPrefix20210803\PharIo\Version\VersionConstraintParser();
+                    $versionConstraintParser = new \ECSPrefix20210804\PharIo\Version\VersionConstraintParser();
                     $requires[$matches['name'] . '_constraint'] = ['constraint' => $versionConstraintParser->parse(\trim($matches['constraint']))];
                     $recordedOffsets[$matches['name'] . '_constraint'] = $offset;
-                } catch (\ECSPrefix20210803\PharIo\Version\Exception $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\Warning($e->getMessage(), $e->getCode(), $e);
+                } catch (\ECSPrefix20210804\PharIo\Version\Exception $e) {
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\Warning($e->getMessage(), $e->getCode(), $e);
                 }
             }
             if (\preg_match(self::REGEX_REQUIRES_SETTING, $line, $matches)) {
@@ -215,11 +215,11 @@ final class DocBlock
             return null;
         }
         if ($data === []) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\SkippedTestError();
+            throw new \ECSPrefix20210804\PHPUnit\Framework\SkippedTestError();
         }
         foreach ($data as $key => $value) {
             if (!\is_array($value)) {
-                throw new \ECSPrefix20210803\PHPUnit\Util\InvalidDataSetException(\sprintf('Data set %s is invalid.', \is_int($key) ? '#' . $key : '"' . $key . '"'));
+                throw new \ECSPrefix20210804\PHPUnit\Util\InvalidDataSetException(\sprintf('Data set %s is invalid.', \is_int($key) ? '#' . $key : '"' . $key . '"'));
             }
         }
         return $data;
@@ -302,7 +302,7 @@ final class DocBlock
                 $dataProviderMethod = $dataProviderClass->getMethod($dataProviderMethodName);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Util\Exception($e->getMessage(), (int) $e->getCode(), $e);
                 // @codeCoverageIgnoreEnd
             }
             if ($dataProviderMethod->isStatic()) {
@@ -322,7 +322,7 @@ final class DocBlock
                     if (\is_int($key)) {
                         $data[] = $value;
                     } elseif (\array_key_exists($key, $data)) {
-                        throw new \ECSPrefix20210803\PHPUnit\Framework\InvalidDataProviderException(\sprintf('The key "%s" has already been defined in the data provider "%s".', $key, $match));
+                        throw new \ECSPrefix20210804\PHPUnit\Framework\InvalidDataProviderException(\sprintf('The key "%s" has already been defined in the data provider "%s".', $key, $match));
                     } else {
                         $data[$key] = $value;
                     }
@@ -353,12 +353,12 @@ final class DocBlock
             }
             $dataSet = \json_decode($candidateRow, \true);
             if (\json_last_error() !== \JSON_ERROR_NONE) {
-                throw new \ECSPrefix20210803\PHPUnit\Util\Exception('The data set for the @testWith annotation cannot be parsed: ' . \json_last_error_msg());
+                throw new \ECSPrefix20210804\PHPUnit\Util\Exception('The data set for the @testWith annotation cannot be parsed: ' . \json_last_error_msg());
             }
             $data[] = $dataSet;
         }
         if (!$data) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception('The data set for the @testWith annotation cannot be parsed.');
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception('The data set for the @testWith annotation cannot be parsed.');
         }
         return $data;
     }

@@ -9,15 +9,15 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule;
 
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvokedCount extends \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvocationOrder
+final class InvokedCount extends \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvocationOrder
 {
     /**
      * @var int
@@ -38,7 +38,7 @@ final class InvokedCount extends \ECSPrefix20210803\PHPUnit\Framework\MockObject
     {
         return 'invoked ' . $this->expectedCount . ' time(s)';
     }
-    public function matches(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
+    public function matches(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
     {
         return \true;
     }
@@ -52,13 +52,13 @@ final class InvokedCount extends \ECSPrefix20210803\PHPUnit\Framework\MockObject
     {
         $count = $this->getInvocationCount();
         if ($count !== $this->expectedCount) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException(\sprintf('Method was expected to be called %d times, ' . 'actually called %d times.', $this->expectedCount, $count));
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException(\sprintf('Method was expected to be called %d times, ' . 'actually called %d times.', $this->expectedCount, $count));
         }
     }
     /**
      * @throws ExpectationFailedException
      */
-    protected function invokedDo(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : void
+    protected function invokedDo(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : void
     {
         $count = $this->getInvocationCount();
         if ($count > $this->expectedCount) {
@@ -73,7 +73,7 @@ final class InvokedCount extends \ECSPrefix20210803\PHPUnit\Framework\MockObject
                 default:
                     $message .= \sprintf('was not expected to be called more than %d times.', $this->expectedCount);
             }
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException($message);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException($message);
         }
     }
 }

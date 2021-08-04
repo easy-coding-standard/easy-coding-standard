@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
-use ECSPrefix20210803\SebastianBergmann\Exporter\Exporter;
+use ECSPrefix20210804\SebastianBergmann\Exporter\Exporter;
 /**
  * Abstract base class for comparators which compare values for equality.
  */
@@ -27,7 +27,7 @@ abstract class Comparator
     protected $exporter;
     public function __construct()
     {
-        $this->exporter = new \ECSPrefix20210803\SebastianBergmann\Exporter\Exporter();
+        $this->exporter = new \ECSPrefix20210804\SebastianBergmann\Exporter\Exporter();
     }
     /**
      * @param \SebastianBergmann\Comparator\Factory $factory

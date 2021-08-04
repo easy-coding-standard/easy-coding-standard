@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder\InvocationStubber;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder\InvocationStubber;
 /**
  * @method InvocationStubber method($constraint)
  *
@@ -19,7 +19,7 @@ use ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder\InvocationStubber;
  */
 interface Stub
 {
-    public function __phpunit_getInvocationHandler() : \ECSPrefix20210803\PHPUnit\Framework\MockObject\InvocationHandler;
+    public function __phpunit_getInvocationHandler() : \ECSPrefix20210804\PHPUnit\Framework\MockObject\InvocationHandler;
     public function __phpunit_hasMatchers() : bool;
     public function __phpunit_setReturnValueGeneration(bool $returnValueGeneration) : void;
 }

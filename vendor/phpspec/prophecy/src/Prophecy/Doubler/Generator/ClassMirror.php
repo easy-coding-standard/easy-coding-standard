@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\Generator;
+namespace ECSPrefix20210804\Prophecy\Doubler\Generator;
 
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode;
-use ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException;
-use ECSPrefix20210803\Prophecy\Exception\Doubler\ClassMirrorException;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode;
+use ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException;
+use ECSPrefix20210804\Prophecy\Exception\Doubler\ClassMirrorException;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionNamedType;
@@ -40,29 +40,29 @@ class ClassMirror
      */
     public function reflect(?\ReflectionClass $class, array $interfaces)
     {
-        $node = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode();
+        $node = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode();
         if (null !== $class) {
             if (\true === $class->isInterface()) {
-                throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf("Could not reflect %s as a class, because it\n" . "is interface - use the second argument instead.", $class->getName()));
+                throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf("Could not reflect %s as a class, because it\n" . "is interface - use the second argument instead.", $class->getName()));
             }
             $this->reflectClassToNode($class, $node);
         }
         foreach ($interfaces as $interface) {
             if (!$interface instanceof \ReflectionClass) {
-                throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf("[ReflectionClass \$interface1 [, ReflectionClass \$interface2]] array expected as\n" . "a second argument to `ClassMirror::reflect(...)`, but got %s.", \is_object($interface) ? \get_class($interface) . ' class' : \gettype($interface)));
+                throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf("[ReflectionClass \$interface1 [, ReflectionClass \$interface2]] array expected as\n" . "a second argument to `ClassMirror::reflect(...)`, but got %s.", \is_object($interface) ? \get_class($interface) . ' class' : \gettype($interface)));
             }
             if (\false === $interface->isInterface()) {
-                throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf("Could not reflect %s as an interface, because it\n" . "is class - use the first argument instead.", $interface->getName()));
+                throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf("Could not reflect %s as an interface, because it\n" . "is class - use the first argument instead.", $interface->getName()));
             }
             $this->reflectInterfaceToNode($interface, $node);
         }
-        $node->addInterface('ECSPrefix20210803\\Prophecy\\Doubler\\Generator\\ReflectionInterface');
+        $node->addInterface('ECSPrefix20210804\\Prophecy\\Doubler\\Generator\\ReflectionInterface');
         return $node;
     }
-    private function reflectClassToNode(\ReflectionClass $class, \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    private function reflectClassToNode(\ReflectionClass $class, \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         if (\true === $class->isFinal()) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\ClassMirrorException(\sprintf('Could not reflect class %s as it is marked final.', $class->getName()), $class);
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\ClassMirrorException(\sprintf('Could not reflect class %s as it is marked final.', $class->getName()), $class);
         }
         $node->setParentClass($class->getName());
         foreach ($class->getMethods(\ReflectionMethod::IS_ABSTRACT) as $method) {
@@ -82,16 +82,16 @@ class ClassMirror
             $this->reflectMethodToNode($method, $node);
         }
     }
-    private function reflectInterfaceToNode(\ReflectionClass $interface, \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    private function reflectInterfaceToNode(\ReflectionClass $interface, \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         $node->addInterface($interface->getName());
         foreach ($interface->getMethods() as $method) {
             $this->reflectMethodToNode($method, $node);
         }
     }
-    private function reflectMethodToNode(\ReflectionMethod $method, \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $classNode)
+    private function reflectMethodToNode(\ReflectionMethod $method, \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $classNode)
     {
-        $node = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode($method->getName());
+        $node = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode($method->getName());
         if (\true === $method->isProtected()) {
             $node->setVisibility('protected');
         }
@@ -103,7 +103,7 @@ class ClassMirror
         }
         if ($method->hasReturnType()) {
             $returnTypes = $this->getTypeHints($method->getReturnType(), $method->getDeclaringClass(), $method->getReturnType()->allowsNull());
-            $node->setReturnTypeNode(new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode(...$returnTypes));
+            $node->setReturnTypeNode(new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode(...$returnTypes));
         }
         if (\is_array($params = $method->getParameters()) && \count($params)) {
             foreach ($params as $param) {
@@ -112,12 +112,12 @@ class ClassMirror
         }
         $classNode->addMethod($node);
     }
-    private function reflectArgumentToNode(\ReflectionParameter $parameter, \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode $methodNode)
+    private function reflectArgumentToNode(\ReflectionParameter $parameter, \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode $methodNode)
     {
         $name = $parameter->getName() == '...' ? '__dot_dot_dot__' : $parameter->getName();
-        $node = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode($name);
+        $node = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode($name);
         $typeHints = $this->getTypeHints($parameter->getType(), $parameter->getDeclaringClass(), $parameter->allowsNull());
-        $node->setTypeNode(new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode(...$typeHints));
+        $node->setTypeNode(new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode(...$typeHints));
         if ($parameter->isVariadic()) {
             $node->setAsVariadic();
         }

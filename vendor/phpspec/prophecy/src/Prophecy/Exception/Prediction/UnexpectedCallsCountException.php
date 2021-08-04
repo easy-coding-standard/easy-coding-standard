@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Exception\Prediction;
+namespace ECSPrefix20210804\Prophecy\Exception\Prediction;
 
-use ECSPrefix20210803\Prophecy\Prophecy\MethodProphecy;
-class UnexpectedCallsCountException extends \ECSPrefix20210803\Prophecy\Exception\Prediction\UnexpectedCallsException
+use ECSPrefix20210804\Prophecy\Prophecy\MethodProphecy;
+class UnexpectedCallsCountException extends \ECSPrefix20210804\Prophecy\Exception\Prediction\UnexpectedCallsException
 {
     private $expectedCount;
-    public function __construct($message, \ECSPrefix20210803\Prophecy\Prophecy\MethodProphecy $methodProphecy, $count, array $calls)
+    public function __construct($message, \ECSPrefix20210804\Prophecy\Prophecy\MethodProphecy $methodProphecy, $count, array $calls)
     {
         parent::__construct($message, $methodProphecy, $calls);
         $this->expectedCount = \intval($count);

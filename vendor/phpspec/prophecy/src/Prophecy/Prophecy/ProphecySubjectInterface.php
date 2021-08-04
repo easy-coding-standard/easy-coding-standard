@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Prophecy;
+namespace ECSPrefix20210804\Prophecy\Prophecy;
 
 /**
  * Controllable doubles interface.
@@ -22,7 +22,7 @@ interface ProphecySubjectInterface
      *
      * @param ProphecyInterface $prophecy
      */
-    public function setProphecy(\ECSPrefix20210803\Prophecy\Prophecy\ProphecyInterface $prophecy);
+    public function setProphecy(\ECSPrefix20210804\Prophecy\Prophecy\ProphecyInterface $prophecy);
     /**
      * Returns subject prophecy.
      *

@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner\Filter;
+namespace ECSPrefix20210804\PHPUnit\Runner\Filter;
 
 use function in_array;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ExcludeGroupFilterIterator extends \ECSPrefix20210803\PHPUnit\Runner\Filter\GroupFilterIterator
+final class ExcludeGroupFilterIterator extends \ECSPrefix20210804\PHPUnit\Runner\Filter\GroupFilterIterator
 {
     protected function doAccept(string $hash) : bool
     {

@@ -9,11 +9,11 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use function call_user_func_array;
 use function func_get_args;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
 /**
  * @internal This trait is not covered by the backward compatibility promise for PHPUnit
  */
@@ -21,7 +21,7 @@ trait Method
 {
     public function method()
     {
-        $expects = $this->expects(new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount());
+        $expects = $this->expects(new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\AnyInvokedCount());
         return \call_user_func_array([$expects, 'method'], \func_get_args());
     }
 }

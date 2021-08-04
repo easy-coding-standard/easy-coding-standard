@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Filter;
+namespace ECSPrefix20210804\DeepCopy\Filter;
 
-class KeepFilter implements \ECSPrefix20210803\DeepCopy\Filter\Filter
+class KeepFilter implements \ECSPrefix20210804\DeepCopy\Filter\Filter
 {
     /**
      * Keeps the value of the object property.

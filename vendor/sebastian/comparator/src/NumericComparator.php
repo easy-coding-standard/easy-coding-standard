@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
 use function abs;
 use function is_float;
@@ -21,7 +21,7 @@ use function sprintf;
 /**
  * Compares numerical values for equality.
  */
-class NumericComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\ScalarComparator
+class NumericComparator extends \ECSPrefix20210804\SebastianBergmann\Comparator\ScalarComparator
 {
     /**
      * Returns whether the comparator can compare two values.
@@ -54,7 +54,7 @@ class NumericComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\
             return;
         }
         if (($this->isInfinite($actual) xor $this->isInfinite($expected)) || ($this->isNan($actual) || $this->isNan($expected)) || \abs($actual - $expected) > $delta) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure($expected, $actual, '', '', \false, \sprintf('Failed asserting that %s matches expected %s.', $this->exporter->export($actual), $this->exporter->export($expected)));
+            throw new \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure($expected, $actual, '', '', \false, \sprintf('Failed asserting that %s matches expected %s.', $this->exporter->export($actual), $this->exporter->export($expected)));
         }
     }
     private function isInfinite($value) : bool

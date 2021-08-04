@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use const DIRECTORY_SEPARATOR;
 use function explode;
@@ -18,12 +18,12 @@ use function preg_match;
 use function preg_quote;
 use function preg_replace;
 use function strtr;
-use ECSPrefix20210803\SebastianBergmann\Diff\Differ;
-use ECSPrefix20210803\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use ECSPrefix20210804\SebastianBergmann\Diff\Differ;
+use ECSPrefix20210804\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class StringMatchesFormatDescription extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\RegularExpression
+final class StringMatchesFormatDescription extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\RegularExpression
 {
     /**
      * @var string
@@ -62,7 +62,7 @@ final class StringMatchesFormatDescription extends \ECSPrefix20210803\PHPUnit\Fr
         }
         $this->string = \implode("\n", $from);
         $other = \implode("\n", $to);
-        return (new \ECSPrefix20210803\SebastianBergmann\Diff\Differ(new \ECSPrefix20210803\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n")))->diff($this->string, $other);
+        return (new \ECSPrefix20210804\SebastianBergmann\Diff\Differ(new \ECSPrefix20210804\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n")))->diff($this->string, $other);
     }
     private function createPatternFromFormat(string $string) : string
     {

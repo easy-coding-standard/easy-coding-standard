@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
 use function array_unshift;
 /**
@@ -67,7 +67,7 @@ class Factory
                 return $comparator;
             }
         }
-        throw new \ECSPrefix20210803\SebastianBergmann\Comparator\RuntimeException('No suitable Comparator implementation found');
+        throw new \ECSPrefix20210804\SebastianBergmann\Comparator\RuntimeException('No suitable Comparator implementation found');
     }
     /**
      * Registers a new comparator.
@@ -111,23 +111,23 @@ class Factory
      */
     private function registerDefaultComparators()
     {
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\MockObjectComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\DateTimeComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\DOMNodeComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\SplObjectStorageComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\ExceptionComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\ObjectComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\ResourceComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\ArrayComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\DoubleComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\NumericComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\ScalarComparator());
-        $this->registerDefaultComparator(new \ECSPrefix20210803\SebastianBergmann\Comparator\TypeComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\MockObjectComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\DateTimeComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\DOMNodeComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\SplObjectStorageComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\ExceptionComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\ObjectComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\ResourceComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\ArrayComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\DoubleComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\NumericComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\ScalarComparator());
+        $this->registerDefaultComparator(new \ECSPrefix20210804\SebastianBergmann\Comparator\TypeComparator());
     }
     /**
      * @return void
      */
-    private function registerDefaultComparator(\ECSPrefix20210803\SebastianBergmann\Comparator\Comparator $comparator)
+    private function registerDefaultComparator(\ECSPrefix20210804\SebastianBergmann\Comparator\Comparator $comparator)
     {
         $this->defaultComparators[] = $comparator;
         $comparator->setFactory($this);

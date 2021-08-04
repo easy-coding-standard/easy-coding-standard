@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Builder;
+namespace ECSPrefix20210804\PhpParser\Builder;
 
-use ECSPrefix20210803\PhpParser;
-use ECSPrefix20210803\PhpParser\BuilderHelpers;
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Stmt;
-class Namespace_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
+use ECSPrefix20210804\PhpParser;
+use ECSPrefix20210804\PhpParser\BuilderHelpers;
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Stmt;
+class Namespace_ extends \ECSPrefix20210804\PhpParser\Builder\Declaration
 {
     private $name;
     private $stmts = [];
@@ -18,7 +18,7 @@ class Namespace_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      */
     public function __construct($name)
     {
-        $this->name = null !== $name ? \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeName($name) : null;
+        $this->name = null !== $name ? \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeName($name) : null;
     }
     /**
      * Adds a statement.
@@ -29,7 +29,7 @@ class Namespace_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      */
     public function addStmt($stmt)
     {
-        $this->stmts[] = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeStmt($stmt);
+        $this->stmts[] = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeStmt($stmt);
         return $this;
     }
     /**
@@ -37,8 +37,8 @@ class Namespace_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      *
      * @return Stmt\Namespace_ The built node
      */
-    public function getNode() : \ECSPrefix20210803\PhpParser\Node
+    public function getNode() : \ECSPrefix20210804\PhpParser\Node
     {
-        return new \ECSPrefix20210803\PhpParser\Node\Stmt\Namespace_($this->name, $this->stmts, $this->attributes);
+        return new \ECSPrefix20210804\PhpParser\Node\Stmt\Namespace_($this->name, $this->stmts, $this->attributes);
     }
 }

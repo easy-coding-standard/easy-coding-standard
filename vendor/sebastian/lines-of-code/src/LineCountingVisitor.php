@@ -9,16 +9,16 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\LinesOfCode;
+namespace ECSPrefix20210804\SebastianBergmann\LinesOfCode;
 
 use function array_merge;
 use function array_unique;
 use function count;
-use ECSPrefix20210803\PhpParser\Comment;
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Expr;
-use ECSPrefix20210803\PhpParser\NodeVisitorAbstract;
-final class LineCountingVisitor extends \ECSPrefix20210803\PhpParser\NodeVisitorAbstract
+use ECSPrefix20210804\PhpParser\Comment;
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Expr;
+use ECSPrefix20210804\PhpParser\NodeVisitorAbstract;
+final class LineCountingVisitor extends \ECSPrefix20210804\PhpParser\NodeVisitorAbstract
 {
     /**
      * @var int
@@ -43,18 +43,18 @@ final class LineCountingVisitor extends \ECSPrefix20210803\PhpParser\NodeVisitor
     public function enterNode($node)
     {
         $this->comments = \array_merge($this->comments, $node->getComments());
-        if (!$node instanceof \ECSPrefix20210803\PhpParser\Node\Expr) {
+        if (!$node instanceof \ECSPrefix20210804\PhpParser\Node\Expr) {
             return;
         }
         $this->linesWithStatements[] = $node->getStartLine();
     }
-    public function result() : \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode
+    public function result() : \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode
     {
         $commentLinesOfCode = 0;
         foreach ($this->comments() as $comment) {
             $commentLinesOfCode += $comment->getEndLine() - $comment->getStartLine() + 1;
         }
-        return new \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode($this->linesOfCode, $commentLinesOfCode, $this->linesOfCode - $commentLinesOfCode, \count(\array_unique($this->linesWithStatements)));
+        return new \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode($this->linesOfCode, $commentLinesOfCode, $this->linesOfCode - $commentLinesOfCode, \count(\array_unique($this->linesWithStatements)));
     }
     /**
      * @return Comment[]

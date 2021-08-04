@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\TheSeer\Tokenizer;
+namespace ECSPrefix20210804\TheSeer\Tokenizer;
 
 class Token
 {

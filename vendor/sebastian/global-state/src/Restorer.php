@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\GlobalState;
+namespace ECSPrefix20210804\SebastianBergmann\GlobalState;
 
 use function array_diff;
 use function array_key_exists;
@@ -37,8 +37,8 @@ class Restorer
      */
     public function restoreFunctions($snapshot)
     {
-        if (!\function_exists('ECSPrefix20210803\\uopz_delete')) {
-            throw new \ECSPrefix20210803\SebastianBergmann\GlobalState\RuntimeException('The uopz_delete() function is required for this operation');
+        if (!\function_exists('ECSPrefix20210804\\uopz_delete')) {
+            throw new \ECSPrefix20210804\SebastianBergmann\GlobalState\RuntimeException('The uopz_delete() function is required for this operation');
         }
         $functions = \get_defined_functions();
         foreach (\array_diff($functions['user'], $snapshot->functions()) as $function) {
@@ -74,7 +74,7 @@ class Restorer
      */
     public function restoreStaticAttributes($snapshot)
     {
-        $current = new \ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot($snapshot->excludeList(), \false, \false, \false, \false, \true, \false, \false, \false, \false);
+        $current = new \ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot($snapshot->excludeList(), \false, \false, \false, \false, \true, \false, \false, \false, \false);
         $newClasses = \array_diff($current->classes(), $snapshot->classes());
         unset($current);
         foreach ($snapshot->staticAttributes() as $className => $staticAttributes) {
@@ -107,7 +107,7 @@ class Restorer
      * Restores a super-global variable array from this snapshot.
      * @return void
      */
-    private function restoreSuperGlobalArray(\ECSPrefix20210803\SebastianBergmann\GlobalState\Snapshot $snapshot, string $superGlobalArray)
+    private function restoreSuperGlobalArray(\ECSPrefix20210804\SebastianBergmann\GlobalState\Snapshot $snapshot, string $superGlobalArray)
     {
         $superGlobalVariables = $snapshot->superGlobalVariables();
         if (isset($GLOBALS[$superGlobalArray]) && \is_array($GLOBALS[$superGlobalArray]) && isset($superGlobalVariables[$superGlobalArray])) {

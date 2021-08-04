@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node;
+namespace ECSPrefix20210804\PhpParser\Node;
 
-use ECSPrefix20210803\PhpParser\NodeAbstract;
-class Arg extends \ECSPrefix20210803\PhpParser\NodeAbstract
+use ECSPrefix20210804\PhpParser\NodeAbstract;
+class Arg extends \ECSPrefix20210804\PhpParser\NodeAbstract
 {
     /** @var Identifier|null Parameter name (for named parameters) */
     public $name;
@@ -23,7 +23,7 @@ class Arg extends \ECSPrefix20210803\PhpParser\NodeAbstract
      * @param array $attributes Additional attributes
      * @param Identifier|null $name Parameter name (for named parameters)
      */
-    public function __construct(\ECSPrefix20210803\PhpParser\Node\Expr $value, bool $byRef = \false, bool $unpack = \false, array $attributes = [], \ECSPrefix20210803\PhpParser\Node\Identifier $name = null)
+    public function __construct(\ECSPrefix20210804\PhpParser\Node\Expr $value, bool $byRef = \false, bool $unpack = \false, array $attributes = [], \ECSPrefix20210804\PhpParser\Node\Identifier $name = null)
     {
         $this->attributes = $attributes;
         $this->name = $name;

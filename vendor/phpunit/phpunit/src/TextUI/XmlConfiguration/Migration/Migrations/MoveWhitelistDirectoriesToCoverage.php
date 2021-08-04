@@ -9,15 +9,15 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 use DOMDocument;
 use DOMElement;
-use ECSPrefix20210803\PHPUnit\Util\Xml\SnapshotNodeList;
+use ECSPrefix20210804\PHPUnit\Util\Xml\SnapshotNodeList;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class MoveWhitelistDirectoriesToCoverage implements \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Migration
+final class MoveWhitelistDirectoriesToCoverage implements \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Migration
 {
     /**
      * @throws MigrationException
@@ -30,11 +30,11 @@ final class MoveWhitelistDirectoriesToCoverage implements \ECSPrefix20210803\PHP
         }
         $coverage = $document->getElementsByTagName('coverage')->item(0);
         if (!$coverage instanceof \DOMElement) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\MigrationException('Unexpected state - No coverage element');
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\MigrationException('Unexpected state - No coverage element');
         }
         $include = $document->createElement('include');
         $coverage->appendChild($include);
-        foreach (\ECSPrefix20210803\PHPUnit\Util\Xml\SnapshotNodeList::fromNodeList($whitelist->childNodes) as $child) {
+        foreach (\ECSPrefix20210804\PHPUnit\Util\Xml\SnapshotNodeList::fromNodeList($whitelist->childNodes) as $child) {
             if (!$child instanceof \DOMElement || $child->nodeName !== 'directory') {
                 continue;
             }

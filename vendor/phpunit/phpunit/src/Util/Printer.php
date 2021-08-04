@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use const ENT_COMPAT;
 use const ENT_SUBSTITUTE;
@@ -59,13 +59,13 @@ class Printer
         if (\strpos($out, 'socket://') === 0) {
             $tmp = \explode(':', \str_replace('socket://', '', $out));
             if (\count($tmp) !== 2) {
-                throw new \ECSPrefix20210803\PHPUnit\Util\Exception(\sprintf('"%s" does not match "socket://hostname:port" format', $out));
+                throw new \ECSPrefix20210804\PHPUnit\Util\Exception(\sprintf('"%s" does not match "socket://hostname:port" format', $out));
             }
             $this->stream = \fsockopen($tmp[0], (int) $tmp[1]);
             return;
         }
-        if (\strpos($out, 'php://') === \false && !\ECSPrefix20210803\PHPUnit\Util\Filesystem::createDirectory(\dirname($out))) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Exception(\sprintf('Directory "%s" was not created', \dirname($out)));
+        if (\strpos($out, 'php://') === \false && !\ECSPrefix20210804\PHPUnit\Util\Filesystem::createDirectory(\dirname($out))) {
+            throw new \ECSPrefix20210804\PHPUnit\Util\Exception(\sprintf('Directory "%s" was not created', \dirname($out)));
         }
         $this->stream = \fopen($out, 'wb');
         $this->isPhpStream = \strncmp($out, 'php://', 6) !== 0;

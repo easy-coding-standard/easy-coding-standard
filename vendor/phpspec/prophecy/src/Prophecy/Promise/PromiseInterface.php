@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Promise;
+namespace ECSPrefix20210804\Prophecy\Promise;
 
-use ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy;
-use ECSPrefix20210803\Prophecy\Prophecy\MethodProphecy;
+use ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy;
+use ECSPrefix20210804\Prophecy\Prophecy\MethodProphecy;
 /**
  * Promise interface.
  * Promises are logical blocks, tied to `will...` keyword.
@@ -29,5 +29,5 @@ interface PromiseInterface
      *
      * @return mixed
      */
-    public function execute(array $args, \ECSPrefix20210803\Prophecy\Prophecy\ObjectProphecy $object, \ECSPrefix20210803\Prophecy\Prophecy\MethodProphecy $method);
+    public function execute(array $args, \ECSPrefix20210804\Prophecy\Prophecy\ObjectProphecy $object, \ECSPrefix20210804\Prophecy\Prophecy\MethodProphecy $method);
 }

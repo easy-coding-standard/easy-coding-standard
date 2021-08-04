@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags;
 
 use Closure;
 use Exception;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
@@ -27,7 +27,7 @@ use function sprintf;
  * This tag holds that error information until a using application is able to display it. The object wil just behave
  * like any normal tag. So the normal application flow will not break.
  */
-final class InvalidTag implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag
+final class InvalidTag implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag
 {
     /** @var string */
     private $name;
@@ -103,10 +103,10 @@ final class InvalidTag implements \ECSPrefix20210803\phpDocumentor\Reflection\Do
         }
         return $value;
     }
-    public function render(?\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string
+    public function render(?\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null) : string
     {
         if ($formatter === null) {
-            $formatter = new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+            $formatter = new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
         }
         return $formatter->format($this);
     }

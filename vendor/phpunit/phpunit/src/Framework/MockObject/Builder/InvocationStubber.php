@@ -9,16 +9,16 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder;
 
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Stub;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Stub;
 use Throwable;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 interface InvocationStubber
 {
-    public function will(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Stub\Stub $stub) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder\Identity;
+    public function will(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Stub\Stub $stub) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder\Identity;
     /** @return self */
     public function willReturn($value, ...$nextValues);
     /**

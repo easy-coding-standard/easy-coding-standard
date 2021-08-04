@@ -9,17 +9,17 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function json_decode;
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\PHPUnit\Util\Json;
-use ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Util\Json;
+use ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class JsonMatches extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+final class JsonMatches extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var string
@@ -46,11 +46,11 @@ final class JsonMatches extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\
      */
     protected function matches($other) : bool
     {
-        [$error, $recodedOther] = \ECSPrefix20210803\PHPUnit\Util\Json::canonicalize($other);
+        [$error, $recodedOther] = \ECSPrefix20210804\PHPUnit\Util\Json::canonicalize($other);
         if ($error) {
             return \false;
         }
-        [$error, $recodedValue] = \ECSPrefix20210803\PHPUnit\Util\Json::canonicalize($this->value);
+        [$error, $recodedValue] = \ECSPrefix20210804\PHPUnit\Util\Json::canonicalize($this->value);
         if ($error) {
             return \false;
         }
@@ -69,18 +69,18 @@ final class JsonMatches extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\
      *
      * @psalm-return never-return
      */
-    protected function fail($other, $description, \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure $comparisonFailure = null) : void
+    protected function fail($other, $description, \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure $comparisonFailure = null) : void
     {
         if ($comparisonFailure === null) {
-            [$error, $recodedOther] = \ECSPrefix20210803\PHPUnit\Util\Json::canonicalize($other);
+            [$error, $recodedOther] = \ECSPrefix20210804\PHPUnit\Util\Json::canonicalize($other);
             if ($error) {
                 parent::fail($other, $description);
             }
-            [$error, $recodedValue] = \ECSPrefix20210803\PHPUnit\Util\Json::canonicalize($this->value);
+            [$error, $recodedValue] = \ECSPrefix20210804\PHPUnit\Util\Json::canonicalize($this->value);
             if ($error) {
                 parent::fail($other, $description);
             }
-            $comparisonFailure = new \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure(\json_decode($this->value), \json_decode($other), \ECSPrefix20210803\PHPUnit\Util\Json::prettify($recodedValue), \ECSPrefix20210803\PHPUnit\Util\Json::prettify($recodedOther), \false, 'Failed asserting that two json values are equal.');
+            $comparisonFailure = new \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure(\json_decode($this->value), \json_decode($other), \ECSPrefix20210804\PHPUnit\Util\Json::prettify($recodedValue), \ECSPrefix20210804\PHPUnit\Util\Json::prettify($recodedOther), \false, 'Failed asserting that two json values are equal.');
         }
         parent::fail($other, $description, $comparisonFailure);
     }

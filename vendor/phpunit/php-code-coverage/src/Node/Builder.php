@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node;
 
 use const DIRECTORY_SEPARATOR;
 use function array_shift;
@@ -22,9 +22,9 @@ use function is_file;
 use function str_replace;
 use function strpos;
 use function substr;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
@@ -34,20 +34,20 @@ final class Builder
      * @var CoveredFileAnalyser
      */
     private $coveredFileAnalyser;
-    public function __construct(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser $coveredFileAnalyser)
+    public function __construct(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser $coveredFileAnalyser)
     {
         $this->coveredFileAnalyser = $coveredFileAnalyser;
     }
-    public function build(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage $coverage) : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory
+    public function build(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage $coverage) : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory
     {
         $data = clone $coverage->getData();
         // clone because path munging is destructive to the original data
         $commonPath = $this->reducePaths($data);
-        $root = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory($commonPath, null);
+        $root = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory($commonPath, null);
         $this->addItems($root, $this->buildDirectoryStructure($data), $coverage->getTests());
         return $root;
     }
-    private function addItems(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory $root, array $items, array $tests) : void
+    private function addItems(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory $root, array $items, array $tests) : void
     {
         foreach ($items as $key => $value) {
             $key = (string) $key;
@@ -55,7 +55,7 @@ final class Builder
                 $key = \substr($key, 0, -2);
                 $filename = $root->pathAsString() . \DIRECTORY_SEPARATOR . $key;
                 if (\is_file($filename)) {
-                    $root->addFile(new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\File($key, $root, $value['lineCoverage'], $value['functionCoverage'], $tests, $this->coveredFileAnalyser->classesIn($filename), $this->coveredFileAnalyser->traitsIn($filename), $this->coveredFileAnalyser->functionsIn($filename), $this->coveredFileAnalyser->linesOfCodeFor($filename)));
+                    $root->addFile(new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\File($key, $root, $value['lineCoverage'], $value['functionCoverage'], $tests, $this->coveredFileAnalyser->classesIn($filename), $this->coveredFileAnalyser->traitsIn($filename), $this->coveredFileAnalyser->functionsIn($filename), $this->coveredFileAnalyser->linesOfCodeFor($filename)));
                 }
             } else {
                 $child = $root->addDirectory($key);
@@ -103,7 +103,7 @@ final class Builder
      * )
      * </code>
      */
-    private function buildDirectoryStructure(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData $data) : array
+    private function buildDirectoryStructure(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData $data) : array
     {
         $result = [];
         foreach ($data->coveredFiles() as $originalPath) {
@@ -158,7 +158,7 @@ final class Builder
      * )
      * </code>
      */
-    private function reducePaths(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData $coverage) : string
+    private function reducePaths(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData $coverage) : string
     {
         if (empty($coverage->coveredFiles())) {
             return '.';

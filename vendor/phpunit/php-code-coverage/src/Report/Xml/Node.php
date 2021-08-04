@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml;
 
 use DOMDocument;
 use DOMElement;
@@ -34,28 +34,28 @@ abstract class Node
     {
         return $this->dom;
     }
-    public function totals() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Totals
+    public function totals() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Totals
     {
         $totalsContainer = $this->contextNode()->firstChild;
         if (!$totalsContainer) {
             $totalsContainer = $this->contextNode()->appendChild($this->dom->createElementNS('https://schema.phpunit.de/coverage/1.0', 'totals'));
         }
-        return new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Totals($totalsContainer);
+        return new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Totals($totalsContainer);
     }
-    public function addDirectory(string $name) : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Directory
+    public function addDirectory(string $name) : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Directory
     {
         $dirNode = $this->dom()->createElementNS('https://schema.phpunit.de/coverage/1.0', 'directory');
         $dirNode->setAttribute('name', $name);
         $this->contextNode()->appendChild($dirNode);
-        return new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\Directory($dirNode);
+        return new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\Directory($dirNode);
     }
-    public function addFile(string $name, string $href) : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\File
+    public function addFile(string $name, string $href) : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\File
     {
         $fileNode = $this->dom()->createElementNS('https://schema.phpunit.de/coverage/1.0', 'file');
         $fileNode->setAttribute('name', $name);
         $fileNode->setAttribute('href', $href);
         $this->contextNode()->appendChild($fileNode);
-        return new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Xml\File($fileNode);
+        return new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Xml\File($fileNode);
     }
     protected function setContextNode(\DOMElement $context) : void
     {

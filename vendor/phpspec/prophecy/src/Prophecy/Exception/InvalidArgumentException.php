@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Exception;
+namespace ECSPrefix20210804\Prophecy\Exception;
 
-class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210803\Prophecy\Exception\Exception
+class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210804\Prophecy\Exception\Exception
 {
 }

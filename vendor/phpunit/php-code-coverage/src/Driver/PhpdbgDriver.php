@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver;
 
 use const PHP_SAPI;
 use const PHP_VERSION;
@@ -20,11 +20,11 @@ use function get_included_files;
 use function phpdbg_end_oplog;
 use function phpdbg_get_executable;
 use function phpdbg_start_oplog;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class PhpdbgDriver extends \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\Driver
+final class PhpdbgDriver extends \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\Driver
 {
     /**
      * @throws PhpdbgNotAvailableException
@@ -32,14 +32,14 @@ final class PhpdbgDriver extends \ECSPrefix20210803\SebastianBergmann\CodeCovera
     public function __construct()
     {
         if (\PHP_SAPI !== 'phpdbg') {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Driver\PhpdbgNotAvailableException();
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Driver\PhpdbgNotAvailableException();
         }
     }
     public function start() : void
     {
         \phpdbg_start_oplog();
     }
-    public function stop() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData
+    public function stop() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData
     {
         static $fetchedLines = [];
         $dbgData = \phpdbg_end_oplog();
@@ -58,7 +58,7 @@ final class PhpdbgDriver extends \ECSPrefix20210803\SebastianBergmann\CodeCovera
             }
         }
         $fetchedLines = \array_merge($fetchedLines, $sourceLines);
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\RawCodeCoverageData::fromXdebugWithoutPathCoverage($this->detectExecutedLines($fetchedLines, $dbgData));
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\RawCodeCoverageData::fromXdebugWithoutPathCoverage($this->detectExecutedLines($fetchedLines, $dbgData));
     }
     public function nameAndVersion() : string
     {

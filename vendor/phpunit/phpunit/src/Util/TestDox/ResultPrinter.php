@@ -9,25 +9,25 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\TestDox;
+namespace ECSPrefix20210804\PHPUnit\Util\TestDox;
 
 use function get_class;
 use function in_array;
-use ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError;
-use ECSPrefix20210803\PHPUnit\Framework\ErrorTestCase;
-use ECSPrefix20210803\PHPUnit\Framework\Test;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
-use ECSPrefix20210803\PHPUnit\Framework\Warning;
-use ECSPrefix20210803\PHPUnit\Framework\WarningTestCase;
-use ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner;
-use ECSPrefix20210803\PHPUnit\TextUI\ResultPrinter as ResultPrinterInterface;
-use ECSPrefix20210803\PHPUnit\Util\Printer;
+use ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError;
+use ECSPrefix20210804\PHPUnit\Framework\ErrorTestCase;
+use ECSPrefix20210804\PHPUnit\Framework\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Framework\Warning;
+use ECSPrefix20210804\PHPUnit\Framework\WarningTestCase;
+use ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner;
+use ECSPrefix20210804\PHPUnit\TextUI\ResultPrinter as ResultPrinterInterface;
+use ECSPrefix20210804\PHPUnit\Util\Printer;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract class ResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer implements \ECSPrefix20210803\PHPUnit\TextUI\ResultPrinter
+abstract class ResultPrinter extends \ECSPrefix20210804\PHPUnit\Util\Printer implements \ECSPrefix20210804\PHPUnit\TextUI\ResultPrinter
 {
     /**
      * @var NamePrettifier
@@ -95,7 +95,7 @@ abstract class ResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imp
         parent::__construct($out);
         $this->groups = $groups;
         $this->excludeGroups = $excludeGroups;
-        $this->prettifier = new \ECSPrefix20210803\PHPUnit\Util\TestDox\NamePrettifier();
+        $this->prettifier = new \ECSPrefix20210804\PHPUnit\Util\TestDox\NamePrettifier();
         $this->startRun();
     }
     /**
@@ -110,79 +110,79 @@ abstract class ResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imp
     /**
      * An error occurred.
      */
-    public function addError(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addError(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         if (!$this->isOfInterest($test)) {
             return;
         }
-        $this->testStatus = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR;
+        $this->testStatus = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR;
         $this->failed++;
     }
     /**
      * A warning occurred.
      */
-    public function addWarning(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\Warning $e, float $time) : void
+    public function addWarning(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\Warning $e, float $time) : void
     {
         if (!$this->isOfInterest($test)) {
             return;
         }
-        $this->testStatus = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING;
+        $this->testStatus = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING;
         $this->warned++;
     }
     /**
      * A failure occurred.
      */
-    public function addFailure(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
+    public function addFailure(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
     {
         if (!$this->isOfInterest($test)) {
             return;
         }
-        $this->testStatus = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE;
+        $this->testStatus = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE;
         $this->failed++;
     }
     /**
      * Incomplete test.
      */
-    public function addIncompleteTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addIncompleteTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         if (!$this->isOfInterest($test)) {
             return;
         }
-        $this->testStatus = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE;
+        $this->testStatus = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE;
         $this->incomplete++;
     }
     /**
      * Risky test.
      */
-    public function addRiskyTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addRiskyTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         if (!$this->isOfInterest($test)) {
             return;
         }
-        $this->testStatus = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY;
+        $this->testStatus = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY;
         $this->risky++;
     }
     /**
      * Skipped test.
      */
-    public function addSkippedTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addSkippedTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
         if (!$this->isOfInterest($test)) {
             return;
         }
-        $this->testStatus = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED;
+        $this->testStatus = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED;
         $this->skipped++;
     }
     /**
      * A testsuite started.
      */
-    public function startTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function startTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
     }
     /**
      * A testsuite ended.
      */
-    public function endTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function endTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
     }
     /**
@@ -190,7 +190,7 @@ abstract class ResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imp
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function startTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : void
+    public function startTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : void
     {
         if (!$this->isOfInterest($test)) {
             return;
@@ -205,15 +205,15 @@ abstract class ResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imp
             $this->tests = [];
             $this->startClass($class);
         }
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             $this->currentTestMethodPrettified = $this->prettifier->prettifyTestCase($test);
         }
-        $this->testStatus = \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED;
+        $this->testStatus = \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED;
     }
     /**
      * A test ended.
      */
-    public function endTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, float $time) : void
+    public function endTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, float $time) : void
     {
         if (!$this->isOfInterest($test)) {
             return;
@@ -225,7 +225,7 @@ abstract class ResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imp
     protected function doEndClass() : void
     {
         foreach ($this->tests as $test) {
-            $this->onTest($test[0], $test[1] === \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED);
+            $this->onTest($test[0], $test[1] === \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED);
         }
         $this->endClass($this->testClass);
     }
@@ -259,12 +259,12 @@ abstract class ResultPrinter extends \ECSPrefix20210803\PHPUnit\Util\Printer imp
     protected function endRun() : void
     {
     }
-    private function isOfInterest(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : bool
+    private function isOfInterest(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : bool
     {
-        if (!$test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        if (!$test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             return \false;
         }
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\ErrorTestCase || $test instanceof \ECSPrefix20210803\PHPUnit\Framework\WarningTestCase) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\ErrorTestCase || $test instanceof \ECSPrefix20210804\PHPUnit\Framework\WarningTestCase) {
             return \false;
         }
         if (!empty($this->groups)) {

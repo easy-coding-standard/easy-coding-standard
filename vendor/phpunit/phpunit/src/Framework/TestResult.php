@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 use const PHP_EOL;
 use function count;
@@ -19,19 +19,19 @@ use function sprintf;
 use AssertionError;
 use Countable;
 use Error;
-use ECSPrefix20210803\PHPUnit\Util\ErrorHandler;
-use ECSPrefix20210803\PHPUnit\Util\ExcludeList;
-use ECSPrefix20210803\PHPUnit\Util\Printer;
-use ECSPrefix20210803\PHPUnit\Util\Test as TestUtil;
+use ECSPrefix20210804\PHPUnit\Util\ErrorHandler;
+use ECSPrefix20210804\PHPUnit\Util\ExcludeList;
+use ECSPrefix20210804\PHPUnit\Util\Printer;
+use ECSPrefix20210804\PHPUnit\Util\Test as TestUtil;
 use ReflectionClass;
 use ReflectionException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Exception as OriginalCodeCoverageException;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException;
-use ECSPrefix20210803\SebastianBergmann\Invoker\Invoker;
-use ECSPrefix20210803\SebastianBergmann\Invoker\TimeoutException;
-use ECSPrefix20210803\SebastianBergmann\ResourceOperations\ResourceOperations;
-use ECSPrefix20210803\SebastianBergmann\Timer\Timer;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Exception as OriginalCodeCoverageException;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException;
+use ECSPrefix20210804\SebastianBergmann\Invoker\Invoker;
+use ECSPrefix20210804\SebastianBergmann\Invoker\TimeoutException;
+use ECSPrefix20210804\SebastianBergmann\ResourceOperations\ResourceOperations;
+use ECSPrefix20210804\SebastianBergmann\Timer\Timer;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -197,7 +197,7 @@ final class TestResult implements \Countable
      *
      * Registers a TestListener.
      */
-    public function addListener(\ECSPrefix20210803\PHPUnit\Framework\TestListener $listener) : void
+    public function addListener(\ECSPrefix20210804\PHPUnit\Framework\TestListener $listener) : void
     {
         $this->listeners[] = $listener;
     }
@@ -208,7 +208,7 @@ final class TestResult implements \Countable
      *
      * Unregisters a TestListener.
      */
-    public function removeListener(\ECSPrefix20210803\PHPUnit\Framework\TestListener $listener) : void
+    public function removeListener(\ECSPrefix20210804\PHPUnit\Framework\TestListener $listener) : void
     {
         foreach ($this->listeners as $key => $_listener) {
             if ($listener === $_listener) {
@@ -226,7 +226,7 @@ final class TestResult implements \Countable
     public function flushListeners() : void
     {
         foreach ($this->listeners as $listener) {
-            if ($listener instanceof \ECSPrefix20210803\PHPUnit\Util\Printer) {
+            if ($listener instanceof \ECSPrefix20210804\PHPUnit\Util\Printer) {
                 $listener->flush();
             }
         }
@@ -234,24 +234,24 @@ final class TestResult implements \Countable
     /**
      * Adds an error to the list of errors.
      */
-    public function addError(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
+    public function addError(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t, float $time) : void
     {
-        if ($t instanceof \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError) {
+        if ($t instanceof \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError) {
             $this->recordRisky($test, $t);
             $notifyMethod = 'addRiskyTest';
-            if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+            if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
                 $test->markAsRisky();
             }
             if ($this->stopOnRisky || $this->stopOnDefect) {
                 $this->stop();
             }
-        } elseif ($t instanceof \ECSPrefix20210803\PHPUnit\Framework\IncompleteTest) {
+        } elseif ($t instanceof \ECSPrefix20210804\PHPUnit\Framework\IncompleteTest) {
             $this->recordNotImplemented($test, $t);
             $notifyMethod = 'addIncompleteTest';
             if ($this->stopOnIncomplete) {
                 $this->stop();
             }
-        } elseif ($t instanceof \ECSPrefix20210803\PHPUnit\Framework\SkippedTest) {
+        } elseif ($t instanceof \ECSPrefix20210804\PHPUnit\Framework\SkippedTest) {
             $this->recordSkipped($test, $t);
             $notifyMethod = 'addSkippedTest';
             if ($this->stopOnSkipped) {
@@ -266,7 +266,7 @@ final class TestResult implements \Countable
         }
         // @see https://github.com/sebastianbergmann/phpunit/issues/1953
         if ($t instanceof \Error) {
-            $t = new \ECSPrefix20210803\PHPUnit\Framework\ExceptionWrapper($t);
+            $t = new \ECSPrefix20210804\PHPUnit\Framework\ExceptionWrapper($t);
         }
         foreach ($this->listeners as $listener) {
             $listener->{$notifyMethod}($test, $t, $time);
@@ -278,7 +278,7 @@ final class TestResult implements \Countable
      * Adds a warning to the list of warnings.
      * The passed in exception caused the warning.
      */
-    public function addWarning(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\Warning $e, float $time) : void
+    public function addWarning(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\Warning $e, float $time) : void
     {
         if ($this->stopOnWarning || $this->stopOnDefect) {
             $this->stop();
@@ -293,31 +293,31 @@ final class TestResult implements \Countable
      * Adds a failure to the list of failures.
      * The passed in exception caused the failure.
      */
-    public function addFailure(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
+    public function addFailure(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError $e, float $time) : void
     {
-        if ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError || $e instanceof \ECSPrefix20210803\PHPUnit\Framework\OutputError) {
+        if ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError || $e instanceof \ECSPrefix20210804\PHPUnit\Framework\OutputError) {
             $this->recordRisky($test, $e);
             $notifyMethod = 'addRiskyTest';
-            if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+            if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
                 $test->markAsRisky();
             }
             if ($this->stopOnRisky || $this->stopOnDefect) {
                 $this->stop();
             }
-        } elseif ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\IncompleteTest) {
+        } elseif ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\IncompleteTest) {
             $this->recordNotImplemented($test, $e);
             $notifyMethod = 'addIncompleteTest';
             if ($this->stopOnIncomplete) {
                 $this->stop();
             }
-        } elseif ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\SkippedTest) {
+        } elseif ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\SkippedTest) {
             $this->recordSkipped($test, $e);
             $notifyMethod = 'addSkippedTest';
             if ($this->stopOnSkipped) {
                 $this->stop();
             }
         } else {
-            $this->failures[] = new \ECSPrefix20210803\PHPUnit\Framework\TestFailure($test, $e);
+            $this->failures[] = new \ECSPrefix20210804\PHPUnit\Framework\TestFailure($test, $e);
             $notifyMethod = 'addFailure';
             if ($this->stopOnFailure || $this->stopOnDefect) {
                 $this->stop();
@@ -332,7 +332,7 @@ final class TestResult implements \Countable
     /**
      * Informs the result that a test suite will be started.
      */
-    public function startTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function startTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
         $this->currentTestSuiteFailed = \false;
         foreach ($this->listeners as $listener) {
@@ -342,7 +342,7 @@ final class TestResult implements \Countable
     /**
      * Informs the result that a test suite was completed.
      */
-    public function endTestSuite(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    public function endTestSuite(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
         if (!$this->currentTestSuiteFailed) {
             $this->passedTestClasses[] = $suite->getName();
@@ -354,7 +354,7 @@ final class TestResult implements \Countable
     /**
      * Informs the result that a test will be started.
      */
-    public function startTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : void
+    public function startTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : void
     {
         $this->lastTestFailed = \false;
         $this->runTests += \count($test);
@@ -367,18 +367,18 @@ final class TestResult implements \Countable
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function endTest(\ECSPrefix20210803\PHPUnit\Framework\Test $test, float $time) : void
+    public function endTest(\ECSPrefix20210804\PHPUnit\Framework\Test $test, float $time) : void
     {
         foreach ($this->listeners as $listener) {
             $listener->endTest($test, $time);
         }
-        if (!$this->lastTestFailed && $test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        if (!$this->lastTestFailed && $test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             $class = \get_class($test);
             $key = $class . '::' . $test->getName();
-            $this->passed[$key] = ['result' => $test->getResult(), 'size' => \ECSPrefix20210803\PHPUnit\Util\Test::getSize($class, $test->getName(\false))];
+            $this->passed[$key] = ['result' => $test->getResult(), 'size' => \ECSPrefix20210804\PHPUnit\Util\Test::getSize($class, $test->getName(\false))];
             $this->time += $time;
         }
-        if ($this->lastTestFailed && $test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        if ($this->lastTestFailed && $test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             $this->currentTestSuiteFailed = \true;
         }
     }
@@ -530,12 +530,12 @@ final class TestResult implements \Countable
      * @throws CodeCoverageException
      * @throws UnintentionallyCoveredCodeException
      */
-    public function run(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : void
+    public function run(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : void
     {
-        \ECSPrefix20210803\PHPUnit\Framework\Assert::resetCount();
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        \ECSPrefix20210804\PHPUnit\Framework\Assert::resetCount();
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             $test->setRegisterMockObjectsFromTestArgumentsRecursively($this->registerMockObjectsFromTestArgumentsRecursively);
-            $isAnyCoverageRequired = \ECSPrefix20210803\PHPUnit\Util\Test::requiresCodeCoverageDataCollection($test);
+            $isAnyCoverageRequired = \ECSPrefix20210804\PHPUnit\Util\Test::requiresCodeCoverageDataCollection($test);
         }
         $error = \false;
         $failure = \false;
@@ -545,34 +545,34 @@ final class TestResult implements \Countable
         $skipped = \false;
         $this->startTest($test);
         if ($this->convertDeprecationsToExceptions || $this->convertErrorsToExceptions || $this->convertNoticesToExceptions || $this->convertWarningsToExceptions) {
-            $errorHandler = new \ECSPrefix20210803\PHPUnit\Util\ErrorHandler($this->convertDeprecationsToExceptions, $this->convertErrorsToExceptions, $this->convertNoticesToExceptions, $this->convertWarningsToExceptions);
+            $errorHandler = new \ECSPrefix20210804\PHPUnit\Util\ErrorHandler($this->convertDeprecationsToExceptions, $this->convertErrorsToExceptions, $this->convertNoticesToExceptions, $this->convertWarningsToExceptions);
             $errorHandler->register();
         }
-        $collectCodeCoverage = $this->codeCoverage !== null && !$test instanceof \ECSPrefix20210803\PHPUnit\Framework\ErrorTestCase && !$test instanceof \ECSPrefix20210803\PHPUnit\Framework\WarningTestCase && $isAnyCoverageRequired;
+        $collectCodeCoverage = $this->codeCoverage !== null && !$test instanceof \ECSPrefix20210804\PHPUnit\Framework\ErrorTestCase && !$test instanceof \ECSPrefix20210804\PHPUnit\Framework\WarningTestCase && $isAnyCoverageRequired;
         if ($collectCodeCoverage) {
             $this->codeCoverage->start($test);
         }
-        $monitorFunctions = $this->beStrictAboutResourceUsageDuringSmallTests && !$test instanceof \ECSPrefix20210803\PHPUnit\Framework\ErrorTestCase && !$test instanceof \ECSPrefix20210803\PHPUnit\Framework\WarningTestCase && $test->getSize() === \ECSPrefix20210803\PHPUnit\Util\Test::SMALL && \function_exists('xdebug_start_function_monitor');
+        $monitorFunctions = $this->beStrictAboutResourceUsageDuringSmallTests && !$test instanceof \ECSPrefix20210804\PHPUnit\Framework\ErrorTestCase && !$test instanceof \ECSPrefix20210804\PHPUnit\Framework\WarningTestCase && $test->getSize() === \ECSPrefix20210804\PHPUnit\Util\Test::SMALL && \function_exists('xdebug_start_function_monitor');
         if ($monitorFunctions) {
             /* @noinspection ForgottenDebugOutputInspection */
-            \xdebug_start_function_monitor(\ECSPrefix20210803\SebastianBergmann\ResourceOperations\ResourceOperations::getFunctions());
+            \xdebug_start_function_monitor(\ECSPrefix20210804\SebastianBergmann\ResourceOperations\ResourceOperations::getFunctions());
         }
-        $timer = new \ECSPrefix20210803\SebastianBergmann\Timer\Timer();
+        $timer = new \ECSPrefix20210804\SebastianBergmann\Timer\Timer();
         $timer->start();
         try {
-            $invoker = new \ECSPrefix20210803\SebastianBergmann\Invoker\Invoker();
-            if (!$test instanceof \ECSPrefix20210803\PHPUnit\Framework\ErrorTestCase && !$test instanceof \ECSPrefix20210803\PHPUnit\Framework\WarningTestCase && $this->enforceTimeLimit && ($this->defaultTimeLimit || $test->getSize() != \ECSPrefix20210803\PHPUnit\Util\Test::UNKNOWN) && $invoker->canInvokeWithTimeout()) {
+            $invoker = new \ECSPrefix20210804\SebastianBergmann\Invoker\Invoker();
+            if (!$test instanceof \ECSPrefix20210804\PHPUnit\Framework\ErrorTestCase && !$test instanceof \ECSPrefix20210804\PHPUnit\Framework\WarningTestCase && $this->enforceTimeLimit && ($this->defaultTimeLimit || $test->getSize() != \ECSPrefix20210804\PHPUnit\Util\Test::UNKNOWN) && $invoker->canInvokeWithTimeout()) {
                 switch ($test->getSize()) {
-                    case \ECSPrefix20210803\PHPUnit\Util\Test::SMALL:
+                    case \ECSPrefix20210804\PHPUnit\Util\Test::SMALL:
                         $_timeout = $this->timeoutForSmallTests;
                         break;
-                    case \ECSPrefix20210803\PHPUnit\Util\Test::MEDIUM:
+                    case \ECSPrefix20210804\PHPUnit\Util\Test::MEDIUM:
                         $_timeout = $this->timeoutForMediumTests;
                         break;
-                    case \ECSPrefix20210803\PHPUnit\Util\Test::LARGE:
+                    case \ECSPrefix20210804\PHPUnit\Util\Test::LARGE:
                         $_timeout = $this->timeoutForLargeTests;
                         break;
-                    case \ECSPrefix20210803\PHPUnit\Util\Test::UNKNOWN:
+                    case \ECSPrefix20210804\PHPUnit\Util\Test::UNKNOWN:
                         $_timeout = $this->defaultTimeLimit;
                         break;
                 }
@@ -580,42 +580,42 @@ final class TestResult implements \Countable
             } else {
                 $test->runBare();
             }
-        } catch (\ECSPrefix20210803\SebastianBergmann\Invoker\TimeoutException $e) {
-            $this->addFailure($test, new \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError($e->getMessage()), $_timeout);
+        } catch (\ECSPrefix20210804\SebastianBergmann\Invoker\TimeoutException $e) {
+            $this->addFailure($test, new \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError($e->getMessage()), $_timeout);
             $risky = \true;
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError $e) {
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError $e) {
             $failure = \true;
-            if ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError) {
+            if ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError) {
                 $risky = \true;
-            } elseif ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\IncompleteTestError) {
+            } elseif ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\IncompleteTestError) {
                 $incomplete = \true;
-            } elseif ($e instanceof \ECSPrefix20210803\PHPUnit\Framework\SkippedTestError) {
+            } elseif ($e instanceof \ECSPrefix20210804\PHPUnit\Framework\SkippedTestError) {
                 $skipped = \true;
             }
         } catch (\AssertionError $e) {
             $test->addToAssertionCount(1);
             $failure = \true;
             $frame = $e->getTrace()[0];
-            $e = new \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError(\sprintf('%s in %s:%s', $e->getMessage(), $frame['file'], $frame['line']));
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\Warning $e) {
+            $e = new \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError(\sprintf('%s in %s:%s', $e->getMessage(), $frame['file'], $frame['line']));
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\Warning $e) {
             $warning = \true;
-        } catch (\ECSPrefix20210803\PHPUnit\Framework\Exception $e) {
+        } catch (\ECSPrefix20210804\PHPUnit\Framework\Exception $e) {
             $error = \true;
         } catch (\Throwable $e) {
-            $e = new \ECSPrefix20210803\PHPUnit\Framework\ExceptionWrapper($e);
+            $e = new \ECSPrefix20210804\PHPUnit\Framework\ExceptionWrapper($e);
             $error = \true;
         }
         $time = $timer->stop()->asSeconds();
-        $test->addToAssertionCount(\ECSPrefix20210803\PHPUnit\Framework\Assert::getCount());
+        $test->addToAssertionCount(\ECSPrefix20210804\PHPUnit\Framework\Assert::getCount());
         if ($monitorFunctions) {
-            $excludeList = new \ECSPrefix20210803\PHPUnit\Util\ExcludeList();
+            $excludeList = new \ECSPrefix20210804\PHPUnit\Util\ExcludeList();
             /** @noinspection ForgottenDebugOutputInspection */
             $functions = \xdebug_get_monitored_functions();
             /* @noinspection ForgottenDebugOutputInspection */
             \xdebug_stop_function_monitor();
             foreach ($functions as $function) {
                 if (!$excludeList->isExcluded($function['filename'])) {
-                    $this->addFailure($test, new \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError(\sprintf('%s() used in %s:%s', $function['function'], $function['filename'], $function['lineno'])), $time);
+                    $this->addFailure($test, new \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError(\sprintf('%s() used in %s:%s', $function['function'], $function['filename'], $function['lineno'])), $time);
                 }
             }
         }
@@ -623,9 +623,9 @@ final class TestResult implements \Countable
             $risky = \true;
         }
         if ($this->forceCoversAnnotation && !$error && !$failure && !$warning && !$incomplete && !$skipped && !$risky) {
-            $annotations = \ECSPrefix20210803\PHPUnit\Util\Test::parseTestMethodAnnotations(\get_class($test), $test->getName(\false));
+            $annotations = \ECSPrefix20210804\PHPUnit\Util\Test::parseTestMethodAnnotations(\get_class($test), $test->getName(\false));
             if (!isset($annotations['class']['covers']) && !isset($annotations['method']['covers']) && !isset($annotations['class']['coversNothing']) && !isset($annotations['method']['coversNothing'])) {
-                $this->addFailure($test, new \ECSPrefix20210803\PHPUnit\Framework\MissingCoversAnnotationException('This test does not have a @covers annotation but is expected to have one'), $time);
+                $this->addFailure($test, new \ECSPrefix20210804\PHPUnit\Framework\MissingCoversAnnotationException('This test does not have a @covers annotation but is expected to have one'), $time);
                 $risky = \true;
             }
         }
@@ -633,19 +633,19 @@ final class TestResult implements \Countable
             $append = !$risky && !$incomplete && !$skipped;
             $linesToBeCovered = [];
             $linesToBeUsed = [];
-            if ($append && $test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+            if ($append && $test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
                 try {
-                    $linesToBeCovered = \ECSPrefix20210803\PHPUnit\Util\Test::getLinesToBeCovered(\get_class($test), $test->getName(\false));
-                    $linesToBeUsed = \ECSPrefix20210803\PHPUnit\Util\Test::getLinesToBeUsed(\get_class($test), $test->getName(\false));
-                } catch (\ECSPrefix20210803\PHPUnit\Framework\InvalidCoversTargetException $cce) {
-                    $this->addWarning($test, new \ECSPrefix20210803\PHPUnit\Framework\Warning($cce->getMessage()), $time);
+                    $linesToBeCovered = \ECSPrefix20210804\PHPUnit\Util\Test::getLinesToBeCovered(\get_class($test), $test->getName(\false));
+                    $linesToBeUsed = \ECSPrefix20210804\PHPUnit\Util\Test::getLinesToBeUsed(\get_class($test), $test->getName(\false));
+                } catch (\ECSPrefix20210804\PHPUnit\Framework\InvalidCoversTargetException $cce) {
+                    $this->addWarning($test, new \ECSPrefix20210804\PHPUnit\Framework\Warning($cce->getMessage()), $time);
                 }
             }
             try {
                 $this->codeCoverage->stop($append, $linesToBeCovered, $linesToBeUsed);
-            } catch (\ECSPrefix20210803\SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException $cce) {
-                $unintentionallyCoveredCodeError = new \ECSPrefix20210803\PHPUnit\Framework\UnintentionallyCoveredCodeError('This test executed code that is not listed as code to be covered or used:' . \PHP_EOL . $cce->getMessage());
-            } catch (\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Exception $cce) {
+            } catch (\ECSPrefix20210804\SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException $cce) {
+                $unintentionallyCoveredCodeError = new \ECSPrefix20210804\PHPUnit\Framework\UnintentionallyCoveredCodeError('This test executed code that is not listed as code to be covered or used:' . \PHP_EOL . $cce->getMessage());
+            } catch (\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Exception $cce) {
                 $error = \true;
                 $e = $e ?? $cce;
             }
@@ -667,7 +667,7 @@ final class TestResult implements \Countable
                 $reflected = new \ReflectionClass($test);
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
             $name = $test->getName(\false);
@@ -676,19 +676,19 @@ final class TestResult implements \Countable
                     $reflected = $reflected->getMethod($name);
                     // @codeCoverageIgnoreStart
                 } catch (\ReflectionException $e) {
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\Exception($e->getMessage(), (int) $e->getCode(), $e);
                 }
                 // @codeCoverageIgnoreEnd
             }
-            $this->addFailure($test, new \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError(\sprintf("This test did not perform any assertions\n\n%s:%d", $reflected->getFileName(), $reflected->getStartLine())), $time);
+            $this->addFailure($test, new \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError(\sprintf("This test did not perform any assertions\n\n%s:%d", $reflected->getFileName(), $reflected->getStartLine())), $time);
         } elseif ($this->beStrictAboutTestsThatDoNotTestAnything && $test->doesNotPerformAssertions() && $test->getNumAssertions() > 0) {
-            $this->addFailure($test, new \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError(\sprintf('This test is annotated with "@doesNotPerformAssertions" but performed %d assertions', $test->getNumAssertions())), $time);
+            $this->addFailure($test, new \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError(\sprintf('This test is annotated with "@doesNotPerformAssertions" but performed %d assertions', $test->getNumAssertions())), $time);
         } elseif ($this->beStrictAboutOutputDuringTests && $test->hasOutput()) {
-            $this->addFailure($test, new \ECSPrefix20210803\PHPUnit\Framework\OutputError(\sprintf('This test printed output: %s', $test->getActualOutput())), $time);
-        } elseif ($this->beStrictAboutTodoAnnotatedTests && $test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
-            $annotations = \ECSPrefix20210803\PHPUnit\Util\Test::parseTestMethodAnnotations(\get_class($test), $test->getName(\false));
+            $this->addFailure($test, new \ECSPrefix20210804\PHPUnit\Framework\OutputError(\sprintf('This test printed output: %s', $test->getActualOutput())), $time);
+        } elseif ($this->beStrictAboutTodoAnnotatedTests && $test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
+            $annotations = \ECSPrefix20210804\PHPUnit\Util\Test::parseTestMethodAnnotations(\get_class($test), $test->getName(\false));
             if (isset($annotations['method']['todo'])) {
-                $this->addFailure($test, new \ECSPrefix20210803\PHPUnit\Framework\RiskyTestError('Test method is annotated with @todo'), $time);
+                $this->addFailure($test, new \ECSPrefix20210804\PHPUnit\Framework\RiskyTestError('Test method is annotated with @todo'), $time);
             }
         }
         $this->endTest($test, $time);
@@ -717,14 +717,14 @@ final class TestResult implements \Countable
     /**
      * Returns the code coverage object.
      */
-    public function getCodeCoverage() : ?\ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage
+    public function getCodeCoverage() : ?\ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage
     {
         return $this->codeCoverage;
     }
     /**
      * Sets the code coverage object.
      */
-    public function setCodeCoverage(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage $codeCoverage) : void
+    public function setCodeCoverage(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage $codeCoverage) : void
     {
         $this->codeCoverage = $codeCoverage;
     }
@@ -942,24 +942,24 @@ final class TestResult implements \Countable
     {
         $this->registerMockObjectsFromTestArgumentsRecursively = $flag;
     }
-    private function recordError(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t) : void
+    private function recordError(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t) : void
     {
-        $this->errors[] = new \ECSPrefix20210803\PHPUnit\Framework\TestFailure($test, $t);
+        $this->errors[] = new \ECSPrefix20210804\PHPUnit\Framework\TestFailure($test, $t);
     }
-    private function recordNotImplemented(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t) : void
+    private function recordNotImplemented(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t) : void
     {
-        $this->notImplemented[] = new \ECSPrefix20210803\PHPUnit\Framework\TestFailure($test, $t);
+        $this->notImplemented[] = new \ECSPrefix20210804\PHPUnit\Framework\TestFailure($test, $t);
     }
-    private function recordRisky(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t) : void
+    private function recordRisky(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t) : void
     {
-        $this->risky[] = new \ECSPrefix20210803\PHPUnit\Framework\TestFailure($test, $t);
+        $this->risky[] = new \ECSPrefix20210804\PHPUnit\Framework\TestFailure($test, $t);
     }
-    private function recordSkipped(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t) : void
+    private function recordSkipped(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t) : void
     {
-        $this->skipped[] = new \ECSPrefix20210803\PHPUnit\Framework\TestFailure($test, $t);
+        $this->skipped[] = new \ECSPrefix20210804\PHPUnit\Framework\TestFailure($test, $t);
     }
-    private function recordWarning(\ECSPrefix20210803\PHPUnit\Framework\Test $test, \Throwable $t) : void
+    private function recordWarning(\ECSPrefix20210804\PHPUnit\Framework\Test $test, \Throwable $t) : void
     {
-        $this->warnings[] = new \ECSPrefix20210803\PHPUnit\Framework\TestFailure($test, $t);
+        $this->warnings[] = new \ECSPrefix20210804\PHPUnit\Framework\TestFailure($test, $t);
     }
 }

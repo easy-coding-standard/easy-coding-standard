@@ -9,17 +9,17 @@ declare (strict_types=1);
  *
  * @link http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Reference;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Reference;
 
-use ECSPrefix20210803\phpDocumentor\Reflection\Fqsen as RealFqsen;
+use ECSPrefix20210804\phpDocumentor\Reflection\Fqsen as RealFqsen;
 /**
  * Fqsen reference used by {@see \phpDocumentor\Reflection\DocBlock\Tags\See}
  */
-final class Fqsen implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
+final class Fqsen implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
 {
     /** @var RealFqsen */
     private $fqsen;
-    public function __construct(\ECSPrefix20210803\phpDocumentor\Reflection\Fqsen $fqsen)
+    public function __construct(\ECSPrefix20210804\phpDocumentor\Reflection\Fqsen $fqsen)
     {
         $this->fqsen = $fqsen;
     }

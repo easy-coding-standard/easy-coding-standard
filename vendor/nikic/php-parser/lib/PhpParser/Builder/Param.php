@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Builder;
+namespace ECSPrefix20210804\PhpParser\Builder;
 
-use ECSPrefix20210803\PhpParser;
-use ECSPrefix20210803\PhpParser\BuilderHelpers;
-use ECSPrefix20210803\PhpParser\Node;
-class Param implements \ECSPrefix20210803\PhpParser\Builder
+use ECSPrefix20210804\PhpParser;
+use ECSPrefix20210804\PhpParser\BuilderHelpers;
+use ECSPrefix20210804\PhpParser\Node;
+class Param implements \ECSPrefix20210804\PhpParser\Builder
 {
     protected $name;
     protected $default = null;
@@ -34,7 +34,7 @@ class Param implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function setDefault($value)
     {
-        $this->default = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeValue($value);
+        $this->default = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeValue($value);
         return $this;
     }
     /**
@@ -46,7 +46,7 @@ class Param implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function setType($type)
     {
-        $this->type = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeType($type);
+        $this->type = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeType($type);
         if ($this->type == 'void') {
             throw new \LogicException('Parameter type cannot be void');
         }
@@ -94,7 +94,7 @@ class Param implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function addAttribute($attribute)
     {
-        $this->attributeGroups[] = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
         return $this;
     }
     /**
@@ -102,8 +102,8 @@ class Param implements \ECSPrefix20210803\PhpParser\Builder
      *
      * @return Node\Param The built parameter node
      */
-    public function getNode() : \ECSPrefix20210803\PhpParser\Node
+    public function getNode() : \ECSPrefix20210804\PhpParser\Node
     {
-        return new \ECSPrefix20210803\PhpParser\Node\Param(new \ECSPrefix20210803\PhpParser\Node\Expr\Variable($this->name), $this->default, $this->type, $this->byRef, $this->variadic, [], 0, $this->attributeGroups);
+        return new \ECSPrefix20210804\PhpParser\Node\Param(new \ECSPrefix20210804\PhpParser\Node\Expr\Variable($this->name), $this->default, $this->type, $this->byRef, $this->variadic, [], 0, $this->attributeGroups);
     }
 }

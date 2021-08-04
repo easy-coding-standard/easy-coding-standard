@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 use function abs;
 use function get_class;
@@ -20,12 +20,12 @@ use function is_nan;
 use function is_object;
 use function is_string;
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsIdentical extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+final class IsIdentical extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var float
@@ -66,11 +66,11 @@ final class IsIdentical extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\
             $f = null;
             // if both values are strings, make sure a diff is generated
             if (\is_string($this->value) && \is_string($other)) {
-                $f = new \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure($this->value, $other, \sprintf("'%s'", $this->value), \sprintf("'%s'", $other));
+                $f = new \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure($this->value, $other, \sprintf("'%s'", $this->value), \sprintf("'%s'", $other));
             }
             // if both values are array, make sure a diff is generated
             if (\is_array($this->value) && \is_array($other)) {
-                $f = new \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure($this->value, $other, $this->exporter()->export($this->value), $this->exporter()->export($other));
+                $f = new \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure($this->value, $other, $this->exporter()->export($this->value), $this->exporter()->export($other));
             }
             $this->fail($other, $description, $f);
         }

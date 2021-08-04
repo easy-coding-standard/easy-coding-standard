@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\TestDox;
+namespace ECSPrefix20210804\PHPUnit\Util\TestDox;
 
 use const PHP_EOL;
 use function array_map;
@@ -23,19 +23,19 @@ use function sprintf;
 use function strlen;
 use function strpos;
 use function trim;
-use ECSPrefix20210803\PHPUnit\Framework\Test;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Framework\TestResult;
-use ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner;
-use ECSPrefix20210803\PHPUnit\Runner\PhptTestCase;
-use ECSPrefix20210803\PHPUnit\Util\Color;
-use ECSPrefix20210803\SebastianBergmann\Timer\ResourceUsageFormatter;
-use ECSPrefix20210803\SebastianBergmann\Timer\Timer;
+use ECSPrefix20210804\PHPUnit\Framework\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Framework\TestResult;
+use ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner;
+use ECSPrefix20210804\PHPUnit\Runner\PhptTestCase;
+use ECSPrefix20210804\PHPUnit\Util\Color;
+use ECSPrefix20210804\SebastianBergmann\Timer\ResourceUsageFormatter;
+use ECSPrefix20210804\SebastianBergmann\Timer\Timer;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxPrinter
+class CliTestDoxPrinter extends \ECSPrefix20210804\PHPUnit\Util\TestDox\TestDoxPrinter
 {
     /**
      * The default Testdox left margin for messages is a vertical line.
@@ -46,7 +46,7 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
      */
     private const PREFIX_DECORATED = ['default' => '│', 'start' => '┐', 'message' => '├', 'diff' => '┊', 'trace' => '╵', 'last' => '┴'];
     private const SPINNER_ICONS = [" \33[36m◐\33[0m running tests", " \33[36m◓\33[0m running tests", " \33[36m◑\33[0m running tests", " \33[36m◒\33[0m running tests"];
-    private const STATUS_STYLES = [\ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED => ['symbol' => '✔', 'color' => 'fg-green'], \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR => ['symbol' => '✘', 'color' => 'fg-yellow', 'message' => 'bg-yellow,fg-black'], \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE => ['symbol' => '✘', 'color' => 'fg-red', 'message' => 'bg-red,fg-white'], \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED => ['symbol' => '↩', 'color' => 'fg-cyan', 'message' => 'fg-cyan'], \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY => ['symbol' => '☢', 'color' => 'fg-yellow', 'message' => 'fg-yellow'], \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE => ['symbol' => '∅', 'color' => 'fg-yellow', 'message' => 'fg-yellow'], \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING => ['symbol' => '⚠', 'color' => 'fg-yellow', 'message' => 'fg-yellow'], \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_UNKNOWN => ['symbol' => '?', 'color' => 'fg-blue', 'message' => 'fg-white,bg-blue']];
+    private const STATUS_STYLES = [\ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED => ['symbol' => '✔', 'color' => 'fg-green'], \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR => ['symbol' => '✘', 'color' => 'fg-yellow', 'message' => 'bg-yellow,fg-black'], \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE => ['symbol' => '✘', 'color' => 'fg-red', 'message' => 'bg-red,fg-white'], \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED => ['symbol' => '↩', 'color' => 'fg-cyan', 'message' => 'fg-cyan'], \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY => ['symbol' => '☢', 'color' => 'fg-yellow', 'message' => 'fg-yellow'], \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE => ['symbol' => '∅', 'color' => 'fg-yellow', 'message' => 'fg-yellow'], \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING => ['symbol' => '⚠', 'color' => 'fg-yellow', 'message' => 'fg-yellow'], \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_UNKNOWN => ['symbol' => '?', 'color' => 'fg-blue', 'message' => 'fg-white,bg-blue']];
     /**
      * @var int[]
      */
@@ -64,22 +64,22 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
     public function __construct($out = null, bool $verbose = \false, string $colors = self::COLOR_DEFAULT, bool $debug = \false, $numberOfColumns = 80, bool $reverse = \false)
     {
         parent::__construct($out, $verbose, $colors, $debug, $numberOfColumns, $reverse);
-        $this->timer = new \ECSPrefix20210803\SebastianBergmann\Timer\Timer();
+        $this->timer = new \ECSPrefix20210804\SebastianBergmann\Timer\Timer();
         $this->timer->start();
     }
-    public function printResult(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    public function printResult(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
         $this->printHeader($result);
         $this->printNonSuccessfulTestsSummary($result->count());
         $this->printFooter($result);
     }
-    protected function printHeader(\ECSPrefix20210803\PHPUnit\Framework\TestResult $result) : void
+    protected function printHeader(\ECSPrefix20210804\PHPUnit\Framework\TestResult $result) : void
     {
-        $this->write("\n" . (new \ECSPrefix20210803\SebastianBergmann\Timer\ResourceUsageFormatter())->resourceUsage($this->timer->stop()) . "\n\n");
+        $this->write("\n" . (new \ECSPrefix20210804\SebastianBergmann\Timer\ResourceUsageFormatter())->resourceUsage($this->timer->stop()) . "\n\n");
     }
-    protected function formatClassName(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : string
+    protected function formatClassName(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : string
     {
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             return $this->prettifier->prettifyTestClass(\get_class($test));
         }
         return \get_class($test);
@@ -87,9 +87,9 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    protected function registerTestResult(\ECSPrefix20210803\PHPUnit\Framework\Test $test, ?\Throwable $t, int $status, float $time, bool $verbose) : void
+    protected function registerTestResult(\ECSPrefix20210804\PHPUnit\Framework\Test $test, ?\Throwable $t, int $status, float $time, bool $verbose) : void
     {
-        if ($status !== \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED) {
+        if ($status !== \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_PASSED) {
             $this->nonSuccessfulTestResults[] = $this->testIndex;
         }
         parent::registerTestResult($test, $t, $status, $time, $verbose);
@@ -97,9 +97,9 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    protected function formatTestName(\ECSPrefix20210803\PHPUnit\Framework\Test $test) : string
+    protected function formatTestName(\ECSPrefix20210804\PHPUnit\Framework\Test $test) : string
     {
-        if ($test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
+        if ($test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
             return $this->prettifier->prettifyTestCase($test);
         }
         return parent::formatTestName($test);
@@ -115,8 +115,8 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
             $this->write($this->colorizeTextBox('underlined', $result['className']) . \PHP_EOL);
         }
         // test result line
-        if ($this->colors && $result['className'] === \ECSPrefix20210803\PHPUnit\Runner\PhptTestCase::class) {
-            $testName = \ECSPrefix20210803\PHPUnit\Util\Color::colorizePath($result['testName'], $prevResult['testName'], \true);
+        if ($this->colors && $result['className'] === \ECSPrefix20210804\PHPUnit\Runner\PhptTestCase::class) {
+            $testName = \ECSPrefix20210804\PHPUnit\Util\Color::colorizePath($result['testName'], $prevResult['testName'], \true);
         } else {
             $testName = $result['testMethod'];
         }
@@ -128,7 +128,7 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
     }
     protected function formatThrowable(\Throwable $t, ?int $status = null) : string
     {
-        return \trim(\ECSPrefix20210803\PHPUnit\Framework\TestFailure::exceptionToString($t));
+        return \trim(\ECSPrefix20210804\PHPUnit\Framework\TestFailure::exceptionToString($t));
     }
     protected function colorizeMessageAndDiff(string $style, string $buffer) : array
     {
@@ -144,11 +144,11 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
                 $message[] = $line;
             } else {
                 if (\strpos($line, '-') === 0) {
-                    $line = \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-red', \ECSPrefix20210803\PHPUnit\Util\Color::visualizeWhitespace($line, \true));
+                    $line = \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-red', \ECSPrefix20210804\PHPUnit\Util\Color::visualizeWhitespace($line, \true));
                 } elseif (\strpos($line, '+') === 0) {
-                    $line = \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-green', \ECSPrefix20210803\PHPUnit\Util\Color::visualizeWhitespace($line, \true));
+                    $line = \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-green', \ECSPrefix20210804\PHPUnit\Util\Color::visualizeWhitespace($line, \true));
                 } elseif ($line === '@@ @@') {
-                    $line = \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-cyan', $line);
+                    $line = \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-cyan', $line);
                 }
                 $diff[] = $line;
             }
@@ -161,7 +161,7 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
     }
     protected function formatStacktrace(\Throwable $t) : string
     {
-        $trace = \ECSPrefix20210803\PHPUnit\Util\Filter::getFilteredStacktrace($t);
+        $trace = \ECSPrefix20210804\PHPUnit\Util\Filter::getFilteredStacktrace($t);
         if (!$this->colors) {
             return $trace;
         }
@@ -169,7 +169,7 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
         $prevPath = '';
         foreach (\explode(\PHP_EOL, $trace) as $line) {
             if (\preg_match('/^(.*):(\\d+)$/', $line, $matches)) {
-                $lines[] = \ECSPrefix20210803\PHPUnit\Util\Color::colorizePath($matches[1], $prevPath) . \ECSPrefix20210803\PHPUnit\Util\Color::dim(':') . \ECSPrefix20210803\PHPUnit\Util\Color::colorize('fg-blue', $matches[2]) . "\n";
+                $lines[] = \ECSPrefix20210804\PHPUnit\Util\Color::colorizePath($matches[1], $prevPath) . \ECSPrefix20210804\PHPUnit\Util\Color::dim(':') . \ECSPrefix20210804\PHPUnit\Util\Color::colorize('fg-blue', $matches[2]) . "\n";
                 $prevPath = $matches[1];
             } else {
                 $lines[] = $line;
@@ -195,7 +195,7 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
         if ($this->colors) {
             $color = self::STATUS_STYLES[$result['status']]['color'] ?? '';
             $prefix = \array_map(static function ($p) use($color) {
-                return \ECSPrefix20210803\PHPUnit\Util\Color::colorize($color, $p);
+                return \ECSPrefix20210804\PHPUnit\Util\Color::colorize($color, $p);
             }, self::PREFIX_DECORATED);
         }
         $trace = $this->formatStacktrace($t);
@@ -237,7 +237,7 @@ class CliTestDoxPrinter extends \ECSPrefix20210803\PHPUnit\Util\TestDox\TestDoxP
         if ($time > 1) {
             $color = 'fg-magenta';
         }
-        return \ECSPrefix20210803\PHPUnit\Util\Color::colorize($color, ' ' . (int) \ceil($time * 1000) . ' ' . \ECSPrefix20210803\PHPUnit\Util\Color::dim('ms'));
+        return \ECSPrefix20210804\PHPUnit\Util\Color::colorize($color, ' ' . (int) \ceil($time * 1000) . ' ' . \ECSPrefix20210804\PHPUnit\Util\Color::dim('ms'));
     }
     private function printNonSuccessfulTestsSummary(int $numberOfExecutedTests) : void
     {

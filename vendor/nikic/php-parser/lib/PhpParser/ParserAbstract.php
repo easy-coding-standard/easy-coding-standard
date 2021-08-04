@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser;
+namespace ECSPrefix20210804\PhpParser;
 
 /*
  * This parser is based on a skeleton written by Moriyoshi Koizumi, which in
  * turn is based on work by Masato Bito.
  */
-use ECSPrefix20210803\PhpParser\Node\Expr;
-use ECSPrefix20210803\PhpParser\Node\Expr\Cast\Double;
-use ECSPrefix20210803\PhpParser\Node\Name;
-use ECSPrefix20210803\PhpParser\Node\Param;
-use ECSPrefix20210803\PhpParser\Node\Scalar\Encapsed;
-use ECSPrefix20210803\PhpParser\Node\Scalar\LNumber;
-use ECSPrefix20210803\PhpParser\Node\Scalar\String_;
-use ECSPrefix20210803\PhpParser\Node\Stmt\Class_;
-use ECSPrefix20210803\PhpParser\Node\Stmt\ClassConst;
-use ECSPrefix20210803\PhpParser\Node\Stmt\ClassMethod;
-use ECSPrefix20210803\PhpParser\Node\Stmt\Enum_;
-use ECSPrefix20210803\PhpParser\Node\Stmt\Interface_;
-use ECSPrefix20210803\PhpParser\Node\Stmt\Namespace_;
-use ECSPrefix20210803\PhpParser\Node\Stmt\Property;
-use ECSPrefix20210803\PhpParser\Node\Stmt\TryCatch;
-use ECSPrefix20210803\PhpParser\Node\Stmt\UseUse;
-use ECSPrefix20210803\PhpParser\Node\VarLikeIdentifier;
-abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
+use ECSPrefix20210804\PhpParser\Node\Expr;
+use ECSPrefix20210804\PhpParser\Node\Expr\Cast\Double;
+use ECSPrefix20210804\PhpParser\Node\Name;
+use ECSPrefix20210804\PhpParser\Node\Param;
+use ECSPrefix20210804\PhpParser\Node\Scalar\Encapsed;
+use ECSPrefix20210804\PhpParser\Node\Scalar\LNumber;
+use ECSPrefix20210804\PhpParser\Node\Scalar\String_;
+use ECSPrefix20210804\PhpParser\Node\Stmt\Class_;
+use ECSPrefix20210804\PhpParser\Node\Stmt\ClassConst;
+use ECSPrefix20210804\PhpParser\Node\Stmt\ClassMethod;
+use ECSPrefix20210804\PhpParser\Node\Stmt\Enum_;
+use ECSPrefix20210804\PhpParser\Node\Stmt\Interface_;
+use ECSPrefix20210804\PhpParser\Node\Stmt\Namespace_;
+use ECSPrefix20210804\PhpParser\Node\Stmt\Property;
+use ECSPrefix20210804\PhpParser\Node\Stmt\TryCatch;
+use ECSPrefix20210804\PhpParser\Node\Stmt\UseUse;
+use ECSPrefix20210804\PhpParser\Node\VarLikeIdentifier;
+abstract class ParserAbstract implements \ECSPrefix20210804\PhpParser\Parser
 {
     const SYMBOL_NONE = -1;
     /*
@@ -115,7 +115,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
      * @param Lexer $lexer A lexer
      * @param array $options Options array.
      */
-    public function __construct(\ECSPrefix20210803\PhpParser\Lexer $lexer, array $options = [])
+    public function __construct(\ECSPrefix20210804\PhpParser\Lexer $lexer, array $options = [])
     {
         $this->lexer = $lexer;
         if (isset($options['throwOnError'])) {
@@ -136,9 +136,9 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
      * @return Node\Stmt[]|null Array of statements (or null non-throwing error handler is used and
      *                          the parser was unable to recover from an error).
      */
-    public function parse(string $code, \ECSPrefix20210803\PhpParser\ErrorHandler $errorHandler = null)
+    public function parse(string $code, \ECSPrefix20210804\PhpParser\ErrorHandler $errorHandler = null)
     {
-        $this->errorHandler = $errorHandler ?: new \ECSPrefix20210803\PhpParser\ErrorHandler\Throwing();
+        $this->errorHandler = $errorHandler ?: new \ECSPrefix20210804\PhpParser\ErrorHandler\Throwing();
         $this->lexer->startLexing($code, $this->errorHandler);
         $result = $this->doParse();
         // Clear out some of the interior state, so we don't hold onto unnecessary
@@ -234,7 +234,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
                     //$this->traceReduce($rule);
                     try {
                         $this->reduceCallbacks[$rule]($stackPos);
-                    } catch (\ECSPrefix20210803\PhpParser\Error $e) {
+                    } catch (\ECSPrefix20210804\PhpParser\Error $e) {
                         if (-1 === $e->getStartLine() && isset($startAttributes['startLine'])) {
                             $e->setStartLine($startAttributes['startLine']);
                         }
@@ -266,7 +266,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
                     switch ($this->errorState) {
                         case 0:
                             $msg = $this->getErrorMessage($symbol, $state);
-                            $this->emitError(new \ECSPrefix20210803\PhpParser\Error($msg, $startAttributes + $endAttributes));
+                            $this->emitError(new \ECSPrefix20210804\PhpParser\Error($msg, $startAttributes + $endAttributes));
                         // Break missing intentionally
                         case 1:
                         case 2:
@@ -309,7 +309,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
         }
         throw new \RuntimeException('Reached end of parser loop');
     }
-    protected function emitError(\ECSPrefix20210803\PhpParser\Error $error)
+    protected function emitError(\ECSPrefix20210804\PhpParser\Error $error)
     {
         $this->errorHandler->handleError($error);
     }
@@ -407,10 +407,10 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
             // For braced namespaces we only have to check that there are no invalid statements between the namespaces
             $afterFirstNamespace = \false;
             foreach ($stmts as $stmt) {
-                if ($stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\Namespace_) {
+                if ($stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\Namespace_) {
                     $afterFirstNamespace = \true;
-                } elseif (!$stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\HaltCompiler && !$stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\Nop && $afterFirstNamespace && !$hasErrored) {
-                    $this->emitError(new \ECSPrefix20210803\PhpParser\Error('No code may exist outside of namespace {}', $stmt->getAttributes()));
+                } elseif (!$stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\HaltCompiler && !$stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\Nop && $afterFirstNamespace && !$hasErrored) {
+                    $this->emitError(new \ECSPrefix20210804\PhpParser\Error('No code may exist outside of namespace {}', $stmt->getAttributes()));
                     $hasErrored = \true;
                     // Avoid one error for every statement
                 }
@@ -422,7 +422,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
             $targetStmts =& $resultStmts;
             $lastNs = null;
             foreach ($stmts as $stmt) {
-                if ($stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\Namespace_) {
+                if ($stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\Namespace_) {
                     if ($lastNs !== null) {
                         $this->fixupNamespaceAttributes($lastNs);
                     }
@@ -436,7 +436,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
                         $targetStmts =& $resultStmts;
                     }
                     $lastNs = $stmt;
-                } elseif ($stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\HaltCompiler) {
+                } elseif ($stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\HaltCompiler) {
                     // __halt_compiler() is not moved into the namespace
                     $resultStmts[] = $stmt;
                 } else {
@@ -449,7 +449,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
             return $resultStmts;
         }
     }
-    private function fixupNamespaceAttributes(\ECSPrefix20210803\PhpParser\Node\Stmt\Namespace_ $stmt)
+    private function fixupNamespaceAttributes(\ECSPrefix20210804\PhpParser\Node\Stmt\Namespace_ $stmt)
     {
         // We moved the statements into the namespace node, as such the end of the namespace node
         // needs to be extended to the end of the statements.
@@ -478,26 +478,26 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
         $style = null;
         $hasNotAllowedStmts = \false;
         foreach ($stmts as $i => $stmt) {
-            if ($stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\Namespace_) {
+            if ($stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\Namespace_) {
                 $currentStyle = null === $stmt->stmts ? 'semicolon' : 'brace';
                 if (null === $style) {
                     $style = $currentStyle;
                     if ($hasNotAllowedStmts) {
-                        $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Namespace declaration statement has to be the very first statement in the script', $stmt->getLine()));
+                        $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Namespace declaration statement has to be the very first statement in the script', $stmt->getLine()));
                     }
                 } elseif ($style !== $currentStyle) {
-                    $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Cannot mix bracketed namespace declarations with unbracketed namespace declarations', $stmt->getLine()));
+                    $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Cannot mix bracketed namespace declarations with unbracketed namespace declarations', $stmt->getLine()));
                     // Treat like semicolon style for namespace normalization
                     return 'semicolon';
                 }
                 continue;
             }
             /* declare(), __halt_compiler() and nops can be used before a namespace declaration */
-            if ($stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\Declare_ || $stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\HaltCompiler || $stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\Nop) {
+            if ($stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\Declare_ || $stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\HaltCompiler || $stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\Nop) {
                 continue;
             }
             /* There may be a hashbang line at the very start of the file */
-            if ($i === 0 && $stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\InlineHTML && \preg_match('/\\A#!.*\\r?\\n\\z/', $stmt->value)) {
+            if ($i === 0 && $stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\InlineHTML && \preg_match('/\\A#!.*\\r?\\n\\z/', $stmt->value)) {
                 continue;
             }
             /* Everything else if forbidden before namespace declarations */
@@ -519,15 +519,15 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
      *
      * @return Expr\StaticCall
      */
-    protected function fixupPhp5StaticPropCall($prop, array $args, array $attributes) : \ECSPrefix20210803\PhpParser\Node\Expr\StaticCall
+    protected function fixupPhp5StaticPropCall($prop, array $args, array $attributes) : \ECSPrefix20210804\PhpParser\Node\Expr\StaticCall
     {
-        if ($prop instanceof \ECSPrefix20210803\PhpParser\Node\Expr\StaticPropertyFetch) {
-            $name = $prop->name instanceof \ECSPrefix20210803\PhpParser\Node\VarLikeIdentifier ? $prop->name->toString() : $prop->name;
-            $var = new \ECSPrefix20210803\PhpParser\Node\Expr\Variable($name, $prop->name->getAttributes());
-            return new \ECSPrefix20210803\PhpParser\Node\Expr\StaticCall($prop->class, $var, $args, $attributes);
-        } elseif ($prop instanceof \ECSPrefix20210803\PhpParser\Node\Expr\ArrayDimFetch) {
+        if ($prop instanceof \ECSPrefix20210804\PhpParser\Node\Expr\StaticPropertyFetch) {
+            $name = $prop->name instanceof \ECSPrefix20210804\PhpParser\Node\VarLikeIdentifier ? $prop->name->toString() : $prop->name;
+            $var = new \ECSPrefix20210804\PhpParser\Node\Expr\Variable($name, $prop->name->getAttributes());
+            return new \ECSPrefix20210804\PhpParser\Node\Expr\StaticCall($prop->class, $var, $args, $attributes);
+        } elseif ($prop instanceof \ECSPrefix20210804\PhpParser\Node\Expr\ArrayDimFetch) {
             $tmp = $prop;
-            while ($tmp->var instanceof \ECSPrefix20210803\PhpParser\Node\Expr\ArrayDimFetch) {
+            while ($tmp->var instanceof \ECSPrefix20210804\PhpParser\Node\Expr\ArrayDimFetch) {
                 $tmp = $tmp->var;
             }
             /** @var Expr\StaticPropertyFetch $staticProp */
@@ -535,18 +535,18 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
             // Set start attributes to attributes of innermost node
             $tmp = $prop;
             $this->fixupStartAttributes($tmp, $staticProp->name);
-            while ($tmp->var instanceof \ECSPrefix20210803\PhpParser\Node\Expr\ArrayDimFetch) {
+            while ($tmp->var instanceof \ECSPrefix20210804\PhpParser\Node\Expr\ArrayDimFetch) {
                 $tmp = $tmp->var;
                 $this->fixupStartAttributes($tmp, $staticProp->name);
             }
-            $name = $staticProp->name instanceof \ECSPrefix20210803\PhpParser\Node\VarLikeIdentifier ? $staticProp->name->toString() : $staticProp->name;
-            $tmp->var = new \ECSPrefix20210803\PhpParser\Node\Expr\Variable($name, $staticProp->name->getAttributes());
-            return new \ECSPrefix20210803\PhpParser\Node\Expr\StaticCall($staticProp->class, $prop, $args, $attributes);
+            $name = $staticProp->name instanceof \ECSPrefix20210804\PhpParser\Node\VarLikeIdentifier ? $staticProp->name->toString() : $staticProp->name;
+            $tmp->var = new \ECSPrefix20210804\PhpParser\Node\Expr\Variable($name, $staticProp->name->getAttributes());
+            return new \ECSPrefix20210804\PhpParser\Node\Expr\StaticCall($staticProp->class, $prop, $args, $attributes);
         } else {
             throw new \Exception();
         }
     }
-    protected function fixupStartAttributes(\ECSPrefix20210803\PhpParser\Node $to, \ECSPrefix20210803\PhpParser\Node $from)
+    protected function fixupStartAttributes(\ECSPrefix20210804\PhpParser\Node $to, \ECSPrefix20210804\PhpParser\Node $from)
     {
         $startAttributes = ['startLine', 'startFilePos', 'startTokenPos'];
         foreach ($startAttributes as $startAttribute) {
@@ -555,7 +555,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
             }
         }
     }
-    protected function handleBuiltinTypes(\ECSPrefix20210803\PhpParser\Node\Name $name)
+    protected function handleBuiltinTypes(\ECSPrefix20210804\PhpParser\Node\Name $name)
     {
         $builtinTypes = ['bool' => \true, 'int' => \true, 'float' => \true, 'string' => \true, 'iterable' => \true, 'void' => \true, 'object' => \true, 'null' => \true, 'false' => \true, 'mixed' => \true, 'never' => \true];
         if (!$name->isUnqualified()) {
@@ -565,7 +565,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
         if (!isset($builtinTypes[$lowerName])) {
             return $name;
         }
-        return new \ECSPrefix20210803\PhpParser\Node\Identifier($lowerName, $name->getAttributes());
+        return new \ECSPrefix20210804\PhpParser\Node\Identifier($lowerName, $name->getAttributes());
     }
     /**
      * Get combined start and end attributes at a stack location
@@ -582,21 +582,21 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
     {
         $cast = \strtolower($cast);
         if (\strpos($cast, 'float') !== \false) {
-            return \ECSPrefix20210803\PhpParser\Node\Expr\Cast\Double::KIND_FLOAT;
+            return \ECSPrefix20210804\PhpParser\Node\Expr\Cast\Double::KIND_FLOAT;
         }
         if (\strpos($cast, 'real') !== \false) {
-            return \ECSPrefix20210803\PhpParser\Node\Expr\Cast\Double::KIND_REAL;
+            return \ECSPrefix20210804\PhpParser\Node\Expr\Cast\Double::KIND_REAL;
         }
-        return \ECSPrefix20210803\PhpParser\Node\Expr\Cast\Double::KIND_DOUBLE;
+        return \ECSPrefix20210804\PhpParser\Node\Expr\Cast\Double::KIND_DOUBLE;
     }
     protected function parseLNumber($str, $attributes, $allowInvalidOctal = \false)
     {
         try {
-            return \ECSPrefix20210803\PhpParser\Node\Scalar\LNumber::fromString($str, $attributes, $allowInvalidOctal);
-        } catch (\ECSPrefix20210803\PhpParser\Error $error) {
+            return \ECSPrefix20210804\PhpParser\Node\Scalar\LNumber::fromString($str, $attributes, $allowInvalidOctal);
+        } catch (\ECSPrefix20210804\PhpParser\Error $error) {
             $this->emitError($error);
             // Use dummy value
-            return new \ECSPrefix20210803\PhpParser\Node\Scalar\LNumber(0, $attributes);
+            return new \ECSPrefix20210804\PhpParser\Node\Scalar\LNumber(0, $attributes);
         }
     }
     /**
@@ -610,13 +610,13 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
     protected function parseNumString(string $str, array $attributes)
     {
         if (!\preg_match('/^(?:0|-?[1-9][0-9]*)$/', $str)) {
-            return new \ECSPrefix20210803\PhpParser\Node\Scalar\String_($str, $attributes);
+            return new \ECSPrefix20210804\PhpParser\Node\Scalar\String_($str, $attributes);
         }
         $num = +$str;
         if (!\is_int($num)) {
-            return new \ECSPrefix20210803\PhpParser\Node\Scalar\String_($str, $attributes);
+            return new \ECSPrefix20210804\PhpParser\Node\Scalar\String_($str, $attributes);
         }
-        return new \ECSPrefix20210803\PhpParser\Node\Scalar\LNumber($num, $attributes);
+        return new \ECSPrefix20210804\PhpParser\Node\Scalar\LNumber($num, $attributes);
     }
     protected function stripIndentation(string $string, int $indentLen, string $indentChar, bool $newlineAtStart, bool $newlineAtEnd, array $attributes)
     {
@@ -629,16 +629,16 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
         return \preg_replace_callback($regex, function ($matches) use($indentLen, $indentChar, $attributes) {
             $prefix = \substr($matches[1], 0, $indentLen);
             if (\false !== \strpos($prefix, $indentChar === " " ? "\t" : " ")) {
-                $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Invalid indentation - tabs and spaces cannot be mixed', $attributes));
+                $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Invalid indentation - tabs and spaces cannot be mixed', $attributes));
             } elseif (\strlen($prefix) < $indentLen && !isset($matches[2])) {
-                $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Invalid body indentation level ' . '(expecting an indentation level of at least ' . $indentLen . ')', $attributes));
+                $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Invalid body indentation level ' . '(expecting an indentation level of at least ' . $indentLen . ')', $attributes));
             }
             return \substr($matches[0], \strlen($prefix));
         }, $string);
     }
     protected function parseDocString(string $startToken, $contents, string $endToken, array $attributes, array $endTokenAttributes, bool $parseUnicodeEscape)
     {
-        $kind = \strpos($startToken, "'") === \false ? \ECSPrefix20210803\PhpParser\Node\Scalar\String_::KIND_HEREDOC : \ECSPrefix20210803\PhpParser\Node\Scalar\String_::KIND_NOWDOC;
+        $kind = \strpos($startToken, "'") === \false ? \ECSPrefix20210804\PhpParser\Node\Scalar\String_::KIND_HEREDOC : \ECSPrefix20210804\PhpParser\Node\Scalar\String_::KIND_NOWDOC;
         $regex = '/\\A[bB]?<<<[ \\t]*[\'"]?([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)[\'"]?(?:\\r\\n|\\n|\\r)\\z/';
         $result = \preg_match($regex, $startToken, $matches);
         \assert($result === 1);
@@ -652,7 +652,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
         $indentHasSpaces = \false !== \strpos($indentation, " ");
         $indentHasTabs = \false !== \strpos($indentation, "\t");
         if ($indentHasSpaces && $indentHasTabs) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Invalid indentation - tabs and spaces cannot be mixed', $endTokenAttributes));
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Invalid indentation - tabs and spaces cannot be mixed', $endTokenAttributes));
             // Proceed processing as if this doc string is not indented
             $indentation = '';
         }
@@ -660,26 +660,26 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
         $indentChar = $indentHasSpaces ? " " : "\t";
         if (\is_string($contents)) {
             if ($contents === '') {
-                return new \ECSPrefix20210803\PhpParser\Node\Scalar\String_('', $attributes);
+                return new \ECSPrefix20210804\PhpParser\Node\Scalar\String_('', $attributes);
             }
             $contents = $this->stripIndentation($contents, $indentLen, $indentChar, \true, \true, $attributes);
             $contents = \preg_replace('~(\\r\\n|\\n|\\r)\\z~', '', $contents);
-            if ($kind === \ECSPrefix20210803\PhpParser\Node\Scalar\String_::KIND_HEREDOC) {
-                $contents = \ECSPrefix20210803\PhpParser\Node\Scalar\String_::parseEscapeSequences($contents, null, $parseUnicodeEscape);
+            if ($kind === \ECSPrefix20210804\PhpParser\Node\Scalar\String_::KIND_HEREDOC) {
+                $contents = \ECSPrefix20210804\PhpParser\Node\Scalar\String_::parseEscapeSequences($contents, null, $parseUnicodeEscape);
             }
-            return new \ECSPrefix20210803\PhpParser\Node\Scalar\String_($contents, $attributes);
+            return new \ECSPrefix20210804\PhpParser\Node\Scalar\String_($contents, $attributes);
         } else {
             \assert(\count($contents) > 0);
-            if (!$contents[0] instanceof \ECSPrefix20210803\PhpParser\Node\Scalar\EncapsedStringPart) {
+            if (!$contents[0] instanceof \ECSPrefix20210804\PhpParser\Node\Scalar\EncapsedStringPart) {
                 // If there is no leading encapsed string part, pretend there is an empty one
                 $this->stripIndentation('', $indentLen, $indentChar, \true, \false, $contents[0]->getAttributes());
             }
             $newContents = [];
             foreach ($contents as $i => $part) {
-                if ($part instanceof \ECSPrefix20210803\PhpParser\Node\Scalar\EncapsedStringPart) {
+                if ($part instanceof \ECSPrefix20210804\PhpParser\Node\Scalar\EncapsedStringPart) {
                     $isLast = $i === \count($contents) - 1;
                     $part->value = $this->stripIndentation($part->value, $indentLen, $indentChar, $i === 0, $isLast, $part->getAttributes());
-                    $part->value = \ECSPrefix20210803\PhpParser\Node\Scalar\String_::parseEscapeSequences($part->value, null, $parseUnicodeEscape);
+                    $part->value = \ECSPrefix20210804\PhpParser\Node\Scalar\String_::parseEscapeSequences($part->value, null, $parseUnicodeEscape);
                     if ($isLast) {
                         $part->value = \preg_replace('~(\\r\\n|\\n|\\r)\\z~', '', $part->value);
                     }
@@ -689,7 +689,7 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
                 }
                 $newContents[] = $part;
             }
-            return new \ECSPrefix20210803\PhpParser\Node\Scalar\Encapsed($newContents, $attributes);
+            return new \ECSPrefix20210804\PhpParser\Node\Scalar\Encapsed($newContents, $attributes);
         }
     }
     /**
@@ -723,30 +723,30 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
     {
         // Jumping through some hoops here because verifyModifier() is also used elsewhere
         try {
-            \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::verifyModifier($a, $b);
-        } catch (\ECSPrefix20210803\PhpParser\Error $error) {
+            \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::verifyModifier($a, $b);
+        } catch (\ECSPrefix20210804\PhpParser\Error $error) {
             $error->setAttributes($this->getAttributesAt($modifierPos));
             $this->emitError($error);
         }
     }
-    protected function checkParam(\ECSPrefix20210803\PhpParser\Node\Param $node)
+    protected function checkParam(\ECSPrefix20210804\PhpParser\Node\Param $node)
     {
         if ($node->variadic && null !== $node->default) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Variadic parameter cannot have a default value', $node->default->getAttributes()));
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Variadic parameter cannot have a default value', $node->default->getAttributes()));
         }
     }
-    protected function checkTryCatch(\ECSPrefix20210803\PhpParser\Node\Stmt\TryCatch $node)
+    protected function checkTryCatch(\ECSPrefix20210804\PhpParser\Node\Stmt\TryCatch $node)
     {
         if (empty($node->catches) && null === $node->finally) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Cannot use try without catch or finally', $node->getAttributes()));
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Cannot use try without catch or finally', $node->getAttributes()));
         }
     }
-    protected function checkNamespace(\ECSPrefix20210803\PhpParser\Node\Stmt\Namespace_ $node)
+    protected function checkNamespace(\ECSPrefix20210804\PhpParser\Node\Stmt\Namespace_ $node)
     {
         if (null !== $node->stmts) {
             foreach ($node->stmts as $stmt) {
-                if ($stmt instanceof \ECSPrefix20210803\PhpParser\Node\Stmt\Namespace_) {
-                    $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Namespace declarations cannot be nested', $stmt->getAttributes()));
+                if ($stmt instanceof \ECSPrefix20210804\PhpParser\Node\Stmt\Namespace_) {
+                    $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Namespace declarations cannot be nested', $stmt->getAttributes()));
                 }
             }
         }
@@ -754,79 +754,79 @@ abstract class ParserAbstract implements \ECSPrefix20210803\PhpParser\Parser
     private function checkClassName($name, $namePos)
     {
         if (null !== $name && $name->isSpecialClassName()) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error(\sprintf('Cannot use \'%s\' as class name as it is reserved', $name), $this->getAttributesAt($namePos)));
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error(\sprintf('Cannot use \'%s\' as class name as it is reserved', $name), $this->getAttributesAt($namePos)));
         }
     }
     private function checkImplementedInterfaces(array $interfaces)
     {
         foreach ($interfaces as $interface) {
             if ($interface->isSpecialClassName()) {
-                $this->emitError(new \ECSPrefix20210803\PhpParser\Error(\sprintf('Cannot use \'%s\' as interface name as it is reserved', $interface), $interface->getAttributes()));
+                $this->emitError(new \ECSPrefix20210804\PhpParser\Error(\sprintf('Cannot use \'%s\' as interface name as it is reserved', $interface), $interface->getAttributes()));
             }
         }
     }
-    protected function checkClass(\ECSPrefix20210803\PhpParser\Node\Stmt\Class_ $node, $namePos)
+    protected function checkClass(\ECSPrefix20210804\PhpParser\Node\Stmt\Class_ $node, $namePos)
     {
         $this->checkClassName($node->name, $namePos);
         if ($node->extends && $node->extends->isSpecialClassName()) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error(\sprintf('Cannot use \'%s\' as class name as it is reserved', $node->extends), $node->extends->getAttributes()));
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error(\sprintf('Cannot use \'%s\' as class name as it is reserved', $node->extends), $node->extends->getAttributes()));
         }
         $this->checkImplementedInterfaces($node->implements);
     }
-    protected function checkInterface(\ECSPrefix20210803\PhpParser\Node\Stmt\Interface_ $node, $namePos)
+    protected function checkInterface(\ECSPrefix20210804\PhpParser\Node\Stmt\Interface_ $node, $namePos)
     {
         $this->checkClassName($node->name, $namePos);
         $this->checkImplementedInterfaces($node->extends);
     }
-    protected function checkEnum(\ECSPrefix20210803\PhpParser\Node\Stmt\Enum_ $node, $namePos)
+    protected function checkEnum(\ECSPrefix20210804\PhpParser\Node\Stmt\Enum_ $node, $namePos)
     {
         $this->checkClassName($node->name, $namePos);
         $this->checkImplementedInterfaces($node->implements);
     }
-    protected function checkClassMethod(\ECSPrefix20210803\PhpParser\Node\Stmt\ClassMethod $node, $modifierPos)
+    protected function checkClassMethod(\ECSPrefix20210804\PhpParser\Node\Stmt\ClassMethod $node, $modifierPos)
     {
-        if ($node->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC) {
+        if ($node->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC) {
             switch ($node->name->toLowerString()) {
                 case '__construct':
-                    $this->emitError(new \ECSPrefix20210803\PhpParser\Error(\sprintf('Constructor %s() cannot be static', $node->name), $this->getAttributesAt($modifierPos)));
+                    $this->emitError(new \ECSPrefix20210804\PhpParser\Error(\sprintf('Constructor %s() cannot be static', $node->name), $this->getAttributesAt($modifierPos)));
                     break;
                 case '__destruct':
-                    $this->emitError(new \ECSPrefix20210803\PhpParser\Error(\sprintf('Destructor %s() cannot be static', $node->name), $this->getAttributesAt($modifierPos)));
+                    $this->emitError(new \ECSPrefix20210804\PhpParser\Error(\sprintf('Destructor %s() cannot be static', $node->name), $this->getAttributesAt($modifierPos)));
                     break;
                 case '__clone':
-                    $this->emitError(new \ECSPrefix20210803\PhpParser\Error(\sprintf('Clone method %s() cannot be static', $node->name), $this->getAttributesAt($modifierPos)));
+                    $this->emitError(new \ECSPrefix20210804\PhpParser\Error(\sprintf('Clone method %s() cannot be static', $node->name), $this->getAttributesAt($modifierPos)));
                     break;
             }
         }
-        if ($node->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_READONLY) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error(\sprintf('Method %s() cannot be readonly', $node->name), $this->getAttributesAt($modifierPos)));
+        if ($node->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_READONLY) {
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error(\sprintf('Method %s() cannot be readonly', $node->name), $this->getAttributesAt($modifierPos)));
         }
     }
-    protected function checkClassConst(\ECSPrefix20210803\PhpParser\Node\Stmt\ClassConst $node, $modifierPos)
+    protected function checkClassConst(\ECSPrefix20210804\PhpParser\Node\Stmt\ClassConst $node, $modifierPos)
     {
-        if ($node->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error("Cannot use 'static' as constant modifier", $this->getAttributesAt($modifierPos)));
+        if ($node->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC) {
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error("Cannot use 'static' as constant modifier", $this->getAttributesAt($modifierPos)));
         }
-        if ($node->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error("Cannot use 'abstract' as constant modifier", $this->getAttributesAt($modifierPos)));
+        if ($node->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT) {
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error("Cannot use 'abstract' as constant modifier", $this->getAttributesAt($modifierPos)));
         }
-        if ($node->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_READONLY) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error("Cannot use 'readonly' as constant modifier", $this->getAttributesAt($modifierPos)));
+        if ($node->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_READONLY) {
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error("Cannot use 'readonly' as constant modifier", $this->getAttributesAt($modifierPos)));
         }
     }
-    protected function checkProperty(\ECSPrefix20210803\PhpParser\Node\Stmt\Property $node, $modifierPos)
+    protected function checkProperty(\ECSPrefix20210804\PhpParser\Node\Stmt\Property $node, $modifierPos)
     {
-        if ($node->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Properties cannot be declared abstract', $this->getAttributesAt($modifierPos)));
+        if ($node->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT) {
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Properties cannot be declared abstract', $this->getAttributesAt($modifierPos)));
         }
-        if ($node->flags & \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error('Properties cannot be declared final', $this->getAttributesAt($modifierPos)));
+        if ($node->flags & \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL) {
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error('Properties cannot be declared final', $this->getAttributesAt($modifierPos)));
         }
     }
-    protected function checkUseUse(\ECSPrefix20210803\PhpParser\Node\Stmt\UseUse $node, $namePos)
+    protected function checkUseUse(\ECSPrefix20210804\PhpParser\Node\Stmt\UseUse $node, $namePos)
     {
         if ($node->alias && $node->alias->isSpecialClassName()) {
-            $this->emitError(new \ECSPrefix20210803\PhpParser\Error(\sprintf('Cannot use %s as %s because \'%2$s\' is a special class name', $node->name, $node->alias), $this->getAttributesAt($namePos)));
+            $this->emitError(new \ECSPrefix20210804\PhpParser\Error(\sprintf('Cannot use %s as %s because \'%2$s\' is a special class name', $node->name, $node->alias), $this->getAttributesAt($namePos)));
         }
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Builder;
+namespace ECSPrefix20210804\PhpParser\Builder;
 
-use ECSPrefix20210803\PhpParser;
-use ECSPrefix20210803\PhpParser\BuilderHelpers;
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Const_;
-use ECSPrefix20210803\PhpParser\Node\Identifier;
-use ECSPrefix20210803\PhpParser\Node\Stmt;
-class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
+use ECSPrefix20210804\PhpParser;
+use ECSPrefix20210804\PhpParser\BuilderHelpers;
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Const_;
+use ECSPrefix20210804\PhpParser\Node\Identifier;
+use ECSPrefix20210804\PhpParser\Node\Stmt;
+class ClassConst implements \ECSPrefix20210804\PhpParser\Builder
 {
     protected $flags = 0;
     protected $attributes = [];
@@ -24,7 +24,7 @@ class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function __construct($name, $value)
     {
-        $this->constants = [new \ECSPrefix20210803\PhpParser\Node\Const_($name, \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeValue($value))];
+        $this->constants = [new \ECSPrefix20210804\PhpParser\Node\Const_($name, \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeValue($value))];
     }
     /**
      * Add another constant to const group
@@ -36,7 +36,7 @@ class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function addConst($name, $value)
     {
-        $this->constants[] = new \ECSPrefix20210803\PhpParser\Node\Const_($name, \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeValue($value));
+        $this->constants[] = new \ECSPrefix20210804\PhpParser\Node\Const_($name, \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeValue($value));
         return $this;
     }
     /**
@@ -46,7 +46,7 @@ class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function makePublic()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC);
         return $this;
     }
     /**
@@ -56,7 +56,7 @@ class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function makeProtected()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
         return $this;
     }
     /**
@@ -66,7 +66,7 @@ class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function makePrivate()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
         return $this;
     }
     /**
@@ -76,7 +76,7 @@ class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function makeFinal()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
         return $this;
     }
     /**
@@ -88,7 +88,7 @@ class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function setDocComment($docComment)
     {
-        $this->attributes = ['comments' => [\ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeDocComment($docComment)]];
+        $this->attributes = ['comments' => [\ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeDocComment($docComment)]];
         return $this;
     }
     /**
@@ -100,7 +100,7 @@ class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function addAttribute($attribute)
     {
-        $this->attributeGroups[] = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
         return $this;
     }
     /**
@@ -108,8 +108,8 @@ class ClassConst implements \ECSPrefix20210803\PhpParser\Builder
      *
      * @return Stmt\ClassConst The built constant node
      */
-    public function getNode() : \ECSPrefix20210803\PhpParser\Node
+    public function getNode() : \ECSPrefix20210804\PhpParser\Node
     {
-        return new \ECSPrefix20210803\PhpParser\Node\Stmt\ClassConst($this->constants, $this->flags, $this->attributes, $this->attributeGroups);
+        return new \ECSPrefix20210804\PhpParser\Node\Stmt\ClassConst($this->constants, $this->flags, $this->attributes, $this->attributeGroups);
     }
 }

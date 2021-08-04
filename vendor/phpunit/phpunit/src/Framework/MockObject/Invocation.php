@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use function array_map;
 use function explode;
@@ -20,15 +20,15 @@ use function sprintf;
 use function strpos;
 use function strtolower;
 use function substr;
-use ECSPrefix20210803\Doctrine\Instantiator\Instantiator;
-use ECSPrefix20210803\PHPUnit\Framework\SelfDescribing;
-use ECSPrefix20210803\PHPUnit\Util\Type;
-use ECSPrefix20210803\SebastianBergmann\Exporter\Exporter;
+use ECSPrefix20210804\Doctrine\Instantiator\Instantiator;
+use ECSPrefix20210804\PHPUnit\Framework\SelfDescribing;
+use ECSPrefix20210804\PHPUnit\Util\Type;
+use ECSPrefix20210804\SebastianBergmann\Exporter\Exporter;
 use stdClass;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class Invocation implements \ECSPrefix20210803\PHPUnit\Framework\SelfDescribing
+final class Invocation implements \ECSPrefix20210804\PHPUnit\Framework\SelfDescribing
 {
     /**
      * @var string
@@ -130,7 +130,7 @@ final class Invocation implements \ECSPrefix20210803\PHPUnit\Framework\SelfDescr
             case 'array':
                 return [];
             case 'static':
-                return (new \ECSPrefix20210803\Doctrine\Instantiator\Instantiator())->instantiate(\get_class($this->object));
+                return (new \ECSPrefix20210804\Doctrine\Instantiator\Instantiator())->instantiate(\get_class($this->object));
             case 'object':
                 return new \stdClass();
             case 'callable':
@@ -147,12 +147,12 @@ final class Invocation implements \ECSPrefix20210803\PHPUnit\Framework\SelfDescr
             case 'mixed':
                 return null;
             default:
-                return (new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Generator())->getMock($this->returnType, [], [], '', \false);
+                return (new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Generator())->getMock($this->returnType, [], [], '', \false);
         }
     }
     public function toString() : string
     {
-        $exporter = new \ECSPrefix20210803\SebastianBergmann\Exporter\Exporter();
+        $exporter = new \ECSPrefix20210804\SebastianBergmann\Exporter\Exporter();
         return \sprintf('%s::%s(%s)%s', $this->className, $this->methodName, \implode(', ', \array_map([$exporter, 'shortenedExport'], $this->parameters)), $this->returnType ? \sprintf(': %s', $this->returnType) : '');
     }
     public function getObject() : object
@@ -161,7 +161,7 @@ final class Invocation implements \ECSPrefix20210803\PHPUnit\Framework\SelfDescr
     }
     private function cloneObject(object $original) : object
     {
-        if (\ECSPrefix20210803\PHPUnit\Util\Type::isCloneable($original)) {
+        if (\ECSPrefix20210804\PHPUnit\Util\Type::isCloneable($original)) {
             return clone $original;
         }
         return $original;

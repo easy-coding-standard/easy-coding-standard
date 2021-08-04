@@ -9,13 +9,13 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
 use Exception;
 /**
  * Compares Exception instances for equality.
  */
-class ExceptionComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\ObjectComparator
+class ExceptionComparator extends \ECSPrefix20210804\SebastianBergmann\Comparator\ObjectComparator
 {
     /**
      * Returns whether the comparator can compare two values.

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 use const DEBUG_BACKTRACE_IGNORE_ARGS;
 use const PHP_EOL;
@@ -39,53 +39,53 @@ use Countable;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\ArrayHasKey;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\Callback;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasAttribute;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasStaticAttribute;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\Count;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\DirectoryExists;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\FileExists;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\GreaterThan;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsAnything;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEmpty;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualCanonicalizing;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualIgnoringCase;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualWithDelta;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsFalse;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsFinite;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsIdentical;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsInfinite;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsInstanceOf;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsJson;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsNan;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsNull;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsReadable;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsTrue;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\IsWritable;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatches;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\LessThan;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalAnd;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalOr;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalXor;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\ObjectEquals;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\ObjectHasAttribute;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\RegularExpression;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\SameSize;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\StringContains;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\StringEndsWith;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\StringMatchesFormatDescription;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\StringStartsWith;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsEqual;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsIdentical;
-use ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsOnly;
-use ECSPrefix20210803\PHPUnit\Util\Type;
-use ECSPrefix20210803\PHPUnit\Util\Xml;
-use ECSPrefix20210803\PHPUnit\Util\Xml\Loader as XmlLoader;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\ArrayHasKey;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\Callback;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasAttribute;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasStaticAttribute;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\Count;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\DirectoryExists;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\FileExists;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\GreaterThan;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsAnything;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEmpty;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualCanonicalizing;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualIgnoringCase;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualWithDelta;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsFalse;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsFinite;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsIdentical;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsInfinite;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsInstanceOf;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsJson;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsNan;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsNull;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsReadable;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsTrue;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\IsWritable;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatches;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\LessThan;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalAnd;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalOr;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalXor;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\ObjectEquals;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\ObjectHasAttribute;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\RegularExpression;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\SameSize;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\StringContains;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\StringEndsWith;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\StringMatchesFormatDescription;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\StringStartsWith;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsEqual;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsIdentical;
+use ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsOnly;
+use ECSPrefix20210804\PHPUnit\Util\Type;
+use ECSPrefix20210804\PHPUnit\Util\Xml;
+use ECSPrefix20210804\PHPUnit\Util\Xml\Loader as XmlLoader;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
@@ -108,12 +108,12 @@ abstract class Assert
     public static function assertArrayHasKey($key, $array, string $message = '') : void
     {
         if (!(\is_int($key) || \is_string($key))) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'integer or string');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'integer or string');
         }
         if (!(\is_array($array) || $array instanceof \ArrayAccess)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'array or ArrayAccess');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'array or ArrayAccess');
         }
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ArrayHasKey($key);
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ArrayHasKey($key);
         static::assertThat($array, $constraint, $message);
     }
     /**
@@ -129,12 +129,12 @@ abstract class Assert
     public static function assertArrayNotHasKey($key, $array, string $message = '') : void
     {
         if (!(\is_int($key) || \is_string($key))) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'integer or string');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'integer or string');
         }
         if (!(\is_array($array) || $array instanceof \ArrayAccess)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'array or ArrayAccess');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'array or ArrayAccess');
         }
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ArrayHasKey($key));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ArrayHasKey($key));
         static::assertThat($array, $constraint, $message);
     }
     /**
@@ -146,12 +146,12 @@ abstract class Assert
      */
     public static function assertContains($needle, iterable $haystack, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsIdentical($needle);
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsIdentical($needle);
         static::assertThat($haystack, $constraint, $message);
     }
     public static function assertContainsEquals($needle, iterable $haystack, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsEqual($needle);
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsEqual($needle);
         static::assertThat($haystack, $constraint, $message);
     }
     /**
@@ -163,12 +163,12 @@ abstract class Assert
      */
     public static function assertNotContains($needle, iterable $haystack, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsIdentical($needle));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsIdentical($needle));
         static::assertThat($haystack, $constraint, $message);
     }
     public static function assertNotContainsEquals($needle, iterable $haystack, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsEqual($needle));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsEqual($needle));
         static::assertThat($haystack, $constraint, $message);
     }
     /**
@@ -180,9 +180,9 @@ abstract class Assert
     public static function assertContainsOnly(string $type, iterable $haystack, ?bool $isNativeType = null, string $message = '') : void
     {
         if ($isNativeType === null) {
-            $isNativeType = \ECSPrefix20210803\PHPUnit\Util\Type::isType($type);
+            $isNativeType = \ECSPrefix20210804\PHPUnit\Util\Type::isType($type);
         }
-        static::assertThat($haystack, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsOnly($type, $isNativeType), $message);
+        static::assertThat($haystack, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsOnly($type, $isNativeType), $message);
     }
     /**
      * Asserts that a haystack contains only instances of a given class name.
@@ -192,7 +192,7 @@ abstract class Assert
      */
     public static function assertContainsOnlyInstancesOf(string $className, iterable $haystack, string $message = '') : void
     {
-        static::assertThat($haystack, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsOnly($className, \false), $message);
+        static::assertThat($haystack, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsOnly($className, \false), $message);
     }
     /**
      * Asserts that a haystack does not contain only values of a given type.
@@ -203,9 +203,9 @@ abstract class Assert
     public static function assertNotContainsOnly(string $type, iterable $haystack, ?bool $isNativeType = null, string $message = '') : void
     {
         if ($isNativeType === null) {
-            $isNativeType = \ECSPrefix20210803\PHPUnit\Util\Type::isType($type);
+            $isNativeType = \ECSPrefix20210804\PHPUnit\Util\Type::isType($type);
         }
-        static::assertThat($haystack, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsOnly($type, $isNativeType)), $message);
+        static::assertThat($haystack, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsOnly($type, $isNativeType)), $message);
     }
     /**
      * Asserts the number of elements of an array, Countable or Traversable.
@@ -219,9 +219,9 @@ abstract class Assert
     public static function assertCount(int $expectedCount, $haystack, string $message = '') : void
     {
         if (!$haystack instanceof \Countable && !\is_iterable($haystack)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'countable or iterable');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'countable or iterable');
         }
-        static::assertThat($haystack, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\Count($expectedCount), $message);
+        static::assertThat($haystack, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\Count($expectedCount), $message);
     }
     /**
      * Asserts the number of elements of an array, Countable or Traversable.
@@ -235,9 +235,9 @@ abstract class Assert
     public static function assertNotCount(int $expectedCount, $haystack, string $message = '') : void
     {
         if (!$haystack instanceof \Countable && !\is_iterable($haystack)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'countable or iterable');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'countable or iterable');
         }
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\Count($expectedCount));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\Count($expectedCount));
         static::assertThat($haystack, $constraint, $message);
     }
     /**
@@ -248,7 +248,7 @@ abstract class Assert
      */
     public static function assertEquals($expected, $actual, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual($expected);
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual($expected);
         static::assertThat($actual, $constraint, $message);
     }
     /**
@@ -259,7 +259,7 @@ abstract class Assert
      */
     public static function assertEqualsCanonicalizing($expected, $actual, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualCanonicalizing($expected);
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualCanonicalizing($expected);
         static::assertThat($actual, $constraint, $message);
     }
     /**
@@ -270,7 +270,7 @@ abstract class Assert
      */
     public static function assertEqualsIgnoringCase($expected, $actual, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualIgnoringCase($expected);
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualIgnoringCase($expected);
         static::assertThat($actual, $constraint, $message);
     }
     /**
@@ -281,7 +281,7 @@ abstract class Assert
      */
     public static function assertEqualsWithDelta($expected, $actual, float $delta, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualWithDelta($expected, $delta);
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualWithDelta($expected, $delta);
         static::assertThat($actual, $constraint, $message);
     }
     /**
@@ -292,7 +292,7 @@ abstract class Assert
      */
     public static function assertNotEquals($expected, $actual, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual($expected));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual($expected));
         static::assertThat($actual, $constraint, $message);
     }
     /**
@@ -303,7 +303,7 @@ abstract class Assert
      */
     public static function assertNotEqualsCanonicalizing($expected, $actual, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualCanonicalizing($expected));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualCanonicalizing($expected));
         static::assertThat($actual, $constraint, $message);
     }
     /**
@@ -314,7 +314,7 @@ abstract class Assert
      */
     public static function assertNotEqualsIgnoringCase($expected, $actual, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualIgnoringCase($expected));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualIgnoringCase($expected));
         static::assertThat($actual, $constraint, $message);
     }
     /**
@@ -325,7 +325,7 @@ abstract class Assert
      */
     public static function assertNotEqualsWithDelta($expected, $actual, float $delta, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualWithDelta($expected, $delta));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualWithDelta($expected, $delta));
         static::assertThat($actual, $constraint, $message);
     }
     /**
@@ -410,7 +410,7 @@ abstract class Assert
     {
         static::assertFileExists($expected, $message);
         static::assertFileExists($actual, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual(\file_get_contents($expected));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual(\file_get_contents($expected));
         static::assertThat(\file_get_contents($actual), $constraint, $message);
     }
     /**
@@ -424,7 +424,7 @@ abstract class Assert
     {
         static::assertFileExists($expected, $message);
         static::assertFileExists($actual, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualCanonicalizing(\file_get_contents($expected));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualCanonicalizing(\file_get_contents($expected));
         static::assertThat(\file_get_contents($actual), $constraint, $message);
     }
     /**
@@ -438,7 +438,7 @@ abstract class Assert
     {
         static::assertFileExists($expected, $message);
         static::assertFileExists($actual, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualIgnoringCase(\file_get_contents($expected));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualIgnoringCase(\file_get_contents($expected));
         static::assertThat(\file_get_contents($actual), $constraint, $message);
     }
     /**
@@ -452,7 +452,7 @@ abstract class Assert
     {
         static::assertFileExists($expected, $message);
         static::assertFileExists($actual, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual(\file_get_contents($expected)));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual(\file_get_contents($expected)));
         static::assertThat(\file_get_contents($actual), $constraint, $message);
     }
     /**
@@ -466,7 +466,7 @@ abstract class Assert
     {
         static::assertFileExists($expected, $message);
         static::assertFileExists($actual, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualCanonicalizing(\file_get_contents($expected)));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualCanonicalizing(\file_get_contents($expected)));
         static::assertThat(\file_get_contents($actual), $constraint, $message);
     }
     /**
@@ -480,7 +480,7 @@ abstract class Assert
     {
         static::assertFileExists($expected, $message);
         static::assertFileExists($actual, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualIgnoringCase(\file_get_contents($expected)));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualIgnoringCase(\file_get_contents($expected)));
         static::assertThat(\file_get_contents($actual), $constraint, $message);
     }
     /**
@@ -493,7 +493,7 @@ abstract class Assert
     public static function assertStringEqualsFile(string $expectedFile, string $actualString, string $message = '') : void
     {
         static::assertFileExists($expectedFile, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual(\file_get_contents($expectedFile));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual(\file_get_contents($expectedFile));
         static::assertThat($actualString, $constraint, $message);
     }
     /**
@@ -506,7 +506,7 @@ abstract class Assert
     public static function assertStringEqualsFileCanonicalizing(string $expectedFile, string $actualString, string $message = '') : void
     {
         static::assertFileExists($expectedFile, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualCanonicalizing(\file_get_contents($expectedFile));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualCanonicalizing(\file_get_contents($expectedFile));
         static::assertThat($actualString, $constraint, $message);
     }
     /**
@@ -519,7 +519,7 @@ abstract class Assert
     public static function assertStringEqualsFileIgnoringCase(string $expectedFile, string $actualString, string $message = '') : void
     {
         static::assertFileExists($expectedFile, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualIgnoringCase(\file_get_contents($expectedFile));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualIgnoringCase(\file_get_contents($expectedFile));
         static::assertThat($actualString, $constraint, $message);
     }
     /**
@@ -532,7 +532,7 @@ abstract class Assert
     public static function assertStringNotEqualsFile(string $expectedFile, string $actualString, string $message = '') : void
     {
         static::assertFileExists($expectedFile, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual(\file_get_contents($expectedFile)));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual(\file_get_contents($expectedFile)));
         static::assertThat($actualString, $constraint, $message);
     }
     /**
@@ -545,7 +545,7 @@ abstract class Assert
     public static function assertStringNotEqualsFileCanonicalizing(string $expectedFile, string $actualString, string $message = '') : void
     {
         static::assertFileExists($expectedFile, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualCanonicalizing(\file_get_contents($expectedFile)));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualCanonicalizing(\file_get_contents($expectedFile)));
         static::assertThat($actualString, $constraint, $message);
     }
     /**
@@ -558,7 +558,7 @@ abstract class Assert
     public static function assertStringNotEqualsFileIgnoringCase(string $expectedFile, string $actualString, string $message = '') : void
     {
         static::assertFileExists($expectedFile, $message);
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualIgnoringCase(\file_get_contents($expectedFile)));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualIgnoringCase(\file_get_contents($expectedFile)));
         static::assertThat($actualString, $constraint, $message);
     }
     /**
@@ -569,7 +569,7 @@ abstract class Assert
      */
     public static function assertIsReadable(string $filename, string $message = '') : void
     {
-        static::assertThat($filename, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsReadable(), $message);
+        static::assertThat($filename, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsReadable(), $message);
     }
     /**
      * Asserts that a file/dir exists and is not readable.
@@ -579,7 +579,7 @@ abstract class Assert
      */
     public static function assertIsNotReadable(string $filename, string $message = '') : void
     {
-        static::assertThat($filename, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsReadable()), $message);
+        static::assertThat($filename, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsReadable()), $message);
     }
     /**
      * Asserts that a file/dir exists and is not readable.
@@ -594,7 +594,7 @@ abstract class Assert
     public static function assertNotIsReadable(string $filename, string $message = '') : void
     {
         self::createWarning('assertNotIsReadable() is deprecated and will be removed in PHPUnit 10. Refactor your code to use assertIsNotReadable() instead.');
-        static::assertThat($filename, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsReadable()), $message);
+        static::assertThat($filename, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsReadable()), $message);
     }
     /**
      * Asserts that a file/dir exists and is writable.
@@ -604,7 +604,7 @@ abstract class Assert
      */
     public static function assertIsWritable(string $filename, string $message = '') : void
     {
-        static::assertThat($filename, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsWritable(), $message);
+        static::assertThat($filename, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsWritable(), $message);
     }
     /**
      * Asserts that a file/dir exists and is not writable.
@@ -614,7 +614,7 @@ abstract class Assert
      */
     public static function assertIsNotWritable(string $filename, string $message = '') : void
     {
-        static::assertThat($filename, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsWritable()), $message);
+        static::assertThat($filename, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsWritable()), $message);
     }
     /**
      * Asserts that a file/dir exists and is not writable.
@@ -629,7 +629,7 @@ abstract class Assert
     public static function assertNotIsWritable(string $filename, string $message = '') : void
     {
         self::createWarning('assertNotIsWritable() is deprecated and will be removed in PHPUnit 10. Refactor your code to use assertIsNotWritable() instead.');
-        static::assertThat($filename, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsWritable()), $message);
+        static::assertThat($filename, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsWritable()), $message);
     }
     /**
      * Asserts that a directory exists.
@@ -639,7 +639,7 @@ abstract class Assert
      */
     public static function assertDirectoryExists(string $directory, string $message = '') : void
     {
-        static::assertThat($directory, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\DirectoryExists(), $message);
+        static::assertThat($directory, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\DirectoryExists(), $message);
     }
     /**
      * Asserts that a directory does not exist.
@@ -649,7 +649,7 @@ abstract class Assert
      */
     public static function assertDirectoryDoesNotExist(string $directory, string $message = '') : void
     {
-        static::assertThat($directory, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\DirectoryExists()), $message);
+        static::assertThat($directory, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\DirectoryExists()), $message);
     }
     /**
      * Asserts that a directory does not exist.
@@ -664,7 +664,7 @@ abstract class Assert
     public static function assertDirectoryNotExists(string $directory, string $message = '') : void
     {
         self::createWarning('assertDirectoryNotExists() is deprecated and will be removed in PHPUnit 10. Refactor your code to use assertDirectoryDoesNotExist() instead.');
-        static::assertThat($directory, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\DirectoryExists()), $message);
+        static::assertThat($directory, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\DirectoryExists()), $message);
     }
     /**
      * Asserts that a directory exists and is readable.
@@ -750,7 +750,7 @@ abstract class Assert
      */
     public static function assertFileExists(string $filename, string $message = '') : void
     {
-        static::assertThat($filename, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\FileExists(), $message);
+        static::assertThat($filename, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\FileExists(), $message);
     }
     /**
      * Asserts that a file does not exist.
@@ -760,7 +760,7 @@ abstract class Assert
      */
     public static function assertFileDoesNotExist(string $filename, string $message = '') : void
     {
-        static::assertThat($filename, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\FileExists()), $message);
+        static::assertThat($filename, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\FileExists()), $message);
     }
     /**
      * Asserts that a file does not exist.
@@ -775,7 +775,7 @@ abstract class Assert
     public static function assertFileNotExists(string $filename, string $message = '') : void
     {
         self::createWarning('assertFileNotExists() is deprecated and will be removed in PHPUnit 10. Refactor your code to use assertFileDoesNotExist() instead.');
-        static::assertThat($filename, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\FileExists()), $message);
+        static::assertThat($filename, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\FileExists()), $message);
     }
     /**
      * Asserts that a file exists and is readable.
@@ -965,12 +965,12 @@ abstract class Assert
     public static function assertClassHasAttribute(string $attributeName, string $className, string $message = '') : void
     {
         if (!self::isValidClassAttributeName($attributeName)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
         }
         if (!\class_exists($className)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'class name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'class name');
         }
-        static::assertThat($className, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasAttribute($attributeName), $message);
+        static::assertThat($className, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasAttribute($attributeName), $message);
     }
     /**
      * Asserts that a class does not have a specified attribute.
@@ -982,12 +982,12 @@ abstract class Assert
     public static function assertClassNotHasAttribute(string $attributeName, string $className, string $message = '') : void
     {
         if (!self::isValidClassAttributeName($attributeName)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
         }
         if (!\class_exists($className)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'class name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'class name');
         }
-        static::assertThat($className, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasAttribute($attributeName)), $message);
+        static::assertThat($className, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasAttribute($attributeName)), $message);
     }
     /**
      * Asserts that a class has a specified static attribute.
@@ -999,12 +999,12 @@ abstract class Assert
     public static function assertClassHasStaticAttribute(string $attributeName, string $className, string $message = '') : void
     {
         if (!self::isValidClassAttributeName($attributeName)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
         }
         if (!\class_exists($className)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'class name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'class name');
         }
-        static::assertThat($className, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasStaticAttribute($attributeName), $message);
+        static::assertThat($className, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasStaticAttribute($attributeName), $message);
     }
     /**
      * Asserts that a class does not have a specified static attribute.
@@ -1016,12 +1016,12 @@ abstract class Assert
     public static function assertClassNotHasStaticAttribute(string $attributeName, string $className, string $message = '') : void
     {
         if (!self::isValidClassAttributeName($attributeName)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
         }
         if (!\class_exists($className)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'class name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'class name');
         }
-        static::assertThat($className, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasStaticAttribute($attributeName)), $message);
+        static::assertThat($className, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasStaticAttribute($attributeName)), $message);
     }
     /**
      * Asserts that an object has a specified attribute.
@@ -1035,12 +1035,12 @@ abstract class Assert
     public static function assertObjectHasAttribute(string $attributeName, $object, string $message = '') : void
     {
         if (!self::isValidObjectAttributeName($attributeName)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
         }
         if (!\is_object($object)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'object');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'object');
         }
-        static::assertThat($object, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ObjectHasAttribute($attributeName), $message);
+        static::assertThat($object, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ObjectHasAttribute($attributeName), $message);
     }
     /**
      * Asserts that an object does not have a specified attribute.
@@ -1054,12 +1054,12 @@ abstract class Assert
     public static function assertObjectNotHasAttribute(string $attributeName, $object, string $message = '') : void
     {
         if (!self::isValidObjectAttributeName($attributeName)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'valid attribute name');
         }
         if (!\is_object($object)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'object');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'object');
         }
-        static::assertThat($object, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ObjectHasAttribute($attributeName)), $message);
+        static::assertThat($object, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ObjectHasAttribute($attributeName)), $message);
     }
     /**
      * Asserts that two variables have the same type and value.
@@ -1075,7 +1075,7 @@ abstract class Assert
      */
     public static function assertSame($expected, $actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsIdentical($expected), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsIdentical($expected), $message);
     }
     /**
      * Asserts that two variables do not have the same type and value.
@@ -1090,7 +1090,7 @@ abstract class Assert
         if (\is_bool($expected) && \is_bool($actual)) {
             static::assertNotEquals($expected, $actual, $message);
         }
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsIdentical($expected)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsIdentical($expected)), $message);
     }
     /**
      * Asserts that a variable is of a given type.
@@ -1106,9 +1106,9 @@ abstract class Assert
     public static function assertInstanceOf(string $expected, $actual, string $message = '') : void
     {
         if (!\class_exists($expected) && !\interface_exists($expected)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'class or interface name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'class or interface name');
         }
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsInstanceOf($expected), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsInstanceOf($expected), $message);
     }
     /**
      * Asserts that a variable is not of a given type.
@@ -1124,9 +1124,9 @@ abstract class Assert
     public static function assertNotInstanceOf(string $expected, $actual, string $message = '') : void
     {
         if (!\class_exists($expected) && !\interface_exists($expected)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'class or interface name');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'class or interface name');
         }
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsInstanceOf($expected)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsInstanceOf($expected)), $message);
     }
     /**
      * Asserts that a variable is of type array.
@@ -1138,7 +1138,7 @@ abstract class Assert
      */
     public static function assertIsArray($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_ARRAY), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_ARRAY), $message);
     }
     /**
      * Asserts that a variable is of type bool.
@@ -1150,7 +1150,7 @@ abstract class Assert
      */
     public static function assertIsBool($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_BOOL), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_BOOL), $message);
     }
     /**
      * Asserts that a variable is of type float.
@@ -1162,7 +1162,7 @@ abstract class Assert
      */
     public static function assertIsFloat($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_FLOAT), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_FLOAT), $message);
     }
     /**
      * Asserts that a variable is of type int.
@@ -1174,7 +1174,7 @@ abstract class Assert
      */
     public static function assertIsInt($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_INT), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_INT), $message);
     }
     /**
      * Asserts that a variable is of type numeric.
@@ -1186,7 +1186,7 @@ abstract class Assert
      */
     public static function assertIsNumeric($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_NUMERIC), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_NUMERIC), $message);
     }
     /**
      * Asserts that a variable is of type object.
@@ -1198,7 +1198,7 @@ abstract class Assert
      */
     public static function assertIsObject($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_OBJECT), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_OBJECT), $message);
     }
     /**
      * Asserts that a variable is of type resource.
@@ -1210,7 +1210,7 @@ abstract class Assert
      */
     public static function assertIsResource($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_RESOURCE), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_RESOURCE), $message);
     }
     /**
      * Asserts that a variable is of type resource and is closed.
@@ -1222,7 +1222,7 @@ abstract class Assert
      */
     public static function assertIsClosedResource($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_CLOSED_RESOURCE), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_CLOSED_RESOURCE), $message);
     }
     /**
      * Asserts that a variable is of type string.
@@ -1234,7 +1234,7 @@ abstract class Assert
      */
     public static function assertIsString($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_STRING), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_STRING), $message);
     }
     /**
      * Asserts that a variable is of type scalar.
@@ -1246,7 +1246,7 @@ abstract class Assert
      */
     public static function assertIsScalar($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_SCALAR), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_SCALAR), $message);
     }
     /**
      * Asserts that a variable is of type callable.
@@ -1258,7 +1258,7 @@ abstract class Assert
      */
     public static function assertIsCallable($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_CALLABLE), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_CALLABLE), $message);
     }
     /**
      * Asserts that a variable is of type iterable.
@@ -1270,7 +1270,7 @@ abstract class Assert
      */
     public static function assertIsIterable($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_ITERABLE), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_ITERABLE), $message);
     }
     /**
      * Asserts that a variable is not of type array.
@@ -1282,7 +1282,7 @@ abstract class Assert
      */
     public static function assertIsNotArray($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_ARRAY)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_ARRAY)), $message);
     }
     /**
      * Asserts that a variable is not of type bool.
@@ -1294,7 +1294,7 @@ abstract class Assert
      */
     public static function assertIsNotBool($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_BOOL)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_BOOL)), $message);
     }
     /**
      * Asserts that a variable is not of type float.
@@ -1306,7 +1306,7 @@ abstract class Assert
      */
     public static function assertIsNotFloat($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_FLOAT)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_FLOAT)), $message);
     }
     /**
      * Asserts that a variable is not of type int.
@@ -1318,7 +1318,7 @@ abstract class Assert
      */
     public static function assertIsNotInt($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_INT)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_INT)), $message);
     }
     /**
      * Asserts that a variable is not of type numeric.
@@ -1330,7 +1330,7 @@ abstract class Assert
      */
     public static function assertIsNotNumeric($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_NUMERIC)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_NUMERIC)), $message);
     }
     /**
      * Asserts that a variable is not of type object.
@@ -1342,7 +1342,7 @@ abstract class Assert
      */
     public static function assertIsNotObject($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_OBJECT)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_OBJECT)), $message);
     }
     /**
      * Asserts that a variable is not of type resource.
@@ -1354,7 +1354,7 @@ abstract class Assert
      */
     public static function assertIsNotResource($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_RESOURCE)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_RESOURCE)), $message);
     }
     /**
      * Asserts that a variable is not of type resource.
@@ -1366,7 +1366,7 @@ abstract class Assert
      */
     public static function assertIsNotClosedResource($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_CLOSED_RESOURCE)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_CLOSED_RESOURCE)), $message);
     }
     /**
      * Asserts that a variable is not of type string.
@@ -1378,7 +1378,7 @@ abstract class Assert
      */
     public static function assertIsNotString($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_STRING)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_STRING)), $message);
     }
     /**
      * Asserts that a variable is not of type scalar.
@@ -1390,7 +1390,7 @@ abstract class Assert
      */
     public static function assertIsNotScalar($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_SCALAR)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_SCALAR)), $message);
     }
     /**
      * Asserts that a variable is not of type callable.
@@ -1402,7 +1402,7 @@ abstract class Assert
      */
     public static function assertIsNotCallable($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_CALLABLE)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_CALLABLE)), $message);
     }
     /**
      * Asserts that a variable is not of type iterable.
@@ -1414,7 +1414,7 @@ abstract class Assert
      */
     public static function assertIsNotIterable($actual, string $message = '') : void
     {
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType::TYPE_ITERABLE)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType(\ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType::TYPE_ITERABLE)), $message);
     }
     /**
      * Asserts that a string matches a given regular expression.
@@ -1424,7 +1424,7 @@ abstract class Assert
      */
     public static function assertMatchesRegularExpression(string $pattern, string $string, string $message = '') : void
     {
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\RegularExpression($pattern), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\RegularExpression($pattern), $message);
     }
     /**
      * Asserts that a string matches a given regular expression.
@@ -1439,7 +1439,7 @@ abstract class Assert
     public static function assertRegExp(string $pattern, string $string, string $message = '') : void
     {
         self::createWarning('assertRegExp() is deprecated and will be removed in PHPUnit 10. Refactor your code to use assertMatchesRegularExpression() instead.');
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\RegularExpression($pattern), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\RegularExpression($pattern), $message);
     }
     /**
      * Asserts that a string does not match a given regular expression.
@@ -1449,7 +1449,7 @@ abstract class Assert
      */
     public static function assertDoesNotMatchRegularExpression(string $pattern, string $string, string $message = '') : void
     {
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\RegularExpression($pattern)), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\RegularExpression($pattern)), $message);
     }
     /**
      * Asserts that a string does not match a given regular expression.
@@ -1464,7 +1464,7 @@ abstract class Assert
     public static function assertNotRegExp(string $pattern, string $string, string $message = '') : void
     {
         self::createWarning('assertNotRegExp() is deprecated and will be removed in PHPUnit 10. Refactor your code to use assertDoesNotMatchRegularExpression() instead.');
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\RegularExpression($pattern)), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\RegularExpression($pattern)), $message);
     }
     /**
      * Assert that the size of two arrays (or `Countable` or `Traversable` objects)
@@ -1480,12 +1480,12 @@ abstract class Assert
     public static function assertSameSize($expected, $actual, string $message = '') : void
     {
         if (!$expected instanceof \Countable && !\is_iterable($expected)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'countable or iterable');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'countable or iterable');
         }
         if (!$actual instanceof \Countable && !\is_iterable($actual)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'countable or iterable');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'countable or iterable');
         }
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\SameSize($expected), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\SameSize($expected), $message);
     }
     /**
      * Assert that the size of two arrays (or `Countable` or `Traversable` objects)
@@ -1501,12 +1501,12 @@ abstract class Assert
     public static function assertNotSameSize($expected, $actual, string $message = '') : void
     {
         if (!$expected instanceof \Countable && !\is_iterable($expected)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(1, 'countable or iterable');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(1, 'countable or iterable');
         }
         if (!$actual instanceof \Countable && !\is_iterable($actual)) {
-            throw \ECSPrefix20210803\PHPUnit\Framework\InvalidArgumentException::create(2, 'countable or iterable');
+            throw \ECSPrefix20210804\PHPUnit\Framework\InvalidArgumentException::create(2, 'countable or iterable');
         }
-        static::assertThat($actual, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\SameSize($expected)), $message);
+        static::assertThat($actual, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\SameSize($expected)), $message);
     }
     /**
      * Asserts that a string matches a given format string.
@@ -1516,7 +1516,7 @@ abstract class Assert
      */
     public static function assertStringMatchesFormat(string $format, string $string, string $message = '') : void
     {
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringMatchesFormatDescription($format), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringMatchesFormatDescription($format), $message);
     }
     /**
      * Asserts that a string does not match a given format string.
@@ -1526,7 +1526,7 @@ abstract class Assert
      */
     public static function assertStringNotMatchesFormat(string $format, string $string, string $message = '') : void
     {
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringMatchesFormatDescription($format)), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringMatchesFormatDescription($format)), $message);
     }
     /**
      * Asserts that a string matches a given format file.
@@ -1537,7 +1537,7 @@ abstract class Assert
     public static function assertStringMatchesFormatFile(string $formatFile, string $string, string $message = '') : void
     {
         static::assertFileExists($formatFile, $message);
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringMatchesFormatDescription(\file_get_contents($formatFile)), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringMatchesFormatDescription(\file_get_contents($formatFile)), $message);
     }
     /**
      * Asserts that a string does not match a given format string.
@@ -1548,7 +1548,7 @@ abstract class Assert
     public static function assertStringNotMatchesFormatFile(string $formatFile, string $string, string $message = '') : void
     {
         static::assertFileExists($formatFile, $message);
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringMatchesFormatDescription(\file_get_contents($formatFile))), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringMatchesFormatDescription(\file_get_contents($formatFile))), $message);
     }
     /**
      * Asserts that a string starts with a given prefix.
@@ -1558,7 +1558,7 @@ abstract class Assert
      */
     public static function assertStringStartsWith(string $prefix, string $string, string $message = '') : void
     {
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringStartsWith($prefix), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringStartsWith($prefix), $message);
     }
     /**
      * Asserts that a string starts not with a given prefix.
@@ -1571,7 +1571,7 @@ abstract class Assert
      */
     public static function assertStringStartsNotWith($prefix, $string, string $message = '') : void
     {
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringStartsWith($prefix)), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringStartsWith($prefix)), $message);
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -1579,7 +1579,7 @@ abstract class Assert
      */
     public static function assertStringContainsString(string $needle, string $haystack, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringContains($needle, \false);
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringContains($needle, \false);
         static::assertThat($haystack, $constraint, $message);
     }
     /**
@@ -1588,7 +1588,7 @@ abstract class Assert
      */
     public static function assertStringContainsStringIgnoringCase(string $needle, string $haystack, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringContains($needle, \true);
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringContains($needle, \true);
         static::assertThat($haystack, $constraint, $message);
     }
     /**
@@ -1597,7 +1597,7 @@ abstract class Assert
      */
     public static function assertStringNotContainsString(string $needle, string $haystack, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringContains($needle));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringContains($needle));
         static::assertThat($haystack, $constraint, $message);
     }
     /**
@@ -1606,7 +1606,7 @@ abstract class Assert
      */
     public static function assertStringNotContainsStringIgnoringCase(string $needle, string $haystack, string $message = '') : void
     {
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringContains($needle, \true));
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringContains($needle, \true));
         static::assertThat($haystack, $constraint, $message);
     }
     /**
@@ -1617,7 +1617,7 @@ abstract class Assert
      */
     public static function assertStringEndsWith(string $suffix, string $string, string $message = '') : void
     {
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringEndsWith($suffix), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringEndsWith($suffix), $message);
     }
     /**
      * Asserts that a string ends not with a given suffix.
@@ -1627,7 +1627,7 @@ abstract class Assert
      */
     public static function assertStringEndsNotWith(string $suffix, string $string, string $message = '') : void
     {
-        static::assertThat($string, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringEndsWith($suffix)), $message);
+        static::assertThat($string, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringEndsWith($suffix)), $message);
     }
     /**
      * Asserts that two XML files are equal.
@@ -1638,8 +1638,8 @@ abstract class Assert
      */
     public static function assertXmlFileEqualsXmlFile(string $expectedFile, string $actualFile, string $message = '') : void
     {
-        $expected = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->loadFile($expectedFile);
-        $actual = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->loadFile($actualFile);
+        $expected = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->loadFile($expectedFile);
+        $actual = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->loadFile($actualFile);
         static::assertEquals($expected, $actual, $message);
     }
     /**
@@ -1651,8 +1651,8 @@ abstract class Assert
      */
     public static function assertXmlFileNotEqualsXmlFile(string $expectedFile, string $actualFile, string $message = '') : void
     {
-        $expected = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->loadFile($expectedFile);
-        $actual = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->loadFile($actualFile);
+        $expected = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->loadFile($expectedFile);
+        $actual = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->loadFile($actualFile);
         static::assertNotEquals($expected, $actual, $message);
     }
     /**
@@ -1670,9 +1670,9 @@ abstract class Assert
             self::createWarning('Passing an argument of type DOMDocument for the $actualXml parameter is deprecated. Support for this will be removed in PHPUnit 10.');
             $actual = $actualXml;
         } else {
-            $actual = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->load($actualXml);
+            $actual = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->load($actualXml);
         }
-        $expected = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->loadFile($expectedFile);
+        $expected = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->loadFile($expectedFile);
         static::assertEquals($expected, $actual, $message);
     }
     /**
@@ -1690,9 +1690,9 @@ abstract class Assert
             self::createWarning('Passing an argument of type DOMDocument for the $actualXml parameter is deprecated. Support for this will be removed in PHPUnit 10.');
             $actual = $actualXml;
         } else {
-            $actual = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->load($actualXml);
+            $actual = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->load($actualXml);
         }
-        $expected = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->loadFile($expectedFile);
+        $expected = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->loadFile($expectedFile);
         static::assertNotEquals($expected, $actual, $message);
     }
     /**
@@ -1711,13 +1711,13 @@ abstract class Assert
             self::createWarning('Passing an argument of type DOMDocument for the $expectedXml parameter is deprecated. Support for this will be removed in PHPUnit 10.');
             $expected = $expectedXml;
         } else {
-            $expected = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->load($expectedXml);
+            $expected = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->load($expectedXml);
         }
         if (!\is_string($actualXml)) {
             self::createWarning('Passing an argument of type DOMDocument for the $actualXml parameter is deprecated. Support for this will be removed in PHPUnit 10.');
             $actual = $actualXml;
         } else {
-            $actual = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->load($actualXml);
+            $actual = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->load($actualXml);
         }
         static::assertEquals($expected, $actual, $message);
     }
@@ -1737,13 +1737,13 @@ abstract class Assert
             self::createWarning('Passing an argument of type DOMDocument for the $expectedXml parameter is deprecated. Support for this will be removed in PHPUnit 10.');
             $expected = $expectedXml;
         } else {
-            $expected = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->load($expectedXml);
+            $expected = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->load($expectedXml);
         }
         if (!\is_string($actualXml)) {
             self::createWarning('Passing an argument of type DOMDocument for the $actualXml parameter is deprecated. Support for this will be removed in PHPUnit 10.');
             $actual = $actualXml;
         } else {
-            $actual = (new \ECSPrefix20210803\PHPUnit\Util\Xml\Loader())->load($actualXml);
+            $actual = (new \ECSPrefix20210804\PHPUnit\Util\Xml\Loader())->load($actualXml);
         }
         static::assertNotEquals($expected, $actual, $message);
     }
@@ -1761,8 +1761,8 @@ abstract class Assert
     public static function assertEqualXMLStructure(\DOMElement $expectedElement, \DOMElement $actualElement, bool $checkAttributes = \false, string $message = '') : void
     {
         self::createWarning('assertEqualXMLStructure() is deprecated and will be removed in PHPUnit 10.');
-        $expectedElement = \ECSPrefix20210803\PHPUnit\Util\Xml::import($expectedElement);
-        $actualElement = \ECSPrefix20210803\PHPUnit\Util\Xml::import($actualElement);
+        $expectedElement = \ECSPrefix20210804\PHPUnit\Util\Xml::import($expectedElement);
+        $actualElement = \ECSPrefix20210804\PHPUnit\Util\Xml::import($actualElement);
         static::assertSame($expectedElement->tagName, $actualElement->tagName, $message);
         if ($checkAttributes) {
             static::assertSame($expectedElement->attributes->length, $actualElement->attributes->length, \sprintf('%s%sNumber of attributes on node "%s" does not match', $message, !empty($message) ? "\n" : '', $expectedElement->tagName));
@@ -1775,8 +1775,8 @@ abstract class Assert
                 }
             }
         }
-        \ECSPrefix20210803\PHPUnit\Util\Xml::removeCharacterDataNodes($expectedElement);
-        \ECSPrefix20210803\PHPUnit\Util\Xml::removeCharacterDataNodes($actualElement);
+        \ECSPrefix20210804\PHPUnit\Util\Xml::removeCharacterDataNodes($expectedElement);
+        \ECSPrefix20210804\PHPUnit\Util\Xml::removeCharacterDataNodes($actualElement);
         static::assertSame($expectedElement->childNodes->length, $actualElement->childNodes->length, \sprintf('%s%sNumber of child nodes of "%s" differs', $message, !empty($message) ? "\n" : '', $expectedElement->tagName));
         for ($i = 0; $i < $expectedElement->childNodes->length; $i++) {
             static::assertEqualXMLStructure($expectedElement->childNodes->item($i), $actualElement->childNodes->item($i), $checkAttributes, $message);
@@ -1788,7 +1788,7 @@ abstract class Assert
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws ExpectationFailedException
      */
-    public static function assertThat($value, \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint $constraint, string $message = '') : void
+    public static function assertThat($value, \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint $constraint, string $message = '') : void
     {
         self::$count += \count($constraint);
         $constraint->evaluate($value, $message);
@@ -1813,7 +1813,7 @@ abstract class Assert
     {
         static::assertJson($expectedJson, $message);
         static::assertJson($actualJson, $message);
-        static::assertThat($actualJson, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatches($expectedJson), $message);
+        static::assertThat($actualJson, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatches($expectedJson), $message);
     }
     /**
      * Asserts that two given JSON encoded objects or arrays are not equal.
@@ -1828,7 +1828,7 @@ abstract class Assert
     {
         static::assertJson($expectedJson, $message);
         static::assertJson($actualJson, $message);
-        static::assertThat($actualJson, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatches($expectedJson)), $message);
+        static::assertThat($actualJson, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatches($expectedJson)), $message);
     }
     /**
      * Asserts that the generated JSON encoded object and the content of the given file are equal.
@@ -1842,7 +1842,7 @@ abstract class Assert
         $expectedJson = \file_get_contents($expectedFile);
         static::assertJson($expectedJson, $message);
         static::assertJson($actualJson, $message);
-        static::assertThat($actualJson, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatches($expectedJson), $message);
+        static::assertThat($actualJson, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatches($expectedJson), $message);
     }
     /**
      * Asserts that the generated JSON encoded object and the content of the given file are not equal.
@@ -1856,7 +1856,7 @@ abstract class Assert
         $expectedJson = \file_get_contents($expectedFile);
         static::assertJson($expectedJson, $message);
         static::assertJson($actualJson, $message);
-        static::assertThat($actualJson, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatches($expectedJson)), $message);
+        static::assertThat($actualJson, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatches($expectedJson)), $message);
     }
     /**
      * Asserts that two JSON files are equal.
@@ -1872,8 +1872,8 @@ abstract class Assert
         $expectedJson = \file_get_contents($expectedFile);
         static::assertJson($expectedJson, $message);
         static::assertJson($actualJson, $message);
-        $constraintExpected = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatches($expectedJson);
-        $constraintActual = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatches($actualJson);
+        $constraintExpected = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatches($expectedJson);
+        $constraintActual = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatches($actualJson);
         static::assertThat($expectedJson, $constraintActual, $message);
         static::assertThat($actualJson, $constraintExpected, $message);
     }
@@ -1891,46 +1891,46 @@ abstract class Assert
         $expectedJson = \file_get_contents($expectedFile);
         static::assertJson($expectedJson, $message);
         static::assertJson($actualJson, $message);
-        $constraintExpected = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatches($expectedJson);
-        $constraintActual = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\JsonMatches($actualJson);
-        static::assertThat($expectedJson, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot($constraintActual), $message);
-        static::assertThat($actualJson, new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot($constraintExpected), $message);
+        $constraintExpected = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatches($expectedJson);
+        $constraintActual = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\JsonMatches($actualJson);
+        static::assertThat($expectedJson, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot($constraintActual), $message);
+        static::assertThat($actualJson, new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot($constraintExpected), $message);
     }
     /**
      * @throws Exception
      */
-    public static function logicalAnd() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalAnd
+    public static function logicalAnd() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalAnd
     {
         $constraints = \func_get_args();
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalAnd();
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalAnd();
         $constraint->setConstraints($constraints);
         return $constraint;
     }
-    public static function logicalOr() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalOr
+    public static function logicalOr() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalOr
     {
         $constraints = \func_get_args();
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalOr();
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalOr();
         $constraint->setConstraints($constraints);
         return $constraint;
     }
-    public static function logicalNot(\ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint $constraint) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot
+    public static function logicalNot(\ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint $constraint) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalNot($constraint);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalNot($constraint);
     }
-    public static function logicalXor() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalXor
+    public static function logicalXor() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalXor
     {
         $constraints = \func_get_args();
-        $constraint = new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalXor();
+        $constraint = new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalXor();
         $constraint->setConstraints($constraints);
         return $constraint;
     }
-    public static function anything() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsAnything
+    public static function anything() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsAnything
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsAnything();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsAnything();
     }
-    public static function isTrue() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsTrue
+    public static function isTrue() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsTrue
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsTrue();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsTrue();
     }
     /**
      * @psalm-template CallbackInput of mixed
@@ -1939,160 +1939,160 @@ abstract class Assert
      *
      * @psalm-return Callback<CallbackInput>
      */
-    public static function callback(callable $callback) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\Callback
+    public static function callback(callable $callback) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\Callback
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\Callback($callback);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\Callback($callback);
     }
-    public static function isFalse() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsFalse
+    public static function isFalse() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsFalse
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsFalse();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsFalse();
     }
-    public static function isJson() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsJson
+    public static function isJson() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsJson
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsJson();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsJson();
     }
-    public static function isNull() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsNull
+    public static function isNull() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsNull
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsNull();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsNull();
     }
-    public static function isFinite() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsFinite
+    public static function isFinite() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsFinite
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsFinite();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsFinite();
     }
-    public static function isInfinite() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsInfinite
+    public static function isInfinite() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsInfinite
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsInfinite();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsInfinite();
     }
-    public static function isNan() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsNan
+    public static function isNan() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsNan
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsNan();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsNan();
     }
-    public static function containsEqual($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsEqual
+    public static function containsEqual($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsEqual
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsEqual($value);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsEqual($value);
     }
-    public static function containsIdentical($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsIdentical
+    public static function containsIdentical($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsIdentical
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsIdentical($value);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsIdentical($value);
     }
-    public static function containsOnly(string $type) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsOnly
+    public static function containsOnly(string $type) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsOnly
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsOnly($type);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsOnly($type);
     }
-    public static function containsOnlyInstancesOf(string $className) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsOnly
+    public static function containsOnlyInstancesOf(string $className) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsOnly
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\TraversableContainsOnly($className, \false);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\TraversableContainsOnly($className, \false);
     }
     /**
      * @param int|string $key
      */
-    public static function arrayHasKey($key) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\ArrayHasKey
+    public static function arrayHasKey($key) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\ArrayHasKey
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ArrayHasKey($key);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ArrayHasKey($key);
     }
-    public static function equalTo($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual
+    public static function equalTo($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual($value, 0.0, \false, \false);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual($value, 0.0, \false, \false);
     }
-    public static function equalToCanonicalizing($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualCanonicalizing
+    public static function equalToCanonicalizing($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualCanonicalizing
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualCanonicalizing($value);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualCanonicalizing($value);
     }
-    public static function equalToIgnoringCase($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualIgnoringCase
+    public static function equalToIgnoringCase($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualIgnoringCase
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualIgnoringCase($value);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualIgnoringCase($value);
     }
-    public static function equalToWithDelta($value, float $delta) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualWithDelta
+    public static function equalToWithDelta($value, float $delta) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualWithDelta
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqualWithDelta($value, $delta);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqualWithDelta($value, $delta);
     }
-    public static function isEmpty() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEmpty
+    public static function isEmpty() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEmpty
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEmpty();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEmpty();
     }
-    public static function isWritable() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsWritable
+    public static function isWritable() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsWritable
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsWritable();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsWritable();
     }
-    public static function isReadable() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsReadable
+    public static function isReadable() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsReadable
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsReadable();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsReadable();
     }
-    public static function directoryExists() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\DirectoryExists
+    public static function directoryExists() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\DirectoryExists
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\DirectoryExists();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\DirectoryExists();
     }
-    public static function fileExists() : \ECSPrefix20210803\PHPUnit\Framework\Constraint\FileExists
+    public static function fileExists() : \ECSPrefix20210804\PHPUnit\Framework\Constraint\FileExists
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\FileExists();
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\FileExists();
     }
-    public static function greaterThan($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\GreaterThan
+    public static function greaterThan($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\GreaterThan
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\GreaterThan($value);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\GreaterThan($value);
     }
-    public static function greaterThanOrEqual($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalOr
+    public static function greaterThanOrEqual($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalOr
     {
-        return static::logicalOr(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual($value), new \ECSPrefix20210803\PHPUnit\Framework\Constraint\GreaterThan($value));
+        return static::logicalOr(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual($value), new \ECSPrefix20210804\PHPUnit\Framework\Constraint\GreaterThan($value));
     }
-    public static function classHasAttribute(string $attributeName) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasAttribute
+    public static function classHasAttribute(string $attributeName) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasAttribute
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasAttribute($attributeName);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasAttribute($attributeName);
     }
-    public static function classHasStaticAttribute(string $attributeName) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasStaticAttribute
+    public static function classHasStaticAttribute(string $attributeName) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasStaticAttribute
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ClassHasStaticAttribute($attributeName);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ClassHasStaticAttribute($attributeName);
     }
-    public static function objectHasAttribute($attributeName) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\ObjectHasAttribute
+    public static function objectHasAttribute($attributeName) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\ObjectHasAttribute
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ObjectHasAttribute($attributeName);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ObjectHasAttribute($attributeName);
     }
-    public static function identicalTo($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsIdentical
+    public static function identicalTo($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsIdentical
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsIdentical($value);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsIdentical($value);
     }
-    public static function isInstanceOf(string $className) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsInstanceOf
+    public static function isInstanceOf(string $className) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsInstanceOf
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsInstanceOf($className);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsInstanceOf($className);
     }
-    public static function isType(string $type) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType
+    public static function isType(string $type) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsType($type);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsType($type);
     }
-    public static function lessThan($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\LessThan
+    public static function lessThan($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\LessThan
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LessThan($value);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LessThan($value);
     }
-    public static function lessThanOrEqual($value) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\LogicalOr
+    public static function lessThanOrEqual($value) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\LogicalOr
     {
-        return static::logicalOr(new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual($value), new \ECSPrefix20210803\PHPUnit\Framework\Constraint\LessThan($value));
+        return static::logicalOr(new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual($value), new \ECSPrefix20210804\PHPUnit\Framework\Constraint\LessThan($value));
     }
-    public static function matchesRegularExpression(string $pattern) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\RegularExpression
+    public static function matchesRegularExpression(string $pattern) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\RegularExpression
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\RegularExpression($pattern);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\RegularExpression($pattern);
     }
-    public static function matches(string $string) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringMatchesFormatDescription
+    public static function matches(string $string) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringMatchesFormatDescription
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringMatchesFormatDescription($string);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringMatchesFormatDescription($string);
     }
-    public static function stringStartsWith($prefix) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringStartsWith
+    public static function stringStartsWith($prefix) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringStartsWith
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringStartsWith($prefix);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringStartsWith($prefix);
     }
-    public static function stringContains(string $string, bool $case = \true) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringContains
+    public static function stringContains(string $string, bool $case = \true) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringContains
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringContains($string, $case);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringContains($string, $case);
     }
-    public static function stringEndsWith(string $suffix) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringEndsWith
+    public static function stringEndsWith(string $suffix) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringEndsWith
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\StringEndsWith($suffix);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\StringEndsWith($suffix);
     }
-    public static function countOf(int $count) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\Count
+    public static function countOf(int $count) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\Count
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\Count($count);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\Count($count);
     }
-    public static function objectEquals(object $object, string $method = 'equals') : \ECSPrefix20210803\PHPUnit\Framework\Constraint\ObjectEquals
+    public static function objectEquals(object $object, string $method = 'equals') : \ECSPrefix20210804\PHPUnit\Framework\Constraint\ObjectEquals
     {
-        return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\ObjectEquals($object, $method);
+        return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\ObjectEquals($object, $method);
     }
     /**
      * Fails a test with the given message.
@@ -2104,7 +2104,7 @@ abstract class Assert
     public static function fail(string $message = '') : void
     {
         self::$count++;
-        throw new \ECSPrefix20210803\PHPUnit\Framework\AssertionFailedError($message);
+        throw new \ECSPrefix20210804\PHPUnit\Framework\AssertionFailedError($message);
     }
     /**
      * Mark the test as incomplete.
@@ -2115,7 +2115,7 @@ abstract class Assert
      */
     public static function markTestIncomplete(string $message = '') : void
     {
-        throw new \ECSPrefix20210803\PHPUnit\Framework\IncompleteTestError($message);
+        throw new \ECSPrefix20210804\PHPUnit\Framework\IncompleteTestError($message);
     }
     /**
      * Mark the test as skipped.
@@ -2130,9 +2130,9 @@ abstract class Assert
         if ($hint = self::detectLocationHint($message)) {
             $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
             \array_unshift($trace, $hint);
-            throw new \ECSPrefix20210803\PHPUnit\Framework\SyntheticSkippedError($hint['message'], 0, $hint['file'], (int) $hint['line'], $trace);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\SyntheticSkippedError($hint['message'], 0, $hint['file'], (int) $hint['line'], $trace);
         }
-        throw new \ECSPrefix20210803\PHPUnit\Framework\SkippedTestError($message);
+        throw new \ECSPrefix20210804\PHPUnit\Framework\SkippedTestError($message);
     }
     /**
      * Return the current assertion count.
@@ -2180,8 +2180,8 @@ abstract class Assert
     private static function createWarning(string $warning) : void
     {
         foreach (\debug_backtrace() as $step) {
-            if (isset($step['object']) && $step['object'] instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase) {
-                \assert($step['object'] instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase);
+            if (isset($step['object']) && $step['object'] instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase) {
+                \assert($step['object'] instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase);
                 $step['object']->addWarning($warning);
                 break;
             }

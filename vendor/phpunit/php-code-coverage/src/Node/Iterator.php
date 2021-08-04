@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node;
 
 use function count;
 use RecursiveIterator;
@@ -26,7 +26,7 @@ final class Iterator implements \RecursiveIterator
      * @var AbstractNode[]
      */
     private $nodes;
-    public function __construct(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory $node)
+    public function __construct(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory $node)
     {
         $this->nodes = $node->children();
     }
@@ -54,7 +54,7 @@ final class Iterator implements \RecursiveIterator
     /**
      * Returns the current element.
      */
-    public function current() : ?\ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\AbstractNode
+    public function current() : ?\ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\AbstractNode
     {
         return $this->valid() ? $this->nodes[$this->position] : null;
     }
@@ -79,6 +79,6 @@ final class Iterator implements \RecursiveIterator
      */
     public function hasChildren() : bool
     {
-        return $this->nodes[$this->position] instanceof \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory;
+        return $this->nodes[$this->position] instanceof \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory;
     }
 }

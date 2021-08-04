@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Reflection;
+namespace ECSPrefix20210804\DeepCopy\Reflection;
 
-use ECSPrefix20210803\DeepCopy\Exception\PropertyException;
+use ECSPrefix20210804\DeepCopy\Exception\PropertyException;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionObject;
@@ -58,6 +58,6 @@ class ReflectionHelper
         if ($parentClass = $reflection->getParentClass()) {
             return self::getProperty($parentClass->getName(), $name);
         }
-        throw new \ECSPrefix20210803\DeepCopy\Exception\PropertyException(\sprintf('The class "%s" doesn\'t have a property with the given name: "%s".', \is_object($object) ? \get_class($object) : $object, $name));
+        throw new \ECSPrefix20210804\DeepCopy\Exception\PropertyException(\sprintf('The class "%s" doesn\'t have a property with the given name: "%s".', \is_object($object) ? \get_class($object) : $object, $name));
     }
 }

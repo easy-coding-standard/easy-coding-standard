@@ -9,14 +9,14 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
 use function is_float;
 use function is_numeric;
 /**
  * Compares doubles for equality.
  */
-class DoubleComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\NumericComparator
+class DoubleComparator extends \ECSPrefix20210804\SebastianBergmann\Comparator\NumericComparator
 {
     /**
      * Smallest value available in PHP.

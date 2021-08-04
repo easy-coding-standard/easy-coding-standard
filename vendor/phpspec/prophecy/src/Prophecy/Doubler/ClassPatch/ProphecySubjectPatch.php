@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\ClassPatch;
+namespace ECSPrefix20210804\Prophecy\Doubler\ClassPatch;
 
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode;
-use ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ReturnTypeNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode;
+use ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ReturnTypeNode;
 /**
  * Add Prophecy functionality to the double.
  * This is a core class patch for Prophecy.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class ProphecySubjectPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassPatch\ClassPatchInterface
+class ProphecySubjectPatch implements \ECSPrefix20210804\Prophecy\Doubler\ClassPatch\ClassPatchInterface
 {
     /**
      * Always returns true.
@@ -30,7 +30,7 @@ class ProphecySubjectPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassP
      *
      * @return bool
      */
-    public function supports(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function supports(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
         return \true;
     }
@@ -39,9 +39,9 @@ class ProphecySubjectPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassP
      *
      * @param ClassNode $node
      */
-    public function apply(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ClassNode $node)
+    public function apply(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ClassNode $node)
     {
-        $node->addInterface('ECSPrefix20210803\\Prophecy\\Prophecy\\ProphecySubjectInterface');
+        $node->addInterface('ECSPrefix20210804\\Prophecy\\Prophecy\\ProphecySubjectInterface');
         $node->addProperty('objectProphecyClosure', 'private');
         foreach ($node->getMethods() as $name => $method) {
             if ('__construct' === \strtolower($name)) {
@@ -53,9 +53,9 @@ class ProphecySubjectPatch implements \ECSPrefix20210803\Prophecy\Doubler\ClassP
                 $method->setCode('return $this->getProphecy()->makeProphecyMethodCall(__FUNCTION__, func_get_args());');
             }
         }
-        $prophecySetter = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode('setProphecy');
-        $prophecyArgument = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode('prophecy');
-        $prophecyArgument->setTypeNode(new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode('ECSPrefix20210803\\Prophecy\\Prophecy\\ProphecyInterface'));
+        $prophecySetter = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode('setProphecy');
+        $prophecyArgument = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode('prophecy');
+        $prophecyArgument->setTypeNode(new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode('ECSPrefix20210804\\Prophecy\\Prophecy\\ProphecyInterface'));
         $prophecySetter->addArgument($prophecyArgument);
         $prophecySetter->setCode(<<<PHP
 if (null === \$this->objectProphecyClosure) {
@@ -65,14 +65,14 @@ if (null === \$this->objectProphecyClosure) {
 }
 PHP
 );
-        $prophecyGetter = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode('getProphecy');
+        $prophecyGetter = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode('getProphecy');
         $prophecyGetter->setCode('return \\call_user_func($this->objectProphecyClosure);');
         if ($node->hasMethod('__call')) {
             $__call = $node->getMethod('__call');
         } else {
-            $__call = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode('__call');
-            $__call->addArgument(new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode('name'));
-            $__call->addArgument(new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentNode('arguments'));
+            $__call = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode('__call');
+            $__call->addArgument(new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode('name'));
+            $__call->addArgument(new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentNode('arguments'));
             $node->addMethod($__call, \true);
         }
         $__call->setCode(<<<PHP

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Builder;
+namespace ECSPrefix20210804\PhpParser\Builder;
 
-use ECSPrefix20210803\PhpParser;
-use ECSPrefix20210803\PhpParser\BuilderHelpers;
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Identifier;
-use ECSPrefix20210803\PhpParser\Node\Name;
-use ECSPrefix20210803\PhpParser\Node\NullableType;
-use ECSPrefix20210803\PhpParser\Node\Stmt;
-class Property implements \ECSPrefix20210803\PhpParser\Builder
+use ECSPrefix20210804\PhpParser;
+use ECSPrefix20210804\PhpParser\BuilderHelpers;
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Identifier;
+use ECSPrefix20210804\PhpParser\Node\Name;
+use ECSPrefix20210804\PhpParser\Node\NullableType;
+use ECSPrefix20210804\PhpParser\Node\Stmt;
+class Property implements \ECSPrefix20210804\PhpParser\Builder
 {
     protected $name;
     protected $flags = 0;
@@ -36,7 +36,7 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function makePublic()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC);
         return $this;
     }
     /**
@@ -46,7 +46,7 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function makeProtected()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
         return $this;
     }
     /**
@@ -56,7 +56,7 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function makePrivate()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
         return $this;
     }
     /**
@@ -66,7 +66,7 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function makeStatic()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
         return $this;
     }
     /**
@@ -76,7 +76,7 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function makeReadonly()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_READONLY);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_READONLY);
         return $this;
     }
     /**
@@ -88,7 +88,7 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function setDefault($value)
     {
-        $this->default = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeValue($value);
+        $this->default = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeValue($value);
         return $this;
     }
     /**
@@ -100,7 +100,7 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function setDocComment($docComment)
     {
-        $this->attributes = ['comments' => [\ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeDocComment($docComment)]];
+        $this->attributes = ['comments' => [\ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeDocComment($docComment)]];
         return $this;
     }
     /**
@@ -112,7 +112,7 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function setType($type)
     {
-        $this->type = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeType($type);
+        $this->type = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeType($type);
         return $this;
     }
     /**
@@ -124,7 +124,7 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      */
     public function addAttribute($attribute)
     {
-        $this->attributeGroups[] = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
         return $this;
     }
     /**
@@ -132,8 +132,8 @@ class Property implements \ECSPrefix20210803\PhpParser\Builder
      *
      * @return Stmt\Property The built property node
      */
-    public function getNode() : \ECSPrefix20210803\PhpParser\Node
+    public function getNode() : \ECSPrefix20210804\PhpParser\Node
     {
-        return new \ECSPrefix20210803\PhpParser\Node\Stmt\Property($this->flags !== 0 ? $this->flags : \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, [new \ECSPrefix20210803\PhpParser\Node\Stmt\PropertyProperty($this->name, $this->default)], $this->attributes, $this->type, $this->attributeGroups);
+        return new \ECSPrefix20210804\PhpParser\Node\Stmt\Property($this->flags !== 0 ? $this->flags : \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, [new \ECSPrefix20210804\PhpParser\Node\Stmt\PropertyProperty($this->name, $this->default)], $this->attributes, $this->type, $this->attributeGroups);
     }
 }

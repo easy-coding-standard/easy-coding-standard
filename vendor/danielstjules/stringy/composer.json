@@ -34,7 +34,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210803\\Stringy\\": "src\/"
+            "ECSPrefix20210804\\Stringy\\": "src\/"
         },
         "files": [
             "src\/Create.php"

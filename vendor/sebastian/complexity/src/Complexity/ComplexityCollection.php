@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Complexity;
+namespace ECSPrefix20210804\SebastianBergmann\Complexity;
 
 use function count;
 use Countable;
@@ -45,9 +45,9 @@ final class ComplexityCollection implements \Countable, \IteratorAggregate
     {
         return $this->items;
     }
-    public function getIterator() : \ECSPrefix20210803\SebastianBergmann\Complexity\ComplexityCollectionIterator
+    public function getIterator() : \ECSPrefix20210804\SebastianBergmann\Complexity\ComplexityCollectionIterator
     {
-        return new \ECSPrefix20210803\SebastianBergmann\Complexity\ComplexityCollectionIterator($this);
+        return new \ECSPrefix20210804\SebastianBergmann\Complexity\ComplexityCollectionIterator($this);
     }
     public function count() : int
     {

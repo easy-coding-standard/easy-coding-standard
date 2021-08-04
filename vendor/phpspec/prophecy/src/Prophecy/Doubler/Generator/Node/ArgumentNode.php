@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\Generator\Node;
+namespace ECSPrefix20210804\Prophecy\Doubler\Generator\Node;
 
 /**
  * Argument node.
@@ -30,17 +30,17 @@ class ArgumentNode
     public function __construct($name)
     {
         $this->name = $name;
-        $this->typeNode = new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode();
+        $this->typeNode = new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode();
     }
     public function getName()
     {
         return $this->name;
     }
-    public function setTypeNode(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode $typeNode)
+    public function setTypeNode(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode $typeNode)
     {
         $this->typeNode = $typeNode;
     }
-    public function getTypeNode() : \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode
+    public function getTypeNode() : \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode
     {
         return $this->typeNode;
     }
@@ -92,7 +92,7 @@ class ArgumentNode
      */
     public function setTypeHint($typeHint = null)
     {
-        $this->typeNode = $typeHint === null ? new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode() : new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode($typeHint);
+        $this->typeNode = $typeHint === null ? new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode() : new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode($typeHint);
     }
     /**
      * @deprecated use getArgumentTypeNode instead
@@ -109,6 +109,6 @@ class ArgumentNode
     public function setAsNullable($isNullable = \true)
     {
         $nonNullTypes = $this->typeNode->getNonNullTypes();
-        $this->typeNode = $isNullable ? new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode('null', ...$nonNullTypes) : new \ECSPrefix20210803\Prophecy\Doubler\Generator\Node\ArgumentTypeNode(...$nonNullTypes);
+        $this->typeNode = $isNullable ? new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode('null', ...$nonNullTypes) : new \ECSPrefix20210804\Prophecy\Doubler\Generator\Node\ArgumentTypeNode(...$nonNullTypes);
     }
 }

@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tags\Reference;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tags\Reference;
 
 /**
  * Interface for references in {@see \phpDocumentor\Reflection\DocBlock\Tags\See}

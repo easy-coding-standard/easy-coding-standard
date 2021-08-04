@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use function strtolower;
 use Exception;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvocationOrder;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 use Throwable;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -60,7 +60,7 @@ final class InvocationHandler
      *
      * @param string $id The identification of the match builder
      */
-    public function lookupMatcher(string $id) : ?\ECSPrefix20210803\PHPUnit\Framework\MockObject\Matcher
+    public function lookupMatcher(string $id) : ?\ECSPrefix20210804\PHPUnit\Framework\MockObject\Matcher
     {
         if (isset($this->matcherMap[$id])) {
             return $this->matcherMap[$id];
@@ -76,24 +76,24 @@ final class InvocationHandler
      *
      * @throws MatcherAlreadyRegisteredException
      */
-    public function registerMatcher(string $id, \ECSPrefix20210803\PHPUnit\Framework\MockObject\Matcher $matcher) : void
+    public function registerMatcher(string $id, \ECSPrefix20210804\PHPUnit\Framework\MockObject\Matcher $matcher) : void
     {
         if (isset($this->matcherMap[$id])) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\MockObject\MatcherAlreadyRegisteredException($id);
+            throw new \ECSPrefix20210804\PHPUnit\Framework\MockObject\MatcherAlreadyRegisteredException($id);
         }
         $this->matcherMap[$id] = $matcher;
     }
-    public function expects(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvocationOrder $rule) : \ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder\InvocationMocker
+    public function expects(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvocationOrder $rule) : \ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder\InvocationMocker
     {
-        $matcher = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Matcher($rule);
+        $matcher = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Matcher($rule);
         $this->addMatcher($matcher);
-        return new \ECSPrefix20210803\PHPUnit\Framework\MockObject\Builder\InvocationMocker($this, $matcher, ...$this->configurableMethods);
+        return new \ECSPrefix20210804\PHPUnit\Framework\MockObject\Builder\InvocationMocker($this, $matcher, ...$this->configurableMethods);
     }
     /**
      * @throws Exception
      * @throws RuntimeException
      */
-    public function invoke(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation)
+    public function invoke(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation)
     {
         $exception = null;
         $hasReturnValue = \false;
@@ -118,7 +118,7 @@ final class InvocationHandler
             return $returnValue;
         }
         if (!$this->returnValueGeneration) {
-            $exception = new \ECSPrefix20210803\PHPUnit\Framework\MockObject\ReturnValueNotConfiguredException($invocation);
+            $exception = new \ECSPrefix20210804\PHPUnit\Framework\MockObject\ReturnValueNotConfiguredException($invocation);
             if (\strtolower($invocation->getMethodName()) === '__tostring') {
                 $this->deferredError = $exception;
                 return '';
@@ -127,7 +127,7 @@ final class InvocationHandler
         }
         return $invocation->generateReturnValue();
     }
-    public function matches(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
+    public function matches(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
     {
         foreach ($this->matchers as $matcher) {
             if (!$matcher->matches($invocation)) {
@@ -148,7 +148,7 @@ final class InvocationHandler
             throw $this->deferredError;
         }
     }
-    private function addMatcher(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Matcher $matcher) : void
+    private function addMatcher(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Matcher $matcher) : void
     {
         $this->matchers[] = $matcher;
     }

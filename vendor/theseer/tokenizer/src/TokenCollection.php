@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\TheSeer\Tokenizer;
+namespace ECSPrefix20210804\TheSeer\Tokenizer;
 
 class TokenCollection implements \ArrayAccess, \Iterator, \Countable
 {
@@ -9,11 +9,11 @@ class TokenCollection implements \ArrayAccess, \Iterator, \Countable
     private $tokens = [];
     /** @var int */
     private $pos;
-    public function addToken(\ECSPrefix20210803\TheSeer\Tokenizer\Token $token) : void
+    public function addToken(\ECSPrefix20210804\TheSeer\Tokenizer\Token $token) : void
     {
         $this->tokens[] = $token;
     }
-    public function current() : \ECSPrefix20210803\TheSeer\Tokenizer\Token
+    public function current() : \ECSPrefix20210804\TheSeer\Tokenizer\Token
     {
         return \current($this->tokens);
     }
@@ -46,10 +46,10 @@ class TokenCollection implements \ArrayAccess, \Iterator, \Countable
     /**
      * @throws TokenCollectionException
      */
-    public function offsetGet($offset) : \ECSPrefix20210803\TheSeer\Tokenizer\Token
+    public function offsetGet($offset) : \ECSPrefix20210804\TheSeer\Tokenizer\Token
     {
         if (!$this->offsetExists($offset)) {
-            throw new \ECSPrefix20210803\TheSeer\Tokenizer\TokenCollectionException(\sprintf('No Token at offest %s', $offset));
+            throw new \ECSPrefix20210804\TheSeer\Tokenizer\TokenCollectionException(\sprintf('No Token at offest %s', $offset));
         }
         return $this->tokens[$offset];
     }
@@ -62,11 +62,11 @@ class TokenCollection implements \ArrayAccess, \Iterator, \Countable
     {
         if (!\is_int($offset)) {
             $type = \gettype($offset);
-            throw new \ECSPrefix20210803\TheSeer\Tokenizer\TokenCollectionException(\sprintf('Offset must be of type integer, %s given', $type === 'object' ? \get_class($value) : $type));
+            throw new \ECSPrefix20210804\TheSeer\Tokenizer\TokenCollectionException(\sprintf('Offset must be of type integer, %s given', $type === 'object' ? \get_class($value) : $type));
         }
-        if (!$value instanceof \ECSPrefix20210803\TheSeer\Tokenizer\Token) {
+        if (!$value instanceof \ECSPrefix20210804\TheSeer\Tokenizer\Token) {
             $type = \gettype($value);
-            throw new \ECSPrefix20210803\TheSeer\Tokenizer\TokenCollectionException(\sprintf('Value must be of type %s, %s given', \ECSPrefix20210803\TheSeer\Tokenizer\Token::class, $type === 'object' ? \get_class($value) : $type));
+            throw new \ECSPrefix20210804\TheSeer\Tokenizer\TokenCollectionException(\sprintf('Value must be of type %s, %s given', \ECSPrefix20210804\TheSeer\Tokenizer\Token::class, $type === 'object' ? \get_class($value) : $type));
         }
         $this->tokens[$offset] = $value;
     }

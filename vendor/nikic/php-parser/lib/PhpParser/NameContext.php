@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser;
+namespace ECSPrefix20210804\PhpParser;
 
-use ECSPrefix20210803\PhpParser\Node\Name;
-use ECSPrefix20210803\PhpParser\Node\Name\FullyQualified;
-use ECSPrefix20210803\PhpParser\Node\Stmt;
+use ECSPrefix20210804\PhpParser\Node\Name;
+use ECSPrefix20210804\PhpParser\Node\Name\FullyQualified;
+use ECSPrefix20210804\PhpParser\Node\Stmt;
 class NameContext
 {
     /** @var null|Name Current namespace */
@@ -21,7 +21,7 @@ class NameContext
      *
      * @param ErrorHandler $errorHandler Error handling used to report errors
      */
-    public function __construct(\ECSPrefix20210803\PhpParser\ErrorHandler $errorHandler)
+    public function __construct(\ECSPrefix20210804\PhpParser\ErrorHandler $errorHandler)
     {
         $this->errorHandler = $errorHandler;
     }
@@ -32,10 +32,10 @@ class NameContext
      *
      * @param Name|null $namespace Null is the global namespace
      */
-    public function startNamespace(\ECSPrefix20210803\PhpParser\Node\Name $namespace = null)
+    public function startNamespace(\ECSPrefix20210804\PhpParser\Node\Name $namespace = null)
     {
         $this->namespace = $namespace;
-        $this->origAliases = $this->aliases = [\ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL => [], \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION => [], \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT => []];
+        $this->origAliases = $this->aliases = [\ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL => [], \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION => [], \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT => []];
     }
     /**
      * Add an alias / import.
@@ -45,17 +45,17 @@ class NameContext
      * @param int    $type        One of Stmt\Use_::TYPE_*
      * @param array  $errorAttrs Attributes to use to report an error
      */
-    public function addAlias(\ECSPrefix20210803\PhpParser\Node\Name $name, string $aliasName, int $type, array $errorAttrs = [])
+    public function addAlias(\ECSPrefix20210804\PhpParser\Node\Name $name, string $aliasName, int $type, array $errorAttrs = [])
     {
         // Constant names are case sensitive, everything else case insensitive
-        if ($type === \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT) {
+        if ($type === \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT) {
             $aliasLookupName = $aliasName;
         } else {
             $aliasLookupName = \strtolower($aliasName);
         }
         if (isset($this->aliases[$type][$aliasLookupName])) {
-            $typeStringMap = [\ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL => '', \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION => 'function ', \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT => 'const '];
-            $this->errorHandler->handleError(new \ECSPrefix20210803\PhpParser\Error(\sprintf('Cannot use %s%s as %s because the name is already in use', $typeStringMap[$type], $name, $aliasName), $errorAttrs));
+            $typeStringMap = [\ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL => '', \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION => 'function ', \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT => 'const '];
+            $this->errorHandler->handleError(new \ECSPrefix20210804\PhpParser\Error(\sprintf('Cannot use %s%s as %s because the name is already in use', $typeStringMap[$type], $name, $aliasName), $errorAttrs));
             return;
         }
         $this->aliases[$type][$aliasLookupName] = $name;
@@ -78,12 +78,12 @@ class NameContext
      *
      * @return null|Name Resolved name, or null if static resolution is not possible
      */
-    public function getResolvedName(\ECSPrefix20210803\PhpParser\Node\Name $name, int $type)
+    public function getResolvedName(\ECSPrefix20210804\PhpParser\Node\Name $name, int $type)
     {
         // don't resolve special class names
-        if ($type === \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL && $name->isSpecialClassName()) {
+        if ($type === \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL && $name->isSpecialClassName()) {
             if (!$name->isUnqualified()) {
-                $this->errorHandler->handleError(new \ECSPrefix20210803\PhpParser\Error(\sprintf("'\\%s' is an invalid class name", $name->toString()), $name->getAttributes()));
+                $this->errorHandler->handleError(new \ECSPrefix20210804\PhpParser\Error(\sprintf("'\\%s' is an invalid class name", $name->toString()), $name->getAttributes()));
             }
             return $name;
         }
@@ -95,16 +95,16 @@ class NameContext
         if (null !== ($resolvedName = $this->resolveAlias($name, $type))) {
             return $resolvedName;
         }
-        if ($type !== \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL && $name->isUnqualified()) {
+        if ($type !== \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL && $name->isUnqualified()) {
             if (null === $this->namespace) {
                 // outside of a namespace unaliased unqualified is same as fully qualified
-                return new \ECSPrefix20210803\PhpParser\Node\Name\FullyQualified($name, $name->getAttributes());
+                return new \ECSPrefix20210804\PhpParser\Node\Name\FullyQualified($name, $name->getAttributes());
             }
             // Cannot resolve statically
             return null;
         }
         // if no alias exists prepend current namespace
-        return \ECSPrefix20210803\PhpParser\Node\Name\FullyQualified::concat($this->namespace, $name, $name->getAttributes());
+        return \ECSPrefix20210804\PhpParser\Node\Name\FullyQualified::concat($this->namespace, $name, $name->getAttributes());
     }
     /**
      * Get resolved class name.
@@ -113,9 +113,9 @@ class NameContext
      *
      * @return Name Resolved name
      */
-    public function getResolvedClassName(\ECSPrefix20210803\PhpParser\Node\Name $name) : \ECSPrefix20210803\PhpParser\Node\Name
+    public function getResolvedClassName(\ECSPrefix20210804\PhpParser\Node\Name $name) : \ECSPrefix20210804\PhpParser\Node\Name
     {
-        return $this->getResolvedName($name, \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL);
+        return $this->getResolvedName($name, \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL);
     }
     /**
      * Get possible ways of writing a fully qualified name (e.g., by making use of aliases).
@@ -128,14 +128,14 @@ class NameContext
     public function getPossibleNames(string $name, int $type) : array
     {
         $lcName = \strtolower($name);
-        if ($type === \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
+        if ($type === \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
             // self, parent and static must always be unqualified
             if ($lcName === "self" || $lcName === "parent" || $lcName === "static") {
-                return [new \ECSPrefix20210803\PhpParser\Node\Name($name)];
+                return [new \ECSPrefix20210804\PhpParser\Node\Name($name)];
             }
         }
         // Collect possible ways to write this name, starting with the fully-qualified name
-        $possibleNames = [new \ECSPrefix20210803\PhpParser\Node\Name\FullyQualified($name)];
+        $possibleNames = [new \ECSPrefix20210804\PhpParser\Node\Name\FullyQualified($name)];
         if (null !== ($nsRelativeName = $this->getNamespaceRelativeName($name, $lcName, $type))) {
             // Make sure there is no alias that makes the normally namespace-relative name
             // into something else
@@ -144,24 +144,24 @@ class NameContext
             }
         }
         // Check for relevant namespace use statements
-        foreach ($this->origAliases[\ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL] as $alias => $orig) {
+        foreach ($this->origAliases[\ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL] as $alias => $orig) {
             $lcOrig = $orig->toLowerString();
             if (0 === \strpos($lcName, $lcOrig . '\\')) {
-                $possibleNames[] = new \ECSPrefix20210803\PhpParser\Node\Name($alias . \substr($name, \strlen($lcOrig)));
+                $possibleNames[] = new \ECSPrefix20210804\PhpParser\Node\Name($alias . \substr($name, \strlen($lcOrig)));
             }
         }
         // Check for relevant type-specific use statements
         foreach ($this->origAliases[$type] as $alias => $orig) {
-            if ($type === \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT) {
+            if ($type === \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT) {
                 // Constants are are complicated-sensitive
                 $normalizedOrig = $this->normalizeConstName($orig->toString());
                 if ($normalizedOrig === $this->normalizeConstName($name)) {
-                    $possibleNames[] = new \ECSPrefix20210803\PhpParser\Node\Name($alias);
+                    $possibleNames[] = new \ECSPrefix20210804\PhpParser\Node\Name($alias);
                 }
             } else {
                 // Everything else is case-insensitive
                 if ($orig->toLowerString() === $lcName) {
-                    $possibleNames[] = new \ECSPrefix20210803\PhpParser\Node\Name($alias);
+                    $possibleNames[] = new \ECSPrefix20210804\PhpParser\Node\Name($alias);
                 }
             }
         }
@@ -175,7 +175,7 @@ class NameContext
      *
      * @return Name Shortest representation
      */
-    public function getShortName(string $name, int $type) : \ECSPrefix20210803\PhpParser\Node\Name
+    public function getShortName(string $name, int $type) : \ECSPrefix20210804\PhpParser\Node\Name
     {
         $possibleNames = $this->getPossibleNames($name, $type);
         // Find shortest name
@@ -190,22 +190,22 @@ class NameContext
         }
         return $shortestName;
     }
-    private function resolveAlias(\ECSPrefix20210803\PhpParser\Node\Name $name, $type)
+    private function resolveAlias(\ECSPrefix20210804\PhpParser\Node\Name $name, $type)
     {
         $firstPart = $name->getFirst();
         if ($name->isQualified()) {
             // resolve aliases for qualified names, always against class alias table
             $checkName = \strtolower($firstPart);
-            if (isset($this->aliases[\ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL][$checkName])) {
-                $alias = $this->aliases[\ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_NORMAL][$checkName];
-                return \ECSPrefix20210803\PhpParser\Node\Name\FullyQualified::concat($alias, $name->slice(1), $name->getAttributes());
+            if (isset($this->aliases[\ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL][$checkName])) {
+                $alias = $this->aliases[\ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_NORMAL][$checkName];
+                return \ECSPrefix20210804\PhpParser\Node\Name\FullyQualified::concat($alias, $name->slice(1), $name->getAttributes());
             }
         } elseif ($name->isUnqualified()) {
             // constant aliases are case-sensitive, function aliases case-insensitive
-            $checkName = $type === \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT ? $firstPart : \strtolower($firstPart);
+            $checkName = $type === \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT ? $firstPart : \strtolower($firstPart);
             if (isset($this->aliases[$type][$checkName])) {
                 // resolve unqualified aliases
-                return new \ECSPrefix20210803\PhpParser\Node\Name\FullyQualified($this->aliases[$type][$checkName], $name->getAttributes());
+                return new \ECSPrefix20210804\PhpParser\Node\Name\FullyQualified($this->aliases[$type][$checkName], $name->getAttributes());
             }
         }
         // No applicable aliases
@@ -214,18 +214,18 @@ class NameContext
     private function getNamespaceRelativeName(string $name, string $lcName, int $type)
     {
         if (null === $this->namespace) {
-            return new \ECSPrefix20210803\PhpParser\Node\Name($name);
+            return new \ECSPrefix20210804\PhpParser\Node\Name($name);
         }
-        if ($type === \ECSPrefix20210803\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT) {
+        if ($type === \ECSPrefix20210804\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT) {
             // The constants true/false/null always resolve to the global symbols, even inside a
             // namespace, so they may be used without qualification
             if ($lcName === "true" || $lcName === "false" || $lcName === "null") {
-                return new \ECSPrefix20210803\PhpParser\Node\Name($name);
+                return new \ECSPrefix20210804\PhpParser\Node\Name($name);
             }
         }
         $namespacePrefix = \strtolower($this->namespace . '\\');
         if (0 === \strpos($lcName, $namespacePrefix)) {
-            return new \ECSPrefix20210803\PhpParser\Node\Name(\substr($name, \strlen($namespacePrefix)));
+            return new \ECSPrefix20210804\PhpParser\Node\Name(\substr($name, \strlen($namespacePrefix)));
         }
         return null;
     }

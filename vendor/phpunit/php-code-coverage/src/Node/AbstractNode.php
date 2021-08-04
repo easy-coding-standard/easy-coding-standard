@@ -9,15 +9,15 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node;
 
 use const DIRECTORY_SEPARATOR;
 use function array_merge;
 use function str_replace;
 use function substr;
 use Countable;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage;
-use ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage;
+use ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
@@ -99,41 +99,41 @@ abstract class AbstractNode implements \Countable
     {
         return $this->parent;
     }
-    public function percentageOfTestedClasses() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage
+    public function percentageOfTestedClasses() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage
     {
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedClasses(), $this->numberOfClasses());
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedClasses(), $this->numberOfClasses());
     }
-    public function percentageOfTestedTraits() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage
+    public function percentageOfTestedTraits() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage
     {
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedTraits(), $this->numberOfTraits());
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedTraits(), $this->numberOfTraits());
     }
-    public function percentageOfTestedClassesAndTraits() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage
+    public function percentageOfTestedClassesAndTraits() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage
     {
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedClassesAndTraits(), $this->numberOfClassesAndTraits());
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedClassesAndTraits(), $this->numberOfClassesAndTraits());
     }
-    public function percentageOfTestedFunctions() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage
+    public function percentageOfTestedFunctions() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage
     {
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedFunctions(), $this->numberOfFunctions());
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedFunctions(), $this->numberOfFunctions());
     }
-    public function percentageOfTestedMethods() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage
+    public function percentageOfTestedMethods() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage
     {
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedMethods(), $this->numberOfMethods());
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedMethods(), $this->numberOfMethods());
     }
-    public function percentageOfTestedFunctionsAndMethods() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage
+    public function percentageOfTestedFunctionsAndMethods() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage
     {
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedFunctionsAndMethods(), $this->numberOfFunctionsAndMethods());
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfTestedFunctionsAndMethods(), $this->numberOfFunctionsAndMethods());
     }
-    public function percentageOfExecutedLines() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage
+    public function percentageOfExecutedLines() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage
     {
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfExecutedLines(), $this->numberOfExecutableLines());
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfExecutedLines(), $this->numberOfExecutableLines());
     }
-    public function percentageOfExecutedBranches() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage
+    public function percentageOfExecutedBranches() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage
     {
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfExecutedBranches(), $this->numberOfExecutableBranches());
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfExecutedBranches(), $this->numberOfExecutableBranches());
     }
-    public function percentageOfExecutedPaths() : \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage
+    public function percentageOfExecutedPaths() : \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage
     {
-        return \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfExecutedPaths(), $this->numberOfExecutablePaths());
+        return \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Percentage::fromFractionAndTotal($this->numberOfExecutedPaths(), $this->numberOfExecutablePaths());
     }
     public function numberOfClassesAndTraits() : int
     {
@@ -158,7 +158,7 @@ abstract class AbstractNode implements \Countable
     public abstract function classes() : array;
     public abstract function traits() : array;
     public abstract function functions() : array;
-    public abstract function linesOfCode() : \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode;
+    public abstract function linesOfCode() : \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode;
     public abstract function numberOfExecutableLines() : int;
     public abstract function numberOfExecutedLines() : int;
     public abstract function numberOfExecutableBranches() : int;

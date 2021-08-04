@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Symfony\Component\DependencyInjection\Attribute;
+namespace ECSPrefix20210804\Symfony\Component\DependencyInjection\Attribute;
 
 /**
  * An attribute to tell under which index and priority a service class should be found in tagged iterators/locators.

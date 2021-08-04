@@ -9,15 +9,15 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection;
+namespace ECSPrefix20210804\phpDocumentor\Reflection;
 
 use InvalidArgumentException;
 use LogicException;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\StandardTagFactory;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\Tag;
-use ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\TagFactory;
-use ECSPrefix20210803\Webmozart\Assert\Assert;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\StandardTagFactory;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\Tag;
+use ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\TagFactory;
+use ECSPrefix20210804\Webmozart\Assert\Assert;
 use function array_shift;
 use function count;
 use function explode;
@@ -29,7 +29,7 @@ use function str_replace;
 use function strpos;
 use function substr;
 use function trim;
-final class DocBlockFactory implements \ECSPrefix20210803\phpDocumentor\Reflection\DocBlockFactoryInterface
+final class DocBlockFactory implements \ECSPrefix20210804\phpDocumentor\Reflection\DocBlockFactoryInterface
 {
     /** @var DocBlock\DescriptionFactory */
     private $descriptionFactory;
@@ -38,7 +38,7 @@ final class DocBlockFactory implements \ECSPrefix20210803\phpDocumentor\Reflecti
     /**
      * Initializes this factory with the required subcontractors.
      */
-    public function __construct(\ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory, \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
+    public function __construct(\ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory, \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\TagFactory $tagFactory)
     {
         $this->descriptionFactory = $descriptionFactory;
         $this->tagFactory = $tagFactory;
@@ -50,11 +50,11 @@ final class DocBlockFactory implements \ECSPrefix20210803\phpDocumentor\Reflecti
      */
     public static function createInstance(array $additionalTags = []) : self
     {
-        $fqsenResolver = new \ECSPrefix20210803\phpDocumentor\Reflection\FqsenResolver();
-        $tagFactory = new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\StandardTagFactory($fqsenResolver);
-        $descriptionFactory = new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock\DescriptionFactory($tagFactory);
+        $fqsenResolver = new \ECSPrefix20210804\phpDocumentor\Reflection\FqsenResolver();
+        $tagFactory = new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\StandardTagFactory($fqsenResolver);
+        $descriptionFactory = new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock\DescriptionFactory($tagFactory);
         $tagFactory->addService($descriptionFactory);
-        $tagFactory->addService(new \ECSPrefix20210803\phpDocumentor\Reflection\TypeResolver($fqsenResolver));
+        $tagFactory->addService(new \ECSPrefix20210804\phpDocumentor\Reflection\TypeResolver($fqsenResolver));
         $docBlockFactory = new self($descriptionFactory, $tagFactory);
         foreach ($additionalTags as $tagName => $tagHandler) {
             $docBlockFactory->registerTagHandler($tagName, $tagHandler);
@@ -65,7 +65,7 @@ final class DocBlockFactory implements \ECSPrefix20210803\phpDocumentor\Reflecti
      * @param object|string $docblock A string containing the DocBlock to parse or an object supporting the
      *                                getDocComment method (such as a ReflectionClass object).
      */
-    public function create($docblock, ?\ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context = null, ?\ECSPrefix20210803\phpDocumentor\Reflection\Location $location = null) : \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock
+    public function create($docblock, ?\ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context = null, ?\ECSPrefix20210804\phpDocumentor\Reflection\Location $location = null) : \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock
     {
         if (\is_object($docblock)) {
             if (!\method_exists($docblock, 'getDocComment')) {
@@ -73,15 +73,15 @@ final class DocBlockFactory implements \ECSPrefix20210803\phpDocumentor\Reflecti
                 throw new \InvalidArgumentException($exceptionMessage);
             }
             $docblock = $docblock->getDocComment();
-            \ECSPrefix20210803\Webmozart\Assert\Assert::string($docblock);
+            \ECSPrefix20210804\Webmozart\Assert\Assert::string($docblock);
         }
-        \ECSPrefix20210803\Webmozart\Assert\Assert::stringNotEmpty($docblock);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::stringNotEmpty($docblock);
         if ($context === null) {
-            $context = new \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context('');
+            $context = new \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context('');
         }
         $parts = $this->splitDocBlock($this->stripDocComment($docblock));
         [$templateMarker, $summary, $description, $tags] = $parts;
-        return new \ECSPrefix20210803\phpDocumentor\Reflection\DocBlock($summary, $description ? $this->descriptionFactory->create($description, $context) : null, $this->parseTagBlock($tags, $context), $context, $location, $templateMarker === '#@+', $templateMarker === '#@-');
+        return new \ECSPrefix20210804\phpDocumentor\Reflection\DocBlock($summary, $description ? $this->descriptionFactory->create($description, $context) : null, $this->parseTagBlock($tags, $context), $context, $location, $templateMarker === '#@+', $templateMarker === '#@-');
     }
     /**
      * @param class-string<Tag> $handler
@@ -98,7 +98,7 @@ final class DocBlockFactory implements \ECSPrefix20210803\phpDocumentor\Reflecti
     private function stripDocComment(string $comment) : string
     {
         $comment = \preg_replace('#[ \\t]*(?:\\/\\*\\*|\\*\\/|\\*)?[ \\t]?(.*)?#u', '$1', $comment);
-        \ECSPrefix20210803\Webmozart\Assert\Assert::string($comment);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::string($comment);
         $comment = \trim($comment);
         // reg ex above is not able to remove */ from a single line docblock
         if (\substr($comment, -2) === '*/') {
@@ -129,7 +129,7 @@ final class DocBlockFactory implements \ECSPrefix20210803\phpDocumentor\Reflecti
         }
         // clears all extra horizontal whitespace from the line endings to prevent parsing issues
         $comment = \preg_replace('/\\h*$/Sum', '', $comment);
-        \ECSPrefix20210803\Webmozart\Assert\Assert::string($comment);
+        \ECSPrefix20210804\Webmozart\Assert\Assert::string($comment);
         /*
          * Splits the docblock into a template marker, summary, description and tags section.
          *
@@ -193,7 +193,7 @@ final class DocBlockFactory implements \ECSPrefix20210803\phpDocumentor\Reflecti
      *
      * @return DocBlock\Tag[]
      */
-    private function parseTagBlock(string $tags, \ECSPrefix20210803\phpDocumentor\Reflection\Types\Context $context) : array
+    private function parseTagBlock(string $tags, \ECSPrefix20210804\phpDocumentor\Reflection\Types\Context $context) : array
     {
         $tags = $this->filterTagBlock($tags);
         if ($tags === null) {

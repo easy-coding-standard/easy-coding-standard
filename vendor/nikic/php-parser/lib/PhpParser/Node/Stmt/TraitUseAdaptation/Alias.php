@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Node\Stmt\TraitUseAdaptation;
+namespace ECSPrefix20210804\PhpParser\Node\Stmt\TraitUseAdaptation;
 
-use ECSPrefix20210803\PhpParser\Node;
-class Alias extends \ECSPrefix20210803\PhpParser\Node\Stmt\TraitUseAdaptation
+use ECSPrefix20210804\PhpParser\Node;
+class Alias extends \ECSPrefix20210804\PhpParser\Node\Stmt\TraitUseAdaptation
 {
     /** @var null|int New modifier */
     public $newModifier;
@@ -23,9 +23,9 @@ class Alias extends \ECSPrefix20210803\PhpParser\Node\Stmt\TraitUseAdaptation
     {
         $this->attributes = $attributes;
         $this->trait = $trait;
-        $this->method = \is_string($method) ? new \ECSPrefix20210803\PhpParser\Node\Identifier($method) : $method;
+        $this->method = \is_string($method) ? new \ECSPrefix20210804\PhpParser\Node\Identifier($method) : $method;
         $this->newModifier = $newModifier;
-        $this->newName = \is_string($newName) ? new \ECSPrefix20210803\PhpParser\Node\Identifier($newName) : $newName;
+        $this->newName = \is_string($newName) ? new \ECSPrefix20210804\PhpParser\Node\Identifier($newName) : $newName;
     }
     public function getSubNodeNames() : array
     {

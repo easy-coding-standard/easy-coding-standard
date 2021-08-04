@@ -9,16 +9,16 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PharIo\Manifest;
+namespace ECSPrefix20210804\PharIo\Manifest;
 
-class CopyrightElement extends \ECSPrefix20210803\PharIo\Manifest\ManifestElement
+class CopyrightElement extends \ECSPrefix20210804\PharIo\Manifest\ManifestElement
 {
-    public function getAuthorElements() : \ECSPrefix20210803\PharIo\Manifest\AuthorElementCollection
+    public function getAuthorElements() : \ECSPrefix20210804\PharIo\Manifest\AuthorElementCollection
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\AuthorElementCollection($this->getChildrenByName('author'));
+        return new \ECSPrefix20210804\PharIo\Manifest\AuthorElementCollection($this->getChildrenByName('author'));
     }
-    public function getLicenseElement() : \ECSPrefix20210803\PharIo\Manifest\LicenseElement
+    public function getLicenseElement() : \ECSPrefix20210804\PharIo\Manifest\LicenseElement
     {
-        return new \ECSPrefix20210803\PharIo\Manifest\LicenseElement($this->getChildByName('license'));
+        return new \ECSPrefix20210804\PharIo\Manifest\LicenseElement($this->getChildByName('license'));
     }
 }

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -25,7 +25,7 @@ final class Groups
      * @var GroupCollection
      */
     private $exclude;
-    public function __construct(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\GroupCollection $include, \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\GroupCollection $exclude)
+    public function __construct(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\GroupCollection $include, \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\GroupCollection $exclude)
     {
         $this->include = $include;
         $this->exclude = $exclude;
@@ -34,7 +34,7 @@ final class Groups
     {
         return !$this->include->isEmpty();
     }
-    public function include() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\GroupCollection
+    public function include() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\GroupCollection
     {
         return $this->include;
     }
@@ -42,7 +42,7 @@ final class Groups
     {
         return !$this->exclude->isEmpty();
     }
-    public function exclude() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\GroupCollection
+    public function exclude() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\GroupCollection
     {
         return $this->exclude;
     }

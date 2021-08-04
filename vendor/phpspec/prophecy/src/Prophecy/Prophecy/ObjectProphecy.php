@@ -8,24 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Prophecy;
+namespace ECSPrefix20210804\Prophecy\Prophecy;
 
-use ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure;
-use ECSPrefix20210803\Prophecy\Comparator\Factory as ComparatorFactory;
-use ECSPrefix20210803\Prophecy\Call\Call;
-use ECSPrefix20210803\Prophecy\Doubler\LazyDouble;
-use ECSPrefix20210803\Prophecy\Argument\ArgumentsWildcard;
-use ECSPrefix20210803\Prophecy\Call\CallCenter;
-use ECSPrefix20210803\Prophecy\Exception\Prophecy\ObjectProphecyException;
-use ECSPrefix20210803\Prophecy\Exception\Prophecy\MethodProphecyException;
-use ECSPrefix20210803\Prophecy\Exception\Prediction\AggregateException;
-use ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException;
+use ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure;
+use ECSPrefix20210804\Prophecy\Comparator\Factory as ComparatorFactory;
+use ECSPrefix20210804\Prophecy\Call\Call;
+use ECSPrefix20210804\Prophecy\Doubler\LazyDouble;
+use ECSPrefix20210804\Prophecy\Argument\ArgumentsWildcard;
+use ECSPrefix20210804\Prophecy\Call\CallCenter;
+use ECSPrefix20210804\Prophecy\Exception\Prophecy\ObjectProphecyException;
+use ECSPrefix20210804\Prophecy\Exception\Prophecy\MethodProphecyException;
+use ECSPrefix20210804\Prophecy\Exception\Prediction\AggregateException;
+use ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException;
 /**
  * Object prophecy.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class ObjectProphecy implements \ECSPrefix20210803\Prophecy\Prophecy\ProphecyInterface
+class ObjectProphecy implements \ECSPrefix20210804\Prophecy\Prophecy\ProphecyInterface
 {
     private $lazyDouble;
     private $callCenter;
@@ -43,12 +43,12 @@ class ObjectProphecy implements \ECSPrefix20210803\Prophecy\Prophecy\ProphecyInt
      * @param RevealerInterface $revealer
      * @param ComparatorFactory $comparatorFactory
      */
-    public function __construct(\ECSPrefix20210803\Prophecy\Doubler\LazyDouble $lazyDouble, \ECSPrefix20210803\Prophecy\Call\CallCenter $callCenter = null, \ECSPrefix20210803\Prophecy\Prophecy\RevealerInterface $revealer = null, \ECSPrefix20210803\Prophecy\Comparator\Factory $comparatorFactory = null)
+    public function __construct(\ECSPrefix20210804\Prophecy\Doubler\LazyDouble $lazyDouble, \ECSPrefix20210804\Prophecy\Call\CallCenter $callCenter = null, \ECSPrefix20210804\Prophecy\Prophecy\RevealerInterface $revealer = null, \ECSPrefix20210804\Prophecy\Comparator\Factory $comparatorFactory = null)
     {
         $this->lazyDouble = $lazyDouble;
-        $this->callCenter = $callCenter ?: new \ECSPrefix20210803\Prophecy\Call\CallCenter();
-        $this->revealer = $revealer ?: new \ECSPrefix20210803\Prophecy\Prophecy\Revealer();
-        $this->comparatorFactory = $comparatorFactory ?: \ECSPrefix20210803\Prophecy\Comparator\Factory::getInstance();
+        $this->callCenter = $callCenter ?: new \ECSPrefix20210804\Prophecy\Call\CallCenter();
+        $this->revealer = $revealer ?: new \ECSPrefix20210804\Prophecy\Prophecy\Revealer();
+        $this->comparatorFactory = $comparatorFactory ?: \ECSPrefix20210804\Prophecy\Comparator\Factory::getInstance();
     }
     /**
      * Forces double to extend specific class.
@@ -96,8 +96,8 @@ class ObjectProphecy implements \ECSPrefix20210803\Prophecy\Prophecy\ProphecyInt
     public function reveal()
     {
         $double = $this->lazyDouble->getInstance();
-        if (null === $double || !$double instanceof \ECSPrefix20210803\Prophecy\Prophecy\ProphecySubjectInterface) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Prophecy\ObjectProphecyException("Generated double must implement ProphecySubjectInterface, but it does not.\n" . 'It seems you have wrongly configured doubler without required ClassPatch.', $this);
+        if (null === $double || !$double instanceof \ECSPrefix20210804\Prophecy\Prophecy\ProphecySubjectInterface) {
+            throw new \ECSPrefix20210804\Prophecy\Exception\Prophecy\ObjectProphecyException("Generated double must implement ProphecySubjectInterface, but it does not.\n" . 'It seems you have wrongly configured doubler without required ClassPatch.', $this);
         }
         $double->setProphecy($this);
         return $double;
@@ -110,11 +110,11 @@ class ObjectProphecy implements \ECSPrefix20210803\Prophecy\Prophecy\ProphecyInt
      * @throws \Prophecy\Exception\Prophecy\MethodProphecyException If method prophecy doesn't
      *                                                              have arguments wildcard
      */
-    public function addMethodProphecy(\ECSPrefix20210803\Prophecy\Prophecy\MethodProphecy $methodProphecy)
+    public function addMethodProphecy(\ECSPrefix20210804\Prophecy\Prophecy\MethodProphecy $methodProphecy)
     {
         $argumentsWildcard = $methodProphecy->getArgumentsWildcard();
         if (null === $argumentsWildcard) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\Prophecy\MethodProphecyException(\sprintf("Can not add prophecy for a method `%s::%s()`\n" . "as you did not specify arguments wildcard for it.", \get_class($this->reveal()), $methodProphecy->getMethodName()), $methodProphecy);
+            throw new \ECSPrefix20210804\Prophecy\Exception\Prophecy\MethodProphecyException(\sprintf("Can not add prophecy for a method `%s::%s()`\n" . "as you did not specify arguments wildcard for it.", \get_class($this->reveal()), $methodProphecy->getMethodName()), $methodProphecy);
         }
         $methodName = \strtolower($methodProphecy->getMethodName());
         if (!isset($this->methodProphecies[$methodName])) {
@@ -162,7 +162,7 @@ class ObjectProphecy implements \ECSPrefix20210803\Prophecy\Prophecy\ProphecyInt
      *
      * @return Call[]
      */
-    public function findProphecyMethodCalls($methodName, \ECSPrefix20210803\Prophecy\Argument\ArgumentsWildcard $wildcard)
+    public function findProphecyMethodCalls($methodName, \ECSPrefix20210804\Prophecy\Argument\ArgumentsWildcard $wildcard)
     {
         return $this->callCenter->findCalls($methodName, $wildcard);
     }
@@ -174,14 +174,14 @@ class ObjectProphecy implements \ECSPrefix20210803\Prophecy\Prophecy\ProphecyInt
      */
     public function checkProphecyMethodsPredictions()
     {
-        $exception = new \ECSPrefix20210803\Prophecy\Exception\Prediction\AggregateException(\sprintf("%s:\n", \get_class($this->reveal())));
+        $exception = new \ECSPrefix20210804\Prophecy\Exception\Prediction\AggregateException(\sprintf("%s:\n", \get_class($this->reveal())));
         $exception->setObjectProphecy($this);
         $this->callCenter->checkUnexpectedCalls();
         foreach ($this->methodProphecies as $prophecies) {
             foreach ($prophecies as $prophecy) {
                 try {
                     $prophecy->checkPrediction();
-                } catch (\ECSPrefix20210803\Prophecy\Exception\Prediction\PredictionException $e) {
+                } catch (\ECSPrefix20210804\Prophecy\Exception\Prediction\PredictionException $e) {
                     $exception->append($e);
                 }
             }
@@ -200,17 +200,17 @@ class ObjectProphecy implements \ECSPrefix20210803\Prophecy\Prophecy\ProphecyInt
      */
     public function __call($methodName, array $arguments)
     {
-        $arguments = new \ECSPrefix20210803\Prophecy\Argument\ArgumentsWildcard($this->revealer->reveal($arguments));
+        $arguments = new \ECSPrefix20210804\Prophecy\Argument\ArgumentsWildcard($this->revealer->reveal($arguments));
         foreach ($this->getMethodProphecies($methodName) as $prophecy) {
             $argumentsWildcard = $prophecy->getArgumentsWildcard();
             $comparator = $this->comparatorFactory->getComparatorFor($argumentsWildcard, $arguments);
             try {
                 $comparator->assertEquals($argumentsWildcard, $arguments);
                 return $prophecy;
-            } catch (\ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure $failure) {
+            } catch (\ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure $failure) {
             }
         }
-        return new \ECSPrefix20210803\Prophecy\Prophecy\MethodProphecy($this, $methodName, $arguments);
+        return new \ECSPrefix20210804\Prophecy\Prophecy\MethodProphecy($this, $methodName, $arguments);
     }
     /**
      * Tries to get property value from double.

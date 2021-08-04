@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Doubler\Generator\Node;
+namespace ECSPrefix20210804\Prophecy\Doubler\Generator\Node;
 
-use ECSPrefix20210803\Prophecy\Exception\Doubler\MethodNotExtendableException;
-use ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException;
+use ECSPrefix20210804\Prophecy\Exception\Doubler\MethodNotExtendableException;
+use ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException;
 /**
  * Class node.
  *
@@ -72,7 +72,7 @@ class ClassNode
     {
         $visibility = \strtolower($visibility);
         if (!\in_array($visibility, array('public', 'private', 'protected'))) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf('`%s` property visibility is not supported.', $visibility));
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf('`%s` property visibility is not supported.', $visibility));
         }
         $this->properties[$name] = $visibility;
     }
@@ -83,11 +83,11 @@ class ClassNode
     {
         return $this->methods;
     }
-    public function addMethod(\ECSPrefix20210803\Prophecy\Doubler\Generator\Node\MethodNode $method, $force = \false)
+    public function addMethod(\ECSPrefix20210804\Prophecy\Doubler\Generator\Node\MethodNode $method, $force = \false)
     {
         if (!$this->isExtendable($method->getName())) {
             $message = \sprintf('Method `%s` is not extendable, so can not be added.', $method->getName());
-            throw new \ECSPrefix20210803\Prophecy\Exception\Doubler\MethodNotExtendableException($message, $this->getParentClass(), $method->getName());
+            throw new \ECSPrefix20210804\Prophecy\Exception\Doubler\MethodNotExtendableException($message, $this->getParentClass(), $method->getName());
         }
         if ($force || !isset($this->methods[$method->getName()])) {
             $this->methods[$method->getName()] = $method;

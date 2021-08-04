@@ -12,7 +12,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210803\\DeepCopy\\": "src\/DeepCopy\/"
+            "ECSPrefix20210804\\DeepCopy\\": "src\/DeepCopy\/"
         },
         "files": [
             "src\/DeepCopy\/deep_copy.php"
@@ -20,8 +20,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210803\\DeepCopy\\": "fixtures\/",
-            "ECSPrefix20210803\\DeepCopyTest\\": "tests\/DeepCopyTest\/"
+            "ECSPrefix20210804\\DeepCopy\\": "fixtures\/",
+            "ECSPrefix20210804\\DeepCopyTest\\": "tests\/DeepCopyTest\/"
         }
     },
     "require": {

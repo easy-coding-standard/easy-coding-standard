@@ -9,16 +9,16 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Html;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Html;
 
 use const DIRECTORY_SEPARATOR;
 use function copy;
 use function date;
 use function dirname;
 use function substr;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory as DirectoryUtil;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory as DirectoryUtil;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
 final class Facade
 {
     /**
@@ -44,25 +44,25 @@ final class Facade
         $this->lowUpperBound = $lowUpperBound;
         $this->templatePath = __DIR__ . '/Renderer/Template/';
     }
-    public function process(\ECSPrefix20210803\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, string $target) : void
+    public function process(\ECSPrefix20210804\SebastianBergmann\CodeCoverage\CodeCoverage $coverage, string $target) : void
     {
         $target = $this->directory($target);
         $report = $coverage->getReport();
         $date = \date('D M j G:i:s T Y');
-        $dashboard = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Html\Dashboard($this->templatePath, $this->generator, $date, $this->lowUpperBound, $this->highLowerBound, $coverage->collectsBranchAndPathCoverage());
-        $directory = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Html\Directory($this->templatePath, $this->generator, $date, $this->lowUpperBound, $this->highLowerBound, $coverage->collectsBranchAndPathCoverage());
-        $file = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Report\Html\File($this->templatePath, $this->generator, $date, $this->lowUpperBound, $this->highLowerBound, $coverage->collectsBranchAndPathCoverage());
+        $dashboard = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Html\Dashboard($this->templatePath, $this->generator, $date, $this->lowUpperBound, $this->highLowerBound, $coverage->collectsBranchAndPathCoverage());
+        $directory = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Html\Directory($this->templatePath, $this->generator, $date, $this->lowUpperBound, $this->highLowerBound, $coverage->collectsBranchAndPathCoverage());
+        $file = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Report\Html\File($this->templatePath, $this->generator, $date, $this->lowUpperBound, $this->highLowerBound, $coverage->collectsBranchAndPathCoverage());
         $directory->render($report, $target . 'index.html');
         $dashboard->render($report, $target . 'dashboard.html');
         foreach ($report as $node) {
             $id = $node->id();
-            if ($node instanceof \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Node\Directory) {
-                \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory::create($target . $id);
+            if ($node instanceof \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Node\Directory) {
+                \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory::create($target . $id);
                 $directory->render($node, $target . $id . '/index.html');
                 $dashboard->render($node, $target . $id . '/dashboard.html');
             } else {
                 $dir = \dirname($target . $id);
-                \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory::create($dir);
+                \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory::create($dir);
                 $file->render($node, $target . $id);
             }
         }
@@ -92,7 +92,7 @@ final class Facade
         if (\substr($directory, -1, 1) != \DIRECTORY_SEPARATOR) {
             $directory .= \DIRECTORY_SEPARATOR;
         }
-        \ECSPrefix20210803\SebastianBergmann\CodeCoverage\Directory::create($directory);
+        \ECSPrefix20210804\SebastianBergmann\CodeCoverage\Directory::create($directory);
         return $directory;
     }
 }

@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\Xml;
+namespace ECSPrefix20210804\PHPUnit\Util\Xml;
 
 use function defined;
 use function is_file;
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\Runner\Version;
+use ECSPrefix20210804\PHPUnit\Runner\Version;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -25,13 +25,13 @@ final class SchemaFinder
      */
     public function find(string $version) : string
     {
-        if ($version === \ECSPrefix20210803\PHPUnit\Runner\Version::series()) {
+        if ($version === \ECSPrefix20210804\PHPUnit\Runner\Version::series()) {
             $filename = $this->path() . 'phpunit.xsd';
         } else {
             $filename = $this->path() . 'schema/' . $version . '.xsd';
         }
         if (!\is_file($filename)) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Xml\Exception(\sprintf('Schema for PHPUnit %s is not available', $version));
+            throw new \ECSPrefix20210804\PHPUnit\Util\Xml\Exception(\sprintf('Schema for PHPUnit %s is not available', $version));
         }
         return $filename;
     }

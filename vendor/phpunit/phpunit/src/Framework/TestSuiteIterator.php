@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework;
+namespace ECSPrefix20210804\PHPUnit\Framework;
 
 use function assert;
 use function count;
@@ -27,7 +27,7 @@ final class TestSuiteIterator implements \RecursiveIterator
      * @var Test[]
      */
     private $tests;
-    public function __construct(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $testSuite)
+    public function __construct(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $testSuite)
     {
         $this->tests = $testSuite->tests();
     }
@@ -43,7 +43,7 @@ final class TestSuiteIterator implements \RecursiveIterator
     {
         return $this->position;
     }
-    public function current() : \ECSPrefix20210803\PHPUnit\Framework\Test
+    public function current() : \ECSPrefix20210804\PHPUnit\Framework\Test
     {
         return $this->tests[$this->position];
     }
@@ -57,14 +57,14 @@ final class TestSuiteIterator implements \RecursiveIterator
     public function getChildren() : self
     {
         if (!$this->hasChildren()) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\NoChildTestSuiteException('The current item is not a TestSuite instance and therefore does not have any children.');
+            throw new \ECSPrefix20210804\PHPUnit\Framework\NoChildTestSuiteException('The current item is not a TestSuite instance and therefore does not have any children.');
         }
         $current = $this->current();
-        \assert($current instanceof \ECSPrefix20210803\PHPUnit\Framework\TestSuite);
+        \assert($current instanceof \ECSPrefix20210804\PHPUnit\Framework\TestSuite);
         return new self($current);
     }
     public function hasChildren() : bool
     {
-        return $this->valid() && $this->current() instanceof \ECSPrefix20210803\PHPUnit\Framework\TestSuite;
+        return $this->valid() && $this->current() instanceof \ECSPrefix20210804\PHPUnit\Framework\TestSuite;
     }
 }

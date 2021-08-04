@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\PHP;
+namespace ECSPrefix20210804\PHPUnit\Util\PHP;
 
 use function array_merge;
 use function fclose;
@@ -28,11 +28,11 @@ use function stream_select;
 use function sys_get_temp_dir;
 use function tempnam;
 use function unlink;
-use ECSPrefix20210803\PHPUnit\Framework\Exception;
+use ECSPrefix20210804\PHPUnit\Framework\Exception;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-class DefaultPhpProcess extends \ECSPrefix20210803\PHPUnit\Util\PHP\AbstractPhpProcess
+class DefaultPhpProcess extends \ECSPrefix20210804\PHPUnit\Util\PHP\AbstractPhpProcess
 {
     /**
      * @var string
@@ -47,7 +47,7 @@ class DefaultPhpProcess extends \ECSPrefix20210803\PHPUnit\Util\PHP\AbstractPhpP
     {
         if ($this->stdin || $this->useTemporaryFile()) {
             if (!($this->tempFile = \tempnam(\sys_get_temp_dir(), 'PHPUnit')) || \file_put_contents($this->tempFile, $job) === \false) {
-                throw new \ECSPrefix20210803\PHPUnit\Framework\Exception('Unable to write temporary file');
+                throw new \ECSPrefix20210804\PHPUnit\Framework\Exception('Unable to write temporary file');
             }
             $job = $this->stdin;
         }
@@ -82,7 +82,7 @@ class DefaultPhpProcess extends \ECSPrefix20210803\PHPUnit\Util\PHP\AbstractPhpP
         $pipeSpec = [0 => $handles[0] ?? ['pipe', 'r'], 1 => $handles[1] ?? ['pipe', 'w'], 2 => $handles[2] ?? ['pipe', 'w']];
         $process = \proc_open($this->getCommand($settings, $this->tempFile), $pipeSpec, $pipes, null, $env);
         if (!\is_resource($process)) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\Exception('Unable to spawn worker process');
+            throw new \ECSPrefix20210804\PHPUnit\Framework\Exception('Unable to spawn worker process');
         }
         if ($job) {
             $this->process($pipes[0], $job);
@@ -101,7 +101,7 @@ class DefaultPhpProcess extends \ECSPrefix20210803\PHPUnit\Util\PHP\AbstractPhpP
                 }
                 if ($n === 0) {
                     \proc_terminate($process, 9);
-                    throw new \ECSPrefix20210803\PHPUnit\Framework\Exception(\sprintf('Job execution aborted after %d seconds', $this->timeout));
+                    throw new \ECSPrefix20210804\PHPUnit\Framework\Exception(\sprintf('Job execution aborted after %d seconds', $this->timeout));
                 }
                 if ($n > 0) {
                     foreach ($r as $pipe) {

@@ -9,14 +9,14 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule;
 
-use ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException;
-use ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
+use ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException;
+use ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvokedAtLeastOnce extends \ECSPrefix20210803\PHPUnit\Framework\MockObject\Rule\InvocationOrder
+final class InvokedAtLeastOnce extends \ECSPrefix20210804\PHPUnit\Framework\MockObject\Rule\InvocationOrder
 {
     public function toString() : string
     {
@@ -32,14 +32,14 @@ final class InvokedAtLeastOnce extends \ECSPrefix20210803\PHPUnit\Framework\Mock
     {
         $count = $this->getInvocationCount();
         if ($count < 1) {
-            throw new \ECSPrefix20210803\PHPUnit\Framework\ExpectationFailedException('Expected invocation at least once but it never occurred.');
+            throw new \ECSPrefix20210804\PHPUnit\Framework\ExpectationFailedException('Expected invocation at least once but it never occurred.');
         }
     }
-    public function matches(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
+    public function matches(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : bool
     {
         return \true;
     }
-    protected function invokedDo(\ECSPrefix20210803\PHPUnit\Framework\MockObject\Invocation $invocation) : void
+    protected function invokedDo(\ECSPrefix20210804\PHPUnit\Framework\MockObject\Invocation $invocation) : void
     {
     }
 }

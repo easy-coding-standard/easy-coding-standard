@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\Comparator;
+namespace ECSPrefix20210804\SebastianBergmann\Comparator;
 
 use function array_key_exists;
 use function is_array;
@@ -24,7 +24,7 @@ use function trim;
  * The order of the keys does not matter.
  * The types of key-value pairs do not matter.
  */
-class ArrayComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\Comparator
+class ArrayComparator extends \ECSPrefix20210804\SebastianBergmann\Comparator\Comparator
 {
     /**
      * Returns whether the comparator can compare two values.
@@ -72,7 +72,7 @@ class ArrayComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\Co
                 $comparator->assertEquals($value, $actual[$key], $delta, $canonicalize, $ignoreCase, $processed);
                 $expectedAsString .= \sprintf("    %s => %s\n", $this->exporter->export($key), $this->exporter->shortenedExport($value));
                 $actualAsString .= \sprintf("    %s => %s\n", $this->exporter->export($key), $this->exporter->shortenedExport($actual[$key]));
-            } catch (\ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure $e) {
+            } catch (\ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure $e) {
                 $expectedAsString .= \sprintf("    %s => %s\n", $this->exporter->export($key), $e->getExpectedAsString() ? $this->indent($e->getExpectedAsString()) : $this->exporter->shortenedExport($e->getExpected()));
                 $actualAsString .= \sprintf("    %s => %s\n", $this->exporter->export($key), $e->getActualAsString() ? $this->indent($e->getActualAsString()) : $this->exporter->shortenedExport($e->getActual()));
                 $equal = \false;
@@ -85,7 +85,7 @@ class ArrayComparator extends \ECSPrefix20210803\SebastianBergmann\Comparator\Co
         $expectedAsString .= ')';
         $actualAsString .= ')';
         if (!$equal) {
-            throw new \ECSPrefix20210803\SebastianBergmann\Comparator\ComparisonFailure($expected, $actual, $expectedAsString, $actualAsString, \false, 'Failed asserting that two arrays are equal.');
+            throw new \ECSPrefix20210804\SebastianBergmann\Comparator\ComparisonFailure($expected, $actual, $expectedAsString, $actualAsString, \false, 'Failed asserting that two arrays are equal.');
         }
     }
     protected function indent($lines)

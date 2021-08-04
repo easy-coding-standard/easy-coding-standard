@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
@@ -33,7 +33,7 @@ final class TestSuite
      * @var FileCollection
      */
     private $exclude;
-    public function __construct(string $name, \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestDirectoryCollection $directories, \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestFileCollection $files, \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\FileCollection $exclude)
+    public function __construct(string $name, \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestDirectoryCollection $directories, \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestFileCollection $files, \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\FileCollection $exclude)
     {
         $this->name = $name;
         $this->directories = $directories;
@@ -44,15 +44,15 @@ final class TestSuite
     {
         return $this->name;
     }
-    public function directories() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestDirectoryCollection
+    public function directories() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestDirectoryCollection
     {
         return $this->directories;
     }
-    public function files() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\TestFileCollection
+    public function files() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\TestFileCollection
     {
         return $this->files;
     }
-    public function exclude() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\FileCollection
+    public function exclude() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\FileCollection
     {
         return $this->exclude;
     }

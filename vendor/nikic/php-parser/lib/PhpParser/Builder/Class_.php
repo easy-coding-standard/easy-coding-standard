@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\PhpParser\Builder;
+namespace ECSPrefix20210804\PhpParser\Builder;
 
-use ECSPrefix20210803\PhpParser;
-use ECSPrefix20210803\PhpParser\BuilderHelpers;
-use ECSPrefix20210803\PhpParser\Node;
-use ECSPrefix20210803\PhpParser\Node\Name;
-use ECSPrefix20210803\PhpParser\Node\Stmt;
-class Class_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
+use ECSPrefix20210804\PhpParser;
+use ECSPrefix20210804\PhpParser\BuilderHelpers;
+use ECSPrefix20210804\PhpParser\Node;
+use ECSPrefix20210804\PhpParser\Node\Name;
+use ECSPrefix20210804\PhpParser\Node\Stmt;
+class Class_ extends \ECSPrefix20210804\PhpParser\Builder\Declaration
 {
     protected $name;
     protected $extends = null;
@@ -38,7 +38,7 @@ class Class_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      */
     public function extend($class)
     {
-        $this->extends = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeName($class);
+        $this->extends = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeName($class);
         return $this;
     }
     /**
@@ -51,7 +51,7 @@ class Class_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
     public function implement(...$interfaces)
     {
         foreach ($interfaces as $interface) {
-            $this->implements[] = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeName($interface);
+            $this->implements[] = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeName($interface);
         }
         return $this;
     }
@@ -62,7 +62,7 @@ class Class_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      */
     public function makeAbstract()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT);
         return $this;
     }
     /**
@@ -72,7 +72,7 @@ class Class_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      */
     public function makeFinal()
     {
-        $this->flags = \ECSPrefix20210803\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210803\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
+        $this->flags = \ECSPrefix20210804\PhpParser\BuilderHelpers::addModifier($this->flags, \ECSPrefix20210804\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL);
         return $this;
     }
     /**
@@ -84,8 +84,8 @@ class Class_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      */
     public function addStmt($stmt)
     {
-        $stmt = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeNode($stmt);
-        $targets = [\ECSPrefix20210803\PhpParser\Node\Stmt\TraitUse::class => &$this->uses, \ECSPrefix20210803\PhpParser\Node\Stmt\ClassConst::class => &$this->constants, \ECSPrefix20210803\PhpParser\Node\Stmt\Property::class => &$this->properties, \ECSPrefix20210803\PhpParser\Node\Stmt\ClassMethod::class => &$this->methods];
+        $stmt = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeNode($stmt);
+        $targets = [\ECSPrefix20210804\PhpParser\Node\Stmt\TraitUse::class => &$this->uses, \ECSPrefix20210804\PhpParser\Node\Stmt\ClassConst::class => &$this->constants, \ECSPrefix20210804\PhpParser\Node\Stmt\Property::class => &$this->properties, \ECSPrefix20210804\PhpParser\Node\Stmt\ClassMethod::class => &$this->methods];
         $class = \get_class($stmt);
         if (!isset($targets[$class])) {
             throw new \LogicException(\sprintf('Unexpected node of type "%s"', $stmt->getType()));
@@ -102,7 +102,7 @@ class Class_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      */
     public function addAttribute($attribute)
     {
-        $this->attributeGroups[] = \ECSPrefix20210803\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
+        $this->attributeGroups[] = \ECSPrefix20210804\PhpParser\BuilderHelpers::normalizeAttribute($attribute);
         return $this;
     }
     /**
@@ -110,8 +110,8 @@ class Class_ extends \ECSPrefix20210803\PhpParser\Builder\Declaration
      *
      * @return Stmt\Class_ The built class node
      */
-    public function getNode() : \ECSPrefix20210803\PhpParser\Node
+    public function getNode() : \ECSPrefix20210804\PhpParser\Node
     {
-        return new \ECSPrefix20210803\PhpParser\Node\Stmt\Class_($this->name, ['flags' => $this->flags, 'extends' => $this->extends, 'implements' => $this->implements, 'stmts' => \array_merge($this->uses, $this->constants, $this->properties, $this->methods), 'attrGroups' => $this->attributeGroups], $this->attributes);
+        return new \ECSPrefix20210804\PhpParser\Node\Stmt\Class_($this->name, ['flags' => $this->flags, 'extends' => $this->extends, 'implements' => $this->implements, 'stmts' => \array_merge($this->uses, $this->constants, $this->properties, $this->methods), 'attrGroups' => $this->attributeGroups], $this->attributes);
     }
 }

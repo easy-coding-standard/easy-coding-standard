@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeUnit;
+namespace ECSPrefix20210804\SebastianBergmann\CodeUnit;
 
 use function range;
 use function sprintf;
@@ -41,11 +41,11 @@ abstract class CodeUnit
      * @throws ReflectionException
      * @param string $className
      */
-    public static function forClass($className) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\ClassUnit
+    public static function forClass($className) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\ClassUnit
     {
         self::ensureUserDefinedClass($className);
         $reflector = self::reflectorForClass($className);
-        return new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ClassUnit($className, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
+        return new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ClassUnit($className, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
     }
     /**
      * @psalm-param class-string $className
@@ -55,11 +55,11 @@ abstract class CodeUnit
      * @param string $className
      * @param string $methodName
      */
-    public static function forClassMethod($className, $methodName) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\ClassMethodUnit
+    public static function forClassMethod($className, $methodName) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\ClassMethodUnit
     {
         self::ensureUserDefinedClass($className);
         $reflector = self::reflectorForClassMethod($className, $methodName);
-        return new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ClassMethodUnit($className . '::' . $methodName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
+        return new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ClassMethodUnit($className . '::' . $methodName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
     }
     /**
      * @psalm-param class-string $interfaceName
@@ -68,11 +68,11 @@ abstract class CodeUnit
      * @throws ReflectionException
      * @param string $interfaceName
      */
-    public static function forInterface($interfaceName) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\InterfaceUnit
+    public static function forInterface($interfaceName) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\InterfaceUnit
     {
         self::ensureUserDefinedInterface($interfaceName);
         $reflector = self::reflectorForClass($interfaceName);
-        return new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InterfaceUnit($interfaceName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
+        return new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InterfaceUnit($interfaceName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
     }
     /**
      * @psalm-param class-string $interfaceName
@@ -82,11 +82,11 @@ abstract class CodeUnit
      * @param string $interfaceName
      * @param string $methodName
      */
-    public static function forInterfaceMethod($interfaceName, $methodName) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\InterfaceMethodUnit
+    public static function forInterfaceMethod($interfaceName, $methodName) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\InterfaceMethodUnit
     {
         self::ensureUserDefinedInterface($interfaceName);
         $reflector = self::reflectorForClassMethod($interfaceName, $methodName);
-        return new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InterfaceMethodUnit($interfaceName . '::' . $methodName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
+        return new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InterfaceMethodUnit($interfaceName . '::' . $methodName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
     }
     /**
      * @psalm-param class-string $traitName
@@ -95,11 +95,11 @@ abstract class CodeUnit
      * @throws ReflectionException
      * @param string $traitName
      */
-    public static function forTrait($traitName) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\TraitUnit
+    public static function forTrait($traitName) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\TraitUnit
     {
         self::ensureUserDefinedTrait($traitName);
         $reflector = self::reflectorForClass($traitName);
-        return new \ECSPrefix20210803\SebastianBergmann\CodeUnit\TraitUnit($traitName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
+        return new \ECSPrefix20210804\SebastianBergmann\CodeUnit\TraitUnit($traitName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
     }
     /**
      * @psalm-param class-string $traitName
@@ -109,11 +109,11 @@ abstract class CodeUnit
      * @param string $traitName
      * @param string $methodName
      */
-    public static function forTraitMethod($traitName, $methodName) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\TraitMethodUnit
+    public static function forTraitMethod($traitName, $methodName) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\TraitMethodUnit
     {
         self::ensureUserDefinedTrait($traitName);
         $reflector = self::reflectorForClassMethod($traitName, $methodName);
-        return new \ECSPrefix20210803\SebastianBergmann\CodeUnit\TraitMethodUnit($traitName . '::' . $methodName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
+        return new \ECSPrefix20210804\SebastianBergmann\CodeUnit\TraitMethodUnit($traitName . '::' . $methodName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
     }
     /**
      * @psalm-param callable-string $functionName
@@ -122,13 +122,13 @@ abstract class CodeUnit
      * @throws ReflectionException
      * @param string $functionName
      */
-    public static function forFunction($functionName) : \ECSPrefix20210803\SebastianBergmann\CodeUnit\FunctionUnit
+    public static function forFunction($functionName) : \ECSPrefix20210804\SebastianBergmann\CodeUnit\FunctionUnit
     {
         $reflector = self::reflectorForFunction($functionName);
         if (!$reflector->isUserDefined()) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a user-defined function', $functionName));
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a user-defined function', $functionName));
         }
-        return new \ECSPrefix20210803\SebastianBergmann\CodeUnit\FunctionUnit($functionName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
+        return new \ECSPrefix20210804\SebastianBergmann\CodeUnit\FunctionUnit($functionName, $reflector->getFileName(), \range($reflector->getStartLine(), $reflector->getEndLine()));
     }
     /**
      * @psalm-param list<int> $sourceLines
@@ -193,17 +193,17 @@ abstract class CodeUnit
         try {
             $reflector = new \ReflectionClass($className);
             if ($reflector->isInterface()) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is an interface and not a class', $className));
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is an interface and not a class', $className));
             }
             if ($reflector->isTrait()) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is a trait and not a class', $className));
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is a trait and not a class', $className));
             }
             if (!$reflector->isUserDefined()) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a user-defined class', $className));
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a user-defined class', $className));
             }
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -218,14 +218,14 @@ abstract class CodeUnit
         try {
             $reflector = new \ReflectionClass($interfaceName);
             if (!$reflector->isInterface()) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not an interface', $interfaceName));
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not an interface', $interfaceName));
             }
             if (!$reflector->isUserDefined()) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a user-defined interface', $interfaceName));
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a user-defined interface', $interfaceName));
             }
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -240,14 +240,14 @@ abstract class CodeUnit
         try {
             $reflector = new \ReflectionClass($traitName);
             if (!$reflector->isTrait()) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a trait', $traitName));
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a trait', $traitName));
             }
             // @codeCoverageIgnoreStart
             if (!$reflector->isUserDefined()) {
-                throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a user-defined trait', $traitName));
+                throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\InvalidCodeUnitException(\sprintf('"%s" is not a user-defined trait', $traitName));
             }
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -262,7 +262,7 @@ abstract class CodeUnit
             return new \ReflectionClass($className);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -277,7 +277,7 @@ abstract class CodeUnit
             return new \ReflectionMethod($className, $methodName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }
@@ -292,7 +292,7 @@ abstract class CodeUnit
             return new \ReflectionFunction($functionName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeUnit\ReflectionException($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
     }

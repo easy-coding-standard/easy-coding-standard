@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner;
+namespace ECSPrefix20210804\PHPUnit\Runner;
 
 use function array_diff;
 use function array_values;
@@ -20,8 +20,8 @@ use function sprintf;
 use function stripos;
 use function strlen;
 use function substr;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Util\FileLoader;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Util\FileLoader;
 use ReflectionClass;
 use ReflectionException;
 /**
@@ -29,7 +29,7 @@ use ReflectionException;
  *
  * @deprecated see https://github.com/sebastianbergmann/phpunit/issues/4039
  */
-final class StandardTestSuiteLoader implements \ECSPrefix20210803\PHPUnit\Runner\TestSuiteLoader
+final class StandardTestSuiteLoader implements \ECSPrefix20210804\PHPUnit\Runner\TestSuiteLoader
 {
     /**
      * @throws Exception
@@ -40,7 +40,7 @@ final class StandardTestSuiteLoader implements \ECSPrefix20210803\PHPUnit\Runner
         $loadedClasses = \get_declared_classes();
         if (!\class_exists($suiteClassName, \false)) {
             /* @noinspection UnusedFunctionResultInspection */
-            \ECSPrefix20210803\PHPUnit\Util\FileLoader::checkAndLoad($suiteClassFile);
+            \ECSPrefix20210804\PHPUnit\Util\FileLoader::checkAndLoad($suiteClassFile);
             $loadedClasses = \array_values(\array_diff(\get_declared_classes(), $loadedClasses));
             if (empty($loadedClasses)) {
                 throw $this->exceptionFor($suiteClassName, $suiteClassFile);
@@ -63,10 +63,10 @@ final class StandardTestSuiteLoader implements \ECSPrefix20210803\PHPUnit\Runner
             $class = new \ReflectionClass($suiteClassName);
             // @codeCoverageIgnoreStart
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210803\PHPUnit\Runner\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            throw new \ECSPrefix20210804\PHPUnit\Runner\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         // @codeCoverageIgnoreEnd
-        if ($class->isSubclassOf(\ECSPrefix20210803\PHPUnit\Framework\TestCase::class) && !$class->isAbstract()) {
+        if ($class->isSubclassOf(\ECSPrefix20210804\PHPUnit\Framework\TestCase::class) && !$class->isAbstract()) {
             return $class;
         }
         if ($class->hasMethod('suite')) {
@@ -74,7 +74,7 @@ final class StandardTestSuiteLoader implements \ECSPrefix20210803\PHPUnit\Runner
                 $method = $class->getMethod('suite');
                 // @codeCoverageIgnoreStart
             } catch (\ReflectionException $e) {
-                throw new \ECSPrefix20210803\PHPUnit\Runner\Exception($e->getMessage(), (int) $e->getCode(), $e);
+                throw new \ECSPrefix20210804\PHPUnit\Runner\Exception($e->getMessage(), (int) $e->getCode(), $e);
             }
             // @codeCoverageIgnoreEnd
             if (!$method->isAbstract() && $method->isPublic() && $method->isStatic()) {
@@ -87,8 +87,8 @@ final class StandardTestSuiteLoader implements \ECSPrefix20210803\PHPUnit\Runner
     {
         return $aClass;
     }
-    private function exceptionFor(string $className, string $filename) : \ECSPrefix20210803\PHPUnit\Runner\Exception
+    private function exceptionFor(string $className, string $filename) : \ECSPrefix20210804\PHPUnit\Runner\Exception
     {
-        return new \ECSPrefix20210803\PHPUnit\Runner\Exception(\sprintf("Class '%s' could not be found in '%s'.", $className, $filename));
+        return new \ECSPrefix20210804\PHPUnit\Runner\Exception(\sprintf("Class '%s' could not be found in '%s'.", $className, $filename));
     }
 }

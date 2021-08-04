@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection\Types;
+namespace ECSPrefix20210804\phpDocumentor\Reflection\Types;
 
 /**
  * Represents an array type as described in the PSR-5, the PHPDoc Standard.
@@ -22,6 +22,6 @@ namespace ECSPrefix20210803\phpDocumentor\Reflection\Types;
  *
  * @psalm-immutable
  */
-final class Array_ extends \ECSPrefix20210803\phpDocumentor\Reflection\Types\AbstractList
+final class Array_ extends \ECSPrefix20210804\phpDocumentor\Reflection\Types\AbstractList
 {
 }

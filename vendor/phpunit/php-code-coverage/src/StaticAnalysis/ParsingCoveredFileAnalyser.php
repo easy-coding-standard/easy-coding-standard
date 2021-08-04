@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis;
+namespace ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis;
 
 use function array_unique;
 use function assert;
@@ -19,19 +19,19 @@ use function sprintf;
 use function substr_count;
 use function token_get_all;
 use function trim;
-use ECSPrefix20210803\PhpParser\Error;
-use ECSPrefix20210803\PhpParser\Lexer;
-use ECSPrefix20210803\PhpParser\NodeTraverser;
-use ECSPrefix20210803\PhpParser\NodeVisitor\NameResolver;
-use ECSPrefix20210803\PhpParser\NodeVisitor\ParentConnectingVisitor;
-use ECSPrefix20210803\PhpParser\ParserFactory;
-use ECSPrefix20210803\SebastianBergmann\CodeCoverage\ParserException;
-use ECSPrefix20210803\SebastianBergmann\LinesOfCode\LineCountingVisitor;
-use ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode;
+use ECSPrefix20210804\PhpParser\Error;
+use ECSPrefix20210804\PhpParser\Lexer;
+use ECSPrefix20210804\PhpParser\NodeTraverser;
+use ECSPrefix20210804\PhpParser\NodeVisitor\NameResolver;
+use ECSPrefix20210804\PhpParser\NodeVisitor\ParentConnectingVisitor;
+use ECSPrefix20210804\PhpParser\ParserFactory;
+use ECSPrefix20210804\SebastianBergmann\CodeCoverage\ParserException;
+use ECSPrefix20210804\SebastianBergmann\LinesOfCode\LineCountingVisitor;
+use ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode;
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
-final class ParsingCoveredFileAnalyser implements \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser
+final class ParsingCoveredFileAnalyser implements \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CoveredFileAnalyser
 {
     /**
      * @var array
@@ -81,7 +81,7 @@ final class ParsingCoveredFileAnalyser implements \ECSPrefix20210803\SebastianBe
         $this->analyse($filename);
         return $this->functions[$filename];
     }
-    public function linesOfCodeFor(string $filename) : \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LinesOfCode
+    public function linesOfCodeFor(string $filename) : \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LinesOfCode
     {
         $this->analyse($filename);
         return $this->linesOfCode[$filename];
@@ -104,24 +104,24 @@ final class ParsingCoveredFileAnalyser implements \ECSPrefix20210803\SebastianBe
         if ($linesOfCode === 0 && !empty($source)) {
             $linesOfCode = 1;
         }
-        $parser = (new \ECSPrefix20210803\PhpParser\ParserFactory())->create(\ECSPrefix20210803\PhpParser\ParserFactory::PREFER_PHP7, new \ECSPrefix20210803\PhpParser\Lexer());
+        $parser = (new \ECSPrefix20210804\PhpParser\ParserFactory())->create(\ECSPrefix20210804\PhpParser\ParserFactory::PREFER_PHP7, new \ECSPrefix20210804\PhpParser\Lexer());
         try {
             $nodes = $parser->parse($source);
             \assert($nodes !== null);
-            $traverser = new \ECSPrefix20210803\PhpParser\NodeTraverser();
-            $codeUnitFindingVisitor = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\CodeUnitFindingVisitor();
-            $lineCountingVisitor = new \ECSPrefix20210803\SebastianBergmann\LinesOfCode\LineCountingVisitor($linesOfCode);
-            $ignoredLinesFindingVisitor = new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\StaticAnalysis\IgnoredLinesFindingVisitor($this->useAnnotationsForIgnoringCode, $this->ignoreDeprecatedCode);
-            $traverser->addVisitor(new \ECSPrefix20210803\PhpParser\NodeVisitor\NameResolver());
-            $traverser->addVisitor(new \ECSPrefix20210803\PhpParser\NodeVisitor\ParentConnectingVisitor());
+            $traverser = new \ECSPrefix20210804\PhpParser\NodeTraverser();
+            $codeUnitFindingVisitor = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\CodeUnitFindingVisitor();
+            $lineCountingVisitor = new \ECSPrefix20210804\SebastianBergmann\LinesOfCode\LineCountingVisitor($linesOfCode);
+            $ignoredLinesFindingVisitor = new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\StaticAnalysis\IgnoredLinesFindingVisitor($this->useAnnotationsForIgnoringCode, $this->ignoreDeprecatedCode);
+            $traverser->addVisitor(new \ECSPrefix20210804\PhpParser\NodeVisitor\NameResolver());
+            $traverser->addVisitor(new \ECSPrefix20210804\PhpParser\NodeVisitor\ParentConnectingVisitor());
             $traverser->addVisitor($codeUnitFindingVisitor);
             $traverser->addVisitor($lineCountingVisitor);
             $traverser->addVisitor($ignoredLinesFindingVisitor);
             /* @noinspection UnusedFunctionResultInspection */
             $traverser->traverse($nodes);
             // @codeCoverageIgnoreStart
-        } catch (\ECSPrefix20210803\PhpParser\Error $error) {
-            throw new \ECSPrefix20210803\SebastianBergmann\CodeCoverage\ParserException(\sprintf('Cannot parse %s: %s', $filename, $error->getMessage()), (int) $error->getCode(), $error);
+        } catch (\ECSPrefix20210804\PhpParser\Error $error) {
+            throw new \ECSPrefix20210804\SebastianBergmann\CodeCoverage\ParserException(\sprintf('Cannot parse %s: %s', $filename, $error->getMessage()), (int) $error->getCode(), $error);
         }
         // @codeCoverageIgnoreEnd
         $this->classes[$filename] = $codeUnitFindingVisitor->classes();

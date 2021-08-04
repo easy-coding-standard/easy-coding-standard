@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Runner;
+namespace ECSPrefix20210804\PHPUnit\Runner;
 
 use function array_diff;
 use function array_merge;
@@ -20,12 +20,12 @@ use function in_array;
 use function max;
 use function shuffle;
 use function usort;
-use ECSPrefix20210803\PHPUnit\Framework\DataProviderTestSuite;
-use ECSPrefix20210803\PHPUnit\Framework\Reorderable;
-use ECSPrefix20210803\PHPUnit\Framework\Test;
-use ECSPrefix20210803\PHPUnit\Framework\TestCase;
-use ECSPrefix20210803\PHPUnit\Framework\TestSuite;
-use ECSPrefix20210803\PHPUnit\Util\Test as TestUtil;
+use ECSPrefix20210804\PHPUnit\Framework\DataProviderTestSuite;
+use ECSPrefix20210804\PHPUnit\Framework\Reorderable;
+use ECSPrefix20210804\PHPUnit\Framework\Test;
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\PHPUnit\Framework\TestSuite;
+use ECSPrefix20210804\PHPUnit\Util\Test as TestUtil;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -60,8 +60,8 @@ final class TestSuiteSorter
     /**
      * List of sorting weights for all test result codes. A higher number gives higher priority.
      */
-    private const DEFECT_SORT_WEIGHT = [\ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR => 6, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE => 5, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING => 4, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE => 3, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY => 2, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED => 1, \ECSPrefix20210803\PHPUnit\Runner\BaseTestRunner::STATUS_UNKNOWN => 0];
-    private const SIZE_SORT_WEIGHT = [\ECSPrefix20210803\PHPUnit\Util\Test::SMALL => 1, \ECSPrefix20210803\PHPUnit\Util\Test::MEDIUM => 2, \ECSPrefix20210803\PHPUnit\Util\Test::LARGE => 3, \ECSPrefix20210803\PHPUnit\Util\Test::UNKNOWN => 4];
+    private const DEFECT_SORT_WEIGHT = [\ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_ERROR => 6, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_FAILURE => 5, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_WARNING => 4, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE => 3, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_RISKY => 2, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED => 1, \ECSPrefix20210804\PHPUnit\Runner\BaseTestRunner::STATUS_UNKNOWN => 0];
+    private const SIZE_SORT_WEIGHT = [\ECSPrefix20210804\PHPUnit\Util\Test::SMALL => 1, \ECSPrefix20210804\PHPUnit\Util\Test::MEDIUM => 2, \ECSPrefix20210804\PHPUnit\Util\Test::LARGE => 3, \ECSPrefix20210804\PHPUnit\Util\Test::UNKNOWN => 4];
     /**
      * @var array<string, int> Associative array of (string => DEFECT_SORT_WEIGHT) elements
      */
@@ -78,28 +78,28 @@ final class TestSuiteSorter
      * @var array<string> A list of normalized names of tests affected by reordering
      */
     private $executionOrder = [];
-    public function __construct(?\ECSPrefix20210803\PHPUnit\Runner\TestResultCache $cache = null)
+    public function __construct(?\ECSPrefix20210804\PHPUnit\Runner\TestResultCache $cache = null)
     {
-        $this->cache = $cache ?? new \ECSPrefix20210803\PHPUnit\Runner\NullTestResultCache();
+        $this->cache = $cache ?? new \ECSPrefix20210804\PHPUnit\Runner\NullTestResultCache();
     }
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws Exception
      */
-    public function reorderTestsInSuite(\ECSPrefix20210803\PHPUnit\Framework\Test $suite, int $order, bool $resolveDependencies, int $orderDefects, bool $isRootTestSuite = \true) : void
+    public function reorderTestsInSuite(\ECSPrefix20210804\PHPUnit\Framework\Test $suite, int $order, bool $resolveDependencies, int $orderDefects, bool $isRootTestSuite = \true) : void
     {
         $allowedOrders = [self::ORDER_DEFAULT, self::ORDER_REVERSED, self::ORDER_RANDOMIZED, self::ORDER_DURATION, self::ORDER_SIZE];
         if (!\in_array($order, $allowedOrders, \true)) {
-            throw new \ECSPrefix20210803\PHPUnit\Runner\Exception('$order must be one of TestSuiteSorter::ORDER_[DEFAULT|REVERSED|RANDOMIZED|DURATION|SIZE]');
+            throw new \ECSPrefix20210804\PHPUnit\Runner\Exception('$order must be one of TestSuiteSorter::ORDER_[DEFAULT|REVERSED|RANDOMIZED|DURATION|SIZE]');
         }
         $allowedOrderDefects = [self::ORDER_DEFAULT, self::ORDER_DEFECTS_FIRST];
         if (!\in_array($orderDefects, $allowedOrderDefects, \true)) {
-            throw new \ECSPrefix20210803\PHPUnit\Runner\Exception('$orderDefects must be one of TestSuiteSorter::ORDER_DEFAULT, TestSuiteSorter::ORDER_DEFECTS_FIRST');
+            throw new \ECSPrefix20210804\PHPUnit\Runner\Exception('$orderDefects must be one of TestSuiteSorter::ORDER_DEFAULT, TestSuiteSorter::ORDER_DEFECTS_FIRST');
         }
         if ($isRootTestSuite) {
             $this->originalExecutionOrder = $this->calculateTestExecutionOrder($suite);
         }
-        if ($suite instanceof \ECSPrefix20210803\PHPUnit\Framework\TestSuite) {
+        if ($suite instanceof \ECSPrefix20210804\PHPUnit\Framework\TestSuite) {
             foreach ($suite as $_suite) {
                 $this->reorderTestsInSuite($_suite, $order, $resolveDependencies, $orderDefects, \false);
             }
@@ -120,7 +120,7 @@ final class TestSuiteSorter
     {
         return $this->executionOrder;
     }
-    private function sort(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite, int $order, bool $resolveDependencies, int $orderDefects) : void
+    private function sort(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite, int $order, bool $resolveDependencies, int $orderDefects) : void
     {
         if (empty($suite->tests())) {
             return;
@@ -137,7 +137,7 @@ final class TestSuiteSorter
         if ($orderDefects === self::ORDER_DEFECTS_FIRST && $this->cache !== null) {
             $suite->setTests($this->sortDefectsFirst($suite->tests()));
         }
-        if ($resolveDependencies && !$suite instanceof \ECSPrefix20210803\PHPUnit\Framework\DataProviderTestSuite) {
+        if ($resolveDependencies && !$suite instanceof \ECSPrefix20210804\PHPUnit\Framework\DataProviderTestSuite) {
             /** @var TestCase[] $tests */
             $tests = $suite->tests();
             $suite->setTests($this->resolveDependencies($tests));
@@ -146,11 +146,11 @@ final class TestSuiteSorter
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    private function addSuiteToDefectSortOrder(\ECSPrefix20210803\PHPUnit\Framework\TestSuite $suite) : void
+    private function addSuiteToDefectSortOrder(\ECSPrefix20210804\PHPUnit\Framework\TestSuite $suite) : void
     {
         $max = 0;
         foreach ($suite->tests() as $test) {
-            if (!$test instanceof \ECSPrefix20210803\PHPUnit\Framework\Reorderable) {
+            if (!$test instanceof \ECSPrefix20210804\PHPUnit\Framework\Reorderable) {
                 continue;
             }
             if (!isset($this->defectSortOrder[$test->sortId()])) {
@@ -217,9 +217,9 @@ final class TestSuiteSorter
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    private function cmpDefectPriorityAndTime(\ECSPrefix20210803\PHPUnit\Framework\Test $a, \ECSPrefix20210803\PHPUnit\Framework\Test $b) : int
+    private function cmpDefectPriorityAndTime(\ECSPrefix20210804\PHPUnit\Framework\Test $a, \ECSPrefix20210804\PHPUnit\Framework\Test $b) : int
     {
-        if (!($a instanceof \ECSPrefix20210803\PHPUnit\Framework\Reorderable && $b instanceof \ECSPrefix20210803\PHPUnit\Framework\Reorderable)) {
+        if (!($a instanceof \ECSPrefix20210804\PHPUnit\Framework\Reorderable && $b instanceof \ECSPrefix20210804\PHPUnit\Framework\Reorderable)) {
             return 0;
         }
         $priorityA = $this->defectSortOrder[$a->sortId()] ?? 0;
@@ -239,9 +239,9 @@ final class TestSuiteSorter
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    private function cmpDuration(\ECSPrefix20210803\PHPUnit\Framework\Test $a, \ECSPrefix20210803\PHPUnit\Framework\Test $b) : int
+    private function cmpDuration(\ECSPrefix20210804\PHPUnit\Framework\Test $a, \ECSPrefix20210804\PHPUnit\Framework\Test $b) : int
     {
-        if (!($a instanceof \ECSPrefix20210803\PHPUnit\Framework\Reorderable && $b instanceof \ECSPrefix20210803\PHPUnit\Framework\Reorderable)) {
+        if (!($a instanceof \ECSPrefix20210804\PHPUnit\Framework\Reorderable && $b instanceof \ECSPrefix20210804\PHPUnit\Framework\Reorderable)) {
             return 0;
         }
         return $this->cache->getTime($a->sortId()) <=> $this->cache->getTime($b->sortId());
@@ -249,10 +249,10 @@ final class TestSuiteSorter
     /**
      * Compares test size for sorting tests small->medium->large->unknown.
      */
-    private function cmpSize(\ECSPrefix20210803\PHPUnit\Framework\Test $a, \ECSPrefix20210803\PHPUnit\Framework\Test $b) : int
+    private function cmpSize(\ECSPrefix20210804\PHPUnit\Framework\Test $a, \ECSPrefix20210804\PHPUnit\Framework\Test $b) : int
     {
-        $sizeA = $a instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase || $a instanceof \ECSPrefix20210803\PHPUnit\Framework\DataProviderTestSuite ? $a->getSize() : \ECSPrefix20210803\PHPUnit\Util\Test::UNKNOWN;
-        $sizeB = $b instanceof \ECSPrefix20210803\PHPUnit\Framework\TestCase || $b instanceof \ECSPrefix20210803\PHPUnit\Framework\DataProviderTestSuite ? $b->getSize() : \ECSPrefix20210803\PHPUnit\Util\Test::UNKNOWN;
+        $sizeA = $a instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase || $a instanceof \ECSPrefix20210804\PHPUnit\Framework\DataProviderTestSuite ? $a->getSize() : \ECSPrefix20210804\PHPUnit\Util\Test::UNKNOWN;
+        $sizeB = $b instanceof \ECSPrefix20210804\PHPUnit\Framework\TestCase || $b instanceof \ECSPrefix20210804\PHPUnit\Framework\DataProviderTestSuite ? $b->getSize() : \ECSPrefix20210804\PHPUnit\Util\Test::UNKNOWN;
         return self::SIZE_SORT_WEIGHT[$sizeA] <=> self::SIZE_SORT_WEIGHT[$sizeB];
     }
     /**
@@ -289,12 +289,12 @@ final class TestSuiteSorter
     /**
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    private function calculateTestExecutionOrder(\ECSPrefix20210803\PHPUnit\Framework\Test $suite) : array
+    private function calculateTestExecutionOrder(\ECSPrefix20210804\PHPUnit\Framework\Test $suite) : array
     {
         $tests = [];
-        if ($suite instanceof \ECSPrefix20210803\PHPUnit\Framework\TestSuite) {
+        if ($suite instanceof \ECSPrefix20210804\PHPUnit\Framework\TestSuite) {
             foreach ($suite->tests() as $test) {
-                if (!$test instanceof \ECSPrefix20210803\PHPUnit\Framework\TestSuite && $test instanceof \ECSPrefix20210803\PHPUnit\Framework\Reorderable) {
+                if (!$test instanceof \ECSPrefix20210804\PHPUnit\Framework\TestSuite && $test instanceof \ECSPrefix20210804\PHPUnit\Framework\Reorderable) {
                     $tests[] = $test->sortId();
                 } else {
                     $tests = \array_merge($tests, $this->calculateTestExecutionOrder($test));

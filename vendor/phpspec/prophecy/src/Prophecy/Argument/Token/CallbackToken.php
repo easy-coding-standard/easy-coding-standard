@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Argument\Token;
+namespace ECSPrefix20210804\Prophecy\Argument\Token;
 
-use ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException;
+use ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException;
 /**
  * Callback-verified token.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class CallbackToken implements \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface
+class CallbackToken implements \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface
 {
     private $callback;
     /**
@@ -29,7 +29,7 @@ class CallbackToken implements \ECSPrefix20210803\Prophecy\Argument\Token\TokenI
     public function __construct($callback)
     {
         if (!\is_callable($callback)) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf('Callable expected as an argument to CallbackToken, but got %s.', \gettype($callback)));
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf('Callable expected as an argument to CallbackToken, but got %s.', \gettype($callback)));
         }
         $this->callback = $callback;
     }

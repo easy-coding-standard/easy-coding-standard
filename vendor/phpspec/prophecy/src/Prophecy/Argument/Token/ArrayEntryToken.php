@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Argument\Token;
+namespace ECSPrefix20210804\Prophecy\Argument\Token;
 
-use ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException;
+use ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException;
 /**
  * Array entry token.
  *
  * @author Boris Mikhaylov <kaguxmail@gmail.com>
  */
-class ArrayEntryToken implements \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface
+class ArrayEntryToken implements \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface
 {
     /** @var \Prophecy\Argument\Token\TokenInterface */
     private $key;
@@ -102,7 +102,7 @@ class ArrayEntryToken implements \ECSPrefix20210803\Prophecy\Argument\Token\Toke
      */
     private function wrapIntoExactValueToken($value)
     {
-        return $value instanceof \ECSPrefix20210803\Prophecy\Argument\Token\TokenInterface ? $value : new \ECSPrefix20210803\Prophecy\Argument\Token\ExactValueToken($value);
+        return $value instanceof \ECSPrefix20210804\Prophecy\Argument\Token\TokenInterface ? $value : new \ECSPrefix20210804\Prophecy\Argument\Token\ExactValueToken($value);
     }
     /**
      * Converts instance of \ArrayAccess to key => value array entry
@@ -114,8 +114,8 @@ class ArrayEntryToken implements \ECSPrefix20210803\Prophecy\Argument\Token\Toke
      */
     private function convertArrayAccessToEntry(\ArrayAccess $object)
     {
-        if (!$this->key instanceof \ECSPrefix20210803\Prophecy\Argument\Token\ExactValueToken) {
-            throw new \ECSPrefix20210803\Prophecy\Exception\InvalidArgumentException(\sprintf('You can only use exact value tokens to match key of ArrayAccess object' . \PHP_EOL . 'But you used `%s`.', $this->key));
+        if (!$this->key instanceof \ECSPrefix20210804\Prophecy\Argument\Token\ExactValueToken) {
+            throw new \ECSPrefix20210804\Prophecy\Exception\InvalidArgumentException(\sprintf('You can only use exact value tokens to match key of ArrayAccess object' . \PHP_EOL . 'But you used `%s`.', $this->key));
         }
         $key = $this->key->getValue();
         return $object->offsetExists($key) ? array($key => $object[$key]) : array();

@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\Constraint;
+namespace ECSPrefix20210804\PHPUnit\Framework\Constraint;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class Operator extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+abstract class Operator extends \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * Returns the name of this operator.
@@ -33,17 +33,17 @@ abstract class Operator extends \ECSPrefix20210803\PHPUnit\Framework\Constraint\
     /**
      * Validates $constraint argument.
      */
-    protected function checkConstraint($constraint) : \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint
+    protected function checkConstraint($constraint) : \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint
     {
-        if (!$constraint instanceof \ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint) {
-            return new \ECSPrefix20210803\PHPUnit\Framework\Constraint\IsEqual($constraint);
+        if (!$constraint instanceof \ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint) {
+            return new \ECSPrefix20210804\PHPUnit\Framework\Constraint\IsEqual($constraint);
         }
         return $constraint;
     }
     /**
      * Returns true if the $constraint needs to be wrapped with braces.
      */
-    protected function constraintNeedsParentheses(\ECSPrefix20210803\PHPUnit\Framework\Constraint\Constraint $constraint) : bool
+    protected function constraintNeedsParentheses(\ECSPrefix20210804\PHPUnit\Framework\Constraint\Constraint $constraint) : bool
     {
         return $constraint instanceof self && $constraint->arity() > 1 && $this->precedence() <= $constraint->precedence();
     }

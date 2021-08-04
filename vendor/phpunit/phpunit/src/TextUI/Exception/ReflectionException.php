@@ -9,12 +9,12 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI;
+namespace ECSPrefix20210804\PHPUnit\TextUI;
 
 use RuntimeException;
 /**
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-final class ReflectionException extends \RuntimeException implements \ECSPrefix20210803\PHPUnit\TextUI\Exception
+final class ReflectionException extends \RuntimeException implements \ECSPrefix20210804\PHPUnit\TextUI\Exception
 {
 }

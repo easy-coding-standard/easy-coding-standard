@@ -1,13 +1,13 @@
 <?php
 
-namespace ECSPrefix20210803\DeepCopy\Matcher\Doctrine;
+namespace ECSPrefix20210804\DeepCopy\Matcher\Doctrine;
 
-use ECSPrefix20210803\DeepCopy\Matcher\Matcher;
-use ECSPrefix20210803\Doctrine\Common\Persistence\Proxy;
+use ECSPrefix20210804\DeepCopy\Matcher\Matcher;
+use ECSPrefix20210804\Doctrine\Common\Persistence\Proxy;
 /**
  * @final
  */
-class DoctrineProxyMatcher implements \ECSPrefix20210803\DeepCopy\Matcher\Matcher
+class DoctrineProxyMatcher implements \ECSPrefix20210804\DeepCopy\Matcher\Matcher
 {
     /**
      * Matches a Doctrine Proxy class.
@@ -16,6 +16,6 @@ class DoctrineProxyMatcher implements \ECSPrefix20210803\DeepCopy\Matcher\Matche
      */
     public function matches($object, $property)
     {
-        return $object instanceof \ECSPrefix20210803\Doctrine\Common\Persistence\Proxy;
+        return $object instanceof \ECSPrefix20210804\Doctrine\Common\Persistence\Proxy;
     }
 }

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\Prophecy\Call;
+namespace ECSPrefix20210804\Prophecy\Call;
 
 use Exception;
-use ECSPrefix20210803\Prophecy\Argument\ArgumentsWildcard;
+use ECSPrefix20210804\Prophecy\Argument\ArgumentsWildcard;
 /**
  * Call object.
  *
@@ -122,7 +122,7 @@ class Call
      *
      * @return $this
      */
-    public function addScore(\ECSPrefix20210803\Prophecy\Argument\ArgumentsWildcard $wildcard, $score)
+    public function addScore(\ECSPrefix20210804\Prophecy\Argument\ArgumentsWildcard $wildcard, $score)
     {
         $this->scores[$wildcard] = $score;
         return $this;
@@ -135,7 +135,7 @@ class Call
      *
      * @return false|int False OR integer score (higher - better)
      */
-    public function getScore(\ECSPrefix20210803\Prophecy\Argument\ArgumentsWildcard $wildcard)
+    public function getScore(\ECSPrefix20210804\Prophecy\Argument\ArgumentsWildcard $wildcard)
     {
         if (isset($this->scores[$wildcard])) {
             return $this->scores[$wildcard];

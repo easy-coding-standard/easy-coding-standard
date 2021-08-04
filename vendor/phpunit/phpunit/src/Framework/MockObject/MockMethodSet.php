@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Framework\MockObject;
+namespace ECSPrefix20210804\PHPUnit\Framework\MockObject;
 
 use function array_key_exists;
 use function array_values;
@@ -23,7 +23,7 @@ final class MockMethodSet
      * @var MockMethod[]
      */
     private $methods = [];
-    public function addMethods(\ECSPrefix20210803\PHPUnit\Framework\MockObject\MockMethod ...$methods) : void
+    public function addMethods(\ECSPrefix20210804\PHPUnit\Framework\MockObject\MockMethod ...$methods) : void
     {
         foreach ($methods as $method) {
             $this->methods[\strtolower($method->getName())] = $method;

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\CliArguments;
+namespace ECSPrefix20210804\PHPUnit\TextUI\CliArguments;
 
 use function array_map;
 use function array_merge;
@@ -17,13 +17,13 @@ use function class_exists;
 use function explode;
 use function is_numeric;
 use function str_replace;
-use ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter;
-use ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrinter;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Extension;
-use ECSPrefix20210803\PHPUnit\Util\Log\TeamCity;
-use ECSPrefix20210803\PHPUnit\Util\TestDox\CliTestDoxPrinter;
-use ECSPrefix20210803\SebastianBergmann\CliParser\Exception as CliParserException;
-use ECSPrefix20210803\SebastianBergmann\CliParser\Parser as CliParser;
+use ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter;
+use ECSPrefix20210804\PHPUnit\TextUI\DefaultResultPrinter;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Extension;
+use ECSPrefix20210804\PHPUnit\Util\Log\TeamCity;
+use ECSPrefix20210804\PHPUnit\Util\TestDox\CliTestDoxPrinter;
+use ECSPrefix20210804\SebastianBergmann\CliParser\Exception as CliParserException;
+use ECSPrefix20210804\SebastianBergmann\CliParser\Parser as CliParser;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
@@ -31,12 +31,12 @@ final class Builder
 {
     private const LONG_OPTIONS = ['atleast-version=', 'prepend=', 'bootstrap=', 'cache-result', 'do-not-cache-result', 'cache-result-file=', 'check-version', 'colors==', 'columns=', 'configuration=', 'coverage-cache=', 'warm-coverage-cache', 'coverage-filter=', 'coverage-clover=', 'coverage-cobertura=', 'coverage-crap4j=', 'coverage-html=', 'coverage-php=', 'coverage-text==', 'coverage-xml=', 'path-coverage', 'debug', 'disallow-test-output', 'disallow-resource-usage', 'disallow-todo-tests', 'default-time-limit=', 'enforce-time-limit', 'exclude-group=', 'extensions=', 'filter=', 'generate-configuration', 'globals-backup', 'group=', 'covers=', 'uses=', 'help', 'resolve-dependencies', 'ignore-dependencies', 'include-path=', 'list-groups', 'list-suites', 'list-tests', 'list-tests-xml=', 'loader=', 'log-junit=', 'log-teamcity=', 'migrate-configuration', 'no-configuration', 'no-coverage', 'no-logging', 'no-interaction', 'no-extensions', 'order-by=', 'printer=', 'process-isolation', 'repeat=', 'dont-report-useless-tests', 'random-order', 'random-order-seed=', 'reverse-order', 'reverse-list', 'static-backup', 'stderr', 'stop-on-defect', 'stop-on-error', 'stop-on-failure', 'stop-on-warning', 'stop-on-incomplete', 'stop-on-risky', 'stop-on-skipped', 'fail-on-empty-test-suite', 'fail-on-incomplete', 'fail-on-risky', 'fail-on-skipped', 'fail-on-warning', 'strict-coverage', 'disable-coverage-ignore', 'strict-global-state', 'teamcity', 'testdox', 'testdox-group=', 'testdox-exclude-group=', 'testdox-html=', 'testdox-text=', 'testdox-xml=', 'test-suffix=', 'testsuite=', 'verbose', 'version', 'whitelist=', 'dump-xdebug-filter='];
     private const SHORT_OPTIONS = 'd:c:hv';
-    public function fromParameters(array $parameters, array $additionalLongOptions) : \ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Configuration
+    public function fromParameters(array $parameters, array $additionalLongOptions) : \ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Configuration
     {
         try {
-            $options = (new \ECSPrefix20210803\SebastianBergmann\CliParser\Parser())->parse($parameters, self::SHORT_OPTIONS, \array_merge(self::LONG_OPTIONS, $additionalLongOptions));
-        } catch (\ECSPrefix20210803\SebastianBergmann\CliParser\Exception $e) {
-            throw new \ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Exception($e->getMessage(), (int) $e->getCode(), $e);
+            $options = (new \ECSPrefix20210804\SebastianBergmann\CliParser\Parser())->parse($parameters, self::SHORT_OPTIONS, \array_merge(self::LONG_OPTIONS, $additionalLongOptions));
+        } catch (\ECSPrefix20210804\SebastianBergmann\CliParser\Exception $e) {
+            throw new \ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Exception($e->getMessage(), (int) $e->getCode(), $e);
         }
         $argument = null;
         $atLeastVersion = null;
@@ -135,7 +135,7 @@ final class Builder
         foreach ($options[0] as $option) {
             switch ($option[0]) {
                 case '--colors':
-                    $colors = $option[1] ?: \ECSPrefix20210803\PHPUnit\TextUI\DefaultResultPrinter::COLOR_AUTO;
+                    $colors = $option[1] ?: \ECSPrefix20210804\PHPUnit\TextUI\DefaultResultPrinter::COLOR_AUTO;
                     break;
                 case '--bootstrap':
                     $bootstrap = $option[1];
@@ -270,30 +270,30 @@ final class Builder
                     foreach (\explode(',', $option[1]) as $order) {
                         switch ($order) {
                             case 'default':
-                                $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFAULT;
-                                $executionOrderDefects = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFAULT;
+                                $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFAULT;
+                                $executionOrderDefects = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFAULT;
                                 $resolveDependencies = \true;
                                 break;
                             case 'defects':
-                                $executionOrderDefects = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFECTS_FIRST;
+                                $executionOrderDefects = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_DEFECTS_FIRST;
                                 break;
                             case 'depends':
                                 $resolveDependencies = \true;
                                 break;
                             case 'duration':
-                                $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_DURATION;
+                                $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_DURATION;
                                 break;
                             case 'no-depends':
                                 $resolveDependencies = \false;
                                 break;
                             case 'random':
-                                $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_RANDOMIZED;
+                                $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_RANDOMIZED;
                                 break;
                             case 'reverse':
-                                $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_REVERSED;
+                                $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_REVERSED;
                                 break;
                             case 'size':
-                                $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_SIZE;
+                                $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_SIZE;
                                 break;
                             default:
                                 $unrecognizedOrderBy = $order;
@@ -346,10 +346,10 @@ final class Builder
                     $failOnWarning = \true;
                     break;
                 case '--teamcity':
-                    $printer = \ECSPrefix20210803\PHPUnit\Util\Log\TeamCity::class;
+                    $printer = \ECSPrefix20210804\PHPUnit\Util\Log\TeamCity::class;
                     break;
                 case '--testdox':
-                    $printer = \ECSPrefix20210803\PHPUnit\Util\TestDox\CliTestDoxPrinter::class;
+                    $printer = \ECSPrefix20210804\PHPUnit\Util\TestDox\CliTestDoxPrinter::class;
                     break;
                 case '--testdox-group':
                     $testdoxGroups = \explode(',', $option[1]);
@@ -375,7 +375,7 @@ final class Builder
                             $unavailableExtensions[] = $extensionClass;
                             continue;
                         }
-                        $extensions[] = new \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Extension($extensionClass, '', []);
+                        $extensions[] = new \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Extension($extensionClass, '', []);
                     }
                     break;
                 case '--no-extensions':
@@ -447,7 +447,7 @@ final class Builder
                     $coverageFilter[] = $option[1];
                     break;
                 case '--random-order':
-                    $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_RANDOMIZED;
+                    $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_RANDOMIZED;
                     break;
                 case '--random-order-seed':
                     $randomOrderSeed = (int) $option[1];
@@ -459,7 +459,7 @@ final class Builder
                     $resolveDependencies = \false;
                     break;
                 case '--reverse-order':
-                    $executionOrder = \ECSPrefix20210803\PHPUnit\Runner\TestSuiteSorter::ORDER_REVERSED;
+                    $executionOrder = \ECSPrefix20210804\PHPUnit\Runner\TestSuiteSorter::ORDER_REVERSED;
                     break;
                 case '--dump-xdebug-filter':
                     $xdebugFilterFile = $option[1];
@@ -480,6 +480,6 @@ final class Builder
         if (empty($coverageFilter)) {
             $coverageFilter = null;
         }
-        return new \ECSPrefix20210803\PHPUnit\TextUI\CliArguments\Configuration($argument, $atLeastVersion, $backupGlobals, $backupStaticAttributes, $beStrictAboutChangesToGlobalState, $beStrictAboutResourceUsageDuringSmallTests, $bootstrap, $cacheResult, $cacheResultFile, $checkVersion, $colors, $columns, $configuration, $coverageClover, $coverageCobertura, $coverageCrap4J, $coverageHtml, $coveragePhp, $coverageText, $coverageTextShowUncoveredFiles, $coverageTextShowOnlySummary, $coverageXml, $pathCoverage, $coverageCacheDirectory, $warmCoverageCache, $debug, $defaultTimeLimit, $disableCodeCoverageIgnore, $disallowTestOutput, $disallowTodoAnnotatedTests, $enforceTimeLimit, $excludeGroups, $executionOrder, $executionOrderDefects, $extensions, $unavailableExtensions, $failOnEmptyTestSuite, $failOnIncomplete, $failOnRisky, $failOnSkipped, $failOnWarning, $filter, $generateConfiguration, $migrateConfiguration, $groups, $testsCovering, $testsUsing, $help, $includePath, $iniSettings, $junitLogfile, $listGroups, $listSuites, $listTests, $listTestsXml, $loader, $noCoverage, $noExtensions, $noInteraction, $noLogging, $printer, $processIsolation, $randomOrderSeed, $repeat, $reportUselessTests, $resolveDependencies, $reverseList, $stderr, $strictCoverage, $stopOnDefect, $stopOnError, $stopOnFailure, $stopOnIncomplete, $stopOnRisky, $stopOnSkipped, $stopOnWarning, $teamcityLogfile, $testdoxExcludeGroups, $testdoxGroups, $testdoxHtmlFile, $testdoxTextFile, $testdoxXmlFile, $testSuffixes, $testSuite, $unrecognizedOptions, $unrecognizedOrderBy, $useDefaultConfiguration, $verbose, $version, $coverageFilter, $xdebugFilterFile);
+        return new \ECSPrefix20210804\PHPUnit\TextUI\CliArguments\Configuration($argument, $atLeastVersion, $backupGlobals, $backupStaticAttributes, $beStrictAboutChangesToGlobalState, $beStrictAboutResourceUsageDuringSmallTests, $bootstrap, $cacheResult, $cacheResultFile, $checkVersion, $colors, $columns, $configuration, $coverageClover, $coverageCobertura, $coverageCrap4J, $coverageHtml, $coveragePhp, $coverageText, $coverageTextShowUncoveredFiles, $coverageTextShowOnlySummary, $coverageXml, $pathCoverage, $coverageCacheDirectory, $warmCoverageCache, $debug, $defaultTimeLimit, $disableCodeCoverageIgnore, $disallowTestOutput, $disallowTodoAnnotatedTests, $enforceTimeLimit, $excludeGroups, $executionOrder, $executionOrderDefects, $extensions, $unavailableExtensions, $failOnEmptyTestSuite, $failOnIncomplete, $failOnRisky, $failOnSkipped, $failOnWarning, $filter, $generateConfiguration, $migrateConfiguration, $groups, $testsCovering, $testsUsing, $help, $includePath, $iniSettings, $junitLogfile, $listGroups, $listSuites, $listTests, $listTestsXml, $loader, $noCoverage, $noExtensions, $noInteraction, $noLogging, $printer, $processIsolation, $randomOrderSeed, $repeat, $reportUselessTests, $resolveDependencies, $reverseList, $stderr, $strictCoverage, $stopOnDefect, $stopOnError, $stopOnFailure, $stopOnIncomplete, $stopOnRisky, $stopOnSkipped, $stopOnWarning, $teamcityLogfile, $testdoxExcludeGroups, $testdoxGroups, $testdoxHtmlFile, $testdoxTextFile, $testdoxXmlFile, $testSuffixes, $testSuite, $unrecognizedOptions, $unrecognizedOrderBy, $useDefaultConfiguration, $verbose, $version, $coverageFilter, $xdebugFilterFile);
     }
 }

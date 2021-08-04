@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace ECSPrefix20210803\phpDocumentor\Reflection;
+namespace ECSPrefix20210804\phpDocumentor\Reflection;
 
-interface PseudoType extends \ECSPrefix20210803\phpDocumentor\Reflection\Type
+interface PseudoType extends \ECSPrefix20210804\phpDocumentor\Reflection\Type
 {
-    public function underlyingType() : \ECSPrefix20210803\phpDocumentor\Reflection\Type;
+    public function underlyingType() : \ECSPrefix20210804\phpDocumentor\Reflection\Type;
 }

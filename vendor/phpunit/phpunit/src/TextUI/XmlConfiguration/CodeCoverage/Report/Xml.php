@@ -9,9 +9,9 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report;
+namespace ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report;
 
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Directory;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Directory;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  * @psalm-immutable
@@ -22,11 +22,11 @@ final class Xml
      * @var Directory
      */
     private $target;
-    public function __construct(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Directory $target)
+    public function __construct(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Directory $target)
     {
         $this->target = $target;
     }
-    public function target() : \ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\Directory
+    public function target() : \ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\Directory
     {
         return $this->target;
     }

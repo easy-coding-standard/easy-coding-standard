@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php 
 declare (strict_types=1);
-namespace ECSPrefix20210803;
+namespace ECSPrefix20210804;
 
 /*
  * This file is part of PHPUnit.
@@ -46,4 +46,4 @@ if (isset($options['prepend'])) {
 }
 unset($options);
 require \PHPUNIT_COMPOSER_INSTALL;
-\ECSPrefix20210803\PHPUnit\TextUI\Command::main();
+\ECSPrefix20210804\PHPUnit\TextUI\Command::main();

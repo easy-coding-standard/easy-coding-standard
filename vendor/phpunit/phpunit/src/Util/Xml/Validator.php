@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\Xml;
+namespace ECSPrefix20210804\PHPUnit\Util\Xml;
 
 use function file_get_contents;
 use function libxml_clear_errors;
@@ -21,13 +21,13 @@ use DOMDocument;
  */
 final class Validator
 {
-    public function validate(\DOMDocument $document, string $xsdFilename) : \ECSPrefix20210803\PHPUnit\Util\Xml\ValidationResult
+    public function validate(\DOMDocument $document, string $xsdFilename) : \ECSPrefix20210804\PHPUnit\Util\Xml\ValidationResult
     {
         $originalErrorHandling = \libxml_use_internal_errors(\true);
         $document->schemaValidateSource(\file_get_contents($xsdFilename));
         $errors = \libxml_get_errors();
         \libxml_clear_errors();
         \libxml_use_internal_errors($originalErrorHandling);
-        return \ECSPrefix20210803\PHPUnit\Util\Xml\ValidationResult::fromArray($errors);
+        return \ECSPrefix20210804\PHPUnit\Util\Xml\ValidationResult::fromArray($errors);
     }
 }

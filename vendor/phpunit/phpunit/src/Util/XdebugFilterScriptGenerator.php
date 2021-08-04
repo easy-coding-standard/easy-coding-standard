@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util;
+namespace ECSPrefix20210804\PHPUnit\Util;
 
 use const DIRECTORY_SEPARATOR;
 use function addslashes;
@@ -18,7 +18,7 @@ use function implode;
 use function is_string;
 use function realpath;
 use function sprintf;
-use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage as FilterConfiguration;
+use ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage as FilterConfiguration;
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  *
@@ -26,7 +26,7 @@ use ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage 
  */
 final class XdebugFilterScriptGenerator
 {
-    public function generate(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage $filter) : string
+    public function generate(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage $filter) : string
     {
         $files = \array_map(static function ($item) {
             return \sprintf("        '%s'", $item);
@@ -48,7 +48,7 @@ if (!\\function_exists('xdebug_set_filter')) {
 
 EOF;
     }
-    private function getItems(\ECSPrefix20210803\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage $filter) : array
+    private function getItems(\ECSPrefix20210804\PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage $filter) : array
     {
         $files = [];
         foreach ($filter->directories() as $directory) {

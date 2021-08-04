@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210803\PHPUnit\Util\Xml;
+namespace ECSPrefix20210804\PHPUnit\Util\Xml;
 
 use function chdir;
 use function dirname;
@@ -34,7 +34,7 @@ final class Loader
         $contents = \file_get_contents($filename);
         \error_reporting($reporting);
         if ($contents === \false) {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Xml\Exception(\sprintf('Could not read "%s".', $filename));
+            throw new \ECSPrefix20210804\PHPUnit\Util\Xml\Exception(\sprintf('Could not read "%s".', $filename));
         }
         return $this->load($contents, $isHtml, $filename, $xinclude, $strict);
     }
@@ -44,7 +44,7 @@ final class Loader
     public function load(string $actual, bool $isHtml = \false, string $filename = '', bool $xinclude = \false, bool $strict = \false) : \DOMDocument
     {
         if ($actual === '') {
-            throw new \ECSPrefix20210803\PHPUnit\Util\Xml\Exception('Could not load XML from empty string');
+            throw new \ECSPrefix20210804\PHPUnit\Util\Xml\Exception('Could not load XML from empty string');
         }
         // Required for XInclude on Windows.
         if ($xinclude) {
@@ -78,12 +78,12 @@ final class Loader
         }
         if ($loaded === \false || $strict && $message !== '') {
             if ($filename !== '') {
-                throw new \ECSPrefix20210803\PHPUnit\Util\Xml\Exception(\sprintf('Could not load "%s".%s', $filename, $message !== '' ? "\n" . $message : ''));
+                throw new \ECSPrefix20210804\PHPUnit\Util\Xml\Exception(\sprintf('Could not load "%s".%s', $filename, $message !== '' ? "\n" . $message : ''));
             }
             if ($message === '') {
                 $message = 'Could not load XML for unknown reason';
             }
-            throw new \ECSPrefix20210803\PHPUnit\Util\Xml\Exception($message);
+            throw new \ECSPrefix20210804\PHPUnit\Util\Xml\Exception($message);
         }
         return $document;
     }

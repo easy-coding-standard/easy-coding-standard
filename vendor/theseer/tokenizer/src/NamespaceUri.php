@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210803\TheSeer\Tokenizer;
+namespace ECSPrefix20210804\TheSeer\Tokenizer;
 
 class NamespaceUri
 {
@@ -19,7 +19,7 @@ class NamespaceUri
     private function ensureValidUri($value) : void
     {
         if (\strpos($value, ':') === \false) {
-            throw new \ECSPrefix20210803\TheSeer\Tokenizer\NamespaceUriException(\sprintf("Namespace URI '%s' must contain at least one colon", $value));
+            throw new \ECSPrefix20210804\TheSeer\Tokenizer\NamespaceUriException(\sprintf("Namespace URI '%s' must contain at least one colon", $value));
         }
     }
 }
