@@ -15,6 +15,11 @@ use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix20210804\Symplify\EasyTesting\StaticFixtureSplitter;
 use ECSPrefix20210804\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo;
+// needed for scoped version to load unprefixed classes; does not have any effect inside the class
+$scoperAutoloadFilePath = __DIR__ . '/../../../vendor/scoper-autoload.php';
+if (\file_exists($scoperAutoloadFilePath)) {
+    require_once $scoperAutoloadFilePath;
+}
 abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase implements \Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface
 {
     /**
