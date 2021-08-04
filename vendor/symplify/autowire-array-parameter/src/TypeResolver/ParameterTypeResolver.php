@@ -20,10 +20,7 @@ final class ParameterTypeResolver
     {
         $this->paramTypeDocBlockResolver = $paramTypeDocBlockResolver;
     }
-    /**
-     * @return string|null
-     */
-    public function resolveParameterType(string $parameterName, \ReflectionMethod $reflectionMethod)
+    public function resolveParameterType(string $parameterName, \ReflectionMethod $reflectionMethod) : ?string
     {
         $docComment = $reflectionMethod->getDocComment();
         if ($docComment === \false) {

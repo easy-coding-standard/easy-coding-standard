@@ -12,9 +12,8 @@ final class FunctionCallNameMatcher
      * We go through tokens from down to up, so we need to find ")" and then the start of function
      *
      * @param Tokens<Token> $tokens
-     * @return int|null
      */
-    public function matchName(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
+    public function matchName(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : ?int
     {
         try {
             $blockStart = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $position);

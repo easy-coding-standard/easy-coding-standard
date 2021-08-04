@@ -316,10 +316,7 @@ class RequestDataCollector extends \ECSPrefix20210804\Symfony\Component\HttpKern
     {
         return 'request';
     }
-    /**
-     * @return void
-     */
-    public function collectSessionUsage()
+    public function collectSessionUsage() : void
     {
         $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
         $traceEndIndex = \count($trace) - 1;

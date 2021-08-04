@@ -68,14 +68,14 @@ abstract class Kernel implements \ECSPrefix20210804\Symfony\Component\HttpKernel
     private $requestStackSize = 0;
     private $resetServices = \false;
     private static $freshCache = [];
-    const VERSION = '5.3.6';
-    const VERSION_ID = 50306;
-    const MAJOR_VERSION = 5;
-    const MINOR_VERSION = 3;
-    const RELEASE_VERSION = 6;
-    const EXTRA_VERSION = '';
-    const END_OF_MAINTENANCE = '01/2022';
-    const END_OF_LIFE = '01/2022';
+    public const VERSION = '5.3.6';
+    public const VERSION_ID = 50306;
+    public const MAJOR_VERSION = 5;
+    public const MINOR_VERSION = 3;
+    public const RELEASE_VERSION = 6;
+    public const EXTRA_VERSION = '';
+    public const END_OF_MAINTENANCE = '01/2022';
+    public const END_OF_LIFE = '01/2022';
     public function __construct(string $environment, bool $debug)
     {
         if (!($this->environment = $environment)) {
@@ -222,7 +222,7 @@ abstract class Kernel implements \ECSPrefix20210804\Symfony\Component\HttpKernel
         $bundleName = \substr($name, 1);
         $path = '';
         if (\strpos($bundleName, '/') !== \false) {
-            list($bundleName, $path) = \explode('/', $bundleName, 2);
+            [$bundleName, $path] = \explode('/', $bundleName, 2);
         }
         $bundle = $this->getBundle($bundleName);
         if (\file_exists($file = $bundle->getPath() . '/' . $path)) {

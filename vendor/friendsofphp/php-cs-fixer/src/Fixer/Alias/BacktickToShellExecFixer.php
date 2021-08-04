@@ -58,9 +58,8 @@ EOT
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $backtickStarted = \false;
         $backtickTokens = [];
@@ -82,9 +81,8 @@ EOT
     }
     /**
      * Override backtick code with corresponding double-quoted string.
-     * @return void
      */
-    private function fixBackticks(\PhpCsFixer\Tokenizer\Tokens $tokens, array $backtickTokens)
+    private function fixBackticks(\PhpCsFixer\Tokenizer\Tokens $tokens, array $backtickTokens) : void
     {
         // Track indexes for final override
         \ksort($backtickTokens);

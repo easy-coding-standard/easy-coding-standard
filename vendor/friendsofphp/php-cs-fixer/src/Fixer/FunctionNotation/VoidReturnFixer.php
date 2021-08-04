@@ -61,9 +61,8 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // These cause syntax errors.
         static $excludedFunctions = [[\T_STRING, '__construct'], [\T_STRING, '__destruct'], [\T_STRING, '__clone'], [\T_STRING, '__isset'], [\T_STRING, '__sleep'], [\T_STRING, '__serialize'], [\T_STRING, '__set_state'], [\T_STRING, '__debugInfo']];
@@ -165,9 +164,8 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param int $index The index of the end of the function definition line, EG at { or ;
-     * @return void
      */
-    private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $endFuncIndex = $tokens->getPrevTokenOfKind($index, [')']);
         $tokens->insertAt($endFuncIndex + 1, [new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON, ':']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'void'])]);

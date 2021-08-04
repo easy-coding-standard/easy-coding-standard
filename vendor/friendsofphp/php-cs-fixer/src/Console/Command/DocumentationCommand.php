@@ -34,18 +34,12 @@ final class DocumentationCommand extends \ECSPrefix20210804\Symfony\Component\Co
      * @var DocumentationGenerator
      */
     private $generator;
-    /**
-     * @param string|null $name
-     */
-    public function __construct($name = null)
+    public function __construct(?string $name = null)
     {
         parent::__construct($name);
         $this->generator = new \PhpCsFixer\Documentation\DocumentationGenerator();
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setAliases(['doc'])->setDescription('Dumps the documentation of the project into its /doc directory.');
     }
@@ -63,10 +57,7 @@ final class DocumentationCommand extends \ECSPrefix20210804\Symfony\Component\Co
         $output->writeln('Docs updated.');
         return 0;
     }
-    /**
-     * @return void
-     */
-    private function generateFixersDocs(array $fixers)
+    private function generateFixersDocs(array $fixers) : void
     {
         $filesystem = new \ECSPrefix20210804\Symfony\Component\Filesystem\Filesystem();
         // Array of existing fixer docs.
@@ -87,10 +78,7 @@ final class DocumentationCommand extends \ECSPrefix20210804\Symfony\Component\Co
             throw new \RuntimeException("Failed updating file {$index}.");
         }
     }
-    /**
-     * @return void
-     */
-    private function generateRuleSetsDocs(array $fixers)
+    private function generateRuleSetsDocs(array $fixers) : void
     {
         $filesystem = new \ECSPrefix20210804\Symfony\Component\Filesystem\Filesystem();
         /** @var SplFileInfo $file */

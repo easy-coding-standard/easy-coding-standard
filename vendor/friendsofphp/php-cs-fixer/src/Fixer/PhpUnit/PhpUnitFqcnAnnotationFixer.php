@@ -55,9 +55,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $prevDocCommentIndex = $tokens->getPrevTokenOfKind($startIndex, [[\T_DOC_COMMENT]]);
         if (null !== $prevDocCommentIndex) {
@@ -65,10 +64,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         }
         $this->fixPhpUnitClass($tokens, $startIndex, $endIndex);
     }
-    /**
-     * @return void
-     */
-    private function fixPhpUnitClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function fixPhpUnitClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             if ($tokens[$index]->isGivenKind(\T_DOC_COMMENT)) {

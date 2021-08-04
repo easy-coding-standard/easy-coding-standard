@@ -74,11 +74,7 @@ final class Runner
      * @var bool
      */
     private $stopOnViolation;
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface|null $eventDispatcher
-     * @param \PhpCsFixer\Cache\DirectoryInterface|null $directory
-     */
-    public function __construct($finder, array $fixers, \PhpCsFixer\Differ\DifferInterface $differ, $eventDispatcher, \PhpCsFixer\Error\ErrorsManager $errorsManager, \PhpCsFixer\Linter\LinterInterface $linter, $isDryRun, \PhpCsFixer\Cache\CacheManagerInterface $cacheManager, $directory = null, $stopOnViolation = \false)
+    public function __construct($finder, array $fixers, \PhpCsFixer\Differ\DifferInterface $differ, ?\ECSPrefix20210804\Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher, \PhpCsFixer\Error\ErrorsManager $errorsManager, \PhpCsFixer\Linter\LinterInterface $linter, $isDryRun, \PhpCsFixer\Cache\CacheManagerInterface $cacheManager, ?\PhpCsFixer\Cache\DirectoryInterface $directory = null, $stopOnViolation = \false)
     {
         $this->finder = $finder;
         $this->fixers = $fixers;
@@ -113,10 +109,7 @@ final class Runner
         }
         return $changed;
     }
-    /**
-     * @return mixed[]|null
-     */
-    private function fixFile(\SplFileInfo $file, \PhpCsFixer\Linter\LintingResultInterface $lintingResult)
+    private function fixFile(\SplFileInfo $file, \PhpCsFixer\Linter\LintingResultInterface $lintingResult) : ?array
     {
         $name = $file->getPathname();
         try {
@@ -198,17 +191,13 @@ final class Runner
     }
     /**
      * Process an exception that occurred.
-     * @return void
      */
-    private function processException(string $name, \Throwable $e)
+    private function processException(string $name, \Throwable $e) : void
     {
         $this->dispatchEvent(\PhpCsFixer\FixerFileProcessedEvent::NAME, new \PhpCsFixer\FixerFileProcessedEvent(\PhpCsFixer\FixerFileProcessedEvent::STATUS_EXCEPTION));
         $this->errorsManager->report(new \PhpCsFixer\Error\Error(\PhpCsFixer\Error\Error::TYPE_EXCEPTION, $name, $e));
     }
-    /**
-     * @return void
-     */
-    private function dispatchEvent(string $name, \ECSPrefix20210804\Symfony\Contracts\EventDispatcher\Event $event)
+    private function dispatchEvent(string $name, \ECSPrefix20210804\Symfony\Contracts\EventDispatcher\Event $event) : void
     {
         if (null === $this->eventDispatcher) {
             return;

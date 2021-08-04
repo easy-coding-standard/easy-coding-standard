@@ -40,9 +40,8 @@ final class ObjectOperatorWithoutWhitespaceFixer extends \PhpCsFixer\AbstractFix
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // [Structure] there should not be space before or after "->" or "?->"
         foreach ($tokens as $index => $token) {

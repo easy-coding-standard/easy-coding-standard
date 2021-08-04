@@ -39,9 +39,8 @@ class Property
     }
     /**
      * @param string $type
-     * @return void
      */
-    public function setType($type)
+    public function setType($type) : void
     {
         $this->array = \false;
         $this->type = $type;
@@ -50,25 +49,18 @@ class Property
             $this->type = \substr($type, 0, -2);
         }
     }
-    /**
-     * @return string|null
-     */
-    public function getType()
+    public function getType() : ?string
     {
         return $this->type;
     }
-    /**
-     * @return string|null
-     */
-    public function getContent()
+    public function getContent() : ?string
     {
         return $this->content;
     }
     /**
      * @param string $content
-     * @return void
      */
-    public function setContent($content)
+    public function setContent($content) : void
     {
         $this->content = $content;
     }

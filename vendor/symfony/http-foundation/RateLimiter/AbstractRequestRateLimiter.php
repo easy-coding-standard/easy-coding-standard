@@ -44,9 +44,8 @@ abstract class AbstractRequestRateLimiter implements \ECSPrefix20210804\Symfony\
     }
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return void
      */
-    public function reset($request)
+    public function reset($request) : void
     {
         foreach ($this->getLimiters($request) as $limiter) {
             $limiter->reset();

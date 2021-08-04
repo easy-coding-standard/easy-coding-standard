@@ -48,9 +48,8 @@ final class NoSinglelineWhitespaceBeforeSemicolonsFixer extends \PhpCsFixer\Abst
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->equals(';') || !$tokens[$index - 1]->isWhitespace(" \t")) {

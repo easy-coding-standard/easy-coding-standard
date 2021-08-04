@@ -28,7 +28,7 @@ final class EasyCodingStandardApplication
     /**
      * @var string
      */
-    const ARGV = 'argv';
+    private const ARGV = 'argv';
     /**
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
@@ -111,7 +111,7 @@ final class EasyCodingStandardApplication
             $schedule = $this->scheduleFactory->create($this->cpuCoreCountProvider->provide(), $this->parameterProvider->provideIntParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_JOB_SIZE), $filePaths);
             // for progress bar
             $isProgressBarStarted = \false;
-            $postFileCallback = function (int $stepCount) use(&$isProgressBarStarted, $filePaths) {
+            $postFileCallback = function (int $stepCount) use(&$isProgressBarStarted, $filePaths) : void {
                 if (!$isProgressBarStarted) {
                     $fileCount = \count($filePaths);
                     $this->symfonyStyle->progressStart($fileCount);
@@ -159,10 +159,7 @@ final class EasyCodingStandardApplication
         }
         return $errorsAndDiffs;
     }
-    /**
-     * @return void
-     */
-    private function outputProgressBarAndDebugInfo(int $fileInfoCount, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration)
+    private function outputProgressBarAndDebugInfo(int $fileInfoCount, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
     {
         if ($configuration->shouldShowProgressBar()) {
             $this->easyCodingStandardStyle->progressStart($fileInfoCount);
@@ -175,9 +172,8 @@ final class EasyCodingStandardApplication
     /**
      * Path to called "ecs" binary file, e.g. "vendor/bin/ecs" returns "vendor/bin/ecs" This is needed to re-call the
      * ecs binary in sub-process in the same location.
-     * @return string|null
      */
-    private function resolveCalledEcsBinary()
+    private function resolveCalledEcsBinary() : ?string
     {
         if (!isset($_SERVER[self::ARGV][0])) {
             return null;

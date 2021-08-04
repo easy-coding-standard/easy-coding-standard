@@ -18,7 +18,7 @@ final class SmartFileInfo extends \ECSPrefix20210804\Symfony\Component\Finder\Sp
      * @var string
      * @see https://regex101.com/r/SYP00O/1
      */
-    const LAST_SUFFIX_REGEX = '#\\.[^.]+$#';
+    private const LAST_SUFFIX_REGEX = '#\\.[^.]+$#';
     /**
      * @var \Symplify\SmartFileSystem\SmartFileSystem
      */

@@ -24,8 +24,8 @@ use ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface;
  */
 class ConsoleLogger extends \ECSPrefix20210804\Psr\Log\AbstractLogger
 {
-    const INFO = 'info';
-    const ERROR = 'error';
+    public const INFO = 'info';
+    public const ERROR = 'error';
     private $output;
     private $verbosityLevelMap = [\ECSPrefix20210804\Psr\Log\LogLevel::EMERGENCY => \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20210804\Psr\Log\LogLevel::ALERT => \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20210804\Psr\Log\LogLevel::CRITICAL => \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20210804\Psr\Log\LogLevel::ERROR => \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20210804\Psr\Log\LogLevel::WARNING => \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20210804\Psr\Log\LogLevel::NOTICE => \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE, \ECSPrefix20210804\Psr\Log\LogLevel::INFO => \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE, \ECSPrefix20210804\Psr\Log\LogLevel::DEBUG => \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG];
     private $formatLevelMap = [\ECSPrefix20210804\Psr\Log\LogLevel::EMERGENCY => self::ERROR, \ECSPrefix20210804\Psr\Log\LogLevel::ALERT => self::ERROR, \ECSPrefix20210804\Psr\Log\LogLevel::CRITICAL => self::ERROR, \ECSPrefix20210804\Psr\Log\LogLevel::ERROR => self::ERROR, \ECSPrefix20210804\Psr\Log\LogLevel::WARNING => self::INFO, \ECSPrefix20210804\Psr\Log\LogLevel::NOTICE => self::INFO, \ECSPrefix20210804\Psr\Log\LogLevel::INFO => self::INFO, \ECSPrefix20210804\Psr\Log\LogLevel::DEBUG => self::INFO];

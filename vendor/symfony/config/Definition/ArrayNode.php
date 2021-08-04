@@ -294,7 +294,7 @@ class ArrayNode extends \ECSPrefix20210804\Symfony\Component\Config\Definition\B
      */
     protected function remapXml($value)
     {
-        foreach ($this->xmlRemappings as list($singular, $plural)) {
+        foreach ($this->xmlRemappings as [$singular, $plural]) {
             if (!isset($value[$singular])) {
                 continue;
             }

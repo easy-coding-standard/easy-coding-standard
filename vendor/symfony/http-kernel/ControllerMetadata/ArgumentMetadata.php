@@ -18,7 +18,7 @@ use ECSPrefix20210804\Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
  */
 class ArgumentMetadata
 {
-    const IS_INSTANCEOF = 2;
+    public const IS_INSTANCEOF = 2;
     private $name;
     private $type;
     private $isVariadic;
@@ -28,9 +28,8 @@ class ArgumentMetadata
     private $attributes;
     /**
      * @param object[] $attributes
-     * @param string|null $type
      */
-    public function __construct(string $name, $type, bool $isVariadic, bool $hasDefaultValue, $defaultValue, bool $isNullable = \false, $attributes = [])
+    public function __construct(string $name, ?string $type, bool $isVariadic, bool $hasDefaultValue, $defaultValue, bool $isNullable = \false, $attributes = [])
     {
         $this->name = $name;
         $this->type = $type;
@@ -109,9 +108,8 @@ class ArgumentMetadata
     }
     /**
      * Returns the attribute (if any) that was set on the argument.
-     * @return \Symfony\Component\HttpKernel\Attribute\ArgumentInterface|null
      */
-    public function getAttribute()
+    public function getAttribute() : ?\ECSPrefix20210804\Symfony\Component\HttpKernel\Attribute\ArgumentInterface
     {
         trigger_deprecation('symfony/http-kernel', '5.3', 'Method "%s()" is deprecated, use "getAttributes()" instead.', __METHOD__);
         if (!$this->attributes) {

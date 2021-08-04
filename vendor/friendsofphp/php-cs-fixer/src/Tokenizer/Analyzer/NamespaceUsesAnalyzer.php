@@ -59,10 +59,7 @@ final class NamespaceUsesAnalyzer
         }
         return $uses;
     }
-    /**
-     * @return \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis|null
-     */
-    private function parseDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function parseDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis
     {
         $fullName = $shortName = '';
         $aliased = \false;

@@ -44,10 +44,7 @@ final class AutoloadIncluder
      * @var string[]
      */
     private $alreadyLoadedAutoloadFiles = [];
-    /**
-     * @return void
-     */
-    public function includeCwdVendorAutoloadIfExists()
+    public function includeCwdVendorAutoloadIfExists() : void
     {
         $cwdVendorAutoload = \getcwd() . '/vendor/autoload.php';
         if (!\is_file($cwdVendorAutoload)) {
@@ -55,10 +52,7 @@ final class AutoloadIncluder
         }
         $this->loadIfNotLoadedYet($cwdVendorAutoload);
     }
-    /**
-     * @return void
-     */
-    public function includeDependencyOrRepositoryVendorAutoloadIfExists()
+    public function includeDependencyOrRepositoryVendorAutoloadIfExists() : void
     {
         // ECS' vendor is already loaded
         if (\class_exists('\\Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel')) {
@@ -70,10 +64,7 @@ final class AutoloadIncluder
         }
         $this->loadIfNotLoadedYet($devVendorAutoload);
     }
-    /**
-     * @return void
-     */
-    public function autoloadProjectAutoloaderFile(string $file)
+    public function autoloadProjectAutoloaderFile(string $file) : void
     {
         $path = \dirname(__DIR__) . $file;
         if (!\is_file($path)) {
@@ -81,10 +72,7 @@ final class AutoloadIncluder
         }
         $this->loadIfNotLoadedYet($path);
     }
-    /**
-     * @return void
-     */
-    public function includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens()
+    public function includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens() : void
     {
         // file is autoloaded with classmap in PHAR
         // without phar, we still need to autoload it
@@ -110,10 +98,7 @@ final class AutoloadIncluder
         }
         new \PHP_CodeSniffer\Util\Tokens();
     }
-    /**
-     * @return void
-     */
-    public function loadIfNotLoadedYet(string $file)
+    public function loadIfNotLoadedYet(string $file) : void
     {
         if (!\file_exists($file)) {
             return;

@@ -11,13 +11,13 @@ final class ReactEvent
     /**
      * @var string
      */
-    const EXIT = 'exit';
+    public const EXIT = 'exit';
     /**
      * @var string
      */
-    const DATA = 'data';
+    public const DATA = 'data';
     /**
      * @var string
      */
-    const ERROR = 'error';
+    public const ERROR = 'error';
 }

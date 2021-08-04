@@ -57,9 +57,8 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         static $map = null;
@@ -79,10 +78,7 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex, array $functionParams)
+    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex, array $functionParams) : void
     {
         $startBraceIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
         $endBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startBraceIndex);

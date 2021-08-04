@@ -17,7 +17,7 @@ final class WorkerCommandLineFactory
     /**
      * @var string
      */
-    const _ = '--';
+    private const _ = '--';
     /**
      * @var \Symplify\EasyCodingStandard\Console\Command\CheckCommand
      */
@@ -26,10 +26,7 @@ final class WorkerCommandLineFactory
     {
         $this->checkCommand = $checkCommand;
     }
-    /**
-     * @param string|null $projectConfigFile
-     */
-    public function create(string $mainScript, $projectConfigFile, \ECSPrefix20210804\Symfony\Component\Console\Input\InputInterface $input) : string
+    public function create(string $mainScript, ?string $projectConfigFile, \ECSPrefix20210804\Symfony\Component\Console\Input\InputInterface $input) : string
     {
         $args = \array_merge([\PHP_BINARY, $mainScript], \array_slice($_SERVER['argv'], 1));
         $processCommandArray = [];

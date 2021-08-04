@@ -94,19 +94,19 @@ class Image
 {
     use Nette\SmartObject;
     /** {@link resize()} only shrinks images */
-    const SHRINK_ONLY = 0b1;
+    public const SHRINK_ONLY = 0b1;
     /** {@link resize()} will ignore aspect ratio */
-    const STRETCH = 0b10;
+    public const STRETCH = 0b10;
     /** {@link resize()} fits in given area so its dimensions are less than or equal to the required dimensions */
-    const FIT = 0b0;
+    public const FIT = 0b0;
     /** {@link resize()} fills given area so its dimensions are greater than or equal to the required dimensions */
-    const FILL = 0b100;
+    public const FILL = 0b100;
     /** {@link resize()} fills given area exactly */
-    const EXACT = 0b1000;
+    public const EXACT = 0b1000;
     /** image types */
-    const JPEG = \IMAGETYPE_JPEG, PNG = \IMAGETYPE_PNG, GIF = \IMAGETYPE_GIF, WEBP = \IMAGETYPE_WEBP, BMP = \IMAGETYPE_BMP;
-    const EMPTY_GIF = "GIF89a\1\0\1\0€\0\0\0\0\0\0\0\0!ù\4\1\0\0\0\0,\0\0\0\0\1\0\1\0\0\2\2D\1\0;";
-    const FORMATS = [self::JPEG => 'jpeg', self::PNG => 'png', self::GIF => 'gif', self::WEBP => 'webp', self::BMP => 'bmp'];
+    public const JPEG = \IMAGETYPE_JPEG, PNG = \IMAGETYPE_PNG, GIF = \IMAGETYPE_GIF, WEBP = \IMAGETYPE_WEBP, BMP = \IMAGETYPE_BMP;
+    public const EMPTY_GIF = "GIF89a\1\0\1\0€\0\0\0\0\0\0\0\0!ù\4\1\0\0\0\0,\0\0\0\0\1\0\1\0\0\2\2D\1\0;";
+    private const FORMATS = [self::JPEG => 'jpeg', self::PNG => 'png', self::GIF => 'gif', self::WEBP => 'webp', self::BMP => 'bmp'];
     /** @var resource|\GdImage */
     private $image;
     /**
@@ -138,7 +138,7 @@ class Image
             throw new \ECSPrefix20210804\Nette\Utils\UnknownImageFileException(\is_file($file) ? "Unknown type of file '{$file}'." : "File '{$file}' not found.");
         }
         $method = 'imagecreatefrom' . self::FORMATS[$type];
-        return new static(\ECSPrefix20210804\Nette\Utils\Callback::invokeSafe($method, [$file], function (string $message) {
+        return new static(\ECSPrefix20210804\Nette\Utils\Callback::invokeSafe($method, [$file], function (string $message) : void {
             throw new \ECSPrefix20210804\Nette\Utils\ImageException($message);
         }));
     }
@@ -159,7 +159,7 @@ class Image
         if (!$type) {
             throw new \ECSPrefix20210804\Nette\Utils\UnknownImageFileException('Unknown type of image.');
         }
-        return new static(\ECSPrefix20210804\Nette\Utils\Callback::invokeSafe('imagecreatefromstring', [$s], function (string $message) {
+        return new static(\ECSPrefix20210804\Nette\Utils\Callback::invokeSafe('imagecreatefromstring', [$s], function (string $message) : void {
             throw new \ECSPrefix20210804\Nette\Utils\ImageException($message);
         }));
     }
@@ -192,9 +192,8 @@ class Image
     /**
      * Returns the type of image from file.
      * @param string $file
-     * @return int|null
      */
-    public static function detectTypeFromFile($file)
+    public static function detectTypeFromFile($file) : ?int
     {
         $type = @\getimagesize($file)[2];
         // @ - files smaller than 12 bytes causes read error
@@ -203,9 +202,8 @@ class Image
     /**
      * Returns the type of image from string.
      * @param string $s
-     * @return int|null
      */
-    public static function detectTypeFromString($s)
+    public static function detectTypeFromString($s) : ?int
     {
         $type = @\getimagesizefromstring($s)[2];
         // @ - strings smaller than 12 bytes causes read error
@@ -286,7 +284,7 @@ class Image
         if ($flags & self::EXACT) {
             return $this->resize($width, $height, self::FILL)->crop('50%', '50%', $width, $height);
         }
-        list($newWidth, $newHeight) = static::calculateSize($this->getWidth(), $this->getHeight(), $width, $height, $flags);
+        [$newWidth, $newHeight] = static::calculateSize($this->getWidth(), $this->getHeight(), $width, $height, $flags);
         if ($newWidth !== $this->getWidth() || $newHeight !== $this->getHeight()) {
             // resize
             $newImage = static::fromBlank($newWidth, $newHeight, self::rgb(0, 0, 0, 127))->getImageResource();
@@ -367,7 +365,7 @@ class Image
      */
     public function crop($left, $top, $width, $height)
     {
-        list($r['x'], $r['y'], $r['width'], $r['height']) = static::calculateCutout($this->getWidth(), $this->getHeight(), $left, $top, $width, $height);
+        [$r['x'], $r['y'], $r['width'], $r['height']] = static::calculateCutout($this->getWidth(), $this->getHeight(), $left, $top, $width, $height);
         if (\gd_info()['GD Version'] === 'bundled (2.1.0 compatible)') {
             $this->image = \imagecrop($this->image, $r);
             \imagesavealpha($this->image, \true);
@@ -480,9 +478,8 @@ class Image
      * @param string $file
      * @param int|null $quality
      * @param int|null $type
-     * @return void
      */
-    public function save($file, $quality = null, $type = null)
+    public function save($file, $quality = null, $type = null) : void
     {
         if ($type === null) {
             $extensions = \array_flip(self::FORMATS) + ['jpg' => self::JPEG];
@@ -525,9 +522,8 @@ class Image
      * @throws ImageException
      * @param int $type
      * @param int|null $quality
-     * @return void
      */
-    public function send($type = self::JPEG, $quality = null)
+    public function send($type = self::JPEG, $quality = null) : void
     {
         \header('Content-Type: ' . self::typeToMimeType($type));
         $this->output($type, $quality);
@@ -535,10 +531,8 @@ class Image
     /**
      * Outputs image to browser or file.
      * @throws ImageException
-     * @param int|null $quality
-     * @return void
      */
-    private function output(int $type, $quality, string $file = null)
+    private function output(int $type, ?int $quality, string $file = null) : void
     {
         switch ($type) {
             case self::JPEG:

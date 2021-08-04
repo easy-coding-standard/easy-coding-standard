@@ -21,10 +21,7 @@ final class CheckMarkdownCommand extends \Symplify\EasyCodingStandard\Console\Co
         $this->snippetFormatterApplication = $snippetFormatterApplication;
         parent::__construct();
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setDescription('Format Markdown PHP code');
         parent::configure();

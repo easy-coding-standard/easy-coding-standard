@@ -69,9 +69,8 @@ interface ResponseInterface
      * Closes the response stream and all related buffers.
      *
      * No further chunk will be yielded after this method has been called.
-     * @return void
      */
-    public function cancel();
+    public function cancel() : void;
     /**
      * Returns info coming from the transport layer.
      *

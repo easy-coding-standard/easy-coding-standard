@@ -65,9 +65,8 @@ namespace Foo {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($this->findCurlyBraceOpen($tokens) as $index) {
             if ($this->isOverComplete($tokens, $index)) {
@@ -88,17 +87,13 @@ namespace Foo {
     /**
      * @param int $openIndex  index of `{` token
      * @param int $closeIndex index of `}` token
-     * @return void
      */
-    private function clearOverCompleteBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, int $openIndex, int $closeIndex)
+    private function clearOverCompleteBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, int $openIndex, int $closeIndex) : void
     {
         $tokens->clearTokenAndMergeSurroundingWhitespace($closeIndex);
         $tokens->clearTokenAndMergeSurroundingWhitespace($openIndex);
     }
-    /**
-     * @return mixed[]
-     */
-    private function findCurlyBraceOpen(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function findCurlyBraceOpen(\PhpCsFixer\Tokenizer\Tokens $tokens) : iterable
     {
         for ($i = \count($tokens) - 1; $i > 0; --$i) {
             if ($tokens[$i]->equals('{')) {
@@ -114,10 +109,7 @@ namespace Foo {
         static $include = ['{', '}', [\T_OPEN_TAG], ':', ';'];
         return $tokens[$tokens->getPrevMeaningfulToken($index)]->equalsAny($include);
     }
-    /**
-     * @return void
-     */
-    private function clearIfIsOverCompleteNamespaceBlock(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function clearIfIsOverCompleteNamespaceBlock(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if (1 !== $tokens->countTokenKind(\T_NAMESPACE)) {
             return;

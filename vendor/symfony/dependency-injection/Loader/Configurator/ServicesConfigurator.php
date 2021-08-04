@@ -22,7 +22,7 @@ use ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
  */
 class ServicesConfigurator extends \ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
-    const FACTORY = 'services';
+    public const FACTORY = 'services';
     private $defaults;
     private $container;
     private $loader;

@@ -50,9 +50,8 @@ final class StringLineEndingFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $ending = $this->whitespacesConfig->getLineEnding();
         foreach ($tokens as $tokenIndex => $token) {

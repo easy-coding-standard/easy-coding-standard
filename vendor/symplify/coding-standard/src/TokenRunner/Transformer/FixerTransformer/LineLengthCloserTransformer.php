@@ -27,9 +27,8 @@ final class LineLengthCloserTransformer
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function insertNewlineBeforeClosingIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, int $kind, string $newlineIndentWhitespace, string $closingBracketNewlineIndentWhitespace)
+    public function insertNewlineBeforeClosingIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, int $kind, string $newlineIndentWhitespace, string $closingBracketNewlineIndentWhitespace) : void
     {
         $isMethodCall = $this->callAnalyzer->isMethodCall($tokens, $blockInfo->getStart());
         $endIndex = $blockInfo->getEnd();

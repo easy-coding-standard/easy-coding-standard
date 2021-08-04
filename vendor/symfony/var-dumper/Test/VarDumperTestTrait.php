@@ -24,18 +24,16 @@ trait VarDumperTestTrait
     /**
      * @param mixed[] $casters
      * @param int|null $flags
-     * @return void
      */
-    protected function setUpVarDumper($casters, $flags = null)
+    protected function setUpVarDumper($casters, $flags = null) : void
     {
         $this->varDumperConfig['casters'] = $casters;
         $this->varDumperConfig['flags'] = $flags;
     }
     /**
      * @after
-     * @return void
      */
-    protected function tearDownVarDumper()
+    protected function tearDownVarDumper() : void
     {
         $this->varDumperConfig['casters'] = [];
         $this->varDumperConfig['flags'] = null;
@@ -58,9 +56,8 @@ trait VarDumperTestTrait
     }
     /**
      * @param int $filter
-     * @return string|null
      */
-    protected function getDump($data, $key = null, $filter = 0)
+    protected function getDump($data, $key = null, $filter = 0) : ?string
     {
         if (null === ($flags = $this->varDumperConfig['flags'])) {
             $flags = \getenv('DUMP_LIGHT_ARRAY') ? \ECSPrefix20210804\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_LIGHT_ARRAY : 0;

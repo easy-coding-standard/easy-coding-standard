@@ -63,9 +63,8 @@ class Foo
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
@@ -117,9 +116,8 @@ class Foo
      * @param string $className  the class name
      * @param int    $classStart the class start index
      * @param int    $classEnd   the class end index
-     * @return void
      */
-    private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, string $className, int $classStart, int $classEnd)
+    private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, string $className, int $classStart, int $classEnd) : void
     {
         $php4 = $this->findFunction($tokens, $className, $classStart, $classEnd);
         if (null === $php4) {
@@ -169,9 +167,8 @@ class Foo
      * @param Tokens $tokens     the Tokens instance
      * @param int    $classStart the class start index
      * @param int    $classEnd   the class end index
-     * @return void
      */
-    private function fixParent(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classStart, int $classEnd)
+    private function fixParent(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classStart, int $classEnd) : void
     {
         // check calls to the parent constructor
         foreach ($tokens->findGivenKind(\T_EXTENDS) as $index => $token) {
@@ -210,9 +207,8 @@ class Foo
      * @param Tokens $tokens the Tokens instance
      * @param int    $start  the PHP4 constructor body start
      * @param int    $end    the PHP4 constructor body end
-     * @return void
      */
-    private function fixInfiniteRecursion(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
+    private function fixInfiniteRecursion(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : void
     {
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperatorKind) {
             $seq = [[\T_VARIABLE, '$this'], [$objectOperatorKind], [\T_STRING, '__construct']];
@@ -285,7 +281,7 @@ class Foo
      *     - modifiers (array): The modifiers as array keys and their index as
      *       the values, e.g. array(T_PUBLIC => 10)
      */
-    private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, string $name, int $startIndex, int $endIndex)
+    private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, string $name, int $startIndex, int $endIndex) : ?array
     {
         $function = $tokens->findSequence([[\T_FUNCTION], [\T_STRING, $name], '('], $startIndex, $endIndex, \false);
         if (null === $function) {

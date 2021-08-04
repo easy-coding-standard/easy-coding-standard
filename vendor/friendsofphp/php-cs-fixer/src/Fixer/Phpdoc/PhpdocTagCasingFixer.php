@@ -42,10 +42,7 @@ final class PhpdocTagCasingFixer extends \PhpCsFixer\AbstractProxyFixer implemen
     {
         return parent::getPriority();
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $replacements = [];

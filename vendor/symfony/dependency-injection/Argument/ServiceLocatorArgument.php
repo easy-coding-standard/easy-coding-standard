@@ -32,10 +32,7 @@ class ServiceLocatorArgument implements \ECSPrefix20210804\Symfony\Component\Dep
             $this->setValues($values);
         }
     }
-    /**
-     * @return \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument|null
-     */
-    public function getTaggedIteratorArgument()
+    public function getTaggedIteratorArgument() : ?\ECSPrefix20210804\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument
     {
         return $this->taggedIteratorArgument;
     }

@@ -73,9 +73,8 @@ final class Example
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $elements = \array_reverse($analyzer->getClassyElements(), \true);
@@ -95,10 +94,7 @@ final class Example
         $values = ['const', 'property'];
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'List of strings which element should be modified.'))->setDefault($values)->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($values)])->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixElement(\PhpCsFixer\Tokenizer\Tokens $tokens, string $type, int $index)
+    private function fixElement(\PhpCsFixer\Tokenizer\Tokens $tokens, string $type, int $index) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $repeatIndex = $index;
@@ -125,10 +121,7 @@ final class Example
         $start = $tokens->getPrevTokenOfKind($index, [';', '{', '}']);
         $this->expandElement($tokens, $type, $tokens->getNextMeaningfulToken($start), $tokens->getNextTokenOfKind($index, [';']));
     }
-    /**
-     * @return void
-     */
-    private function expandElement(\PhpCsFixer\Tokenizer\Tokens $tokens, string $type, int $startIndex, int $endIndex)
+    private function expandElement(\PhpCsFixer\Tokenizer\Tokens $tokens, string $type, int $startIndex, int $endIndex) : void
     {
         $divisionContent = null;
         if ($tokens[$startIndex - 1]->isWhitespace()) {

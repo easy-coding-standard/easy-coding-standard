@@ -67,9 +67,8 @@ class Validators
      * @throws AssertionException
      * @param string $expected
      * @param string $label
-     * @return void
      */
-    public static function assert($value, $expected, $label = 'variable')
+    public static function assert($value, $expected, $label = 'variable') : void
     {
         if (!static::is($value, $expected)) {
             $expected = \str_replace(['|', ':'], [' or ', ' in range '], $expected);
@@ -90,9 +89,8 @@ class Validators
      * @throws AssertionException
      * @param string|null $expected
      * @param string $label
-     * @return void
      */
-    public static function assertField($array, $key, $expected = null, $label = "item '%' in array")
+    public static function assertField($array, $key, $expected = null, $label = "item '%' in array") : void
     {
         if (!\array_key_exists($key, $array)) {
             throw new \ECSPrefix20210804\Nette\Utils\AssertionException('Missing ' . \str_replace('%', $key, $label) . '.');
@@ -109,7 +107,7 @@ class Validators
     {
         foreach (\explode('|', $expected) as $item) {
             if (\substr($item, -2) === '[]') {
-                if ((\is_array($value) || $value instanceof \Traversable) && self::everyIs($value, \substr($item, 0, -2))) {
+                if (\is_iterable($value) && self::everyIs($value, \substr($item, 0, -2))) {
                     return \true;
                 }
                 continue;
@@ -119,7 +117,7 @@ class Validators
                     return \true;
                 }
             }
-            list($type) = $item = \explode(':', $item, 2);
+            [$type] = $item = \explode(':', $item, 2);
             if (isset(static::$validators[$type])) {
                 try {
                     if (!static::$validators[$type]($value)) {

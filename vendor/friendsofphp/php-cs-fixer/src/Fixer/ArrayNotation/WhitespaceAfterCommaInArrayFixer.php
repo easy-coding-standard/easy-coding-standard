@@ -40,9 +40,8 @@ final class WhitespaceAfterCommaInArrayFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensToInsert = [];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {

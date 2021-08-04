@@ -99,9 +99,8 @@ class Foo {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $namespaceUseAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
         $shortNames = [];
@@ -141,10 +140,7 @@ class Foo {
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('allow_mixed', 'Whether type `mixed` without description is allowed (`true`) or considered superfluous (`false`)'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('remove_inheritdoc', 'Remove `@inheritDoc` tags'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('allow_unused_params', 'Whether `param` annotation without actual signature is allowed (`true`) or considered superfluous (`false`)'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
-    /**
-     * @return int|null
-     */
-    private function findDocumentedElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docCommentIndex)
+    private function findDocumentedElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docCommentIndex) : ?int
     {
         $index = $docCommentIndex;
         do {

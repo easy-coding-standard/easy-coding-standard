@@ -61,10 +61,7 @@ SAMPLE
     {
         return $tokens->isTokenKindFound('(');
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         if (isset($configuration['ensure_fully_multiline'])) {
@@ -83,9 +80,8 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $expectedTokens = [\T_LIST, \T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA];
         if (\PHP_VERSION_ID >= 70400) {
@@ -169,10 +165,7 @@ SAMPLE
         }
         return $isMultiline;
     }
-    /**
-     * @return int|null
-     */
-    private function findWhitespaceIndexAfterParenthesis(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startParenthesisIndex, int $endParenthesisIndex)
+    private function findWhitespaceIndexAfterParenthesis(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startParenthesisIndex, int $endParenthesisIndex) : ?int
     {
         $direction = $endParenthesisIndex > $startParenthesisIndex ? 1 : -1;
         $startIndex = $startParenthesisIndex + $direction;
@@ -205,10 +198,7 @@ SAMPLE
         }
         return \true;
     }
-    /**
-     * @return void
-     */
-    private function ensureFunctionFullyMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startFunctionIndex)
+    private function ensureFunctionFullyMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startFunctionIndex) : void
     {
         // find out what the indentation is
         $searchIndex = $startFunctionIndex;
@@ -257,9 +247,8 @@ SAMPLE
      * @param int    $index       index of a comma
      * @param string $indentation the indentation that should be used
      * @param bool   $override    whether to override the existing character or not
-     * @return void
      */
-    private function fixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $indentation, bool $override = \true)
+    private function fixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $indentation, bool $override = \true) : void
     {
         if ($tokens[$index + 1]->isComment()) {
             return;
@@ -279,9 +268,8 @@ SAMPLE
     }
     /**
      * Method to insert space after comma and remove space before comma.
-     * @return void
      */
-    private function fixSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         // remove space before comma if exist
         if ($tokens[$index - 1]->isWhitespace()) {

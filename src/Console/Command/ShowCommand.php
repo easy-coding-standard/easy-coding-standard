@@ -43,10 +43,7 @@ final class ShowCommand extends \ECSPrefix20210804\Symplify\PackageBuilder\Conso
         $this->loadedCheckersGuard = $loadedCheckersGuard;
         parent::__construct();
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setDescription('Show loaded checkers');
     }

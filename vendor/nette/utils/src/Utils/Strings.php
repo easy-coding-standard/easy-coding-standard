@@ -15,7 +15,7 @@ use function is_array, is_object, strlen;
 class Strings
 {
     use Nette\StaticClass;
-    const TRIM_CHARACTERS = " \t\n\r\0\v ";
+    public const TRIM_CHARACTERS = " \t\n\r\0\v ";
     /**
      * Checks if the string is valid in UTF-8 encoding.
      * @param string $s
@@ -382,9 +382,8 @@ class Strings
      * @param string $haystack
      * @param string $needle
      * @param int $nth
-     * @return string|null
      */
-    public static function before($haystack, $needle, $nth = 1)
+    public static function before($haystack, $needle, $nth = 1) : ?string
     {
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : \substr($haystack, 0, $pos);
@@ -395,9 +394,8 @@ class Strings
      * @param string $haystack
      * @param string $needle
      * @param int $nth
-     * @return string|null
      */
-    public static function after($haystack, $needle, $nth = 1)
+    public static function after($haystack, $needle, $nth = 1) : ?string
     {
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : \substr($haystack, $pos + \strlen($needle));
@@ -408,18 +406,16 @@ class Strings
      * @param string $haystack
      * @param string $needle
      * @param int $nth
-     * @return int|null
      */
-    public static function indexOf($haystack, $needle, $nth = 1)
+    public static function indexOf($haystack, $needle, $nth = 1) : ?int
     {
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : self::length(\substr($haystack, 0, $pos));
     }
     /**
      * Returns position in bytes of $nth occurence of $needle in $haystack or null if the needle was not found.
-     * @return int|null
      */
-    private static function pos(string $haystack, string $needle, int $nth = 1)
+    private static function pos(string $haystack, string $needle, int $nth = 1) : ?int
     {
         if (!$nth) {
             return null;
@@ -461,9 +457,8 @@ class Strings
      * @param string $pattern
      * @param int $flags
      * @param int $offset
-     * @return mixed[]|null
      */
-    public static function match($subject, $pattern, $flags = 0, $offset = 0)
+    public static function match($subject, $pattern, $flags = 0, $offset = 0) : ?array
     {
         if ($offset > \strlen($subject)) {
             return null;
@@ -511,7 +506,7 @@ class Strings
      * @param mixed[] $args */
     public static function pcre($func, $args)
     {
-        $res = \ECSPrefix20210804\Nette\Utils\Callback::invokeSafe($func, $args, function (string $message) use($args) {
+        $res = \ECSPrefix20210804\Nette\Utils\Callback::invokeSafe($func, $args, function (string $message) use($args) : void {
             // compile-time error, not detectable by preg_last_error
             throw new \ECSPrefix20210804\Nette\Utils\RegexpException($message . ' in pattern: ' . \implode(' or ', (array) $args[0]));
         });

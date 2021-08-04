@@ -68,18 +68,16 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->fixCreatePartialMock = \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::fulfills($this->configuration['target'], \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_5);
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         for ($index = $startIndex; $index < $endIndex; ++$index) {

@@ -11,29 +11,29 @@ final class Name
     /**
      * @var string
      */
-    const LINE = 'line';
+    public const LINE = 'line';
     /**
      * @var string
      */
-    const MESSAGE = 'message';
+    public const MESSAGE = 'message';
     /**
      * @var string
      */
-    const CHECKER_CLASS = 'checker_class';
+    public const CHECKER_CLASS = 'checker_class';
     /**
      * @var string
      */
-    const RELATIVE_FILE_PATH = 'relative_file_path';
+    public const RELATIVE_FILE_PATH = 'relative_file_path';
     /**
      * @var string
      */
-    const DIFF = 'diff';
+    public const DIFF = 'diff';
     /**
      * @var string
      */
-    const DIFF_CONSOLE_FORMATTED = 'diff_console_formatted';
+    public const DIFF_CONSOLE_FORMATTED = 'diff_console_formatted';
     /**
      * @var string
      */
-    const APPLIED_CHECKERS = 'applied_checkers';
+    public const APPLIED_CHECKERS = 'applied_checkers';
 }

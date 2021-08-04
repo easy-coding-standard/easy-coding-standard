@@ -11,9 +11,9 @@ final class SnippetKind
     /**
      * @var string
      */
-    const HERE_NOW_DOC = 'herenowdoc';
+    public const HERE_NOW_DOC = 'herenowdoc';
     /**
      * @var string
      */
-    const MARKDOWN = 'markdown';
+    public const MARKDOWN = 'markdown';
 }

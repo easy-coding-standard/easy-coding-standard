@@ -23,23 +23,16 @@ final class Cache
     }
     /**
      * @param mixed $data
-     * @return void
      */
-    public function save(string $key, string $variableKey, $data)
+    public function save(string $key, string $variableKey, $data) : void
     {
         $this->fileCacheStorage->save($key, $variableKey, $data);
     }
-    /**
-     * @return void
-     */
-    public function clear()
+    public function clear() : void
     {
         $this->fileCacheStorage->clear();
     }
-    /**
-     * @return void
-     */
-    public function clean(string $cacheKey)
+    public function clean(string $cacheKey) : void
     {
         $this->fileCacheStorage->clean($cacheKey);
     }

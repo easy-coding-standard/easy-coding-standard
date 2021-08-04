@@ -12,12 +12,12 @@ final class NeonPrinter
      * @see https://regex101.com/r/r8DGyV/1
      * @var string
      */
-    const TAGS_REGEX = '#tags:\\s+\\-\\s+(?<tag>.*?)$#ms';
+    private const TAGS_REGEX = '#tags:\\s+\\-\\s+(?<tag>.*?)$#ms';
     /**
      * @see https://regex101.com/r/KjekIe/1
      * @var string
      */
-    const ARGUMENTS_DOUBLE_SPACE_REGEX = '#\\n(\\n\\s+arguments:)#ms';
+    private const ARGUMENTS_DOUBLE_SPACE_REGEX = '#\\n(\\n\\s+arguments:)#ms';
     /**
      * @param mixed[] $phpStanNeon
      */

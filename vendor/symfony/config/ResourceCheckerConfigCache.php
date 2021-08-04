@@ -33,7 +33,7 @@ class ResourceCheckerConfigCache implements \ECSPrefix20210804\Symfony\Component
      * @param string                              $file             The absolute cache path
      * @param iterable|ResourceCheckerInterface[] $resourceCheckers The ResourceCheckers to use for the freshness check
      */
-    public function __construct(string $file, $resourceCheckers = [])
+    public function __construct(string $file, iterable $resourceCheckers = [])
     {
         $this->file = $file;
         $this->resourceCheckers = $resourceCheckers;

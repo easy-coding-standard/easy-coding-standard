@@ -76,17 +76,15 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
      * code by leveraging the __destruct method.
      *
      * @see https://owasp.org/www-community/vulnerabilities/PHP_Object_Injection
-     * @return void
      */
-    public function __wakeup()
+    public function __wakeup() : void
     {
         throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
     }
     /**
      * @param \PhpCsFixer\FixerFileProcessedEvent $event
-     * @return void
      */
-    public function onFixerFileProcessed($event)
+    public function onFixerFileProcessed($event) : void
     {
         $status = self::$eventStatusMap[$event->getStatus()];
         $this->output->write($this->output->isDecorated() ? \sprintf($status['format'], $status['symbol']) : $status['symbol']);
@@ -100,10 +98,7 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
             }
         }
     }
-    /**
-     * @return void
-     */
-    public function printLegend()
+    public function printLegend() : void
     {
         $symbols = [];
         foreach (self::$eventStatusMap as $status) {

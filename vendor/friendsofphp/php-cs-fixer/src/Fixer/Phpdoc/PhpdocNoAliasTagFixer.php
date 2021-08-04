@@ -69,10 +69,7 @@ final class Example
     {
         return parent::getPriority();
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         /** @var GeneralPhpdocTagRenameFixer $generalPhpdocTagRenameFixer */

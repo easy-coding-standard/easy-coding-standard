@@ -117,7 +117,7 @@ class AutowirePass extends \ECSPrefix20210804\Symfony\Component\DependencyInject
         $checkAttributes = 80000 <= \PHP_VERSION_ID && !$value->hasTag('container.ignore_attributes');
         $this->methodCalls = $this->autowireCalls($reflectionClass, $isRoot, $checkAttributes);
         if ($constructor) {
-            list(, $arguments) = \array_shift($this->methodCalls);
+            [, $arguments] = \array_shift($this->methodCalls);
             if ($arguments !== $value->getArguments()) {
                 $value->setArguments($arguments);
             }
@@ -137,7 +137,7 @@ class AutowirePass extends \ECSPrefix20210804\Symfony\Component\DependencyInject
         }
         foreach ($this->methodCalls as $i => $call) {
             $this->decoratedMethodIndex = $i;
-            list($method, $arguments) = $call;
+            [$method, $arguments] = $call;
             if ($method instanceof \ReflectionFunctionAbstract) {
                 $reflectionMethod = $method;
             } else {
@@ -260,9 +260,8 @@ class AutowirePass extends \ECSPrefix20210804\Symfony\Component\DependencyInject
     }
     /**
      * Returns a reference to the service matching the given type, if any.
-     * @return \Symfony\Component\DependencyInjection\TypedReference|null
      */
-    private function getAutowiredReference(\ECSPrefix20210804\Symfony\Component\DependencyInjection\TypedReference $reference)
+    private function getAutowiredReference(\ECSPrefix20210804\Symfony\Component\DependencyInjection\TypedReference $reference) : ?\ECSPrefix20210804\Symfony\Component\DependencyInjection\TypedReference
     {
         $this->lastFailure = null;
         $type = $reference->getType();
@@ -408,10 +407,7 @@ class AutowirePass extends \ECSPrefix20210804\Symfony\Component\DependencyInject
         }
         return \sprintf(' You should maybe alias this %s to %s.', \class_exists($type, \false) ? 'class' : 'interface', $message);
     }
-    /**
-     * @return string|null
-     */
-    private function getAliasesSuggestionForType(\ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $type)
+    private function getAliasesSuggestionForType(\ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $type) : ?string
     {
         $aliases = [];
         foreach (\class_parents($type) + \class_implements($type) as $parent) {
@@ -432,10 +428,7 @@ class AutowirePass extends \ECSPrefix20210804\Symfony\Component\DependencyInject
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function populateAutowiringAlias(string $id)
+    private function populateAutowiringAlias(string $id) : void
     {
         if (!\preg_match('/(?(DEFINE)(?<V>[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*+))^((?&V)(?:\\\\(?&V))*+)(?: \\$((?&V)))?$/', $id, $m)) {
             return;

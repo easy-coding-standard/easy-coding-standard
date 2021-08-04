@@ -13,7 +13,7 @@ final class InlineVarMalformWorker implements \Symplify\CodingStandard\TokenRunn
      * @var string
      * @see https://regex101.com/r/cj95e6/1
      */
-    const SINGLE_ASTERISK_START_REGEX = '#^/\\*(\\n?\\s+@(?:psalm-|phpstan-)?var)#';
+    private const SINGLE_ASTERISK_START_REGEX = '#^/\\*(\\n?\\s+@(?:psalm-|phpstan-)?var)#';
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent

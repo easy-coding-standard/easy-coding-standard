@@ -17,8 +17,8 @@ namespace ECSPrefix20210804\Symfony\Component\HttpFoundation;
  */
 class HeaderUtils
 {
-    const DISPOSITION_ATTACHMENT = 'attachment';
-    const DISPOSITION_INLINE = 'inline';
+    public const DISPOSITION_ATTACHMENT = 'attachment';
+    public const DISPOSITION_INLINE = 'inline';
     /**
      * This class should not be instantiated.
      */

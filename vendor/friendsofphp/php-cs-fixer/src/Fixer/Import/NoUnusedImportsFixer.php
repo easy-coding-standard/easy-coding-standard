@@ -54,9 +54,8 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $useDeclarations = (new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
         if (0 === \count($useDeclarations)) {
@@ -107,10 +106,7 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
         }
         return \false;
     }
-    /**
-     * @return void
-     */
-    private function removeUseDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration)
+    private function removeUseDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration) : void
     {
         for ($index = $useDeclaration->getEndIndex() - 1; $index >= $useDeclaration->getStartIndex(); --$index) {
             if ($tokens[$index]->isComment()) {
@@ -173,10 +169,7 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
             $tokens->clearAt($prevIndex);
         }
     }
-    /**
-     * @return void
-     */
-    private function removeUsesInSameNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespaceDeclaration)
+    private function removeUsesInSameNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespaceDeclaration) : void
     {
         $namespace = $namespaceDeclaration->getFullName();
         $nsLength = \strlen($namespace . '\\');

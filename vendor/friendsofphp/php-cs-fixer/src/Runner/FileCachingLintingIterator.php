@@ -42,10 +42,7 @@ final class FileCachingLintingIterator extends \CachingIterator
     {
         return $this->currentResult;
     }
-    /**
-     * @return void
-     */
-    public function next()
+    public function next() : void
     {
         parent::next();
         $this->currentResult = $this->nextResult;
@@ -53,10 +50,7 @@ final class FileCachingLintingIterator extends \CachingIterator
             $this->nextResult = $this->handleItem($this->getInnerIterator()->current());
         }
     }
-    /**
-     * @return void
-     */
-    public function rewind()
+    public function rewind() : void
     {
         parent::rewind();
         if ($this->valid()) {

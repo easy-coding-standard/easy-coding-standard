@@ -95,25 +95,22 @@ BODY
     }
     /**
      * @param $this $class
-     * @return void
      */
-    public function addRequire($class)
+    public function addRequire($class) : void
     {
         $this->require[] = $class;
     }
     /**
      * @param string $class
-     * @return void
      */
-    public function addUse($class)
+    public function addUse($class) : void
     {
         $this->use[$class] = \true;
     }
     /**
      * @param string $interface
-     * @return void
      */
-    public function addImplements($interface)
+    public function addImplements($interface) : void
     {
         $this->implements[] = '\\' . \ltrim($interface, '\\');
     }
@@ -121,9 +118,8 @@ BODY
      * @param string $name
      * @param string $body
      * @param mixed[] $params
-     * @return void
      */
-    public function addMethod($name, $body, $params = [])
+    public function addMethod($name, $body, $params = []) : void
     {
         $this->methods[] = new \ECSPrefix20210804\Symfony\Component\Config\Builder\Method(\strtr($body, ['NAME' => $this->camelCase($name)] + $params));
     }

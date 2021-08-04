@@ -73,9 +73,8 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $propertyTypeDeclarationKinds = [\T_STRING, \T_NS_SEPARATOR, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION];
@@ -145,10 +144,7 @@ class Sample
     {
         return $keywordIndex + 2 === $comparedIndex && ' ' === $tokens[$keywordIndex + 1]->getContent();
     }
-    /**
-     * @return void
-     */
-    private function moveTokenAndEnsureSingleSpaceFollows(\PhpCsFixer\Tokenizer\Tokens $tokens, int $fromIndex, int $toIndex)
+    private function moveTokenAndEnsureSingleSpaceFollows(\PhpCsFixer\Tokenizer\Tokens $tokens, int $fromIndex, int $toIndex) : void
     {
         $tokens->insertAt($toIndex, [$tokens[$fromIndex], new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]);
         $tokens->clearAt($fromIndex);

@@ -73,9 +73,8 @@ final class FooTest extends \\PHPUnit_Framework_TestCase {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         // no assertions to be fixed - fast return
         if (empty($this->configuration['assertions'])) {
@@ -98,27 +97,20 @@ final class FooTest extends \\PHPUnit_Framework_TestCase {
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('assertions', 'List of assertion methods to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(self::$assertionFixers))])->setDefault(['assertEquals', 'assertSame', 'assertNotEquals', 'assertNotSame'])->getOption()]);
     }
-    /**
-     * @return int|null
-     */
-    private function fixAssertNegative(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $method)
+    private function fixAssertNegative(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $method) : ?int
     {
         static $map = ['false' => 'assertNotFalse', 'null' => 'assertNotNull', 'true' => 'assertNotTrue'];
         return $this->fixAssert($map, $tokens, $index, $method);
     }
-    /**
-     * @return int|null
-     */
-    private function fixAssertPositive(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $method)
+    private function fixAssertPositive(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $method) : ?int
     {
         static $map = ['false' => 'assertFalse', 'null' => 'assertNull', 'true' => 'assertTrue'];
         return $this->fixAssert($map, $tokens, $index, $method);
     }
     /**
      * @param array<string, string> $map
-     * @return int|null
      */
-    private function fixAssert(array $map, \PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $method)
+    private function fixAssert(array $map, \PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $method) : ?int
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $sequence = $tokens->findSequence([[\T_STRING, $method], '('], $index);

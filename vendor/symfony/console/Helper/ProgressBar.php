@@ -24,14 +24,14 @@ use ECSPrefix20210804\Symfony\Component\Console\Terminal;
  */
 final class ProgressBar
 {
-    const FORMAT_VERBOSE = 'verbose';
-    const FORMAT_VERY_VERBOSE = 'very_verbose';
-    const FORMAT_DEBUG = 'debug';
-    const FORMAT_NORMAL = 'normal';
-    const FORMAT_VERBOSE_NOMAX = 'verbose_nomax';
-    const FORMAT_VERY_VERBOSE_NOMAX = 'very_verbose_nomax';
-    const FORMAT_DEBUG_NOMAX = 'debug_nomax';
-    const FORMAT_NORMAL_NOMAX = 'normal_nomax';
+    public const FORMAT_VERBOSE = 'verbose';
+    public const FORMAT_VERY_VERBOSE = 'very_verbose';
+    public const FORMAT_DEBUG = 'debug';
+    public const FORMAT_NORMAL = 'normal';
+    private const FORMAT_VERBOSE_NOMAX = 'verbose_nomax';
+    private const FORMAT_VERY_VERBOSE_NOMAX = 'very_verbose_nomax';
+    private const FORMAT_DEBUG_NOMAX = 'debug_nomax';
+    private const FORMAT_NORMAL_NOMAX = 'normal_nomax';
     private $barWidth = 28;
     private $barChar;
     private $emptyBarChar = '-';
@@ -88,9 +88,8 @@ final class ProgressBar
      *
      * @param string   $name     The placeholder name (including the delimiter char like %)
      * @param callable $callable A PHP callable
-     * @return void
      */
-    public static function setPlaceholderFormatterDefinition(string $name, callable $callable)
+    public static function setPlaceholderFormatterDefinition(string $name, callable $callable) : void
     {
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
@@ -104,7 +103,7 @@ final class ProgressBar
      *
      * @return callable|null A PHP callable
      */
-    public static function getPlaceholderFormatterDefinition(string $name)
+    public static function getPlaceholderFormatterDefinition(string $name) : ?callable
     {
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
@@ -118,9 +117,8 @@ final class ProgressBar
      *
      * @param string $name   The format name
      * @param string $format A format string
-     * @return void
      */
-    public static function setFormatDefinition(string $name, string $format)
+    public static function setFormatDefinition(string $name, string $format) : void
     {
         if (!self::$formats) {
             self::$formats = self::initFormats();
@@ -134,7 +132,7 @@ final class ProgressBar
      *
      * @return string|null A format string
      */
-    public static function getFormatDefinition(string $name)
+    public static function getFormatDefinition(string $name) : ?string
     {
         if (!self::$formats) {
             self::$formats = self::initFormats();
@@ -242,21 +240,15 @@ final class ProgressBar
      *
      * @param int|null $freq The frequency in steps
      */
-    public function setRedrawFrequency($freq)
+    public function setRedrawFrequency(?int $freq)
     {
         $this->redrawFreq = null !== $freq ? \max(1, $freq) : null;
     }
-    /**
-     * @return void
-     */
-    public function minSecondsBetweenRedraws(float $seconds)
+    public function minSecondsBetweenRedraws(float $seconds) : void
     {
         $this->minSecondsBetweenRedraws = $seconds;
     }
-    /**
-     * @return void
-     */
-    public function maxSecondsBetweenRedraws(float $seconds)
+    public function maxSecondsBetweenRedraws(float $seconds) : void
     {
         $this->maxSecondsBetweenRedraws = $seconds;
     }
@@ -264,10 +256,8 @@ final class ProgressBar
      * Returns an iterator that will automatically update the progress bar when iterated.
      *
      * @param int|null $max Number of steps to complete the bar (0 if indeterminate), if null it will be inferred from $iterable
-     * @param mixed[] $iterable
-     * @return mixed[]
      */
-    public function iterate($iterable, int $max = null)
+    public function iterate(iterable $iterable, int $max = null) : iterable
     {
         $this->start($max ?? (\is_array($iterable) || $iterable instanceof \Countable ? \count($iterable) : 0));
         foreach ($iterable as $key => $value) {
@@ -342,9 +332,8 @@ final class ProgressBar
     }
     /**
      * Finishes the progress output.
-     * @return void
      */
-    public function finish()
+    public function finish() : void
     {
         if (!$this->max) {
             $this->max = $this->step;
@@ -357,9 +346,8 @@ final class ProgressBar
     }
     /**
      * Outputs the current progress string.
-     * @return void
      */
-    public function display()
+    public function display() : void
     {
         if (\ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET === $this->output->getVerbosity()) {
             return;
@@ -375,9 +363,8 @@ final class ProgressBar
      * This is useful if you wish to write some output
      * while a progress bar is running.
      * Call display() to show the progress bar again.
-     * @return void
      */
-    public function clear()
+    public function clear() : void
     {
         if (!$this->overwrite) {
             return;
@@ -401,9 +388,8 @@ final class ProgressBar
     }
     /**
      * Overwrites a previous message to the output.
-     * @return void
      */
-    private function overwrite(string $message)
+    private function overwrite(string $message) : void
     {
         if ($this->previousMessage === $message) {
             return;

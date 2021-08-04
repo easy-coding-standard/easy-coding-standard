@@ -17,10 +17,7 @@ namespace PhpCsFixer\Console\Output;
  */
 final class NullOutput implements \PhpCsFixer\Console\Output\ProcessOutputInterface
 {
-    /**
-     * @return void
-     */
-    public function printLegend()
+    public function printLegend() : void
     {
     }
 }

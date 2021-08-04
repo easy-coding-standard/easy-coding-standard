@@ -22,10 +22,7 @@ final class ResponseFormatSame extends \ECSPrefix20210804\PHPUnit\Framework\Cons
 {
     private $request;
     private $format;
-    /**
-     * @param string|null $format
-     */
-    public function __construct(\ECSPrefix20210804\Symfony\Component\HttpFoundation\Request $request, $format)
+    public function __construct(\ECSPrefix20210804\Symfony\Component\HttpFoundation\Request $request, ?string $format)
     {
         $this->request = $request;
         $this->format = $format;

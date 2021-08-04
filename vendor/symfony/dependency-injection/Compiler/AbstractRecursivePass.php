@@ -119,7 +119,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210804\Symfony\Compo
             return $r;
         }
         if ($factory) {
-            list($class, $method) = $factory;
+            [$class, $method] = $factory;
             if ($class instanceof \ECSPrefix20210804\Symfony\Component\DependencyInjection\Reference) {
                 $class = $this->container->findDefinition((string) $class)->getClass();
             } elseif ($class instanceof \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition) {

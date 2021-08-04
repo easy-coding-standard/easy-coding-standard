@@ -19,9 +19,8 @@ if (!function_exists('trigger_deprecation')) {
      * @param mixed  ...$args Values to insert in the message using printf() formatting
      *
      * @author Nicolas Grekas <p@tchwork.com>
-     * @return void
      */
-    function trigger_deprecation(string $package, string $version, string $message, ...$args)
+    function trigger_deprecation(string $package, string $version, string $message, ...$args): void
     {
         @trigger_error(($package || $version ? "Since $package $version: " : '').($args ? vsprintf($message, $args) : $message), \E_USER_DEPRECATED);
     }

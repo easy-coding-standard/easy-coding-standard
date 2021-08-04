@@ -84,9 +84,8 @@ final class Line
     /**
      * Set the content of this line.
      * @param string $content
-     * @return void
      */
-    public function setContent($content)
+    public function setContent($content) : void
     {
         $this->content = $content;
     }
@@ -96,9 +95,8 @@ final class Line
      * Note that this method technically brakes the internal state of the
      * docblock, but is useful when we need to retain the indexes of lines
      * during the execution of an algorithm.
-     * @return void
      */
-    public function remove()
+    public function remove() : void
     {
         $this->content = '';
     }
@@ -108,9 +106,8 @@ final class Line
      * Note that this method technically brakes the internal state of the
      * docblock, but is useful when we need to retain the indexes of lines
      * during the execution of an algorithm.
-     * @return void
      */
-    public function addBlank()
+    public function addBlank() : void
     {
         $matched = \PhpCsFixer\Preg::match('/^(\\h*\\*)[^\\r\\n]*(\\r?\\n)$/', $this->content, $matches);
         if (1 !== $matched) {

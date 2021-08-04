@@ -32,11 +32,11 @@ final class IncrementStyleFixer extends \PhpCsFixer\Fixer\AbstractIncrementOpera
     /**
      * @internal
      */
-    const STYLE_PRE = 'pre';
+    public const STYLE_PRE = 'pre';
     /**
      * @internal
      */
-    const STYLE_POST = 'post';
+    public const STYLE_POST = 'post';
     /**
      * {@inheritdoc}
      */
@@ -69,9 +69,8 @@ final class IncrementStyleFixer extends \PhpCsFixer\Fixer\AbstractIncrementOpera
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {

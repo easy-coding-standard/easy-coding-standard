@@ -23,9 +23,9 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
 {
-    const TYPE_HASH = 1;
-    const TYPE_DOUBLE_SLASH = 2;
-    const TYPE_SLASH_ASTERISK = 3;
+    private const TYPE_HASH = 1;
+    private const TYPE_DOUBLE_SLASH = 2;
+    private const TYPE_SLASH_ASTERISK = 3;
     /**
      * {@inheritdoc}
      *
@@ -52,9 +52,8 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = 1, $count = \count($tokens); $index < $count; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_COMMENT)) {

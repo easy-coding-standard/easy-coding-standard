@@ -52,9 +52,8 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         for ($index = 1, $count = \count($tokens); $index < $count; ++$index) {
@@ -122,9 +121,8 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
     }
     /**
      * @param int $index index of the indentation token
-     * @return string|null
      */
-    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?string
     {
         if (1 === \PhpCsFixer\Preg::match('/\\R{1}(\\h*)$/', $this->getIndentContentAt($tokens, $index), $matches)) {
             return $matches[1];

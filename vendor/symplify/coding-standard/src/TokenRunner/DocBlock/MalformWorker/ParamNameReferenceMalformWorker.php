@@ -13,7 +13,7 @@ final class ParamNameReferenceMalformWorker implements \Symplify\CodingStandard\
      * @var string
      * @see https://regex101.com/r/B4rWNk/3
      */
-    const PARAM_NAME_REGEX = '#(?<param>@param(.*?))&(?<paramName>\\$\\w+)#';
+    private const PARAM_NAME_REGEX = '#(?<param>@param(.*?))&(?<paramName>\\$\\w+)#';
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent

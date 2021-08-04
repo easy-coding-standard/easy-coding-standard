@@ -79,9 +79,8 @@ namespace {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $uniqueConfiguredExclude = \array_unique($this->configuration['exclude']);
@@ -116,9 +115,8 @@ namespace {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if ('all' === $this->configuration['scope']) {
             $this->fixConstantInvocations($tokens, 0, \count($tokens) - 1);
@@ -149,10 +147,7 @@ namespace {
         };
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('fix_built_in', 'Whether to fix constants returned by `get_defined_constants`. User constants are not accounted in this list and must be specified in the include one.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('include', 'List of additional constants to fix.'))->setAllowedTypes(['array'])->setAllowedValues([$constantChecker])->setDefault([])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('exclude', 'List of constants to ignore.'))->setAllowedTypes(['array'])->setAllowedValues([$constantChecker])->setDefault(['null', 'false', 'true'])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('scope', 'Only fix constant invocations that are made within a namespace or fix all.'))->setAllowedValues(['all', 'namespaced'])->setDefault('all')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('strict', 'Whether leading `\\` of constant invocation not meant to have it should be removed.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixConstantInvocations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function fixConstantInvocations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $useDeclarations = (new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
         $useConstantDeclarations = [];

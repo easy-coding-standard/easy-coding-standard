@@ -57,9 +57,8 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
@@ -81,10 +80,7 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
             $this->processCall($tokens, $index, $arguments);
         }
     }
-    /**
-     * @return void
-     */
-    private function processCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $arguments)
+    private function processCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $arguments) : void
     {
         $firstArgIndex = $tokens->getNextMeaningfulToken($tokens->getNextMeaningfulToken($index));
         /** @var Token $firstArgToken */
@@ -147,10 +143,7 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
             $this->replaceCallUserFuncWithCallback($tokens, $index, $newCallTokens, $firstArgIndex, $firstArgEndIndex);
         }
     }
-    /**
-     * @return void
-     */
-    private function replaceCallUserFuncWithCallback(\PhpCsFixer\Tokenizer\Tokens $tokens, int $callIndex, \PhpCsFixer\Tokenizer\Tokens $newCallTokens, int $firstArgStartIndex, int $firstArgEndIndex)
+    private function replaceCallUserFuncWithCallback(\PhpCsFixer\Tokenizer\Tokens $tokens, int $callIndex, \PhpCsFixer\Tokenizer\Tokens $newCallTokens, int $firstArgStartIndex, int $firstArgEndIndex) : void
     {
         $tokens->clearRange($firstArgStartIndex, $firstArgEndIndex);
         $afterFirstArgIndex = $tokens->getNextMeaningfulToken($firstArgEndIndex);

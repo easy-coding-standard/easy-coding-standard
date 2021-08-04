@@ -24,7 +24,7 @@ use ECSPrefix20210804\Symfony\Component\DependencyInjection\ParameterBag\Paramet
  */
 class ValidateEnvPlaceholdersPass implements \ECSPrefix20210804\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    const TYPE_FIXTURES = ['array' => [], 'bool' => \false, 'float' => 0.0, 'int' => 0, 'string' => ''];
+    private const TYPE_FIXTURES = ['array' => [], 'bool' => \false, 'float' => 0.0, 'int' => 0, 'string' => ''];
     private $extensionConfig = [];
     /**
      * {@inheritdoc}

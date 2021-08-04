@@ -20,10 +20,7 @@ final class LoadedCheckersGuard
         $this->fileProcessorCollector = $fileProcessorCollector;
         $this->symfonyStyle = $symfonyStyle;
     }
-    /**
-     * @return void
-     */
-    public function report()
+    public function report() : void
     {
         $this->symfonyStyle->error('We could not find any sniffs/fixers rules to run');
         $this->symfonyStyle->writeln('You have few options to add them:');

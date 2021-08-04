@@ -27,20 +27,14 @@ abstract class AbstractPhpUnitFixer extends \PhpCsFixer\AbstractFixer
     {
         return $tokens->isAllTokenKindsFound([\T_CLASS, \T_STRING]);
     }
-    /**
-     * @return void
-     */
-    protected final function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected final function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $phpUnitTestCaseIndicator = new \PhpCsFixer\Indicator\PhpUnitTestCaseIndicator();
         foreach ($phpUnitTestCaseIndicator->findPhpUnitClasses($tokens) as $indices) {
             $this->applyPhpUnitClassFix($tokens, $indices[0], $indices[1]);
         }
     }
-    /**
-     * @return void
-     */
-    protected abstract function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex);
+    protected abstract function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void;
     protected final function getDocBlockIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
         do {

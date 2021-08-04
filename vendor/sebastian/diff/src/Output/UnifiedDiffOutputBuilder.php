@@ -74,10 +74,7 @@ final class UnifiedDiffOutputBuilder extends \ECSPrefix20210804\SebastianBergman
         $last = \substr($diff, -1);
         return 0 !== \strlen($diff) && "\n" !== $last && "\r" !== $last ? $diff . "\n" : $diff;
     }
-    /**
-     * @return void
-     */
-    private function writeDiffHunks($output, array $diff)
+    private function writeDiffHunks($output, array $diff) : void
     {
         // detect "No newline at end of file" and insert into `$diff` if needed
         $upperLimit = \count($diff);
@@ -168,10 +165,7 @@ final class UnifiedDiffOutputBuilder extends \ECSPrefix20210804\SebastianBergman
         $toRange -= $sameCount;
         $this->writeHunk($diff, $hunkCapture - $contextStartOffset, $i - $sameCount + $contextEndOffset + 1, $fromStart - $contextStartOffset, $fromRange + $contextStartOffset + $contextEndOffset, $toStart - $contextStartOffset, $toRange + $contextStartOffset + $contextEndOffset, $output);
     }
-    /**
-     * @return void
-     */
-    private function writeHunk(array $diff, int $diffStartIndex, int $diffEndIndex, int $fromStart, int $fromRange, int $toStart, int $toRange, $output)
+    private function writeHunk(array $diff, int $diffStartIndex, int $diffEndIndex, int $fromStart, int $fromRange, int $toStart, int $toRange, $output) : void
     {
         if ($this->addLineNumbers) {
             \fwrite($output, '@@ -' . $fromStart);

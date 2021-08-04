@@ -42,9 +42,8 @@ class Event implements \ECSPrefix20210804\Psr\EventDispatcher\StoppableEventInte
      * If multiple event listeners are connected to the same event, no
      * further event listener will be triggered once any trigger calls
      * stopPropagation().
-     * @return void
      */
-    public function stopPropagation()
+    public function stopPropagation() : void
     {
         $this->propagationStopped = \true;
     }

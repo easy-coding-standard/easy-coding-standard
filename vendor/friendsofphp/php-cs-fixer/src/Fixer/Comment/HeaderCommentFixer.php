@@ -35,11 +35,11 @@ final class HeaderCommentFixer extends \PhpCsFixer\AbstractFixer implements \Php
     /**
      * @internal
      */
-    const HEADER_PHPDOC = 'PHPDoc';
+    public const HEADER_PHPDOC = 'PHPDoc';
     /**
      * @internal
      */
-    const HEADER_COMMENT = 'comment';
+    public const HEADER_COMMENT = 'comment';
     /**
      * {@inheritdoc}
      */
@@ -97,9 +97,8 @@ echo 1;
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $location = $this->configuration['location'];
         $locationIndexes = [];
@@ -168,10 +167,7 @@ echo 1;
         }
         return $comment . ' */';
     }
-    /**
-     * @return int|null
-     */
-    private function findHeaderCommentCurrentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $headerNewIndex)
+    private function findHeaderCommentCurrentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $headerNewIndex) : ?int
     {
         $index = $tokens->getNextNonWhitespace($headerNewIndex);
         if (null === $index || !$tokens[$index]->isComment()) {
@@ -235,10 +231,7 @@ echo 1;
         }
         return $next + 1;
     }
-    /**
-     * @return void
-     */
-    private function fixWhiteSpaceAroundHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, int $headerIndex)
+    private function fixWhiteSpaceAroundHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, int $headerIndex) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         // fix lines after header comment
@@ -294,10 +287,7 @@ echo 1;
         }
         return \substr_count($whitespace, "\n");
     }
-    /**
-     * @return void
-     */
-    private function removeHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function removeHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $prevIndex = $index - 1;
         $prevToken = $tokens[$prevIndex];
@@ -326,10 +316,7 @@ echo 1;
         }
         $tokens->clearTokenAndMergeSurroundingWhitespace($index);
     }
-    /**
-     * @return void
-     */
-    private function insertHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function insertHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([self::HEADER_COMMENT === $this->configuration['comment_type'] ? \T_COMMENT : \T_DOC_COMMENT, $this->getHeaderAsComment()]));
         $this->fixWhiteSpaceAroundHeader($tokens, $index);

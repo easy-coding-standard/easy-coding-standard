@@ -59,9 +59,8 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
@@ -140,12 +139,7 @@ SAMPLE
         }
         return \false;
     }
-    /**
-     * @param int|null $useStart
-     * @param int|null $useEnd
-     * @return void
-     */
-    private function transform(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, $useStart, $useEnd, int $braceOpen, int $return, int $semicolon, int $braceClose)
+    private function transform(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, ?int $useStart, ?int $useEnd, int $braceOpen, int $return, int $semicolon, int $braceClose) : void
     {
         $tokensToInsert = [new \PhpCsFixer\Tokenizer\Token([\T_DOUBLE_ARROW, '=>'])];
         if ($tokens->getNextMeaningfulToken($return) === $semicolon) {

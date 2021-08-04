@@ -14,7 +14,7 @@ final class DoctrineBlockFinder
     /**
      * @var string[]
      */
-    const START_EDGES = ['(', '{'];
+    private const START_EDGES = ['(', '{'];
     /**
      * @var DocBlockEdgeDefinition[]
      */
@@ -89,9 +89,8 @@ final class DoctrineBlockFinder
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function ensureStartTokenIsNotStartEdge(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $startIndex, string $startEdge, bool $findEnd)
+    private function ensureStartTokenIsNotStartEdge(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $startIndex, string $startEdge, bool $findEnd) : void
     {
         /** @var Token $startToken */
         $startToken = $tokens[$startIndex];
@@ -110,7 +109,7 @@ final class DoctrineBlockFinder
         $endIndex = $tokens->count() - 1;
         $indexOffset = 1;
         if (!$findEnd) {
-            list($startChart, $endChar) = [$endChar, $startChart];
+            [$startChart, $endChar] = [$endChar, $startChart];
             $indexOffset = -1;
             $endIndex = 0;
         }

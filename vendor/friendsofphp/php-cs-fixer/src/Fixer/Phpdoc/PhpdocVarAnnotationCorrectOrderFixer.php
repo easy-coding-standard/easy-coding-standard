@@ -45,10 +45,7 @@ $foo = 2 + 2;
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
-    /**
-     * @return void
-     */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {

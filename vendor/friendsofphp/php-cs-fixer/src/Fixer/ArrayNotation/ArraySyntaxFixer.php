@@ -43,9 +43,8 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     private $fixCallback;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->resolveCandidateTokenKind();
@@ -76,9 +75,8 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $callback = $this->fixCallback;
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
@@ -94,20 +92,14 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('syntax', 'Whether to use the `long` or `short` array syntax.'))->setAllowedValues(['long', 'short'])->setDefault('short')->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixToLongArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixToLongArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token('(');
         $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token(')');
         $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_ARRAY, 'array']));
     }
-    /**
-     * @return void
-     */
-    private function fixToShortArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixToShortArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
         $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
@@ -115,17 +107,11 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
         $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE, ']']);
         $tokens->clearTokenAndMergeSurroundingWhitespace($index);
     }
-    /**
-     * @return void
-     */
-    private function resolveFixCallback()
+    private function resolveFixCallback() : void
     {
         $this->fixCallback = \sprintf('fixTo%sArraySyntax', \ucfirst($this->configuration['syntax']));
     }
-    /**
-     * @return void
-     */
-    private function resolveCandidateTokenKind()
+    private function resolveCandidateTokenKind() : void
     {
         $this->candidateTokenKind = 'long' === $this->configuration['syntax'] ? \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN : \T_ARRAY;
     }

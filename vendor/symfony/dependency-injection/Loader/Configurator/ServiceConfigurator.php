@@ -36,16 +36,13 @@ class ServiceConfigurator extends \ECSPrefix20210804\Symfony\Component\Dependenc
     use Traits\ShareTrait;
     use Traits\SyntheticTrait;
     use Traits\TagTrait;
-    const FACTORY = 'services';
+    public const FACTORY = 'services';
     private $container;
     private $instanceof;
     private $allowParent;
     private $path;
     private $destructed = \false;
-    /**
-     * @param string|null $id
-     */
-    public function __construct(\ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, string $path = null)
+    public function __construct(\ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition, ?string $id, array $defaultTags, string $path = null)
     {
         $this->container = $container;
         $this->instanceof = $instanceof;

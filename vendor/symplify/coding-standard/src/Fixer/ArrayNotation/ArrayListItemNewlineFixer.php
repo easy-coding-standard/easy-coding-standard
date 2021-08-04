@@ -25,7 +25,7 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Indexed PHP array item has to have one line per item';
+    private const ERROR_MESSAGE = 'Indexed PHP array item has to have one line per item';
     /**
      * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer
      */
@@ -64,9 +64,8 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $arrayBlockInfos = $this->arrayBlockInfoFinder->findArrayOpenerBlockInfos($tokens);
         foreach ($arrayBlockInfos as $arrayBlockInfo) {
@@ -86,14 +85,13 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function fixArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    private function fixArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : void
     {
         if (!$this->arrayAnalyzer->isIndexedList($tokens, $blockInfo)) {
             return;
         }
-        $this->arrayAnalyzer->traverseArrayWithoutNesting($tokens, $blockInfo, function (\PhpCsFixer\Tokenizer\Token $token, int $position, \PhpCsFixer\Tokenizer\Tokens $tokens) {
+        $this->arrayAnalyzer->traverseArrayWithoutNesting($tokens, $blockInfo, function (\PhpCsFixer\Tokenizer\Token $token, int $position, \PhpCsFixer\Tokenizer\Tokens $tokens) : void {
             if ($token->getContent() !== ',') {
                 return;
             }

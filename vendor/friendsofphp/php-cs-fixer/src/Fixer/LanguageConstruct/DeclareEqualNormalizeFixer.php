@@ -34,9 +34,8 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     private $callback;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->callback = 'none' === $this->configuration['space'] ? 'removeWhitespaceAroundToken' : 'ensureWhitespaceAroundToken';
@@ -66,9 +65,8 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $callback = $this->callback;
         for ($index = 0, $count = $tokens->count(); $index < $count - 6; ++$index) {
@@ -89,9 +87,8 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     }
     /**
      * @param int $index of `=` token
-     * @return void
      */
-    private function ensureWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function ensureWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         if ($tokens[$index + 1]->isWhitespace()) {
             if (' ' !== $tokens[$index + 1]->getContent()) {
@@ -110,9 +107,8 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     }
     /**
      * @param int $index of `=` token
-     * @return void
      */
-    private function removeWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function removeWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         if (!$tokens[$tokens->getPrevNonWhitespace($index)]->isComment()) {
             $tokens->removeLeadingWhitespace($index);

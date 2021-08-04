@@ -14,7 +14,7 @@ final class SwitchedTypeAndNameMalformWorker implements \Symplify\CodingStandard
      * @var string
      * @see https://regex101.com/r/4us32A/1
      */
-    const NAME_THEN_TYPE_REGEX = '#@((?:psalm-|phpstan-)?(?:param|var))(\\s+)(?<name>\\$\\w+)(\\s+)(?<type>[|\\\\\\w\\[\\]]+)#';
+    private const NAME_THEN_TYPE_REGEX = '#@((?:psalm-|phpstan-)?(?:param|var))(\\s+)(?<name>\\$\\w+)(\\s+)(?<type>[|\\\\\\w\\[\\]]+)#';
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent

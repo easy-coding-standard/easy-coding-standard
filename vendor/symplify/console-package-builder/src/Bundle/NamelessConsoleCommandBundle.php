@@ -10,9 +10,8 @@ final class NamelessConsoleCommandBundle extends \ECSPrefix20210804\Symfony\Comp
 {
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function build($containerBuilder)
+    public function build($containerBuilder) : void
     {
         $containerBuilder->addCompilerPass(new \ECSPrefix20210804\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass());
     }

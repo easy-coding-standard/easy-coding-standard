@@ -21,7 +21,7 @@ final class SpaceAfterCommaHereNowDocFixer extends \Symplify\CodingStandard\Fixe
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Add space after nowdoc and heredoc keyword, to prevent bugs on PHP 7.2 and lower, see https://laravel-news.com/flexible-heredoc-and-nowdoc-coming-to-php-7-3';
+    private const ERROR_MESSAGE = 'Add space after nowdoc and heredoc keyword, to prevent bugs on PHP 7.2 and lower, see https://laravel-news.com/flexible-heredoc-and-nowdoc-coming-to-php-7-3';
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
@@ -35,9 +35,8 @@ final class SpaceAfterCommaHereNowDocFixer extends \Symplify\CodingStandard\Fixe
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {

@@ -47,16 +47,12 @@ include_once("sample4.php");
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $this->clearIncludies($tokens, $this->findIncludies($tokens));
     }
-    /**
-     * @return void
-     */
-    private function clearIncludies(\PhpCsFixer\Tokenizer\Tokens $tokens, array $includies)
+    private function clearIncludies(\PhpCsFixer\Tokenizer\Tokens $tokens, array $includies) : void
     {
         $blocksAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\BlocksAnalyzer();
         foreach ($includies as $includy) {
@@ -105,10 +101,7 @@ include_once("sample4.php");
         \krsort($includies);
         return $includies;
     }
-    /**
-     * @return void
-     */
-    private function removeWhitespaceAroundIfPossible(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function removeWhitespaceAroundIfPossible(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $nextIndex = $tokens->getNextNonWhitespace($index);
         if (null === $nextIndex || !$tokens[$nextIndex]->isComment()) {

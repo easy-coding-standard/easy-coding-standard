@@ -28,21 +28,21 @@ final class ConsoleEvents
      *
      * @Event("Symfony\Component\Console\Event\ConsoleCommandEvent")
      */
-    const COMMAND = 'console.command';
+    public const COMMAND = 'console.command';
     /**
      * The SIGNAL event allows you to perform some actions
      * after the command execution was interrupted.
      *
      * @Event("Symfony\Component\Console\Event\ConsoleSignalEvent")
      */
-    const SIGNAL = 'console.signal';
+    public const SIGNAL = 'console.signal';
     /**
      * The TERMINATE event allows you to attach listeners after a command is
      * executed by the console.
      *
      * @Event("Symfony\Component\Console\Event\ConsoleTerminateEvent")
      */
-    const TERMINATE = 'console.terminate';
+    public const TERMINATE = 'console.terminate';
     /**
      * The ERROR event occurs when an uncaught exception or error appears.
      *
@@ -51,11 +51,11 @@ final class ConsoleEvents
      *
      * @Event("Symfony\Component\Console\Event\ConsoleErrorEvent")
      */
-    const ERROR = 'console.error';
+    public const ERROR = 'console.error';
     /**
      * Event aliases.
      *
      * These aliases can be consumed by RegisterListenersPass.
      */
-    const ALIASES = [\ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleCommandEvent::class => self::COMMAND, \ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleErrorEvent::class => self::ERROR, \ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleSignalEvent::class => self::SIGNAL, \ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleTerminateEvent::class => self::TERMINATE];
+    public const ALIASES = [\ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleCommandEvent::class => self::COMMAND, \ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleErrorEvent::class => self::ERROR, \ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleSignalEvent::class => self::SIGNAL, \ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleTerminateEvent::class => self::TERMINATE];
 }

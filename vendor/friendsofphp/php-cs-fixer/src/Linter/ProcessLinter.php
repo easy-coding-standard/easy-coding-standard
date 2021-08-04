@@ -43,7 +43,7 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * @param null|string $executable PHP executable, null for autodetection
      */
-    public function __construct($executable = null)
+    public function __construct(?string $executable = null)
     {
         if (null === $executable) {
             $executableFinder = new \ECSPrefix20210804\Symfony\Component\Process\PhpExecutableFinder();
@@ -84,9 +84,8 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      * code by leveraging the __destruct method.
      *
      * @see https://owasp.org/www-community/vulnerabilities/PHP_Object_Injection
-     * @return void
      */
-    public function __wakeup()
+    public function __wakeup() : void
     {
         throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
     }

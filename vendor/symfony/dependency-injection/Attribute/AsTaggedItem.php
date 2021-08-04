@@ -26,11 +26,7 @@ class AsTaggedItem
      * @var int|null
      */
     public $priority;
-    /**
-     * @param string|null $index
-     * @param int|null $priority
-     */
-    public function __construct($index = null, $priority = null)
+    public function __construct(?string $index = null, ?int $priority = null)
     {
         $this->index = $index;
         $this->priority = $priority;

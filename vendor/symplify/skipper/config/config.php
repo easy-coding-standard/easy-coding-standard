@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use ECSPrefix20210804\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use ECSPrefix20210804\Symplify\Skipper\ValueObject\Option;
 use ECSPrefix20210804\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\ECSPrefix20210804\Symplify\Skipper\ValueObject\Option::SKIP, []);
     $parameters->set(\ECSPrefix20210804\Symplify\Skipper\ValueObject\Option::ONLY, []);

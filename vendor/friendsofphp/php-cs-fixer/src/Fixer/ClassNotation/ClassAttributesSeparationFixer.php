@@ -39,22 +39,21 @@ final class ClassAttributesSeparationFixer extends \PhpCsFixer\AbstractFixer imp
     /**
      * @internal
      */
-    const SPACING_NONE = 'none';
+    public const SPACING_NONE = 'none';
     /**
      * @internal
      */
-    const SPACING_ONE = 'one';
-    const SUPPORTED_SPACINGS = [self::SPACING_NONE, self::SPACING_ONE];
-    const SUPPORTED_TYPES = ['const', 'method', 'property', 'trait_import'];
+    public const SPACING_ONE = 'one';
+    private const SUPPORTED_SPACINGS = [self::SPACING_NONE, self::SPACING_ONE];
+    private const SUPPORTED_TYPES = ['const', 'method', 'property', 'trait_import'];
     /**
      * @var array<string, string>
      */
     private $classElementTypes = [];
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->classElementTypes = [];
@@ -114,9 +113,8 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $class = $classStart = $classEnd = \false;
@@ -166,9 +164,8 @@ class Sample
      *
      * Deals with comments, PHPDocs and spaces above the element with respect to the position of the
      * element within the class, interface or trait.
-     * @return void
      */
-    private function fixSpaceBelowClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classEndIndex, int $elementEndIndex, string $spacing)
+    private function fixSpaceBelowClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classEndIndex, int $elementEndIndex, string $spacing) : void
     {
         for ($nextNotWhite = $elementEndIndex + 1;; ++$nextNotWhite) {
             if (($tokens[$nextNotWhite]->isComment() || $tokens[$nextNotWhite]->isWhitespace()) && \false === \strpos($tokens[$nextNotWhite]->getContent(), "\n")) {
@@ -191,9 +188,8 @@ class Sample
      *
      * Deals with comments, PHPDocs and spaces above the method with respect to the position of the
      * method within the class or trait.
-     * @return void
      */
-    private function fixSpaceBelowClassMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classEndIndex, int $elementEndIndex, string $spacing)
+    private function fixSpaceBelowClassMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classEndIndex, int $elementEndIndex, string $spacing) : void
     {
         $nextNotWhite = $tokens->getNextNonWhitespace($elementEndIndex);
         $this->correctLineBreaks($tokens, $elementEndIndex, $nextNotWhite, $nextNotWhite === $classEndIndex || self::SPACING_NONE === $spacing ? 1 : 2);
@@ -206,9 +202,8 @@ class Sample
      *
      * @param int $classStartIndex index of the class Token the element is in
      * @param int $elementIndex    index of the element to fix
-     * @return void
      */
-    private function fixSpaceAboveClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classStartIndex, int $elementIndex, string $spacing)
+    private function fixSpaceAboveClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classStartIndex, int $elementIndex, string $spacing) : void
     {
         static $methodAttr = [\T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_ABSTRACT, \T_FINAL, \T_STATIC, \T_STRING, \T_NS_SEPARATOR, \T_VAR, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION];
         $nonWhiteAbove = null;
@@ -272,10 +267,7 @@ class Sample
         }
         $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, $nonWhiteAbove === $classStartIndex || self::SPACING_NONE === $spacing ? 1 : 2);
     }
-    /**
-     * @return void
-     */
-    private function correctLineBreaks(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, int $reqLineCount = 2)
+    private function correctLineBreaks(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, int $reqLineCount = 2) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         ++$startIndex;

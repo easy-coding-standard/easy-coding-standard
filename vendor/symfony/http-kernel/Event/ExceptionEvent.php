@@ -46,17 +46,15 @@ final class ExceptionEvent extends \ECSPrefix20210804\Symfony\Component\HttpKern
      *
      * This exception will be thrown if no response is set in the event.
      * @param \Throwable $exception
-     * @return void
      */
-    public function setThrowable($exception)
+    public function setThrowable($exception) : void
     {
         $this->throwable = $exception;
     }
     /**
      * Mark the event as allowing a custom response code.
-     * @return void
      */
-    public function allowCustomResponseCode()
+    public function allowCustomResponseCode() : void
     {
         $this->allowCustomResponseCode = \true;
     }

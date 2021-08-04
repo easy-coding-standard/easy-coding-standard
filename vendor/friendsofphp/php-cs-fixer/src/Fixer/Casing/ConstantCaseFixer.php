@@ -38,9 +38,8 @@ final class ConstantCaseFixer extends \PhpCsFixer\AbstractFixer implements \PhpC
     private $fixFunction;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         if ('lower' === $this->configuration['case']) {
@@ -77,9 +76,8 @@ final class ConstantCaseFixer extends \PhpCsFixer\AbstractFixer implements \PhpC
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $fixFunction = $this->fixFunction;
         foreach ($tokens as $index => $token) {

@@ -30,10 +30,7 @@ final class WrappedListener
     private $stub;
     private $priority;
     private static $hasClassStub;
-    /**
-     * @param string|null $name
-     */
-    public function __construct($listener, $name, \ECSPrefix20210804\Symfony\Component\Stopwatch\Stopwatch $stopwatch, \ECSPrefix20210804\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher = null)
+    public function __construct($listener, ?string $name, \ECSPrefix20210804\Symfony\Component\Stopwatch\Stopwatch $stopwatch, \ECSPrefix20210804\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher = null)
     {
         $this->listener = $listener;
         $this->optimizedListener = $listener instanceof \Closure ? $listener : (\is_callable($listener) ? \Closure::fromCallable($listener) : null);
@@ -92,9 +89,8 @@ final class WrappedListener
     }
     /**
      * @param object $event
-     * @return void
      */
-    public function __invoke($event, string $eventName, \ECSPrefix20210804\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher)
+    public function __invoke($event, string $eventName, \ECSPrefix20210804\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher) : void
     {
         $dispatcher = $this->dispatcher ?: $dispatcher;
         $this->called = \true;

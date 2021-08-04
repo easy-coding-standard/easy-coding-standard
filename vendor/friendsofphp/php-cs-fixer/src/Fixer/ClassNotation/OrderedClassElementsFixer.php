@@ -30,10 +30,10 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /** @internal */
-    const SORT_ALPHA = 'alpha';
+    public const SORT_ALPHA = 'alpha';
     /** @internal */
-    const SORT_NONE = 'none';
-    const SUPPORTED_SORT_ALGORITHMS = [self::SORT_NONE, self::SORT_ALPHA];
+    public const SORT_NONE = 'none';
+    private const SUPPORTED_SORT_ALGORITHMS = [self::SORT_NONE, self::SORT_ALPHA];
     /**
      * @var array Array containing all class element base types (keys) and their parent types (values)
      */
@@ -48,9 +48,8 @@ final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implemen
     private $typePosition;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->typePosition = [];
@@ -153,9 +152,8 @@ class Example
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($i = 1, $count = $tokens->count(); $i < $count; ++$i) {
             if (!$tokens[$i]->isClassy()) {
@@ -322,9 +320,8 @@ class Example
     }
     /**
      * @param array[] $elements
-     * @return void
      */
-    private function sortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, array $elements)
+    private function sortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, array $elements) : void
     {
         $replaceTokens = [];
         foreach ($elements as $element) {

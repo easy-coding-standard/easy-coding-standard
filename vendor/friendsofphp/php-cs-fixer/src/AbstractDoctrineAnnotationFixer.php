@@ -39,9 +39,8 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // fetch indexes one time, this is safe as we never add or remove a token during fixing
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
@@ -58,9 +57,8 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Fixes Doctrine annotations from the given PHPDoc style comment.
-     * @return void
      */
-    protected abstract function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens);
+    protected abstract function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens) : void;
     /**
      * {@inheritdoc}
      */

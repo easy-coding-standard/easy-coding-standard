@@ -25,11 +25,11 @@ class ResponseCacheStrategy implements \ECSPrefix20210804\Symfony\Component\Http
     /**
      * Cache-Control headers that are sent to the final response if they appear in ANY of the responses.
      */
-    const OVERRIDE_DIRECTIVES = ['private', 'no-cache', 'no-store', 'no-transform', 'must-revalidate', 'proxy-revalidate'];
+    private const OVERRIDE_DIRECTIVES = ['private', 'no-cache', 'no-store', 'no-transform', 'must-revalidate', 'proxy-revalidate'];
     /**
      * Cache-Control headers that are sent to the final response if they appear in ALL of the responses.
      */
-    const INHERIT_DIRECTIVES = ['public', 'immutable'];
+    private const INHERIT_DIRECTIVES = ['public', 'immutable'];
     private $embeddedResponses = 0;
     private $isNotCacheableResponseEmbedded = \false;
     private $age = 0;
@@ -162,9 +162,8 @@ class ResponseCacheStrategy implements \ECSPrefix20210804\Symfony\Component\Http
      * If the isHeuristicallyCacheable parameter is true, however, the current response has been marked
      * as cacheable in a public (shared) cache, but did not provide an explicit lifetime that would serve
      * as an upper bound. In this case, we can proceed and possibly keep the directive on the final response.
-     * @param int|null $value
      */
-    private function storeRelativeAgeDirective(string $directive, $value, int $age, bool $isHeuristicallyCacheable)
+    private function storeRelativeAgeDirective(string $directive, ?int $value, int $age, bool $isHeuristicallyCacheable)
     {
         if (null === $value) {
             if ($isHeuristicallyCacheable) {

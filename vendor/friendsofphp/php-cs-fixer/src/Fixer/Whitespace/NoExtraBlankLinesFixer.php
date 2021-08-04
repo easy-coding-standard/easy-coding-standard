@@ -55,9 +55,8 @@ final class NoExtraBlankLinesFixer extends \PhpCsFixer\AbstractFixer implements 
     private $tokensAnalyzer;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         static $reprToTokenMap = ['break' => \T_BREAK, 'case' => \T_CASE, 'continue' => \T_CONTINUE, 'curly_brace_block' => '{', 'default' => \T_DEFAULT, 'extra' => \T_WHITESPACE, 'parenthesis_brace_block' => '(', 'return' => \T_RETURN, 'square_brace_block' => \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, 'switch' => \T_SWITCH, 'throw' => \T_THROW, 'use' => \T_USE, 'use_trait' => \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT];
@@ -190,9 +189,8 @@ switch($a) {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $this->tokens = $tokens;
         $this->tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($this->tokens);
@@ -207,10 +205,7 @@ switch($a) {
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('tokens', 'List of tokens to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(self::$availableTokens)])->setDefault(['extra'])->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixByToken(\PhpCsFixer\Tokenizer\Token $token, int $index)
+    private function fixByToken(\PhpCsFixer\Tokenizer\Token $token, int $index) : void
     {
         foreach ($this->tokenKindCallbackMap as $kind => $callback) {
             if (!$token->isGivenKind($kind)) {
@@ -227,10 +222,7 @@ switch($a) {
             return;
         }
     }
-    /**
-     * @return void
-     */
-    private function removeBetweenUse(int $index)
+    private function removeBetweenUse(int $index) : void
     {
         $next = $this->tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
         if (null === $next || $this->tokens[$next]->isGivenKind(\T_CLOSE_TAG)) {
@@ -242,10 +234,7 @@ switch($a) {
         }
         $this->removeEmptyLinesAfterLineWithTokenAt($next);
     }
-    /**
-     * @return void
-     */
-    private function removeMultipleBlankLines(int $index)
+    private function removeMultipleBlankLines(int $index) : void
     {
         $expected = $this->tokens[$index - 1]->isGivenKind(\T_OPEN_TAG) && 1 === \PhpCsFixer\Preg::match('/\\R$/', $this->tokens[$index - 1]->getContent()) ? 1 : 2;
         $parts = \PhpCsFixer\Preg::split('/(.*\\R)/', $this->tokens[$index]->getContent(), -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY);
@@ -254,10 +243,7 @@ switch($a) {
             $this->tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, \implode('', \array_slice($parts, 0, $expected)) . \rtrim($parts[$count - 1], "\r\n")]);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixAfterToken(int $index)
+    private function fixAfterToken(int $index) : void
     {
         for ($i = $index - 1; $i > 0; --$i) {
             if ($this->tokens[$i]->isGivenKind(\T_FUNCTION) && $this->tokensAnalyzer->isLambda($i)) {
@@ -272,10 +258,7 @@ switch($a) {
         }
         $this->removeEmptyLinesAfterLineWithTokenAt($index);
     }
-    /**
-     * @return void
-     */
-    private function fixAfterThrowToken(int $index)
+    private function fixAfterThrowToken(int $index) : void
     {
         if ($this->tokens[$this->tokens->getPrevMeaningfulToken($index)]->equalsAny([';', '{', '}', ':', [\T_OPEN_TAG]])) {
             $this->fixAfterToken($index);
@@ -286,9 +269,8 @@ switch($a) {
      * but only if the block is not on one line.
      *
      * @param int $index body start
-     * @return void
      */
-    private function fixStructureOpenCloseIfMultiLine(int $index)
+    private function fixStructureOpenCloseIfMultiLine(int $index) : void
     {
         $blockTypeInfo = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($this->tokens[$index]);
         $bodyEnd = $this->tokens->findBlockEnd($blockTypeInfo['type'], $index);
@@ -300,10 +282,7 @@ switch($a) {
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function removeEmptyLinesAfterLineWithTokenAt(int $index)
+    private function removeEmptyLinesAfterLineWithTokenAt(int $index) : void
     {
         // find the line break
         $tokenCount = \count($this->tokens);

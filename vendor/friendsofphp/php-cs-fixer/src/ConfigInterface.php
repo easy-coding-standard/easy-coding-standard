@@ -24,7 +24,7 @@ interface ConfigInterface
      *
      * @return null|string Returns null if not using cache
      */
-    public function getCacheFile();
+    public function getCacheFile() : ?string;
     /**
      * Returns the custom fixers to use.
      *
@@ -34,9 +34,9 @@ interface ConfigInterface
     /**
      * Returns files to scan.
      *
-     * @return mixed[]
+     * @return iterable|\Traversable
      */
-    public function getFinder();
+    public function getFinder() : iterable;
     public function getFormat() : string;
     /**
      * Returns true if progress should be hidden.
@@ -54,9 +54,8 @@ interface ConfigInterface
     public function getName() : string;
     /**
      * Get configured PHP executable, if any.
-     * @return string|null
      */
-    public function getPhpExecutable();
+    public function getPhpExecutable() : ?string;
     /**
      * Check if it is allowed to run risky fixers.
      */

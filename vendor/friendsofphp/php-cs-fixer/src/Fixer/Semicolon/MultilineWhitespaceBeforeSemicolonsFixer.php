@@ -33,11 +33,11 @@ final class MultilineWhitespaceBeforeSemicolonsFixer extends \PhpCsFixer\Abstrac
     /**
      * @internal
      */
-    const STRATEGY_NO_MULTI_LINE = 'no_multi_line';
+    public const STRATEGY_NO_MULTI_LINE = 'no_multi_line';
     /**
      * @internal
      */
-    const STRATEGY_NEW_LINE_FOR_CHAINED_CALLS = 'new_line_for_chained_calls';
+    public const STRATEGY_NEW_LINE_FOR_CHAINED_CALLS = 'new_line_for_chained_calls';
     /**
      * {@inheritdoc}
      */
@@ -81,9 +81,8 @@ function foo () {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if (self::STRATEGY_NEW_LINE_FOR_CHAINED_CALLS === $this->configuration['strategy']) {
             $this->applyChainedCallsFix($tokens);
@@ -93,10 +92,7 @@ function foo () {
             $this->applyNoMultiLineFix($tokens);
         }
     }
-    /**
-     * @return void
-     */
-    private function applyNoMultiLineFix(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function applyNoMultiLineFix(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         foreach ($tokens as $index => $token) {
@@ -116,10 +112,7 @@ function foo () {
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function applyChainedCallsFix(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function applyChainedCallsFix(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; $index >= 0; --$index) {
             // continue if token is not a semicolon
@@ -164,9 +157,8 @@ function foo () {
      * ____$this->methodCall()
      *          ->anotherCall();
      * ..
-     * @return string|null
      */
-    private function findWhitespaceBeforeFirstCall(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function findWhitespaceBeforeFirstCall(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens) : ?string
     {
         // semicolon followed by a closing bracket?
         if (!$tokens[$index]->equals(')')) {
@@ -215,10 +207,7 @@ function foo () {
         }
         return null;
     }
-    /**
-     * @return string|null
-     */
-    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?string
     {
         $content = '';
         $lineEnding = $this->whitespacesConfig->getLineEnding();

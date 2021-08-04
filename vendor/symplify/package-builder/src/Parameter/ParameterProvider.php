@@ -59,10 +59,7 @@ final class ParameterProvider
     {
         return $this->parameters[$parameterName] ?? \false;
     }
-    /**
-     * @return void
-     */
-    public function changeParameter(string $name, $value)
+    public function changeParameter(string $name, $value) : void
     {
         $this->parameters[$name] = $value;
     }
@@ -84,9 +81,8 @@ final class ParameterProvider
     }
     /**
      * @api
-     * @return void
      */
-    public function ensureParameterIsSet(string $name)
+    public function ensureParameterIsSet(string $name) : void
     {
         if (\array_key_exists($name, $this->parameters)) {
             return;

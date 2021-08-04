@@ -24,7 +24,7 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Each chain method call must be on own line';
+    private const ERROR_MESSAGE = 'Each chain method call must be on own line';
     /**
      * @var \PhpCsFixer\WhitespacesFixerConfig
      */
@@ -65,9 +65,8 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // function arguments, function call parameters, lambda use()
         for ($index = 1, $count = \count($tokens); $index < $count; ++$index) {

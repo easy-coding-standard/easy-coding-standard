@@ -44,10 +44,7 @@ class SessionListener extends \ECSPrefix20210804\Symfony\Component\HttpKernel\Ev
             $storage->setOptions(['cookie_secure' => \true]);
         }
     }
-    /**
-     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface|null
-     */
-    protected function getSession()
+    protected function getSession() : ?\ECSPrefix20210804\Symfony\Component\HttpFoundation\Session\SessionInterface
     {
         if (!$this->container->has('session')) {
             return null;

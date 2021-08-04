@@ -35,7 +35,7 @@ final class NativeFunctionInvocationFixer extends \PhpCsFixer\AbstractFixer impl
     /**
      * @internal
      */
-    const SET_ALL = '@all';
+    public const SET_ALL = '@all';
     /**
      * Subset of SET_INTERNAL.
      *
@@ -46,19 +46,16 @@ final class NativeFunctionInvocationFixer extends \PhpCsFixer\AbstractFixer impl
      *
      * @internal
      */
-    const SET_COMPILER_OPTIMIZED = '@compiler_optimized';
+    public const SET_COMPILER_OPTIMIZED = '@compiler_optimized';
     /**
      * @internal
      */
-    const SET_INTERNAL = '@internal';
+    public const SET_INTERNAL = '@internal';
     /**
      * @var callable
      */
     private $functionFilter;
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->functionFilter = $this->getFunctionFilter();
@@ -142,9 +139,8 @@ $c = get_class($d);
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if ('all' === $this->configuration['scope']) {
             $this->fixFunctionCalls($tokens, $this->functionFilter, 0, \count($tokens) - 1, \false);
@@ -182,10 +178,7 @@ $c = get_class($d);
             return \true;
         }])->setDefault([self::SET_COMPILER_OPTIMIZED])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('scope', 'Only fix function calls that are made within a namespace or fix all.'))->setAllowedValues(['all', 'namespaced'])->setDefault('all')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('strict', 'Whether leading `\\` of function call not meant to have it should be removed.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixFunctionCalls(\PhpCsFixer\Tokenizer\Tokens $tokens, callable $functionFilter, int $start, int $end, bool $tryToRemove)
+    private function fixFunctionCalls(\PhpCsFixer\Tokenizer\Tokens $tokens, callable $functionFilter, int $start, int $end, bool $tryToRemove) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $tokensToInsert = [];

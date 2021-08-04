@@ -23,7 +23,7 @@ use ECSPrefix20210804\Symfony\Contracts\HttpClient\Test\HttpClientTestCase;
  */
 interface HttpClientInterface
 {
-    const OPTIONS_DEFAULTS = [
+    public const OPTIONS_DEFAULTS = [
         'auth_basic' => null,
         // array|string - an array containing the username as first value, and optionally the
         //   password as the second one; or string like username:password - enabling HTTP Basic

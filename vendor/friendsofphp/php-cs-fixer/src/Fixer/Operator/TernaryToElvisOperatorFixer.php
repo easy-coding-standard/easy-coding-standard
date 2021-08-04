@@ -30,7 +30,7 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
      *
      * @var array
      */
-    const VALID_BEFORE_ENDTYPES = [
+    private const VALID_BEFORE_ENDTYPES = [
         '=',
         [\T_OPEN_TAG],
         [\T_OPEN_TAG_WITH_ECHO],
@@ -97,9 +97,8 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $blockEdgeDefinitions = \PhpCsFixer\Tokenizer\Tokens::getBlockEdgeDefinitions();
         for ($index = \count($tokens) - 5; $index > 1; --$index) {
@@ -128,7 +127,7 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @return null|array null if contains ++/-- operator
      */
-    private function getBeforeOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $blockEdgeDefinitions)
+    private function getBeforeOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $blockEdgeDefinitions) : ?array
     {
         $index = $tokens->getPrevMeaningfulToken($index);
         $before = ['end' => $index];
@@ -205,10 +204,7 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
         }
         return $leftStart > $leftEnd && $rightStart > $rightEnd;
     }
-    /**
-     * @return void
-     */
-    private function clearMeaningfulFromRange(\PhpCsFixer\Tokenizer\Tokens $tokens, array $range)
+    private function clearMeaningfulFromRange(\PhpCsFixer\Tokenizer\Tokens $tokens, array $range) : void
     {
         // $range['end'] must be meaningful!
         for ($i = $range['end']; $i >= $range['start']; $i = $tokens->getPrevMeaningfulToken($i)) {

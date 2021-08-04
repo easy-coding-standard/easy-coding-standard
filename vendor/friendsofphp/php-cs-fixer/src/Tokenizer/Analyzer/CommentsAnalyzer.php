@@ -24,9 +24,9 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class CommentsAnalyzer
 {
-    const TYPE_HASH = 1;
-    const TYPE_DOUBLE_SLASH = 2;
-    const TYPE_SLASH_ASTERISK = 3;
+    private const TYPE_HASH = 1;
+    private const TYPE_DOUBLE_SLASH = 2;
+    private const TYPE_SLASH_ASTERISK = 3;
     public function isHeaderComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
         if (!$tokens[$index]->isGivenKind([\T_COMMENT, \T_DOC_COMMENT])) {
@@ -94,9 +94,8 @@ final class CommentsAnalyzer
      * Return array of indices that are part of a comment started at given index.
      *
      * @param int $index T_COMMENT index
-     * @return mixed[]|null
      */
-    public function getCommentBlockIndices(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    public function getCommentBlockIndices(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?array
     {
         if (!$tokens[$index]->isGivenKind(\T_COMMENT)) {
             throw new \InvalidArgumentException('Given index must point to a comment.');

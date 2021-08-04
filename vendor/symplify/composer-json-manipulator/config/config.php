@@ -12,7 +12,7 @@ use ECSPrefix20210804\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use ECSPrefix20210804\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileSystem;
 use function ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\ECSPrefix20210804\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS, ['keywords']);
     $services = $containerConfigurator->services();

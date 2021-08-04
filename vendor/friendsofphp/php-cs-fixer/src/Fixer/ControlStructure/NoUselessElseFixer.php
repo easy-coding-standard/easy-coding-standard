@@ -48,9 +48,8 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_ELSE)) {
@@ -75,9 +74,8 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
      * Remove tokens part of an `else` statement if not empty (i.e. no meaningful tokens inside).
      *
      * @param int $index T_ELSE index
-     * @return void
      */
-    private function fixEmptyElse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixEmptyElse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $next = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$next]->equals('{')) {
@@ -99,9 +97,8 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
     }
     /**
      * @param int $index index of T_ELSE
-     * @return void
      */
-    private function clearElse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function clearElse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $tokens->clearTokenAndMergeSurroundingWhitespace($index);
         // clear T_ELSE and the '{' '}' if there are any

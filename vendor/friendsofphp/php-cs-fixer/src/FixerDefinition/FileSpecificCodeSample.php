@@ -27,10 +27,7 @@ final class FileSpecificCodeSample implements \PhpCsFixer\FixerDefinition\FileSp
      * @var \SplFileInfo
      */
     private $splFileInfo;
-    /**
-     * @param mixed[]|null $configuration
-     */
-    public function __construct(string $code, \SplFileInfo $splFileInfo, $configuration = null)
+    public function __construct(string $code, \SplFileInfo $splFileInfo, ?array $configuration = null)
     {
         $this->codeSample = new \PhpCsFixer\FixerDefinition\CodeSample($code, $configuration);
         $this->splFileInfo = $splFileInfo;
@@ -44,9 +41,8 @@ final class FileSpecificCodeSample implements \PhpCsFixer\FixerDefinition\FileSp
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]|null
      */
-    public function getConfiguration()
+    public function getConfiguration() : ?array
     {
         return $this->codeSample->getConfiguration();
     }

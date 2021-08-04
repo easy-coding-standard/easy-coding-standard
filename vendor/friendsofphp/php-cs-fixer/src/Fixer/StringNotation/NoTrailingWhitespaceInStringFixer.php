@@ -47,9 +47,8 @@ final class NoTrailingWhitespaceInStringFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1, $last = \true; $index >= 0; --$index, $last = \false) {
             /** @var Token $token */
@@ -77,10 +76,7 @@ final class NoTrailingWhitespaceInStringFixer extends \PhpCsFixer\AbstractFixer
             $this->updateContent($tokens, $index, $content);
         }
     }
-    /**
-     * @return void
-     */
-    private function updateContent(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $content)
+    private function updateContent(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $content) : void
     {
         if ('' === $content) {
             $tokens->clearAt($index);

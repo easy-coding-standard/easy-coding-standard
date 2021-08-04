@@ -28,21 +28,21 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class EchoTagSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /** @internal */
-    const OPTION_FORMAT = 'format';
+    public const OPTION_FORMAT = 'format';
     /** @internal */
-    const OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY = 'shorten_simple_statements_only';
+    public const OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY = 'shorten_simple_statements_only';
     /** @internal */
-    const OPTION_LONG_FUNCTION = 'long_function';
+    public const OPTION_LONG_FUNCTION = 'long_function';
     /** @internal */
-    const FORMAT_SHORT = 'short';
+    public const FORMAT_SHORT = 'short';
     /** @internal */
-    const FORMAT_LONG = 'long';
+    public const FORMAT_LONG = 'long';
     /** @internal */
-    const LONG_FUNCTION_ECHO = 'echo';
+    public const LONG_FUNCTION_ECHO = 'echo';
     /** @internal */
-    const LONG_FUNCTION_PRINT = 'print';
-    const SUPPORTED_FORMAT_OPTIONS = [self::FORMAT_LONG, self::FORMAT_SHORT];
-    const SUPPORTED_LONGFUNCTION_OPTIONS = [self::LONG_FUNCTION_ECHO, self::LONG_FUNCTION_PRINT];
+    public const LONG_FUNCTION_PRINT = 'print';
+    private const SUPPORTED_FORMAT_OPTIONS = [self::FORMAT_LONG, self::FORMAT_SHORT];
+    private const SUPPORTED_LONGFUNCTION_OPTIONS = [self::LONG_FUNCTION_ECHO, self::LONG_FUNCTION_PRINT];
     /**
      * {@inheritdoc}
      */
@@ -85,9 +85,8 @@ EOT;
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if (self::FORMAT_SHORT === $this->configuration[self::OPTION_FORMAT]) {
             $this->longToShort($tokens);
@@ -95,10 +94,7 @@ EOT;
             $this->shortToLong($tokens);
         }
     }
-    /**
-     * @return void
-     */
-    private function longToShort(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function longToShort(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $skipWhenComplexCode = $this->configuration[self::OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY];
         $count = $tokens->count();
@@ -123,10 +119,7 @@ EOT;
             $count = $tokens->count();
         }
     }
-    /**
-     * @return void
-     */
-    private function shortToLong(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function shortToLong(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if (self::LONG_FUNCTION_PRINT === $this->configuration[self::OPTION_LONG_FUNCTION]) {
             $echoToken = [\T_PRINT, 'print'];

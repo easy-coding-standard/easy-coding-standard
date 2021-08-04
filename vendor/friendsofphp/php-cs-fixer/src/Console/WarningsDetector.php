@@ -33,20 +33,14 @@ final class WarningsDetector
     {
         $this->toolInfo = $toolInfo;
     }
-    /**
-     * @return void
-     */
-    public function detectOldMajor()
+    public function detectOldMajor() : void
     {
         // @TODO 3.99 to be activated with new MAJOR release
         // $currentMajorVersion = \intval(explode('.', Application::VERSION)[0], 10);
         // $nextMajorVersion = $currentMajorVersion + 1;
         // $this->warnings[] = "You are running PHP CS Fixer v{$currentMajorVersion}, which is not maintained anymore. Please update to v{$nextMajorVersion}.";
     }
-    /**
-     * @return void
-     */
-    public function detectOldVendor()
+    public function detectOldVendor() : void
     {
         if ($this->toolInfo->isInstalledByComposer()) {
             $details = $this->toolInfo->getComposerInstallationDetails();

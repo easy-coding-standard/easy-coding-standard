@@ -27,7 +27,7 @@ class InlineServiceConfigurator extends \ECSPrefix20210804\Symfony\Component\Dep
     use Traits\ParentTrait;
     use Traits\PropertyTrait;
     use Traits\TagTrait;
-    const FACTORY = 'service';
+    public const FACTORY = 'service';
     private $id = '[inline]';
     private $allowParent = \true;
     private $path = null;

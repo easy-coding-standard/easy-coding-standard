@@ -25,7 +25,7 @@ class InstanceofConfigurator extends \ECSPrefix20210804\Symfony\Component\Depend
     use Traits\PublicTrait;
     use Traits\ShareTrait;
     use Traits\TagTrait;
-    const FACTORY = 'instanceof';
+    public const FACTORY = 'instanceof';
     private $path;
     public function __construct(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition, string $id, string $path = null)
     {

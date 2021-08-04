@@ -18,10 +18,7 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
         $this->processedFileReporter = $processedFileReporter;
         parent::__construct();
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setDescription('Check coding standard in one or more directories.');
         parent::configure();

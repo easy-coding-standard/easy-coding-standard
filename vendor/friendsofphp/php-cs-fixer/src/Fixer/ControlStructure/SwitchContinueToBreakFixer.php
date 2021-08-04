@@ -67,9 +67,8 @@ switch ($foo) {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $count = \count($tokens);
         for ($index = 1; $index < $count - 1; ++$index) {
@@ -192,10 +191,7 @@ switch ($foo) {
         }
         return $afterFollowingContinueIndex;
     }
-    /**
-     * @return void
-     */
-    private function replaceContinueWithBreakToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function replaceContinueWithBreakToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_BREAK, 'break']);
     }

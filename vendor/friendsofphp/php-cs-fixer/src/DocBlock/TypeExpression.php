@@ -25,7 +25,7 @@ final class TypeExpression
      *
      * @internal
      */
-    const REGEX_TYPES = '
+    public const REGEX_TYPES = '
     (?<types> # alternation of several types separated by `|`
         (?<type> # single type
             \\?? # optionally nullable
@@ -171,10 +171,7 @@ final class TypeExpression
         }
         return \false;
     }
-    /**
-     * @return string|null
-     */
-    private function getParentType(string $type1, string $type2)
+    private function getParentType(string $type1, string $type2) : ?string
     {
         $types = [$this->normalize($type1), $this->normalize($type2)];
         \natcasesort($types);

@@ -30,7 +30,7 @@ final class ParallelFileProcessor
     /**
      * @var string
      */
-    const ACTION = 'action';
+    private const ACTION = 'action';
     /**
      * @var int
      */
@@ -47,9 +47,8 @@ final class ParallelFileProcessor
     /**
      * @param Closure(int): void|null $postFileCallback Used for progress bar jump
      * @return mixed[]
-     * @param string|null $projectConfigFile
      */
-    public function analyse(\Symplify\EasyCodingStandard\Parallel\ValueObject\Schedule $schedule, string $mainScript, \Closure $postFileCallback, $projectConfigFile, \ECSPrefix20210804\Symfony\Component\Console\Input\InputInterface $input) : array
+    public function analyse(\Symplify\EasyCodingStandard\Parallel\ValueObject\Schedule $schedule, string $mainScript, \Closure $postFileCallback, ?string $projectConfigFile, \ECSPrefix20210804\Symfony\Component\Console\Input\InputInterface $input) : array
     {
         $jobs = \array_reverse($schedule->getJobs());
         $streamSelectLoop = new \ECSPrefix20210804\React\EventLoop\StreamSelectLoop();
@@ -61,7 +60,7 @@ final class ParallelFileProcessor
         $systemErrorsCount = 0;
         $reachedSystemErrorsCountLimit = \false;
         $workerCommandLine = $this->workerCommandLineFactory->create($mainScript, $projectConfigFile, $input);
-        $handleErrorCallable = static function (\Throwable $throwable) use($streamSelectLoop, &$systemErrors, &$systemErrorsCount, &$reachedSystemErrorsCountLimit) {
+        $handleErrorCallable = static function (\Throwable $throwable) use($streamSelectLoop, &$systemErrors, &$systemErrorsCount, &$reachedSystemErrorsCountLimit) : void {
             $systemErrors[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($throwable->getLine(), $throwable->getMessage(), $throwable->getFile());
             ++$systemErrorsCount;
             $reachedSystemErrorsCountLimit = \true;
@@ -81,7 +80,7 @@ final class ParallelFileProcessor
             // handlers converting string json to array
             // @see https://freesoft.dev/program/64329369#decoder
             $processStdOutDecoder = new \ECSPrefix20210804\Clue\React\NDJson\Decoder($childProcess->stdout, \true, 512, 0, 4 * 1024 * 1024);
-            $processStdOutDecoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::DATA, function (array $json) use($childProcess, &$systemErrors, &$codingStandardErrors, &$fileDiffs, &$jobs, $processStdInEncoder, $postFileCallback, &$systemErrorsCount, &$reachedSystemErrorsCountLimit, $streamSelectLoop) {
+            $processStdOutDecoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::DATA, function (array $json) use($childProcess, &$systemErrors, &$codingStandardErrors, &$fileDiffs, &$jobs, $processStdInEncoder, $postFileCallback, &$systemErrorsCount, &$reachedSystemErrorsCountLimit, $streamSelectLoop) : void {
                 // unpack coding standard errors and file diffs from subprocess to objects here
                 foreach ($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::CODING_STANDARD_ERRORS] as $codingStandardErrorJson) {
                     $codingStandardErrors[] = \Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError::decode($codingStandardErrorJson);
@@ -110,7 +109,7 @@ final class ParallelFileProcessor
             });
             $processStdOutDecoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::ERROR, $handleErrorCallable);
             $stdErrStreamBuffer = new \Symplify\EasyCodingStandard\Parallel\ValueObject\StreamBuffer($childProcess->stderr);
-            $childProcess->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::EXIT, static function ($exitCode) use(&$systemErrors, $stdErrStreamBuffer) {
+            $childProcess->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::EXIT, static function ($exitCode) use(&$systemErrors, $stdErrStreamBuffer) : void {
                 if ($exitCode === \ECSPrefix20210804\Symplify\PackageBuilder\Console\ShellCode::SUCCESS) {
                     return;
                 }

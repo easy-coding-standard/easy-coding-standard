@@ -409,9 +409,8 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
     /**
      * Overloaded setter for element's attribute.
      * @param  mixed  $value
-     * @return void
      */
-    public final function __set(string $name, $value)
+    public final function __set(string $name, $value) : void
     {
         $this->attrs[$name] = $value;
     }
@@ -432,9 +431,8 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
     }
     /**
      * Overloaded unsetter for element's attribute.
-     * @return void
      */
-    public final function __unset(string $name)
+    public final function __unset(string $name) : void
     {
         unset($this->attrs[$name]);
     }
@@ -589,9 +587,8 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      * Inserts (replaces) child node (\ArrayAccess implementation).
      * @param  int|null  $index  position or null for appending
      * @param  Html|string  $child  Html node or raw HTML string
-     * @return void
      */
-    public final function offsetSet($index, $child)
+    public final function offsetSet($index, $child) : void
     {
         $this->insert($index, $child, \true);
     }
@@ -615,9 +612,8 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
     /**
      * Removes child node (\ArrayAccess implementation).
      * @param  int  $index
-     * @return void
      */
-    public function offsetUnset($index)
+    public function offsetUnset($index) : void
     {
         if (isset($this->children[$index])) {
             \array_splice($this->children, $index, 1);
@@ -632,9 +628,8 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
     }
     /**
      * Removes all children.
-     * @return void
      */
-    public function removeChildren()
+    public function removeChildren() : void
     {
         $this->children = [];
     }

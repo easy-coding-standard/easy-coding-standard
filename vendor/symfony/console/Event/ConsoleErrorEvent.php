@@ -33,17 +33,15 @@ final class ConsoleErrorEvent extends \ECSPrefix20210804\Symfony\Component\Conso
     }
     /**
      * @param \Throwable $error
-     * @return void
      */
-    public function setError($error)
+    public function setError($error) : void
     {
         $this->error = $error;
     }
     /**
      * @param int $exitCode
-     * @return void
      */
-    public function setExitCode($exitCode)
+    public function setExitCode($exitCode) : void
     {
         $this->exitCode = $exitCode;
         $r = new \ReflectionProperty($this->error, 'code');

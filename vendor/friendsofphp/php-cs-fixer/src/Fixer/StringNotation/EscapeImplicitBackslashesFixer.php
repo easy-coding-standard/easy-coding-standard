@@ -67,9 +67,8 @@ EOF;
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         static $singleQuotedRegex = '/(?<!\\\\)\\\\((?:\\\\\\\\)*)(?![\\\'\\\\])/';
         static $doubleQuotedRegex = '/(?<!\\\\)\\\\((?:\\\\\\\\)*)(?![efnrtv$"\\\\0-7]|x[0-9A-Fa-f]|u{)/';

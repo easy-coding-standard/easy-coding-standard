@@ -20,7 +20,7 @@ use ECSPrefix20210804\Symfony\Component\DependencyInjection\Exception\OutOfBound
  */
 class Definition
 {
-    const DEFAULT_DEPRECATION_TEMPLATE = 'The "%service_id%" service is deprecated. You should stop using it, as it will be removed in the future.';
+    private const DEFAULT_DEPRECATION_TEMPLATE = 'The "%service_id%" service is deprecated. You should stop using it, as it will be removed in the future.';
     private $class;
     private $file;
     private $factory;

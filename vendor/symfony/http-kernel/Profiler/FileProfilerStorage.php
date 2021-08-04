@@ -61,7 +61,7 @@ class FileProfilerStorage implements \ECSPrefix20210804\Symfony\Component\HttpKe
         $result = [];
         while (\count($result) < $limit && ($line = $this->readLineFromFile($file))) {
             $values = \str_getcsv($line);
-            list($csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode) = $values;
+            [$csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode] = $values;
             $csvTime = (int) $csvTime;
             if ($ip && \strpos($csvIp, $ip) === \false || $url && \strpos($csvUrl, $url) === \false || $method && \strpos($csvMethod, $method) === \false || $statusCode && \strpos($csvStatusCode, $statusCode) === \false) {
                 continue;
@@ -96,9 +96,8 @@ class FileProfilerStorage implements \ECSPrefix20210804\Symfony\Component\HttpKe
     /**
      * {@inheritdoc}
      * @param string $token
-     * @return \Symfony\Component\HttpKernel\Profiler\Profile|null
      */
-    public function read($token)
+    public function read($token) : ?\ECSPrefix20210804\Symfony\Component\HttpKernel\Profiler\Profile
     {
         if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;

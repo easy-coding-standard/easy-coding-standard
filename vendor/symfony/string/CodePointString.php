@@ -107,9 +107,8 @@ class CodePointString extends \ECSPrefix20210804\Symfony\Component\String\Abstra
     }
     /**
      * @param int $offset
-     * @return int|null
      */
-    public function indexOf($needle, $offset = 0)
+    public function indexOf($needle, $offset = 0) : ?int
     {
         if ($needle instanceof \ECSPrefix20210804\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;
@@ -126,9 +125,8 @@ class CodePointString extends \ECSPrefix20210804\Symfony\Component\String\Abstra
     }
     /**
      * @param int $offset
-     * @return int|null
      */
-    public function indexOfLast($needle, $offset = 0)
+    public function indexOfLast($needle, $offset = 0) : ?int
     {
         if ($needle instanceof \ECSPrefix20210804\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;

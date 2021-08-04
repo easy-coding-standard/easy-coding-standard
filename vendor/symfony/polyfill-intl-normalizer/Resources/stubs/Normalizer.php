@@ -7,14 +7,14 @@ class Normalizer extends \ECSPrefix20210804\Symfony\Polyfill\Intl\Normalizer\Nor
     /**
      * @deprecated since ICU 56 and removed in PHP 8
      */
-    const NONE = 2;
-    const FORM_D = 4;
-    const FORM_KD = 8;
-    const FORM_C = 16;
-    const FORM_KC = 32;
-    const NFD = 4;
-    const NFKD = 8;
-    const NFC = 16;
-    const NFKC = 32;
+    public const NONE = 2;
+    public const FORM_D = 4;
+    public const FORM_KD = 8;
+    public const FORM_C = 16;
+    public const FORM_KC = 32;
+    public const NFD = 4;
+    public const NFKD = 8;
+    public const NFC = 16;
+    public const NFKC = 32;
 }
 

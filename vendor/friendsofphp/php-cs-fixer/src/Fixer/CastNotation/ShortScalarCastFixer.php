@@ -40,9 +40,8 @@ final class ShortScalarCastFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         static $castMap = ['boolean' => 'bool', 'integer' => 'int', 'double' => 'float', 'real' => 'float', 'binary' => 'string'];
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {

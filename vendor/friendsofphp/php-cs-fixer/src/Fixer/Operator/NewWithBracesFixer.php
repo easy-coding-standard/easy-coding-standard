@@ -40,9 +40,8 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         static $nextTokenKinds = null;
         if (null === $nextTokenKinds) {
@@ -79,10 +78,7 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
             $this->insertBracesAfter($tokens, $tokens->getPrevMeaningfulToken($nextIndex));
         }
     }
-    /**
-     * @return void
-     */
-    private function insertBracesAfter(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function insertBracesAfter(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $tokens->insertAt(++$index, [new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token(')')]);
     }

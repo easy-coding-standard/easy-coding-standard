@@ -21,11 +21,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class BlocksAnalyzer
 {
-    /**
-     * @param int|null $openIndex
-     * @param int|null $closeIndex
-     */
-    public function isBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $openIndex, $closeIndex) : bool
+    public function isBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, ?int $openIndex, ?int $closeIndex) : bool
     {
         if (null === $openIndex || null === $closeIndex) {
             return \false;
@@ -42,10 +38,7 @@ final class BlocksAnalyzer
         }
         return $closeIndex === $tokens->findBlockEnd($blockType, $openIndex);
     }
-    /**
-     * @return int|null
-     */
-    private function getBlockType(\PhpCsFixer\Tokenizer\Token $token)
+    private function getBlockType(\PhpCsFixer\Tokenizer\Token $token) : ?int
     {
         foreach (\PhpCsFixer\Tokenizer\Tokens::getBlockEdgeDefinitions() as $blockType => $definition) {
             if ($token->equals($definition['start'])) {

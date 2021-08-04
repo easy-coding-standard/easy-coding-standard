@@ -49,9 +49,8 @@ final class BlankLineBeforeStatementFixer extends \PhpCsFixer\AbstractFixer impl
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->fixTokenMap = [];
@@ -161,9 +160,8 @@ if (true) {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
@@ -209,10 +207,7 @@ if (true) {
         }
         return $prevNonWhitespaceToken->equalsAny([';', '}']);
     }
-    /**
-     * @return void
-     */
-    private function insertBlankLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function insertBlankLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $prevIndex = $index - 1;
         $prevToken = $tokens[$prevIndex];

@@ -27,10 +27,7 @@ final class ValidateFixtureSkipNamingCommand extends \ECSPrefix20210804\Symplify
         $this->fixtureFinder = $fixtureFinder;
         parent::__construct();
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->addArgument(\ECSPrefix20210804\Symplify\EasyTesting\ValueObject\Option::SOURCE, \ECSPrefix20210804\Symfony\Component\Console\Input\InputArgument::REQUIRED | \ECSPrefix20210804\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths to analyse');
         $this->setDescription('Check that skipped fixture files (without `-----` separator) have a "skip" prefix');

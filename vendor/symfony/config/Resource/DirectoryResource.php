@@ -48,9 +48,8 @@ class DirectoryResource implements \ECSPrefix20210804\Symfony\Component\Config\R
     }
     /**
      * Returns the pattern to restrict monitored files.
-     * @return string|null
      */
-    public function getPattern()
+    public function getPattern() : ?string
     {
         return $this->pattern;
     }

@@ -21,9 +21,8 @@ class BufferingLogger extends \ECSPrefix20210804\Psr\Log\AbstractLogger
     private $logs = [];
     /**
      * @param mixed[] $context
-     * @return void
      */
-    public function log($level, $message, $context = [])
+    public function log($level, $message, $context = []) : void
     {
         $this->logs[] = [$level, $message, $context];
     }
@@ -46,7 +45,7 @@ class BufferingLogger extends \ECSPrefix20210804\Psr\Log\AbstractLogger
     }
     public function __destruct()
     {
-        foreach ($this->logs as list($level, $message, $context)) {
+        foreach ($this->logs as [$level, $message, $context]) {
             if (\false !== \strpos($message, '{')) {
                 foreach ($context as $key => $val) {
                     if (null === $val || \is_scalar($val) || \is_object($val) && \is_callable([$val, '__toString'])) {

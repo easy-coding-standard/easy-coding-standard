@@ -37,9 +37,8 @@ final class ArrayTypehintTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
      * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param \PhpCsFixer\Tokenizer\Token $token
      * @param int $index
-     * @return void
      */
-    public function process($tokens, $token, $index)
+    public function process($tokens, $token, $index) : void
     {
         if (!$token->isGivenKind(\T_ARRAY)) {
             return;

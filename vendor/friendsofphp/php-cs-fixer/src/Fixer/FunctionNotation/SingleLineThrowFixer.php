@@ -24,9 +24,9 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
 {
-    const REMOVE_WHITESPACE_AFTER_TOKENS = ['['];
-    const REMOVE_WHITESPACE_AROUND_TOKENS = ['(', [\T_DOUBLE_COLON]];
-    const REMOVE_WHITESPACE_BEFORE_TOKENS = [')', ']', ',', ';'];
+    private const REMOVE_WHITESPACE_AFTER_TOKENS = ['['];
+    private const REMOVE_WHITESPACE_AROUND_TOKENS = ['(', [\T_DOUBLE_COLON]];
+    private const REMOVE_WHITESPACE_BEFORE_TOKENS = [')', ']', ',', ';'];
     /**
      * {@inheritdoc}
      */
@@ -52,9 +52,8 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_THROW)) {
@@ -74,10 +73,7 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
             $this->trimNewLines($tokens, $index, $tokens->getPrevMeaningfulToken($endCandidateIndex));
         }
     }
-    /**
-     * @return void
-     */
-    private function trimNewLines(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function trimNewLines(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             $content = $tokens[$index]->getContent();

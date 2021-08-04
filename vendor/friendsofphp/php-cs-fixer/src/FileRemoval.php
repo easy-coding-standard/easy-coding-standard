@@ -49,25 +49,22 @@ final class FileRemoval
      * code by leveraging the __destruct method.
      *
      * @see https://owasp.org/www-community/vulnerabilities/PHP_Object_Injection
-     * @return void
      */
-    public function __wakeup()
+    public function __wakeup() : void
     {
         throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
     }
     /**
      * Adds a file to be removed.
-     * @return void
      */
-    public function observe(string $path)
+    public function observe(string $path) : void
     {
         $this->files[$path] = \true;
     }
     /**
      * Removes a file from shutdown removal.
-     * @return void
      */
-    public function delete(string $path)
+    public function delete(string $path) : void
     {
         if (isset($this->files[$path])) {
             unset($this->files[$path]);
@@ -76,19 +73,15 @@ final class FileRemoval
     }
     /**
      * Removes attached files.
-     * @return void
      */
-    public function clean()
+    public function clean() : void
     {
         foreach ($this->files as $file => $value) {
             $this->unlink($file);
         }
         $this->files = [];
     }
-    /**
-     * @return void
-     */
-    private function unlink(string $path)
+    private function unlink(string $path) : void
     {
         @\unlink($path);
     }

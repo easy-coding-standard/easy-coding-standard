@@ -51,9 +51,8 @@ final class StaticLambdaFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $expectedFunctionKinds = [\T_FUNCTION];

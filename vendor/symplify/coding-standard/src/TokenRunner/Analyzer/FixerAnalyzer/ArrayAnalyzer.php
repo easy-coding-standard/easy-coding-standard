@@ -33,7 +33,7 @@ final class ArrayAnalyzer
             return 0;
         }
         $itemCount = 1;
-        $this->traverseArrayWithoutNesting($tokens, $blockInfo, function (\PhpCsFixer\Tokenizer\Token $token) use(&$itemCount) {
+        $this->traverseArrayWithoutNesting($tokens, $blockInfo, function (\PhpCsFixer\Tokenizer\Token $token) use(&$itemCount) : void {
             if ($token->getContent() === ',') {
                 ++$itemCount;
             }
@@ -46,7 +46,7 @@ final class ArrayAnalyzer
     public function isIndexedList(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
     {
         $isIndexedList = \false;
-        $this->traverseArrayWithoutNesting($tokens, $blockInfo, function (\PhpCsFixer\Tokenizer\Token $token) use(&$isIndexedList) {
+        $this->traverseArrayWithoutNesting($tokens, $blockInfo, function (\PhpCsFixer\Tokenizer\Token $token) use(&$isIndexedList) : void {
             if ($token->isGivenKind(\T_DOUBLE_ARROW)) {
                 $isIndexedList = \true;
             }
@@ -55,9 +55,8 @@ final class ArrayAnalyzer
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function traverseArrayWithoutNesting(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, callable $callable)
+    public function traverseArrayWithoutNesting(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, callable $callable) : void
     {
         for ($i = $blockInfo->getEnd() - 1; $i >= $blockInfo->getStart() + 1; --$i) {
             $i = $this->tokenSkipper->skipBlocksReversed($tokens, $i);

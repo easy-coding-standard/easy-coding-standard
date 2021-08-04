@@ -13,9 +13,9 @@ namespace ECSPrefix20210804\SebastianBergmann\Diff;
 
 final class Line
 {
-    const ADDED = 1;
-    const REMOVED = 2;
-    const UNCHANGED = 3;
+    public const ADDED = 1;
+    public const REMOVED = 2;
+    public const UNCHANGED = 3;
     /**
      * @var int
      */

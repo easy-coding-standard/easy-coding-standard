@@ -48,9 +48,8 @@ final class ListFilesCommand extends \ECSPrefix20210804\Symfony\Component\Consol
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setDefinition([new \ECSPrefix20210804\Symfony\Component\Console\Input\InputOption('config', '', \ECSPrefix20210804\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.')])->setDescription('List all files being fixed by the given config.');
     }

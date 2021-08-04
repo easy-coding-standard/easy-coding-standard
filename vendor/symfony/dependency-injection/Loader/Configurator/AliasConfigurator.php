@@ -18,7 +18,7 @@ class AliasConfigurator extends \ECSPrefix20210804\Symfony\Component\DependencyI
 {
     use Traits\DeprecateTrait;
     use Traits\PublicTrait;
-    const FACTORY = 'alias';
+    public const FACTORY = 'alias';
     public function __construct(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Alias $alias)
     {
         $this->parent = $parent;

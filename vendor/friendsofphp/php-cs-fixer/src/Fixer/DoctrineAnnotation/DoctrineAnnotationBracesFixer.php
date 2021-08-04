@@ -43,9 +43,8 @@ final class DoctrineAnnotationBracesFixer extends \PhpCsFixer\AbstractDoctrineAn
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens) : void
     {
         if ('without_braces' === $this->configuration['syntax']) {
             $this->removesBracesFromAnnotations($doctrineAnnotationTokens);
@@ -53,10 +52,7 @@ final class DoctrineAnnotationBracesFixer extends \PhpCsFixer\AbstractDoctrineAn
             $this->addBracesToAnnotations($doctrineAnnotationTokens);
         }
     }
-    /**
-     * @return void
-     */
-    private function addBracesToAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
+    private function addBracesToAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$tokens[$index]->isType(\ECSPrefix20210804\Doctrine\Common\Annotations\DocLexer::T_AT)) {
@@ -70,10 +66,7 @@ final class DoctrineAnnotationBracesFixer extends \PhpCsFixer\AbstractDoctrineAn
             $tokens->insertAt($index + 3, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210804\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, ')'));
         }
     }
-    /**
-     * @return void
-     */
-    private function removesBracesFromAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
+    private function removesBracesFromAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens) : void
     {
         for ($index = 0, $max = \count($tokens); $index < $max; ++$index) {
             if (!$tokens[$index]->isType(\ECSPrefix20210804\Doctrine\Common\Annotations\DocLexer::T_AT)) {

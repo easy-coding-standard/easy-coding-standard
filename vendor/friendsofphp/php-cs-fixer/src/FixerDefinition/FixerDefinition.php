@@ -36,9 +36,8 @@ final class FixerDefinition implements \PhpCsFixer\FixerDefinition\FixerDefiniti
     /**
      * @param CodeSampleInterface[] $codeSamples      array of samples, where single sample is [code, configuration]
      * @param null|string           $riskyDescription null for non-risky fixer
-     * @param string|null $description
      */
-    public function __construct(string $summary, array $codeSamples, $description = null, $riskyDescription = null)
+    public function __construct(string $summary, array $codeSamples, ?string $description = null, ?string $riskyDescription = null)
     {
         $this->summary = $summary;
         $this->codeSamples = $codeSamples;
@@ -49,17 +48,11 @@ final class FixerDefinition implements \PhpCsFixer\FixerDefinition\FixerDefiniti
     {
         return $this->summary;
     }
-    /**
-     * @return string|null
-     */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
-    /**
-     * @return string|null
-     */
-    public function getRiskyDescription()
+    public function getRiskyDescription() : ?string
     {
         return $this->riskyDescription;
     }

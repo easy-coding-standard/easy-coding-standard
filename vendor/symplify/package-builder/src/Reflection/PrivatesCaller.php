@@ -52,9 +52,8 @@ final class PrivatesCaller
     }
     /**
      * @param mixed $object
-     * @return void
      */
-    private function ensureIsNotNull($object, string $location)
+    private function ensureIsNotNull($object, string $location) : void
     {
         if ($object !== null) {
             return;

@@ -60,9 +60,8 @@ final class Sample
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $end = \count($tokens) - 3;
         // min. number of tokens to form a class candidate to fix
@@ -78,10 +77,7 @@ final class Sample
             $index = $classClose;
         }
     }
-    /**
-     * @return void
-     */
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, int $classCloseIndex)
+    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, int $classCloseIndex) : void
     {
         for ($index = $classOpenIndex + 1; $index < $classCloseIndex; ++$index) {
             if ($tokens[$index]->equals('{')) {

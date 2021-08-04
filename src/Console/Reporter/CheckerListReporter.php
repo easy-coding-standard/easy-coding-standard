@@ -18,9 +18,8 @@ final class CheckerListReporter
     }
     /**
      * @param FixerInterface[]|Sniff[] $checkers
-     * @return void
      */
-    public function report(array $checkers, string $type)
+    public function report(array $checkers, string $type) : void
     {
         if ($checkers === []) {
             return;

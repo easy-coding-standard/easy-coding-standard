@@ -36,10 +36,7 @@ final class FileFilterIterator extends \FilterIterator
      * @var array<string,bool>
      */
     private $visitedElements = [];
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface|null $eventDispatcher
-     */
-    public function __construct(\Traversable $iterator, $eventDispatcher, \PhpCsFixer\Cache\CacheManagerInterface $cacheManager)
+    public function __construct(\Traversable $iterator, ?\ECSPrefix20210804\Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher, \PhpCsFixer\Cache\CacheManagerInterface $cacheManager)
     {
         if (!$iterator instanceof \Iterator) {
             $iterator = new \IteratorIterator($iterator);
@@ -70,10 +67,7 @@ final class FileFilterIterator extends \FilterIterator
         }
         return \true;
     }
-    /**
-     * @return void
-     */
-    private function dispatchEvent(string $name, \ECSPrefix20210804\Symfony\Contracts\EventDispatcher\Event $event)
+    private function dispatchEvent(string $name, \ECSPrefix20210804\Symfony\Contracts\EventDispatcher\Event $event) : void
     {
         if (null === $this->eventDispatcher) {
             return;

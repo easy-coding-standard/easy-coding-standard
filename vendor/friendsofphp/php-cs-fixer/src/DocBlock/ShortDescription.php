@@ -32,9 +32,8 @@ final class ShortDescription
     /**
      * Get the line index of the line containing the end of the short
      * description, if present.
-     * @return int|null
      */
-    public function getEnd()
+    public function getEnd() : ?int
     {
         $reachedContent = \false;
         foreach ($this->doc->getLines() as $index => $line) {

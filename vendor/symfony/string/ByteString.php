@@ -23,7 +23,7 @@ use ECSPrefix20210804\Symfony\Component\String\Exception\RuntimeException;
  */
 class ByteString extends \ECSPrefix20210804\Symfony\Component\String\AbstractString
 {
-    const ALPHABET_ALPHANUMERIC = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    private const ALPHABET_ALPHANUMERIC = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
     public function __construct(string $string = '')
     {
         $this->string = $string;
@@ -155,9 +155,8 @@ class ByteString extends \ECSPrefix20210804\Symfony\Component\String\AbstractStr
     }
     /**
      * @param int $offset
-     * @return int|null
      */
-    public function indexOf($needle, $offset = 0)
+    public function indexOf($needle, $offset = 0) : ?int
     {
         if ($needle instanceof parent) {
             $needle = $needle->string;
@@ -174,9 +173,8 @@ class ByteString extends \ECSPrefix20210804\Symfony\Component\String\AbstractStr
     }
     /**
      * @param int $offset
-     * @return int|null
      */
-    public function indexOfLast($needle, $offset = 0)
+    public function indexOfLast($needle, $offset = 0) : ?int
     {
         if ($needle instanceof parent) {
             $needle = $needle->string;

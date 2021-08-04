@@ -40,9 +40,8 @@ final class ListSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
      * @param array<string, string> $configuration
      *
      * @throws InvalidFixerConfigurationException
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->candidateTokenKind = 'long' === $this->configuration['syntax'] ? \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN : \T_LIST;
@@ -72,9 +71,8 @@ final class ListSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             if ($tokens[$index]->isGivenKind($this->candidateTokenKind)) {
@@ -93,10 +91,7 @@ final class ListSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('syntax', 'Whether to use the `long` or `short` `list` syntax.'))->setAllowedValues(['long', 'short'])->setDefault('short')->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixToLongSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixToLongSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         static $typesOfInterest = [[\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE], '['];
         $closeIndex = $tokens->getNextTokenOfKind($index, $typesOfInterest);
@@ -107,10 +102,7 @@ final class ListSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
         $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token(')');
         $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_LIST, 'list']));
     }
-    /**
-     * @return void
-     */
-    private function fixToShortSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixToShortSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
         $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);

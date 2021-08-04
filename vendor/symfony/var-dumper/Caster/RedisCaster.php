@@ -20,14 +20,14 @@ use ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class RedisCaster
 {
-    const SERIALIZERS = [\Redis::SERIALIZER_NONE => 'NONE', \Redis::SERIALIZER_PHP => 'PHP', 2 => 'IGBINARY'];
-    const MODES = [\Redis::ATOMIC => 'ATOMIC', \Redis::MULTI => 'MULTI', \Redis::PIPELINE => 'PIPELINE'];
-    const COMPRESSION_MODES = [
+    private const SERIALIZERS = [\Redis::SERIALIZER_NONE => 'NONE', \Redis::SERIALIZER_PHP => 'PHP', 2 => 'IGBINARY'];
+    private const MODES = [\Redis::ATOMIC => 'ATOMIC', \Redis::MULTI => 'MULTI', \Redis::PIPELINE => 'PIPELINE'];
+    private const COMPRESSION_MODES = [
         0 => 'NONE',
         // Redis::COMPRESSION_NONE
         1 => 'LZF',
     ];
-    const FAILOVER_OPTIONS = [\RedisCluster::FAILOVER_NONE => 'NONE', \RedisCluster::FAILOVER_ERROR => 'ERROR', \RedisCluster::FAILOVER_DISTRIBUTE => 'DISTRIBUTE', \RedisCluster::FAILOVER_DISTRIBUTE_SLAVES => 'DISTRIBUTE_SLAVES'];
+    private const FAILOVER_OPTIONS = [\RedisCluster::FAILOVER_NONE => 'NONE', \RedisCluster::FAILOVER_ERROR => 'ERROR', \RedisCluster::FAILOVER_DISTRIBUTE => 'DISTRIBUTE', \RedisCluster::FAILOVER_DISTRIBUTE_SLAVES => 'DISTRIBUTE_SLAVES'];
     public static function castRedis(\Redis $c, array $a, \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         $prefix = \ECSPrefix20210804\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;

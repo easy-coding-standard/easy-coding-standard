@@ -74,9 +74,8 @@ class Config implements \PhpCsFixer\ConfigInterface
     }
     /**
      * {@inheritdoc}
-     * @return string|null
      */
-    public function getCacheFile()
+    public function getCacheFile() : ?string
     {
         return $this->cacheFile;
     }
@@ -88,9 +87,9 @@ class Config implements \PhpCsFixer\ConfigInterface
         return $this->customFixers;
     }
     /**
-     * @return mixed[]
+     * @return Finder
      */
-    public function getFinder()
+    public function getFinder() : iterable
     {
         if (null === $this->finder) {
             $this->finder = new \PhpCsFixer\Finder();
@@ -134,9 +133,8 @@ class Config implements \PhpCsFixer\ConfigInterface
     }
     /**
      * {@inheritdoc}
-     * @return string|null
      */
-    public function getPhpExecutable()
+    public function getPhpExecutable() : ?string
     {
         return $this->phpExecutable;
     }
@@ -262,10 +260,7 @@ class Config implements \PhpCsFixer\ConfigInterface
         $this->usingCache = $usingCache;
         return $this;
     }
-    /**
-     * @return void
-     */
-    private function addCustomFixer(\PhpCsFixer\Fixer\FixerInterface $fixer)
+    private function addCustomFixer(\PhpCsFixer\Fixer\FixerInterface $fixer) : void
     {
         $this->customFixers[] = $fixer;
     }

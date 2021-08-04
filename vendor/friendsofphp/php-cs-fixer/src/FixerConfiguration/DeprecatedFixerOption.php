@@ -57,25 +57,22 @@ final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\Depr
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]|null
      */
-    public function getAllowedTypes()
+    public function getAllowedTypes() : ?array
     {
         return $this->option->getAllowedTypes();
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]|null
      */
-    public function getAllowedValues()
+    public function getAllowedValues() : ?array
     {
         return $this->option->getAllowedValues();
     }
     /**
      * {@inheritdoc}
-     * @return \Closure|null
      */
-    public function getNormalizer()
+    public function getNormalizer() : ?\Closure
     {
         return $this->option->getNormalizer();
     }

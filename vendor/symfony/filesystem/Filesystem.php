@@ -142,10 +142,7 @@ class Filesystem
         }
         self::doRemove($files, \false);
     }
-    /**
-     * @return void
-     */
-    private static function doRemove(array $files, bool $isRecursive)
+    private static function doRemove(array $files, bool $isRecursive) : void
     {
         $files = \array_reverse($files);
         foreach ($files as $file) {
@@ -433,8 +430,8 @@ class Filesystem
             }
             return $result;
         };
-        list($endPath, $endDriveLetter) = $splitDriveLetter($endPath);
-        list($startPath, $startDriveLetter) = $splitDriveLetter($startPath);
+        [$endPath, $endDriveLetter] = $splitDriveLetter($endPath);
+        [$startPath, $startDriveLetter] = $splitDriveLetter($startPath);
         $startPathArr = $splitPath($startPath);
         $endPathArr = $splitPath($endPath);
         if ($endDriveLetter && $startDriveLetter && $endDriveLetter != $startDriveLetter) {
@@ -548,7 +545,7 @@ class Filesystem
     public function tempnam($dir, $prefix)
     {
         $suffix = \func_num_args() > 2 ? \func_get_arg(2) : '';
-        list($scheme, $hierarchy) = $this->getSchemeAndHierarchy($dir);
+        [$scheme, $hierarchy] = $this->getSchemeAndHierarchy($dir);
         // If no scheme or scheme is "file" or "gs" (Google Cloud) create temp file in local filesystem
         if ((null === $scheme || 'file' === $scheme || 'gs' === $scheme) && '' === $suffix) {
             // If tempnam failed or no scheme return the filename otherwise prepend the scheme
@@ -628,12 +625,9 @@ class Filesystem
             throw new \ECSPrefix20210804\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s": ', $filename) . self::$lastError, 0, null, $filename);
         }
     }
-    /**
-     * @return mixed[]
-     */
-    private function toIterable($files)
+    private function toIterable($files) : iterable
     {
-        return \is_array($files) || $files instanceof \Traversable ? $files : [$files];
+        return \is_iterable($files) ? $files : [$files];
     }
     /**
      * Gets a 2-tuple of scheme (may be null) and hierarchical part of a filename (e.g. file:///tmp -> [file, tmp]).

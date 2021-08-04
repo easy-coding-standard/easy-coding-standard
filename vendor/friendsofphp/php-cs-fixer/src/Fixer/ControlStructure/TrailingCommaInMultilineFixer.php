@@ -39,15 +39,15 @@ final class TrailingCommaInMultilineFixer extends \PhpCsFixer\AbstractFixer impl
     /**
      * @internal
      */
-    const ELEMENTS_ARRAYS = 'arrays';
+    public const ELEMENTS_ARRAYS = 'arrays';
     /**
      * @internal
      */
-    const ELEMENTS_ARGUMENTS = 'arguments';
+    public const ELEMENTS_ARGUMENTS = 'arguments';
     /**
      * @internal
      */
-    const ELEMENTS_PARAMETERS = 'parameters';
+    public const ELEMENTS_PARAMETERS = 'parameters';
     /**
      * {@inheritdoc}
      */
@@ -104,9 +104,8 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $fixArrays = \in_array(self::ELEMENTS_ARRAYS, $this->configuration['elements'], \true);
         $fixArguments = \in_array(self::ELEMENTS_ARGUMENTS, $this->configuration['elements'], \true);
@@ -133,9 +132,8 @@ SAMPLE
     }
     /**
      * @param int $startIndex
-     * @return void
      */
-    private function fixBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex)
+    private function fixBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         if (!$tokensAnalyzer->isBlockMultiline($tokens, $startIndex)) {

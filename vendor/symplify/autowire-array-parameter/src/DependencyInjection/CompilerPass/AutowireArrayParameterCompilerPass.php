@@ -25,7 +25,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210804\Sym
      *
      * @var string[]
      */
-    const EXCLUDED_NAMESPACES = ['Doctrine', 'JMS', 'Symfony', 'Sensio', 'Knp', 'EasyCorp', 'Sonata', 'Twig'];
+    private const EXCLUDED_NAMESPACES = ['Doctrine', 'JMS', 'Symfony', 'Sensio', 'Knp', 'EasyCorp', 'Sonata', 'Twig'];
     /**
      * Classes that create circular dependencies
      *
@@ -57,9 +57,8 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210804\Sym
     }
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function process($containerBuilder)
+    public function process($containerBuilder) : void
     {
         $definitions = $containerBuilder->getDefinitions();
         foreach ($definitions as $definition) {
@@ -109,10 +108,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210804\Sym
         $constructorReflectionMethod = $reflectionClass->getConstructor();
         return !$constructorReflectionMethod->getParameters();
     }
-    /**
-     * @return void
-     */
-    private function processParameters(\ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ReflectionMethod $reflectionMethod, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition)
+    private function processParameters(\ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ReflectionMethod $reflectionMethod, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         $reflectionParameters = $reflectionMethod->getParameters();
         foreach ($reflectionParameters as $reflectionParameter) {

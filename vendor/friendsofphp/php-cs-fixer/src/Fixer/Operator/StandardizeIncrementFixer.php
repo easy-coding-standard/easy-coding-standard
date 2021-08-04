@@ -24,7 +24,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class StandardizeIncrementFixer extends \PhpCsFixer\Fixer\AbstractIncrementOperatorFixer
 {
-    const EXPRESSION_END_TOKENS = [';', ')', ']', ',', ':', [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\T_CLOSE_TAG]];
+    private const EXPRESSION_END_TOKENS = [';', ')', ']', ',', ':', [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\T_CLOSE_TAG]];
     /**
      * {@inheritdoc}
      */
@@ -50,9 +50,8 @@ final class StandardizeIncrementFixer extends \PhpCsFixer\Fixer\AbstractIncremen
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
             $expressionEnd = $tokens[$index];
@@ -76,9 +75,8 @@ final class StandardizeIncrementFixer extends \PhpCsFixer\Fixer\AbstractIncremen
     }
     /**
      * Clear tokens in the given range unless they are comments.
-     * @return void
      */
-    private function clearRangeLeaveComments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $indexStart, int $indexEnd)
+    private function clearRangeLeaveComments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $indexStart, int $indexEnd) : void
     {
         for ($i = $indexStart; $i <= $indexEnd; ++$i) {
             $token = $tokens[$i];

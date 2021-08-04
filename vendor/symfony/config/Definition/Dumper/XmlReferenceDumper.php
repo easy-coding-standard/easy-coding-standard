@@ -54,7 +54,7 @@ class XmlReferenceDumper
                 return $rootName === $mapping[1];
             });
             if (\count($remapping)) {
-                list($singular) = \current($remapping);
+                [$singular] = \current($remapping);
                 $rootName = $singular;
             }
         }

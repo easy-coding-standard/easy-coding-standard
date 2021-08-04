@@ -64,10 +64,7 @@ class ErrorListener implements \ECSPrefix20210804\Symfony\Component\EventDispatc
     {
         return [\ECSPrefix20210804\Symfony\Component\Console\ConsoleEvents::ERROR => ['onConsoleError', -128], \ECSPrefix20210804\Symfony\Component\Console\ConsoleEvents::TERMINATE => ['onConsoleTerminate', -128]];
     }
-    /**
-     * @return string|null
-     */
-    private static function getInputString(\ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleEvent $event)
+    private static function getInputString(\ECSPrefix20210804\Symfony\Component\Console\Event\ConsoleEvent $event) : ?string
     {
         $commandName = $event->getCommand() ? $event->getCommand()->getName() : null;
         $input = $event->getInput();

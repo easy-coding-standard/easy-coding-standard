@@ -41,39 +41,39 @@ final class OrderedImportsFixer extends \PhpCsFixer\AbstractFixer implements \Ph
     /**
      * @internal
      */
-    const IMPORT_TYPE_CLASS = 'class';
+    public const IMPORT_TYPE_CLASS = 'class';
     /**
      * @internal
      */
-    const IMPORT_TYPE_CONST = 'const';
+    public const IMPORT_TYPE_CONST = 'const';
     /**
      * @internal
      */
-    const IMPORT_TYPE_FUNCTION = 'function';
+    public const IMPORT_TYPE_FUNCTION = 'function';
     /**
      * @internal
      */
-    const SORT_ALPHA = 'alpha';
+    public const SORT_ALPHA = 'alpha';
     /**
      * @internal
      */
-    const SORT_LENGTH = 'length';
+    public const SORT_LENGTH = 'length';
     /**
      * @internal
      */
-    const SORT_NONE = 'none';
+    public const SORT_NONE = 'none';
     /**
      * Array of supported sort types in configuration.
      *
      * @var string[]
      */
-    const SUPPORTED_SORT_TYPES = [self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_FUNCTION];
+    private const SUPPORTED_SORT_TYPES = [self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_FUNCTION];
     /**
      * Array of supported sort algorithms in configuration.
      *
      * @var string[]
      */
-    const SUPPORTED_SORT_ALGORITHMS = [self::SORT_ALPHA, self::SORT_LENGTH, self::SORT_NONE];
+    private const SUPPORTED_SORT_ALGORITHMS = [self::SORT_ALPHA, self::SORT_LENGTH, self::SORT_NONE];
     /**
      * {@inheritdoc}
      */
@@ -134,9 +134,8 @@ use Bar;
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $namespacesImports = $tokensAnalyzer->getImportUseIndexes(\true);
@@ -181,7 +180,7 @@ use Bar;
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $supportedSortTypes = self::SUPPORTED_SORT_TYPES;
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'whether the statements should be sorted alphabetically or by length, or not sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_ALPHA)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('imports_order', 'Defines the order of import types.'))->setAllowedTypes(['array', 'null'])->setAllowedValues([static function ($value) use($supportedSortTypes) {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'whether the statements should be sorted alphabetically or by length, or not sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_ALPHA)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('imports_order', 'Defines the order of import types.'))->setAllowedTypes(['array', 'null'])->setAllowedValues([static function (?array $value) use($supportedSortTypes) {
             if (null !== $value) {
                 $missing = \array_diff($supportedSortTypes, $value);
                 if (\count($missing)) {

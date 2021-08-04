@@ -70,10 +70,7 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210804\Symf
         $outputFormat = $input->getParameterOption('--' . \Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT);
         return $outputFormat === \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME;
     }
-    /**
-     * @return void
-     */
-    private function addExtraOptions(\ECSPrefix20210804\Symfony\Component\Console\Input\InputDefinition $inputDefinition)
+    private function addExtraOptions(\ECSPrefix20210804\Symfony\Component\Console\Input\InputDefinition $inputDefinition) : void
     {
         $inputDefinition->addOption(new \ECSPrefix20210804\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::XDEBUG, null, \ECSPrefix20210804\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running xdebug'));
         $inputDefinition->addOption(new \ECSPrefix20210804\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::DEBUG, null, \ECSPrefix20210804\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Run in debug mode (alias for "-vvv")'));

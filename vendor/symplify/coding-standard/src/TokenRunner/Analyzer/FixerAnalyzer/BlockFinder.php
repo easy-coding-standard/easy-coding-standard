@@ -14,19 +14,18 @@ final class BlockFinder
     /**
      * @var array<string, int>
      */
-    const CONTENT_TO_BLOCK_TYPE = ['(' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, ')' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, '[' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, ']' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, '{' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, '}' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE];
+    private const CONTENT_TO_BLOCK_TYPE = ['(' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, ')' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, '[' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, ']' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, '{' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, '}' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE];
     /**
      * @var string[]
      */
-    const START_EDGES = ['(', '[', '{'];
+    private const START_EDGES = ['(', '[', '{'];
     /**
      * Accepts position to both start and end token, e.g. (, ), [, ], {, } also to: "array"(, "function" ...(, "use"(,
      * "new" ...(
      *
      * @param Tokens<Token> $tokens
-     * @return \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo|null
      */
-    public function findInTokensByEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
+    public function findInTokensByEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : ?\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo
     {
         $token = $tokens[$position];
         if (!$token instanceof \PhpCsFixer\Tokenizer\Token) {
@@ -56,9 +55,8 @@ final class BlockFinder
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo|null
      */
-    public function findInTokensByPositionAndContent(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position, string $content)
+    public function findInTokensByPositionAndContent(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position, string $content) : ?\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo
     {
         $blockStart = $tokens->getNextTokenOfKind($position, [$content]);
         if ($blockStart === null) {
@@ -86,9 +84,8 @@ final class BlockFinder
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo|null
      */
-    private function createBlockInfo(\PhpCsFixer\Tokenizer\Token $token, int $position, \PhpCsFixer\Tokenizer\Tokens $tokens, int $blockType)
+    private function createBlockInfo(\PhpCsFixer\Tokenizer\Token $token, int $position, \PhpCsFixer\Tokenizer\Tokens $tokens, int $blockType) : ?\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo
     {
         try {
             if (\in_array($token->getContent(), self::START_EDGES, \true)) {

@@ -41,10 +41,7 @@ final class NoAliasFunctionsFixer extends \PhpCsFixer\AbstractFixer implements \
     private static $mbregSet = ['mbereg' => 'mb_ereg', 'mbereg_match' => 'mb_ereg_match', 'mbereg_replace' => 'mb_ereg_replace', 'mbereg_search' => 'mb_ereg_search', 'mbereg_search_getpos' => 'mb_ereg_search_getpos', 'mbereg_search_getregs' => 'mb_ereg_search_getregs', 'mbereg_search_init' => 'mb_ereg_search_init', 'mbereg_search_pos' => 'mb_ereg_search_pos', 'mbereg_search_regs' => 'mb_ereg_search_regs', 'mbereg_search_setpos' => 'mb_ereg_search_setpos', 'mberegi' => 'mb_eregi', 'mberegi_replace' => 'mb_eregi_replace', 'mbregex_encoding' => 'mb_regex_encoding', 'mbsplit' => 'mb_split'];
     private static $exifSet = ['read_exif_data' => 'exif_read_data'];
     private static $timeSet = ['mktime' => ['time', 0], 'gmmktime' => ['time', 0]];
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->aliases = [];
@@ -127,9 +124,8 @@ mbereg_search_getregs();
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();

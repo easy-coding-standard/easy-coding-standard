@@ -29,9 +29,9 @@ use ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface;
 class Command
 {
     // see https://tldp.org/LDP/abs/html/exitcodes.html
-    const SUCCESS = 0;
-    const FAILURE = 1;
-    const INVALID = 2;
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
+    public const INVALID = 2;
     /**
      * @var string|null The default command name
      */
@@ -69,7 +69,7 @@ class Command
     /**
      * @return string|null The default command description or null when no default description is set
      */
-    public static function getDefaultDescription()
+    public static function getDefaultDescription() : ?string
     {
         $class = static::class;
         if (\PHP_VERSION_ID >= 80000 && ($attribute = (new \ReflectionClass($class))->getAttributes(\ECSPrefix20210804\Symfony\Component\Console\Attribute\AsCommand::class))) {

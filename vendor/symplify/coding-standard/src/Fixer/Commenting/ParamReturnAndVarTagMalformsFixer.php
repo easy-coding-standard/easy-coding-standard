@@ -35,12 +35,12 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Fixes @param, @return, @var and inline @var annotations broken formats';
+    private const ERROR_MESSAGE = 'Fixes @param, @return, @var and inline @var annotations broken formats';
     /**
      * @var string
      * @see https://regex101.com/r/Nlxkd9/1
      */
-    const TYPE_ANNOTATION_REGEX = '#@(psalm-|phpstan-)?(param|return|var)#';
+    private const TYPE_ANNOTATION_REGEX = '#@(psalm-|phpstan-)?(param|return|var)#';
     /**
      * @var mixed[]
      */
@@ -68,9 +68,8 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $reversedTokens = $this->reverseTokens($tokens);
         foreach ($reversedTokens as $index => $token) {

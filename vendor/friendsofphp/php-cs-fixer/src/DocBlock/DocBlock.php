@@ -46,10 +46,7 @@ final class DocBlock
      * @var NamespaceUseAnalysis[]
      */
     private $namespaceUses;
-    /**
-     * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis|null $namespace
-     */
-    public function __construct(string $content, $namespace = null, array $namespaceUses = [])
+    public function __construct(string $content, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace = null, array $namespaceUses = [])
     {
         foreach (\PhpCsFixer\Preg::split('/([^\\n\\r]+\\R*)/', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE) as $line) {
             $this->lines[] = new \PhpCsFixer\DocBlock\Line($line);
@@ -76,9 +73,8 @@ final class DocBlock
     /**
      * Get a single line.
      * @param int $pos
-     * @return \PhpCsFixer\DocBlock\Line|null
      */
-    public function getLine($pos)
+    public function getLine($pos) : ?\PhpCsFixer\DocBlock\Line
     {
         return isset($this->lines[$pos]) ? $this->lines[$pos] : null;
     }
@@ -117,9 +113,8 @@ final class DocBlock
      * Take a one line doc block, and turn it into a multi line doc block.
      * @param string $indent
      * @param string $lineEnd
-     * @return void
      */
-    public function makeMultiLine($indent, $lineEnd)
+    public function makeMultiLine($indent, $lineEnd) : void
     {
         if ($this->isMultiLine()) {
             return;
@@ -131,10 +126,7 @@ final class DocBlock
         }
         $this->lines = [new \PhpCsFixer\DocBlock\Line('/**' . $lineEnd), new \PhpCsFixer\DocBlock\Line($indent . ' * ' . $lineContent . $lineEnd), new \PhpCsFixer\DocBlock\Line($indent . ' */')];
     }
-    /**
-     * @return void
-     */
-    public function makeSingleLine()
+    public function makeSingleLine() : void
     {
         if (!$this->isMultiLine()) {
             return;
@@ -153,9 +145,8 @@ final class DocBlock
     }
     /**
      * @param int $pos
-     * @return \PhpCsFixer\DocBlock\Annotation|null
      */
-    public function getAnnotation($pos)
+    public function getAnnotation($pos) : ?\PhpCsFixer\DocBlock\Annotation
     {
         $annotations = $this->getAnnotations();
         return isset($annotations[$pos]) ? $annotations[$pos] : null;

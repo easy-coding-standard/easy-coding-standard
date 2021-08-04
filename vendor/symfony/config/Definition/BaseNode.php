@@ -22,7 +22,7 @@ use ECSPrefix20210804\Symfony\Component\Config\Definition\Exception\UnsetKeyExce
  */
 abstract class BaseNode implements \ECSPrefix20210804\Symfony\Component\Config\Definition\NodeInterface
 {
-    const DEFAULT_PATH_SEPARATOR = '.';
+    public const DEFAULT_PATH_SEPARATOR = '.';
     private static $placeholderUniquePrefixes = [];
     private static $placeholders = [];
     protected $name;
@@ -38,9 +38,8 @@ abstract class BaseNode implements \ECSPrefix20210804\Symfony\Component\Config\D
     private $handlingPlaceholder;
     /**
      * @throws \InvalidArgumentException if the name contains a period
-     * @param string|null $name
      */
-    public function __construct($name, \ECSPrefix20210804\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
+    public function __construct(?string $name, \ECSPrefix20210804\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
     {
         if (\strpos($name = (string) $name, $pathSeparator) !== \false) {
             throw new \InvalidArgumentException('The name must not contain ".' . $pathSeparator . '".');
@@ -58,9 +57,8 @@ abstract class BaseNode implements \ECSPrefix20210804\Symfony\Component\Config\D
      * @internal
      * @param string $placeholder
      * @param mixed[] $values
-     * @return void
      */
-    public static function setPlaceholder($placeholder, $values)
+    public static function setPlaceholder($placeholder, $values) : void
     {
         if (!$values) {
             throw new \InvalidArgumentException('At least one value must be provided.');
@@ -75,9 +73,8 @@ abstract class BaseNode implements \ECSPrefix20210804\Symfony\Component\Config\D
      *
      * @internal
      * @param string $prefix
-     * @return void
      */
-    public static function setPlaceholderUniquePrefix($prefix)
+    public static function setPlaceholderUniquePrefix($prefix) : void
     {
         self::$placeholderUniquePrefixes[] = $prefix;
     }
@@ -85,9 +82,8 @@ abstract class BaseNode implements \ECSPrefix20210804\Symfony\Component\Config\D
      * Resets all current placeholders available.
      *
      * @internal
-     * @return void
      */
-    public static function resetPlaceholders()
+    public static function resetPlaceholders() : void
     {
         self::$placeholderUniquePrefixes = [];
         self::$placeholders = [];
@@ -489,10 +485,7 @@ abstract class BaseNode implements \ECSPrefix20210804\Symfony\Component\Config\D
         }
         return $value;
     }
-    /**
-     * @return void
-     */
-    private function doValidateType($value)
+    private function doValidateType($value) : void
     {
         if (null !== $this->handlingPlaceholder && !$this->allowPlaceholders()) {
             $e = new \ECSPrefix20210804\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('A dynamic value is not compatible with a "%s" node type at path "%s".', static::class, $this->getPath()));

@@ -39,8 +39,8 @@ use ECSPrefix20210804\Symfony\Component\ExpressionLanguage\Expression;
  */
 final class CheckTypeDeclarationsPass extends \ECSPrefix20210804\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
-    const SCALAR_TYPES = ['int' => \true, 'float' => \true, 'bool' => \true, 'string' => \true];
-    const BUILTIN_TYPES = ['array' => \true, 'bool' => \true, 'callable' => \true, 'float' => \true, 'int' => \true, 'iterable' => \true, 'object' => \true, 'string' => \true];
+    private const SCALAR_TYPES = ['int' => \true, 'float' => \true, 'bool' => \true, 'string' => \true];
+    private const BUILTIN_TYPES = ['array' => \true, 'bool' => \true, 'callable' => \true, 'float' => \true, 'int' => \true, 'iterable' => \true, 'object' => \true, 'string' => \true];
     private $autoload;
     private $skippedIds;
     private $expressionLanguage;
@@ -95,9 +95,8 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210804\Symfony\Compone
     }
     /**
      * @throws InvalidArgumentException When not enough parameters are defined for the method
-     * @return void
      */
-    private function checkTypeDeclarations(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $checkedDefinition, \ReflectionFunctionAbstract $reflectionFunction, array $values)
+    private function checkTypeDeclarations(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $checkedDefinition, \ReflectionFunctionAbstract $reflectionFunction, array $values) : void
     {
         $numberOfRequiredParameters = $reflectionFunction->getNumberOfRequiredParameters();
         if (\count($values) < $numberOfRequiredParameters) {
@@ -121,10 +120,8 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210804\Symfony\Compone
     }
     /**
      * @throws InvalidParameterTypeException When a parameter is not compatible with the declared type
-     * @param string|null $envPlaceholderUniquePrefix
-     * @return void
      */
-    private function checkType(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $checkedDefinition, $value, \ReflectionParameter $parameter, $envPlaceholderUniquePrefix, \ReflectionType $reflectionType = null)
+    private function checkType(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $checkedDefinition, $value, \ReflectionParameter $parameter, ?string $envPlaceholderUniquePrefix, \ReflectionType $reflectionType = null) : void
     {
         $reflectionType = $reflectionType ?? $parameter->getType();
         if ($reflectionType instanceof \ReflectionUnionType) {

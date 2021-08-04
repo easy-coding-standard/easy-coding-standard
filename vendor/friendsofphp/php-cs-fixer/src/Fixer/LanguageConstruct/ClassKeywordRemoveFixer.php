@@ -60,9 +60,8 @@ $className = Baz::class;
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
         $previousNamespaceScopeEndIndex = 0;
@@ -73,10 +72,7 @@ $className = Baz::class;
         }
         $this->replaceClassKeywordsSection($tokens, '', $previousNamespaceScopeEndIndex, $tokens->count() - 1);
     }
-    /**
-     * @return void
-     */
-    private function storeImports(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function storeImports(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $this->imports = [];
@@ -117,10 +113,7 @@ $className = Baz::class;
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function replaceClassKeywordsSection(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespace, int $startIndex, int $endIndex)
+    private function replaceClassKeywordsSection(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespace, int $startIndex, int $endIndex) : void
     {
         if ($endIndex - $startIndex < 3) {
             return;
@@ -131,10 +124,7 @@ $className = Baz::class;
             $this->replaceClassKeyword($tokens, $namespace, $classIndex);
         }
     }
-    /**
-     * @return void
-     */
-    private function replaceClassKeyword(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespacePrefix, int $classIndex)
+    private function replaceClassKeyword(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespacePrefix, int $classIndex) : void
     {
         $classEndIndex = $tokens->getPrevMeaningfulToken($classIndex);
         $classEndIndex = $tokens->getPrevMeaningfulToken($classEndIndex);

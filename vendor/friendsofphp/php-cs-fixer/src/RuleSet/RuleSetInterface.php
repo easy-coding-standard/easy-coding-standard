@@ -26,9 +26,8 @@ interface RuleSetInterface
      * Get configuration for given rule.
      *
      * @param string $rule name of rule
-     * @return mixed[]|null
      */
-    public function getRuleConfiguration($rule);
+    public function getRuleConfiguration($rule) : ?array;
     /**
      * Get all rules from rules set.
      */

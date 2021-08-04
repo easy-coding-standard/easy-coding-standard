@@ -26,7 +26,7 @@ use ECSPrefix20210804\Symfony\Component\ExpressionLanguage\Expression;
  */
 class ContainerConfigurator extends \ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
-    const FACTORY = 'container';
+    public const FACTORY = 'container';
     private $container;
     private $loader;
     private $instanceof;
@@ -76,9 +76,8 @@ class ContainerConfigurator extends \ECSPrefix20210804\Symfony\Component\Depende
     }
     /**
      * Get the current environment to be able to write conditional configuration.
-     * @return string|null
      */
-    public final function env()
+    public final function env() : ?string
     {
         return $this->env;
     }

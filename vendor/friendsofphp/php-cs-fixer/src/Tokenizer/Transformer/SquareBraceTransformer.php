@@ -53,9 +53,8 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
      * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param \PhpCsFixer\Tokenizer\Token $token
      * @param int $index
-     * @return void
      */
-    public function process($tokens, $token, $index)
+    public function process($tokens, $token, $index) : void
     {
         if ($this->isArrayDestructing($tokens, $index)) {
             $this->transformIntoDestructuringSquareBrace($tokens, $index);
@@ -72,19 +71,13 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
     {
         return [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE, \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE];
     }
-    /**
-     * @return void
-     */
-    private function transformIntoArraySquareBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function transformIntoArraySquareBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, '[']);
         $tokens[$endIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE, ']']);
     }
-    /**
-     * @return void
-     */
-    private function transformIntoDestructuringSquareBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function transformIntoDestructuringSquareBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, '[']);

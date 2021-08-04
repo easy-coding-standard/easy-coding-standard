@@ -17,11 +17,11 @@ final class ComposerJson
     /**
      * @var string
      */
-    const CLASSMAP_KEY = 'classmap';
+    private const CLASSMAP_KEY = 'classmap';
     /**
      * @var string
      */
-    const PHP = 'php';
+    private const PHP = 'php';
     /**
      * @var string|null
      */
@@ -130,46 +130,30 @@ final class ComposerJson
     {
         $this->composerPackageSorter = new \ECSPrefix20210804\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter();
     }
-    /**
-     * @return void
-     */
-    public function setOriginalFileInfo(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    public function setOriginalFileInfo(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->fileInfo = $fileInfo;
     }
-    /**
-     * @return void
-     */
-    public function setName(string $name)
+    public function setName(string $name) : void
     {
         $this->name = $name;
     }
-    /**
-     * @return void
-     */
-    public function setType(string $type)
+    public function setType(string $type) : void
     {
         $this->type = $type;
     }
     /**
      * @param mixed[] $require
-     * @return void
      */
-    public function setRequire(array $require)
+    public function setRequire(array $require) : void
     {
         $this->require = $this->sortPackagesIfNeeded($require);
     }
-    /**
-     * @return string|null
-     */
-    public function getVersion()
+    public function getVersion() : ?string
     {
         return $this->version;
     }
-    /**
-     * @return void
-     */
-    public function setVersion(string $version)
+    public function setVersion(string $version) : void
     {
         $this->version = $version;
     }
@@ -180,10 +164,7 @@ final class ComposerJson
     {
         return $this->require;
     }
-    /**
-     * @return string|null
-     */
-    public function getRequirePhpVersion()
+    public function getRequirePhpVersion() : ?string
     {
         return $this->require[self::PHP] ?? null;
     }
@@ -205,18 +186,14 @@ final class ComposerJson
     {
         return $this->requireDev;
     }
-    /**
-     * @return void
-     */
-    public function setRequireDev(array $requireDev)
+    public function setRequireDev(array $requireDev) : void
     {
         $this->requireDev = $this->sortPackagesIfNeeded($requireDev);
     }
     /**
      * @param string[] $orderedKeys
-     * @return void
      */
-    public function setOrderedKeys(array $orderedKeys)
+    public function setOrderedKeys(array $orderedKeys) : void
     {
         $this->orderedKeys = $orderedKeys;
     }
@@ -255,9 +232,8 @@ final class ComposerJson
     }
     /**
      * @param mixed[] $autoload
-     * @return void
      */
-    public function setAutoload(array $autoload)
+    public function setAutoload(array $autoload) : void
     {
         $this->autoload = $autoload;
     }
@@ -270,9 +246,8 @@ final class ComposerJson
     }
     /**
      * @param mixed[] $autoloadDev
-     * @return void
      */
-    public function setAutoloadDev(array $autoloadDev)
+    public function setAutoloadDev(array $autoloadDev) : void
     {
         $this->autoloadDev = $autoloadDev;
     }
@@ -285,51 +260,32 @@ final class ComposerJson
     }
     /**
      * @param mixed[] $repositories
-     * @return void
      */
-    public function setRepositories(array $repositories)
+    public function setRepositories(array $repositories) : void
     {
         $this->repositories = $repositories;
     }
-    /**
-     * @return void
-     */
-    public function setMinimumStability(string $minimumStability)
+    public function setMinimumStability(string $minimumStability) : void
     {
         $this->minimumStability = $minimumStability;
     }
-    /**
-     * @return void
-     */
-    public function removeMinimumStability()
+    public function removeMinimumStability() : void
     {
         $this->minimumStability = null;
     }
-    /**
-     * @return string|null
-     */
-    public function getMinimumStability()
+    public function getMinimumStability() : ?string
     {
         return $this->minimumStability;
     }
-    /**
-     * @return bool|null
-     */
-    public function getPreferStable()
+    public function getPreferStable() : ?bool
     {
         return $this->preferStable;
     }
-    /**
-     * @return void
-     */
-    public function setPreferStable(bool $preferStable)
+    public function setPreferStable(bool $preferStable) : void
     {
         $this->preferStable = $preferStable;
     }
-    /**
-     * @return void
-     */
-    public function removePreferStable()
+    public function removePreferStable() : void
     {
         $this->preferStable = null;
     }
@@ -342,34 +298,24 @@ final class ComposerJson
     }
     /**
      * @param mixed[] $extra
-     * @return void
      */
-    public function setExtra(array $extra)
+    public function setExtra(array $extra) : void
     {
         $this->extra = $extra;
     }
-    /**
-     * @return string|null
-     */
-    public function getName()
+    public function getName() : ?string
     {
         return $this->name;
     }
-    /**
-     * @return string|null
-     */
-    public function getVendorName()
+    public function getVendorName() : ?string
     {
         if ($this->name === null) {
             return null;
         }
-        list($vendor) = \explode('/', $this->name);
+        [$vendor] = \explode('/', $this->name);
         return $vendor;
     }
-    /**
-     * @return string|null
-     */
-    public function getShortName()
+    public function getShortName() : ?string
     {
         if ($this->name === null) {
             return null;
@@ -389,17 +335,13 @@ final class ComposerJson
     }
     /**
      * @param string[] $replace
-     * @return void
      */
-    public function setReplace(array $replace)
+    public function setReplace(array $replace) : void
     {
         \ksort($replace);
         $this->replace = $replace;
     }
-    /**
-     * @return void
-     */
-    public function setReplacePackage(string $packageName, string $version)
+    public function setReplacePackage(string $packageName, string $version) : void
     {
         $this->replace[$packageName] = $version;
     }
@@ -421,17 +363,15 @@ final class ComposerJson
     }
     /**
      * @param array<string, string|string[]> $scripts
-     * @return void
      */
-    public function setScripts(array $scripts)
+    public function setScripts(array $scripts) : void
     {
         $this->scripts = $scripts;
     }
     /**
      * @param mixed[] $config
-     * @return void
      */
-    public function setConfig(array $config)
+    public function setConfig(array $config) : void
     {
         $this->config = $config;
     }
@@ -442,25 +382,18 @@ final class ComposerJson
     {
         return $this->config;
     }
-    /**
-     * @return void
-     */
-    public function setDescription(string $description)
+    public function setDescription(string $description) : void
     {
         $this->description = $description;
     }
-    /**
-     * @return string|null
-     */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
     /**
      * @param string[] $keywords
-     * @return void
      */
-    public function setKeywords(array $keywords)
+    public function setKeywords(array $keywords) : void
     {
         $this->keywords = $keywords;
     }
@@ -471,25 +404,18 @@ final class ComposerJson
     {
         return $this->keywords;
     }
-    /**
-     * @return void
-     */
-    public function setHomepage(string $homepage)
+    public function setHomepage(string $homepage) : void
     {
         $this->homepage = $homepage;
     }
-    /**
-     * @return string|null
-     */
-    public function getHomepage()
+    public function getHomepage() : ?string
     {
         return $this->homepage;
     }
     /**
      * @param string|string[]|null $license
-     * @return void
      */
-    public function setLicense($license)
+    public function setLicense($license) : void
     {
         $this->license = $license;
     }
@@ -502,9 +428,8 @@ final class ComposerJson
     }
     /**
      * @param mixed[] $authors
-     * @return void
      */
-    public function setAuthors(array $authors)
+    public function setAuthors(array $authors) : void
     {
         $this->authors = $authors;
     }
@@ -530,30 +455,21 @@ final class ComposerJson
     {
         return isset($this->requireDev[$packageName]);
     }
-    /**
-     * @return void
-     */
-    public function addRequiredPackage(string $packageName, string $version)
+    public function addRequiredPackage(string $packageName, string $version) : void
     {
         if (!$this->hasPackage($packageName)) {
             $this->require[$packageName] = $version;
             $this->require = $this->sortPackagesIfNeeded($this->require);
         }
     }
-    /**
-     * @return void
-     */
-    public function addRequiredDevPackage(string $packageName, string $version)
+    public function addRequiredDevPackage(string $packageName, string $version) : void
     {
         if (!$this->hasPackage($packageName)) {
             $this->requireDev[$packageName] = $version;
             $this->requireDev = $this->sortPackagesIfNeeded($this->requireDev);
         }
     }
-    /**
-     * @return void
-     */
-    public function changePackageVersion(string $packageName, string $version)
+    public function changePackageVersion(string $packageName, string $version) : void
     {
         if ($this->hasRequiredPackage($packageName)) {
             $this->require[$packageName] = $version;
@@ -562,10 +478,7 @@ final class ComposerJson
             $this->requireDev[$packageName] = $version;
         }
     }
-    /**
-     * @return void
-     */
-    public function movePackageToRequire(string $packageName)
+    public function movePackageToRequire(string $packageName) : void
     {
         if (!$this->hasRequiredDevPackage($packageName)) {
             return;
@@ -574,10 +487,7 @@ final class ComposerJson
         $this->removePackage($packageName);
         $this->addRequiredPackage($packageName, $version);
     }
-    /**
-     * @return void
-     */
-    public function movePackageToRequireDev(string $packageName)
+    public function movePackageToRequireDev(string $packageName) : void
     {
         if (!$this->hasRequiredPackage($packageName)) {
             return;
@@ -586,17 +496,11 @@ final class ComposerJson
         $this->removePackage($packageName);
         $this->addRequiredDevPackage($packageName, $version);
     }
-    /**
-     * @return void
-     */
-    public function removePackage(string $packageName)
+    public function removePackage(string $packageName) : void
     {
         unset($this->require[$packageName], $this->requireDev[$packageName]);
     }
-    /**
-     * @return void
-     */
-    public function replacePackage(string $oldPackageName, string $newPackageName, string $targetVersion)
+    public function replacePackage(string $oldPackageName, string $newPackageName, string $targetVersion) : void
     {
         if ($this->hasRequiredPackage($oldPackageName)) {
             unset($this->require[$oldPackageName]);
@@ -607,26 +511,21 @@ final class ComposerJson
             $this->addRequiredDevPackage($newPackageName, $targetVersion);
         }
     }
-    /**
-     * @return \Symplify\SmartFileSystem\SmartFileInfo|null
-     */
-    public function getFileInfo()
+    public function getFileInfo() : ?\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }
     /**
      * @param array<string, string> $conflicts
-     * @return void
      */
-    public function setConflicts(array $conflicts)
+    public function setConflicts(array $conflicts) : void
     {
         $this->conflicts = $conflicts;
     }
     /**
      * @param mixed[] $bin
-     * @return void
      */
-    public function setBin(array $bin)
+    public function setBin(array $bin) : void
     {
         $this->bin = $bin;
     }
@@ -685,9 +584,8 @@ final class ComposerJson
     }
     /**
      * @api
-     * @return string|null
      */
-    public function getType()
+    public function getType() : ?string
     {
         return $this->type;
     }
@@ -710,17 +608,15 @@ final class ComposerJson
     }
     /**
      * @param array<string, string> $scriptsDescriptions
-     * @return void
      */
-    public function setScriptsDescriptions(array $scriptsDescriptions)
+    public function setScriptsDescriptions(array $scriptsDescriptions) : void
     {
         $this->scriptsDescriptions = $scriptsDescriptions;
     }
     /**
      * @param array<string, string> $suggest
-     * @return void
      */
-    public function setSuggest(array $suggest)
+    public function setSuggest(array $suggest) : void
     {
         $this->suggest = $suggest;
     }
@@ -740,10 +636,7 @@ final class ComposerJson
     {
         return \array_keys($this->require);
     }
-    /**
-     * @return void
-     */
-    private function moveValueToBack(string $valueName)
+    private function moveValueToBack(string $valueName) : void
     {
         $key = \array_search($valueName, $this->orderedKeys, \true);
         if ($key !== \false) {

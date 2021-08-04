@@ -32,15 +32,15 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
     /**
      * @internal
      */
-    const OPTION_MUTE_DEPRECATION_ERROR = 'mute_deprecation_error';
+    public const OPTION_MUTE_DEPRECATION_ERROR = 'mute_deprecation_error';
     /**
      * @internal
      */
-    const OPTION_NOISE_REMAINING_USAGES = 'noise_remaining_usages';
+    public const OPTION_NOISE_REMAINING_USAGES = 'noise_remaining_usages';
     /**
      * @internal
      */
-    const OPTION_NOISE_REMAINING_USAGES_EXCLUDE = 'noise_remaining_usages_exclude';
+    public const OPTION_NOISE_REMAINING_USAGES_EXCLUDE = 'noise_remaining_usages_exclude';
     /**
      * {@inheritdoc}
      */
@@ -71,9 +71,8 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $excludedFunctions = \array_map(static function (string $function) {

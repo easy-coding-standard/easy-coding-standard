@@ -45,10 +45,8 @@ final class FixerOption implements \PhpCsFixer\FixerConfiguration\FixerOptionInt
     /**
      * @param mixed         $default
      * @param null|string[] $allowedTypes
-     * @param mixed[]|null $allowedValues
-     * @param \Closure|null $normalizer
      */
-    public function __construct(string $name, string $description, bool $isRequired = \true, $default = null, $allowedTypes = null, $allowedValues = null, $normalizer = null)
+    public function __construct(string $name, string $description, bool $isRequired = \true, $default = null, ?array $allowedTypes = null, ?array $allowedValues = null, ?\Closure $normalizer = null)
     {
         if ($isRequired && null !== $default) {
             throw new \LogicException('Required options cannot have a default value.');
@@ -103,25 +101,22 @@ final class FixerOption implements \PhpCsFixer\FixerConfiguration\FixerOptionInt
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]|null
      */
-    public function getAllowedTypes()
+    public function getAllowedTypes() : ?array
     {
         return $this->allowedTypes;
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]|null
      */
-    public function getAllowedValues()
+    public function getAllowedValues() : ?array
     {
         return $this->allowedValues;
     }
     /**
      * {@inheritdoc}
-     * @return \Closure|null
      */
-    public function getNormalizer()
+    public function getNormalizer() : ?\Closure
     {
         return $this->normalizer;
     }

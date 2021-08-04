@@ -15,7 +15,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
     /**
      * @var string
      */
-    const NAME = 'console';
+    public const NAME = 'console';
     /**
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
@@ -45,9 +45,8 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
     }
     /**
      * @param FileDiff[] $fileDiffs
-     * @return void
      */
-    private function reportFileDiffs(array $fileDiffs)
+    private function reportFileDiffs(array $fileDiffs) : void
     {
         if ($fileDiffs === []) {
             return;
@@ -102,10 +101,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getCodingStandardErrorCount(), $errorAndDiffResult->getFileDiffsCount(), $configuration);
         return \ECSPrefix20210804\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
-    /**
-     * @return void
-     */
-    private function printErrorMessageFromErrorCounts(int $codingStandardErrorCount, int $fileDiffsCount, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration)
+    private function printErrorMessageFromErrorCounts(int $codingStandardErrorCount, int $fileDiffsCount, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
     {
         if ($codingStandardErrorCount !== 0) {
             $errorMessage = \sprintf('Found %d error%s that need%s to be fixed manually.', $codingStandardErrorCount, $codingStandardErrorCount === 1 ? '' : 's', $codingStandardErrorCount === 1 ? 's' : '');

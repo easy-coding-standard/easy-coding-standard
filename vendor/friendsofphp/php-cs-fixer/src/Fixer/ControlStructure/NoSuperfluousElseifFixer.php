@@ -47,9 +47,8 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if ($this->isElseif($tokens, $index) && $this->isSuperfluousElse($tokens, $index)) {
@@ -61,10 +60,7 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
     {
         return $tokens[$index]->isGivenKind(\T_ELSEIF) || $tokens[$index]->isGivenKind(\T_ELSE) && $tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(\T_IF);
     }
-    /**
-     * @return void
-     */
-    private function convertElseifToIf(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function convertElseifToIf(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         if ($tokens[$index]->isGivenKind(\T_ELSE)) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index);

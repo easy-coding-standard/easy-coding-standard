@@ -47,10 +47,7 @@ final class Example
     {
         return $tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT);
     }
-    /**
-     * @return void
-     */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; 1 < $index; --$index) {
             if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
@@ -63,9 +60,8 @@ final class Example
     }
     /**
      * @param int[] $candidates ',' indexes to fix
-     * @return void
      */
-    private function fixTraitUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $useTraitIndex, array $candidates)
+    private function fixTraitUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $useTraitIndex, array $candidates) : void
     {
         foreach ($candidates as $commaIndex) {
             $inserts = [new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, 'use']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];

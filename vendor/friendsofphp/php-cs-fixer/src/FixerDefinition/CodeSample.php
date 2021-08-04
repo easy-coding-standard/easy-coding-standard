@@ -25,10 +25,7 @@ final class CodeSample implements \PhpCsFixer\FixerDefinition\CodeSampleInterfac
      * @var null|array
      */
     private $configuration;
-    /**
-     * @param mixed[]|null $configuration
-     */
-    public function __construct(string $code, $configuration = null)
+    public function __construct(string $code, ?array $configuration = null)
     {
         $this->code = $code;
         $this->configuration = $configuration;
@@ -37,10 +34,7 @@ final class CodeSample implements \PhpCsFixer\FixerDefinition\CodeSampleInterfac
     {
         return $this->code;
     }
-    /**
-     * @return mixed[]|null
-     */
-    public function getConfiguration()
+    public function getConfiguration() : ?array
     {
         return $this->configuration;
     }

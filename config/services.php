@@ -21,7 +21,7 @@ use ECSPrefix20210804\Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use ECSPrefix20210804\Symplify\SmartFileSystem\Finder\SmartFinder;
 use ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileSystem;
 use function ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('Symplify\\EasyCodingStandard\\', __DIR__ . '/../src')->exclude([

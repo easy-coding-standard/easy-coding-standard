@@ -97,7 +97,7 @@ final class FixerFactory
      *
      * @return $this
      */
-    public function registerCustomFixers($fixers)
+    public function registerCustomFixers(iterable $fixers)
     {
         foreach ($fixers as $fixer) {
             $this->registerFixer($fixer, \true);
@@ -169,9 +169,9 @@ final class FixerFactory
         return isset($this->fixersByName[$name]);
     }
     /**
-     * @return mixed[]|null
+     * @return null|string[]
      */
-    private function getFixersConflicts(\PhpCsFixer\Fixer\FixerInterface $fixer)
+    private function getFixersConflicts(\PhpCsFixer\Fixer\FixerInterface $fixer) : ?array
     {
         static $conflictMap = ['no_blank_lines_before_namespace' => ['single_blank_line_before_namespace'], 'single_import_per_statement' => ['group_import']];
         $fixerName = $fixer->getName();

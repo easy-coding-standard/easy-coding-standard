@@ -57,9 +57,8 @@ class Bar {}
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         static $forbiddenSuccessors = [\T_BREAK, \T_COMMENT, \T_CONTINUE, \T_DECLARE, \T_DOC_COMMENT, \T_GOTO, \T_NAMESPACE, \T_RETURN, \T_THROW, \T_USE, \T_WHITESPACE];
         foreach ($tokens as $index => $token) {
@@ -76,9 +75,8 @@ class Bar {}
     }
     /**
      * Cleanup a whitespace token.
-     * @return void
      */
-    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $content = $tokens[$index]->getContent();
         // if there is more than one new line in the whitespace, then we need to fix it

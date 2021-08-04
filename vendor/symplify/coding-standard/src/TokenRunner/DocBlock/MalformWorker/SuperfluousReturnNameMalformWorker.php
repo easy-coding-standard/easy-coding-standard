@@ -14,20 +14,20 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
      * @var string
      * @see https://regex101.com/r/4qyd2j/1
      */
-    const RETURN_VARIABLE_NAME_REGEX = '#(?<tag>@(?:psalm-|phpstan-)?return)(?<type>\\s+[|\\\\\\w]+)?(\\s+)(?<' . self::VARIABLE_NAME_PART . '>\\$[\\w]+)#';
+    private const RETURN_VARIABLE_NAME_REGEX = '#(?<tag>@(?:psalm-|phpstan-)?return)(?<type>\\s+[|\\\\\\w]+)?(\\s+)(?<' . self::VARIABLE_NAME_PART . '>\\$[\\w]+)#';
     /**
      * @var string[]
      */
-    const ALLOWED_VARIABLE_NAMES = ['$this'];
+    private const ALLOWED_VARIABLE_NAMES = ['$this'];
     /**
      * @var string
      * @see https://regex101.com/r/IE9fA6/1
      */
-    const VARIABLE_NAME_REGEX = '#\\$\\w+#';
+    private const VARIABLE_NAME_REGEX = '#\\$\\w+#';
     /**
      * @var string
      */
-    const VARIABLE_NAME_PART = 'variableName';
+    private const VARIABLE_NAME_PART = 'variableName';
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent

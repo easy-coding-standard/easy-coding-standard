@@ -48,9 +48,8 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
     /**
      * {@inheritdoc}
      * @param int $majorVersion
-     * @return string|null
      */
-    public function getLatestVersionOfMajor($majorVersion)
+    public function getLatestVersionOfMajor($majorVersion) : ?string
     {
         $this->retrieveAvailableVersions();
         $semverConstraint = '^' . $majorVersion;
@@ -78,10 +77,7 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
         }
         return 0;
     }
-    /**
-     * @return void
-     */
-    private function retrieveAvailableVersions()
+    private function retrieveAvailableVersions() : void
     {
         if (null !== $this->availableVersions) {
             return;

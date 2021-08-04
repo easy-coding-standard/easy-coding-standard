@@ -15,17 +15,17 @@ class DateTime extends \DateTime implements \JsonSerializable
 {
     use Nette\SmartObject;
     /** minute in seconds */
-    const MINUTE = 60;
+    public const MINUTE = 60;
     /** hour in seconds */
-    const HOUR = 60 * self::MINUTE;
+    public const HOUR = 60 * self::MINUTE;
     /** day in seconds */
-    const DAY = 24 * self::HOUR;
+    public const DAY = 24 * self::HOUR;
     /** week in seconds */
-    const WEEK = 7 * self::DAY;
+    public const WEEK = 7 * self::DAY;
     /** average month in seconds */
-    const MONTH = 2629800;
+    public const MONTH = 2629800;
     /** average year in seconds */
-    const YEAR = 31557600;
+    public const YEAR = 31557600;
     /**
      * Creates a DateTime object from a string, UNIX timestamp, or other DateTimeInterface object.
      * @param  string|int|\DateTimeInterface  $time

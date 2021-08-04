@@ -699,9 +699,8 @@ class Application implements \ECSPrefix20210804\Symfony\Contracts\Service\ResetI
     /**
      * @param \Throwable $e
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @return void
      */
-    public function renderThrowable($e, $output)
+    public function renderThrowable($e, $output) : void
     {
         $output->writeln('', \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         $this->doRenderThrowable($e, $output);
@@ -713,9 +712,8 @@ class Application implements \ECSPrefix20210804\Symfony\Contracts\Service\ResetI
     /**
      * @param \Throwable $e
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @return void
      */
-    protected function doRenderThrowable($e, $output)
+    protected function doRenderThrowable($e, $output) : void
     {
         do {
             $message = \trim($e->getMessage());
@@ -965,9 +963,8 @@ class Application implements \ECSPrefix20210804\Symfony\Contracts\Service\ResetI
      * if nothing is found in $collection, try in $abbrevs.
      *
      * @return string[] A sorted array of similar string
-     * @param mixed[] $collection
      */
-    private function findAlternatives(string $name, $collection) : array
+    private function findAlternatives(string $name, iterable $collection) : array
     {
         $threshold = 1000.0;
         $alternatives = [];

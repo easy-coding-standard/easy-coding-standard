@@ -19,12 +19,12 @@ use function sprintf;
  */
 final class Target
 {
-    const TARGET_CLASS = 1;
-    const TARGET_METHOD = 2;
-    const TARGET_PROPERTY = 4;
-    const TARGET_ANNOTATION = 8;
-    const TARGET_FUNCTION = 16;
-    const TARGET_ALL = 31;
+    public const TARGET_CLASS = 1;
+    public const TARGET_METHOD = 2;
+    public const TARGET_PROPERTY = 4;
+    public const TARGET_ANNOTATION = 8;
+    public const TARGET_FUNCTION = 16;
+    public const TARGET_ALL = 31;
     /** @var array<string, int> */
     private static $map = ['ALL' => self::TARGET_ALL, 'CLASS' => self::TARGET_CLASS, 'METHOD' => self::TARGET_METHOD, 'PROPERTY' => self::TARGET_PROPERTY, 'FUNCTION' => self::TARGET_FUNCTION, 'ANNOTATION' => self::TARGET_ANNOTATION];
     /** @phpstan-var list<string> */

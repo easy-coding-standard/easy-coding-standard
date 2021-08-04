@@ -41,10 +41,7 @@ final class Token
     {
         return $this->type;
     }
-    /**
-     * @return void
-     */
-    public function setType(int $type)
+    public function setType(int $type) : void
     {
         $this->type = $type;
     }
@@ -52,10 +49,7 @@ final class Token
     {
         return $this->content;
     }
-    /**
-     * @return void
-     */
-    public function setContent(string $content)
+    public function setContent(string $content) : void
     {
         $this->content = $content;
     }
@@ -73,9 +67,8 @@ final class Token
     }
     /**
      * Overrides the content with an empty string.
-     * @return void
      */
-    public function clear()
+    public function clear() : void
     {
         $this->setContent('');
     }

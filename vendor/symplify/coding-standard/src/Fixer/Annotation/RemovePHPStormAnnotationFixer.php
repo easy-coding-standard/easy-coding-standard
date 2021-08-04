@@ -22,11 +22,11 @@ final class RemovePHPStormAnnotationFixer extends \Symplify\CodingStandard\Fixer
      * @see https://regex101.com/r/nGZBzj/2
      * @var string
      */
-    const CREATED_BY_PHPSTORM_DOC_REGEX = '#\\/\\*\\*\\s+\\*\\s+Created by PHPStorm(.*?)\\*\\/#msi';
+    private const CREATED_BY_PHPSTORM_DOC_REGEX = '#\\/\\*\\*\\s+\\*\\s+Created by PHPStorm(.*?)\\*\\/#msi';
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Remove "Created by PhpStorm" annotations';
+    private const ERROR_MESSAGE = 'Remove "Created by PhpStorm" annotations';
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
@@ -40,9 +40,8 @@ final class RemovePHPStormAnnotationFixer extends \Symplify\CodingStandard\Fixer
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $reversedTokens = $this->reverseTokens($tokens);
         foreach ($reversedTokens as $index => $token) {

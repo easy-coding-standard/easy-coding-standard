@@ -14,7 +14,7 @@ final class ParameterSkipper
      *
      * @var string[]
      */
-    const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20210804\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20210804\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20210804\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20210804\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20210804\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20210804\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20210804\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20210804\\Sonata\\Twig\\Extension\\TemplateExtension'];
+    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20210804\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20210804\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20210804\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20210804\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20210804\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20210804\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20210804\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20210804\\Sonata\\Twig\\Extension\\TemplateExtension'];
     /**
      * @var string[]
      */

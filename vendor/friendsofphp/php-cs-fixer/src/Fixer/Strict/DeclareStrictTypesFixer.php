@@ -58,9 +58,8 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // check if the declaration is already done
         $searchIndex = $tokens->getNextMeaningfulToken(0);
@@ -79,9 +78,8 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * @param array<int, Token> $sequence
-     * @return void
      */
-    private function fixStrictTypesCasingAndValue(\PhpCsFixer\Tokenizer\Tokens $tokens, array $sequence)
+    private function fixStrictTypesCasingAndValue(\PhpCsFixer\Tokenizer\Tokens $tokens, array $sequence) : void
     {
         /** @var int $index */
         /** @var Token $token */
@@ -96,10 +94,7 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function insertSequence(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function insertSequence(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $sequence = [new \PhpCsFixer\Tokenizer\Token([\T_DECLARE, 'declare']), new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'strict_types']), new \PhpCsFixer\Tokenizer\Token('='), new \PhpCsFixer\Tokenizer\Token([\T_LNUMBER, '1']), new \PhpCsFixer\Tokenizer\Token(')'), new \PhpCsFixer\Tokenizer\Token(';')];
         $endIndex = \count($sequence);

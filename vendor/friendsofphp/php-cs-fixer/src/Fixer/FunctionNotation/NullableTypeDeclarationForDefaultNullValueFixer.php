@@ -72,9 +72,8 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $tokenKinds = [\T_FUNCTION];
@@ -92,9 +91,8 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
     }
     /**
      * @param ArgumentAnalysis[] $arguments
-     * @return void
      */
-    private function fixFunctionParameters(\PhpCsFixer\Tokenizer\Tokens $tokens, array $arguments)
+    private function fixFunctionParameters(\PhpCsFixer\Tokenizer\Tokens $tokens, array $arguments) : void
     {
         foreach (\array_reverse($arguments) as $argumentInfo) {
             if (!$argumentInfo->hasTypeAnalysis() || \false !== \strpos($argumentInfo->getTypeAnalysis()->getName(), '|') || !$argumentInfo->hasDefault() || 'null' !== \strtolower($argumentInfo->getDefault())) {

@@ -57,10 +57,7 @@ class TableCell
     {
         return (int) $this->options['rowspan'];
     }
-    /**
-     * @return \Symfony\Component\Console\Helper\TableCellStyle|null
-     */
-    public function getStyle()
+    public function getStyle() : ?\ECSPrefix20210804\Symfony\Component\Console\Helper\TableCellStyle
     {
         return $this->options['style'];
     }

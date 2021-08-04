@@ -239,7 +239,7 @@ class Store implements \ECSPrefix20210804\Symfony\Component\HttpKernel\HttpCache
      * @param array       $env1 A Request HTTP header array
      * @param array       $env2 A Request HTTP header array
      */
-    private function requestsMatch($vary, array $env1, array $env2) : bool
+    private function requestsMatch(?string $vary, array $env1, array $env2) : bool
     {
         if (empty($vary)) {
             return \true;
@@ -301,9 +301,8 @@ class Store implements \ECSPrefix20210804\Symfony\Component\HttpKernel\HttpCache
     }
     /**
      * Loads data for the given key.
-     * @return string|null
      */
-    private function load(string $key)
+    private function load(string $key) : ?string
     {
         $path = $this->getPath($key);
         return \is_file($path) && \false !== ($contents = @\file_get_contents($path)) ? $contents : null;

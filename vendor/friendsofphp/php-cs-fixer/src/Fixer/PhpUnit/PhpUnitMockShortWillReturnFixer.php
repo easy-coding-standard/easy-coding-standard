@@ -25,7 +25,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class PhpUnitMockShortWillReturnFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
 {
-    const RETURN_METHODS_MAP = ['returnargument' => 'willReturnArgument', 'returncallback' => 'willReturnCallback', 'returnself' => 'willReturnSelf', 'returnvalue' => 'willReturn', 'returnvaluemap' => 'willReturnMap'];
+    private const RETURN_METHODS_MAP = ['returnargument' => 'willReturnArgument', 'returncallback' => 'willReturnCallback', 'returnself' => 'willReturnSelf', 'returnvalue' => 'willReturn', 'returnvaluemap' => 'willReturnMap'];
     /**
      * {@inheritdoc}
      */
@@ -55,9 +55,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = $startIndex; $index < $endIndex; ++$index) {

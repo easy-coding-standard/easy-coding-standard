@@ -104,9 +104,8 @@ class MockFileSessionStorage extends \ECSPrefix20210804\Symfony\Component\HttpFo
     /**
      * Deletes a session from persistent storage.
      * Deliberately leaves session data in memory intact.
-     * @return void
      */
-    private function destroy()
+    private function destroy() : void
     {
         \set_error_handler(static function () {
         });
@@ -125,9 +124,8 @@ class MockFileSessionStorage extends \ECSPrefix20210804\Symfony\Component\HttpFo
     }
     /**
      * Reads session from storage and loads session.
-     * @return void
      */
-    private function read()
+    private function read() : void
     {
         \set_error_handler(static function () {
         });

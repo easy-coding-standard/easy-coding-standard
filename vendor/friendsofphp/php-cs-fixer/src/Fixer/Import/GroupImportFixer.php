@@ -43,9 +43,8 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $useWithSameNamespaces = $this->getSameNamespaces($tokens);
         if ([] === $useWithSameNamespaces) {
@@ -85,9 +84,8 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param NamespaceUseAnalysis[] $statements
-     * @return void
      */
-    private function removeSingleUseStatements(array $statements, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function removeSingleUseStatements(array $statements, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($statements as $useDeclaration) {
             $index = $useDeclaration->getStartIndex();
@@ -110,9 +108,8 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param NamespaceUseAnalysis[] $statements
-     * @return void
      */
-    private function addGroupUseStatements(array $statements, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function addGroupUseStatements(array $statements, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $currentUseDeclaration = null;
         $insertIndex = \array_slice($statements, -1)[0]->getEndIndex() + 1;

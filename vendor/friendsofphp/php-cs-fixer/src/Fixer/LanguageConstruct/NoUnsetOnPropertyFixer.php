@@ -54,10 +54,7 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
     {
         return 25;
     }
-    /**
-     * @return void
-     */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_UNSET)) {
@@ -131,9 +128,8 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param array<string, bool|int> $unsetInfo
-     * @return void
      */
-    private function updateTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $unsetInfo, bool $isLastUnset)
+    private function updateTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $unsetInfo, bool $isLastUnset) : void
     {
         // if entry is first and to be transform we remove leading "unset("
         if ($unsetInfo['isFirst'] && $unsetInfo['isToTransform']) {

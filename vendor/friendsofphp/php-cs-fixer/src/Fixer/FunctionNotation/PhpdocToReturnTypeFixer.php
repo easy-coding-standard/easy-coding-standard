@@ -96,9 +96,8 @@ final class Foo {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if (\PHP_VERSION_ID >= 80000) {
             unset($this->skippedTypes['mixed']);

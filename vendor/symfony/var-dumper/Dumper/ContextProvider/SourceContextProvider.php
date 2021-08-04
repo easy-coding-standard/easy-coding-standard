@@ -34,10 +34,7 @@ final class SourceContextProvider implements \ECSPrefix20210804\Symfony\Componen
         $this->fileLinkFormatter = $fileLinkFormatter;
         $this->limit = $limit;
     }
-    /**
-     * @return mixed[]|null
-     */
-    public function getContext()
+    public function getContext() : ?array
     {
         $trace = \debug_backtrace(\DEBUG_BACKTRACE_PROVIDE_OBJECT | \DEBUG_BACKTRACE_IGNORE_ARGS, $this->limit);
         $file = $trace[1]['file'];

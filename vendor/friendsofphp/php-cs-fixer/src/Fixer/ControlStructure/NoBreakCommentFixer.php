@@ -89,9 +89,8 @@ switch ($foo) {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; $index >= 0; --$index) {
             if (!$tokens[$index]->isGivenKind([\T_CASE, \T_DEFAULT])) {
@@ -105,10 +104,7 @@ switch ($foo) {
             $this->fixCase($tokens, $caseColonIndex);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixCase(\PhpCsFixer\Tokenizer\Tokens $tokens, int $casePosition)
+    private function fixCase(\PhpCsFixer\Tokenizer\Tokens $tokens, int $casePosition) : void
     {
         $empty = \true;
         $fallThrough = \true;
@@ -171,10 +167,7 @@ switch ($foo) {
         $text = \preg_quote($this->configuration['comment_text'], '~');
         return 1 === \PhpCsFixer\Preg::match("~^((//|#)\\s*{$text}\\s*)|(/\\*\\*?\\s*{$text}\\s*\\*/)\$~i", $token->getContent());
     }
-    /**
-     * @return void
-     */
-    private function insertCommentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $casePosition)
+    private function insertCommentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $casePosition) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         $newlinePosition = $this->ensureNewLineAt($tokens, $casePosition);
@@ -226,10 +219,7 @@ switch ($foo) {
         }
         return $position - 1;
     }
-    /**
-     * @return void
-     */
-    private function removeComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $commentPosition)
+    private function removeComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $commentPosition) : void
     {
         if ($tokens[$tokens->getPrevNonWhitespace($commentPosition)]->isGivenKind(\T_OPEN_TAG)) {
             $whitespacePosition = $commentPosition + 1;

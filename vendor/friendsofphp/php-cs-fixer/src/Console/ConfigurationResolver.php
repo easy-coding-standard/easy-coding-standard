@@ -53,8 +53,8 @@ use ECSPrefix20210804\Symfony\Component\Finder\Finder as SymfonyFinder;
  */
 final class ConfigurationResolver
 {
-    const PATH_MODE_OVERRIDE = 'override';
-    const PATH_MODE_INTERSECTION = 'intersection';
+    public const PATH_MODE_OVERRIDE = 'override';
+    public const PATH_MODE_INTERSECTION = 'intersection';
     /**
      * @var null|bool
      */
@@ -151,10 +151,7 @@ final class ConfigurationResolver
             $this->setOption($name, $value);
         }
     }
-    /**
-     * @return string|null
-     */
-    public function getCacheFile()
+    public function getCacheFile() : ?string
     {
         if (!$this->getUsingCache()) {
             return null;
@@ -202,10 +199,7 @@ final class ConfigurationResolver
         }
         return $this->config;
     }
-    /**
-     * @return string|null
-     */
-    public function getConfigFile()
+    public function getConfigFile() : ?string
     {
         if (null === $this->configFile) {
             $this->getConfig();
@@ -359,10 +353,7 @@ final class ConfigurationResolver
         $this->usingCache = $this->usingCache && ($this->toolInfo->isInstalledAsPhar() || $this->toolInfo->isInstalledByComposer());
         return $this->usingCache;
     }
-    /**
-     * @return mixed[]
-     */
-    public function getFinder()
+    public function getFinder() : iterable
     {
         if (null === $this->finder) {
             $this->finder = $this->resolveFinder();
@@ -470,10 +461,7 @@ final class ConfigurationResolver
         }
         return $this->isStdIn;
     }
-    /**
-     * @param mixed[] $iterable
-     */
-    private function iterableToTraversable($iterable) : \Traversable
+    private function iterableToTraversable(iterable $iterable) : \Traversable
     {
         return \is_array($iterable) ? new \ArrayIterator($iterable) : $iterable;
     }
@@ -512,9 +500,8 @@ final class ConfigurationResolver
     }
     /**
      * @throws InvalidConfigurationException
-     * @return void
      */
-    private function validateRules(array $rules)
+    private function validateRules(array $rules) : void
     {
         /**
          * Create a ruleset that contains all configured rules, even when they originally have been disabled.
@@ -557,9 +544,8 @@ final class ConfigurationResolver
     }
     /**
      * Apply path on config instance.
-     * @return mixed[]
      */
-    private function resolveFinder()
+    private function resolveFinder() : iterable
     {
         $this->configFinderIsOverridden = \false;
         if ($this->isStdIn()) {
@@ -623,9 +609,8 @@ final class ConfigurationResolver
      * Set option that will be resolved.
      *
      * @param mixed $value
-     * @return void
      */
-    private function setOption(string $name, $value)
+    private function setOption(string $name, $value) : void
     {
         if (!\array_key_exists($name, $this->options)) {
             throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException(\sprintf('Unknown option name: "%s".', $name));

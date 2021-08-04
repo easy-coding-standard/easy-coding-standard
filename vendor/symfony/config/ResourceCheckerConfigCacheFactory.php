@@ -22,7 +22,7 @@ class ResourceCheckerConfigCacheFactory implements \ECSPrefix20210804\Symfony\Co
     /**
      * @param iterable|ResourceCheckerInterface[] $resourceCheckers
      */
-    public function __construct($resourceCheckers = [])
+    public function __construct(iterable $resourceCheckers = [])
     {
         $this->resourceCheckers = $resourceCheckers;
     }

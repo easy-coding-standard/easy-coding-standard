@@ -73,10 +73,7 @@ public function NAME(): string
         }
         return $directory . \DIRECTORY_SEPARATOR . $class->getFilename();
     }
-    /**
-     * @return void
-     */
-    private function writeClasses()
+    private function writeClasses() : void
     {
         foreach ($this->classes as $class) {
             $this->buildConstructor($class);
@@ -85,10 +82,7 @@ public function NAME(): string
         }
         $this->classes = [];
     }
-    /**
-     * @return void
-     */
-    private function buildNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\NodeInterface $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace)
+    private function buildNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\NodeInterface $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace) : void
     {
         if (!$node instanceof \ECSPrefix20210804\Symfony\Component\Config\Definition\ArrayNode) {
             throw new \LogicException('The node was expected to be an ArrayNode. This Configuration includes an edge case not supported yet.');
@@ -112,10 +106,7 @@ public function NAME(): string
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function handleArrayNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\ArrayNode $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace)
+    private function handleArrayNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\ArrayNode $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace) : void
     {
         $childClass = new \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder($namespace, $node->getName());
         $class->addRequire($childClass);
@@ -136,10 +127,7 @@ public function NAME(array $value = []): CLASS
         $class->addMethod($node->getName(), $body, ['PROPERTY' => $property->getName(), 'CLASS' => $childClass->getFqcn()]);
         $this->buildNode($node, $childClass, $this->getSubNamespace($childClass));
     }
-    /**
-     * @return void
-     */
-    private function handleVariableNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\VariableNode $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class)
+    private function handleVariableNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\VariableNode $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class) : void
     {
         $comment = $this->getComment($node);
         $property = $class->addProperty($node->getName());
@@ -156,10 +144,7 @@ public function NAME($valueDEFAULT): self
 }';
         $class->addMethod($node->getName(), $body, ['PROPERTY' => $property->getName(), 'COMMENT' => $comment, 'DEFAULT' => $node->hasDefaultValue() ? ' = ' . \var_export($node->getDefaultValue(), \true) : '']);
     }
-    /**
-     * @return void
-     */
-    private function handlePrototypedArrayNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\PrototypedArrayNode $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace)
+    private function handlePrototypedArrayNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\PrototypedArrayNode $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class, string $namespace) : void
     {
         $name = $this->getSingularName($node);
         $prototype = $node->getPrototype();
@@ -227,10 +212,7 @@ public function NAME(string $VAR, array $VALUE = []): CLASS
         }
         $this->buildNode($prototype, $childClass, $namespace . '\\' . $childClass->getName());
     }
-    /**
-     * @return void
-     */
-    private function handleScalarNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\ScalarNode $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class)
+    private function handleScalarNode(\ECSPrefix20210804\Symfony\Component\Config\Definition\ScalarNode $node, \ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class) : void
     {
         $comment = $this->getComment($node);
         $property = $class->addProperty($node->getName());
@@ -247,10 +229,7 @@ public function NAME($value): self
 }';
         $class->addMethod($node->getName(), $body, ['PROPERTY' => $property->getName(), 'COMMENT' => $comment]);
     }
-    /**
-     * @return string|null
-     */
-    private function getParameterType(\ECSPrefix20210804\Symfony\Component\Config\Definition\NodeInterface $node)
+    private function getParameterType(\ECSPrefix20210804\Symfony\Component\Config\Definition\NodeInterface $node) : ?string
     {
         if ($node instanceof \ECSPrefix20210804\Symfony\Component\Config\Definition\BooleanNode) {
             return 'bool';
@@ -321,10 +300,7 @@ public function NAME($value): self
         }
         return $name;
     }
-    /**
-     * @return void
-     */
-    private function buildToArray(\ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class)
+    private function buildToArray(\ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class) : void
     {
         $body = '$output = [];';
         foreach ($class->getProperties() as $p) {
@@ -350,10 +326,7 @@ public function NAME(): array
 }
 ');
     }
-    /**
-     * @return void
-     */
-    private function buildConstructor(\ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class)
+    private function buildConstructor(\ECSPrefix20210804\Symfony\Component\Config\Builder\ClassBuilder $class) : void
     {
         $body = '';
         foreach ($class->getProperties() as $p) {

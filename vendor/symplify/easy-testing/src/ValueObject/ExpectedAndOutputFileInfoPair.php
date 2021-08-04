@@ -15,10 +15,7 @@ final class ExpectedAndOutputFileInfoPair
      * @var \Symplify\SmartFileSystem\SmartFileInfo|null
      */
     private $outputFileInfo;
-    /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo|null $outputFileInfo
-     */
-    public function __construct(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, $outputFileInfo)
+    public function __construct(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, ?\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $outputFileInfo)
     {
         $this->expectedFileInfo = $expectedFileInfo;
         $this->outputFileInfo = $outputFileInfo;

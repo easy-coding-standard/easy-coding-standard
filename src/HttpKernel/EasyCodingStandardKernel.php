@@ -22,9 +22,9 @@ use ECSPrefix20210804\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class EasyCodingStandardKernel extends \ECSPrefix20210804\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
-     * @return mixed[]
+     * @return BundleInterface[]
      */
-    public function registerBundles()
+    public function registerBundles() : iterable
     {
         return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20210804\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20210804\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20210804\Symplify\Skipper\Bundle\SkipperBundle()];
     }
@@ -40,10 +40,7 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210804\Symplify\Symplif
         }
         return $logDirectory;
     }
-    /**
-     * @return void
-     */
-    public function boot()
+    public function boot() : void
     {
         $cacheDir = $this->getCacheDir();
         // Rebuild the container on each run
@@ -53,9 +50,8 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210804\Symplify\Symplif
     }
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    protected function prepareContainer($containerBuilder)
+    protected function prepareContainer($containerBuilder) : void
     {
         // works better with workers - see https://github.com/symfony/symfony/pull/32581
         $containerBuilder->setParameter('container.dumper.inline_factories', \true);

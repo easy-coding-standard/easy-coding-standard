@@ -40,9 +40,8 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens) : void
     {
         $annotationPositions = [];
         for ($index = 0, $max = \count($doctrineAnnotationTokens); $index < $max; ++$index) {

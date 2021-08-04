@@ -34,7 +34,7 @@ abstract class Output implements \ECSPrefix20210804\Symfony\Component\Console\Ou
      * @param bool                          $decorated Whether to decorate messages
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      */
-    public function __construct($verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \ECSPrefix20210804\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    public function __construct(?int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \ECSPrefix20210804\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         $this->verbosity = null === $verbosity ? self::VERBOSITY_NORMAL : $verbosity;
         $this->formatter = $formatter ?? new \ECSPrefix20210804\Symfony\Component\Console\Formatter\OutputFormatter();
@@ -122,7 +122,7 @@ abstract class Output implements \ECSPrefix20210804\Symfony\Component\Console\Ou
      */
     public function write($messages, bool $newline = \false, int $options = self::OUTPUT_NORMAL)
     {
-        if (!(\is_array($messages) || $messages instanceof \Traversable)) {
+        if (!\is_iterable($messages)) {
             $messages = [$messages];
         }
         $types = self::OUTPUT_NORMAL | self::OUTPUT_RAW | self::OUTPUT_PLAIN;

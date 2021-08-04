@@ -57,9 +57,8 @@ abstract class AbstractMachine
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
         while ($classIndex = \array_pop($classes)) {
@@ -72,10 +71,7 @@ abstract class AbstractMachine
             $this->fixClass($tokens, $classOpen, $classClose);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, int $classCloseIndex)
+    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, int $classCloseIndex) : void
     {
         for ($index = $classCloseIndex - 1; $index > $classOpenIndex; --$index) {
             // skip method contents

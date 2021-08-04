@@ -68,10 +68,7 @@ EOT
     {
         return $tokens->isTokenKindFound(\T_DOLLAR_OPEN_CURLY_BRACES);
     }
-    /**
-     * @return void
-     */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 3; $index > 0; --$index) {
             $token = $tokens[$index];

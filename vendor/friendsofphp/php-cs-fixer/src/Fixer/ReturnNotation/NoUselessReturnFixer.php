@@ -55,9 +55,8 @@ function example($b) {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_FUNCTION)) {
@@ -72,9 +71,8 @@ function example($b) {
     /**
      * @param int $start Token index of the opening brace token of the function
      * @param int $end   Token index of the closing brace token of the function
-     * @return void
      */
-    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
+    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : void
     {
         for ($index = $end; $index > $start; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_RETURN)) {

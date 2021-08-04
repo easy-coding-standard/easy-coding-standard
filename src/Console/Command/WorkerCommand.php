@@ -33,10 +33,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         $this->singleFileProcessor = $singleFileProcessor;
         parent::__construct();
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         parent::configure();
         $this->setDescription('(Internal) Support for parallel process');
@@ -50,7 +47,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         $configuration = $this->configurationFactory->createFromInput($input);
         $streamSelectLoop = new \ECSPrefix20210804\React\EventLoop\StreamSelectLoop();
         $stdOutEncoder = new \ECSPrefix20210804\Clue\React\NDJson\Encoder(new \ECSPrefix20210804\React\Stream\WritableResourceStream(\STDOUT, $streamSelectLoop));
-        $handleErrorCallback = static function (\Throwable $throwable) use($stdOutEncoder) {
+        $handleErrorCallback = static function (\Throwable $throwable) use($stdOutEncoder) : void {
             $systemErrors = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($throwable->getLine(), $throwable->getMessage(), $throwable->getFile());
             $stdOutEncoder->write([\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS => [$systemErrors], \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILES_COUNT => 0, \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS_COUNT => 1]);
             $stdOutEncoder->end();
@@ -58,7 +55,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         $stdOutEncoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::ERROR, $handleErrorCallback);
         // collectErrors from file processor
         $decoder = new \ECSPrefix20210804\Clue\React\NDJson\Decoder(new \ECSPrefix20210804\React\Stream\ReadableResourceStream(\STDIN, $streamSelectLoop), \true);
-        $decoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::DATA, function (array $json) use($stdOutEncoder, $configuration) {
+        $decoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::DATA, function (array $json) use($stdOutEncoder, $configuration) : void {
             $action = $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::ACTION];
             if ($action === \Symplify\EasyCodingStandard\Parallel\ValueObject\Action::CHECK) {
                 $systemErrorsCount = 0;

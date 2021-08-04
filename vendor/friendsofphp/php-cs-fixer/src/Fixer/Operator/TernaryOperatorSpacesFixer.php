@@ -51,9 +51,8 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $gotoLabelAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer();
         $ternaryOperatorIndices = [];
@@ -128,10 +127,7 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
             return $caseAnalysis->getColonIndex();
         }, (new \PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer())->getSwitchAnalysis($tokens, $switchIndex)->getCases());
     }
-    /**
-     * @return void
-     */
-    private function ensureWhitespaceExistence(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $after)
+    private function ensureWhitespaceExistence(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $after) : void
     {
         if ($tokens[$index]->isWhitespace()) {
             if (\false === \strpos($tokens[$index]->getContent(), "\n") && !$tokens[$index - 1]->isComment()) {

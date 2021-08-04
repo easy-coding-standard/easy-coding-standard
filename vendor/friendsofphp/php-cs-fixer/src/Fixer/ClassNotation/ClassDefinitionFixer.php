@@ -91,9 +91,8 @@ interface Bar extends
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // -4, one for count to index, 3 because min. of tokens for a classy location.
         for ($index = $tokens->getSize() - 4; $index > 0; --$index) {
@@ -111,9 +110,8 @@ interface Bar extends
     }
     /**
      * @param int $classyIndex Class definition token start index
-     * @return void
      */
-    private function fixClassyDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classyIndex)
+    private function fixClassyDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classyIndex) : void
     {
         $classDefInfo = $this->getClassyDefinitionInfo($tokens, $classyIndex);
         // PSR2 4.1 Lists of implements MAY be split across multiple lines, where each subsequent line is indented once.
@@ -230,10 +228,7 @@ interface Bar extends
         }
         return $implementsInfo;
     }
-    /**
-     * @return void
-     */
-    private function makeClassyDefinitionSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function makeClassyDefinitionSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($i = $endIndex; $i >= $startIndex; --$i) {
             if ($tokens[$i]->isWhitespace()) {
@@ -271,10 +266,7 @@ interface Bar extends
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function makeClassyInheritancePartMultiLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function makeClassyInheritancePartMultiLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($i = $endIndex; $i > $startIndex; --$i) {
             $previousInterfaceImplementingIndex = $tokens->getPrevTokenOfKind($i, [',', [\T_IMPLEMENTS], [\T_EXTENDS]]);

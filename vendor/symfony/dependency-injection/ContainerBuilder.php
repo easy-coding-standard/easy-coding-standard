@@ -113,7 +113,7 @@ class ContainerBuilder extends \ECSPrefix20210804\Symfony\Component\DependencyIn
     private $autoconfiguredAttributes = [];
     private $removedIds = [];
     private $removedBindingIds = [];
-    const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
+    private const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
     public function __construct(\ECSPrefix20210804\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
     {
         parent::__construct($parameterBag);
@@ -286,9 +286,8 @@ class ContainerBuilder extends \ECSPrefix20210804\Symfony\Component\DependencyIn
      * @final
      * @param string|null $class
      * @param bool $throw
-     * @return \ReflectionClass|null
      */
-    public function getReflectionClass($class, $throw = \true)
+    public function getReflectionClass($class, $throw = \true) : ?\ReflectionClass
     {
         if (!($class = $this->getParameterBag()->resolveValue($class))) {
             return null;
@@ -714,7 +713,7 @@ class ContainerBuilder extends \ECSPrefix20210804\Symfony\Component\DependencyIn
      */
     public function setAlias($alias, $id)
     {
-        if ('' === $alias || '\\' === $alias[\strlen($alias) - 1] || \strlen($alias) !== \strcspn($alias, "\0\r\n'")) {
+        if ('' === $alias || '\\' === $alias[-1] || \strlen($alias) !== \strcspn($alias, "\0\r\n'")) {
             throw new \ECSPrefix20210804\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid alias id: "%s".', $alias));
         }
         if (\is_string($id)) {
@@ -838,7 +837,7 @@ class ContainerBuilder extends \ECSPrefix20210804\Symfony\Component\DependencyIn
         if ($this->isCompiled()) {
             throw new \ECSPrefix20210804\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Adding definition to a compiled container is not allowed.');
         }
-        if ('' === $id || '\\' === $id[\strlen($id) - 1] || \strlen($id) !== \strcspn($id, "\0\r\n'")) {
+        if ('' === $id || '\\' === $id[-1] || \strlen($id) !== \strcspn($id, "\0\r\n'")) {
             throw new \ECSPrefix20210804\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service id: "%s".', $id));
         }
         unset($this->aliasDefinitions[$id], $this->removedIds[$id]);
@@ -1156,9 +1155,8 @@ class ContainerBuilder extends \ECSPrefix20210804\Symfony\Component\DependencyIn
      * The configurator will receive a ChildDefinition instance, an instance of the attribute and the corresponding \ReflectionClass, in that order.
      * @param string $attributeClass
      * @param callable $configurator
-     * @return void
      */
-    public function registerAttributeForAutoconfiguration($attributeClass, $configurator)
+    public function registerAttributeForAutoconfiguration($attributeClass, $configurator) : void
     {
         $this->autoconfiguredAttributes[$attributeClass] = $configurator;
     }
@@ -1332,7 +1330,7 @@ class ContainerBuilder extends \ECSPrefix20210804\Symfony\Component\DependencyIn
     {
         if ($this->hasDefinition($id)) {
             foreach ($this->getDefinition($id)->getBindings() as $key => $binding) {
-                list(, $bindingId) = $binding->getValues();
+                [, $bindingId] = $binding->getValues();
                 $this->removedBindingIds[(int) $bindingId] = \true;
             }
         }
@@ -1437,9 +1435,8 @@ class ContainerBuilder extends \ECSPrefix20210804\Symfony\Component\DependencyIn
      * Shares a given service in the container.
      *
      * @param mixed $service
-     * @param string|null $id
      */
-    private function shareService(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition, $service, $id, array &$inlineServices)
+    private function shareService(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition, $service, ?string $id, array &$inlineServices)
     {
         $inlineServices[$id ?? \spl_object_hash($definition)] = $service;
         if (null !== $id && $definition->isShared()) {

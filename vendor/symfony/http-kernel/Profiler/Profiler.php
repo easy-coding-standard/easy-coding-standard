@@ -217,11 +217,7 @@ class Profiler implements \ECSPrefix20210804\Symfony\Contracts\Service\ResetInte
         }
         return $this->collectors[$name];
     }
-    /**
-     * @param string|null $value
-     * @return int|null
-     */
-    private function getTimestamp($value)
+    private function getTimestamp(?string $value) : ?int
     {
         if (null === $value || '' === $value) {
             return null;

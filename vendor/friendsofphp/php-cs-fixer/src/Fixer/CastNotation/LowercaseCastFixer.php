@@ -67,9 +67,8 @@ final class LowercaseCastFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {
             if (!$tokens[$index]->isCast()) {

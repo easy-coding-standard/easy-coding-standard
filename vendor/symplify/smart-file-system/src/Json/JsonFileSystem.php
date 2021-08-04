@@ -36,18 +36,16 @@ final class JsonFileSystem
     }
     /**
      * @param array<string, mixed> $jsonArray
-     * @return void
      */
-    public function writeJsonToFilePath(array $jsonArray, string $filePath)
+    public function writeJsonToFilePath(array $jsonArray, string $filePath) : void
     {
         $jsonContent = \ECSPrefix20210804\Nette\Utils\Json::encode($jsonArray, \ECSPrefix20210804\Nette\Utils\Json::PRETTY) . \PHP_EOL;
         $this->smartFileSystem->dumpFile($filePath, $jsonContent);
     }
     /**
      * @param array<string, mixed> $newJsonArray
-     * @return void
      */
-    public function mergeArrayToJsonFile(string $filePath, array $newJsonArray)
+    public function mergeArrayToJsonFile(string $filePath, array $newJsonArray) : void
     {
         $jsonArray = $this->loadFilePathToJson($filePath);
         $newComposerJsonArray = \ECSPrefix20210804\Nette\Utils\Arrays::mergeTree($jsonArray, $newJsonArray);

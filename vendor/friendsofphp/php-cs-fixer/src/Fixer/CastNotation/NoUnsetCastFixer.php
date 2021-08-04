@@ -48,9 +48,8 @@ final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; $index > 0; --$index) {
             if ($tokens[$index]->isGivenKind(\T_UNSET_CAST)) {
@@ -58,10 +57,7 @@ final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixUnsetCast(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixUnsetCast(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $assignmentIndex = $tokens->getPrevMeaningfulToken($index);
         if (null === $assignmentIndex || !$tokens[$assignmentIndex]->equals('=')) {

@@ -68,9 +68,8 @@ class Bar
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensCount = \count($tokens);
         for ($index = 0; $index < $tokensCount; ++$index) {
@@ -90,10 +89,7 @@ class Bar
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('private_methods', 'Private methods of non-`final` classes must not be declared `final`.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, bool $classIsFinal)
+    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, bool $classIsFinal) : void
     {
         $tokensCount = \count($tokens);
         for ($index = $classOpenIndex + 1; $index < $tokensCount; ++$index) {

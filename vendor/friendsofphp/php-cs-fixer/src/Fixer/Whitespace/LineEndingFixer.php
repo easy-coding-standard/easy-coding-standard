@@ -54,9 +54,8 @@ final class LineEndingFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $ending = $this->whitespacesConfig->getLineEnding();
         for ($index = 0, $count = \count($tokens); $index < $count; ++$index) {

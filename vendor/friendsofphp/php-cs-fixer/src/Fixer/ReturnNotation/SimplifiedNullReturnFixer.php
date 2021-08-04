@@ -73,9 +73,8 @@ EOT
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_RETURN)) {
@@ -88,9 +87,8 @@ EOT
     }
     /**
      * Clear the return statement located at a given index.
-     * @return void
      */
-    private function clear(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function clear(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         while (!$tokens[++$index]->equals(';')) {
             if ($this->shouldClearToken($tokens, $index)) {

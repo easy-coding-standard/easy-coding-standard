@@ -39,9 +39,8 @@ final class TrimArraySpacesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = 0, $c = $tokens->count(); $index < $c; ++$index) {
             if ($tokens[$index]->isGivenKind([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
@@ -51,9 +50,8 @@ final class TrimArraySpacesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Method to trim leading/trailing whitespace within single line arrays.
-     * @return void
      */
-    private static function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private static function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $startIndex = $index;
         if ($tokens[$startIndex]->isGivenKind(\T_ARRAY)) {

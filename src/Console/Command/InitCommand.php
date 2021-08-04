@@ -9,10 +9,7 @@ use ECSPrefix20210804\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCo
 use ECSPrefix20210804\Symplify\PackageBuilder\Console\ShellCode;
 final class InitCommand extends \ECSPrefix20210804\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setDescription('Generate ecs.php configuration file');
     }

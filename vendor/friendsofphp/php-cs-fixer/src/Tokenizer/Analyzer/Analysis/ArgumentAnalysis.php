@@ -41,21 +41,14 @@ final class ArgumentAnalysis
      * @var ?TypeAnalysis
      */
     private $typeAnalysis;
-    /**
-     * @param string|null $default
-     * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis|null $typeAnalysis
-     */
-    public function __construct(string $name, int $nameIndex, $default, $typeAnalysis = null)
+    public function __construct(string $name, int $nameIndex, ?string $default, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis $typeAnalysis = null)
     {
         $this->name = $name;
         $this->nameIndex = $nameIndex;
         $this->default = $default ?: null;
         $this->typeAnalysis = $typeAnalysis ?: null;
     }
-    /**
-     * @return string|null
-     */
-    public function getDefault()
+    public function getDefault() : ?string
     {
         return $this->default;
     }
@@ -71,10 +64,7 @@ final class ArgumentAnalysis
     {
         return $this->nameIndex;
     }
-    /**
-     * @return \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis|null
-     */
-    public function getTypeAnalysis()
+    public function getTypeAnalysis() : ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis
     {
         return $this->typeAnalysis;
     }

@@ -30,7 +30,6 @@ interface RequestRateLimiterInterface
     public function consume($request) : \ECSPrefix20210804\Symfony\Component\RateLimiter\RateLimit;
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return void
      */
-    public function reset($request);
+    public function reset($request) : void;
 }

@@ -87,9 +87,8 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210804\PHPUnit\Framewo
     }
     /**
      * @param string $kernelClass
-     * @return void
      */
-    protected function bootKernel($kernelClass)
+    protected function bootKernel($kernelClass) : void
     {
         $this->ensureKernelShutdown();
         $kernel = new $kernelClass('test', \true);
@@ -100,9 +99,8 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210804\PHPUnit\Framewo
     }
     /**
      * Shuts the kernel down if it was used in the test.
-     * @return void
      */
-    protected function ensureKernelShutdown()
+    protected function ensureKernelShutdown() : void
     {
         if (static::$kernel !== null) {
             // make sure boot() is called
@@ -144,10 +142,7 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210804\PHPUnit\Framewo
         }
         return $configFilePaths;
     }
-    /**
-     * @return void
-     */
-    private function ensureIsConfigAwareKernel(\ECSPrefix20210804\Symfony\Component\HttpKernel\KernelInterface $kernel)
+    private function ensureIsConfigAwareKernel(\ECSPrefix20210804\Symfony\Component\HttpKernel\KernelInterface $kernel) : void
     {
         if ($kernel instanceof \ECSPrefix20210804\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface) {
             return;

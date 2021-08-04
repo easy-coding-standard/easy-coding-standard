@@ -67,9 +67,8 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         if ('annotation' === $this->configuration['style']) {
             $this->applyTestAnnotation($tokens, $startIndex, $endIndex);
@@ -84,10 +83,7 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('style', 'Whether to use the @test annotation or not.'))->setAllowedValues(['prefix', 'annotation'])->setDefault('prefix')->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function applyTestAnnotation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function applyTestAnnotation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             if (!$this->isTestMethod($tokens, $i)) {
@@ -111,10 +107,7 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function applyTestPrefix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function applyTestPrefix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             // We explicitly check again if the function has a doc block to save some time.
@@ -183,10 +176,7 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     {
         return 'test' . \ucfirst($functionName);
     }
-    /**
-     * @return void
-     */
-    private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex)
+    private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : void
     {
         $lineEnd = $this->whitespacesConfig->getLineEnding();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));

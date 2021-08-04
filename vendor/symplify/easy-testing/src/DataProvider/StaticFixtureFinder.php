@@ -94,10 +94,7 @@ final class StaticFixtureFinder
         $fileInfos = \iterator_to_array($finder->getIterator());
         return \array_values($fileInfos);
     }
-    /**
-     * @return void
-     */
-    private static function ensureNoOtherFileName(string $directory, string $suffix)
+    private static function ensureNoOtherFileName(string $directory, string $suffix) : void
     {
         $iterator = \ECSPrefix20210804\Symfony\Component\Finder\Finder::create()->in($directory)->files()->notName($suffix)->getIterator();
         $relativeFilePaths = [];

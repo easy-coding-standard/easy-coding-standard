@@ -52,9 +52,8 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20210804\Symfo
      * {@inheritdoc}
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
-     * @return mixed[]
      */
-    public function resolve($request, $argument)
+    public function resolve($request, $argument) : iterable
     {
         if (\is_array($controller = $request->attributes->get('_controller'))) {
             $controller = $controller[0] . '::' . $controller[1];

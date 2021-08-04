@@ -20,10 +20,7 @@ namespace ECSPrefix20210804\Symfony\Component\HttpKernel\CacheClearer;
 class ChainCacheClearer implements \ECSPrefix20210804\Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface
 {
     private $clearers;
-    /**
-     * @param mixed[] $clearers
-     */
-    public function __construct($clearers = [])
+    public function __construct(iterable $clearers = [])
     {
         $this->clearers = $clearers;
     }

@@ -41,9 +41,8 @@ final class NoTrailingCommaInSinglelineArrayFixer extends \PhpCsFixer\AbstractFi
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = 0, $c = $tokens->count(); $index < $c; ++$index) {
@@ -52,10 +51,7 @@ final class NoTrailingCommaInSinglelineArrayFixer extends \PhpCsFixer\AbstractFi
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         if ($tokensAnalyzer->isArrayMultiLine($index)) {

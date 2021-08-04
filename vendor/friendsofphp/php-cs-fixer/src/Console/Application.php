@@ -36,8 +36,8 @@ use ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface;
  */
 final class Application extends \ECSPrefix20210804\Symfony\Component\Console\Application
 {
-    const VERSION = '3.0.1';
-    const VERSION_CODENAME = 'Constitution';
+    public const VERSION = '3.0.1';
+    public const VERSION_CODENAME = 'Constitution';
     /**
      * @var ToolInfo
      */

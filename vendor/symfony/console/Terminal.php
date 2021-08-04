@@ -112,9 +112,9 @@ class Terminal
     /**
      * Runs and parses mode CON if it's available, suppressing any error output.
      *
-     * @return mixed[]|null An array composed of the width and the height or null if it could not be parsed
+     * @return int[]|null An array composed of the width and the height or null if it could not be parsed
      */
-    private static function getConsoleMode()
+    private static function getConsoleMode() : ?array
     {
         $info = self::readFromProcess('mode CON');
         if (null === $info || !\preg_match('/--------+\\r?\\n.+?(\\d+)\\r?\\n.+?(\\d+)\\r?\\n/', $info, $matches)) {
@@ -124,16 +124,12 @@ class Terminal
     }
     /**
      * Runs and parses stty -a if it's available, suppressing any error output.
-     * @return string|null
      */
-    private static function getSttyColumns()
+    private static function getSttyColumns() : ?string
     {
         return self::readFromProcess('stty -a | grep columns');
     }
-    /**
-     * @return string|null
-     */
-    private static function readFromProcess(string $command)
+    private static function readFromProcess(string $command) : ?string
     {
         if (!\function_exists('proc_open')) {
             return null;

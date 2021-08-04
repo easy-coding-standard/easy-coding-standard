@@ -8,5 +8,5 @@ final class ReactCommand
     /**
      * @var string
      */
-    const ACTION = 'action';
+    public const ACTION = 'action';
 }

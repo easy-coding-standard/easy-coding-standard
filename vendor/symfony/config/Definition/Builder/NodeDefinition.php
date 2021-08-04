@@ -35,10 +35,7 @@ abstract class NodeDefinition implements \ECSPrefix20210804\Symfony\Component\Co
     protected $pathSeparator = \ECSPrefix20210804\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR;
     protected $parent;
     protected $attributes = [];
-    /**
-     * @param string|null $name
-     */
-    public function __construct($name, \ECSPrefix20210804\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
+    public function __construct(?string $name, \ECSPrefix20210804\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
     {
         $this->parent = $parent;
         $this->name = $name;

@@ -17,9 +17,8 @@ final class SniffMetadataCollector
     private $codingStandardErrors = [];
     /**
      * @param class-string<Sniff>|string $checkerClass
-     * @return void
      */
-    public function addAppliedSniff(string $checkerClass)
+    public function addAppliedSniff(string $checkerClass) : void
     {
         $this->appliedSniffs[] = $checkerClass;
     }
@@ -30,18 +29,12 @@ final class SniffMetadataCollector
     {
         return $this->appliedSniffs;
     }
-    /**
-     * @return void
-     */
-    public function reset()
+    public function reset() : void
     {
         $this->appliedSniffs = [];
         $this->codingStandardErrors = [];
     }
-    /**
-     * @return void
-     */
-    public function addCodingStandardError(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError $codingStandardError)
+    public function addCodingStandardError(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError $codingStandardError) : void
     {
         $this->codingStandardErrors[] = $codingStandardError;
     }

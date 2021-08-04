@@ -55,9 +55,8 @@ final class ReturnTypeDeclarationFixer extends \PhpCsFixer\AbstractFixer impleme
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $oneSpaceBefore = 'one' === $this->configuration['space_before'];
         for ($index = 0, $limit = $tokens->count(); $index < $limit; ++$index) {

@@ -121,9 +121,7 @@ class PhpFileLoader extends \ECSPrefix20210804\Symfony\Component\DependencyInjec
                 default:
                     try {
                         $configBuilder = $this->configBuilder($type);
-                    } catch (\ECSPrefix20210804\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException $e) {
-                        throw new \InvalidArgumentException(\sprintf('Could not resolve argument "%s" for "%s".', $type . ' $' . $parameter->getName(), $path), 0, $e);
-                    } catch (\LogicException $e) {
+                    } catch (\ECSPrefix20210804\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException|\LogicException $e) {
                         throw new \InvalidArgumentException(\sprintf('Could not resolve argument "%s" for "%s".', $type . ' $' . $parameter->getName(), $path), 0, $e);
                     }
                     $configBuilders[] = $configBuilder;

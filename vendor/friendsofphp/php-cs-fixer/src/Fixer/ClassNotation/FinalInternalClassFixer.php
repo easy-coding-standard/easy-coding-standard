@@ -34,9 +34,8 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
 {
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $intersect = \array_intersect_assoc($this->configuration['annotation_include'], $this->configuration['annotation_exclude']);
@@ -77,9 +76,8 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_CLASS) || !$this->isClassCandidate($tokens, $index)) {

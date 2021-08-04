@@ -14,7 +14,7 @@ use ECSPrefix20210804\Nette;
 class Floats
 {
     use Nette\StaticClass;
-    const EPSILON = 1.0E-10;
+    private const EPSILON = 1.0E-10;
     /**
      * @param float $value
      */

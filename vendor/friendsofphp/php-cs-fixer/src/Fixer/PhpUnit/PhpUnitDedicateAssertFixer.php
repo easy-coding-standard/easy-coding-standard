@@ -36,9 +36,8 @@ final class PhpUnitDedicateAssertFixer extends \PhpCsFixer\Fixer\AbstractPhpUnit
     private $functions = [];
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         // assertions added in 3.0: assertArrayNotHasKey assertArrayHasKey assertFileNotExists assertFileExists assertNotNull, assertNull
@@ -101,9 +100,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         foreach ($this->getPreviousAssertCall($tokens, $startIndex, $endIndex) as $assertCall) {
             // test and fix for assertTrue/False to dedicated asserts
@@ -124,10 +122,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_0, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_5, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_0, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixAssertTrueFalse(\PhpCsFixer\Tokenizer\Tokens $tokens, array $assertCall)
+    private function fixAssertTrueFalse(\PhpCsFixer\Tokenizer\Tokens $tokens, array $assertCall) : void
     {
         $testDefaultNamespaceTokenIndex = \false;
         $testIndex = $tokens->getNextMeaningfulToken($assertCall['openBraceIndex']);
@@ -176,10 +171,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $tokens->clearTokenAndMergeSurroundingWhitespace($testDefaultNamespaceTokenIndex);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixAssertSameEquals(\PhpCsFixer\Tokenizer\Tokens $tokens, array $assertCall)
+    private function fixAssertSameEquals(\PhpCsFixer\Tokenizer\Tokens $tokens, array $assertCall) : void
     {
         // @ $this->/self::assertEquals/Same([$nextIndex])
         $expectedIndex = $tokens->getNextMeaningfulToken($assertCall['openBraceIndex']);
@@ -223,10 +215,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         $this->removeFunctionCall($tokens, $defaultNamespaceTokenIndex, $countCallIndex, $countCallOpenBraceIndex, $countCallCloseBraceIndex);
         $tokens[$assertCall['index']] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, \false === \strpos($assertCall['loweredName'], 'not', 6) ? 'assertCount' : 'assertNotCount']);
     }
-    /**
-     * @return mixed[]
-     */
-    private function getPreviousAssertCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function getPreviousAssertCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : iterable
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = $endIndex; $index > $startIndex; --$index) {
@@ -252,9 +241,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * @param false|int $callNSIndex
-     * @return void
      */
-    private function removeFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $callNSIndex, int $callIndex, int $openIndex, int $closeIndex)
+    private function removeFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $callNSIndex, int $callIndex, int $openIndex, int $closeIndex) : void
     {
         $tokens->clearTokenAndMergeSurroundingWhitespace($callIndex);
         if (\false !== $callNSIndex) {

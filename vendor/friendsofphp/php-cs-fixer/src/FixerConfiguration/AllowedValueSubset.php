@@ -42,10 +42,7 @@ final class AllowedValueSubset
         }
         return \true;
     }
-    /**
-     * @return mixed[]|null
-     */
-    public function getAllowedValues()
+    public function getAllowedValues() : ?array
     {
         return $this->allowedValues;
     }

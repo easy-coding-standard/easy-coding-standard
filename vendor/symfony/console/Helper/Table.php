@@ -27,12 +27,12 @@ use ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface;
  */
 class Table
 {
-    const SEPARATOR_TOP = 0;
-    const SEPARATOR_TOP_BOTTOM = 1;
-    const SEPARATOR_MID = 2;
-    const SEPARATOR_BOTTOM = 3;
-    const BORDER_OUTSIDE = 0;
-    const BORDER_INSIDE = 1;
+    private const SEPARATOR_TOP = 0;
+    private const SEPARATOR_TOP_BOTTOM = 1;
+    private const SEPARATOR_MID = 2;
+    private const SEPARATOR_BOTTOM = 3;
+    private const BORDER_OUTSIDE = 0;
+    private const BORDER_INSIDE = 1;
     private $headerTitle;
     private $footerTitle;
     /**
@@ -382,13 +382,13 @@ class Table
         }
         $crossings = $this->style->getCrossingChars();
         if (self::SEPARATOR_MID === $type) {
-            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[2], $crossings[8], $crossings[0], $crossings[4]];
+            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[2], $crossings[8], $crossings[0], $crossings[4]];
         } elseif (self::SEPARATOR_TOP === $type) {
-            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[0], $crossings[1], $crossings[2], $crossings[3]];
+            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[0], $crossings[1], $crossings[2], $crossings[3]];
         } elseif (self::SEPARATOR_TOP_BOTTOM === $type) {
-            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[0], $crossings[9], $crossings[10], $crossings[11]];
+            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[0], $crossings[9], $crossings[10], $crossings[11]];
         } else {
-            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[0], $crossings[7], $crossings[6], $crossings[5]];
+            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[0], $crossings[7], $crossings[6], $crossings[5]];
         }
         $markup = $leftChar;
         for ($column = 0; $column < $count; ++$column) {
@@ -612,9 +612,8 @@ class Table
     }
     /**
      * fill cells for a row that contains colspan > 1.
-     * @param mixed[] $row
      */
-    private function fillCells($row)
+    private function fillCells(iterable $row)
     {
         $newRow = [];
         foreach ($row as $column => $cell) {
@@ -666,9 +665,8 @@ class Table
     }
     /**
      * Calculates columns widths.
-     * @param mixed[] $rows
      */
-    private function calculateColumnsWidth($rows)
+    private function calculateColumnsWidth(iterable $rows)
     {
         for ($column = 0; $column < $this->numberOfColumns; ++$column) {
             $lengths = [];

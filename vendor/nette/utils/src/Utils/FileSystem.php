@@ -19,9 +19,8 @@ final class FileSystem
      * @throws Nette\IOException  on error occurred
      * @param string $dir
      * @param int $mode
-     * @return void
      */
-    public static function createDir($dir, $mode = 0777)
+    public static function createDir($dir, $mode = 0777) : void
     {
         if (!\is_dir($dir) && !@\mkdir($dir, $mode, \true) && !\is_dir($dir)) {
             // @ - dir may already exist
@@ -35,9 +34,8 @@ final class FileSystem
      * @param string $origin
      * @param string $target
      * @param bool $overwrite
-     * @return void
      */
-    public static function copy($origin, $target, $overwrite = \true)
+    public static function copy($origin, $target, $overwrite = \true) : void
     {
         if (\stream_is_local($origin) && !\file_exists($origin)) {
             throw new \ECSPrefix20210804\Nette\IOException("File or directory '{$origin}' not found.");
@@ -67,9 +65,8 @@ final class FileSystem
      * Deletes a file or directory if exists.
      * @throws Nette\IOException  on error occurred
      * @param string $path
-     * @return void
      */
-    public static function delete($path)
+    public static function delete($path) : void
     {
         if (\is_file($path) || \is_link($path)) {
             $func = \DIRECTORY_SEPARATOR === '\\' && \is_dir($path) ? 'rmdir' : 'unlink';
@@ -94,9 +91,8 @@ final class FileSystem
      * @param string $origin
      * @param string $target
      * @param bool $overwrite
-     * @return void
      */
-    public static function rename($origin, $target, $overwrite = \true)
+    public static function rename($origin, $target, $overwrite = \true) : void
     {
         if (!$overwrite && \file_exists($target)) {
             throw new \ECSPrefix20210804\Nette\InvalidStateException("File or directory '{$target}' already exists.");
@@ -133,9 +129,8 @@ final class FileSystem
      * @param string $file
      * @param string $content
      * @param int|null $mode
-     * @return void
      */
-    public static function write($file, $content, $mode = 0666)
+    public static function write($file, $content, $mode = 0666) : void
     {
         static::createDir(\dirname($file));
         if (@\file_put_contents($file, $content) === \false) {

@@ -17,10 +17,10 @@ namespace ECSPrefix20210804\Symfony\Component\HttpFoundation;
  */
 class ResponseHeaderBag extends \ECSPrefix20210804\Symfony\Component\HttpFoundation\HeaderBag
 {
-    const COOKIES_FLAT = 'flat';
-    const COOKIES_ARRAY = 'array';
-    const DISPOSITION_ATTACHMENT = 'attachment';
-    const DISPOSITION_INLINE = 'inline';
+    public const COOKIES_FLAT = 'flat';
+    public const COOKIES_ARRAY = 'array';
+    public const DISPOSITION_ATTACHMENT = 'attachment';
+    public const DISPOSITION_INLINE = 'inline';
     protected $computedCacheControl = [];
     protected $cookies = [];
     protected $headerNames = [];
@@ -257,10 +257,7 @@ class ResponseHeaderBag extends \ECSPrefix20210804\Symfony\Component\HttpFoundat
         }
         return $header;
     }
-    /**
-     * @return void
-     */
-    private function initDate()
+    private function initDate() : void
     {
         $this->set('Date', \gmdate('D, d M Y H:i:s') . ' GMT');
     }

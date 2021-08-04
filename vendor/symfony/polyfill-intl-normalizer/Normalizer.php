@@ -22,14 +22,14 @@ namespace ECSPrefix20210804\Symfony\Polyfill\Intl\Normalizer;
  */
 class Normalizer
 {
-    const FORM_D = \Normalizer::FORM_D;
-    const FORM_KD = \Normalizer::FORM_KD;
-    const FORM_C = \Normalizer::FORM_C;
-    const FORM_KC = \Normalizer::FORM_KC;
-    const NFD = \Normalizer::NFD;
-    const NFKD = \Normalizer::NFKD;
-    const NFC = \Normalizer::NFC;
-    const NFKC = \Normalizer::NFKC;
+    public const FORM_D = \Normalizer::FORM_D;
+    public const FORM_KD = \Normalizer::FORM_KD;
+    public const FORM_C = \Normalizer::FORM_C;
+    public const FORM_KC = \Normalizer::FORM_KC;
+    public const NFD = \Normalizer::NFD;
+    public const NFKD = \Normalizer::NFKD;
+    public const NFC = \Normalizer::NFC;
+    public const NFKC = \Normalizer::NFKC;
     private static $C;
     private static $D;
     private static $KD;

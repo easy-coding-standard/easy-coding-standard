@@ -66,9 +66,8 @@ final class Foo
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -97,10 +96,7 @@ final class Foo
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixLine(\PhpCsFixer\DocBlock\Line $line)
+    private function fixLine(\PhpCsFixer\DocBlock\Line $line) : void
     {
         $content = $line->getContent();
         \PhpCsFixer\Preg::matchAll('/ \\$[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*/', $content, $matches);

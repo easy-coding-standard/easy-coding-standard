@@ -63,9 +63,8 @@ foreach($connections as $key => $sqlite) {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $commentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\CommentsAnalyzer();
         foreach ($tokens as $index => $token) {

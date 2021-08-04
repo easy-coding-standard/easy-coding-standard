@@ -64,9 +64,8 @@ class RequestStack
      * Be warned that making your code aware of the main request
      * might make it un-compatible with other features of your framework
      * like ESI support.
-     * @return \Symfony\Component\HttpFoundation\Request|null
      */
-    public function getMainRequest()
+    public function getMainRequest() : ?\ECSPrefix20210804\Symfony\Component\HttpFoundation\Request
     {
         if (!$this->requests) {
             return null;

@@ -58,9 +58,8 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             if ($tokens[$index]->isGivenKind([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
@@ -82,9 +81,8 @@ SAMPLE
     }
     /**
      * Method to fix spacing in array declaration.
-     * @return void
      */
-    private function fixSpacing(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function fixSpacing(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
             $startIndex = $index;

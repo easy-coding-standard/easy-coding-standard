@@ -27,7 +27,7 @@ class JsonResponse extends \ECSPrefix20210804\Symfony\Component\HttpFoundation\R
     protected $callback;
     // Encode <, >, ', &, and " characters in the JSON, making it also safe to be embedded into HTML.
     // 15 === JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
-    const DEFAULT_ENCODING_OPTIONS = 15;
+    public const DEFAULT_ENCODING_OPTIONS = 15;
     protected $encodingOptions = self::DEFAULT_ENCODING_OPTIONS;
     /**
      * @param mixed $data    The response data

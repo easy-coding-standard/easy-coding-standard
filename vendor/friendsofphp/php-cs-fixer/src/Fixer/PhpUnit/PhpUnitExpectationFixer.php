@@ -36,9 +36,8 @@ final class PhpUnitExpectationFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFix
     private $methodMap = [];
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->methodMap = ['setExpectedException' => 'expectExceptionMessage'];
@@ -142,9 +141,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperator) {
             $this->applyPhpUnitClassFixWithObjectOperator($tokens, $startIndex, $endIndex, $objectOperator);
@@ -154,9 +152,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      * @param int $startIndex
      * @param int $endIndex
      * @param int $objectOperator
-     * @return void
      */
-    private function applyPhpUnitClassFixWithObjectOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex, $objectOperator)
+    private function applyPhpUnitClassFixWithObjectOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex, $objectOperator) : void
     {
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $oldMethodSequence = [[\T_VARIABLE, '$this'], [$objectOperator], [\T_STRING]];

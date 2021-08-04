@@ -41,10 +41,7 @@ final class RuleDefinition
     {
         return $this->description;
     }
-    /**
-     * @return void
-     */
-    public function setRuleClass(string $ruleClass)
+    public function setRuleClass(string $ruleClass) : void
     {
         $this->ruleClass = $ruleClass;
     }
@@ -55,10 +52,7 @@ final class RuleDefinition
         }
         return $this->ruleClass;
     }
-    /**
-     * @return void
-     */
-    public function setRuleFilePath(string $ruleFilePath)
+    public function setRuleFilePath(string $ruleFilePath) : void
     {
         // fir relative file path for GitHub
         $this->ruleFilePath = \ltrim($ruleFilePath, '/');

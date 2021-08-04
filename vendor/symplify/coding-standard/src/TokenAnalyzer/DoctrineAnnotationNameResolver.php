@@ -12,9 +12,8 @@ final class DoctrineAnnotationNameResolver
     /**
      * @param Tokens<Token> $tokens
      * @param NamespaceUseAnalysis[] $namespaceUseAnalyses
-     * @return string|null
      */
-    public function resolveName(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, array $namespaceUseAnalyses)
+    public function resolveName(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, array $namespaceUseAnalyses) : ?string
     {
         $openParenthesisPosition = $tokens->getNextTokenOfType(\ECSPrefix20210804\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, $index);
         if ($openParenthesisPosition === null) {

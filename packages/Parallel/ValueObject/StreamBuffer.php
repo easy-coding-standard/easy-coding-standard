@@ -15,7 +15,7 @@ final class StreamBuffer
     private $buffer = '';
     public function __construct(\ECSPrefix20210804\React\Stream\ReadableStreamInterface $readableStream)
     {
-        $readableStream->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::DATA, function (string $chunk) {
+        $readableStream->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::DATA, function (string $chunk) : void {
             $this->buffer .= $chunk;
         });
     }

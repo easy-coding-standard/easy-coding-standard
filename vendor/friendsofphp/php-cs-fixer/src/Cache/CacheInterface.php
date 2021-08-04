@@ -26,19 +26,16 @@ interface CacheInterface
     public function has($file) : bool;
     /**
      * @param string $file
-     * @return int|null
      */
-    public function get($file);
+    public function get($file) : ?int;
     /**
      * @param string $file
      * @param int $hash
-     * @return void
      */
-    public function set($file, $hash);
+    public function set($file, $hash) : void;
     /**
      * @param string $file
-     * @return void
      */
-    public function clear($file);
+    public function clear($file) : void;
     public function toJson() : string;
 }

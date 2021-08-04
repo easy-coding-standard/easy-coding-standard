@@ -57,9 +57,8 @@ final class SelfUpdateCommand extends \ECSPrefix20210804\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setAliases(['selfupdate'])->setDefinition([new \ECSPrefix20210804\Symfony\Component\Console\Input\InputOption('--force', '-f', \ECSPrefix20210804\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Force update to next major version if available.')])->setDescription('Update php-cs-fixer.phar to the latest stable version.')->setHelp(<<<'EOT'
 The <info>%command.name%</info> command replace your php-cs-fixer.phar by the

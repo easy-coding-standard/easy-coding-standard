@@ -38,14 +38,14 @@ final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     /**
      * @internal
      */
-    const ALIGN_LEFT = 'left';
+    public const ALIGN_LEFT = 'left';
     /**
      * @internal
      */
-    const ALIGN_VERTICAL = 'vertical';
-    const ALIGNABLE_TAGS = ['param', 'property', 'property-read', 'property-write', 'return', 'throws', 'type', 'var', 'method'];
-    const TAGS_WITH_NAME = ['param', 'property'];
-    const TAGS_WITH_METHOD_SIGNATURE = ['method'];
+    public const ALIGN_VERTICAL = 'vertical';
+    private const ALIGNABLE_TAGS = ['param', 'property', 'property-read', 'property-write', 'return', 'throws', 'type', 'var', 'method'];
+    private const TAGS_WITH_NAME = ['param', 'property'];
+    private const TAGS_WITH_METHOD_SIGNATURE = ['method'];
     /**
      * @var string
      */
@@ -60,9 +60,8 @@ final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     private $align;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $tagsWithNameToAlign = \array_intersect($this->configuration['tags'], self::TAGS_WITH_NAME);
@@ -134,9 +133,8 @@ EOF;
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -162,10 +160,7 @@ EOF;
         $align->setAllowedTypes(['string'])->setAllowedValues([self::ALIGN_LEFT, self::ALIGN_VERTICAL])->setDefault(self::ALIGN_VERTICAL);
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([$tags->getOption(), $align->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixDocBlock(\PhpCsFixer\DocBlock\DocBlock $docBlock)
+    private function fixDocBlock(\PhpCsFixer\DocBlock\DocBlock $docBlock) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         for ($i = 0, $l = \count($docBlock->getLines()); $i < $l; ++$i) {
@@ -228,9 +223,9 @@ EOF;
         }
     }
     /**
-     * @return mixed[]|null
+     * @return null|array<string, null|string>
      */
-    private function getMatches(string $line, bool $matchCommentOnly = \false)
+    private function getMatches(string $line, bool $matchCommentOnly = \false) : ?array
     {
         if (\PhpCsFixer\Preg::match($this->regex, $line, $matches)) {
             if (!empty($matches['tag2'])) {
@@ -286,9 +281,8 @@ EOF;
     }
     /**
      * Get indent for sentence.
-     * @param string|null $sentence
      */
-    private function getSentenceIndent($sentence) : int
+    private function getSentenceIndent(?string $sentence) : int
     {
         if (null === $sentence) {
             return 0;

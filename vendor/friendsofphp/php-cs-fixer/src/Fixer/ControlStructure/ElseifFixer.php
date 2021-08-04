@@ -53,9 +53,8 @@ final class ElseifFixer extends \PhpCsFixer\AbstractFixer
      * Replace all `else if` (T_ELSE T_IF) with `elseif` (T_ELSEIF).
      *
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_ELSE)) {

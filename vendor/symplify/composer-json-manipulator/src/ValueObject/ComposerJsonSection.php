@@ -11,98 +11,98 @@ final class ComposerJsonSection
     /**
      * @var string
      */
-    const REPOSITORIES = 'repositories';
+    public const REPOSITORIES = 'repositories';
     /**
      * @var string
      */
-    const REQUIRE_DEV = 'require-dev';
+    public const REQUIRE_DEV = 'require-dev';
     /**
      * @var string
      */
-    const REQUIRE = 'require';
+    public const REQUIRE = 'require';
     /**
      * @var string
      */
-    const CONFLICT = 'conflict';
+    public const CONFLICT = 'conflict';
     /**
      * @var string
      */
-    const PREFER_STABLE = 'prefer-stable';
+    public const PREFER_STABLE = 'prefer-stable';
     /**
      * @var string
      */
-    const MINIMUM_STABILITY = 'minimum-stability';
+    public const MINIMUM_STABILITY = 'minimum-stability';
     /**
      * @var string
      */
-    const AUTOLOAD = 'autoload';
+    public const AUTOLOAD = 'autoload';
     /**
      * @var string
      */
-    const AUTOLOAD_DEV = 'autoload-dev';
+    public const AUTOLOAD_DEV = 'autoload-dev';
     /**
      * @var string
      */
-    const REPLACE = 'replace';
+    public const REPLACE = 'replace';
     /**
      * @var string
      */
-    const CONFIG = 'config';
+    public const CONFIG = 'config';
     /**
      * @var string
      */
-    const EXTRA = 'extra';
+    public const EXTRA = 'extra';
     /**
      * @var string
      */
-    const NAME = 'name';
+    public const NAME = 'name';
     /**
      * @var string
      */
-    const DESCRIPTION = 'description';
+    public const DESCRIPTION = 'description';
     /**
      * @var string
      */
-    const KEYWORDS = 'keywords';
+    public const KEYWORDS = 'keywords';
     /**
      * @var string
      */
-    const HOMEPAGE = 'homepage';
+    public const HOMEPAGE = 'homepage';
     /**
      * @var string
      */
-    const LICENSE = 'license';
+    public const LICENSE = 'license';
     /**
      * @var string
      */
-    const SCRIPTS = 'scripts';
+    public const SCRIPTS = 'scripts';
     /**
      * @var string
      */
-    const BIN = 'bin';
+    public const BIN = 'bin';
     /**
      * @var string
      */
-    const TYPE = 'type';
+    public const TYPE = 'type';
     /**
      * @var string
      */
-    const AUTHORS = 'authors';
+    public const AUTHORS = 'authors';
     /**
      * @var string
      */
-    const PROVIDES = 'provides';
+    public const PROVIDES = 'provides';
     /**
      * @var string
      * @see https://getcomposer.org/doc/articles/scripts.md#custom-descriptions-
      */
-    const SCRIPTS_DESCRIPTIONS = 'scripts-descriptions';
+    public const SCRIPTS_DESCRIPTIONS = 'scripts-descriptions';
     /**
      * @var string
      */
-    const SUGGEST = 'suggest';
+    public const SUGGEST = 'suggest';
     /**
      * @var string
      */
-    const VERSION = 'version';
+    public const VERSION = 'version';
 }

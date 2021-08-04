@@ -24,7 +24,6 @@ interface SignalableCommandInterface
     /**
      * The method will be called when the application is signaled.
      * @param int $signal
-     * @return void
      */
-    public function handleSignal($signal);
+    public function handleSignal($signal) : void;
 }

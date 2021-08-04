@@ -43,18 +43,17 @@ final class OrderedTraitsFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($this->findUseStatementsGroups($tokens) as $uses) {
             $this->sortUseStatements($tokens, $uses);
         }
     }
     /**
-     * @return mixed[]
+     * @return iterable<array<int, Tokens>>
      */
-    private function findUseStatementsGroups(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function findUseStatementsGroups(\PhpCsFixer\Tokenizer\Tokens $tokens) : iterable
     {
         $uses = [];
         for ($index = 1, $max = \count($tokens); $index < $max; ++$index) {
@@ -83,19 +82,15 @@ final class OrderedTraitsFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param array<int, Tokens> $uses
-     * @return void
      */
-    private function sortUseStatements(\PhpCsFixer\Tokenizer\Tokens $tokens, array $uses)
+    private function sortUseStatements(\PhpCsFixer\Tokenizer\Tokens $tokens, array $uses) : void
     {
         foreach ($uses as $use) {
             $this->sortMultipleTraitsInStatement($use);
         }
         $this->sort($tokens, $uses);
     }
-    /**
-     * @return void
-     */
-    private function sortMultipleTraitsInStatement(\PhpCsFixer\Tokenizer\Tokens $use)
+    private function sortMultipleTraitsInStatement(\PhpCsFixer\Tokenizer\Tokens $use) : void
     {
         $traits = [];
         $indexOfName = null;
@@ -122,9 +117,8 @@ final class OrderedTraitsFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param array<int, Tokens> $elements
-     * @return void
      */
-    private function sort(\PhpCsFixer\Tokenizer\Tokens $tokens, array $elements)
+    private function sort(\PhpCsFixer\Tokenizer\Tokens $tokens, array $elements) : void
     {
         /**
          * @return string

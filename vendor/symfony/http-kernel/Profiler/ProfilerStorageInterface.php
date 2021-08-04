@@ -46,7 +46,7 @@ interface ProfilerStorageInterface
      * @return Profile|null The profile associated with token
      * @param string $token
      */
-    public function read($token);
+    public function read($token) : ?\ECSPrefix20210804\Symfony\Component\HttpKernel\Profiler\Profile;
     /**
      * Saves a Profile.
      *

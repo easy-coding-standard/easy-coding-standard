@@ -33,9 +33,8 @@ class HtmlDescriptor implements \ECSPrefix20210804\Symfony\Component\VarDumper\C
      * @param \Symfony\Component\VarDumper\Cloner\Data $data
      * @param mixed[] $context
      * @param int $clientId
-     * @return void
      */
-    public function describe($output, $data, $context, $clientId)
+    public function describe($output, $data, $context, $clientId) : void
     {
         if (!$this->initialized) {
             $styles = \file_get_contents(__DIR__ . '/../../Resources/css/htmlDescriptor.css');

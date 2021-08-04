@@ -44,9 +44,8 @@ final class NameQualifiedTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
      * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param \PhpCsFixer\Tokenizer\Token $token
      * @param int $index
-     * @return void
      */
-    public function process($tokens, $token, $index)
+    public function process($tokens, $token, $index) : void
     {
         if ($token->isGivenKind([\T_NAME_QUALIFIED, \T_NAME_FULLY_QUALIFIED])) {
             $this->transformQualified($tokens, $token, $index);
@@ -61,10 +60,7 @@ final class NameQualifiedTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
     {
         return [];
     }
-    /**
-     * @return void
-     */
-    private function transformQualified(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index)
+    private function transformQualified(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
     {
         $parts = \explode('\\', $token->getContent());
         $newTokens = [];
@@ -79,10 +75,7 @@ final class NameQualifiedTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
         \array_pop($newTokens);
         $tokens->overrideRange($index, $index, $newTokens);
     }
-    /**
-     * @return void
-     */
-    private function transformRelative(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index)
+    private function transformRelative(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
     {
         $parts = \explode('\\', $token->getContent());
         $newTokens = [new \PhpCsFixer\Tokenizer\Token([\T_NAMESPACE, \array_shift($parts)]), new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\'])];

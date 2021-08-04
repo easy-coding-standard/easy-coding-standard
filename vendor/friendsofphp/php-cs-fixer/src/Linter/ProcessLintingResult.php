@@ -32,19 +32,15 @@ final class ProcessLintingResult implements \PhpCsFixer\Linter\LintingResultInte
      * @var null|string
      */
     private $path;
-    /**
-     * @param string|null $path
-     */
-    public function __construct(\ECSPrefix20210804\Symfony\Component\Process\Process $process, $path = null)
+    public function __construct(\ECSPrefix20210804\Symfony\Component\Process\Process $process, ?string $path = null)
     {
         $this->process = $process;
         $this->path = $path;
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function check()
+    public function check() : void
     {
         if (!$this->isSuccessful()) {
             // on some systems stderr is used, but on others, it's not

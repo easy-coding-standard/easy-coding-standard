@@ -17,24 +17,17 @@ final class ObjectMixin
     use Nette\StaticClass;
     /** @deprecated  use ObjectHelpers::getSuggestion()
      * @param mixed[] $possibilities
-     * @param string $value
-     * @return string|null */
-    public static function getSuggestion($possibilities, $value)
+     * @param string $value */
+    public static function getSuggestion($possibilities, $value) : ?string
     {
         \trigger_error(__METHOD__ . '() has been renamed to Nette\\Utils\\ObjectHelpers::getSuggestion()', \E_USER_DEPRECATED);
         return \ECSPrefix20210804\Nette\Utils\ObjectHelpers::getSuggestion($possibilities, $value);
     }
-    /**
-     * @return void
-     */
-    public static function setExtensionMethod()
+    public static function setExtensionMethod() : void
     {
         \trigger_error('Class Nette\\Utils\\ObjectMixin is deprecated', \E_USER_DEPRECATED);
     }
-    /**
-     * @return void
-     */
-    public static function getExtensionMethod()
+    public static function getExtensionMethod() : void
     {
         \trigger_error('Class Nette\\Utils\\ObjectMixin is deprecated', \E_USER_DEPRECATED);
     }

@@ -46,9 +46,8 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $isInNamespace = \false;
         $isImported = \false;
@@ -90,10 +89,7 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixClassUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $isInNamespace, bool $isImported)
+    private function fixClassUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $isInNamespace, bool $isImported) : void
     {
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$nextIndex]->isGivenKind(\T_DOUBLE_COLON)) {
@@ -125,10 +121,7 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixFunctionUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $replacement)
+    private function fixFunctionUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $replacement) : void
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if ($tokens[$prevIndex]->isGivenKind([\T_DOUBLE_COLON, \T_NEW]) || $tokens[$prevIndex]->isObjectOperator()) {

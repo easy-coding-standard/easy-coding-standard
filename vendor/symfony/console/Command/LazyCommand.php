@@ -22,27 +22,20 @@ final class LazyCommand extends \ECSPrefix20210804\Symfony\Component\Console\Com
 {
     private $command;
     private $isEnabled;
-    /**
-     * @param bool|null $isEnabled
-     */
-    public function __construct(string $name, array $aliases, string $description, bool $isHidden, \Closure $commandFactory, $isEnabled = \true)
+    public function __construct(string $name, array $aliases, string $description, bool $isHidden, \Closure $commandFactory, ?bool $isEnabled = \true)
     {
         $this->setName($name)->setAliases($aliases)->setHidden($isHidden)->setDescription($description);
         $this->command = $commandFactory;
         $this->isEnabled = $isEnabled;
     }
-    /**
-     * @return void
-     */
-    public function ignoreValidationErrors()
+    public function ignoreValidationErrors() : void
     {
         $this->getCommand()->ignoreValidationErrors();
     }
     /**
      * @param \Symfony\Component\Console\Application|null $application
-     * @return void
      */
-    public function setApplication($application = null)
+    public function setApplication($application = null) : void
     {
         if ($this->command instanceof parent) {
             $this->command->setApplication($application);
@@ -51,9 +44,8 @@ final class LazyCommand extends \ECSPrefix20210804\Symfony\Component\Console\Com
     }
     /**
      * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
-     * @return void
      */
-    public function setHelperSet($helperSet)
+    public function setHelperSet($helperSet) : void
     {
         if ($this->command instanceof parent) {
             $this->command->setHelperSet($helperSet);
@@ -84,9 +76,8 @@ final class LazyCommand extends \ECSPrefix20210804\Symfony\Component\Console\Com
     /**
      * @internal
      * @param bool $mergeArgs
-     * @return void
      */
-    public function mergeApplicationDefinition($mergeArgs = \true)
+    public function mergeApplicationDefinition($mergeArgs = \true) : void
     {
         $this->getCommand()->mergeApplicationDefinition($mergeArgs);
     }

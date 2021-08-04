@@ -20,7 +20,7 @@ use ECSPrefix20210804\Symfony\Component\DependencyInjection\Reference;
  */
 class ResolveNoPreloadPass extends \ECSPrefix20210804\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
-    const DO_PRELOAD_TAG = '.container.do_preload';
+    private const DO_PRELOAD_TAG = '.container.do_preload';
     private $tagName;
     private $resolvedIds = [];
     public function __construct(string $tagName = 'container.no_preload')

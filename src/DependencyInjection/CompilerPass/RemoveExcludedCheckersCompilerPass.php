@@ -11,9 +11,8 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210804\Sym
 {
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function process($containerBuilder)
+    public function process($containerBuilder) : void
     {
         $excludedCheckers = $this->getExcludedCheckersFromParameterBag($containerBuilder->getParameterBag());
         $definitions = $containerBuilder->getDefinitions();
@@ -47,9 +46,9 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210804\Sym
     /**
      * @param mixed $key
      * @param mixed $value
-     * @return string|null
+     * @return class-string|null
      */
-    private function matchFullClassSkip($key, $value)
+    private function matchFullClassSkip($key, $value) : ?string
     {
         // "SomeClass::class" => null
         if (\is_string($key) && \class_exists($key) && $value === null) {

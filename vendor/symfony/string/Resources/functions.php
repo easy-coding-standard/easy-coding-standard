@@ -11,19 +11,13 @@
 namespace ECSPrefix20210804\Symfony\Component\String;
 
 if (!\function_exists(\ECSPrefix20210804\Symfony\Component\String\u::class)) {
-    /**
-     * @param string|null $string
-     */
-    function u($string = '') : \ECSPrefix20210804\Symfony\Component\String\UnicodeString
+    function u(?string $string = '') : \ECSPrefix20210804\Symfony\Component\String\UnicodeString
     {
         return new \ECSPrefix20210804\Symfony\Component\String\UnicodeString($string ?? '');
     }
 }
 if (!\function_exists(\ECSPrefix20210804\Symfony\Component\String\b::class)) {
-    /**
-     * @param string|null $string
-     */
-    function b($string = '') : \ECSPrefix20210804\Symfony\Component\String\ByteString
+    function b(?string $string = '') : \ECSPrefix20210804\Symfony\Component\String\ByteString
     {
         return new \ECSPrefix20210804\Symfony\Component\String\ByteString($string ?? '');
     }
@@ -31,9 +25,8 @@ if (!\function_exists(\ECSPrefix20210804\Symfony\Component\String\b::class)) {
 if (!\function_exists(\ECSPrefix20210804\Symfony\Component\String\s::class)) {
     /**
      * @return UnicodeString|ByteString
-     * @param string|null $string
      */
-    function s($string = '') : \ECSPrefix20210804\Symfony\Component\String\AbstractString
+    function s(?string $string = '') : \ECSPrefix20210804\Symfony\Component\String\AbstractString
     {
         $string = $string ?? '';
         return \preg_match('//u', $string) ? new \ECSPrefix20210804\Symfony\Component\String\UnicodeString($string) : new \ECSPrefix20210804\Symfony\Component\String\ByteString($string);

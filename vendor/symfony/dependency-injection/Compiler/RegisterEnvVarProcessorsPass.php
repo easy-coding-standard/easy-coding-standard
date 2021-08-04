@@ -23,7 +23,7 @@ use ECSPrefix20210804\Symfony\Component\DependencyInjection\Reference;
  */
 class RegisterEnvVarProcessorsPass implements \ECSPrefix20210804\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    const ALLOWED_TYPES = ['array', 'bool', 'float', 'int', 'string'];
+    private const ALLOWED_TYPES = ['array', 'bool', 'float', 'int', 'string'];
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */

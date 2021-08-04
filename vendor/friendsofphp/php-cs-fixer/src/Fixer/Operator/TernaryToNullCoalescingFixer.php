@@ -40,9 +40,8 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $issetIndexes = \array_keys($tokens->findGivenKind(\T_ISSET));
         while ($issetIndex = \array_pop($issetIndexes)) {
@@ -51,9 +50,8 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param int $index of `T_ISSET` token
-     * @return void
      */
-    private function fixIsset(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixIsset(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $prevTokenIndex = $tokens->getPrevMeaningfulToken($index);
         if ($this->isHigherPrecedenceAssociativityOperator($tokens[$prevTokenIndex])) {

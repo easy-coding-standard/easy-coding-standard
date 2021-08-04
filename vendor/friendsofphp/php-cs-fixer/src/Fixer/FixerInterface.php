@@ -41,9 +41,8 @@ interface FixerInterface
      *
      * @param \SplFileInfo $file   A \SplFileInfo instance
      * @param Tokens       $tokens Tokens collection
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens);
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void;
     /**
      * Returns the definition of the fixer.
      */

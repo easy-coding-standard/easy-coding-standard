@@ -52,9 +52,8 @@ final class BlankLineAfterNamespaceFixer extends \PhpCsFixer\AbstractFixer imple
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $lastIndex = $tokens->count() - 1;
         for ($index = $lastIndex; $index >= 0; --$index) {

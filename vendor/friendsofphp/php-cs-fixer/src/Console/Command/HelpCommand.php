@@ -42,9 +42,8 @@ final class HelpCommand extends \ECSPrefix20210804\Symfony\Component\Console\Com
     /**
      * Returns the allowed values of the given option that can be converted to a string.
      * @param \PhpCsFixer\FixerConfiguration\FixerOptionInterface $option
-     * @return mixed[]|null
      */
-    public static function getDisplayableAllowedValues($option)
+    public static function getDisplayableAllowedValues($option) : ?array
     {
         $allowed = $option->getAllowedValues();
         if (null !== $allowed) {
@@ -70,9 +69,8 @@ final class HelpCommand extends \ECSPrefix20210804\Symfony\Component\Console\Com
      * {@inheritdoc}
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @return void
      */
-    protected function initialize($input, $output)
+    protected function initialize($input, $output) : void
     {
         $output->getFormatter()->setStyle('url', new \ECSPrefix20210804\Symfony\Component\Console\Formatter\OutputFormatterStyle('blue'));
     }

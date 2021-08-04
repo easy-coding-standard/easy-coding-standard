@@ -52,9 +52,8 @@ class OutputFormatterStyle implements \ECSPrefix20210804\Symfony\Component\Conso
     }
     /**
      * @param string $url
-     * @return void
      */
-    public function setHref($url)
+    public function setHref($url) : void
     {
         $this->href = $url;
     }

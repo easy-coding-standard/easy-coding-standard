@@ -12,9 +12,8 @@ final class SymplifyKernelExtension extends \ECSPrefix20210804\Symfony\Component
     /**
      * @param string[] $configs
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function load($configs, $containerBuilder)
+    public function load($configs, $containerBuilder) : void
     {
         $phpFileLoader = new \ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20210804\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
         $phpFileLoader->load('common-config.php');

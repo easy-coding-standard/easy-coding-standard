@@ -12,17 +12,16 @@ final class SkipperKernel extends \ECSPrefix20210804\Symplify\SymplifyKernel\Htt
 {
     /**
      * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
-     * @return void
      */
-    public function registerContainerConfiguration($loader)
+    public function registerContainerConfiguration($loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         parent::registerContainerConfiguration($loader);
     }
     /**
-     * @return mixed[]
+     * @return BundleInterface[]
      */
-    public function registerBundles()
+    public function registerBundles() : iterable
     {
         return [new \ECSPrefix20210804\Symplify\Skipper\Bundle\SkipperBundle(), new \ECSPrefix20210804\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }

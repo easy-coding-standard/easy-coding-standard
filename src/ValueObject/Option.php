@@ -8,97 +8,97 @@ final class Option
     /**
      * @var string
      */
-    const FIX = 'fix';
+    public const FIX = 'fix';
     /**
      * @var string
      */
-    const CLEAR_CACHE = 'clear-cache';
+    public const CLEAR_CACHE = 'clear-cache';
     /**
      * @var string
      */
-    const NO_PROGRESS_BAR = 'no-progress-bar';
+    public const NO_PROGRESS_BAR = 'no-progress-bar';
     /**
      * @var string
      */
-    const NO_ERROR_TABLE = 'no-error-table';
+    public const NO_ERROR_TABLE = 'no-error-table';
     /**
      * @var string
      */
-    const OUTPUT_FORMAT = 'output-format';
+    public const OUTPUT_FORMAT = 'output-format';
     /**
      * @api
      * @var string
      */
-    const SKIP = 'skip';
+    public const SKIP = 'skip';
     /**
      * @deprecated Use $containerConfigurator->import(...) instead
      * @var string
      */
-    const SETS = 'sets';
+    public const SETS = 'sets';
     /**
      * @var string
      */
-    const PATHS = 'paths';
-    /**
-     * @api
-     * @var string
-     */
-    const ONLY = 'only';
-    /**
-     * @var string
-     */
-    const CACHE_DIRECTORY = 'cache_directory';
-    /**
-     * @var string
-     */
-    const LINE_ENDING = 'line_ending';
-    /**
-     * @var string
-     */
-    const INDENTATION = 'indentation';
-    /**
-     * @var string
-     */
-    const CACHE_NAMESPACE = 'cache_namespace';
-    /**
-     * @var string
-     */
-    const FILE_EXTENSIONS = 'file_extensions';
-    /**
-     * @var string
-     */
-    const INDENTATION_SPACES = 'spaces';
+    public const PATHS = 'paths';
     /**
      * @api
      * @var string
      */
-    const INDENTATION_TAB = 'tab';
+    public const ONLY = 'only';
     /**
      * @var string
      */
-    const MATCH_GIT_DIFF = 'match-git-diff';
+    public const CACHE_DIRECTORY = 'cache_directory';
     /**
      * @var string
      */
-    const XDEBUG = 'xdebug';
+    public const LINE_ENDING = 'line_ending';
     /**
      * @var string
      */
-    const DEBUG = 'debug';
+    public const INDENTATION = 'indentation';
     /**
      * @var string
      */
-    const PARALLEL = 'parallel';
+    public const CACHE_NAMESPACE = 'cache_namespace';
     /**
      * @var string
      */
-    const SYSTEM_ERROR_COUNT_LIMIT = 'system-error-count-limit';
+    public const FILE_EXTENSIONS = 'file_extensions';
     /**
      * @var string
      */
-    const CONFIG = 'config';
+    public const INDENTATION_SPACES = 'spaces';
+    /**
+     * @api
+     * @var string
+     */
+    public const INDENTATION_TAB = 'tab';
     /**
      * @var string
      */
-    const PARALLEL_JOB_SIZE = 'parallel_job_size';
+    public const MATCH_GIT_DIFF = 'match-git-diff';
+    /**
+     * @var string
+     */
+    public const XDEBUG = 'xdebug';
+    /**
+     * @var string
+     */
+    public const DEBUG = 'debug';
+    /**
+     * @var string
+     */
+    public const PARALLEL = 'parallel';
+    /**
+     * @var string
+     */
+    public const SYSTEM_ERROR_COUNT_LIMIT = 'system-error-count-limit';
+    /**
+     * @var string
+     */
+    public const CONFIG = 'config';
+    /**
+     * @var string
+     */
+    public const PARALLEL_JOB_SIZE = 'parallel_job_size';
 }

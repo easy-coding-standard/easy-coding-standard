@@ -53,10 +53,7 @@ final class JunitReporter implements \PhpCsFixer\Console\Report\FixReport\Report
         $dom->formatOutput = \true;
         return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210804\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
     }
-    /**
-     * @return void
-     */
-    private function createSuccessTestCase(\DOMDocument $dom, \DOMElement $testsuite)
+    private function createSuccessTestCase(\DOMDocument $dom, \DOMElement $testsuite) : void
     {
         $testcase = $dom->createElement('testcase');
         $testcase->setAttribute('name', 'All OK');
@@ -67,10 +64,7 @@ final class JunitReporter implements \PhpCsFixer\Console\Report\FixReport\Report
         $testsuite->setAttribute('failures', '0');
         $testsuite->setAttribute('errors', '0');
     }
-    /**
-     * @return void
-     */
-    private function createFailedTestCases(\DOMDocument $dom, \DOMElement $testsuite, \PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary)
+    private function createFailedTestCases(\DOMDocument $dom, \DOMElement $testsuite, \PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary) : void
     {
         $assertionsCount = 0;
         foreach ($reportSummary->getChanged() as $file => $fixResult) {

@@ -9,10 +9,10 @@ final class Option
      * @api
      * @var string
      */
-    const SKIP = 'skip';
+    public const SKIP = 'skip';
     /**
      * @api
      * @var string
      */
-    const ONLY = 'only';
+    public const ONLY = 'only';
 }

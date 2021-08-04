@@ -46,7 +46,7 @@ interface CacheItemPoolInterface
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    public function getItems($keys = []);
+    public function getItems($keys = []) : iterable;
     /**
      * Confirms if the cache contains specified cache item.
      *

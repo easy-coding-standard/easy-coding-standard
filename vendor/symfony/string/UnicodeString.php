@@ -112,9 +112,8 @@ class UnicodeString extends \ECSPrefix20210804\Symfony\Component\String\Abstract
     }
     /**
      * @param int $offset
-     * @return int|null
      */
-    public function indexOf($needle, $offset = 0)
+    public function indexOf($needle, $offset = 0) : ?int
     {
         if ($needle instanceof \ECSPrefix20210804\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;
@@ -137,9 +136,8 @@ class UnicodeString extends \ECSPrefix20210804\Symfony\Component\String\Abstract
     }
     /**
      * @param int $offset
-     * @return int|null
      */
-    public function indexOfLast($needle, $offset = 0)
+    public function indexOfLast($needle, $offset = 0) : ?int
     {
         if ($needle instanceof \ECSPrefix20210804\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;

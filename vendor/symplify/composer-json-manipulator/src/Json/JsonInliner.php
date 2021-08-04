@@ -12,7 +12,7 @@ final class JsonInliner
      * @var string
      * @see https://regex101.com/r/jhWo9g/1
      */
-    const SPACE_REGEX = '#\\s+#';
+    private const SPACE_REGEX = '#\\s+#';
     /**
      * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */

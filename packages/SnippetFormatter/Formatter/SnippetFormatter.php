@@ -22,29 +22,29 @@ final class SnippetFormatter
      * @see https://regex101.com/r/MJTq5C/1
      * @var string
      */
-    const DECLARE_REGEX = '#(declare\\(strict\\_types\\=1\\)\\;\\n)#ms';
+    private const DECLARE_REGEX = '#(declare\\(strict\\_types\\=1\\)\\;\\n)#ms';
     /**
      * @see https://regex101.com/r/MJTq5C/3
      * @var string
      */
-    const OPENING_TAG_REGEX = '#^\\<\\?php\\n#ms';
+    private const OPENING_TAG_REGEX = '#^\\<\\?php\\n#ms';
     /**
      * @see https://regex101.com/r/MJTq5C/3
      * @var string
      */
-    const OPENING_TAG_HERENOWDOC_REGEX = '#^\\<\\?php\\n#ms';
+    private const OPENING_TAG_HERENOWDOC_REGEX = '#^\\<\\?php\\n#ms';
     /**
      * @var string
      */
-    const CONTENT = 'content';
+    private const CONTENT = 'content';
     /**
      * @var string
      */
-    const OPENING = 'opening';
+    private const OPENING = 'opening';
     /**
      * @var string
      */
-    const CLOSING = 'closing';
+    private const CLOSING = 'closing';
     /**
      * @var \Symplify\SmartFileSystem\SmartFileSystem
      */

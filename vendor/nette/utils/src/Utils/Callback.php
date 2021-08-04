@@ -61,7 +61,7 @@ final class Callback
      */
     public static function invokeSafe($function, $args, $onError)
     {
-        $prev = \set_error_handler(function ($severity, $message, $file) use($onError, &$prev, $function) {
+        $prev = \set_error_handler(function ($severity, $message, $file) use($onError, &$prev, $function) : ?bool {
             if ($file === __FILE__) {
                 $msg = \ini_get('html_errors') ? \ECSPrefix20210804\Nette\Utils\Html::htmlToText($message) : $message;
                 $msg = \preg_replace("#^{$function}\\(.*?\\): #", '', $msg);

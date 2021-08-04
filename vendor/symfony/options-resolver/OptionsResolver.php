@@ -25,7 +25,7 @@ use ECSPrefix20210804\Symfony\Component\OptionsResolver\Exception\UndefinedOptio
  */
 class OptionsResolver implements \ECSPrefix20210804\Symfony\Component\OptionsResolver\Options
 {
-    const VALIDATION_FUNCTIONS = ['bool' => 'is_bool', 'boolean' => 'is_bool', 'int' => 'is_int', 'integer' => 'is_int', 'long' => 'is_int', 'float' => 'is_float', 'double' => 'is_float', 'real' => 'is_float', 'numeric' => 'is_numeric', 'string' => 'is_string', 'scalar' => 'is_scalar', 'array' => 'is_array', 'iterable' => 'is_iterable', 'countable' => 'is_countable', 'callable' => 'is_callable', 'object' => 'is_object', 'resource' => 'is_resource'];
+    private const VALIDATION_FUNCTIONS = ['bool' => 'is_bool', 'boolean' => 'is_bool', 'int' => 'is_int', 'integer' => 'is_int', 'long' => 'is_int', 'float' => 'is_float', 'double' => 'is_float', 'real' => 'is_float', 'numeric' => 'is_numeric', 'string' => 'is_string', 'scalar' => 'is_scalar', 'array' => 'is_array', 'iterable' => 'is_iterable', 'countable' => 'is_countable', 'callable' => 'is_callable', 'object' => 'is_object', 'resource' => 'is_resource'];
     /**
      * The names of all defined options.
      */
@@ -672,9 +672,8 @@ class OptionsResolver implements \ECSPrefix20210804\Symfony\Component\OptionsRes
     /**
      * Gets the info message for an option.
      * @param string $option
-     * @return string|null
      */
-    public function getInfo($option)
+    public function getInfo($option) : ?string
     {
         if (!isset($this->defined[$option])) {
             throw new \ECSPrefix20210804\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException(\sprintf('The option "%s" does not exist. Defined options are: "%s".', $this->formatOptions([$option]), \implode('", "', \array_keys($this->defined))));
@@ -1145,10 +1144,7 @@ class OptionsResolver implements \ECSPrefix20210804\Symfony\Component\OptionsRes
         }
         return \implode('", "', $options);
     }
-    /**
-     * @return string|null
-     */
-    private function getParameterClassName(\ReflectionParameter $parameter)
+    private function getParameterClassName(\ReflectionParameter $parameter) : ?string
     {
         if (!($type = $parameter->getType()) instanceof \ReflectionNamedType || $type->isBuiltin()) {
             return null;

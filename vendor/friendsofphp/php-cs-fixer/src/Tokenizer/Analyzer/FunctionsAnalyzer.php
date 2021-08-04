@@ -116,10 +116,7 @@ final class FunctionsAnalyzer
         }
         return $arguments;
     }
-    /**
-     * @return \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis|null
-     */
-    public function getFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $methodIndex)
+    public function getFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $methodIndex) : ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis
     {
         $argumentsStart = $tokens->getNextTokenOfKind($methodIndex, ['(']);
         $argumentsEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $argumentsStart);
@@ -158,10 +155,7 @@ final class FunctionsAnalyzer
         }
         return $tokens[$referenceIndex]->equalsAny([[\T_VARIABLE, '$this'], [\T_STRING, 'self'], [\T_STATIC, 'static']], \false);
     }
-    /**
-     * @return void
-     */
-    private function buildFunctionsAnalysis(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    private function buildFunctionsAnalysis(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $this->functionsAnalysis = ['tokens' => $tokens->getCodeHash(), 'imports' => [], 'declarations' => []];
         // find declarations

@@ -26,21 +26,21 @@ final class StandardizeHereNowDocKeywordFixer extends \Symplify\CodingStandard\F
      * @api
      * @var string
      */
-    const KEYWORD = 'keyword';
+    public const KEYWORD = 'keyword';
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Use configured nowdoc and heredoc keyword';
+    private const ERROR_MESSAGE = 'Use configured nowdoc and heredoc keyword';
     /**
      * @api
      * @var string
      */
-    const DEFAULT_KEYWORD = 'CODE_SAMPLE';
+    private const DEFAULT_KEYWORD = 'CODE_SAMPLE';
     /**
      * @see https://regex101.com/r/ED2b9V/1
      * @var string
      */
-    const START_HEREDOC_NOWDOC_NAME_REGEX = '#(<<<(\')?)(?<name>.*?)((\')?\\s)#';
+    private const START_HEREDOC_NOWDOC_NAME_REGEX = '#(<<<(\')?)(?<name>.*?)((\')?\\s)#';
     /**
      * @var string
      */
@@ -58,9 +58,8 @@ final class StandardizeHereNowDocKeywordFixer extends \Symplify\CodingStandard\F
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -88,10 +87,7 @@ $value = <<<'CODE_SNIPPET'
 CODE_SAMPLE
 , [self::KEYWORD => 'CODE_SNIPPET'])]);
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->keyword = $configuration[self::KEYWORD] ?? self::DEFAULT_KEYWORD;
     }
@@ -101,9 +97,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function fixStartToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $position)
+    private function fixStartToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $position) : void
     {
         $match = \ECSPrefix20210804\Nette\Utils\Strings::match($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX);
         if (!isset($match['name'])) {
@@ -114,9 +109,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function fixEndToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $position)
+    private function fixEndToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $position) : void
     {
         if ($token->getContent() === $this->keyword) {
             return;

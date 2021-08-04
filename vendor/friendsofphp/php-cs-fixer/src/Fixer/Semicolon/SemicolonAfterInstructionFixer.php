@@ -48,9 +48,8 @@ final class SemicolonAfterInstructionFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; $index > 1; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_CLOSE_TAG)) {

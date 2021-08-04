@@ -66,25 +66,22 @@ final class AliasedFixerOption implements \PhpCsFixer\FixerConfiguration\FixerOp
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]|null
      */
-    public function getAllowedTypes()
+    public function getAllowedTypes() : ?array
     {
         return $this->fixerOption->getAllowedTypes();
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]|null
      */
-    public function getAllowedValues()
+    public function getAllowedValues() : ?array
     {
         return $this->fixerOption->getAllowedValues();
     }
     /**
      * {@inheritdoc}
-     * @return \Closure|null
      */
-    public function getNormalizer()
+    public function getNormalizer() : ?\Closure
     {
         return $this->fixerOption->getNormalizer();
     }

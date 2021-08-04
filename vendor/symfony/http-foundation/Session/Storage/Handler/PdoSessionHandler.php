@@ -45,7 +45,7 @@ class PdoSessionHandler extends \ECSPrefix20210804\Symfony\Component\HttpFoundat
      * write will win in this case. It might be useful when you implement your own
      * logic to deal with this like an optimistic approach.
      */
-    const LOCK_NONE = 0;
+    public const LOCK_NONE = 0;
     /**
      * Creates an application-level lock on a session. The disadvantage is that the
      * lock is not enforced by the database and thus other, unaware parts of the
@@ -53,15 +53,15 @@ class PdoSessionHandler extends \ECSPrefix20210804\Symfony\Component\HttpFoundat
      * does not require a transaction.
      * This mode is not available for SQLite and not yet implemented for oci and sqlsrv.
      */
-    const LOCK_ADVISORY = 1;
+    public const LOCK_ADVISORY = 1;
     /**
      * Issues a real row lock. Since it uses a transaction between opening and
      * closing a session, you have to be careful when you use same database connection
      * that you also use for your application logic. This mode is the default because
      * it's the only reliable solution across DBMSs.
      */
-    const LOCK_TRANSACTIONAL = 2;
-    const MAX_LIFETIME = 315576000;
+    public const LOCK_TRANSACTIONAL = 2;
+    private const MAX_LIFETIME = 315576000;
     /**
      * @var \PDO|null PDO instance or null when not connected yet
      */
@@ -381,9 +381,8 @@ class PdoSessionHandler extends \ECSPrefix20210804\Symfony\Component\HttpFoundat
     }
     /**
      * Lazy-connects to the database.
-     * @return void
      */
-    private function connect(string $dsn)
+    private function connect(string $dsn) : void
     {
         $this->pdo = new \PDO($dsn, $this->username, $this->password, $this->connectionOptions);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -494,9 +493,8 @@ class PdoSessionHandler extends \ECSPrefix20210804\Symfony\Component\HttpFoundat
      * Also MySQLs default isolation, REPEATABLE READ, causes deadlock for different sessions
      * due to https://percona.com/blog/2013/12/12/one-more-innodb-gap-lock-to-avoid/ .
      * So we change it to READ COMMITTED.
-     * @return void
      */
-    private function beginTransaction()
+    private function beginTransaction() : void
     {
         if (!$this->inTransaction) {
             if ('sqlite' === $this->driver) {
@@ -512,9 +510,8 @@ class PdoSessionHandler extends \ECSPrefix20210804\Symfony\Component\HttpFoundat
     }
     /**
      * Helper method to commit a transaction.
-     * @return void
      */
-    private function commit()
+    private function commit() : void
     {
         if ($this->inTransaction) {
             try {
@@ -533,9 +530,8 @@ class PdoSessionHandler extends \ECSPrefix20210804\Symfony\Component\HttpFoundat
     }
     /**
      * Helper method to rollback a transaction.
-     * @return void
      */
-    private function rollback()
+    private function rollback() : void
     {
         // We only need to rollback if we are in a transaction. Otherwise the resulting
         // error would hide the real problem why rollback was called. We might not be
@@ -755,9 +751,8 @@ class PdoSessionHandler extends \ECSPrefix20210804\Symfony\Component\HttpFoundat
     }
     /**
      * Returns a merge/upsert (i.e. insert or update) statement when supported by the database for writing session data.
-     * @return \PDOStatement|null
      */
-    private function getMergeStatement(string $sessionId, string $data, int $maxlifetime)
+    private function getMergeStatement(string $sessionId, string $data, int $maxlifetime) : ?\PDOStatement
     {
         switch (\true) {
             case 'mysql' === $this->driver:

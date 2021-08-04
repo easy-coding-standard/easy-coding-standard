@@ -19,7 +19,6 @@ interface LintingResultInterface
 {
     /**
      * Check if linting process was successful and raise LintingException if not.
-     * @return void
      */
-    public function check();
+    public function check() : void;
 }

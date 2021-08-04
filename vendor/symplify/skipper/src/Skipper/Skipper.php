@@ -13,7 +13,7 @@ final class Skipper
     /**
      * @var string
      */
-    const FILE_ELEMENT = 'file_elements';
+    private const FILE_ELEMENT = 'file_elements';
     /**
      * @var mixed[]
      */

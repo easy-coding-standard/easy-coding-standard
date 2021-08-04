@@ -34,12 +34,7 @@ class AsEventListener
      * @var string|null
      */
     public $dispatcher;
-    /**
-     * @param string|null $event
-     * @param string|null $method
-     * @param string|null $dispatcher
-     */
-    public function __construct($event = null, $method = null, int $priority = 0, $dispatcher = null)
+    public function __construct(?string $event = null, ?string $method = null, int $priority = 0, ?string $dispatcher = null)
     {
         $this->event = $event;
         $this->method = $method;

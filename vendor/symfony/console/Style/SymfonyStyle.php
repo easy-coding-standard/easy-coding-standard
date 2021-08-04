@@ -33,7 +33,7 @@ use ECSPrefix20210804\Symfony\Component\Console\Terminal;
  */
 class SymfonyStyle extends \ECSPrefix20210804\Symfony\Component\Console\Style\OutputStyle
 {
-    const MAX_LINE_LENGTH = 120;
+    public const MAX_LINE_LENGTH = 120;
     private $input;
     private $questionHelper;
     private $progressBar;
@@ -323,7 +323,7 @@ class SymfonyStyle extends \ECSPrefix20210804\Symfony\Component\Console\Style\Ou
      */
     public function writeln($messages, int $type = self::OUTPUT_NORMAL)
     {
-        if (!(\is_array($messages) || $messages instanceof \Traversable)) {
+        if (!\is_iterable($messages)) {
             $messages = [$messages];
         }
         foreach ($messages as $message) {
@@ -336,7 +336,7 @@ class SymfonyStyle extends \ECSPrefix20210804\Symfony\Component\Console\Style\Ou
      */
     public function write($messages, bool $newline = \false, int $type = self::OUTPUT_NORMAL)
     {
-        if (!(\is_array($messages) || $messages instanceof \Traversable)) {
+        if (!\is_iterable($messages)) {
             $messages = [$messages];
         }
         foreach ($messages as $message) {
@@ -368,10 +368,7 @@ class SymfonyStyle extends \ECSPrefix20210804\Symfony\Component\Console\Style\Ou
         }
         return $this->progressBar;
     }
-    /**
-     * @return void
-     */
-    private function autoPrependBlock()
+    private function autoPrependBlock() : void
     {
         $chars = \substr(\str_replace(\PHP_EOL, "\n", $this->bufferedOutput->fetch()), -2);
         if (!isset($chars[0])) {
@@ -382,10 +379,7 @@ class SymfonyStyle extends \ECSPrefix20210804\Symfony\Component\Console\Style\Ou
         //Prepend new line for each non LF chars (This means no blank line was output before)
         $this->newLine(2 - \substr_count($chars, "\n"));
     }
-    /**
-     * @return void
-     */
-    private function autoPrependText()
+    private function autoPrependText() : void
     {
         $fetched = $this->bufferedOutput->fetch();
         //Prepend new line if last char isn't EOL:
@@ -393,18 +387,12 @@ class SymfonyStyle extends \ECSPrefix20210804\Symfony\Component\Console\Style\Ou
             $this->newLine();
         }
     }
-    /**
-     * @return void
-     */
-    private function writeBuffer(string $message, bool $newLine, int $type)
+    private function writeBuffer(string $message, bool $newLine, int $type) : void
     {
         // We need to know if the last chars are PHP_EOL
         $this->bufferedOutput->write($message, $newLine, $type);
     }
-    /**
-     * @param mixed[] $messages
-     */
-    private function createBlock($messages, string $type = null, string $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \false) : array
+    private function createBlock(iterable $messages, string $type = null, string $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \false) : array
     {
         $indentLength = 0;
         $prefixLength = \ECSPrefix20210804\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20210804\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $prefix));

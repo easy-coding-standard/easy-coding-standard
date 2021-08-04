@@ -20,9 +20,8 @@ final class AutowireInterfacesCompilerPass implements \ECSPrefix20210804\Symfony
     }
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function process($containerBuilder)
+    public function process($containerBuilder) : void
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $definition) {

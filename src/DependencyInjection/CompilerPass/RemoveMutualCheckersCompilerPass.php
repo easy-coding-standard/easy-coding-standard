@@ -60,7 +60,7 @@ final class RemoveMutualCheckersCompilerPass implements \ECSPrefix20210804\Symfo
      *
      * @var string[][]
      */
-    const DUPLICATED_CHECKER_GROUPS = [
+    private const DUPLICATED_CHECKER_GROUPS = [
         [\PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowTabIndentSniff::class],
         [\PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowSpaceIndentSniff::class],
         [\PhpCsFixer\Fixer\Strict\StrictComparisonFixer::class, 'ECSPrefix20210804\\SlevomatCodingStandard\\Sniffs\\Operators\\DisallowEqualOperatorsSniff'],
@@ -101,9 +101,8 @@ final class RemoveMutualCheckersCompilerPass implements \ECSPrefix20210804\Symfo
     ];
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function process($containerBuilder)
+    public function process($containerBuilder) : void
     {
         $checkersToRemove = $this->resolveCheckersToRemove($containerBuilder->getServiceIds());
         $definitions = $containerBuilder->getDefinitions();

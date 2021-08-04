@@ -24,9 +24,8 @@ interface NewVersionCheckerInterface
     /**
      * Returns the tag of the latest minor/patch version of the given major version.
      * @param int $majorVersion
-     * @return string|null
      */
-    public function getLatestVersionOfMajor($majorVersion);
+    public function getLatestVersionOfMajor($majorVersion) : ?string;
     /**
      * Returns -1, 0, or 1 if the first version is respectively less than,
      * equal to, or greater than the second.

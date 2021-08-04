@@ -53,11 +53,11 @@ class PhpDumper extends \ECSPrefix20210804\Symfony\Component\DependencyInjection
     /**
      * Characters that might appear in the generated variable name as first character.
      */
-    const FIRST_CHARS = 'abcdefghijklmnopqrstuvwxyz';
+    public const FIRST_CHARS = 'abcdefghijklmnopqrstuvwxyz';
     /**
      * Characters that might appear in the generated variable name as any but the first character.
      */
-    const NON_FIRST_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789_';
+    public const NON_FIRST_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789_';
     private $definitionVariables;
     private $referenceVariables;
     private $variableCount;
@@ -219,7 +219,7 @@ EOF;
                 $files['removed-ids.php'] = $c . "];\n";
             }
             if (!$this->inlineFactories) {
-                foreach ($this->generateServiceFiles($services) as $file => list($c, $preload)) {
+                foreach ($this->generateServiceFiles($services) as $file => [$c, $preload]) {
                     $files[$file] = \sprintf($fileTemplate, \substr($file, 0, -4), $c);
                     if ($preload) {
                         $preloadedFiles[$file] = $file;
@@ -361,10 +361,7 @@ EOF;
         $this->container->getCompiler()->getServiceReferenceGraph()->clear();
         $this->singleUsePrivateIds = \array_diff_key($this->singleUsePrivateIds, $this->circularReferences);
     }
-    /**
-     * @return void
-     */
-    private function collectCircularReferences(string $sourceId, array $edges, array &$checkedNodes, array &$loops = [], array $path = [], bool $byConstructor = \true)
+    private function collectCircularReferences(string $sourceId, array $edges, array &$checkedNodes, array &$loops = [], array $path = [], bool $byConstructor = \true) : void
     {
         $path[$sourceId] = $byConstructor;
         $checkedNodes[$sourceId] = \true;
@@ -394,7 +391,7 @@ EOF;
             } elseif (isset($loops[$id])) {
                 // we already had detected loops for this edge
                 // let's check if we have a common ancestor in one of the detected loops
-                foreach ($loops[$id] as list($first, $loopPath)) {
+                foreach ($loops[$id] as [$first, $loopPath]) {
                     if (!isset($path[$first])) {
                         continue;
                     }
@@ -526,7 +523,7 @@ EOF;
                     }
                 }
             }
-            foreach ($this->serviceCalls as $id => list($callCount, $behavior)) {
+            foreach ($this->serviceCalls as $id => [$callCount, $behavior]) {
                 if ('service_container' !== $id && $id !== $cId && \ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE !== $behavior && $this->container->has($id) && $this->isTrivialInstance($def = $this->container->findDefinition($id))) {
                     foreach ($this->getClasses($def, $cId) as $class) {
                         $this->collectLineage($class, $lineage);
@@ -618,10 +615,7 @@ EOF;
         }
         return \true;
     }
-    /**
-     * @param string|null $sharedNonLazyId
-     */
-    private function addServiceMethodCalls(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition, string $variableName, $sharedNonLazyId) : string
+    private function addServiceMethodCalls(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition, string $variableName, ?string $sharedNonLazyId) : string
     {
         $lastWitherIndex = null;
         foreach ($definition->getMethodCalls() as $k => $call) {
@@ -819,7 +813,7 @@ EOF;
         while ($this->container->hasAlias($targetId)) {
             $targetId = (string) $this->container->getAlias($targetId);
         }
-        list($callCount, $behavior) = $this->serviceCalls[$targetId];
+        [$callCount, $behavior] = $this->serviceCalls[$targetId];
         if ($id === $targetId) {
             return $this->addInlineService($id, $definition, $definition);
         }
@@ -859,7 +853,7 @@ EOTXT
     {
         $code = '';
         if ($isSimpleInstance = $isRootInstance = null === $inlineDef) {
-            foreach ($this->serviceCalls as $targetId => list($callCount, $behavior, $byConstructor)) {
+            foreach ($this->serviceCalls as $targetId => [$callCount, $behavior, $byConstructor]) {
                 if ($byConstructor && isset($this->circularReferences[$id][$targetId]) && !$this->circularReferences[$id][$targetId]) {
                     $code .= $this->addInlineReference($id, $definition, $targetId, $forConstructor);
                 }
@@ -916,7 +910,7 @@ EOTXT
             }
         }
         foreach ($definitions as $id => $definition) {
-            if (!(list($file, $code) = $services[$id]) || null !== $file) {
+            if (!([$file, $code] = $services[$id]) || null !== $file) {
                 continue;
             }
             if ($definition->isPublic()) {
@@ -927,15 +921,12 @@ EOTXT
         }
         return $publicServices . $privateServices;
     }
-    /**
-     * @return mixed[]
-     */
-    private function generateServiceFiles(array $services)
+    private function generateServiceFiles(array $services) : iterable
     {
         $definitions = $this->container->getDefinitions();
         \ksort($definitions);
         foreach ($definitions as $id => $definition) {
-            if ((list($file, $code) = $services[$id]) && null !== $file && ($definition->isPublic() || !$this->isTrivialInstance($definition) || isset($this->locatedIds[$id]))) {
+            if (([$file, $code] = $services[$id]) && null !== $file && ($definition->isPublic() || !$this->isTrivialInstance($definition) || isset($this->locatedIds[$id]))) {
                 (yield $file => [$code, $definition->hasTag($this->hotPathTag) || !$definition->hasTag($this->preloadTags[1]) && !$definition->isDeprecated() && !$definition->hasErrors()]);
             }
         }
@@ -1541,7 +1532,7 @@ EOF;
                     return \sprintf('new \\%s($this->getService, [%s%s], [%s%s])', \ECSPrefix20210804\Symfony\Component\DependencyInjection\Argument\ServiceLocator::class, $serviceMap, $serviceMap ? "\n        " : '', $serviceTypes, $serviceTypes ? "\n        " : '');
                 }
             } finally {
-                list($this->definitionVariables, $this->referenceVariables) = $scope;
+                [$this->definitionVariables, $this->referenceVariables] = $scope;
             }
         } elseif ($value instanceof \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition) {
             if ($value->hasErrors() && ($e = $value->getErrors())) {
@@ -1853,10 +1844,7 @@ EOF;
         }
         return $export;
     }
-    /**
-     * @return string|null
-     */
-    private function getAutoloadFile()
+    private function getAutoloadFile() : ?string
     {
         $file = null;
         foreach (\spl_autoload_functions() as $autoloader) {

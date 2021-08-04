@@ -115,10 +115,7 @@ final class PsrCachedReader implements \ECSPrefix20210804\Doctrine\Common\Annota
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function clearLoadedAnnotations()
+    public function clearLoadedAnnotations() : void
     {
         $this->loadedAnnotations = [];
         $this->loadedFilemtimes = [];

@@ -14,17 +14,17 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
      * @var string
      * @see https://regex101.com/r/GkyV1C/1
      */
-    const SINGLE_ASTERISK_START_REGEX = '#^/\\*\\s+\\*(\\s+@(?:psalm-|phpstan-)?var)#';
+    private const SINGLE_ASTERISK_START_REGEX = '#^/\\*\\s+\\*(\\s+@(?:psalm-|phpstan-)?var)#';
     /**
      * @var string
      * @see https://regex101.com/r/9cfhFI/1
      */
-    const SPACE_REGEX = '#\\s+#m';
+    private const SPACE_REGEX = '#\\s+#m';
     /**
      * @var string
      * @see https://regex101.com/r/VpTDCd/1
      */
-    const ASTERISK_LEFTOVERS_REGEX = '#(\\*\\*)(\\s+\\*)#';
+    private const ASTERISK_LEFTOVERS_REGEX = '#(\\*\\*)(\\s+\\*)#';
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent

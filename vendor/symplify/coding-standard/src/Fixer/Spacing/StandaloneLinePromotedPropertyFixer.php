@@ -26,7 +26,7 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Promoted property should be on standalone line';
+    private const ERROR_MESSAGE = 'Promoted property should be on standalone line';
     /**
      * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder
      */
@@ -62,9 +62,8 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -104,9 +103,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function processFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
+    private function processFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : void
     {
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
@@ -116,9 +114,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return string|null
      */
-    private function getFunctionName(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
+    private function getFunctionName(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : ?string
     {
         $nextToken = $this->getNextMeaningfulToken($tokens, $position);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {

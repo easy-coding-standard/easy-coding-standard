@@ -13,7 +13,7 @@ final class ArrayWrapper
     /**
      * @var int[]
      */
-    const ARRAY_OPEN_TOKENS = [\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN];
+    private const ARRAY_OPEN_TOKENS = [\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN];
     /**
      * @var \PhpCsFixer\Tokenizer\Tokens
      */

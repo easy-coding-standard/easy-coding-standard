@@ -91,9 +91,8 @@ class AnnotationReader implements \ECSPrefix20210804\Doctrine\Common\Annotations
      * Initializes a new AnnotationReader.
      *
      * @throws AnnotationException
-     * @param \Doctrine\Common\Annotations\DocParser|null $parser
      */
-    public function __construct($parser = null)
+    public function __construct(?\ECSPrefix20210804\Doctrine\Common\Annotations\DocParser $parser = null)
     {
         if (\extension_loaded('Zend Optimizer+') && (\ini_get('zend_optimizerplus.save_comments') === '0' || \ini_get('opcache.save_comments') === '0')) {
             throw \ECSPrefix20210804\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
@@ -298,9 +297,8 @@ class AnnotationReader implements \ECSPrefix20210804\Doctrine\Common\Annotations
      * Collects parsing metadata for a given class or function.
      *
      * @param ReflectionClass|ReflectionFunction $reflection
-     * @return void
      */
-    private function collectParsingMetadata($reflection)
+    private function collectParsingMetadata($reflection) : void
     {
         $type = $reflection instanceof \ReflectionClass ? 'class' : 'function';
         $name = $reflection->getName();

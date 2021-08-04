@@ -34,9 +34,8 @@ final class LineLengthTransformer
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fixStartPositionToEndPosition(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $lineLength, bool $breakLongLines, bool $inlineShortLine)
+    public function fixStartPositionToEndPosition(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $lineLength, bool $breakLongLines, bool $inlineShortLine) : void
     {
         if ($this->hasPromotedProperty($tokens, $blockInfo)) {
             return;

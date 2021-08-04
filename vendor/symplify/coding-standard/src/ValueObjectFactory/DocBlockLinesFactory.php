@@ -11,12 +11,12 @@ final class DocBlockLinesFactory
      * @see https://regex101.com/r/CUxOj5/1
      * @var string
      */
-    const BEGINNING_OF_DOC_BLOCK_REGEX = '/^(\\/\\*\\*[\\n]?)/';
+    private const BEGINNING_OF_DOC_BLOCK_REGEX = '/^(\\/\\*\\*[\\n]?)/';
     /**
      * @see https://regex101.com/r/otQGPe/1
      * @var string
      */
-    const END_OF_DOC_BLOCK_REGEX = '/(\\*\\/)$/';
+    private const END_OF_DOC_BLOCK_REGEX = '/(\\*\\/)$/';
     public function createFromDocBlock(string $docBlock) : \Symplify\CodingStandard\ValueObject\DocBlockLines
     {
         // Remove the prefix '/**'

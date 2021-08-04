@@ -39,9 +39,8 @@ final class SingleLineCommentStyleFixer extends \PhpCsFixer\AbstractFixer implem
     private $hashEnabled;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->asteriskEnabled = \in_array('asterisk', $this->configuration['comment_types'], \true);
@@ -98,9 +97,8 @@ $c = 3;
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_COMMENT)) {

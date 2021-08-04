@@ -24,7 +24,7 @@ final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixe
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Strict type declaration has to be followed by empty line';
+    private const ERROR_MESSAGE = 'Strict type declaration has to be followed by empty line';
     /**
      * Generates: "declare(strict_types=1);"
      *
@@ -53,9 +53,8 @@ final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixe
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $sequenceLocation = $tokens->findSequence($this->declareStrictTypeTokens, 1, 15);
         if ($sequenceLocation === null) {

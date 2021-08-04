@@ -44,9 +44,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $classIndex = $tokens->getPrevTokenOfKind($startIndex, [[\T_CLASS]]);
         $prevIndex = $tokens->getPrevMeaningfulToken($classIndex);

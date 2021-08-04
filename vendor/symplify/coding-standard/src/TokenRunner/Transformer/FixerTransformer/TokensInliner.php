@@ -19,9 +19,8 @@ final class TokensInliner
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function inlineItems(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    public function inlineItems(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : void
     {
         // replace line feeds with " "
         for ($i = $blockInfo->getStart() + 1; $i < $blockInfo->getEnd(); ++$i) {

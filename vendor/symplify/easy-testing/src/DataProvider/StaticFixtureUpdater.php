@@ -7,10 +7,7 @@ use ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileSystem;
 final class StaticFixtureUpdater
 {
-    /**
-     * @return void
-     */
-    public static function updateFixtureContent(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
+    public static function updateFixtureContent(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
@@ -18,10 +15,7 @@ final class StaticFixtureUpdater
         $newOriginalContent = self::resolveNewFixtureContent($originalFileInfo, $changedContent);
         self::getSmartFileSystem()->dumpFile($fixtureFileInfo->getRealPath(), $newOriginalContent);
     }
-    /**
-     * @return void
-     */
-    public static function updateExpectedFixtureContent(string $newOriginalContent, \ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo)
+    public static function updateExpectedFixtureContent(string $newOriginalContent, \ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo) : void
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;

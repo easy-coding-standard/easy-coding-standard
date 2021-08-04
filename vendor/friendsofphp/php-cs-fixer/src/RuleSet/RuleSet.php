@@ -62,9 +62,8 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
     /**
      * {@inheritdoc}
      * @param string $rule
-     * @return mixed[]|null
      */
-    public function getRuleConfiguration($rule)
+    public function getRuleConfiguration($rule) : ?array
     {
         if (!$this->hasRule($rule)) {
             throw new \InvalidArgumentException(\sprintf('Rule "%s" is not in the set.', $rule));

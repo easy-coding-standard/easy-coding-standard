@@ -15,12 +15,12 @@ final class ComposerPackageSorter
      * @see https://regex101.com/r/tMrjMY/1
      * @var string
      */
-    const PLATFORM_PACKAGE_REGEX = '#^(?:php(?:-64bit|-ipv6|-zts|-debug)?|hhvm|(?:ext|lib)-[a-z0-9](?:[_.-]?[a-z0-9]+)*|composer-(?:plugin|runtime)-api)$#iD';
+    private const PLATFORM_PACKAGE_REGEX = '#^(?:php(?:-64bit|-ipv6|-zts|-debug)?|hhvm|(?:ext|lib)-[a-z0-9](?:[_.-]?[a-z0-9]+)*|composer-(?:plugin|runtime)-api)$#iD';
     /**
      * @see https://regex101.com/r/SXZcfb/1
      * @var string
      */
-    const REQUIREMENT_TYPE_REGEX = '#^(?<name>php|hhvm|ext|lib|\\D)#';
+    private const REQUIREMENT_TYPE_REGEX = '#^(?<name>php|hhvm|ext|lib|\\D)#';
     /**
      * Sorts packages by importance (platform packages first, then PHP dependencies) and alphabetically.
      *

@@ -35,9 +35,8 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
     private static $argumentCounts = ['getrandmax' => [0], 'mt_rand' => [1, 2], 'rand' => [0, 2], 'srand' => [0, 1], 'random_int' => [0, 2]];
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         foreach ($this->configuration['replacements'] as $functionName => $replacement) {
@@ -60,9 +59,8 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         foreach ($this->configuration['replacements'] as $functionIdentity => $functionReplacement) {

@@ -22,11 +22,11 @@ final class NewlineServiceDefinitionConfigFixer extends \Symplify\CodingStandard
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Add newline for a fluent call on service definition in Symfony config';
+    private const ERROR_MESSAGE = 'Add newline for a fluent call on service definition in Symfony config';
     /**
      * @var string[]
      */
-    const FLUENT_METHOD_NAMES = ['call', 'property', 'args', 'arg'];
+    private const FLUENT_METHOD_NAMES = ['call', 'property', 'args', 'arg'];
     /**
      * @var \PhpCsFixer\WhitespacesFixerConfig
      */
@@ -53,9 +53,8 @@ final class NewlineServiceDefinitionConfigFixer extends \Symplify\CodingStandard
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if (!$this->symfonyClosureAnalyzer->isContainerConfiguratorClosure($tokens)) {
             return;

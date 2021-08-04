@@ -10,7 +10,7 @@ namespace ECSPrefix20210804\Doctrine\Common\Annotations;
  */
 final class ImplicitlyIgnoredAnnotationNames
 {
-    const Reserved = [
+    private const Reserved = [
         'Annotation' => \true,
         'Attribute' => \true,
         'Attributes' => \true,
@@ -18,9 +18,9 @@ final class ImplicitlyIgnoredAnnotationNames
         'Required' => \true,
         'Target' => \true,
     ];
-    const WidelyUsedNonStandard = ['fix' => \true, 'fixme' => \true, 'override' => \true];
-    const PhpDocumentor1 = ['abstract' => \true, 'access' => \true, 'code' => \true, 'deprec' => \true, 'endcode' => \true, 'exception' => \true, 'final' => \true, 'ingroup' => \true, 'inheritdoc' => \true, 'inheritDoc' => \true, 'magic' => \true, 'name' => \true, 'private' => \true, 'static' => \true, 'staticvar' => \true, 'staticVar' => \true, 'toc' => \true, 'tutorial' => \true, 'throw' => \true];
-    const PhpDocumentor2 = [
+    private const WidelyUsedNonStandard = ['fix' => \true, 'fixme' => \true, 'override' => \true];
+    private const PhpDocumentor1 = ['abstract' => \true, 'access' => \true, 'code' => \true, 'deprec' => \true, 'endcode' => \true, 'exception' => \true, 'final' => \true, 'ingroup' => \true, 'inheritdoc' => \true, 'inheritDoc' => \true, 'magic' => \true, 'name' => \true, 'private' => \true, 'static' => \true, 'staticvar' => \true, 'staticVar' => \true, 'toc' => \true, 'tutorial' => \true, 'throw' => \true];
+    private const PhpDocumentor2 = [
         'api' => \true,
         'author' => \true,
         'category' => \true,
@@ -53,18 +53,18 @@ final class ImplicitlyIgnoredAnnotationNames
         'var' => \true,
         'version' => \true,
     ];
-    const PHPUnit = ['author' => \true, 'after' => \true, 'afterClass' => \true, 'backupGlobals' => \true, 'backupStaticAttributes' => \true, 'before' => \true, 'beforeClass' => \true, 'codeCoverageIgnore' => \true, 'codeCoverageIgnoreStart' => \true, 'codeCoverageIgnoreEnd' => \true, 'covers' => \true, 'coversDefaultClass' => \true, 'coversNothing' => \true, 'dataProvider' => \true, 'depends' => \true, 'doesNotPerformAssertions' => \true, 'expectedException' => \true, 'expectedExceptionCode' => \true, 'expectedExceptionMessage' => \true, 'expectedExceptionMessageRegExp' => \true, 'group' => \true, 'large' => \true, 'medium' => \true, 'preserveGlobalState' => \true, 'requires' => \true, 'runTestsInSeparateProcesses' => \true, 'runInSeparateProcess' => \true, 'small' => \true, 'test' => \true, 'testdox' => \true, 'testWith' => \true, 'ticket' => \true, 'uses' => \true];
-    const PhpCheckStyle = ['SuppressWarnings' => \true];
-    const PhpStorm = ['noinspection' => \true];
-    const PEAR = ['package_version' => \true];
-    const PlainUML = ['startuml' => \true, 'enduml' => \true];
-    const Symfony = ['experimental' => \true];
-    const PhpCodeSniffer = ['codingStandardsIgnoreStart' => \true, 'codingStandardsIgnoreEnd' => \true];
-    const SlevomatCodingStandard = ['phpcsSuppress' => \true];
-    const PhpStan = ['extends' => \true, 'implements' => \true, 'template' => \true, 'use' => \true];
-    const Phan = ['suppress' => \true];
-    const Rector = ['noRector' => \true];
-    const LIST = self::Reserved + self::WidelyUsedNonStandard + self::PhpDocumentor1 + self::PhpDocumentor2 + self::PHPUnit + self::PhpCheckStyle + self::PhpStorm + self::PEAR + self::PlainUML + self::Symfony + self::SlevomatCodingStandard + self::PhpCodeSniffer + self::PhpStan + self::Phan + self::Rector;
+    private const PHPUnit = ['author' => \true, 'after' => \true, 'afterClass' => \true, 'backupGlobals' => \true, 'backupStaticAttributes' => \true, 'before' => \true, 'beforeClass' => \true, 'codeCoverageIgnore' => \true, 'codeCoverageIgnoreStart' => \true, 'codeCoverageIgnoreEnd' => \true, 'covers' => \true, 'coversDefaultClass' => \true, 'coversNothing' => \true, 'dataProvider' => \true, 'depends' => \true, 'doesNotPerformAssertions' => \true, 'expectedException' => \true, 'expectedExceptionCode' => \true, 'expectedExceptionMessage' => \true, 'expectedExceptionMessageRegExp' => \true, 'group' => \true, 'large' => \true, 'medium' => \true, 'preserveGlobalState' => \true, 'requires' => \true, 'runTestsInSeparateProcesses' => \true, 'runInSeparateProcess' => \true, 'small' => \true, 'test' => \true, 'testdox' => \true, 'testWith' => \true, 'ticket' => \true, 'uses' => \true];
+    private const PhpCheckStyle = ['SuppressWarnings' => \true];
+    private const PhpStorm = ['noinspection' => \true];
+    private const PEAR = ['package_version' => \true];
+    private const PlainUML = ['startuml' => \true, 'enduml' => \true];
+    private const Symfony = ['experimental' => \true];
+    private const PhpCodeSniffer = ['codingStandardsIgnoreStart' => \true, 'codingStandardsIgnoreEnd' => \true];
+    private const SlevomatCodingStandard = ['phpcsSuppress' => \true];
+    private const PhpStan = ['extends' => \true, 'implements' => \true, 'template' => \true, 'use' => \true];
+    private const Phan = ['suppress' => \true];
+    private const Rector = ['noRector' => \true];
+    public const LIST = self::Reserved + self::WidelyUsedNonStandard + self::PhpDocumentor1 + self::PhpDocumentor2 + self::PHPUnit + self::PhpCheckStyle + self::PhpStorm + self::PEAR + self::PlainUML + self::Symfony + self::SlevomatCodingStandard + self::PhpCodeSniffer + self::PhpStan + self::Phan + self::Rector;
     private function __construct()
     {
     }

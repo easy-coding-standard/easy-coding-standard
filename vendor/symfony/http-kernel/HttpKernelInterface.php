@@ -19,13 +19,13 @@ use ECSPrefix20210804\Symfony\Component\HttpFoundation\Response;
  */
 interface HttpKernelInterface
 {
-    const MAIN_REQUEST = 1;
-    const SUB_REQUEST = 2;
+    public const MAIN_REQUEST = 1;
+    public const SUB_REQUEST = 2;
     /**
      * @deprecated since symfony/http-kernel 5.3, use MAIN_REQUEST instead.
      *             To ease the migration, this constant won't be removed until Symfony 7.0.
      */
-    const MASTER_REQUEST = self::MAIN_REQUEST;
+    public const MASTER_REQUEST = self::MAIN_REQUEST;
     /**
      * Handles a Request to convert it to a Response.
      *

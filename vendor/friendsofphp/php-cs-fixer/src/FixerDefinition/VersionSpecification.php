@@ -27,10 +27,8 @@ final class VersionSpecification implements \PhpCsFixer\FixerDefinition\VersionS
     private $maximum;
     /**
      * @throws \InvalidArgumentException
-     * @param int|null $minimum
-     * @param int|null $maximum
      */
-    public function __construct($minimum = null, $maximum = null)
+    public function __construct(?int $minimum = null, ?int $maximum = null)
     {
         if (null === $minimum && null === $maximum) {
             throw new \InvalidArgumentException('Minimum or maximum need to be specified.');

@@ -204,9 +204,8 @@ final class Token
      * Get token's id.
      *
      * It shall be used only for getting the internal id of token, not for checking it against excepted value.
-     * @return int|null
      */
-    public function getId()
+    public function getId() : ?int
     {
         return $this->id;
     }
@@ -217,7 +216,7 @@ final class Token
      *
      * @return null|string token name
      */
-    public function getName()
+    public function getName() : ?string
     {
         if (null === $this->id) {
             return null;
@@ -231,7 +230,7 @@ final class Token
      *
      * @return null|string token name
      */
-    public static function getNameForId(int $id)
+    public static function getNameForId(int $id) : ?string
     {
         if (\PhpCsFixer\Tokenizer\CT::has($id)) {
             return \PhpCsFixer\Tokenizer\CT::getName($id);
@@ -345,7 +344,7 @@ final class Token
      *
      * @param null|string $whitespaces whitespace characters, default is " \t\n\r\0\x0B"
      */
-    public function isWhitespace($whitespaces = " \t\n\r\0\v") : bool
+    public function isWhitespace(?string $whitespaces = " \t\n\r\0\v") : bool
     {
         if (null === $whitespaces) {
             $whitespaces = " \t\n\r\0\v";

@@ -98,9 +98,8 @@ trait TesterTrait
     }
     /**
      * @param string $message
-     * @return void
      */
-    public function assertCommandIsSuccessful($message = '')
+    public function assertCommandIsSuccessful($message = '') : void
     {
         \ECSPrefix20210804\PHPUnit\Framework\Assert::assertThat($this->statusCode, new \ECSPrefix20210804\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful(), $message);
     }

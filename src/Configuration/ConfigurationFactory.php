@@ -53,9 +53,8 @@ final class ConfigurationFactory
     }
     /**
      * @param string[] $paths
-     * @return void
      */
-    private function ensurePathsExists(array $paths)
+    private function ensurePathsExists(array $paths) : void
     {
         foreach ($paths as $path) {
             if (\file_exists($path)) {

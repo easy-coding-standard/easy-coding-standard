@@ -99,9 +99,8 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         foreach ($tokensAnalyzer->getClassyElements() as $index => $element) {
@@ -133,10 +132,7 @@ class Sample
             return $normalizedValue;
         })->setDefault($default)->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         static $methodModifiers = [\T_STATIC, \T_FINAL, \T_ABSTRACT, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC];
         // find PHPDoc of method (if any)

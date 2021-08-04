@@ -13,8 +13,8 @@ namespace ECSPrefix20210804\Nette\Neon;
  */
 final class Neon
 {
-    const BLOCK = \ECSPrefix20210804\Nette\Neon\Encoder::BLOCK;
-    const CHAIN = '!!chain';
+    public const BLOCK = \ECSPrefix20210804\Nette\Neon\Encoder::BLOCK;
+    public const CHAIN = '!!chain';
     /**
      * Returns value converted to NEON. The flag can be Neon::BLOCK, which will create multiline output.
      */

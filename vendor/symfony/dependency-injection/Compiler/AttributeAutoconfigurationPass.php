@@ -20,9 +20,8 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20210804\Symfony\Co
 {
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @return void
      */
-    public function process($container)
+    public function process($container) : void
     {
         if (80000 > \PHP_VERSION_ID || !$container->getAutoconfiguredAttributes()) {
             return;

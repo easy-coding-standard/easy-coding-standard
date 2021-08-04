@@ -12,11 +12,11 @@ final class ChangedFilesDetector
     /**
      * @var string
      */
-    const CONFIGURATION_HASH_KEY = 'configuration_hash';
+    private const CONFIGURATION_HASH_KEY = 'configuration_hash';
     /**
      * @var string
      */
-    const FILE_HASH = 'file_hash';
+    private const FILE_HASH = 'file_hash';
     /**
      * @var \Symplify\EasyCodingStandard\Caching\FileHashComputer
      */
@@ -32,25 +32,18 @@ final class ChangedFilesDetector
     }
     /**
      * For tests
-     * @return void
      */
-    public function changeConfigurationFile(string $configurationFile)
+    public function changeConfigurationFile(string $configurationFile) : void
     {
         $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($configurationFile));
     }
-    /**
-     * @return void
-     */
-    public function addFileInfo(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function addFileInfo(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $currentValue = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
         $this->cache->save($cacheKey, self::FILE_HASH, $currentValue);
     }
-    /**
-     * @return void
-     */
-    public function invalidateFileInfo(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function invalidateFileInfo(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $this->cache->clean($cacheKey);
@@ -62,10 +55,7 @@ final class ChangedFilesDetector
         $cachedValue = $this->cache->load($cacheKey, self::FILE_HASH);
         return $newFileHash !== $cachedValue;
     }
-    /**
-     * @return void
-     */
-    public function clearCache()
+    public function clearCache() : void
     {
         // clear cache only for changed files group
         $this->cache->clear();
@@ -75,9 +65,8 @@ final class ChangedFilesDetector
      *
      * @api
      * @param SmartFileInfo[] $configFileInfos
-     * @return void
      */
-    public function setUsedConfigs(array $configFileInfos)
+    public function setUsedConfigs(array $configFileInfos) : void
     {
         if ($configFileInfos === []) {
             return;
@@ -86,10 +75,7 @@ final class ChangedFilesDetector
         $firstConfigFileInfo = $configFileInfos[0];
         $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($firstConfigFileInfo->getRealPath()));
     }
-    /**
-     * @return void
-     */
-    private function storeConfigurationDataHash(string $configurationHash)
+    private function storeConfigurationDataHash(string $configurationHash) : void
     {
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
         $this->cache->save(self::CONFIGURATION_HASH_KEY, self::FILE_HASH, $configurationHash);
@@ -98,10 +84,7 @@ final class ChangedFilesDetector
     {
         return \sha1($smartFileInfo->getRelativeFilePathFromCwd());
     }
-    /**
-     * @return void
-     */
-    private function invalidateCacheIfConfigurationChanged(string $configurationHash)
+    private function invalidateCacheIfConfigurationChanged(string $configurationHash) : void
     {
         $cachedValue = $this->cache->load(self::CONFIGURATION_HASH_KEY, self::FILE_HASH);
         if ($configurationHash === $cachedValue) {

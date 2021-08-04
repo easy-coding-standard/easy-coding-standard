@@ -28,7 +28,7 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
     /**
      * @param iterable<FixerOptionInterface> $options
      */
-    public function __construct($options)
+    public function __construct(iterable $options)
     {
         foreach ($options as $option) {
             $this->addOption($option);

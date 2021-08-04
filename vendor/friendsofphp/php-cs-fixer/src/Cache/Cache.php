@@ -44,9 +44,8 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
     }
     /**
      * @param string $file
-     * @return int|null
      */
-    public function get($file)
+    public function get($file) : ?int
     {
         if (!$this->has($file)) {
             return null;
@@ -56,17 +55,15 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
     /**
      * @param string $file
      * @param int $hash
-     * @return void
      */
-    public function set($file, $hash)
+    public function set($file, $hash) : void
     {
         $this->hashes[$file] = $hash;
     }
     /**
      * @param string $file
-     * @return void
      */
-    public function clear($file)
+    public function clear($file) : void
     {
         unset($this->hashes[$file]);
     }

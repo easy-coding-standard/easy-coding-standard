@@ -21,7 +21,7 @@ class DefaultsConfigurator extends \ECSPrefix20210804\Symfony\Component\Dependen
     use Traits\AutowireTrait;
     use Traits\BindTrait;
     use Traits\PublicTrait;
-    const FACTORY = 'defaults';
+    public const FACTORY = 'defaults';
     private $path;
     public function __construct(\ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $definition, string $path = null)
     {

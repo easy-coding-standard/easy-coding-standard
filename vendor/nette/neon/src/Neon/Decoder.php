@@ -13,7 +13,7 @@ namespace ECSPrefix20210804\Nette\Neon;
  */
 final class Decoder
 {
-    const PATTERNS = [
+    public const PATTERNS = [
         // strings
         '
 			\'\'\'\\n (?:(?: [^\\n] | \\n(?![\\t\\ ]*+\'\'\') )*+ \\n)?[\\t\\ ]*+\'\'\' |
@@ -39,14 +39,14 @@ final class Decoder
         // whitespace
         '?:[\\t\\ ]++',
     ];
-    const PATTERN_DATETIME = '#\\d\\d\\d\\d-\\d\\d?-\\d\\d?(?:(?:[Tt]| ++)\\d\\d?:\\d\\d:\\d\\d(?:\\.\\d*+)? *+(?:Z|[-+]\\d\\d?(?::?\\d\\d)?)?)?$#DA';
-    const PATTERN_HEX = '#0x[0-9a-fA-F]++$#DA';
-    const PATTERN_OCTAL = '#0o[0-7]++$#DA';
-    const PATTERN_BINARY = '#0b[0-1]++$#DA';
-    const SIMPLE_TYPES = ['true' => 'TRUE', 'True' => 'TRUE', 'TRUE' => 'TRUE', 'yes' => 'TRUE', 'Yes' => 'TRUE', 'YES' => 'TRUE', 'on' => 'TRUE', 'On' => 'TRUE', 'ON' => 'TRUE', 'false' => 'FALSE', 'False' => 'FALSE', 'FALSE' => 'FALSE', 'no' => 'FALSE', 'No' => 'FALSE', 'NO' => 'FALSE', 'off' => 'FALSE', 'Off' => 'FALSE', 'OFF' => 'FALSE', 'null' => 'NULL', 'Null' => 'NULL', 'NULL' => 'NULL'];
-    const DEPRECATED_TYPES = ['on' => 1, 'On' => 1, 'ON' => 1, 'off' => 1, 'Off' => 1, 'OFF' => 1];
-    const ESCAPE_SEQUENCES = ['t' => "\t", 'n' => "\n", 'r' => "\r", 'f' => "\f", 'b' => "\10", '"' => '"', '\\' => '\\', '/' => '/', '_' => " "];
-    const BRACKETS = ['[' => ']', '{' => '}', '(' => ')'];
+    private const PATTERN_DATETIME = '#\\d\\d\\d\\d-\\d\\d?-\\d\\d?(?:(?:[Tt]| ++)\\d\\d?:\\d\\d:\\d\\d(?:\\.\\d*+)? *+(?:Z|[-+]\\d\\d?(?::?\\d\\d)?)?)?$#DA';
+    private const PATTERN_HEX = '#0x[0-9a-fA-F]++$#DA';
+    private const PATTERN_OCTAL = '#0o[0-7]++$#DA';
+    private const PATTERN_BINARY = '#0b[0-1]++$#DA';
+    private const SIMPLE_TYPES = ['true' => 'TRUE', 'True' => 'TRUE', 'TRUE' => 'TRUE', 'yes' => 'TRUE', 'Yes' => 'TRUE', 'YES' => 'TRUE', 'on' => 'TRUE', 'On' => 'TRUE', 'ON' => 'TRUE', 'false' => 'FALSE', 'False' => 'FALSE', 'FALSE' => 'FALSE', 'no' => 'FALSE', 'No' => 'FALSE', 'NO' => 'FALSE', 'off' => 'FALSE', 'Off' => 'FALSE', 'OFF' => 'FALSE', 'null' => 'NULL', 'Null' => 'NULL', 'NULL' => 'NULL'];
+    private const DEPRECATED_TYPES = ['on' => 1, 'On' => 1, 'ON' => 1, 'off' => 1, 'Off' => 1, 'OFF' => 1];
+    private const ESCAPE_SEQUENCES = ['t' => "\t", 'n' => "\n", 'r' => "\r", 'f' => "\f", 'b' => "\10", '"' => '"', '\\' => '\\', '/' => '/', '_' => " "];
+    private const BRACKETS = ['[' => ']', '{' => '}', '(' => ')'];
     /** @var string */
     private $input;
     /** @var array */

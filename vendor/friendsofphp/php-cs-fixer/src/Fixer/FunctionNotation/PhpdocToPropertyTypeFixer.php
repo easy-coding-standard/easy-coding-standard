@@ -70,9 +70,8 @@ class Foo {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
             if ($tokens[$index]->isGivenKind([\T_CLASS, \T_TRAIT])) {
@@ -80,10 +79,7 @@ class Foo {
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $index = $tokens->getNextTokenOfKind($index, ['{']);
         $classEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
@@ -140,9 +136,8 @@ class Foo {
     /**
      * @param array<string, int> $propertyIndexes
      * @param Annotation[]       $annotations
-     * @return mixed[]|null
      */
-    private function resolveAppliableType(array $propertyIndexes, array $annotations)
+    private function resolveAppliableType(array $propertyIndexes, array $annotations) : ?array
     {
         $propertyTypes = [];
         foreach ($annotations as $annotation) {

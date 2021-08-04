@@ -53,9 +53,8 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // min. offset 4 as minimal candidate is @: <?php\n/** @inheritdoc */class min{}
         for ($index = 1, $count = \count($tokens) - 4; $index < $count; ++$index) {
@@ -83,10 +82,7 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
         $this->fixClassyInside($tokens, $classOpenIndex, $classEndIndex, !$extendingOrImplementing);
         return $classEndIndex;
     }
-    /**
-     * @return void
-     */
-    private function fixClassyInside(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, int $classEndIndex, bool $fixThisLevel)
+    private function fixClassyInside(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, int $classEndIndex, bool $fixThisLevel) : void
     {
         for ($i = $classOpenIndex; $i < $classEndIndex; ++$i) {
             if ($tokens[$i]->isGivenKind(\T_CLASS)) {
@@ -96,20 +92,14 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixClassyOutside(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classIndex)
+    private function fixClassyOutside(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classIndex) : void
     {
         $previousIndex = $tokens->getPrevNonWhitespace($classIndex);
         if ($tokens[$previousIndex]->isGivenKind(\T_DOC_COMMENT)) {
             $this->fixToken($tokens, $previousIndex);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $tokenIndex)
+    private function fixToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $tokenIndex) : void
     {
         $count = 0;
         $content = \PhpCsFixer\Preg::replaceCallback('#(\\h*(?:@{*|{*\\h*@)\\h*inheritdoc\\h*)([^}]*)((?:}*)\\h*)#i', static function (array $matches) {

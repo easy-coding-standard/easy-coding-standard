@@ -30,7 +30,7 @@ use ECSPrefix20210804\Symfony\Component\OptionsResolver\Options;
  */
 final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
-    const TAG_REGEX = '/^(?:
+    private const TAG_REGEX = '/^(?:
         (?<tag>
             (?:@(?<tag_name>.+?)(?:\\s.+)?)
         )
@@ -65,9 +65,8 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if (!$this->configuration['tags']) {
             return;

@@ -33,19 +33,15 @@ abstract class AbstractCheckCommand extends \ECSPrefix20210804\Symplify\PackageB
     protected $configurationFactory;
     /**
      * @required
-     * @return void
      */
-    public function autowireAbstractCheckCommand(\Symplify\EasyCodingStandard\Configuration\ConfigurationFactory $configurationFactory, \Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication $easyCodingStandardApplication, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard $loadedCheckersGuard)
+    public function autowireAbstractCheckCommand(\Symplify\EasyCodingStandard\Configuration\ConfigurationFactory $configurationFactory, \Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication $easyCodingStandardApplication, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard $loadedCheckersGuard) : void
     {
         $this->configurationFactory = $configurationFactory;
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->loadedCheckersGuard = $loadedCheckersGuard;
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->addArgument(
             \Symplify\EasyCodingStandard\ValueObject\Option::PATHS,

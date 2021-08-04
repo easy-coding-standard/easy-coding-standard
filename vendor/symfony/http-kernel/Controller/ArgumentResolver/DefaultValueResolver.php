@@ -33,9 +33,8 @@ final class DefaultValueResolver implements \ECSPrefix20210804\Symfony\Component
      * {@inheritdoc}
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
-     * @return mixed[]
      */
-    public function resolve($request, $argument)
+    public function resolve($request, $argument) : iterable
     {
         (yield $argument->hasDefaultValue() ? $argument->getDefaultValue() : null);
     }

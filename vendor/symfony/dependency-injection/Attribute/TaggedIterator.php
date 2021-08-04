@@ -21,10 +21,7 @@ class TaggedIterator
      * @var string|null
      */
     public $indexAttribute;
-    /**
-     * @param string|null $indexAttribute
-     */
-    public function __construct(string $tag, $indexAttribute = null)
+    public function __construct(string $tag, ?string $indexAttribute = null)
     {
         $this->tag = $tag;
         $this->indexAttribute = $indexAttribute;

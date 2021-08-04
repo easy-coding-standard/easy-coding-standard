@@ -40,9 +40,8 @@ final class CleanNamespaceFixer extends \PhpCsFixer\AbstractLinesBeforeNamespace
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $count = $tokens->count();
         for ($index = 0; $index < $count; ++$index) {

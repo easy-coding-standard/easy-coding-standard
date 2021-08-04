@@ -14,9 +14,9 @@ use ECSPrefix20210804\Nette;
 final class Json
 {
     use Nette\StaticClass;
-    const FORCE_ARRAY = 0b1;
-    const PRETTY = 0b10;
-    const ESCAPE_UNICODE = 0b100;
+    public const FORCE_ARRAY = 0b1;
+    public const PRETTY = 0b10;
+    public const ESCAPE_UNICODE = 0b100;
     /**
      * Converts value to JSON format. The flag can be Json::PRETTY, which formats JSON for easier reading and clarity,
      * and Json::ESCAPE_UNICODE for ASCII output.

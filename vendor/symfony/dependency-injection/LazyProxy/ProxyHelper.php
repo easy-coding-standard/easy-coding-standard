@@ -23,7 +23,7 @@ class ProxyHelper
      * @param \ReflectionParameter|null $p
      * @param bool $noBuiltin
      */
-    public static function getTypeHint($r, $p = null, $noBuiltin = \false)
+    public static function getTypeHint($r, $p = null, $noBuiltin = \false) : ?string
     {
         if ($p instanceof \ReflectionParameter) {
             $type = $p->getType();

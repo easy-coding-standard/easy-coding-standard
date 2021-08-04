@@ -17,17 +17,17 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
      * @var string
      * @see https://regex101.com/r/QtWnWv/1
      */
-    const PARAM_WITHOUT_NAME_REGEX = '#@param ([^$]*?)( ([^$]*?))?\\n#';
+    private const PARAM_WITHOUT_NAME_REGEX = '#@param ([^$]*?)( ([^$]*?))?\\n#';
     /**
      * @var string
      * @see https://regex101.com/r/58YJNy/1
      */
-    const PARAM_ANNOTATOIN_START_REGEX = '@param ';
+    private const PARAM_ANNOTATOIN_START_REGEX = '@param ';
     /**
      * @var string
      * @see https://regex101.com/r/JhugsI/1
      */
-    const PARAM_WITH_NAME_REGEX = '#@param(.*?)\\$[\\w]+(.*?)\\n#';
+    private const PARAM_WITH_NAME_REGEX = '#@param(.*?)\\$[\\w]+(.*?)\\n#';
     /**
      * @var \Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver
      */
@@ -72,9 +72,8 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     /**
      * @param string[] $missingArgumentNames
      * @param string[] $argumentNames
-     * @return void
      */
-    private function completeMissingArgumentNames(array $missingArgumentNames, array $argumentNames, \PhpCsFixer\DocBlock\DocBlock $docBlock)
+    private function completeMissingArgumentNames(array $missingArgumentNames, array $argumentNames, \PhpCsFixer\DocBlock\DocBlock $docBlock) : void
     {
         foreach ($missingArgumentNames as $key => $missingArgumentName) {
             $newArgumentName = $this->resolveNewArgumentName($argumentNames, $missingArgumentName, $key);

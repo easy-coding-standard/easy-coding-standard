@@ -68,9 +68,8 @@ final class Tag
      * Set the tag name.
      *
      * This will also be persisted to the upstream line and annotation.
-     * @return void
      */
-    public function setName(string $name)
+    public function setName(string $name) : void
     {
         $current = $this->getName();
         if ('other' === $current) {

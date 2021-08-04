@@ -17,10 +17,10 @@ namespace ECSPrefix20210804\Symfony\Component\VarDumper\Cloner;
  */
 class Cursor
 {
-    const HASH_INDEXED = \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_INDEXED;
-    const HASH_ASSOC = \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_ASSOC;
-    const HASH_OBJECT = \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT;
-    const HASH_RESOURCE = \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub::TYPE_RESOURCE;
+    public const HASH_INDEXED = \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_INDEXED;
+    public const HASH_ASSOC = \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub::ARRAY_ASSOC;
+    public const HASH_OBJECT = \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT;
+    public const HASH_RESOURCE = \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub::TYPE_RESOURCE;
     public $depth = 0;
     public $refIndex = 0;
     public $softRefTo = 0;

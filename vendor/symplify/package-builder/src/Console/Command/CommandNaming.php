@@ -14,7 +14,7 @@ final class CommandNaming
      * @var string
      * @see https://regex101.com/r/DfCWPx/1
      */
-    const BIG_LETTER_REGEX = '#[A-Z]#';
+    private const BIG_LETTER_REGEX = '#[A-Z]#';
     /**
      * Converts:
      * - "SomeClass\SomeSuperCommand" → "some-super"

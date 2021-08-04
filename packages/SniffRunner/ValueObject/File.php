@@ -26,7 +26,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      *
      * @var array<class-string<Sniff>>
      */
-    const REPORT_WARNINGS_SNIFFS = [\PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff::class];
+    private const REPORT_WARNINGS_SNIFFS = [\PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff::class];
     /**
      * @var string
      */
@@ -82,9 +82,8 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * Mimics @see
      * https://github.com/squizlabs/PHP_CodeSniffer/blob/e4da24f399d71d1077f93114a72e305286020415/src/Files/File.php#L310
-     * @return void
      */
-    public function process()
+    public function process() : void
     {
         $this->parse();
         $this->fixer->startFile($this);
@@ -146,9 +145,8 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * @param array<int|string, Sniff[]> $tokenListeners
      * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
-     * @return void
      */
-    public function processWithTokenListenersAndFileInfo($tokenListeners, $fileInfo)
+    public function processWithTokenListenersAndFileInfo($tokenListeners, $fileInfo) : void
     {
         $this->tokenListeners = $tokenListeners;
         $this->fileInfo = $fileInfo;
@@ -174,10 +172,7 @@ final class File extends \PHP_CodeSniffer\Files\File
         // do not add non-fixable errors twice
         return $this->fixer->loops === 0;
     }
-    /**
-     * @return void
-     */
-    private function reportActiveSniffClass(\PHP_CodeSniffer\Sniffs\Sniff $sniff)
+    private function reportActiveSniffClass(\PHP_CodeSniffer\Sniffs\Sniff $sniff) : void
     {
         // used in other places later
         $this->activeSniffClass = \get_class($sniff);

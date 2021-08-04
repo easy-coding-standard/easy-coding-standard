@@ -9,9 +9,8 @@ final class EasyTestingKernel extends \ECSPrefix20210804\Symplify\SymplifyKernel
 {
     /**
      * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
-     * @return void
      */
-    public function registerContainerConfiguration($loader)
+    public function registerContainerConfiguration($loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
     }

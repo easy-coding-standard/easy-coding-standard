@@ -20,7 +20,7 @@ use ECSPrefix20210804\Psr\Log\LogLevel;
  */
 class Logger extends \ECSPrefix20210804\Psr\Log\AbstractLogger
 {
-    const LEVELS = [\ECSPrefix20210804\Psr\Log\LogLevel::DEBUG => 0, \ECSPrefix20210804\Psr\Log\LogLevel::INFO => 1, \ECSPrefix20210804\Psr\Log\LogLevel::NOTICE => 2, \ECSPrefix20210804\Psr\Log\LogLevel::WARNING => 3, \ECSPrefix20210804\Psr\Log\LogLevel::ERROR => 4, \ECSPrefix20210804\Psr\Log\LogLevel::CRITICAL => 5, \ECSPrefix20210804\Psr\Log\LogLevel::ALERT => 6, \ECSPrefix20210804\Psr\Log\LogLevel::EMERGENCY => 7];
+    private const LEVELS = [\ECSPrefix20210804\Psr\Log\LogLevel::DEBUG => 0, \ECSPrefix20210804\Psr\Log\LogLevel::INFO => 1, \ECSPrefix20210804\Psr\Log\LogLevel::NOTICE => 2, \ECSPrefix20210804\Psr\Log\LogLevel::WARNING => 3, \ECSPrefix20210804\Psr\Log\LogLevel::ERROR => 4, \ECSPrefix20210804\Psr\Log\LogLevel::CRITICAL => 5, \ECSPrefix20210804\Psr\Log\LogLevel::ALERT => 6, \ECSPrefix20210804\Psr\Log\LogLevel::EMERGENCY => 7];
     private $minLevelIndex;
     private $formatter;
     private $handle;

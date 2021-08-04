@@ -61,9 +61,8 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         foreach ((new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens) as $namespace) {
@@ -82,9 +81,8 @@ class Sample
     }
     /**
      * Replace occurrences of the name of the classy element by "self" (if possible).
-     * @return void
      */
-    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespace, string $name, int $startIndex, int $endIndex)
+    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespace, string $name, int $startIndex, int $endIndex) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $insideMethodSignatureUntil = null;
@@ -131,10 +129,7 @@ class Sample
             }
         }
     }
-    /**
-     * @return int|null
-     */
-    private function getClassStart(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $namespace)
+    private function getClassStart(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $namespace) : ?int
     {
         $namespace = ('' !== $namespace ? '\\' . $namespace : '') . '\\';
         foreach (\array_reverse(\PhpCsFixer\Preg::split('/(\\\\)/', $namespace, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE)) as $piece) {

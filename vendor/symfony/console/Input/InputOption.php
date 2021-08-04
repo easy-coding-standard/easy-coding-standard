@@ -22,23 +22,23 @@ class InputOption
     /**
      * Do not accept input for the option (e.g. --yell). This is the default behavior of options.
      */
-    const VALUE_NONE = 1;
+    public const VALUE_NONE = 1;
     /**
      * A value must be passed when the option is used (e.g. --iterations=5 or -i5).
      */
-    const VALUE_REQUIRED = 2;
+    public const VALUE_REQUIRED = 2;
     /**
      * The option may or may not have a value (e.g. --yell or --yell=loud).
      */
-    const VALUE_OPTIONAL = 4;
+    public const VALUE_OPTIONAL = 4;
     /**
      * The option accepts multiple values (e.g. --dir=/foo --dir=/bar).
      */
-    const VALUE_IS_ARRAY = 8;
+    public const VALUE_IS_ARRAY = 8;
     /**
      * The option may have either positive or negative value (e.g. --ansi or --no-ansi).
      */
-    const VALUE_NEGATABLE = 16;
+    public const VALUE_NEGATABLE = 16;
     private $name;
     private $shortcut;
     private $mode;

@@ -39,9 +39,8 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
     private $typesToFix = [];
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->typesToFix = \array_merge(...\array_map(static function (string $group) {

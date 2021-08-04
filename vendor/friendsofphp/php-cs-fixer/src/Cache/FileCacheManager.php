@@ -50,10 +50,7 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
      * @var DirectoryInterface
      */
     private $cacheDirectory;
-    /**
-     * @param \PhpCsFixer\Cache\DirectoryInterface|null $cacheDirectory
-     */
-    public function __construct(\PhpCsFixer\Cache\FileHandlerInterface $handler, \PhpCsFixer\Cache\SignatureInterface $signature, bool $isDryRun = \false, $cacheDirectory = null)
+    public function __construct(\PhpCsFixer\Cache\FileHandlerInterface $handler, \PhpCsFixer\Cache\SignatureInterface $signature, bool $isDryRun = \false, ?\PhpCsFixer\Cache\DirectoryInterface $cacheDirectory = null)
     {
         $this->handler = $handler;
         $this->signature = $signature;
@@ -78,9 +75,8 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
      * code by leveraging the __destruct method.
      *
      * @see https://owasp.org/www-community/vulnerabilities/PHP_Object_Injection
-     * @return void
      */
-    public function __wakeup()
+    public function __wakeup() : void
     {
         throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
     }
@@ -96,9 +92,8 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
     /**
      * @param string $file
      * @param string $fileContent
-     * @return void
      */
-    public function setFile($file, $fileContent)
+    public function setFile($file, $fileContent) : void
     {
         $file = $this->cacheDirectory->getRelativePathTo($file);
         $hash = $this->calcHash($fileContent);
@@ -108,10 +103,7 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
         }
         $this->cache->set($file, $hash);
     }
-    /**
-     * @return void
-     */
-    private function readCache()
+    private function readCache() : void
     {
         $cache = $this->handler->read();
         if (!$cache || !$this->signature->equals($cache->getSignature())) {
@@ -119,10 +111,7 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
         }
         $this->cache = $cache;
     }
-    /**
-     * @return void
-     */
-    private function writeCache()
+    private function writeCache() : void
     {
         $this->handler->write($this->cache);
     }

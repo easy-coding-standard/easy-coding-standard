@@ -52,9 +52,8 @@ final class NoSpacesAfterFunctionNameFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $functionyTokens = $this->getFunctionyTokenKinds();
         $languageConstructionTokens = $this->getLanguageConstructionTokenKinds();
@@ -94,9 +93,8 @@ final class NoSpacesAfterFunctionNameFixer extends \PhpCsFixer\AbstractFixer
      *
      * @param Tokens $tokens tokens to handle
      * @param int    $index  index of token
-     * @return void
      */
-    private function fixFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         // remove space before opening brace
         if ($tokens[$index - 1]->isWhitespace()) {

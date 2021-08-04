@@ -25,7 +25,7 @@ final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fi
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Indexed PHP array opener [ and closer ] must be on own line';
+    private const ERROR_MESSAGE = 'Indexed PHP array opener [ and closer ] must be on own line';
     /**
      * @var \Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder
      */
@@ -81,9 +81,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $blockInfos = $this->arrayBlockInfoFinder->findArrayOpenerBlockInfos($tokens);
         foreach ($blockInfos as $blockInfo) {
@@ -92,9 +91,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function fixArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
+    private function fixArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : void
     {
         if ($this->isNextTokenAlsoArrayOpener($tokens, $blockInfo->getStart())) {
             return;
@@ -124,9 +122,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function handleArrayCloser(\PhpCsFixer\Tokenizer\Tokens $tokens, int $arrayCloserPosition)
+    private function handleArrayCloser(\PhpCsFixer\Tokenizer\Tokens $tokens, int $arrayCloserPosition) : void
     {
         $preArrayCloserPosition = $arrayCloserPosition - 1;
         $previousCloserToken = $tokens[$preArrayCloserPosition] ?? null;
@@ -141,9 +138,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function handleArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, int $arrayOpenerPosition)
+    private function handleArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, int $arrayOpenerPosition) : void
     {
         $postArrayOpenerPosition = $arrayOpenerPosition + 1;
         $nextToken = $tokens[$postArrayOpenerPosition] ?? null;

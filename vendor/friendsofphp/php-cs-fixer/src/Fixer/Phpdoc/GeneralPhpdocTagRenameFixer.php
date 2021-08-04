@@ -90,9 +90,8 @@ final class GeneralPhpdocTagRenameFixer extends \PhpCsFixer\AbstractFixer implem
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if (!$this->configuration['replacements']) {
             return;

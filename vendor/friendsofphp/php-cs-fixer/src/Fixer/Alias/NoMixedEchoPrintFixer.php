@@ -39,9 +39,8 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     private $candidateTokenType;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         if ('echo' === $this->configuration['use']) {
@@ -77,9 +76,8 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $callBack = $this->callBack;
         foreach ($tokens as $index => $token) {
@@ -95,10 +93,7 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use', 'The desired language construct.'))->setAllowedValues(['print', 'echo'])->setDefault('echo')->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixEchoToPrint(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixEchoToPrint(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $nextTokenIndex = $tokens->getNextMeaningfulToken($index);
         $endTokenIndex = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
@@ -118,10 +113,7 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
         }
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_PRINT, 'print']);
     }
-    /**
-     * @return void
-     */
-    private function fixPrintToEcho(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixPrintToEcho(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
         if (!$prevToken->equalsAny([';', '{', '}', ')', [\T_OPEN_TAG], [\T_ELSE]])) {

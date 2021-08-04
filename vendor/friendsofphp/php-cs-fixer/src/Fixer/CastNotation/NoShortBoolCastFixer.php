@@ -48,9 +48,8 @@ final class NoShortBoolCastFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; $index > 1; --$index) {
             if ($tokens[$index]->equals('!')) {
@@ -71,10 +70,7 @@ final class NoShortBoolCastFixer extends \PhpCsFixer\AbstractFixer
         }
         return $i;
     }
-    /**
-     * @return void
-     */
-    private function fixShortCastToBoolCast(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
+    private function fixShortCastToBoolCast(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : void
     {
         for (; $start <= $end; ++$start) {
             if (!$tokens[$start]->isComment() && !($tokens[$start]->isWhitespace() && $tokens[$start - 1]->isComment())) {

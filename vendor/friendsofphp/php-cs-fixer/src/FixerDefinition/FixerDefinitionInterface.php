@@ -18,14 +18,11 @@ namespace PhpCsFixer\FixerDefinition;
 interface FixerDefinitionInterface
 {
     public function getSummary() : string;
-    /**
-     * @return string|null
-     */
-    public function getDescription();
+    public function getDescription() : ?string;
     /**
      * @return null|string null for non-risky fixer
      */
-    public function getRiskyDescription();
+    public function getRiskyDescription() : ?string;
     /**
      * Array of samples, where single sample is [code, configuration].
      *

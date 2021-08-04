@@ -48,9 +48,8 @@ final class FileCacheStorage
     }
     /**
      * @param mixed $data
-     * @return void
      */
-    public function save(string $key, string $variableKey, $data)
+    public function save(string $key, string $variableKey, $data) : void
     {
         $cacheFilePaths = $this->getCacheFilePaths($key);
         $this->smartFileSystem->mkdir($cacheFilePaths->getFirstDirectory());
@@ -68,18 +67,12 @@ final class FileCacheStorage
         $this->smartFileSystem->rename($tmpPath, $cacheFilePaths->getFilePath(), \true);
         $this->smartFileSystem->remove($tmpPath);
     }
-    /**
-     * @return void
-     */
-    public function clean(string $cacheKey)
+    public function clean(string $cacheKey) : void
     {
         $cacheFilePaths = $this->getCacheFilePaths($cacheKey);
         $this->smartFileSystem->remove([$cacheFilePaths->getFirstDirectory(), $cacheFilePaths->getSecondDirectory(), $cacheFilePaths->getFilePath()]);
     }
-    /**
-     * @return void
-     */
-    public function clear()
+    public function clear() : void
     {
         $this->smartFileSystem->remove($this->directory);
     }

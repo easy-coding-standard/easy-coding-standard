@@ -53,9 +53,8 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens) : void
     {
         if ($this->configuration['around_parentheses']) {
             $this->fixSpacesAroundParentheses($doctrineAnnotationTokens);
@@ -67,10 +66,7 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
             $this->fixAroundAssignments($doctrineAnnotationTokens);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixSpacesAroundParentheses(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
+    private function fixSpacesAroundParentheses(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens) : void
     {
         $inAnnotationUntilIndex = null;
         foreach ($tokens as $index => $token) {
@@ -109,10 +105,7 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixSpacesAroundCommas(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
+    private function fixSpacesAroundCommas(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens) : void
     {
         $inAnnotationUntilIndex = null;
         foreach ($tokens as $index => $token) {
@@ -143,10 +136,7 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixAroundAssignments(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
+    private function fixAroundAssignments(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens) : void
     {
         $beforeArguments = $this->configuration['before_argument_assignments'];
         $afterArguments = $this->configuration['after_argument_assignments'];
@@ -187,27 +177,15 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
             }
         }
     }
-    /**
-     * @param bool|null $insert
-     * @return void
-     */
-    private function updateSpacesAfter(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, $insert)
+    private function updateSpacesAfter(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, ?bool $insert) : void
     {
         $this->updateSpacesAt($tokens, $index + 1, $index + 1, $insert);
     }
-    /**
-     * @param bool|null $insert
-     * @return void
-     */
-    private function updateSpacesBefore(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, $insert)
+    private function updateSpacesBefore(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, ?bool $insert) : void
     {
         $this->updateSpacesAt($tokens, $index - 1, $index, $insert);
     }
-    /**
-     * @param bool|null $insert
-     * @return void
-     */
-    private function updateSpacesAt(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, int $insertIndex, $insert)
+    private function updateSpacesAt(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, int $insertIndex, ?bool $insert) : void
     {
         if (null === $insert) {
             return;

@@ -17,10 +17,7 @@ namespace ECSPrefix20210804\Symfony\Component\VarDumper\Dumper\ContextProvider;
  */
 final class CliContextProvider implements \ECSPrefix20210804\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface
 {
-    /**
-     * @return mixed[]|null
-     */
-    public function getContext()
+    public function getContext() : ?array
     {
         if ('cli' !== \PHP_SAPI) {
             return null;

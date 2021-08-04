@@ -35,9 +35,8 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
      * @param  int|null  $index
      * @param  mixed  $value
      * @throws Nette\OutOfRangeException
-     * @return void
      */
-    public function offsetSet($index, $value)
+    public function offsetSet($index, $value) : void
     {
         if ($index === null) {
             $this->list[] = $value;
@@ -72,9 +71,8 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
      * Removes the element at the specified position in this list.
      * @param  int  $index
      * @throws Nette\OutOfRangeException
-     * @return void
      */
-    public function offsetUnset($index)
+    public function offsetUnset($index) : void
     {
         if (!\is_int($index) || $index < 0 || $index >= \count($this->list)) {
             throw new \ECSPrefix20210804\Nette\OutOfRangeException('Offset invalid or out of range');
@@ -84,9 +82,8 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
     /**
      * Prepends a item.
      * @param  mixed  $value
-     * @return void
      */
-    public function prepend($value)
+    public function prepend($value) : void
     {
         $first = \array_slice($this->list, 0, 1);
         $this->offsetSet(0, $value);

@@ -35,11 +35,11 @@ final class PhpUnitMethodCasingFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFi
     /**
      * @internal
      */
-    const CAMEL_CASE = 'camel_case';
+    public const CAMEL_CASE = 'camel_case';
     /**
      * @internal
      */
-    const SNAKE_CASE = 'snake_case';
+    public const SNAKE_CASE = 'snake_case';
     /**
      * {@inheritdoc}
      */
@@ -75,9 +75,8 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($index = $endIndex - 1; $index > $startIndex; --$index) {
             if (!$this->isTestMethod($tokens, $index)) {
@@ -134,10 +133,7 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     {
         return \substr($haystack, 0, \strlen($needle)) === $needle;
     }
-    /**
-     * @return void
-     */
-    private function updateDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex)
+    private function updateDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : void
     {
         $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
         $lines = $doc->getLines();

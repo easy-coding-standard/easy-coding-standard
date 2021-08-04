@@ -26,10 +26,7 @@ use ECSPrefix20210804\Symfony\Component\DependencyInjection\Reference;
 class DecoratorServicePass extends \ECSPrefix20210804\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $innerId = '.inner';
-    /**
-     * @param string|null $innerId
-     */
-    public function __construct($innerId = '.inner')
+    public function __construct(?string $innerId = '.inner')
     {
         if (0 < \func_num_args()) {
             trigger_deprecation('symfony/dependency-injection', '5.3', 'Configuring "%s" is deprecated.', __CLASS__);
@@ -50,9 +47,9 @@ class DecoratorServicePass extends \ECSPrefix20210804\Symfony\Component\Dependen
             $definitions->insert([$id, $definition], [$decorated[2], --$order]);
         }
         $decoratingDefinitions = [];
-        foreach ($definitions as list($id, $definition)) {
+        foreach ($definitions as [$id, $definition]) {
             $decoratedService = $definition->getDecoratedService();
-            list($inner, $renamedId) = $decoratedService;
+            [$inner, $renamedId] = $decoratedService;
             $invalidBehavior = $decoratedService[3] ?? \ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             $definition->setDecoratedService(null);
             if (!$renamedId) {

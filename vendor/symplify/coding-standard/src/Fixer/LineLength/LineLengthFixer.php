@@ -31,25 +31,25 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
      * @api
      * @var string
      */
-    const LINE_LENGTH = 'line_length';
+    public const LINE_LENGTH = 'line_length';
     /**
      * @api
      * @var string
      */
-    const BREAK_LONG_LINES = 'break_long_lines';
+    public const BREAK_LONG_LINES = 'break_long_lines';
     /**
      * @api
      * @var string
      */
-    const INLINE_SHORT_LINES = 'inline_short_lines';
+    public const INLINE_SHORT_LINES = 'inline_short_lines';
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Array items, method parameters, method call arguments, new arguments should be on same/standalone line to fit line length.';
+    private const ERROR_MESSAGE = 'Array items, method parameters, method call arguments, new arguments should be on same/standalone line to fit line length.';
     /**
      * @var int
      */
-    const DEFAULT_LINE_LENGHT = 120;
+    private const DEFAULT_LINE_LENGHT = 120;
     /**
      * @var int
      */
@@ -106,9 +106,8 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -164,10 +163,7 @@ CODE_SAMPLE
     {
         return 5;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->lineLength = $configuration[self::LINE_LENGTH] ?? self::DEFAULT_LINE_LENGHT;
         $this->breakLongLines = $configuration[self::BREAK_LONG_LINES] ?? \true;
@@ -179,9 +175,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function processMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
+    private function processMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : void
     {
         $methodNamePosition = $this->functionCallNameMatcher->matchName($tokens, $position);
         if ($methodNamePosition === null) {
@@ -200,9 +195,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    private function processFunctionOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
+    private function processFunctionOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : void
     {
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {

@@ -20,7 +20,7 @@ use ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class DateCaster
 {
-    const PERIOD_LIMIT = 3;
+    private const PERIOD_LIMIT = 3;
     public static function castDateTime(\DateTimeInterface $d, array $a, \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested, int $filter)
     {
         $prefix = \ECSPrefix20210804\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;

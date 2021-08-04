@@ -30,10 +30,7 @@ final class ArgumentResolver implements \ECSPrefix20210804\Symfony\Component\Htt
      * @var iterable|ArgumentValueResolverInterface[]
      */
     private $argumentValueResolvers;
-    /**
-     * @param mixed[] $argumentValueResolvers
-     */
-    public function __construct(\ECSPrefix20210804\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, $argumentValueResolvers = [])
+    public function __construct(\ECSPrefix20210804\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, iterable $argumentValueResolvers = [])
     {
         $this->argumentMetadataFactory = $argumentMetadataFactory ?? new \ECSPrefix20210804\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory();
         $this->argumentValueResolvers = $argumentValueResolvers ?: self::getDefaultArgumentValueResolvers();
@@ -73,10 +70,7 @@ final class ArgumentResolver implements \ECSPrefix20210804\Symfony\Component\Htt
         }
         return $arguments;
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getDefaultArgumentValueResolvers()
+    public static function getDefaultArgumentValueResolvers() : iterable
     {
         return [new \ECSPrefix20210804\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver(), new \ECSPrefix20210804\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver(), new \ECSPrefix20210804\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver(), new \ECSPrefix20210804\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver(), new \ECSPrefix20210804\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver()];
     }

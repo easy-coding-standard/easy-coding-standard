@@ -86,9 +86,8 @@ yield(2);
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // Checks if specific statements are set and uses them in this case.
         $loops = \array_intersect_key(self::$loops, \array_flip($this->configuration['statements']));

@@ -12,9 +12,8 @@ final class SymplifyCodingStandardExtension extends \ECSPrefix20210804\Symfony\C
     /**
      * @param string[] $configs
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function load($configs, $containerBuilder)
+    public function load($configs, $containerBuilder) : void
     {
         // needed for parameter shifting of sniff/fixer params
         $phpFileLoader = new \ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20210804\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));

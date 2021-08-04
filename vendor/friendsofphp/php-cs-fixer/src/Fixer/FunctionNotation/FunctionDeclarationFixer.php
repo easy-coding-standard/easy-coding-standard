@@ -35,12 +35,12 @@ final class FunctionDeclarationFixer extends \PhpCsFixer\AbstractFixer implement
     /**
      * @internal
      */
-    const SPACING_NONE = 'none';
+    public const SPACING_NONE = 'none';
     /**
      * @internal
      */
-    const SPACING_ONE = 'one';
-    const SUPPORTED_SPACINGS = [self::SPACING_NONE, self::SPACING_ONE];
+    public const SPACING_ONE = 'one';
+    private const SUPPORTED_SPACINGS = [self::SPACING_NONE, self::SPACING_ONE];
     /**
      * @var string
      */
@@ -92,9 +92,8 @@ $f = fn () => null;
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
@@ -163,10 +162,7 @@ $f = fn () => null;
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('closure_function_spacing', 'Spacing to use before open parenthesis for closures.'))->setDefault(self::SPACING_ONE)->setAllowedValues(self::SUPPORTED_SPACINGS)->getOption()]);
     }
-    /**
-     * @return void
-     */
-    private function fixParenthesisInnerEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
+    private function fixParenthesisInnerEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : void
     {
         // remove single-line whitespace before )
         if ($tokens[$end - 1]->isWhitespace($this->singleLineWhitespaceOptions)) {

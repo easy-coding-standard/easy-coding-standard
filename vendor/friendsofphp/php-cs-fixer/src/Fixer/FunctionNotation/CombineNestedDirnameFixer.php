@@ -58,9 +58,8 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             $dirnameInfo = $this->getDirnameInfo($tokens, $index);
@@ -95,7 +94,7 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
      *
      * @return array|bool `false` when it is not a (supported) `dirname` call, an array with info about the dirname call otherwise
      */
-    private function getDirnameInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, $firstArgumentEndIndex = null)
+    private function getDirnameInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, ?int $firstArgumentEndIndex = null)
     {
         if (!$tokens[$index]->equals([\T_STRING, 'dirname'], \false)) {
             return \false;
@@ -154,10 +153,7 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
         $info['end'] = $next;
         return $info;
     }
-    /**
-     * @return void
-     */
-    private function combineDirnames(\PhpCsFixer\Tokenizer\Tokens $tokens, array $dirnameInfoArray)
+    private function combineDirnames(\PhpCsFixer\Tokenizer\Tokens $tokens, array $dirnameInfoArray) : void
     {
         $outerDirnameInfo = \array_pop($dirnameInfoArray);
         $levels = $outerDirnameInfo['levels'];

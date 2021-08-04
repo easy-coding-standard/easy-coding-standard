@@ -24,10 +24,7 @@ class AsCommand
      * @var string|null
      */
     public $description;
-    /**
-     * @param string|null $description
-     */
-    public function __construct(string $name, $description = null, array $aliases = [], bool $hidden = \false)
+    public function __construct(string $name, ?string $description = null, array $aliases = [], bool $hidden = \false)
     {
         $this->name = $name;
         $this->description = $description;

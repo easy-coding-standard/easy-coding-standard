@@ -105,10 +105,7 @@ class ReflectionClassResource implements \ECSPrefix20210804\Symfony\Component\Co
         }
         return \hash_final($hash);
     }
-    /**
-     * @return mixed[]
-     */
-    private function generateSignature(\ReflectionClass $class)
+    private function generateSignature(\ReflectionClass $class) : iterable
     {
         if (\PHP_VERSION_ID >= 80000) {
             $attributes = [];

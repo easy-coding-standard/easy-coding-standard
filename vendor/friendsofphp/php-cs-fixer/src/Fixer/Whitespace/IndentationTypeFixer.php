@@ -57,9 +57,8 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $this->indent = $this->whitespacesConfig->getIndent();
         foreach ($tokens as $index => $token) {

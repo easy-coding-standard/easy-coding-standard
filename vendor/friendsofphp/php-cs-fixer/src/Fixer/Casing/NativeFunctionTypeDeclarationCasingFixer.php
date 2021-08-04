@@ -85,9 +85,8 @@ final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\Abstrac
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             if ($tokens[$index]->isGivenKind(\T_FUNCTION)) {
@@ -98,27 +97,17 @@ final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\Abstrac
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixFunctionArgumentTypes(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixFunctionArgumentTypes(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         foreach ($this->functionsAnalyzer->getFunctionArguments($tokens, $index) as $argument) {
             $this->fixArgumentType($tokens, $argument->getTypeAnalysis());
         }
     }
-    /**
-     * @return void
-     */
-    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $this->fixArgumentType($tokens, $this->functionsAnalyzer->getFunctionReturnType($tokens, $index));
     }
-    /**
-     * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis|null $type
-     * @return void
-     */
-    private function fixArgumentType(\PhpCsFixer\Tokenizer\Tokens $tokens, $type = null)
+    private function fixArgumentType(\PhpCsFixer\Tokenizer\Tokens $tokens, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis $type = null) : void
     {
         if (null === $type) {
             return;

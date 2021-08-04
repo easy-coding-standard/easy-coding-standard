@@ -20,8 +20,8 @@ use ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class ReflectionCaster
 {
-    const UNSET_CLOSURE_FILE_INFO = ['Closure' => __CLASS__ . '::unsetClosureFileInfo'];
-    const EXTRA_MAP = ['docComment' => 'getDocComment', 'extension' => 'getExtensionName', 'isDisabled' => 'isDisabled', 'isDeprecated' => 'isDeprecated', 'isInternal' => 'isInternal', 'isUserDefined' => 'isUserDefined', 'isGenerator' => 'isGenerator', 'isVariadic' => 'isVariadic'];
+    public const UNSET_CLOSURE_FILE_INFO = ['Closure' => __CLASS__ . '::unsetClosureFileInfo'];
+    private const EXTRA_MAP = ['docComment' => 'getDocComment', 'extension' => 'getExtensionName', 'isDisabled' => 'isDisabled', 'isDeprecated' => 'isDeprecated', 'isInternal' => 'isInternal', 'isUserDefined' => 'isUserDefined', 'isGenerator' => 'isGenerator', 'isVariadic' => 'isVariadic'];
     public static function castClosure(\Closure $c, array $a, \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested, int $filter = 0)
     {
         $prefix = \ECSPrefix20210804\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
@@ -297,10 +297,7 @@ class ReflectionCaster
             }
         }
     }
-    /**
-     * @return void
-     */
-    private static function addAttributes(array &$a, \Reflector $c, string $prefix = \ECSPrefix20210804\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL)
+    private static function addAttributes(array &$a, \Reflector $c, string $prefix = \ECSPrefix20210804\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL) : void
     {
         if (\PHP_VERSION_ID >= 80000) {
             foreach ($c->getAttributes() as $n) {

@@ -22,7 +22,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     /**
      * @var string[]
      */
-    const POSSIBLE_CODE_SNIFFER_AUTOLOAD_PATHS = [
+    private const POSSIBLE_CODE_SNIFFER_AUTOLOAD_PATHS = [
         __DIR__ . '/../../../../../vendor/squizlabs/php_codesniffer/autoload.php',
         __DIR__ . '/../../../../vendor/squizlabs/php_codesniffer/autoload.php',
     ];
@@ -37,10 +37,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
      */
     private $sniffFileProcessor;
 
-    /**
-     * @return void
-     */
-    protected function setUp()
+    protected function setUp(): void
     {
         // autoload php code sniffer before Kernel boot
         $this->autoloadCodeSniffer();
@@ -54,9 +51,8 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
 
     /**
      * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
-     * @return void
      */
-    protected function doTestFileInfo($fileInfo)
+    protected function doTestFileInfo($fileInfo): void
     {
         $staticFixtureSplitter = new StaticFixtureSplitter();
 
@@ -74,9 +70,8 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     /**
      * File should stay the same and contain 0 errors
      * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
-     * @return void
      */
-    protected function doTestCorrectFileInfo($fileInfo)
+    protected function doTestCorrectFileInfo($fileInfo): void
     {
         $this->ensureSomeCheckersAreRegistered();
 
@@ -97,9 +92,8 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     /**
      * @param \Symplify\SmartFileSystem\SmartFileInfo $wrongFileInfo
      * @param int $expectedErrorCount
-     * @return void
      */
-    protected function doTestFileInfoWithErrorCountOf($wrongFileInfo, $expectedErrorCount)
+    protected function doTestFileInfoWithErrorCountOf($wrongFileInfo, $expectedErrorCount): void
     {
         $this->ensureSomeCheckersAreRegistered();
 
@@ -118,14 +112,11 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $this->assertSame($expectedErrorCount, $errorCount, $message);
     }
 
-    /**
-     * @return void
-     */
     private function doTestWrongToFixedFile(
         SmartFileInfo $wrongFileInfo,
         string $fixedFile,
         SmartFileInfo $fixtureFileInfo
-    ) {
+    ): void {
         $this->ensureSomeCheckersAreRegistered();
 
         if ($this->fixerFileProcessor->getCheckers() !== []) {
@@ -140,10 +131,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $this->assertStringEqualsWithFileLocation($fixedFile, $processedFileContent, $fixtureFileInfo);
     }
 
-    /**
-     * @return void
-     */
-    private function autoloadCodeSniffer()
+    private function autoloadCodeSniffer(): void
     {
         foreach (self::POSSIBLE_CODE_SNIFFER_AUTOLOAD_PATHS as $possibleCodeSnifferAutoloadPath) {
             if (! file_exists($possibleCodeSnifferAutoloadPath)) {
@@ -155,10 +143,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         }
     }
 
-    /**
-     * @return void
-     */
-    private function ensureSomeCheckersAreRegistered()
+    private function ensureSomeCheckersAreRegistered(): void
     {
         $totalCheckersLoaded = count($this->sniffFileProcessor->getCheckers())
             + count($this->fixerFileProcessor->getCheckers());
@@ -170,14 +155,11 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         throw new ShouldNotHappenException('No checkers were found. Registers them in your config.');
     }
 
-    /**
-     * @return void
-     */
     private function assertStringEqualsWithFileLocation(
         string $file,
         string $processedFileContent,
         SmartFileInfo $fixtureFileInfo
-    ) {
+    ): void {
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
         $this->assertStringEqualsFile($file, $processedFileContent, $relativeFilePathFromCwd);
     }

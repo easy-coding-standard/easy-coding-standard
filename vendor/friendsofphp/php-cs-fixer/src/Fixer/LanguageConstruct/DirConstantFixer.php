@@ -48,9 +48,8 @@ final class DirConstantFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $currIndex = 0;
         while (null !== $currIndex) {

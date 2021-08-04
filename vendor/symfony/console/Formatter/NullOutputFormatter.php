@@ -19,9 +19,8 @@ final class NullOutputFormatter implements \ECSPrefix20210804\Symfony\Component\
     /**
      * {@inheritdoc}
      * @param string|null $message
-     * @return void
      */
-    public function format($message)
+    public function format($message) : void
     {
         // do nothing
     }
@@ -55,9 +54,8 @@ final class NullOutputFormatter implements \ECSPrefix20210804\Symfony\Component\
     /**
      * {@inheritdoc}
      * @param bool $decorated
-     * @return void
      */
-    public function setDecorated($decorated)
+    public function setDecorated($decorated) : void
     {
         // do nothing
     }
@@ -65,9 +63,8 @@ final class NullOutputFormatter implements \ECSPrefix20210804\Symfony\Component\
      * {@inheritdoc}
      * @param string $name
      * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
-     * @return void
      */
-    public function setStyle($name, $style)
+    public function setStyle($name, $style) : void
     {
         // do nothing
     }

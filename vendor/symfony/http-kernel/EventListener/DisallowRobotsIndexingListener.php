@@ -20,12 +20,11 @@ use ECSPrefix20210804\Symfony\Component\HttpKernel\KernelEvents;
  */
 class DisallowRobotsIndexingListener implements \ECSPrefix20210804\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
-    const HEADER_NAME = 'X-Robots-Tag';
+    private const HEADER_NAME = 'X-Robots-Tag';
     /**
      * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     * @return void
      */
-    public function onResponse($event)
+    public function onResponse($event) : void
     {
         if (!$event->getResponse()->headers->has(static::HEADER_NAME)) {
             $event->getResponse()->headers->set(static::HEADER_NAME, 'noindex');

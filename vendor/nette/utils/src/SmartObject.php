@@ -26,7 +26,7 @@ trait SmartObject
         if (\ECSPrefix20210804\Nette\Utils\ObjectHelpers::hasProperty($class, $name) === 'event') {
             // calling event handlers
             $handlers = $this->{$name} ?? null;
-            if (\is_array($handlers) || $handlers instanceof \Traversable) {
+            if (\is_iterable($handlers)) {
                 foreach ($handlers as $handler) {
                     $handler(...$args);
                 }

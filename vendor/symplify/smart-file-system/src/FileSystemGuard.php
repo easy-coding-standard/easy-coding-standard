@@ -7,20 +7,14 @@ use ECSPrefix20210804\Symplify\SmartFileSystem\Exception\DirectoryNotFoundExcept
 use ECSPrefix20210804\Symplify\SmartFileSystem\Exception\FileNotFoundException;
 final class FileSystemGuard
 {
-    /**
-     * @return void
-     */
-    public function ensureFileExists(string $file, string $location)
+    public function ensureFileExists(string $file, string $location) : void
     {
         if (\file_exists($file)) {
             return;
         }
         throw new \ECSPrefix20210804\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
     }
-    /**
-     * @return void
-     */
-    public function ensureDirectoryExists(string $directory, string $extraMessage = '')
+    public function ensureDirectoryExists(string $directory, string $extraMessage = '') : void
     {
         if (\is_dir($directory) && \file_exists($directory)) {
             return;

@@ -25,11 +25,11 @@ final class DoctrineAnnotationNestedBracketsFixer extends \Symplify\CodingStanda
     /**
      * @var string
      */
-    const ANNOTATION_CLASSES = 'annotation_classes';
+    public const ANNOTATION_CLASSES = 'annotation_classes';
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Adds nested curly brackets to defined annotations, see https://github.com/doctrine/annotations/issues/418';
+    private const ERROR_MESSAGE = 'Adds nested curly brackets to defined annotations, see https://github.com/doctrine/annotations/issues/418';
     /**
      * @var string[]
      */
@@ -78,9 +78,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, string[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $annotationsClasses = $configuration[self::ANNOTATION_CLASSES] ?? [];
         \ECSPrefix20210804\Webmozart\Assert\Assert::isArray($annotationsClasses);
@@ -96,9 +95,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $useDeclarations = $this->namespaceUsesAnalyzer->getDeclarationsFromTokens($tokens);
         // fetch indexes one time, this is safe as we never add or remove a token during fixing
@@ -112,9 +110,8 @@ CODE_SAMPLE
     }
     /**
      * @param DoctrineAnnotationTokens<DoctrineAnnotationToken> $doctrineAnnotationTokens
-     * @return void
      */
-    private function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens, $useDeclarations)
+    private function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens, $useDeclarations) : void
     {
         foreach ($doctrineAnnotationTokens as $index => $token) {
             $isAtToken = $doctrineAnnotationTokens[$index]->isType(\ECSPrefix20210804\Doctrine\Common\Annotations\DocLexer::T_AT);

@@ -30,31 +30,19 @@ if (!\function_exists('preg_last_error_msg')) {
     }
 }
 if (!\function_exists('str_contains')) {
-    /**
-     * @param string|null $haystack
-     * @param string|null $needle
-     */
-    function str_contains($haystack, $needle) : bool
+    function str_contains(?string $haystack, ?string $needle) : bool
     {
         return \ECSPrefix20210804\Symfony\Polyfill\Php80\Php80::str_contains($haystack ?? '', $needle ?? '');
     }
 }
 if (!\function_exists('str_starts_with')) {
-    /**
-     * @param string|null $haystack
-     * @param string|null $needle
-     */
-    function str_starts_with($haystack, $needle) : bool
+    function str_starts_with(?string $haystack, ?string $needle) : bool
     {
         return \ECSPrefix20210804\Symfony\Polyfill\Php80\Php80::str_starts_with($haystack ?? '', $needle ?? '');
     }
 }
 if (!\function_exists('str_ends_with')) {
-    /**
-     * @param string|null $haystack
-     * @param string|null $needle
-     */
-    function str_ends_with($haystack, $needle) : bool
+    function str_ends_with(?string $haystack, ?string $needle) : bool
     {
         return \ECSPrefix20210804\Symfony\Polyfill\Php80\Php80::str_ends_with($haystack ?? '', $needle ?? '');
     }

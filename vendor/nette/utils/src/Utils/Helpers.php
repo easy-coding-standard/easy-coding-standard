@@ -49,9 +49,8 @@ class Helpers
      * Looks for a string from possibilities that is most similar to value, but not the same (for 8-bit encoding).
      * @param  string[]  $possibilities
      * @param string $value
-     * @return string|null
      */
-    public static function getSuggestion($possibilities, $value)
+    public static function getSuggestion($possibilities, $value) : ?string
     {
         $best = null;
         $min = (\strlen($value) / 4 + 1) * 10 + 0.1;

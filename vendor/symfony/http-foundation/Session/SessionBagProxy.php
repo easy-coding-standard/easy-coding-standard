@@ -21,11 +21,7 @@ final class SessionBagProxy implements \ECSPrefix20210804\Symfony\Component\Http
     private $data;
     private $usageIndex;
     private $usageReporter;
-    /**
-     * @param int|null $usageIndex
-     * @param callable|null $usageReporter
-     */
-    public function __construct(\ECSPrefix20210804\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag, array &$data, &$usageIndex, $usageReporter)
+    public function __construct(\ECSPrefix20210804\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag, array &$data, ?int &$usageIndex, ?callable $usageReporter)
     {
         $this->bag = $bag;
         $this->data =& $data;
@@ -61,9 +57,8 @@ final class SessionBagProxy implements \ECSPrefix20210804\Symfony\Component\Http
     /**
      * {@inheritdoc}
      * @param mixed[] $array
-     * @return void
      */
-    public function initialize(&$array)
+    public function initialize(&$array) : void
     {
         ++$this->usageIndex;
         if ($this->usageReporter && 0 <= $this->usageIndex) {

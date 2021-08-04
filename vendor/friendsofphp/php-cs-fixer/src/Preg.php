@@ -27,7 +27,7 @@ final class Preg
      *
      * @throws PregException
      */
-    public static function match(string $pattern, string $subject, &$matches = null, int $flags = 0, int $offset = 0) : int
+    public static function match(string $pattern, string $subject, ?array &$matches = null, int $flags = 0, int $offset = 0) : int
     {
         $result = @\preg_match(self::addUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
@@ -44,7 +44,7 @@ final class Preg
      *
      * @throws PregException
      */
-    public static function matchAll(string $pattern, string $subject, &$matches = null, int $flags = \PREG_PATTERN_ORDER, int $offset = 0) : int
+    public static function matchAll(string $pattern, string $subject, ?array &$matches = null, int $flags = \PREG_PATTERN_ORDER, int $offset = 0) : int
     {
         $result = @\preg_match_all(self::addUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
@@ -64,9 +64,8 @@ final class Preg
      * @throws PregException
      *
      * @return string|string[]
-     * @param int|null $count
      */
-    public static function replace($pattern, $replacement, $subject, int $limit = -1, &$count = null)
+    public static function replace($pattern, $replacement, $subject, int $limit = -1, ?int &$count = null)
     {
         $result = @\preg_replace(self::addUtf8Modifier($pattern), $replacement, $subject, $limit, $count);
         if (null !== $result && \PREG_NO_ERROR === \preg_last_error()) {
@@ -85,9 +84,8 @@ final class Preg
      * @throws PregException
      *
      * @return string|string[]
-     * @param int|null $count
      */
-    public static function replaceCallback($pattern, callable $callback, $subject, int $limit = -1, &$count = null)
+    public static function replaceCallback($pattern, callable $callback, $subject, int $limit = -1, ?int &$count = null)
     {
         $result = @\preg_replace_callback(self::addUtf8Modifier($pattern), $callback, $subject, $limit, $count);
         if (null !== $result && \PREG_NO_ERROR === \preg_last_error()) {

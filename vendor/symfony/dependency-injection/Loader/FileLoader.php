@@ -29,7 +29,7 @@ use ECSPrefix20210804\Symfony\Component\DependencyInjection\Exception\InvalidArg
  */
 abstract class FileLoader extends \ECSPrefix20210804\Symfony\Component\Config\Loader\FileLoader
 {
-    const ANONYMOUS_ID_REGEXP = '/^\\.\\d+_[^~]*+~[._a-zA-Z\\d]{7}$/';
+    public const ANONYMOUS_ID_REGEXP = '/^\\.\\d+_[^~]*+~[._a-zA-Z\\d]{7}$/';
     protected $container;
     protected $isLoadingInstanceof = \false;
     protected $instanceof = [];
@@ -150,10 +150,7 @@ abstract class FileLoader extends \ECSPrefix20210804\Symfony\Component\Config\Lo
             $this->container->setDefinition($id, $definition->setInstanceofConditionals($this->instanceof));
         }
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\Compiler\RegisterAutoconfigureAttributesPass|null $autoconfigureAttributes
-     */
-    private function findClasses(string $namespace, string $pattern, array $excludePatterns, $autoconfigureAttributes) : array
+    private function findClasses(string $namespace, string $pattern, array $excludePatterns, ?\ECSPrefix20210804\Symfony\Component\DependencyInjection\Compiler\RegisterAutoconfigureAttributesPass $autoconfigureAttributes) : array
     {
         $parameterBag = $this->container->getParameterBag();
         $excludePaths = [];

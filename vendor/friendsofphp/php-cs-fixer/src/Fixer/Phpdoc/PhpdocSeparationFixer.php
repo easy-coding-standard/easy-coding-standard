@@ -63,9 +63,8 @@ function fnc($foo, $bar) {}
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -79,9 +78,8 @@ function fnc($foo, $bar) {}
     }
     /**
      * Make sure the description is separated from the annotations.
-     * @return void
      */
-    private function fixDescription(\PhpCsFixer\DocBlock\DocBlock $doc)
+    private function fixDescription(\PhpCsFixer\DocBlock\DocBlock $doc) : void
     {
         foreach ($doc->getLines() as $index => $line) {
             if ($line->containsATag()) {
@@ -118,9 +116,8 @@ function fnc($foo, $bar) {}
     }
     /**
      * Force the given annotations to immediately follow each other.
-     * @return void
      */
-    private function ensureAreTogether(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second)
+    private function ensureAreTogether(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second) : void
     {
         $pos = $first->getEnd();
         $final = $second->getStart();
@@ -130,9 +127,8 @@ function fnc($foo, $bar) {}
     }
     /**
      * Force the given annotations to have one empty line between each other.
-     * @return void
      */
-    private function ensureAreSeparate(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second)
+    private function ensureAreSeparate(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second) : void
     {
         $pos = $first->getEnd();
         $final = $second->getStart() - 1;

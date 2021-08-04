@@ -78,16 +78,15 @@ class Arrays
      * @return int|null offset if it is found, null otherwise
      * @param mixed[] $array
      */
-    public static function getKeyOffset($array, $key)
+    public static function getKeyOffset($array, $key) : ?int
     {
         return \ECSPrefix20210804\Nette\Utils\Helpers::falseToNull(\array_search(self::toKey($key), \array_keys($array), \true));
     }
     /**
      * @deprecated  use  getKeyOffset()
      * @param mixed[] $array
-     * @return int|null
      */
-    public static function searchKey($array, $key)
+    public static function searchKey($array, $key) : ?int
     {
         return self::getKeyOffset($array, $key);
     }
@@ -124,9 +123,8 @@ class Arrays
      * @param  string|int|null  $key
      * @param mixed[] $array
      * @param mixed[] $inserted
-     * @return void
      */
-    public static function insertBefore(&$array, $key, $inserted)
+    public static function insertBefore(&$array, $key, $inserted) : void
     {
         $offset = $key === null ? 0 : (int) self::getKeyOffset($array, $key);
         $array = \array_slice($array, 0, $offset, \true) + $inserted + \array_slice($array, $offset, \count($array), \true);
@@ -137,9 +135,8 @@ class Arrays
      * @param  string|int|null  $key
      * @param mixed[] $array
      * @param mixed[] $inserted
-     * @return void
      */
-    public static function insertAfter(&$array, $key, $inserted)
+    public static function insertAfter(&$array, $key, $inserted) : void
     {
         if ($key === null || ($offset = self::getKeyOffset($array, $key)) === null) {
             $offset = \count($array) - 1;
@@ -184,9 +181,9 @@ class Arrays
     public static function flatten($array, $preserveKeys = \false) : array
     {
         $res = [];
-        $cb = $preserveKeys ? function ($v, $k) use(&$res) {
+        $cb = $preserveKeys ? function ($v, $k) use(&$res) : void {
             $res[$k] = $v;
-        } : function ($v) use(&$res) {
+        } : function ($v) use(&$res) : void {
             $res[] = $v;
         };
         \array_walk_recursive($array, $cb);

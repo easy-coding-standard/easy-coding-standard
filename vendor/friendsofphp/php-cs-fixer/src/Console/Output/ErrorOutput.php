@@ -39,9 +39,8 @@ final class ErrorOutput
     }
     /**
      * @param Error[] $errors
-     * @return void
      */
-    public function listErrors(string $process, array $errors)
+    public function listErrors(string $process, array $errors) : void
     {
         $this->output->writeln(['', \sprintf('Files that were not fixed due to errors reported during %s:', $process)]);
         $showDetails = $this->output->getVerbosity() >= \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE;
@@ -90,10 +89,7 @@ final class ErrorOutput
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function outputTrace(array $trace)
+    private function outputTrace(array $trace) : void
     {
         if (isset($trace['class'], $trace['type'], $trace['function'])) {
             $this->output->writeln(\sprintf('      <comment>%s</comment>%s<comment>%s()</comment>', $this->prepareOutput($trace['class']), $this->prepareOutput($trace['type']), $this->prepareOutput($trace['function'])));

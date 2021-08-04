@@ -21,10 +21,7 @@ use ECSPrefix20210804\Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 abstract class HttpClientTestCase extends \ECSPrefix20210804\PHPUnit\Framework\TestCase
 {
-    /**
-     * @return void
-     */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         \ECSPrefix20210804\Symfony\Contracts\HttpClient\Test\TestHttpServer::start();
     }

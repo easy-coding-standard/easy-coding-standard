@@ -22,7 +22,6 @@ interface DumpDescriptorInterface
      * @param \Symfony\Component\VarDumper\Cloner\Data $data
      * @param mixed[] $context
      * @param int $clientId
-     * @return void
      */
-    public function describe($output, $data, $context, $clientId);
+    public function describe($output, $data, $context, $clientId) : void;
 }

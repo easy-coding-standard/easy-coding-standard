@@ -47,10 +47,7 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
     {
         return \true;
     }
-    /**
-     * @return void
-     */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = $tokens->count() - 7; $index > 0; --$index) {
@@ -135,9 +132,8 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param int $endIndex boundary, i.e. tokens index of `)`
-     * @return int|null
      */
-    private function getSecondArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex)
+    private function getSecondArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex) : ?int
     {
         if ($tokens[$index]->isGivenKind(\T_ELLIPSIS)) {
             return null;

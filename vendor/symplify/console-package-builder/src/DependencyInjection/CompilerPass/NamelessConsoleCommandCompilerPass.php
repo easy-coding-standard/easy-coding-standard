@@ -14,9 +14,8 @@ final class NamelessConsoleCommandCompilerPass implements \ECSPrefix20210804\Sym
 {
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function process($containerBuilder)
+    public function process($containerBuilder) : void
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             $definitionClass = $definition->getClass();

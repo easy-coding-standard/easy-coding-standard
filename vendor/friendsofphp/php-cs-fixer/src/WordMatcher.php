@@ -31,10 +31,7 @@ final class WordMatcher
     {
         $this->candidates = $candidates;
     }
-    /**
-     * @return string|null
-     */
-    public function match(string $needle)
+    public function match(string $needle) : ?string
     {
         $word = null;
         $distance = \ceil(\strlen($needle) * 0.35);

@@ -11,9 +11,9 @@ final class Action
     /**
      * @var string
      */
-    const QUIT = 'quit';
+    public const QUIT = 'quit';
     /**
      * @var string
      */
-    const CHECK = 'check';
+    public const CHECK = 'check';
 }

@@ -170,9 +170,8 @@ final class Annotation
      * Set the types associated with this annotation.
      *
      * @param string[] $types
-     * @return void
      */
-    public function setTypes($types)
+    public function setTypes($types) : void
     {
         $pattern = '/' . \preg_quote($this->getTypesContent(), '/') . '/';
         $this->lines[0]->setContent(\PhpCsFixer\Preg::replace($pattern, \implode('|', $types), $this->lines[0]->getContent(), 1));
@@ -193,9 +192,8 @@ final class Annotation
     }
     /**
      * Remove this annotation by removing all its lines.
-     * @return void
      */
-    public function remove()
+    public function remove() : void
     {
         foreach ($this->lines as $line) {
             if ($line->isTheStart() && $line->isTheEnd()) {
@@ -244,10 +242,7 @@ final class Annotation
         }
         return $this->typesContent;
     }
-    /**
-     * @return void
-     */
-    private function clearCache()
+    private function clearCache() : void
     {
         $this->types = null;
         $this->typesContent = null;

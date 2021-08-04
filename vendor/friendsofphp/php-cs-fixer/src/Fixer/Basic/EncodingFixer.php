@@ -61,9 +61,8 @@ echo "Hello!";
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $content = $tokens[0]->getContent();
         if (0 === \strncmp($content, $this->BOM, 3)) {

@@ -44,9 +44,8 @@ final class Configuration
     private $config;
     /**
      * @param string[] $sources
-     * @param string|null $config
      */
-    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $doesMatchGitDiff = \false, bool $isParallel = \false, $config = null)
+    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $doesMatchGitDiff = \false, bool $isParallel = \false, ?string $config = null)
     {
         $this->isFixer = $isFixer;
         $this->shouldClearCache = $shouldClearCache;
@@ -93,10 +92,7 @@ final class Configuration
     {
         return $this->isParallel;
     }
-    /**
-     * @return string|null
-     */
-    public function getConfig()
+    public function getConfig() : ?string
     {
         return $this->config;
     }

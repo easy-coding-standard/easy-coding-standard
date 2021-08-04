@@ -51,9 +51,8 @@ final class NoLeadingImportSlashFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $usesIndexes = $tokensAnalyzer->getImportUseIndexes();
@@ -70,10 +69,7 @@ final class NoLeadingImportSlashFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function removeLeadingImportSlash(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function removeLeadingImportSlash(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $previousIndex = $tokens->getPrevNonWhitespace($index);
         if ($previousIndex < $index - 1 || $tokens[$previousIndex]->isComment()) {

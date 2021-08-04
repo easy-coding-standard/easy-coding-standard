@@ -65,10 +65,7 @@ final class ErrorsManager
     {
         return empty($this->errors);
     }
-    /**
-     * @return void
-     */
-    public function report(\PhpCsFixer\Error\Error $error)
+    public function report(\PhpCsFixer\Error\Error $error) : void
     {
         $this->errors[] = $error;
     }

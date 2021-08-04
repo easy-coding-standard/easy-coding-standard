@@ -32,7 +32,7 @@ class PrototypeConfigurator extends \ECSPrefix20210804\Symfony\Component\Depende
     use Traits\PublicTrait;
     use Traits\ShareTrait;
     use Traits\TagTrait;
-    const FACTORY = 'load';
+    public const FACTORY = 'load';
     private $loader;
     private $resource;
     private $excludes;

@@ -32,7 +32,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class OperatorLinebreakFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
-    const BOOLEAN_OPERATORS = [[\T_BOOLEAN_AND], [\T_BOOLEAN_OR], [\T_LOGICAL_AND], [\T_LOGICAL_OR], [\T_LOGICAL_XOR]];
+    private const BOOLEAN_OPERATORS = [[\T_BOOLEAN_AND], [\T_BOOLEAN_OR], [\T_LOGICAL_AND], [\T_LOGICAL_OR], [\T_LOGICAL_XOR]];
     /**
      * @var string
      */
@@ -60,9 +60,8 @@ function foo() {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->operators = self::BOOLEAN_OPERATORS;
@@ -91,9 +90,8 @@ function foo() {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $referenceAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ReferenceAnalyzer();
         $gotoLabelAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer();
@@ -151,9 +149,8 @@ function foo() {
     }
     /**
      * @param int[] $operatorIndices
-     * @return void
      */
-    private function fixOperatorLinebreak(\PhpCsFixer\Tokenizer\Tokens $tokens, array $operatorIndices)
+    private function fixOperatorLinebreak(\PhpCsFixer\Tokenizer\Tokens $tokens, array $operatorIndices) : void
     {
         /** @var int $prevIndex */
         $prevIndex = $tokens->getPrevMeaningfulToken(\min($operatorIndices));
@@ -181,9 +178,8 @@ function foo() {
     }
     /**
      * @param int[] $operatorIndices
-     * @return void
      */
-    private function fixMoveToTheBeginning(\PhpCsFixer\Tokenizer\Tokens $tokens, array $operatorIndices)
+    private function fixMoveToTheBeginning(\PhpCsFixer\Tokenizer\Tokens $tokens, array $operatorIndices) : void
     {
         /** @var int $prevIndex */
         $prevIndex = $tokens->getNonEmptySibling(\min($operatorIndices), -1);
@@ -203,9 +199,8 @@ function foo() {
     }
     /**
      * @param int[] $operatorIndices
-     * @return void
      */
-    private function fixMoveToTheEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, array $operatorIndices)
+    private function fixMoveToTheEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, array $operatorIndices) : void
     {
         /** @var int $prevIndex */
         $prevIndex = $tokens->getPrevMeaningfulToken(\min($operatorIndices));

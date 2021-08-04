@@ -23,10 +23,7 @@ final class KernelUniqueHasher
         $userSpecificShortClassName = $shortClassName . \get_current_user();
         return $this->stringsConverter->camelCaseToGlue($userSpecificShortClassName, '_');
     }
-    /**
-     * @return void
-     */
-    private function ensureIsNotGenericKernelClass(string $kernelClass)
+    private function ensureIsNotGenericKernelClass(string $kernelClass) : void
     {
         if ($kernelClass !== \ECSPrefix20210804\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class) {
             return;

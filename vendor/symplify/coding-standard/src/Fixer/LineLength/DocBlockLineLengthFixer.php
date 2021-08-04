@@ -27,24 +27,24 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
      * @api
      * @var string
      */
-    const LINE_LENGTH = 'line_length';
+    public const LINE_LENGTH = 'line_length';
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Docblock lenght should fit expected width';
+    private const ERROR_MESSAGE = 'Docblock lenght should fit expected width';
     /**
      * @see https://regex101.com/r/DNWfB6/1
      * @var string
      */
-    const INDENTATION_BEFORE_ASTERISK_REGEX = '/^(?<' . self::INDENTATION_PART . '>\\s*) \\*/m';
+    private const INDENTATION_BEFORE_ASTERISK_REGEX = '/^(?<' . self::INDENTATION_PART . '>\\s*) \\*/m';
     /**
      * @var string
      */
-    const INDENTATION_PART = 'indentation_part';
+    private const INDENTATION_PART = 'indentation_part';
     /**
      * @var int
      */
-    const DEFAULT_LINE_LENGHT = 120;
+    private const DEFAULT_LINE_LENGHT = 120;
     /**
      * @var int
      */
@@ -70,9 +70,8 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -110,9 +109,8 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
     }
     /**
      * @param array<string, int> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->lineLength = $configuration[self::LINE_LENGTH] ?? self::DEFAULT_LINE_LENGHT;
     }

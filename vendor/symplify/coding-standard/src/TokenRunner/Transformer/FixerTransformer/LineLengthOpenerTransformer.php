@@ -20,9 +20,8 @@ final class LineLengthOpenerTransformer
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function insertNewlineAfterOpeningIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, int $blockStartIndex, string $newlineIndentWhitespace)
+    public function insertNewlineAfterOpeningIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, int $blockStartIndex, string $newlineIndentWhitespace) : void
     {
         if (!isset($tokens[$blockStartIndex + 1])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($blockStartIndex + 1);

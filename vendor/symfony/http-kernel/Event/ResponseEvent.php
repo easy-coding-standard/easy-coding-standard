@@ -36,9 +36,8 @@ final class ResponseEvent extends \ECSPrefix20210804\Symfony\Component\HttpKerne
     }
     /**
      * @param \Symfony\Component\HttpFoundation\Response $response
-     * @return void
      */
-    public function setResponse($response)
+    public function setResponse($response) : void
     {
         $this->response = $response;
     }

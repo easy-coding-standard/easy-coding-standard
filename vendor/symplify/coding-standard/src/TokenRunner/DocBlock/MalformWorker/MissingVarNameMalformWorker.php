@@ -13,7 +13,7 @@ final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\Toke
      * @var string
      * @see https://regex101.com/r/s1UkZs/1
      */
-    const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\\/\\*\\* @(?:psalm-|phpstan-)?var )(?<type>[\\\\\\w\\|-|]+)(?<close>\\s+\\*\\/)$#';
+    private const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\\/\\*\\* @(?:psalm-|phpstan-)?var )(?<type>[\\\\\\w\\|-|]+)(?<close>\\s+\\*\\/)$#';
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
@@ -34,9 +34,8 @@ final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\Toke
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return \PhpCsFixer\Tokenizer\Token|null
      */
-    private function getNextVariableToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position)
+    private function getNextVariableToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : ?\PhpCsFixer\Tokenizer\Token
     {
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($position);
         if ($nextMeaningfulTokenPosition === null) {

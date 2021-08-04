@@ -51,9 +51,8 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->equals('(')) {
@@ -77,9 +76,8 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Remove spaces from token at a given index.
-     * @return void
      */
-    private function removeSpaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function removeSpaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $token = $tokens[$index];
         if ($token->isWhitespace() && \false === \strpos($token->getContent(), "\n")) {

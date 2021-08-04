@@ -49,9 +49,8 @@ $foo->__INVOKE(1);
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $inClass = 0;
         $tokenCount = \count($tokens);
@@ -144,10 +143,7 @@ $foo->__INVOKE(1);
     {
         return self::$magicNames[$name];
     }
-    /**
-     * @return void
-     */
-    private function setTokenToCorrectCasing(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $nameInCorrectCasing)
+    private function setTokenToCorrectCasing(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $nameInCorrectCasing) : void
     {
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $nameInCorrectCasing]);
     }

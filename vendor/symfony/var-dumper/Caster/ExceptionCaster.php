@@ -230,21 +230,14 @@ class ExceptionCaster
         }
         return $a;
     }
-    /**
-     * @param string|null $class
-     * @return void
-     */
-    private static function traceUnshift(array &$trace, $class, string $file, int $line)
+    private static function traceUnshift(array &$trace, ?string $class, string $file, int $line) : void
     {
         if (isset($trace[0]['file'], $trace[0]['line']) && $trace[0]['file'] === $file && $trace[0]['line'] === $line) {
             return;
         }
         \array_unshift($trace, ['function' => $class ? 'new ' . $class : null, 'file' => $file, 'line' => $line]);
     }
-    /**
-     * @param string|null $file
-     */
-    private static function extractSource(string $srcLines, int $line, int $srcContext, string $lang, $file, array $frame) : \ECSPrefix20210804\Symfony\Component\VarDumper\Caster\EnumStub
+    private static function extractSource(string $srcLines, int $line, int $srcContext, string $lang, ?string $file, array $frame) : \ECSPrefix20210804\Symfony\Component\VarDumper\Caster\EnumStub
     {
         $srcLines = \explode("\n", $srcLines);
         $src = [];

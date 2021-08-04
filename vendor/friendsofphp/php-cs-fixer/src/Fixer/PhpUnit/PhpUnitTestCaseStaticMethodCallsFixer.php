@@ -33,15 +33,15 @@ final class PhpUnitTestCaseStaticMethodCallsFixer extends \PhpCsFixer\Fixer\Abst
     /**
      * @internal
      */
-    const CALL_TYPE_THIS = 'this';
+    public const CALL_TYPE_THIS = 'this';
     /**
      * @internal
      */
-    const CALL_TYPE_SELF = 'self';
+    public const CALL_TYPE_SELF = 'self';
     /**
      * @internal
      */
-    const CALL_TYPE_STATIC = 'static';
+    public const CALL_TYPE_STATIC = 'static';
     private $allowedValues = [self::CALL_TYPE_THIS => \true, self::CALL_TYPE_SELF => \true, self::CALL_TYPE_STATIC => \true];
     private $staticMethods = [
         // Assert methods
@@ -335,9 +335,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = $startIndex; $index < $endIndex; ++$index) {

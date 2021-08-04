@@ -90,9 +90,8 @@ final class FixerOptionBuilder
     }
     /**
      * @return $this
-     * @param string|null $deprecationMessage
      */
-    public function setDeprecationMessage($deprecationMessage)
+    public function setDeprecationMessage(?string $deprecationMessage)
     {
         $this->deprecationMessage = $deprecationMessage;
         return $this;

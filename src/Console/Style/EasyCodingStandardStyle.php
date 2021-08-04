@@ -17,7 +17,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210804\Symfony\Component
      *
      * @var int
      */
-    const BULGARIAN_CONSTANT = 8;
+    private const BULGARIAN_CONSTANT = 8;
     /**
      * @var \Symfony\Component\Console\Terminal
      */
@@ -29,9 +29,8 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210804\Symfony\Component
     }
     /**
      * @param CodingStandardError[] $codingStandardErrors
-     * @return void
      */
-    public function printErrors(array $codingStandardErrors)
+    public function printErrors(array $codingStandardErrors) : void
     {
         /** @var CodingStandardError $codingStandardError */
         foreach ($codingStandardErrors as $codingStandardError) {
@@ -44,20 +43,14 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210804\Symfony\Component
             $this->newLine();
         }
     }
-    /**
-     * @return void
-     */
-    public function enableDebugProgressBar()
+    public function enableDebugProgressBar() : void
     {
         $privatesAccessor = new \ECSPrefix20210804\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
         $progressBar = $privatesAccessor->getPrivateProperty($this, 'progressBar');
         $privatesCaller = new \ECSPrefix20210804\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', ['debug']);
     }
-    /**
-     * @return void
-     */
-    private function separator()
+    private function separator() : void
     {
         $separator = \str_repeat('-', $this->getTerminalWidth());
         $this->writeln(' ' . $separator);

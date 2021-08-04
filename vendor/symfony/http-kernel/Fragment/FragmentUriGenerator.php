@@ -72,10 +72,7 @@ final class FragmentUriGenerator implements \ECSPrefix20210804\Symfony\Component
         $fragmentUri = $this->signer->sign($fragmentUri);
         return $absolute ? $fragmentUri : \substr($fragmentUri, \strlen($request->getSchemeAndHttpHost()));
     }
-    /**
-     * @return void
-     */
-    private function checkNonScalar(array $values)
+    private function checkNonScalar(array $values) : void
     {
         foreach ($values as $key => $value) {
             if (\is_array($value)) {

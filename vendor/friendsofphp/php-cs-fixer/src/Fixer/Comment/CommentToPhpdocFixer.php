@@ -69,9 +69,8 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->ignoredTags = \array_map(static function (string $tag) {
@@ -87,9 +86,8 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $commentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\CommentsAnalyzer();
         for ($index = 0, $limit = \count($tokens); $index < $limit; ++$index) {
@@ -127,9 +125,8 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * @param int[] $indices
-     * @return void
      */
-    private function fixComment(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices)
+    private function fixComment(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices) : void
     {
         if (1 === \count($indices)) {
             $this->fixCommentSingleLine($tokens, \reset($indices));
@@ -137,10 +134,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
             $this->fixCommentMultiLine($tokens, $indices);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixCommentSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixCommentSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $message = $this->getMessage($tokens[$index]->getContent());
         if ('' !== \trim(\substr($message, 0, 1))) {
@@ -153,9 +147,8 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * @param int[] $indices
-     * @return void
      */
-    private function fixCommentMultiLine(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices)
+    private function fixCommentMultiLine(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices) : void
     {
         $startIndex = \reset($indices);
         $indent = \PhpCsFixer\Utils::calculateTrailingWhitespaceIndent($tokens[$startIndex - 1]);

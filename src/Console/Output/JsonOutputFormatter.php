@@ -17,11 +17,11 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
     /**
      * @var string
      */
-    const NAME = 'json';
+    public const NAME = 'json';
     /**
      * @var string
      */
-    const FILES = 'files';
+    private const FILES = 'files';
     /**
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */

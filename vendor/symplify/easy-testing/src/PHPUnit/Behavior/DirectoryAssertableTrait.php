@@ -19,9 +19,8 @@ trait DirectoryAssertableTrait
     /**
      * @param string $expectedDirectory
      * @param string $outputDirectory
-     * @return void
      */
-    protected function assertDirectoryEquals($expectedDirectory, $outputDirectory)
+    protected function assertDirectoryEquals($expectedDirectory, $outputDirectory) : void
     {
         $expectedFileInfos = $this->findFileInfosInDirectory($expectedDirectory);
         $outputFileInfos = $this->findFileInfosInDirectory($outputDirectory);
@@ -64,9 +63,8 @@ trait DirectoryAssertableTrait
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      */
-    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath)
+    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath) : ?\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($fileInfos as $fileInfo) {
             $relativeFilePath = $fileInfo->getRelativeFilePathFromDirectory($directory);

@@ -91,9 +91,8 @@ if (count($x)) {
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $namespaceAnalyses = (new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens);
         if (1 !== \count($namespaceAnalyses) || '' === $namespaceAnalyses[0]->getFullName()) {
@@ -233,7 +232,7 @@ if (count($x)) {
             $token = $tokens[$index];
             if ($token->isGivenKind(\T_DOC_COMMENT)) {
                 $docBlocks[$index] = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
-                $this->traverseDocBlockTypes($docBlocks[$index], static function (string $type) use($global, &$other) {
+                $this->traverseDocBlockTypes($docBlocks[$index], static function (string $type) use($global, &$other) : void {
                     if (\false !== \strpos($type, '\\')) {
                         return;
                     }
@@ -327,9 +326,8 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @return void
      */
-    private function insertImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $imports, array $useDeclarations)
+    private function insertImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $imports, array $useDeclarations) : void
     {
         if ($useDeclarations) {
             $useDeclaration = \end($useDeclarations);
@@ -360,9 +358,8 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @return void
      */
-    private function fullyQualifyConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
+    private function fullyQualifyConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : void
     {
         if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT)) {
             return;
@@ -393,9 +390,8 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @return void
      */
-    private function fullyQualifyFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
+    private function fullyQualifyFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : void
     {
         if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
             return;
@@ -426,9 +422,8 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @return void
      */
-    private function fullyQualifyClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
+    private function fullyQualifyClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : void
     {
         if (!$tokens->isTokenKindFound(\T_USE)) {
             return;
@@ -493,10 +488,7 @@ if (count($x)) {
         }
         return [$global, $other];
     }
-    /**
-     * @return mixed[]
-     */
-    private function findFunctionDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end)
+    private function findFunctionDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : iterable
     {
         for ($index = $start; $index <= $end; ++$index) {
             $token = $tokens[$index];

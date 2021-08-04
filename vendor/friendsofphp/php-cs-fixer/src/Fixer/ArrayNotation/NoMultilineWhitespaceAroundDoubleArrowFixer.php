@@ -50,9 +50,8 @@ final class NoMultilineWhitespaceAroundDoubleArrowFixer extends \PhpCsFixer\Abst
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOUBLE_ARROW)) {
@@ -65,10 +64,7 @@ final class NoMultilineWhitespaceAroundDoubleArrowFixer extends \PhpCsFixer\Abst
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $token = $tokens[$index];
         if ($token->isWhitespace() && !$token->isWhitespace(" \t")) {

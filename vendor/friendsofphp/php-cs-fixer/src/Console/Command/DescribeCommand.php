@@ -60,10 +60,7 @@ final class DescribeCommand extends \ECSPrefix20210804\Symfony\Component\Console
      * @var array<string, FixerInterface>
      */
     private $fixers;
-    /**
-     * @param \PhpCsFixer\FixerFactory|null $fixerFactory
-     */
-    public function __construct($fixerFactory = null)
+    public function __construct(?\PhpCsFixer\FixerFactory $fixerFactory = null)
     {
         parent::__construct();
         if (null === $fixerFactory) {
@@ -74,9 +71,8 @@ final class DescribeCommand extends \ECSPrefix20210804\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setDefinition([new \ECSPrefix20210804\Symfony\Component\Console\Input\InputArgument('name', \ECSPrefix20210804\Symfony\Component\Console\Input\InputArgument::REQUIRED, 'Name of rule / set.')])->setDescription('Describe rule / ruleset.');
     }
@@ -107,10 +103,7 @@ final class DescribeCommand extends \ECSPrefix20210804\Symfony\Component\Console
         }
         return 0;
     }
-    /**
-     * @return void
-     */
-    private function describeRule(\ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface $output, string $name)
+    private function describeRule(\ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface $output, string $name) : void
     {
         $fixers = $this->getFixers();
         if (!isset($fixers[$name])) {
@@ -218,10 +211,7 @@ final class DescribeCommand extends \ECSPrefix20210804\Symfony\Component\Console
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function describeSet(\ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface $output, string $name)
+    private function describeSet(\ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface $output, string $name) : void
     {
         if (!\in_array($name, $this->getSetNames(), \true)) {
             throw new \PhpCsFixer\Console\Command\DescribeNameNotFoundException($name, 'set');
@@ -277,9 +267,8 @@ final class DescribeCommand extends \ECSPrefix20210804\Symfony\Component\Console
     }
     /**
      * @param string $type 'rule'|'set'
-     * @return void
      */
-    private function describeList(\ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface $output, string $type)
+    private function describeList(\ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface $output, string $type) : void
     {
         if ($output->getVerbosity() >= \ECSPrefix20210804\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE) {
             $describe = ['sets' => $this->getSetNames(), 'rules' => $this->getFixers()];

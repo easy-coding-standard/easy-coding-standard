@@ -24,15 +24,9 @@ interface FixerOptionInterface
      */
     public function getDefault();
     /**
-     * @return mixed[]|null
+     * @return null|string[]
      */
-    public function getAllowedTypes();
-    /**
-     * @return mixed[]|null
-     */
-    public function getAllowedValues();
-    /**
-     * @return \Closure|null
-     */
-    public function getNormalizer();
+    public function getAllowedTypes() : ?array;
+    public function getAllowedValues() : ?array;
+    public function getNormalizer() : ?\Closure;
 }

@@ -28,7 +28,7 @@ final class Linter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * @param null|string $executable PHP executable, null for autodetection
      */
-    public function __construct($executable = null)
+    public function __construct(?string $executable = null)
     {
         try {
             $this->sublinter = new \PhpCsFixer\Linter\TokenizerLinter();

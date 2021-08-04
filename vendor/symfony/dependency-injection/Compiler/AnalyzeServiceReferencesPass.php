@@ -143,10 +143,7 @@ class AnalyzeServiceReferencesPass extends \ECSPrefix20210804\Symfony\Component\
         $this->lazy = $lazy;
         return $value;
     }
-    /**
-     * @return string|null
-     */
-    private function getDefinitionId(string $id)
+    private function getDefinitionId(string $id) : ?string
     {
         while (isset($this->aliases[$id])) {
             $id = (string) $this->aliases[$id];

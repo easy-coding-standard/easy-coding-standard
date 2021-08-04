@@ -10,17 +10,11 @@ final class CurrentParentFileInfoProvider
      * @var \Symplify\SmartFileSystem\SmartFileInfo|null
      */
     private $smartFileInfo;
-    /**
-     * @return void
-     */
-    public function setParentFileInfo(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function setParentFileInfo(\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->smartFileInfo = $smartFileInfo;
     }
-    /**
-     * @return \Symplify\SmartFileSystem\SmartFileInfo|null
-     */
-    public function provide()
+    public function provide() : ?\ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->smartFileInfo;
     }

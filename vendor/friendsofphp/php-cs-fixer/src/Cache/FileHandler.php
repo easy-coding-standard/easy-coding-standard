@@ -32,10 +32,7 @@ final class FileHandler implements \PhpCsFixer\Cache\FileHandlerInterface
     {
         return $this->file;
     }
-    /**
-     * @return \PhpCsFixer\Cache\CacheInterface|null
-     */
-    public function read()
+    public function read() : ?\PhpCsFixer\Cache\CacheInterface
     {
         if (!\file_exists($this->file)) {
             return null;
@@ -50,9 +47,8 @@ final class FileHandler implements \PhpCsFixer\Cache\FileHandlerInterface
     }
     /**
      * @param \PhpCsFixer\Cache\CacheInterface $cache
-     * @return void
      */
-    public function write($cache)
+    public function write($cache) : void
     {
         $content = $cache->toJson();
         if (\file_exists($this->file)) {

@@ -48,9 +48,8 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -77,9 +76,8 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
      * We must be super careful not to modify parts of words.
      *
      * This will be nicely handled behind the scenes for us by the annotation class.
-     * @return void
      */
-    private function fixTypes(\PhpCsFixer\DocBlock\Annotation $annotation)
+    private function fixTypes(\PhpCsFixer\DocBlock\Annotation $annotation) : void
     {
         $types = $annotation->getTypes();
         $new = $this->normalizeTypes($types);

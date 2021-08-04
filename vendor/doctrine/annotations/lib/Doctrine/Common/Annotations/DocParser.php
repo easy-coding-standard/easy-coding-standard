@@ -251,9 +251,8 @@ final class DocParser
      * Finds the first valid annotation
      *
      * @param string $input The docblock string to parse
-     * @return int|null
      */
-    private function findInitialTokenPosition($input)
+    private function findInitialTokenPosition($input) : ?int
     {
         $pos = 0;
         // search for first valid annotation
@@ -307,7 +306,7 @@ final class DocParser
      * @param string       $expected Expected string.
      * @param mixed[]|null $token    Optional token.
      */
-    private function syntaxError(string $expected, $token = null) : \ECSPrefix20210804\Doctrine\Common\Annotations\AnnotationException
+    private function syntaxError(string $expected, ?array $token = null) : \ECSPrefix20210804\Doctrine\Common\Annotations\AnnotationException
     {
         if ($token === null) {
             $token = $this->lexer->lookahead;
@@ -345,9 +344,8 @@ final class DocParser
      *
      * @throws AnnotationException
      * @throws ReflectionException
-     * @return void
      */
-    private function collectAnnotationMetadata(string $name)
+    private function collectAnnotationMetadata(string $name) : void
     {
         if (self::$metadataParser === null) {
             self::$metadataParser = new self();
@@ -432,9 +430,8 @@ final class DocParser
      * Collects parsing metadata for a given attribute.
      *
      * @param mixed[] $metadata
-     * @return void
      */
-    private function collectAttributeTypeMetadata(array &$metadata, \ECSPrefix20210804\Doctrine\Common\Annotations\Annotation\Attribute $attribute)
+    private function collectAttributeTypeMetadata(array &$metadata, \ECSPrefix20210804\Doctrine\Common\Annotations\Annotation\Attribute $attribute) : void
     {
         // handle internal type declaration
         $type = self::$typeMap[$attribute->type] ?? $attribute->type;
@@ -746,7 +743,7 @@ EXCEPTION
     {
         $identifier = $this->Identifier();
         if (!\defined($identifier) && \strpos($identifier, '::') !== \false && $identifier[0] !== '\\') {
-            list($className, $const) = \explode('::', $identifier);
+            [$className, $const] = \explode('::', $identifier);
             $pos = \strpos($className, '\\');
             $alias = $pos === \false ? $className : \substr($className, 0, $pos);
             $found = \false;
@@ -931,7 +928,7 @@ EXCEPTION
         }
         $this->match(\ECSPrefix20210804\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES);
         foreach ($values as $value) {
-            list($key, $val) = $value;
+            [$key, $val] = $value;
             if ($key !== null) {
                 $array[$key] = $val;
             } else {

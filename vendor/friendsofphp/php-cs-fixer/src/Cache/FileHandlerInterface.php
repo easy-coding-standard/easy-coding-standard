@@ -20,13 +20,9 @@ namespace PhpCsFixer\Cache;
 interface FileHandlerInterface
 {
     public function getFile() : string;
-    /**
-     * @return \PhpCsFixer\Cache\CacheInterface|null
-     */
-    public function read();
+    public function read() : ?\PhpCsFixer\Cache\CacheInterface;
     /**
      * @param \PhpCsFixer\Cache\CacheInterface $cache
-     * @return void
      */
-    public function write($cache);
+    public function write($cache) : void;
 }

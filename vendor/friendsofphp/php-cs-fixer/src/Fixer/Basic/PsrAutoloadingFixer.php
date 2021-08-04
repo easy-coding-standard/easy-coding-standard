@@ -48,9 +48,8 @@ class InvalidName {}
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         if (null !== $this->configuration['dir']) {
@@ -111,9 +110,8 @@ class InvalidName {}
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         if (null !== $this->configuration['dir'] && 0 !== \strpos($file->getRealPath(), $this->configuration['dir'])) {
             return;
@@ -171,10 +169,7 @@ class InvalidName {}
             $tokens->insertAt($namespaceStartIndex, $newNamespace);
         }
     }
-    /**
-     * @param string|null $namespace
-     */
-    private function calculateClassyName(\SplFileInfo $file, $namespace, string $currentName) : string
+    private function calculateClassyName(\SplFileInfo $file, ?string $namespace, string $currentName) : string
     {
         $name = $file->getBasename('.php');
         $maxNamespace = $this->calculateMaxNamespace($file, $namespace);
@@ -191,10 +186,7 @@ class InvalidName {}
         }
         return $name;
     }
-    /**
-     * @param string|null $namespace
-     */
-    private function calculateMaxNamespace(\SplFileInfo $file, $namespace) : string
+    private function calculateMaxNamespace(\SplFileInfo $file, ?string $namespace) : string
     {
         if (null === $this->configuration['dir']) {
             $root = \dirname($file->getRealPath());

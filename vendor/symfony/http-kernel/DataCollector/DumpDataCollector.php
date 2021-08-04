@@ -67,7 +67,7 @@ class DumpDataCollector extends \ECSPrefix20210804\Symfony\Component\HttpKernel\
         if ($this->stopwatch) {
             $this->stopwatch->start('dump');
         }
-        list($name, $file, $line, $fileExcerpt) = $this->sourceContextProvider->getContext();
+        ['name' => $name, 'file' => $file, 'line' => $line, 'file_excerpt' => $fileExcerpt] = $this->sourceContextProvider->getContext();
         if ($this->dumper instanceof \ECSPrefix20210804\Symfony\Component\VarDumper\Server\Connection) {
             if (!$this->dumper->write($data)) {
                 $this->isCollected = \false;

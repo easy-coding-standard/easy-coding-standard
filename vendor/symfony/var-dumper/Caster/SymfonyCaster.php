@@ -17,7 +17,7 @@ use ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class SymfonyCaster
 {
-    const REQUEST_GETTERS = ['pathInfo' => 'getPathInfo', 'requestUri' => 'getRequestUri', 'baseUrl' => 'getBaseUrl', 'basePath' => 'getBasePath', 'method' => 'getMethod', 'format' => 'getRequestFormat'];
+    private const REQUEST_GETTERS = ['pathInfo' => 'getPathInfo', 'requestUri' => 'getRequestUri', 'baseUrl' => 'getBaseUrl', 'basePath' => 'getBasePath', 'method' => 'getMethod', 'format' => 'getRequestFormat'];
     public static function castRequest(\ECSPrefix20210804\Symfony\Component\HttpFoundation\Request $request, array $a, \ECSPrefix20210804\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         $clone = null;

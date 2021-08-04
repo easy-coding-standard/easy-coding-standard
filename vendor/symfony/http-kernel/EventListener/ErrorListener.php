@@ -77,9 +77,8 @@ class ErrorListener implements \ECSPrefix20210804\Symfony\Component\EventDispatc
     }
     /**
      * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     * @return void
      */
-    public function removeCspHeader($event)
+    public function removeCspHeader($event) : void
     {
         if ($this->debug && $event->getRequest()->attributes->get('_remove_csp_headers', \false)) {
             $event->getResponse()->headers->remove('Content-Security-Policy');
@@ -110,9 +109,8 @@ class ErrorListener implements \ECSPrefix20210804\Symfony\Component\EventDispatc
      * Logs an exception.
      * @param \Throwable $exception
      * @param string $message
-     * @return void
      */
-    protected function logException($exception, $message)
+    protected function logException($exception, $message) : void
     {
         if (null !== $this->logger) {
             if (!$exception instanceof \ECSPrefix20210804\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface || $exception->getStatusCode() >= 500) {

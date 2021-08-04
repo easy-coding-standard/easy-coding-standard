@@ -9,7 +9,6 @@ interface ExtraConfigAwareKernelInterface extends \ECSPrefix20210804\Symfony\Com
 {
     /**
      * @param string[]|SmartFileInfo[] $configs
-     * @return void
      */
-    public function setConfigs($configs);
+    public function setConfigs($configs) : void;
 }

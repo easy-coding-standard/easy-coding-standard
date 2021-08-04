@@ -33,9 +33,8 @@ final class VariadicValueResolver implements \ECSPrefix20210804\Symfony\Componen
      * {@inheritdoc}
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
-     * @return mixed[]
      */
-    public function resolve($request, $argument)
+    public function resolve($request, $argument) : iterable
     {
         $values = $request->attributes->get($argument->getName());
         if (!\is_array($values)) {

@@ -49,7 +49,7 @@ class DebugHandlersListener implements \ECSPrefix20210804\Symfony\Component\Even
      * @param string|FileLinkFormatter|null $fileLinkFormat   The format for links to source files
      * @param bool                          $scope            Enables/disables scoping mode
      */
-    public function __construct(callable $exceptionHandler = null, \ECSPrefix20210804\Psr\Log\LoggerInterface $logger = null, $levels = \E_ALL, $throwAt = \E_ALL, bool $scream = \true, $fileLinkFormat = null, bool $scope = \true, \ECSPrefix20210804\Psr\Log\LoggerInterface $deprecationLogger = null)
+    public function __construct(callable $exceptionHandler = null, \ECSPrefix20210804\Psr\Log\LoggerInterface $logger = null, $levels = \E_ALL, ?int $throwAt = \E_ALL, bool $scream = \true, $fileLinkFormat = null, bool $scope = \true, \ECSPrefix20210804\Psr\Log\LoggerInterface $deprecationLogger = null)
     {
         $handler = \set_exception_handler('var_dump');
         $this->earlyHandler = \is_array($handler) ? $handler[0] : null;
@@ -137,10 +137,7 @@ class DebugHandlersListener implements \ECSPrefix20210804\Symfony\Component\Even
             $this->exceptionHandler = null;
         }
     }
-    /**
-     * @return void
-     */
-    private function setDefaultLoggers(\ECSPrefix20210804\Symfony\Component\ErrorHandler\ErrorHandler $handler)
+    private function setDefaultLoggers(\ECSPrefix20210804\Symfony\Component\ErrorHandler\ErrorHandler $handler) : void
     {
         if (\is_array($this->levels)) {
             $levelsDeprecatedOnly = [];

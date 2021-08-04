@@ -64,10 +64,7 @@ final class HttpClientKernel implements \ECSPrefix20210804\Symfony\Component\Htt
         };
         return $response;
     }
-    /**
-     * @return \Symfony\Component\Mime\Part\AbstractPart|null
-     */
-    private function getBody(\ECSPrefix20210804\Symfony\Component\HttpFoundation\Request $request)
+    private function getBody(\ECSPrefix20210804\Symfony\Component\HttpFoundation\Request $request) : ?\ECSPrefix20210804\Symfony\Component\Mime\Part\AbstractPart
     {
         if (\in_array($request->getMethod(), ['GET', 'HEAD'])) {
             return null;

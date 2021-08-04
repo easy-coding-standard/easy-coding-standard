@@ -50,9 +50,8 @@ final class NoWhitespaceInBlankLineFixer extends \PhpCsFixer\AbstractFixer imple
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // skip first as it cannot be a white space token
         for ($i = 1, $count = \count($tokens); $i < $count; ++$i) {
@@ -61,10 +60,7 @@ final class NoWhitespaceInBlankLineFixer extends \PhpCsFixer\AbstractFixer imple
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixWhitespaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixWhitespaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $content = $tokens[$index]->getContent();
         $lines = \PhpCsFixer\Preg::split("/(\r\n|\n)/", $content);

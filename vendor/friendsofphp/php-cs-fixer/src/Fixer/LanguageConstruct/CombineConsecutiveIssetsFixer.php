@@ -48,9 +48,8 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokenCount = $tokens->count();
         for ($index = 1; $index < $tokenCount; ++$index) {
@@ -95,9 +94,8 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param int[] $indexes
-     * @return void
      */
-    private function clearTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes)
+    private function clearTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes) : void
     {
         foreach ($indexes as $index) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index);

@@ -50,9 +50,8 @@ final class NoEmptyStatementFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {
             if ($tokens[$index]->isGivenKind([\T_BREAK, \T_CONTINUE])) {
@@ -104,9 +103,8 @@ final class NoEmptyStatementFixer extends \PhpCsFixer\AbstractFixer
      * - namespace (with '{' '}')
      *
      * @param int $index Semicolon index
-     * @return void
      */
-    private function fixSemicolonAfterCurlyBraceClose(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $curlyCloseIndex)
+    private function fixSemicolonAfterCurlyBraceClose(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $curlyCloseIndex) : void
     {
         static $beforeCurlyOpeningKinds = null;
         if (null === $beforeCurlyOpeningKinds) {

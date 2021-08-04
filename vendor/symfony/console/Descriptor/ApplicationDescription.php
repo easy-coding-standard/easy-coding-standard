@@ -20,7 +20,7 @@ use ECSPrefix20210804\Symfony\Component\Console\Exception\CommandNotFoundExcepti
  */
 class ApplicationDescription
 {
-    const GLOBAL_NAMESPACE = '_global';
+    public const GLOBAL_NAMESPACE = '_global';
     private $application;
     private $namespace;
     private $showHidden;

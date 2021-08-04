@@ -55,9 +55,8 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokenCount = \count($tokens);
         $this->tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
@@ -257,10 +256,7 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
         }
         return $inserted;
     }
-    /**
-     * @return void
-     */
-    private function clearIfSave(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function clearIfSave(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         if ($tokens[$index]->isComment()) {
             return;

@@ -73,9 +73,8 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     }
     /**
      * @param \PHP_CodeSniffer\Sniffs\Sniff $sniff
-     * @return void
      */
-    public function addSniff($sniff)
+    public function addSniff($sniff) : void
     {
         $this->sniffs[] = $sniff;
         $tokens = $sniff->register();
@@ -128,10 +127,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         $this->fixFile($file, $this->fixer, $smartFileInfo, $this->tokenListeners);
         return $this->fixer->getContents();
     }
-    /**
-     * @return void
-     */
-    private function addCompatibilityLayer()
+    private function addCompatibilityLayer() : void
     {
         if (!\defined('PHP_CODESNIFFER_VERBOSITY')) {
             // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
@@ -148,9 +144,8 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      * @see \PHP_CodeSniffer\Fixer::fixFile()
      *
      * @param array<int|string, Sniff[]> $tokenListeners
-     * @return void
      */
-    private function fixFile(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\File $file, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $tokenListeners)
+    private function fixFile(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\File $file, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $tokenListeners) : void
     {
         $previousContent = $smartFileInfo->getContents();
         $this->fixer->loops = 0;

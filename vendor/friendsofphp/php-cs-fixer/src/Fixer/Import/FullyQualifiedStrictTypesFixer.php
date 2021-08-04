@@ -79,9 +79,8 @@ class SomeClass
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $lastIndex = $tokens->count() - 1;
         for ($index = $lastIndex; $index >= 0; --$index) {
@@ -93,10 +92,7 @@ class SomeClass
             $this->fixFunctionArguments($tokens, $index);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $arguments = (new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->getFunctionArguments($tokens, $index);
         foreach ($arguments as $argument) {
@@ -106,10 +102,7 @@ class SomeClass
             $this->detectAndReplaceTypeWithShortType($tokens, $argument->getTypeAnalysis());
         }
     }
-    /**
-     * @return void
-     */
-    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         if (\PHP_VERSION_ID < 70000) {
             return;
@@ -120,10 +113,7 @@ class SomeClass
         }
         $this->detectAndReplaceTypeWithShortType($tokens, $returnType);
     }
-    /**
-     * @return void
-     */
-    private function detectAndReplaceTypeWithShortType(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis $type)
+    private function detectAndReplaceTypeWithShortType(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis $type) : void
     {
         if ($type->isReservedType()) {
             return;

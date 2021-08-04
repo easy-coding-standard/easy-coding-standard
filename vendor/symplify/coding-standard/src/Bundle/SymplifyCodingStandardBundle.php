@@ -15,16 +15,12 @@ final class SymplifyCodingStandardBundle extends \ECSPrefix20210804\Symfony\Comp
 {
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function build($containerBuilder)
+    public function build($containerBuilder) : void
     {
         $containerBuilder->addCompilerPass(new \ECSPrefix20210804\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
-    /**
-     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
-     */
-    protected function createContainerExtension()
+    protected function createContainerExtension() : ?\ECSPrefix20210804\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
         return new \Symplify\CodingStandard\DependencyInjection\Extension\SymplifyCodingStandardExtension();
     }

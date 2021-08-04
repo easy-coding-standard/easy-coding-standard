@@ -34,25 +34,16 @@ final class FileLintingIterator extends \IteratorIterator
         parent::__construct($iterator);
         $this->linter = $linter;
     }
-    /**
-     * @return \PhpCsFixer\Linter\LintingResultInterface|null
-     */
-    public function currentLintingResult()
+    public function currentLintingResult() : ?\PhpCsFixer\Linter\LintingResultInterface
     {
         return $this->currentResult;
     }
-    /**
-     * @return void
-     */
-    public function next()
+    public function next() : void
     {
         parent::next();
         $this->currentResult = $this->valid() ? $this->handleItem($this->current()) : null;
     }
-    /**
-     * @return void
-     */
-    public function rewind()
+    public function rewind() : void
     {
         parent::rewind();
         $this->currentResult = $this->valid() ? $this->handleItem($this->current()) : null;

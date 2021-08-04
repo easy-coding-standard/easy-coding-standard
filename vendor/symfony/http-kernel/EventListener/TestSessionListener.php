@@ -27,10 +27,7 @@ class TestSessionListener extends \ECSPrefix20210804\Symfony\Component\HttpKerne
         $this->container = $container;
         parent::__construct($sessionOptions);
     }
-    /**
-     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface|null
-     */
-    protected function getSession()
+    protected function getSession() : ?\ECSPrefix20210804\Symfony\Component\HttpFoundation\Session\SessionInterface
     {
         if (!$this->container->has('session')) {
             return null;

@@ -43,9 +43,8 @@ final class TokensNewliner
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function breakItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $kind = \Symplify\CodingStandard\TokenRunner\ValueObject\LineKind::CALLS)
+    public function breakItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $kind = \Symplify\CodingStandard\TokenRunner\ValueObject\LineKind::CALLS) : void
     {
         // from bottom top, to prevent skipping ids
         //  e.g when token is added in the middle, the end index does now point to earlier element!

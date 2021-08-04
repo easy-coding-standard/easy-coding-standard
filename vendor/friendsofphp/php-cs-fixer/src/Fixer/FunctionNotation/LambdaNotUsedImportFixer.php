@@ -61,10 +61,7 @@ final class LambdaNotUsedImportFixer extends \PhpCsFixer\AbstractFixer
     {
         return $tokens->isAllTokenKindsFound([\T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA]);
     }
-    /**
-     * @return void
-     */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $this->argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $this->functionAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
@@ -76,10 +73,7 @@ final class LambdaNotUsedImportFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function fixLambda(\PhpCsFixer\Tokenizer\Tokens $tokens, int $lambdaUseIndex)
+    private function fixLambda(\PhpCsFixer\Tokenizer\Tokens $tokens, int $lambdaUseIndex) : void
     {
         $lambdaUseOpenBraceIndex = $tokens->getNextTokenOfKind($lambdaUseIndex, ['(']);
         $lambdaUseCloseBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $lambdaUseOpenBraceIndex);
@@ -245,10 +239,7 @@ final class LambdaNotUsedImportFixer extends \PhpCsFixer\AbstractFixer
         }
         return $imports;
     }
-    /**
-     * @return void
-     */
-    private function clearImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $imports)
+    private function clearImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $imports) : void
     {
         foreach ($imports as $content => $removeIndex) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($removeIndex);
@@ -263,9 +254,8 @@ final class LambdaNotUsedImportFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Remove `use` and all imported variables.
-     * @return void
      */
-    private function clearImportsAndUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $lambdaUseIndex, int $lambdaUseCloseBraceIndex)
+    private function clearImportsAndUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $lambdaUseIndex, int $lambdaUseCloseBraceIndex) : void
     {
         for ($i = $lambdaUseCloseBraceIndex; $i >= $lambdaUseIndex; --$i) {
             if ($tokens[$i]->isComment()) {

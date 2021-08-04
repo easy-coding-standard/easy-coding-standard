@@ -18,8 +18,5 @@ namespace PhpCsFixer\FixerDefinition;
 interface CodeSampleInterface
 {
     public function getCode() : string;
-    /**
-     * @return mixed[]|null
-     */
-    public function getConfiguration();
+    public function getConfiguration() : ?array;
 }

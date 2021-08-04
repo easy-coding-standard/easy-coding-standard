@@ -27,7 +27,6 @@ interface CacheManagerInterface
     /**
      * @param string $file
      * @param string $fileContent
-     * @return void
      */
-    public function setFile($file, $fileContent);
+    public function setFile($file, $fileContent) : void;
 }

@@ -17,8 +17,5 @@ namespace PhpCsFixer\Console\Output;
  */
 interface ProcessOutputInterface
 {
-    /**
-     * @return void
-     */
-    public function printLegend();
+    public function printLegend() : void;
 }

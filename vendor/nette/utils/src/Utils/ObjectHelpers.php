@@ -17,9 +17,8 @@ final class ObjectHelpers
     use Nette\StaticClass;
     /** @throws MemberAccessException
      * @param string $class
-     * @param string $name
-     * @return void */
-    public static function strictGet($class, $name)
+     * @param string $name */
+    public static function strictGet($class, $name) : void
     {
         $rc = new \ReflectionClass($class);
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
@@ -29,9 +28,8 @@ final class ObjectHelpers
     }
     /** @throws MemberAccessException
      * @param string $class
-     * @param string $name
-     * @return void */
-    public static function strictSet($class, $name)
+     * @param string $name */
+    public static function strictSet($class, $name) : void
     {
         $rc = new \ReflectionClass($class);
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
@@ -42,9 +40,8 @@ final class ObjectHelpers
     /** @throws MemberAccessException
      * @param string $class
      * @param string $method
-     * @param mixed[] $additionalMethods
-     * @return void */
-    public static function strictCall($class, $method, $additionalMethods = [])
+     * @param mixed[] $additionalMethods */
+    public static function strictCall($class, $method, $additionalMethods = []) : void
     {
         $hint = self::getSuggestion(\array_merge(\get_class_methods($class), self::parseFullDoc(new \ReflectionClass($class), '~^[ \\t*]*@method[ \\t]+(?:\\S+[ \\t]+)??(\\w+)\\(~m'), $additionalMethods), $method);
         if (\method_exists($class, $method)) {
@@ -55,9 +52,8 @@ final class ObjectHelpers
     }
     /** @throws MemberAccessException
      * @param string $class
-     * @param string $method
-     * @return void */
-    public static function strictStaticCall($class, $method)
+     * @param string $method */
+    public static function strictStaticCall($class, $method) : void
     {
         $hint = self::getSuggestion(\array_filter((new \ReflectionClass($class))->getMethods(\ReflectionMethod::IS_PUBLIC), function ($m) {
             return $m->isStatic();
@@ -80,7 +76,7 @@ final class ObjectHelpers
         $rc = new \ReflectionClass($class);
         \preg_match_all('~^  [ \\t*]*  @property(|-read|-write)  [ \\t]+  [^\\s$]+  [ \\t]+  \\$  (\\w+)  ()~mx', (string) $rc->getDocComment(), $matches, \PREG_SET_ORDER);
         $props = [];
-        foreach ($matches as list(, $type, $name)) {
+        foreach ($matches as [, $type, $name]) {
             $uname = \ucfirst($name);
             $write = $type !== '-read' && $rc->hasMethod($nm = 'set' . $uname) && ($rm = $rc->getMethod($nm))->name === $nm && !$rm->isPrivate() && !$rm->isStatic();
             $read = $type !== '-write' && ($rc->hasMethod($nm = 'get' . $uname) || $rc->hasMethod($nm = 'is' . $uname)) && ($rm = $rc->getMethod($nm))->name === $nm && !$rm->isPrivate() && !$rm->isStatic();
@@ -101,9 +97,8 @@ final class ObjectHelpers
      * @param  (\ReflectionFunctionAbstract|\ReflectionParameter|\ReflectionClass|\ReflectionProperty|string)[]  $possibilities
      * @internal
      * @param string $value
-     * @return string|null
      */
-    public static function getSuggestion($possibilities, $value)
+    public static function getSuggestion($possibilities, $value) : ?string
     {
         $norm = \preg_replace($re = '#^(get|set|has|is|add)(?=[A-Z])#', '+', $value);
         $best = null;

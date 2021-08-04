@@ -177,9 +177,8 @@ class OutputFormatter implements \ECSPrefix20210804\Symfony\Component\Console\Fo
     }
     /**
      * Tries to create new style instance from string.
-     * @return \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface|null
      */
-    private function createStyleFromString(string $string)
+    private function createStyleFromString(string $string) : ?\ECSPrefix20210804\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
     {
         if (isset($this->styles[$string])) {
             return $this->styles[$string];

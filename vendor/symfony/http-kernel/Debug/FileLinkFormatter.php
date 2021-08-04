@@ -22,7 +22,7 @@ use ECSPrefix20210804\Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class FileLinkFormatter
 {
-    const FORMATS = ['textmate' => 'txmt://open?url=file://%f&line=%l', 'macvim' => 'mvim://open?url=file://%f&line=%l', 'emacs' => 'emacs://open?url=file://%f&line=%l', 'sublime' => 'subl://open?url=file://%f&line=%l', 'phpstorm' => 'phpstorm://open?file=%f&line=%l', 'atom' => 'atom://core/open/file?filename=%f&line=%l', 'vscode' => 'vscode://file/%f:%l'];
+    private const FORMATS = ['textmate' => 'txmt://open?url=file://%f&line=%l', 'macvim' => 'mvim://open?url=file://%f&line=%l', 'emacs' => 'emacs://open?url=file://%f&line=%l', 'sublime' => 'subl://open?url=file://%f&line=%l', 'phpstorm' => 'phpstorm://open?file=%f&line=%l', 'atom' => 'atom://core/open/file?filename=%f&line=%l', 'vscode' => 'vscode://file/%f:%l'];
     private $fileLinkFormat;
     private $requestStack;
     private $baseDir;
@@ -65,9 +65,8 @@ class FileLinkFormatter
     }
     /**
      * @internal
-     * @return string|null
      */
-    public static function generateUrlFormat(\ECSPrefix20210804\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router, string $routeName, string $queryString)
+    public static function generateUrlFormat(\ECSPrefix20210804\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router, string $routeName, string $queryString) : ?string
     {
         try {
             return $router->generate($routeName) . $queryString;

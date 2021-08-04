@@ -156,9 +156,8 @@ class Question
     }
     /**
      * Gets the callback function used for the autocompleter.
-     * @return callable|null
      */
-    public function getAutocompleterCallback()
+    public function getAutocompleterCallback() : ?callable
     {
         return $this->autocompleterCallback;
     }

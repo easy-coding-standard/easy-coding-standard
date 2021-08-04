@@ -25,15 +25,15 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class PhpdocToParamTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDeclarationFixer
 {
-    const MINIMUM_PHP_VERSION = 70000;
+    private const MINIMUM_PHP_VERSION = 70000;
     /**
      * @var array{int, string}[]
      */
-    const EXCLUDE_FUNC_NAMES = [[\T_STRING, '__clone'], [\T_STRING, '__destruct']];
+    private const EXCLUDE_FUNC_NAMES = [[\T_STRING, '__clone'], [\T_STRING, '__destruct']];
     /**
      * @var array<string, true>
      */
-    const SKIPPED_TYPES = ['mixed' => \true, 'resource' => \true, 'static' => \true, 'void' => \true];
+    private const SKIPPED_TYPES = ['mixed' => \true, 'resource' => \true, 'static' => \true, 'void' => \true];
     /**
      * {@inheritdoc}
      */
@@ -80,9 +80,8 @@ function bar($foo) {}
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
@@ -121,10 +120,7 @@ function bar($foo) {}
             }
         }
     }
-    /**
-     * @return int|null
-     */
-    private function findCorrectVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, \PhpCsFixer\DocBlock\Annotation $paramTypeAnnotation)
+    private function findCorrectVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, \PhpCsFixer\DocBlock\Annotation $paramTypeAnnotation) : ?int
     {
         $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
         for ($index = $startIndex + 1; $index < $endIndex; ++$index) {

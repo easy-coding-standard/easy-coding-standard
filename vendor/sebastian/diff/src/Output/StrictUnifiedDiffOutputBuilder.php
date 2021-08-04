@@ -110,10 +110,7 @@ final class StrictUnifiedDiffOutputBuilder implements \ECSPrefix20210804\Sebasti
         $last = \substr($diff, -1);
         return "\n" !== $last && "\r" !== $last ? $diff . "\n" : $diff;
     }
-    /**
-     * @return void
-     */
-    private function writeDiffHunks($output, array $diff)
+    private function writeDiffHunks($output, array $diff) : void
     {
         // detect "No newline at end of file" and insert into `$diff` if needed
         $upperLimit = \count($diff);
@@ -207,10 +204,7 @@ final class StrictUnifiedDiffOutputBuilder implements \ECSPrefix20210804\Sebasti
         $toRange -= $sameCount;
         $this->writeHunk($diff, $hunkCapture - $contextStartOffset, $i - $sameCount + $contextEndOffset + 1, $fromStart - $contextStartOffset, $fromRange + $contextStartOffset + $contextEndOffset, $toStart - $contextStartOffset, $toRange + $contextStartOffset + $contextEndOffset, $output);
     }
-    /**
-     * @return void
-     */
-    private function writeHunk(array $diff, int $diffStartIndex, int $diffEndIndex, int $fromStart, int $fromRange, int $toStart, int $toRange, $output)
+    private function writeHunk(array $diff, int $diffStartIndex, int $diffEndIndex, int $fromStart, int $fromRange, int $toStart, int $toRange, $output) : void
     {
         \fwrite($output, '@@ -' . $fromStart);
         if (!$this->collapseRanges || 1 !== $fromRange) {
@@ -241,19 +235,13 @@ final class StrictUnifiedDiffOutputBuilder implements \ECSPrefix20210804\Sebasti
             //}
         }
     }
-    /**
-     * @return void
-     */
-    private function assertString(array $options, string $option)
+    private function assertString(array $options, string $option) : void
     {
         if (!\is_string($options[$option])) {
             throw new \ECSPrefix20210804\SebastianBergmann\Diff\ConfigurationException($option, 'a string', $options[$option]);
         }
     }
-    /**
-     * @return void
-     */
-    private function assertStringOrNull(array $options, string $option)
+    private function assertStringOrNull(array $options, string $option) : void
     {
         if (null !== $options[$option] && !\is_string($options[$option])) {
             throw new \ECSPrefix20210804\SebastianBergmann\Diff\ConfigurationException($option, 'a string or <null>', $options[$option]);

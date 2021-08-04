@@ -21,7 +21,7 @@ final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fi
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Remove useless PHPStorm-generated @todo comments, redundant "Class XY" or "gets service" comments etc.';
+    private const ERROR_MESSAGE = 'Remove useless PHPStorm-generated @todo comments, redundant "Class XY" or "gets service" comments etc.';
     /**
      * @var \Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner
      */
@@ -43,9 +43,8 @@ final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fi
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $reversedTokens = $this->reverseTokens($tokens);
         foreach ($reversedTokens as $index => $token) {

@@ -40,9 +40,8 @@ final class CompactNullableTypehintFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         static $typehintKinds = [\PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \T_CALLABLE, \T_NS_SEPARATOR, \T_STRING];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {

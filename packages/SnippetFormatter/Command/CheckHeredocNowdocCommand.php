@@ -20,10 +20,7 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
         $this->snippetFormatterApplication = $snippetFormatterApplication;
         parent::__construct();
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setDescription('Format Heredoc/Nowdoc PHP snippets in PHP files');
         parent::configure();

@@ -34,9 +34,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     private $fixCallback;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         if ('one' === $this->configuration['spacing']) {
@@ -70,9 +69,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $callBack = $this->fixCallback;
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
@@ -90,9 +88,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * @param int $index index of concatenation '.' token
-     * @return void
      */
-    private function fixConcatenationToNoSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixConcatenationToNoSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $prevNonWhitespaceToken = $tokens[$tokens->getPrevNonWhitespace($index)];
         if (!$prevNonWhitespaceToken->isGivenKind([\T_LNUMBER, \T_COMMENT, \T_DOC_COMMENT]) || '/*' === \substr($prevNonWhitespaceToken->getContent(), 0, 2)) {
@@ -104,9 +101,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     }
     /**
      * @param int $index index of concatenation '.' token
-     * @return void
      */
-    private function fixConcatenationToSingleSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixConcatenationToSingleSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $this->fixWhiteSpaceAroundConcatToken($tokens, $index, 1);
         $this->fixWhiteSpaceAroundConcatToken($tokens, $index, -1);
@@ -114,9 +110,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     /**
      * @param int $index  index of concatenation '.' token
      * @param int $offset 1 or -1
-     * @return void
      */
-    private function fixWhiteSpaceAroundConcatToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $offset)
+    private function fixWhiteSpaceAroundConcatToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $offset) : void
     {
         $offsetIndex = $index + $offset;
         if (!$tokens[$offsetIndex]->isWhitespace()) {

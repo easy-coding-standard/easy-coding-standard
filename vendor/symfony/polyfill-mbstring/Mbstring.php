@@ -66,8 +66,8 @@ namespace ECSPrefix20210804\Symfony\Polyfill\Mbstring;
  */
 final class Mbstring
 {
-    const MB_CASE_FOLD = \PHP_INT_MAX;
-    const CASE_FOLD = [['µ', 'ſ', "ͅ", 'ς', "ϐ", "ϑ", "ϕ", "ϖ", "ϰ", "ϱ", "ϵ", "ẛ", "ι"], ['μ', 's', 'ι', 'σ', 'β', 'θ', 'φ', 'π', 'κ', 'ρ', 'ε', "ṡ", 'ι']];
+    public const MB_CASE_FOLD = \PHP_INT_MAX;
+    private const CASE_FOLD = [['µ', 'ſ', "ͅ", 'ς', "ϐ", "ϑ", "ϕ", "ϖ", "ϰ", "ϱ", "ϵ", "ẛ", "ι"], ['μ', 's', 'ι', 'σ', 'β', 'θ', 'φ', 'π', 'κ', 'ρ', 'ε', "ṡ", 'ι']];
     private static $encodingList = ['ASCII', 'UTF-8'];
     private static $language = 'neutral';
     private static $internalEncoding = 'UTF-8';

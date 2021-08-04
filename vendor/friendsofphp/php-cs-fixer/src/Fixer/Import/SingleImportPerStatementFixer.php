@@ -55,9 +55,8 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $uses = \array_reverse($tokensAnalyzer->getImportUseIndexes());
@@ -136,10 +135,7 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
         }
         return $statements;
     }
-    /**
-     * @return void
-     */
-    private function fixGroupUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex)
+    private function fixGroupUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex) : void
     {
         list($groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment) = $this->getGroupDeclaration($tokens, $index);
         $statements = $this->getGroupStatements($tokens, $groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment);
@@ -156,10 +152,7 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
         $importTokens->clearEmptyTokens();
         $tokens->insertAt($index, $importTokens);
     }
-    /**
-     * @return void
-     */
-    private function fixMultipleUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex)
+    private function fixMultipleUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex) : void
     {
         $ending = $this->whitespacesConfig->getLineEnding();
         for ($i = $endIndex - 1; $i > $index; --$i) {

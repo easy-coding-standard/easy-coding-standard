@@ -25,17 +25,16 @@ abstract class AbstractSymplifyKernel extends \ECSPrefix20210804\Symfony\Compone
         return \sys_get_temp_dir() . '/' . $this->getUniqueKernelHash() . '_log';
     }
     /**
-     * @return mixed[]
+     * @return BundleInterface[]
      */
-    public function registerBundles()
+    public function registerBundles() : iterable
     {
         return [new \ECSPrefix20210804\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }
     /**
      * @param string[]|SmartFileInfo[] $configs
-     * @return void
      */
-    public function setConfigs($configs)
+    public function setConfigs($configs) : void
     {
         foreach ($configs as $config) {
             if ($config instanceof \ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo) {
@@ -46,9 +45,8 @@ abstract class AbstractSymplifyKernel extends \ECSPrefix20210804\Symfony\Compone
     }
     /**
      * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
-     * @return void
      */
-    public function registerContainerConfiguration($loader)
+    public function registerContainerConfiguration($loader) : void
     {
         foreach ($this->configs as $config) {
             $loader->load($config);

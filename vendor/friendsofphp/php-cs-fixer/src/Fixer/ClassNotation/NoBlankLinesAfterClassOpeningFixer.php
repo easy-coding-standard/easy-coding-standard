@@ -57,9 +57,8 @@ final class Sample
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isClassy()) {
@@ -74,9 +73,8 @@ final class Sample
     }
     /**
      * Cleanup a whitespace token.
-     * @return void
      */
-    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $content = $tokens[$index]->getContent();
         // if there is more than one new line in the whitespace, then we need to fix it

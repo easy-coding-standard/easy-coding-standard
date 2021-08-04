@@ -26,7 +26,7 @@ final class StandaloneLineInMultilineArrayFixer extends \Symplify\CodingStandard
     /**
      * @var string
      */
-    const ERROR_MESSAGE = 'Indexed arrays must have 1 item per line';
+    private const ERROR_MESSAGE = 'Indexed arrays must have 1 item per line';
     /**
      * @var \Symplify\CodingStandard\TokenRunner\Wrapper\FixerWrapper\ArrayWrapperFactory
      */
@@ -83,9 +83,8 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds::ARRAY_OPEN_TOKENS)) {

@@ -81,9 +81,8 @@ abstract class AbstractProxyFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function setWhitespacesConfig(\PhpCsFixer\WhitespacesFixerConfig $config)
+    public function setWhitespacesConfig(\PhpCsFixer\WhitespacesFixerConfig $config) : void
     {
         parent::setWhitespacesConfig($config);
         foreach ($this->proxyFixers as $fixer) {
@@ -94,9 +93,8 @@ abstract class AbstractProxyFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($this->proxyFixers as $fixer) {
             $fixer->fix($file, $tokens);

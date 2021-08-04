@@ -34,7 +34,7 @@ use ECSPrefix20210804\Symfony\Component\ExpressionLanguage\Expression;
  */
 class XmlFileLoader extends \ECSPrefix20210804\Symfony\Component\DependencyInjection\Loader\FileLoader
 {
-    const NS = 'http://symfony.com/schema/dic/services';
+    public const NS = 'http://symfony.com/schema/dic/services';
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
      * {@inheritdoc}
@@ -60,10 +60,7 @@ class XmlFileLoader extends \ECSPrefix20210804\Symfony\Component\DependencyInjec
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function loadXml(\DOMDocument $xml, string $path, \DOMNode $root = null)
+    private function loadXml(\DOMDocument $xml, string $path, \DOMNode $root = null) : void
     {
         $defaults = $this->getServiceDefaults($xml, $path, $root);
         // anonymous services
@@ -175,9 +172,8 @@ class XmlFileLoader extends \ECSPrefix20210804\Symfony\Component\DependencyInjec
     }
     /**
      * Parses an individual Definition.
-     * @return \Symfony\Component\DependencyInjection\Definition|null
      */
-    private function parseDefinition(\DOMElement $service, string $file, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $defaults)
+    private function parseDefinition(\DOMElement $service, string $file, \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition $defaults) : ?\ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition
     {
         if ($alias = $service->getAttribute('alias')) {
             $this->validateAlias($service, $file);
@@ -374,7 +370,7 @@ class XmlFileLoader extends \ECSPrefix20210804\Symfony\Component\DependencyInjec
         }
         // resolve definitions
         \uksort($definitions, 'strnatcmp');
-        foreach (\array_reverse($definitions) as $id => list($domElement, $file)) {
+        foreach (\array_reverse($definitions) as $id => [$domElement, $file]) {
             if (null !== ($definition = $this->parseDefinition($domElement, $file, new \ECSPrefix20210804\Symfony\Component\DependencyInjection\Definition()))) {
                 $this->setDefinition($id, $definition);
             }

@@ -25,10 +25,7 @@ final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\Ver
      * @var VersionSpecificationInterface
      */
     private $versionSpecification;
-    /**
-     * @param mixed[]|null $configuration
-     */
-    public function __construct(string $code, \PhpCsFixer\FixerDefinition\VersionSpecificationInterface $versionSpecification, $configuration = null)
+    public function __construct(string $code, \PhpCsFixer\FixerDefinition\VersionSpecificationInterface $versionSpecification, ?array $configuration = null)
     {
         $this->codeSample = new \PhpCsFixer\FixerDefinition\CodeSample($code, $configuration);
         $this->versionSpecification = $versionSpecification;
@@ -42,9 +39,8 @@ final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\Ver
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]|null
      */
-    public function getConfiguration()
+    public function getConfiguration() : ?array
     {
         return $this->codeSample->getConfiguration();
     }

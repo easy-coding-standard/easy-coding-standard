@@ -58,9 +58,8 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $classIndex = $tokens->getPrevTokenOfKind($startIndex, [[\T_CLASS]]);
         if (!$this->isAllowedByConfiguration($tokens, $classIndex)) {
@@ -84,10 +83,7 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
         }
         return \in_array('normal', $this->configuration['types'], \true);
     }
-    /**
-     * @return void
-     */
-    private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex)
+    private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : void
     {
         $lineEnd = $this->whitespacesConfig->getLineEnding();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));
@@ -95,10 +91,7 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
         $index = $tokens->getNextMeaningfulToken($docBlockIndex);
         $tokens->insertAt($index, $toInsert);
     }
-    /**
-     * @return void
-     */
-    private function updateDocBlockIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex)
+    private function updateDocBlockIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : void
     {
         $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
         if (!empty($doc->getAnnotationsOfType('internal'))) {

@@ -16,7 +16,7 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
      * @var string
      * @see https://regex101.com/r/5szHlw/1
      */
-    const PARAM_NAME_REGEX = '#@param(.*?)(?<paramName>\\$\\w+)#';
+    private const PARAM_NAME_REGEX = '#@param(.*?)(?<paramName>\\$\\w+)#';
     /**
      * @var \Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver
      */

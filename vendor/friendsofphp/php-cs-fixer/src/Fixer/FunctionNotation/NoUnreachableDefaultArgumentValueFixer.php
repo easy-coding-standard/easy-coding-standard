@@ -62,9 +62,8 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($i = 0, $l = $tokens->count(); $i < $l; ++$i) {
             if (!$tokens[$i]->isGivenKind(\T_FUNCTION) && (\PHP_VERSION_ID < 70400 || !$tokens[$i]->isGivenKind(\T_FN))) {
@@ -75,10 +74,7 @@ function example($foo = "two words", $bar) {}
             $this->fixFunctionDefinition($tokens, $startIndex, $i);
         }
     }
-    /**
-     * @return void
-     */
-    private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $lastArgumentIndex = $this->getLastNonDefaultArgumentIndex($tokens, $startIndex, $endIndex);
         if (!$lastArgumentIndex) {
@@ -98,10 +94,7 @@ function example($foo = "two words", $bar) {}
             $this->removeDefaultArgument($tokens, $i, $endIndex);
         }
     }
-    /**
-     * @return int|null
-     */
-    private function getLastNonDefaultArgumentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function getLastNonDefaultArgumentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : ?int
     {
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             $token = $tokens[$i];
@@ -119,10 +112,7 @@ function example($foo = "two words", $bar) {}
     {
         return $tokens[$tokens->getPrevMeaningfulToken($variableIndex)]->isGivenKind(\T_ELLIPSIS);
     }
-    /**
-     * @return void
-     */
-    private function removeDefaultArgument(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex)
+    private function removeDefaultArgument(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($i = $startIndex; $i <= $endIndex;) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($i);
@@ -148,10 +138,7 @@ function example($foo = "two words", $bar) {}
         }
         return !$tokens[$tokens->getPrevMeaningfulToken($prevIndex)]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE);
     }
-    /**
-     * @return void
-     */
-    private function clearWhitespacesBeforeIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function clearWhitespacesBeforeIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $prevIndex = $tokens->getNonEmptySibling($index, -1);
         if (!$tokens[$prevIndex]->isWhitespace()) {

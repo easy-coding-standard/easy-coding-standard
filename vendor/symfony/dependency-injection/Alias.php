@@ -13,7 +13,7 @@ namespace ECSPrefix20210804\Symfony\Component\DependencyInjection;
 use ECSPrefix20210804\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 class Alias
 {
-    const DEFAULT_DEPRECATION_TEMPLATE = 'The "%alias_id%" service alias is deprecated. You should stop using it, as it will be removed in the future.';
+    private const DEFAULT_DEPRECATION_TEMPLATE = 'The "%alias_id%" service alias is deprecated. You should stop using it, as it will be removed in the future.';
     private $id;
     private $public;
     private $deprecation = [];

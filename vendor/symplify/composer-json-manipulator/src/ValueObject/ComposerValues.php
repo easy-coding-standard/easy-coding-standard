@@ -9,5 +9,5 @@ final class ComposerValues
      * @api
      * @var string
      */
-    const SELF_VERSION = 'self.version';
+    public const SELF_VERSION = 'self.version';
 }

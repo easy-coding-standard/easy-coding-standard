@@ -19,11 +19,7 @@ class HttpException extends \RuntimeException implements \ECSPrefix20210804\Symf
 {
     private $statusCode;
     private $headers;
-    /**
-     * @param string|null $message
-     * @param int|null $code
-     */
-    public function __construct(int $statusCode, $message = '', \Throwable $previous = null, array $headers = [], $code = 0)
+    public function __construct(int $statusCode, ?string $message = '', \Throwable $previous = null, array $headers = [], ?int $code = 0)
     {
         if (null === $message) {
             trigger_deprecation('symfony/http-kernel', '5.3', 'Passing null as $message to "%s()" is deprecated, pass an empty string instead.', __METHOD__);

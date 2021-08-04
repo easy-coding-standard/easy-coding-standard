@@ -38,30 +38,30 @@ use ECSPrefix20210804\Symfony\Component\HttpFoundation\Session\SessionInterface;
  */
 class Request
 {
-    const HEADER_FORWARDED = 0b1;
+    public const HEADER_FORWARDED = 0b1;
     // When using RFC 7239
-    const HEADER_X_FORWARDED_FOR = 0b10;
-    const HEADER_X_FORWARDED_HOST = 0b100;
-    const HEADER_X_FORWARDED_PROTO = 0b1000;
-    const HEADER_X_FORWARDED_PORT = 0b10000;
-    const HEADER_X_FORWARDED_PREFIX = 0b100000;
+    public const HEADER_X_FORWARDED_FOR = 0b10;
+    public const HEADER_X_FORWARDED_HOST = 0b100;
+    public const HEADER_X_FORWARDED_PROTO = 0b1000;
+    public const HEADER_X_FORWARDED_PORT = 0b10000;
+    public const HEADER_X_FORWARDED_PREFIX = 0b100000;
     /** @deprecated since Symfony 5.2, use either "HEADER_X_FORWARDED_FOR | HEADER_X_FORWARDED_HOST | HEADER_X_FORWARDED_PORT | HEADER_X_FORWARDED_PROTO" or "HEADER_X_FORWARDED_AWS_ELB" or "HEADER_X_FORWARDED_TRAEFIK" constants instead. */
-    const HEADER_X_FORWARDED_ALL = 0b1011110;
+    public const HEADER_X_FORWARDED_ALL = 0b1011110;
     // All "X-Forwarded-*" headers sent by "usual" reverse proxy
-    const HEADER_X_FORWARDED_AWS_ELB = 0b11010;
+    public const HEADER_X_FORWARDED_AWS_ELB = 0b11010;
     // AWS ELB doesn't send X-Forwarded-Host
-    const HEADER_X_FORWARDED_TRAEFIK = 0b111110;
+    public const HEADER_X_FORWARDED_TRAEFIK = 0b111110;
     // All "X-Forwarded-*" headers sent by Traefik reverse proxy
-    const METHOD_HEAD = 'HEAD';
-    const METHOD_GET = 'GET';
-    const METHOD_POST = 'POST';
-    const METHOD_PUT = 'PUT';
-    const METHOD_PATCH = 'PATCH';
-    const METHOD_DELETE = 'DELETE';
-    const METHOD_PURGE = 'PURGE';
-    const METHOD_OPTIONS = 'OPTIONS';
-    const METHOD_TRACE = 'TRACE';
-    const METHOD_CONNECT = 'CONNECT';
+    public const METHOD_HEAD = 'HEAD';
+    public const METHOD_GET = 'GET';
+    public const METHOD_POST = 'POST';
+    public const METHOD_PUT = 'PUT';
+    public const METHOD_PATCH = 'PATCH';
+    public const METHOD_DELETE = 'DELETE';
+    public const METHOD_PURGE = 'PURGE';
+    public const METHOD_OPTIONS = 'OPTIONS';
+    public const METHOD_TRACE = 'TRACE';
+    public const METHOD_CONNECT = 'CONNECT';
     /**
      * @var string[]
      */
@@ -189,7 +189,7 @@ class Request
      */
     private $isSafeContentPreferred;
     private static $trustedHeaderSet = -1;
-    const FORWARDED_PARAMS = [self::HEADER_X_FORWARDED_FOR => 'for', self::HEADER_X_FORWARDED_HOST => 'host', self::HEADER_X_FORWARDED_PROTO => 'proto', self::HEADER_X_FORWARDED_PORT => 'host'];
+    private const FORWARDED_PARAMS = [self::HEADER_X_FORWARDED_FOR => 'for', self::HEADER_X_FORWARDED_HOST => 'host', self::HEADER_X_FORWARDED_PROTO => 'proto', self::HEADER_X_FORWARDED_PORT => 'host'];
     /**
      * Names for headers that can be trusted when
      * using trusted proxies.
@@ -199,7 +199,7 @@ class Request
      * The other headers are non-standard, but widely used
      * by popular reverse proxies (like Apache mod_proxy or Amazon EC2).
      */
-    const TRUSTED_HEADERS = [self::HEADER_FORWARDED => 'FORWARDED', self::HEADER_X_FORWARDED_FOR => 'X_FORWARDED_FOR', self::HEADER_X_FORWARDED_HOST => 'X_FORWARDED_HOST', self::HEADER_X_FORWARDED_PROTO => 'X_FORWARDED_PROTO', self::HEADER_X_FORWARDED_PORT => 'X_FORWARDED_PORT', self::HEADER_X_FORWARDED_PREFIX => 'X_FORWARDED_PREFIX'];
+    private const TRUSTED_HEADERS = [self::HEADER_FORWARDED => 'FORWARDED', self::HEADER_X_FORWARDED_FOR => 'X_FORWARDED_FOR', self::HEADER_X_FORWARDED_HOST => 'X_FORWARDED_HOST', self::HEADER_X_FORWARDED_PROTO => 'X_FORWARDED_PROTO', self::HEADER_X_FORWARDED_PORT => 'X_FORWARDED_PORT', self::HEADER_X_FORWARDED_PREFIX => 'X_FORWARDED_PREFIX'];
     /**
      * @param array                $query      The GET parameters
      * @param array                $request    The POST parameters
@@ -1395,9 +1395,8 @@ class Request
      * Note that if you use this method, you should send the "Vary: Accept" header
      * in the response to prevent any issues with intermediary HTTP caches.
      * @param string|null $default
-     * @return string|null
      */
-    public function getPreferredFormat($default = 'html')
+    public function getPreferredFormat($default = 'html') : ?string
     {
         if (null !== $this->preferredFormat || null !== ($this->preferredFormat = $this->getRequestFormat(null))) {
             return $this->preferredFormat;
@@ -1704,10 +1703,7 @@ class Request
     {
         static::$formats = ['html' => ['text/html', 'application/xhtml+xml'], 'txt' => ['text/plain'], 'js' => ['application/javascript', 'application/x-javascript', 'text/javascript'], 'css' => ['text/css'], 'json' => ['application/json', 'application/x-json'], 'jsonld' => ['application/ld+json'], 'xml' => ['text/xml', 'application/xml', 'application/x-xml'], 'rdf' => ['application/rdf+xml'], 'atom' => ['application/atom+xml'], 'rss' => ['application/rss+xml'], 'form' => ['application/x-www-form-urlencoded']];
     }
-    /**
-     * @return void
-     */
-    private function setPhpDefaultLocale(string $locale)
+    private function setPhpDefaultLocale(string $locale) : void
     {
         // if either the class Locale doesn't exist, or an exception is thrown when
         // setting the default locale, the intl module is not installed, and
@@ -1722,9 +1718,8 @@ class Request
     /**
      * Returns the prefix as encoded in the string when the string starts with
      * the given prefix, null otherwise.
-     * @return string|null
      */
-    private function getUrlencodedPrefix(string $string, string $prefix)
+    private function getUrlencodedPrefix(string $string, string $prefix) : ?string
     {
         if (\strncmp(\rawurldecode($string), $prefix, \strlen($prefix)) !== 0) {
             return null;

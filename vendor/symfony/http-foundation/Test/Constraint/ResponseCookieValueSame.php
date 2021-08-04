@@ -65,9 +65,8 @@ final class ResponseCookieValueSame extends \ECSPrefix20210804\PHPUnit\Framework
     }
     /**
      * @param \Symfony\Component\HttpFoundation\Response $response
-     * @return \Symfony\Component\HttpFoundation\Cookie|null
      */
-    protected function getCookie($response)
+    protected function getCookie($response) : ?\ECSPrefix20210804\Symfony\Component\HttpFoundation\Cookie
     {
         $cookies = $response->headers->getCookies();
         $filteredCookies = \array_filter($cookies, function (\ECSPrefix20210804\Symfony\Component\HttpFoundation\Cookie $cookie) {

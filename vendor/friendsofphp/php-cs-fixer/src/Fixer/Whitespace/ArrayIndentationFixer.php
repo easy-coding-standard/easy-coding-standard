@@ -51,10 +51,7 @@ final class ArrayIndentationFixer extends \PhpCsFixer\AbstractFixer implements \
     {
         return 29;
     }
-    /**
-     * @return void
-     */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $this->returnWithUpdateCache(0, null);
         $scopes = [];
@@ -149,10 +146,7 @@ final class ArrayIndentationFixer extends \PhpCsFixer\AbstractFixer implements \
         }
         return '';
     }
-    /**
-     * @return int|null
-     */
-    private function getPreviousNewlineTokenIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex)
+    private function getPreviousNewlineTokenIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex) : ?int
     {
         $index = $startIndex;
         while ($index > 0) {
@@ -184,11 +178,7 @@ final class ArrayIndentationFixer extends \PhpCsFixer\AbstractFixer implements \
         }
         return $content;
     }
-    /**
-     * @param int|null $position
-     * @return int|null
-     */
-    private function returnWithUpdateCache(int $index, $position)
+    private function returnWithUpdateCache(int $index, ?int $position) : ?int
     {
         $this->newlineTokenIndexCache = $index;
         $this->newlineTokenPositionCache = $position;

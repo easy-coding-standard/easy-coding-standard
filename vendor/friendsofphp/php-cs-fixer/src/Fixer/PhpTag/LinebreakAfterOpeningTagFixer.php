@@ -40,9 +40,8 @@ final class LinebreakAfterOpeningTagFixer extends \PhpCsFixer\AbstractFixer impl
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // ignore files with short open tag and ignore non-monolithic files
         if (!$tokens[0]->isGivenKind(\T_OPEN_TAG) || !$tokens->isMonolithicPhp()) {

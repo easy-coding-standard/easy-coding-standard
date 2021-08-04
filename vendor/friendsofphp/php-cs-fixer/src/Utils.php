@@ -76,7 +76,7 @@ final class Utils
      */
     public static function stableSort(array $elements, callable $getComparedValue, callable $compareValues) : array
     {
-        \array_walk($elements, static function (&$element, int $index) use($getComparedValue) {
+        \array_walk($elements, static function (&$element, int $index) use($getComparedValue) : void {
             $element = [$element, $index, $getComparedValue($element)];
         });
         \usort($elements, static function ($a, $b) use($compareValues) {
@@ -130,9 +130,8 @@ final class Utils
     }
     /**
      * Handle triggering deprecation error.
-     * @return void
      */
-    public static function triggerDeprecation(\Exception $futureException)
+    public static function triggerDeprecation(\Exception $futureException) : void
     {
         if (\getenv('PHP_CS_FIXER_FUTURE_MODE')) {
             throw new \RuntimeException('Your are using something deprecated, see previous exception. Aborting execution because `PHP_CS_FIXER_FUTURE_MODE` environment variable is set.', 0, $futureException);

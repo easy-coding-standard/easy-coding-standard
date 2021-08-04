@@ -45,9 +45,8 @@ final class YodaStyleFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFi
     private $candidateTypes;
     /**
      * {@inheritdoc}
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         parent::configure($configuration);
         $this->resolveConfiguration();
@@ -92,9 +91,8 @@ return $foo === count($bar);
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $this->fixTokens($tokens);
     }
@@ -244,10 +242,7 @@ return $foo === count($bar);
         $newTokens->clearEmptyTokens();
         return $newTokens;
     }
-    /**
-     * @return mixed[]|null
-     */
-    private function getCompareFixableInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $yoda)
+    private function getCompareFixableInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $yoda) : ?array
     {
         $left = $this->getLeftSideCompareFixableInfo($tokens, $index);
         $right = $this->getRightSideCompareFixableInfo($tokens, $index);
@@ -532,10 +527,7 @@ return $foo === count($bar);
         }
         return \true;
     }
-    /**
-     * @return void
-     */
-    private function resolveConfiguration()
+    private function resolveConfiguration() : void
     {
         $candidateTypes = [];
         $this->candidatesMap = [];

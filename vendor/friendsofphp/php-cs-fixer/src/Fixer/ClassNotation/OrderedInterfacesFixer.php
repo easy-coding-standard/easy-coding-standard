@@ -28,29 +28,29 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /** @internal */
-    const OPTION_DIRECTION = 'direction';
+    public const OPTION_DIRECTION = 'direction';
     /** @internal */
-    const OPTION_ORDER = 'order';
+    public const OPTION_ORDER = 'order';
     /** @internal */
-    const DIRECTION_ASCEND = 'ascend';
+    public const DIRECTION_ASCEND = 'ascend';
     /** @internal */
-    const DIRECTION_DESCEND = 'descend';
+    public const DIRECTION_DESCEND = 'descend';
     /** @internal */
-    const ORDER_ALPHA = 'alpha';
+    public const ORDER_ALPHA = 'alpha';
     /** @internal */
-    const ORDER_LENGTH = 'length';
+    public const ORDER_LENGTH = 'length';
     /**
      * Array of supported directions in configuration.
      *
      * @var string[]
      */
-    const SUPPORTED_DIRECTION_OPTIONS = [self::DIRECTION_ASCEND, self::DIRECTION_DESCEND];
+    private const SUPPORTED_DIRECTION_OPTIONS = [self::DIRECTION_ASCEND, self::DIRECTION_DESCEND];
     /**
      * Array of supported orders in configuration.
      *
      * @var string[]
      */
-    const SUPPORTED_ORDER_OPTIONS = [self::ORDER_ALPHA, self::ORDER_LENGTH];
+    private const SUPPORTED_ORDER_OPTIONS = [self::ORDER_ALPHA, self::ORDER_LENGTH];
     /**
      * {@inheritdoc}
      */
@@ -74,9 +74,8 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
     }
     /**
      * {@inheritdoc}
-     * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_IMPLEMENTS)) {

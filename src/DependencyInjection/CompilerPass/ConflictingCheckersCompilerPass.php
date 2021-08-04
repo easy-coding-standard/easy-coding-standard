@@ -21,12 +21,11 @@ final class ConflictingCheckersCompilerPass implements \ECSPrefix20210804\Symfon
      *
      * @var string[][]
      */
-    const CONFLICTING_CHECKER_GROUPS = [['ECSPrefix20210804\\SlevomatCodingStandard\\Sniffs\\ControlStructures\\DisallowYodaComparisonSniff', \PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer::class], [\PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], [\PhpCsFixer\Fixer\Casing\ConstantCaseFixer::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], ['ECSPrefix20210804\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer::class], ['ECSPrefix20210804\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class], [\PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff::class, \PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer::class]];
+    private const CONFLICTING_CHECKER_GROUPS = [['ECSPrefix20210804\\SlevomatCodingStandard\\Sniffs\\ControlStructures\\DisallowYodaComparisonSniff', \PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer::class], [\PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], [\PhpCsFixer\Fixer\Casing\ConstantCaseFixer::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], ['ECSPrefix20210804\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer::class], ['ECSPrefix20210804\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class], [\PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff::class, \PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer::class]];
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return void
      */
-    public function process($containerBuilder)
+    public function process($containerBuilder) : void
     {
         $checkers = $containerBuilder->getServiceIds();
         if ($checkers === []) {
