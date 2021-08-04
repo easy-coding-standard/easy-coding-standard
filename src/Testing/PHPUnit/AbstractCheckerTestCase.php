@@ -3,6 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
+use ECSPrefix20210804\PHPUnit\Framework\TestCase;
+use ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -11,10 +13,9 @@ use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix20210804\Symplify\EasyTesting\StaticFixtureSplitter;
-use ECSPrefix20210804\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use ECSPrefix20210804\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix20210804\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractCheckerTestCase extends \ECSPrefix20210804\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface
+abstract class AbstractCheckerTestCase extends \ECSPrefix20210804\PHPUnit\Framework\TestCase implements \Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface
 {
     /**
      * @var string[]
@@ -36,9 +37,9 @@ abstract class AbstractCheckerTestCase extends \ECSPrefix20210804\Symplify\Packa
         // autoload php code sniffer before Kernel boot
         $this->autoloadCodeSniffer();
         $configs = $this->getValidatedConfigs();
-        $this->bootKernelWithConfigs(\Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel::class, $configs);
-        $this->fixerFileProcessor = $this->getService(\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::class);
-        $this->sniffFileProcessor = $this->getService(\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor::class);
+        $container = $this->bootContainerWithConfigs($configs);
+        $this->fixerFileProcessor = $container->get(\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::class);
+        $this->sniffFileProcessor = $container->get(\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor::class);
     }
     /**
      * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
@@ -141,5 +142,20 @@ abstract class AbstractCheckerTestCase extends \ECSPrefix20210804\Symplify\Packa
         $fileSystemGuard = new \ECSPrefix20210804\Symplify\SmartFileSystem\FileSystemGuard();
         $fileSystemGuard->ensureFileExists($config, static::class);
         return [$config];
+    }
+    /**
+     * @param string[] $configs
+     */
+    private function bootContainerWithConfigs(array $configs) : \ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerInterface
+    {
+        $configsHash = '';
+        foreach ($configs as $config) {
+            $configsHash .= \md5_file($config);
+        }
+        $configsHash = \md5($configsHash);
+        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel('test_' . $configsHash, \true);
+        $easyCodingStandardKernel->setConfigs($configs);
+        $easyCodingStandardKernel->boot();
+        return $easyCodingStandardKernel->getContainer();
     }
 }
