@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use PhpCsFixer\Fixer\Alias\PowToExponentiationFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

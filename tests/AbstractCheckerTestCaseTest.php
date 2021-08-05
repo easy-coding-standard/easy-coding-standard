@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractCheckerTestCase;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FixerTest extends AbstractCheckerTestCase
+final class AbstractCheckerTestCaseTest extends AbstractCheckerTestCase
 {
     /**
      * @dataProvider provideData()
