@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210804\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
+namespace ECSPrefix20210805\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
 
-use ECSPrefix20210804\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210804\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class AutowireInterfacesCompilerPass implements \ECSPrefix20210804\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use ECSPrefix20210805\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210805\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class AutowireInterfacesCompilerPass implements \ECSPrefix20210805\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var mixed[]

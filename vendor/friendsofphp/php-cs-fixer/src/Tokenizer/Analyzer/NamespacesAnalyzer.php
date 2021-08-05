@@ -52,12 +52,7 @@ final class NamespacesAnalyzer
         }
         return $namespaces;
     }
-    /**
-     * @param int $index
-     *
-     * @return NamespaceAnalysis
-     */
-    public function getNamespaceAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    public function getNamespaceAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis
     {
         if (!$tokens->offsetExists($index)) {
             throw new \InvalidArgumentException("Token index {$index} does not exist.");

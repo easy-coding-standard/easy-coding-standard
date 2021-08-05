@@ -146,7 +146,7 @@ final class PhpdocTypesOrderFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     private function sortJoinedTypes(string $types) : string
     {
-        $types = \array_filter(\PhpCsFixer\Preg::split('/([^|<]+(?:<.*>)?)/', $types, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY), static function (string $value) {
+        $types = \array_filter(\PhpCsFixer\Preg::split('/([^|<{\\(]+(?:[<{].*[>}]|\\(.+\\)(?::.+)?)?)/', $types, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY), static function (string $value) {
             return '|' !== $value;
         });
         return \implode('|', $this->sortTypes($types));

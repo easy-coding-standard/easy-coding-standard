@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210804\\Evenement\\": "src\/Evenement\/"
+            "ECSPrefix20210805\\Evenement\\": "src\/Evenement\/"
         }
     },
     "autoload-dev": {
@@ -28,7 +28,7 @@
             "tests\/Evenement\/Tests\/functions.php"
         ],
         "psr-4": {
-            "ECSPrefix20210804\\Evenement\\": "tests\/Evenement\/"
+            "ECSPrefix20210805\\Evenement\\": "tests\/Evenement\/"
         }
     }
 }

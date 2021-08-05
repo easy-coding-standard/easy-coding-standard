@@ -109,11 +109,9 @@ final class TypeExpression
      */
     private $namespaceUses;
     /**
-     * @param string                 $value
-     * @param null|NamespaceAnalysis $namespace
      * @param NamespaceUseAnalysis[] $namespaceUses
      */
-    public function __construct($value, $namespace, array $namespaceUses)
+    public function __construct(string $value, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace, array $namespaceUses)
     {
         while ('' !== $value && \false !== $value) {
             \PhpCsFixer\Preg::match('{^' . self::REGEX_TYPES . '$}x', $value, $matches);
@@ -126,14 +124,11 @@ final class TypeExpression
     /**
      * @return string[]
      */
-    public function getTypes()
+    public function getTypes() : array
     {
         return $this->types;
     }
-    /**
-     * @return null|string
-     */
-    public function getCommonType()
+    public function getCommonType() : ?string
     {
         $aliases = ['true' => 'bool', 'false' => 'bool', 'boolean' => 'bool', 'integer' => 'int', 'double' => 'float', 'real' => 'float', 'callback' => 'callable'];
         $mainType = null;
@@ -159,10 +154,7 @@ final class TypeExpression
         }
         return $mainType;
     }
-    /**
-     * @return bool
-     */
-    public function allowsNull()
+    public function allowsNull() : bool
     {
         foreach ($this->types as $type) {
             if (\in_array($type, ['null', 'mixed'], \true)) {
@@ -182,12 +174,7 @@ final class TypeExpression
         }
         return null;
     }
-    /**
-     * @param string $type
-     *
-     * @return string
-     */
-    private function normalize($type)
+    private function normalize(string $type) : string
     {
         $aliases = ['true' => 'bool', 'false' => 'bool', 'boolean' => 'bool', 'integer' => 'int', 'double' => 'float', 'real' => 'float', 'callback' => 'callable'];
         if (isset($aliases[$type])) {

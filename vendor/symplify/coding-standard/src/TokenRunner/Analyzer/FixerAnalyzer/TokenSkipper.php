@@ -8,7 +8,7 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20210804\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210805\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class TokenSkipper
 {
     /**
@@ -56,7 +56,7 @@ final class TokenSkipper
         }
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
-            throw new \ECSPrefix20210804\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210805\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $blockInfo->getStart();
     }

@@ -148,12 +148,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $this->applyPhpUnitClassFixWithObjectOperator($tokens, $startIndex, $endIndex, $objectOperator);
         }
     }
-    /**
-     * @param int $startIndex
-     * @param int $endIndex
-     * @param int $objectOperator
-     */
-    private function applyPhpUnitClassFixWithObjectOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex, $objectOperator) : void
+    private function applyPhpUnitClassFixWithObjectOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, int $objectOperator) : void
     {
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $oldMethodSequence = [[\T_VARIABLE, '$this'], [$objectOperator], [\T_STRING]];

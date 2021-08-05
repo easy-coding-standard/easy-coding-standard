@@ -59,8 +59,7 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
-        $uses = \array_reverse($tokensAnalyzer->getImportUseIndexes());
-        foreach ($uses as $index) {
+        foreach (\array_reverse($tokensAnalyzer->getImportUseIndexes()) as $index) {
             $endIndex = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
             $groupClose = $tokens->getPrevMeaningfulToken($endIndex);
             if ($tokens[$groupClose]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE)) {
@@ -154,6 +153,14 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
     }
     private function fixMultipleUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex) : void
     {
+        $nextTokenIndex = $tokens->getNextMeaningfulToken($index);
+        if ($tokens[$nextTokenIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
+            $leadingTokens = [new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT, 'function']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
+        } elseif ($tokens[$nextTokenIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT)) {
+            $leadingTokens = [new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT, 'const']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
+        } else {
+            $leadingTokens = [];
+        }
         $ending = $this->whitespacesConfig->getLineEnding();
         for ($i = $endIndex - 1; $i > $index; --$i) {
             if (!$tokens[$i]->equals(',')) {
@@ -163,12 +170,13 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
             $i = $tokens->getNextMeaningfulToken($i);
             $tokens->insertAt($i, new \PhpCsFixer\Tokenizer\Token([\T_USE, 'use']));
             $tokens->insertAt($i + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+            foreach ($leadingTokens as $offset => $leadingToken) {
+                $tokens->insertAt($i + 2 + $offset, clone $leadingTokens[$offset]);
+            }
             $indent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $index);
             if ($tokens[$i - 1]->isWhitespace()) {
                 $tokens[$i - 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $ending . $indent]);
-                continue;
-            }
-            if (\false === \strpos($tokens[$i - 1]->getContent(), "\n")) {
+            } elseif (\false === \strpos($tokens[$i - 1]->getContent(), "\n")) {
                 $tokens->insertAt($i, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $ending . $indent]));
             }
         }

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210804\Symfony\Component\HttpKernel\DataCollector;
+namespace ECSPrefix20210805\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210804\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210804\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210805\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210805\Symfony\Component\HttpFoundation\Response;
 /**
  * AjaxDataCollector.
  *
@@ -19,7 +19,7 @@ use ECSPrefix20210804\Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
-class AjaxDataCollector extends \ECSPrefix20210804\Symfony\Component\HttpKernel\DataCollector\DataCollector
+class AjaxDataCollector extends \ECSPrefix20210805\Symfony\Component\HttpKernel\DataCollector\DataCollector
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request

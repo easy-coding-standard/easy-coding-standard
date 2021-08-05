@@ -34,7 +34,7 @@ final class ReportSummary
     /**
      * @return RuleSetDescriptionInterface[]
      */
-    public function getSets()
+    public function getSets() : array
     {
         return $this->sets;
     }

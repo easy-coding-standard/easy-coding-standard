@@ -12,8 +12,8 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Console\Report\ListSetsReport;
 
-use ECSPrefix20210804\Symfony\Component\Finder\Finder as SymfonyFinder;
-use ECSPrefix20210804\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20210805\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix20210805\Symfony\Component\Finder\SplFileInfo;
 /**
  * @author Boris Gorbylev <ekho@ekho.name>
  *
@@ -33,7 +33,7 @@ final class ReporterFactory
         if (null === $builtInReporters) {
             $builtInReporters = [];
             /** @var SplFileInfo $file */
-            foreach (\ECSPrefix20210804\Symfony\Component\Finder\Finder::create()->files()->name('*Reporter.php')->in(__DIR__) as $file) {
+            foreach (\ECSPrefix20210805\Symfony\Component\Finder\Finder::create()->files()->name('*Reporter.php')->in(__DIR__) as $file) {
                 $relativeNamespace = $file->getRelativePath();
                 $builtInReporters[] = \sprintf('%s\\%s%s', __NAMESPACE__, $relativeNamespace ? $relativeNamespace . '\\' : '', $file->getBasename('.php'));
             }
@@ -58,18 +58,13 @@ final class ReporterFactory
     /**
      * @return string[]
      */
-    public function getFormats()
+    public function getFormats() : array
     {
         $formats = \array_keys($this->reporters);
         \sort($formats);
         return $formats;
     }
-    /**
-     * @param string $format
-     *
-     * @return ReporterInterface
-     */
-    public function getReporter($format)
+    public function getReporter(string $format) : \PhpCsFixer\Console\Report\ListSetsReport\ReporterInterface
     {
         if (!isset($this->reporters[$format])) {
             throw new \UnexpectedValueException(\sprintf('Reporter for format "%s" is not registered.', $format));

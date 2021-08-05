@@ -23,7 +23,7 @@ final class TextReporter implements \PhpCsFixer\Console\Report\ListSetsReport\Re
     /**
      * {@inheritdoc}
      */
-    public function getFormat()
+    public function getFormat() : string
     {
         return 'txt';
     }
@@ -31,7 +31,7 @@ final class TextReporter implements \PhpCsFixer\Console\Report\ListSetsReport\Re
      * {@inheritdoc}
      * @param \PhpCsFixer\Console\Report\ListSetsReport\ReportSummary $reportSummary
      */
-    public function generate($reportSummary)
+    public function generate($reportSummary) : string
     {
         $output = '';
         $i = 0;

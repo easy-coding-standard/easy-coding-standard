@@ -19,15 +19,10 @@ namespace PhpCsFixer\Console\Report\ListSetsReport;
  */
 interface ReporterInterface
 {
-    /**
-     * @return string
-     */
-    public function getFormat();
+    public function getFormat() : string;
     /**
      * Process changed files array. Returns generated report.
-     *
-     * @return string
      * @param \PhpCsFixer\Console\Report\ListSetsReport\ReportSummary $reportSummary
      */
-    public function generate($reportSummary);
+    public function generate($reportSummary) : string;
 }

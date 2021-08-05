@@ -116,12 +116,7 @@ final class TokensAnalyzer
         }
         return $this->isBlockMultiline($tokens, $index);
     }
-    /**
-     * @param int $index
-     *
-     * @return bool
-     */
-    public function isBlockMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    public function isBlockMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
         $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
         if (null === $blockType || !$blockType['isStart']) {

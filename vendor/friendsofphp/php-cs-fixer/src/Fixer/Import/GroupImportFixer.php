@@ -189,13 +189,8 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Check if namespace use analyses are different.
-     *
-     * @param null|NamespaceUseAnalysis $analysis1
-     * @param null|NamespaceUseAnalysis $analysis2
-     *
-     * @return bool
      */
-    private function areDeclarationsDifferent($analysis1, $analysis2)
+    private function areDeclarationsDifferent(?\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $analysis1, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $analysis2) : bool
     {
         if (null === $analysis1 || null === $analysis2) {
             return \true;

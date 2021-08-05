@@ -109,10 +109,7 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
         }
     }
-    /**
-     * @return bool
-     */
-    private function isPreviousTokenToClear(\PhpCsFixer\Tokenizer\Token $token)
+    private function isPreviousTokenToClear(\PhpCsFixer\Tokenizer\Token $token) : bool
     {
         static $tokens = null;
         if (null === $tokens) {
@@ -120,10 +117,7 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
         }
         return $token->equalsAny($tokens) || $token->isObjectOperator();
     }
-    /**
-     * @return bool
-     */
-    private function isNextTokenToClear(\PhpCsFixer\Tokenizer\Token $token)
+    private function isNextTokenToClear(\PhpCsFixer\Tokenizer\Token $token) : bool
     {
         static $tokens = null;
         if (null === $tokens) {
