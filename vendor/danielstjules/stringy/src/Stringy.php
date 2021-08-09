@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210805\Stringy;
+namespace ECSPrefix20210809\Stringy;
 
 use ArrayAccess;
 use ArrayIterator;
@@ -1199,7 +1199,7 @@ class Stringy implements \Countable, \IteratorAggregate, \ArrayAccess
             if ($ignore && \in_array($match[0], $ignore)) {
                 return $match[0];
             }
-            $stringy = new \ECSPrefix20210805\Stringy\Stringy($match[0], $encoding);
+            $stringy = new \ECSPrefix20210809\Stringy\Stringy($match[0], $encoding);
             return (string) $stringy->toLowerCase()->upperCaseFirst();
         }, $stringy->str);
         return $stringy;

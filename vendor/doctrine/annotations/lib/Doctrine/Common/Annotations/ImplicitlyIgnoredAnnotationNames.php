@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210805\Doctrine\Common\Annotations;
+namespace ECSPrefix20210809\Doctrine\Common\Annotations;
 
 /**
  *  A list of annotations that are implicitly ignored during the parsing process.
@@ -17,6 +17,7 @@ final class ImplicitlyIgnoredAnnotationNames
         /* Can we enable this? 'Enum' => true, */
         'Required' => \true,
         'Target' => \true,
+        'NamedArgumentConstructor' => \true,
     ];
     private const WidelyUsedNonStandard = ['fix' => \true, 'fixme' => \true, 'override' => \true];
     private const PhpDocumentor1 = ['abstract' => \true, 'access' => \true, 'code' => \true, 'deprec' => \true, 'endcode' => \true, 'exception' => \true, 'final' => \true, 'ingroup' => \true, 'inheritdoc' => \true, 'inheritDoc' => \true, 'magic' => \true, 'name' => \true, 'private' => \true, 'static' => \true, 'staticvar' => \true, 'staticVar' => \true, 'toc' => \true, 'tutorial' => \true, 'throw' => \true];
@@ -61,10 +62,19 @@ final class ImplicitlyIgnoredAnnotationNames
     private const Symfony = ['experimental' => \true];
     private const PhpCodeSniffer = ['codingStandardsIgnoreStart' => \true, 'codingStandardsIgnoreEnd' => \true];
     private const SlevomatCodingStandard = ['phpcsSuppress' => \true];
-    private const PhpStan = ['extends' => \true, 'implements' => \true, 'template' => \true, 'use' => \true];
     private const Phan = ['suppress' => \true];
     private const Rector = ['noRector' => \true];
-    public const LIST = self::Reserved + self::WidelyUsedNonStandard + self::PhpDocumentor1 + self::PhpDocumentor2 + self::PHPUnit + self::PhpCheckStyle + self::PhpStorm + self::PEAR + self::PlainUML + self::Symfony + self::SlevomatCodingStandard + self::PhpCodeSniffer + self::PhpStan + self::Phan + self::Rector;
+    private const StaticAnalysis = [
+        // PHPStan, Psalm
+        'extends' => \true,
+        'implements' => \true,
+        'template' => \true,
+        'use' => \true,
+        // Psalm
+        'pure' => \true,
+        'immutable' => \true,
+    ];
+    public const LIST = self::Reserved + self::WidelyUsedNonStandard + self::PhpDocumentor1 + self::PhpDocumentor2 + self::PHPUnit + self::PhpCheckStyle + self::PhpStorm + self::PEAR + self::PlainUML + self::Symfony + self::SlevomatCodingStandard + self::PhpCodeSniffer + self::Phan + self::Rector + self::StaticAnalysis;
     private function __construct()
     {
     }

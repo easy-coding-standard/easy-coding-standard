@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210805\React\Stream;
+namespace ECSPrefix20210809\React\Stream;
 
 final class Util
 {
@@ -13,7 +13,7 @@ final class Util
      * @return WritableStreamInterface $dest stream as-is
      * @see ReadableStreamInterface::pipe() for more details
      */
-    public static function pipe(\ECSPrefix20210805\React\Stream\ReadableStreamInterface $source, \ECSPrefix20210805\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public static function pipe(\ECSPrefix20210809\React\Stream\ReadableStreamInterface $source, \ECSPrefix20210809\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
         // source not readable => NO-OP
         if (!$source->isReadable()) {

@@ -11,8 +11,8 @@
         "nette\/utils": "^3.2",
         "symfony\/finder": "^5.3",
         "symfony\/http-kernel": "^5.3",
-        "symfony\/console": "^5.3.x-dev",
-        "symfony\/dependency-injection": "^5.3.x-dev",
+        "symfony\/console": "^5.3",
+        "symfony\/dependency-injection": "^5.3",
         "symplify\/package-builder": "dev-main",
         "symplify\/console-package-builder": "dev-main",
         "symplify\/smart-file-system": "dev-main",
@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210805\\Symplify\\EasyTesting\\": "src"
+            "ECSPrefix20210809\\Symplify\\EasyTesting\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210805\\Symplify\\EasyTesting\\Tests\\": "tests"
+            "ECSPrefix20210809\\Symplify\\EasyTesting\\Tests\\": "tests"
         }
     },
     "extra": {

@@ -28,7 +28,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Clue\\React\\NDJson\\": "src\/"
+                    "ECSPrefix20210809\\Clue\\React\\NDJson\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -99,7 +99,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Composer\\Semver\\": "src"
+                    "ECSPrefix20210809\\Composer\\Semver\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -179,7 +179,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Composer\\XdebugHandler\\": "src"
+                    "ECSPrefix20210809\\Composer\\XdebugHandler\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -245,7 +245,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Stringy\\": "src\/"
+                    "ECSPrefix20210809\\Stringy\\": "src\/"
                 },
                 "files": [
                     "src\/Create.php"
@@ -283,17 +283,17 @@
         },
         {
             "name": "doctrine\/annotations",
-            "version": "1.13.1",
-            "version_normalized": "1.13.1.0",
+            "version": "1.13.2",
+            "version_normalized": "1.13.2.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/doctrine\/annotations.git",
-                "reference": "e6e7b7d5b45a2f2abc5460cc6396480b2b1d321f"
+                "reference": "5b668aef16090008790395c02c893b1ba13f7e08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/doctrine\/annotations\/zipball\/e6e7b7d5b45a2f2abc5460cc6396480b2b1d321f",
-                "reference": "e6e7b7d5b45a2f2abc5460cc6396480b2b1d321f",
+                "url": "https:\/\/api.github.com\/repos\/doctrine\/annotations\/zipball\/5b668aef16090008790395c02c893b1ba13f7e08",
+                "reference": "5b668aef16090008790395c02c893b1ba13f7e08",
                 "shasum": ""
             },
             "require": {
@@ -309,12 +309,12 @@
                 "phpunit\/phpunit": "^7.5 || ^8.0 || ^9.1.5",
                 "symfony\/cache": "^4.4 || ^5.2"
             },
-            "time": "2021-05-16T18:07:53+00:00",
+            "time": "2021-08-05T19:00:23+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
+                    "ECSPrefix20210809\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -352,7 +352,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/doctrine\/annotations\/issues",
-                "source": "https:\/\/github.com\/doctrine\/annotations\/tree\/1.13.1"
+                "source": "https:\/\/github.com\/doctrine\/annotations\/tree\/1.13.2"
             },
             "install-path": "..\/doctrine\/annotations"
         },
@@ -389,7 +389,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
+                    "ECSPrefix20210809\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -465,7 +465,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Evenement\\": "src\/Evenement\/"
+                    "ECSPrefix20210809\\Evenement\\": "src\/Evenement\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -819,7 +819,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Psr\\Cache\\": "src\/"
+                    "ECSPrefix20210809\\Psr\\Cache\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -866,7 +866,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Psr\\Container\\": "src\/"
+                    "ECSPrefix20210809\\Psr\\Container\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -922,7 +922,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Psr\\EventDispatcher\\": "src\/"
+                    "ECSPrefix20210809\\Psr\\EventDispatcher\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -975,7 +975,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Psr\\Log\\": "src"
+                    "ECSPrefix20210809\\Psr\\Log\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1031,7 +1031,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\React\\ChildProcess\\": "src"
+                    "ECSPrefix20210809\\React\\ChildProcess\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1113,7 +1113,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\React\\EventLoop\\": "src"
+                    "ECSPrefix20210809\\React\\EventLoop\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1192,7 +1192,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\React\\Stream\\": "src"
+                    "ECSPrefix20210809\\React\\Stream\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1417,7 +1417,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\Config\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\Config\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1460,17 +1460,17 @@
         },
         {
             "name": "symfony\/console",
-            "version": "5.4.x-dev",
-            "version_normalized": "5.4.9999999.9999999-dev",
+            "version": "v5.3.6",
+            "version_normalized": "5.3.6.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/console.git",
-                "reference": "92f3a650687b4572fab0ecdd60b7825c9d3b3707"
+                "reference": "51b71afd6d2dc8f5063199357b9880cea8d8bfe2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/92f3a650687b4572fab0ecdd60b7825c9d3b3707",
-                "reference": "92f3a650687b4572fab0ecdd60b7825c9d3b3707",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/51b71afd6d2dc8f5063199357b9880cea8d8bfe2",
+                "reference": "51b71afd6d2dc8f5063199357b9880cea8d8bfe2",
                 "shasum": ""
             },
             "require": {
@@ -1480,7 +1480,7 @@
                 "symfony\/polyfill-php73": "^1.8",
                 "symfony\/polyfill-php80": "^1.16",
                 "symfony\/service-contracts": "^1.1|^2",
-                "symfony\/string": "^5.1|^6.0"
+                "symfony\/string": "^5.1"
             },
             "conflict": {
                 "psr\/log": ">=3",
@@ -1495,12 +1495,12 @@
             },
             "require-dev": {
                 "psr\/log": "^1|^2",
-                "symfony\/config": "^4.4|^5.0|^6.0",
-                "symfony\/dependency-injection": "^4.4|^5.0|^6.0",
-                "symfony\/event-dispatcher": "^4.4|^5.0|^6.0",
-                "symfony\/lock": "^4.4|^5.0|^6.0",
-                "symfony\/process": "^4.4|^5.0|^6.0",
-                "symfony\/var-dumper": "^4.4|^5.0|^6.0"
+                "symfony\/config": "^4.4|^5.0",
+                "symfony\/dependency-injection": "^4.4|^5.0",
+                "symfony\/event-dispatcher": "^4.4|^5.0",
+                "symfony\/lock": "^4.4|^5.0",
+                "symfony\/process": "^4.4|^5.0",
+                "symfony\/var-dumper": "^4.4|^5.0"
             },
             "suggest": {
                 "psr\/log": "For using the console logger",
@@ -1508,12 +1508,12 @@
                 "symfony\/lock": "",
                 "symfony\/process": ""
             },
-            "time": "2021-08-04T21:21:08+00:00",
+            "time": "2021-07-27T19:10:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\Console\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\Console\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1542,7 +1542,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/console\/tree\/5.4"
+                "source": "https:\/\/github.com\/symfony\/console\/tree\/v5.3.6"
             },
             "funding": [
                 {
@@ -1562,17 +1562,17 @@
         },
         {
             "name": "symfony\/dependency-injection",
-            "version": "5.4.x-dev",
-            "version_normalized": "5.4.9999999.9999999-dev",
+            "version": "v5.3.4",
+            "version_normalized": "5.3.4.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/dependency-injection.git",
-                "reference": "4a27529aab5ea9748a9bad6e3b8b8e72d240a311"
+                "reference": "5a825e4b386066167a8b55487091cb62beec74c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/4a27529aab5ea9748a9bad6e3b8b8e72d240a311",
-                "reference": "4a27529aab5ea9748a9bad6e3b8b8e72d240a311",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/5a825e4b386066167a8b55487091cb62beec74c2",
+                "reference": "5a825e4b386066167a8b55487091cb62beec74c2",
                 "shasum": ""
             },
             "require": {
@@ -1594,9 +1594,9 @@
                 "symfony\/service-implementation": "1.0|2.0"
             },
             "require-dev": {
-                "symfony\/config": "^5.3|^6.0",
-                "symfony\/expression-language": "^4.4|^5.0|^6.0",
-                "symfony\/yaml": "^4.4|^5.0|^6.0"
+                "symfony\/config": "^5.3",
+                "symfony\/expression-language": "^4.4|^5.0",
+                "symfony\/yaml": "^4.4|^5.0"
             },
             "suggest": {
                 "symfony\/config": "",
@@ -1605,12 +1605,12 @@
                 "symfony\/proxy-manager-bridge": "Generate service proxies to lazy load them",
                 "symfony\/yaml": ""
             },
-            "time": "2021-07-23T15:55:57+00:00",
+            "time": "2021-07-23T15:55:36+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\DependencyInjection\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\DependencyInjection\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1633,7 +1633,7 @@
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/dependency-injection\/tree\/5.4"
+                "source": "https:\/\/github.com\/symfony\/dependency-injection\/tree\/v5.3.4"
             },
             "funding": [
                 {
@@ -1751,7 +1751,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\ErrorHandler\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\ErrorHandler\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1839,7 +1839,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\EventDispatcher\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\EventDispatcher\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1916,7 +1916,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Contracts\\EventDispatcher\\": ""
+                    "ECSPrefix20210809\\Symfony\\Contracts\\EventDispatcher\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1987,7 +1987,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\Filesystem\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\Filesystem\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2052,7 +2052,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\Finder\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\Finder\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2128,7 +2128,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Contracts\\HttpClient\\": ""
+                    "ECSPrefix20210809\\Symfony\\Contracts\\HttpClient\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2209,7 +2209,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\HttpFoundation\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\HttpFoundation\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2324,7 +2324,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\HttpKernel\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\HttpKernel\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2391,7 +2391,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\OptionsResolver\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\OptionsResolver\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2472,7 +2472,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Polyfill\\Ctype\\": ""
+                    "ECSPrefix20210809\\Symfony\\Polyfill\\Ctype\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2554,7 +2554,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
+                    "ECSPrefix20210809\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2638,7 +2638,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                    "ECSPrefix20210809\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2725,7 +2725,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Polyfill\\Mbstring\\": ""
+                    "ECSPrefix20210809\\Symfony\\Polyfill\\Mbstring\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2805,7 +2805,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Polyfill\\Php72\\": ""
+                    "ECSPrefix20210809\\Symfony\\Polyfill\\Php72\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2884,7 +2884,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Polyfill\\Php73\\": ""
+                    "ECSPrefix20210809\\Symfony\\Polyfill\\Php73\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2966,7 +2966,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Polyfill\\Php80\\": ""
+                    "ECSPrefix20210809\\Symfony\\Polyfill\\Php80\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -3052,7 +3052,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Polyfill\\Php81\\": ""
+                    "ECSPrefix20210809\\Symfony\\Polyfill\\Php81\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -3126,7 +3126,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\Process\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\Process\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3203,7 +3203,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Contracts\\Service\\": ""
+                    "ECSPrefix20210809\\Symfony\\Contracts\\Service\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3273,7 +3273,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\Stopwatch\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\Stopwatch\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3348,7 +3348,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\String\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\String\\": ""
                 },
                 "files": [
                     "Resources\/functions.php"
@@ -3446,7 +3446,7 @@
                     "Resources\/functions\/dump.php"
                 ],
                 "psr-4": {
-                    "ECSPrefix20210805\\Symfony\\Component\\VarDumper\\": ""
+                    "ECSPrefix20210809\\Symfony\\Component\\VarDumper\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3498,12 +3498,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "9b7e9886d8de03e4a24021e4f683e62cac00a2f3"
+                "reference": "519b403776a55f187dd411c0d5b874694b84d687"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/dependency-injection": "^5.3.x-dev",
+                "symfony\/dependency-injection": "^5.3",
                 "symplify\/package-builder": "dev-main"
             },
             "conflict": {
@@ -3548,12 +3548,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\AutowireArrayParameter\\": "src"
+                    "ECSPrefix20210809\\Symplify\\AutowireArrayParameter\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
+                    "ECSPrefix20210809\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3573,10 +3573,10 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "b301e91046d8edf54ba0a63e76de212eb14b1e5e"
+                "reference": "52e8cc1370e48223634bdbae7d50bdd137b423d1"
             },
             "require": {
-                "friendsofphp\/php-cs-fixer": "^3.0.1",
+                "friendsofphp\/php-cs-fixer": "^3.0.2",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symplify\/autowire-array-parameter": "dev-main",
@@ -3656,13 +3656,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "8e681e6afc79b9c93ad2a4baa400f0ef8b13e22d"
+                "reference": "157a537be7cce4f7bc39eb1cbfce09e34f65fbff"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symfony\/config": "^5.3",
-                "symfony\/dependency-injection": "^5.3.x-dev",
+                "symfony\/dependency-injection": "^5.3",
                 "symfony\/filesystem": "^5.3",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/package-builder": "dev-main",
@@ -3709,12 +3709,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\ComposerJsonManipulator\\": "src"
+                    "ECSPrefix20210809\\Symplify\\ComposerJsonManipulator\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
+                    "ECSPrefix20210809\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3734,14 +3734,14 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-color-diff",
-                "reference": "d8508311a10e0ea1824fe210d935695786ba4cb6"
+                "reference": "e87472e2a62d8fc5852f9ca0bb81dc399f479c0c"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "sebastian\/diff": "^4.0",
-                "symfony\/console": "^5.3.x-dev",
-                "symfony\/dependency-injection": "^5.3.x-dev",
+                "symfony\/console": "^5.3",
+                "symfony\/dependency-injection": "^5.3",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/package-builder": "dev-main"
             },
@@ -3787,12 +3787,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\ConsoleColorDiff\\": "src"
+                    "ECSPrefix20210809\\Symplify\\ConsoleColorDiff\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\ConsoleColorDiff\\Tests\\": "tests"
+                    "ECSPrefix20210809\\Symplify\\ConsoleColorDiff\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3812,12 +3812,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-package-builder",
-                "reference": "150eedcb752db5a6b7e7ab91e7d5fd5453c40b44"
+                "reference": "0339aabba1fd0712bbddba31ad892cf331157572"
             },
             "require": {
                 "php": ">=8.0",
-                "symfony\/console": "^5.3.x-dev",
-                "symfony\/dependency-injection": "^5.3.x-dev",
+                "symfony\/console": "^5.3",
+                "symfony\/dependency-injection": "^5.3",
                 "symplify\/symplify-kernel": "dev-main"
             },
             "conflict": {
@@ -3864,12 +3864,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\ConsolePackageBuilder\\": "src"
+                    "ECSPrefix20210809\\Symplify\\ConsolePackageBuilder\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\ConsolePackageBuilder\\Tests\\": "tests"
+                    "ECSPrefix20210809\\Symplify\\ConsolePackageBuilder\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3889,13 +3889,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "eb1d1036ab20428f40bf5530dea6be5393c511db"
+                "reference": "d8e7f0fc7d8d8047c69d25fdb9c805fe914d7007"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/console": "^5.3.x-dev",
-                "symfony\/dependency-injection": "^5.3.x-dev",
+                "symfony\/console": "^5.3",
+                "symfony\/dependency-injection": "^5.3",
                 "symfony\/finder": "^5.3",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/console-package-builder": "dev-main",
@@ -3945,12 +3945,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\EasyTesting\\": "src"
+                    "ECSPrefix20210809\\Symplify\\EasyTesting\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\EasyTesting\\Tests\\": "tests"
+                    "ECSPrefix20210809\\Symplify\\EasyTesting\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3970,15 +3970,15 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "1c9fbc623c24d1c9ce33f14fed13e14dc37fb364"
+                "reference": "189ebdc43eb31cca45fdc6da1fe23880abfff89b"
             },
             "require": {
                 "nette\/neon": "^3.2",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symfony\/config": "^5.3",
-                "symfony\/console": "^5.3.x-dev",
-                "symfony\/dependency-injection": "^5.3.x-dev",
+                "symfony\/console": "^5.3",
+                "symfony\/dependency-injection": "^5.3",
                 "symfony\/finder": "^5.3",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/easy-testing": "dev-main",
@@ -4025,12 +4025,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\PackageBuilder\\": "src"
+                    "ECSPrefix20210809\\Symplify\\PackageBuilder\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\PackageBuilder\\Tests\\": "tests"
+                    "ECSPrefix20210809\\Symplify\\PackageBuilder\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -4097,7 +4097,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\RuleDocGenerator\\": "src"
+                    "ECSPrefix20210809\\Symplify\\RuleDocGenerator\\": "src"
                 }
             },
             "license": [
@@ -4117,13 +4117,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "68bd63c746ab22a3b7d2df2dbc857c0ce8977364"
+                "reference": "c3be4a7bc4d92c81faaae0b99866b891c7d7fa81"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symfony\/config": "^5.3",
-                "symfony\/dependency-injection": "^5.3.x-dev",
+                "symfony\/dependency-injection": "^5.3",
                 "symfony\/filesystem": "^5.3",
                 "symfony\/finder": "^5.3",
                 "symplify\/package-builder": "dev-main",
@@ -4170,12 +4170,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\Skipper\\": "src"
+                    "ECSPrefix20210809\\Symplify\\Skipper\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\Skipper\\Tests\\": "tests"
+                    "ECSPrefix20210809\\Symplify\\Skipper\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -4247,12 +4247,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\SmartFileSystem\\": "src"
+                    "ECSPrefix20210809\\Symplify\\SmartFileSystem\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\SmartFileSystem\\Tests\\": "tests"
+                    "ECSPrefix20210809\\Symplify\\SmartFileSystem\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -4272,12 +4272,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "e37d9a7830ad8b60cbafc5ab79e84483a376c04d"
+                "reference": "92b965bc77000147d45664715e0cb8b5b59a6857"
             },
             "require": {
                 "php": ">=8.0",
-                "symfony\/console": "^5.3.x-dev",
-                "symfony\/dependency-injection": "^5.3.x-dev",
+                "symfony\/console": "^5.3",
+                "symfony\/dependency-injection": "^5.3",
                 "symfony\/http-kernel": "^5.3",
                 "symplify\/autowire-array-parameter": "dev-main",
                 "symplify\/composer-json-manipulator": "dev-main",
@@ -4323,7 +4323,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Symplify\\SymplifyKernel\\": "src"
+                    "ECSPrefix20210809\\Symplify\\SymplifyKernel\\": "src"
                 }
             },
             "license": [
@@ -4372,7 +4372,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix20210805\\Webmozart\\Assert\\": "src\/"
+                    "ECSPrefix20210809\\Webmozart\\Assert\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",

@@ -6,7 +6,7 @@
         "php": ">=8.0",
         "nette\/utils": "^3.2",
         "symfony\/config": "^5.3",
-        "symfony\/dependency-injection": "^5.3.x-dev",
+        "symfony\/dependency-injection": "^5.3",
         "symfony\/finder": "^5.3",
         "symfony\/filesystem": "^5.3",
         "symplify\/package-builder": "dev-main",
@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210805\\Symplify\\Skipper\\": "src"
+            "ECSPrefix20210809\\Symplify\\Skipper\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210805\\Symplify\\Skipper\\Tests\\": "tests"
+            "ECSPrefix20210809\\Symplify\\Skipper\\Tests\\": "tests"
         }
     },
     "extra": {

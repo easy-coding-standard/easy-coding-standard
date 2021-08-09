@@ -6,8 +6,8 @@
         "php": ">=8.0",
         "nette\/utils": "^3.2",
         "symfony\/config": "^5.3",
-        "symfony\/console": "^5.3.x-dev",
-        "symfony\/dependency-injection": "^5.3.x-dev",
+        "symfony\/console": "^5.3",
+        "symfony\/dependency-injection": "^5.3",
         "symfony\/finder": "^5.3",
         "symfony\/http-kernel": "^5.3",
         "symplify\/symplify-kernel": "dev-main",
@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210805\\Symplify\\PackageBuilder\\": "src"
+            "ECSPrefix20210809\\Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210805\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "ECSPrefix20210809\\Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {
