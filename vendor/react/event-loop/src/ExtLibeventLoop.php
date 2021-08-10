@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20210809\React\EventLoop;
+namespace ECSPrefix20210810\React\EventLoop;
 
 use BadMethodCallException;
 use Event;
 use EventBase;
-use ECSPrefix20210809\React\EventLoop\Tick\FutureTickQueue;
-use ECSPrefix20210809\React\EventLoop\Timer\Timer;
+use ECSPrefix20210810\React\EventLoop\Tick\FutureTickQueue;
+use ECSPrefix20210810\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * [Deprecated] An `ext-libevent` based event loop.
@@ -34,7 +34,7 @@ use SplObjectStorage;
  * @link https://pecl.php.net/package/libevent
  * @deprecated 1.2.0, use [`ExtEventLoop`](#exteventloop) instead.
  */
-final class ExtLibeventLoop implements \ECSPrefix20210809\React\EventLoop\LoopInterface
+final class ExtLibeventLoop implements \ECSPrefix20210810\React\EventLoop\LoopInterface
 {
     /** @internal */
     const MICROSECONDS_PER_SECOND = 1000000;
@@ -56,9 +56,9 @@ final class ExtLibeventLoop implements \ECSPrefix20210809\React\EventLoop\LoopIn
             throw new \BadMethodCallException('Cannot create ExtLibeventLoop, ext-libevent extension missing');
         }
         $this->eventBase = \event_base_new();
-        $this->futureTickQueue = new \ECSPrefix20210809\React\EventLoop\Tick\FutureTickQueue();
+        $this->futureTickQueue = new \ECSPrefix20210810\React\EventLoop\Tick\FutureTickQueue();
         $this->timerEvents = new \SplObjectStorage();
-        $this->signals = new \ECSPrefix20210809\React\EventLoop\SignalsHandler();
+        $this->signals = new \ECSPrefix20210810\React\EventLoop\SignalsHandler();
         $this->createTimerCallback();
         $this->createStreamCallback();
     }
@@ -110,13 +110,13 @@ final class ExtLibeventLoop implements \ECSPrefix20210809\React\EventLoop\LoopIn
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20210809\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \ECSPrefix20210810\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $this->scheduleTimer($timer);
         return $timer;
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20210809\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \ECSPrefix20210810\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $this->scheduleTimer($timer);
         return $timer;
     }
@@ -178,7 +178,7 @@ final class ExtLibeventLoop implements \ECSPrefix20210809\React\EventLoop\LoopIn
      *
      * @param TimerInterface $timer
      */
-    private function scheduleTimer(\ECSPrefix20210809\React\EventLoop\TimerInterface $timer)
+    private function scheduleTimer(\ECSPrefix20210810\React\EventLoop\TimerInterface $timer)
     {
         $this->timerEvents[$timer] = $event = \event_timer_new();
         \event_timer_set($event, $this->timerCallback, $timer);
@@ -204,7 +204,7 @@ final class ExtLibeventLoop implements \ECSPrefix20210809\React\EventLoop\LoopIn
             }
             // Reschedule periodic timers ...
             if ($timer->isPeriodic()) {
-                \event_add($timers[$timer], $timer->getInterval() * \ECSPrefix20210809\React\EventLoop\ExtLibeventLoop::MICROSECONDS_PER_SECOND);
+                \event_add($timers[$timer], $timer->getInterval() * \ECSPrefix20210810\React\EventLoop\ExtLibeventLoop::MICROSECONDS_PER_SECOND);
                 // Clean-up one shot timers ...
             } else {
                 $that->cancelTimer($timer);

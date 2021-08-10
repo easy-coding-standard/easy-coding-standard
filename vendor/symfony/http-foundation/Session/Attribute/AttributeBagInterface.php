@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210809\Symfony\Component\HttpFoundation\Session\Attribute;
+namespace ECSPrefix20210810\Symfony\Component\HttpFoundation\Session\Attribute;
 
-use ECSPrefix20210809\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+use ECSPrefix20210810\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 /**
  * Attributes store.
  *
  * @author Drak <drak@zikula.org>
  */
-interface AttributeBagInterface extends \ECSPrefix20210809\Symfony\Component\HttpFoundation\Session\SessionBagInterface
+interface AttributeBagInterface extends \ECSPrefix20210810\Symfony\Component\HttpFoundation\Session\SessionBagInterface
 {
     /**
      * Checks if an attribute is defined.
