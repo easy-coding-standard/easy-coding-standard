@@ -22,6 +22,7 @@ use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20210811\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210811\Symplify\PackageBuilder\Yaml\ParametersMerger;
 use ECSPrefix20210811\Symplify\SmartFileSystem\SmartFileInfo;
 final class EasyCodingStandardApplication
 {
@@ -73,7 +74,11 @@ final class EasyCodingStandardApplication
      * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \Symplify\EasyCodingStandard\Parallel\ScheduleFactory $scheduleFactory, \Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor $parallelFileProcessor, \Symplify\EasyCodingStandard\Parallel\CpuCoreCountProvider $cpuCoreCountProvider, \ECSPrefix20210811\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Parallel\FileSystem\FilePathNormalizer $filePathNormalizer, \ECSPrefix20210811\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    /**
+     * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
+     */
+    private $parametersMerger;
+    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \Symplify\EasyCodingStandard\Parallel\ScheduleFactory $scheduleFactory, \Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor $parallelFileProcessor, \Symplify\EasyCodingStandard\Parallel\CpuCoreCountProvider $cpuCoreCountProvider, \ECSPrefix20210811\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Parallel\FileSystem\FilePathNormalizer $filePathNormalizer, \ECSPrefix20210811\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210811\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -86,6 +91,7 @@ final class EasyCodingStandardApplication
         $this->symfonyStyle = $symfonyStyle;
         $this->filePathNormalizer = $filePathNormalizer;
         $this->parameterProvider = $parameterProvider;
+        $this->parametersMerger = $parametersMerger;
     }
     /**
      * @return array<string, array<SystemError|FileDiff|CodingStandardError>>
@@ -147,7 +153,7 @@ final class EasyCodingStandardApplication
             try {
                 $currentErrorsAndDiffs = $this->singleFileProcessor->processFileInfo($fileInfo, $configuration);
                 if ($currentErrorsAndDiffs !== []) {
-                    $errorsAndDiffs = \array_merge($errorsAndDiffs, $currentErrorsAndDiffs);
+                    $errorsAndDiffs = $this->parametersMerger->merge($errorsAndDiffs, $currentErrorsAndDiffs);
                 }
             } catch (\ParseError $parseError) {
                 $this->changedFilesDetector->invalidateFileInfo($fileInfo);

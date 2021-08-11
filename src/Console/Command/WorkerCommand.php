@@ -17,6 +17,7 @@ use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210811\Symplify\PackageBuilder\Yaml\ParametersMerger;
 use ECSPrefix20210811\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 /**
@@ -28,9 +29,14 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
      * @var \Symplify\EasyCodingStandard\Application\SingleFileProcessor
      */
     private $singleFileProcessor;
-    public function __construct(\Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor)
+    /**
+     * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
+     */
+    private $parametersMerger;
+    public function __construct(\Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \ECSPrefix20210811\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
     {
         $this->singleFileProcessor = $singleFileProcessor;
+        $this->parametersMerger = $parametersMerger;
         parent::__construct();
     }
     protected function configure() : void
@@ -67,7 +73,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
                     try {
                         $smartFileInfo = new \ECSPrefix20210811\Symplify\SmartFileSystem\SmartFileInfo($filePath);
                         $currentErrorsAndFileDiffs = $this->singleFileProcessor->processFileInfo($smartFileInfo, $configuration);
-                        $errorAndFileDiffs = \array_merge($errorAndFileDiffs, $currentErrorsAndFileDiffs);
+                        $errorAndFileDiffs = $this->parametersMerger->merge($errorAndFileDiffs, $currentErrorsAndFileDiffs);
                     } catch (\Throwable $throwable) {
                         ++$systemErrorsCount;
                         $errorMessage = \sprintf('System error: %s', $throwable->getMessage());
