@@ -16,7 +16,6 @@ use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode;
 use ECSPrefix20210811\Symplify\PackageBuilder\Yaml\ParametersMerger;
 use ECSPrefix20210811\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
@@ -91,6 +90,6 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         });
         $decoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::ERROR, $handleErrorCallback);
         $streamSelectLoop->run();
-        return \ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return self::SUCCESS;
     }
 }

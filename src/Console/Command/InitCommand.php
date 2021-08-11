@@ -6,7 +6,6 @@ namespace Symplify\EasyCodingStandard\Console\Command;
 use ECSPrefix20210811\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20210811\Symfony\Component\Console\Output\OutputInterface;
 use ECSPrefix20210811\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-use ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode;
 final class InitCommand extends \ECSPrefix20210811\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     protected function configure() : void
@@ -26,6 +25,6 @@ final class InitCommand extends \ECSPrefix20210811\Symplify\PackageBuilder\Conso
         } else {
             $this->symfonyStyle->warning('The "ecs.php" configuration file already exists');
         }
-        return \ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return self::SUCCESS;
     }
 }

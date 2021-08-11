@@ -5,10 +5,10 @@ namespace ECSPrefix20210811;
 
 // decoupled in own "*.php" file, so ECS, Rector and PHPStan works out of the box here
 use PHP_CodeSniffer\Util\Tokens;
+use ECSPrefix20210811\Symfony\Component\Console\Command\Command;
 use ECSPrefix20210811\Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
-use ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode;
 use ECSPrefix20210811\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 // performance boost
 \gc_disable();
@@ -31,7 +31,7 @@ try {
     $symfonyStyleFactory = new \ECSPrefix20210811\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
     $symfonyStyle = $symfonyStyleFactory->create();
     $symfonyStyle->error($throwable->getMessage());
-    exit(\ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode::ERROR);
+    exit(\ECSPrefix20210811\Symfony\Component\Console\Command\Command::FAILURE);
 }
 $application = $container->get(\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication::class);
 exit($application->run());

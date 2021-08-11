@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use ECSPrefix20210811\Nette\Utils\Json;
+use ECSPrefix20210811\Symfony\Component\Console\Command\Command;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
-use ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Console\Output\JsonOutputFormatterTest
  */
@@ -39,7 +39,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
         $errorCount = $errorAndDiffResult->getErrorCount();
-        return $errorCount === 0 ? \ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode::SUCCESS : \ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+        return $errorCount === 0 ? \ECSPrefix20210811\Symfony\Component\Console\Command\Command::SUCCESS : \ECSPrefix20210811\Symfony\Component\Console\Command\Command::FAILURE;
     }
     public function getName() : string
     {

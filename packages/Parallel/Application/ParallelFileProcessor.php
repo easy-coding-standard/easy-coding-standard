@@ -8,6 +8,7 @@ use ECSPrefix20210811\Clue\React\NDJson\Decoder;
 use ECSPrefix20210811\Clue\React\NDJson\Encoder;
 use ECSPrefix20210811\React\ChildProcess\Process;
 use ECSPrefix20210811\React\EventLoop\StreamSelectLoop;
+use ECSPrefix20210811\Symfony\Component\Console\Command\Command;
 use ECSPrefix20210811\Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Parallel\Command\WorkerCommandLineFactory;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Action;
@@ -19,7 +20,6 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardErro
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode;
 use ECSPrefix20210811\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Throwable;
 /**
@@ -110,7 +110,7 @@ final class ParallelFileProcessor
             $processStdOutDecoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::ERROR, $handleErrorCallable);
             $stdErrStreamBuffer = new \Symplify\EasyCodingStandard\Parallel\ValueObject\StreamBuffer($childProcess->stderr);
             $childProcess->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::EXIT, static function ($exitCode) use(&$systemErrors, $stdErrStreamBuffer) : void {
-                if ($exitCode === \ECSPrefix20210811\Symplify\PackageBuilder\Console\ShellCode::SUCCESS) {
+                if ($exitCode === \ECSPrefix20210811\Symfony\Component\Console\Command\Command::SUCCESS) {
                     return;
                 }
                 $systemErrors[] = \sprintf('Child process error: %s', $stdErrStreamBuffer->getBuffer());
