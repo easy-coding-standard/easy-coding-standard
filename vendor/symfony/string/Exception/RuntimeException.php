@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210811\Symfony\Component\String\Exception;
+namespace ECSPrefix20210814\Symfony\Component\String\Exception;
 
-class RuntimeException extends \RuntimeException implements \ECSPrefix20210811\Symfony\Component\String\Exception\ExceptionInterface
+class RuntimeException extends \RuntimeException implements \ECSPrefix20210814\Symfony\Component\String\Exception\ExceptionInterface
 {
 }
