@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210814\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210816\Symfony\Component\HttpFoundation;
 
-use ECSPrefix20210814\Symfony\Component\HttpFoundation\File\Exception\FileException;
-use ECSPrefix20210814\Symfony\Component\HttpFoundation\File\File;
+use ECSPrefix20210816\Symfony\Component\HttpFoundation\File\Exception\FileException;
+use ECSPrefix20210816\Symfony\Component\HttpFoundation\File\File;
 /**
  * BinaryFileResponse represents an HTTP response delivering a file.
  *
@@ -21,7 +21,7 @@ use ECSPrefix20210814\Symfony\Component\HttpFoundation\File\File;
  * @author Jordan Alliot <jordan.alliot@gmail.com>
  * @author Sergey Linnik <linniksa@gmail.com>
  */
-class BinaryFileResponse extends \ECSPrefix20210814\Symfony\Component\HttpFoundation\Response
+class BinaryFileResponse extends \ECSPrefix20210816\Symfony\Component\HttpFoundation\Response
 {
     protected static $trustXSendfileTypeHeader = \false;
     /**
@@ -80,15 +80,15 @@ class BinaryFileResponse extends \ECSPrefix20210814\Symfony\Component\HttpFounda
      */
     public function setFile($file, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
     {
-        if (!$file instanceof \ECSPrefix20210814\Symfony\Component\HttpFoundation\File\File) {
+        if (!$file instanceof \ECSPrefix20210816\Symfony\Component\HttpFoundation\File\File) {
             if ($file instanceof \SplFileInfo) {
-                $file = new \ECSPrefix20210814\Symfony\Component\HttpFoundation\File\File($file->getPathname());
+                $file = new \ECSPrefix20210816\Symfony\Component\HttpFoundation\File\File($file->getPathname());
             } else {
-                $file = new \ECSPrefix20210814\Symfony\Component\HttpFoundation\File\File((string) $file);
+                $file = new \ECSPrefix20210816\Symfony\Component\HttpFoundation\File\File((string) $file);
             }
         }
         if (!$file->isReadable()) {
-            throw new \ECSPrefix20210814\Symfony\Component\HttpFoundation\File\Exception\FileException('File must be readable.');
+            throw new \ECSPrefix20210816\Symfony\Component\HttpFoundation\File\Exception\FileException('File must be readable.');
         }
         $this->file = $file;
         if ($autoEtag) {
@@ -190,7 +190,7 @@ class BinaryFileResponse extends \ECSPrefix20210814\Symfony\Component\HttpFounda
             if ('x-accel-redirect' === \strtolower($type)) {
                 // Do X-Accel-Mapping substitutions.
                 // @link https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/#x-accel-redirect
-                $parts = \ECSPrefix20210814\Symfony\Component\HttpFoundation\HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
+                $parts = \ECSPrefix20210816\Symfony\Component\HttpFoundation\HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
                 foreach ($parts as $part) {
                     [$pathPrefix, $location] = $part;
                     if (\substr($path, 0, \strlen($pathPrefix)) === $pathPrefix) {
