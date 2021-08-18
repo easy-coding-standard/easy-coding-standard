@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210816\\Psr\\Cache\\": "src\/"
+            "ECSPrefix20210818\\Psr\\Cache\\": "src\/"
         }
     },
     "extra": {

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210816\Stringy;
+namespace ECSPrefix20210818\Stringy;
 
-if (!\function_exists('ECSPrefix20210816\\Stringy\\create')) {
+if (!\function_exists('ECSPrefix20210818\\Stringy\\create')) {
     /**
      * Creates a Stringy object and returns it on success.
      *
@@ -14,6 +14,6 @@ if (!\function_exists('ECSPrefix20210816\\Stringy\\create')) {
      */
     function create($str, $encoding = null)
     {
-        return new \ECSPrefix20210816\Stringy\Stringy($str, $encoding);
+        return new \ECSPrefix20210818\Stringy\Stringy($str, $encoding);
     }
 }
