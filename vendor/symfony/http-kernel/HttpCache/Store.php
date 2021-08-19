@@ -11,16 +11,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210818\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20210819\Symfony\Component\HttpKernel\HttpCache;
 
-use ECSPrefix20210818\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210818\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210819\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210819\Symfony\Component\HttpFoundation\Response;
 /**
  * Store implements all the logic for storing cache metadata (Request and Response headers).
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Store implements \ECSPrefix20210818\Symfony\Component\HttpKernel\HttpCache\StoreInterface
+class Store implements \ECSPrefix20210819\Symfony\Component\HttpKernel\HttpCache\StoreInterface
 {
     protected $root;
     private $keyCache;
@@ -287,7 +287,7 @@ class Store implements \ECSPrefix20210818\Symfony\Component\HttpKernel\HttpCache
      */
     private function doPurge(string $url) : bool
     {
-        $key = $this->getCacheKey(\ECSPrefix20210818\Symfony\Component\HttpFoundation\Request::create($url));
+        $key = $this->getCacheKey(\ECSPrefix20210819\Symfony\Component\HttpFoundation\Request::create($url));
         if (isset($this->locks[$key])) {
             \flock($this->locks[$key], \LOCK_UN);
             \fclose($this->locks[$key]);
@@ -375,7 +375,7 @@ class Store implements \ECSPrefix20210818\Symfony\Component\HttpKernel\HttpCache
     /**
      * Returns a cache key for the given Request.
      */
-    private function getCacheKey(\ECSPrefix20210818\Symfony\Component\HttpFoundation\Request $request) : string
+    private function getCacheKey(\ECSPrefix20210819\Symfony\Component\HttpFoundation\Request $request) : string
     {
         if (isset($this->keyCache[$request])) {
             return $this->keyCache[$request];
@@ -385,14 +385,14 @@ class Store implements \ECSPrefix20210818\Symfony\Component\HttpKernel\HttpCache
     /**
      * Persists the Request HTTP headers.
      */
-    private function persistRequest(\ECSPrefix20210818\Symfony\Component\HttpFoundation\Request $request) : array
+    private function persistRequest(\ECSPrefix20210819\Symfony\Component\HttpFoundation\Request $request) : array
     {
         return $request->headers->all();
     }
     /**
      * Persists the Response HTTP headers.
      */
-    private function persistResponse(\ECSPrefix20210818\Symfony\Component\HttpFoundation\Response $response) : array
+    private function persistResponse(\ECSPrefix20210819\Symfony\Component\HttpFoundation\Response $response) : array
     {
         $headers = $response->headers->all();
         $headers['X-Status'] = [$response->getStatusCode()];
@@ -401,13 +401,13 @@ class Store implements \ECSPrefix20210818\Symfony\Component\HttpKernel\HttpCache
     /**
      * Restores a Response from the HTTP headers and body.
      */
-    private function restoreResponse(array $headers, string $path = null) : \ECSPrefix20210818\Symfony\Component\HttpFoundation\Response
+    private function restoreResponse(array $headers, string $path = null) : \ECSPrefix20210819\Symfony\Component\HttpFoundation\Response
     {
         $status = $headers['X-Status'][0];
         unset($headers['X-Status']);
         if (null !== $path) {
             $headers['X-Body-File'] = [$path];
         }
-        return new \ECSPrefix20210818\Symfony\Component\HttpFoundation\Response($path, $status, $headers);
+        return new \ECSPrefix20210819\Symfony\Component\HttpFoundation\Response($path, $status, $headers);
     }
 }

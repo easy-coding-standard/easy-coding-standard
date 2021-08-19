@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20210818\Nette\Utils;
+namespace ECSPrefix20210819\Nette\Utils;
 
 /**
  * The exception that is thrown when an image error occurs.
@@ -16,7 +16,7 @@ class ImageException extends \Exception
 /**
  * The exception that indicates invalid image file.
  */
-class UnknownImageFileException extends \ECSPrefix20210818\Nette\Utils\ImageException
+class UnknownImageFileException extends \ECSPrefix20210819\Nette\Utils\ImageException
 {
 }
 /**
