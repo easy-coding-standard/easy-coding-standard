@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210819\Symfony\Component\Console\Exception;
+namespace ECSPrefix20210820\Symfony\Component\Console\Exception;
 
 /**
  * @author Jérôme Tamarelle <jerome@tamarelle.net>
  */
-class LogicException extends \LogicException implements \ECSPrefix20210819\Symfony\Component\Console\Exception\ExceptionInterface
+class LogicException extends \LogicException implements \ECSPrefix20210820\Symfony\Component\Console\Exception\ExceptionInterface
 {
 }

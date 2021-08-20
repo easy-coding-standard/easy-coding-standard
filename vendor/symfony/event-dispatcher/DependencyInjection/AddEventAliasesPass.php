@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210819\Symfony\Component\EventDispatcher\DependencyInjection;
+namespace ECSPrefix20210820\Symfony\Component\EventDispatcher\DependencyInjection;
 
-use ECSPrefix20210819\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210819\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210820\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210820\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * This pass allows bundles to extend the list of event aliases.
  *
  * @author Alexander M. Turek <me@derrabus.de>
  */
-class AddEventAliasesPass implements \ECSPrefix20210819\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class AddEventAliasesPass implements \ECSPrefix20210820\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $eventAliases;
     private $eventAliasesParameter;
