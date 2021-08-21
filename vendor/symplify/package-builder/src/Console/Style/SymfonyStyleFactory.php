@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210820\Symplify\PackageBuilder\Console\Style;
+namespace ECSPrefix20210821\Symplify\PackageBuilder\Console\Style;
 
-use ECSPrefix20210820\Symfony\Component\Console\Application;
-use ECSPrefix20210820\Symfony\Component\Console\Input\ArgvInput;
-use ECSPrefix20210820\Symfony\Component\Console\Output\ConsoleOutput;
-use ECSPrefix20210820\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210820\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20210820\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
-use ECSPrefix20210820\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use ECSPrefix20210821\Symfony\Component\Console\Application;
+use ECSPrefix20210821\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix20210821\Symfony\Component\Console\Output\ConsoleOutput;
+use ECSPrefix20210821\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210821\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210821\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
+use ECSPrefix20210821\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class SymfonyStyleFactory
 {
     /**
@@ -18,26 +18,26 @@ final class SymfonyStyleFactory
     private $privatesCaller;
     public function __construct()
     {
-        $this->privatesCaller = new \ECSPrefix20210820\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $this->privatesCaller = new \ECSPrefix20210821\Symplify\PackageBuilder\Reflection\PrivatesCaller();
     }
-    public function create() : \ECSPrefix20210820\Symfony\Component\Console\Style\SymfonyStyle
+    public function create() : \ECSPrefix20210821\Symfony\Component\Console\Style\SymfonyStyle
     {
         // to prevent missing argv indexes
         if (!isset($_SERVER['argv'])) {
             $_SERVER['argv'] = [];
         }
-        $argvInput = new \ECSPrefix20210820\Symfony\Component\Console\Input\ArgvInput();
-        $consoleOutput = new \ECSPrefix20210820\Symfony\Component\Console\Output\ConsoleOutput();
+        $argvInput = new \ECSPrefix20210821\Symfony\Component\Console\Input\ArgvInput();
+        $consoleOutput = new \ECSPrefix20210821\Symfony\Component\Console\Output\ConsoleOutput();
         // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
-        $this->privatesCaller->callPrivateMethod(new \ECSPrefix20210820\Symfony\Component\Console\Application(), 'configureIO', [$argvInput, $consoleOutput]);
+        $this->privatesCaller->callPrivateMethod(new \ECSPrefix20210821\Symfony\Component\Console\Application(), 'configureIO', [$argvInput, $consoleOutput]);
         // --debug is called
         if ($argvInput->hasParameterOption('--debug')) {
-            $consoleOutput->setVerbosity(\ECSPrefix20210820\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
+            $consoleOutput->setVerbosity(\ECSPrefix20210821\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
         }
         // disable output for tests
-        if (\ECSPrefix20210820\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            $consoleOutput->setVerbosity(\ECSPrefix20210820\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
+        if (\ECSPrefix20210821\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            $consoleOutput->setVerbosity(\ECSPrefix20210821\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         }
-        return new \ECSPrefix20210820\Symfony\Component\Console\Style\SymfonyStyle($argvInput, $consoleOutput);
+        return new \ECSPrefix20210821\Symfony\Component\Console\Style\SymfonyStyle($argvInput, $consoleOutput);
     }
 }
