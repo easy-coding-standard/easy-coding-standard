@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210821\Psr\Container;
+namespace ECSPrefix20210822\Psr\Container;
 
 /**
  * Describes the interface of a container that exposes methods to read its entries.
