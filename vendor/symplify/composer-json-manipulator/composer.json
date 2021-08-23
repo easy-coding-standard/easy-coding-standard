@@ -6,10 +6,10 @@
     "require": {
         "php": ">=8.0",
         "nette\/utils": "^3.2",
-        "symfony\/config": "^5.3",
-        "symfony\/dependency-injection": "^5.3",
-        "symfony\/filesystem": "^5.3",
-        "symfony\/http-kernel": "^5.3",
+        "symfony\/config": "^5.3|^6.0",
+        "symfony\/dependency-injection": "^5.3|^6.0",
+        "symfony\/filesystem": "^5.3|^6.0",
+        "symfony\/http-kernel": "^5.3|^6.0",
         "symplify\/package-builder": "dev-main",
         "symplify\/smart-file-system": "dev-main"
     },

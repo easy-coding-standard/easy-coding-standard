@@ -3498,12 +3498,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "edc2c5dc19ea45986234902f4c47eacdd14d5404"
+                "reference": "1385bde00716545c659bffadf63ee0ed0e15ef96"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/dependency-injection": "^5.3|^6.0",
                 "symplify\/package-builder": "dev-main"
             },
             "conflict": {
@@ -3573,7 +3573,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "9d23b352f4c2b03813f26d9fd0424e7f6fcf67f1"
+                "reference": "838744d55756bf5294af87843ca4939d6625335c"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.0.2",
@@ -3616,8 +3616,8 @@
                 "nette\/application": "^3.1",
                 "nette\/bootstrap": "^3.1",
                 "phpunit\/phpunit": "^9.5",
-                "symfony\/framework-bundle": "^5.3",
-                "symfony\/http-kernel": "^5.3",
+                "symfony\/framework-bundle": "^5.3|^6.0",
+                "symfony\/http-kernel": "^5.3|^6.0",
                 "symplify\/easy-coding-standard": "dev-main",
                 "symplify\/rule-doc-generator": "dev-main",
                 "symplify\/smart-file-system": "dev-main"
@@ -3656,15 +3656,15 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "3199ef80a62663583cd6f6c93f28ab6393f0e4d9"
+                "reference": "7766bc3f215dd6177a3c157c35d47174e564dce5"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/config": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
-                "symfony\/filesystem": "^5.3",
-                "symfony\/http-kernel": "^5.3",
+                "symfony\/config": "^5.3|^6.0",
+                "symfony\/dependency-injection": "^5.3|^6.0",
+                "symfony\/filesystem": "^5.3|^6.0",
+                "symfony\/http-kernel": "^5.3|^6.0",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main"
             },
@@ -3734,15 +3734,15 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-color-diff",
-                "reference": "10472957ed0474c52b905039303e1b85b4f3b5fb"
+                "reference": "9030c38565741186a4b98ed339362482c125fa05"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "sebastian\/diff": "^4.0",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
-                "symfony\/http-kernel": "^5.3",
+                "symfony\/console": "^5.3|^6.0",
+                "symfony\/dependency-injection": "^5.3|^6.0",
+                "symfony\/http-kernel": "^5.3|^6.0",
                 "symplify\/package-builder": "dev-main"
             },
             "conflict": {
@@ -3812,12 +3812,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-package-builder",
-                "reference": "917297121a936812334e7b6cbc101374043074cc"
+                "reference": "180fd4abc8a0b4dd57d1997382c1345a5cbc03bb"
             },
             "require": {
                 "php": ">=8.0",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
+                "symfony\/console": "^5.3|^6.0",
+                "symfony\/dependency-injection": "^5.3|^6.0",
                 "symplify\/symplify-kernel": "dev-main"
             },
             "conflict": {
@@ -3852,7 +3852,7 @@
             },
             "require-dev": {
                 "phpunit\/phpunit": "^9.5",
-                "symfony\/http-kernel": "^5.3",
+                "symfony\/http-kernel": "^5.3|^6.0",
                 "symplify\/package-builder": "dev-main"
             },
             "type": "library",
@@ -3889,15 +3889,15 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "43c606ffdf6cc6e327467ad5019ca9b7c3d60187"
+                "reference": "3bd67e6b0920b9f294da8d193eecf4ae855c4968"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
-                "symfony\/finder": "^5.3",
-                "symfony\/http-kernel": "^5.3",
+                "symfony\/console": "^5.3|^6.0",
+                "symfony\/dependency-injection": "^5.3|^6.0",
+                "symfony\/finder": "^5.3|^6.0",
+                "symfony\/http-kernel": "^5.3|^6.0",
                 "symplify\/console-package-builder": "dev-main",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
@@ -3970,17 +3970,17 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "302b24cd85ae323837f450483454d92cf9ad08ac"
+                "reference": "3f9966f3fd0cc69bb1304955375a0454f004850b"
             },
             "require": {
                 "nette\/neon": "^3.2",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/config": "^5.3",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
-                "symfony\/finder": "^5.3",
-                "symfony\/http-kernel": "^5.3",
+                "symfony\/config": "^5.3|^6.0",
+                "symfony\/console": "^5.3|^6.0",
+                "symfony\/dependency-injection": "^5.3|^6.0",
+                "symfony\/finder": "^5.3|^6.0",
+                "symfony\/http-kernel": "^5.3|^6.0",
                 "symplify\/easy-testing": "dev-main",
                 "symplify\/symplify-kernel": "dev-main"
             },
@@ -4117,15 +4117,15 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "d4ac994ca864436e28cedc672770e9bd4b5bd70f"
+                "reference": "d64ed8a47d449d7f8b95831cc930413538171446"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/config": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
-                "symfony\/filesystem": "^5.3",
-                "symfony\/finder": "^5.3",
+                "symfony\/config": "^5.3|^6.0",
+                "symfony\/dependency-injection": "^5.3|^6.0",
+                "symfony\/filesystem": "^5.3|^6.0",
+                "symfony\/finder": "^5.3|^6.0",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
                 "symplify\/symplify-kernel": "dev-main"
@@ -4195,13 +4195,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "53acb55557e2fb2fe900fe40b12194a8791229ee"
+                "reference": "c14b1b34531a17674d57ec5c123b9b6f8896396b"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
-                "symfony\/filesystem": "^5.3",
-                "symfony\/finder": "^5.3"
+                "symfony\/filesystem": "^5.3|^6.0",
+                "symfony\/finder": "^5.3|^6.0"
             },
             "conflict": {
                 "symplify\/amnesia": "<9.4.35",
@@ -4272,13 +4272,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "c2619eb4082c7b35b0f6bba33eb232669045ce72"
+                "reference": "b97fdf4305e13e9e4bd80b1b7566927533f51e74"
             },
             "require": {
                 "php": ">=8.0",
-                "symfony\/console": "^5.3",
-                "symfony\/dependency-injection": "^5.3",
-                "symfony\/http-kernel": "^5.3",
+                "symfony\/console": "^5.3|^6.0",
+                "symfony\/dependency-injection": "^5.3|^6.0",
+                "symfony\/http-kernel": "^5.3|^6.0",
                 "symplify\/autowire-array-parameter": "dev-main",
                 "symplify\/composer-json-manipulator": "dev-main",
                 "symplify\/package-builder": "dev-main",

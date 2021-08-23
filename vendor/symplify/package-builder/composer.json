@@ -5,11 +5,11 @@
     "require": {
         "php": ">=8.0",
         "nette\/utils": "^3.2",
-        "symfony\/config": "^5.3",
-        "symfony\/console": "^5.3",
-        "symfony\/dependency-injection": "^5.3",
-        "symfony\/finder": "^5.3",
-        "symfony\/http-kernel": "^5.3",
+        "symfony\/config": "^5.3|^6.0",
+        "symfony\/console": "^5.3|^6.0",
+        "symfony\/dependency-injection": "^5.3|^6.0",
+        "symfony\/finder": "^5.3|^6.0",
+        "symfony\/http-kernel": "^5.3|^6.0",
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/easy-testing": "dev-main",
         "nette\/neon": "^3.2"

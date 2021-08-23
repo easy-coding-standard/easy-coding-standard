@@ -14,10 +14,10 @@
     "require-dev": {
         "nette\/application": "^3.1",
         "nette\/bootstrap": "^3.1",
-        "symfony\/http-kernel": "^5.3",
+        "symfony\/http-kernel": "^5.3|^6.0",
         "doctrine\/orm": "^2.9",
         "symplify\/smart-file-system": "dev-main",
-        "symfony\/framework-bundle": "^5.3",
+        "symfony\/framework-bundle": "^5.3|^6.0",
         "symplify\/easy-coding-standard": "dev-main",
         "phpunit\/phpunit": "^9.5",
         "symplify\/rule-doc-generator": "dev-main"
