@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210822\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix20210823\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20210822\Symfony\Component\Console\Application;
-use ECSPrefix20210822\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210822\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210822\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210822\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20210822\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210822\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210823\Symfony\Component\Console\Application;
+use ECSPrefix20210823\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210823\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210823\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20210823\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20210823\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210823\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  *
  * @internal
  */
-abstract class Descriptor implements \ECSPrefix20210822\Symfony\Component\Console\Descriptor\DescriptorInterface
+abstract class Descriptor implements \ECSPrefix20210823\Symfony\Component\Console\Descriptor\DescriptorInterface
 {
     /**
      * @var OutputInterface
@@ -38,23 +38,23 @@ abstract class Descriptor implements \ECSPrefix20210822\Symfony\Component\Consol
     {
         $this->output = $output;
         switch (\true) {
-            case $object instanceof \ECSPrefix20210822\Symfony\Component\Console\Input\InputArgument:
+            case $object instanceof \ECSPrefix20210823\Symfony\Component\Console\Input\InputArgument:
                 $this->describeInputArgument($object, $options);
                 break;
-            case $object instanceof \ECSPrefix20210822\Symfony\Component\Console\Input\InputOption:
+            case $object instanceof \ECSPrefix20210823\Symfony\Component\Console\Input\InputOption:
                 $this->describeInputOption($object, $options);
                 break;
-            case $object instanceof \ECSPrefix20210822\Symfony\Component\Console\Input\InputDefinition:
+            case $object instanceof \ECSPrefix20210823\Symfony\Component\Console\Input\InputDefinition:
                 $this->describeInputDefinition($object, $options);
                 break;
-            case $object instanceof \ECSPrefix20210822\Symfony\Component\Console\Command\Command:
+            case $object instanceof \ECSPrefix20210823\Symfony\Component\Console\Command\Command:
                 $this->describeCommand($object, $options);
                 break;
-            case $object instanceof \ECSPrefix20210822\Symfony\Component\Console\Application:
+            case $object instanceof \ECSPrefix20210823\Symfony\Component\Console\Application:
                 $this->describeApplication($object, $options);
                 break;
             default:
-                throw new \ECSPrefix20210822\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Object of type "%s" is not describable.', \get_debug_type($object)));
+                throw new \ECSPrefix20210823\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Object of type "%s" is not describable.', \get_debug_type($object)));
         }
     }
     /**
@@ -64,7 +64,7 @@ abstract class Descriptor implements \ECSPrefix20210822\Symfony\Component\Consol
      */
     protected function write($content, $decorated = \false)
     {
-        $this->output->write($content, \false, $decorated ? \ECSPrefix20210822\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL : \ECSPrefix20210822\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
+        $this->output->write($content, \false, $decorated ? \ECSPrefix20210823\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL : \ECSPrefix20210823\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
     }
     /**
      * Describes an InputArgument instance.

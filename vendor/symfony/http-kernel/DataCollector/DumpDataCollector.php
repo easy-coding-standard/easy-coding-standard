@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210822\Symfony\Component\HttpKernel\DataCollector;
+namespace ECSPrefix20210823\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210822\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210822\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210822\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210822\Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
-use ECSPrefix20210822\Symfony\Component\Stopwatch\Stopwatch;
-use ECSPrefix20210822\Symfony\Component\VarDumper\Cloner\Data;
-use ECSPrefix20210822\Symfony\Component\VarDumper\Cloner\VarCloner;
-use ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\CliDumper;
-use ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider;
-use ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\DataDumperInterface;
-use ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\HtmlDumper;
-use ECSPrefix20210822\Symfony\Component\VarDumper\Server\Connection;
+use ECSPrefix20210823\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210823\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20210823\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210823\Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
+use ECSPrefix20210823\Symfony\Component\Stopwatch\Stopwatch;
+use ECSPrefix20210823\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210823\Symfony\Component\VarDumper\Cloner\VarCloner;
+use ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\CliDumper;
+use ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider;
+use ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\DataDumperInterface;
+use ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use ECSPrefix20210823\Symfony\Component\VarDumper\Server\Connection;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @final
  */
-class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\DataDumperInterface
+class DumpDataCollector extends \ECSPrefix20210823\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\DataDumperInterface
 {
     private $stopwatch;
     private $fileLinkFormat;
@@ -44,7 +44,7 @@ class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\
      * @param string|FileLinkFormatter|null       $fileLinkFormat
      * @param DataDumperInterface|Connection|null $dumper
      */
-    public function __construct(\ECSPrefix20210822\Symfony\Component\Stopwatch\Stopwatch $stopwatch = null, $fileLinkFormat = null, string $charset = null, \ECSPrefix20210822\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, $dumper = null)
+    public function __construct(\ECSPrefix20210823\Symfony\Component\Stopwatch\Stopwatch $stopwatch = null, $fileLinkFormat = null, string $charset = null, \ECSPrefix20210823\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, $dumper = null)
     {
         $this->stopwatch = $stopwatch;
         $this->fileLinkFormat = ($fileLinkFormat ?: \ini_get('xdebug.file_link_format')) ?: \get_cfg_var('xdebug.file_link_format');
@@ -53,7 +53,7 @@ class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\
         $this->dumper = $dumper;
         // All clones share these properties by reference:
         $this->rootRefs = [&$this->data, &$this->dataCount, &$this->isCollected, &$this->clonesCount];
-        $this->sourceContextProvider = $dumper instanceof \ECSPrefix20210822\Symfony\Component\VarDumper\Server\Connection && isset($dumper->getContextProviders()['source']) ? $dumper->getContextProviders()['source'] : new \ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider($this->charset);
+        $this->sourceContextProvider = $dumper instanceof \ECSPrefix20210823\Symfony\Component\VarDumper\Server\Connection && isset($dumper->getContextProviders()['source']) ? $dumper->getContextProviders()['source'] : new \ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider($this->charset);
     }
     public function __clone()
     {
@@ -68,7 +68,7 @@ class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\
             $this->stopwatch->start('dump');
         }
         ['name' => $name, 'file' => $file, 'line' => $line, 'file_excerpt' => $fileExcerpt] = $this->sourceContextProvider->getContext();
-        if ($this->dumper instanceof \ECSPrefix20210822\Symfony\Component\VarDumper\Server\Connection) {
+        if ($this->dumper instanceof \ECSPrefix20210823\Symfony\Component\VarDumper\Server\Connection) {
             if (!$this->dumper->write($data)) {
                 $this->isCollected = \false;
             }
@@ -103,10 +103,10 @@ class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\
         // In all other conditions that remove the web debug toolbar, dumps are written on the output.
         if (!$this->requestStack || !$response->headers->has('X-Debug-Token') || $response->isRedirection() || $response->headers->has('Content-Type') && \strpos($response->headers->get('Content-Type'), 'html') === \false || 'html' !== $request->getRequestFormat() || \false === \strripos($response->getContent(), '</body>')) {
             if ($response->headers->has('Content-Type') && \strpos($response->headers->get('Content-Type'), 'html') !== \false) {
-                $dumper = new \ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\HtmlDumper('php://output', $this->charset);
+                $dumper = new \ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\HtmlDumper('php://output', $this->charset);
                 $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
             } else {
-                $dumper = new \ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\CliDumper('php://output', $this->charset);
+                $dumper = new \ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\CliDumper('php://output', $this->charset);
                 if (\method_exists($dumper, 'setDisplayOptions')) {
                     $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
                 }
@@ -158,7 +158,7 @@ class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\
                 throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
             }
         }
-        self::__construct($this->stopwatch, \is_string($fileLinkFormat) || $fileLinkFormat instanceof \ECSPrefix20210822\Symfony\Component\HttpKernel\Debug\FileLinkFormatter ? $fileLinkFormat : null, \is_string($charset) ? $charset : null);
+        self::__construct($this->stopwatch, \is_string($fileLinkFormat) || $fileLinkFormat instanceof \ECSPrefix20210823\Symfony\Component\HttpKernel\Debug\FileLinkFormatter ? $fileLinkFormat : null, \is_string($charset) ? $charset : null);
     }
     public function getDumpsCount() : int
     {
@@ -173,7 +173,7 @@ class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\
     {
         $data = \fopen('php://memory', 'r+');
         if ('html' === $format) {
-            $dumper = new \ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\HtmlDumper($data, $this->charset);
+            $dumper = new \ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\HtmlDumper($data, $this->charset);
             $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
         } else {
             throw new \InvalidArgumentException(\sprintf('Invalid dump format: "%s".', $format));
@@ -207,10 +207,10 @@ class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\
                 --$i;
             }
             if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) && \stripos($h[$i], 'html')) {
-                $dumper = new \ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\HtmlDumper('php://output', $this->charset);
+                $dumper = new \ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\HtmlDumper('php://output', $this->charset);
                 $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
             } else {
-                $dumper = new \ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\CliDumper('php://output', $this->charset);
+                $dumper = new \ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\CliDumper('php://output', $this->charset);
                 if (\method_exists($dumper, 'setDisplayOptions')) {
                     $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
                 }
@@ -223,11 +223,11 @@ class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\
             $this->dataCount = 0;
         }
     }
-    private function doDump(\ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper, \ECSPrefix20210822\Symfony\Component\VarDumper\Cloner\Data $data, string $name, string $file, int $line)
+    private function doDump(\ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper, \ECSPrefix20210823\Symfony\Component\VarDumper\Cloner\Data $data, string $name, string $file, int $line)
     {
-        if ($dumper instanceof \ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\CliDumper) {
+        if ($dumper instanceof \ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\CliDumper) {
             $contextDumper = function ($name, $file, $line, $fmt) {
-                if ($this instanceof \ECSPrefix20210822\Symfony\Component\VarDumper\Dumper\HtmlDumper) {
+                if ($this instanceof \ECSPrefix20210823\Symfony\Component\VarDumper\Dumper\HtmlDumper) {
                     if ($file) {
                         $s = $this->style('meta', '%s');
                         $f = \strip_tags($this->style('', $file));
@@ -249,7 +249,7 @@ class DumpDataCollector extends \ECSPrefix20210822\Symfony\Component\HttpKernel\
             $contextDumper = $contextDumper->bindTo($dumper, $dumper);
             $contextDumper($name, $file, $line, $this->fileLinkFormat);
         } else {
-            $cloner = new \ECSPrefix20210822\Symfony\Component\VarDumper\Cloner\VarCloner();
+            $cloner = new \ECSPrefix20210823\Symfony\Component\VarDumper\Cloner\VarCloner();
             $dumper->dump($cloner->cloneVar($name . ' on line ' . $line . ':'));
         }
         $dumper->dump($data);
