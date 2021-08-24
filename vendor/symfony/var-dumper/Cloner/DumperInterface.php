@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210823\Symfony\Component\VarDumper\Cloner;
+namespace ECSPrefix20210824\Symfony\Component\VarDumper\Cloner;
 
 /**
  * DumperInterface used by Data objects.

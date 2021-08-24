@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210823\Symplify\PackageBuilder\DependencyInjection\FileLoader;
+namespace ECSPrefix20210824\Symplify\PackageBuilder\DependencyInjection\FileLoader;
 
-use ECSPrefix20210823\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix20210823\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210823\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use ECSPrefix20210823\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20210824\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix20210824\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210824\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix20210824\Symplify\PackageBuilder\Yaml\ParametersMerger;
 /**
  * The need:
  * - https://github.com/symfony/symfony/issues/26713
  * - https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
  */
-final class ParameterMergingPhpFileLoader extends \ECSPrefix20210823\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+final class ParameterMergingPhpFileLoader extends \ECSPrefix20210824\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
     /**
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\ECSPrefix20210823\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20210823\Symfony\Component\Config\FileLocatorInterface $fileLocator)
+    public function __construct(\ECSPrefix20210824\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20210824\Symfony\Component\Config\FileLocatorInterface $fileLocator)
     {
-        $this->parametersMerger = new \ECSPrefix20210823\Symplify\PackageBuilder\Yaml\ParametersMerger();
+        $this->parametersMerger = new \ECSPrefix20210824\Symplify\PackageBuilder\Yaml\ParametersMerger();
         parent::__construct($containerBuilder, $fileLocator);
     }
     /**

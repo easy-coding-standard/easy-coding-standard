@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210823\Symfony\Component\DependencyInjection\Extension;
+namespace ECSPrefix20210824\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix20210823\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix20210823\Symfony\Component\Config\Definition\Processor;
-use ECSPrefix20210823\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix20210823\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210823\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
-use ECSPrefix20210823\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210823\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix20210824\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix20210824\Symfony\Component\Config\Definition\Processor;
+use ECSPrefix20210824\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix20210824\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210824\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
+use ECSPrefix20210824\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210824\Symfony\Component\DependencyInjection\Exception\LogicException;
 /**
  * Provides useful features shared by many extensions.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Extension implements \ECSPrefix20210823\Symfony\Component\DependencyInjection\Extension\ExtensionInterface, \ECSPrefix20210823\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface
+abstract class Extension implements \ECSPrefix20210824\Symfony\Component\DependencyInjection\Extension\ExtensionInterface, \ECSPrefix20210824\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface
 {
     private $processedConfigs = [];
     /**
@@ -63,10 +63,10 @@ abstract class Extension implements \ECSPrefix20210823\Symfony\Component\Depende
     {
         $className = static::class;
         if (\substr_compare($className, 'Extension', -\strlen('Extension')) !== 0) {
-            throw new \ECSPrefix20210823\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('This extension does not follow the naming convention; you must overwrite the getAlias() method.');
+            throw new \ECSPrefix20210824\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('This extension does not follow the naming convention; you must overwrite the getAlias() method.');
         }
         $classBaseName = \substr(\strrchr($className, '\\'), 1, -9);
-        return \ECSPrefix20210823\Symfony\Component\DependencyInjection\Container::underscore($classBaseName);
+        return \ECSPrefix20210824\Symfony\Component\DependencyInjection\Container::underscore($classBaseName);
     }
     /**
      * {@inheritdoc}
@@ -85,8 +85,8 @@ abstract class Extension implements \ECSPrefix20210823\Symfony\Component\Depende
         if (!$class) {
             return null;
         }
-        if (!$class->implementsInterface(\ECSPrefix20210823\Symfony\Component\Config\Definition\ConfigurationInterface::class)) {
-            throw new \ECSPrefix20210823\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('The extension configuration class "%s" must implement "%s".', $class->getName(), \ECSPrefix20210823\Symfony\Component\Config\Definition\ConfigurationInterface::class));
+        if (!$class->implementsInterface(\ECSPrefix20210824\Symfony\Component\Config\Definition\ConfigurationInterface::class)) {
+            throw new \ECSPrefix20210824\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('The extension configuration class "%s" must implement "%s".', $class->getName(), \ECSPrefix20210824\Symfony\Component\Config\Definition\ConfigurationInterface::class));
         }
         if (!($constructor = $class->getConstructor()) || !$constructor->getNumberOfRequiredParameters()) {
             return $class->newInstance();
@@ -99,7 +99,7 @@ abstract class Extension implements \ECSPrefix20210823\Symfony\Component\Depende
      */
     protected final function processConfiguration($configuration, $configs) : array
     {
-        $processor = new \ECSPrefix20210823\Symfony\Component\Config\Definition\Processor();
+        $processor = new \ECSPrefix20210824\Symfony\Component\Config\Definition\Processor();
         return $this->processedConfigs[] = $processor->processConfiguration($configuration, $configs);
     }
     /**
@@ -123,7 +123,7 @@ abstract class Extension implements \ECSPrefix20210823\Symfony\Component\Depende
     protected function isConfigEnabled($container, $config)
     {
         if (!\array_key_exists('enabled', $config)) {
-            throw new \ECSPrefix20210823\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException("The config array has no 'enabled' key.");
+            throw new \ECSPrefix20210824\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException("The config array has no 'enabled' key.");
         }
         return (bool) $container->getParameterBag()->resolveValue($config['enabled']);
     }
