@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210824\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20210825\Symfony\Component\HttpKernel\HttpCache;
 
-use ECSPrefix20210824\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210824\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210825\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210825\Symfony\Component\HttpFoundation\Response;
 /**
  * Ssi implements the SSI capabilities to Request and Response instances.
  *
  * @author Sebastian Krebs <krebs.seb@gmail.com>
  */
-class Ssi extends \ECSPrefix20210824\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
+class Ssi extends \ECSPrefix20210825\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
 {
     /**
      * {@inheritdoc}
