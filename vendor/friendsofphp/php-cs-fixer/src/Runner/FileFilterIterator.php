@@ -15,8 +15,8 @@ namespace PhpCsFixer\Runner;
 use PhpCsFixer\Cache\CacheManagerInterface;
 use PhpCsFixer\FileReader;
 use PhpCsFixer\FixerFileProcessedEvent;
-use ECSPrefix20210825\Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use ECSPrefix20210825\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20210826\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ECSPrefix20210826\Symfony\Contracts\EventDispatcher\Event;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
@@ -36,7 +36,7 @@ final class FileFilterIterator extends \FilterIterator
      * @var array<string,bool>
      */
     private $visitedElements = [];
-    public function __construct(\Traversable $iterator, ?\ECSPrefix20210825\Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher, \PhpCsFixer\Cache\CacheManagerInterface $cacheManager)
+    public function __construct(\Traversable $iterator, ?\ECSPrefix20210826\Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher, \PhpCsFixer\Cache\CacheManagerInterface $cacheManager)
     {
         if (!$iterator instanceof \Iterator) {
             $iterator = new \IteratorIterator($iterator);
@@ -67,13 +67,13 @@ final class FileFilterIterator extends \FilterIterator
         }
         return \true;
     }
-    private function dispatchEvent(string $name, \ECSPrefix20210825\Symfony\Contracts\EventDispatcher\Event $event) : void
+    private function dispatchEvent(string $name, \ECSPrefix20210826\Symfony\Contracts\EventDispatcher\Event $event) : void
     {
         if (null === $this->eventDispatcher) {
             return;
         }
         // BC compatibility < Sf 4.3
-        if (!$this->eventDispatcher instanceof \ECSPrefix20210825\Symfony\Contracts\EventDispatcher\EventDispatcherInterface) {
+        if (!$this->eventDispatcher instanceof \ECSPrefix20210826\Symfony\Contracts\EventDispatcher\EventDispatcherInterface) {
             $this->eventDispatcher->dispatch($name, $event);
             return;
         }

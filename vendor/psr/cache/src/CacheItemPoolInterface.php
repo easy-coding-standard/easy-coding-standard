@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210825\Psr\Cache;
+namespace ECSPrefix20210826\Psr\Cache;
 
 /**
  * CacheItemPoolInterface generates CacheItemInterface objects.
@@ -29,7 +29,7 @@ interface CacheItemPoolInterface
      * @return CacheItemInterface
      *   The corresponding Cache Item.
      */
-    public function getItem($key) : \ECSPrefix20210825\Psr\Cache\CacheItemInterface;
+    public function getItem($key) : \ECSPrefix20210826\Psr\Cache\CacheItemInterface;
     /**
      * Returns a traversable set of cache items.
      *

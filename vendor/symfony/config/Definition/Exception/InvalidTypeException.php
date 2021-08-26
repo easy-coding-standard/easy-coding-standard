@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210825\Symfony\Component\Config\Definition\Exception;
+namespace ECSPrefix20210826\Symfony\Component\Config\Definition\Exception;
 
 /**
  * This exception is thrown if an invalid type is encountered.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class InvalidTypeException extends \ECSPrefix20210825\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+class InvalidTypeException extends \ECSPrefix20210826\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
 {
 }
