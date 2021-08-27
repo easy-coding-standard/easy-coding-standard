@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210826\Doctrine\Common\Annotations;
+namespace ECSPrefix20210827\Doctrine\Common\Annotations;
 
 use function array_key_exists;
 use function array_merge;

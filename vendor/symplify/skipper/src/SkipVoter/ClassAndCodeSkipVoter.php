@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210826\Symplify\Skipper\SkipVoter;
+namespace ECSPrefix20210827\Symplify\Skipper\SkipVoter;
 
-use ECSPrefix20210826\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20210826\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20210826\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
-use ECSPrefix20210826\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210827\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20210827\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20210827\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
+use ECSPrefix20210827\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Matching class and code, e.g. App\Category\ArraySniff.SomeCode
  */
-final class ClassAndCodeSkipVoter implements \ECSPrefix20210826\Symplify\Skipper\Contract\SkipVoterInterface
+final class ClassAndCodeSkipVoter implements \ECSPrefix20210827\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver
@@ -20,7 +20,7 @@ final class ClassAndCodeSkipVoter implements \ECSPrefix20210826\Symplify\Skipper
      * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\ECSPrefix20210826\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \ECSPrefix20210826\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\ECSPrefix20210827\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \ECSPrefix20210827\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedClassAndCodesResolver = $skippedClassAndCodesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;

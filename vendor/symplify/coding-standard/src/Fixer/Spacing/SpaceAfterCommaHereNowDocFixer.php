@@ -9,14 +9,14 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use ECSPrefix20210826\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210826\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210826\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210827\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210827\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210827\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\SpaceAfterCommaHereNowDocFixer\SpaceAfterCommaHereNowDocFixerTest
  * @see https://3v4l.org/KPZXU
  */
-final class SpaceAfterCommaHereNowDocFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210826\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class SpaceAfterCommaHereNowDocFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210827\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -57,9 +57,9 @@ final class SpaceAfterCommaHereNowDocFixer extends \Symplify\CodingStandard\Fixe
             $tokens->ensureWhitespaceAtIndex($position + 1, 0, \PHP_EOL);
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20210826\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20210827\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20210826\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210826\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210827\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210827\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $values = [
     <<<RECTIFY
 Some content
