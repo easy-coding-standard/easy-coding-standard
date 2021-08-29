@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210827\Psr\Log;
+namespace ECSPrefix20210829\Psr\Log;
 
 class InvalidArgumentException extends \InvalidArgumentException
 {

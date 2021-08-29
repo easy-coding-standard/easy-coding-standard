@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210827\Symplify\Skipper\DependencyInjection\Extension;
+namespace ECSPrefix20210829\Symplify\Skipper\DependencyInjection\Extension;
 
-use ECSPrefix20210827\Symfony\Component\Config\FileLocator;
-use ECSPrefix20210827\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210827\Symfony\Component\DependencyInjection\Extension\Extension;
-use ECSPrefix20210827\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-final class SkipperExtension extends \ECSPrefix20210827\Symfony\Component\DependencyInjection\Extension\Extension
+use ECSPrefix20210829\Symfony\Component\Config\FileLocator;
+use ECSPrefix20210829\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210829\Symfony\Component\DependencyInjection\Extension\Extension;
+use ECSPrefix20210829\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+final class SkipperExtension extends \ECSPrefix20210829\Symfony\Component\DependencyInjection\Extension\Extension
 {
     /**
      * @param string[] $configs
@@ -16,7 +16,7 @@ final class SkipperExtension extends \ECSPrefix20210827\Symfony\Component\Depend
     public function load($configs, $containerBuilder) : void
     {
         // needed for parameter shifting of sniff/fixer params
-        $phpFileLoader = new \ECSPrefix20210827\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20210827\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
+        $phpFileLoader = new \ECSPrefix20210829\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20210829\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
         $phpFileLoader->load('config.php');
     }
 }

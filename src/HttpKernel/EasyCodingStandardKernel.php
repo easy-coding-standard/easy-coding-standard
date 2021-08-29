@@ -3,30 +3,30 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\HttpKernel;
 
-use ECSPrefix20210827\Nette\Utils\FileSystem;
-use ECSPrefix20210827\Symfony\Component\Config\Loader\DelegatingLoader;
-use ECSPrefix20210827\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210827\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210827\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20210829\Nette\Utils\FileSystem;
+use ECSPrefix20210829\Symfony\Component\Config\Loader\DelegatingLoader;
+use ECSPrefix20210829\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210829\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210829\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
-use ECSPrefix20210827\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
+use ECSPrefix20210829\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\Application\Version\VersionResolver;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
-use ECSPrefix20210827\Symplify\Skipper\Bundle\SkipperBundle;
-use ECSPrefix20210827\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use ECSPrefix20210827\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+use ECSPrefix20210829\Symplify\Skipper\Bundle\SkipperBundle;
+use ECSPrefix20210829\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use ECSPrefix20210829\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\HttpKernel\EasyCodingStandardKernelTest
  */
-final class EasyCodingStandardKernel extends \ECSPrefix20210827\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+final class EasyCodingStandardKernel extends \ECSPrefix20210829\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @return BundleInterface[]
      */
     public function registerBundles() : iterable
     {
-        return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20210827\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20210827\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20210827\Symplify\Skipper\Bundle\SkipperBundle()];
+        return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20210829\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20210829\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20210829\Symplify\Skipper\Bundle\SkipperBundle()];
     }
     public function getCacheDir() : string
     {
@@ -44,8 +44,8 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210827\Symplify\Symplif
     {
         $cacheDir = $this->getCacheDir();
         // Rebuild the container on each run
-        \ECSPrefix20210827\Nette\Utils\FileSystem::delete($cacheDir);
-        \ECSPrefix20210827\Nette\Utils\FileSystem::createDir($cacheDir);
+        \ECSPrefix20210829\Nette\Utils\FileSystem::delete($cacheDir);
+        \ECSPrefix20210829\Nette\Utils\FileSystem::createDir($cacheDir);
         parent::boot();
     }
     /**
@@ -60,7 +60,7 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210827\Symplify\Symplif
     /**
      * @param ContainerInterface|ContainerBuilder $container
      */
-    protected function getContainerLoader($container) : \ECSPrefix20210827\Symfony\Component\Config\Loader\DelegatingLoader
+    protected function getContainerLoader($container) : \ECSPrefix20210829\Symfony\Component\Config\Loader\DelegatingLoader
     {
         $delegatingLoaderFactory = new \Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory();
         return $delegatingLoaderFactory->createFromContainerBuilderAndKernel($container, $this);

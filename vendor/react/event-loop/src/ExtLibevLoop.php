@@ -1,14 +1,14 @@
 <?php
 
-namespace ECSPrefix20210827\React\EventLoop;
+namespace ECSPrefix20210829\React\EventLoop;
 
 use BadMethodCallException;
-use ECSPrefix20210827\libev\EventLoop;
-use ECSPrefix20210827\libev\IOEvent;
-use ECSPrefix20210827\libev\SignalEvent;
-use ECSPrefix20210827\libev\TimerEvent;
-use ECSPrefix20210827\React\EventLoop\Tick\FutureTickQueue;
-use ECSPrefix20210827\React\EventLoop\Timer\Timer;
+use ECSPrefix20210829\libev\EventLoop;
+use ECSPrefix20210829\libev\IOEvent;
+use ECSPrefix20210829\libev\SignalEvent;
+use ECSPrefix20210829\libev\TimerEvent;
+use ECSPrefix20210829\React\EventLoop\Tick\FutureTickQueue;
+use ECSPrefix20210829\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * [Deprecated] An `ext-libev` based event loop.
@@ -25,7 +25,7 @@ use SplObjectStorage;
  * @see https://gist.github.com/1688204
  * @deprecated 1.2.0, use [`ExtEvLoop`](#extevloop) instead.
  */
-final class ExtLibevLoop implements \ECSPrefix20210827\React\EventLoop\LoopInterface
+final class ExtLibevLoop implements \ECSPrefix20210829\React\EventLoop\LoopInterface
 {
     private $loop;
     private $futureTickQueue;
@@ -37,13 +37,13 @@ final class ExtLibevLoop implements \ECSPrefix20210827\React\EventLoop\LoopInter
     private $signalEvents = array();
     public function __construct()
     {
-        if (!\class_exists('ECSPrefix20210827\\libev\\EventLoop', \false)) {
+        if (!\class_exists('ECSPrefix20210829\\libev\\EventLoop', \false)) {
             throw new \BadMethodCallException('Cannot create ExtLibevLoop, ext-libev extension missing');
         }
-        $this->loop = new \ECSPrefix20210827\libev\EventLoop();
-        $this->futureTickQueue = new \ECSPrefix20210827\React\EventLoop\Tick\FutureTickQueue();
+        $this->loop = new \ECSPrefix20210829\libev\EventLoop();
+        $this->futureTickQueue = new \ECSPrefix20210829\React\EventLoop\Tick\FutureTickQueue();
         $this->timerEvents = new \SplObjectStorage();
-        $this->signals = new \ECSPrefix20210827\React\EventLoop\SignalsHandler();
+        $this->signals = new \ECSPrefix20210829\React\EventLoop\SignalsHandler();
     }
     public function addReadStream($stream, $listener)
     {
@@ -53,7 +53,7 @@ final class ExtLibevLoop implements \ECSPrefix20210827\React\EventLoop\LoopInter
         $callback = function () use($stream, $listener) {
             \call_user_func($listener, $stream);
         };
-        $event = new \ECSPrefix20210827\libev\IOEvent($callback, $stream, \ECSPrefix20210827\libev\IOEvent::READ);
+        $event = new \ECSPrefix20210829\libev\IOEvent($callback, $stream, \ECSPrefix20210829\libev\IOEvent::READ);
         $this->loop->add($event);
         $this->readEvents[(int) $stream] = $event;
     }
@@ -65,7 +65,7 @@ final class ExtLibevLoop implements \ECSPrefix20210827\React\EventLoop\LoopInter
         $callback = function () use($stream, $listener) {
             \call_user_func($listener, $stream);
         };
-        $event = new \ECSPrefix20210827\libev\IOEvent($callback, $stream, \ECSPrefix20210827\libev\IOEvent::WRITE);
+        $event = new \ECSPrefix20210829\libev\IOEvent($callback, $stream, \ECSPrefix20210829\libev\IOEvent::WRITE);
         $this->loop->add($event);
         $this->writeEvents[(int) $stream] = $event;
     }
@@ -89,7 +89,7 @@ final class ExtLibevLoop implements \ECSPrefix20210827\React\EventLoop\LoopInter
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20210827\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \ECSPrefix20210829\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $that = $this;
         $timers = $this->timerEvents;
         $callback = function () use($timer, $timers, $that) {
@@ -98,18 +98,18 @@ final class ExtLibevLoop implements \ECSPrefix20210827\React\EventLoop\LoopInter
                 $that->cancelTimer($timer);
             }
         };
-        $event = new \ECSPrefix20210827\libev\TimerEvent($callback, $timer->getInterval());
+        $event = new \ECSPrefix20210829\libev\TimerEvent($callback, $timer->getInterval());
         $this->timerEvents->attach($timer, $event);
         $this->loop->add($event);
         return $timer;
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20210827\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \ECSPrefix20210829\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $callback = function () use($timer) {
             \call_user_func($timer->getCallback(), $timer);
         };
-        $event = new \ECSPrefix20210827\libev\TimerEvent($callback, $interval, $interval);
+        $event = new \ECSPrefix20210829\libev\TimerEvent($callback, $interval, $interval);
         $this->timerEvents->attach($timer, $event);
         $this->loop->add($event);
         return $timer;
@@ -133,7 +133,7 @@ final class ExtLibevLoop implements \ECSPrefix20210827\React\EventLoop\LoopInter
         $this->signals->add($signal, $listener);
         if (!isset($this->signalEvents[$signal])) {
             $signals = $this->signals;
-            $this->signalEvents[$signal] = new \ECSPrefix20210827\libev\SignalEvent(function () use($signals, $signal) {
+            $this->signalEvents[$signal] = new \ECSPrefix20210829\libev\SignalEvent(function () use($signals, $signal) {
                 $signals->call($signal);
             }, $signal);
             $this->loop->add($this->signalEvents[$signal]);
@@ -153,9 +153,9 @@ final class ExtLibevLoop implements \ECSPrefix20210827\React\EventLoop\LoopInter
         $this->running = \true;
         while ($this->running) {
             $this->futureTickQueue->tick();
-            $flags = \ECSPrefix20210827\libev\EventLoop::RUN_ONCE;
+            $flags = \ECSPrefix20210829\libev\EventLoop::RUN_ONCE;
             if (!$this->running || !$this->futureTickQueue->isEmpty()) {
-                $flags |= \ECSPrefix20210827\libev\EventLoop::RUN_NOWAIT;
+                $flags |= \ECSPrefix20210829\libev\EventLoop::RUN_NOWAIT;
             } elseif (!$this->readEvents && !$this->writeEvents && !$this->timerEvents->count() && $this->signals->isEmpty()) {
                 break;
             }
