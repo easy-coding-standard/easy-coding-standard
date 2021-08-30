@@ -103,7 +103,7 @@ class Foo {
             if (null === $typeInfo) {
                 continue;
             }
-            list($propertyType, $isNullable) = $typeInfo;
+            [$propertyType, $isNullable] = $typeInfo;
             if (\in_array($propertyType, ['void', 'callable'], \true)) {
                 continue;
             }

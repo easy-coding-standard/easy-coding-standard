@@ -39,7 +39,7 @@ final class NoTrailingWhitespaceFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      *
-     * Must run after CombineConsecutiveIssetsFixer, CombineConsecutiveUnsetsFixer, FunctionToConstantFixer, NoEmptyCommentFixer, NoEmptyPhpdocFixer, NoEmptyStatementFixer, NoUnneededControlParenthesesFixer, NoUselessElseFixer, TernaryToElvisOperatorFixer.
+     * Must run after CombineConsecutiveIssetsFixer, CombineConsecutiveUnsetsFixer, EmptyLoopBodyFixer, FunctionToConstantFixer, NoEmptyCommentFixer, NoEmptyPhpdocFixer, NoEmptyStatementFixer, NoUnneededControlParenthesesFixer, NoUselessElseFixer, TernaryToElvisOperatorFixer.
      */
     public function getPriority() : int
     {

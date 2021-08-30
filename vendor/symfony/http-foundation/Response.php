@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210829\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210830\Symfony\Component\HttpFoundation;
 
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210829\Symfony\Component\HttpFoundation\ResponseHeaderBag::class);
+\class_exists(\ECSPrefix20210830\Symfony\Component\HttpFoundation\ResponseHeaderBag::class);
 /**
  * Response represents an HTTP response.
  *
@@ -231,7 +231,7 @@ class Response
      */
     public function __construct(?string $content = '', int $status = 200, array $headers = [])
     {
-        $this->headers = new \ECSPrefix20210829\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
+        $this->headers = new \ECSPrefix20210830\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
         $this->setContent($content);
         $this->setStatusCode($status);
         $this->setProtocolVersion('1.0');
@@ -1010,11 +1010,23 @@ class Response
         $notModified = \false;
         $lastModified = $this->headers->get('Last-Modified');
         $modifiedSince = $request->headers->get('If-Modified-Since');
-        if ($etags = $request->getETags()) {
-            $notModified = \in_array($this->getEtag(), $etags) || \in_array('*', $etags);
-        }
-        if ($modifiedSince && $lastModified) {
-            $notModified = \strtotime($modifiedSince) >= \strtotime($lastModified) && (!$etags || $notModified);
+        if ($ifNoneMatchEtags = $request->getETags()) {
+            $etag = $this->getEtag();
+            if (0 == \strncmp($etag, 'W/', 2)) {
+                $etag = \substr($etag, 2);
+            }
+            // Use weak comparison as per https://tools.ietf.org/html/rfc7232#section-3.2.
+            foreach ($ifNoneMatchEtags as $ifNoneMatchEtag) {
+                if (0 == \strncmp($ifNoneMatchEtag, 'W/', 2)) {
+                    $ifNoneMatchEtag = \substr($ifNoneMatchEtag, 2);
+                }
+                if ($ifNoneMatchEtag === $etag || '*' === $ifNoneMatchEtag) {
+                    $notModified = \true;
+                    break;
+                }
+            }
+        } elseif ($modifiedSince && $lastModified) {
+            $notModified = \strtotime($modifiedSince) >= \strtotime($lastModified);
         }
         if ($notModified) {
             $this->setNotModified();

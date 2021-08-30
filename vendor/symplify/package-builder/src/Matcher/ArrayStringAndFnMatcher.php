@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210829\Symplify\PackageBuilder\Matcher;
+namespace ECSPrefix20210830\Symplify\PackageBuilder\Matcher;
 
 final class ArrayStringAndFnMatcher
 {

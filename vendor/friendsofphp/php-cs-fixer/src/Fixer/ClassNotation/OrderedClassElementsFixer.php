@@ -306,7 +306,7 @@ class Example
             if ($a['position'] === $b['position']) {
                 return $this->sortGroupElements($a, $b);
             }
-            return $a['position'] > $b['position'] ? 1 : -1;
+            return $a['position'] <=> $b['position'];
         });
         return $elements;
     }
@@ -316,7 +316,7 @@ class Example
         if (self::SORT_ALPHA === $selectedSortAlgorithm) {
             return \strcasecmp($a['name'], $b['name']);
         }
-        return $a['start'] > $b['start'] ? 1 : -1;
+        return $a['start'] <=> $b['start'];
     }
     /**
      * @param array[] $elements

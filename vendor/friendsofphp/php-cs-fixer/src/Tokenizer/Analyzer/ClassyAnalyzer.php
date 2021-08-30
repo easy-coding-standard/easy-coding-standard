@@ -44,6 +44,9 @@ final class ClassyAnalyzer
         if ($prevToken->isGivenKind([\T_EXTENDS, \T_INSTANCEOF, \T_INSTEADOF, \T_IMPLEMENTS, \T_NEW, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_COLON, \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT])) {
             return \true;
         }
+        if (\PhpCsFixer\Tokenizer\Analyzer\AttributeAnalyzer::isAttribute($tokens, $index)) {
+            return \true;
+        }
         // `Foo & $bar` could be:
         //   - function reference parameter: function baz(Foo & $bar) {}
         //   - bit operator: $x = Foo & $bar;

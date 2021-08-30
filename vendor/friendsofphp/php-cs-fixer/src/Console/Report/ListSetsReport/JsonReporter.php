@@ -33,13 +33,14 @@ final class JsonReporter implements \PhpCsFixer\Console\Report\ListSetsReport\Re
      */
     public function generate($reportSummary) : string
     {
-        $json = ['sets' => []];
         $sets = $reportSummary->getSets();
         \usort($sets, function (\PhpCsFixer\RuleSet\RuleSetDescriptionInterface $a, \PhpCsFixer\RuleSet\RuleSetDescriptionInterface $b) {
-            return $a->getName() > $b->getName() ? 1 : -1;
+            return \strcmp($a->getName(), $b->getName());
         });
+        $json = ['sets' => []];
         foreach ($sets as $set) {
-            $json['sets'][$set->getName()] = ['description' => $set->getDescription(), 'isRisky' => $set->isRisky(), 'name' => $set->getName()];
+            $setName = $set->getName();
+            $json['sets'][$setName] = ['description' => $set->getDescription(), 'isRisky' => $set->isRisky(), 'name' => $setName];
         }
         return \json_encode($json, \JSON_PRETTY_PRINT);
     }

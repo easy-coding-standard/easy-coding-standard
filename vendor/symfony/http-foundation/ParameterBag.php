@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210829\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210830\Symfony\Component\HttpFoundation;
 
-use ECSPrefix20210829\Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use ECSPrefix20210830\Symfony\Component\HttpFoundation\Exception\BadRequestException;
 /**
  * ParameterBag is a container for key/value pairs.
  *
@@ -40,7 +40,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
             return $this->parameters;
         }
         if (!\is_array($value = $this->parameters[$key] ?? [])) {
-            throw new \ECSPrefix20210829\Symfony\Component\HttpFoundation\Exception\BadRequestException(\sprintf('Unexpected value for parameter "%s": expecting "array", got "%s".', $key, \get_debug_type($value)));
+            throw new \ECSPrefix20210830\Symfony\Component\HttpFoundation\Exception\BadRequestException(\sprintf('Unexpected value for parameter "%s": expecting "array", got "%s".', $key, \get_debug_type($value)));
         }
         return $value;
     }
@@ -199,6 +199,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return \ArrayIterator An \ArrayIterator instance
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new \ArrayIterator($this->parameters);
@@ -208,6 +209,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return int The number of parameters
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return \count($this->parameters);

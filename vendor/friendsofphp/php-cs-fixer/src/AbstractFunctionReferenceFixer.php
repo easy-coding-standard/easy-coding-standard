@@ -46,7 +46,7 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
             return null;
         }
         // translate results for humans
-        list($functionName, $openParenthesis) = \array_keys($matches);
+        [$functionName, $openParenthesis] = \array_keys($matches);
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         if (!$functionsAnalyzer->isGlobalFunctionCall($tokens, $functionName)) {
             return $this->find($functionNameToSearch, $tokens, $openParenthesis, $end);

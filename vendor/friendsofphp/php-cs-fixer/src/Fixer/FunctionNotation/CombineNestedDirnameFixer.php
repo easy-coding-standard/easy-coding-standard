@@ -102,7 +102,7 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
         if (!(new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->isGlobalFunctionCall($tokens, $index)) {
             return \false;
         }
-        $info['indexes'] = [];
+        $info = ['indexes' => []];
         $prev = $tokens->getPrevMeaningfulToken($index);
         if ($tokens[$prev]->isGivenKind(\T_NS_SEPARATOR)) {
             $info['indexes'][] = $prev;

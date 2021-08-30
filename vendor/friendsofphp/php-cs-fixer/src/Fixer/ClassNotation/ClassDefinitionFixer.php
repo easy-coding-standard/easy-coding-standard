@@ -71,7 +71,9 @@ implements Baz
 interface Bar extends
     Bar, BarBaz, FooBarBaz
 {}
-', ['multi_line_extends_each_single_line' => \true])]);
+', ['multi_line_extends_each_single_line' => \true]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+$foo = new class(){};
+', ['space_before_parenthesis' => \true])]);
     }
     /**
      * {@inheritdoc}
@@ -106,7 +108,7 @@ interface Bar extends
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('multi_line_extends_each_single_line', 'Whether definitions should be multiline.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_item_single_line', 'Whether definitions should be single line when including a single item.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_line', 'Whether definitions should be single line.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('multi_line_extends_each_single_line', 'Whether definitions should be multiline.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_item_single_line', 'Whether definitions should be single line when including a single item.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_line', 'Whether definitions should be single line.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('space_before_parenthesis', 'Whether there should be a single space after the parenthesis of anonymous class (PSR12) or not.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
     /**
      * @param int $classyIndex Class definition token start index
@@ -133,7 +135,7 @@ interface Bar extends
             $end = $tokens->getPrevNonWhitespace($classDefInfo['open']);
         }
         // 4.1 The extends and implements keywords MUST be declared on the same line as the class name.
-        $this->makeClassyDefinitionSingleLine($tokens, $classDefInfo['anonymousClass'] ? $tokens->getPrevMeaningfulToken($classyIndex) : $classDefInfo['start'], $end);
+        $this->makeClassyDefinitionSingleLine($tokens, $classDefInfo['start'], $end);
     }
     private function fixClassyDefinitionExtends(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, array $classExtendsInfo) : array
     {
@@ -194,8 +196,6 @@ interface Bar extends
     private function getClassyDefinitionInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classyIndex) : array
     {
         $openIndex = $tokens->getNextTokenOfKind($classyIndex, ['{']);
-        $prev = $tokens->getPrevMeaningfulToken($classyIndex);
-        $startIndex = $tokens[$prev]->isGivenKind([\T_FINAL, \T_ABSTRACT]) ? $prev : $classyIndex;
         $extends = \false;
         $implements = \false;
         $anonymousClass = \false;
@@ -208,6 +208,13 @@ interface Bar extends
                 $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
                 $anonymousClass = $tokensAnalyzer->isAnonymousClass($classyIndex);
             }
+        }
+        if ($anonymousClass) {
+            $startIndex = $tokens->getPrevMeaningfulToken($classyIndex);
+            // go to "new" for anonymous class
+        } else {
+            $prev = $tokens->getPrevMeaningfulToken($classyIndex);
+            $startIndex = $tokens[$prev]->isGivenKind([\T_FINAL, \T_ABSTRACT]) ? $prev : $classyIndex;
         }
         return ['start' => $startIndex, 'classy' => $classyIndex, 'open' => $openIndex, 'extends' => $extends, 'implements' => $implements, 'anonymousClass' => $anonymousClass];
     }
@@ -232,19 +239,25 @@ interface Bar extends
     {
         for ($i = $endIndex; $i >= $startIndex; --$i) {
             if ($tokens[$i]->isWhitespace()) {
-                $prevNonWhite = $tokens->getPrevNonWhitespace($i);
-                $nextNonWhite = $tokens->getNextNonWhitespace($i);
-                if ($tokens[$prevNonWhite]->isComment() || $tokens[$nextNonWhite]->isComment()) {
-                    $content = $tokens[$prevNonWhite]->getContent();
+                if ($tokens[$i - 1]->isComment() || $tokens[$i + 1]->isComment()) {
+                    $content = $tokens[$i - 1]->getContent();
                     if (!('#' === $content || '//' === \substr($content, 0, 2))) {
-                        $content = $tokens[$nextNonWhite]->getContent();
+                        $content = $tokens[$i + 1]->getContent();
                         if (!('#' === $content || '//' === \substr($content, 0, 2))) {
                             $tokens[$i] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
                         }
                     }
                     continue;
                 }
-                if (!$tokens[$i - 1]->equals(',') && $tokens[$i + 1]->equalsAny([',', '(', ')']) || $tokens[$i - 1]->equals('(')) {
+                if ($tokens[$i - 1]->isGivenKind(\T_CLASS) && $tokens[$i + 1]->equals('(')) {
+                    if (\true === $this->configuration['space_before_parenthesis']) {
+                        $tokens[$i] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+                    } else {
+                        $tokens->clearAt($i);
+                    }
+                    continue;
+                }
+                if (!$tokens[$i - 1]->equals(',') && $tokens[$i + 1]->equalsAny([',', ')']) || $tokens[$i - 1]->equals('(')) {
                     $tokens->clearAt($i);
                     continue;
                 }
@@ -252,6 +265,10 @@ interface Bar extends
                 continue;
             }
             if ($tokens[$i]->equals(',') && !$tokens[$i + 1]->isWhitespace()) {
+                $tokens->insertAt($i + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+                continue;
+            }
+            if ($this->configuration['space_before_parenthesis'] && $tokens[$i]->isGivenKind(\T_CLASS) && !$tokens[$i + 1]->isWhitespace()) {
                 $tokens->insertAt($i + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
                 continue;
             }

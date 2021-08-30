@@ -15,10 +15,10 @@ namespace PhpCsFixer\Console\Command;
 use PhpCsFixer\FixerConfiguration\AllowedValueSubset;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\Preg;
-use ECSPrefix20210829\Symfony\Component\Console\Command\HelpCommand as BaseHelpCommand;
-use ECSPrefix20210829\Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use ECSPrefix20210829\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210829\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210830\Symfony\Component\Console\Command\HelpCommand as BaseHelpCommand;
+use ECSPrefix20210830\Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use ECSPrefix20210830\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210830\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
@@ -26,7 +26,7 @@ use ECSPrefix20210829\Symfony\Component\Console\Output\OutputInterface;
  *
  * @internal
  */
-final class HelpCommand extends \ECSPrefix20210829\Symfony\Component\Console\Command\HelpCommand
+final class HelpCommand extends \ECSPrefix20210830\Symfony\Component\Console\Command\HelpCommand
 {
     /**
      * @var string
@@ -72,34 +72,7 @@ final class HelpCommand extends \ECSPrefix20210829\Symfony\Component\Console\Com
      */
     protected function initialize($input, $output) : void
     {
-        $output->getFormatter()->setStyle('url', new \ECSPrefix20210829\Symfony\Component\Console\Formatter\OutputFormatterStyle('blue'));
-    }
-    /**
-     * Wraps a string to the given number of characters, ignoring style tags.
-     *
-     * @return string[]
-     */
-    private static function wordwrap(string $string, int $width) : array
-    {
-        $result = [];
-        $currentLine = 0;
-        $lineLength = 0;
-        foreach (\explode(' ', $string) as $word) {
-            $wordLength = \strlen(\PhpCsFixer\Preg::replace('~</?(\\w+)>~', '', $word));
-            if (0 !== $lineLength) {
-                ++$wordLength;
-                // space before word
-            }
-            if ($lineLength + $wordLength > $width) {
-                ++$currentLine;
-                $lineLength = 0;
-            }
-            $result[$currentLine][] = $word;
-            $lineLength += $wordLength;
-        }
-        return \array_map(static function (array $line) {
-            return \implode(' ', $line);
-        }, $result);
+        $output->getFormatter()->setStyle('url', new \ECSPrefix20210830\Symfony\Component\Console\Formatter\OutputFormatterStyle('blue'));
     }
     /**
      * @param mixed $value
@@ -114,7 +87,7 @@ final class HelpCommand extends \ECSPrefix20210829\Symfony\Component\Console\Com
         if (0 === \count($value)) {
             return '[]';
         }
-        $isHash = static::isHash($value);
+        $isHash = !array_is_list($value);
         $str = '[';
         foreach ($value as $k => $v) {
             if ($isHash) {
@@ -123,16 +96,5 @@ final class HelpCommand extends \ECSPrefix20210829\Symfony\Component\Console\Com
             $str .= \is_array($v) ? static::arrayToString($v) . ', ' : static::scalarToString($v) . ', ';
         }
         return \substr($str, 0, -2) . ']';
-    }
-    private static function isHash(array $array) : bool
-    {
-        $i = 0;
-        foreach ($array as $k => $v) {
-            if ($k !== $i) {
-                return \true;
-            }
-            ++$i;
-        }
-        return \false;
     }
 }

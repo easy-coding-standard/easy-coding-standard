@@ -70,7 +70,7 @@ final class CleanNamespaceFixer extends \PhpCsFixer\AbstractLinesBeforeNamespace
                 $tokens->clearAt($index);
             }
         }
-        if ($tokens[$index - 1]->isWhiteSpace()) {
+        if ($tokens[$index - 1]->isWhitespace()) {
             \array_pop($spaceIndexes);
         }
         foreach ($spaceIndexes as $i) {

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210829\Symfony\Component\Console\Helper;
+namespace ECSPrefix20210830\Symfony\Component\Console\Helper;
 
-use ECSPrefix20210829\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210829\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210830\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210830\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * HelperSet represents a set of helpers to be used with a command.
  *
@@ -66,7 +66,7 @@ class HelperSet implements \IteratorAggregate
     public function get($name)
     {
         if (!$this->has($name)) {
-            throw new \ECSPrefix20210829\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
+            throw new \ECSPrefix20210830\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
         }
         return $this->helpers[$name];
     }
@@ -87,8 +87,9 @@ class HelperSet implements \IteratorAggregate
         return $this->command;
     }
     /**
-     * @return Helper[]
+     * @return \Traversable<Helper>
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new \ArrayIterator($this->helpers);

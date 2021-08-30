@@ -113,7 +113,7 @@ final class TypeExpression
      */
     public function __construct(string $value, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace, array $namespaceUses)
     {
-        while ('' !== $value && \false !== $value) {
+        while ('' !== $value) {
             \PhpCsFixer\Preg::match('{^' . self::REGEX_TYPES . '$}x', $value, $matches);
             $this->types[] = $matches['type'];
             $value = \PhpCsFixer\Preg::replace('/^' . \preg_quote($matches['type'], '/') . '(\\h*\\|\\h*)?/', '', $value);

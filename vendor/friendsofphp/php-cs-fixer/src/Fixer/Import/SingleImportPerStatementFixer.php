@@ -136,7 +136,7 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
     }
     private function fixGroupUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex) : void
     {
-        list($groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment) = $this->getGroupDeclaration($tokens, $index);
+        [$groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment] = $this->getGroupDeclaration($tokens, $index);
         $statements = $this->getGroupStatements($tokens, $groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment);
         if (\count($statements) < 2) {
             return;

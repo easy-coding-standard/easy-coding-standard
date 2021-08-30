@@ -21,7 +21,6 @@ use PhpCsFixer\PregException;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use PhpCsFixer\Utils;
 /**
  * @author Matteo Beccati <matteo@beccati.com>
  */
@@ -139,9 +138,9 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
         // return the least used delimiter, using the position in the list as a tie breaker
         \uasort($delimiters, static function (array $a, array $b) {
             if ($a[0] === $b[0]) {
-                return \PhpCsFixer\Utils::cmpInt($a[1], $b[1]);
+                return $a[1] <=> $b[1];
             }
-            return $a[0] < $b[0] ? -1 : 1;
+            return $a[0] <=> $b[0];
         });
         return \key($delimiters);
     }

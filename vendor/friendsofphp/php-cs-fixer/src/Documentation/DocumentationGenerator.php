@@ -129,15 +129,12 @@ RST;
                 $doc .= $this->toRst(\sprintf("\n\nYou should use %s instead.", \PhpCsFixer\Utils::naturalLanguageJoinWithBackticks($alternatives)), 3);
             }
         }
-        $riskyDescription = null;
-        $samples = [];
-        if ($fixer instanceof \PhpCsFixer\Fixer\FixerInterface) {
-            $definition = $fixer->getDefinition();
-            $doc .= "\n\n" . $this->toRst($definition->getSummary());
-            $description = $definition->getDescription();
-            if (null !== $description) {
-                $description = $this->toRst($description);
-                $doc .= <<<RST
+        $definition = $fixer->getDefinition();
+        $doc .= "\n\n" . $this->toRst($definition->getSummary());
+        $description = $definition->getDescription();
+        if (null !== $description) {
+            $description = $this->toRst($description);
+            $doc .= <<<RST
 
 
 Description
@@ -145,10 +142,9 @@ Description
 
 {$description}
 RST;
-            }
-            $riskyDescription = $definition->getRiskyDescription();
-            $samples = $definition->getCodeSamples();
         }
+        $riskyDescription = $definition->getRiskyDescription();
+        $samples = $definition->getCodeSamples();
         if (null !== $riskyDescription) {
             $riskyDescription = $this->toRst($riskyDescription, 3);
             $doc .= <<<RST

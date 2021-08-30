@@ -32,7 +32,7 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
         do {
             // Check if all 'if', 'else if ' and 'elseif' blocks above this 'else' always end,
             // if so this 'else' is overcomplete.
-            list($previousBlockStart, $previousBlockEnd) = $this->getPreviousBlock($tokens, $previousBlockStart);
+            [$previousBlockStart, $previousBlockEnd] = $this->getPreviousBlock($tokens, $previousBlockStart);
             // short 'if' detection
             $previous = $previousBlockEnd;
             if ($tokens[$previous]->equals('}')) {

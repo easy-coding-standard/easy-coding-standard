@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210829\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20210830\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20210829\Symfony\Component\Config\Definition\VariableNode;
+use ECSPrefix20210830\Symfony\Component\Config\Definition\VariableNode;
 /**
  * This class provides a fluent interface for defining a node.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class VariableNodeDefinition extends \ECSPrefix20210829\Symfony\Component\Config\Definition\Builder\NodeDefinition
+class VariableNodeDefinition extends \ECSPrefix20210830\Symfony\Component\Config\Definition\Builder\NodeDefinition
 {
     /**
      * Instantiate a Node.
@@ -25,7 +25,7 @@ class VariableNodeDefinition extends \ECSPrefix20210829\Symfony\Component\Config
      */
     protected function instantiateNode()
     {
-        return new \ECSPrefix20210829\Symfony\Component\Config\Definition\VariableNode($this->name, $this->parent, $this->pathSeparator);
+        return new \ECSPrefix20210830\Symfony\Component\Config\Definition\VariableNode($this->name, $this->parent, $this->pathSeparator);
     }
     /**
      * {@inheritdoc}

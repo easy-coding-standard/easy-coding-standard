@@ -71,7 +71,7 @@ final class IsNullFixer extends \PhpCsFixer\AbstractFixer
             // 0 and 1 accordingly are "is_null", "(" tokens
             $matches = \array_keys($matches);
             // move the cursor just after the sequence
-            list($isNullIndex, $currIndex) = $matches;
+            [$isNullIndex, $currIndex] = $matches;
             if (!$functionsAnalyzer->isGlobalFunctionCall($tokens, $matches[0])) {
                 continue;
             }

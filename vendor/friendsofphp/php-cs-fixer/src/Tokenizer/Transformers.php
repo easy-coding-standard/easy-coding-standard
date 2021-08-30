@@ -12,9 +12,8 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Tokenizer;
 
-use PhpCsFixer\Utils;
-use ECSPrefix20210829\Symfony\Component\Finder\Finder;
-use ECSPrefix20210829\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20210830\Symfony\Component\Finder\Finder;
+use ECSPrefix20210830\Symfony\Component\Finder\SplFileInfo;
 /**
  * Collection of Transformer classes.
  *
@@ -37,8 +36,7 @@ final class Transformers
     {
         $this->registerBuiltInTransformers();
         \usort($this->items, static function (\PhpCsFixer\Tokenizer\TransformerInterface $a, \PhpCsFixer\Tokenizer\TransformerInterface $b) {
-            return \PhpCsFixer\Utils::cmpInt($b->getPriority(), $a->getPriority());
-            // TODO: update to use spaceship operator (PHP 7.0 required)
+            return $b->getPriority() <=> $a->getPriority();
         });
     }
     /**
@@ -91,7 +89,7 @@ final class Transformers
     private function findBuiltInTransformers() : iterable
     {
         /** @var SplFileInfo $file */
-        foreach (\ECSPrefix20210829\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Transformer') as $file) {
+        foreach (\ECSPrefix20210830\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Transformer') as $file) {
             $relativeNamespace = $file->getRelativePath();
             $class = __NAMESPACE__ . '\\Transformer\\' . ($relativeNamespace ? $relativeNamespace . '\\' : '') . $file->getBasename('.php');
             (yield new $class());

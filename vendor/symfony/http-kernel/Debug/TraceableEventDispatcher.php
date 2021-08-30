@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210829\Symfony\Component\HttpKernel\Debug;
+namespace ECSPrefix20210830\Symfony\Component\HttpKernel\Debug;
 
-use ECSPrefix20210829\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher as BaseTraceableEventDispatcher;
-use ECSPrefix20210829\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20210830\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher as BaseTraceableEventDispatcher;
+use ECSPrefix20210830\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Collects some data about event listeners.
  *
@@ -19,7 +19,7 @@ use ECSPrefix20210829\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TraceableEventDispatcher extends \ECSPrefix20210829\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher
+class TraceableEventDispatcher extends \ECSPrefix20210830\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher
 {
     /**
      * {@inheritdoc}
@@ -29,19 +29,20 @@ class TraceableEventDispatcher extends \ECSPrefix20210829\Symfony\Component\Even
     protected function beforeDispatch($eventName, $event)
     {
         switch ($eventName) {
-            case \ECSPrefix20210829\Symfony\Component\HttpKernel\KernelEvents::REQUEST:
+            case \ECSPrefix20210830\Symfony\Component\HttpKernel\KernelEvents::REQUEST:
+                $event->getRequest()->attributes->set('_stopwatch_token', \substr(\hash('sha256', \uniqid(\mt_rand(), \true)), 0, 6));
                 $this->stopwatch->openSection();
                 break;
-            case \ECSPrefix20210829\Symfony\Component\HttpKernel\KernelEvents::VIEW:
-            case \ECSPrefix20210829\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
+            case \ECSPrefix20210830\Symfony\Component\HttpKernel\KernelEvents::VIEW:
+            case \ECSPrefix20210830\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
                 // stop only if a controller has been executed
                 if ($this->stopwatch->isStarted('controller')) {
                     $this->stopwatch->stop('controller');
                 }
                 break;
-            case \ECSPrefix20210829\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
-                $token = $event->getResponse()->headers->get('X-Debug-Token');
-                if (null === $token) {
+            case \ECSPrefix20210830\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
+                $sectionId = $event->getRequest()->attributes->get('_stopwatch_token');
+                if (null === $sectionId) {
                     break;
                 }
                 // There is a very special case when using built-in AppCache class as kernel wrapper, in the case
@@ -50,7 +51,7 @@ class TraceableEventDispatcher extends \ECSPrefix20210829\Symfony\Component\Even
                 // is equal to the [A] debug token. Trying to reopen section with the [B] token throws an exception
                 // which must be caught.
                 try {
-                    $this->stopwatch->openSection($token);
+                    $this->stopwatch->openSection($sectionId);
                 } catch (\LogicException $e) {
                 }
                 break;
@@ -64,25 +65,25 @@ class TraceableEventDispatcher extends \ECSPrefix20210829\Symfony\Component\Even
     protected function afterDispatch($eventName, $event)
     {
         switch ($eventName) {
-            case \ECSPrefix20210829\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS:
+            case \ECSPrefix20210830\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS:
                 $this->stopwatch->start('controller', 'section');
                 break;
-            case \ECSPrefix20210829\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
-                $token = $event->getResponse()->headers->get('X-Debug-Token');
-                if (null === $token) {
+            case \ECSPrefix20210830\Symfony\Component\HttpKernel\KernelEvents::RESPONSE:
+                $sectionId = $event->getRequest()->attributes->get('_stopwatch_token');
+                if (null === $sectionId) {
                     break;
                 }
-                $this->stopwatch->stopSection($token);
+                $this->stopwatch->stopSection($sectionId);
                 break;
-            case \ECSPrefix20210829\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
+            case \ECSPrefix20210830\Symfony\Component\HttpKernel\KernelEvents::TERMINATE:
                 // In the special case described in the `preDispatch` method above, the `$token` section
                 // does not exist, then closing it throws an exception which must be caught.
-                $token = $event->getResponse()->headers->get('X-Debug-Token');
-                if (null === $token) {
+                $sectionId = $event->getRequest()->attributes->get('_stopwatch_token');
+                if (null === $sectionId) {
                     break;
                 }
                 try {
-                    $this->stopwatch->stopSection($token);
+                    $this->stopwatch->stopSection($sectionId);
                 } catch (\LogicException $e) {
                 }
                 break;

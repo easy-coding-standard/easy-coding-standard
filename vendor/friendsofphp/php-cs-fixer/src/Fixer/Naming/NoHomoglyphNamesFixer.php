@@ -77,7 +77,7 @@ final class NoHomoglyphNamesFixer extends \PhpCsFixer\AbstractFixer
                 continue;
             }
             $replaced = \PhpCsFixer\Preg::replaceCallback('/[^[:ascii:]]/u', static function (array $matches) {
-                return isset(self::$replacements[$matches[0]]) ? self::$replacements[$matches[0]] : $matches[0];
+                return self::$replacements[$matches[0]] ?? $matches[0];
             }, $token->getContent(), -1, $count);
             if ($count) {
                 $tokens->offsetSet($index, new \PhpCsFixer\Tokenizer\Token([$token->getId(), $replaced]));

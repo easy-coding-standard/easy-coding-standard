@@ -167,6 +167,7 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
             'psalm',
             // PHPStan
             'phpstan',
+            'template',
             // other
             'fix',
             'FIXME',

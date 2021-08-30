@@ -41,13 +41,6 @@ final class BlankLineBeforeStatementFixer extends \PhpCsFixer\AbstractFixer impl
      */
     private $fixTokenMap = [];
     /**
-     * Dynamic yield from option set on constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-    /**
      * {@inheritdoc}
      */
     public function configure(array $configuration) : void
@@ -184,12 +177,7 @@ if (true) {
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        $allowed = self::$tokenMap;
-        $allowed['yield_from'] = \true;
-        // TODO remove this when update to PHP7.0
-        \ksort($allowed);
-        $allowed = \array_keys($allowed);
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('statements', 'List of statements which must be preceded by an empty line.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($allowed)])->setDefault(['break', 'continue', 'declare', 'return', 'throw', 'try'])->getOption()]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('statements', 'List of statements which must be preceded by an empty line.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(self::$tokenMap))])->setDefault(['break', 'continue', 'declare', 'return', 'throw', 'try'])->getOption()]);
     }
     private function shouldAddBlankLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $prevNonWhitespace) : bool
     {

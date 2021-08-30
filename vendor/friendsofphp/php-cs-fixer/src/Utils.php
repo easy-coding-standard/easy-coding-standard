@@ -35,19 +35,6 @@ final class Utils
         return \strtolower(\PhpCsFixer\Preg::replace('/(?<!^)((?=[A-Z][^A-Z])|(?<![A-Z])(?=[A-Z]))/', '_', $string));
     }
     /**
-     * Compare two integers for equality.
-     *
-     * We'll return 0 if they're equal, 1 if the first is bigger than the
-     * second, and -1 if the second is bigger than the first.
-     */
-    public static function cmpInt(int $a, int $b) : int
-    {
-        if ($a === $b) {
-            return 0;
-        }
-        return $a < $b ? -1 : 1;
-    }
-    /**
      * Calculate the trailing whitespace.
      *
      * What we're doing here is grabbing everything after the final newline.
@@ -84,7 +71,7 @@ final class Utils
             if (0 !== $comparison) {
                 return $comparison;
             }
-            return self::cmpInt($a[1], $b[1]);
+            return $a[1] <=> $b[1];
         });
         return \array_map(static function (array $item) {
             return $item[0];
@@ -104,7 +91,7 @@ final class Utils
         return self::stableSort($fixers, static function (\PhpCsFixer\Fixer\FixerInterface $fixer) {
             return $fixer->getPriority();
         }, static function (int $a, int $b) {
-            return self::cmpInt($b, $a);
+            return $b <=> $a;
         });
     }
     /**
@@ -128,9 +115,6 @@ final class Utils
         }
         return $last;
     }
-    /**
-     * Handle triggering deprecation error.
-     */
     public static function triggerDeprecation(\Exception $futureException) : void
     {
         if (\getenv('PHP_CS_FIXER_FUTURE_MODE')) {

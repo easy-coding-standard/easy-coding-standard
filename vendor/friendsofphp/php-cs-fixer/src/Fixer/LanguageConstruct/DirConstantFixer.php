@@ -57,7 +57,7 @@ final class DirConstantFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
             if (null === $boundaries) {
                 return;
             }
-            list($functionNameIndex, $openParenthesis, $closeParenthesis) = $boundaries;
+            [$functionNameIndex, $openParenthesis, $closeParenthesis] = $boundaries;
             // analysing cursor shift, so nested expressions kept processed
             $currIndex = $openParenthesis;
             // ensure __FILE__ is in between (...)

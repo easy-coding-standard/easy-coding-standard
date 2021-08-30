@@ -59,7 +59,7 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
             if (!$tokens[$index]->isGivenKind(\T_COMMENT)) {
                 continue;
             }
-            list($blockStart, $index, $isEmpty) = $this->getCommentBlock($tokens, $index);
+            [$blockStart, $index, $isEmpty] = $this->getCommentBlock($tokens, $index);
             if (\false === $isEmpty) {
                 continue;
             }

@@ -61,7 +61,7 @@ final class CombineConsecutiveUnsetsFixer extends \PhpCsFixer\AbstractFixer
                 $index = $previousUnsetCall;
                 continue;
             }
-            list($previousUnset, , $previousUnsetBraceEnd) = $previousUnsetCall;
+            [$previousUnset, , $previousUnsetBraceEnd] = $previousUnsetCall;
             // Merge the tokens inside the 'unset' call into the previous one 'unset' call.
             $tokensAddCount = $this->moveTokens($tokens, $nextUnsetContentStart = $tokens->getNextTokenOfKind($index, ['(']), $nextUnsetContentEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextUnsetContentStart), $previousUnsetBraceEnd - 1);
             if (!$tokens[$previousUnsetBraceEnd]->isWhitespace()) {

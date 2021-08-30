@@ -9,17 +9,17 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210829\Evenement\Tests;
+namespace ECSPrefix20210830\Evenement\Tests;
 
-use ECSPrefix20210829\Evenement\EventEmitter;
+use ECSPrefix20210830\Evenement\EventEmitter;
 use InvalidArgumentException;
-use ECSPrefix20210829\PHPUnit\Framework\TestCase;
-class EventEmitterTest extends \ECSPrefix20210829\PHPUnit\Framework\TestCase
+use ECSPrefix20210830\PHPUnit\Framework\TestCase;
+class EventEmitterTest extends \ECSPrefix20210830\PHPUnit\Framework\TestCase
 {
     private $emitter;
     public function setUp()
     {
-        $this->emitter = new \ECSPrefix20210829\Evenement\EventEmitter();
+        $this->emitter = new \ECSPrefix20210830\Evenement\EventEmitter();
     }
     public function testAddListenerWithLambda()
     {
@@ -28,12 +28,12 @@ class EventEmitterTest extends \ECSPrefix20210829\PHPUnit\Framework\TestCase
     }
     public function testAddListenerWithMethod()
     {
-        $listener = new \ECSPrefix20210829\Evenement\Tests\Listener();
+        $listener = new \ECSPrefix20210830\Evenement\Tests\Listener();
         $this->emitter->on('foo', [$listener, 'onFoo']);
     }
     public function testAddListenerWithStaticMethod()
     {
-        $this->emitter->on('bar', ['ECSPrefix20210829\\Evenement\\Tests\\Listener', 'onBar']);
+        $this->emitter->on('bar', ['ECSPrefix20210830\\Evenement\\Tests\\Listener', 'onBar']);
     }
     public function testAddListenerWithInvalidListener()
     {
@@ -191,14 +191,14 @@ class EventEmitterTest extends \ECSPrefix20210829\PHPUnit\Framework\TestCase
     }
     public function testCallablesClass()
     {
-        $listener = new \ECSPrefix20210829\Evenement\Tests\Listener();
+        $listener = new \ECSPrefix20210830\Evenement\Tests\Listener();
         $this->emitter->on('foo', [$listener, 'onFoo']);
         $this->emitter->emit('foo', ['bar']);
         self::assertSame(['bar'], $listener->getData());
     }
     public function testCallablesClassInvoke()
     {
-        $listener = new \ECSPrefix20210829\Evenement\Tests\Listener();
+        $listener = new \ECSPrefix20210830\Evenement\Tests\Listener();
         $this->emitter->on('foo', $listener);
         $this->emitter->emit('foo', ['bar']);
         self::assertSame(['bar'], $listener->getMagicData());
@@ -207,11 +207,11 @@ class EventEmitterTest extends \ECSPrefix20210829\PHPUnit\Framework\TestCase
     {
         $this->emitter->on('foo', '\\Evenement\\Tests\\Listener::onBar');
         $this->emitter->emit('foo', ['bar']);
-        self::assertSame(['bar'], \ECSPrefix20210829\Evenement\Tests\Listener::getStaticData());
+        self::assertSame(['bar'], \ECSPrefix20210830\Evenement\Tests\Listener::getStaticData());
     }
     public function testCallablesFunction()
     {
-        $this->emitter->on('foo', 'ECSPrefix20210829\\Evenement\\Tests\\setGlobalTestData');
+        $this->emitter->on('foo', 'ECSPrefix20210830\\Evenement\\Tests\\setGlobalTestData');
         $this->emitter->emit('foo', ['bar']);
         self::assertSame('bar', $GLOBALS['evenement-evenement-test-data']);
         unset($GLOBALS['evenement-evenement-test-data']);

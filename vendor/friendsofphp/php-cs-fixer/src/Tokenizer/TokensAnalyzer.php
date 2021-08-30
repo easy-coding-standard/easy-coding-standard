@@ -12,6 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Tokenizer;
 
+use PhpCsFixer\Tokenizer\Analyzer\AttributeAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer;
 /**
  * Analyzer of Tokens collection.
@@ -50,7 +51,7 @@ final class TokensAnalyzer
         $elements = [];
         for ($index = 1, $count = \count($this->tokens) - 2; $index < $count; ++$index) {
             if ($this->tokens[$index]->isClassy()) {
-                list($index, $newElements) = $this->findClassyElements($index, $index);
+                [$index, $newElements] = $this->findClassyElements($index, $index);
                 $elements += $newElements;
             }
         }
@@ -269,7 +270,7 @@ final class TokensAnalyzer
             }
         }
         // check for attribute: `#[Foo]`
-        if (\defined('T_ATTRIBUTE') && $this->tokens[$prevIndex]->isGivenKind(\T_ATTRIBUTE)) {
+        if (\PhpCsFixer\Tokenizer\Analyzer\AttributeAnalyzer::isAttribute($this->tokens, $index)) {
             return \false;
         }
         // check for goto label
@@ -498,7 +499,7 @@ final class TokensAnalyzer
                         if ($token->equals(')')) {
                             --$nestedBracesLevel;
                             if (0 === $nestedBracesLevel) {
-                                list($index, $newElements) = $this->findClassyElements($nestedClassIndex, $index);
+                                [$index, $newElements] = $this->findClassyElements($nestedClassIndex, $index);
                                 $elements += $newElements;
                                 break;
                             }
@@ -506,12 +507,12 @@ final class TokensAnalyzer
                         }
                         if ($token->isClassy()) {
                             // anonymous class in class
-                            list($index, $newElements) = $this->findClassyElements($index, $index);
+                            [$index, $newElements] = $this->findClassyElements($index, $index);
                             $elements += $newElements;
                         }
                     }
                 } else {
-                    list($index, $newElements) = $this->findClassyElements($nestedClassIndex, $nestedClassIndex);
+                    [$index, $newElements] = $this->findClassyElements($nestedClassIndex, $nestedClassIndex);
                     $elements += $newElements;
                 }
                 continue;

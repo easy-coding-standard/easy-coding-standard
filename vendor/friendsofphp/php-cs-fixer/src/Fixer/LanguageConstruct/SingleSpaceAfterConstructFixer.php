@@ -108,7 +108,7 @@ yield  from  baz();
                 continue;
             }
             $whitespaceTokenIndex = $index + 1;
-            if ($tokens[$whitespaceTokenIndex]->equalsAny([';', ')', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE]])) {
+            if ($tokens[$whitespaceTokenIndex]->equalsAny([',', ';', ')', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE]])) {
                 continue;
             }
             if ($token->isGivenKind(\T_STATIC) && !$tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind([\T_FUNCTION, \T_VARIABLE])) {

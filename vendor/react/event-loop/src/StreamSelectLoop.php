@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210829\React\EventLoop;
+namespace ECSPrefix20210830\React\EventLoop;
 
-use ECSPrefix20210829\React\EventLoop\Tick\FutureTickQueue;
-use ECSPrefix20210829\React\EventLoop\Timer\Timer;
-use ECSPrefix20210829\React\EventLoop\Timer\Timers;
+use ECSPrefix20210830\React\EventLoop\Tick\FutureTickQueue;
+use ECSPrefix20210830\React\EventLoop\Timer\Timer;
+use ECSPrefix20210830\React\EventLoop\Timer\Timers;
 /**
  * A `stream_select()` based event loop.
  *
@@ -48,7 +48,7 @@ use ECSPrefix20210829\React\EventLoop\Timer\Timers;
  *
  * @link https://www.php.net/manual/en/function.stream-select.php
  */
-final class StreamSelectLoop implements \ECSPrefix20210829\React\EventLoop\LoopInterface
+final class StreamSelectLoop implements \ECSPrefix20210830\React\EventLoop\LoopInterface
 {
     /** @internal */
     const MICROSECONDS_PER_SECOND = 1000000;
@@ -64,11 +64,11 @@ final class StreamSelectLoop implements \ECSPrefix20210829\React\EventLoop\LoopI
     private $signals;
     public function __construct()
     {
-        $this->futureTickQueue = new \ECSPrefix20210829\React\EventLoop\Tick\FutureTickQueue();
-        $this->timers = new \ECSPrefix20210829\React\EventLoop\Timer\Timers();
+        $this->futureTickQueue = new \ECSPrefix20210830\React\EventLoop\Tick\FutureTickQueue();
+        $this->timers = new \ECSPrefix20210830\React\EventLoop\Timer\Timers();
         $this->pcntl = \function_exists('pcntl_signal') && \function_exists('pcntl_signal_dispatch');
         $this->pcntlPoll = $this->pcntl && !\function_exists('pcntl_async_signals');
-        $this->signals = new \ECSPrefix20210829\React\EventLoop\SignalsHandler();
+        $this->signals = new \ECSPrefix20210830\React\EventLoop\SignalsHandler();
         // prefer async signals if available (PHP 7.1+) or fall back to dispatching on each tick
         if ($this->pcntl && !$this->pcntlPoll) {
             \pcntl_async_signals(\true);
@@ -102,13 +102,13 @@ final class StreamSelectLoop implements \ECSPrefix20210829\React\EventLoop\LoopI
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20210829\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \ECSPrefix20210830\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $this->timers->add($timer);
         return $timer;
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20210829\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \ECSPrefix20210830\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $this->timers->add($timer);
         return $timer;
     }

@@ -76,7 +76,7 @@ final class DocBlock
      */
     public function getLine($pos) : ?\PhpCsFixer\DocBlock\Line
     {
-        return isset($this->lines[$pos]) ? $this->lines[$pos] : null;
+        return $this->lines[$pos] ?? null;
     }
     /**
      * Get this docblock's annotations.
@@ -149,7 +149,7 @@ final class DocBlock
     public function getAnnotation($pos) : ?\PhpCsFixer\DocBlock\Annotation
     {
         $annotations = $this->getAnnotations();
-        return isset($annotations[$pos]) ? $annotations[$pos] : null;
+        return $annotations[$pos] ?? null;
     }
     /**
      * Get specific types of annotations only.

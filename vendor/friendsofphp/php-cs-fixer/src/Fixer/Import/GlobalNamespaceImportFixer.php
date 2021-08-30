@@ -129,7 +129,7 @@ if (count($x)) {
      */
     private function importConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
     {
-        list($global, $other) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isConstant();
         }, \true);
         // find namespaced const declarations (`const FOO = 1`)
@@ -183,7 +183,7 @@ if (count($x)) {
      */
     private function importFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
     {
-        list($global, $other) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isFunction();
         }, \false);
         // find function declarations
@@ -221,7 +221,7 @@ if (count($x)) {
      */
     private function importClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
     {
-        list($global, $other) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isClass();
         }, \false);
         /** @var DocBlock[] $docBlocks */
@@ -364,7 +364,7 @@ if (count($x)) {
         if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT)) {
             return;
         }
-        list($global) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isConstant() && !$declaration->isAliased();
         }, \true);
         if (!$global) {
@@ -396,7 +396,7 @@ if (count($x)) {
         if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
             return;
         }
-        list($global) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isFunction() && !$declaration->isAliased();
         }, \false);
         if (!$global) {
@@ -428,7 +428,7 @@ if (count($x)) {
         if (!$tokens->isTokenKindFound(\T_USE)) {
             return;
         }
-        list($global) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isClass() && !$declaration->isAliased();
         }, \false);
         if (!$global) {
@@ -536,7 +536,7 @@ if (count($x)) {
             foreach ($types as $i => $fullType) {
                 $newFullType = $fullType;
                 \PhpCsFixer\Preg::matchAll('/[\\\\\\w]+/', $fullType, $matches, \PREG_OFFSET_CAPTURE);
-                foreach (\array_reverse($matches[0]) as list($type, $offset)) {
+                foreach (\array_reverse($matches[0]) as [$type, $offset]) {
                     $newType = $callback($type);
                     if (null !== $newType && $type !== $newType) {
                         $newFullType = \substr_replace($newFullType, $newType, $offset, \strlen($type));

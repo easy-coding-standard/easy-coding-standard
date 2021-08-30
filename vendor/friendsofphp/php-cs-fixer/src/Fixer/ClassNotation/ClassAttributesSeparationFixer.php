@@ -21,12 +21,14 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+use PhpCsFixer\FixerDefinition\VersionSpecification;
+use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20210829\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20210830\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * Make sure there is one blank line above and below class elements.
  *
@@ -36,20 +38,19 @@ use ECSPrefix20210829\Symfony\Component\OptionsResolver\Exception\InvalidOptions
  */
 final class ClassAttributesSeparationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
 {
-    /**
-     * @internal
-     */
-    public const SPACING_NONE = 'none';
-    /**
-     * @internal
-     */
-    public const SPACING_ONE = 'one';
-    private const SUPPORTED_SPACINGS = [self::SPACING_NONE, self::SPACING_ONE];
+    private const SPACING_NONE = 'none';
+    private const SPACING_ONE = 'one';
+    private const SPACING_ONLY_IF_META = 'only_if_meta';
+    private const SUPPORTED_SPACINGS = [self::SPACING_NONE, self::SPACING_ONE, self::SPACING_ONLY_IF_META];
     private const SUPPORTED_TYPES = ['const', 'method', 'property', 'trait_import'];
     /**
      * @var array<string, string>
      */
     private $classElementTypes = [];
+    /**
+     * @var array<int, int>
+     */
+    private $possibleMetadataKinds = [];
     /**
      * {@inheritdoc}
      */
@@ -60,6 +61,11 @@ final class ClassAttributesSeparationFixer extends \PhpCsFixer\AbstractFixer imp
         // reset previous configuration
         foreach ($this->configuration['elements'] as $elementType => $spacing) {
             $this->classElementTypes[$elementType] = $spacing;
+        }
+        $this->possibleMetadataKinds = [\T_DOC_COMMENT];
+        if (\defined('T_ATTRIBUTE')) {
+            // @todo remove check when PHP 8.0+ is required
+            $this->possibleMetadataKinds[] = \T_ATTRIBUTE;
         }
     }
     /**
@@ -92,7 +98,45 @@ class Sample
     /** seconds in some hours */
     const B = 3600;
 }
-', ['elements' => ['const' => self::SPACING_ONE]])]);
+', ['elements' => ['const' => self::SPACING_ONE]]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+class Sample
+{
+    /** @var int */
+    const SECOND = 1;
+    /** @var int */
+    const MINUTE = 60;
+
+    const HOUR = 3600;
+
+    const DAY = 86400;
+}
+', ['elements' => ['const' => self::SPACING_ONLY_IF_META]]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+class Sample
+{
+    public $a;
+    #[SetUp]
+    public $b;
+    /** @var string */
+    public $c;
+    public $d;
+
+    public $e;
+}
+', new \PhpCsFixer\FixerDefinition\VersionSpecification(80000), ['elements' => ['property' => self::SPACING_ONLY_IF_META]]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+class Sample
+{
+    public $a;
+    #[SetUp]
+    public $b;
+    /** @var string */
+    public $c;
+    /** @internal */
+    #[Assert\\String()]
+    public $d;
+
+    public $e;
+}
+', new \PhpCsFixer\FixerDefinition\VersionSpecification(80000), ['elements' => ['property' => self::SPACING_ONLY_IF_META]])]);
     }
     /**
      * {@inheritdoc}
@@ -147,13 +191,13 @@ class Sample
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'Dictionary of `const|method|property|trait_import` => `none|one` values.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', \sprintf('Dictionary of `%s` => `%s` values.', \implode('|', self::SUPPORTED_TYPES), \implode('|', self::SUPPORTED_SPACINGS))))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) {
             foreach ($option as $type => $spacing) {
                 if (!\in_array($type, self::SUPPORTED_TYPES, \true)) {
-                    throw new \ECSPrefix20210829\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected element type, expected any of "%s", got "%s".', \implode('", "', self::SUPPORTED_TYPES), \gettype($type) . '#' . $type));
+                    throw new \ECSPrefix20210830\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected element type, expected any of "%s", got "%s".', \implode('", "', self::SUPPORTED_TYPES), \gettype($type) . '#' . $type));
                 }
                 if (!\in_array($spacing, self::SUPPORTED_SPACINGS, \true)) {
-                    throw new \ECSPrefix20210829\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected spacing for element type "%s", expected any of "%s", got "%s".', $spacing, \implode('", "', self::SUPPORTED_SPACINGS), \is_object($spacing) ? \get_class($spacing) : (null === $spacing ? 'null' : \gettype($spacing) . '#' . $spacing)));
+                    throw new \ECSPrefix20210830\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected spacing for element type "%s", expected any of "%s", got "%s".', $spacing, \implode('", "', self::SUPPORTED_SPACINGS), \is_object($spacing) ? \get_class($spacing) : (null === $spacing ? 'null' : \gettype($spacing) . '#' . $spacing)));
                 }
             }
             return \true;
@@ -181,7 +225,8 @@ class Sample
             $this->correctLineBreaks($tokens, $elementEndIndex, $nextNotWhite, 2);
             return;
         }
-        $this->correctLineBreaks($tokens, $elementEndIndex, $nextNotWhite, $nextNotWhite === $classEndIndex || self::SPACING_NONE === $spacing ? 1 : 2);
+        $reqLineCount = $this->determineRequiredLineCount($tokens, $nextNotWhite, $classEndIndex, $spacing);
+        $this->correctLineBreaks($tokens, $elementEndIndex, $nextNotWhite, $reqLineCount);
     }
     /**
      * Fix spacing below a method of a class or trait.
@@ -192,7 +237,8 @@ class Sample
     private function fixSpaceBelowClassMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classEndIndex, int $elementEndIndex, string $spacing) : void
     {
         $nextNotWhite = $tokens->getNextNonWhitespace($elementEndIndex);
-        $this->correctLineBreaks($tokens, $elementEndIndex, $nextNotWhite, $nextNotWhite === $classEndIndex || self::SPACING_NONE === $spacing ? 1 : 2);
+        $reqLineCount = $this->determineRequiredLineCount($tokens, $nextNotWhite, $classEndIndex, $spacing);
+        $this->correctLineBreaks($tokens, $elementEndIndex, $nextNotWhite, $reqLineCount);
     }
     /**
      * Fix spacing above an element of a class, interface or trait.
@@ -224,7 +270,7 @@ class Sample
                 $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, 1);
                 return;
             }
-            // $tokens[$nonWhiteAbove+1] is always a white space token here
+            // $tokens[$nonWhiteAbove + 1] is always a white space token here
             if (\substr_count($tokens[$nonWhiteAbove + 1]->getContent(), "\n") > 1) {
                 // more than one line break, always bring it back to 2 line breaks between the element start and what is above it
                 $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, 2);
@@ -252,20 +298,54 @@ class Sample
             $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, 1);
             // there should be one blank line between the PHPDoc and whatever is above (with the exception when it is directly after a class opening)
             $nonWhiteAbovePHPDoc = $tokens->getPrevNonWhitespace($nonWhiteAbove);
-            $this->correctLineBreaks($tokens, $nonWhiteAbovePHPDoc, $nonWhiteAbove, $nonWhiteAbovePHPDoc === $classStartIndex ? 1 : 2);
+            $reqLineCount = $nonWhiteAbovePHPDoc === $classStartIndex ? 1 : 2;
+            if ($tokens[$nonWhiteAbovePHPDoc]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE)) {
+                // PHPDocs can have attributes adjacent to them, so adjust our comparison points
+                [$nonWhiteAbove, $nonWhiteAbovePHPDoc, $reqLineCount] = $this->getAttributePhpdocSequenceOffset($tokens, $nonWhiteAbovePHPDoc, $classStartIndex);
+            }
+            $this->correctLineBreaks($tokens, $nonWhiteAbovePHPDoc, $nonWhiteAbove, $reqLineCount);
             return;
         }
         // deal with element with an attribute above it
         if ($tokens[$nonWhiteAbove]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE)) {
             // there should be one linebreak between the element and the attribute above it
             $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, 1);
-            // make sure there is blank line above the comment (with the exception when it is directly after a class opening)
-            $nonWhiteAbove = $this->findAttributeBlockStart($tokens, $nonWhiteAbove);
-            $nonWhiteAboveComment = $tokens->getPrevNonWhitespace($nonWhiteAbove);
-            $this->correctLineBreaks($tokens, $nonWhiteAboveComment, $nonWhiteAbove, $nonWhiteAboveComment === $classStartIndex ? 1 : 2);
+            // make sure there is blank line above the attribute comment
+            // with the exception when it is directly after a class opening or has an adjacent PHPDoc
+            [$nonWhiteAbove, $nonWhiteAboveComment, $reqLineCount] = $this->getAttributePhpdocSequenceOffset($tokens, $nonWhiteAbove, $classStartIndex);
+            $this->correctLineBreaks($tokens, $nonWhiteAboveComment, $nonWhiteAbove, $reqLineCount);
             return;
         }
-        $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, $nonWhiteAbove === $classStartIndex || self::SPACING_NONE === $spacing ? 1 : 2);
+        $reqLineCount = $this->determineRequiredLineCount($tokens, $nonWhiteAbove, $classStartIndex, $spacing);
+        $this->correctLineBreaks($tokens, $nonWhiteAbove, $firstElementAttributeIndex, $reqLineCount);
+    }
+    /**
+     * @return array<int, int>
+     */
+    private function getAttributePhpdocSequenceOffset(\PhpCsFixer\Tokenizer\Tokens $tokens, int $attributeCloseIndex, int $classStartIndex) : array
+    {
+        $attributeStartIndex = $this->findAttributeBlockStart($tokens, $attributeCloseIndex);
+        $nonWhiteAboveAttribute = $tokens->getNonWhitespaceSibling($attributeStartIndex, -1);
+        $reqLineCount = $nonWhiteAboveAttribute === $classStartIndex || $tokens[$nonWhiteAboveAttribute]->isGivenKind(\T_DOC_COMMENT) ? 1 : 2;
+        return [$attributeStartIndex, $nonWhiteAboveAttribute, $reqLineCount];
+    }
+    private function determineRequiredLineCount(\PhpCsFixer\Tokenizer\Tokens $tokens, int $notWhiteIndex, int $classStartOrEndIndex, string $spacing) : int
+    {
+        // if the two indices are equal, this means the index is either at the
+        // start or end of the class and no additional line breaks are needed
+        if ($notWhiteIndex === $classStartOrEndIndex) {
+            return 1;
+        }
+        if (self::SPACING_NONE === $spacing) {
+            return 1;
+        }
+        if (self::SPACING_ONE === $spacing) {
+            return 2;
+        }
+        if (self::SPACING_ONLY_IF_META === $spacing && $tokens[$notWhiteIndex]->isGivenKind($this->possibleMetadataKinds)) {
+            return 2;
+        }
+        return 1;
     }
     private function correctLineBreaks(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, int $reqLineCount = 2) : void
     {

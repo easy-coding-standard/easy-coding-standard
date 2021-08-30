@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210829\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20210830\Symfony\Component\Finder\Iterator;
 
 /**
  * DepthRangeFilterIterator limits the directory depth.
@@ -34,6 +34,7 @@ class DepthRangeFilterIterator extends \FilterIterator
      *
      * @return bool true if the value should be kept, false otherwise
      */
+    #[\ReturnTypeWillChange]
     public function accept()
     {
         return $this->getInnerIterator()->getDepth() >= $this->minDepth;

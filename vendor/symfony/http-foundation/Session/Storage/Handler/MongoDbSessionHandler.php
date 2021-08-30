@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210829\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace ECSPrefix20210830\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Session handler using the mongodb/mongodb package and MongoDB driver extension.
@@ -18,7 +18,7 @@ namespace ECSPrefix20210829\Symfony\Component\HttpFoundation\Session\Storage\Han
  * @see https://packagist.org/packages/mongodb/mongodb
  * @see https://php.net/mongodb
  */
-class MongoDbSessionHandler extends \ECSPrefix20210829\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class MongoDbSessionHandler extends \ECSPrefix20210830\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     private $mongo;
     /**
@@ -59,7 +59,7 @@ class MongoDbSessionHandler extends \ECSPrefix20210829\Symfony\Component\HttpFou
      *
      * @throws \InvalidArgumentException When "database" or "collection" not provided
      */
-    public function __construct(\ECSPrefix20210829\MongoDB\Client $mongo, array $options)
+    public function __construct(\ECSPrefix20210830\MongoDB\Client $mongo, array $options)
     {
         if (!isset($options['database']) || !isset($options['collection'])) {
             throw new \InvalidArgumentException('You must provide the "database" and "collection" option for MongoDBSessionHandler.');
@@ -124,7 +124,7 @@ class MongoDbSessionHandler extends \ECSPrefix20210829\Symfony\Component\HttpFou
         }
         return $dbData[$this->options['data_field']]->getData();
     }
-    private function getCollection() : \ECSPrefix20210829\MongoDB\Collection
+    private function getCollection() : \ECSPrefix20210830\MongoDB\Collection
     {
         if (null === $this->collection) {
             $this->collection = $this->mongo->selectCollection($this->options['database'], $this->options['collection']);

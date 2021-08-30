@@ -122,7 +122,7 @@ final class Foo {
             if (null === $typeInfo) {
                 continue;
             }
-            list($returnType, $isNullable) = $typeInfo;
+            [$returnType, $isNullable] = $typeInfo;
             $startIndex = $tokens->getNextTokenOfKind($index, ['{', ';']);
             if ($this->hasReturnTypeHint($tokens, $startIndex)) {
                 continue;

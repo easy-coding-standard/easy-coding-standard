@@ -16,11 +16,11 @@ use PhpCsFixer\Console\SelfUpdate\NewVersionCheckerInterface;
 use PhpCsFixer\PharCheckerInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\ToolInfoInterface;
-use ECSPrefix20210829\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210829\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210829\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210829\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20210829\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210830\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210830\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210830\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210830\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20210830\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Igor Wiedler <igor@wiedler.ch>
  * @author Stephane PY <py.stephane1@gmail.com>
@@ -30,7 +30,7 @@ use ECSPrefix20210829\Symfony\Component\Console\Output\OutputInterface;
  *
  * @internal
  */
-final class SelfUpdateCommand extends \ECSPrefix20210829\Symfony\Component\Console\Command\Command
+final class SelfUpdateCommand extends \ECSPrefix20210830\Symfony\Component\Console\Command\Command
 {
     /**
      * @var string
@@ -60,7 +60,7 @@ final class SelfUpdateCommand extends \ECSPrefix20210829\Symfony\Component\Conso
      */
     protected function configure() : void
     {
-        $this->setAliases(['selfupdate'])->setDefinition([new \ECSPrefix20210829\Symfony\Component\Console\Input\InputOption('--force', '-f', \ECSPrefix20210829\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Force update to next major version if available.')])->setDescription('Update php-cs-fixer.phar to the latest stable version.')->setHelp(<<<'EOT'
+        $this->setAliases(['selfupdate'])->setDefinition([new \ECSPrefix20210830\Symfony\Component\Console\Input\InputOption('--force', '-f', \ECSPrefix20210830\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Force update to next major version if available.')])->setDescription('Update php-cs-fixer.phar to the latest stable version.')->setHelp(<<<'EOT'
 The <info>%command.name%</info> command replace your php-cs-fixer.phar by the
 latest version released on:
 <comment>https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases</comment>
@@ -77,7 +77,7 @@ EOT
      */
     protected function execute($input, $output) : int
     {
-        if (\ECSPrefix20210829\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof \ECSPrefix20210829\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if (\ECSPrefix20210830\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof \ECSPrefix20210830\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $stdErr = $output->getErrorOutput();
             $stdErr->writeln($this->getApplication()->getLongVersion());
             $stdErr->writeln(\sprintf('Runtime: <info>PHP %s</info>', \PHP_VERSION));
@@ -103,7 +103,7 @@ EOT
         $remoteTag = $latestVersion;
         if (0 !== $this->versionChecker->compareVersions($latestVersionOfCurrentMajor, $latestVersion) && \true !== $input->getOption('force')) {
             $output->writeln(\sprintf('<info>A new major version of PHP CS Fixer is available</info> (<comment>%s</comment>)', $latestVersion));
-            $output->writeln(\sprintf('<info>Before upgrading please read</info> https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/%s/UPGRADE.md', $latestVersion));
+            $output->writeln(\sprintf('<info>Before upgrading please read</info> https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/%s/UPGRADE-v%s.md', $latestVersion, $currentMajor + 1));
             $output->writeln('<info>If you are ready to upgrade run this command with</info> <comment>-f</comment>');
             $output->writeln('<info>Checking for new minor/patch version...</info>');
             if (1 !== $this->versionChecker->compareVersions($latestVersionOfCurrentMajor, $currentVersion)) {

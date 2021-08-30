@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Provider;
 
-use ECSPrefix20210829\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210830\Symplify\SmartFileSystem\SmartFileInfo;
 final class CurrentParentFileInfoProvider
 {
     /**
      * @var \Symplify\SmartFileSystem\SmartFileInfo|null
      */
     private $smartFileInfo;
-    public function setParentFileInfo(\ECSPrefix20210829\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function setParentFileInfo(\ECSPrefix20210830\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->smartFileInfo = $smartFileInfo;
     }
-    public function provide() : ?\ECSPrefix20210829\Symplify\SmartFileSystem\SmartFileInfo
+    public function provide() : ?\ECSPrefix20210830\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->smartFileInfo;
     }

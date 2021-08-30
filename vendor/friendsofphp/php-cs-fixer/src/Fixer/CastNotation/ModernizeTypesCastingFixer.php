@@ -61,7 +61,7 @@ final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionRefer
                     // next function search, as current one not found
                     continue 2;
                 }
-                list($functionName, $openParenthesis, $closeParenthesis) = $boundaries;
+                [$functionName, $openParenthesis, $closeParenthesis] = $boundaries;
                 // analysing cursor shift
                 $currIndex = $openParenthesis;
                 // indicator that the function is overridden

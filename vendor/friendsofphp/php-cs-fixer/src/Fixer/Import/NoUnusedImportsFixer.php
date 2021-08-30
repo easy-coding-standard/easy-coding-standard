@@ -19,10 +19,12 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis;
+use PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
@@ -62,15 +64,16 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
             return;
         }
         foreach ((new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens) as $namespace) {
-            $currentNamespaceUseDeclarations = \array_filter($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration) use($namespace) {
-                return $useDeclaration->getStartIndex() >= $namespace->getScopeStartIndex() && $useDeclaration->getEndIndex() <= $namespace->getScopeEndIndex();
-            });
-            $usagesSearchIgnoredIndexes = [];
-            foreach ($currentNamespaceUseDeclarations as $useDeclaration) {
-                $usagesSearchIgnoredIndexes[$useDeclaration->getStartIndex()] = $useDeclaration->getEndIndex();
+            $currentNamespaceUseDeclarations = [];
+            $currentNamespaceUseDeclarationIndexes = [];
+            foreach ($useDeclarations as $useDeclaration) {
+                if ($useDeclaration->getStartIndex() >= $namespace->getScopeStartIndex() && $useDeclaration->getEndIndex() <= $namespace->getScopeEndIndex()) {
+                    $currentNamespaceUseDeclarations[] = $useDeclaration;
+                    $currentNamespaceUseDeclarationIndexes[$useDeclaration->getStartIndex()] = $useDeclaration->getEndIndex();
+                }
             }
             foreach ($currentNamespaceUseDeclarations as $useDeclaration) {
-                if (!$this->isImportUsed($tokens, $namespace, $usagesSearchIgnoredIndexes, $useDeclaration->getShortName())) {
+                if (!$this->isImportUsed($tokens, $namespace, $useDeclaration, $currentNamespaceUseDeclarationIndexes)) {
                     $this->removeUseDeclaration($tokens, $useDeclaration);
                 }
             }
@@ -78,10 +81,17 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param array<int, int> $ignoredIndexes
+     * @param array<int, int> $ignoredIndexes indexes of the use statements themselves that should not be checked as being "used"
      */
-    private function isImportUsed(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace, array $ignoredIndexes, string $shortName) : bool
+    private function isImportUsed(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $import, array $ignoredIndexes) : bool
     {
+        $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $gotoLabelAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer();
+        $tokensNotBeforeFunctionCall = [\T_NEW];
+        // @TODO: drop condition when PHP 8.0+ is required
+        if (\defined('T_ATTRIBUTE')) {
+            $tokensNotBeforeFunctionCall[] = \T_ATTRIBUTE;
+        }
         $namespaceEndIndex = $namespace->getScopeEndIndex();
         for ($index = $namespace->getScopeStartIndex(); $index <= $namespaceEndIndex; ++$index) {
             if (isset($ignoredIndexes[$index])) {
@@ -90,17 +100,35 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
             }
             $token = $tokens[$index];
             if ($token->isGivenKind(\T_STRING)) {
+                if (0 !== \strcasecmp($import->getShortName(), $token->getContent())) {
+                    continue;
+                }
                 $prevMeaningfulToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
                 if ($prevMeaningfulToken->isGivenKind(\T_NAMESPACE)) {
                     $index = $tokens->getNextTokenOfKind($index, [';', '{', [\T_CLOSE_TAG]]);
                     continue;
                 }
-                if (0 === \strcasecmp($shortName, $token->getContent()) && !$prevMeaningfulToken->isGivenKind([\T_NS_SEPARATOR, \T_CONST, \T_DOUBLE_COLON]) && !$prevMeaningfulToken->isObjectOperator()) {
+                if ($prevMeaningfulToken->isGivenKind([\T_NS_SEPARATOR, \T_FUNCTION, \T_CONST, \T_DOUBLE_COLON]) || $prevMeaningfulToken->isObjectOperator()) {
+                    continue;
+                }
+                $nextMeaningfulIndex = $tokens->getNextMeaningfulToken($index);
+                if ($gotoLabelAnalyzer->belongsToGoToLabel($tokens, $nextMeaningfulIndex)) {
+                    continue;
+                }
+                $nextMeaningfulToken = $tokens[$nextMeaningfulIndex];
+                if ($analyzer->isConstantInvocation($index)) {
+                    $type = \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis::TYPE_CONSTANT;
+                } elseif ($nextMeaningfulToken->equals('(') && !$prevMeaningfulToken->isGivenKind($tokensNotBeforeFunctionCall)) {
+                    $type = \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis::TYPE_FUNCTION;
+                } else {
+                    $type = \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis::TYPE_CLASS;
+                }
+                if ($import->getType() === $type) {
                     return \true;
                 }
                 continue;
             }
-            if ($token->isComment() && \PhpCsFixer\Preg::match('/(?<![[:alnum:]\\$])(?<!\\\\)' . $shortName . '(?![[:alnum:]])/i', $token->getContent())) {
+            if ($token->isComment() && \PhpCsFixer\Preg::match('/(?<![[:alnum:]\\$])(?<!\\\\)' . $import->getShortName() . '(?![[:alnum:]])/i', $token->getContent())) {
                 return \true;
             }
         }
