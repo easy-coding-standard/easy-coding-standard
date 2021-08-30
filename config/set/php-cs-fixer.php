@@ -148,7 +148,7 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services->set(\PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer::class);
     $services->set(\PhpCsFixer\Fixer\Basic\BracesFixer::class)->call('configure', [['allow_single_line_closure' => \true]]);
     $services->set(\PhpCsFixer\Fixer\CastNotation\CastSpacesFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::class)->call('configure', [['elements' => ['method' => \PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::SPACING_ONE]]]);
+    $services->set(\PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::class)->call('configure', [['elements' => ['method' => 'one']]]);
     $services->set(\PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer::class)->call('configure', [['single_line' => \true]]);
     $services->set(\PhpCsFixer\Fixer\LanguageConstruct\CombineConsecutiveIssetsFixer::class);
     $services->set(\PhpCsFixer\Fixer\LanguageConstruct\CombineConsecutiveUnsetsFixer::class);
