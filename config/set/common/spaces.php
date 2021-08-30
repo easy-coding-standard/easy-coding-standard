@@ -33,7 +33,7 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services->set(\PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class);
     $services->set(\Symplify\CodingStandard\Fixer\Spacing\NewlineServiceDefinitionConfigFixer::class);
     $services->set(\PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::class)->call('configure', [['elements' => ['const' => 'one', 'property' => 'one', 'method' => 'one']]]);
+    $services->set(\PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::class)->call('configure', [['elements' => ['const' => \PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::SPACING_ONE, 'property' => \PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::SPACING_ONE, 'method' => \PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::SPACING_ONE]]]);
     $services->set(\PhpCsFixer\Fixer\Operator\ConcatSpaceFixer::class)->call('configure', [['spacing' => 'one']]);
     $services->set(\PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer::class);
     $services->set(\PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff::class)->property('ignoreBlankLines', \false);
