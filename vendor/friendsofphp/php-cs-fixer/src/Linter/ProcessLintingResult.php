@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Linter;
 
-use ECSPrefix20210830\Symfony\Component\Process\Process;
+use ECSPrefix20210831\Symfony\Component\Process\Process;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
@@ -32,7 +32,7 @@ final class ProcessLintingResult implements \PhpCsFixer\Linter\LintingResultInte
      * @var null|string
      */
     private $path;
-    public function __construct(\ECSPrefix20210830\Symfony\Component\Process\Process $process, ?string $path = null)
+    public function __construct(\ECSPrefix20210831\Symfony\Component\Process\Process $process, ?string $path = null)
     {
         $this->process = $process;
         $this->path = $path;
