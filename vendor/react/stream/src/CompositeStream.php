@@ -1,14 +1,14 @@
 <?php
 
-namespace ECSPrefix20210831\React\Stream;
+namespace ECSPrefix20210902\React\Stream;
 
-use ECSPrefix20210831\Evenement\EventEmitter;
-final class CompositeStream extends \ECSPrefix20210831\Evenement\EventEmitter implements \ECSPrefix20210831\React\Stream\DuplexStreamInterface
+use ECSPrefix20210902\Evenement\EventEmitter;
+final class CompositeStream extends \ECSPrefix20210902\Evenement\EventEmitter implements \ECSPrefix20210902\React\Stream\DuplexStreamInterface
 {
     private $readable;
     private $writable;
     private $closed = \false;
-    public function __construct(\ECSPrefix20210831\React\Stream\ReadableStreamInterface $readable, \ECSPrefix20210831\React\Stream\WritableStreamInterface $writable)
+    public function __construct(\ECSPrefix20210902\React\Stream\ReadableStreamInterface $readable, \ECSPrefix20210902\React\Stream\WritableStreamInterface $writable)
     {
         $this->readable = $readable;
         $this->writable = $writable;
@@ -16,8 +16,8 @@ final class CompositeStream extends \ECSPrefix20210831\Evenement\EventEmitter im
             $this->close();
             return;
         }
-        \ECSPrefix20210831\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
-        \ECSPrefix20210831\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
+        \ECSPrefix20210902\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
+        \ECSPrefix20210902\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
         $this->readable->on('close', array($this, 'close'));
         $this->writable->on('close', array($this, 'close'));
     }
@@ -42,7 +42,7 @@ final class CompositeStream extends \ECSPrefix20210831\Evenement\EventEmitter im
      */
     public function pipe($dest, $options = array())
     {
-        return \ECSPrefix20210831\React\Stream\Util::pipe($this, $dest, $options);
+        return \ECSPrefix20210902\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function isWritable()
     {

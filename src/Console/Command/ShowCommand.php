@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210831\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210831\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210902\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210902\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use ECSPrefix20210831\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-final class ShowCommand extends \ECSPrefix20210831\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20210902\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+final class ShowCommand extends \ECSPrefix20210902\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @var \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor

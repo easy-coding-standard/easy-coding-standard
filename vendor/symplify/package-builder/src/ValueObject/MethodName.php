@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210831\Symplify\PackageBuilder\ValueObject;
+namespace ECSPrefix20210902\Symplify\PackageBuilder\ValueObject;
 
 final class MethodName
 {
