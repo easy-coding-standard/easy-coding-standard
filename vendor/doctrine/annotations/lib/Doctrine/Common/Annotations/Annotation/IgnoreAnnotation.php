@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210902\Doctrine\Common\Annotations\Annotation;
+namespace ECSPrefix20210903\Doctrine\Common\Annotations\Annotation;
 
 use RuntimeException;
 use function is_array;

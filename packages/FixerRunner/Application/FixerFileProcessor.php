@@ -23,9 +23,9 @@ use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20210902\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20210902\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20210902\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210903\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20210903\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210903\Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\FixerFileProcessorTest
@@ -75,7 +75,7 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     /**
      * @param FixerInterface[] $fixers
      */
-    public function __construct(\Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser $fileToTokensParser, \ECSPrefix20210902\Symplify\Skipper\Skipper\Skipper $skipper, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \ECSPrefix20210902\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider, \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver $targetFileInfoResolver, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $fixers = [])
+    public function __construct(\Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser $fileToTokensParser, \ECSPrefix20210903\Symplify\Skipper\Skipper\Skipper $skipper, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \ECSPrefix20210903\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider, \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver $targetFileInfoResolver, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $fixers = [])
     {
         $this->fileToTokensParser = $fileToTokensParser;
         $this->skipper = $skipper;
@@ -172,7 +172,7 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      * @param Tokens<Token> $tokens
      * @return bool If fixer applied
      */
-    private function processTokensByFixer(\ECSPrefix20210902\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Fixer\FixerInterface $fixer) : bool
+    private function processTokensByFixer(\ECSPrefix20210903\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Fixer\FixerInterface $fixer) : bool
     {
         if ($this->shouldSkip($smartFileInfo, $fixer, $tokens)) {
             return \false;
@@ -196,7 +196,7 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     /**
      * @param Tokens<Token> $tokens
      */
-    private function shouldSkip(\ECSPrefix20210902\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    private function shouldSkip(\ECSPrefix20210903\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
         if ($this->skipper->shouldSkipElementAndFileInfo($fixer, $smartFileInfo)) {
             return \true;
