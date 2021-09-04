@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210903\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210904\Symfony\Component\HttpFoundation;
 
-use ECSPrefix20210903\Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use ECSPrefix20210904\Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 /**
  * ExpressionRequestMatcher uses an expression to match a Request.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ExpressionRequestMatcher extends \ECSPrefix20210903\Symfony\Component\HttpFoundation\RequestMatcher
+class ExpressionRequestMatcher extends \ECSPrefix20210904\Symfony\Component\HttpFoundation\RequestMatcher
 {
     private $language;
     private $expression;

@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210903\\Symfony\\Component\\OptionsResolver\\": ""
+            "ECSPrefix20210904\\Symfony\\Component\\OptionsResolver\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

@@ -42,12 +42,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210903\\React\\ChildProcess\\": "src"
+            "ECSPrefix20210904\\React\\ChildProcess\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210903\\React\\Tests\\ChildProcess\\": "tests"
+            "ECSPrefix20210904\\React\\Tests\\ChildProcess\\": "tests"
         }
     }
 }

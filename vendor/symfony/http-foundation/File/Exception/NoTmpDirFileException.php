@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210903\Symfony\Component\HttpFoundation\File\Exception;
+namespace ECSPrefix20210904\Symfony\Component\HttpFoundation\File\Exception;
 
 /**
  * Thrown when an UPLOAD_ERR_NO_TMP_DIR error occurred with UploadedFile.
  *
  * @author Florent Mata <florentmata@gmail.com>
  */
-class NoTmpDirFileException extends \ECSPrefix20210903\Symfony\Component\HttpFoundation\File\Exception\FileException
+class NoTmpDirFileException extends \ECSPrefix20210904\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
 }

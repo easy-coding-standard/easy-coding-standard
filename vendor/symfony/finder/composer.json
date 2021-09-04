@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210903\\Symfony\\Component\\Finder\\": ""
+            "ECSPrefix20210904\\Symfony\\Component\\Finder\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

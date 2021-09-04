@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210903\\Symfony\\Component\\Process\\": ""
+            "ECSPrefix20210904\\Symfony\\Component\\Process\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"
