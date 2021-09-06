@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210904\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210906\Symfony\Component\HttpFoundation;
 
 /**
  * RequestMatcherInterface is an interface for strategies to match a Request.

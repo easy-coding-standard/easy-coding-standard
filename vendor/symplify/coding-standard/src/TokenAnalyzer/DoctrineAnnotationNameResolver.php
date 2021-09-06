@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenAnalyzer;
 
-use ECSPrefix20210904\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20210906\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token;
 use PhpCsFixer\Doctrine\Annotation\Tokens;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis;
@@ -15,7 +15,7 @@ final class DoctrineAnnotationNameResolver
      */
     public function resolveName(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, array $namespaceUseAnalyses) : ?string
     {
-        $openParenthesisPosition = $tokens->getNextTokenOfType(\ECSPrefix20210904\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, $index);
+        $openParenthesisPosition = $tokens->getNextTokenOfType(\ECSPrefix20210906\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, $index);
         if ($openParenthesisPosition === null) {
             return null;
         }

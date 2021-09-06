@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210904\Symfony\Component\HttpKernel\Event;
+namespace ECSPrefix20210906\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210904\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210904\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210906\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210906\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows filtering of a controller callable.
  *
@@ -23,10 +23,10 @@ use ECSPrefix20210904\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ControllerEvent extends \ECSPrefix20210904\Symfony\Component\HttpKernel\Event\KernelEvent
+final class ControllerEvent extends \ECSPrefix20210906\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $controller;
-    public function __construct(\ECSPrefix20210904\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, \ECSPrefix20210904\Symfony\Component\HttpFoundation\Request $request, ?int $requestType)
+    public function __construct(\ECSPrefix20210906\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, \ECSPrefix20210906\Symfony\Component\HttpFoundation\Request $request, ?int $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->setController($controller);
