@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210906\Symfony\Contracts\EventDispatcher;
+namespace ECSPrefix20210907\Symfony\Contracts\EventDispatcher;
 
-use ECSPrefix20210906\Psr\EventDispatcher\EventDispatcherInterface as PsrEventDispatcherInterface;
+use ECSPrefix20210907\Psr\EventDispatcher\EventDispatcherInterface as PsrEventDispatcherInterface;
 /**
  * Allows providing hooks on domain-specific lifecycles by dispatching events.
  */
-interface EventDispatcherInterface extends \ECSPrefix20210906\Psr\EventDispatcher\EventDispatcherInterface
+interface EventDispatcherInterface extends \ECSPrefix20210907\Psr\EventDispatcher\EventDispatcherInterface
 {
     /**
      * Dispatches an event to all registered listeners.

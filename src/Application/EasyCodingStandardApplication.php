@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
-use ECSPrefix20210906\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210906\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210907\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210907\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
@@ -21,9 +21,9 @@ use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20210906\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20210906\Symplify\PackageBuilder\Yaml\ParametersMerger;
-use ECSPrefix20210906\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210907\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210907\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20210907\Symplify\SmartFileSystem\SmartFileInfo;
 final class EasyCodingStandardApplication
 {
     /**
@@ -78,7 +78,7 @@ final class EasyCodingStandardApplication
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \Symplify\EasyCodingStandard\Parallel\ScheduleFactory $scheduleFactory, \Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor $parallelFileProcessor, \Symplify\EasyCodingStandard\Parallel\CpuCoreCountProvider $cpuCoreCountProvider, \ECSPrefix20210906\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Parallel\FileSystem\FilePathNormalizer $filePathNormalizer, \ECSPrefix20210906\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210906\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
+    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \Symplify\EasyCodingStandard\Parallel\ScheduleFactory $scheduleFactory, \Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor $parallelFileProcessor, \Symplify\EasyCodingStandard\Parallel\CpuCoreCountProvider $cpuCoreCountProvider, \ECSPrefix20210907\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Parallel\FileSystem\FilePathNormalizer $filePathNormalizer, \ECSPrefix20210907\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210907\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -96,7 +96,7 @@ final class EasyCodingStandardApplication
     /**
      * @return array<string, array<SystemError|FileDiff|CodingStandardError>>
      */
-    public function run(\Symplify\EasyCodingStandard\ValueObject\Configuration $configuration, \ECSPrefix20210906\Symfony\Component\Console\Input\InputInterface $input) : array
+    public function run(\Symplify\EasyCodingStandard\ValueObject\Configuration $configuration, \ECSPrefix20210907\Symfony\Component\Console\Input\InputInterface $input) : array
     {
         // 1. find files in sources
         $fileInfos = $this->sourceFinder->find($configuration->getSources(), $configuration->doesMatchGitDiff());
