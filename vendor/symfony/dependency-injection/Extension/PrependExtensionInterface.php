@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210907\Symfony\Component\DependencyInjection\Extension;
+namespace ECSPrefix20210908\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix20210907\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210908\Symfony\Component\DependencyInjection\ContainerBuilder;
 interface PrependExtensionInterface
 {
     /**

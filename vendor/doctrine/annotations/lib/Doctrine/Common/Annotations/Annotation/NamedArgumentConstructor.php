@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210907\Doctrine\Common\Annotations\Annotation;
+namespace ECSPrefix20210908\Doctrine\Common\Annotations\Annotation;
 
 /**
  * Annotation that indicates that the annotated class should be constructed with a named argument call.

@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210907\Symfony\Component\HttpKernel\Exception;
+namespace ECSPrefix20210908\Symfony\Component\HttpKernel\Exception;
 
 /**
  * @author Ben Ramsey <ben@benramsey.com>
  */
-class ConflictHttpException extends \ECSPrefix20210907\Symfony\Component\HttpKernel\Exception\HttpException
+class ConflictHttpException extends \ECSPrefix20210908\Symfony\Component\HttpKernel\Exception\HttpException
 {
     /**
      * @param string|null     $message  The internal exception message

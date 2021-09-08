@@ -1,16 +1,16 @@
 <?php
 
-namespace ECSPrefix20210907\React\ChildProcess;
+namespace ECSPrefix20210908\React\ChildProcess;
 
-use ECSPrefix20210907\Evenement\EventEmitter;
-use ECSPrefix20210907\React\EventLoop\Loop;
-use ECSPrefix20210907\React\EventLoop\LoopInterface;
-use ECSPrefix20210907\React\Stream\ReadableResourceStream;
-use ECSPrefix20210907\React\Stream\ReadableStreamInterface;
-use ECSPrefix20210907\React\Stream\WritableResourceStream;
-use ECSPrefix20210907\React\Stream\WritableStreamInterface;
-use ECSPrefix20210907\React\Stream\DuplexResourceStream;
-use ECSPrefix20210907\React\Stream\DuplexStreamInterface;
+use ECSPrefix20210908\Evenement\EventEmitter;
+use ECSPrefix20210908\React\EventLoop\Loop;
+use ECSPrefix20210908\React\EventLoop\LoopInterface;
+use ECSPrefix20210908\React\Stream\ReadableResourceStream;
+use ECSPrefix20210908\React\Stream\ReadableStreamInterface;
+use ECSPrefix20210908\React\Stream\WritableResourceStream;
+use ECSPrefix20210908\React\Stream\WritableStreamInterface;
+use ECSPrefix20210908\React\Stream\DuplexResourceStream;
+use ECSPrefix20210908\React\Stream\DuplexStreamInterface;
 /**
  * Process component.
  *
@@ -55,7 +55,7 @@ use ECSPrefix20210907\React\Stream\DuplexStreamInterface;
  *     Accordingly, if either of these pipes is in a paused state (`pause()` method
  *     or internally due to a `pipe()` call), this detection may not trigger.
  */
-class Process extends \ECSPrefix20210907\Evenement\EventEmitter
+class Process extends \ECSPrefix20210908\Evenement\EventEmitter
 {
     /**
      * @var WritableStreamInterface|null|DuplexStreamInterface|ReadableStreamInterface
@@ -156,7 +156,7 @@ class Process extends \ECSPrefix20210907\Evenement\EventEmitter
         if ($this->isRunning()) {
             throw new \RuntimeException('Process is already running');
         }
-        $loop = $loop ?: \ECSPrefix20210907\React\EventLoop\Loop::get();
+        $loop = $loop ?: \ECSPrefix20210908\React\EventLoop\Loop::get();
         $cmd = $this->cmd;
         $fdSpec = $this->fds;
         $sigchild = null;
@@ -217,11 +217,11 @@ class Process extends \ECSPrefix20210907\Evenement\EventEmitter
             $meta = \stream_get_meta_data($fd);
             $mode = $meta['mode'] === '' ? $this->fds[$n][1] === 'r' ? 'w' : 'r' : $meta['mode'];
             if ($mode === 'r+') {
-                $stream = new \ECSPrefix20210907\React\Stream\DuplexResourceStream($fd, $loop);
+                $stream = new \ECSPrefix20210908\React\Stream\DuplexResourceStream($fd, $loop);
             } elseif ($mode === 'w') {
-                $stream = new \ECSPrefix20210907\React\Stream\WritableResourceStream($fd, $loop);
+                $stream = new \ECSPrefix20210908\React\Stream\WritableResourceStream($fd, $loop);
             } else {
-                $stream = new \ECSPrefix20210907\React\Stream\ReadableResourceStream($fd, $loop);
+                $stream = new \ECSPrefix20210908\React\Stream\ReadableResourceStream($fd, $loop);
                 $stream->on('close', $streamCloseHandler);
                 $closeCount++;
             }
