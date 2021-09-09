@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210908\Symfony\Component\HttpFoundation\Test\Constraint;
+namespace ECSPrefix20210909\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use ECSPrefix20210908\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210908\Symfony\Component\HttpFoundation\Response;
-final class ResponseIsSuccessful extends \ECSPrefix20210908\PHPUnit\Framework\Constraint\Constraint
+use ECSPrefix20210909\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210909\Symfony\Component\HttpFoundation\Response;
+final class ResponseIsSuccessful extends \ECSPrefix20210909\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * {@inheritdoc}
