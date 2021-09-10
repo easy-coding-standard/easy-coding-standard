@@ -41,12 +41,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210909\\React\\EventLoop\\": "src"
+            "ECSPrefix20210910\\React\\EventLoop\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210909\\React\\Tests\\EventLoop\\": "tests"
+            "ECSPrefix20210910\\React\\Tests\\EventLoop\\": "tests"
         }
     }
 }

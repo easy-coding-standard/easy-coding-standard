@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210909\Symplify\EasyTesting\ValueObject;
+namespace ECSPrefix20210910\Symplify\EasyTesting\ValueObject;
 
-use ECSPrefix20210909\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210910\Symplify\SmartFileSystem\SmartFileInfo;
 final class InputFileInfoAndExpectedFileInfo
 {
     /**
@@ -14,16 +14,16 @@ final class InputFileInfoAndExpectedFileInfo
      * @var \Symplify\SmartFileSystem\SmartFileInfo
      */
     private $expectedFileInfo;
-    public function __construct(\ECSPrefix20210909\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \ECSPrefix20210909\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo)
+    public function __construct(\ECSPrefix20210910\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \ECSPrefix20210910\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo)
     {
         $this->inputFileInfo = $inputFileInfo;
         $this->expectedFileInfo = $expectedFileInfo;
     }
-    public function getInputFileInfo() : \ECSPrefix20210909\Symplify\SmartFileSystem\SmartFileInfo
+    public function getInputFileInfo() : \ECSPrefix20210910\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->inputFileInfo;
     }
-    public function getExpectedFileInfo() : \ECSPrefix20210909\Symplify\SmartFileSystem\SmartFileInfo
+    public function getExpectedFileInfo() : \ECSPrefix20210910\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->expectedFileInfo;
     }

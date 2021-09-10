@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210909\Symfony\Component\Console;
+namespace ECSPrefix20210910\Symfony\Component\Console;
 
-use ECSPrefix20210909\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210909\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210909\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210910\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210910\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210910\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class SingleCommandApplication extends \ECSPrefix20210909\Symfony\Component\Console\Command\Command
+class SingleCommandApplication extends \ECSPrefix20210910\Symfony\Component\Console\Command\Command
 {
     private $version = 'UNKNOWN';
     private $autoExit = \true;
@@ -50,7 +50,7 @@ class SingleCommandApplication extends \ECSPrefix20210909\Symfony\Component\Cons
             return parent::run($input, $output);
         }
         // We use the command name as the application name
-        $application = new \ECSPrefix20210909\Symfony\Component\Console\Application($this->getName() ?: 'UNKNOWN', $this->version);
+        $application = new \ECSPrefix20210910\Symfony\Component\Console\Application($this->getName() ?: 'UNKNOWN', $this->version);
         $application->setAutoExit($this->autoExit);
         // Fix the usage of the command displayed with "--help"
         $this->setName($_SERVER['argv'][0]);
