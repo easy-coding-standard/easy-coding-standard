@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210910\Symfony\Component\HttpKernel;
+namespace ECSPrefix20210911\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210910\Symfony\Component\BrowserKit\AbstractBrowser;
-use ECSPrefix20210910\Symfony\Component\BrowserKit\CookieJar;
-use ECSPrefix20210910\Symfony\Component\BrowserKit\History;
-use ECSPrefix20210910\Symfony\Component\BrowserKit\Request as DomRequest;
-use ECSPrefix20210910\Symfony\Component\BrowserKit\Response as DomResponse;
-use ECSPrefix20210910\Symfony\Component\HttpFoundation\File\UploadedFile;
-use ECSPrefix20210910\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210910\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210911\Symfony\Component\BrowserKit\AbstractBrowser;
+use ECSPrefix20210911\Symfony\Component\BrowserKit\CookieJar;
+use ECSPrefix20210911\Symfony\Component\BrowserKit\History;
+use ECSPrefix20210911\Symfony\Component\BrowserKit\Request as DomRequest;
+use ECSPrefix20210911\Symfony\Component\BrowserKit\Response as DomResponse;
+use ECSPrefix20210911\Symfony\Component\HttpFoundation\File\UploadedFile;
+use ECSPrefix20210911\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210911\Symfony\Component\HttpFoundation\Response;
 /**
  * Simulates a browser and makes requests to an HttpKernel instance.
  *
@@ -26,14 +26,14 @@ use ECSPrefix20210910\Symfony\Component\HttpFoundation\Response;
  * @method Request  getRequest()  A Request instance
  * @method Response getResponse() A Response instance
  */
-class HttpKernelBrowser extends \ECSPrefix20210910\Symfony\Component\BrowserKit\AbstractBrowser
+class HttpKernelBrowser extends \ECSPrefix20210911\Symfony\Component\BrowserKit\AbstractBrowser
 {
     protected $kernel;
     private $catchExceptions = \true;
     /**
      * @param array $server The server parameters (equivalent of $_SERVER)
      */
-    public function __construct(\ECSPrefix20210910\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, array $server = [], \ECSPrefix20210910\Symfony\Component\BrowserKit\History $history = null, \ECSPrefix20210910\Symfony\Component\BrowserKit\CookieJar $cookieJar = null)
+    public function __construct(\ECSPrefix20210911\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, array $server = [], \ECSPrefix20210911\Symfony\Component\BrowserKit\History $history = null, \ECSPrefix20210911\Symfony\Component\BrowserKit\CookieJar $cookieJar = null)
     {
         // These class properties must be set before calling the parent constructor, as it may depend on it.
         $this->kernel = $kernel;
@@ -56,8 +56,8 @@ class HttpKernelBrowser extends \ECSPrefix20210910\Symfony\Component\BrowserKit\
      */
     protected function doRequest($request)
     {
-        $response = $this->kernel->handle($request, \ECSPrefix20210910\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST, $this->catchExceptions);
-        if ($this->kernel instanceof \ECSPrefix20210910\Symfony\Component\HttpKernel\TerminableInterface) {
+        $response = $this->kernel->handle($request, \ECSPrefix20210911\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST, $this->catchExceptions);
+        if ($this->kernel instanceof \ECSPrefix20210911\Symfony\Component\HttpKernel\TerminableInterface) {
             $this->kernel->terminate($request, $response);
         }
         return $response;
@@ -116,9 +116,9 @@ EOF;
      *
      * @return Request A Request instance
      */
-    protected function filterRequest(\ECSPrefix20210910\Symfony\Component\BrowserKit\Request $request)
+    protected function filterRequest(\ECSPrefix20210911\Symfony\Component\BrowserKit\Request $request)
     {
-        $httpRequest = \ECSPrefix20210910\Symfony\Component\HttpFoundation\Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $server = $request->getServer(), $request->getContent());
+        $httpRequest = \ECSPrefix20210911\Symfony\Component\HttpFoundation\Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $server = $request->getServer(), $request->getContent());
         if (!isset($server['HTTP_ACCEPT'])) {
             $httpRequest->headers->remove('Accept');
         }
@@ -146,11 +146,11 @@ EOF;
         foreach ($files as $key => $value) {
             if (\is_array($value)) {
                 $filtered[$key] = $this->filterFiles($value);
-            } elseif ($value instanceof \ECSPrefix20210910\Symfony\Component\HttpFoundation\File\UploadedFile) {
-                if ($value->isValid() && $value->getSize() > \ECSPrefix20210910\Symfony\Component\HttpFoundation\File\UploadedFile::getMaxFilesize()) {
-                    $filtered[$key] = new \ECSPrefix20210910\Symfony\Component\HttpFoundation\File\UploadedFile('', $value->getClientOriginalName(), $value->getClientMimeType(), \UPLOAD_ERR_INI_SIZE, \true);
+            } elseif ($value instanceof \ECSPrefix20210911\Symfony\Component\HttpFoundation\File\UploadedFile) {
+                if ($value->isValid() && $value->getSize() > \ECSPrefix20210911\Symfony\Component\HttpFoundation\File\UploadedFile::getMaxFilesize()) {
+                    $filtered[$key] = new \ECSPrefix20210911\Symfony\Component\HttpFoundation\File\UploadedFile('', $value->getClientOriginalName(), $value->getClientMimeType(), \UPLOAD_ERR_INI_SIZE, \true);
                 } else {
-                    $filtered[$key] = new \ECSPrefix20210910\Symfony\Component\HttpFoundation\File\UploadedFile($value->getPathname(), $value->getClientOriginalName(), $value->getClientMimeType(), $value->getError(), \true);
+                    $filtered[$key] = new \ECSPrefix20210911\Symfony\Component\HttpFoundation\File\UploadedFile($value->getPathname(), $value->getClientOriginalName(), $value->getClientMimeType(), $value->getError(), \true);
                 }
             }
         }
@@ -169,6 +169,6 @@ EOF;
         \ob_start();
         $response->sendContent();
         $content = \ob_get_clean();
-        return new \ECSPrefix20210910\Symfony\Component\BrowserKit\Response($content, $response->getStatusCode(), $response->headers->all());
+        return new \ECSPrefix20210911\Symfony\Component\BrowserKit\Response($content, $response->getStatusCode(), $response->headers->all());
     }
 }
