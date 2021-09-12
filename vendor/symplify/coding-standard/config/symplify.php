@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210911;
+namespace ECSPrefix20210912;
 
 use PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
