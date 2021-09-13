@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210912\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210913\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210912\Psr\Container\ContainerInterface;
-use ECSPrefix20210912\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210912\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20210912\Symfony\Contracts\Service\ServiceProviderInterface;
+use ECSPrefix20210913\Psr\Container\ContainerInterface;
+use ECSPrefix20210913\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210913\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210913\Symfony\Contracts\Service\ServiceProviderInterface;
 /**
  * Compiler pass to inject their service locator to service subscribers.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveServiceSubscribersPass extends \ECSPrefix20210912\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveServiceSubscribersPass extends \ECSPrefix20210913\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $serviceLocator;
     /**
@@ -27,10 +27,10 @@ class ResolveServiceSubscribersPass extends \ECSPrefix20210912\Symfony\Component
      */
     protected function processValue($value, $isRoot = \false)
     {
-        if ($value instanceof \ECSPrefix20210912\Symfony\Component\DependencyInjection\Reference && $this->serviceLocator && \in_array((string) $value, [\ECSPrefix20210912\Psr\Container\ContainerInterface::class, \ECSPrefix20210912\Symfony\Contracts\Service\ServiceProviderInterface::class], \true)) {
-            return new \ECSPrefix20210912\Symfony\Component\DependencyInjection\Reference($this->serviceLocator);
+        if ($value instanceof \ECSPrefix20210913\Symfony\Component\DependencyInjection\Reference && $this->serviceLocator && \in_array((string) $value, [\ECSPrefix20210913\Psr\Container\ContainerInterface::class, \ECSPrefix20210913\Symfony\Contracts\Service\ServiceProviderInterface::class], \true)) {
+            return new \ECSPrefix20210913\Symfony\Component\DependencyInjection\Reference($this->serviceLocator);
         }
-        if (!$value instanceof \ECSPrefix20210912\Symfony\Component\DependencyInjection\Definition) {
+        if (!$value instanceof \ECSPrefix20210913\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);
         }
         $serviceLocator = $this->serviceLocator;

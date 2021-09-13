@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210912\Composer\XdebugHandler;
+namespace ECSPrefix20210913\Composer\XdebugHandler;
 
 /**
  * Process utility functions
