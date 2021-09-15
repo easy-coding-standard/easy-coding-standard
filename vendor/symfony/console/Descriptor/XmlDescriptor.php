@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210913\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix20210915\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20210913\Symfony\Component\Console\Application;
-use ECSPrefix20210913\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210913\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210913\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20210913\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210915\Symfony\Component\Console\Application;
+use ECSPrefix20210915\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210915\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20210915\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20210915\Symfony\Component\Console\Input\InputOption;
 /**
  * XML descriptor.
  *
@@ -22,7 +22,7 @@ use ECSPrefix20210913\Symfony\Component\Console\Input\InputOption;
  *
  * @internal
  */
-class XmlDescriptor extends \ECSPrefix20210913\Symfony\Component\Console\Descriptor\Descriptor
+class XmlDescriptor extends \ECSPrefix20210915\Symfony\Component\Console\Descriptor\Descriptor
 {
     /**
      * @param \Symfony\Component\Console\Input\InputDefinition $definition
@@ -87,7 +87,7 @@ class XmlDescriptor extends \ECSPrefix20210913\Symfony\Component\Console\Descrip
             }
         }
         $rootXml->appendChild($commandsXML = $dom->createElement('commands'));
-        $description = new \ECSPrefix20210913\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
+        $description = new \ECSPrefix20210915\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
         if ($namespace) {
             $commandsXML->setAttribute('namespace', $namespace);
         }
@@ -169,7 +169,7 @@ class XmlDescriptor extends \ECSPrefix20210913\Symfony\Component\Console\Descrip
         $dom->formatOutput = \true;
         $this->write($dom->saveXML());
     }
-    private function getInputArgumentDocument(\ECSPrefix20210913\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
+    private function getInputArgumentDocument(\ECSPrefix20210915\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('argument'));
@@ -186,7 +186,7 @@ class XmlDescriptor extends \ECSPrefix20210913\Symfony\Component\Console\Descrip
         }
         return $dom;
     }
-    private function getInputOptionDocument(\ECSPrefix20210913\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
+    private function getInputOptionDocument(\ECSPrefix20210915\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('option'));

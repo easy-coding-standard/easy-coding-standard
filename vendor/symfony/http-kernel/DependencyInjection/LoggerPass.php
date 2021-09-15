@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210913\Symfony\Component\HttpKernel\DependencyInjection;
+namespace ECSPrefix20210915\Symfony\Component\HttpKernel\DependencyInjection;
 
-use ECSPrefix20210913\Psr\Log\LoggerInterface;
-use ECSPrefix20210913\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210913\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210913\Symfony\Component\HttpKernel\Log\Logger;
+use ECSPrefix20210915\Psr\Log\LoggerInterface;
+use ECSPrefix20210915\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210915\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210915\Symfony\Component\HttpKernel\Log\Logger;
 /**
  * Registers the default logger if necessary.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class LoggerPass implements \ECSPrefix20210913\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class LoggerPass implements \ECSPrefix20210915\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * {@inheritdoc}
@@ -27,10 +27,10 @@ class LoggerPass implements \ECSPrefix20210913\Symfony\Component\DependencyInjec
      */
     public function process($container)
     {
-        $container->setAlias(\ECSPrefix20210913\Psr\Log\LoggerInterface::class, 'logger')->setPublic(\false);
+        $container->setAlias(\ECSPrefix20210915\Psr\Log\LoggerInterface::class, 'logger')->setPublic(\false);
         if ($container->has('logger')) {
             return;
         }
-        $container->register('logger', \ECSPrefix20210913\Symfony\Component\HttpKernel\Log\Logger::class)->setPublic(\false);
+        $container->register('logger', \ECSPrefix20210915\Symfony\Component\HttpKernel\Log\Logger::class)->setPublic(\false);
     }
 }
