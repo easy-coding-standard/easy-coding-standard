@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210915\Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace ECSPrefix20210917\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use ECSPrefix20210915\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ExtraFileCodeSample extends \ECSPrefix20210915\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+use ECSPrefix20210917\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+final class ExtraFileCodeSample extends \ECSPrefix20210917\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
 {
     /**
      * @var string

@@ -7,8 +7,8 @@ use PHP_CodeSniffer\Fixer;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
-use ECSPrefix20210915\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20210915\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210917\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20210917\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\File\FileFactoryTest
  */
@@ -30,14 +30,14 @@ final class FileFactory
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210915\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20210917\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $this->fixer = $fixer;
         $this->skipper = $skipper;
         $this->sniffMetadataCollector = $sniffMetadataCollector;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
-    public function createFromFileInfo(\ECSPrefix20210915\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File
+    public function createFromFileInfo(\ECSPrefix20210917\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File
     {
         return new \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File($smartFileInfo->getRelativeFilePath(), $smartFileInfo->getContents(), $this->fixer, $this->skipper, $this->sniffMetadataCollector, $this->easyCodingStandardStyle);
     }
