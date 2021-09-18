@@ -3573,10 +3573,10 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "557f04dfc13675b698fa156b258eb9a2433c75ad"
+                "reference": "457515fbca40681420e226194ad1ae66e023b3a5"
             },
             "require": {
-                "friendsofphp\/php-cs-fixer": "^3.0.2",
+                "friendsofphp\/php-cs-fixer": "^3.1",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symplify\/autowire-array-parameter": "dev-main",
