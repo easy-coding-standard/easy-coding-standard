@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\ValueObjectFactory;
 
-use ECSPrefix20210917\Nette\Utils\Strings;
+use ECSPrefix20210918\Nette\Utils\Strings;
 use Symplify\CodingStandard\ValueObject\DocBlockLines;
 final class DocBlockLinesFactory
 {
@@ -20,16 +20,16 @@ final class DocBlockLinesFactory
     public function createFromDocBlock(string $docBlock) : \Symplify\CodingStandard\ValueObject\DocBlockLines
     {
         // Remove the prefix '/**'
-        $docBlock = \ECSPrefix20210917\Nette\Utils\Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
+        $docBlock = \ECSPrefix20210918\Nette\Utils\Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
         // Remove the suffix '*/'
-        $docBlock = \ECSPrefix20210917\Nette\Utils\Strings::replace($docBlock, self::END_OF_DOC_BLOCK_REGEX);
+        $docBlock = \ECSPrefix20210918\Nette\Utils\Strings::replace($docBlock, self::END_OF_DOC_BLOCK_REGEX);
         // Remove extra whitespace at the end
         $docBlock = \rtrim($docBlock);
         $docBlockLines = $this->splitToLines($docBlock);
         $docBlockLines = \array_map(function (string $line) : string {
-            $noWhitespace = \ECSPrefix20210917\Nette\Utils\Strings::trim($line, \ECSPrefix20210917\Nette\Utils\Strings::TRIM_CHARACTERS);
+            $noWhitespace = \ECSPrefix20210918\Nette\Utils\Strings::trim($line, \ECSPrefix20210918\Nette\Utils\Strings::TRIM_CHARACTERS);
             // Remove asterisks on the left side, plus additional whitespace
-            return \ltrim($noWhitespace, \ECSPrefix20210917\Nette\Utils\Strings::TRIM_CHARACTERS . '*');
+            return \ltrim($noWhitespace, \ECSPrefix20210918\Nette\Utils\Strings::TRIM_CHARACTERS . '*');
         }, $docBlockLines);
         return $this->createFromLines($docBlockLines);
     }

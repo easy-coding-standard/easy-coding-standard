@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application\Version;
 
 use DateTime;
-use ECSPrefix20210917\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210917\Symfony\Component\Process\Process;
+use ECSPrefix20210918\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210918\Symfony\Component\Process\Process;
 use Symplify\EasyCodingStandard\Exception\VersionException;
 /**
  * Inspired by https://github.com/composer/composer/blob/master/src/Composer/Composer.php See
@@ -16,15 +16,15 @@ final class VersionResolver
     /**
      * @var string
      */
-    public const PACKAGE_VERSION = 'e73b751a05949425301e93e1a3a089ffb047d56a';
+    public const PACKAGE_VERSION = 'fd2ba21fabae9e86a2375b027d4d35f503ecf106';
     /**
      * @var string
      */
-    public const RELEASE_DATE = '2021-09-17 17:44:35';
+    public const RELEASE_DATE = '2021-09-18 09:58:02';
     public static function resolvePackageVersion() : string
     {
-        $process = new \ECSPrefix20210917\Symfony\Component\Process\Process(['git', 'log', '--pretty="%H"', '-n1', 'HEAD'], __DIR__);
-        if ($process->run() !== \ECSPrefix20210917\Symfony\Component\Console\Command\Command::SUCCESS) {
+        $process = new \ECSPrefix20210918\Symfony\Component\Process\Process(['git', 'log', '--pretty="%H"', '-n1', 'HEAD'], __DIR__);
+        if ($process->run() !== \ECSPrefix20210918\Symfony\Component\Console\Command\Command::SUCCESS) {
             throw new \Symplify\EasyCodingStandard\Exception\VersionException('You must ensure to run compile from composer git repository clone and that git binary is available.');
         }
         $version = \trim($process->getOutput());
@@ -32,8 +32,8 @@ final class VersionResolver
     }
     public static function resolverReleaseDateTime() : \DateTime
     {
-        $process = new \ECSPrefix20210917\Symfony\Component\Process\Process(['git', 'log', '-n1', '--pretty=%ci', 'HEAD'], __DIR__);
-        if ($process->run() !== \ECSPrefix20210917\Symfony\Component\Console\Command\Command::SUCCESS) {
+        $process = new \ECSPrefix20210918\Symfony\Component\Process\Process(['git', 'log', '-n1', '--pretty=%ci', 'HEAD'], __DIR__);
+        if ($process->run() !== \ECSPrefix20210918\Symfony\Component\Console\Command\Command::SUCCESS) {
             throw new \Symplify\EasyCodingStandard\Exception\VersionException('You must ensure to run compile from composer git repository clone and that git binary is available.');
         }
         return new \DateTime(\trim($process->getOutput()));
