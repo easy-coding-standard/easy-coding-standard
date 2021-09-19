@@ -5,23 +5,23 @@ namespace Symplify\EasyCodingStandard\Error;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use ECSPrefix20210918\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
+use ECSPrefix20210919\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20210918\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210919\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiffFactory
 {
     /**
      * @var \Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
-    public function __construct(\ECSPrefix20210918\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
+    public function __construct(\ECSPrefix20210919\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
     {
         $this->colorConsoleDiffFormatter = $colorConsoleDiffFormatter;
     }
     /**
      * @param array<class-string<FixerInterface|Sniff>|string> $appliedCheckers
      */
-    public function createFromDiffAndAppliedCheckers(\ECSPrefix20210918\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, array $appliedCheckers) : \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
+    public function createFromDiffAndAppliedCheckers(\ECSPrefix20210919\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, array $appliedCheckers) : \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
     {
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
         return new \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff($smartFileInfo->getRelativeFilePathFromCwd(), $diff, $consoleFormattedDiff, $appliedCheckers);

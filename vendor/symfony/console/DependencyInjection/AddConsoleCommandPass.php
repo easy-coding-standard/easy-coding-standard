@@ -8,24 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210918\Symfony\Component\Console\DependencyInjection;
+namespace ECSPrefix20210919\Symfony\Component\Console\DependencyInjection;
 
-use ECSPrefix20210918\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210918\Symfony\Component\Console\Command\LazyCommand;
-use ECSPrefix20210918\Symfony\Component\Console\CommandLoader\ContainerCommandLoader;
-use ECSPrefix20210918\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix20210918\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210918\Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
-use ECSPrefix20210918\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210918\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210918\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20210918\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix20210919\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210919\Symfony\Component\Console\Command\LazyCommand;
+use ECSPrefix20210919\Symfony\Component\Console\CommandLoader\ContainerCommandLoader;
+use ECSPrefix20210919\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20210919\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210919\Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
+use ECSPrefix20210919\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210919\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210919\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210919\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * Registers console commands.
  *
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class AddConsoleCommandPass implements \ECSPrefix20210918\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class AddConsoleCommandPass implements \ECSPrefix20210919\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $commandLoaderServiceId;
     private $commandTag;
@@ -58,10 +58,10 @@ class AddConsoleCommandPass implements \ECSPrefix20210918\Symfony\Component\Depe
                 $aliases = $tags[0]['command'];
             } else {
                 if (!($r = $container->getReflectionClass($class))) {
-                    throw new \ECSPrefix20210918\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+                    throw new \ECSPrefix20210919\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
                 }
-                if (!$r->isSubclassOf(\ECSPrefix20210918\Symfony\Component\Console\Command\Command::class)) {
-                    throw new \ECSPrefix20210918\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service "%s" tagged "%s" must be a subclass of "%s".', $id, $this->commandTag, \ECSPrefix20210918\Symfony\Component\Console\Command\Command::class));
+                if (!$r->isSubclassOf(\ECSPrefix20210919\Symfony\Component\Console\Command\Command::class)) {
+                    throw new \ECSPrefix20210919\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service "%s" tagged "%s" must be a subclass of "%s".', $id, $this->commandTag, \ECSPrefix20210919\Symfony\Component\Console\Command\Command::class));
                 }
                 $aliases = $class::getDefaultName();
             }
@@ -82,7 +82,7 @@ class AddConsoleCommandPass implements \ECSPrefix20210918\Symfony\Component\Depe
             $description = $tags[0]['description'] ?? null;
             unset($tags[0]);
             $lazyCommandMap[$commandName] = $id;
-            $lazyCommandRefs[$id] = new \ECSPrefix20210918\Symfony\Component\DependencyInjection\TypedReference($id, $class);
+            $lazyCommandRefs[$id] = new \ECSPrefix20210919\Symfony\Component\DependencyInjection\TypedReference($id, $class);
             foreach ($aliases as $alias) {
                 $lazyCommandMap[$alias] = $id;
             }
@@ -102,20 +102,20 @@ class AddConsoleCommandPass implements \ECSPrefix20210918\Symfony\Component\Depe
             }
             if (!$description) {
                 if (!($r = $container->getReflectionClass($class))) {
-                    throw new \ECSPrefix20210918\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+                    throw new \ECSPrefix20210919\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
                 }
-                if (!$r->isSubclassOf(\ECSPrefix20210918\Symfony\Component\Console\Command\Command::class)) {
-                    throw new \ECSPrefix20210918\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service "%s" tagged "%s" must be a subclass of "%s".', $id, $this->commandTag, \ECSPrefix20210918\Symfony\Component\Console\Command\Command::class));
+                if (!$r->isSubclassOf(\ECSPrefix20210919\Symfony\Component\Console\Command\Command::class)) {
+                    throw new \ECSPrefix20210919\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service "%s" tagged "%s" must be a subclass of "%s".', $id, $this->commandTag, \ECSPrefix20210919\Symfony\Component\Console\Command\Command::class));
                 }
                 $description = $class::getDefaultDescription();
             }
             if ($description) {
                 $definition->addMethodCall('setDescription', [$description]);
-                $container->register('.' . $id . '.lazy', \ECSPrefix20210918\Symfony\Component\Console\Command\LazyCommand::class)->setArguments([$commandName, $aliases, $description, $isHidden, new \ECSPrefix20210918\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument($lazyCommandRefs[$id])]);
-                $lazyCommandRefs[$id] = new \ECSPrefix20210918\Symfony\Component\DependencyInjection\Reference('.' . $id . '.lazy');
+                $container->register('.' . $id . '.lazy', \ECSPrefix20210919\Symfony\Component\Console\Command\LazyCommand::class)->setArguments([$commandName, $aliases, $description, $isHidden, new \ECSPrefix20210919\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument($lazyCommandRefs[$id])]);
+                $lazyCommandRefs[$id] = new \ECSPrefix20210919\Symfony\Component\DependencyInjection\Reference('.' . $id . '.lazy');
             }
         }
-        $container->register($this->commandLoaderServiceId, \ECSPrefix20210918\Symfony\Component\Console\CommandLoader\ContainerCommandLoader::class)->setPublic(\true)->addTag($this->noPreloadTag)->setArguments([\ECSPrefix20210918\Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass::register($container, $lazyCommandRefs), $lazyCommandMap]);
+        $container->register($this->commandLoaderServiceId, \ECSPrefix20210919\Symfony\Component\Console\CommandLoader\ContainerCommandLoader::class)->setPublic(\true)->addTag($this->noPreloadTag)->setArguments([\ECSPrefix20210919\Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass::register($container, $lazyCommandRefs), $lazyCommandMap]);
         $container->setParameter('console.command.ids', $serviceIds);
     }
 }

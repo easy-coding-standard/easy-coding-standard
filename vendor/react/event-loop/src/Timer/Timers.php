@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210918\React\EventLoop\Timer;
+namespace ECSPrefix20210919\React\EventLoop\Timer;
 
-use ECSPrefix20210918\React\EventLoop\TimerInterface;
+use ECSPrefix20210919\React\EventLoop\TimerInterface;
 /**
  * A scheduler implementation that can hold multiple timer instances
  *
@@ -31,18 +31,18 @@ final class Timers
     {
         return $this->time ?: $this->updateTime();
     }
-    public function add(\ECSPrefix20210918\React\EventLoop\TimerInterface $timer)
+    public function add(\ECSPrefix20210919\React\EventLoop\TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         $this->timers[$id] = $timer;
         $this->schedule[$id] = $timer->getInterval() + $this->updateTime();
         $this->sorted = \false;
     }
-    public function contains(\ECSPrefix20210918\React\EventLoop\TimerInterface $timer)
+    public function contains(\ECSPrefix20210919\React\EventLoop\TimerInterface $timer)
     {
         return isset($this->timers[\spl_object_hash($timer)]);
     }
-    public function cancel(\ECSPrefix20210918\React\EventLoop\TimerInterface $timer)
+    public function cancel(\ECSPrefix20210919\React\EventLoop\TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         unset($this->timers[$id], $this->schedule[$id]);
