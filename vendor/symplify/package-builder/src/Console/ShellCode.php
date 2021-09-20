@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210919\Symplify\PackageBuilder\Console;
+namespace ECSPrefix20210920\Symplify\PackageBuilder\Console;
 
-use ECSPrefix20210919\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210920\Symfony\Component\Console\Command\Command;
 /**
  * @deprecated Use symfony constants in directly
  * @see Command::FAILURE
