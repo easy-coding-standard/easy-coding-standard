@@ -31,7 +31,12 @@ final class ConfigurationFactory
         $showErrorTable = !(bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_ERROR_TABLE);
         $doesMatchGitDiff = (bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::MATCH_GIT_DIFF);
         $outputFormat = (string) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT);
-        $isParallel = $this->parameterProvider->provideBoolParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL);
+        if (\DIRECTORY_SEPARATOR === '\\') {
+            // windows is not supported yet
+            $isParallel = \false;
+        } else {
+            $isParallel = $this->parameterProvider->provideBoolParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL);
+        }
         $config = $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::CONFIG);
         if ($config !== null) {
             $config = (string) $config;
