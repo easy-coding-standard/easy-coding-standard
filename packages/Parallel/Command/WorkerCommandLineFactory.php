@@ -26,7 +26,7 @@ final class WorkerCommandLineFactory
     {
         $this->checkCommand = $checkCommand;
     }
-    public function create(string $mainScript, ?string $projectConfigFile, \ECSPrefix20210920\Symfony\Component\Console\Input\InputInterface $input) : string
+    public function create(string $mainScript, ?string $projectConfigFile, \ECSPrefix20210920\Symfony\Component\Console\Input\InputInterface $input, string $identifier, int $port) : string
     {
         $args = \array_merge([\PHP_BINARY, $mainScript], \array_slice($_SERVER['argv'], 1));
         $processCommandArray = [];
@@ -64,6 +64,11 @@ final class WorkerCommandLineFactory
             $processCommandArray[] = self::_ . $checkCommandOptionName;
             $processCommandArray[] = \escapeshellarg($optionValue);
         }
+        // for TCP local server
+        $processCommandArray[] = '--port';
+        $processCommandArray[] = $port;
+        $processCommandArray[] = '--identifier';
+        $processCommandArray[] = \escapeshellarg($identifier);
         /** @var string[] $paths */
         $paths = $input->getArgument(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS);
         foreach ($paths as $path) {

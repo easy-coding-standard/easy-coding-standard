@@ -2470,7 +2470,7 @@
                     "url": "https:\/\/github.com\/symfony\/polyfill"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "ECSPrefix20210920\\Symfony\\Polyfill\\Ctype\\": ""

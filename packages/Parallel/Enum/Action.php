@@ -1,19 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Parallel\ValueObject;
+namespace Symplify\EasyCodingStandard\Parallel\Enum;
 
-/**
- * @enum
- */
 final class Action
 {
     /**
      * @var string
      */
-    public const QUIT = 'quit';
+    public const HELLO = 'hello';
     /**
      * @var string
      */
     public const CHECK = 'check';
+    /**
+     * @var string
+     */
+    public const RESULT = 'result';
 }

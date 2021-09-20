@@ -92,8 +92,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         foreach ($systemErrors as $systemError) {
             $this->easyCodingStandardStyle->newLine();
             if ($systemError instanceof \Symplify\EasyCodingStandard\ValueObject\Error\SystemError) {
-                $this->easyCodingStandardStyle->writeln($systemError->getFileWithLine());
-                $this->easyCodingStandardStyle->warning($systemError->getMessage());
+                $this->easyCodingStandardStyle->error($systemError->getMessage() . ' in ' . $systemError->getFileWithLine());
             } else {
                 $this->easyCodingStandardStyle->error($systemError);
             }

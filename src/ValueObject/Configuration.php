@@ -43,9 +43,19 @@ final class Configuration
      */
     private $config;
     /**
-     * @param string[] $sources
+     * @var string|null
      */
-    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $doesMatchGitDiff = \false, bool $isParallel = \false, ?string $config = null)
+    private $parallelPort = null;
+    /**
+     * @var string|null
+     */
+    private $parallelIdentifier = null;
+    /**
+     * @param string[] $sources
+     * @param string|null $parallelPort
+     * @param string|null $parallelIdentifier
+     */
+    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $doesMatchGitDiff = \false, bool $isParallel = \false, ?string $config = null, $parallelPort = null, $parallelIdentifier = null)
     {
         $this->isFixer = $isFixer;
         $this->shouldClearCache = $shouldClearCache;
@@ -56,6 +66,8 @@ final class Configuration
         $this->doesMatchGitDiff = $doesMatchGitDiff;
         $this->isParallel = $isParallel;
         $this->config = $config;
+        $this->parallelPort = $parallelPort;
+        $this->parallelIdentifier = $parallelIdentifier;
     }
     public function isFixer() : bool
     {
@@ -95,5 +107,13 @@ final class Configuration
     public function getConfig() : ?string
     {
         return $this->config;
+    }
+    public function getParallelPort() : ?string
+    {
+        return $this->parallelPort;
+    }
+    public function getParallelIdentifier() : ?string
+    {
+        return $this->parallelIdentifier;
     }
 }

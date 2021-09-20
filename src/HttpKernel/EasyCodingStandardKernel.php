@@ -16,6 +16,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
 use ECSPrefix20210920\Symplify\Skipper\Bundle\SkipperBundle;
 use ECSPrefix20210920\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use ECSPrefix20210920\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+use Throwable;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\HttpKernel\EasyCodingStandardKernelTest
  */
@@ -43,9 +44,13 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210920\Symplify\Symplif
     public function boot() : void
     {
         $cacheDir = $this->getCacheDir();
-        // Rebuild the container on each run
-        \ECSPrefix20210920\Nette\Utils\FileSystem::delete($cacheDir);
-        \ECSPrefix20210920\Nette\Utils\FileSystem::createDir($cacheDir);
+        try {
+            \ECSPrefix20210920\Nette\Utils\FileSystem::delete($cacheDir);
+            \ECSPrefix20210920\Nette\Utils\FileSystem::createDir($cacheDir);
+        } catch (\Throwable $exception) {
+            // the "@" is required for parallel run to avoid deleting locked directory
+            // Rebuild the container on each run
+        }
         parent::boot();
     }
     /**

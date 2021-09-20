@@ -20,4 +20,8 @@ final class ReactEvent
      * @var string
      */
     public const ERROR = 'error';
+    /**
+     * @var string
+     */
+    public const CONNECTION = 'connection';
 }
