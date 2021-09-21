@@ -96,7 +96,7 @@ final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
         $code = <<<'EOF'
 <?php
 
-namespace ECSPrefix20210920;
+namespace ECSPrefix20210921;
 
 /**
  * @param  EngineInterface $templating
