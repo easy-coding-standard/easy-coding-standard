@@ -1609,7 +1609,7 @@ return array(
     'Symplify\\EasyCodingStandard\\Application\\EasyCodingStandardApplication' => $baseDir . '/src/Application/EasyCodingStandardApplication.php',
     'Symplify\\EasyCodingStandard\\Application\\FileProcessorCollector' => $baseDir . '/src/Application/FileProcessorCollector.php',
     'Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor' => $baseDir . '/src/Application/SingleFileProcessor.php',
-    'Symplify\\EasyCodingStandard\\Application\\Version\\VersionResolver' => $baseDir . '/src/Application/Version/VersionResolver.php',
+    'Symplify\\EasyCodingStandard\\Application\\Version\\StaticVersionResolver' => $baseDir . '/src/Application/Version/StaticVersionResolver.php',
     'Symplify\\EasyCodingStandard\\Bootstrap\\ConfigHasher' => $baseDir . '/src/Bootstrap/ConfigHasher.php',
     'Symplify\\EasyCodingStandard\\Bundle\\EasyCodingStandardBundle' => $baseDir . '/src/Bundle/EasyCodingStandardBundle.php',
     'Symplify\\EasyCodingStandard\\Caching\\Cache' => $baseDir . '/packages/Caching/Cache.php',

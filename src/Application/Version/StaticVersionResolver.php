@@ -11,16 +11,16 @@ use Symplify\EasyCodingStandard\Exception\VersionException;
  * Inspired by https://github.com/composer/composer/blob/master/src/Composer/Composer.php See
  * https://github.com/composer/composer/blob/6587715d0f8cae0cd39073b3bc5f018d0e6b84fe/src/Composer/Compiler.php#L208
  */
-final class VersionResolver
+final class StaticVersionResolver
 {
     /**
      * @var string
      */
-    public const PACKAGE_VERSION = '6741fdb2c920a416ba498d5b977c5d9726eeb6ed';
+    public const PACKAGE_VERSION = '@package_version@';
     /**
      * @var string
      */
-    public const RELEASE_DATE = '2021-09-21 11:51:51';
+    public const RELEASE_DATE = '@release_date@';
     public static function resolvePackageVersion() : string
     {
         $process = new \ECSPrefix20210921\Symfony\Component\Process\Process(['git', 'log', '--pretty="%H"', '-n1', 'HEAD'], __DIR__);

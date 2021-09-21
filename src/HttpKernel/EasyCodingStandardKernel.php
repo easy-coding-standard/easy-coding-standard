@@ -10,7 +10,7 @@ use ECSPrefix20210921\Symfony\Component\DependencyInjection\ContainerInterface;
 use ECSPrefix20210921\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
 use ECSPrefix20210921\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
-use Symplify\EasyCodingStandard\Application\Version\VersionResolver;
+use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
 use ECSPrefix20210921\Symplify\Skipper\Bundle\SkipperBundle;
@@ -36,8 +36,8 @@ final class EasyCodingStandardKernel extends \ECSPrefix20210921\Symplify\Symplif
     public function getLogDir() : string
     {
         $logDirectory = \sys_get_temp_dir() . '/ecs_log_' . \get_current_user();
-        if (\Symplify\EasyCodingStandard\Application\Version\VersionResolver::PACKAGE_VERSION !== '@package_version@') {
-            $logDirectory .= '_' . \Symplify\EasyCodingStandard\Application\Version\VersionResolver::PACKAGE_VERSION;
+        if (\Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver::PACKAGE_VERSION !== '@package_version@') {
+            $logDirectory .= '_' . \Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver::PACKAGE_VERSION;
         }
         return $logDirectory;
     }
