@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9a6c15f692390987913bd27515c599f3
+class ComposerStaticInit4043909b7c55ad91aac2d43ab12ebb1c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -16,6 +16,8 @@ class ComposerStaticInit9a6c15f692390987913bd27515c599f3
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
+        '972fda704d680a3a53c68e34e193cb22' => __DIR__ . '/..' . '/react/promise-timer/src/functions_include.php',
         '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
@@ -71,8 +73,13 @@ class ComposerStaticInit9a6c15f692390987913bd27515c599f3
             'ECSPrefix20210923\\Symfony\\Component\\Config\\' => 43,
             'ECSPrefix20210923\\Stringy\\' => 26,
             'ECSPrefix20210923\\React\\Stream\\' => 31,
+            'ECSPrefix20210923\\React\\Socket\\' => 31,
+            'ECSPrefix20210923\\React\\Promise\\Timer\\' => 38,
+            'ECSPrefix20210923\\React\\Promise\\' => 32,
             'ECSPrefix20210923\\React\\EventLoop\\' => 34,
+            'ECSPrefix20210923\\React\\Dns\\' => 28,
             'ECSPrefix20210923\\React\\ChildProcess\\' => 37,
+            'ECSPrefix20210923\\React\\Cache\\' => 30,
             'ECSPrefix20210923\\Psr\\Log\\' => 26,
             'ECSPrefix20210923\\Psr\\EventDispatcher\\' => 38,
             'ECSPrefix20210923\\Psr\\Container\\' => 32,
@@ -252,13 +259,33 @@ class ComposerStaticInit9a6c15f692390987913bd27515c599f3
         array (
             0 => __DIR__ . '/..' . '/react/stream/src',
         ),
+        'ECSPrefix20210923\\React\\Socket\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/socket/src',
+        ),
+        'ECSPrefix20210923\\React\\Promise\\Timer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise-timer/src',
+        ),
+        'ECSPrefix20210923\\React\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise/src',
+        ),
         'ECSPrefix20210923\\React\\EventLoop\\' => 
         array (
             0 => __DIR__ . '/..' . '/react/event-loop/src',
         ),
+        'ECSPrefix20210923\\React\\Dns\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/dns/src',
+        ),
         'ECSPrefix20210923\\React\\ChildProcess\\' => 
         array (
             0 => __DIR__ . '/..' . '/react/child-process/src',
+        ),
+        'ECSPrefix20210923\\React\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/cache/src',
         ),
         'ECSPrefix20210923\\Psr\\Log\\' => 
         array (
@@ -417,7 +444,33 @@ class ComposerStaticInit9a6c15f692390987913bd27515c599f3
         'ECSPrefix20210923\\Psr\\Log\\LoggerInterface' => __DIR__ . '/..' . '/psr/log/src/LoggerInterface.php',
         'ECSPrefix20210923\\Psr\\Log\\LoggerTrait' => __DIR__ . '/..' . '/psr/log/src/LoggerTrait.php',
         'ECSPrefix20210923\\Psr\\Log\\NullLogger' => __DIR__ . '/..' . '/psr/log/src/NullLogger.php',
+        'ECSPrefix20210923\\React\\Cache\\ArrayCache' => __DIR__ . '/..' . '/react/cache/src/ArrayCache.php',
+        'ECSPrefix20210923\\React\\Cache\\CacheInterface' => __DIR__ . '/..' . '/react/cache/src/CacheInterface.php',
         'ECSPrefix20210923\\React\\ChildProcess\\Process' => __DIR__ . '/..' . '/react/child-process/src/Process.php',
+        'ECSPrefix20210923\\React\\Dns\\BadServerException' => __DIR__ . '/..' . '/react/dns/src/BadServerException.php',
+        'ECSPrefix20210923\\React\\Dns\\Config\\Config' => __DIR__ . '/..' . '/react/dns/src/Config/Config.php',
+        'ECSPrefix20210923\\React\\Dns\\Config\\HostsFile' => __DIR__ . '/..' . '/react/dns/src/Config/HostsFile.php',
+        'ECSPrefix20210923\\React\\Dns\\Model\\Message' => __DIR__ . '/..' . '/react/dns/src/Model/Message.php',
+        'ECSPrefix20210923\\React\\Dns\\Model\\Record' => __DIR__ . '/..' . '/react/dns/src/Model/Record.php',
+        'ECSPrefix20210923\\React\\Dns\\Protocol\\BinaryDumper' => __DIR__ . '/..' . '/react/dns/src/Protocol/BinaryDumper.php',
+        'ECSPrefix20210923\\React\\Dns\\Protocol\\Parser' => __DIR__ . '/..' . '/react/dns/src/Protocol/Parser.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\CachingExecutor' => __DIR__ . '/..' . '/react/dns/src/Query/CachingExecutor.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\CancellationException' => __DIR__ . '/..' . '/react/dns/src/Query/CancellationException.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\CoopExecutor' => __DIR__ . '/..' . '/react/dns/src/Query/CoopExecutor.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\ExecutorInterface' => __DIR__ . '/..' . '/react/dns/src/Query/ExecutorInterface.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\FallbackExecutor' => __DIR__ . '/..' . '/react/dns/src/Query/FallbackExecutor.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\HostsFileExecutor' => __DIR__ . '/..' . '/react/dns/src/Query/HostsFileExecutor.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\Query' => __DIR__ . '/..' . '/react/dns/src/Query/Query.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\RetryExecutor' => __DIR__ . '/..' . '/react/dns/src/Query/RetryExecutor.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\SelectiveTransportExecutor' => __DIR__ . '/..' . '/react/dns/src/Query/SelectiveTransportExecutor.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\TcpTransportExecutor' => __DIR__ . '/..' . '/react/dns/src/Query/TcpTransportExecutor.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\TimeoutException' => __DIR__ . '/..' . '/react/dns/src/Query/TimeoutException.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\TimeoutExecutor' => __DIR__ . '/..' . '/react/dns/src/Query/TimeoutExecutor.php',
+        'ECSPrefix20210923\\React\\Dns\\Query\\UdpTransportExecutor' => __DIR__ . '/..' . '/react/dns/src/Query/UdpTransportExecutor.php',
+        'ECSPrefix20210923\\React\\Dns\\RecordNotFoundException' => __DIR__ . '/..' . '/react/dns/src/RecordNotFoundException.php',
+        'ECSPrefix20210923\\React\\Dns\\Resolver\\Factory' => __DIR__ . '/..' . '/react/dns/src/Resolver/Factory.php',
+        'ECSPrefix20210923\\React\\Dns\\Resolver\\Resolver' => __DIR__ . '/..' . '/react/dns/src/Resolver/Resolver.php',
+        'ECSPrefix20210923\\React\\Dns\\Resolver\\ResolverInterface' => __DIR__ . '/..' . '/react/dns/src/Resolver/ResolverInterface.php',
         'ECSPrefix20210923\\React\\EventLoop\\ExtEvLoop' => __DIR__ . '/..' . '/react/event-loop/src/ExtEvLoop.php',
         'ECSPrefix20210923\\React\\EventLoop\\ExtEventLoop' => __DIR__ . '/..' . '/react/event-loop/src/ExtEventLoop.php',
         'ECSPrefix20210923\\React\\EventLoop\\ExtLibevLoop' => __DIR__ . '/..' . '/react/event-loop/src/ExtLibevLoop.php',
@@ -432,6 +485,39 @@ class ComposerStaticInit9a6c15f692390987913bd27515c599f3
         'ECSPrefix20210923\\React\\EventLoop\\TimerInterface' => __DIR__ . '/..' . '/react/event-loop/src/TimerInterface.php',
         'ECSPrefix20210923\\React\\EventLoop\\Timer\\Timer' => __DIR__ . '/..' . '/react/event-loop/src/Timer/Timer.php',
         'ECSPrefix20210923\\React\\EventLoop\\Timer\\Timers' => __DIR__ . '/..' . '/react/event-loop/src/Timer/Timers.php',
+        'ECSPrefix20210923\\React\\Promise\\CancellablePromiseInterface' => __DIR__ . '/..' . '/react/promise/src/CancellablePromiseInterface.php',
+        'ECSPrefix20210923\\React\\Promise\\CancellationQueue' => __DIR__ . '/..' . '/react/promise/src/CancellationQueue.php',
+        'ECSPrefix20210923\\React\\Promise\\Deferred' => __DIR__ . '/..' . '/react/promise/src/Deferred.php',
+        'ECSPrefix20210923\\React\\Promise\\Exception\\LengthException' => __DIR__ . '/..' . '/react/promise/src/Exception/LengthException.php',
+        'ECSPrefix20210923\\React\\Promise\\ExtendedPromiseInterface' => __DIR__ . '/..' . '/react/promise/src/ExtendedPromiseInterface.php',
+        'ECSPrefix20210923\\React\\Promise\\FulfilledPromise' => __DIR__ . '/..' . '/react/promise/src/FulfilledPromise.php',
+        'ECSPrefix20210923\\React\\Promise\\LazyPromise' => __DIR__ . '/..' . '/react/promise/src/LazyPromise.php',
+        'ECSPrefix20210923\\React\\Promise\\Promise' => __DIR__ . '/..' . '/react/promise/src/Promise.php',
+        'ECSPrefix20210923\\React\\Promise\\PromiseInterface' => __DIR__ . '/..' . '/react/promise/src/PromiseInterface.php',
+        'ECSPrefix20210923\\React\\Promise\\PromisorInterface' => __DIR__ . '/..' . '/react/promise/src/PromisorInterface.php',
+        'ECSPrefix20210923\\React\\Promise\\RejectedPromise' => __DIR__ . '/..' . '/react/promise/src/RejectedPromise.php',
+        'ECSPrefix20210923\\React\\Promise\\Timer\\TimeoutException' => __DIR__ . '/..' . '/react/promise-timer/src/TimeoutException.php',
+        'ECSPrefix20210923\\React\\Promise\\UnhandledRejectionException' => __DIR__ . '/..' . '/react/promise/src/UnhandledRejectionException.php',
+        'ECSPrefix20210923\\React\\Socket\\Connection' => __DIR__ . '/..' . '/react/socket/src/Connection.php',
+        'ECSPrefix20210923\\React\\Socket\\ConnectionInterface' => __DIR__ . '/..' . '/react/socket/src/ConnectionInterface.php',
+        'ECSPrefix20210923\\React\\Socket\\Connector' => __DIR__ . '/..' . '/react/socket/src/Connector.php',
+        'ECSPrefix20210923\\React\\Socket\\ConnectorInterface' => __DIR__ . '/..' . '/react/socket/src/ConnectorInterface.php',
+        'ECSPrefix20210923\\React\\Socket\\DnsConnector' => __DIR__ . '/..' . '/react/socket/src/DnsConnector.php',
+        'ECSPrefix20210923\\React\\Socket\\FixedUriConnector' => __DIR__ . '/..' . '/react/socket/src/FixedUriConnector.php',
+        'ECSPrefix20210923\\React\\Socket\\HappyEyeBallsConnectionBuilder' => __DIR__ . '/..' . '/react/socket/src/HappyEyeBallsConnectionBuilder.php',
+        'ECSPrefix20210923\\React\\Socket\\HappyEyeBallsConnector' => __DIR__ . '/..' . '/react/socket/src/HappyEyeBallsConnector.php',
+        'ECSPrefix20210923\\React\\Socket\\LimitingServer' => __DIR__ . '/..' . '/react/socket/src/LimitingServer.php',
+        'ECSPrefix20210923\\React\\Socket\\SecureConnector' => __DIR__ . '/..' . '/react/socket/src/SecureConnector.php',
+        'ECSPrefix20210923\\React\\Socket\\SecureServer' => __DIR__ . '/..' . '/react/socket/src/SecureServer.php',
+        'ECSPrefix20210923\\React\\Socket\\Server' => __DIR__ . '/..' . '/react/socket/src/Server.php',
+        'ECSPrefix20210923\\React\\Socket\\ServerInterface' => __DIR__ . '/..' . '/react/socket/src/ServerInterface.php',
+        'ECSPrefix20210923\\React\\Socket\\SocketServer' => __DIR__ . '/..' . '/react/socket/src/SocketServer.php',
+        'ECSPrefix20210923\\React\\Socket\\StreamEncryption' => __DIR__ . '/..' . '/react/socket/src/StreamEncryption.php',
+        'ECSPrefix20210923\\React\\Socket\\TcpConnector' => __DIR__ . '/..' . '/react/socket/src/TcpConnector.php',
+        'ECSPrefix20210923\\React\\Socket\\TcpServer' => __DIR__ . '/..' . '/react/socket/src/TcpServer.php',
+        'ECSPrefix20210923\\React\\Socket\\TimeoutConnector' => __DIR__ . '/..' . '/react/socket/src/TimeoutConnector.php',
+        'ECSPrefix20210923\\React\\Socket\\UnixConnector' => __DIR__ . '/..' . '/react/socket/src/UnixConnector.php',
+        'ECSPrefix20210923\\React\\Socket\\UnixServer' => __DIR__ . '/..' . '/react/socket/src/UnixServer.php',
         'ECSPrefix20210923\\React\\Stream\\CompositeStream' => __DIR__ . '/..' . '/react/stream/src/CompositeStream.php',
         'ECSPrefix20210923\\React\\Stream\\DuplexResourceStream' => __DIR__ . '/..' . '/react/stream/src/DuplexResourceStream.php',
         'ECSPrefix20210923\\React\\Stream\\DuplexStreamInterface' => __DIR__ . '/..' . '/react/stream/src/DuplexStreamInterface.php',
@@ -2009,9 +2095,9 @@ class ComposerStaticInit9a6c15f692390987913bd27515c599f3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9a6c15f692390987913bd27515c599f3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9a6c15f692390987913bd27515c599f3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9a6c15f692390987913bd27515c599f3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4043909b7c55ad91aac2d43ab12ebb1c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4043909b7c55ad91aac2d43ab12ebb1c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4043909b7c55ad91aac2d43ab12ebb1c::$classMap;
 
         }, null, ClassLoader::class);
     }
