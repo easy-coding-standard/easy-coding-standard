@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210922\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+namespace ECSPrefix20210923\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-use ECSPrefix20210922\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210922\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use ECSPrefix20210922\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-use ECSPrefix20210922\Symfony\Component\Stopwatch\Stopwatch;
+use ECSPrefix20210923\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210923\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use ECSPrefix20210923\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use ECSPrefix20210923\Symfony\Component\Stopwatch\Stopwatch;
 /**
  * Provides timing information via the stopwatch.
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
-final class TraceableValueResolver implements \ECSPrefix20210922\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
+final class TraceableValueResolver implements \ECSPrefix20210923\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     private $inner;
     private $stopwatch;
-    public function __construct(\ECSPrefix20210922\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface $inner, \ECSPrefix20210922\Symfony\Component\Stopwatch\Stopwatch $stopwatch)
+    public function __construct(\ECSPrefix20210923\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface $inner, \ECSPrefix20210923\Symfony\Component\Stopwatch\Stopwatch $stopwatch)
     {
         $this->inner = $inner;
         $this->stopwatch = $stopwatch;

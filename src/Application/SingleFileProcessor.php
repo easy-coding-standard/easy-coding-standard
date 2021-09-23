@@ -7,8 +7,8 @@ use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20210922\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20210922\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210923\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20210923\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleFileProcessor
 {
     /**
@@ -23,7 +23,7 @@ final class SingleFileProcessor
      * @var \Symplify\EasyCodingStandard\Application\FileProcessorCollector
      */
     private $fileProcessorCollector;
-    public function __construct(\ECSPrefix20210922\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
+    public function __construct(\ECSPrefix20210923\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
     {
         $this->skipper = $skipper;
         $this->changedFilesDetector = $changedFilesDetector;
@@ -32,7 +32,7 @@ final class SingleFileProcessor
     /**
      * @return array<string, array<FileDiff|CodingStandardError>>
      */
-    public function processFileInfo(\ECSPrefix20210922\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
+    public function processFileInfo(\ECSPrefix20210923\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
     {
         if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
             return [];
