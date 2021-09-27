@@ -14,7 +14,7 @@ final class Schedule
      */
     private $numberOfProcesses;
     /**
-     * @var mixed[]
+     * @var string[][]
      */
     private $jobs;
     /**

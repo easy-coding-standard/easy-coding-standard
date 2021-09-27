@@ -17,8 +17,8 @@ use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\RuleSet\RuleSetInterface;
-use ECSPrefix20210923\Symfony\Component\Finder\Finder as SymfonyFinder;
-use ECSPrefix20210923\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20210927\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix20210927\Symfony\Component\Finder\SplFileInfo;
 /**
  * Class provides a way to create a group of fixers.
  *
@@ -50,10 +50,7 @@ final class FixerFactory
     {
         $this->nameValidator = new \PhpCsFixer\FixerNameValidator();
     }
-    /**
-     * @return $this
-     */
-    public function setWhitespacesConfig(\PhpCsFixer\WhitespacesFixerConfig $config)
+    public function setWhitespacesConfig(\PhpCsFixer\WhitespacesFixerConfig $config) : self
     {
         foreach ($this->fixers as $fixer) {
             if ($fixer instanceof \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface) {
@@ -73,13 +70,13 @@ final class FixerFactory
     /**
      * @return $this
      */
-    public function registerBuiltInFixers()
+    public function registerBuiltInFixers() : self
     {
         static $builtInFixers = null;
         if (null === $builtInFixers) {
             $builtInFixers = [];
             /** @var SplFileInfo $file */
-            foreach (\ECSPrefix20210923\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Fixer')->depth(1) as $file) {
+            foreach (\ECSPrefix20210927\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Fixer')->depth(1) as $file) {
                 $relativeNamespace = $file->getRelativePath();
                 $fixerClass = 'PhpCsFixer\\Fixer\\' . ($relativeNamespace ? $relativeNamespace . '\\' : '') . $file->getBasename('.php');
                 if ('Fixer' === \substr($fixerClass, -5)) {
@@ -97,7 +94,7 @@ final class FixerFactory
      *
      * @return $this
      */
-    public function registerCustomFixers(iterable $fixers)
+    public function registerCustomFixers(iterable $fixers) : self
     {
         foreach ($fixers as $fixer) {
             $this->registerFixer($fixer, \true);
@@ -107,7 +104,7 @@ final class FixerFactory
     /**
      * @return $this
      */
-    public function registerFixer(\PhpCsFixer\Fixer\FixerInterface $fixer, bool $isCustom)
+    public function registerFixer(\PhpCsFixer\Fixer\FixerInterface $fixer, bool $isCustom) : self
     {
         $name = $fixer->getName();
         if (isset($this->fixersByName[$name])) {
@@ -125,7 +122,7 @@ final class FixerFactory
      *
      * @return $this
      */
-    public function useRuleSet(\PhpCsFixer\RuleSet\RuleSetInterface $ruleSet)
+    public function useRuleSet(\PhpCsFixer\RuleSet\RuleSetInterface $ruleSet) : self
     {
         $fixers = [];
         $fixersByName = [];

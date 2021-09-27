@@ -85,7 +85,7 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
      *
      * @return $this
      */
-    private function resolveSet(array $rules)
+    private function resolveSet(array $rules) : self
     {
         $resolvedRules = [];
         // expand sets

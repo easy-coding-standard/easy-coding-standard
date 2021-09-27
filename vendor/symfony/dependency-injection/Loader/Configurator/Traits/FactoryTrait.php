@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210923\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20210927\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
-use ECSPrefix20210923\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210923\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
+use ECSPrefix20210927\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210927\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 trait FactoryTrait
 {
     /**
@@ -21,11 +21,11 @@ trait FactoryTrait
      *
      * @return $this
      */
-    public final function factory($factory)
+    public final function factory($factory) : self
     {
         if (\is_string($factory) && 1 === \substr_count($factory, ':')) {
             $factoryParts = \explode(':', $factory);
-            throw new \ECSPrefix20210923\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid factory "%s": the "service:method" notation is not available when using PHP-based DI configuration. Use "[service(\'%s\'), \'%s\']" instead.', $factory, $factoryParts[0], $factoryParts[1]));
+            throw new \ECSPrefix20210927\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid factory "%s": the "service:method" notation is not available when using PHP-based DI configuration. Use "[service(\'%s\'), \'%s\']" instead.', $factory, $factoryParts[0], $factoryParts[1]));
         }
         $this->definition->setFactory(static::processValue($factory, \true));
         return $this;

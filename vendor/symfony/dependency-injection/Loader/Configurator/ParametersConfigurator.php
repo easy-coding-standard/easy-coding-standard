@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210923\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20210927\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20210923\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210927\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ParametersConfigurator extends \ECSPrefix20210923\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
+class ParametersConfigurator extends \ECSPrefix20210927\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
     public const FACTORY = 'parameters';
     private $container;
-    public function __construct(\ECSPrefix20210923\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function __construct(\ECSPrefix20210927\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
     }
@@ -28,7 +28,7 @@ class ParametersConfigurator extends \ECSPrefix20210923\Symfony\Component\Depend
      * @return $this
      * @param string $name
      */
-    public final function set($name, $value)
+    public final function set($name, $value) : self
     {
         $this->container->setParameter($name, static::processValue($value, \true));
         return $this;
@@ -38,7 +38,7 @@ class ParametersConfigurator extends \ECSPrefix20210923\Symfony\Component\Depend
      *
      * @return $this
      */
-    public final function __invoke(string $name, $value)
+    public final function __invoke(string $name, $value) : self
     {
         return $this->set($name, $value);
     }

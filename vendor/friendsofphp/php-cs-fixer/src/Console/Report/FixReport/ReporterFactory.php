@@ -12,8 +12,8 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20210923\Symfony\Component\Finder\Finder as SymfonyFinder;
-use ECSPrefix20210923\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20210927\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix20210927\Symfony\Component\Finder\SplFileInfo;
 /**
  * @author Boris Gorbylev <ekho@ekho.name>
  *
@@ -23,17 +23,14 @@ final class ReporterFactory
 {
     /** @var ReporterInterface[] */
     private $reporters = [];
-    /**
-     * @return $this
-     */
-    public function registerBuiltInReporters()
+    public function registerBuiltInReporters() : self
     {
         /** @var null|string[] $builtInReporters */
         static $builtInReporters;
         if (null === $builtInReporters) {
             $builtInReporters = [];
             /** @var SplFileInfo $file */
-            foreach (\ECSPrefix20210923\Symfony\Component\Finder\Finder::create()->files()->name('*Reporter.php')->in(__DIR__) as $file) {
+            foreach (\ECSPrefix20210927\Symfony\Component\Finder\Finder::create()->files()->name('*Reporter.php')->in(__DIR__) as $file) {
                 $relativeNamespace = $file->getRelativePath();
                 $builtInReporters[] = \sprintf('%s\\%s%s', __NAMESPACE__, $relativeNamespace ? $relativeNamespace . '\\' : '', $file->getBasename('.php'));
             }
@@ -46,7 +43,7 @@ final class ReporterFactory
     /**
      * @return $this
      */
-    public function registerReporter(\PhpCsFixer\Console\Report\FixReport\ReporterInterface $reporter)
+    public function registerReporter(\PhpCsFixer\Console\Report\FixReport\ReporterInterface $reporter) : self
     {
         $format = $reporter->getFormat();
         if (isset($this->reporters[$format])) {

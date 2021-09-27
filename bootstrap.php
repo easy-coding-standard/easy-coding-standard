@@ -18,6 +18,7 @@ spl_autoload_register(function (string $class): void {
             // prefixed version autoload
             $composerAutoloader = require __DIR__ . '/vendor/autoload.php';
         }
+
         $composerAutoloader->loadClass($class);
     }
 });

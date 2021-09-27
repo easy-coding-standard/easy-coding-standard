@@ -129,9 +129,8 @@ class Tokens extends \SplFixedArray
      *
      * @param Token[] $array       the array to import
      * @param ?bool   $saveIndexes save the numeric indexes used in the original array, default is yes
-     * @return $this
      */
-    public static function fromArray($array, $saveIndexes = null)
+    public static function fromArray($array, $saveIndexes = null) : self
     {
         $tokens = new self(\count($array));
         if (null === $saveIndexes || $saveIndexes) {
@@ -153,9 +152,8 @@ class Tokens extends \SplFixedArray
      * Create token collection directly from code.
      *
      * @param string $code PHP code
-     * @return $this
      */
-    public static function fromCode($code)
+    public static function fromCode($code) : self
     {
         $codeHash = self::calculateCodeHash($code);
         if (self::hasCache($codeHash)) {
@@ -1023,9 +1021,8 @@ class Tokens extends \SplFixedArray
      * Get cache value for given key.
      *
      * @param string $key item key
-     * @return $this
      */
-    private static function getCache(string $key)
+    private static function getCache(string $key) : self
     {
         if (!self::hasCache($key)) {
             throw new \OutOfBoundsException(\sprintf('Unknown cache key: "%s".', $key));
@@ -1045,7 +1042,7 @@ class Tokens extends \SplFixedArray
      * @param string $key   item key
      * @param Tokens $value item value
      */
-    private static function setCache(string $key, $value) : void
+    private static function setCache(string $key, self $value) : void
     {
         self::$cache[$key] = $value;
     }

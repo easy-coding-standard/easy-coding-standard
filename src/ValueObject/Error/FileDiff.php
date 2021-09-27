@@ -22,7 +22,7 @@ final class FileDiff implements \Symplify\EasyCodingStandard\Parallel\Contract\S
      */
     private $consoleFormattedDiff;
     /**
-     * @var mixed[]
+     * @var string[]
      */
     private $appliedCheckers;
     /**
@@ -65,9 +65,8 @@ final class FileDiff implements \Symplify\EasyCodingStandard\Parallel\Contract\S
     }
     /**
      * @param mixed[] $json
-     * @return $this
      */
-    public static function decode($json)
+    public static function decode($json) : \Symplify\EasyCodingStandard\Parallel\Contract\Serializable
     {
         return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::DIFF], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::DIFF_CONSOLE_FORMATTED], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::APPLIED_CHECKERS]);
     }

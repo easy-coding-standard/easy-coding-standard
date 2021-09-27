@@ -76,52 +76,43 @@ interface ConfigInterface
      * Name of custom fixer should follow `VendorName/rule_name` convention.
      *
      * @param FixerInterface[]|iterable|\Traversable $fixers
-     * @return $this
      */
-    public function registerCustomFixers($fixers);
+    public function registerCustomFixers($fixers) : self;
     /**
      * Sets the path to the cache file.
-     * @return $this
      * @param string $cacheFile
      */
-    public function setCacheFile($cacheFile);
+    public function setCacheFile($cacheFile) : self;
     /**
-     * @return $this
      * @param mixed[] $finder
      */
-    public function setFinder($finder);
+    public function setFinder($finder) : self;
     /**
-     * @return $this
      * @param string $format
      */
-    public function setFormat($format);
+    public function setFormat($format) : self;
     /**
-     * @return $this
      * @param bool $hideProgress
      */
-    public function setHideProgress($hideProgress);
+    public function setHideProgress($hideProgress) : self;
     /**
-     * @return $this
      * @param string $indent
      */
-    public function setIndent($indent);
+    public function setIndent($indent) : self;
     /**
-     * @return $this
      * @param string $lineEnding
      */
-    public function setLineEnding($lineEnding);
+    public function setLineEnding($lineEnding) : self;
     /**
      * Set PHP executable.
-     * @return $this
      * @param string|null $phpExecutable
      */
-    public function setPhpExecutable($phpExecutable);
+    public function setPhpExecutable($phpExecutable) : self;
     /**
      * Set if it is allowed to run risky fixers.
-     * @return $this
      * @param bool $isRiskyAllowed
      */
-    public function setRiskyAllowed($isRiskyAllowed);
+    public function setRiskyAllowed($isRiskyAllowed) : self;
     /**
      * Set rules.
      *
@@ -129,13 +120,11 @@ interface ConfigInterface
      * Value for set must be bool (turn it on or off).
      * Value for fixer may be bool (turn it on or off) or array of configuration
      * (turn it on and contains configuration for FixerInterface::configure method).
-     * @return $this
      * @param mixed[] $rules
      */
-    public function setRules($rules);
+    public function setRules($rules) : self;
     /**
-     * @return $this
      * @param bool $usingCache
      */
-    public function setUsingCache($usingCache);
+    public function setUsingCache($usingCache) : self;
 }

@@ -56,7 +56,7 @@ final class FixerOptionBuilder
      *
      * @return $this
      */
-    public function setDefault($default)
+    public function setDefault($default) : self
     {
         $this->default = $default;
         $this->isRequired = \false;
@@ -67,7 +67,7 @@ final class FixerOptionBuilder
      *
      * @return $this
      */
-    public function setAllowedTypes(array $allowedTypes)
+    public function setAllowedTypes(array $allowedTypes) : self
     {
         $this->allowedTypes = $allowedTypes;
         return $this;
@@ -75,7 +75,7 @@ final class FixerOptionBuilder
     /**
      * @return $this
      */
-    public function setAllowedValues(array $allowedValues)
+    public function setAllowedValues(array $allowedValues) : self
     {
         $this->allowedValues = $allowedValues;
         return $this;
@@ -83,7 +83,7 @@ final class FixerOptionBuilder
     /**
      * @return $this
      */
-    public function setNormalizer(\Closure $normalizer)
+    public function setNormalizer(\Closure $normalizer) : self
     {
         $this->normalizer = $normalizer;
         return $this;
@@ -91,7 +91,7 @@ final class FixerOptionBuilder
     /**
      * @return $this
      */
-    public function setDeprecationMessage(?string $deprecationMessage)
+    public function setDeprecationMessage(?string $deprecationMessage) : self
     {
         $this->deprecationMessage = $deprecationMessage;
         return $this;

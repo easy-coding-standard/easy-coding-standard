@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210923\React\Socket;
+namespace ECSPrefix20210927\React\Socket;
 
-use ECSPrefix20210923\Evenement\EventEmitter;
-use ECSPrefix20210923\React\EventLoop\Loop;
-use ECSPrefix20210923\React\EventLoop\LoopInterface;
+use ECSPrefix20210927\Evenement\EventEmitter;
+use ECSPrefix20210927\React\EventLoop\Loop;
+use ECSPrefix20210927\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -31,7 +31,7 @@ use RuntimeException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class TcpServer extends \ECSPrefix20210923\Evenement\EventEmitter implements \ECSPrefix20210923\React\Socket\ServerInterface
+final class TcpServer extends \ECSPrefix20210927\Evenement\EventEmitter implements \ECSPrefix20210927\React\Socket\ServerInterface
 {
     private $master;
     private $loop;
@@ -126,9 +126,9 @@ final class TcpServer extends \ECSPrefix20210923\Evenement\EventEmitter implemen
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($uri, \ECSPrefix20210923\React\EventLoop\LoopInterface $loop = null, array $context = array())
+    public function __construct($uri, \ECSPrefix20210927\React\EventLoop\LoopInterface $loop = null, array $context = array())
     {
-        $this->loop = $loop ?: \ECSPrefix20210923\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20210927\React\EventLoop\Loop::get();
         // a single port has been given => assume localhost
         if ((string) (int) $uri === (string) $uri) {
             $uri = '127.0.0.1:' . $uri;
@@ -210,6 +210,6 @@ final class TcpServer extends \ECSPrefix20210923\Evenement\EventEmitter implemen
     /** @internal */
     public function handleConnection($socket)
     {
-        $this->emit('connection', array(new \ECSPrefix20210923\React\Socket\Connection($socket, $this->loop)));
+        $this->emit('connection', array(new \ECSPrefix20210927\React\Socket\Connection($socket, $this->loop)));
     }
 }

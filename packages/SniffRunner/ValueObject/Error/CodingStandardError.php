@@ -59,9 +59,8 @@ final class CodingStandardError implements \Symplify\EasyCodingStandard\Parallel
     }
     /**
      * @param mixed[] $json
-     * @return $this
      */
-    public static function decode($json)
+    public static function decode($json) : \Symplify\EasyCodingStandard\Parallel\Contract\Serializable
     {
         return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::CHECKER_CLASS], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH]);
     }

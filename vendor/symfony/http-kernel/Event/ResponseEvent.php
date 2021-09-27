@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210923\Symfony\Component\HttpKernel\Event;
+namespace ECSPrefix20210927\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210923\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210923\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210923\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210927\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210927\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210927\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows to filter a Response object.
  *
@@ -22,15 +22,15 @@ use ECSPrefix20210923\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ResponseEvent extends \ECSPrefix20210923\Symfony\Component\HttpKernel\Event\KernelEvent
+final class ResponseEvent extends \ECSPrefix20210927\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $response;
-    public function __construct(\ECSPrefix20210923\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210923\Symfony\Component\HttpFoundation\Request $request, int $requestType, \ECSPrefix20210923\Symfony\Component\HttpFoundation\Response $response)
+    public function __construct(\ECSPrefix20210927\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210927\Symfony\Component\HttpFoundation\Request $request, int $requestType, \ECSPrefix20210927\Symfony\Component\HttpFoundation\Response $response)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->setResponse($response);
     }
-    public function getResponse() : \ECSPrefix20210923\Symfony\Component\HttpFoundation\Response
+    public function getResponse() : \ECSPrefix20210927\Symfony\Component\HttpFoundation\Response
     {
         return $this->response;
     }

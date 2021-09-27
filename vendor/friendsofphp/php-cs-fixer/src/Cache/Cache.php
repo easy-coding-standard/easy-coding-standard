@@ -81,7 +81,7 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
      * @return Cache
      * @param string $json
      */
-    public static function fromJson($json)
+    public static function fromJson($json) : self
     {
         $data = \json_decode($json, \true);
         if (null === $data && \JSON_ERROR_NONE !== \json_last_error()) {

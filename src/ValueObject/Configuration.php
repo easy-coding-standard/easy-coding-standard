@@ -23,7 +23,7 @@ final class Configuration
      */
     private $showErrorTable = \true;
     /**
-     * @var mixed[]
+     * @var string[]
      */
     private $sources = [];
     /**

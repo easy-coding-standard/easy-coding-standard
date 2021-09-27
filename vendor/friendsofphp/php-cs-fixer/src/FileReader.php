@@ -27,10 +27,7 @@ final class FileReader
      * @var null|string
      */
     private $stdinContent;
-    /**
-     * @return $this
-     */
-    public static function createSingleton()
+    public static function createSingleton() : self
     {
         static $instance = null;
         if (!$instance) {

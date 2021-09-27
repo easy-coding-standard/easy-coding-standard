@@ -40,7 +40,7 @@ final class ArrayBlockInfoFinder
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return Token[]
+     * @return Token[]|null[]
      */
     private function reverseTokens(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210923\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20210927\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
-use ECSPrefix20210923\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210927\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 trait DeprecateTrait
 {
     /**
@@ -24,7 +24,7 @@ trait DeprecateTrait
      *
      * @throws InvalidArgumentException when the message template is invalid
      */
-    public final function deprecate()
+    public final function deprecate() : self
     {
         $args = \func_get_args();
         $package = $version = $message = '';

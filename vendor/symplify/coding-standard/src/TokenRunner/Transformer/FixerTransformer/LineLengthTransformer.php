@@ -46,10 +46,13 @@ final class LineLengthTransformer
             return;
         }
         $fullLineLength = $this->lineLengthResolver->getLengthFromStartEnd($tokens, $blockInfo);
-        if ($fullLineLength <= $lineLength && $inlineShortLine) {
-            $this->tokensInliner->inlineItems($tokens, $blockInfo);
+        if ($fullLineLength > $lineLength) {
             return;
         }
+        if (!$inlineShortLine) {
+            return;
+        }
+        $this->tokensInliner->inlineItems($tokens, $blockInfo);
     }
     /**
      * @param Tokens<Token> $tokens
