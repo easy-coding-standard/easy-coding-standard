@@ -6,8 +6,8 @@ namespace ECSPrefix20210928\Symplify\ConsoleColorDiff\Console\Formatter;
 use ECSPrefix20210928\Nette\Utils\Strings;
 use ECSPrefix20210928\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
- * Most is copy-pasted from https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/Differ/DiffConsoleFormatter.php
- * to be used as standalone class, without need to require whole package.
+ * Inspired by @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/Differ/DiffConsoleFormatter.php
+ * to be used as standalone class, without need to require whole package by Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
  * @see \Symplify\ConsoleColorDiff\Tests\Console\Formatter\ColorConsoleDiffFormatterTest
  */
