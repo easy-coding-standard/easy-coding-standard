@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210927\Symfony\Component\HttpKernel\Event;
+namespace ECSPrefix20210928\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210927\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210927\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210928\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210928\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows filtering of controller arguments.
  *
@@ -24,11 +24,11 @@ use ECSPrefix20210927\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-final class ControllerArgumentsEvent extends \ECSPrefix20210927\Symfony\Component\HttpKernel\Event\KernelEvent
+final class ControllerArgumentsEvent extends \ECSPrefix20210928\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $controller;
     private $arguments;
-    public function __construct(\ECSPrefix20210927\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \ECSPrefix20210927\Symfony\Component\HttpFoundation\Request $request, ?int $requestType)
+    public function __construct(\ECSPrefix20210928\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \ECSPrefix20210928\Symfony\Component\HttpFoundation\Request $request, ?int $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->controller = $controller;

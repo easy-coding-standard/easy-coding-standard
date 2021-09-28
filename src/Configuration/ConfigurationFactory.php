@@ -3,26 +3,26 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use ECSPrefix20210927\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210928\Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20210927\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210928\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class ConfigurationFactory
 {
     /**
      * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\ECSPrefix20210927\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\ECSPrefix20210928\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      */
-    public function createFromInput(\ECSPrefix20210927\Symfony\Component\Console\Input\InputInterface $input) : \Symplify\EasyCodingStandard\ValueObject\Configuration
+    public function createFromInput(\ECSPrefix20210928\Symfony\Component\Console\Input\InputInterface $input) : \Symplify\EasyCodingStandard\ValueObject\Configuration
     {
         $paths = $this->resolvePaths($input);
         $isFixer = (bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::FIX);
@@ -40,7 +40,7 @@ final class ConfigurationFactory
         }
         return new \Symplify\EasyCodingStandard\ValueObject\Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $doesMatchGitDiff, $isParallel, $config, $parallelPort, $parallelIdentifier);
     }
-    private function canShowProgressBar(\ECSPrefix20210927\Symfony\Component\Console\Input\InputInterface $input) : bool
+    private function canShowProgressBar(\ECSPrefix20210928\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         // --debug option shows more
         $debug = (bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::DEBUG);
@@ -68,7 +68,7 @@ final class ConfigurationFactory
     /**
      * @return string[]
      */
-    private function resolvePaths(\ECSPrefix20210927\Symfony\Component\Console\Input\InputInterface $input) : array
+    private function resolvePaths(\ECSPrefix20210928\Symfony\Component\Console\Input\InputInterface $input) : array
     {
         /** @var string[] $paths */
         $paths = (array) $input->getArgument(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS);
