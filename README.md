@@ -6,16 +6,17 @@
 
 ## Features
 
+- **Blazing fast [Parallel run](#parallel-run)**
 - Use [PHP_CodeSniffer || PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
 - **2nd run under few seconds** with un-changed file cache
 - Skipping files for specific checkers
-- Prepared sets - PSR12, Symfony, Common, Array, Symplify and more...
-- [Prefixed version](https://github.com/symplify/easy-coding-standard-prefixed) in case of conflicts on install
+- **Prepared sets** - PSR12, Symfony, arrays, use statements, spaces and more... - see `SetList` class for all
+- **Prefixed version** by default to allow install without conflicts
 
 Are you already using another tool?
 
-- [How to Migrate From PHP_CodeSniffer to EasyCodingStandard in 7 Steps](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/)
-- [How to Migrate From PHP CS Fixer to EasyCodingStandard in 6 Steps](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/)
+- [How to Migrate From PHP_CodeSniffer to EasyCodingStandard in 7 Steps](https://www.tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/#comment-4086561141)
+- [How to Migrate From PHP CS Fixer to EasyCodingStandard in 6 Steps](https://www.tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/)
 
 ## Install
 
@@ -38,17 +39,23 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    // A. standalone rule
+    // A. full sets
+    $containerConfigurator->import(SetList::PSR_12);
+
+    // B. standalone rule
     $services = $containerConfigurator->services();
     $services->set(ArraySyntaxFixer::class)
         ->call('configure', [[
             'syntax' => 'short',
         ]]);
-
-    // B. full sets
-    $containerConfigurator->import(SetList::PSR_12);
 };
 ```
+
+#### Full Sets before Standalone Rules
+
+It is highly recommended to imports sets (A) first, then add standalone rules (B).
+
+The reason for this is that some settings are configured in the full sets too, and will therefore overwrite your standalone rules, if not configured first.
 
 ### 2. Run in CLI
 
@@ -133,6 +140,25 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
 <br>
 
+## Parallel Run
+
+Do you have multi-core CPUs? ECS can run in *X* parallel threads, where *X* is number of your threads. E.g. with laptop with [AMD Ryzen 4750U](https://en.wikipedia.org/wiki/Ryzen) it is 16.
+
+That means 1600 % faster run with same amount of analysed files. Did you code base took 16 minutes to fix? Now it's 1 minute.
+
+How to enable it?
+
+```php
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\ValueObject\Option;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $parameters = $containerConfigurator->parameters();
+
+    $parameters->set(Option::PARALLEL, true);
+};
+```
+
 ## Coding Standards in Markdown
 
 ![ECS-Run](docs/check_markdown.gif)
@@ -191,3 +217,7 @@ In case you are experiencing a bug or want to request a new feature head over to
 ## Contribute
 
 The sources of this package are contained in the Symplify monorepo. We welcome contributions for this package on [symplify/symplify](https://github.com/symplify/symplify).
+
+## Acknowledgment
+
+The parallel run is package is heavily inspired by [https://github.com/phpstan/phpstan-src](phpstan/phpstan-src) by Ondřej Mirtes. Thank you.
