@@ -9,8 +9,8 @@ $loader = require_once __DIR__.'/autoload.php';
 if (!class_exists('AutoloadIncluder', false) && !interface_exists('AutoloadIncluder', false) && !trait_exists('AutoloadIncluder', false)) {
     spl_autoload_call('ECSPrefix20210929\AutoloadIncluder');
 }
-if (!class_exists('ComposerAutoloaderInitcdf558c0735da0b635cd4e5354701a0a', false) && !interface_exists('ComposerAutoloaderInitcdf558c0735da0b635cd4e5354701a0a', false) && !trait_exists('ComposerAutoloaderInitcdf558c0735da0b635cd4e5354701a0a', false)) {
-    spl_autoload_call('ECSPrefix20210929\ComposerAutoloaderInitcdf558c0735da0b635cd4e5354701a0a');
+if (!class_exists('ComposerAutoloaderInit84b5982edaead1435e6dc026454ae94e', false) && !interface_exists('ComposerAutoloaderInit84b5982edaead1435e6dc026454ae94e', false) && !trait_exists('ComposerAutoloaderInit84b5982edaead1435e6dc026454ae94e', false)) {
+    spl_autoload_call('ECSPrefix20210929\ComposerAutoloaderInit84b5982edaead1435e6dc026454ae94e');
 }
 if (!class_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !interface_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !trait_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false)) {
     spl_autoload_call('ECSPrefix20210929\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator');
@@ -42,9 +42,9 @@ if (!class_exists('Symplify\SmartFileSystem\SmartFileInfo', false) && !interface
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequirecdf558c0735da0b635cd4e5354701a0a')) {
-    function composerRequirecdf558c0735da0b635cd4e5354701a0a() {
-        return \ECSPrefix20210929\composerRequirecdf558c0735da0b635cd4e5354701a0a(...func_get_args());
+if (!function_exists('composerRequire84b5982edaead1435e6dc026454ae94e')) {
+    function composerRequire84b5982edaead1435e6dc026454ae94e() {
+        return \ECSPrefix20210929\composerRequire84b5982edaead1435e6dc026454ae94e(...func_get_args());
     }
 }
 if (!function_exists('sample')) {
