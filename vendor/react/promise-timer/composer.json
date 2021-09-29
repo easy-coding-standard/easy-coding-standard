@@ -35,7 +35,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210928\\React\\Promise\\Timer\\": "src\/"
+            "ECSPrefix20210929\\React\\Promise\\Timer\\": "src\/"
         },
         "files": [
             "src\/functions_include.php"
@@ -43,7 +43,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210928\\React\\Tests\\Promise\\Timer\\": "tests\/"
+            "ECSPrefix20210929\\React\\Tests\\Promise\\Timer\\": "tests\/"
         }
     },
     "require": {
