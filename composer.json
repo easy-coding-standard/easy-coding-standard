@@ -16,5 +16,10 @@
     "conflict": {
         "squizlabs/php_codesniffer": "<3.6",
         "friendsofphp/php-cs-fixer": "<3.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "9.5-dev"
+        }
     }
 }
