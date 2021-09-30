@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210929\Symplify\Skipper\HttpKernel;
+namespace ECSPrefix20210930\Symplify\Skipper\HttpKernel;
 
-use ECSPrefix20210929\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix20210929\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use ECSPrefix20210929\Symplify\Skipper\Bundle\SkipperBundle;
-use ECSPrefix20210929\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use ECSPrefix20210929\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class SkipperKernel extends \ECSPrefix20210929\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use ECSPrefix20210930\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix20210930\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20210930\Symplify\Skipper\Bundle\SkipperBundle;
+use ECSPrefix20210930\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use ECSPrefix20210930\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class SkipperKernel extends \ECSPrefix20210930\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
@@ -23,6 +23,6 @@ final class SkipperKernel extends \ECSPrefix20210929\Symplify\SymplifyKernel\Htt
      */
     public function registerBundles() : iterable
     {
-        return [new \ECSPrefix20210929\Symplify\Skipper\Bundle\SkipperBundle(), new \ECSPrefix20210929\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
+        return [new \ECSPrefix20210930\Symplify\Skipper\Bundle\SkipperBundle(), new \ECSPrefix20210930\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }
 }

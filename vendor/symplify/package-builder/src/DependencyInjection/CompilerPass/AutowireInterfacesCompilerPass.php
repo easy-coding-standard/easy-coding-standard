@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210929\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
+namespace ECSPrefix20210930\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
 
-use ECSPrefix20210929\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210929\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class AutowireInterfacesCompilerPass implements \ECSPrefix20210929\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use ECSPrefix20210930\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210930\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class AutowireInterfacesCompilerPass implements \ECSPrefix20210930\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var string[]

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210929\React\Dns\Config;
+namespace ECSPrefix20210930\React\Dns\Config;
 
 use RuntimeException;
 /**
@@ -34,7 +34,7 @@ class HostsFile
         }
         // Windows actually stores the path in the registry under
         // \HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\DataBasePath
-        $path = 'ECSPrefix20210929\\%SystemRoot%\\system32\\drivers\\etc\\hosts';
+        $path = 'ECSPrefix20210930\\%SystemRoot%\\system32\\drivers\\etc\\hosts';
         $base = \getenv('SystemRoot');
         if ($base === \false) {
             $base = 'C:\\Windows';

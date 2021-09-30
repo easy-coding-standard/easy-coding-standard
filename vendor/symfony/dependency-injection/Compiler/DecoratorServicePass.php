@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210929\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210930\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210929\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20210929\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210929\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210929\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210929\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix20210929\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210930\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix20210930\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210930\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210930\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210930\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix20210930\Symfony\Component\DependencyInjection\Reference;
 /**
  * Overwrites a service but keeps the overridden one.
  *
@@ -23,7 +23,7 @@ use ECSPrefix20210929\Symfony\Component\DependencyInjection\Reference;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Diego Saint Esteben <diego@saintesteben.me>
  */
-class DecoratorServicePass extends \ECSPrefix20210929\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class DecoratorServicePass extends \ECSPrefix20210930\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $innerId = '.inner';
     public function __construct(?string $innerId = '.inner')
@@ -50,7 +50,7 @@ class DecoratorServicePass extends \ECSPrefix20210929\Symfony\Component\Dependen
         foreach ($definitions as [$id, $definition]) {
             $decoratedService = $definition->getDecoratedService();
             [$inner, $renamedId] = $decoratedService;
-            $invalidBehavior = $decoratedService[3] ?? \ECSPrefix20210929\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+            $invalidBehavior = $decoratedService[3] ?? \ECSPrefix20210930\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             $definition->setDecoratedService(null);
             if (!$renamedId) {
                 $renamedId = $id . '.inner';
@@ -65,7 +65,7 @@ class DecoratorServicePass extends \ECSPrefix20210929\Symfony\Component\Dependen
                 $alias = $container->getAlias($inner);
                 $public = $alias->isPublic();
                 $private = $alias->isPrivate();
-                $container->setAlias($renamedId, new \ECSPrefix20210929\Symfony\Component\DependencyInjection\Alias((string) $alias, \false));
+                $container->setAlias($renamedId, new \ECSPrefix20210930\Symfony\Component\DependencyInjection\Alias((string) $alias, \false));
                 $decoratedDefinition = $container->findDefinition($alias);
             } elseif ($container->hasDefinition($inner)) {
                 $decoratedDefinition = $container->getDefinition($inner);
@@ -74,18 +74,18 @@ class DecoratorServicePass extends \ECSPrefix20210929\Symfony\Component\Dependen
                 $decoratedDefinition->setPublic(\false);
                 $container->setDefinition($renamedId, $decoratedDefinition);
                 $decoratingDefinitions[$inner] = $decoratedDefinition;
-            } elseif (\ECSPrefix20210929\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $invalidBehavior) {
+            } elseif (\ECSPrefix20210930\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $invalidBehavior) {
                 $container->removeDefinition($id);
                 continue;
-            } elseif (\ECSPrefix20210929\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $invalidBehavior) {
+            } elseif (\ECSPrefix20210930\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $invalidBehavior) {
                 $public = $definition->isPublic();
                 $private = $definition->isPrivate();
                 $decoratedDefinition = null;
             } else {
-                throw new \ECSPrefix20210929\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($inner, $id);
+                throw new \ECSPrefix20210930\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($inner, $id);
             }
             if ($decoratedDefinition && $decoratedDefinition->isSynthetic()) {
-                throw new \ECSPrefix20210929\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A synthetic service cannot be decorated: service "%s" cannot decorate "%s".', $id, $inner));
+                throw new \ECSPrefix20210930\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A synthetic service cannot be decorated: service "%s" cannot decorate "%s".', $id, $inner));
             }
             if (isset($decoratingDefinitions[$inner])) {
                 $decoratingDefinition = $decoratingDefinitions[$inner];
@@ -110,8 +110,8 @@ class DecoratorServicePass extends \ECSPrefix20210929\Symfony\Component\Dependen
      */
     protected function processValue($value, $isRoot = \false)
     {
-        if ($value instanceof \ECSPrefix20210929\Symfony\Component\DependencyInjection\Reference && $this->innerId === (string) $value) {
-            return new \ECSPrefix20210929\Symfony\Component\DependencyInjection\Reference($this->currentId, $value->getInvalidBehavior());
+        if ($value instanceof \ECSPrefix20210930\Symfony\Component\DependencyInjection\Reference && $this->innerId === (string) $value) {
+            return new \ECSPrefix20210930\Symfony\Component\DependencyInjection\Reference($this->currentId, $value->getInvalidBehavior());
         }
         return parent::processValue($value, $isRoot);
     }

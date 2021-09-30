@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210929\Symplify\EasyTesting\FixtureSplitter;
+namespace ECSPrefix20210930\Symplify\EasyTesting\FixtureSplitter;
 
-use ECSPrefix20210929\Nette\Utils\Strings;
-use ECSPrefix20210929\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent;
-use ECSPrefix20210929\Symplify\EasyTesting\ValueObject\SplitLine;
-use ECSPrefix20210929\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20210929\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210930\Nette\Utils\Strings;
+use ECSPrefix20210930\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent;
+use ECSPrefix20210930\Symplify\EasyTesting\ValueObject\SplitLine;
+use ECSPrefix20210930\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210930\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class TrioFixtureSplitter
 {
-    public function splitFileInfo(\ECSPrefix20210929\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \ECSPrefix20210929\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent
+    public function splitFileInfo(\ECSPrefix20210930\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \ECSPrefix20210930\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent
     {
-        $parts = \ECSPrefix20210929\Nette\Utils\Strings::split($smartFileInfo->getContents(), \ECSPrefix20210929\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
+        $parts = \ECSPrefix20210930\Nette\Utils\Strings::split($smartFileInfo->getContents(), \ECSPrefix20210930\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
         $this->ensureHasThreeParts($parts, $smartFileInfo);
-        return new \ECSPrefix20210929\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent($parts[0], $parts[1], $parts[2]);
+        return new \ECSPrefix20210930\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent($parts[0], $parts[1], $parts[2]);
     }
     /**
      * @param mixed[] $parts
      */
-    private function ensureHasThreeParts(array $parts, \ECSPrefix20210929\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    private function ensureHasThreeParts(array $parts, \ECSPrefix20210930\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         if (\count($parts) === 3) {
             return;
         }
         $message = \sprintf('The fixture "%s" should have 3 parts. %d found', $smartFileInfo->getRelativeFilePathFromCwd(), \count($parts));
-        throw new \ECSPrefix20210929\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($message);
+        throw new \ECSPrefix20210930\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($message);
     }
 }

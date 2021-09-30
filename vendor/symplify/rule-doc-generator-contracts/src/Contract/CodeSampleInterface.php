@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210929\Symplify\RuleDocGenerator\Contract;
+namespace ECSPrefix20210930\Symplify\RuleDocGenerator\Contract;
 
 interface CodeSampleInterface
 {
