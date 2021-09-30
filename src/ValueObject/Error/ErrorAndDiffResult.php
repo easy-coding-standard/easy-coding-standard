@@ -23,7 +23,7 @@ final class ErrorAndDiffResult
      * @param FileDiff[] $fileDiffs
      * @param array<SystemError|string> $systemErrors
      */
-    public function __construct(array $codingStandardErrors = [], array $fileDiffs = [], array $systemErrors = [])
+    public function __construct(array $codingStandardErrors, array $fileDiffs, array $systemErrors)
     {
         $this->codingStandardErrors = $this->sortByFileAndLine($codingStandardErrors);
         $this->fileDiffs = $this->sortByFilePath($fileDiffs);

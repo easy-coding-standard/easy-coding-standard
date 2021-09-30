@@ -10,9 +10,9 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
+use Symplify\CodingStandard\TokenRunner\Enum\LineKind;
 use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use Symplify\CodingStandard\TokenRunner\ValueObject\LineKind;
 use Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds;
 use Symplify\CodingStandard\TokenRunner\Wrapper\FixerWrapper\ArrayWrapperFactory;
 use ECSPrefix20210930\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
@@ -97,7 +97,7 @@ CODE_SAMPLE
             if ($this->shouldSkipNestedArrayValue($tokens, $blockInfo)) {
                 return;
             }
-            $this->tokensNewliner->breakItems($blockInfo, $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\LineKind::ARRAYS);
+            $this->tokensNewliner->breakItems($blockInfo, $tokens, \Symplify\CodingStandard\TokenRunner\Enum\LineKind::ARRAYS);
         }
     }
     /**

@@ -75,7 +75,7 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     /**
      * @param FixerInterface[] $fixers
      */
-    public function __construct(\Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser $fileToTokensParser, \ECSPrefix20210930\Symplify\Skipper\Skipper\Skipper $skipper, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \ECSPrefix20210930\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider, \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver $targetFileInfoResolver, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $fixers = [])
+    public function __construct(\Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser $fileToTokensParser, \ECSPrefix20210930\Symplify\Skipper\Skipper\Skipper $skipper, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \ECSPrefix20210930\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider, \Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver $targetFileInfoResolver, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $fixers)
     {
         $this->fileToTokensParser = $fileToTokensParser;
         $this->skipper = $skipper;

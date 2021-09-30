@@ -12,6 +12,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
+use Symplify\CodingStandard\TokenRunner\Enum\LineKind;
 use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use ECSPrefix20210930\Symplify\PackageBuilder\ValueObject\MethodName;
@@ -110,7 +111,7 @@ CODE_SAMPLE
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
             return;
         }
-        $this->tokensNewliner->breakItems($blockInfo, $tokens);
+        $this->tokensNewliner->breakItems($blockInfo, $tokens, \Symplify\CodingStandard\TokenRunner\Enum\LineKind::CALLS);
     }
     /**
      * @param Tokens<Token> $tokens

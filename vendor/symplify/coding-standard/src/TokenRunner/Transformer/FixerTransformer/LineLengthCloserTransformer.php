@@ -7,9 +7,9 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer;
+use Symplify\CodingStandard\TokenRunner\Enum\LineKind;
 use Symplify\CodingStandard\TokenRunner\TokenFinder;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use Symplify\CodingStandard\TokenRunner\ValueObject\LineKind;
 final class LineLengthCloserTransformer
 {
     /**
@@ -46,7 +46,7 @@ final class LineLengthCloserTransformer
         if ($isMethodCall) {
             return \false;
         }
-        if ($kind !== \Symplify\CodingStandard\TokenRunner\ValueObject\LineKind::CALLS) {
+        if ($kind !== \Symplify\CodingStandard\TokenRunner\Enum\LineKind::CALLS) {
             return \false;
         }
         if (!$previousToken->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5670db7c5db0d2b8afe283bb4a548efd
+class ComposerStaticInit5cb0e06cb3191a855a62199b90b8830b
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1964,6 +1964,7 @@ class ComposerStaticInit5670db7c5db0d2b8afe283bb4a548efd
         'Symplify\\CodingStandard\\TokenRunner\\DocBlock\\MalformWorker\\SuperfluousReturnNameMalformWorker' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/DocBlock/MalformWorker/SuperfluousReturnNameMalformWorker.php',
         'Symplify\\CodingStandard\\TokenRunner\\DocBlock\\MalformWorker\\SuperfluousVarNameMalformWorker' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/DocBlock/MalformWorker/SuperfluousVarNameMalformWorker.php',
         'Symplify\\CodingStandard\\TokenRunner\\DocBlock\\MalformWorker\\SwitchedTypeAndNameMalformWorker' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/DocBlock/MalformWorker/SwitchedTypeAndNameMalformWorker.php',
+        'Symplify\\CodingStandard\\TokenRunner\\Enum\\LineKind' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Enum/LineKind.php',
         'Symplify\\CodingStandard\\TokenRunner\\Exception\\MissingImplementationException' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Exception/MissingImplementationException.php',
         'Symplify\\CodingStandard\\TokenRunner\\Exception\\TokenNotFoundException' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Exception/TokenNotFoundException.php',
         'Symplify\\CodingStandard\\TokenRunner\\Exception\\UnexpectedTokenException' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Exception/UnexpectedTokenException.php',
@@ -1979,7 +1980,6 @@ class ComposerStaticInit5670db7c5db0d2b8afe283bb4a548efd
         'Symplify\\CodingStandard\\TokenRunner\\ValueObjectFactory\\LineLengthAndPositionFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObjectFactory/LineLengthAndPositionFactory.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\BlockInfo' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/BlockInfo.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\DocBlockEdgeDefinition' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/DocBlockEdgeDefinition.php',
-        'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\LineKind' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/LineKind.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\LineLengthAndPosition' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/LineLengthAndPosition.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\TokenKinds' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/TokenKinds.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\Wrapper\\FixerWrapper\\ArrayWrapper' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/Wrapper/FixerWrapper/ArrayWrapper.php',
@@ -2095,9 +2095,9 @@ class ComposerStaticInit5670db7c5db0d2b8afe283bb4a548efd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5670db7c5db0d2b8afe283bb4a548efd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5670db7c5db0d2b8afe283bb4a548efd::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5670db7c5db0d2b8afe283bb4a548efd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5cb0e06cb3191a855a62199b90b8830b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5cb0e06cb3191a855a62199b90b8830b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5cb0e06cb3191a855a62199b90b8830b::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -58,7 +58,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     /**
      * @param Sniff[] $sniffs
      */
-    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory $fileFactory, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \ECSPrefix20210930\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $sniffs = [])
+    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory $fileFactory, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \ECSPrefix20210930\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $sniffs)
     {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;

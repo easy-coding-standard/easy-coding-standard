@@ -40,7 +40,7 @@ final class DoctrineBlockFinder
         $blockType = $this->blockFinder->getBlockTypeByContent($token->getContent());
         if (\in_array($token->getContent(), self::START_EDGES, \true)) {
             $blockStart = $position;
-            $blockEnd = $this->findOppositeBlockEdge($tokens, $blockType, $blockStart);
+            $blockEnd = $this->findOppositeBlockEdge($tokens, $blockType, $blockStart, \true);
         } else {
             $blockEnd = $position;
             $blockStart = $this->findOppositeBlockEdge($tokens, $blockType, $blockEnd, \false);
@@ -53,7 +53,7 @@ final class DoctrineBlockFinder
      * @copied from
      * @see \PhpCsFixer\Tokenizer\Tokens::findBlockEnd()
      */
-    private function findOppositeBlockEdge(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $type, int $searchIndex, bool $findEnd = \true) : int
+    private function findOppositeBlockEdge(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $type, int $searchIndex, bool $findEnd) : int
     {
         foreach ($this->docBlockEdgeDefinitions as $docBlockEdgeDefinition) {
             if ($docBlockEdgeDefinition->getKind() !== $type) {

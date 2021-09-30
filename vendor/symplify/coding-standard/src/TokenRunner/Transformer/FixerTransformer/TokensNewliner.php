@@ -9,7 +9,6 @@ use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use Symplify\CodingStandard\TokenRunner\ValueObject\LineKind;
 use Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver;
 final class TokensNewliner
 {
@@ -44,7 +43,7 @@ final class TokensNewliner
     /**
      * @param Tokens<Token> $tokens
      */
-    public function breakItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $kind = \Symplify\CodingStandard\TokenRunner\ValueObject\LineKind::CALLS) : void
+    public function breakItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $kind) : void
     {
         // from bottom top, to prevent skipping ids
         //  e.g when token is added in the middle, the end index does now point to earlier element!
