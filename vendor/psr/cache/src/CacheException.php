@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210930\Psr\Cache;
+namespace ECSPrefix20211001\Psr\Cache;
 
 /**
  * Exception interface for all exceptions thrown by an Implementing Library.

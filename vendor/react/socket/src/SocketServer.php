@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210930\React\Socket;
+namespace ECSPrefix20211001\React\Socket;
 
-use ECSPrefix20210930\Evenement\EventEmitter;
-use ECSPrefix20210930\React\EventLoop\LoopInterface;
-final class SocketServer extends \ECSPrefix20210930\Evenement\EventEmitter implements \ECSPrefix20210930\React\Socket\ServerInterface
+use ECSPrefix20211001\Evenement\EventEmitter;
+use ECSPrefix20211001\React\EventLoop\LoopInterface;
+final class SocketServer extends \ECSPrefix20211001\Evenement\EventEmitter implements \ECSPrefix20211001\React\Socket\ServerInterface
 {
     private $server;
     /**
@@ -29,7 +29,7 @@ final class SocketServer extends \ECSPrefix20210930\Evenement\EventEmitter imple
      * @throws \InvalidArgumentException if the listening address is invalid
      * @throws \RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($uri, array $context = array(), \ECSPrefix20210930\React\EventLoop\LoopInterface $loop = null)
+    public function __construct($uri, array $context = array(), \ECSPrefix20211001\React\EventLoop\LoopInterface $loop = null)
     {
         // apply default options if not explicitly given
         $context += array('tcp' => array(), 'tls' => array(), 'unix' => array());
@@ -39,19 +39,19 @@ final class SocketServer extends \ECSPrefix20210930\Evenement\EventEmitter imple
             $scheme = \substr($uri, 0, $pos);
         }
         if ($scheme === 'unix') {
-            $server = new \ECSPrefix20210930\React\Socket\UnixServer($uri, $loop, $context['unix']);
+            $server = new \ECSPrefix20211001\React\Socket\UnixServer($uri, $loop, $context['unix']);
         } else {
             if (\preg_match('#^(?:\\w+://)?\\d+$#', $uri)) {
                 throw new \InvalidArgumentException('Invalid URI given');
             }
-            $server = new \ECSPrefix20210930\React\Socket\TcpServer(\str_replace('tls://', '', $uri), $loop, $context['tcp']);
+            $server = new \ECSPrefix20211001\React\Socket\TcpServer(\str_replace('tls://', '', $uri), $loop, $context['tcp']);
             if ($scheme === 'tls') {
-                $server = new \ECSPrefix20210930\React\Socket\SecureServer($server, $loop, $context['tls']);
+                $server = new \ECSPrefix20211001\React\Socket\SecureServer($server, $loop, $context['tls']);
             }
         }
         $this->server = $server;
         $that = $this;
-        $server->on('connection', function (\ECSPrefix20210930\React\Socket\ConnectionInterface $conn) use($that) {
+        $server->on('connection', function (\ECSPrefix20211001\React\Socket\ConnectionInterface $conn) use($that) {
             $that->emit('connection', array($conn));
         });
         $server->on('error', function (\Exception $error) use($that) {

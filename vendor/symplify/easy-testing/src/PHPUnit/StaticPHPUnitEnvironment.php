@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210930\Symplify\EasyTesting\PHPUnit;
+namespace ECSPrefix20211001\Symplify\EasyTesting\PHPUnit;
 
 final class StaticPHPUnitEnvironment
 {

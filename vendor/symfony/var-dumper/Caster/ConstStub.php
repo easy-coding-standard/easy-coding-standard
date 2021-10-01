@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210930\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20211001\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210930\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20211001\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Represents a PHP constant and its value.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ConstStub extends \ECSPrefix20210930\Symfony\Component\VarDumper\Cloner\Stub
+class ConstStub extends \ECSPrefix20211001\Symfony\Component\VarDumper\Cloner\Stub
 {
     public function __construct(string $name, $value = null)
     {

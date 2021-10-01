@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210930\Symfony\Component\HttpKernel\Exception;
+namespace ECSPrefix20211001\Symfony\Component\HttpKernel\Exception;
 
 /**
  * @author Kris Wallsmith <kris@symfony.com>
  */
-class MethodNotAllowedHttpException extends \ECSPrefix20210930\Symfony\Component\HttpKernel\Exception\HttpException
+class MethodNotAllowedHttpException extends \ECSPrefix20211001\Symfony\Component\HttpKernel\Exception\HttpException
 {
     /**
      * @param string[]        $allow    An array of allowed methods

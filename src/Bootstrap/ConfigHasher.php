@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Bootstrap;
 
-use ECSPrefix20210930\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211001\Symplify\SmartFileSystem\SmartFileInfo;
 final class ConfigHasher
 {
     /**
