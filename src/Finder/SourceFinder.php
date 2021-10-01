@@ -34,6 +34,7 @@ final class SourceFinder
     }
     /**
      * @param string[] $source
+     * @param bool $doesMatchGitDiff - @deprecated
      * @return SmartFileInfo[]
      */
     public function find(array $source, bool $doesMatchGitDiff = \false) : array
@@ -74,6 +75,7 @@ final class SourceFinder
     }
     /**
      * @param SmartFileInfo[] $fileInfos
+     * @param bool $doesMatchGitDiff @deprecated
      * @return SmartFileInfo[]
      */
     private function filterOutGitDiffFiles(array $fileInfos, bool $doesMatchGitDiff) : array

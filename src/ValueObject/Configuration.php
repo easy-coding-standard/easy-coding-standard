@@ -96,6 +96,9 @@ final class Configuration
     {
         return $this->outputFormat;
     }
+    /**
+     * @deprecated
+     */
     public function doesMatchGitDiff() : bool
     {
         return $this->doesMatchGitDiff;
