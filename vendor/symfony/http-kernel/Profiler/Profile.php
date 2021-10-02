@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211001\Symfony\Component\HttpKernel\Profiler;
+namespace ECSPrefix20211002\Symfony\Component\HttpKernel\Profiler;
 
-use ECSPrefix20211001\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
+use ECSPrefix20211002\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 /**
  * Profile.
  *

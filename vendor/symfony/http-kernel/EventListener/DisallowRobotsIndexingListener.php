@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211001\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20211002\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20211001\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20211001\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use ECSPrefix20211001\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20211002\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20211002\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20211002\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Ensures that the application is not indexed by search engines.
  *
  * @author Gary PEGEOT <garypegeot@gmail.com>
  */
-class DisallowRobotsIndexingListener implements \ECSPrefix20211001\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class DisallowRobotsIndexingListener implements \ECSPrefix20211002\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private const HEADER_NAME = 'X-Robots-Tag';
     /**
@@ -35,6 +35,6 @@ class DisallowRobotsIndexingListener implements \ECSPrefix20211001\Symfony\Compo
      */
     public static function getSubscribedEvents()
     {
-        return [\ECSPrefix20211001\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onResponse', -255]];
+        return [\ECSPrefix20211002\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onResponse', -255]];
     }
 }
