@@ -16,8 +16,6 @@ use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
@@ -46,7 +44,7 @@ class SomeClass
     {
     }
 }
-'), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 use Foo\\Bar;
 use Foo\\Bar\\Baz;
@@ -57,7 +55,7 @@ class SomeClass
     {
     }
 }
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70000))]);
+')]);
     }
     /**
      * {@inheritdoc}
@@ -74,7 +72,7 @@ class SomeClass
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return $tokens->isTokenKindFound(\T_FUNCTION) && (\count((new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens)) || \count((new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens)));
+        return $tokens->isTokenKindFound(\T_FUNCTION) && (\count((new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens)) > 0 || \count((new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens)) > 0);
     }
     /**
      * {@inheritdoc}
@@ -103,11 +101,8 @@ class SomeClass
     }
     private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
-        if (\PHP_VERSION_ID < 70000) {
-            return;
-        }
         $returnType = (new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->getFunctionReturnType($tokens, $index);
-        if (!$returnType) {
+        if (null === $returnType) {
             return;
         }
         $this->detectAndReplaceTypeWithShortType($tokens, $returnType);
@@ -123,7 +118,7 @@ class SomeClass
         }
         foreach ($this->getSimpleTypes($tokens, $typeStartIndex, $type->getEndIndex()) as $simpleType) {
             $typeName = $tokens->generatePartialCode($simpleType['start'], $simpleType['end']);
-            if (0 !== \strpos($typeName, '\\')) {
+            if (\strncmp($typeName, '\\', \strlen('\\')) !== 0) {
                 continue;
             }
             $shortType = (new \PhpCsFixer\Tokenizer\Resolver\TypeShortNameResolver())->resolve($tokens, $typeName);
@@ -150,7 +145,7 @@ class SomeClass
                 (yield ['start' => $startIndex, 'end' => $index]);
                 break;
             }
-            if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION)) {
+            if ($tokens[$index]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION])) {
                 (yield ['start' => $startIndex, 'end' => $prevIndex]);
                 $startIndex = null;
             }

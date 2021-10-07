@@ -32,7 +32,7 @@ final class HeredocToNowdocFixer extends \PhpCsFixer\AbstractFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Convert `heredoc` to `nowdoc` where possible.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOF'
 <?php
 
-namespace ECSPrefix20211002;
+namespace ECSPrefix20211007;
 
 $a = <<<TEST
 Foo
@@ -64,7 +64,7 @@ EOF
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(\T_START_HEREDOC) || \false !== \strpos($token->getContent(), "'")) {
+            if (!$token->isGivenKind(\T_START_HEREDOC) || \strpos($token->getContent(), "'") !== \false) {
                 continue;
             }
             if ($tokens[$index + 1]->isGivenKind(\T_END_HEREDOC)) {

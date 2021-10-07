@@ -17,8 +17,8 @@ use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\RuleSet\RuleSetInterface;
-use ECSPrefix20211002\Symfony\Component\Finder\Finder as SymfonyFinder;
-use ECSPrefix20211002\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20211007\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix20211007\Symfony\Component\Finder\SplFileInfo;
 /**
  * Class provides a way to create a group of fixers.
  *
@@ -76,12 +76,10 @@ final class FixerFactory
         if (null === $builtInFixers) {
             $builtInFixers = [];
             /** @var SplFileInfo $file */
-            foreach (\ECSPrefix20211002\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Fixer')->depth(1) as $file) {
+            foreach (\ECSPrefix20211007\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Fixer')->name('*Fixer.php')->depth(1) as $file) {
                 $relativeNamespace = $file->getRelativePath();
                 $fixerClass = 'PhpCsFixer\\Fixer\\' . ($relativeNamespace ? $relativeNamespace . '\\' : '') . $file->getBasename('.php');
-                if ('Fixer' === \substr($fixerClass, -5)) {
-                    $builtInFixers[] = $fixerClass;
-                }
+                $builtInFixers[] = $fixerClass;
             }
         }
         foreach ($builtInFixers as $class) {
@@ -136,7 +134,7 @@ final class FixerFactory
             $config = $ruleSet->getRuleConfiguration($name);
             if (null !== $config) {
                 if ($fixer instanceof \PhpCsFixer\Fixer\ConfigurableFixerInterface) {
-                    if (!\is_array($config) || !\count($config)) {
+                    if (\count($config) < 1) {
                         throw new \PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException($fixer->getName(), 'Configuration must be an array and may not be empty.');
                     }
                     $fixer->configure($config);
@@ -183,7 +181,7 @@ final class FixerFactory
         $report = [];
         foreach ($fixerConflicts as $fixer => $fixers) {
             // filter mutual conflicts
-            $report[$fixer] = \array_filter($fixers, static function (string $candidate) use($report, $fixer) {
+            $report[$fixer] = \array_filter($fixers, static function (string $candidate) use($report, $fixer) : bool {
                 return !\array_key_exists($candidate, $report) || !\in_array($fixer, $report[$candidate], \true);
             });
             if (\count($report[$fixer]) > 0) {

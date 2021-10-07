@@ -28,7 +28,7 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
      *
      * @var array
      */
-    private static $reservedTypes = ['array', 'bool', 'callable', 'int', 'iterable', 'float', 'mixed', 'numeric', 'object', 'resource', 'self', 'string', 'void'];
+    private static $reservedTypes = ['array', 'bool', 'callable', 'float', 'int', 'iterable', 'mixed', 'never', 'numeric', 'object', 'resource', 'self', 'string', 'void'];
     /**
      * @var string
      */
@@ -49,7 +49,7 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
     {
         $this->name = $name;
         $this->nullable = \false;
-        if (0 === \strpos($name, '?')) {
+        if (\strncmp($name, '?', \strlen('?')) === 0) {
             $this->name = \substr($name, 1);
             $this->nullable = \true;
         }

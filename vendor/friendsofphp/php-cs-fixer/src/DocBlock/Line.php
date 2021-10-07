@@ -16,9 +16,7 @@ use PhpCsFixer\Preg;
 /**
  * This represents a line of a docblock.
  *
- * @author Graham Campbell <graham@alt-three.com>
- *
- * @final
+ * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
 final class Line
 {
@@ -72,14 +70,14 @@ final class Line
      */
     public function isTheStart() : bool
     {
-        return \false !== \strpos($this->content, '/**');
+        return \strpos($this->content, '/**') !== \false;
     }
     /**
      * Is the line the end of a docblock?
      */
     public function isTheEnd() : bool
     {
-        return \false !== \strpos($this->content, '*/');
+        return \strpos($this->content, '*/') !== \false;
     }
     /**
      * Set the content of this line.

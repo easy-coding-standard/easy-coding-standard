@@ -15,9 +15,6 @@ namespace PhpCsFixer\Differ;
 use PhpCsFixer\Diff\Differ;
 use PhpCsFixer\Diff\Output\StrictUnifiedDiffOutputBuilder;
 use PhpCsFixer\Preg;
-/**
- * @author SpacePossum
- */
 final class UnifiedDiffer implements \PhpCsFixer\Differ\DifferInterface
 {
     /**

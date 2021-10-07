@@ -23,21 +23,21 @@ use PhpCsFixer\Console\SelfUpdate\NewVersionChecker;
 use PhpCsFixer\PharChecker;
 use PhpCsFixer\ToolInfo;
 use PhpCsFixer\Utils;
-use ECSPrefix20211002\Symfony\Component\Console\Application as BaseApplication;
-use ECSPrefix20211002\Symfony\Component\Console\Command\ListCommand;
-use ECSPrefix20211002\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211002\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20211002\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211007\Symfony\Component\Console\Application as BaseApplication;
+use ECSPrefix20211007\Symfony\Component\Console\Command\ListCommand;
+use ECSPrefix20211007\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211007\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20211007\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
  * @internal
  */
-final class Application extends \ECSPrefix20211002\Symfony\Component\Console\Application
+final class Application extends \ECSPrefix20211007\Symfony\Component\Console\Application
 {
-    public const VERSION = '3.1.0';
-    public const VERSION_CODENAME = 'River';
+    public const VERSION = '3.2.1';
+    public const VERSION_CODENAME = 'Mountains';
     /**
      * @var ToolInfo
      */
@@ -64,13 +64,13 @@ final class Application extends \ECSPrefix20211002\Symfony\Component\Console\App
      */
     public function doRun($input, $output) : int
     {
-        $stdErr = $output instanceof \ECSPrefix20211002\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : ($input->hasParameterOption('--format', \true) && 'txt' !== $input->getParameterOption('--format', null, \true) ? null : $output);
+        $stdErr = $output instanceof \ECSPrefix20211007\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : ($input->hasParameterOption('--format', \true) && 'txt' !== $input->getParameterOption('--format', null, \true) ? null : $output);
         if (null !== $stdErr) {
             $warningsDetector = new \PhpCsFixer\Console\WarningsDetector($this->toolInfo);
             $warningsDetector->detectOldVendor();
             $warningsDetector->detectOldMajor();
             $warnings = $warningsDetector->getWarnings();
-            if ($warnings) {
+            if (\count($warnings) > 0) {
                 foreach ($warnings as $warning) {
                     $stdErr->writeln(\sprintf($stdErr->isDecorated() ? '<bg=yellow;fg=black;>%s</>' : '%s', $warning));
                 }
@@ -78,9 +78,9 @@ final class Application extends \ECSPrefix20211002\Symfony\Component\Console\App
             }
         }
         $result = parent::doRun($input, $output);
-        if (null !== $stdErr && $output->getVerbosity() >= \ECSPrefix20211002\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
+        if (null !== $stdErr && $output->getVerbosity() >= \ECSPrefix20211007\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
             $triggeredDeprecations = \PhpCsFixer\Utils::getTriggeredDeprecations();
-            if ($triggeredDeprecations) {
+            if (\count($triggeredDeprecations) > 0) {
                 $stdErr->writeln('');
                 $stdErr->writeln($stdErr->isDecorated() ? '<bg=yellow;fg=black;>Detected deprecations in use:</>' : 'Detected deprecations in use:');
                 foreach ($triggeredDeprecations as $deprecation) {
@@ -113,6 +113,6 @@ final class Application extends \ECSPrefix20211002\Symfony\Component\Console\App
      */
     protected function getDefaultCommands() : array
     {
-        return [new \PhpCsFixer\Console\Command\HelpCommand(), new \ECSPrefix20211002\Symfony\Component\Console\Command\ListCommand()];
+        return [new \PhpCsFixer\Console\Command\HelpCommand(), new \ECSPrefix20211007\Symfony\Component\Console\Command\ListCommand()];
     }
 }

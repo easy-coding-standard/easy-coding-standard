@@ -16,8 +16,7 @@ use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
+use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
@@ -48,7 +47,7 @@ class Foo extends Bar
         return true;
     }
 }
-'), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Foo extends Bar
 {
     public function baz(?self $x) : SELF
@@ -56,7 +55,7 @@ class Foo extends Bar
         return false;
     }
 }
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70100))]);
+')]);
     }
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
@@ -74,11 +73,11 @@ class Foo extends Bar
                 // case is already correct
             }
             $prevIndex = $tokens->getPrevMeaningfulToken($index);
-            if ($tokens[$prevIndex]->isGivenKind([\T_CONST, \T_DOUBLE_COLON, \T_FUNCTION, \T_NAMESPACE, \T_NS_SEPARATOR, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC]) || $tokens[$prevIndex]->isObjectOperator()) {
+            if ($tokens[$prevIndex]->isGivenKind([\T_CONST, \T_DOUBLE_COLON, \T_FUNCTION, \T_NAMESPACE, \T_NS_SEPARATOR]) || $tokens[$prevIndex]->isObjectOperator()) {
                 continue;
             }
             $nextIndex = $tokens->getNextMeaningfulToken($index);
-            if ($tokens[$nextIndex]->isGivenKind([\T_FUNCTION, \T_NS_SEPARATOR, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC])) {
+            if ($tokens[$nextIndex]->isGivenKind([\T_FUNCTION, \T_NS_SEPARATOR, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE])) {
                 continue;
             }
             if ('static' === $newContent && $tokens[$nextIndex]->isGivenKind(\T_VARIABLE)) {

@@ -12,11 +12,11 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20211002\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20211007\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * Generates a report according to gitlabs subset of codeclimate json files.
  *
- * @see https://github.com/codeclimate/spec/blob/master/SPEC.md#data-types
+ * @see https://github.com/codeclimate/platform/blob/master/spec/analyzers/SPEC.md#data-types
  *
  * @author Hans-Christian Otto <c.otto@suora.com>
  *
@@ -41,6 +41,6 @@ final class GitlabReporter implements \PhpCsFixer\Console\Report\FixReport\Repor
             }
         }
         $jsonString = \json_encode($report);
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20211002\Symfony\Component\Console\Formatter\OutputFormatter::escape($jsonString) : $jsonString;
+        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20211007\Symfony\Component\Console\Formatter\OutputFormatter::escape($jsonString) : $jsonString;
     }
 }

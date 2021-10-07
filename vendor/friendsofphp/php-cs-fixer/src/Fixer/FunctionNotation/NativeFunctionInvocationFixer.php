@@ -25,10 +25,9 @@ use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Andreas Möller <am@localheinz.com>
- * @author SpacePossum
  */
 final class NativeFunctionInvocationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
@@ -117,7 +116,7 @@ $c = get_class($d);
      * {@inheritdoc}
      *
      * Must run before GlobalNamespaceImportFixer.
-     * Must run after BacktickToShellExecFixer, StrictParamFixer.
+     * Must run after BacktickToShellExecFixer, RegularCallableCallFixer, StrictParamFixer.
      */
     public function getPriority() : int
     {
@@ -158,21 +157,21 @@ $c = get_class($d);
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('exclude', 'List of functions to ignore.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('exclude', 'List of functions to ignore.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
             foreach ($value as $functionName) {
                 if (!\is_string($functionName) || '' === \trim($functionName) || \trim($functionName) !== $functionName) {
-                    throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($functionName) ? \get_class($functionName) : \gettype($functionName)));
+                    throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($functionName) ? \get_class($functionName) : \gettype($functionName)));
                 }
             }
             return \true;
-        }])->setDefault([])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('include', 'List of function names or sets to fix. Defined sets are `@internal` (all native functions), `@all` (all global functions) and `@compiler_optimized` (functions that are specially optimized by Zend).'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) {
+        }])->setDefault([])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('include', 'List of function names or sets to fix. Defined sets are `@internal` (all native functions), `@all` (all global functions) and `@compiler_optimized` (functions that are specially optimized by Zend).'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
             foreach ($value as $functionName) {
                 if (!\is_string($functionName) || '' === \trim($functionName) || \trim($functionName) !== $functionName) {
-                    throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($functionName) ? \get_class($functionName) : \gettype($functionName)));
+                    throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($functionName) ? \get_class($functionName) : \gettype($functionName)));
                 }
                 $sets = [self::SET_ALL, self::SET_INTERNAL, self::SET_COMPILER_OPTIMIZED];
-                if ('@' === $functionName[0] && !\in_array($functionName, $sets, \true)) {
-                    throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown set "%s", known sets are "%s".', $functionName, \implode('", "', $sets)));
+                if (\strncmp($functionName, '@', \strlen('@')) === 0 && !\in_array($functionName, $sets, \true)) {
+                    throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown set "%s", known sets are "%s".', $functionName, \implode('", "', $sets)));
                 }
             }
             return \true;
@@ -188,7 +187,7 @@ $c = get_class($d);
             }
             $prevIndex = $tokens->getPrevMeaningfulToken($index);
             if (!$functionFilter($tokens[$index]->getContent()) || $tryToRemove) {
-                if (!$this->configuration['strict']) {
+                if (\false === $this->configuration['strict']) {
                     continue;
                 }
                 if ($tokens[$prevIndex]->isGivenKind(\T_NS_SEPARATOR)) {
@@ -209,11 +208,11 @@ $c = get_class($d);
         $exclude = $this->normalizeFunctionNames($this->configuration['exclude']);
         if (\in_array(self::SET_ALL, $this->configuration['include'], \true)) {
             if (\count($exclude) > 0) {
-                return static function (string $functionName) use($exclude) {
+                return static function (string $functionName) use($exclude) : bool {
                     return !isset($exclude[\strtolower($functionName)]);
                 };
             }
-            return static function () {
+            return static function () : bool {
                 return \true;
             };
         }
@@ -225,16 +224,16 @@ $c = get_class($d);
             // if `@internal` is set all compiler optimized function are already loaded
         }
         foreach ($this->configuration['include'] as $additional) {
-            if ('@' !== $additional[0]) {
+            if (\strncmp($additional, '@', \strlen('@')) !== 0) {
                 $include[\strtolower($additional)] = \true;
             }
         }
         if (\count($exclude) > 0) {
-            return static function (string $functionName) use($include, $exclude) {
+            return static function (string $functionName) use($include, $exclude) : bool {
                 return isset($include[\strtolower($functionName)]) && !isset($exclude[\strtolower($functionName)]);
             };
         }
-        return static function (string $functionName) use($include) {
+        return static function (string $functionName) use($include) : bool {
             return isset($include[\strtolower($functionName)]);
         };
     }

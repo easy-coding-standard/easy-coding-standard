@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211002\Symplify\Skipper\ValueObject;
+namespace ECSPrefix20211007\Symplify\Skipper\ValueObject;
 
 final class Option
 {

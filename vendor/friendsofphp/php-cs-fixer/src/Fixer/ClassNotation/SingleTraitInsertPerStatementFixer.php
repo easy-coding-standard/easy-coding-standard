@@ -20,9 +20,6 @@ use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class SingleTraitInsertPerStatementFixer extends \PhpCsFixer\AbstractFixer
 {
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface

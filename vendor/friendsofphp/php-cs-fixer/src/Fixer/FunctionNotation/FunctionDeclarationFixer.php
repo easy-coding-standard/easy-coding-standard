@@ -50,10 +50,7 @@ final class FunctionDeclarationFixer extends \PhpCsFixer\AbstractFixer implement
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
-            return \true;
-        }
-        return $tokens->isTokenKindFound(\T_FUNCTION);
+        return $tokens->isTokenKindFound(\T_FUNCTION) || \PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN);
     }
     /**
      * {@inheritdoc}

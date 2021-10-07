@@ -130,7 +130,7 @@ final class TypeExpression
     }
     public function getCommonType() : ?string
     {
-        $aliases = ['true' => 'bool', 'false' => 'bool', 'boolean' => 'bool', 'integer' => 'int', 'double' => 'float', 'real' => 'float', 'callback' => 'callable'];
+        $aliases = $this->getAliases();
         $mainType = null;
         foreach ($this->types as $type) {
             if ('null' === $type) {
@@ -168,19 +168,16 @@ final class TypeExpression
         $types = [$this->normalize($type1), $this->normalize($type2)];
         \natcasesort($types);
         $types = \implode('|', $types);
-        $parents = ['array|iterable' => 'iterable', 'array|Traversable' => 'iterable', 'iterable|Traversable' => 'iterable', 'self|static' => 'self'];
-        if (isset($parents[$types])) {
-            return $parents[$types];
-        }
-        return null;
+        $parents = ['array|Traversable' => 'iterable', 'array|iterable' => 'iterable', 'iterable|Traversable' => 'iterable', 'self|static' => 'self'];
+        return $parents[$types] ?? null;
     }
     private function normalize(string $type) : string
     {
-        $aliases = ['true' => 'bool', 'false' => 'bool', 'boolean' => 'bool', 'integer' => 'int', 'double' => 'float', 'real' => 'float', 'callback' => 'callable'];
+        $aliases = $this->getAliases();
         if (isset($aliases[$type])) {
             return $aliases[$type];
         }
-        if (\in_array($type, ['void', 'null', 'bool', 'int', 'float', 'string', 'array', 'iterable', 'object', 'callable', 'resource', 'mixed'], \true)) {
+        if (\in_array($type, ['array', 'bool', 'callable', 'float', 'int', 'iterable', 'mixed', 'never', 'null', 'object', 'resource', 'string', 'void'], \true)) {
             return $type;
         }
         if (1 === \PhpCsFixer\Preg::match('/\\[\\]$/', $type)) {
@@ -189,7 +186,7 @@ final class TypeExpression
         if (1 === \PhpCsFixer\Preg::match('/^(.+?)</', $type, $matches)) {
             return $matches[1];
         }
-        if (0 === \strpos($type, '\\')) {
+        if (\strncmp($type, '\\', \strlen('\\')) === 0) {
             return \substr($type, 1);
         }
         foreach ($this->namespaceUses as $namespaceUse) {
@@ -201,5 +198,12 @@ final class TypeExpression
             return $type;
         }
         return "{$this->namespace->getFullName()}\\{$type}";
+    }
+    /**
+     * @return array<string,string>
+     */
+    private function getAliases() : array
+    {
+        return ['boolean' => 'bool', 'callback' => 'callable', 'double' => 'float', 'false' => 'bool', 'integer' => 'int', 'real' => 'float', 'true' => 'bool'];
     }
 }

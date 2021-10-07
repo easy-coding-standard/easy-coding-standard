@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211002\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix20211007\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20211002\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211007\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Descriptor interface.
  *

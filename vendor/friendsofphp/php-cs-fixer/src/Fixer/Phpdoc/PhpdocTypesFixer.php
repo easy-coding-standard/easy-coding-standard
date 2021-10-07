@@ -22,7 +22,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 /**
- * @author Graham Campbell <graham@alt-three.com>
+ * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
 final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
@@ -43,7 +43,7 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
     public function configure(array $configuration) : void
     {
         parent::configure($configuration);
-        $this->typesToFix = \array_merge(...\array_map(static function (string $group) {
+        $this->typesToFix = \array_merge(...\array_map(static function (string $group) : array {
             return self::$possibleTypes[$group];
         }, $this->configuration['groups']));
     }

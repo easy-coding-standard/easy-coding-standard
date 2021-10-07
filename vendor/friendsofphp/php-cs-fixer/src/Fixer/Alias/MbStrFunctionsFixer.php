@@ -35,7 +35,7 @@ final class MbStrFunctionsFixer extends \PhpCsFixer\AbstractFunctionReferenceFix
     public function __construct()
     {
         parent::__construct();
-        $this->functions = \array_filter(self::$functionsMap, static function (array $mapping) {
+        $this->functions = \array_filter(self::$functionsMap, static function (array $mapping) : bool {
             return \function_exists($mapping['alternativeName']) && (new \ReflectionFunction($mapping['alternativeName']))->isInternal();
         });
     }
@@ -57,14 +57,7 @@ $a = strstr($a, $b);
 $a = stristr($a, $b);
 $a = strrchr($a, $b);
 $a = substr_count($a, $b);
-')], null, 'Risky when any of the functions are overridden.');
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
-    {
-        return $tokens->isTokenKindFound(\T_STRING);
+')], null, 'Risky when any of the functions are overridden, or when relying on the string byte size rather than its length in characters.');
     }
     /**
      * {@inheritdoc}
@@ -74,7 +67,7 @@ $a = substr_count($a, $b);
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         foreach ($this->functions as $functionIdentity => $functionReplacement) {
             $currIndex = 0;
-            while (null !== $currIndex) {
+            do {
                 // try getting function reference and translate boundaries for humans
                 $boundaries = $this->find($functionIdentity, $tokens, $currIndex, $tokens->count() - 1);
                 if (null === $boundaries) {
@@ -89,7 +82,7 @@ $a = substr_count($a, $b);
                 // analysing cursor shift, so nested calls could be processed
                 $currIndex = $openParenthesis;
                 $tokens[$functionName] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $functionReplacement['alternativeName']]);
-            }
+            } while (null !== $currIndex);
         }
     }
 }

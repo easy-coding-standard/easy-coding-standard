@@ -18,9 +18,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
 {
     /**

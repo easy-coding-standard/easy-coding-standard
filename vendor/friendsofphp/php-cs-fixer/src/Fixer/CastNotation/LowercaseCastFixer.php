@@ -19,9 +19,6 @@ use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class LowercaseCastFixer extends \PhpCsFixer\AbstractFixer
 {
     /**

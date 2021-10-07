@@ -22,8 +22,6 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
@@ -41,8 +39,10 @@ class Foo {
     /**
      * @param Bar $bar
      * @param mixed $baz
+     *
+     * @return Baz
      */
-    public function doFoo(Bar $bar, $baz) {}
+    public function doFoo(Bar $bar, $baz): Baz {}
 }
 '), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Foo {
@@ -52,17 +52,7 @@ class Foo {
      */
     public function doFoo(Bar $bar, $baz) {}
 }
-', ['allow_mixed' => \true]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
-class Foo {
-    /**
-     * @param Bar $bar
-     * @param mixed $baz
-     *
-     * @return Baz
-     */
-    public function doFoo(Bar $bar, $baz): Baz {}
-}
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70000)), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['allow_mixed' => \true]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Foo {
     /**
      * @inheritDoc
@@ -112,18 +102,21 @@ class Foo {
                 continue;
             }
             $content = $initialContent = $token->getContent();
-            $documentedElementIndex = $this->findDocumentedElement($tokens, $index);
-            if (null === $documentedElementIndex) {
+            $documentedElement = $this->findDocumentedElement($tokens, $index);
+            if (null === $documentedElement) {
                 continue;
             }
-            $token = $tokens[$documentedElementIndex];
-            if ($this->configuration['remove_inheritdoc']) {
+            if (\true === $this->configuration['remove_inheritdoc']) {
                 $content = $this->removeSuperfluousInheritDoc($content);
             }
-            if ($token->isGivenKind(\T_FUNCTION)) {
-                $content = $this->fixFunctionDocComment($content, $tokens, $index, $shortNames);
-            } elseif ($token->isGivenKind(\T_VARIABLE)) {
-                $content = $this->fixPropertyDocComment($content, $tokens, $index, $shortNames);
+            if ('function' === $documentedElement['type']) {
+                $content = $this->fixFunctionDocComment($content, $tokens, $documentedElement, $shortNames);
+            } elseif ('property' === $documentedElement['type']) {
+                $content = $this->fixPropertyDocComment($content, $tokens, $documentedElement, $shortNames);
+            } elseif ('classy' === $documentedElement['type']) {
+                $content = $this->fixClassDocComment($content, $documentedElement);
+            } else {
+                throw new \RuntimeException('Unknown type.');
             }
             if ('' === $content) {
                 $content = '/**  */';
@@ -140,32 +133,50 @@ class Foo {
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('allow_mixed', 'Whether type `mixed` without description is allowed (`true`) or considered superfluous (`false`)'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('remove_inheritdoc', 'Remove `@inheritDoc` tags'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('allow_unused_params', 'Whether `param` annotation without actual signature is allowed (`true`) or considered superfluous (`false`)'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
-    private function findDocumentedElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docCommentIndex) : ?int
+    private function findDocumentedElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docCommentIndex) : ?array
     {
-        $index = $docCommentIndex;
-        do {
-            $index = $tokens->getNextMeaningfulToken($index);
-            if (null === $index || $tokens[$index]->isGivenKind([\T_FUNCTION, \T_CLASS, \T_INTERFACE])) {
-                return $index;
-            }
-        } while ($tokens[$index]->isGivenKind([\T_ABSTRACT, \T_FINAL, \T_STATIC, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC]));
-        $index = $tokens->getNextMeaningfulToken($docCommentIndex);
-        $kindsBeforeProperty = [\T_STATIC, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \T_STRING, \T_NS_SEPARATOR];
-        if (!$tokens[$index]->isGivenKind($kindsBeforeProperty)) {
-            return null;
+        $modifierKinds = [\T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_ABSTRACT, \T_FINAL, \T_STATIC];
+        $typeKinds = [\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION, \T_STRING, \T_NS_SEPARATOR];
+        if (\defined('T_READONLY')) {
+            // @TODO: drop condition when PHP 8.1+ is required
+            $modifierKinds[] = T_READONLY;
         }
-        do {
-            $index = $tokens->getNextMeaningfulToken($index);
-            if ($tokens[$index]->isGivenKind(\T_VARIABLE)) {
-                return $index;
+        $element = ['modifiers' => [], 'types' => []];
+        $index = $tokens->getNextMeaningfulToken($docCommentIndex);
+        while (\true) {
+            if (null === $index) {
+                break;
             }
-        } while ($tokens[$index]->isGivenKind($kindsBeforeProperty));
+            if ($tokens[$index]->isClassy()) {
+                $element['index'] = $index;
+                $element['type'] = 'classy';
+                return $element;
+            }
+            if ($tokens[$index]->isGivenKind(\T_FUNCTION)) {
+                $element['index'] = $index;
+                $element['type'] = 'function';
+                return $element;
+            }
+            if ($tokens[$index]->isGivenKind(\T_VARIABLE)) {
+                $element['index'] = $index;
+                $element['type'] = 'property';
+                return $element;
+            }
+            if ($tokens[$index]->isGivenKind($modifierKinds)) {
+                $element['modifiers'][$index] = $tokens[$index];
+            } elseif ($tokens[$index]->isGivenKind($typeKinds)) {
+                $element['types'][$index] = $tokens[$index];
+            } else {
+                break;
+            }
+            $index = $tokens->getNextMeaningfulToken($index);
+        }
         return null;
     }
-    private function fixFunctionDocComment(string $content, \PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex, array $shortNames) : string
+    private function fixFunctionDocComment(string $content, \PhpCsFixer\Tokenizer\Tokens $tokens, array $element, array $shortNames) : string
     {
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
-        $openingParenthesisIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
+        $openingParenthesisIndex = $tokens->getNextTokenOfKind($element['index'], ['(']);
         $closingParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openingParenthesisIndex);
         $argumentsInfo = $this->getArgumentsInfo($tokens, $openingParenthesisIndex + 1, $closingParenthesisIndex - 1);
         foreach ($docBlock->getAnnotationsOfType('param') as $annotation) {
@@ -173,7 +184,7 @@ class Foo {
             if (null === $argumentName) {
                 continue;
             }
-            if (!isset($argumentsInfo[$argumentName]) && $this->configuration['allow_unused_params']) {
+            if (!isset($argumentsInfo[$argumentName]) && \true === $this->configuration['allow_unused_params']) {
                 continue;
             }
             if (!isset($argumentsInfo[$argumentName]) || $this->annotationIsSuperfluous($annotation, $argumentsInfo[$argumentName], $shortNames)) {
@@ -186,23 +197,29 @@ class Foo {
                 $annotation->remove();
             }
         }
+        $this->removeSuperfluousModifierAnnotation($docBlock, $element);
         return $docBlock->getContent();
     }
-    /**
-     * @param int $index Index of the DocComment token
-     */
-    private function fixPropertyDocComment(string $content, \PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $shortNames) : string
+    private function fixPropertyDocComment(string $content, \PhpCsFixer\Tokenizer\Tokens $tokens, array $element, array $shortNames) : string
     {
+        if (\count($element['types']) > 0) {
+            \reset($element['types']);
+            $propertyTypeInfo = $this->parseTypeHint($tokens, \key($element['types']));
+        } else {
+            $propertyTypeInfo = ['types' => [], 'allows_null' => \true];
+        }
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
-        do {
-            $index = $tokens->getNextMeaningfulToken($index);
-        } while ($tokens[$index]->isGivenKind([\T_STATIC, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC]));
-        $propertyTypeInfo = $this->getPropertyTypeInfo($tokens, $index);
         foreach ($docBlock->getAnnotationsOfType('var') as $annotation) {
             if ($this->annotationIsSuperfluous($annotation, $propertyTypeInfo, $shortNames)) {
                 $annotation->remove();
             }
         }
+        return $docBlock->getContent();
+    }
+    private function fixClassDocComment(string $content, array $element) : string
+    {
+        $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
+        $this->removeSuperfluousModifierAnnotation($docBlock, $element);
         return $docBlock->getContent();
     }
     /**
@@ -221,11 +238,11 @@ class Foo {
             if ($typeIndex !== $index) {
                 $info = $this->parseTypeHint($tokens, $typeIndex);
             } else {
-                $info = ['type' => null, 'allows_null' => \true];
+                $info = ['types' => [], 'allows_null' => \true];
             }
             if (!$info['allows_null']) {
                 $nextIndex = $tokens->getNextMeaningfulToken($index);
-                if ($tokens[$nextIndex]->equals('=') && $tokens[$tokens->getNextMeaningfulToken($nextIndex)]->equals([\T_STRING, 'null'])) {
+                if ($tokens[$nextIndex]->equals('=') && $tokens[$tokens->getNextMeaningfulToken($nextIndex)]->equals([\T_STRING, 'null'], \false)) {
                     $info['allows_null'] = \true;
                 }
             }
@@ -239,17 +256,7 @@ class Foo {
         if ($tokens[$colonIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON)) {
             return $this->parseTypeHint($tokens, $tokens->getNextMeaningfulToken($colonIndex));
         }
-        return ['type' => null, 'allows_null' => \true];
-    }
-    /**
-     * @param int $index The index of the first token of the type hint
-     */
-    private function getPropertyTypeInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : array
-    {
-        if ($tokens[$index]->isGivenKind(\T_VARIABLE)) {
-            return ['type' => null, 'allows_null' => \true];
-        }
-        return $this->parseTypeHint($tokens, $index);
+        return ['types' => [], 'allows_null' => \true];
     }
     /**
      * @param int $index The index of the first token of the type hint
@@ -261,12 +268,23 @@ class Foo {
             $allowsNull = \true;
             $index = $tokens->getNextMeaningfulToken($index);
         }
-        $type = '';
-        while ($tokens[$index]->isGivenKind([\T_NS_SEPARATOR, \T_STATIC, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \T_CALLABLE])) {
-            $type .= $tokens[$index]->getContent();
+        $types = [];
+        while (\true) {
+            $type = '';
+            while ($tokens[$index]->isGivenKind([\T_NS_SEPARATOR, \T_STATIC, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \T_CALLABLE, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION])) {
+                $type .= $tokens[$index]->getContent();
+                $index = $tokens->getNextMeaningfulToken($index);
+            }
+            if ('' === $type) {
+                break;
+            }
+            $types[] = $type;
+            if (!$tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION)) {
+                break;
+            }
             $index = $tokens->getNextMeaningfulToken($index);
         }
-        return ['type' => '' === $type ? null : $type, 'allows_null' => $allowsNull];
+        return ['types' => $types, 'allows_null' => $allowsNull];
     }
     /**
      * @param array<string, string> $symbolShortNames
@@ -287,10 +305,10 @@ class Foo {
         if (['null'] === $annotationTypes) {
             return \false;
         }
-        if (['mixed'] === $annotationTypes && null === $info['type']) {
-            return !$this->configuration['allow_mixed'];
+        if (['mixed'] === $annotationTypes && [] === $info['types']) {
+            return \false === $this->configuration['allow_mixed'];
         }
-        $actualTypes = null === $info['type'] ? [] : [$info['type']];
+        $actualTypes = $info['types'];
         if ($info['allows_null']) {
             $actualTypes[] = 'null';
         }
@@ -309,12 +327,14 @@ class Foo {
      */
     private function toComparableNames(array $types, array $symbolShortNames) : array
     {
-        $normalized = \array_map(static function (string $type) use($symbolShortNames) {
+        $normalized = \array_map(static function (string $type) use($symbolShortNames) : string {
             $type = \strtolower($type);
-            if (isset($symbolShortNames[$type])) {
-                return $symbolShortNames[$type];
+            if (\strpos($type, '&') !== \false) {
+                $intersects = \explode('&', $type);
+                \sort($intersects);
+                return \implode('&', $intersects);
             }
-            return $type;
+            return $symbolShortNames[$type] ?? $type;
         }, $types);
         \sort($normalized);
         return $normalized;
@@ -368,5 +388,18 @@ class Foo {
                 )
             )
         ~ix', '$1$2', $docComment);
+    }
+    private function removeSuperfluousModifierAnnotation(\PhpCsFixer\DocBlock\DocBlock $docBlock, array $element) : void
+    {
+        foreach (['abstract' => \T_ABSTRACT, 'final' => \T_FINAL] as $annotationType => $modifierToken) {
+            $annotations = $docBlock->getAnnotationsOfType($annotationType);
+            foreach ($element['modifiers'] as $token) {
+                if ($token->isGivenKind($modifierToken)) {
+                    foreach ($annotations as $annotation) {
+                        $annotation->remove();
+                    }
+                }
+            }
+        }
     }
 }

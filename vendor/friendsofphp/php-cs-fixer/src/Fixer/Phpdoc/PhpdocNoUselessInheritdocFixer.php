@@ -22,8 +22,6 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
  * Remove inheritdoc tags from classy that does not inherit.
- *
- * @author SpacePossum
  */
 final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
 {
@@ -102,7 +100,7 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
     private function fixToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $tokenIndex) : void
     {
         $count = 0;
-        $content = \PhpCsFixer\Preg::replaceCallback('#(\\h*(?:@{*|{*\\h*@)\\h*inheritdoc\\h*)([^}]*)((?:}*)\\h*)#i', static function (array $matches) {
+        $content = \PhpCsFixer\Preg::replaceCallback('#(\\h*(?:@{*|{*\\h*@)\\h*inheritdoc\\h*)([^}]*)((?:}*)\\h*)#i', static function (array $matches) : string {
             return ' ' . $matches[2];
         }, $tokens[$tokenIndex]->getContent(), -1, $count);
         if ($count) {

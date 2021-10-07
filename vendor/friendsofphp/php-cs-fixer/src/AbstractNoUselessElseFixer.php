@@ -13,9 +13,6 @@ declare (strict_types=1);
 namespace PhpCsFixer;
 
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
 {
     /**

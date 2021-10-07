@@ -81,7 +81,7 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
         }
         $indent = $this->indent;
         // change indent to expected one
-        $content = \PhpCsFixer\Preg::replaceCallback('/^(?:    )+/m', function (array $matches) use($indent) {
+        $content = \PhpCsFixer\Preg::replaceCallback('/^(?:    )+/m', function (array $matches) use($indent) : string {
             return $this->getExpectedIndent($matches[0], $indent);
         }, $content);
         return new \PhpCsFixer\Tokenizer\Token([$tokens[$index]->getId(), $content]);
@@ -91,7 +91,7 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
         $content = $tokens[$index]->getContent();
         $previousTokenHasTrailingLinebreak = \false;
         // @TODO this can be removed when we have a transformer for "T_OPEN_TAG" to "T_OPEN_TAG + T_WHITESPACE"
-        if (\false !== \strpos($tokens[$index - 1]->getContent(), "\n")) {
+        if (\strpos($tokens[$index - 1]->getContent(), "\n") !== \false) {
             $content = "\n" . $content;
             $previousTokenHasTrailingLinebreak = \true;
         }
@@ -99,7 +99,7 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
         $newContent = \PhpCsFixer\Preg::replaceCallback(
             '/(\\R)(\\h+)/',
             // find indent
-            function (array $matches) use($indent) {
+            function (array $matches) use($indent) : string {
                 // normalize mixed indent
                 $content = \PhpCsFixer\Preg::replace('/(?:(?<! ) {1,3})?\\t/', '    ', $matches[2]);
                 // change indent to expected one

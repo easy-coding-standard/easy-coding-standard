@@ -96,7 +96,6 @@ EOT;
     }
     private function longToShort(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
-        $skipWhenComplexCode = $this->configuration[self::OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY];
         $count = $tokens->count();
         for ($index = 0; $index < $count; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_OPEN_TAG)) {
@@ -110,7 +109,7 @@ EOT;
                 $index = $nextMeaningful;
                 continue;
             }
-            if ($skipWhenComplexCode && $this->isComplexCode($tokens, $nextMeaningful + 1)) {
+            if (\true === $this->configuration[self::OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY] && $this->isComplexCode($tokens, $nextMeaningful + 1)) {
                 $index = $nextMeaningful;
                 continue;
             }

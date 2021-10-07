@@ -25,7 +25,7 @@ final class ClassyAnalyzer
         if (!$token->isGivenKind(\T_STRING)) {
             throw new \LogicException(\sprintf('No T_STRING at given index %d, got "%s".', $index, $tokens[$index]->getName()));
         }
-        if (\in_array(\strtolower($token->getContent()), ['bool', 'float', 'int', 'iterable', 'object', 'parent', 'self', 'string', 'void', 'null', 'false'], \true)) {
+        if (\in_array(\strtolower($token->getContent()), ['bool', 'float', 'int', 'iterable', 'object', 'parent', 'self', 'string', 'void', 'null', 'false', 'never'], \true)) {
             return \false;
         }
         $next = $tokens->getNextMeaningfulToken($index);
@@ -33,7 +33,7 @@ final class ClassyAnalyzer
         if ($nextToken->isGivenKind(\T_NS_SEPARATOR)) {
             return \false;
         }
-        if ($nextToken->isGivenKind([\T_DOUBLE_COLON, \T_ELLIPSIS, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \T_VARIABLE])) {
+        if ($nextToken->isGivenKind([\T_DOUBLE_COLON, \T_ELLIPSIS, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION, \T_VARIABLE])) {
             return \true;
         }
         $prev = $tokens->getPrevMeaningfulToken($index);
@@ -41,7 +41,7 @@ final class ClassyAnalyzer
             $prev = $tokens->getPrevMeaningfulToken($prev);
         }
         $prevToken = $tokens[$prev];
-        if ($prevToken->isGivenKind([\T_EXTENDS, \T_INSTANCEOF, \T_INSTEADOF, \T_IMPLEMENTS, \T_NEW, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_COLON, \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT])) {
+        if ($prevToken->isGivenKind([\T_EXTENDS, \T_INSTANCEOF, \T_INSTEADOF, \T_IMPLEMENTS, \T_NEW, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION, \PhpCsFixer\Tokenizer\CT::T_TYPE_COLON, \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT])) {
             return \true;
         }
         if (\PhpCsFixer\Tokenizer\Analyzer\AttributeAnalyzer::isAttribute($tokens, $index)) {

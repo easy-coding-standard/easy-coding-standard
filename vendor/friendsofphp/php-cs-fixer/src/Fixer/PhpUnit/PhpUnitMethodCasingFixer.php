@@ -122,7 +122,7 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
             return \true;
         }
         $docBlockIndex = $this->getDocBlockIndex($tokens, $index);
-        return $this->isPHPDoc($tokens, $docBlockIndex) && \false !== \strpos($tokens[$docBlockIndex]->getContent(), '@test');
+        return $this->isPHPDoc($tokens, $docBlockIndex) && \strpos($tokens[$docBlockIndex]->getContent(), '@test') !== \false;
     }
     private function isMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
@@ -140,10 +140,10 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
         $docBlockNeedsUpdate = \false;
         for ($inc = 0; $inc < \count($lines); ++$inc) {
             $lineContent = $lines[$inc]->getContent();
-            if (\false === \strpos($lineContent, '@depends')) {
+            if (\strpos($lineContent, '@depends') === \false) {
                 continue;
             }
-            $newLineContent = \PhpCsFixer\Preg::replaceCallback('/(@depends\\s+)(.+)(\\b)/', function (array $matches) {
+            $newLineContent = \PhpCsFixer\Preg::replaceCallback('/(@depends\\s+)(.+)(\\b)/', function (array $matches) : string {
                 return \sprintf('%s%s%s', $matches[1], $this->updateMethodCasing($matches[2]), $matches[3]);
             }, $lineContent);
             if ($newLineContent !== $lineContent) {

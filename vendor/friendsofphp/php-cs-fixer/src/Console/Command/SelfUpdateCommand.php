@@ -16,21 +16,20 @@ use PhpCsFixer\Console\SelfUpdate\NewVersionCheckerInterface;
 use PhpCsFixer\PharCheckerInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\ToolInfoInterface;
-use ECSPrefix20211002\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211002\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211002\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20211002\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20211002\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211007\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211007\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211007\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20211007\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20211007\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Igor Wiedler <igor@wiedler.ch>
  * @author Stephane PY <py.stephane1@gmail.com>
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
- * @author SpacePossum
  *
  * @internal
  */
-final class SelfUpdateCommand extends \ECSPrefix20211002\Symfony\Component\Console\Command\Command
+final class SelfUpdateCommand extends \ECSPrefix20211007\Symfony\Component\Console\Command\Command
 {
     /**
      * @var string
@@ -60,7 +59,7 @@ final class SelfUpdateCommand extends \ECSPrefix20211002\Symfony\Component\Conso
      */
     protected function configure() : void
     {
-        $this->setAliases(['selfupdate'])->setDefinition([new \ECSPrefix20211002\Symfony\Component\Console\Input\InputOption('--force', '-f', \ECSPrefix20211002\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Force update to next major version if available.')])->setDescription('Update php-cs-fixer.phar to the latest stable version.')->setHelp(<<<'EOT'
+        $this->setAliases(['selfupdate'])->setDefinition([new \ECSPrefix20211007\Symfony\Component\Console\Input\InputOption('--force', '-f', \ECSPrefix20211007\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Force update to next major version if available.')])->setDescription('Update php-cs-fixer.phar to the latest stable version.')->setHelp(<<<'EOT'
 The <info>%command.name%</info> command replace your php-cs-fixer.phar by the
 latest version released on:
 <comment>https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases</comment>
@@ -77,7 +76,7 @@ EOT
      */
     protected function execute($input, $output) : int
     {
-        if (\ECSPrefix20211002\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof \ECSPrefix20211002\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if (\ECSPrefix20211007\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof \ECSPrefix20211007\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $stdErr = $output->getErrorOutput();
             $stdErr->writeln($this->getApplication()->getLongVersion());
             $stdErr->writeln(\sprintf('Runtime: <info>PHP %s</info>', \PHP_VERSION));

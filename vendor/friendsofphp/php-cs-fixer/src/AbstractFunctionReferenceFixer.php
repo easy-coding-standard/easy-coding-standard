@@ -22,6 +22,17 @@ use PhpCsFixer\Tokenizer\Tokens;
 abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
+     * @var null|FunctionsAnalyzer
+     */
+    private $functionsAnalyzer;
+    /**
+     * {@inheritdoc}
+     */
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    {
+        return $tokens->isTokenKindFound(\T_STRING);
+    }
+    /**
      * {@inheritdoc}
      */
     public function isRisky() : bool
@@ -36,8 +47,11 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
      */
     protected function find(string $functionNameToSearch, \PhpCsFixer\Tokenizer\Tokens $tokens, int $start = 0, ?int $end = null) : ?array
     {
+        if (null === $this->functionsAnalyzer) {
+            $this->functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        }
         // make interface consistent with findSequence
-        $end = null === $end ? $tokens->count() : $end;
+        $end = $end ?? $tokens->count();
         // find raw sequence which we can analyse for context
         $candidateSequence = [[\T_STRING, $functionNameToSearch], '('];
         $matches = $tokens->findSequence($candidateSequence, $start, $end, \false);
@@ -47,8 +61,7 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
         }
         // translate results for humans
         [$functionName, $openParenthesis] = \array_keys($matches);
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
-        if (!$functionsAnalyzer->isGlobalFunctionCall($tokens, $functionName)) {
+        if (!$this->functionsAnalyzer->isGlobalFunctionCall($tokens, $functionName)) {
             return $this->find($functionNameToSearch, $tokens, $openParenthesis, $end);
         }
         return [$functionName, $openParenthesis, $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis)];

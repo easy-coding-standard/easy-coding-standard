@@ -36,7 +36,7 @@ final class SingleQuoteFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
         $codeSample = <<<'EOF'
 <?php
 
-namespace ECSPrefix20211002;
+namespace ECSPrefix20211007;
 
 $a = "sample";
 $b = "sample with 'single-quotes'";
@@ -75,7 +75,7 @@ EOF;
                 $prefix = $content[0];
                 $content = \substr($content, 1);
             }
-            if ('"' === $content[0] && (\true === $this->configuration['strings_containing_single_quote_chars'] || \false === \strpos($content, "'")) && !\PhpCsFixer\Preg::match('/(?<!\\\\)(?:\\\\{2})*\\\\(?!["$\\\\])/', $content)) {
+            if ('"' === $content[0] && (\true === $this->configuration['strings_containing_single_quote_chars'] || \strpos($content, "'") === \false) && !\PhpCsFixer\Preg::match('/(?<!\\\\)(?:\\\\{2})*\\\\(?!["$\\\\])/', $content)) {
                 $content = \substr($content, 1, -1);
                 $content = \str_replace(['\\"', '\\$', '\''], ['"', '$', '\\\''], $content);
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_CONSTANT_ENCAPSED_STRING, $prefix . '\'' . $content . '\'']);

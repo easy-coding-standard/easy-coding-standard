@@ -13,18 +13,14 @@ declare (strict_types=1);
 namespace PhpCsFixer\RuleSet\Sets;
 
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion;
-use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
+use PhpCsFixer\RuleSet\AbstractMigrationSetDescription;
 /**
  * @internal
  */
-final class PHPUnit30MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
+final class PHPUnit30MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractMigrationSetDescription
 {
     public function getRules() : array
     {
         return ['php_unit_dedicate_assert' => ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_0]];
-    }
-    public function getDescription() : string
-    {
-        return 'Rules to improve tests code for PHPUnit 3.0 compatibility.';
     }
 }

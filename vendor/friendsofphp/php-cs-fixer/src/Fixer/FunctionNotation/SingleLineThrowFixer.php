@@ -78,13 +78,13 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             $content = $tokens[$index]->getContent();
             if ($tokens[$index]->isGivenKind(\T_COMMENT)) {
-                if (0 === \strpos($content, '//')) {
+                if (\strncmp($content, '//', \strlen('//')) === 0) {
                     $content = '/*' . \substr($content, 2) . ' */';
                     $tokens->clearAt($index + 1);
-                } elseif (0 === \strpos($content, '#')) {
+                } elseif (\strncmp($content, '#', \strlen('#')) === 0) {
                     $content = '/*' . \substr($content, 1) . ' */';
                     $tokens->clearAt($index + 1);
-                } elseif (\false !== \PhpCsFixer\Preg::match('/\\R/', $content)) {
+                } elseif (0 !== \PhpCsFixer\Preg::match('/\\R/', $content)) {
                     $content = \PhpCsFixer\Preg::replace('/\\R/', ' ', $content);
                 }
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_COMMENT, $content]);

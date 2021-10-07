@@ -23,9 +23,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class SpaceAfterSemicolonFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
@@ -65,7 +62,7 @@ final class SpaceAfterSemicolonFixer extends \PhpCsFixer\AbstractFixer implement
     {
         $insideForParenthesesUntil = null;
         for ($index = 0, $max = \count($tokens) - 1; $index < $max; ++$index) {
-            if ($this->configuration['remove_in_empty_for_expressions']) {
+            if (\true === $this->configuration['remove_in_empty_for_expressions']) {
                 if ($tokens[$index]->isGivenKind(\T_FOR)) {
                     $index = $tokens->getNextMeaningfulToken($index);
                     $insideForParenthesesUntil = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
@@ -80,7 +77,7 @@ final class SpaceAfterSemicolonFixer extends \PhpCsFixer\AbstractFixer implement
                 continue;
             }
             if (!$tokens[$index + 1]->isWhitespace()) {
-                if (!$tokens[$index + 1]->equalsAny([')', [\T_INLINE_HTML]]) && (!$this->configuration['remove_in_empty_for_expressions'] || !$tokens[$index + 1]->equals(';'))) {
+                if (!$tokens[$index + 1]->equalsAny([')', [\T_INLINE_HTML]]) && (\false === $this->configuration['remove_in_empty_for_expressions'] || !$tokens[$index + 1]->equals(';'))) {
                     $tokens->insertAt($index + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
                     ++$max;
                 }

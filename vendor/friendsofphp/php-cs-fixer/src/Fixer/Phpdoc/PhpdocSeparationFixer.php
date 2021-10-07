@@ -22,7 +22,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
- * @author Graham Campbell <graham@alt-three.com>
+ * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
 final class PhpdocSeparationFixer extends \PhpCsFixer\AbstractFixer
 {
@@ -97,7 +97,7 @@ function fnc($foo, $bar) {}
     /**
      * Make sure the annotations are correctly separated.
      */
-    private function fixAnnotations(\PhpCsFixer\DocBlock\DocBlock $doc) : string
+    private function fixAnnotations(\PhpCsFixer\DocBlock\DocBlock $doc) : void
     {
         foreach ($doc->getAnnotations() as $index => $annotation) {
             $next = $doc->getAnnotation($index + 1);
@@ -112,7 +112,6 @@ function fnc($foo, $bar) {}
                 }
             }
         }
-        return $doc->getContent();
     }
     /**
      * Force the given annotations to immediately follow each other.

@@ -61,7 +61,7 @@ final class NoTrailingWhitespaceInCommentFixer extends \PhpCsFixer\AbstractFixer
                 continue;
             }
             if ($token->isGivenKind(\T_COMMENT)) {
-                if ('/*' === \substr($token->getContent(), 0, 2)) {
+                if (\strncmp($token->getContent(), '/*', \strlen('/*')) === 0) {
                     $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_COMMENT, \PhpCsFixer\Preg::replace('/(*ANY)[\\h]+$/m', '', $token->getContent())]);
                 } elseif (isset($tokens[$index + 1]) && $tokens[$index + 1]->isWhitespace()) {
                     $trimmedContent = \ltrim($tokens[$index + 1]->getContent(), " \t");

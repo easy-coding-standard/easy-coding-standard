@@ -35,7 +35,7 @@ final class DirConstantFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return $tokens->isTokenKindFound(\T_FILE);
+        return $tokens->isAllTokenKindsFound([\T_STRING, \T_FILE]);
     }
     /**
      * {@inheritdoc}
@@ -52,7 +52,7 @@ final class DirConstantFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $currIndex = 0;
-        while (null !== $currIndex) {
+        do {
             $boundaries = $this->find('dirname', $tokens, $currIndex, $tokens->count() - 1);
             if (null === $boundaries) {
                 return;
@@ -103,6 +103,6 @@ final class DirConstantFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
             // replace constant and remove function name
             $tokens[$fileCandidateLeftIndex] = new \PhpCsFixer\Tokenizer\Token([\T_DIR, '__DIR__']);
             $tokens->clearTokenAndMergeSurroundingWhitespace($functionNameIndex);
-        }
+        } while (null !== $currIndex);
     }
 }

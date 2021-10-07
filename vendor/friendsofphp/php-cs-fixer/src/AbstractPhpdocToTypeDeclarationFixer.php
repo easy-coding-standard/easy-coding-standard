@@ -123,7 +123,7 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         if (null === $commonType) {
             return null;
         }
-        if ($isNullable && (\PHP_VERSION_ID < 70100 || 'void' === $commonType)) {
+        if ($isNullable && 'void' === $commonType) {
             return null;
         }
         if ('static' === $commonType && (!$isReturnType || \PHP_VERSION_ID < 80000)) {

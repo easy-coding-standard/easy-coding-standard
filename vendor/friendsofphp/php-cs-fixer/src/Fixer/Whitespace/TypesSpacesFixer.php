@@ -40,7 +40,7 @@ final class TypesSpacesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return $tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION);
+        return $tokens->isAnyTokenKindsFound([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION]);
     }
     /**
      * {@inheritdoc}
@@ -52,7 +52,7 @@ final class TypesSpacesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
-            if (!$tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION)) {
+            if (!$tokens[$index]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION])) {
                 continue;
             }
             if ('single' === $this->configuration['space']) {

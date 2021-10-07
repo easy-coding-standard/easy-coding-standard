@@ -32,7 +32,7 @@ final class MultilineCommentOpeningClosingFixer extends \PhpCsFixer\AbstractFixe
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('DocBlocks must start with two asterisks, multiline comments must start with a single asterisk, after the opening slash. Both must end with a single asterisk before the closing slash.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
 <?php
 
-namespace ECSPrefix20211002;
+namespace ECSPrefix20211007;
 
 /******
  * Multiline comment with arbitrary asterisks count
@@ -61,7 +61,7 @@ EOT
     {
         foreach ($tokens as $index => $token) {
             $originalContent = $token->getContent();
-            if (!$token->isGivenKind(\T_DOC_COMMENT) && !($token->isGivenKind(\T_COMMENT) && 0 === \strpos($originalContent, '/*'))) {
+            if (!$token->isGivenKind(\T_DOC_COMMENT) && !($token->isGivenKind(\T_COMMENT) && \strncmp($originalContent, '/*', \strlen('/*')) === 0)) {
                 continue;
             }
             $newContent = $originalContent;

@@ -16,9 +16,9 @@ use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis;
+use PhpCsFixer\Tokenizer\Analyzer\Analysis\SwitchAnalysis;
+use PhpCsFixer\Tokenizer\Analyzer\ControlCaseStructuresAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer;
-use PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
@@ -56,12 +56,8 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
     {
         $gotoLabelAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer();
         $ternaryOperatorIndices = [];
-        $excludedIndices = [];
+        $excludedIndices = $this->getColonIndicesForSwitch($tokens);
         foreach ($tokens as $index => $token) {
-            if ($token->isGivenKind(\T_SWITCH)) {
-                $excludedIndices = \array_merge($excludedIndices, $this->getColonIndicesForSwitch($tokens, $index));
-                continue;
-            }
             if (!$token->equalsAny(['?', ':'])) {
                 continue;
             }
@@ -121,16 +117,26 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @return int[]
      */
-    private function getColonIndicesForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, int $switchIndex) : array
+    private function getColonIndicesForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
-        return \array_map(static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis $caseAnalysis) {
-            return $caseAnalysis->getColonIndex();
-        }, (new \PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer())->getSwitchAnalysis($tokens, $switchIndex)->getCases());
+        $colonIndexes = [];
+        foreach (\PhpCsFixer\Tokenizer\Analyzer\ControlCaseStructuresAnalyzer::findControlStructures($tokens, [\T_SWITCH]) as $analysis) {
+            foreach ($analysis->getCases() as $case) {
+                $colonIndexes[] = $case->getColonIndex();
+            }
+            if ($analysis instanceof \PhpCsFixer\Tokenizer\Analyzer\Analysis\SwitchAnalysis) {
+                $defaultAnalysis = $analysis->getDefaultAnalysis();
+                if (null !== $defaultAnalysis) {
+                    $colonIndexes[] = $defaultAnalysis->getColonIndex();
+                }
+            }
+        }
+        return $colonIndexes;
     }
     private function ensureWhitespaceExistence(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $after) : void
     {
         if ($tokens[$index]->isWhitespace()) {
-            if (\false === \strpos($tokens[$index]->getContent(), "\n") && !$tokens[$index - 1]->isComment()) {
+            if (\strpos($tokens[$index]->getContent(), "\n") === \false && !$tokens[$index - 1]->isComment()) {
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
             }
             return;

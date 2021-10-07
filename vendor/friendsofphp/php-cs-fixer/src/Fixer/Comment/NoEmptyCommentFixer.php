@@ -18,9 +18,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
 {
     private const TYPE_HASH = 1;
@@ -102,7 +99,7 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
     }
     private function getCommentType(string $content) : int
     {
-        if ('#' === $content[0]) {
+        if (\strncmp($content, '#', \strlen('#')) === 0) {
             return self::TYPE_HASH;
         }
         if ('*' === $content[1]) {

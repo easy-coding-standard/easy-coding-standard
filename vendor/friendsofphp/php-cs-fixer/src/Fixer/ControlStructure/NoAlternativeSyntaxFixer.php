@@ -13,6 +13,10 @@ declare (strict_types=1);
 namespace PhpCsFixer\Fixer\ControlStructure;
 
 use PhpCsFixer\AbstractFixer;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
+use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
@@ -21,21 +25,21 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Eddilbert Macharia <edd.cowan@gmail.com>
  */
-final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
+final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace control structure alternative syntax to use braces.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif(true):echo 't';else:echo 'f';endif;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nwhile(true):echo 'red';endwhile;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfor(;;):echo 'xc';endfor;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nforeach(array('a') as \$item):echo 'xc';endforeach;\n")]);
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace control structure alternative syntax to use braces.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif(true):echo 't';else:echo 'f';endif;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php if (\$condition): ?>\nLorem ipsum.\n<?php endif; ?>\n", ['fix_non_monolithic_code' => \true])]);
     }
     /**
      * {@inheritdoc}
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return $tokens->hasAlternativeSyntax();
+        return $tokens->hasAlternativeSyntax() && (\true === $this->configuration['fix_non_monolithic_code'] || $tokens->isMonolithicPhp());
     }
     /**
      * {@inheritdoc}
@@ -45,6 +49,13 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
     public function getPriority() : int
     {
         return 42;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('fix_non_monolithic_code', 'Whether to also fix code with inline HTML.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
     /**
      * {@inheritdoc}
@@ -62,11 +73,7 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
     {
         $nextIndex = $tokens->getNextMeaningfulToken($structureTokenIndex);
         $nextToken = $tokens[$nextIndex];
-        // return if next token is not opening parenthesis
-        if (!$nextToken->equals('(')) {
-            return $structureTokenIndex;
-        }
-        return $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex);
+        return $nextToken->equals('(') ? $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex) : $structureTokenIndex;
     }
     /**
      * Handle both extremes of the control structures.

@@ -88,7 +88,7 @@ foreach($connections as $key => $sqlite) {
     public function configure(array $configuration = null) : void
     {
         parent::configure($configuration);
-        $this->ignoredTags = \array_map(static function ($tag) {
+        $this->ignoredTags = \array_map(static function (string $tag) : string {
             return \strtolower($tag);
         }, $this->configuration['ignored_tags']);
     }

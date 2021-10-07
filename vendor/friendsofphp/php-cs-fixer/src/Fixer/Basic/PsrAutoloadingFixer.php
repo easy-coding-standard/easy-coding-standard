@@ -24,11 +24,12 @@ use PhpCsFixer\Preg;
 use PhpCsFixer\StdinFileInfo;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  * @author Bram Gotink <bram@gotink.me>
- * @author Graham Campbell <graham@alt-three.com>
+ * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Kuba Werłos <werlos@gmail.com>
  */
 final class PsrAutoloadingFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
@@ -91,14 +92,14 @@ class InvalidName {}
         try {
             $tokens = \PhpCsFixer\Tokenizer\Tokens::fromCode(\sprintf('<?php class %s {}', $file->getBasename('.php')));
             if ($tokens[3]->isKeyword() || $tokens[3]->isMagicConstant()) {
-                // name can not be a class name - detected by PHP 5.x
+                // name cannot be a class name - detected by PHP 5.x
                 return \false;
             }
         } catch (\ParseError $e) {
-            // name can not be a class name - detected by PHP 7.x
+            // name cannot be a class name - detected by PHP 7.x
             return \false;
         }
-        // ignore stubs/fixtures, since they are typically containing invalid files for various reasons
+        // ignore stubs/fixtures, since they typically contain invalid files for various reasons
         return !\PhpCsFixer\Preg::match('{[/\\\\](stub|fixture)s?[/\\\\]}i', $file->getRealPath());
     }
     /**
@@ -113,7 +114,8 @@ class InvalidName {}
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
-        if (null !== $this->configuration['dir'] && 0 !== \strpos($file->getRealPath(), $this->configuration['dir'])) {
+        $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        if (null !== $this->configuration['dir'] && \strncmp($file->getRealPath(), $this->configuration['dir'], \strlen($this->configuration['dir'])) !== 0) {
             return;
         }
         $namespace = null;
@@ -130,7 +132,7 @@ class InvalidName {}
                 $namespaceEndIndex = $tokens->getNextTokenOfKind($namespaceStartIndex, [';']);
                 $namespace = \trim($tokens->generatePartialCode($namespaceStartIndex, $namespaceEndIndex - 1));
             } elseif ($token->isClassy()) {
-                if ($tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind(\T_NEW)) {
+                if ($tokenAnalyzer->isAnonymousClass($index)) {
                     continue;
                 }
                 if (null !== $classyName) {

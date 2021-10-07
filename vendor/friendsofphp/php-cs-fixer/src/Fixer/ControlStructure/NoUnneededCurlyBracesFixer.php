@@ -22,9 +22,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class NoUnneededCurlyBracesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
@@ -73,7 +70,7 @@ namespace Foo {
                 $this->clearOverCompleteBraces($tokens, $index, $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index));
             }
         }
-        if ($this->configuration['namespaces']) {
+        if (\true === $this->configuration['namespaces']) {
             $this->clearIfIsOverCompleteNamespaceBlock($tokens);
         }
     }

@@ -27,7 +27,6 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Bram Gotink <bram@gotink.me>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
- * @author SpacePossum
  */
 final class YodaStyleFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
@@ -165,6 +164,9 @@ return $foo === count($bar);
                 --$index;
                 continue;
             }
+            if ($token->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_NAMED_ARGUMENT_COLON])) {
+                break;
+            }
             if ($this->isOfLowerPrecedence($token)) {
                 break;
             }
@@ -210,7 +212,7 @@ return $foo === count($bar);
      * If the left-hand side and right-hand side of the given comparison are
      * swapped, this function runs recursively on the previous left-hand-side.
      *
-     * @return int a upper bound for all non-fixed comparisons
+     * @return int an upper bound for all non-fixed comparisons
      */
     private function fixTokensCompare(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startLeft, int $endLeft, int $compareOperatorIndex, int $startRight, int $endRight) : int
     {
@@ -253,6 +255,7 @@ return $foo === count($bar);
             return null;
             // do not fix lists assignment inside statements
         }
+        /** @var bool $strict */
         $strict = $this->configuration['always_move_variable'];
         $leftSideIsVariable = $this->isVariable($tokens, $left['start'], $left['end'], $strict);
         $rightSideIsVariable = $this->isVariable($tokens, $right['start'], $right['end'], $strict);
@@ -346,7 +349,7 @@ return $foo === count($bar);
      * Checks whether the given assignment token has a lower precedence than `T_IS_EQUAL`
      * or `T_IS_IDENTICAL`.
      */
-    private function isOfLowerPrecedenceAssignment(\PhpCsFixer\Tokenizer\Token $token)
+    private function isOfLowerPrecedenceAssignment(\PhpCsFixer\Tokenizer\Token $token) : bool
     {
         static $tokens;
         if (null === $tokens) {

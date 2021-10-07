@@ -18,7 +18,6 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Kuba Werłos <werlos@gmail.com>
- * @author SpacePossum
  *
  * @internal
  */
@@ -75,8 +74,7 @@ final class CommentsAnalyzer
         if (null === $nextIndex || $tokens[$nextIndex]->equals('}')) {
             return \false;
         }
-        $nextToken = $tokens[$nextIndex];
-        if ($this->isStructuralElement($nextToken)) {
+        if ($this->isStructuralElement($tokens, $nextIndex)) {
             return \true;
         }
         if ($this->isValidControl($tokens, $token, $nextIndex)) {
@@ -124,10 +122,24 @@ final class CommentsAnalyzer
     /**
      * @see https://github.com/phpDocumentor/fig-standards/blob/master/proposed/phpdoc.md#3-definitions
      */
-    private function isStructuralElement(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isStructuralElement(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        static $skip = [\T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_VAR, \T_FUNCTION, \T_ABSTRACT, \T_CONST, \T_NAMESPACE, \T_REQUIRE, \T_REQUIRE_ONCE, \T_INCLUDE, \T_INCLUDE_ONCE, \T_FINAL, \T_STATIC];
-        return $token->isClassy() || $token->isGivenKind($skip);
+        static $skip;
+        if (null === $skip) {
+            $skip = [\T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_VAR, \T_FUNCTION, \T_ABSTRACT, \T_CONST, \T_NAMESPACE, \T_REQUIRE, \T_REQUIRE_ONCE, \T_INCLUDE, \T_INCLUDE_ONCE, \T_FINAL, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE];
+            if (\defined('T_READONLY')) {
+                // @TODO: drop condition when PHP 8.1+ is required
+                $skip[] = T_READONLY;
+            }
+        }
+        $token = $tokens[$index];
+        if ($token->isClassy() || $token->isGivenKind($skip)) {
+            return \true;
+        }
+        if ($token->isGivenKind(\T_STATIC)) {
+            return !$tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(\T_DOUBLE_COLON);
+        }
+        return \false;
     }
     /**
      * Checks control structures (for, foreach, if, switch, while) for correct docblock usage.
@@ -146,7 +158,7 @@ final class CommentsAnalyzer
         $docsContent = $docsToken->getContent();
         for ($index = $index + 1; $index < $endIndex; ++$index) {
             $token = $tokens[$index];
-            if ($token->isGivenKind(\T_VARIABLE) && \false !== \strpos($docsContent, $token->getContent())) {
+            if ($token->isGivenKind(\T_VARIABLE) && \strpos($docsContent, $token->getContent()) !== \false) {
                 return \true;
             }
         }
@@ -169,7 +181,7 @@ final class CommentsAnalyzer
         $docsContent = $docsToken->getContent();
         for ($index = $languageConstructIndex + 1; $index < $endIndex; ++$index) {
             $token = $tokens[$index];
-            if ($token->isGivenKind(\T_VARIABLE) && \false !== \strpos($docsContent, $token->getContent())) {
+            if ($token->isGivenKind(\T_VARIABLE) && \strpos($docsContent, $token->getContent()) !== \false) {
                 return \true;
             }
         }
@@ -190,7 +202,7 @@ final class CommentsAnalyzer
     }
     private function getCommentType(string $content) : int
     {
-        if ('#' === $content[0]) {
+        if (\strncmp($content, '#', \strlen('#')) === 0) {
             return self::TYPE_HASH;
         }
         if ('*' === $content[1]) {

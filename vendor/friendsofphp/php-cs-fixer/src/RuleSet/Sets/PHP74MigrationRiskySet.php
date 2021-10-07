@@ -12,18 +12,14 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\RuleSet\Sets;
 
-use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
+use PhpCsFixer\RuleSet\AbstractMigrationSetDescription;
 /**
  * @internal
  */
-final class PHP74MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
+final class PHP74MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractMigrationSetDescription
 {
     public function getRules() : array
     {
         return ['@PHP71Migration:risky' => \true, 'implode_call' => \true, 'no_alias_functions' => \true, 'use_arrow_functions' => \true];
-    }
-    public function getDescription() : string
-    {
-        return 'Rules to improve code for PHP 7.4 compatibility.';
     }
 }

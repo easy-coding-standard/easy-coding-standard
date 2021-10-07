@@ -73,7 +73,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     public function configure(array $configuration) : void
     {
         parent::configure($configuration);
-        $this->ignoredTags = \array_map(static function (string $tag) {
+        $this->ignoredTags = \array_map(static function (string $tag) : string {
             return \strtolower($tag);
         }, $this->configuration['ignored_tags']);
     }
@@ -113,7 +113,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
      */
     private function isCommentCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices) : bool
     {
-        return \array_reduce($indices, function (bool $carry, int $index) use($tokens) {
+        return \array_reduce($indices, function (bool $carry, int $index) use($tokens) : bool {
             if ($carry) {
                 return \true;
             }
@@ -158,7 +158,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
             if (!$tokens[$index]->isComment()) {
                 continue;
             }
-            if (\false !== \strpos($tokens[$index]->getContent(), '*/')) {
+            if (\strpos($tokens[$index]->getContent(), '*/') !== \false) {
                 return;
             }
             $message = $this->getMessage($tokens[$index]->getContent());
@@ -175,10 +175,10 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     private function getMessage(string $content) : string
     {
-        if (0 === \strpos($content, '#')) {
+        if (\strncmp($content, '#', \strlen('#')) === 0) {
             return \substr($content, 1);
         }
-        if (0 === \strpos($content, '//')) {
+        if (\strncmp($content, '//', \strlen('//')) === 0) {
             return \substr($content, 2);
         }
         return \rtrim(\ltrim($content, '/*'), '*/');

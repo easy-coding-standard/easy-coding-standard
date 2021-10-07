@@ -25,10 +25,9 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
- * @author SpacePossum
  */
 final class BinaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
@@ -77,6 +76,9 @@ final class BinaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer implemen
      * @var int
      */
     private $currentLevel;
+    /**
+     * @var array<null|string>
+     */
     private static $allowedValues = [self::ALIGN, self::ALIGN_SINGLE_SPACE, self::ALIGN_SINGLE_SPACE_MINIMAL, self::SINGLE_SPACE, self::NO_SPACE, null];
     /**
      * @var TokensAnalyzer
@@ -146,7 +148,7 @@ $array = [
     /**
      * {@inheritdoc}
      *
-     * Must run after ArrayIndentationFixer, ArraySyntaxFixer, ListSyntaxFixer, NoMultilineWhitespaceAroundDoubleArrowFixer, NoUnsetCastFixer, PowToExponentiationFixer, StandardizeNotEqualsFixer, StrictComparisonFixer.
+     * Must run after ArrayIndentationFixer, ArraySyntaxFixer, AssignNullCoalescingToCoalesceEqualFixer, ListSyntaxFixer, ModernizeStrposFixer, NoMultilineWhitespaceAroundDoubleArrowFixer, NoUnsetCastFixer, PowToExponentiationFixer, StandardizeNotEqualsFixer, StrictComparisonFixer.
      */
     public function getPriority() : int
     {
@@ -184,7 +186,7 @@ $array = [
             // previous of binary operator is now never an operator / previous of declare statement cannot be an operator
             --$index;
         }
-        if (\count($this->alignOperatorTokens)) {
+        if (\count($this->alignOperatorTokens) > 0) {
             $this->fixAlignment($tokens, $this->alignOperatorTokens);
         }
     }
@@ -193,13 +195,13 @@ $array = [
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('default', 'Default fix strategy.'))->setDefault(self::SINGLE_SPACE)->setAllowedValues(self::$allowedValues)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('operators', 'Dictionary of `binary operator` => `fix strategy` values that differ from the default strategy.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('default', 'Default fix strategy.'))->setDefault(self::SINGLE_SPACE)->setAllowedValues(self::$allowedValues)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('operators', 'Dictionary of `binary operator` => `fix strategy` values that differ from the default strategy. Supported are: `' . \implode('`, `', self::SUPPORTED_OPERATORS) . '`'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) : bool {
             foreach ($option as $operator => $value) {
                 if (!\in_array($operator, self::SUPPORTED_OPERATORS, \true)) {
-                    throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected "operators" key, expected any of "%s", got "%s".', \implode('", "', self::SUPPORTED_OPERATORS), \gettype($operator) . '#' . $operator));
+                    throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected "operators" key, expected any of "%s", got "%s".', \implode('", "', self::SUPPORTED_OPERATORS), \gettype($operator) . '#' . $operator));
                 }
                 if (!\in_array($value, self::$allowedValues, \true)) {
-                    throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected value for operator "%s", expected any of "%s", got "%s".', $operator, \implode('", "', self::$allowedValues), \is_object($value) ? \get_class($value) : (null === $value ? 'null' : \gettype($value) . '#' . $value)));
+                    throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected value for operator "%s", expected any of "%s", got "%s".', $operator, \implode('", "', self::$allowedValues), \is_object($value) ? \get_class($value) : (null === $value ? 'null' : \gettype($value) . '#' . $value)));
                 }
             }
             return \true;
@@ -239,7 +241,7 @@ $array = [
         // fix white space after operator
         if ($tokens[$index + 1]->isWhitespace()) {
             $content = $tokens[$index + 1]->getContent();
-            if (' ' !== $content && \false === \strpos($content, "\n") && !$tokens[$tokens->getNextNonWhitespace($index + 1)]->isComment()) {
+            if (' ' !== $content && \strpos($content, "\n") === \false && !$tokens[$tokens->getNextNonWhitespace($index + 1)]->isComment()) {
                 $tokens[$index + 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
             }
         } else {
@@ -248,7 +250,7 @@ $array = [
         // fix white space before operator
         if ($tokens[$index - 1]->isWhitespace()) {
             $content = $tokens[$index - 1]->getContent();
-            if (' ' !== $content && \false === \strpos($content, "\n") && !$tokens[$tokens->getPrevNonWhitespace($index - 1)]->isComment()) {
+            if (' ' !== $content && \strpos($content, "\n") === \false && !$tokens[$tokens->getPrevNonWhitespace($index - 1)]->isComment()) {
                 $tokens[$index - 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
             }
         } else {
@@ -260,14 +262,14 @@ $array = [
         // fix white space after operator
         if ($tokens[$index + 1]->isWhitespace()) {
             $content = $tokens[$index + 1]->getContent();
-            if (\false === \strpos($content, "\n") && !$tokens[$tokens->getNextNonWhitespace($index + 1)]->isComment()) {
+            if (\strpos($content, "\n") === \false && !$tokens[$tokens->getNextNonWhitespace($index + 1)]->isComment()) {
                 $tokens->clearAt($index + 1);
             }
         }
         // fix white space before operator
         if ($tokens[$index - 1]->isWhitespace()) {
             $content = $tokens[$index - 1]->getContent();
-            if (\false === \strpos($content, "\n") && !$tokens[$tokens->getPrevNonWhitespace($index - 1)]->isComment()) {
+            if (\strpos($content, "\n") === \false && !$tokens[$tokens->getPrevNonWhitespace($index - 1)]->isComment()) {
                 $tokens->clearAt($index - 1);
             }
         }
@@ -432,7 +434,7 @@ $array = [
             }
             if ($token->equals(',')) {
                 for ($i = $index; $i < $endAt - 1; ++$i) {
-                    if (\false !== \strpos($tokens[$i - 1]->getContent(), "\n")) {
+                    if (\strpos($tokens[$i - 1]->getContent(), "\n") !== \false) {
                         break;
                     }
                     if ($tokens[$i + 1]->isGivenKind([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
@@ -469,7 +471,7 @@ $array = [
             return;
         }
         $content = $tokens[$index - 1]->getContent();
-        if (' ' !== $content && \false === \strpos($content, "\n")) {
+        if (' ' !== $content && \strpos($content, "\n") === \false) {
             $tokens[$index - 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
         }
     }
@@ -481,7 +483,7 @@ $array = [
         $tmpCode = $tokens->generateCode();
         for ($j = 0; $j <= $this->deepestLevel; ++$j) {
             $placeholder = \sprintf(self::ALIGN_PLACEHOLDER, $j);
-            if (\false === \strpos($tmpCode, $placeholder)) {
+            if (\strpos($tmpCode, $placeholder) === \false) {
                 continue;
             }
             $lines = \explode("\n", $tmpCode);
@@ -506,7 +508,7 @@ $array = [
                         $currentPosition = \strpos($lines[$index], $placeholder);
                         $before = \substr($lines[$index], 0, $currentPosition);
                         if (self::ALIGN_SINGLE_SPACE === $alignStrategy) {
-                            if (1 > \strlen($before) || ' ' !== \substr($before, -1)) {
+                            if (\substr_compare($before, ' ', -\strlen(' ')) !== 0) {
                                 // if last char of before-content is not ' '; add it
                                 $before .= ' ';
                             }

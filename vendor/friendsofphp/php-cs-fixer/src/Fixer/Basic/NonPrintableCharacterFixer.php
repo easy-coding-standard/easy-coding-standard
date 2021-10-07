@@ -17,16 +17,12 @@ use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20211002\Symfony\Component\OptionsResolver\Options;
 /**
  * Removes Zero-width space (ZWSP), Non-breaking space (NBSP) and other invisible unicode symbols.
  *
@@ -34,7 +30,13 @@ use ECSPrefix20211002\Symfony\Component\OptionsResolver\Options;
  */
 final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
+    /**
+     * @var array<string, string[]>
+     */
     private $symbolsReplace;
+    /**
+     * @var int[]
+     */
     private static $tokens = [\T_STRING_VARNAME, \T_INLINE_HTML, \T_VARIABLE, \T_COMMENT, \T_ENCAPSED_AND_WHITESPACE, \T_CONSTANT_ENCAPSED_STRING, \T_DOC_COMMENT];
     public function __construct()
     {
@@ -56,7 +58,7 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Remove Zero-width space (ZWSP), Non-breaking space (NBSP) and other invisible unicode symbols.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n"), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70000), ['use_escape_sequences_in_strings' => \false])], null, 'Risky when strings contain intended invisible characters.');
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Remove Zero-width space (ZWSP), Non-breaking space (NBSP) and other invisible unicode symbols.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n"), new \PhpCsFixer\FixerDefinition\CodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n", ['use_escape_sequences_in_strings' => \false])], null, 'Risky when strings contain intended invisible characters.');
     }
     /**
      * {@inheritdoc}
@@ -77,12 +79,7 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use_escape_sequences_in_strings', 'Whether characters should be replaced with escape sequences in strings.'))->setAllowedTypes(['bool'])->setDefault(\true)->setNormalizer(static function (\ECSPrefix20211002\Symfony\Component\OptionsResolver\Options $options, $value) {
-            if (\PHP_VERSION_ID < 70000 && $value) {
-                throw new \PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException('Escape sequences require PHP 7.0+.');
-            }
-            return $value;
-        })->getOption()]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use_escape_sequences_in_strings', 'Whether characters should be replaced with escape sequences in strings.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
     /**
      * {@inheritdoc}
@@ -106,11 +103,11 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
                 $swapQuotes = \false;
                 if ($previousToken->isGivenKind(\T_START_HEREDOC)) {
                     $previousTokenContent = $previousToken->getContent();
-                    if (\false !== \strpos($previousTokenContent, '\'')) {
+                    if (\strpos($previousTokenContent, '\'') !== \false) {
                         $tokens[$index - 1] = new \PhpCsFixer\Tokenizer\Token([\T_START_HEREDOC, \str_replace('\'', '', $previousTokenContent)]);
                         $stringTypeChanged = \true;
                     }
-                } elseif ("'" === $content[0]) {
+                } elseif (\strncmp($content, "'", \strlen("'")) === 0) {
                     $stringTypeChanged = \true;
                     $swapQuotes = \true;
                 }

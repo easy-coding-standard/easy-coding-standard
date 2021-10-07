@@ -13,8 +13,8 @@ declare (strict_types=1);
 namespace PhpCsFixer\FixerConfiguration;
 
 use PhpCsFixer\Utils;
-use ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix20211002\Symfony\Component\OptionsResolver\OptionsResolver;
+use ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20211007\Symfony\Component\OptionsResolver\OptionsResolver;
 final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
 {
     /**
@@ -50,14 +50,14 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
      */
     public function resolve($options) : array
     {
-        $resolver = new \ECSPrefix20211002\Symfony\Component\OptionsResolver\OptionsResolver();
+        $resolver = new \ECSPrefix20211007\Symfony\Component\OptionsResolver\OptionsResolver();
         foreach ($this->options as $option) {
             $name = $option->getName();
             if ($option instanceof \PhpCsFixer\FixerConfiguration\AliasedFixerOption) {
                 $alias = $option->getAlias();
                 if (\array_key_exists($alias, $options)) {
                     if (\array_key_exists($name, $options)) {
-                        throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Aliased option "%s"/"%s" is passed multiple times.', $name, $alias));
+                        throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Aliased option "%s"/"%s" is passed multiple times.', $name, $alias));
                     }
                     \PhpCsFixer\Utils::triggerDeprecation(new \RuntimeException(\sprintf('Option "%s" is deprecated, use "%s" instead.', $alias, $name)));
                     $options[$name] = $options[$alias];
@@ -93,10 +93,8 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
     }
     /**
      * @throws \LogicException when the option is already defined
-     *
-     * @return $this
      */
-    private function addOption(\PhpCsFixer\FixerConfiguration\FixerOptionInterface $option) : self
+    private function addOption(\PhpCsFixer\FixerConfiguration\FixerOptionInterface $option) : void
     {
         $name = $option->getName();
         if (\in_array($name, $this->registeredNames, \true)) {
@@ -104,6 +102,5 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
         }
         $this->options[] = $option;
         $this->registeredNames[] = $name;
-        return $this;
     }
 }

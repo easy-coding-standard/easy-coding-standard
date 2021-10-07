@@ -23,9 +23,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class PhpdocInlineTagNormalizerFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
@@ -57,7 +54,7 @@ final class PhpdocInlineTagNormalizerFixer extends \PhpCsFixer\AbstractFixer imp
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
-        if (!$this->configuration['tags']) {
+        if (0 === \count($this->configuration['tags'])) {
             return;
         }
         foreach ($tokens as $index => $token) {
@@ -67,9 +64,9 @@ final class PhpdocInlineTagNormalizerFixer extends \PhpCsFixer\AbstractFixer imp
             // Move `@` inside tag, for example @{tag} -> {@tag}, replace multiple curly brackets,
             // remove spaces between '{' and '@', remove white space between end
             // of text and closing bracket and between the tag and inline comment.
-            $content = \PhpCsFixer\Preg::replaceCallback(\sprintf('#(?:@{+|{+\\h*@)\\h*(%s)s?([^}]*)(?:}+)#i', \implode('|', \array_map(function ($tag) {
+            $content = \PhpCsFixer\Preg::replaceCallback(\sprintf('#(?:@{+|{+\\h*@)\\h*(%s)s?([^}]*)(?:}+)#i', \implode('|', \array_map(static function (string $tag) : string {
                 return \preg_quote($tag, '/');
-            }, $this->configuration['tags']))), function (array $matches) {
+            }, $this->configuration['tags']))), static function (array $matches) : string {
                 $doc = \trim($matches[2]);
                 if ('' === $doc) {
                     return '{@' . $matches[1] . '}';

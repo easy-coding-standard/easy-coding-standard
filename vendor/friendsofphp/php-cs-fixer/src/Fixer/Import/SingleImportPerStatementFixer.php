@@ -26,7 +26,6 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  * Fixer for rules defined in PSR2 ¶3.
  *
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
- * @author SpacePossum
  */
 final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
 {
@@ -123,7 +122,7 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
                     $statement = ' const' . $statement;
                     $i += 2;
                 }
-                if ($token->isWhitespace(" \t") || '//' !== \substr($tokens[$i - 1]->getContent(), 0, 2)) {
+                if ($token->isWhitespace(" \t") || \strncmp($tokens[$i - 1]->getContent(), '//', \strlen('//')) !== 0) {
                     continue;
                 }
             }
@@ -176,7 +175,7 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
             $indent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $index);
             if ($tokens[$i - 1]->isWhitespace()) {
                 $tokens[$i - 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $ending . $indent]);
-            } elseif (\false === \strpos($tokens[$i - 1]->getContent(), "\n")) {
+            } elseif (\strpos($tokens[$i - 1]->getContent(), "\n") === \false) {
                 $tokens->insertAt($i, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $ending . $indent]));
             }
         }

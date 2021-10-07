@@ -60,7 +60,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $docIndex = $prevIndex;
             $docContent = $tokens[$docIndex]->getContent();
             // ignore one-line phpdocs like `/** foo */`, as there is no place to put new annotations
-            if (\false === \strpos($docContent, "\n")) {
+            if (\strpos($docContent, "\n") === \false) {
                 return;
             }
             $doc = new \PhpCsFixer\DocBlock\DocBlock($docContent);

@@ -126,10 +126,7 @@ final class ArrayIndentationFixer extends \PhpCsFixer\AbstractFixer implements \
                 break;
             }
         }
-        if (null !== $endIndex) {
-            return $endIndex;
-        }
-        return $tokens->getPrevMeaningfulToken($parentScopeEndIndex);
+        return $endIndex ?? $tokens->getPrevMeaningfulToken($parentScopeEndIndex);
     }
     private function getLineIndentation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : string
     {

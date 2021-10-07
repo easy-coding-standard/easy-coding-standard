@@ -79,7 +79,7 @@ function foo ($bar) {}
                 $lineAfterAnnotation = $doc->getLine($annotation->getEnd() + 1);
                 if (null !== $lineAfterAnnotation) {
                     $lineAfterAnnotationTrimmed = \ltrim($lineAfterAnnotation->getContent());
-                    if ('' === $lineAfterAnnotationTrimmed || '*' !== $lineAfterAnnotationTrimmed[0]) {
+                    if ('' === $lineAfterAnnotationTrimmed || \strncmp($lineAfterAnnotationTrimmed, '*', \strlen('*')) !== 0) {
                         // malformed PHPDoc, missing asterisk !
                         continue;
                     }
@@ -92,7 +92,7 @@ function foo ($bar) {}
                 $endLine->setContent(\PhpCsFixer\Preg::replace('/(?<![.。])[.。]\\h*(\\H+)$/u', '\\1', $endLine->getContent()));
                 $startLine = $doc->getLine($annotation->getStart());
                 $optionalTypeRegEx = $annotation->supportTypes() ? \sprintf('(?:%s\\s+(?:\\$\\w+\\s+)?)?', \preg_quote(\implode('|', $annotation->getTypes()), '/')) : '';
-                $content = \PhpCsFixer\Preg::replaceCallback('/^(\\s*\\*\\s*@\\w+\\s+' . $optionalTypeRegEx . ')(\\p{Lu}?(?=\\p{Ll}|\\p{Zs}))(.*)$/', static function (array $matches) {
+                $content = \PhpCsFixer\Preg::replaceCallback('/^(\\s*\\*\\s*@\\w+\\s+' . $optionalTypeRegEx . ')(\\p{Lu}?(?=\\p{Ll}|\\p{Zs}))(.*)$/', static function (array $matches) : string {
                     if (\function_exists('mb_strtolower')) {
                         return $matches[1] . \mb_strtolower($matches[2]) . $matches[3];
                     }

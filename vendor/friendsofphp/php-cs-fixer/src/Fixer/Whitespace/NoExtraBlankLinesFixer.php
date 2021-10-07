@@ -27,9 +27,9 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
+use PhpCsFixer\Utils;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
- * @author SpacePossum
  */
 final class NoExtraBlankLinesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
 {
@@ -58,6 +58,9 @@ final class NoExtraBlankLinesFixer extends \PhpCsFixer\AbstractFixer implements 
      */
     public function configure(array $configuration) : void
     {
+        if (isset($configuration['tokens']) && \in_array('use_trait', $configuration['tokens'], \true)) {
+            \PhpCsFixer\Utils::triggerDeprecation(new \RuntimeException('Option "use_trait" is deprecated, use the rule `class_attributes_separation` with `elements: trait_import` instead.'));
+        }
         parent::configure($configuration);
         static $reprToTokenMap = ['break' => \T_BREAK, 'case' => \T_CASE, 'continue' => \T_CONTINUE, 'curly_brace_block' => '{', 'default' => \T_DEFAULT, 'extra' => \T_WHITESPACE, 'parenthesis_brace_block' => '(', 'return' => \T_RETURN, 'square_brace_block' => \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, 'switch' => \T_SWITCH, 'throw' => \T_THROW, 'use' => \T_USE, 'use_trait' => \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT];
         static $tokenKindCallbackMap = [\T_BREAK => 'fixAfterToken', \T_CASE => 'fixAfterToken', \T_CONTINUE => 'fixAfterToken', \T_DEFAULT => 'fixAfterToken', \T_RETURN => 'fixAfterToken', \T_SWITCH => 'fixAfterToken', \T_THROW => 'fixAfterThrowToken', \T_USE => 'removeBetweenUse', \T_WHITESPACE => 'removeMultipleBlankLines', \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT => 'removeBetweenUse', \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN => 'fixStructureOpenCloseIfMultiLine'];
@@ -152,14 +155,6 @@ class Bar
 {
 }
 ', ['tokens' => ['use']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
-
-class Foo
-{
-    use Bar;
-
-    use Baz;
-}
-', ['tokens' => ['use_trait']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 switch($a) {
 
     case 1:
@@ -174,7 +169,7 @@ switch($a) {
      * {@inheritdoc}
      *
      * Must run before BlankLineBeforeStatementFixer.
-     * Must run after CombineConsecutiveUnsetsFixer, EmptyLoopBodyFixer, FunctionToConstantFixer, NoEmptyCommentFixer, NoEmptyPhpdocFixer, NoEmptyStatementFixer, NoUnusedImportsFixer, NoUselessElseFixer, NoUselessReturnFixer, NoUselessSprintfFixer.
+     * Must run after ClassAttributesSeparationFixer, CombineConsecutiveUnsetsFixer, EmptyLoopBodyFixer, EmptyLoopConditionFixer, FunctionToConstantFixer, ModernizeStrposFixer, NoEmptyCommentFixer, NoEmptyPhpdocFixer, NoEmptyStatementFixer, NoUnusedImportsFixer, NoUselessElseFixer, NoUselessReturnFixer, NoUselessSprintfFixer, StringLengthToEmptyFixer.
      */
     public function getPriority() : int
     {
@@ -252,7 +247,7 @@ switch($a) {
             if ($this->tokens[$i]->isGivenKind(\T_CLASS) && $this->tokensAnalyzer->isAnonymousClass($i)) {
                 return;
             }
-            if ($this->tokens[$i]->isWhitespace() && \false !== \strpos($this->tokens[$i]->getContent(), "\n")) {
+            if ($this->tokens[$i]->isWhitespace() && \strpos($this->tokens[$i]->getContent(), "\n") !== \false) {
                 break;
             }
         }
@@ -275,7 +270,7 @@ switch($a) {
         $blockTypeInfo = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($this->tokens[$index]);
         $bodyEnd = $this->tokens->findBlockEnd($blockTypeInfo['type'], $index);
         for ($i = $bodyEnd - 1; $i >= $index; --$i) {
-            if (\false !== \strpos($this->tokens[$i]->getContent(), "\n")) {
+            if (\strpos($this->tokens[$i]->getContent(), "\n") !== \false) {
                 $this->removeEmptyLinesAfterLineWithTokenAt($i);
                 $this->removeEmptyLinesAfterLineWithTokenAt($index);
                 break;
@@ -287,7 +282,7 @@ switch($a) {
         // find the line break
         $tokenCount = \count($this->tokens);
         for ($end = $index; $end < $tokenCount; ++$end) {
-            if ($this->tokens[$end]->equals('}') || \false !== \strpos($this->tokens[$end]->getContent(), "\n")) {
+            if ($this->tokens[$end]->equals('}') || \strpos($this->tokens[$end]->getContent(), "\n") !== \false) {
                 break;
             }
         }

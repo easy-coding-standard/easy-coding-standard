@@ -19,9 +19,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class FopenFlagOrderFixer extends \PhpCsFixer\AbstractFopenFlagFixer
 {
     /**
@@ -81,7 +78,7 @@ final class FopenFlagOrderFixer extends \PhpCsFixer\AbstractFopenFlagFixer
      */
     private function sortFlags(array $flags) : array
     {
-        \usort($flags, static function (string $flag1, string $flag2) {
+        \usort($flags, static function (string $flag1, string $flag2) : int {
             if ($flag1 === $flag2) {
                 return 0;
             }

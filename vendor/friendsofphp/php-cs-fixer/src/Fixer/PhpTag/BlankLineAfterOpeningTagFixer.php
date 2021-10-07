@@ -61,7 +61,7 @@ final class BlankLineAfterOpeningTagFixer extends \PhpCsFixer\AbstractFixer impl
         $newlineFound = \false;
         /** @var Token $token */
         foreach ($tokens as $token) {
-            if ($token->isWhitespace() && \false !== \strpos($token->getContent(), "\n")) {
+            if ($token->isWhitespace() && \strpos($token->getContent(), "\n") !== \false) {
                 $newlineFound = \true;
                 break;
             }
@@ -71,10 +71,10 @@ final class BlankLineAfterOpeningTagFixer extends \PhpCsFixer\AbstractFixer impl
             return;
         }
         $token = $tokens[0];
-        if (\false === \strpos($token->getContent(), "\n")) {
+        if (\strpos($token->getContent(), "\n") === \false) {
             $tokens[0] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), \rtrim($token->getContent()) . $lineEnding]);
         }
-        if (\false === \strpos($tokens[1]->getContent(), "\n")) {
+        if (\strpos($tokens[1]->getContent(), "\n") === \false) {
             if ($tokens[1]->isWhitespace()) {
                 $tokens[1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnding . $tokens[1]->getContent()]);
             } else {

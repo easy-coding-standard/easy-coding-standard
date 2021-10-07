@@ -48,8 +48,7 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
             $nextTokenKinds = ['?', ';', ',', '(', ')', '[', ']', ':', '<', '>', '+', '-', '*', '/', '%', '&', '^', '|', [\T_CLASS], [\T_IS_SMALLER_OR_EQUAL], [\T_IS_GREATER_OR_EQUAL], [\T_IS_EQUAL], [\T_IS_NOT_EQUAL], [\T_IS_IDENTICAL], [\T_IS_NOT_IDENTICAL], [\T_CLOSE_TAG], [\T_LOGICAL_AND], [\T_LOGICAL_OR], [\T_LOGICAL_XOR], [\T_BOOLEAN_AND], [\T_BOOLEAN_OR], [\T_SL], [\T_SR], [\T_INSTANCEOF], [\T_AS], [\T_DOUBLE_ARROW], [\T_POW], [\T_SPACESHIP], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_BRACE_CLASS_INSTANTIATION_OPEN], [\PhpCsFixer\Tokenizer\CT::T_BRACE_CLASS_INSTANTIATION_CLOSE]];
         }
         for ($index = $tokens->count() - 3; $index > 0; --$index) {
-            $token = $tokens[$index];
-            if (!$token->isGivenKind(\T_NEW)) {
+            if (!$tokens[$index]->isGivenKind(\T_NEW)) {
                 continue;
             }
             $nextIndex = $tokens->getNextTokenOfKind($index, $nextTokenKinds);
@@ -63,7 +62,7 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
             }
             // entrance into array index syntax - need to look for exit
             while ($nextToken->equals('[') || $nextToken->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN)) {
-                $nextIndex = $tokens->findBlockEnd($tokens->detectBlockType($nextToken)['type'], $nextIndex) + 1;
+                $nextIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::detectBlockType($nextToken)['type'], $nextIndex) + 1;
                 $nextToken = $tokens[$nextIndex];
             }
             // new statement has a gap in it - advance to the next token

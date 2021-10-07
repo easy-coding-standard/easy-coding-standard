@@ -21,8 +21,6 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
@@ -35,7 +33,7 @@ final class SingleSpaceAfterConstructFixer extends \PhpCsFixer\AbstractFixer imp
     /**
      * @var array<string, null|int>
      */
-    private static $tokenMap = ['abstract' => \T_ABSTRACT, 'as' => \T_AS, 'attribute' => \PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE, 'break' => \T_BREAK, 'case' => \T_CASE, 'catch' => \T_CATCH, 'class' => \T_CLASS, 'clone' => \T_CLONE, 'comment' => \T_COMMENT, 'const' => \T_CONST, 'const_import' => \PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT, 'continue' => \T_CONTINUE, 'do' => \T_DO, 'echo' => \T_ECHO, 'else' => \T_ELSE, 'elseif' => \T_ELSEIF, 'extends' => \T_EXTENDS, 'final' => \T_FINAL, 'finally' => \T_FINALLY, 'for' => \T_FOR, 'foreach' => \T_FOREACH, 'function' => \T_FUNCTION, 'function_import' => \PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT, 'global' => \T_GLOBAL, 'goto' => \T_GOTO, 'if' => \T_IF, 'implements' => \T_IMPLEMENTS, 'include' => \T_INCLUDE, 'include_once' => \T_INCLUDE_ONCE, 'instanceof' => \T_INSTANCEOF, 'insteadof' => \T_INSTEADOF, 'interface' => \T_INTERFACE, 'match' => null, 'named_argument' => \PhpCsFixer\Tokenizer\CT::T_NAMED_ARGUMENT_COLON, 'namespace' => \T_NAMESPACE, 'new' => \T_NEW, 'open_tag_with_echo' => \T_OPEN_TAG_WITH_ECHO, 'php_doc' => \T_DOC_COMMENT, 'php_open' => \T_OPEN_TAG, 'print' => \T_PRINT, 'private' => \T_PRIVATE, 'protected' => \T_PROTECTED, 'public' => \T_PUBLIC, 'require' => \T_REQUIRE, 'require_once' => \T_REQUIRE_ONCE, 'return' => \T_RETURN, 'static' => \T_STATIC, 'throw' => \T_THROW, 'trait' => \T_TRAIT, 'try' => \T_TRY, 'use' => \T_USE, 'use_lambda' => \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, 'use_trait' => \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, 'var' => \T_VAR, 'while' => \T_WHILE, 'yield' => \T_YIELD, 'yield_from' => \T_YIELD_FROM];
+    private static $tokenMap = ['abstract' => \T_ABSTRACT, 'as' => \T_AS, 'attribute' => \PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE, 'break' => \T_BREAK, 'case' => \T_CASE, 'catch' => \T_CATCH, 'class' => \T_CLASS, 'clone' => \T_CLONE, 'comment' => \T_COMMENT, 'const' => \T_CONST, 'const_import' => \PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT, 'continue' => \T_CONTINUE, 'do' => \T_DO, 'echo' => \T_ECHO, 'else' => \T_ELSE, 'elseif' => \T_ELSEIF, 'enum' => null, 'extends' => \T_EXTENDS, 'final' => \T_FINAL, 'finally' => \T_FINALLY, 'for' => \T_FOR, 'foreach' => \T_FOREACH, 'function' => \T_FUNCTION, 'function_import' => \PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT, 'global' => \T_GLOBAL, 'goto' => \T_GOTO, 'if' => \T_IF, 'implements' => \T_IMPLEMENTS, 'include' => \T_INCLUDE, 'include_once' => \T_INCLUDE_ONCE, 'instanceof' => \T_INSTANCEOF, 'insteadof' => \T_INSTEADOF, 'interface' => \T_INTERFACE, 'match' => null, 'named_argument' => \PhpCsFixer\Tokenizer\CT::T_NAMED_ARGUMENT_COLON, 'namespace' => \T_NAMESPACE, 'new' => \T_NEW, 'open_tag_with_echo' => \T_OPEN_TAG_WITH_ECHO, 'php_doc' => \T_DOC_COMMENT, 'php_open' => \T_OPEN_TAG, 'print' => \T_PRINT, 'private' => \T_PRIVATE, 'protected' => \T_PROTECTED, 'public' => \T_PUBLIC, 'readonly' => null, 'require' => \T_REQUIRE, 'require_once' => \T_REQUIRE_ONCE, 'return' => \T_RETURN, 'static' => \T_STATIC, 'switch' => \T_SWITCH, 'throw' => \T_THROW, 'trait' => \T_TRAIT, 'try' => \T_TRY, 'use' => \T_USE, 'use_lambda' => \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, 'use_trait' => \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, 'var' => \T_VAR, 'while' => \T_WHILE, 'yield' => \T_YIELD, 'yield_from' => \T_YIELD_FROM];
     /**
      * @var array<string, int>
      */
@@ -46,13 +44,23 @@ final class SingleSpaceAfterConstructFixer extends \PhpCsFixer\AbstractFixer imp
     public function configure(array $configuration) : void
     {
         parent::configure($configuration);
-        // @TODO: drop condition when PHP 8.0+ is required
         if (\defined('T_MATCH')) {
+            // @TODO: drop condition when PHP 8.0+ is required
             self::$tokenMap['match'] = \T_MATCH;
+        }
+        if (\defined('T_READONLY')) {
+            // @TODO: drop condition when PHP 8.1+ is required
+            self::$tokenMap['readonly'] = T_READONLY;
+        }
+        if (\defined('T_ENUM')) {
+            // @TODO: drop condition when PHP 8.1+ is required
+            self::$tokenMap['enum'] = T_ENUM;
         }
         $this->fixTokenMap = [];
         foreach ($this->configuration['constructs'] as $key) {
-            $this->fixTokenMap[$key] = self::$tokenMap[$key];
+            if (null !== self::$tokenMap[$key]) {
+                $this->fixTokenMap[$key] = self::$tokenMap[$key];
+            }
         }
         if (isset($this->fixTokenMap['public'])) {
             $this->fixTokenMap['constructor_public'] = \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC;
@@ -75,15 +83,16 @@ throw  new  \\Exception();
 '), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 echo  "Hello!";
-', ['constructs' => ['echo']]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+', ['constructs' => ['echo']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 yield  from  baz();
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70000), ['constructs' => ['yield_from']])]);
+', ['constructs' => ['yield_from']])]);
     }
     /**
      * {@inheritdoc}
      *
      * Must run before BracesFixer, FunctionDeclarationFixer.
+     * Must run after ModernizeStrposFixer.
      */
     public function getPriority() : int
     {
@@ -115,7 +124,7 @@ yield  from  baz();
                 continue;
             }
             if ($token->isGivenKind(\T_OPEN_TAG)) {
-                if ($tokens[$whitespaceTokenIndex]->equals([\T_WHITESPACE]) && \false === \strpos($token->getContent(), "\n")) {
+                if ($tokens[$whitespaceTokenIndex]->equals([\T_WHITESPACE]) && \strpos($token->getContent(), "\n") === \false) {
                     $tokens->clearAt($whitespaceTokenIndex);
                 }
                 continue;
@@ -130,7 +139,7 @@ yield  from  baz();
                 continue;
             }
             if ($token->isComment() || $token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE)) {
-                if ($tokens[$whitespaceTokenIndex]->equals([\T_WHITESPACE]) && \false !== \strpos($tokens[$whitespaceTokenIndex]->getContent(), "\n")) {
+                if ($tokens[$whitespaceTokenIndex]->equals([\T_WHITESPACE]) && \strpos($tokens[$whitespaceTokenIndex]->getContent(), "\n") !== \false) {
                     continue;
                 }
             }
@@ -139,25 +148,26 @@ yield  from  baz();
             } else {
                 $tokens->insertAt($whitespaceTokenIndex, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
             }
-            if (70000 <= \PHP_VERSION_ID && $token->isGivenKind(\T_YIELD_FROM) && 'yield from' !== \strtolower($token->getContent())) {
+            if ($token->isGivenKind(\T_YIELD_FROM) && 'yield from' !== \strtolower($token->getContent())) {
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_YIELD_FROM, \PhpCsFixer\Preg::replace('/\\s+/', ' ', $token->getContent())]);
             }
         }
     }
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('constructs', 'List of constructs which must be followed by a single space.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(self::$tokenMap))])->setDefault(\array_keys(self::$tokenMap))->getOption()]);
+        $tokens = \array_keys(self::$tokenMap);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('constructs', 'List of constructs which must be followed by a single space.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($tokens)])->setDefault($tokens)->getOption()]);
     }
     private function isMultiLineReturn(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
         ++$index;
         $tokenFollowingReturn = $tokens[$index];
-        if (!$tokenFollowingReturn->isGivenKind(\T_WHITESPACE) || \false === \strpos($tokenFollowingReturn->getContent(), "\n")) {
+        if (!$tokenFollowingReturn->isGivenKind(\T_WHITESPACE) || \strpos($tokenFollowingReturn->getContent(), "\n") === \false) {
             return \false;
         }
         $nestedCount = 0;
         for ($indexEnd = \count($tokens) - 1, ++$index; $index < $indexEnd; ++$index) {
-            if (\false !== \strpos($tokens[$index]->getContent(), "\n")) {
+            if (\strpos($tokens[$index]->getContent(), "\n") !== \false) {
                 return \true;
             }
             if ($tokens[$index]->equals('{')) {
@@ -182,7 +192,7 @@ yield  from  baz();
             if ($token->equals('{')) {
                 return \false;
             }
-            if ($hasMoreThanOneAncestor && \false !== \strpos($token->getContent(), "\n")) {
+            if ($hasMoreThanOneAncestor && \strpos($token->getContent(), "\n") !== \false) {
                 return \true;
             }
         }

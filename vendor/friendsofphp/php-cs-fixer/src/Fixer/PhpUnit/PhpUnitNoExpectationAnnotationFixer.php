@@ -179,11 +179,11 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     {
         $params = [];
         $exceptionClass = \ltrim($annotations['expectedException'], '\\');
-        if (\false !== \strpos($exceptionClass, '*')) {
+        if (\strpos($exceptionClass, '*') !== \false) {
             $exceptionClass = \substr($exceptionClass, 0, \strpos($exceptionClass, '*'));
         }
         $exceptionClass = \trim($exceptionClass);
-        if ($this->configuration['use_class_const']) {
+        if (\true === $this->configuration['use_class_const']) {
             $params[] = "\\{$exceptionClass}::class";
         } else {
             $params[] = "'{$exceptionClass}'";

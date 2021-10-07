@@ -32,7 +32,7 @@ final class SimpleToComplexStringVariableFixer extends \PhpCsFixer\AbstractFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts explicit variables in double-quoted strings and heredoc syntax from simple to complex format (`${` to `{$`).', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
 <?php
 
-namespace ECSPrefix20211002;
+namespace ECSPrefix20211007;
 
 $name = 'World';
 echo "Hello {$name}!";
@@ -41,7 +41,7 @@ EOT
 ), new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
 <?php
 
-namespace ECSPrefix20211002;
+namespace ECSPrefix20211007;
 
 $name = 'World';
 echo <<<TEST
@@ -85,7 +85,7 @@ EOT
             }
             $tokenOfStringBeforeToken = $tokens[$index - 1];
             $stringContent = $tokenOfStringBeforeToken->getContent();
-            if ('$' === \substr($stringContent, -1) && '\\$' !== \substr($stringContent, -2)) {
+            if (\substr_compare($stringContent, '$', -\strlen('$')) === 0 && \substr_compare($stringContent, '\\$', -\strlen('\\$')) !== 0) {
                 $newContent = \substr($stringContent, 0, -1) . '\\$';
                 $tokenOfStringBeforeToken = new \PhpCsFixer\Tokenizer\Token([\T_ENCAPSED_AND_WHITESPACE, $newContent]);
             }

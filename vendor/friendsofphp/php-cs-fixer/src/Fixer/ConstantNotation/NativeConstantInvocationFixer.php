@@ -26,7 +26,7 @@ use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
@@ -104,7 +104,7 @@ namespace {
                 unset($constantsToEscape[$constantIndex]);
             }
         }
-        $caseInsensitiveConstantsToEscape = \array_diff(\array_unique($caseInsensitiveConstantsToEscape), \array_map(static function (string $function) {
+        $caseInsensitiveConstantsToEscape = \array_diff(\array_unique($caseInsensitiveConstantsToEscape), \array_map(static function (string $function) : string {
             return \strtolower($function);
         }, $uniqueConfiguredExclude));
         // Store the cache
@@ -140,7 +140,7 @@ namespace {
         $constantChecker = static function (array $value) : bool {
             foreach ($value as $constantName) {
                 if (!\is_string($constantName) || '' === \trim($constantName) || \trim($constantName) !== $constantName) {
-                    throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($constantName) ? \get_class($constantName) : \gettype($constantName)));
+                    throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($constantName) ? \get_class($constantName) : \gettype($constantName)));
                 }
             }
             return \true;
@@ -169,7 +169,7 @@ namespace {
             $tokenContent = $token->getContent();
             $prevIndex = $tokens->getPrevMeaningfulToken($index);
             if (!isset($this->constantsToEscape[$tokenContent]) && !isset($this->caseInsensitiveConstantsToEscape[\strtolower($tokenContent)])) {
-                if (!$this->configuration['strict']) {
+                if (\false === $this->configuration['strict']) {
                     continue;
                 }
                 if (!$tokens[$prevIndex]->isGivenKind(\T_NS_SEPARATOR)) {

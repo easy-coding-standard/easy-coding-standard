@@ -40,13 +40,6 @@ final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionRefer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
-    {
-        return $tokens->isTokenKindFound(\T_STRING);
-    }
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         // replacement patterns
@@ -54,7 +47,7 @@ final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionRefer
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         foreach ($replacement as $functionIdentity => $newToken) {
             $currIndex = 0;
-            while (null !== $currIndex) {
+            do {
                 // try getting function reference and translate boundaries for humans
                 $boundaries = $this->find($functionIdentity, $tokens, $currIndex, $tokens->count() - 1);
                 if (null === $boundaries) {
@@ -83,10 +76,10 @@ final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionRefer
                         ++$countParamTokens;
                     }
                 }
-                $preserveParenthesises = $countParamTokens > 1;
+                $preserveParentheses = $countParamTokens > 1;
                 $afterCloseParenthesisIndex = $tokens->getNextMeaningfulToken($closeParenthesis);
                 $afterCloseParenthesisToken = $tokens[$afterCloseParenthesisIndex];
-                $wrapInParenthesises = $afterCloseParenthesisToken->equalsAny(['[', '{']) || $afterCloseParenthesisToken->isGivenKind(\T_POW);
+                $wrapInParentheses = $afterCloseParenthesisToken->equalsAny(['[', '{']) || $afterCloseParenthesisToken->isGivenKind(\T_POW);
                 // analyse namespace specification (root one or none) and decide what to do
                 $prevTokenIndex = $tokens->getPrevMeaningfulToken($functionName);
                 if ($tokens[$prevTokenIndex]->isGivenKind(\T_NS_SEPARATOR)) {
@@ -96,10 +89,10 @@ final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionRefer
                 }
                 // perform transformation
                 $replacementSequence = [new \PhpCsFixer\Tokenizer\Token($newToken), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
-                if ($wrapInParenthesises) {
+                if ($wrapInParentheses) {
                     \array_unshift($replacementSequence, new \PhpCsFixer\Tokenizer\Token('('));
                 }
-                if (!$preserveParenthesises) {
+                if (!$preserveParentheses) {
                     // closing parenthesis removed with leading spaces
                     $tokens->removeLeadingWhitespace($closeParenthesis);
                     $tokens->clearAt($closeParenthesis);
@@ -111,13 +104,13 @@ final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionRefer
                     // we'll need to provide a space after a casting operator
                     $tokens->removeTrailingWhitespace($functionName);
                 }
-                if ($wrapInParenthesises) {
+                if ($wrapInParentheses) {
                     $tokens->insertAt($closeParenthesis, new \PhpCsFixer\Tokenizer\Token(')'));
                 }
                 $tokens->overrideRange($functionName, $functionName, $replacementSequence);
                 // nested transformations support
                 $currIndex = $functionName;
-            }
+            } while (null !== $currIndex);
         }
     }
 }

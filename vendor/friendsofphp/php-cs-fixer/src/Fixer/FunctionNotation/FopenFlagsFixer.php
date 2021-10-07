@@ -22,9 +22,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class FopenFlagsFixer extends \PhpCsFixer\AbstractFopenFlagFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
@@ -74,8 +71,8 @@ final class FopenFlagsFixer extends \PhpCsFixer\AbstractFopenFlagFixer implement
             return;
         }
         $mode = \str_replace('t', '', $mode);
-        if ($this->configuration['b_mode']) {
-            if (\false === \strpos($mode, 'b')) {
+        if (\true === $this->configuration['b_mode']) {
+            if (\strpos($mode, 'b') === \false) {
                 $mode .= 'b';
             }
         } else {

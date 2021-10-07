@@ -13,6 +13,7 @@ declare (strict_types=1);
 namespace PhpCsFixer\Fixer\FunctionNotation;
 
 use PhpCsFixer\AbstractPhpdocToTypeDeclarationFixer;
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\FixerDefinition\VersionSpecification;
@@ -38,28 +39,27 @@ final class PhpdocToReturnTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDecl
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('EXPERIMENTAL: Takes `@return` annotation of non-mixed types and adjusts accordingly the function signature. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('EXPERIMENTAL: Takes `@return` annotation of non-mixed types and adjusts accordingly the function signature. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 /** @return \\My\\Bar */
-function my_foo()
+function f1()
 {}
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70000)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
 
 /** @return void */
-function my_foo()
+function f2()
 {}
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70100)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+'), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
 
 /** @return object */
 function my_foo()
 {}
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70200)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+', new \PhpCsFixer\FixerDefinition\VersionSpecification(70200)), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 /** @return Foo */
 function foo() {}
 /** @return string */
 function bar() {}
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70100), ['scalar_types' => \false]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+', ['scalar_types' => \false]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
 final class Foo {
     /**
      * @return static
@@ -78,7 +78,7 @@ final class Foo {
         if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
             return \true;
         }
-        return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\T_FUNCTION);
+        return $tokens->isTokenKindFound(\T_FUNCTION);
     }
     /**
      * {@inheritdoc}

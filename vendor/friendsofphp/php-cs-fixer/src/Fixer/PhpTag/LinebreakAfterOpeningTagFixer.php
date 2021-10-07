@@ -48,12 +48,12 @@ final class LinebreakAfterOpeningTagFixer extends \PhpCsFixer\AbstractFixer impl
             return;
         }
         // ignore if linebreak already present
-        if (\false !== \strpos($tokens[0]->getContent(), "\n")) {
+        if (\strpos($tokens[0]->getContent(), "\n") !== \false) {
             return;
         }
         $newlineFound = \false;
         foreach ($tokens as $token) {
-            if ($token->isWhitespace() && \false !== \strpos($token->getContent(), "\n")) {
+            if ($token->isWhitespace() && \strpos($token->getContent(), "\n") !== \false) {
                 $newlineFound = \true;
                 break;
             }

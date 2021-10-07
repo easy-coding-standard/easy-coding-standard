@@ -21,18 +21,15 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
- * @author SpacePossum
  * @author Darius Matulionis <darius@matulionis.lt>
  * @author Adriano Pilger <adriano.pilger@gmail.com>
  */
@@ -79,12 +76,12 @@ final class OrderedImportsFixer extends \PhpCsFixer\AbstractFixer implements \Ph
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Ordering `use` statements.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nuse Z; use A;\n"), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Ordering `use` statements.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nuse function AAC;\nuse const AAB;\nuse AAA;\n"), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 use Acme\\Bar;
 use Bar1;
 use Acme;
 use Bar;
-', ['sort_algorithm' => self::SORT_LENGTH]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nuse function AAC;\nuse const AAB;\nuse AAA;\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70000)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+', ['sort_algorithm' => self::SORT_LENGTH]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 use const AAAA;
 use const BBB;
 
@@ -94,7 +91,7 @@ use Acme;
 
 use function CCC\\AA;
 use function DDD;
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70000), ['sort_algorithm' => self::SORT_LENGTH, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+', ['sort_algorithm' => self::SORT_LENGTH, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 use const BBB;
 use const AAAA;
 
@@ -104,7 +101,7 @@ use Bar;
 
 use function DDD;
 use function CCC\\AA;
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70000), ['sort_algorithm' => self::SORT_ALPHA, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+', ['sort_algorithm' => self::SORT_ALPHA, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 use const BBB;
 use const AAAA;
 
@@ -114,7 +111,7 @@ use function CCC\\AA;
 use Acme;
 use AAC;
 use Bar;
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70000), ['sort_algorithm' => self::SORT_NONE, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]])]);
+', ['sort_algorithm' => self::SORT_NONE, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]])]);
     }
     /**
      * {@inheritdoc}
@@ -180,15 +177,15 @@ use Bar;
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $supportedSortTypes = self::SUPPORTED_SORT_TYPES;
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'whether the statements should be sorted alphabetically or by length, or not sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_ALPHA)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('imports_order', 'Defines the order of import types.'))->setAllowedTypes(['array', 'null'])->setAllowedValues([static function (?array $value) use($supportedSortTypes) {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'whether the statements should be sorted alphabetically or by length, or not sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_ALPHA)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('imports_order', 'Defines the order of import types.'))->setAllowedTypes(['array', 'null'])->setAllowedValues([static function (?array $value) use($supportedSortTypes) : bool {
             if (null !== $value) {
                 $missing = \array_diff($supportedSortTypes, $value);
-                if (\count($missing)) {
-                    throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Missing sort %s "%s".', 1 === \count($missing) ? 'type' : 'types', \implode('", "', $missing)));
+                if (\count($missing) > 0) {
+                    throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Missing sort %s "%s".', 1 === \count($missing) ? 'type' : 'types', \implode('", "', $missing)));
                 }
                 $unknown = \array_diff($value, $supportedSortTypes);
-                if (\count($unknown)) {
-                    throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown sort %s "%s".', 1 === \count($unknown) ? 'type' : 'types', \implode('", "', $unknown)));
+                if (\count($unknown) > 0) {
+                    throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown sort %s "%s".', 1 === \count($unknown) ? 'type' : 'types', \implode('", "', $unknown)));
                 }
             }
             return \true;
@@ -292,7 +289,7 @@ use Bar;
                                     continue;
                                 }
                                 // if there is any line ending inside the group import, it should be indented properly
-                                if ('' === $firstIndent && $namespaceTokens[$k2]->isWhitespace() && \false !== \strpos($namespaceTokens[$k2]->getContent(), $lineEnding)) {
+                                if ('' === $firstIndent && $namespaceTokens[$k2]->isWhitespace() && \strpos($namespaceTokens[$k2]->getContent(), $lineEnding) !== \false) {
                                     $lastIndent = $lineEnding;
                                     $firstIndent = $lineEnding . $this->whitespacesConfig->getIndent();
                                     $separator = ',' . $firstIndent;
@@ -345,8 +342,8 @@ use Bar;
                 $groupedByTypes[$item['importType']][$startIndex] = $item;
             }
             // Sorting each group by algorithm.
-            foreach ($groupedByTypes as $type => $indexes) {
-                $groupedByTypes[$type] = $this->sortByAlgorithm($indexes);
+            foreach ($groupedByTypes as $type => $groupIndexes) {
+                $groupedByTypes[$type] = $this->sortByAlgorithm($groupIndexes);
             }
             // Ordering groups
             $sortedGroups = [];

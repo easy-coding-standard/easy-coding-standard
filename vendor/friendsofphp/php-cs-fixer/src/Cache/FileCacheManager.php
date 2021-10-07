@@ -106,7 +106,7 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
     private function readCache() : void
     {
         $cache = $this->handler->read();
-        if (!$cache || !$this->signature->equals($cache->getSignature())) {
+        if (null === $cache || !$this->signature->equals($cache->getSignature())) {
             $cache = new \PhpCsFixer\Cache\Cache($this->signature);
         }
         $this->cache = $cache;

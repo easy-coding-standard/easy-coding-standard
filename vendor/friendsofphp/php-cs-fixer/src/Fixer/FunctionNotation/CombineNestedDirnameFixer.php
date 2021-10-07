@@ -13,10 +13,9 @@ declare (strict_types=1);
 namespace PhpCsFixer\Fixer\FunctionNotation;
 
 use PhpCsFixer\AbstractFixer;
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -30,14 +29,14 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace multiple nested calls of `dirname` by only one call with second `$level` parameter. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\ndirname(dirname(dirname(\$path)));\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70000))], null, 'Risky when the function `dirname` is overridden.');
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace multiple nested calls of `dirname` by only one call with second `$level` parameter. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\ndirname(dirname(dirname(\$path)));\n")], null, 'Risky when the function `dirname` is overridden.');
     }
     /**
      * {@inheritdoc}
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\T_STRING);
+        return $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
@@ -120,7 +119,7 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
             }
             while (!$tokens[$next]->equalsAny([',', ')'])) {
                 $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$next]);
-                if ($blockType) {
+                if (null !== $blockType) {
                     $next = $tokens->findBlockEnd($blockType['type'], $next);
                 }
                 $next = $tokens->getNextMeaningfulToken($next);

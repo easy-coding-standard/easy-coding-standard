@@ -34,9 +34,9 @@ final class UseArrowFunctionsFixer extends \PhpCsFixer\AbstractFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Anonymous functions with one-liner return statement must use arrow functions.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20211002;
+namespace ECSPrefix20211007;
 
-\ECSPrefix20211002\foo(function ($a) use($b) {
+\ECSPrefix20211007\foo(function ($a) use($b) {
     return $a + $b;
 });
 
@@ -133,7 +133,7 @@ SAMPLE
     private function isMultilined(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : bool
     {
         for ($i = $start; $i < $end; ++$i) {
-            if (\false !== \strpos($tokens[$i]->getContent(), "\n")) {
+            if (\strpos($tokens[$i]->getContent(), "\n") !== \false) {
                 return \true;
             }
         }
@@ -149,7 +149,7 @@ SAMPLE
         $tokens->clearRange($semicolon, $braceClose);
         $tokens->clearRange($braceOpen + 1, $return);
         $tokens->overrideRange($braceOpen, $braceOpen, $tokensToInsert);
-        if ($useStart) {
+        if (null !== $useStart) {
             $tokens->clearRange($useStart, $useEnd);
         }
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_FN, 'fn']);

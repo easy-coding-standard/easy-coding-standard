@@ -37,7 +37,7 @@ final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implemen
     /**
      * @var array Array containing all class element base types (keys) and their parent types (values)
      */
-    private static $typeHierarchy = ['use_trait' => null, 'public' => null, 'protected' => null, 'private' => null, 'constant' => null, 'constant_public' => ['constant', 'public'], 'constant_protected' => ['constant', 'protected'], 'constant_private' => ['constant', 'private'], 'property' => null, 'property_static' => ['property'], 'property_public' => ['property', 'public'], 'property_protected' => ['property', 'protected'], 'property_private' => ['property', 'private'], 'property_public_static' => ['property_static', 'property_public'], 'property_protected_static' => ['property_static', 'property_protected'], 'property_private_static' => ['property_static', 'property_private'], 'method' => null, 'method_abstract' => ['method'], 'method_static' => ['method'], 'method_public' => ['method', 'public'], 'method_protected' => ['method', 'protected'], 'method_private' => ['method', 'private'], 'method_public_abstract' => ['method_abstract', 'method_public'], 'method_protected_abstract' => ['method_abstract', 'method_protected'], 'method_public_abstract_static' => ['method_abstract', 'method_static', 'method_public'], 'method_protected_abstract_static' => ['method_abstract', 'method_static', 'method_protected'], 'method_public_static' => ['method_static', 'method_public'], 'method_protected_static' => ['method_static', 'method_protected'], 'method_private_static' => ['method_static', 'method_private']];
+    private static $typeHierarchy = ['use_trait' => null, 'public' => null, 'protected' => null, 'private' => null, 'constant' => null, 'constant_public' => ['constant', 'public'], 'constant_protected' => ['constant', 'protected'], 'constant_private' => ['constant', 'private'], 'property' => null, 'property_static' => ['property'], 'property_public' => ['property', 'public'], 'property_protected' => ['property', 'protected'], 'property_private' => ['property', 'private'], 'property_public_readonly' => ['property_readonly', 'property_public'], 'property_protected_readonly' => ['property_readonly', 'property_protected'], 'property_private_readonly' => ['property_readonly', 'property_private'], 'property_public_static' => ['property_static', 'property_public'], 'property_protected_static' => ['property_static', 'property_protected'], 'property_private_static' => ['property_static', 'property_private'], 'method' => null, 'method_abstract' => ['method'], 'method_static' => ['method'], 'method_public' => ['method', 'public'], 'method_protected' => ['method', 'protected'], 'method_private' => ['method', 'private'], 'method_public_abstract' => ['method_abstract', 'method_public'], 'method_protected_abstract' => ['method_abstract', 'method_protected'], 'method_public_abstract_static' => ['method_abstract', 'method_static', 'method_public'], 'method_protected_abstract_static' => ['method_abstract', 'method_static', 'method_protected'], 'method_public_static' => ['method_static', 'method_public'], 'method_protected_static' => ['method_static', 'method_protected'], 'method_private_static' => ['method_static', 'method_private']];
     /**
      * @var array Array containing special method types
      */
@@ -188,7 +188,7 @@ class Example
         ++$startIndex;
         $elements = [];
         while (\true) {
-            $element = ['start' => $startIndex, 'visibility' => 'public', 'abstract' => \false, 'static' => \false];
+            $element = ['start' => $startIndex, 'visibility' => 'public', 'abstract' => \false, 'static' => \false, 'readonly' => \false];
             for ($i = $startIndex;; ++$i) {
                 $token = $tokens[$i];
                 // class end
@@ -202,6 +202,10 @@ class Example
                 if ($token->isGivenKind(\T_STATIC)) {
                     $element['static'] = \true;
                     continue;
+                }
+                if (\defined('T_READONLY') && $token->isGivenKind(T_READONLY)) {
+                    // @TODO: drop condition when PHP 8.1+ is required
+                    $element['readonly'] = \true;
                 }
                 if ($token->isGivenKind([\T_PROTECTED, \T_PRIVATE])) {
                     $element['visibility'] = \strtolower($token->getContent());
@@ -254,10 +258,7 @@ class Example
         if ($nameToken->equalsAny([[\T_STRING, 'setUpBeforeClass'], [\T_STRING, 'doSetUpBeforeClass'], [\T_STRING, 'tearDownAfterClass'], [\T_STRING, 'doTearDownAfterClass'], [\T_STRING, 'setUp'], [\T_STRING, 'doSetUp'], [\T_STRING, 'tearDown'], [\T_STRING, 'doTearDown']], \false)) {
             return ['phpunit', \strtolower($nameToken->getContent())];
         }
-        if ('__' === \substr($nameToken->getContent(), 0, 2)) {
-            return 'magic';
-        }
-        return 'method';
+        return \strncmp($nameToken->getContent(), '__', \strlen('__')) === 0 ? 'magic' : 'method';
     }
     private function findElementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
     {
@@ -298,11 +299,14 @@ class Example
                 if ($element['static']) {
                     $type .= '_static';
                 }
+                if ($element['readonly']) {
+                    $type .= '_readonly';
+                }
             }
             $element['position'] = $this->typePosition[$type];
         }
         unset($element);
-        \usort($elements, function (array $a, array $b) {
+        \usort($elements, function (array $a, array $b) : int {
             if ($a['position'] === $b['position']) {
                 return $this->sortGroupElements($a, $b);
             }

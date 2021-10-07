@@ -22,6 +22,7 @@ use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis;
 use PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
+use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
@@ -88,20 +89,33 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $gotoLabelAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer();
         $tokensNotBeforeFunctionCall = [\T_NEW];
-        // @TODO: drop condition when PHP 8.0+ is required
-        if (\defined('T_ATTRIBUTE')) {
+        $attributeIsDefined = \defined('T_ATTRIBUTE');
+        if ($attributeIsDefined) {
+            // @TODO: drop condition when PHP 8.0+ is required
             $tokensNotBeforeFunctionCall[] = \T_ATTRIBUTE;
         }
         $namespaceEndIndex = $namespace->getScopeEndIndex();
+        $inAttribute = \false;
         for ($index = $namespace->getScopeStartIndex(); $index <= $namespaceEndIndex; ++$index) {
+            $token = $tokens[$index];
+            if ($attributeIsDefined && $token->isGivenKind(\T_ATTRIBUTE)) {
+                $inAttribute = \true;
+                continue;
+            }
+            if ($attributeIsDefined && $token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE)) {
+                $inAttribute = \false;
+                continue;
+            }
             if (isset($ignoredIndexes[$index])) {
                 $index = $ignoredIndexes[$index];
                 continue;
             }
-            $token = $tokens[$index];
             if ($token->isGivenKind(\T_STRING)) {
                 if (0 !== \strcasecmp($import->getShortName(), $token->getContent())) {
                     continue;
+                }
+                if ($inAttribute) {
+                    return \true;
                 }
                 $prevMeaningfulToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
                 if ($prevMeaningfulToken->isGivenKind(\T_NAMESPACE)) {
@@ -140,7 +154,7 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
             if ($tokens[$index]->isComment()) {
                 continue;
             }
-            if (!$tokens[$index]->isWhitespace() || \false === \strpos($tokens[$index]->getContent(), "\n")) {
+            if (!$tokens[$index]->isWhitespace() || \strpos($tokens[$index]->getContent(), "\n") === \false) {
                 $tokens->clearTokenAndMergeSurroundingWhitespace($index);
                 continue;
             }
@@ -206,11 +220,11 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
                 continue;
             }
             $useDeclarationFullName = \ltrim($useDeclaration->getFullName(), '\\');
-            if (0 !== \strpos($useDeclarationFullName, $namespace . '\\')) {
+            if (\strncmp($useDeclarationFullName, $namespace . '\\', \strlen($namespace . '\\')) !== 0) {
                 continue;
             }
             $partName = \substr($useDeclarationFullName, $nsLength);
-            if (\false === \strpos($partName, '\\')) {
+            if (\strpos($partName, '\\') === \false) {
                 $this->removeUseDeclaration($tokens, $useDeclaration);
             }
         }

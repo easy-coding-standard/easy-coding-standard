@@ -18,11 +18,11 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class MagicMethodCasingFixer extends \PhpCsFixer\AbstractFixer
 {
+    /**
+     * @var array<string,string>
+     */
     private static $magicNames = ['__call' => '__call', '__callstatic' => '__callStatic', '__clone' => '__clone', '__construct' => '__construct', '__debuginfo' => '__debugInfo', '__destruct' => '__destruct', '__get' => '__get', '__invoke' => '__invoke', '__isset' => '__isset', '__serialize' => '__serialize', '__set' => '__set', '__set_state' => '__set_state', '__sleep' => '__sleep', '__tostring' => '__toString', '__unserialize' => '__unserialize', '__unset' => '__unset', '__wakeup' => '__wakeup'];
     /**
      * {@inheritdoc}
@@ -75,7 +75,7 @@ $foo->__INVOKE(1);
                 // wrong type
             }
             $content = $tokens[$index]->getContent();
-            if ('__' !== \substr($content, 0, 2)) {
+            if (\strncmp($content, '__', \strlen('__')) !== 0) {
                 continue;
                 // cheap look ahead
             }

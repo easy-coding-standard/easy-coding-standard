@@ -130,24 +130,21 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
             $tokens[$functionNameIndex] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $newFunctionName]);
         }
     }
-    /**
-     * @param int$index
-     */
     private function isTestMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
         // Check if we are dealing with a (non abstract, non lambda) function
         if (!$this->isMethod($tokens, $index)) {
             return \false;
         }
-        // if the function name starts with test its a test
+        // if the function name starts with test it is a test
         $functionNameIndex = $tokens->getNextMeaningfulToken($index);
         $functionName = $tokens[$functionNameIndex]->getContent();
         if ($this->hasTestPrefix($functionName)) {
             return \true;
         }
         $docBlockIndex = $this->getDocBlockIndex($tokens, $index);
-        // If the function doesn't have test in its name, and no doc block, its not a test
-        return $this->isPHPDoc($tokens, $docBlockIndex) && \false !== \strpos($tokens[$docBlockIndex]->getContent(), '@test');
+        // If the function doesn't have test in its name, and no doc block, it is not a test
+        return $this->isPHPDoc($tokens, $docBlockIndex) && \strpos($tokens[$docBlockIndex]->getContent(), '@test') !== \false;
     }
     private function isMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
@@ -156,7 +153,7 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     private function hasTestPrefix(string $functionName) : bool
     {
-        return 0 === \strpos($functionName, 'test');
+        return \strncmp($functionName, 'test', \strlen('test')) === 0;
     }
     private function hasProperTestAnnotation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
@@ -211,12 +208,12 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
                 }
                 // One we split it up, we run the function again, so we deal with other things in a proper way
             }
-            if (!$needsAnnotation && \false !== \strpos($lines[$i]->getContent(), ' @test') && \false === \strpos($lines[$i]->getContent(), '@testWith') && \false === \strpos($lines[$i]->getContent(), '@testdox')) {
+            if (!$needsAnnotation && \strpos($lines[$i]->getContent(), ' @test') !== \false && \strpos($lines[$i]->getContent(), '@testWith') === \false && \strpos($lines[$i]->getContent(), '@testdox') === \false) {
                 // We remove @test from the doc block
                 $lines[$i] = new \PhpCsFixer\DocBlock\Line(\str_replace(' @test', '', $lines[$i]->getContent()));
             }
             // ignore the line if it isn't @depends
-            if (\false === \strpos($lines[$i]->getContent(), '@depends')) {
+            if (\strpos($lines[$i]->getContent(), '@depends') === \false) {
                 continue;
             }
             $lines[$i] = $this->updateDependsAnnotation($lines[$i]);

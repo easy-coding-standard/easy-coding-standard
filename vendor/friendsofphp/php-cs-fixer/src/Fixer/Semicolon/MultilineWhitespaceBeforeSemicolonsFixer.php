@@ -25,7 +25,7 @@ use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
- * @author Graham Campbell <graham@alt-three.com>
+ * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Egidijus Girčys <e.gircys@gmail.com>
  */
 final class MultilineWhitespaceBeforeSemicolonsFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
@@ -101,11 +101,11 @@ function foo () {
             }
             $previousIndex = $index - 1;
             $previous = $tokens[$previousIndex];
-            if (!$previous->isWhitespace() || \false === \strpos($previous->getContent(), "\n")) {
+            if (!$previous->isWhitespace() || \strpos($previous->getContent(), "\n") === \false) {
                 continue;
             }
             $content = $previous->getContent();
-            if (0 === \strpos($content, $lineEnding) && $tokens[$index - 2]->isComment()) {
+            if (\strncmp($content, $lineEnding, \strlen($lineEnding)) === 0 && $tokens[$index - 2]->isComment()) {
                 $tokens->ensureWhitespaceAtIndex($previousIndex, 0, $lineEnding);
             } else {
                 $tokens->clearAt($previousIndex);

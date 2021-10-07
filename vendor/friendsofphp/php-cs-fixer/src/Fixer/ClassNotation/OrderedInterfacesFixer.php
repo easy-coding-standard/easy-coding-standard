@@ -89,24 +89,14 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
                     continue;
                 }
             }
-            $interfaceIndex = 0;
-            $interfaces = [['tokens' => []]];
             $implementsStart = $index + 1;
-            $classStart = $tokens->getNextTokenOfKind($implementsStart, ['{']);
-            $implementsEnd = $tokens->getPrevNonWhitespace($classStart);
-            for ($i = $implementsStart; $i <= $implementsEnd; ++$i) {
-                if ($tokens[$i]->equals(',')) {
-                    ++$interfaceIndex;
-                    $interfaces[$interfaceIndex] = ['tokens' => []];
-                    continue;
-                }
-                $interfaces[$interfaceIndex]['tokens'][] = $tokens[$i];
-            }
+            $implementsEnd = $tokens->getPrevNonWhitespace($tokens->getNextTokenOfKind($implementsStart, ['{']));
+            $interfaces = $this->getInterfaces($tokens, $implementsStart, $implementsEnd);
             if (1 === \count($interfaces)) {
                 continue;
             }
             foreach ($interfaces as $interfaceIndex => $interface) {
-                $interfaceTokens = \PhpCsFixer\Tokenizer\Tokens::fromArray($interface['tokens'], \false);
+                $interfaceTokens = \PhpCsFixer\Tokenizer\Tokens::fromArray($interface, \false);
                 $normalized = '';
                 $actualInterfaceIndex = $interfaceTokens->getNextMeaningfulToken(-1);
                 while ($interfaceTokens->offsetExists($actualInterfaceIndex)) {
@@ -117,10 +107,9 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
                     $normalized .= \str_replace('\\', ' ', $token->getContent());
                     ++$actualInterfaceIndex;
                 }
-                $interfaces[$interfaceIndex]['normalized'] = $normalized;
-                $interfaces[$interfaceIndex]['originalIndex'] = $interfaceIndex;
+                $interfaces[$interfaceIndex] = ['tokens' => $interface, 'normalized' => $normalized, 'originalIndex' => $interfaceIndex];
             }
-            \usort($interfaces, function (array $first, array $second) {
+            \usort($interfaces, function (array $first, array $second) : int {
                 $score = self::ORDER_LENGTH === $this->configuration[self::OPTION_ORDER] ? \strlen($first['normalized']) - \strlen($second['normalized']) : \strcasecmp($first['normalized'], $second['normalized']);
                 if (self::DIRECTION_DESCEND === $this->configuration[self::OPTION_DIRECTION]) {
                     $score *= -1;
@@ -150,5 +139,19 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder(self::OPTION_ORDER, 'How the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_ORDER_OPTIONS)->setDefault(self::ORDER_ALPHA)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder(self::OPTION_DIRECTION, 'Which direction the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_DIRECTION_OPTIONS)->setDefault(self::DIRECTION_ASCEND)->getOption()]);
+    }
+    private function getInterfaces(\PhpCsFixer\Tokenizer\Tokens $tokens, int $implementsStart, int $implementsEnd) : array
+    {
+        $interfaces = [];
+        $interfaceIndex = 0;
+        for ($i = $implementsStart; $i <= $implementsEnd; ++$i) {
+            if ($tokens[$i]->equals(',')) {
+                ++$interfaceIndex;
+                $interfaces[$interfaceIndex] = [];
+                continue;
+            }
+            $interfaces[$interfaceIndex][] = $tokens[$i];
+        }
+        return $interfaces;
     }
 }

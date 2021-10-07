@@ -65,7 +65,7 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
                 continue;
             }
             $isLastUnset = \true;
-            // yes, last - we reverse the array below
+            // "last" as we reverse the array below
             foreach (\array_reverse($unsetsInfo) as $unsetInfo) {
                 $this->updateTokens($tokens, $unsetInfo, $isLastUnset);
                 $isLastUnset = \false;
@@ -131,7 +131,7 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
      */
     private function updateTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $unsetInfo, bool $isLastUnset) : void
     {
-        // if entry is first and to be transform we remove leading "unset("
+        // if entry is first and to be transformed we remove leading "unset("
         if ($unsetInfo['isFirst'] && $unsetInfo['isToTransform']) {
             $braceIndex = $tokens->getPrevTokenOfKind($unsetInfo['startIndex'], ['(']);
             $unsetIndex = $tokens->getPrevTokenOfKind($braceIndex, [[\T_UNSET]]);

@@ -53,9 +53,7 @@ final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfor
         $this->transformIntoDynamicPropBraces($tokens, $token, $index);
         $this->transformIntoDynamicVarBraces($tokens, $token, $index);
         $this->transformIntoCurlyIndexBraces($tokens, $token, $index);
-        if (\PHP_VERSION_ID >= 70000) {
-            $this->transformIntoGroupUseBraces($tokens, $token, $index);
-        }
+        $this->transformIntoGroupUseBraces($tokens, $token, $index);
     }
     /**
      * {@inheritdoc}
@@ -75,20 +73,17 @@ final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfor
             return;
         }
         $level = 1;
-        $nestIndex = $index;
-        while (0 < $level) {
-            ++$nestIndex;
-            // we count all kind of {
-            if ($tokens[$nestIndex]->equals('{')) {
+        do {
+            ++$index;
+            if ($tokens[$index]->equals('{') || $tokens[$index]->isGivenKind(\T_CURLY_OPEN)) {
+                // we count all kind of {
                 ++$level;
-                continue;
-            }
-            // we count all kind of }
-            if ($tokens[$nestIndex]->equals('}')) {
+            } elseif ($tokens[$index]->equals('}')) {
+                // we count all kind of }
                 --$level;
             }
-        }
-        $tokens[$nestIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CURLY_CLOSE, '}']);
+        } while (0 < $level);
+        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CURLY_CLOSE, '}']);
     }
     private function transformIntoDollarCloseBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
     {

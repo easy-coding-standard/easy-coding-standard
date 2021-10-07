@@ -14,15 +14,13 @@ namespace PhpCsFixer\Fixer\Strict;
 
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>
- * @author SpacePossum
  */
 final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
 {
@@ -31,7 +29,7 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Force strict types declaration in all files. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70000))], null, 'Forcing strict types will stop non strict code from working.');
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Force strict types declaration in all files. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n")], null, 'Forcing strict types will stop non strict code from working.');
     }
     /**
      * {@inheritdoc}
@@ -47,7 +45,7 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return \PHP_VERSION_ID >= 70000 && isset($tokens[0]) && $tokens[0]->isGivenKind(\T_OPEN_TAG);
+        return isset($tokens[0]) && $tokens[0]->isGivenKind(\T_OPEN_TAG);
     }
     /**
      * {@inheritdoc}
@@ -101,12 +99,12 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
         $tokens->insertAt(1, $sequence);
         // start index of the sequence is always 1 here, 0 is always open tag
         // transform "<?php\n" to "<?php " if needed
-        if (\false !== \strpos($tokens[0]->getContent(), "\n")) {
+        if (\strpos($tokens[0]->getContent(), "\n") !== \false) {
             $tokens[0] = new \PhpCsFixer\Tokenizer\Token([$tokens[0]->getId(), \trim($tokens[0]->getContent()) . ' ']);
         }
         if ($endIndex === \count($tokens) - 1) {
             return;
-            // no more tokens afters sequence, single_blank_line_at_eof might add a line
+            // no more tokens after sequence, single_blank_line_at_eof might add a line
         }
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         if (!$tokens[1 + $endIndex]->isWhitespace()) {

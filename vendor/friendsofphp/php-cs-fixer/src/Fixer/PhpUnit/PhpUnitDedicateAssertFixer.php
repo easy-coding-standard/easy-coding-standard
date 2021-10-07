@@ -20,16 +20,37 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+use PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
- * @author SpacePossum
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
 final class PhpUnitDedicateAssertFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
-    private static $fixMap = ['array_key_exists' => ['assertArrayNotHasKey', 'assertArrayHasKey'], 'empty' => ['assertNotEmpty', 'assertEmpty'], 'file_exists' => ['assertFileNotExists', 'assertFileExists'], 'is_array' => \true, 'is_bool' => \true, 'is_callable' => \true, 'is_dir' => ['assertDirectoryNotExists', 'assertDirectoryExists'], 'is_double' => \true, 'is_float' => \true, 'is_infinite' => ['assertFinite', 'assertInfinite'], 'is_int' => \true, 'is_integer' => \true, 'is_long' => \true, 'is_nan' => [\false, 'assertNan'], 'is_null' => ['assertNotNull', 'assertNull'], 'is_numeric' => \true, 'is_object' => \true, 'is_readable' => ['assertNotIsReadable', 'assertIsReadable'], 'is_real' => \true, 'is_resource' => \true, 'is_scalar' => \true, 'is_string' => \true, 'is_writable' => ['assertNotIsWritable', 'assertIsWritable']];
+    /**
+     * @var array<string,array|true>
+     */
+    private static $fixMap = ['array_key_exists' => ['positive' => 'assertArrayHasKey', 'negative' => 'assertArrayNotHasKey', 'argument_count' => 2], 'empty' => ['positive' => 'assertEmpty', 'negative' => 'assertNotEmpty'], 'file_exists' => ['positive' => 'assertFileExists', 'negative' => 'assertFileNotExists'], 'is_array' => \true, 'is_bool' => \true, 'is_callable' => \true, 'is_dir' => ['positive' => 'assertDirectoryExists', 'negative' => 'assertDirectoryNotExists'], 'is_double' => \true, 'is_float' => \true, 'is_infinite' => ['positive' => 'assertInfinite', 'negative' => 'assertFinite'], 'is_int' => \true, 'is_integer' => \true, 'is_long' => \true, 'is_nan' => ['positive' => 'assertNan', 'negative' => \false], 'is_null' => ['positive' => 'assertNull', 'negative' => 'assertNotNull'], 'is_numeric' => \true, 'is_object' => \true, 'is_readable' => ['positive' => 'assertIsReadable', 'negative' => 'assertNotIsReadable'], 'is_real' => \true, 'is_resource' => \true, 'is_scalar' => \true, 'is_string' => \true, 'is_writable' => ['positive' => 'assertIsWritable', 'negative' => 'assertNotIsWritable'], 'str_contains' => [
+        // since 7.5
+        'positive' => 'assertStringContainsString',
+        'negative' => 'assertStringNotContainsString',
+        'argument_count' => 2,
+        'swap_arguments' => \true,
+    ], 'str_ends_with' => [
+        // since 3.4
+        'positive' => 'assertStringEndsWith',
+        'negative' => 'assertStringEndsNotWith',
+        'argument_count' => 2,
+        'swap_arguments' => \true,
+    ], 'str_starts_with' => [
+        // since 3.4
+        'positive' => 'assertStringStartsWith',
+        'negative' => 'assertStringStartsNotWith',
+        'argument_count' => 2,
+        'swap_arguments' => \true,
+    ]];
     /**
      * @var string[]
      */
@@ -41,7 +62,7 @@ final class PhpUnitDedicateAssertFixer extends \PhpCsFixer\Fixer\AbstractPhpUnit
     {
         parent::configure($configuration);
         // assertions added in 3.0: assertArrayNotHasKey assertArrayHasKey assertFileNotExists assertFileExists assertNotNull, assertNull
-        $this->functions = ['array_key_exists', 'file_exists', 'is_null'];
+        $this->functions = ['array_key_exists', 'file_exists', 'is_null', 'str_ends_with', 'str_starts_with'];
         if (\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::fulfills($this->configuration['target'], \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_5)) {
             // assertions added in 3.5: assertInternalType assertNotEmpty assertEmpty
             $this->functions = \array_merge($this->functions, ['empty', 'is_array', 'is_bool', 'is_boolean', 'is_callable', 'is_double', 'is_float', 'is_int', 'is_integer', 'is_long', 'is_numeric', 'is_object', 'is_real', 'is_resource', 'is_scalar', 'is_string']);
@@ -53,6 +74,9 @@ final class PhpUnitDedicateAssertFixer extends \PhpCsFixer\Fixer\AbstractPhpUnit
         if (\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::fulfills($this->configuration['target'], \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6)) {
             // assertions added in 5.6: assertDirectoryExists assertDirectoryNotExists assertIsReadable assertNotIsReadable assertIsWritable assertNotIsWritable
             $this->functions = \array_merge($this->functions, ['is_dir', 'is_readable', 'is_writable']);
+        }
+        if (\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::fulfills($this->configuration['target'], \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_7_5)) {
+            $this->functions = \array_merge($this->functions, ['str_contains']);
         }
     }
     /**
@@ -92,7 +116,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      * {@inheritdoc}
      *
      * Must run before PhpUnitDedicateAssertInternalTypeFixer.
-     * Must run after NoAliasFunctionsFixer, PhpUnitConstructFixer.
+     * Must run after ModernizeStrposFixer, NoAliasFunctionsFixer, PhpUnitConstructFixer.
      */
     public function getPriority() : int
     {
@@ -103,10 +127,11 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
+        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         foreach ($this->getPreviousAssertCall($tokens, $startIndex, $endIndex) as $assertCall) {
             // test and fix for assertTrue/False to dedicated asserts
             if ('asserttrue' === $assertCall['loweredName'] || 'assertfalse' === $assertCall['loweredName']) {
-                $this->fixAssertTrueFalse($tokens, $assertCall);
+                $this->fixAssertTrueFalse($tokens, $argumentsAnalyzer, $assertCall);
                 continue;
             }
             if ('assertsame' === $assertCall['loweredName'] || 'assertnotsame' === $assertCall['loweredName'] || 'assertequals' === $assertCall['loweredName'] || 'assertnotequals' === $assertCall['loweredName']) {
@@ -122,9 +147,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_0, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_5, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_0, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
     }
-    private function fixAssertTrueFalse(\PhpCsFixer\Tokenizer\Tokens $tokens, array $assertCall) : void
+    private function fixAssertTrueFalse(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer $argumentsAnalyzer, array $assertCall) : void
     {
-        $testDefaultNamespaceTokenIndex = \false;
+        $testDefaultNamespaceTokenIndex = null;
         $testIndex = $tokens->getNextMeaningfulToken($assertCall['openBraceIndex']);
         if (!$tokens[$testIndex]->isGivenKind([\T_EMPTY, \T_STRING])) {
             if (!$tokens[$testIndex]->isGivenKind(\T_NS_SEPARATOR)) {
@@ -142,16 +167,32 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         if (!$tokens[$assertCallCloseIndex]->equalsAny([')', ','])) {
             return;
         }
-        $isPositive = 'asserttrue' === $assertCall['loweredName'];
         $content = \strtolower($tokens[$testIndex]->getContent());
         if (!\in_array($content, $this->functions, \true)) {
             return;
         }
+        $arguments = $argumentsAnalyzer->getArguments($tokens, $testOpenIndex, $testCloseIndex);
+        $isPositive = 'asserttrue' === $assertCall['loweredName'];
         if (\is_array(self::$fixMap[$content])) {
-            if (\false !== self::$fixMap[$content][$isPositive]) {
-                $tokens[$assertCall['index']] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, self::$fixMap[$content][$isPositive]]);
-                $this->removeFunctionCall($tokens, $testDefaultNamespaceTokenIndex, $testIndex, $testOpenIndex, $testCloseIndex);
+            $expectedCount = self::$fixMap[$content]['argument_count'] ?? 1;
+            if ($expectedCount !== \count($arguments)) {
+                return;
             }
+            $isPositive = $isPositive ? 'positive' : 'negative';
+            if (\false === self::$fixMap[$content][$isPositive]) {
+                return;
+            }
+            $tokens[$assertCall['index']] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, self::$fixMap[$content][$isPositive]]);
+            $this->removeFunctionCall($tokens, $testDefaultNamespaceTokenIndex, $testIndex, $testOpenIndex, $testCloseIndex);
+            if (self::$fixMap[$content]['swap_arguments'] ?? \false) {
+                if (2 !== $expectedCount) {
+                    throw new \RuntimeException('Can only swap two arguments, please update map or logic.');
+                }
+                $this->swapArguments($tokens, $arguments);
+            }
+            return;
+        }
+        if (1 !== \count($arguments)) {
             return;
         }
         $type = \substr($content, 3);
@@ -167,7 +208,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         if (!$tokens[$testOpenIndex + 1]->isWhitespace()) {
             $tokens->insertAt($testOpenIndex + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
         }
-        if (\false !== $testDefaultNamespaceTokenIndex) {
+        if (null !== $testDefaultNamespaceTokenIndex) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($testDefaultNamespaceTokenIndex);
         }
     }
@@ -192,7 +233,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $defaultNamespaceTokenIndex = $countCallIndex;
             $countCallIndex = $tokens->getNextMeaningfulToken($countCallIndex);
         } else {
-            $defaultNamespaceTokenIndex = \false;
+            $defaultNamespaceTokenIndex = null;
         }
         if (!$tokens[$countCallIndex]->isGivenKind(\T_STRING)) {
             return;
@@ -225,7 +266,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             }
             // test if "assert" something call
             $loweredContent = \strtolower($tokens[$index]->getContent());
-            if ('assert' !== \substr($loweredContent, 0, 6)) {
+            if (\strncmp($loweredContent, 'assert', \strlen('assert')) !== 0) {
                 continue;
             }
             // test candidate for simple calls like: ([\]+'some fixable call'(...))
@@ -239,13 +280,10 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             (yield ['index' => $index, 'loweredName' => $loweredContent, 'openBraceIndex' => $openBraceIndex, 'closeBraceIndex' => $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openBraceIndex)]);
         }
     }
-    /**
-     * @param false|int $callNSIndex
-     */
-    private function removeFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $callNSIndex, int $callIndex, int $openIndex, int $closeIndex) : void
+    private function removeFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, ?int $callNSIndex, int $callIndex, int $openIndex, int $closeIndex) : void
     {
         $tokens->clearTokenAndMergeSurroundingWhitespace($callIndex);
-        if (\false !== $callNSIndex) {
+        if (null !== $callNSIndex) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($callNSIndex);
         }
         $tokens->clearTokenAndMergeSurroundingWhitespace($openIndex);
@@ -255,5 +293,33 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $tokens->clearAt($commaIndex);
         }
         $tokens->clearTokenAndMergeSurroundingWhitespace($closeIndex);
+    }
+    private function swapArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, array $argumentsIndices) : void
+    {
+        [$firstArgumentIndex, $secondArgumentIndex] = \array_keys($argumentsIndices);
+        $firstArgumentEndIndex = $argumentsIndices[$firstArgumentIndex];
+        $secondArgumentEndIndex = $argumentsIndices[$secondArgumentIndex];
+        $firstClone = $this->cloneAndClearTokens($tokens, $firstArgumentIndex, $firstArgumentEndIndex);
+        $secondClone = $this->cloneAndClearTokens($tokens, $secondArgumentIndex, $secondArgumentEndIndex);
+        if (!$firstClone[0]->isWhitespace()) {
+            \array_unshift($firstClone, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+        }
+        $tokens->insertAt($secondArgumentIndex, $firstClone);
+        if ($secondClone[0]->isWhitespace()) {
+            \array_shift($secondClone);
+        }
+        $tokens->insertAt($firstArgumentIndex, $secondClone);
+    }
+    private function cloneAndClearTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : array
+    {
+        $clone = [];
+        for ($i = $start; $i <= $end; ++$i) {
+            if ('' === $tokens[$i]->getContent()) {
+                continue;
+            }
+            $clone[] = clone $tokens[$i];
+            $tokens->clearAt($i);
+        }
+        return $clone;
     }
 }

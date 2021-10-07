@@ -67,7 +67,7 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
             // the sequence is the function name, followed by "(" and a quoted string
             $seq = [[\T_STRING, $map[0]], '(', [\T_CONSTANT_ENCAPSED_STRING]];
             $currIndex = 0;
-            while (null !== $currIndex) {
+            while (\true) {
                 $match = $tokens->findSequence($seq, $currIndex, $end, \false);
                 // did we find a match?
                 if (null === $match) {
@@ -127,16 +127,16 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getBestDelimiter(string $pattern) : string
     {
-        // try do find something that's not used
+        // try to find something that's not used
         $delimiters = [];
         foreach (self::$delimiters as $k => $d) {
-            if (\false === \strpos($pattern, $d)) {
+            if (\strpos($pattern, $d) === \false) {
                 return $d;
             }
             $delimiters[$d] = [\substr_count($pattern, $d), $k];
         }
         // return the least used delimiter, using the position in the list as a tie breaker
-        \uasort($delimiters, static function (array $a, array $b) {
+        \uasort($delimiters, static function (array $a, array $b) : int {
             if ($a[0] === $b[0]) {
                 return $a[1] <=> $b[1];
             }

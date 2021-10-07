@@ -27,6 +27,6 @@ abstract class AbstractRuleSetDescription implements \PhpCsFixer\RuleSet\RuleSet
     }
     public function isRisky() : bool
     {
-        return \false !== \strpos(static::class, 'Risky');
+        return \strpos(static::class, 'Risky') !== \false;
     }
 }

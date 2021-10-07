@@ -106,15 +106,15 @@ $c = 3;
             }
             $content = $token->getContent();
             $commentContent = \substr($content, 2, -2) ?: '';
-            if ($this->hashEnabled && '#' === $content[0]) {
+            if ($this->hashEnabled && \strncmp($content, '#', \strlen('#')) === 0) {
                 if (isset($content[1]) && '[' === $content[1]) {
                     continue;
-                    // This might be attribute on PHP8, do not change
+                    // This might be an attribute on PHP8, do not change
                 }
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), '//' . \substr($content, 1)]);
                 continue;
             }
-            if (!$this->asteriskEnabled || \false !== \strpos($commentContent, '?>') || '/*' !== \substr($content, 0, 2) || 1 === \PhpCsFixer\Preg::match('/[^\\s\\*].*\\R.*[^\\s\\*]/s', $commentContent)) {
+            if (!$this->asteriskEnabled || \strpos($commentContent, '?>') !== \false || \strncmp($content, '/*', \strlen('/*')) !== 0 || 1 === \PhpCsFixer\Preg::match('/[^\\s\\*].*\\R.*[^\\s\\*]/s', $commentContent)) {
                 continue;
             }
             $nextTokenIndex = $index + 1;

@@ -71,7 +71,7 @@ class Foo
         $numClasses = \count($classes);
         for ($i = 0; $i < $numClasses; ++$i) {
             $index = $classes[$i];
-            // is it an an anonymous class definition?
+            // is it an anonymous class definition?
             if ($tokensAnalyzer->isAnonymousClass($index)) {
                 continue;
             }

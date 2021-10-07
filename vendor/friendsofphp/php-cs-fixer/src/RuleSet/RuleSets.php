@@ -12,16 +12,17 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\RuleSet;
 
-use ECSPrefix20211002\Symfony\Component\Finder\Finder;
+use ECSPrefix20211007\Symfony\Component\Finder\Finder;
 /**
  * Set of rule sets to be used by fixer.
- *
- * @author SpacePossum
  *
  * @internal
  */
 final class RuleSets
 {
+    /**
+     * @var array<string,RuleSetDescriptionInterface>
+     */
     private static $setDefinitions;
     /**
      * @return array<string, RuleSetDescriptionInterface>
@@ -30,7 +31,7 @@ final class RuleSets
     {
         if (null === self::$setDefinitions) {
             self::$setDefinitions = [];
-            foreach (\ECSPrefix20211002\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Sets') as $file) {
+            foreach (\ECSPrefix20211007\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Sets') as $file) {
                 $class = 'PhpCsFixer\\RuleSet\\Sets\\' . $file->getBasename('.php');
                 $set = new $class();
                 self::$setDefinitions[$set->getName()] = $set;

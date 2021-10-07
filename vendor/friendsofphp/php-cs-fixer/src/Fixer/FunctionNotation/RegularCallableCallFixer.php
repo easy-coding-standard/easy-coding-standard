@@ -16,8 +16,6 @@ use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
@@ -38,11 +36,20 @@ final class RegularCallableCallFixer extends \PhpCsFixer\AbstractFixer
     call_user_func("Bar\\Baz::d", 1, 2);
 
     call_user_func_array($callback, [1, 2]);
-'), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 call_user_func(function ($a, $b) { var_dump($a, $b); }, 1, 2);
 
 call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70000))], null, 'Risky when the `call_user_func` or `call_user_func_array` function is overridden or when are used in constructions that should be avoided, like `call_user_func_array(\'foo\', [\'bar\' => \'baz\'])` or `call_user_func($foo, $foo = \'bar\')`.');
+')], null, 'Risky when the `call_user_func` or `call_user_func_array` function is overridden or when are used in constructions that should be avoided, like `call_user_func_array(\'foo\', [\'bar\' => \'baz\'])` or `call_user_func($foo, $foo = \'bar\')`.');
+    }
+    /**
+     * {@inheritdoc}
+     *
+     * Must run before NativeFunctionInvocationFixer.
+     */
+    public function getPriority() : int
+    {
+        return 2;
     }
     /**
      * {@inheritdoc}
@@ -98,13 +105,11 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
             $newCallTokens->clearEmptyTokens();
             $this->replaceCallUserFuncWithCallback($tokens, $index, $newCallTokens, $firstArgIndex, $firstArgIndex);
         } elseif ($firstArgToken->isGivenKind([\T_FUNCTION, \T_STATIC])) {
-            if (\PHP_VERSION_ID >= 70000) {
-                $firstArgEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $tokens->getNextTokenOfKind($firstArgIndex, ['{']));
-                $newCallTokens = $this->getTokensSubcollection($tokens, $firstArgIndex, $firstArgEndIndex);
-                $newCallTokens->insertAt($newCallTokens->count(), new \PhpCsFixer\Tokenizer\Token(')'));
-                $newCallTokens->insertAt(0, new \PhpCsFixer\Tokenizer\Token('('));
-                $this->replaceCallUserFuncWithCallback($tokens, $index, $newCallTokens, $firstArgIndex, $firstArgEndIndex);
-            }
+            $firstArgEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $tokens->getNextTokenOfKind($firstArgIndex, ['{']));
+            $newCallTokens = $this->getTokensSubcollection($tokens, $firstArgIndex, $firstArgEndIndex);
+            $newCallTokens->insertAt($newCallTokens->count(), new \PhpCsFixer\Tokenizer\Token(')'));
+            $newCallTokens->insertAt(0, new \PhpCsFixer\Tokenizer\Token('('));
+            $this->replaceCallUserFuncWithCallback($tokens, $index, $newCallTokens, $firstArgIndex, $firstArgEndIndex);
         } elseif ($firstArgToken->isGivenKind(\T_VARIABLE)) {
             $firstArgEndIndex = \reset($arguments);
             // check if the same variable is used multiple times and if so do not fix
@@ -134,9 +139,6 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
                 break;
             }
             if ($complex) {
-                if (\PHP_VERSION_ID < 70000) {
-                    return;
-                }
                 $newCallTokens->insertAt($newCallTokens->count(), new \PhpCsFixer\Tokenizer\Token(')'));
                 $newCallTokens->insertAt(0, new \PhpCsFixer\Tokenizer\Token('('));
             }
@@ -149,7 +151,7 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
         $afterFirstArgIndex = $tokens->getNextMeaningfulToken($firstArgEndIndex);
         $afterFirstArgToken = $tokens[$afterFirstArgIndex];
         if ($afterFirstArgToken->equals(',')) {
-            $useEllipsis = $tokens[$callIndex]->equals([\T_STRING, 'call_user_func_array']);
+            $useEllipsis = $tokens[$callIndex]->equals([\T_STRING, 'call_user_func_array'], \false);
             if ($useEllipsis) {
                 $secondArgIndex = $tokens->getNextMeaningfulToken($afterFirstArgIndex);
                 $tokens->insertAt($secondArgIndex, new \PhpCsFixer\Tokenizer\Token([\T_ELLIPSIS, '...']));

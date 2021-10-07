@@ -93,7 +93,7 @@ function f9(string $foo, $bar, $baz) {}
                 continue;
             }
             // ignore one-line phpdocs like `/** foo */`, as there is no place to put new annotations
-            if (\false === \strpos($tokenContent, "\n")) {
+            if (\strpos($tokenContent, "\n") === \false) {
                 continue;
             }
             $mainIndex = $index;
@@ -112,11 +112,11 @@ function f9(string $foo, $bar, $baz) {}
             $arguments = [];
             foreach ($argumentsAnalyzer->getArguments($tokens, $openIndex, $index) as $start => $end) {
                 $argumentInfo = $this->prepareArgumentInformation($tokens, $start, $end);
-                if (!$this->configuration['only_untyped'] || '' === $argumentInfo['type']) {
+                if (\false === $this->configuration['only_untyped'] || '' === $argumentInfo['type']) {
                     $arguments[$argumentInfo['name']] = $argumentInfo;
                 }
             }
-            if (!\count($arguments)) {
+            if (0 === \count($arguments)) {
                 continue;
             }
             $doc = new \PhpCsFixer\DocBlock\DocBlock($tokenContent);
@@ -128,7 +128,7 @@ function f9(string $foo, $bar, $baz) {}
                 }
                 $lastParamLine = \max($lastParamLine, $annotation->getEnd());
             }
-            if (!\count($arguments)) {
+            if (0 === \count($arguments)) {
                 continue;
             }
             $lines = $doc->getLines();
@@ -138,7 +138,7 @@ function f9(string $foo, $bar, $baz) {}
             $newLines = [];
             foreach ($arguments as $argument) {
                 $type = $argument['type'] ?: 'mixed';
-                if ('?' !== $type[0] && 'null' === \strtolower($argument['default'])) {
+                if (\strncmp($type, '?', \strlen('?')) !== 0 && 'null' === \strtolower($argument['default'])) {
                     $type = 'null|' . $type;
                 }
                 $newLines[] = new \PhpCsFixer\DocBlock\Line(\sprintf('%s* @param %s %s%s', $indent, $type, $argument['name'], $this->whitespacesConfig->getLineEnding()));

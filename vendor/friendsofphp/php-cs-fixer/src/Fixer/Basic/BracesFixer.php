@@ -14,6 +14,7 @@ namespace PhpCsFixer\Fixer\Basic;
 
 use PhpCsFixer\AbstractProxyFixer;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
+use PhpCsFixer\Fixer\ControlStructure\ControlStructureContinuationPositionFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareParenthesesFixer;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
@@ -43,6 +44,10 @@ final class BracesFixer extends \PhpCsFixer\AbstractProxyFixer implements \PhpCs
      * @internal
      */
     public const LINE_SAME = 'same';
+    /**
+     * @var null|ControlStructureContinuationPositionFixer
+     */
+    private $controlStructureContinuationPositionFixer;
     /**
      * {@inheritdoc}
      */
@@ -116,6 +121,11 @@ class Foo
     {
         return 35;
     }
+    public function configure(array $configuration = null) : void
+    {
+        parent::configure($configuration);
+        $this->getControlStructureContinuationPositionFixer()->configure(['position' => self::LINE_NEXT === $this->configuration['position_after_control_structures'] ? \PhpCsFixer\Fixer\ControlStructure\ControlStructureContinuationPositionFixer::NEXT_LINE : \PhpCsFixer\Fixer\ControlStructure\ControlStructureContinuationPositionFixer::SAME_LINE]);
+    }
     /**
      * {@inheritdoc}
      */
@@ -131,7 +141,6 @@ class Foo
         $this->fixCommentBeforeBrace($tokens);
         $this->fixMissingControlBraces($tokens);
         $this->fixIndents($tokens);
-        $this->fixControlContinuationBraces($tokens);
         $this->fixSpaceAroundToken($tokens);
         $this->fixDoWhile($tokens);
         parent::applyFix($file, $tokens);
@@ -145,7 +154,7 @@ class Foo
     }
     protected function createProxyFixers() : array
     {
-        return [new \PhpCsFixer\Fixer\LanguageConstruct\DeclareParenthesesFixer()];
+        return [$this->getControlStructureContinuationPositionFixer(), new \PhpCsFixer\Fixer\LanguageConstruct\DeclareParenthesesFixer()];
     }
     private function fixCommentBeforeBrace(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
@@ -163,7 +172,7 @@ class Foo
             }
             $commentIndex = $tokens->getNextNonWhitespace($prevIndex);
             $commentToken = $tokens[$commentIndex];
-            if (!$commentToken->isGivenKind(\T_COMMENT) || 0 === \strpos($commentToken->getContent(), '/*')) {
+            if (!$commentToken->isGivenKind(\T_COMMENT) || \strncmp($commentToken->getContent(), '/*', \strlen('/*')) === 0) {
                 continue;
             }
             $braceIndex = $tokens->getNextMeaningfulToken($commentIndex);
@@ -192,22 +201,6 @@ class Foo
             }
         }
     }
-    private function fixControlContinuationBraces(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
-    {
-        $controlContinuationTokens = $this->getControlContinuationTokens();
-        for ($index = \count($tokens) - 1; 0 <= $index; --$index) {
-            $token = $tokens[$index];
-            if (!$token->isGivenKind($controlContinuationTokens)) {
-                continue;
-            }
-            $prevIndex = $tokens->getPrevNonWhitespace($index);
-            $prevToken = $tokens[$prevIndex];
-            if (!$prevToken->equals('}')) {
-                continue;
-            }
-            $tokens->ensureWhitespaceAtIndex($index - 1, 1, self::LINE_NEXT === $this->configuration['position_after_control_structures'] ? $this->whitespacesConfig->getLineEnding() . \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $index) : ' ');
-        }
-    }
     private function fixDoWhile(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; 0 <= $index; --$index) {
@@ -231,7 +224,7 @@ class Foo
         $classyTokens = \PhpCsFixer\Tokenizer\Token::getClassyTokenKinds();
         $classyAndFunctionTokens = \array_merge([\T_FUNCTION], $classyTokens);
         $controlTokens = $this->getControlTokens();
-        $indentTokens = \array_filter(\array_merge($classyAndFunctionTokens, $controlTokens), static function (int $item) {
+        $indentTokens = \array_filter(\array_merge($classyAndFunctionTokens, $controlTokens), static function (int $item) : bool {
             return \T_SWITCH !== $item;
         });
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
@@ -403,7 +396,7 @@ class Foo
                 if (null === $closingParenthesisIndex && !$isAnonymousClass) {
                     continue;
                 }
-                if (!$isAnonymousClass && $tokens[$closingParenthesisIndex - 1]->isWhitespace() && \false !== \strpos($tokens[$closingParenthesisIndex - 1]->getContent(), "\n")) {
+                if (!$isAnonymousClass && $tokens[$closingParenthesisIndex - 1]->isWhitespace() && \strpos($tokens[$closingParenthesisIndex - 1]->getContent(), "\n") !== \false) {
                     if (!$tokens[$startBraceIndex - 2]->isComment()) {
                         $tokens->ensureWhitespaceAtIndex($startBraceIndex - 1, 1, ' ');
                     }
@@ -596,7 +589,7 @@ class Foo
             $previousToken = $tokens[$nextTokenIndex - 1];
             $nextTokenContent = $nextToken->getContent();
             // do not indent inline comments used to comment out unused code
-            if ($previousToken->isWhitespace() && 1 === \PhpCsFixer\Preg::match('/\\R$/', $previousToken->getContent()) && (0 === \strpos($nextTokenContent, '//' . $this->whitespacesConfig->getIndent()) || '//' === $nextTokenContent || (0 === \strpos($nextTokenContent, '#' . $this->whitespacesConfig->getIndent()) || '#' === $nextTokenContent))) {
+            if ($previousToken->isWhitespace() && 1 === \PhpCsFixer\Preg::match('/\\R$/', $previousToken->getContent()) && (\strncmp($nextTokenContent, '//' . $this->whitespacesConfig->getIndent(), \strlen('//' . $this->whitespacesConfig->getIndent())) === 0 || '//' === $nextTokenContent || (\strncmp($nextTokenContent, '#' . $this->whitespacesConfig->getIndent(), \strlen('#' . $this->whitespacesConfig->getIndent())) === 0 || '#' === $nextTokenContent))) {
                 return;
             }
             $tokens[$nextTokenIndex] = new \PhpCsFixer\Tokenizer\Token([$nextToken->getId(), \PhpCsFixer\Preg::replace('/(\\R)' . \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $nextTokenIndex) . '(\\h*\\S+.*)/', '$1' . \PhpCsFixer\Preg::replace('/^.*\\R(\\h*)$/s', '$1', $whitespace) . '$2', $nextToken->getContent())]);
@@ -606,7 +599,7 @@ class Foo
     private function isMultilined(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startParenthesisIndex, int $endParenthesisIndex) : bool
     {
         for ($i = $startParenthesisIndex; $i < $endParenthesisIndex; ++$i) {
-            if (\false !== \strpos($tokens[$i]->getContent(), "\n")) {
+            if (\strpos($tokens[$i]->getContent(), "\n") !== \false) {
                 return \true;
             }
         }
@@ -625,7 +618,7 @@ class Foo
         if (!$tokens[$index]->isComment()) {
             return \false;
         }
-        if (0 === \strpos($tokens[$index]->getContent(), '/*')) {
+        if (\strncmp($tokens[$index]->getContent(), '/*', \strlen('/*')) === 0) {
             return \true;
         }
         $firstCommentIndex = $index;
@@ -662,7 +655,7 @@ class Foo
             if (null === $siblingIndex) {
                 return null;
             }
-        } while (0 === \strpos($tokens[$siblingIndex]->getContent(), '/*'));
+        } while (\strncmp($tokens[$siblingIndex]->getContent(), '/*', \strlen('/*')) === 0);
         $newLines = 0;
         for ($i = \min($siblingIndex, $index) + 1, $max = \max($siblingIndex, $index); $i < $max; ++$i) {
             if ($tokens[$i]->isWhitespace() && \PhpCsFixer\Preg::match('/\\R/', $tokens[$i]->getContent())) {
@@ -673,5 +666,12 @@ class Foo
             }
         }
         return $siblingIndex;
+    }
+    private function getControlStructureContinuationPositionFixer() : \PhpCsFixer\Fixer\ControlStructure\ControlStructureContinuationPositionFixer
+    {
+        if (null === $this->controlStructureContinuationPositionFixer) {
+            $this->controlStructureContinuationPositionFixer = new \PhpCsFixer\Fixer\ControlStructure\ControlStructureContinuationPositionFixer();
+        }
+        return $this->controlStructureContinuationPositionFixer;
     }
 }

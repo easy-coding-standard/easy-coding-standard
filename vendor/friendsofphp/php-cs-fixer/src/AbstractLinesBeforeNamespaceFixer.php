@@ -19,7 +19,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  * This abstract fixer is responsible for ensuring that a certain number of
  * lines prefix a namespace declaration.
  *
- * @author Graham Campbell <graham@alt-three.com>
+ * @author Graham Campbell <hello@gjcampbell.co.uk>
  *
  * @internal
  */
@@ -45,7 +45,7 @@ abstract class AbstractLinesBeforeNamespaceFixer extends \PhpCsFixer\AbstractFix
                 if ($token->isGivenKind(\T_OPEN_TAG)) {
                     $openingToken = $token;
                     $openingTokenIndex = $index - $i;
-                    $newlineInOpening = \false !== \strpos($token->getContent(), "\n");
+                    $newlineInOpening = \strpos($token->getContent(), "\n") !== \false;
                     if ($newlineInOpening) {
                         ++$precedingNewlines;
                     }

@@ -20,9 +20,7 @@ use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis;
  *
  * It internally splits it up into "lines" that we can manipulate.
  *
- * @author Graham Campbell <graham@alt-three.com>
- *
- * @final
+ * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
 final class DocBlock
 {
@@ -131,14 +129,14 @@ final class DocBlock
         if (!$this->isMultiLine()) {
             return;
         }
-        $usefulLines = \array_filter($this->lines, static function (\PhpCsFixer\DocBlock\Line $line) {
+        $usefulLines = \array_filter($this->lines, static function (\PhpCsFixer\DocBlock\Line $line) : bool {
             return $line->containsUsefulContent();
         });
         if (1 < \count($usefulLines)) {
             return;
         }
         $lineContent = '';
-        if (\count($usefulLines)) {
+        if (\count($usefulLines) > 0) {
             $lineContent = $this->getSingleLineDocBlockEntry(\array_shift($usefulLines));
         }
         $this->lines = [new \PhpCsFixer\DocBlock\Line('/** ' . $lineContent . ' */')];
@@ -203,14 +201,14 @@ final class DocBlock
     private function getSingleLineDocBlockEntry(\PhpCsFixer\DocBlock\Line $line) : string
     {
         $lineString = $line->getContent();
-        if (0 === \strlen($lineString)) {
+        if ('' === $lineString) {
             return $lineString;
         }
         $lineString = \str_replace('*/', '', $lineString);
         $lineString = \trim($lineString);
-        if ('/**' === \substr($lineString, 0, 3)) {
+        if (\strncmp($lineString, '/**', \strlen('/**')) === 0) {
             $lineString = \substr($lineString, 3);
-        } elseif ('*' === \substr($lineString, 0, 1)) {
+        } elseif (\strncmp($lineString, '*', \strlen('*')) === 0) {
             $lineString = \substr($lineString, 1);
         }
         return \trim($lineString);

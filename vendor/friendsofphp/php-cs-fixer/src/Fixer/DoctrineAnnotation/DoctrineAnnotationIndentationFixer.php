@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Fixer\DoctrineAnnotation;
 
-use ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\AbstractDoctrineAnnotationFixer;
 use PhpCsFixer\Doctrine\Annotation\Tokens;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
@@ -45,7 +45,7 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
     {
         $annotationPositions = [];
         for ($index = 0, $max = \count($doctrineAnnotationTokens); $index < $max; ++$index) {
-            if (!$doctrineAnnotationTokens[$index]->isType(\ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            if (!$doctrineAnnotationTokens[$index]->isType(\ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_AT)) {
                 continue;
             }
             $annotationEndIndex = $doctrineAnnotationTokens->getAnnotationEnd($index);
@@ -57,7 +57,7 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
         }
         $indentLevel = 0;
         foreach ($doctrineAnnotationTokens as $index => $token) {
-            if (!$token->isType(\ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_NONE) || \false === \strpos($token->getContent(), "\n")) {
+            if (!$token->isType(\ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_NONE) || \strpos($token->getContent(), "\n") === \false) {
                 continue;
             }
             if (!$this->indentationCanBeFixed($doctrineAnnotationTokens, $index, $annotationPositions)) {
@@ -69,7 +69,7 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
             $extraIndentLevel = 0;
             if ($indentLevel > 0 && ($delta < 0 || $mixedBraces)) {
                 --$indentLevel;
-                if ($this->configuration['indent_mixed_lines'] && $this->isClosingLineWithMeaningfulContent($doctrineAnnotationTokens, $index)) {
+                if (\true === $this->configuration['indent_mixed_lines'] && $this->isClosingLineWithMeaningfulContent($doctrineAnnotationTokens, $index)) {
                     $extraIndentLevel = 1;
                 }
             }
@@ -88,14 +88,14 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
         $closing = 0;
         while (isset($tokens[++$index])) {
             $token = $tokens[$index];
-            if ($token->isType(\ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_NONE) && \false !== \strpos($token->getContent(), "\n")) {
+            if ($token->isType(\ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_NONE) && \strpos($token->getContent(), "\n") !== \false) {
                 break;
             }
-            if ($token->isType([\ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, \ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES])) {
+            if ($token->isType([\ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, \ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES])) {
                 ++$opening;
                 continue;
             }
-            if (!$token->isType([\ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, \ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES])) {
+            if (!$token->isType([\ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, \ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES])) {
                 continue;
             }
             if ($opening > 0) {
@@ -110,13 +110,13 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
     {
         while (isset($tokens[++$index])) {
             $token = $tokens[$index];
-            if ($token->isType(\ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
-                if (\false !== \strpos($token->getContent(), "\n")) {
+            if ($token->isType(\ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+                if (\strpos($token->getContent(), "\n") !== \false) {
                     return \false;
                 }
                 continue;
             }
-            return !$token->isType([\ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, \ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES]);
+            return !$token->isType([\ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, \ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES]);
         }
         return \false;
     }
@@ -132,10 +132,10 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
         }
         for ($index = $newLineTokenIndex + 1, $max = \count($tokens); $index < $max; ++$index) {
             $token = $tokens[$index];
-            if (\false !== \strpos($token->getContent(), "\n")) {
+            if (\strpos($token->getContent(), "\n") !== \false) {
                 return \false;
             }
-            return $tokens[$index]->isType(\ECSPrefix20211002\Doctrine\Common\Annotations\DocLexer::T_AT);
+            return $tokens[$index]->isType(\ECSPrefix20211007\Doctrine\Common\Annotations\DocLexer::T_AT);
         }
         return \false;
     }

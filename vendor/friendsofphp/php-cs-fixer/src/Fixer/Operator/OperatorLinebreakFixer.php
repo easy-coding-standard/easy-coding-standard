@@ -21,10 +21,10 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
-use PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis;
+use PhpCsFixer\Tokenizer\Analyzer\Analysis\SwitchAnalysis;
+use PhpCsFixer\Tokenizer\Analyzer\ControlCaseStructuresAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\ReferenceAnalyzer;
-use PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
@@ -64,15 +64,11 @@ function foo() {
     public function configure(array $configuration) : void
     {
         parent::configure($configuration);
-        $this->operators = self::BOOLEAN_OPERATORS;
-        if (!$this->configuration['only_booleans']) {
-            $this->operators = \array_merge($this->operators, self::getNonBooleanOperators());
-            if (\PHP_VERSION_ID >= 70000) {
-                $this->operators[] = [\T_COALESCE];
-                $this->operators[] = [\T_SPACESHIP];
-            }
-        }
         $this->position = $this->configuration['position'];
+        $this->operators = self::BOOLEAN_OPERATORS;
+        if (\false === $this->configuration['only_booleans']) {
+            $this->operators = \array_merge($this->operators, self::getNonBooleanOperators());
+        }
     }
     /**
      * {@inheritdoc}
@@ -130,22 +126,19 @@ function foo() {
      */
     private function getExcludedIndices(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
-        $indices = [];
-        for ($index = $tokens->count() - 1; $index > 0; --$index) {
-            if ($tokens[$index]->isGivenKind(\T_SWITCH)) {
-                $indices = \array_merge($indices, $this->getCasesColonsForSwitch($tokens, $index));
+        $colonIndexes = [];
+        foreach (\PhpCsFixer\Tokenizer\Analyzer\ControlCaseStructuresAnalyzer::findControlStructures($tokens, [\T_SWITCH]) as $analysis) {
+            foreach ($analysis->getCases() as $case) {
+                $colonIndexes[] = $case->getColonIndex();
+            }
+            if ($analysis instanceof \PhpCsFixer\Tokenizer\Analyzer\Analysis\SwitchAnalysis) {
+                $defaultAnalysis = $analysis->getDefaultAnalysis();
+                if (null !== $defaultAnalysis) {
+                    $colonIndexes[] = $defaultAnalysis->getColonIndex();
+                }
             }
         }
-        return $indices;
-    }
-    /**
-     * @return int[]
-     */
-    private function getCasesColonsForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, int $switchIndex) : array
-    {
-        return \array_map(static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis $caseAnalysis) {
-            return $caseAnalysis->getColonIndex();
-        }, (new \PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer())->getSwitchAnalysis($tokens, $switchIndex)->getCases());
+        return $colonIndexes;
     }
     /**
      * @param int[] $operatorIndices
@@ -225,7 +218,7 @@ function foo() {
      */
     private function getReplacementsAndClear(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices, int $direction) : array
     {
-        return \array_map(static function (int $index) use($tokens, $direction) {
+        return \array_map(static function (int $index) use($tokens, $direction) : Token {
             $clone = $tokens[$index];
             if ($tokens[$index + $direction]->isWhitespace()) {
                 $tokens->clearAt($index + $direction);
@@ -237,7 +230,7 @@ function foo() {
     private function isMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $indexStart, int $indexEnd) : bool
     {
         for ($index = $indexStart; $index <= $indexEnd; ++$index) {
-            if (\false !== \strpos($tokens[$index]->getContent(), "\n")) {
+            if (\strpos($tokens[$index]->getContent(), "\n") !== \false) {
                 return \true;
             }
         }
@@ -245,7 +238,7 @@ function foo() {
     }
     private static function getNonBooleanOperators() : array
     {
-        return \array_merge(['%', '&', '*', '+', '-', '.', '/', ':', '<', '=', '>', '?', '^', '|', [\T_AND_EQUAL], [\T_CONCAT_EQUAL], [\T_DIV_EQUAL], [\T_DOUBLE_ARROW], [\T_IS_EQUAL], [\T_IS_GREATER_OR_EQUAL], [\T_IS_IDENTICAL], [\T_IS_NOT_EQUAL], [\T_IS_NOT_IDENTICAL], [\T_IS_SMALLER_OR_EQUAL], [\T_MINUS_EQUAL], [\T_MOD_EQUAL], [\T_MUL_EQUAL], [\T_OR_EQUAL], [\T_PAAMAYIM_NEKUDOTAYIM], [\T_PLUS_EQUAL], [\T_POW], [\T_POW_EQUAL], [\T_SL], [\T_SL_EQUAL], [\T_SR], [\T_SR_EQUAL], [\T_XOR_EQUAL]], \array_map(function ($id) {
+        return \array_merge(['%', '&', '*', '+', '-', '.', '/', ':', '<', '=', '>', '?', '^', '|', [\T_AND_EQUAL], [\T_CONCAT_EQUAL], [\T_DIV_EQUAL], [\T_DOUBLE_ARROW], [\T_IS_EQUAL], [\T_IS_GREATER_OR_EQUAL], [\T_IS_IDENTICAL], [\T_IS_NOT_EQUAL], [\T_IS_NOT_IDENTICAL], [\T_IS_SMALLER_OR_EQUAL], [\T_MINUS_EQUAL], [\T_MOD_EQUAL], [\T_MUL_EQUAL], [\T_OR_EQUAL], [\T_PAAMAYIM_NEKUDOTAYIM], [\T_PLUS_EQUAL], [\T_POW], [\T_POW_EQUAL], [\T_SL], [\T_SL_EQUAL], [\T_SR], [\T_SR_EQUAL], [\T_XOR_EQUAL], [\T_COALESCE], [\T_SPACESHIP]], \array_map(static function ($id) : array {
             return [$id];
         }, \PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds()));
     }

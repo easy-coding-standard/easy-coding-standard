@@ -20,9 +20,6 @@ use PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
 {
     /**
@@ -91,7 +88,7 @@ final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferen
         }
     }
     /**
-     * @return array[]
+     * @return array<int[]>
      */
     private function findPowCalls(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {

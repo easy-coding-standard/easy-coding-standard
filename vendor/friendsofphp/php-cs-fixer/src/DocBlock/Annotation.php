@@ -18,10 +18,8 @@ use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis;
 /**
  * This represents an entire annotation from a docblock.
  *
- * @author Graham Campbell <graham@alt-three.com>
+ * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
- *
- * @final
  */
 final class Annotation
 {
@@ -132,11 +130,9 @@ final class Annotation
         return $this->tag;
     }
     /**
-     * @return TypeExpression
-     *
      * @internal
      */
-    public function getTypeExpression()
+    public function getTypeExpression() : \PhpCsFixer\DocBlock\TypeExpression
     {
         return new \PhpCsFixer\DocBlock\TypeExpression($this->getTypesContent(), $this->namespace, $this->namespaceUses);
     }
@@ -184,7 +180,7 @@ final class Annotation
      */
     public function getNormalizedTypes() : array
     {
-        $normalized = \array_map(static function (string $type) {
+        $normalized = \array_map(static function (string $type) : string {
             return \strtolower($type);
         }, $this->getTypes());
         \sort($normalized);

@@ -18,9 +18,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-/**
- * @author SpacePossum
- */
 final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
@@ -78,7 +75,7 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
                 }
                 // clone what we want to move, do not clone '(' and ')' of the 'isset' statement we're merging
                 $clones = $this->getTokenClones($tokens, \array_slice($nextIssetInfo, 1, -1));
-                // clean up no the tokens of the 'isset' statement we're merging
+                // clean up now the tokens of the 'isset' statement we're merging
                 $this->clearTokens($tokens, \array_merge($nextIssetInfo, [$issetIndex, $booleanAndTokenIndex]));
                 // insert the tokens to create the new statement
                 \array_unshift($clones, new \PhpCsFixer\Tokenizer\Token(','), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));

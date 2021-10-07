@@ -32,7 +32,7 @@ final class ErrorsManager
      */
     public function getInvalidErrors() : array
     {
-        return \array_filter($this->errors, static function (\PhpCsFixer\Error\Error $error) {
+        return \array_filter($this->errors, static function (\PhpCsFixer\Error\Error $error) : bool {
             return \PhpCsFixer\Error\Error::TYPE_INVALID === $error->getType();
         });
     }
@@ -43,7 +43,7 @@ final class ErrorsManager
      */
     public function getExceptionErrors() : array
     {
-        return \array_filter($this->errors, static function (\PhpCsFixer\Error\Error $error) {
+        return \array_filter($this->errors, static function (\PhpCsFixer\Error\Error $error) : bool {
             return \PhpCsFixer\Error\Error::TYPE_EXCEPTION === $error->getType();
         });
     }
@@ -54,7 +54,7 @@ final class ErrorsManager
      */
     public function getLintErrors() : array
     {
-        return \array_filter($this->errors, static function (\PhpCsFixer\Error\Error $error) {
+        return \array_filter($this->errors, static function (\PhpCsFixer\Error\Error $error) : bool {
             return \PhpCsFixer\Error\Error::TYPE_LINT === $error->getType();
         });
     }

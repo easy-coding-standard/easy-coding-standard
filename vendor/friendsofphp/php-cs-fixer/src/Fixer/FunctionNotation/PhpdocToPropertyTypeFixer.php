@@ -99,12 +99,12 @@ class Foo {
             if ([] === $propertyIndexes) {
                 continue;
             }
-            $typeInfo = $this->resolveAppliableType($propertyIndexes, $this->getAnnotationsFromDocComment('var', $tokens, $docCommentIndex));
+            $typeInfo = $this->resolveApplicableType($propertyIndexes, $this->getAnnotationsFromDocComment('var', $tokens, $docCommentIndex));
             if (null === $typeInfo) {
                 continue;
             }
             [$propertyType, $isNullable] = $typeInfo;
-            if (\in_array($propertyType, ['void', 'callable'], \true)) {
+            if (\in_array($propertyType, ['callable', 'never', 'void'], \true)) {
                 continue;
             }
             $newTokens = \array_merge($this->createTypeDeclarationTokens($propertyType, $isNullable), [new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]);
@@ -137,7 +137,7 @@ class Foo {
      * @param array<string, int> $propertyIndexes
      * @param Annotation[]       $annotations
      */
-    private function resolveAppliableType(array $propertyIndexes, array $annotations) : ?array
+    private function resolveApplicableType(array $propertyIndexes, array $annotations) : ?array
     {
         $propertyTypes = [];
         foreach ($annotations as $annotation) {

@@ -120,9 +120,6 @@ final class OrderedTraitsFixer extends \PhpCsFixer\AbstractFixer
      */
     private function sort(\PhpCsFixer\Tokenizer\Tokens $tokens, array $elements) : void
     {
-        /**
-         * @return string
-         */
         $toTraitName = static function (\PhpCsFixer\Tokenizer\Tokens $use) : string {
             $string = '';
             foreach ($use as $token) {
@@ -136,7 +133,7 @@ final class OrderedTraitsFixer extends \PhpCsFixer\AbstractFixer
             return \ltrim($string, '\\');
         };
         $sortedElements = $elements;
-        \uasort($sortedElements, static function (\PhpCsFixer\Tokenizer\Tokens $useA, \PhpCsFixer\Tokenizer\Tokens $useB) use($toTraitName) {
+        \uasort($sortedElements, static function (\PhpCsFixer\Tokenizer\Tokens $useA, \PhpCsFixer\Tokenizer\Tokens $useB) use($toTraitName) : int {
             return \strcasecmp($toTraitName($useA), $toTraitName($useB));
         });
         $sortedElements = \array_combine(\array_keys($elements), \array_values($sortedElements));

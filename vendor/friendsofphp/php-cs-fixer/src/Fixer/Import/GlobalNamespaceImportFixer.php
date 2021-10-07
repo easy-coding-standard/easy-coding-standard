@@ -116,7 +116,7 @@ if (count($x)) {
             $this->fullyQualifyClasses($tokens, $useDeclarations);
         }
         $newImports = \array_filter($newImports);
-        if ($newImports) {
+        if (\count($newImports) > 0) {
             $this->insertImports($tokens, $newImports, $useDeclarations);
         }
     }
@@ -129,7 +129,7 @@ if (count($x)) {
      */
     private function importConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
     {
-        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isConstant();
         }, \true);
         // find namespaced const declarations (`const FOO = 1`)
@@ -183,7 +183,7 @@ if (count($x)) {
      */
     private function importFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
     {
-        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isFunction();
         }, \false);
         // find function declarations
@@ -221,7 +221,7 @@ if (count($x)) {
      */
     private function importClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
     {
-        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isClass();
         }, \false);
         /** @var DocBlock[] $docBlocks */
@@ -233,7 +233,7 @@ if (count($x)) {
             if ($token->isGivenKind(\T_DOC_COMMENT)) {
                 $docBlocks[$index] = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
                 $this->traverseDocBlockTypes($docBlocks[$index], static function (string $type) use($global, &$other) : void {
-                    if (\false !== \strpos($type, '\\')) {
+                    if (\strpos($type, '\\') !== \false) {
                         return;
                     }
                     $name = \strtolower($type);
@@ -278,13 +278,13 @@ if (count($x)) {
         }
         $imports = [];
         foreach ($docBlocks as $index => $docBlock) {
-            $changed = $this->traverseDocBlockTypes($docBlock, static function (string $type) use($global, $other, &$imports) {
+            $changed = $this->traverseDocBlockTypes($docBlock, static function (string $type) use($global, $other, &$imports) : string {
                 if ('\\' !== $type[0]) {
                     return $type;
                 }
                 $name = \substr($type, 1);
                 $checkName = \strtolower($name);
-                if (\false !== \strpos($checkName, '\\') || isset($other[$checkName])) {
+                if (\strpos($checkName, '\\') !== \false || isset($other[$checkName])) {
                     return $type;
                 }
                 if (isset($global[$checkName])) {
@@ -329,7 +329,7 @@ if (count($x)) {
      */
     private function insertImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $imports, array $useDeclarations) : void
     {
-        if ($useDeclarations) {
+        if (\count($useDeclarations) > 0) {
             $useDeclaration = \end($useDeclarations);
             $index = $useDeclaration->getEndIndex() + 1;
         } else {
@@ -337,7 +337,7 @@ if (count($x)) {
             $index = $namespace->getEndIndex() + 1;
         }
         $lineEnding = $this->whitespacesConfig->getLineEnding();
-        if (!$tokens[$index]->isWhitespace() || \false === \strpos($tokens[$index]->getContent(), "\n")) {
+        if (!$tokens[$index]->isWhitespace() || \strpos($tokens[$index]->getContent(), "\n") === \false) {
             $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnding]));
         }
         foreach ($imports as $type => $typeImports) {
@@ -364,7 +364,7 @@ if (count($x)) {
         if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT)) {
             return;
         }
-        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isConstant() && !$declaration->isAliased();
         }, \true);
         if (!$global) {
@@ -396,7 +396,7 @@ if (count($x)) {
         if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
             return;
         }
-        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isFunction() && !$declaration->isAliased();
         }, \false);
         if (!$global) {
@@ -428,7 +428,7 @@ if (count($x)) {
         if (!$tokens->isTokenKindFound(\T_USE)) {
             return;
         }
-        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
+        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isClass() && !$declaration->isAliased();
         }, \false);
         if (!$global) {
@@ -439,7 +439,7 @@ if (count($x)) {
             $token = $tokens[$index];
             if ($token->isGivenKind(\T_DOC_COMMENT)) {
                 $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
-                $changed = $this->traverseDocBlockTypes($doc, static function (string $type) use($global) {
+                $changed = $this->traverseDocBlockTypes($doc, static function (string $type) use($global) : string {
                     if (!isset($global[\strtolower($type)])) {
                         return $type;
                     }
@@ -477,7 +477,7 @@ if (count($x)) {
                 continue;
             }
             $fullName = \ltrim($declaration->getFullName(), '\\');
-            if (\false !== \strpos($fullName, '\\')) {
+            if (\strpos($fullName, '\\') !== \false) {
                 $name = $caseSensitive ? $declaration->getShortName() : \strtolower($declaration->getShortName());
                 $other[$name] = \true;
                 continue;
@@ -527,7 +527,7 @@ if (count($x)) {
     private function traverseDocBlockTypes(\PhpCsFixer\DocBlock\DocBlock $doc, callable $callback) : bool
     {
         $annotations = $doc->getAnnotationsOfType(\PhpCsFixer\DocBlock\Annotation::getTagsWithTypes());
-        if (!$annotations) {
+        if (0 === \count($annotations)) {
             return \false;
         }
         $changed = \false;

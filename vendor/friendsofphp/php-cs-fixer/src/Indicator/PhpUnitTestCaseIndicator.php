@@ -25,6 +25,9 @@ final class PhpUnitTestCaseIndicator
             throw new \LogicException(\sprintf('No "T_CLASS" at given index %d, got "%s".', $index, $tokens[$index]->getName()));
         }
         $index = $tokens->getNextMeaningfulToken($index);
+        if (!$tokens[$index]->isGivenKind(\T_STRING)) {
+            return \false;
+        }
         if (0 !== \PhpCsFixer\Preg::match('/(?:Test|TestCase)$/', $tokens[$index]->getContent())) {
             return \true;
         }
@@ -48,11 +51,11 @@ final class PhpUnitTestCaseIndicator
      */
     public function findPhpUnitClasses(\PhpCsFixer\Tokenizer\Tokens $tokens) : \Generator
     {
-        for ($index = $tokens->count() - 1; $tokens->offsetExists($index); --$index) {
+        for ($index = $tokens->count() - 1; $index > 0; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_CLASS) || !$this->isPhpUnitClass($tokens, $index)) {
                 continue;
             }
-            $startIndex = $tokens->getNextTokenOfKind($index, ['{'], \false);
+            $startIndex = $tokens->getNextTokenOfKind($index, ['{']);
             if (null === $startIndex) {
                 return;
             }

@@ -26,7 +26,7 @@ final class WhitespacesAnalyzer
                 return '';
             }
             $whitespaceToken = $tokens[$whitespaceIndex];
-            if (\false !== \strpos($whitespaceToken->getContent(), "\n")) {
+            if (\strpos($whitespaceToken->getContent(), "\n") !== \false) {
                 break;
             }
             $prevToken = $tokens[$whitespaceIndex - 1];

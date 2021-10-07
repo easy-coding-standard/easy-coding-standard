@@ -24,7 +24,6 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
- * @author SpacePossum
  */
 final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
@@ -92,7 +91,7 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     private function fixConcatenationToNoSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $prevNonWhitespaceToken = $tokens[$tokens->getPrevNonWhitespace($index)];
-        if (!$prevNonWhitespaceToken->isGivenKind([\T_LNUMBER, \T_COMMENT, \T_DOC_COMMENT]) || '/*' === \substr($prevNonWhitespaceToken->getContent(), 0, 2)) {
+        if (!$prevNonWhitespaceToken->isGivenKind([\T_LNUMBER, \T_COMMENT, \T_DOC_COMMENT]) || \strncmp($prevNonWhitespaceToken->getContent(), '/*', \strlen('/*')) === 0) {
             $tokens->removeLeadingWhitespace($index, " \t");
         }
         if (!$tokens[$tokens->getNextNonWhitespace($index)]->isGivenKind([\T_LNUMBER, \T_COMMENT, \T_DOC_COMMENT])) {
@@ -118,7 +117,7 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
             $tokens->insertAt($index + (1 === $offset ?: 0), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
             return;
         }
-        if (\false !== \strpos($tokens[$offsetIndex]->getContent(), "\n")) {
+        if (\strpos($tokens[$offsetIndex]->getContent(), "\n") !== \false) {
             return;
         }
         if ($tokens[$index + $offset * 2]->isComment()) {

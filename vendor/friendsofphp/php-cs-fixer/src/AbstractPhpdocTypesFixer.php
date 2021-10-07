@@ -19,7 +19,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * This abstract fixer provides a base for fixers to fix types in PHPDoc.
  *
- * @author Graham Campbell <graham@alt-three.com>
+ * @author Graham Campbell <hello@gjcampbell.co.uk>
  *
  * @internal
  */
@@ -102,9 +102,6 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
      */
     private function normalizeType(string $type) : string
     {
-        if ('[]' === \substr($type, -2)) {
-            return $this->normalizeType(\substr($type, 0, -2)) . '[]';
-        }
-        return $this->normalize($type);
+        return \substr_compare($type, '[]', -\strlen('[]')) === 0 ? $this->normalizeType(\substr($type, 0, -2)) . '[]' : $this->normalize($type);
     }
 }

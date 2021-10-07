@@ -67,7 +67,7 @@ final class ToolInfo implements \PhpCsFixer\ToolInfoInterface
     }
     public function isInstalledAsPhar() : bool
     {
-        return 'phar://' === \substr(__DIR__, 0, 7);
+        return \strncmp(__DIR__, 'phar://', \strlen('phar://')) === 0;
     }
     public function isInstalledByComposer() : bool
     {

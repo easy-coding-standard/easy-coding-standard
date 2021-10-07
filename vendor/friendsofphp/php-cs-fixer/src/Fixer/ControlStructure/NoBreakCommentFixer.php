@@ -25,8 +25,8 @@ use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix20211002\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20211007\Symfony\Component\OptionsResolver\Options;
 /**
  * Fixer for rule defined in PSR2 ¶5.2.
  */
@@ -62,7 +62,7 @@ switch ($foo) {
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return $tokens->isAnyTokenKindsFound([\T_CASE, \T_DEFAULT]);
+        return $tokens->isTokenKindFound(\T_SWITCH);
     }
     /**
      * {@inheritdoc}
@@ -78,12 +78,12 @@ switch ($foo) {
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('comment_text', 'The text to use in the added comment and to detect it.'))->setAllowedTypes(['string'])->setAllowedValues([static function (string $value) {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('comment_text', 'The text to use in the added comment and to detect it.'))->setAllowedTypes(['string'])->setAllowedValues([static function (string $value) : bool {
             if (\PhpCsFixer\Preg::match('/\\R/', $value)) {
-                throw new \ECSPrefix20211002\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException('The comment text must not contain new lines.');
+                throw new \ECSPrefix20211007\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException('The comment text must not contain new lines.');
             }
             return \true;
-        }])->setNormalizer(static function (\ECSPrefix20211002\Symfony\Component\OptionsResolver\Options $options, $value) {
+        }])->setNormalizer(static function (\ECSPrefix20211007\Symfony\Component\OptionsResolver\Options $options, string $value) : string {
             return \rtrim($value);
         })->setDefault('no break')->getOption()]);
     }
@@ -93,15 +93,15 @@ switch ($foo) {
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; $index >= 0; --$index) {
-            if (!$tokens[$index]->isGivenKind([\T_CASE, \T_DEFAULT])) {
+            if ($tokens[$index]->isGivenKind(\T_DEFAULT)) {
+                if ($tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(\T_DOUBLE_ARROW)) {
+                    continue;
+                    // this is "default" from "match"
+                }
+            } elseif (!$tokens[$index]->isGivenKind(\T_CASE)) {
                 continue;
             }
-            $caseColonIndex = $tokens->getNextTokenOfKind($index, [':', ';', [\T_DOUBLE_ARROW]]);
-            if ($tokens[$caseColonIndex]->isGivenKind(\T_DOUBLE_ARROW)) {
-                continue;
-                // this is "default" from "match"
-            }
-            $this->fixCase($tokens, $caseColonIndex);
+            $this->fixCase($tokens, $tokens->getNextTokenOfKind($index, [':', ';']));
         }
     }
     private function fixCase(\PhpCsFixer\Tokenizer\Tokens $tokens, int $casePosition) : void
@@ -165,7 +165,7 @@ switch ($foo) {
             return \false;
         }
         $text = \preg_quote($this->configuration['comment_text'], '~');
-        return 1 === \PhpCsFixer\Preg::match("~^((//|#)\\s*{$text}\\s*)|(/\\*\\*?\\s*{$text}\\s*\\*/)\$~i", $token->getContent());
+        return 1 === \PhpCsFixer\Preg::match("~^((//|#)\\s*{$text}\\s*)|(/\\*\\*?\\s*{$text}(\\s+.*)*\\*/)\$~i", $token->getContent());
     }
     private function insertCommentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $casePosition) : void
     {

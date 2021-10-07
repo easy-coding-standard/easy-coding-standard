@@ -76,7 +76,7 @@ final class NoHomoglyphNamesFixer extends \PhpCsFixer\AbstractFixer
             if (!$token->isGivenKind([\T_VARIABLE, \T_STRING])) {
                 continue;
             }
-            $replaced = \PhpCsFixer\Preg::replaceCallback('/[^[:ascii:]]/u', static function (array $matches) {
+            $replaced = \PhpCsFixer\Preg::replaceCallback('/[^[:ascii:]]/u', static function (array $matches) : string {
                 return self::$replacements[$matches[0]] ?? $matches[0];
             }, $token->getContent(), -1, $count);
             if ($count) {

@@ -15,18 +15,17 @@ namespace PhpCsFixer\Console\Command;
 use PhpCsFixer\FixerConfiguration\AllowedValueSubset;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\Preg;
-use ECSPrefix20211002\Symfony\Component\Console\Command\HelpCommand as BaseHelpCommand;
-use ECSPrefix20211002\Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use ECSPrefix20211002\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211002\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211007\Symfony\Component\Console\Command\HelpCommand as BaseHelpCommand;
+use ECSPrefix20211007\Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use ECSPrefix20211007\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211007\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
- * @author SpacePossum
  *
  * @internal
  */
-final class HelpCommand extends \ECSPrefix20211002\Symfony\Component\Console\Command\HelpCommand
+final class HelpCommand extends \ECSPrefix20211007\Symfony\Component\Console\Command\HelpCommand
 {
     /**
      * @var string
@@ -47,10 +46,10 @@ final class HelpCommand extends \ECSPrefix20211002\Symfony\Component\Console\Com
     {
         $allowed = $option->getAllowedValues();
         if (null !== $allowed) {
-            $allowed = \array_filter($allowed, static function ($value) {
+            $allowed = \array_filter($allowed, static function ($value) : bool {
                 return !$value instanceof \Closure;
             });
-            \usort($allowed, static function ($valueA, $valueB) {
+            \usort($allowed, static function ($valueA, $valueB) : int {
                 if ($valueA instanceof \PhpCsFixer\FixerConfiguration\AllowedValueSubset) {
                     return -1;
                 }
@@ -72,7 +71,7 @@ final class HelpCommand extends \ECSPrefix20211002\Symfony\Component\Console\Com
      */
     protected function initialize($input, $output) : void
     {
-        $output->getFormatter()->setStyle('url', new \ECSPrefix20211002\Symfony\Component\Console\Formatter\OutputFormatterStyle('blue'));
+        $output->getFormatter()->setStyle('url', new \ECSPrefix20211007\Symfony\Component\Console\Formatter\OutputFormatterStyle('blue'));
     }
     /**
      * @param mixed $value

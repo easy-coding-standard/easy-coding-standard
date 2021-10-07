@@ -17,10 +17,9 @@ use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\ArgumentAnalysis;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
@@ -36,16 +35,13 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Adds or removes `?` before type declarations for parameters with a default `null` value.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction sample(string \$str = null)\n{}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70100)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction sample(?string \$str = null)\n{}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70100), ['use_nullable_type_declaration' => \false])], 'Rule is applied only in a PHP 7.1+ environment.');
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Adds or removes `?` before type declarations for parameters with a default `null` value.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(string \$str = null)\n{}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(?string \$str = null)\n{}\n", ['use_nullable_type_declaration' => \false])], 'Rule is applied only in a PHP 7.1+ environment.');
     }
     /**
      * {@inheritdoc}
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        if (\PHP_VERSION_ID < 70100) {
-            return \false;
-        }
         if (!$tokens->isTokenKindFound(\T_VARIABLE)) {
             return \false;
         }
@@ -95,7 +91,7 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
     private function fixFunctionParameters(\PhpCsFixer\Tokenizer\Tokens $tokens, array $arguments) : void
     {
         foreach (\array_reverse($arguments) as $argumentInfo) {
-            if (!$argumentInfo->hasTypeAnalysis() || \false !== \strpos($argumentInfo->getTypeAnalysis()->getName(), '|') || !$argumentInfo->hasDefault() || 'null' !== \strtolower($argumentInfo->getDefault())) {
+            if (!$argumentInfo->hasTypeAnalysis() || \strpos($argumentInfo->getTypeAnalysis()->getName(), '|') !== \false || !$argumentInfo->hasDefault() || 'null' !== \strtolower($argumentInfo->getDefault())) {
                 continue;
             }
             $argumentTypeInfo = $argumentInfo->getTypeAnalysis();

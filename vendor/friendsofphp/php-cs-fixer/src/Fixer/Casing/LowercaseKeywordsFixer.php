@@ -25,6 +25,9 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class LowercaseKeywordsFixer extends \PhpCsFixer\AbstractFixer
 {
+    /**
+     * @var int[]
+     */
     private static $excludedTokens = [\T_HALT_COMPILER];
     /**
      * {@inheritdoc}

@@ -21,6 +21,7 @@ use PhpCsFixer\Cache\NullCacheManager;
 use PhpCsFixer\Cache\Signature;
 use PhpCsFixer\ConfigInterface;
 use PhpCsFixer\ConfigurationException\InvalidConfigurationException;
+use PhpCsFixer\Console\Command\HelpCommand;
 use PhpCsFixer\Console\Report\FixReport\ReporterFactory;
 use PhpCsFixer\Console\Report\FixReport\ReporterInterface;
 use PhpCsFixer\Differ\DifferInterface;
@@ -39,9 +40,9 @@ use PhpCsFixer\ToolInfoInterface;
 use PhpCsFixer\Utils;
 use PhpCsFixer\WhitespacesFixerConfig;
 use PhpCsFixer\WordMatcher;
-use ECSPrefix20211002\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20211002\Symfony\Component\Filesystem\Filesystem;
-use ECSPrefix20211002\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix20211007\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211007\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix20211007\Symfony\Component\Finder\Finder as SymfonyFinder;
 /**
  * The resolver that resolves configuration to use by command line options and config.
  *
@@ -103,6 +104,9 @@ final class ConfigurationResolver
      * @var array
      */
     private $options = ['allow-risky' => null, 'cache-file' => null, 'config' => null, 'diff' => null, 'dry-run' => null, 'format' => null, 'path' => [], 'path-mode' => self::PATH_MODE_OVERRIDE, 'rules' => null, 'show-progress' => null, 'stop-on-violation' => null, 'using-cache' => null, 'verbosity' => null];
+    /**
+     * @var null|string
+     */
     private $cacheFile;
     /**
      * @var null|CacheManagerInterface
@@ -224,7 +228,7 @@ final class ConfigurationResolver
             if (null === $path) {
                 $absolutePath = $this->cwd;
             } else {
-                $filesystem = new \ECSPrefix20211002\Symfony\Component\Filesystem\Filesystem();
+                $filesystem = new \ECSPrefix20211007\Symfony\Component\Filesystem\Filesystem();
                 $absolutePath = $filesystem->isAbsolutePath($path) ? $path : $this->cwd . \DIRECTORY_SEPARATOR . $path;
             }
             $this->directory = new \PhpCsFixer\Cache\Directory(\dirname($absolutePath));
@@ -239,12 +243,12 @@ final class ConfigurationResolver
         if (null === $this->fixers) {
             $this->fixers = $this->createFixerFactory()->useRuleSet($this->getRuleSet())->setWhitespacesConfig(new \PhpCsFixer\WhitespacesFixerConfig($this->config->getIndent(), $this->config->getLineEnding()))->getFixers();
             if (\false === $this->getRiskyAllowed()) {
-                $riskyFixers = \array_map(static function (\PhpCsFixer\Fixer\FixerInterface $fixer) {
+                $riskyFixers = \array_map(static function (\PhpCsFixer\Fixer\FixerInterface $fixer) : string {
                     return $fixer->getName();
-                }, \array_filter($this->fixers, static function (\PhpCsFixer\Fixer\FixerInterface $fixer) {
+                }, \array_filter($this->fixers, static function (\PhpCsFixer\Fixer\FixerInterface $fixer) : bool {
                     return $fixer->isRisky();
                 }));
-                if (\count($riskyFixers)) {
+                if (\count($riskyFixers) > 0) {
                     throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException(\sprintf('The rules contain risky fixers ("%s"), but they are not allowed to run. Perhaps you forget to use --allow-risky=yes option?', \implode('", "', $riskyFixers)));
                 }
             }
@@ -266,12 +270,12 @@ final class ConfigurationResolver
     public function getPath() : array
     {
         if (null === $this->path) {
-            $filesystem = new \ECSPrefix20211002\Symfony\Component\Filesystem\Filesystem();
+            $filesystem = new \ECSPrefix20211007\Symfony\Component\Filesystem\Filesystem();
             $cwd = $this->cwd;
             if (1 === \count($this->options['path']) && '-' === $this->options['path'][0]) {
                 $this->path = $this->options['path'];
             } else {
-                $this->path = \array_map(static function (string $rawPath) use($cwd, $filesystem) {
+                $this->path = \array_map(static function (string $rawPath) use($cwd, $filesystem) : string {
                     $path = \trim($rawPath);
                     if ('' === $path) {
                         throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException("Invalid path: \"{$rawPath}\".");
@@ -292,7 +296,7 @@ final class ConfigurationResolver
     public function getProgress() : string
     {
         if (null === $this->progress) {
-            if (\ECSPrefix20211002\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $this->options['verbosity'] && 'txt' === $this->getFormat()) {
+            if (\ECSPrefix20211007\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $this->options['verbosity'] && 'txt' === $this->getFormat()) {
                 $progressType = $this->options['show-progress'];
                 $progressTypes = ['none', 'dots'];
                 if (null === $progressType) {
@@ -441,7 +445,7 @@ final class ConfigurationResolver
     private function getFormat() : string
     {
         if (null === $this->format) {
-            $this->format = null === $this->options['format'] ? $this->getConfig()->getFormat() : $this->options['format'];
+            $this->format = $this->options['format'] ?? $this->getConfig()->getFormat();
         }
         return $this->format;
     }
@@ -477,7 +481,7 @@ final class ConfigurationResolver
         if ('' === $rules) {
             throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException('Empty rules value is not allowed.');
         }
-        if ('{' === $rules[0]) {
+        if (\strncmp($rules, '{', \strlen('{')) === 0) {
             $rules = \json_decode($rules, \true);
             if (\JSON_ERROR_NONE !== \json_last_error()) {
                 throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException(\sprintf('Invalid JSON rules input: "%s".', \json_last_error_msg()));
@@ -490,7 +494,7 @@ final class ConfigurationResolver
             if ('' === $rule) {
                 throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException('Empty rule name is not allowed.');
             }
-            if ('-' === $rule[0]) {
+            if (\strncmp($rule, '-', \strlen('-')) === 0) {
                 $rules[\substr($rule, 1)] = \false;
             } else {
                 $rules[$rule] = \true;
@@ -520,18 +524,31 @@ final class ConfigurationResolver
         $configuredFixers = \array_keys($ruleSet->getRules());
         $fixers = $this->createFixerFactory()->getFixers();
         /** @var string[] $availableFixers */
-        $availableFixers = \array_map(static function (\PhpCsFixer\Fixer\FixerInterface $fixer) {
+        $availableFixers = \array_map(static function (\PhpCsFixer\Fixer\FixerInterface $fixer) : string {
             return $fixer->getName();
         }, $fixers);
         $unknownFixers = \array_diff($configuredFixers, $availableFixers);
-        if (\count($unknownFixers)) {
-            $matcher = new \PhpCsFixer\WordMatcher($availableFixers);
+        if (\count($unknownFixers) > 0) {
+            $renamedRules = ['blank_line_before_return' => ['new_name' => 'blank_line_before_statement', 'config' => ['statements' => ['return']]], 'final_static_access' => ['new_name' => 'self_static_accessor'], 'hash_to_slash_comment' => ['new_name' => 'single_line_comment_style', 'config' => ['comment_types' => ['hash']]], 'lowercase_constants' => ['new_name' => 'constant_case', 'config' => ['case' => 'lower']], 'no_extra_consecutive_blank_lines' => ['new_name' => 'no_extra_blank_lines'], 'no_multiline_whitespace_before_semicolons' => ['new_name' => 'multiline_whitespace_before_semicolons'], 'no_short_echo_tag' => ['new_name' => 'echo_tag_syntax', 'config' => ['format' => 'long']], 'php_unit_ordered_covers' => ['new_name' => 'phpdoc_order_by_value', 'config' => ['annotations' => ['covers']]], 'phpdoc_inline_tag' => ['new_name' => 'general_phpdoc_tag_rename, phpdoc_inline_tag_normalizer and phpdoc_tag_type'], 'pre_increment' => ['new_name' => 'increment_style', 'config' => ['style' => 'pre']], 'psr0' => ['new_name' => 'psr_autoloading', 'config' => ['dir' => 'x']], 'psr4' => ['new_name' => 'psr_autoloading'], 'silenced_deprecation_error' => ['new_name' => 'error_suppression'], 'trailing_comma_in_multiline_array' => ['new_name' => 'trailing_comma_in_multiline', 'config' => ['elements' => ['arrays']]]];
             $message = 'The rules contain unknown fixers: ';
+            $hasOldRule = \false;
             foreach ($unknownFixers as $unknownFixer) {
-                $alternative = $matcher->match($unknownFixer);
-                $message .= \sprintf('"%s"%s, ', $unknownFixer, null === $alternative ? '' : ' (did you mean "' . $alternative . '"?)');
+                if (isset($renamedRules[$unknownFixer])) {
+                    // Check if present as old renamed rule
+                    $hasOldRule = \true;
+                    $message .= \sprintf('"%s" is renamed (did you mean "%s"?%s), ', $unknownFixer, $renamedRules[$unknownFixer]['new_name'], isset($renamedRules[$unknownFixer]['config']) ? ' (note: use configuration "' . \PhpCsFixer\Console\Command\HelpCommand::toString($renamedRules[$unknownFixer]['config']) . '")' : '');
+                } else {
+                    // Go to normal matcher if it is not a renamed rule
+                    $matcher = new \PhpCsFixer\WordMatcher($availableFixers);
+                    $alternative = $matcher->match($unknownFixer);
+                    $message .= \sprintf('"%s"%s, ', $unknownFixer, null === $alternative ? '' : ' (did you mean "' . $alternative . '"?)');
+                }
             }
-            throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException(\substr($message, 0, -2) . '.');
+            $message = \substr($message, 0, -2) . '.';
+            if ($hasOldRule) {
+                $message .= "\nFor more info about updating see: https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/v3.0.0/UPGRADE-v3.md#renamed-ruless.";
+            }
+            throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException($message);
         }
         foreach ($fixers as $fixer) {
             $fixerName = $fixer->getName();
@@ -559,7 +576,7 @@ final class ConfigurationResolver
         $paths = \array_filter(\array_map(static function (string $path) {
             return \realpath($path);
         }, $this->getPath()));
-        if (!\count($paths)) {
+        if (0 === \count($paths)) {
             if ($isIntersectionPathMode) {
                 return new \ArrayIterator([]);
             }
@@ -583,13 +600,13 @@ final class ConfigurationResolver
             if (null === $nestedFinder) {
                 throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException('Cannot create intersection with not-fully defined Finder in configuration file.');
             }
-            return new \CallbackFilterIterator(new \IteratorIterator($nestedFinder), static function (\SplFileInfo $current) use($pathsByType) {
+            return new \CallbackFilterIterator(new \IteratorIterator($nestedFinder), static function (\SplFileInfo $current) use($pathsByType) : bool {
                 $currentRealPath = $current->getRealPath();
                 if (\in_array($currentRealPath, $pathsByType['file'], \true)) {
                     return \true;
                 }
                 foreach ($pathsByType['dir'] as $path) {
-                    if (0 === \strpos($currentRealPath, $path)) {
+                    if (\strncmp($currentRealPath, $path, \strlen($path)) === 0) {
                         return \true;
                     }
                 }
@@ -599,7 +616,7 @@ final class ConfigurationResolver
         if (null !== $this->getConfigFile() && null !== $nestedFinder) {
             $this->configFinderIsOverridden = \true;
         }
-        if ($currentFinder instanceof \ECSPrefix20211002\Symfony\Component\Finder\Finder && null === $nestedFinder) {
+        if ($currentFinder instanceof \ECSPrefix20211007\Symfony\Component\Finder\Finder && null === $nestedFinder) {
             // finder from configuration Symfony finder and it is not fully defined, we may fulfill it
             return $currentFinder->in($pathsByType['dir'])->append($pathsByType['file']);
         }

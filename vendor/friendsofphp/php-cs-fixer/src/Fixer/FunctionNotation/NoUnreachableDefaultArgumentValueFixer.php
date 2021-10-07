@@ -77,7 +77,7 @@ function example($foo = "two words", $bar) {}
     private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $lastArgumentIndex = $this->getLastNonDefaultArgumentIndex($tokens, $startIndex, $endIndex);
-        if (!$lastArgumentIndex) {
+        if (null === $lastArgumentIndex) {
             return;
         }
         for ($i = $lastArgumentIndex; $i > $startIndex; --$i) {

@@ -56,6 +56,9 @@ final class FunctionsAnalyzer
         if ($previousIsNamespaceSeparator) {
             return \true;
         }
+        if ($tokens[$tokens->getNextMeaningfulToken($nextIndex)]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_FIRST_CLASS_CALLABLE)) {
+            return \false;
+        }
         if ($tokens->isChanged() || $tokens->getCodeHash() !== $this->functionsAnalysis['tokens']) {
             $this->buildFunctionsAnalysis($tokens);
         }
@@ -99,14 +102,17 @@ final class FunctionsAnalyzer
             // global import like `use function \str_repeat;`
             return $functionUse->getShortName() === \ltrim($functionUse->getFullName(), '\\');
         }
+        if (\PhpCsFixer\Tokenizer\Analyzer\AttributeAnalyzer::isAttribute($tokens, $index)) {
+            return \false;
+        }
         return \true;
     }
     /**
      * @return ArgumentAnalysis[]
      */
-    public function getFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $methodIndex) : array
+    public function getFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex) : array
     {
-        $argumentsStart = $tokens->getNextTokenOfKind($methodIndex, ['(']);
+        $argumentsStart = $tokens->getNextTokenOfKind($functionIndex, ['(']);
         $argumentsEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $argumentsStart);
         $argumentAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $arguments = [];

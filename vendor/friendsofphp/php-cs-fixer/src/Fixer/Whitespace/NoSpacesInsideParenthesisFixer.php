@@ -35,8 +35,8 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      *
-     * Must run before FunctionToConstantFixer.
-     * Must run after CombineConsecutiveIssetsFixer, CombineNestedDirnameFixer, LambdaNotUsedImportFixer, NoUselessSprintfFixer, PowToExponentiationFixer.
+     * Must run before FunctionToConstantFixer, StringLengthToEmptyFixer.
+     * Must run after CombineConsecutiveIssetsFixer, CombineNestedDirnameFixer, LambdaNotUsedImportFixer, ModernizeStrposFixer, NoUselessSprintfFixer, PowToExponentiationFixer.
      */
     public function getPriority() : int
     {
@@ -80,7 +80,7 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
     private function removeSpaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
     {
         $token = $tokens[$index];
-        if ($token->isWhitespace() && \false === \strpos($token->getContent(), "\n")) {
+        if ($token->isWhitespace() && \strpos($token->getContent(), "\n") === \false) {
             $tokens->clearAt($index);
         }
     }

@@ -13,10 +13,9 @@ declare (strict_types=1);
 namespace PhpCsFixer\Fixer\Operator;
 
 use PhpCsFixer\AbstractFixer;
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
@@ -29,14 +28,23 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Use `null` coalescing operator `??` where possible. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\n\$sample = isset(\$a) ? \$a : \$b;\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70000))]);
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Use `null` coalescing operator `??` where possible. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$sample = isset(\$a) ? \$a : \$b;\n")]);
+    }
+    /**
+     * {@inheritdoc}
+     *
+     * Must run before AssignNullCoalescingToCoalesceEqualFixer.
+     */
+    public function getPriority() : int
+    {
+        return 0;
     }
     /**
      * {@inheritdoc}
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\T_ISSET);
+        return $tokens->isTokenKindFound(\T_ISSET);
     }
     /**
      * {@inheritdoc}

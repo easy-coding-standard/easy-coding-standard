@@ -53,7 +53,7 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return $tokens->isAnyTokenKindsFound(['@', \T_STRING]);
+        return $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
@@ -75,12 +75,12 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
-        $excludedFunctions = \array_map(static function (string $function) {
+        $excludedFunctions = \array_map(static function (string $function) : string {
             return \strtolower($function);
         }, $this->configuration[self::OPTION_NOISE_REMAINING_USAGES_EXCLUDE]);
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
-            if ($this->configuration[self::OPTION_NOISE_REMAINING_USAGES] && $token->equals('@')) {
+            if (\true === $this->configuration[self::OPTION_NOISE_REMAINING_USAGES] && $token->equals('@')) {
                 $tokens->clearAt($index);
                 continue;
             }
@@ -96,7 +96,7 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
             }
             $index = $prevIndex;
             if ($this->isDeprecationErrorCall($tokens, $functionIndex)) {
-                if (!$this->configuration[self::OPTION_MUTE_DEPRECATION_ERROR]) {
+                if (\false === $this->configuration[self::OPTION_MUTE_DEPRECATION_ERROR]) {
                     continue;
                 }
                 if ($tokens[$prevIndex]->equals('@')) {
@@ -108,7 +108,7 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
             if (!$tokens[$prevIndex]->equals('@')) {
                 continue;
             }
-            if ($this->configuration[self::OPTION_NOISE_REMAINING_USAGES] && !\in_array($tokens[$functionIndex]->getContent(), $excludedFunctions, \true)) {
+            if (\true === $this->configuration[self::OPTION_NOISE_REMAINING_USAGES] && !\in_array($tokens[$functionIndex]->getContent(), $excludedFunctions, \true)) {
                 $tokens->clearAt($index);
             }
         }

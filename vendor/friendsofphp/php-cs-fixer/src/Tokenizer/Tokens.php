@@ -275,7 +275,7 @@ class Tokens extends \SplFixedArray
         $removeLastCommentLine = static function (self $tokens, int $index, int $indexOffset, string $whitespace) : string {
             $token = $tokens[$index];
             if (1 === $indexOffset && $token->isGivenKind(\T_OPEN_TAG)) {
-                if (0 === \strpos($whitespace, "\r\n")) {
+                if (\strncmp($whitespace, "\r\n", \strlen("\r\n")) === 0) {
                     $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_OPEN_TAG, \rtrim($token->getContent()) . "\r\n"]);
                     return \strlen($whitespace) > 2 ? \substr($whitespace, 2) : '';
                 }
@@ -337,10 +337,10 @@ class Tokens extends \SplFixedArray
         foreach ($possibleKinds as $kind) {
             $elements[$kind] = [];
         }
-        $possibleKinds = \array_filter($possibleKinds, function ($kind) {
+        $possibleKinds = \array_filter($possibleKinds, function ($kind) : bool {
             return $this->isTokenKindFound($kind);
         });
-        if (\count($possibleKinds)) {
+        if (\count($possibleKinds) > 0) {
             for ($i = $start; $i < $end; ++$i) {
                 $token = $this[$i];
                 if ($token->isGivenKind($possibleKinds)) {
@@ -455,10 +455,10 @@ class Tokens extends \SplFixedArray
      */
     public function getTokenOfKindSibling($index, $direction, $tokens = [], $caseSensitive = \true) : ?int
     {
-        $tokens = \array_filter($tokens, function ($token) {
+        $tokens = \array_filter($tokens, function ($token) : bool {
             return $this->isTokenKindFound($this->extractTokenKind($token));
         });
-        if (!\count($tokens)) {
+        if (0 === \count($tokens)) {
             return null;
         }
         while (\true) {
@@ -480,7 +480,7 @@ class Tokens extends \SplFixedArray
      */
     public function getTokenNotOfKindSibling($index, $direction, $tokens = []) : ?int
     {
-        return $this->getTokenNotOfKind($index, $direction, function (int $a) use($tokens) {
+        return $this->getTokenNotOfKind($index, $direction, function (int $a) use($tokens) : bool {
             return $this[$a]->equalsAny($tokens);
         });
     }
@@ -493,7 +493,7 @@ class Tokens extends \SplFixedArray
      */
     public function getTokenNotOfKindsSibling($index, $direction, $kinds = []) : ?int
     {
-        return $this->getTokenNotOfKind($index, $direction, function (int $index) use($kinds) {
+        return $this->getTokenNotOfKind($index, $direction, function (int $index) use($kinds) : bool {
             return $this[$index]->isGivenKind($kinds);
         });
     }
@@ -548,7 +548,7 @@ class Tokens extends \SplFixedArray
      *
      * @param array                 $sequence      an array of tokens (kinds) (same format used by getNextTokenOfKind)
      * @param int                   $start         start index, defaulting to the start of the file
-     * @param int                   $end           end index, defaulting to the end of the file
+     * @param null|int              $end           end index, defaulting to the end of the file
      * @param array<int, bool>|bool $caseSensitive global case sensitiveness or an array of booleans, whose keys should match
      *                                             the ones used in $others. If any is missing, the default case-sensitive
      *                                             comparison is used
@@ -598,7 +598,7 @@ class Tokens extends \SplFixedArray
         unset($sequence[$key]);
         // begin searching for the first token in the sequence (start included)
         $index = $start - 1;
-        while (null !== $index && $index <= $end) {
+        while ($index <= $end) {
             $index = $this->getNextTokenOfKind($index, [$firstToken], $firstCs);
             // ensure we found a match and didn't get past the end index
             if (null === $index || $index > $end) {
@@ -648,7 +648,7 @@ class Tokens extends \SplFixedArray
      * like edge case example of 3.7h vs 4s (https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/3996#issuecomment-455617637),
      * yet at same time changing a logic of fixers in not-always easy way.
      *
-     * To be discuss:
+     * To be discussed:
      * - should we always aim to use this method?
      * - should we deprecate `insertAt` method ?
      *
@@ -748,7 +748,7 @@ class Tokens extends \SplFixedArray
         foreach ($items as $itemIndex => $item) {
             $this[$indexStart + $itemIndex] = $item;
         }
-        // If we want to add less tokens than passed range contains then clear
+        // If we want to add fewer tokens than passed range contains then clear
         // not needed tokens.
         if ($itemsCount < $indexToChange) {
             $this->clearRange($indexStart + $itemsCount, $indexEnd);
@@ -888,7 +888,7 @@ class Tokens extends \SplFixedArray
     public function isPartialCodeMultiline($start, $end) : bool
     {
         for ($i = $start; $i <= $end; ++$i) {
-            if (\false !== \strpos($this[$i]->getContent(), "\n")) {
+            if (\strpos($this[$i]->getContent(), "\n") !== \false) {
                 return \true;
             }
         }

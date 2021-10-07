@@ -20,9 +20,6 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-/**
- * @author SpacePossum
- */
 final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
@@ -146,7 +143,7 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
                 $candidates[] = $index;
                 continue;
             }
-            // test if there this is anything in the function body that might
+            // test if there is anything in the function body that might
             // change global state or indirect changes (like through references, eval, etc.)
             if ($tokens[$index]->isGivenKind($riskyKinds)) {
                 $isRisky = \true;
@@ -189,13 +186,13 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
                 // example: "? return $a;"
             }
             // Note: here we are @ "; return $a;" (or "; return $a ? >")
-            do {
+            while (\true) {
                 $prevMeaningFul = $tokens->getPrevMeaningfulToken($assignVarEndIndex);
                 if (!$tokens[$prevMeaningFul]->equals(')')) {
                     break;
                 }
                 $assignVarEndIndex = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $prevMeaningFul);
-            } while (\true);
+            }
             $assignVarOperatorIndex = $tokens->getPrevTokenOfKind($assignVarEndIndex, ['=', ';', '{', [\T_OPEN_TAG], [\T_OPEN_TAG_WITH_ECHO]]);
             if (null === $assignVarOperatorIndex || !$tokens[$assignVarOperatorIndex]->equals('=')) {
                 continue;
