@@ -7,7 +7,7 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition;
-use ECSPrefix20211007\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20211008\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class LineLengthAndPositionFactory
 {
     /**
@@ -46,7 +46,7 @@ final class LineLengthAndPositionFactory
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
-        if (\strncmp($tokens[$position]->getContent(), \ECSPrefix20211007\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar(), \strlen(\ECSPrefix20211007\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) === 0) {
+        if (\strncmp($tokens[$position]->getContent(), \ECSPrefix20211008\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar(), \strlen(\ECSPrefix20211008\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) === 0) {
             return \true;
         }
         return $tokens[$position]->isGivenKind(\T_OPEN_TAG);

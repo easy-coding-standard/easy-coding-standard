@@ -18,16 +18,16 @@ use PhpCsFixer\Documentation\ListDocumentGenerator;
 use PhpCsFixer\Documentation\RuleSetDocumentationGenerator;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSets;
-use ECSPrefix20211007\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211007\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211007\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20211007\Symfony\Component\Filesystem\Filesystem;
-use ECSPrefix20211007\Symfony\Component\Finder\Finder;
-use ECSPrefix20211007\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20211008\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211008\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211008\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211008\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix20211008\Symfony\Component\Finder\Finder;
+use ECSPrefix20211008\Symfony\Component\Finder\SplFileInfo;
 /**
  * @internal
  */
-final class DocumentationCommand extends \ECSPrefix20211007\Symfony\Component\Console\Command\Command
+final class DocumentationCommand extends \ECSPrefix20211008\Symfony\Component\Console\Command\Command
 {
     /**
      * @var string
@@ -43,7 +43,7 @@ final class DocumentationCommand extends \ECSPrefix20211007\Symfony\Component\Co
      */
     protected function execute($input, $output) : int
     {
-        $filesystem = new \ECSPrefix20211007\Symfony\Component\Filesystem\Filesystem();
+        $filesystem = new \ECSPrefix20211008\Symfony\Component\Filesystem\Filesystem();
         $locator = new \PhpCsFixer\Documentation\DocumentationLocator();
         $fixerFactory = new \PhpCsFixer\FixerFactory();
         $fixerFactory->registerBuiltInFixers();
@@ -62,14 +62,14 @@ final class DocumentationCommand extends \ECSPrefix20211007\Symfony\Component\Co
             $filesystem->dumpFile($locator->getFixerDocumentationFilePath($fixer), $fixerDocumentGenerator->generateFixerDocumentation($fixer));
         }
         /** @var SplFileInfo $file */
-        foreach ((new \ECSPrefix20211007\Symfony\Component\Finder\Finder())->files()->in($locator->getFixersDocumentationDirectoryPath())->notPath($docForFixerRelativePaths) as $file) {
+        foreach ((new \ECSPrefix20211008\Symfony\Component\Finder\Finder())->files()->in($locator->getFixersDocumentationDirectoryPath())->notPath($docForFixerRelativePaths) as $file) {
             $filesystem->remove($file->getPathname());
         }
         // Fixer doc. index
         $filesystem->dumpFile($locator->getFixersDocumentationIndexFilePath(), $fixerDocumentGenerator->generateFixersDocumentationIndex($fixers));
         // RuleSet docs.
         /** @var SplFileInfo $file */
-        foreach ((new \ECSPrefix20211007\Symfony\Component\Finder\Finder())->files()->in($locator->getRuleSetsDocumentationDirectoryPath()) as $file) {
+        foreach ((new \ECSPrefix20211008\Symfony\Component\Finder\Finder())->files()->in($locator->getRuleSetsDocumentationDirectoryPath()) as $file) {
             $filesystem->remove($file->getPathname());
         }
         $paths = [];

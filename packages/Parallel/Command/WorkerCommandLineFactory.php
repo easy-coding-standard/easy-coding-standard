@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\Command;
 
-use ECSPrefix20211007\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211008\Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Command\WorkerCommand;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20211007\Symplify\PackageBuilder\Console\Command\CommandNaming;
+use ECSPrefix20211008\Symplify\PackageBuilder\Console\Command\CommandNaming;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Parallel\Command\WorkerCommandLineFactoryTest
  */
@@ -26,17 +26,17 @@ final class WorkerCommandLineFactory
     {
         $this->checkCommand = $checkCommand;
     }
-    public function create(string $mainScript, ?string $projectConfigFile, \ECSPrefix20211007\Symfony\Component\Console\Input\InputInterface $input, string $identifier, int $port) : string
+    public function create(string $mainScript, ?string $projectConfigFile, \ECSPrefix20211008\Symfony\Component\Console\Input\InputInterface $input, string $identifier, int $port) : string
     {
         $args = \array_merge([\PHP_BINARY, $mainScript], \array_slice($_SERVER['argv'], 1));
         $processCommandArray = [];
         foreach ($args as $arg) {
-            if ($arg === \ECSPrefix20211007\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class)) {
+            if ($arg === \ECSPrefix20211008\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class)) {
                 break;
             }
             $processCommandArray[] = \escapeshellarg($arg);
         }
-        $processCommandArray[] = \ECSPrefix20211007\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\WorkerCommand::class);
+        $processCommandArray[] = \ECSPrefix20211008\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\WorkerCommand::class);
         if ($projectConfigFile !== null) {
             $processCommandArray[] = self::_ . \Symplify\EasyCodingStandard\ValueObject\Option::CONFIG;
             $processCommandArray[] = \escapeshellarg($projectConfigFile);

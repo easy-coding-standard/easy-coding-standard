@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211007\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211008\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211007\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix20211007\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix20211007\Symfony\Component\Config\Definition\Processor;
-use ECSPrefix20211007\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211007\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use ECSPrefix20211007\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use ECSPrefix20211007\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use ECSPrefix20211008\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix20211008\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix20211008\Symfony\Component\Config\Definition\Processor;
+use ECSPrefix20211008\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211008\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use ECSPrefix20211008\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix20211008\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 /**
  * Validates environment variable placeholders used in extension configuration with dummy values.
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-class ValidateEnvPlaceholdersPass implements \ECSPrefix20211007\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class ValidateEnvPlaceholdersPass implements \ECSPrefix20211008\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private const TYPE_FIXTURES = ['array' => [], 'bool' => \false, 'float' => 0.0, 'int' => 0, 'string' => ''];
     private $extensionConfig = [];
@@ -33,14 +33,14 @@ class ValidateEnvPlaceholdersPass implements \ECSPrefix20211007\Symfony\Componen
     public function process($container)
     {
         $this->extensionConfig = [];
-        if (!\class_exists(\ECSPrefix20211007\Symfony\Component\Config\Definition\BaseNode::class) || !($extensions = $container->getExtensions())) {
+        if (!\class_exists(\ECSPrefix20211008\Symfony\Component\Config\Definition\BaseNode::class) || !($extensions = $container->getExtensions())) {
             return;
         }
         $resolvingBag = $container->getParameterBag();
-        if (!$resolvingBag instanceof \ECSPrefix20211007\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
+        if (!$resolvingBag instanceof \ECSPrefix20211008\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
             return;
         }
-        $defaultBag = new \ECSPrefix20211007\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($resolvingBag->all());
+        $defaultBag = new \ECSPrefix20211008\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($resolvingBag->all());
         $envTypes = $resolvingBag->getProvidedTypes();
         try {
             foreach ($resolvingBag->getEnvPlaceholders() + $resolvingBag->getUnusedEnvPlaceholders() as $env => $placeholders) {
@@ -56,17 +56,17 @@ class ValidateEnvPlaceholdersPass implements \ECSPrefix20211007\Symfony\Componen
                     }
                 }
                 foreach ($placeholders as $placeholder) {
-                    \ECSPrefix20211007\Symfony\Component\Config\Definition\BaseNode::setPlaceholder($placeholder, $values);
+                    \ECSPrefix20211008\Symfony\Component\Config\Definition\BaseNode::setPlaceholder($placeholder, $values);
                 }
             }
-            $processor = new \ECSPrefix20211007\Symfony\Component\Config\Definition\Processor();
+            $processor = new \ECSPrefix20211008\Symfony\Component\Config\Definition\Processor();
             foreach ($extensions as $name => $extension) {
-                if (!($extension instanceof \ECSPrefix20211007\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface || $extension instanceof \ECSPrefix20211007\Symfony\Component\Config\Definition\ConfigurationInterface) || !($config = \array_filter($container->getExtensionConfig($name)))) {
+                if (!($extension instanceof \ECSPrefix20211008\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface || $extension instanceof \ECSPrefix20211008\Symfony\Component\Config\Definition\ConfigurationInterface) || !($config = \array_filter($container->getExtensionConfig($name)))) {
                     // this extension has no semantic configuration or was not called
                     continue;
                 }
                 $config = $resolvingBag->resolveValue($config);
-                if ($extension instanceof \ECSPrefix20211007\Symfony\Component\Config\Definition\ConfigurationInterface) {
+                if ($extension instanceof \ECSPrefix20211008\Symfony\Component\Config\Definition\ConfigurationInterface) {
                     $configuration = $extension;
                 } elseif (null === ($configuration = $extension->getConfiguration($config, $container))) {
                     continue;
@@ -74,7 +74,7 @@ class ValidateEnvPlaceholdersPass implements \ECSPrefix20211007\Symfony\Componen
                 $this->extensionConfig[$name] = $processor->processConfiguration($configuration, $config);
             }
         } finally {
-            \ECSPrefix20211007\Symfony\Component\Config\Definition\BaseNode::resetPlaceholders();
+            \ECSPrefix20211008\Symfony\Component\Config\Definition\BaseNode::resetPlaceholders();
         }
         $resolvingBag->clearUnusedEnvPlaceholders();
     }
