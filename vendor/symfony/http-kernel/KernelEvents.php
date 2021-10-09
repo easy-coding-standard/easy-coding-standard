@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211008\Symfony\Component\HttpKernel;
+namespace ECSPrefix20211009\Symfony\Component\HttpKernel;
 
-use ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
-use ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ControllerEvent;
-use ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use ECSPrefix20211008\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
-use ECSPrefix20211008\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use ECSPrefix20211008\Symfony\Component\HttpKernel\Event\TerminateEvent;
-use ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ViewEvent;
+use ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ControllerEvent;
+use ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use ECSPrefix20211009\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use ECSPrefix20211009\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20211009\Symfony\Component\HttpKernel\Event\TerminateEvent;
+use ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ViewEvent;
 /**
  * Contains all events thrown in the HttpKernel component.
  *
@@ -105,5 +105,5 @@ final class KernelEvents
      *
      * These aliases can be consumed by RegisterListenersPass.
      */
-    public const ALIASES = [\ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class => self::CONTROLLER_ARGUMENTS, \ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ControllerEvent::class => self::CONTROLLER, \ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ResponseEvent::class => self::RESPONSE, \ECSPrefix20211008\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class => self::FINISH_REQUEST, \ECSPrefix20211008\Symfony\Component\HttpKernel\Event\RequestEvent::class => self::REQUEST, \ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ViewEvent::class => self::VIEW, \ECSPrefix20211008\Symfony\Component\HttpKernel\Event\ExceptionEvent::class => self::EXCEPTION, \ECSPrefix20211008\Symfony\Component\HttpKernel\Event\TerminateEvent::class => self::TERMINATE];
+    public const ALIASES = [\ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class => self::CONTROLLER_ARGUMENTS, \ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ControllerEvent::class => self::CONTROLLER, \ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ResponseEvent::class => self::RESPONSE, \ECSPrefix20211009\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class => self::FINISH_REQUEST, \ECSPrefix20211009\Symfony\Component\HttpKernel\Event\RequestEvent::class => self::REQUEST, \ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ViewEvent::class => self::VIEW, \ECSPrefix20211009\Symfony\Component\HttpKernel\Event\ExceptionEvent::class => self::EXCEPTION, \ECSPrefix20211009\Symfony\Component\HttpKernel\Event\TerminateEvent::class => self::TERMINATE];
 }

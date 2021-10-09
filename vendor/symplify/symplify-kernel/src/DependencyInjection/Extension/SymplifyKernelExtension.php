@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211008\Symplify\SymplifyKernel\DependencyInjection\Extension;
+namespace ECSPrefix20211009\Symplify\SymplifyKernel\DependencyInjection\Extension;
 
-use ECSPrefix20211008\Symfony\Component\Config\FileLocator;
-use ECSPrefix20211008\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211008\Symfony\Component\DependencyInjection\Extension\Extension;
-use ECSPrefix20211008\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-final class SymplifyKernelExtension extends \ECSPrefix20211008\Symfony\Component\DependencyInjection\Extension\Extension
+use ECSPrefix20211009\Symfony\Component\Config\FileLocator;
+use ECSPrefix20211009\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211009\Symfony\Component\DependencyInjection\Extension\Extension;
+use ECSPrefix20211009\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+final class SymplifyKernelExtension extends \ECSPrefix20211009\Symfony\Component\DependencyInjection\Extension\Extension
 {
     /**
      * @param string[] $configs
@@ -15,7 +15,7 @@ final class SymplifyKernelExtension extends \ECSPrefix20211008\Symfony\Component
      */
     public function load($configs, $containerBuilder) : void
     {
-        $phpFileLoader = new \ECSPrefix20211008\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20211008\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
+        $phpFileLoader = new \ECSPrefix20211009\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20211009\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
         $phpFileLoader->load('common-config.php');
     }
 }

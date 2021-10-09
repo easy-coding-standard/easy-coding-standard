@@ -31,7 +31,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211008\\Symfony\\Contracts\\EventDispatcher\\": ""
+            "ECSPrefix20211009\\Symfony\\Contracts\\EventDispatcher\\": ""
         }
     },
     "minimum-stability": "dev",

@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211008\Symfony\Component\HttpFoundation\Session;
+namespace ECSPrefix20211009\Symfony\Component\HttpFoundation\Session;
 
-use ECSPrefix20211008\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20211008\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface;
+use ECSPrefix20211009\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20211009\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20211008\Symfony\Component\HttpFoundation\Session\Session::class);
+\class_exists(\ECSPrefix20211009\Symfony\Component\HttpFoundation\Session\Session::class);
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
@@ -22,14 +22,14 @@ class SessionFactory
     private $requestStack;
     private $storageFactory;
     private $usageReporter;
-    public function __construct(\ECSPrefix20211008\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20211008\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface $storageFactory, callable $usageReporter = null)
+    public function __construct(\ECSPrefix20211009\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20211009\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface $storageFactory, callable $usageReporter = null)
     {
         $this->requestStack = $requestStack;
         $this->storageFactory = $storageFactory;
         $this->usageReporter = $usageReporter;
     }
-    public function createSession() : \ECSPrefix20211008\Symfony\Component\HttpFoundation\Session\SessionInterface
+    public function createSession() : \ECSPrefix20211009\Symfony\Component\HttpFoundation\Session\SessionInterface
     {
-        return new \ECSPrefix20211008\Symfony\Component\HttpFoundation\Session\Session($this->storageFactory->createStorage($this->requestStack->getMainRequest()), null, null, $this->usageReporter);
+        return new \ECSPrefix20211009\Symfony\Component\HttpFoundation\Session\Session($this->storageFactory->createStorage($this->requestStack->getMainRequest()), null, null, $this->usageReporter);
     }
 }
