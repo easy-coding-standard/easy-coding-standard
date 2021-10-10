@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211009\Symplify\RuleDocGenerator\Contract;
+namespace ECSPrefix20211010\Symplify\RuleDocGenerator\Contract;
 
-use ECSPrefix20211009\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20211010\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 interface DocumentedRuleInterface
 {
-    public function getRuleDefinition() : \ECSPrefix20211009\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+    public function getRuleDefinition() : \ECSPrefix20211010\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 }

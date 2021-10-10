@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211009\Symfony\Component\HttpKernel\ControllerMetadata;
+namespace ECSPrefix20211010\Symfony\Component\HttpKernel\ControllerMetadata;
 
 /**
  * Builds method argument data.

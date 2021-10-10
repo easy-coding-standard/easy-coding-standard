@@ -3,28 +3,28 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix20211009\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211009\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20211010\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211010\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
-use ECSPrefix20211009\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
-use ECSPrefix20211009\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211010\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
+use ECSPrefix20211010\Symplify\SmartFileSystem\SmartFileInfo;
 final class EasyCodingStandardContainerFactory
 {
-    public function createFromFromInput(\ECSPrefix20211009\Symfony\Component\Console\Input\InputInterface $input) : \ECSPrefix20211009\Symfony\Component\DependencyInjection\ContainerInterface
+    public function createFromFromInput(\ECSPrefix20211010\Symfony\Component\Console\Input\InputInterface $input) : \ECSPrefix20211010\Symfony\Component\DependencyInjection\ContainerInterface
     {
         $environment = $this->resolveEnvironment();
-        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \ECSPrefix20211009\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
+        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \ECSPrefix20211010\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
         $inputConfigFileInfos = [];
         $rootECSConfig = \getcwd() . \DIRECTORY_SEPARATOR . '/ecs.php';
         if ($input->hasParameterOption(['--config', '-c'])) {
             $commandLineConfigFile = $input->getParameterOption(['--config', '-c']);
             if (\is_string($commandLineConfigFile) && \file_exists($commandLineConfigFile)) {
-                $inputConfigFileInfos[] = new \ECSPrefix20211009\Symplify\SmartFileSystem\SmartFileInfo($commandLineConfigFile);
+                $inputConfigFileInfos[] = new \ECSPrefix20211010\Symplify\SmartFileSystem\SmartFileInfo($commandLineConfigFile);
             }
         } elseif (\file_exists($rootECSConfig)) {
-            $inputConfigFileInfos[] = new \ECSPrefix20211009\Symplify\SmartFileSystem\SmartFileInfo($rootECSConfig);
+            $inputConfigFileInfos[] = new \ECSPrefix20211010\Symplify\SmartFileSystem\SmartFileInfo($rootECSConfig);
         }
         if ($inputConfigFileInfos !== []) {
             $easyCodingStandardKernel->setConfigs($inputConfigFileInfos);

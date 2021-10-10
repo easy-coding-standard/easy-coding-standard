@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211009\Symfony\Component\HttpKernel\Controller;
+namespace ECSPrefix20211010\Symfony\Component\HttpKernel\Controller;
 
-use ECSPrefix20211009\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211009\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use ECSPrefix20211010\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211010\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Responsible for resolving the value of an argument based on its metadata.
  *

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\ValueObject;
 
-use ECSPrefix20211009\React\Socket\TcpServer;
+use ECSPrefix20211010\React\Socket\TcpServer;
 use Symplify\EasyCodingStandard\Parallel\Exception\ParallelShouldNotHappenException;
 /**
  * Used from https://github.com/phpstan/phpstan-src/blob/master/src/Parallel/ProcessPool.php
@@ -18,7 +18,7 @@ final class ProcessPool
      * @var \React\Socket\TcpServer
      */
     private $tcpServer;
-    public function __construct(\ECSPrefix20211009\React\Socket\TcpServer $tcpServer)
+    public function __construct(\ECSPrefix20211010\React\Socket\TcpServer $tcpServer)
     {
         $this->tcpServer = $tcpServer;
     }

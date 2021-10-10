@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211009\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20211010\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20211009\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20211009\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20211009\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20211010\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20211010\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20211010\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Validates Requests.
  *
@@ -20,7 +20,7 @@ use ECSPrefix20211009\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class ValidateRequestListener implements \ECSPrefix20211009\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ValidateRequestListener implements \ECSPrefix20211010\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     /**
      * Performs the validation.
@@ -42,6 +42,6 @@ class ValidateRequestListener implements \ECSPrefix20211009\Symfony\Component\Ev
      */
     public static function getSubscribedEvents() : array
     {
-        return [\ECSPrefix20211009\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 256]]];
+        return [\ECSPrefix20211010\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 256]]];
     }
 }

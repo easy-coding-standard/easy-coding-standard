@@ -47,12 +47,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211009\\React\\Socket\\": "src"
+            "ECSPrefix20211010\\React\\Socket\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20211009\\React\\Tests\\Socket\\": "tests"
+            "ECSPrefix20211010\\React\\Tests\\Socket\\": "tests"
         }
     }
 }
