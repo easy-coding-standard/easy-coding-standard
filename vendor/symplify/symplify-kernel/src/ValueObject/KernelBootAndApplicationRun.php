@@ -12,6 +12,9 @@ use ECSPrefix20211011\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwa
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20211011\Symplify\SymplifyKernel\Exception\BootException;
 use Throwable;
+/**
+ * @api
+ */
 final class KernelBootAndApplicationRun
 {
     /**

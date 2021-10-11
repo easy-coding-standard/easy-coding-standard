@@ -3,17 +3,17 @@
 declare (strict_types=1);
 namespace ECSPrefix20211011\Symplify\Skipper\Matcher;
 
-use ECSPrefix20211011\Symplify\Skipper\FileSystem\PathNormalizer;
+use ECSPrefix20211011\Symplify\Skipper\FileSystem\FnMatchPathNormalizer;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoMatcher
 {
     /**
-     * @var \Symplify\Skipper\FileSystem\PathNormalizer
+     * @var \Symplify\Skipper\FileSystem\FnMatchPathNormalizer
      */
-    private $pathNormalizer;
-    public function __construct(\ECSPrefix20211011\Symplify\Skipper\FileSystem\PathNormalizer $pathNormalizer)
+    private $fnMatchPathNormalizer;
+    public function __construct(\ECSPrefix20211011\Symplify\Skipper\FileSystem\FnMatchPathNormalizer $fnMatchPathNormalizer)
     {
-        $this->pathNormalizer = $pathNormalizer;
+        $this->fnMatchPathNormalizer = $fnMatchPathNormalizer;
     }
     /**
      * @param string[] $filePattern
@@ -36,7 +36,7 @@ final class FileInfoMatcher
         if ($smartFileInfo->getRealPath() === $ignoredPath) {
             return \true;
         }
-        $ignoredPath = $this->pathNormalizer->normalizeForFnmatch($ignoredPath);
+        $ignoredPath = $this->fnMatchPathNormalizer->normalizeForFnmatch($ignoredPath);
         if ($ignoredPath === '') {
             return \false;
         }

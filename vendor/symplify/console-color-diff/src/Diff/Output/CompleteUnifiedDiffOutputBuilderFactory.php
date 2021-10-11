@@ -6,6 +6,7 @@ namespace ECSPrefix20211011\Symplify\ConsoleColorDiff\Diff\Output;
 use ECSPrefix20211011\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 use ECSPrefix20211011\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 /**
+ * @api
  * Creates @see UnifiedDiffOutputBuilder with "$contextLines = 1000;"
  */
 final class CompleteUnifiedDiffOutputBuilderFactory

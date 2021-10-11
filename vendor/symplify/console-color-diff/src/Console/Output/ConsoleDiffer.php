@@ -5,6 +5,9 @@ namespace ECSPrefix20211011\Symplify\ConsoleColorDiff\Console\Output;
 
 use ECSPrefix20211011\SebastianBergmann\Diff\Differ;
 use ECSPrefix20211011\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
+/**
+ * @api
+ */
 final class ConsoleDiffer
 {
     /**

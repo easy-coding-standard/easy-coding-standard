@@ -7,6 +7,7 @@ use ECSPrefix20211011\Symfony\Component\DependencyInjection\Container;
 use ECSPrefix20211011\Symfony\Component\DependencyInjection\ContainerInterface;
 use ECSPrefix20211011\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 /**
+ * @api
  * @see \Symplify\PackageBuilder\Tests\Parameter\ParameterProviderTest
  */
 final class ParameterProvider

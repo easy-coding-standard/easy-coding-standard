@@ -10,6 +10,9 @@ use ECSPrefix20211011\Symfony\Component\Console\Output\OutputInterface;
 use ECSPrefix20211011\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20211011\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
 use ECSPrefix20211011\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+/**
+ * @api
+ */
 final class SymfonyStyleFactory
 {
     /**

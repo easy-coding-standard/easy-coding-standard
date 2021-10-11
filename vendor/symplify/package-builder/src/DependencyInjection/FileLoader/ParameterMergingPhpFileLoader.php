@@ -8,6 +8,8 @@ use ECSPrefix20211011\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20211011\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use ECSPrefix20211011\Symplify\PackageBuilder\Yaml\ParametersMerger;
 /**
+ * @api
+ *
  * The need:
  * - https://github.com/symfony/symfony/issues/26713
  * - https://github.com/symfony/symfony/pull/21313#issuecomment-372037445

@@ -5,6 +5,8 @@ namespace ECSPrefix20211011\Symplify\SmartFileSystem\Normalizer;
 
 use ECSPrefix20211011\Nette\Utils\Strings;
 /**
+ * @api
+ *
  * Used from
  * https://github.com/phpstan/phpstan-src/blob/02425e61aa48f0668b4efb3e73d52ad544048f65/src/File/FileHelper.php#L40,
  * with custom modifications

@@ -8,6 +8,9 @@ use ECSPrefix20211011\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent;
 use ECSPrefix20211011\Symplify\EasyTesting\ValueObject\SplitLine;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20211011\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+/**
+ * @api
+ */
 final class TrioFixtureSplitter
 {
     public function splitFileInfo(\ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \ECSPrefix20211011\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent

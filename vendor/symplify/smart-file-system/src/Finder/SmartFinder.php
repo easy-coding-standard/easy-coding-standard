@@ -7,6 +7,7 @@ use ECSPrefix20211011\Symfony\Component\Finder\Finder;
 use ECSPrefix20211011\Symplify\SmartFileSystem\FileSystemFilter;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
 /**
+ * @api
  * @see \Symplify\SmartFileSystem\Tests\Finder\SmartFinder\SmartFinderTest
  */
 final class SmartFinder

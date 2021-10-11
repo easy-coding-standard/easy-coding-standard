@@ -5,9 +5,9 @@ namespace ECSPrefix20211011\Symplify\Skipper\FileSystem;
 
 use ECSPrefix20211011\Nette\Utils\Strings;
 /**
- * @see \Symplify\Skipper\Tests\FileSystem\PathNormalizerTest
+ * @see \Symplify\Skipper\Tests\FileSystem\FnMatchPathNormalizerTest
  */
-final class PathNormalizer
+final class FnMatchPathNormalizer
 {
     /**
      * @var string

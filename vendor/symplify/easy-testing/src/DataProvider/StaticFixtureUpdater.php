@@ -5,6 +5,9 @@ namespace ECSPrefix20211011\Symplify\EasyTesting\DataProvider;
 
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileSystem;
+/**
+ * @api
+ */
 final class StaticFixtureUpdater
 {
     /**

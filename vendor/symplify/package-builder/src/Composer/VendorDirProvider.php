@@ -6,6 +6,7 @@ namespace ECSPrefix20211011\Symplify\PackageBuilder\Composer;
 use ECSPrefix20211011\Composer\Autoload\ClassLoader;
 use ReflectionClass;
 /**
+ * @api
  * @see \Symplify\PackageBuilder\Tests\Composer\VendorDirProviderTest
  */
 final class VendorDirProvider

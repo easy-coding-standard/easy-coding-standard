@@ -3,6 +3,9 @@
 declare (strict_types=1);
 namespace ECSPrefix20211011\Symplify\PackageBuilder\Matcher;
 
+/**
+ * @api
+ */
 final class ArrayStringAndFnMatcher
 {
     /**

@@ -10,10 +10,10 @@ use ECSPrefix20211011\Symfony\Component\DependencyInjection\Compiler\CompilerPas
 use ECSPrefix20211011\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20211011\Symfony\Component\DependencyInjection\Definition;
 use ECSPrefix20211011\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20211011\Symplify\AutowireArrayParameter\DependencyInjection\DefinitionFinder;
 use ECSPrefix20211011\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
 use ECSPrefix20211011\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
 use ECSPrefix20211011\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
-use ECSPrefix20211011\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
 /**
  * @inspiration https://github.com/nette/di/pull/178
  * @see \Symplify\AutowireArrayParameter\Tests\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPassTest
@@ -34,7 +34,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211011\Sym
      */
     private $excludedFatalClasses = ['ECSPrefix20211011\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20211011\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20211011\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20211011\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20211011\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20211011\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20211011\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20211011\\Sonata\\Twig\\Extension\\TemplateExtension', 'ECSPrefix20211011\\Symfony\\Component\\HttpKernel\\KernelInterface'];
     /**
-     * @var \Symplify\PackageBuilder\DependencyInjection\DefinitionFinder
+     * @var \Symplify\AutowireArrayParameter\DependencyInjection\DefinitionFinder
      */
     private $definitionFinder;
     /**
@@ -50,7 +50,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211011\Sym
      */
     public function __construct(array $excludedFatalClasses = [])
     {
-        $this->definitionFinder = new \ECSPrefix20211011\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
+        $this->definitionFinder = new \ECSPrefix20211011\Symplify\AutowireArrayParameter\DependencyInjection\DefinitionFinder();
         $paramTypeDocBlockResolver = new \ECSPrefix20211011\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
         $this->parameterTypeResolver = new \ECSPrefix20211011\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver($paramTypeDocBlockResolver);
         $this->parameterSkipper = new \ECSPrefix20211011\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper($this->parameterTypeResolver, $excludedFatalClasses);

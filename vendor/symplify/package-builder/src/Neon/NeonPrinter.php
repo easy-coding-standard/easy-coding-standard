@@ -6,6 +6,9 @@ namespace ECSPrefix20211011\Symplify\PackageBuilder\Neon;
 use ECSPrefix20211011\Nette\Neon\Encoder;
 use ECSPrefix20211011\Nette\Neon\Neon;
 use ECSPrefix20211011\Nette\Utils\Strings;
+/**
+ * @api
+ */
 final class NeonPrinter
 {
     /**

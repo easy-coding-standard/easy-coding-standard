@@ -11,6 +11,7 @@ use ECSPrefix20211011\Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20211011\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
+ * @api
  * @see \Symplify\EasyTesting\Tests\DataProvider\StaticFixtureFinder\StaticFixtureFinderTest
  */
 final class StaticFixtureFinder

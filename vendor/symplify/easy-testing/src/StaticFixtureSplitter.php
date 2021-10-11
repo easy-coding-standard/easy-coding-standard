@@ -10,6 +10,9 @@ use ECSPrefix20211011\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedF
 use ECSPrefix20211011\Symplify\EasyTesting\ValueObject\SplitLine;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileSystem;
+/**
+ * @api
+ */
 final class StaticFixtureSplitter
 {
     /**

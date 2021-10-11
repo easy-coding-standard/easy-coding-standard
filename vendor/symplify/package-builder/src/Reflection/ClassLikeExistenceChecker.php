@@ -4,6 +4,9 @@ declare (strict_types=1);
 namespace ECSPrefix20211011\Symplify\PackageBuilder\Reflection;
 
 use ReflectionClass;
+/**
+ * @api
+ */
 final class ClassLikeExistenceChecker
 {
     /**

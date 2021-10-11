@@ -8,6 +8,7 @@ use ECSPrefix20211011\Nette\Utils\Json;
 use ECSPrefix20211011\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileSystem;
 /**
+ * @api
  * @see \Symplify\SmartFileSystem\Tests\Json\JsonFileSystem\JsonFileSystemTest
  */
 final class JsonFileSystem
