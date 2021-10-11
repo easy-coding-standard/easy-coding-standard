@@ -6,6 +6,9 @@ namespace ECSPrefix20211011\Symplify\ComposerJsonManipulator\Printer;
 use ECSPrefix20211011\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
 use ECSPrefix20211011\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
+/**
+ * @api
+ */
 final class ComposerJsonPrinter
 {
     /**
@@ -15,10 +18,6 @@ final class ComposerJsonPrinter
     public function __construct(\ECSPrefix20211011\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager $jsonFileManager)
     {
         $this->jsonFileManager = $jsonFileManager;
-    }
-    public function printToString(\ECSPrefix20211011\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : string
-    {
-        return $this->jsonFileManager->encodeJsonToFileContent($composerJson->getJsonArray());
     }
     /**
      * @param string|\Symplify\SmartFileSystem\SmartFileInfo $targetFile

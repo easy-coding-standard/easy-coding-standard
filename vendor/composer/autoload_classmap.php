@@ -1012,7 +1012,6 @@ return array(
     'ECSPrefix20211011\\Symplify\\ComposerJsonManipulator\\Sorter\\ComposerPackageSorter' => $vendorDir . '/symplify/composer-json-manipulator/src/Sorter/ComposerPackageSorter.php',
     'ECSPrefix20211011\\Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerJson' => $vendorDir . '/symplify/composer-json-manipulator/src/ValueObject/ComposerJson.php',
     'ECSPrefix20211011\\Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerJsonSection' => $vendorDir . '/symplify/composer-json-manipulator/src/ValueObject/ComposerJsonSection.php',
-    'ECSPrefix20211011\\Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerValues' => $vendorDir . '/symplify/composer-json-manipulator/src/ValueObject/ComposerValues.php',
     'ECSPrefix20211011\\Symplify\\ComposerJsonManipulator\\ValueObject\\Option' => $vendorDir . '/symplify/composer-json-manipulator/src/ValueObject/Option.php',
     'ECSPrefix20211011\\Symplify\\ConsoleColorDiff\\Bundle\\ConsoleColorDiffBundle' => $vendorDir . '/symplify/console-color-diff/src/Bundle/ConsoleColorDiffBundle.php',
     'ECSPrefix20211011\\Symplify\\ConsoleColorDiff\\Console\\Formatter\\ColorConsoleDiffFormatter' => $vendorDir . '/symplify/console-color-diff/src/Console/Formatter/ColorConsoleDiffFormatter.php',

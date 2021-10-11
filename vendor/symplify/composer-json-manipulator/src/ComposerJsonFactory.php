@@ -9,6 +9,7 @@ use ECSPrefix20211011\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use ECSPrefix20211011\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
 /**
+ * @api
  * @see \Symplify\ComposerJsonManipulator\Tests\ComposerJsonFactory\ComposerJsonFactoryTest
  */
 final class ComposerJsonFactory

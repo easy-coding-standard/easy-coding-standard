@@ -6,6 +6,7 @@ namespace ECSPrefix20211011\Symplify\Skipper\Skipper;
 use ECSPrefix20211011\Symplify\Skipper\Contract\SkipVoterInterface;
 use ECSPrefix20211011\Symplify\SmartFileSystem\SmartFileInfo;
 /**
+ * @api
  * @see \Symplify\Skipper\Tests\Skipper\Skipper\SkipperTest
  */
 final class Skipper
