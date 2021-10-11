@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211010\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20211011\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20211010\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20211010\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20211010\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20211011\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20211011\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20211011\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Adds configured formats to each request.
  *
@@ -20,7 +20,7 @@ use ECSPrefix20211010\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class AddRequestFormatsListener implements \ECSPrefix20211010\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class AddRequestFormatsListener implements \ECSPrefix20211011\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     protected $formats;
     public function __construct(array $formats)
@@ -43,6 +43,6 @@ class AddRequestFormatsListener implements \ECSPrefix20211010\Symfony\Component\
      */
     public static function getSubscribedEvents() : array
     {
-        return [\ECSPrefix20211010\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 100]];
+        return [\ECSPrefix20211011\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 100]];
     }
 }

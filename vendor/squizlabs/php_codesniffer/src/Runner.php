@@ -198,7 +198,7 @@ class Runner
     /**
      * Exits if the minimum requirements of PHP_CodeSniffer are not met.
      *
-     * @return array
+     * @return void
      * @throws \PHP_CodeSniffer\Exceptions\DeepExitException If the requirements are not met.
      */
     public function checkRequirements()
@@ -245,7 +245,7 @@ class Runner
         }
         // Ensure this option is enabled or else line endings will not always
         // be detected properly for files created on a Mac with the /r line ending.
-        \ini_set('auto_detect_line_endings', \true);
+        @\ini_set('auto_detect_line_endings', \true);
         // Disable the PCRE JIT as this caused issues with parallel running.
         \ini_set('pcre.jit', \false);
         // Check that the standards are valid.
@@ -411,6 +411,7 @@ class Runner
                             $path = $todo->key();
                             $file = $todo->current();
                             if ($file->ignored === \true) {
+                                $todo->next();
                                 continue;
                             }
                             $currDir = \dirname($path);
@@ -614,7 +615,7 @@ class Runner
                         $numProcessed++;
                         if (isset($childOutput) === \false) {
                             // The child process died, so the run has failed.
-                            $file = new \PHP_CodeSniffer\Files\DummyFile(null, $this->ruleset, $this->config);
+                            $file = new \PHP_CodeSniffer\Files\DummyFile('', $this->ruleset, $this->config);
                             $file->setErrorCounts(1, 0, 0, 0);
                             $this->printProgress($file, $totalBatches, $numProcessed);
                             $success = \false;
@@ -634,7 +635,7 @@ class Runner
                             }
                         }
                         // Fake a processed file so we can print progress output for the batch.
-                        $file = new \PHP_CodeSniffer\Files\DummyFile(null, $this->ruleset, $this->config);
+                        $file = new \PHP_CodeSniffer\Files\DummyFile('', $this->ruleset, $this->config);
                         $file->setErrorCounts($childOutput['totalErrors'], $childOutput['totalWarnings'], $childOutput['totalFixable'], $childOutput['totalFixed']);
                         $this->printProgress($file, $totalBatches, $numProcessed);
                     }

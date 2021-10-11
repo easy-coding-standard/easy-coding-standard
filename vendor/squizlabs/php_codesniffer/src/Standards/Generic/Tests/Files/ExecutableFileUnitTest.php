@@ -39,6 +39,7 @@ class ExecutableFileUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSn
     {
         switch ($testFile) {
             case 'ExecutableFileUnitTest.2.inc':
+            case 'ExecutableFileUnitTest.4.inc':
                 return [1 => 1];
             default:
                 return [];

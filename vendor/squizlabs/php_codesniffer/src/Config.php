@@ -77,7 +77,7 @@ class Config
      *
      * @var string
      */
-    const VERSION = '3.6.0';
+    const VERSION = '3.6.1';
     /**
      * Package stability; either stable, beta or alpha.
      *
@@ -363,7 +363,7 @@ class Config
     /**
      * Restore default values for all possible command line arguments.
      *
-     * @return array
+     * @return void
      */
     public function restoreDefaults()
     {

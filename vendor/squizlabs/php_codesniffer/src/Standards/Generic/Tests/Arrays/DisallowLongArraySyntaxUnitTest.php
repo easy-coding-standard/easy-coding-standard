@@ -26,7 +26,7 @@ class DisallowLongArraySyntaxUnitTest extends \PHP_CodeSniffer\Tests\Standards\A
     {
         switch ($testFile) {
             case 'DisallowLongArraySyntaxUnitTest.1.inc':
-                return [2 => 1, 4 => 1, 6 => 1, 7 => 1, 12 => 1, 13 => 1];
+                return [2 => 1, 4 => 1, 6 => 1, 7 => 1, 12 => 1];
             case 'DisallowLongArraySyntaxUnitTest.2.inc':
                 return [2 => 1, 9 => 1];
             default:

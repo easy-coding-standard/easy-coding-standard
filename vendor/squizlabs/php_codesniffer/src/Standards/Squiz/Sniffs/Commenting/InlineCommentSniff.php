@@ -46,7 +46,15 @@ class InlineCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // We are only interested in inline doc block comments, which are
         // not allowed.
         if ($tokens[$stackPtr]['code'] === T_DOC_COMMENT_OPEN_TAG) {
-            $nextToken = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+            $nextToken = $stackPtr;
+            do {
+                $nextToken = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $nextToken + 1, null, \true);
+                if ($tokens[$nextToken]['code'] === \T_ATTRIBUTE) {
+                    $nextToken = $tokens[$nextToken]['attribute_closer'];
+                    continue;
+                }
+                break;
+            } while (\true);
             $ignore = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION, T_CLOSURE, \T_PUBLIC, \T_PRIVATE, \T_PROTECTED, \T_FINAL, \T_STATIC, \T_ABSTRACT, \T_CONST, T_PROPERTY, \T_INCLUDE, \T_INCLUDE_ONCE, \T_REQUIRE, \T_REQUIRE_ONCE];
             if (\in_array($tokens[$nextToken]['code'], $ignore, \true) === \true) {
                 return;

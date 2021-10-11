@@ -20,7 +20,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPassByReference()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => '&$var', 'pass_by_reference' => \true, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => '&$var', 'has_attributes' => \false, 'pass_by_reference' => \true, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPassByReference()
@@ -32,7 +32,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testArrayHint()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'array $var', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'array', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'array $var', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'array', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testArrayHint()
@@ -44,8 +44,8 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testTypeHint()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var1', 'content' => 'foo $var1', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'foo', 'nullable_type' => \false];
-        $expected[1] = ['name' => '$var2', 'content' => 'bar $var2', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'bar', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var1', 'content' => 'foo $var1', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'foo', 'nullable_type' => \false];
+        $expected[1] = ['name' => '$var2', 'content' => 'bar $var2', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'bar', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testTypeHint()
@@ -57,7 +57,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testSelfTypeHint()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'self $var', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'self', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'self $var', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'self', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testSelfTypeHint()
@@ -69,8 +69,8 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testNullableTypeHint()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var1', 'content' => '?int $var1', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?int', 'nullable_type' => \true];
-        $expected[1] = ['name' => '$var2', 'content' => '?\\bar $var2', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?\\bar', 'nullable_type' => \true];
+        $expected[0] = ['name' => '$var1', 'content' => '?int $var1', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?int', 'nullable_type' => \true];
+        $expected[1] = ['name' => '$var2', 'content' => '?\\bar $var2', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?\\bar', 'nullable_type' => \true];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testNullableTypeHint()
@@ -82,7 +82,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testVariable()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => '$var', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => '$var', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testVariable()
@@ -94,7 +94,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testSingleDefaultValue()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var1', 'content' => '$var1=self::CONSTANT', 'default' => 'self::CONSTANT', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var1', 'content' => '$var1=self::CONSTANT', 'has_attributes' => \false, 'default' => 'self::CONSTANT', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testSingleDefaultValue()
@@ -106,8 +106,8 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testDefaultValues()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var1', 'content' => '$var1=1', 'default' => '1', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
-        $expected[1] = ['name' => '$var2', 'content' => "\$var2='value'", 'default' => "'value'", 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var1', 'content' => '$var1=1', 'has_attributes' => \false, 'default' => '1', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
+        $expected[1] = ['name' => '$var2', 'content' => "\$var2='value'", 'has_attributes' => \false, 'default' => "'value'", 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testDefaultValues()
@@ -119,7 +119,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testBitwiseAndConstantExpressionDefaultValue()
     {
         $expected = [];
-        $expected[0] = ['name' => '$a', 'content' => '$a = 10 & 20', 'default' => '10 & 20', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$a', 'content' => '$a = 10 & 20', 'default' => '10 & 20', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testBitwiseAndConstantExpressionDefaultValue()
@@ -131,8 +131,8 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testArrowFunction()
     {
         $expected = [];
-        $expected[0] = ['name' => '$a', 'content' => 'int $a', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int', 'nullable_type' => \false];
-        $expected[1] = ['name' => '$b', 'content' => '...$b', 'pass_by_reference' => \false, 'variable_length' => \true, 'type_hint' => '', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$a', 'content' => 'int $a', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int', 'nullable_type' => \false];
+        $expected[1] = ['name' => '$b', 'content' => '...$b', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \true, 'type_hint' => '', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testArrowFunction()
@@ -144,7 +144,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8MixedTypeHint()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var1', 'content' => 'mixed &...$var1', 'pass_by_reference' => \true, 'variable_length' => \true, 'type_hint' => 'mixed', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var1', 'content' => 'mixed &...$var1', 'has_attributes' => \false, 'pass_by_reference' => \true, 'variable_length' => \true, 'type_hint' => 'mixed', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8MixedTypeHint()
@@ -156,7 +156,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8MixedTypeHintNullable()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var1', 'content' => '?Mixed $var1', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?Mixed', 'nullable_type' => \true];
+        $expected[0] = ['name' => '$var1', 'content' => '?Mixed $var1', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?Mixed', 'nullable_type' => \true];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8MixedTypeHintNullable()
@@ -168,7 +168,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testNamespaceOperatorTypeHint()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var1', 'content' => '?namespace\\Name $var1', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'ECSPrefix20211010\\?namespace\\Name', 'nullable_type' => \true];
+        $expected[0] = ['name' => '$var1', 'content' => '?namespace\\Name $var1', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'ECSPrefix20211011\\?namespace\\Name', 'nullable_type' => \true];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testNamespaceOperatorTypeHint()
@@ -180,8 +180,8 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8UnionTypesSimple()
     {
         $expected = [];
-        $expected[0] = ['name' => '$number', 'content' => 'int|float $number', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int|float', 'nullable_type' => \false];
-        $expected[1] = ['name' => '$obj', 'content' => 'self|parent &...$obj', 'pass_by_reference' => \true, 'variable_length' => \true, 'type_hint' => 'self|parent', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$number', 'content' => 'int|float $number', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int|float', 'nullable_type' => \false];
+        $expected[1] = ['name' => '$obj', 'content' => 'self|parent &...$obj', 'has_attributes' => \false, 'pass_by_reference' => \true, 'variable_length' => \true, 'type_hint' => 'self|parent', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8UnionTypesSimple()
@@ -193,8 +193,8 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8UnionTypesWithSpreadOperatorAndReference()
     {
         $expected = [];
-        $expected[0] = ['name' => '$paramA', 'content' => 'float|null &$paramA', 'pass_by_reference' => \true, 'variable_length' => \false, 'type_hint' => 'float|null', 'nullable_type' => \false];
-        $expected[1] = ['name' => '$paramB', 'content' => 'string|int ...$paramB', 'pass_by_reference' => \false, 'variable_length' => \true, 'type_hint' => 'string|int', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$paramA', 'content' => 'float|null &$paramA', 'has_attributes' => \false, 'pass_by_reference' => \true, 'variable_length' => \false, 'type_hint' => 'float|null', 'nullable_type' => \false];
+        $expected[1] = ['name' => '$paramB', 'content' => 'string|int ...$paramB', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \true, 'type_hint' => 'string|int', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8UnionTypesWithSpreadOperatorAndReference()
@@ -206,7 +206,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8UnionTypesSimpleWithBitwiseOrInDefault()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'int|float $var = CONSTANT_A | CONSTANT_B', 'default' => 'CONSTANT_A | CONSTANT_B', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int|float', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'int|float $var = CONSTANT_A | CONSTANT_B', 'default' => 'CONSTANT_A | CONSTANT_B', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int|float', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8UnionTypesSimpleWithBitwiseOrInDefault()
@@ -218,7 +218,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8UnionTypesTwoClasses()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'MyClassA|\\Package\\MyClassB $var', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'ECSPrefix20211010\\MyClassA|\\Package\\MyClassB', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'MyClassA|\\Package\\MyClassB $var', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'ECSPrefix20211011\\MyClassA|\\Package\\MyClassB', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8UnionTypesTwoClasses()
@@ -230,7 +230,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8UnionTypesAllBaseTypes()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'array|bool|callable|int|float|null|object|string $var', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'array|bool|callable|int|float|null|object|string', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'array|bool|callable|int|float|null|object|string $var', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'array|bool|callable|int|float|null|object|string', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8UnionTypesAllBaseTypes()
@@ -242,7 +242,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8UnionTypesAllPseudoTypes()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'false|mixed|self|parent|iterable|Resource $var', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'false|mixed|self|parent|iterable|Resource', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'false|mixed|self|parent|iterable|Resource $var', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'false|mixed|self|parent|iterable|Resource', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8UnionTypesAllPseudoTypes()
@@ -254,7 +254,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8UnionTypesNullable()
     {
         $expected = [];
-        $expected[0] = ['name' => '$number', 'content' => '?int|float $number', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?int|float', 'nullable_type' => \true];
+        $expected[0] = ['name' => '$number', 'content' => '?int|float $number', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?int|float', 'nullable_type' => \true];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8UnionTypesNullable()
@@ -266,7 +266,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8PseudoTypeNull()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'null $var = null', 'default' => 'null', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'null', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'null $var = null', 'default' => 'null', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'null', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8PseudoTypeNull()
@@ -278,7 +278,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8PseudoTypeFalse()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'false $var = false', 'default' => 'false', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'false', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'false $var = false', 'default' => 'false', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'false', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8PseudoTypeFalse()
@@ -290,7 +290,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8PseudoTypeFalseAndBool()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'bool|false $var = false', 'default' => 'false', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'bool|false', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'bool|false $var = false', 'default' => 'false', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'bool|false', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8PseudoTypeFalseAndBool()
@@ -302,7 +302,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8ObjectAndClass()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'object|ClassName $var', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'object|ClassName', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'object|ClassName $var', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'object|ClassName', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8ObjectAndClass()
@@ -314,7 +314,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8PseudoTypeIterableAndArray()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'iterable|array|Traversable $var', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'iterable|array|Traversable', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'iterable|array|Traversable $var', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'iterable|array|Traversable', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8PseudoTypeIterableAndArray()
@@ -326,7 +326,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8DuplicateTypeInUnionWhitespaceAndComment()
     {
         $expected = [];
-        $expected[0] = ['name' => '$var', 'content' => 'int | string /*comment*/ | INT $var', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int|string|INT', 'nullable_type' => \false];
+        $expected[0] = ['name' => '$var', 'content' => 'int | string /*comment*/ | INT $var', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int|string|INT', 'nullable_type' => \false];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8DuplicateTypeInUnionWhitespaceAndComment()
@@ -338,9 +338,9 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8ConstructorPropertyPromotionNoTypes()
     {
         $expected = [];
-        $expected[0] = ['name' => '$x', 'content' => 'public $x = 0.0', 'default' => '0.0', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'public'];
-        $expected[1] = ['name' => '$y', 'content' => 'protected $y = \'\'', 'default' => "''", 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'protected'];
-        $expected[2] = ['name' => '$z', 'content' => 'private $z = null', 'default' => 'null', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'private'];
+        $expected[0] = ['name' => '$x', 'content' => 'public $x = 0.0', 'default' => '0.0', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'public'];
+        $expected[1] = ['name' => '$y', 'content' => 'protected $y = \'\'', 'default' => "''", 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'protected'];
+        $expected[2] = ['name' => '$z', 'content' => 'private $z = null', 'default' => 'null', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'private'];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8ConstructorPropertyPromotionNoTypes()
@@ -352,9 +352,9 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8ConstructorPropertyPromotionWithTypes()
     {
         $expected = [];
-        $expected[0] = ['name' => '$x', 'content' => 'protected float|int $x', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'float|int', 'nullable_type' => \false, 'property_visibility' => 'protected'];
-        $expected[1] = ['name' => '$y', 'content' => 'public ?string &$y = \'test\'', 'default' => "'test'", 'pass_by_reference' => \true, 'variable_length' => \false, 'type_hint' => '?string', 'nullable_type' => \true, 'property_visibility' => 'public'];
-        $expected[2] = ['name' => '$z', 'content' => 'private mixed $z', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'mixed', 'nullable_type' => \false, 'property_visibility' => 'private'];
+        $expected[0] = ['name' => '$x', 'content' => 'protected float|int $x', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'float|int', 'nullable_type' => \false, 'property_visibility' => 'protected'];
+        $expected[1] = ['name' => '$y', 'content' => 'public ?string &$y = \'test\'', 'default' => "'test'", 'has_attributes' => \false, 'pass_by_reference' => \true, 'variable_length' => \false, 'type_hint' => '?string', 'nullable_type' => \true, 'property_visibility' => 'public'];
+        $expected[2] = ['name' => '$z', 'content' => 'private mixed $z', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'mixed', 'nullable_type' => \false, 'property_visibility' => 'private'];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8ConstructorPropertyPromotionWithTypes()
@@ -366,8 +366,8 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8ConstructorPropertyPromotionAndNormalParam()
     {
         $expected = [];
-        $expected[0] = ['name' => '$promotedProp', 'content' => 'public int $promotedProp', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int', 'nullable_type' => \false, 'property_visibility' => 'public'];
-        $expected[1] = ['name' => '$normalArg', 'content' => '?int $normalArg', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?int', 'nullable_type' => \true];
+        $expected[0] = ['name' => '$promotedProp', 'content' => 'public int $promotedProp', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'int', 'nullable_type' => \false, 'property_visibility' => 'public'];
+        $expected[1] = ['name' => '$normalArg', 'content' => '?int $normalArg', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?int', 'nullable_type' => \true];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8ConstructorPropertyPromotionAndNormalParam()
@@ -379,7 +379,7 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8ConstructorPropertyPromotionGlobalFunction()
     {
         $expected = [];
-        $expected[0] = ['name' => '$x', 'content' => 'private $x', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'private'];
+        $expected[0] = ['name' => '$x', 'content' => 'private $x', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'private'];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8ConstructorPropertyPromotionGlobalFunction()
@@ -391,11 +391,43 @@ class GetMethodParametersTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethod
     public function testPHP8ConstructorPropertyPromotionAbstractMethod()
     {
         $expected = [];
-        $expected[0] = ['name' => '$y', 'content' => 'public callable $y', 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'callable', 'nullable_type' => \false, 'property_visibility' => 'public'];
-        $expected[1] = ['name' => '$x', 'content' => 'private ...$x', 'pass_by_reference' => \false, 'variable_length' => \true, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'private'];
+        $expected[0] = ['name' => '$y', 'content' => 'public callable $y', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'callable', 'nullable_type' => \false, 'property_visibility' => 'public'];
+        $expected[1] = ['name' => '$x', 'content' => 'private ...$x', 'has_attributes' => \false, 'pass_by_reference' => \false, 'variable_length' => \true, 'type_hint' => '', 'nullable_type' => \false, 'property_visibility' => 'private'];
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
     //end testPHP8ConstructorPropertyPromotionAbstractMethod()
+    /**
+     * Verify and document behaviour when there are comments within a parameter declaration.
+     *
+     * @return void
+     */
+    public function testCommentsInParameter()
+    {
+        $expected = [];
+        $expected[0] = ['name' => '$param', 'content' => '// Leading comment.
+    ?MyClass /*-*/ & /*-*/.../*-*/ $param /*-*/ = /*-*/ \'default value\' . /*-*/ \'second part\' // Trailing comment.', 'has_attributes' => \false, 'pass_by_reference' => \true, 'variable_length' => \true, 'type_hint' => '?MyClass', 'nullable_type' => \true];
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+    //end testCommentsInParameter()
+    /**
+     * Verify behaviour when parameters have attributes attached.
+     *
+     * @return void
+     */
+    public function testParameterAttributesInFunctionDeclaration()
+    {
+        $expected = [];
+        $expected[0] = ['name' => '$constructorPropPromTypedParamSingleAttribute', 'content' => '#[\\MyExample\\MyAttribute] private string $constructorPropPromTypedParamSingleAttribute', 'has_attributes' => \true, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'string', 'nullable_type' => \false, 'property_visibility' => 'private'];
+        $expected[1] = ['name' => '$typedParamSingleAttribute', 'content' => '#[MyAttr([1, 2])]
+        Type|false
+        $typedParamSingleAttribute', 'has_attributes' => \true, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => 'Type|false', 'nullable_type' => \false];
+        $expected[2] = ['name' => '$nullableTypedParamMultiAttribute', 'content' => '#[MyAttribute(1234), MyAttribute(5678)] ?int $nullableTypedParamMultiAttribute', 'has_attributes' => \true, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '?int', 'nullable_type' => \true];
+        $expected[3] = ['name' => '$nonTypedParamTwoAttributes', 'content' => '#[WithoutArgument] #[SingleArgument(0)] $nonTypedParamTwoAttributes', 'has_attributes' => \true, 'pass_by_reference' => \false, 'variable_length' => \false, 'type_hint' => '', 'nullable_type' => \false];
+        $expected[4] = ['name' => '$otherParam', 'content' => '#[MyAttribute(array("key" => "value"))]
+        &...$otherParam', 'has_attributes' => \true, 'pass_by_reference' => \true, 'variable_length' => \true, 'type_hint' => '', 'nullable_type' => \false];
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+    //end testParameterAttributesInFunctionDeclaration()
     /**
      * Test helper.
      *

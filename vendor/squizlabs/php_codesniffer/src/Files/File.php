@@ -301,7 +301,7 @@ class File
         foreach ($this->tokens as $stackPtr => $token) {
             // Check for ignored lines.
             if ($checkAnnotations === \true && ($token['code'] === \T_COMMENT || $token['code'] === T_PHPCS_IGNORE_FILE || $token['code'] === T_PHPCS_SET || $token['code'] === T_DOC_COMMENT_STRING || $token['code'] === T_DOC_COMMENT_TAG || $inTests === \true && $token['code'] === \T_INLINE_HTML)) {
-                $commentText = \ltrim($this->tokens[$stackPtr]['content'], ' /*');
+                $commentText = \ltrim($this->tokens[$stackPtr]['content'], " \t/*#");
                 $commentTextLower = \strtolower($commentText);
                 if (\strpos($commentText, '@codingStandards') !== \false) {
                     if (\strpos($commentText, '@codingStandardsIgnoreFile') !== \false) {
@@ -1055,6 +1055,7 @@ class File
      *         'name'                => '$var',  // The variable name.
      *         'token'               => integer, // The stack pointer to the variable name.
      *         'content'             => string,  // The full content of the variable definition.
+     *         'has_attributes'      => boolean, // Does the parameter have one or more attributes attached ?
      *         'pass_by_reference'   => boolean, // Is the variable passed by reference?
      *         'reference_token'     => integer, // The stack pointer to the reference operator
      *                                           // or FALSE if the param is not passed by reference.
@@ -1118,6 +1119,7 @@ class File
         $defaultStart = null;
         $equalToken = null;
         $paramCount = 0;
+        $hasAttributes = \false;
         $passByReference = \false;
         $referenceToken = \false;
         $variableLength = \false;
@@ -1135,16 +1137,22 @@ class File
             if (isset($this->tokens[$i]['parenthesis_opener']) === \true) {
                 // Don't do this if it's the close parenthesis for the method.
                 if ($i !== $this->tokens[$i]['parenthesis_closer']) {
-                    $i = $this->tokens[$i]['parenthesis_closer'] + 1;
+                    $i = $this->tokens[$i]['parenthesis_closer'];
+                    continue;
                 }
             }
             if (isset($this->tokens[$i]['bracket_opener']) === \true) {
-                // Don't do this if it's the close parenthesis for the method.
                 if ($i !== $this->tokens[$i]['bracket_closer']) {
-                    $i = $this->tokens[$i]['bracket_closer'] + 1;
+                    $i = $this->tokens[$i]['bracket_closer'];
+                    continue;
                 }
             }
             switch ($this->tokens[$i]['code']) {
+                case \T_ATTRIBUTE:
+                    $hasAttributes = \true;
+                    // Skip to the end of the attribute.
+                    $i = $this->tokens[$i]['attribute_closer'];
+                    break;
                 case T_BITWISE_AND:
                     if ($defaultStart === null) {
                         $passByReference = \true;
@@ -1251,6 +1259,7 @@ class File
                         $vars[$paramCount]['default_token'] = $defaultStart;
                         $vars[$paramCount]['default_equal_token'] = $equalToken;
                     }
+                    $vars[$paramCount]['has_attributes'] = $hasAttributes;
                     $vars[$paramCount]['pass_by_reference'] = $passByReference;
                     $vars[$paramCount]['reference_token'] = $referenceToken;
                     $vars[$paramCount]['variable_length'] = $variableLength;
@@ -1273,6 +1282,7 @@ class File
                     $paramStart = $i + 1;
                     $defaultStart = null;
                     $equalToken = null;
+                    $hasAttributes = \false;
                     $passByReference = \false;
                     $referenceToken = \false;
                     $variableLength = \false;
@@ -1843,6 +1853,7 @@ class File
         $startTokens = \PHP_CodeSniffer\Util\Tokens::$blockOpeners;
         $startTokens[T_OPEN_SHORT_ARRAY] = \true;
         $startTokens[\T_OPEN_TAG] = \true;
+        $startTokens[\T_OPEN_TAG_WITH_ECHO] = \true;
         $endTokens = [\T_CLOSE_TAG => \true, T_COLON => \true, T_COMMA => \true, \T_DOUBLE_ARROW => \true, T_MATCH_ARROW => \true, T_SEMICOLON => \true];
         if ($ignore !== null) {
             $ignore = (array) $ignore;

@@ -57,7 +57,15 @@ class BlockCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // If this is a function/class/interface doc block comment, skip it.
         // We are only interested in inline doc block comments.
         if ($tokens[$stackPtr]['code'] === T_DOC_COMMENT_OPEN_TAG) {
-            $nextToken = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+            $nextToken = $stackPtr;
+            do {
+                $nextToken = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $nextToken + 1, null, \true);
+                if ($tokens[$nextToken]['code'] === \T_ATTRIBUTE) {
+                    $nextToken = $tokens[$nextToken]['attribute_closer'];
+                    continue;
+                }
+                break;
+            } while (\true);
             $ignore = [\T_CLASS => \true, \T_INTERFACE => \true, \T_TRAIT => \true, \T_FUNCTION => \true, \T_PUBLIC => \true, \T_PRIVATE => \true, \T_FINAL => \true, \T_PROTECTED => \true, \T_STATIC => \true, \T_ABSTRACT => \true, \T_CONST => \true, \T_VAR => \true];
             if (isset($ignore[$tokens[$nextToken]['code']]) === \true) {
                 return;
@@ -279,7 +287,7 @@ class BlockCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         //end if
         // Check that the lines before and after this comment are blank.
         $contentBefore = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
-        if (isset($tokens[$contentBefore]['scope_closer']) === \true && $tokens[$contentBefore]['scope_opener'] === $contentBefore || $tokens[$contentBefore]['code'] === \T_OPEN_TAG) {
+        if (isset($tokens[$contentBefore]['scope_closer']) === \true && $tokens[$contentBefore]['scope_opener'] === $contentBefore || $tokens[$contentBefore]['code'] === \T_OPEN_TAG || $tokens[$contentBefore]['code'] === \T_OPEN_TAG_WITH_ECHO) {
             if ($tokens[$stackPtr]['line'] - $tokens[$contentBefore]['line'] !== 1) {
                 $error = 'Empty line not required before block comment';
                 $phpcsFile->addError($error, $stackPtr, 'HasEmptyLineBefore');

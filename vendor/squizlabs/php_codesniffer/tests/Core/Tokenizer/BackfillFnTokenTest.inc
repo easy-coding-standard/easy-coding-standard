@@ -23,6 +23,9 @@ function fn() {}
 /* testNestedOuter */
 $fn = fn($x) => /* testNestedInner */ fn($y) => $x * $y + $z;
 
+/* testNestedSharedCloserOuter */
+$foo = foo(fn() => /* testNestedSharedCloserInner */ fn() => bar() === true);
+
 /* testFunctionCall */
 $extended = fn($c) => $callable($factory($c), $c);
 
@@ -60,6 +63,11 @@ $a = [
     'a' => fn() => return 1,
 ];
 
+/* testArrayValueNoTrailingComma */
+$a = [
+    'a' => fn() => foo()
+];
+
 /* testYield */
 $a = fn($x) => yield 'k' => $x;
 
@@ -92,6 +100,9 @@ $arrowWithUnionReturn = fn($param) : int|float => $param | 10;
 
 /* testTernary */
 $fn = fn($a) => $a ? /* testTernaryThen */ fn() : string => 'a' : /* testTernaryElse */ fn() : string => 'b';
+
+/* testTernaryWithTypes */
+$fn = fn(int|null $a) : array|null => $a ? null : [];
 
 function matchInArrow($x) {
     /* testWithMatchValue */

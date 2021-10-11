@@ -314,3 +314,107 @@ if(true) {
         ;
     }
 }
+
+class ConstructorPropertyPromotionSingleLineDocblockIndentOK
+{
+    public function __construct(
+        /** @var string */
+        public string $public,
+        /** @var string */
+        private string $private,
+    ) {
+    }
+}
+
+class ConstructorPropertyPromotionMultiLineDocblockAndAttributeIndentOK
+{
+    public function __construct(
+        /**
+         * @var string
+         * @Assert\NotBlank()
+         */
+        public string $public,
+        /**
+         * @var string
+         * @Assert\NotBlank()
+         */
+        #[NotBlank]
+        private string $private,
+    ) {
+    }
+}
+
+class ConstructorPropertyPromotionSingleLineDocblockIncorrectIndent
+{
+    public function __construct(
+      /** @var string */
+      public string $public,
+          /** @var string */
+          private string $private,
+    ) {
+    }
+}
+
+class ConstructorPropertyPromotionMultiLineDocblockAndAttributeIncorrectIndent
+{
+    public function __construct(
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     */
+    public string $public,
+/**
+ * @var string
+ * @Assert\NotBlank()
+ */
+#[NotBlank]
+private string $private,
+    ) {
+    }
+}
+
+class ConstructorPropertyPromotionMultiLineAttributesOK
+{
+    public function __construct(
+        #[ORM\ManyToOne(
+            Something: true,
+            SomethingElse: 'text',
+        )]
+        #[Groups([
+            'ArrayEntry',
+            'Another.ArrayEntry',
+        ])]
+        #[MoreGroups(
+            [
+                'ArrayEntry',
+                'Another.ArrayEntry',
+            ]
+        )]
+        private Type $property
+    ) {
+        // Do something.
+    }
+}
+
+class ConstructorPropertyPromotionMultiLineAttributesIncorrectIndent
+{
+    public function __construct(
+    #[ORM\ManyToOne(
+        Something: true,
+        SomethingElse: 'text',
+    )]
+            #[Groups([
+                'ArrayEntry',
+                'Another.ArrayEntry',
+            ])]
+        #[MoreGroups(
+    [
+        'ArrayEntry',
+        'Another.ArrayEntry',
+    ]
+        )]
+        private Type $property
+    ) {
+        // Do something.
+    }
+}

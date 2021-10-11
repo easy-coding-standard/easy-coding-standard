@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211010\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass;
+namespace ECSPrefix20211011\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass;
 
-use ECSPrefix20211010\Nette\Utils\Strings;
+use ECSPrefix20211011\Nette\Utils\Strings;
 use ReflectionClass;
 use ReflectionMethod;
-use ECSPrefix20211010\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20211010\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211010\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20211010\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20211010\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
-use ECSPrefix20211010\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
-use ECSPrefix20211010\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
-use ECSPrefix20211010\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
+use ECSPrefix20211011\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20211011\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211011\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211011\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20211011\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
+use ECSPrefix20211011\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
+use ECSPrefix20211011\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use ECSPrefix20211011\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
 /**
  * @inspiration https://github.com/nette/di/pull/178
  * @see \Symplify\AutowireArrayParameter\Tests\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPassTest
  */
-final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211010\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211011\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * These namespaces are already configured by their bundles/extensions.
@@ -32,7 +32,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211010\Sym
      * @var string[]
      * @noRector
      */
-    private $excludedFatalClasses = ['ECSPrefix20211010\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20211010\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20211010\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20211010\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20211010\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20211010\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20211010\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20211010\\Sonata\\Twig\\Extension\\TemplateExtension', 'ECSPrefix20211010\\Symfony\\Component\\HttpKernel\\KernelInterface'];
+    private $excludedFatalClasses = ['ECSPrefix20211011\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20211011\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20211011\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20211011\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20211011\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20211011\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20211011\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20211011\\Sonata\\Twig\\Extension\\TemplateExtension', 'ECSPrefix20211011\\Symfony\\Component\\HttpKernel\\KernelInterface'];
     /**
      * @var \Symplify\PackageBuilder\DependencyInjection\DefinitionFinder
      */
@@ -50,10 +50,10 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211010\Sym
      */
     public function __construct(array $excludedFatalClasses = [])
     {
-        $this->definitionFinder = new \ECSPrefix20211010\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
-        $paramTypeDocBlockResolver = new \ECSPrefix20211010\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
-        $this->parameterTypeResolver = new \ECSPrefix20211010\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver($paramTypeDocBlockResolver);
-        $this->parameterSkipper = new \ECSPrefix20211010\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper($this->parameterTypeResolver, $excludedFatalClasses);
+        $this->definitionFinder = new \ECSPrefix20211011\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
+        $paramTypeDocBlockResolver = new \ECSPrefix20211011\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
+        $this->parameterTypeResolver = new \ECSPrefix20211011\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver($paramTypeDocBlockResolver);
+        $this->parameterSkipper = new \ECSPrefix20211011\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper($this->parameterTypeResolver, $excludedFatalClasses);
     }
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
@@ -72,7 +72,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211010\Sym
             $this->processParameters($containerBuilder, $constructorReflectionMethod, $definition);
         }
     }
-    private function shouldSkipDefinition(\ECSPrefix20211010\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20211010\Symfony\Component\DependencyInjection\Definition $definition) : bool
+    private function shouldSkipDefinition(\ECSPrefix20211011\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20211011\Symfony\Component\DependencyInjection\Definition $definition) : bool
     {
         if ($definition->isAbstract()) {
             return \true;
@@ -85,7 +85,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211010\Sym
         $resolvedClassName = $parameterBag->resolveValue($definition->getClass());
         // skip 3rd party classes, they're autowired by own config
         $excludedNamespacePattern = '#^(' . \implode('|', self::EXCLUDED_NAMESPACES) . ')\\\\#';
-        if (\ECSPrefix20211010\Nette\Utils\Strings::match($resolvedClassName, $excludedNamespacePattern)) {
+        if (\ECSPrefix20211011\Nette\Utils\Strings::match($resolvedClassName, $excludedNamespacePattern)) {
             return \true;
         }
         if (\in_array($resolvedClassName, $this->excludedFatalClasses, \true)) {
@@ -108,7 +108,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211010\Sym
         $constructorReflectionMethod = $reflectionClass->getConstructor();
         return !$constructorReflectionMethod->getParameters();
     }
-    private function processParameters(\ECSPrefix20211010\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ReflectionMethod $reflectionMethod, \ECSPrefix20211010\Symfony\Component\DependencyInjection\Definition $definition) : void
+    private function processParameters(\ECSPrefix20211011\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ReflectionMethod $reflectionMethod, \ECSPrefix20211011\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         $reflectionParameters = $reflectionMethod->getParameters();
         foreach ($reflectionParameters as $reflectionParameter) {
@@ -149,7 +149,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211010\Sym
         $references = [];
         $definitionOfTypeNames = \array_keys($definitions);
         foreach ($definitionOfTypeNames as $definitionOfTypeName) {
-            $references[] = new \ECSPrefix20211010\Symfony\Component\DependencyInjection\Reference($definitionOfTypeName);
+            $references[] = new \ECSPrefix20211011\Symfony\Component\DependencyInjection\Reference($definitionOfTypeName);
         }
         return $references;
     }

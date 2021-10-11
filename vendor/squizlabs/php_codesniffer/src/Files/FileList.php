@@ -16,6 +16,7 @@ use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Ruleset;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Exceptions\DeepExitException;
+use ECSPrefix20211011\ReturnTypeWillChange;
 class FileList implements \Iterator, \Countable
 {
     /**
@@ -146,6 +147,7 @@ class FileList implements \Iterator, \Countable
      *
      * @return void
      */
+    #[ReturnTypeWillChange]
     public function rewind()
     {
         \reset($this->files);
@@ -156,6 +158,7 @@ class FileList implements \Iterator, \Countable
      *
      * @return \PHP_CodeSniffer\Files\File
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         $path = \key($this->files);
@@ -170,6 +173,7 @@ class FileList implements \Iterator, \Countable
      *
      * @return void
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         return \key($this->files);
@@ -180,6 +184,7 @@ class FileList implements \Iterator, \Countable
      *
      * @return void
      */
+    #[ReturnTypeWillChange]
     public function next()
     {
         \next($this->files);
@@ -190,6 +195,7 @@ class FileList implements \Iterator, \Countable
      *
      * @return boolean
      */
+    #[ReturnTypeWillChange]
     public function valid()
     {
         if (\current($this->files) === \false) {
@@ -203,6 +209,7 @@ class FileList implements \Iterator, \Countable
      *
      * @return integer
      */
+    #[ReturnTypeWillChange]
     public function count()
     {
         return $this->numFiles;

@@ -36,6 +36,8 @@ class GitMergeConflictUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstract
             case 'GitMergeConflictUnitTest.5.inc':
             case 'GitMergeConflictUnitTest.6.inc':
                 return [6 => 1, 8 => 1, 10 => 1, 15 => 1, 28 => 1, 30 => 1, 32 => 1];
+            case 'GitMergeConflictUnitTest.7.inc':
+                return [3 => 1, 5 => 1, 7 => 1, 12 => 1, 14 => 1, 16 => 1];
             case 'GitMergeConflictUnitTest.1.css':
                 return [3 => 1, 5 => 1, 7 => 1, 12 => 1, 14 => 1, 16 => 1, 30 => 1, 32 => 1, 34 => 1];
             case 'GitMergeConflictUnitTest.2.css':

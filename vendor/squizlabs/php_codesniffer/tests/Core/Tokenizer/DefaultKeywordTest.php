@@ -165,8 +165,25 @@ class DefaultKeywordTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitT
      */
     public function dataNotDefaultKeyword()
     {
-        return ['class-constant-as-short-array-key' => ['/* testClassConstantAsShortArrayKey */'], 'class-property-as-short-array-key' => ['/* testClassPropertyAsShortArrayKey */'], 'namespaced-constant-as-short-array-key' => ['/* testNamespacedConstantAsShortArrayKey */'], 'fqn-global-constant-as-short-array-key' => ['/* testFQNGlobalConstantAsShortArrayKey */'], 'class-constant-as-long-array-key' => ['/* testClassConstantAsLongArrayKey */'], 'class-constant-as-yield-key' => ['/* testClassConstantAsYieldKey */'], 'class-constant-as-long-array-key-nested-in-match' => ['/* testClassConstantAsLongArrayKeyNestedInMatch */'], 'class-constant-as-long-array-key-nested-in-match-2' => ['/* testClassConstantAsLongArrayKeyNestedInMatchLevelDown */'], 'class-constant-as-short-array-key-nested-in-match' => ['/* testClassConstantAsShortArrayKeyNestedInMatch */'], 'class-constant-as-short-array-key-nested-in-match-2' => ['/* testClassConstantAsShortArrayKeyNestedInMatchLevelDown */'], 'class-constant-as-long-array-key-with-nested-match' => ['/* testClassConstantAsLongArrayKeyWithNestedMatch */'], 'class-constant-as-short-array-key-with-nested-match' => ['/* testClassConstantAsShortArrayKeyWithNestedMatch */'], 'class-constant-in-switch-case' => ['/* testClassConstantInSwitchCase */'], 'class-property-in-switch-case' => ['/* testClassPropertyInSwitchCase */'], 'namespaced-constant-in-switch-case' => ['/* testNamespacedConstantInSwitchCase */'], 'namespace-relative-constant-in-switch-case' => ['/* testNamespaceRelativeConstantInSwitchCase */']];
+        return ['class-constant-as-short-array-key' => ['/* testClassConstantAsShortArrayKey */'], 'class-property-as-short-array-key' => ['/* testClassPropertyAsShortArrayKey */'], 'namespaced-constant-as-short-array-key' => ['/* testNamespacedConstantAsShortArrayKey */'], 'fqn-global-constant-as-short-array-key' => ['/* testFQNGlobalConstantAsShortArrayKey */'], 'class-constant-as-long-array-key' => ['/* testClassConstantAsLongArrayKey */'], 'class-constant-as-yield-key' => ['/* testClassConstantAsYieldKey */'], 'class-constant-as-long-array-key-nested-in-match' => ['/* testClassConstantAsLongArrayKeyNestedInMatch */'], 'class-constant-as-long-array-key-nested-in-match-2' => ['/* testClassConstantAsLongArrayKeyNestedInMatchLevelDown */'], 'class-constant-as-short-array-key-nested-in-match' => ['/* testClassConstantAsShortArrayKeyNestedInMatch */'], 'class-constant-as-short-array-key-nested-in-match-2' => ['/* testClassConstantAsShortArrayKeyNestedInMatchLevelDown */'], 'class-constant-as-long-array-key-with-nested-match' => ['/* testClassConstantAsLongArrayKeyWithNestedMatch */'], 'class-constant-as-short-array-key-with-nested-match' => ['/* testClassConstantAsShortArrayKeyWithNestedMatch */'], 'class-constant-in-switch-case' => ['/* testClassConstantInSwitchCase */'], 'class-property-in-switch-case' => ['/* testClassPropertyInSwitchCase */'], 'namespaced-constant-in-switch-case' => ['/* testNamespacedConstantInSwitchCase */'], 'namespace-relative-constant-in-switch-case' => ['/* testNamespaceRelativeConstantInSwitchCase */'], 'class-constant-declaration' => ['/* testClassConstant */'], 'class-method-declaration' => ['/* testMethodDeclaration */', 'default']];
     }
     //end dataNotDefaultKeyword()
+    /**
+     * Test a specific edge case where a scope opener would be incorrectly set.
+     *
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/3326
+     *
+     * @return void
+     */
+    public function testIssue3326()
+    {
+        $tokens = self::$phpcsFile->getTokens();
+        $token = $this->getTargetToken('/* testClassConstant */', [T_SEMICOLON]);
+        $tokenArray = $tokens[$token];
+        $this->assertArrayNotHasKey('scope_condition', $tokenArray, 'Scope condition is set');
+        $this->assertArrayNotHasKey('scope_opener', $tokenArray, 'Scope opener is set');
+        $this->assertArrayNotHasKey('scope_closer', $tokenArray, 'Scope closer is set');
+    }
+    //end testIssue3326()
 }
 //end class

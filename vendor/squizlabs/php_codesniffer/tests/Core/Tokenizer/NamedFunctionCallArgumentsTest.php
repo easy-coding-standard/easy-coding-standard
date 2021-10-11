@@ -30,7 +30,7 @@ class NamedFunctionCallArgumentsTest extends \PHP_CodeSniffer\Tests\Core\Abstrac
         $tokens = self::$phpcsFile->getTokens();
         foreach ($parameters as $content) {
             $label = $this->getTargetToken($testMarker, [\T_STRING, T_PARAM_NAME], $content);
-            $this->assertSame(T_PARAM_NAME, $tokens[$label]['code'], 'Token tokenized as ' . $tokens[$label]['code'] . ', not T_PARAM_NAME (code)');
+            $this->assertSame(T_PARAM_NAME, $tokens[$label]['code'], 'Token tokenized as ' . $tokens[$label]['type'] . ', not T_PARAM_NAME (code)');
             $this->assertSame('T_PARAM_NAME', $tokens[$label]['type'], 'Token tokenized as ' . $tokens[$label]['type'] . ', not T_PARAM_NAME (type)');
             // Get the next non-empty token.
             $colon = self::$phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $label + 1, null, \true);
@@ -99,7 +99,7 @@ class NamedFunctionCallArgumentsTest extends \PHP_CodeSniffer\Tests\Core\Abstrac
     {
         $tokens = self::$phpcsFile->getTokens();
         $label = $this->getTargetToken($testMarker, [\T_STRING, T_PARAM_NAME], $content);
-        $this->assertSame(\T_STRING, $tokens[$label]['code'], 'Token tokenized as ' . $tokens[$label]['code'] . ', not T_STRING (code)');
+        $this->assertSame(\T_STRING, $tokens[$label]['code'], 'Token tokenized as ' . $tokens[$label]['type'] . ', not T_STRING (code)');
         $this->assertSame('T_STRING', $tokens[$label]['type'], 'Token tokenized as ' . $tokens[$label]['type'] . ', not T_STRING (type)');
     }
     //end testOtherTstringInFunctionCall()
@@ -297,7 +297,7 @@ class NamedFunctionCallArgumentsTest extends \PHP_CodeSniffer\Tests\Core\Abstrac
     {
         $tokens = self::$phpcsFile->getTokens();
         $label = $this->getTargetToken($testMarker, $tokenTypes, $tokenContent);
-        $this->assertSame(T_PARAM_NAME, $tokens[$label]['code'], 'Token tokenized as ' . $tokens[$label]['code'] . ', not T_PARAM_NAME (code)');
+        $this->assertSame(T_PARAM_NAME, $tokens[$label]['code'], 'Token tokenized as ' . $tokens[$label]['type'] . ', not T_PARAM_NAME (code)');
         $this->assertSame('T_PARAM_NAME', $tokens[$label]['type'], 'Token tokenized as ' . $tokens[$label]['type'] . ', not T_PARAM_NAME (type)');
         // Get the next non-empty token.
         $colon = self::$phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $label + 1, null, \true);

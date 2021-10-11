@@ -38,7 +38,7 @@ class SuperfluousWhitespaceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_OPEN_TAG, \T_CLOSE_TAG, \T_WHITESPACE, \T_COMMENT, T_DOC_COMMENT_WHITESPACE, T_CLOSURE];
+        return [\T_OPEN_TAG, \T_OPEN_TAG_WITH_ECHO, \T_CLOSE_TAG, \T_WHITESPACE, \T_COMMENT, T_DOC_COMMENT_WHITESPACE, T_CLOSURE];
     }
     //end register()
     /**

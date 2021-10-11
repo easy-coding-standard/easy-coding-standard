@@ -34,6 +34,9 @@ class EndFileNoNewlineUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstract
             case 'EndFileNoNewlineUnitTest.2.js':
             case 'EndFileNoNewlineUnitTest.6.inc':
                 return [2 => 1];
+            case 'EndFileNoNewlineUnitTest.8.inc':
+            case 'EndFileNoNewlineUnitTest.9.inc':
+                return [1 => 1];
             default:
                 return [];
         }

@@ -629,6 +629,7 @@ class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commen
                 }
             }
         }
+        return \false;
     }
     //end checkInheritdoc()
 }

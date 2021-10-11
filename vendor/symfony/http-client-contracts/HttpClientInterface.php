@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211010\Symfony\Contracts\HttpClient;
+namespace ECSPrefix20211011\Symfony\Contracts\HttpClient;
 
-use ECSPrefix20211010\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use ECSPrefix20211010\Symfony\Contracts\HttpClient\Test\HttpClientTestCase;
+use ECSPrefix20211011\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use ECSPrefix20211011\Symfony\Contracts\HttpClient\Test\HttpClientTestCase;
 /**
  * Provides flexible methods for requesting HTTP resources synchronously or asynchronously.
  *
@@ -102,12 +102,12 @@ interface HttpClientInterface
      * @param string $url
      * @param mixed[] $options
      */
-    public function request($method, $url, $options = []) : \ECSPrefix20211010\Symfony\Contracts\HttpClient\ResponseInterface;
+    public function request($method, $url, $options = []) : \ECSPrefix20211011\Symfony\Contracts\HttpClient\ResponseInterface;
     /**
      * Yields responses chunk by chunk as they complete.
      *
      * @param ResponseInterface|ResponseInterface[]|iterable $responses One or more responses created by the current HTTP client
      * @param float|null                                     $timeout   The idle timeout before yielding timeout chunks
      */
-    public function stream($responses, $timeout = null) : \ECSPrefix20211010\Symfony\Contracts\HttpClient\ResponseStreamInterface;
+    public function stream($responses, $timeout = null) : \ECSPrefix20211011\Symfony\Contracts\HttpClient\ResponseStreamInterface;
 }

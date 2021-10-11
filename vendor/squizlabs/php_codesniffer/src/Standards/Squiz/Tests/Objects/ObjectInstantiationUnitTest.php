@@ -22,7 +22,7 @@ class ObjectInstantiationUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstr
      */
     public function getErrorList()
     {
-        return [5 => 1, 8 => 1];
+        return [5 => 1, 8 => 1, 31 => 1, 39 => 2];
     }
     //end getErrorList()
     /**

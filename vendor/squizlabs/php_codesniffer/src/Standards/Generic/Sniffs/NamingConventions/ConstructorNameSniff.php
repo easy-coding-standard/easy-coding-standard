@@ -57,7 +57,11 @@ class ConstructorNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
         if ($deepestScope !== $currScope) {
             return;
         }
-        $className = \strtolower($phpcsFile->getDeclarationName($currScope));
+        $className = $phpcsFile->getDeclarationName($currScope);
+        if (empty($className) === \false) {
+            // Not an anonymous class.
+            $className = \strtolower($className);
+        }
         if ($className !== $this->currentClass) {
             $this->loadFunctionNamesInScope($phpcsFile, $currScope);
             $this->currentClass = $className;
