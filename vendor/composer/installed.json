@@ -3888,7 +3888,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "798087aafdfedc3a8720d0e377b9b6b95661803e"
+                "reference": "d29851211f61093ba85876c7f8ddff6c9451ee46"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3906,7 +3906,6 @@
                 "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
@@ -3965,7 +3964,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "35088f8f23b513e1f3db08b7341a73593da0dfa4"
+                "reference": "882b129982ea62916ad257eb7a8404c9d2254da3"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.1",
@@ -3985,7 +3984,6 @@
                 "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
@@ -4050,7 +4048,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "6558f8573476c0e595c9eace4cde85319b91f525"
+                "reference": "fbb9ba6d16cbdfa9b0ff134e13640b51b069d296"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4072,7 +4070,6 @@
                 "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
@@ -4130,7 +4127,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-color-diff",
-                "reference": "f8b802015d5797cac3e9a08a6e006e3989c845e7"
+                "reference": "0299b0e5d8cc9d3cae332cc684780117c102fd71"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4151,7 +4148,6 @@
                 "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
@@ -4210,7 +4206,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-package-builder",
-                "reference": "8d046ac0376ab0211568bfac79c8e769f02168a1"
+                "reference": "14ab85a577d5b87c2e390f4964b628144511e7f1"
             },
             "require": {
                 "php": ">=8.0",
@@ -4228,7 +4224,6 @@
                 "symplify\/console-color-diff": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
@@ -4289,7 +4284,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "7a6a514c4682e5371adb41aa94588dbd40912311"
+                "reference": "5b0915e59ec32bd40af8341c9fa975528a1910f9"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4313,7 +4308,6 @@
                 "symplify\/console-color-diff": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
                 "symplify\/markdown-diff": "<9.4.70",
@@ -4372,7 +4366,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "b8e82fc094c18ca2c2dc19a8756f9a306f54b8e1"
+                "reference": "e80b57b8c45a3dccc1b1ad724b8b6d340224b954"
             },
             "require": {
                 "nette\/neon": "^3.2",
@@ -4397,7 +4391,6 @@
                 "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
                 "symplify\/markdown-diff": "<9.4.70",
@@ -4454,7 +4447,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/rule-doc-generator-contracts",
-                "reference": "ab907122c9a5037f89435bb50c9b3c609cc46a32"
+                "reference": "e21d50a5e2b596ba96cf9a83f1a8e00c4efe0bd3"
             },
             "require": {
                 "danielstjules\/stringy": "^3.1",
@@ -4472,7 +4465,6 @@
                 "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
@@ -4523,7 +4515,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "c77e2b16a88dbc7572dce739f8f65300c1953703"
+                "reference": "b76dbd1e8b39d2bd014115cf8e34b122a431ff88"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4547,7 +4539,6 @@
                 "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
@@ -4603,7 +4594,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "0f69c4ee0e23e113ac8f5361323658e728aa3e7f"
+                "reference": "8944131cb7b2d3bafc6d1d2627a8d23ef809c560"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4622,7 +4613,6 @@
                 "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
@@ -4682,7 +4672,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "924e9e76e0198f58fbbbc3a93196259b79e00b46"
+                "reference": "81c2d02eef05aa2c7d56bd8f8c075c44c3338449"
             },
             "require": {
                 "php": ">=8.0",
@@ -4703,7 +4693,6 @@
                 "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-hydrator": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
                 "symplify\/latte-phpstan-compiler": "<9.4.70",
