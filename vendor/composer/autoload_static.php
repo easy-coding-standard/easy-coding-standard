@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794
+class ComposerStaticInit3f5ba2b30e7462f8c36013f6ae250072
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1944,8 +1944,6 @@ class ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794
         'Symplify\\CodingStandard\\Bundle\\SymplifyCodingStandardBundle' => __DIR__ . '/..' . '/symplify/coding-standard/src/Bundle/SymplifyCodingStandardBundle.php',
         'Symplify\\CodingStandard\\DependencyInjection\\Extension\\SymplifyCodingStandardExtension' => __DIR__ . '/..' . '/symplify/coding-standard/src/DependencyInjection/Extension/SymplifyCodingStandardExtension.php',
         'Symplify\\CodingStandard\\DocBlock\\UselessDocBlockCleaner' => __DIR__ . '/..' . '/symplify/coding-standard/src/DocBlock/UselessDocBlockCleaner.php',
-        'Symplify\\CodingStandard\\Exception\\EdgeFindingException' => __DIR__ . '/..' . '/symplify/coding-standard/src/Exception/EdgeFindingException.php',
-        'Symplify\\CodingStandard\\Exception\\NotImplementedYetException' => __DIR__ . '/..' . '/symplify/coding-standard/src/Exception/NotImplementedYetException.php',
         'Symplify\\CodingStandard\\Fixer\\AbstractSymplifyFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/AbstractSymplifyFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Annotation\\DoctrineAnnotationNestedBracketsFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Annotation/DoctrineAnnotationNestedBracketsFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Annotation\\RemovePHPStormAnnotationFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Annotation/RemovePHPStormAnnotationFixer.php',
@@ -1972,7 +1970,6 @@ class ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794
         'Symplify\\CodingStandard\\TokenRunner\\Analyzer\\FixerAnalyzer\\ArrayAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Analyzer/FixerAnalyzer/ArrayAnalyzer.php',
         'Symplify\\CodingStandard\\TokenRunner\\Analyzer\\FixerAnalyzer\\BlockFinder' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Analyzer/FixerAnalyzer/BlockFinder.php',
         'Symplify\\CodingStandard\\TokenRunner\\Analyzer\\FixerAnalyzer\\CallAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Analyzer/FixerAnalyzer/CallAnalyzer.php',
-        'Symplify\\CodingStandard\\TokenRunner\\Analyzer\\FixerAnalyzer\\DoctrineBlockFinder' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Analyzer/FixerAnalyzer/DoctrineBlockFinder.php',
         'Symplify\\CodingStandard\\TokenRunner\\Analyzer\\FixerAnalyzer\\IndentDetector' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Analyzer/FixerAnalyzer/IndentDetector.php',
         'Symplify\\CodingStandard\\TokenRunner\\Analyzer\\FixerAnalyzer\\TokenSkipper' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Analyzer/FixerAnalyzer/TokenSkipper.php',
         'Symplify\\CodingStandard\\TokenRunner\\Contract\\DocBlock\\MalformWorkerInterface' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Contract/DocBlock/MalformWorkerInterface.php',
@@ -1988,7 +1985,6 @@ class ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794
         'Symplify\\CodingStandard\\TokenRunner\\Enum\\LineKind' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Enum/LineKind.php',
         'Symplify\\CodingStandard\\TokenRunner\\Exception\\MissingImplementationException' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Exception/MissingImplementationException.php',
         'Symplify\\CodingStandard\\TokenRunner\\Exception\\TokenNotFoundException' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Exception/TokenNotFoundException.php',
-        'Symplify\\CodingStandard\\TokenRunner\\Exception\\UnexpectedTokenException' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Exception/UnexpectedTokenException.php',
         'Symplify\\CodingStandard\\TokenRunner\\TokenFinder' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/TokenFinder.php',
         'Symplify\\CodingStandard\\TokenRunner\\Transformer\\FixerTransformer\\FirstLineLengthResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Transformer/FixerTransformer/FirstLineLengthResolver.php',
         'Symplify\\CodingStandard\\TokenRunner\\Transformer\\FixerTransformer\\LineLengthCloserTransformer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Transformer/FixerTransformer/LineLengthCloserTransformer.php',
@@ -2000,21 +1996,17 @@ class ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794
         'Symplify\\CodingStandard\\TokenRunner\\Traverser\\ArrayBlockInfoFinder' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Traverser/ArrayBlockInfoFinder.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObjectFactory\\LineLengthAndPositionFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObjectFactory/LineLengthAndPositionFactory.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\BlockInfo' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/BlockInfo.php',
-        'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\DocBlockEdgeDefinition' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/DocBlockEdgeDefinition.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\LineLengthAndPosition' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/LineLengthAndPosition.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\TokenKinds' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/TokenKinds.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\Wrapper\\FixerWrapper\\ArrayWrapper' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/Wrapper/FixerWrapper/ArrayWrapper.php',
         'Symplify\\CodingStandard\\TokenRunner\\Whitespace\\IndentResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Whitespace/IndentResolver.php',
         'Symplify\\CodingStandard\\TokenRunner\\Wrapper\\FixerWrapper\\ArrayWrapperFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Wrapper/FixerWrapper/ArrayWrapperFactory.php',
-        'Symplify\\CodingStandard\\Tokens\\LineResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/Tokens/LineResolver.php',
         'Symplify\\CodingStandard\\ValueObjectFactory\\DocBlockLinesFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObjectFactory/DocBlockLinesFactory.php',
         'Symplify\\CodingStandard\\ValueObject\\DocBlockLines' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/DocBlockLines.php',
-        'Symplify\\CodingStandard\\ValueObject\\StartAndEnd' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/StartAndEnd.php',
         'Symplify\\EasyCodingStandard\\Application\\EasyCodingStandardApplication' => __DIR__ . '/../..' . '/src/Application/EasyCodingStandardApplication.php',
         'Symplify\\EasyCodingStandard\\Application\\FileProcessorCollector' => __DIR__ . '/../..' . '/src/Application/FileProcessorCollector.php',
         'Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor' => __DIR__ . '/../..' . '/src/Application/SingleFileProcessor.php',
         'Symplify\\EasyCodingStandard\\Application\\Version\\StaticVersionResolver' => __DIR__ . '/../..' . '/src/Application/Version/StaticVersionResolver.php',
-        'Symplify\\EasyCodingStandard\\Bootstrap\\ConfigHasher' => __DIR__ . '/../..' . '/src/Bootstrap/ConfigHasher.php',
         'Symplify\\EasyCodingStandard\\Bundle\\EasyCodingStandardBundle' => __DIR__ . '/../..' . '/src/Bundle/EasyCodingStandardBundle.php',
         'Symplify\\EasyCodingStandard\\Caching\\Cache' => __DIR__ . '/../..' . '/packages/Caching/Cache.php',
         'Symplify\\EasyCodingStandard\\Caching\\CacheFactory' => __DIR__ . '/../..' . '/packages/Caching/CacheFactory.php',
@@ -2047,13 +2039,11 @@ class ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794
         'Symplify\\EasyCodingStandard\\DependencyInjection\\EasyCodingStandardContainerFactory' => __DIR__ . '/../..' . '/src/DependencyInjection/EasyCodingStandardContainerFactory.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\Extension\\EasyCodingStandardExtension' => __DIR__ . '/../..' . '/src/DependencyInjection/Extension/EasyCodingStandardExtension.php',
         'Symplify\\EasyCodingStandard\\Error\\FileDiffFactory' => __DIR__ . '/../..' . '/src/Error/FileDiffFactory.php',
-        'Symplify\\EasyCodingStandard\\Exception\\Application\\MissingCheckersForChangedFileException' => __DIR__ . '/../..' . '/src/Exception/Application/MissingCheckersForChangedFileException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\ConflictingCheckersLoadedException' => __DIR__ . '/../..' . '/src/Exception/Configuration/ConflictingCheckersLoadedException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\FileNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/FileNotFoundException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\OutputFormatterNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/OutputFormatterNotFoundException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\SourceNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/SourceNotFoundException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\WhitespaceConfigurationException' => __DIR__ . '/../..' . '/src/Exception/Configuration/WhitespaceConfigurationException.php',
-        'Symplify\\EasyCodingStandard\\Exception\\NotSniffNorFixerException' => __DIR__ . '/../..' . '/src/Exception/NotSniffNorFixerException.php',
         'Symplify\\EasyCodingStandard\\Exception\\VersionException' => __DIR__ . '/../..' . '/src/Exception/VersionException.php',
         'Symplify\\EasyCodingStandard\\FileSystem\\FileFilter' => __DIR__ . '/../..' . '/src/FileSystem/FileFilter.php',
         'Symplify\\EasyCodingStandard\\FileSystem\\TargetFileInfoResolver' => __DIR__ . '/../..' . '/src/FileSystem/TargetFileInfoResolver.php',
@@ -2081,15 +2071,11 @@ class ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ReactCommand' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/ReactCommand.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ReactEvent' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/ReactEvent.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Schedule' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Schedule.php',
-        'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\StreamBuffer' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/StreamBuffer.php',
         'Symplify\\EasyCodingStandard\\Reporter\\ProcessedFileReporter' => __DIR__ . '/../..' . '/src/Reporter/ProcessedFileReporter.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Application\\SniffFileProcessor' => __DIR__ . '/../..' . '/packages/SniffRunner/Application/SniffFileProcessor.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\DataCollector\\SniffMetadataCollector' => __DIR__ . '/../..' . '/packages/SniffRunner/DataCollector/SniffMetadataCollector.php',
-        'Symplify\\EasyCodingStandard\\SniffRunner\\Exception\\ClassNotFoundException' => __DIR__ . '/../..' . '/packages/SniffRunner/Exception/ClassNotFoundException.php',
-        'Symplify\\EasyCodingStandard\\SniffRunner\\Exception\\File\\FileNotFoundException' => __DIR__ . '/../..' . '/packages/SniffRunner/Exception/File/FileNotFoundException.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Exception\\File\\NotImplementedException' => __DIR__ . '/../..' . '/packages/SniffRunner/Exception/File/NotImplementedException.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\File\\FileFactory' => __DIR__ . '/../..' . '/packages/SniffRunner/File/FileFactory.php',
-        'Symplify\\EasyCodingStandard\\SniffRunner\\PHP_CodeSniffer\\FixerFactory' => __DIR__ . '/../..' . '/packages/SniffRunner/PHP_CodeSniffer/FixerFactory.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError' => __DIR__ . '/../..' . '/packages/SniffRunner/ValueObject/Error/CodingStandardError.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\File' => __DIR__ . '/../..' . '/packages/SniffRunner/ValueObject/File.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Application\\SnippetFormatterApplication' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Application/SnippetFormatterApplication.php',
@@ -2116,9 +2102,9 @@ class ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitcfb8b25b949fde4e196b9ded2c7bf794::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3f5ba2b30e7462f8c36013f6ae250072::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3f5ba2b30e7462f8c36013f6ae250072::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3f5ba2b30e7462f8c36013f6ae250072::$classMap;
 
         }, null, ClassLoader::class);
     }

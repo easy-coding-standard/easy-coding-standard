@@ -28,7 +28,6 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services->load('Symplify\\EasyCodingStandard\\', __DIR__ . '/../src')->exclude([
         // only for "bin/ecs" file, where container does not exist yet
         __DIR__ . '/../src/Bundle',
-        __DIR__ . '/../src/Bootstrap',
         __DIR__ . '/../src/DependencyInjection',
         __DIR__ . '/../src/HttpKernel',
         __DIR__ . '/../src/Exception',
