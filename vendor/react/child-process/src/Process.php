@@ -218,6 +218,8 @@ class Process extends \ECSPrefix20211012\Evenement\EventEmitter
             $mode = $meta['mode'] === '' ? $this->fds[$n][1] === 'r' ? 'w' : 'r' : $meta['mode'];
             if ($mode === 'r+') {
                 $stream = new \ECSPrefix20211012\React\Stream\DuplexResourceStream($fd, $loop);
+                $stream->on('close', $streamCloseHandler);
+                $closeCount++;
             } elseif ($mode === 'w') {
                 $stream = new \ECSPrefix20211012\React\Stream\WritableResourceStream($fd, $loop);
             } else {
@@ -383,6 +385,10 @@ class Process extends \ECSPrefix20211012\Evenement\EventEmitter
     {
         if (null !== self::$sigchild) {
             return self::$sigchild;
+        }
+        if (!\function_exists('phpinfo')) {
+            return self::$sigchild = \false;
+            // @codeCoverageIgnore
         }
         \ob_start();
         \phpinfo(\INFO_GENERAL);

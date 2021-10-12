@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.4 (2021-10-12)
+
+*   Feature / Fix: Skip sigchild check if `phpinfo()` has been disabled.
+    (#89 by @clue)
+
+*   Fix: Fix detecting closed socket pipes on PHP 8.
+    (#90 by @clue)
+
 ## 0.6.3 (2021-07-11)
 
 A major new feature release, see [**release announcement**](https://clue.engineering/2021/announcing-reactphp-default-loop).

@@ -1083,17 +1083,17 @@
         },
         {
             "name": "react\/child-process",
-            "version": "v0.6.3",
-            "version_normalized": "0.6.3.0",
+            "version": "v0.6.4",
+            "version_normalized": "0.6.4.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/reactphp\/child-process.git",
-                "reference": "45e6e3a363e531ed1aafb58e3886c4561432a2a0"
+                "reference": "a778f3fb828d68caf8a9ab6567fd8342a86f12fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/reactphp\/child-process\/zipball\/45e6e3a363e531ed1aafb58e3886c4561432a2a0",
-                "reference": "45e6e3a363e531ed1aafb58e3886c4561432a2a0",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/child-process\/zipball\/a778f3fb828d68caf8a9ab6567fd8342a86f12fe",
+                "reference": "a778f3fb828d68caf8a9ab6567fd8342a86f12fe",
                 "shasum": ""
             },
             "require": {
@@ -1107,7 +1107,7 @@
                 "react\/socket": "^1.8",
                 "sebastian\/environment": "^5.0 || ^3.0 || ^2.0 || ^1.0"
             },
-            "time": "2021-07-11T13:05:01+00:00",
+            "time": "2021-10-12T10:37:07+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1149,7 +1149,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/reactphp\/child-process\/issues",
-                "source": "https:\/\/github.com\/reactphp\/child-process\/tree\/v0.6.3"
+                "source": "https:\/\/github.com\/reactphp\/child-process\/tree\/v0.6.4"
             },
             "funding": [
                 {
