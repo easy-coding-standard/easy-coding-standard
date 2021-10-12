@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211011\Symfony\Component\HttpKernel\DependencyInjection;
+namespace ECSPrefix20211012\Symfony\Component\HttpKernel\DependencyInjection;
 
-use ECSPrefix20211011\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20211012\Symfony\Contracts\Service\ResetInterface;
 /**
  * Resets provided services.
  *
@@ -19,7 +19,7 @@ use ECSPrefix20211011\Symfony\Contracts\Service\ResetInterface;
  *
  * @internal
  */
-class ServicesResetter implements \ECSPrefix20211011\Symfony\Contracts\Service\ResetInterface
+class ServicesResetter implements \ECSPrefix20211012\Symfony\Contracts\Service\ResetInterface
 {
     private $resettableServices;
     private $resetMethods;

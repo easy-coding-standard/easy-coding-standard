@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211011\Symfony\Component\HttpKernel\Event;
+namespace ECSPrefix20211012\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20211011\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211011\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20211012\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211012\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows to create a response for a thrown exception.
  *
@@ -25,14 +25,14 @@ use ECSPrefix20211011\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ExceptionEvent extends \ECSPrefix20211011\Symfony\Component\HttpKernel\Event\RequestEvent
+final class ExceptionEvent extends \ECSPrefix20211012\Symfony\Component\HttpKernel\Event\RequestEvent
 {
     private $throwable;
     /**
      * @var bool
      */
     private $allowCustomResponseCode = \false;
-    public function __construct(\ECSPrefix20211011\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20211011\Symfony\Component\HttpFoundation\Request $request, int $requestType, \Throwable $e)
+    public function __construct(\ECSPrefix20211012\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20211012\Symfony\Component\HttpFoundation\Request $request, int $requestType, \Throwable $e)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->setThrowable($e);

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211011\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20211012\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
-use ECSPrefix20211011\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix20211011\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20211012\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix20211012\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 trait ParentTrait
 {
     /**
@@ -25,9 +25,9 @@ trait ParentTrait
     public final function parent($parent) : self
     {
         if (!$this->allowParent) {
-            throw new \ECSPrefix20211011\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A parent cannot be defined when either "_instanceof" or "_defaults" are also defined for service prototype "%s".', $this->id));
+            throw new \ECSPrefix20211012\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A parent cannot be defined when either "_instanceof" or "_defaults" are also defined for service prototype "%s".', $this->id));
         }
-        if ($this->definition instanceof \ECSPrefix20211011\Symfony\Component\DependencyInjection\ChildDefinition) {
+        if ($this->definition instanceof \ECSPrefix20211012\Symfony\Component\DependencyInjection\ChildDefinition) {
             $this->definition->setParent($parent);
         } else {
             // cast Definition to ChildDefinition

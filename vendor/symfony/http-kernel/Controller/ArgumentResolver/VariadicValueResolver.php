@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211011\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+namespace ECSPrefix20211012\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-use ECSPrefix20211011\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211011\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use ECSPrefix20211011\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use ECSPrefix20211012\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211012\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use ECSPrefix20211012\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Yields a variadic argument's values from the request attributes.
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
-final class VariadicValueResolver implements \ECSPrefix20211011\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
+final class VariadicValueResolver implements \ECSPrefix20211012\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     /**
      * {@inheritdoc}

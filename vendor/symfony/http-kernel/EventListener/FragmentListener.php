@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211011\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20211012\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20211011\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20211011\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211011\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20211011\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use ECSPrefix20211011\Symfony\Component\HttpKernel\KernelEvents;
-use ECSPrefix20211011\Symfony\Component\HttpKernel\UriSigner;
+use ECSPrefix20211012\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20211012\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211012\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20211012\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use ECSPrefix20211012\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20211012\Symfony\Component\HttpKernel\UriSigner;
 /**
  * Handles content fragments represented by special URIs.
  *
@@ -29,14 +29,14 @@ use ECSPrefix20211011\Symfony\Component\HttpKernel\UriSigner;
  *
  * @final
  */
-class FragmentListener implements \ECSPrefix20211011\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class FragmentListener implements \ECSPrefix20211012\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $signer;
     private $fragmentPath;
     /**
      * @param string $fragmentPath The path that triggers this listener
      */
-    public function __construct(\ECSPrefix20211011\Symfony\Component\HttpKernel\UriSigner $signer, string $fragmentPath = '/_fragment')
+    public function __construct(\ECSPrefix20211012\Symfony\Component\HttpKernel\UriSigner $signer, string $fragmentPath = '/_fragment')
     {
         $this->signer = $signer;
         $this->fragmentPath = $fragmentPath;
@@ -73,16 +73,16 @@ class FragmentListener implements \ECSPrefix20211011\Symfony\Component\EventDisp
     {
         // is the Request safe?
         if (!$request->isMethodSafe()) {
-            throw new \ECSPrefix20211011\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
+            throw new \ECSPrefix20211012\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
         }
         // is the Request signed?
         if ($this->signer->checkRequest($request)) {
             return;
         }
-        throw new \ECSPrefix20211011\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
+        throw new \ECSPrefix20211012\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
     }
     public static function getSubscribedEvents() : array
     {
-        return [\ECSPrefix20211011\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 48]]];
+        return [\ECSPrefix20211012\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 48]]];
     }
 }

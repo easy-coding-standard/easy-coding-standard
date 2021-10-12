@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20211011\Composer\Semver\Constraint;
+namespace ECSPrefix20211012\Composer\Semver\Constraint;
 
 class Bound
 {
@@ -91,13 +91,13 @@ class Bound
      */
     public static function zero()
     {
-        return new \ECSPrefix20211011\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \true);
+        return new \ECSPrefix20211012\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \true);
     }
     /**
      * @return self
      */
     public static function positiveInfinity()
     {
-        return new \ECSPrefix20211011\Composer\Semver\Constraint\Bound(\PHP_INT_MAX . '.0.0.0', \false);
+        return new \ECSPrefix20211012\Composer\Semver\Constraint\Bound(\PHP_INT_MAX . '.0.0.0', \false);
     }
 }

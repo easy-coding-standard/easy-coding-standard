@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211011\SebastianBergmann\Diff;
+namespace ECSPrefix20211012\SebastianBergmann\Diff;
 
 final class Chunk
 {
@@ -70,8 +70,8 @@ final class Chunk
     public function setLines(array $lines) : void
     {
         foreach ($lines as $line) {
-            if (!$line instanceof \ECSPrefix20211011\SebastianBergmann\Diff\Line) {
-                throw new \ECSPrefix20211011\SebastianBergmann\Diff\InvalidArgumentException();
+            if (!$line instanceof \ECSPrefix20211012\SebastianBergmann\Diff\Line) {
+                throw new \ECSPrefix20211012\SebastianBergmann\Diff\InvalidArgumentException();
             }
         }
         $this->lines = $lines;

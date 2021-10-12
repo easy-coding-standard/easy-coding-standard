@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211011\Symfony\Component\Console\Formatter;
+namespace ECSPrefix20211012\Symfony\Component\Console\Formatter;
 
-use ECSPrefix20211011\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20211011\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20211012\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20211012\Symfony\Contracts\Service\ResetInterface;
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class OutputFormatterStyleStack implements \ECSPrefix20211011\Symfony\Contracts\Service\ResetInterface
+class OutputFormatterStyleStack implements \ECSPrefix20211012\Symfony\Contracts\Service\ResetInterface
 {
     /**
      * @var OutputFormatterStyleInterface[]
      */
     private $styles;
     private $emptyStyle;
-    public function __construct(\ECSPrefix20211011\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle = null)
+    public function __construct(\ECSPrefix20211012\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle = null)
     {
-        $this->emptyStyle = $emptyStyle ?? new \ECSPrefix20211011\Symfony\Component\Console\Formatter\OutputFormatterStyle();
+        $this->emptyStyle = $emptyStyle ?? new \ECSPrefix20211012\Symfony\Component\Console\Formatter\OutputFormatterStyle();
         $this->reset();
     }
     /**
@@ -64,7 +64,7 @@ class OutputFormatterStyleStack implements \ECSPrefix20211011\Symfony\Contracts\
                 return $stackedStyle;
             }
         }
-        throw new \ECSPrefix20211011\Symfony\Component\Console\Exception\InvalidArgumentException('Incorrectly nested style tag found.');
+        throw new \ECSPrefix20211012\Symfony\Component\Console\Exception\InvalidArgumentException('Incorrectly nested style tag found.');
     }
     /**
      * Computes current style with stacks top codes.
