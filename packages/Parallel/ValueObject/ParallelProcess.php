@@ -66,7 +66,6 @@ final class ParallelProcess
      */
     public function start(callable $onData, callable $onError, callable $onExit) : void
     {
-        // todo should I unlink this file after?
         $tmp = \tmpfile();
         if ($tmp === \false) {
             throw new \Symplify\EasyCodingStandard\Parallel\Exception\ParallelShouldNotHappenException('Failed creating temp file.');
@@ -79,7 +78,9 @@ final class ParallelProcess
         $this->process->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::EXIT, function ($exitCode) use($onExit) : void {
             $this->cancelTimer();
             \rewind($this->stdErr);
-            $onExit($exitCode, \stream_get_contents($this->stdErr));
+            /** @var string $streamContents */
+            $streamContents = \stream_get_contents($this->stdErr);
+            $onExit($exitCode, $streamContents);
             \fclose($this->stdErr);
         });
     }

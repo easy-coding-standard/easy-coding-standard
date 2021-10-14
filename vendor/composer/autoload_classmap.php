@@ -1728,7 +1728,7 @@ return array(
     'Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel' => $baseDir . '/src/HttpKernel/EasyCodingStandardKernel.php',
     'Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor' => $baseDir . '/packages/Parallel/Application/ParallelFileProcessor.php',
     'Symplify\\EasyCodingStandard\\Parallel\\Command\\WorkerCommandLineFactory' => $baseDir . '/packages/Parallel/Command/WorkerCommandLineFactory.php',
-    'Symplify\\EasyCodingStandard\\Parallel\\Contract\\Serializable' => $baseDir . '/packages/Parallel/Contract/Serializable.php',
+    'Symplify\\EasyCodingStandard\\Parallel\\Contract\\SerializableInterface' => $baseDir . '/packages/Parallel/Contract/SerializableInterface.php',
     'Symplify\\EasyCodingStandard\\Parallel\\CpuCoreCountProvider' => $baseDir . '/packages/Parallel/CpuCoreCountProvider.php',
     'Symplify\\EasyCodingStandard\\Parallel\\Enum\\Action' => $baseDir . '/packages/Parallel/Enum/Action.php',
     'Symplify\\EasyCodingStandard\\Parallel\\Exception\\ParallelShouldNotHappenException' => $baseDir . '/packages/Parallel/Exception/ParallelShouldNotHappenException.php',

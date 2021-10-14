@@ -69,8 +69,6 @@ final class ParallelFileProcessor
         $codingStandardErrors = [];
         $fileDiffs = [];
         $systemErrors = [];
-        // $systemErrorsCount = 0;
-        $reachedSystemErrorsCountLimit = \false;
         $tcpServer = new \ECSPrefix20211014\React\Socket\TcpServer('127.0.0.1:0', $streamSelectLoop);
         $this->processPool = new \Symplify\EasyCodingStandard\Parallel\ValueObject\ProcessPool($tcpServer);
         $tcpServer->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::CONNECTION, function (\ECSPrefix20211014\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
@@ -98,7 +96,7 @@ final class ParallelFileProcessor
         $serverPort = \parse_url($serverAddress, \PHP_URL_PORT);
         $systemErrorsCount = 0;
         $reachedSystemErrorsCountLimit = \false;
-        $handleErrorCallable = function (\Throwable $throwable) use($streamSelectLoop, &$systemErrors, &$systemErrorsCount, &$reachedSystemErrorsCountLimit) : void {
+        $handleErrorCallable = function (\Throwable $throwable) use(&$systemErrors, &$systemErrorsCount, &$reachedSystemErrorsCountLimit) : void {
             $systemErrors[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($throwable->getLine(), $throwable->getMessage(), $throwable->getFile());
             ++$systemErrorsCount;
             $reachedSystemErrorsCountLimit = \true;
@@ -114,14 +112,14 @@ final class ParallelFileProcessor
             $parallelProcess = new \Symplify\EasyCodingStandard\Parallel\ValueObject\ParallelProcess($workerCommandLine, $streamSelectLoop, self::TIMEOUT_IN_SECONDS);
             $parallelProcess->start(
                 // 1. callable on data
-                function (array $json) use($parallelProcess, &$systemErrors, &$errors, &$fileDiffs, &$codingStandardErrors, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier) : void {
+                function (array $json) use($parallelProcess, &$systemErrors, &$fileDiffs, &$codingStandardErrors, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier) : void {
                     // decode arrays to objects
                     foreach ($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS] as $jsonError) {
                         if (\is_string($jsonError)) {
-                            $systemErrors[] = \sprintf('System error: %s', $jsonError);
+                            $systemErrors[] = 'System error: ' . $jsonError;
                             continue;
                         }
-                        $errors[] = \Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError::decode($jsonError);
+                        $systemErrors[] = \Symplify\EasyCodingStandard\ValueObject\Error\SystemError::decode($jsonError);
                     }
                     foreach ($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS] as $jsonError) {
                         $fileDiffs[] = \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff::decode($jsonError);
@@ -156,7 +154,7 @@ final class ParallelFileProcessor
                     if ($exitCode === null) {
                         return;
                     }
-                    $systemErrors[] = \sprintf('Child process error: %s', $stdErr);
+                    $systemErrors[] = 'Child process error: ' . $stdErr;
                 }
             );
             $this->processPool->attachProcess($processIdentifier, $parallelProcess);

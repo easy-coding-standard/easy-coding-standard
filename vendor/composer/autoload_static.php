@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit783c7672a9c43c498f930218589111f9
+class ComposerStaticInit1f24ec0a1ac13d5c8db3dc0ebd41757f
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2052,7 +2052,7 @@ class ComposerStaticInit783c7672a9c43c498f930218589111f9
         'Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel' => __DIR__ . '/../..' . '/src/HttpKernel/EasyCodingStandardKernel.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor' => __DIR__ . '/../..' . '/packages/Parallel/Application/ParallelFileProcessor.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Command\\WorkerCommandLineFactory' => __DIR__ . '/../..' . '/packages/Parallel/Command/WorkerCommandLineFactory.php',
-        'Symplify\\EasyCodingStandard\\Parallel\\Contract\\Serializable' => __DIR__ . '/../..' . '/packages/Parallel/Contract/Serializable.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\Contract\\SerializableInterface' => __DIR__ . '/../..' . '/packages/Parallel/Contract/SerializableInterface.php',
         'Symplify\\EasyCodingStandard\\Parallel\\CpuCoreCountProvider' => __DIR__ . '/../..' . '/packages/Parallel/CpuCoreCountProvider.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Enum\\Action' => __DIR__ . '/../..' . '/packages/Parallel/Enum/Action.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Exception\\ParallelShouldNotHappenException' => __DIR__ . '/../..' . '/packages/Parallel/Exception/ParallelShouldNotHappenException.php',
@@ -2096,9 +2096,9 @@ class ComposerStaticInit783c7672a9c43c498f930218589111f9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit783c7672a9c43c498f930218589111f9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit783c7672a9c43c498f930218589111f9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit783c7672a9c43c498f930218589111f9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1f24ec0a1ac13d5c8db3dc0ebd41757f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1f24ec0a1ac13d5c8db3dc0ebd41757f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1f24ec0a1ac13d5c8db3dc0ebd41757f::$classMap;
 
         }, null, ClassLoader::class);
     }

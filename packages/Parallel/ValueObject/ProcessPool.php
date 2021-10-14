@@ -25,7 +25,7 @@ final class ProcessPool
     public function getProcess(string $identifier) : \Symplify\EasyCodingStandard\Parallel\ValueObject\ParallelProcess
     {
         if (!\array_key_exists($identifier, $this->processes)) {
-            throw new \Symplify\EasyCodingStandard\Parallel\Exception\ParallelShouldNotHappenException(\sprintf('Process %s not found.', $identifier));
+            throw new \Symplify\EasyCodingStandard\Parallel\Exception\ParallelShouldNotHappenException(\sprintf('Process "%s" not found.', $identifier));
         }
         return $this->processes[$identifier];
     }

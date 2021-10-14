@@ -17,7 +17,7 @@ final class WorkerCommandLineFactory
     /**
      * @var string
      */
-    private const _ = '--';
+    private const OPTION_DASHES = '--';
     /**
      * @var \Symplify\EasyCodingStandard\Console\Command\CheckCommand
      */
@@ -28,42 +28,24 @@ final class WorkerCommandLineFactory
     }
     public function create(string $mainScript, ?string $projectConfigFile, \ECSPrefix20211014\Symfony\Component\Console\Input\InputInterface $input, string $identifier, int $port) : string
     {
-        $args = \array_merge([\PHP_BINARY, $mainScript], \array_slice($_SERVER['argv'], 1));
+        $commandArguments = \array_slice($_SERVER['argv'], 1);
+        $args = \array_merge([\PHP_BINARY, $mainScript], $commandArguments);
         $processCommandArray = [];
         foreach ($args as $arg) {
-            if ($arg === \ECSPrefix20211014\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class)) {
+            // skip command name
+            $checkCommandName = \ECSPrefix20211014\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class);
+            if ($arg === $checkCommandName) {
                 break;
             }
             $processCommandArray[] = \escapeshellarg($arg);
         }
         $processCommandArray[] = \ECSPrefix20211014\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\WorkerCommand::class);
         if ($projectConfigFile !== null) {
-            $processCommandArray[] = self::_ . \Symplify\EasyCodingStandard\ValueObject\Option::CONFIG;
+            $processCommandArray[] = self::OPTION_DASHES . \Symplify\EasyCodingStandard\ValueObject\Option::CONFIG;
             $processCommandArray[] = \escapeshellarg($projectConfigFile);
         }
-        $checkCommandOptionNames = $this->getCheckCommandOptionNames();
-        foreach ($checkCommandOptionNames as $checkCommandOptionName) {
-            if (!$input->hasOption($checkCommandOptionName)) {
-                continue;
-            }
-            // skip output format
-            if ($checkCommandOptionName === \Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT) {
-                continue;
-            }
-            /** @var bool|string|null $optionValue */
-            $optionValue = $input->getOption($checkCommandOptionName);
-            if (\is_bool($optionValue)) {
-                if ($optionValue) {
-                    $processCommandArray[] = \sprintf('--%s', $checkCommandOptionName);
-                }
-                continue;
-            }
-            if ($optionValue === null) {
-                continue;
-            }
-            $processCommandArray[] = self::_ . $checkCommandOptionName;
-            $processCommandArray[] = \escapeshellarg($optionValue);
-        }
+        $processCommandOptions = $this->createProcessCommandOptions($input, $this->getCheckCommandOptionNames());
+        $processCommandArray = \array_merge($processCommandArray, $processCommandOptions);
         // for TCP local server
         $processCommandArray[] = '--port';
         $processCommandArray[] = $port;
@@ -75,7 +57,7 @@ final class WorkerCommandLineFactory
             $processCommandArray[] = \escapeshellarg($path);
         }
         // set json output
-        $processCommandArray[] = self::_ . \Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT;
+        $processCommandArray[] = self::OPTION_DASHES . \Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT;
         $processCommandArray[] = \escapeshellarg(\Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter::NAME);
         // disable colors, breaks json_decode() otherwise
         // @see https://github.com/symfony/symfony/issues/1238
@@ -93,5 +75,43 @@ final class WorkerCommandLineFactory
             $optionNames[] = $inputOption->getName();
         }
         return $optionNames;
+    }
+    /**
+     * Keeps all options that are allowed in check command options
+     *
+     * @param string[] $checkCommandOptionNames
+     * @return string[]
+     */
+    private function createProcessCommandOptions(\ECSPrefix20211014\Symfony\Component\Console\Input\InputInterface $input, array $checkCommandOptionNames) : array
+    {
+        $processCommandOptions = [];
+        foreach ($checkCommandOptionNames as $checkCommandOptionName) {
+            if ($this->shouldSkipOption($input, $checkCommandOptionName)) {
+                continue;
+            }
+            /** @var bool|string|null $optionValue */
+            $optionValue = $input->getOption($checkCommandOptionName);
+            // skip clutter
+            if ($optionValue === null) {
+                continue;
+            }
+            if (\is_bool($optionValue)) {
+                if ($optionValue) {
+                    $processCommandOptions[] = \sprintf('--%s', $checkCommandOptionName);
+                }
+                continue;
+            }
+            $processCommandOptions[] = self::OPTION_DASHES . $checkCommandOptionName;
+            $processCommandOptions[] = \escapeshellarg($optionValue);
+        }
+        return $processCommandOptions;
+    }
+    private function shouldSkipOption(\ECSPrefix20211014\Symfony\Component\Console\Input\InputInterface $input, string $optionName) : bool
+    {
+        if (!$input->hasOption($optionName)) {
+            return \true;
+        }
+        // skip output format, not relevant in parallel worker command
+        return $optionName === \Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT;
     }
 }
