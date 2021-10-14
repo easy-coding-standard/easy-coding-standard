@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\ValueObject;
 
-use ECSPrefix20211012\Clue\React\NDJson\Decoder;
-use ECSPrefix20211012\Clue\React\NDJson\Encoder;
+use ECSPrefix20211014\Clue\React\NDJson\Decoder;
+use ECSPrefix20211014\Clue\React\NDJson\Encoder;
 use Exception;
-use ECSPrefix20211012\React\ChildProcess\Process;
-use ECSPrefix20211012\React\EventLoop\LoopInterface;
-use ECSPrefix20211012\React\EventLoop\TimerInterface;
+use ECSPrefix20211014\React\ChildProcess\Process;
+use ECSPrefix20211014\React\EventLoop\LoopInterface;
+use ECSPrefix20211014\React\EventLoop\TimerInterface;
 use Symplify\EasyCodingStandard\Parallel\Enum\Action;
 use Symplify\EasyCodingStandard\Parallel\Exception\ParallelShouldNotHappenException;
 use Throwable;
@@ -53,7 +53,7 @@ final class ParallelProcess
      * @var int
      */
     private $timetoutInSeconds;
-    public function __construct(string $command, \ECSPrefix20211012\React\EventLoop\LoopInterface $loop, int $timetoutInSeconds)
+    public function __construct(string $command, \ECSPrefix20211014\React\EventLoop\LoopInterface $loop, int $timetoutInSeconds)
     {
         $this->command = $command;
         $this->loop = $loop;
@@ -72,7 +72,7 @@ final class ParallelProcess
             throw new \Symplify\EasyCodingStandard\Parallel\Exception\ParallelShouldNotHappenException('Failed creating temp file.');
         }
         $this->stdErr = $tmp;
-        $this->process = new \ECSPrefix20211012\React\ChildProcess\Process($this->command, null, null, [2 => $this->stdErr]);
+        $this->process = new \ECSPrefix20211014\React\ChildProcess\Process($this->command, null, null, [2 => $this->stdErr]);
         $this->process->start($this->loop);
         $this->onData = $onData;
         $this->onError = $onError;
@@ -108,7 +108,7 @@ final class ParallelProcess
         $this->encoder->end();
         $this->process->terminate();
     }
-    public function bindConnection(\ECSPrefix20211012\Clue\React\NDJson\Decoder $decoder, \ECSPrefix20211012\Clue\React\NDJson\Encoder $encoder) : void
+    public function bindConnection(\ECSPrefix20211014\Clue\React\NDJson\Decoder $decoder, \ECSPrefix20211014\Clue\React\NDJson\Encoder $encoder) : void
     {
         $decoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::DATA, function (array $json) : void {
             $this->cancelTimer();

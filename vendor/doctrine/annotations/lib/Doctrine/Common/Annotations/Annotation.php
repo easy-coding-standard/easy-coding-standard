@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211012\Doctrine\Common\Annotations;
+namespace ECSPrefix20211014\Doctrine\Common\Annotations;
 
 use BadMethodCallException;
 use function sprintf;

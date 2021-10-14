@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211012;
+namespace ECSPrefix20211014;
 
-use ECSPrefix20211012\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20211012\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20211014\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20211014\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix20211012\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use ECSPrefix20211012\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20211012\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use ECSPrefix20211012\Symplify\SmartFileSystem\FileSystemFilter;
-use ECSPrefix20211012\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix20211012\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use ECSPrefix20211012\Symplify\SmartFileSystem\Finder\SmartFinder;
-use ECSPrefix20211012\Symplify\SmartFileSystem\SmartFileSystem;
-use function ECSPrefix20211012\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use ECSPrefix20211014\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix20211014\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20211014\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix20211014\Symplify\SmartFileSystem\FileSystemFilter;
+use ECSPrefix20211014\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix20211014\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ECSPrefix20211014\Symplify\SmartFileSystem\Finder\SmartFinder;
+use ECSPrefix20211014\Symplify\SmartFileSystem\SmartFileSystem;
+use function ECSPrefix20211014\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     // symfony style
-    $services->set(\ECSPrefix20211012\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
-    $services->set(\ECSPrefix20211012\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20211012\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20211012\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
+    $services->set(\ECSPrefix20211014\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
+    $services->set(\ECSPrefix20211014\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20211014\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20211014\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
     // filesystem
-    $services->set(\ECSPrefix20211012\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
-    $services->set(\ECSPrefix20211012\Symplify\SmartFileSystem\SmartFileSystem::class);
-    $services->set(\ECSPrefix20211012\Symplify\SmartFileSystem\Finder\SmartFinder::class);
-    $services->set(\ECSPrefix20211012\Symplify\SmartFileSystem\FileSystemGuard::class);
-    $services->set(\ECSPrefix20211012\Symplify\SmartFileSystem\FileSystemFilter::class);
-    $services->set(\ECSPrefix20211012\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->args([\ECSPrefix20211012\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20211012\Symfony\Component\DependencyInjection\ContainerInterface::class)]);
-    $services->set(\ECSPrefix20211012\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
+    $services->set(\ECSPrefix20211014\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
+    $services->set(\ECSPrefix20211014\Symplify\SmartFileSystem\SmartFileSystem::class);
+    $services->set(\ECSPrefix20211014\Symplify\SmartFileSystem\Finder\SmartFinder::class);
+    $services->set(\ECSPrefix20211014\Symplify\SmartFileSystem\FileSystemGuard::class);
+    $services->set(\ECSPrefix20211014\Symplify\SmartFileSystem\FileSystemFilter::class);
+    $services->set(\ECSPrefix20211014\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->args([\ECSPrefix20211014\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20211014\Symfony\Component\DependencyInjection\ContainerInterface::class)]);
+    $services->set(\ECSPrefix20211014\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
 };

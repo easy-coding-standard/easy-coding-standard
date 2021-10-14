@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211012\Symfony\Component\OptionsResolver;
+namespace ECSPrefix20211014\Symfony\Component\OptionsResolver;
 
 /**
  * Contains resolved option values.
