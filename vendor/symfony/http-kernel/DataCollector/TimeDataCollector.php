@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211014\Symfony\Component\HttpKernel\DataCollector;
+namespace ECSPrefix20211020\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20211014\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211014\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20211014\Symfony\Component\HttpKernel\KernelInterface;
-use ECSPrefix20211014\Symfony\Component\Stopwatch\Stopwatch;
-use ECSPrefix20211014\Symfony\Component\Stopwatch\StopwatchEvent;
+use ECSPrefix20211020\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211020\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20211020\Symfony\Component\HttpKernel\KernelInterface;
+use ECSPrefix20211020\Symfony\Component\Stopwatch\Stopwatch;
+use ECSPrefix20211020\Symfony\Component\Stopwatch\StopwatchEvent;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @final
  */
-class TimeDataCollector extends \ECSPrefix20211014\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20211014\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class TimeDataCollector extends \ECSPrefix20211020\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20211020\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
 {
     protected $kernel;
     protected $stopwatch;
-    public function __construct(\ECSPrefix20211014\Symfony\Component\HttpKernel\KernelInterface $kernel = null, \ECSPrefix20211014\Symfony\Component\Stopwatch\Stopwatch $stopwatch = null)
+    public function __construct(\ECSPrefix20211020\Symfony\Component\HttpKernel\KernelInterface $kernel = null, \ECSPrefix20211020\Symfony\Component\Stopwatch\Stopwatch $stopwatch = null)
     {
         $this->kernel = $kernel;
         $this->stopwatch = $stopwatch;
@@ -42,7 +42,7 @@ class TimeDataCollector extends \ECSPrefix20211014\Symfony\Component\HttpKernel\
         } else {
             $startTime = $request->server->get('REQUEST_TIME_FLOAT');
         }
-        $this->data = ['token' => $request->attributes->get('_stopwatch_token'), 'start_time' => $startTime * 1000, 'events' => [], 'stopwatch_installed' => \class_exists(\ECSPrefix20211014\Symfony\Component\Stopwatch\Stopwatch::class, \false)];
+        $this->data = ['token' => $request->attributes->get('_stopwatch_token'), 'start_time' => $startTime * 1000, 'events' => [], 'stopwatch_installed' => \class_exists(\ECSPrefix20211020\Symfony\Component\Stopwatch\Stopwatch::class, \false)];
     }
     /**
      * {@inheritdoc}

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20211014\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211014\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211020\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211020\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
