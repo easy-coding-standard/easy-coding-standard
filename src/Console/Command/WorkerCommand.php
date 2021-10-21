@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20211020\Clue\React\NDJson\Decoder;
-use ECSPrefix20211020\Clue\React\NDJson\Encoder;
-use ECSPrefix20211020\React\EventLoop\StreamSelectLoop;
-use ECSPrefix20211020\React\Socket\ConnectionInterface;
-use ECSPrefix20211020\React\Socket\TcpConnector;
-use ECSPrefix20211020\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211020\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211021\Clue\React\NDJson\Decoder;
+use ECSPrefix20211021\Clue\React\NDJson\Encoder;
+use ECSPrefix20211021\React\EventLoop\StreamSelectLoop;
+use ECSPrefix20211021\React\Socket\ConnectionInterface;
+use ECSPrefix20211021\React\Socket\TcpConnector;
+use ECSPrefix20211021\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211021\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Parallel\Enum\Action;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -17,8 +17,8 @@ use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use ECSPrefix20211020\Symplify\PackageBuilder\Yaml\ParametersMerger;
-use ECSPrefix20211020\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211021\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20211021\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 /**
  * Inspired at: https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92
@@ -41,7 +41,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \ECSPrefix20211020\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
+    public function __construct(\Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \ECSPrefix20211021\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
     {
         $this->singleFileProcessor = $singleFileProcessor;
         $this->parametersMerger = $parametersMerger;
@@ -59,12 +59,12 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
     protected function execute($input, $output) : int
     {
         $configuration = $this->configurationFactory->createFromInput($input);
-        $streamSelectLoop = new \ECSPrefix20211020\React\EventLoop\StreamSelectLoop();
+        $streamSelectLoop = new \ECSPrefix20211021\React\EventLoop\StreamSelectLoop();
         $parallelIdentifier = $configuration->getParallelIdentifier();
-        $tcpConnector = new \ECSPrefix20211020\React\Socket\TcpConnector($streamSelectLoop);
-        $tcpConnector->connect(\sprintf('127.0.0.1:%d', $configuration->getParallelPort()))->then(function (\ECSPrefix20211020\React\Socket\ConnectionInterface $connection) use($output, $parallelIdentifier, $configuration) : void {
-            $inDecoder = new \ECSPrefix20211020\Clue\React\NDJson\Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
-            $outEncoder = new \ECSPrefix20211020\Clue\React\NDJson\Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
+        $tcpConnector = new \ECSPrefix20211021\React\Socket\TcpConnector($streamSelectLoop);
+        $tcpConnector->connect(\sprintf('127.0.0.1:%d', $configuration->getParallelPort()))->then(function (\ECSPrefix20211021\React\Socket\ConnectionInterface $connection) use($output, $parallelIdentifier, $configuration) : void {
+            $inDecoder = new \ECSPrefix20211021\Clue\React\NDJson\Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
+            $outEncoder = new \ECSPrefix20211021\Clue\React\NDJson\Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
             // handshake?
             $outEncoder->write([\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::ACTION => \Symplify\EasyCodingStandard\Parallel\Enum\Action::HELLO, \Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::IDENTIFIER => $parallelIdentifier]);
             $this->runWorker($outEncoder, $inDecoder, $configuration);
@@ -72,7 +72,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         $streamSelectLoop->run();
         return self::SUCCESS;
     }
-    private function runWorker(\ECSPrefix20211020\Clue\React\NDJson\Encoder $encoder, \ECSPrefix20211020\Clue\React\NDJson\Decoder $decoder, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
+    private function runWorker(\ECSPrefix20211021\Clue\React\NDJson\Encoder $encoder, \ECSPrefix20211021\Clue\React\NDJson\Decoder $decoder, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
     {
         // 1. handle system error
         $handleErrorCallback = static function (\Throwable $throwable) use($encoder) : void {
@@ -94,7 +94,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
             $systemErrors = [];
             foreach ($filePaths as $filePath) {
                 try {
-                    $smartFileInfo = new \ECSPrefix20211020\Symplify\SmartFileSystem\SmartFileInfo($filePath);
+                    $smartFileInfo = new \ECSPrefix20211021\Symplify\SmartFileSystem\SmartFileInfo($filePath);
                     $currentErrorsAndFileDiffs = $this->singleFileProcessor->processFileInfo($smartFileInfo, $configuration);
                     $errorAndFileDiffs = $this->parametersMerger->merge($errorAndFileDiffs, $currentErrorsAndFileDiffs);
                 } catch (\Throwable $throwable) {

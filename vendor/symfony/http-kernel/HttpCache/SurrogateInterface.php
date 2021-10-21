@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211020\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20211021\Symfony\Component\HttpKernel\HttpCache;
 
-use ECSPrefix20211020\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211020\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20211021\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211021\Symfony\Component\HttpFoundation\Response;
 interface SurrogateInterface
 {
     /**

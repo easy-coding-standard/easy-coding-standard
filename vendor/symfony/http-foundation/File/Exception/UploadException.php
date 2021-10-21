@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211020\Symfony\Component\HttpFoundation\File\Exception;
+namespace ECSPrefix20211021\Symfony\Component\HttpFoundation\File\Exception;
 
 /**
  * Thrown when an error occurred during file upload.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class UploadException extends \ECSPrefix20211020\Symfony\Component\HttpFoundation\File\Exception\FileException
+class UploadException extends \ECSPrefix20211021\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace ECSPrefix20211020\React\Dns\Query;
+namespace ECSPrefix20211021\React\Dns\Query;
 
-use ECSPrefix20211020\React\Dns\Model\Message;
-use ECSPrefix20211020\React\Dns\Protocol\BinaryDumper;
-use ECSPrefix20211020\React\Dns\Protocol\Parser;
-use ECSPrefix20211020\React\EventLoop\Loop;
-use ECSPrefix20211020\React\EventLoop\LoopInterface;
-use ECSPrefix20211020\React\Promise\Deferred;
+use ECSPrefix20211021\React\Dns\Model\Message;
+use ECSPrefix20211021\React\Dns\Protocol\BinaryDumper;
+use ECSPrefix20211021\React\Dns\Protocol\Parser;
+use ECSPrefix20211021\React\EventLoop\Loop;
+use ECSPrefix20211021\React\EventLoop\LoopInterface;
+use ECSPrefix20211021\React\Promise\Deferred;
 /**
  * Send DNS queries over a TCP/IP stream transport.
  *
@@ -74,7 +74,7 @@ use ECSPrefix20211020\React\Promise\Deferred;
  *   packages. Higher-level components should take advantage of the Socket
  *   component instead of reimplementing this socket logic from scratch.
  */
-class TcpTransportExecutor implements \ECSPrefix20211020\React\Dns\Query\ExecutorInterface
+class TcpTransportExecutor implements \ECSPrefix20211021\React\Dns\Query\ExecutorInterface
 {
     private $nameserver;
     private $loop;
@@ -122,7 +122,7 @@ class TcpTransportExecutor implements \ECSPrefix20211020\React\Dns\Query\Executo
      * @param string         $nameserver
      * @param ?LoopInterface $loop
      */
-    public function __construct($nameserver, \ECSPrefix20211020\React\EventLoop\LoopInterface $loop = null)
+    public function __construct($nameserver, \ECSPrefix20211021\React\EventLoop\LoopInterface $loop = null)
     {
         if (\strpos($nameserver, '[') === \false && \substr_count($nameserver, ':') >= 2 && \strpos($nameserver, '://') === \false) {
             // several colons, but not enclosed in square brackets => enclose IPv6 address in square brackets
@@ -133,16 +133,16 @@ class TcpTransportExecutor implements \ECSPrefix20211020\React\Dns\Query\Executo
             throw new \InvalidArgumentException('Invalid nameserver address given');
         }
         $this->nameserver = 'tcp://' . $parts['host'] . ':' . (isset($parts['port']) ? $parts['port'] : 53);
-        $this->loop = $loop ?: \ECSPrefix20211020\React\EventLoop\Loop::get();
-        $this->parser = new \ECSPrefix20211020\React\Dns\Protocol\Parser();
-        $this->dumper = new \ECSPrefix20211020\React\Dns\Protocol\BinaryDumper();
+        $this->loop = $loop ?: \ECSPrefix20211021\React\EventLoop\Loop::get();
+        $this->parser = new \ECSPrefix20211021\React\Dns\Protocol\Parser();
+        $this->dumper = new \ECSPrefix20211021\React\Dns\Protocol\BinaryDumper();
     }
     /**
      * @param \React\Dns\Query\Query $query
      */
     public function query($query)
     {
-        $request = \ECSPrefix20211020\React\Dns\Model\Message::createRequestForQuery($query);
+        $request = \ECSPrefix20211021\React\Dns\Model\Message::createRequestForQuery($query);
         // keep shuffing message ID to avoid using the same message ID for two pending queries at the same time
         while (isset($this->pending[$request->id])) {
             $request->id = \mt_rand(0, 0xffff);
@@ -151,14 +151,14 @@ class TcpTransportExecutor implements \ECSPrefix20211020\React\Dns\Query\Executo
         $queryData = $this->dumper->toBinary($request);
         $length = \strlen($queryData);
         if ($length > 0xffff) {
-            return \ECSPrefix20211020\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Query too large for TCP transport'));
+            return \ECSPrefix20211021\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Query too large for TCP transport'));
         }
         $queryData = \pack('n', $length) . $queryData;
         if ($this->socket === null) {
             // create async TCP/IP connection (may take a while)
             $socket = @\stream_socket_client($this->nameserver, $errno, $errstr, 0, \STREAM_CLIENT_CONNECT | \STREAM_CLIENT_ASYNC_CONNECT);
             if ($socket === \false) {
-                return \ECSPrefix20211020\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Unable to connect to DNS server ' . $this->nameserver . ' (' . $errstr . ')', $errno));
+                return \ECSPrefix20211021\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Unable to connect to DNS server ' . $this->nameserver . ' (' . $errstr . ')', $errno));
             }
             // set socket to non-blocking and wait for it to become writable (connection success/rejected)
             \stream_set_blocking($socket, \false);
@@ -180,12 +180,12 @@ class TcpTransportExecutor implements \ECSPrefix20211020\React\Dns\Query\Executo
         }
         $names =& $this->names;
         $that = $this;
-        $deferred = new \ECSPrefix20211020\React\Promise\Deferred(function () use($that, &$names, $request) {
+        $deferred = new \ECSPrefix20211021\React\Promise\Deferred(function () use($that, &$names, $request) {
             // remove from list of pending names, but remember pending query
             $name = $names[$request->id];
             unset($names[$request->id]);
             $that->checkIdle();
-            throw new \ECSPrefix20211020\React\Dns\Query\CancellationException('DNS query for ' . $name . ' has been cancelled');
+            throw new \ECSPrefix20211021\React\Dns\Query\CancellationException('DNS query for ' . $name . ' has been cancelled');
         });
         $this->pending[$request->id] = $deferred;
         $this->names[$request->id] = $query->describe();
