@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\Command;
 
-use ECSPrefix20211021\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211023\Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Command\WorkerCommand;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20211021\Symplify\PackageBuilder\Console\Command\CommandNaming;
+use ECSPrefix20211023\Symplify\PackageBuilder\Console\Command\CommandNaming;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Parallel\Command\WorkerCommandLineFactoryTest
  */
@@ -26,20 +26,20 @@ final class WorkerCommandLineFactory
     {
         $this->checkCommand = $checkCommand;
     }
-    public function create(string $mainScript, ?string $projectConfigFile, \ECSPrefix20211021\Symfony\Component\Console\Input\InputInterface $input, string $identifier, int $port) : string
+    public function create(string $mainScript, ?string $projectConfigFile, \ECSPrefix20211023\Symfony\Component\Console\Input\InputInterface $input, string $identifier, int $port) : string
     {
         $commandArguments = \array_slice($_SERVER['argv'], 1);
         $args = \array_merge([\PHP_BINARY, $mainScript], $commandArguments);
         $processCommandArray = [];
         foreach ($args as $arg) {
             // skip command name
-            $checkCommandName = \ECSPrefix20211021\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class);
+            $checkCommandName = \ECSPrefix20211023\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class);
             if ($arg === $checkCommandName) {
                 break;
             }
             $processCommandArray[] = \escapeshellarg($arg);
         }
-        $processCommandArray[] = \ECSPrefix20211021\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\WorkerCommand::class);
+        $processCommandArray[] = \ECSPrefix20211023\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\WorkerCommand::class);
         if ($projectConfigFile !== null) {
             $processCommandArray[] = self::OPTION_DASHES . \Symplify\EasyCodingStandard\ValueObject\Option::CONFIG;
             $processCommandArray[] = \escapeshellarg($projectConfigFile);
@@ -82,7 +82,7 @@ final class WorkerCommandLineFactory
      * @param string[] $checkCommandOptionNames
      * @return string[]
      */
-    private function createProcessCommandOptions(\ECSPrefix20211021\Symfony\Component\Console\Input\InputInterface $input, array $checkCommandOptionNames) : array
+    private function createProcessCommandOptions(\ECSPrefix20211023\Symfony\Component\Console\Input\InputInterface $input, array $checkCommandOptionNames) : array
     {
         $processCommandOptions = [];
         foreach ($checkCommandOptionNames as $checkCommandOptionName) {
@@ -106,7 +106,7 @@ final class WorkerCommandLineFactory
         }
         return $processCommandOptions;
     }
-    private function shouldSkipOption(\ECSPrefix20211021\Symfony\Component\Console\Input\InputInterface $input, string $optionName) : bool
+    private function shouldSkipOption(\ECSPrefix20211023\Symfony\Component\Console\Input\InputInterface $input, string $optionName) : bool
     {
         if (!$input->hasOption($optionName)) {
             return \true;

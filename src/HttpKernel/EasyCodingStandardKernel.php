@@ -3,31 +3,31 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\HttpKernel;
 
-use ECSPrefix20211021\Nette\Utils\FileSystem;
-use ECSPrefix20211021\Symfony\Component\Config\Loader\DelegatingLoader;
-use ECSPrefix20211021\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211021\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20211021\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20211023\Nette\Utils\FileSystem;
+use ECSPrefix20211023\Symfony\Component\Config\Loader\DelegatingLoader;
+use ECSPrefix20211023\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211023\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20211023\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
-use ECSPrefix20211021\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
+use ECSPrefix20211023\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
-use ECSPrefix20211021\Symplify\Skipper\Bundle\SkipperBundle;
-use ECSPrefix20211021\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use ECSPrefix20211021\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+use ECSPrefix20211023\Symplify\Skipper\Bundle\SkipperBundle;
+use ECSPrefix20211023\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use ECSPrefix20211023\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 use Throwable;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\HttpKernel\EasyCodingStandardKernelTest
  */
-final class EasyCodingStandardKernel extends \ECSPrefix20211021\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+final class EasyCodingStandardKernel extends \ECSPrefix20211023\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @return BundleInterface[]
      */
     public function registerBundles() : iterable
     {
-        return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20211021\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20211021\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20211021\Symplify\Skipper\Bundle\SkipperBundle()];
+        return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20211023\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20211023\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20211023\Symplify\Skipper\Bundle\SkipperBundle()];
     }
     public function getCacheDir() : string
     {
@@ -45,8 +45,8 @@ final class EasyCodingStandardKernel extends \ECSPrefix20211021\Symplify\Symplif
     {
         $cacheDir = $this->getCacheDir();
         try {
-            \ECSPrefix20211021\Nette\Utils\FileSystem::delete($cacheDir);
-            \ECSPrefix20211021\Nette\Utils\FileSystem::createDir($cacheDir);
+            \ECSPrefix20211023\Nette\Utils\FileSystem::delete($cacheDir);
+            \ECSPrefix20211023\Nette\Utils\FileSystem::createDir($cacheDir);
         } catch (\Throwable $exception) {
             // the "@" is required for parallel run to avoid deleting locked directory
             // Rebuild the container on each run
@@ -65,7 +65,7 @@ final class EasyCodingStandardKernel extends \ECSPrefix20211021\Symplify\Symplif
     /**
      * @param ContainerInterface|ContainerBuilder $container
      */
-    protected function getContainerLoader($container) : \ECSPrefix20211021\Symfony\Component\Config\Loader\DelegatingLoader
+    protected function getContainerLoader($container) : \ECSPrefix20211023\Symfony\Component\Config\Loader\DelegatingLoader
     {
         $delegatingLoaderFactory = new \Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory();
         return $delegatingLoaderFactory->createFromContainerBuilderAndKernel($container, $this);

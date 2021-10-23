@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211021\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20211023\Symfony\Component\Finder\Iterator;
 
-use ECSPrefix20211021\Symfony\Component\Finder\Comparator\DateComparator;
+use ECSPrefix20211023\Symfony\Component\Finder\Comparator\DateComparator;
 /**
  * DateRangeFilterIterator filters out files that are not in the given date range (last modified dates).
  *
