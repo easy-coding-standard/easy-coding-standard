@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20211023\Nette\Neon;
+namespace ECSPrefix20211024\Nette\Neon;
 
 /** @internal */
 final class Traverser
@@ -13,12 +13,12 @@ final class Traverser
     /** @var callable(Node): void */
     private $callback;
     /** @param  callable(Node): void  $callback */
-    public function traverse(\ECSPrefix20211023\Nette\Neon\Node $node, callable $callback) : \ECSPrefix20211023\Nette\Neon\Node
+    public function traverse(\ECSPrefix20211024\Nette\Neon\Node $node, callable $callback) : \ECSPrefix20211024\Nette\Neon\Node
     {
         $this->callback = $callback;
         return $this->traverseNode($node);
     }
-    private function traverseNode(\ECSPrefix20211023\Nette\Neon\Node $node) : \ECSPrefix20211023\Nette\Neon\Node
+    private function traverseNode(\ECSPrefix20211024\Nette\Neon\Node $node) : \ECSPrefix20211024\Nette\Neon\Node
     {
         ($this->callback)($node);
         foreach ($node->getSubNodes() as $subnode) {

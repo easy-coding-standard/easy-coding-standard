@@ -1,19 +1,19 @@
 <?php
 
-namespace ECSPrefix20211023\React\Socket;
+namespace ECSPrefix20211024\React\Socket;
 
-use ECSPrefix20211023\React\EventLoop\Loop;
-use ECSPrefix20211023\React\EventLoop\LoopInterface;
-use ECSPrefix20211023\React\Promise;
+use ECSPrefix20211024\React\EventLoop\Loop;
+use ECSPrefix20211024\React\EventLoop\LoopInterface;
+use ECSPrefix20211024\React\Promise;
 use InvalidArgumentException;
 use RuntimeException;
-final class TcpConnector implements \ECSPrefix20211023\React\Socket\ConnectorInterface
+final class TcpConnector implements \ECSPrefix20211024\React\Socket\ConnectorInterface
 {
     private $loop;
     private $context;
-    public function __construct(\ECSPrefix20211023\React\EventLoop\LoopInterface $loop = null, array $context = array())
+    public function __construct(\ECSPrefix20211024\React\EventLoop\LoopInterface $loop = null, array $context = array())
     {
-        $this->loop = $loop ?: \ECSPrefix20211023\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20211024\React\EventLoop\Loop::get();
         $this->context = $context;
     }
     public function connect($uri)
@@ -23,11 +23,11 @@ final class TcpConnector implements \ECSPrefix20211023\React\Socket\ConnectorInt
         }
         $parts = \parse_url($uri);
         if (!$parts || !isset($parts['scheme'], $parts['host'], $parts['port']) || $parts['scheme'] !== 'tcp') {
-            return \ECSPrefix20211023\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \ECSPrefix20211024\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
         }
         $ip = \trim($parts['host'], '[]');
         if (\false === \filter_var($ip, \FILTER_VALIDATE_IP)) {
-            return \ECSPrefix20211023\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $ip . '" does not contain a valid host IP'));
+            return \ECSPrefix20211024\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $ip . '" does not contain a valid host IP'));
         }
         // use context given in constructor
         $context = array('socket' => $this->context);
@@ -57,11 +57,11 @@ final class TcpConnector implements \ECSPrefix20211023\React\Socket\ConnectorInt
         $remote = 'tcp://' . $parts['host'] . ':' . $parts['port'];
         $stream = @\stream_socket_client($remote, $errno, $errstr, 0, \STREAM_CLIENT_CONNECT | \STREAM_CLIENT_ASYNC_CONNECT, \stream_context_create($context));
         if (\false === $stream) {
-            return \ECSPrefix20211023\React\Promise\reject(new \RuntimeException(\sprintf("Connection to %s failed: %s", $uri, $errstr), $errno));
+            return \ECSPrefix20211024\React\Promise\reject(new \RuntimeException(\sprintf("Connection to %s failed: %s", $uri, $errstr), $errno));
         }
         // wait for connection
         $loop = $this->loop;
-        return new \ECSPrefix20211023\React\Promise\Promise(function ($resolve, $reject) use($loop, $stream, $uri) {
+        return new \ECSPrefix20211024\React\Promise\Promise(function ($resolve, $reject) use($loop, $stream, $uri) {
             $loop->addWriteStream($stream, function ($stream) use($loop, $resolve, $reject, $uri) {
                 $loop->removeWriteStream($stream);
                 // The following hack looks like the only way to
@@ -70,7 +70,7 @@ final class TcpConnector implements \ECSPrefix20211023\React\Socket\ConnectorInt
                     \fclose($stream);
                     $reject(new \RuntimeException('Connection to ' . $uri . ' failed: Connection refused'));
                 } else {
-                    $resolve(new \ECSPrefix20211023\React\Socket\Connection($stream, $loop));
+                    $resolve(new \ECSPrefix20211024\React\Socket\Connection($stream, $loop));
                 }
             });
         }, function () use($loop, $stream, $uri) {

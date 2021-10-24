@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211023\Symfony\Component\HttpKernel\DataCollector;
+namespace ECSPrefix20211024\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20211023\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211023\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20211023\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20211024\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211024\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20211024\Symfony\Contracts\Service\ResetInterface;
 /**
  * DataCollectorInterface.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-interface DataCollectorInterface extends \ECSPrefix20211023\Symfony\Contracts\Service\ResetInterface
+interface DataCollectorInterface extends \ECSPrefix20211024\Symfony\Contracts\Service\ResetInterface
 {
     /**
      * Collects data for the given Request and Response.
