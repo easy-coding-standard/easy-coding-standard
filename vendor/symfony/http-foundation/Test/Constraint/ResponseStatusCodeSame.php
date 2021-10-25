@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211024\Symfony\Component\HttpFoundation\Test\Constraint;
+namespace ECSPrefix20211025\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use ECSPrefix20211024\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20211024\Symfony\Component\HttpFoundation\Response;
-final class ResponseStatusCodeSame extends \ECSPrefix20211024\PHPUnit\Framework\Constraint\Constraint
+use ECSPrefix20211025\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20211025\Symfony\Component\HttpFoundation\Response;
+final class ResponseStatusCodeSame extends \ECSPrefix20211025\PHPUnit\Framework\Constraint\Constraint
 {
     private $statusCode;
     public function __construct(int $statusCode)

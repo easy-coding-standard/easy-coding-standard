@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20211024\Doctrine\Common\Annotations;
+namespace ECSPrefix20211025\Doctrine\Common\Annotations;
 
-use ECSPrefix20211024\Doctrine\Common\Cache\Cache;
+use ECSPrefix20211025\Doctrine\Common\Cache\Cache;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -19,7 +19,7 @@ use function time;
  *             in version 2.0.0 of doctrine/annotations. Please use the
  *             {@see \Doctrine\Common\Annotations\PsrCachedReader} instead.
  */
-final class CachedReader implements \ECSPrefix20211024\Doctrine\Common\Annotations\Reader
+final class CachedReader implements \ECSPrefix20211025\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $delegate;
@@ -34,7 +34,7 @@ final class CachedReader implements \ECSPrefix20211024\Doctrine\Common\Annotatio
     /**
      * @param bool $debug
      */
-    public function __construct(\ECSPrefix20211024\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20211024\Doctrine\Common\Cache\Cache $cache, $debug = \false)
+    public function __construct(\ECSPrefix20211025\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20211025\Doctrine\Common\Cache\Cache $cache, $debug = \false)
     {
         $this->delegate = $reader;
         $this->cache = $cache;

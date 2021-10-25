@@ -31,7 +31,7 @@ final class SimplifiedNullReturnFixer extends \PhpCsFixer\AbstractFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('A return statement wishing to return `void` should not return `null`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php return null;\n"), new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
 <?php
 
-namespace ECSPrefix20211024;
+namespace ECSPrefix20211025;
 
 function foo()
 {

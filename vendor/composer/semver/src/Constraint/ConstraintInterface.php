@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20211024\Composer\Semver\Constraint;
+namespace ECSPrefix20211025\Composer\Semver\Constraint;
 
 /**
  * DO NOT IMPLEMENT this interface. It is only meant for usage as a type hint

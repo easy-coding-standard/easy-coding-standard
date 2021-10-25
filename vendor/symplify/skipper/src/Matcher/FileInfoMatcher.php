@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211024\Symplify\Skipper\Matcher;
+namespace ECSPrefix20211025\Symplify\Skipper\Matcher;
 
-use ECSPrefix20211024\Symplify\Skipper\FileSystem\FnMatchPathNormalizer;
-use ECSPrefix20211024\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211025\Symplify\Skipper\FileSystem\FnMatchPathNormalizer;
+use ECSPrefix20211025\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoMatcher
 {
     /**
      * @var \Symplify\Skipper\FileSystem\FnMatchPathNormalizer
      */
     private $fnMatchPathNormalizer;
-    public function __construct(\ECSPrefix20211024\Symplify\Skipper\FileSystem\FnMatchPathNormalizer $fnMatchPathNormalizer)
+    public function __construct(\ECSPrefix20211025\Symplify\Skipper\FileSystem\FnMatchPathNormalizer $fnMatchPathNormalizer)
     {
         $this->fnMatchPathNormalizer = $fnMatchPathNormalizer;
     }
     /**
      * @param string[] $filePattern
      */
-    public function doesFileInfoMatchPatterns(\ECSPrefix20211024\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $filePattern) : bool
+    public function doesFileInfoMatchPatterns(\ECSPrefix20211025\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $filePattern) : bool
     {
         foreach ($filePattern as $onlyFile) {
             if ($this->doesFileInfoMatchPattern($smartFileInfo, $onlyFile)) {
@@ -30,7 +30,7 @@ final class FileInfoMatcher
     /**
      * Supports both relative and absolute $file path. They differ for PHP-CS-Fixer and PHP_CodeSniffer.
      */
-    private function doesFileInfoMatchPattern(\ECSPrefix20211024\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $ignoredPath) : bool
+    private function doesFileInfoMatchPattern(\ECSPrefix20211025\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $ignoredPath) : bool
     {
         // in ecs.php, the path can be absolute
         if ($smartFileInfo->getRealPath() === $ignoredPath) {

@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211024\Symfony\Component\HttpKernel\Bundle;
+namespace ECSPrefix20211025\Symfony\Component\HttpKernel\Bundle;
 
-use ECSPrefix20211024\Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use ECSPrefix20211024\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211024\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix20211025\Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use ECSPrefix20211025\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211025\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 /**
  * BundleInterface.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-interface BundleInterface extends \ECSPrefix20211024\Symfony\Component\DependencyInjection\ContainerAwareInterface
+interface BundleInterface extends \ECSPrefix20211025\Symfony\Component\DependencyInjection\ContainerAwareInterface
 {
     /**
      * Boots the Bundle.

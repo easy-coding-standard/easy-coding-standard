@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211024\Symfony\Component\ErrorHandler\Error;
+namespace ECSPrefix20211025\Symfony\Component\ErrorHandler\Error;
 
 class ClassNotFoundError extends \Error
 {

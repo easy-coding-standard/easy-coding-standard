@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211024\Symfony\Contracts\HttpClient\Exception;
+namespace ECSPrefix20211025\Symfony\Contracts\HttpClient\Exception;
 
 /**
  * When an idle timeout occurs.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-interface TimeoutExceptionInterface extends \ECSPrefix20211024\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+interface TimeoutExceptionInterface extends \ECSPrefix20211025\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
 {
 }
