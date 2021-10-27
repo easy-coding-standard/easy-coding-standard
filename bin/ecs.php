@@ -31,6 +31,7 @@ try {
     $symfonyStyleFactory = new \ECSPrefix20211025\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
     $symfonyStyle = $symfonyStyleFactory->create();
     $symfonyStyle->error($throwable->getMessage());
+    $symfonyStyle->writeln($throwable->getTraceAsString());
     exit(\ECSPrefix20211025\Symfony\Component\Console\Command\Command::FAILURE);
 }
 $application = $container->get(\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication::class);
