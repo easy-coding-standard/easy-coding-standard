@@ -1,7 +1,7 @@
 <?php
 
-namespace ECSPrefix20211025\React\Promise\Timer;
+namespace ECSPrefix20211027\React\Promise\Timer;
 
-if (!\function_exists('ECSPrefix20211025\\React\\Promise\\Timer\\timeout')) {
+if (!\function_exists('ECSPrefix20211027\\React\\Promise\\Timer\\timeout')) {
     require __DIR__ . '/functions.php';
 }

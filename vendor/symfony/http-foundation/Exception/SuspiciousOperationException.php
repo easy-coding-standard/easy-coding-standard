@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211025\Symfony\Component\HttpFoundation\Exception;
+namespace ECSPrefix20211027\Symfony\Component\HttpFoundation\Exception;
 
 /**
  * Raised when a user has performed an operation that should be considered
  * suspicious from a security perspective.
  */
-class SuspiciousOperationException extends \UnexpectedValueException implements \ECSPrefix20211025\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface
+class SuspiciousOperationException extends \UnexpectedValueException implements \ECSPrefix20211027\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface
 {
 }

@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211025\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20211027\Symfony\Component\Config\Definition\Builder;
 
 /**
  * This class provides a fluent interface for building a node.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class NodeBuilder implements \ECSPrefix20211025\Symfony\Component\Config\Definition\Builder\NodeParentInterface
+class NodeBuilder implements \ECSPrefix20211027\Symfony\Component\Config\Definition\Builder\NodeParentInterface
 {
     protected $parent;
     protected $nodeMapping;
     public function __construct()
     {
-        $this->nodeMapping = ['variable' => \ECSPrefix20211025\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition::class, 'scalar' => \ECSPrefix20211025\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition::class, 'boolean' => \ECSPrefix20211025\Symfony\Component\Config\Definition\Builder\BooleanNodeDefinition::class, 'integer' => \ECSPrefix20211025\Symfony\Component\Config\Definition\Builder\IntegerNodeDefinition::class, 'float' => \ECSPrefix20211025\Symfony\Component\Config\Definition\Builder\FloatNodeDefinition::class, 'array' => \ECSPrefix20211025\Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition::class, 'enum' => \ECSPrefix20211025\Symfony\Component\Config\Definition\Builder\EnumNodeDefinition::class];
+        $this->nodeMapping = ['variable' => \ECSPrefix20211027\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition::class, 'scalar' => \ECSPrefix20211027\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition::class, 'boolean' => \ECSPrefix20211027\Symfony\Component\Config\Definition\Builder\BooleanNodeDefinition::class, 'integer' => \ECSPrefix20211027\Symfony\Component\Config\Definition\Builder\IntegerNodeDefinition::class, 'float' => \ECSPrefix20211027\Symfony\Component\Config\Definition\Builder\FloatNodeDefinition::class, 'array' => \ECSPrefix20211027\Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition::class, 'enum' => \ECSPrefix20211027\Symfony\Component\Config\Definition\Builder\EnumNodeDefinition::class];
     }
     /**
      * Set the parent node.
@@ -148,7 +148,7 @@ class NodeBuilder implements \ECSPrefix20211025\Symfony\Component\Config\Definit
      */
     public function append($node)
     {
-        if ($node instanceof \ECSPrefix20211025\Symfony\Component\Config\Definition\Builder\BuilderAwareInterface) {
+        if ($node instanceof \ECSPrefix20211027\Symfony\Component\Config\Definition\Builder\BuilderAwareInterface) {
             $builder = clone $this;
             $builder->setParent(null);
             $node->setBuilder($builder);

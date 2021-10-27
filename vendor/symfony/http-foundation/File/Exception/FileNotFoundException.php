@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211025\Symfony\Component\HttpFoundation\File\Exception;
+namespace ECSPrefix20211027\Symfony\Component\HttpFoundation\File\Exception;
 
 /**
  * Thrown when a file was not found.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class FileNotFoundException extends \ECSPrefix20211025\Symfony\Component\HttpFoundation\File\Exception\FileException
+class FileNotFoundException extends \ECSPrefix20211027\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
     public function __construct(string $path)
     {
