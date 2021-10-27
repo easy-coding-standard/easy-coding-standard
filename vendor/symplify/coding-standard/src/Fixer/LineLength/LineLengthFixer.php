@@ -123,9 +123,13 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
                 continue;
             }
             // closer
-            if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE) || $token->equals(')') && $token->isArray()) {
-                $this->processFunctionOrArray($tokens, $position);
+            if (!$token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
+                continue;
             }
+            if (!$token->isArray()) {
+                continue;
+            }
+            $this->processFunctionOrArray($tokens, $position);
         }
     }
     public function getRuleDefinition() : \ECSPrefix20211027\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
