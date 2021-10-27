@@ -123,7 +123,7 @@ class RdKafkaCaster
         return $a;
     }
     /**
-     * @param CollectionMetadata $c
+     * @param \RdKafka\Metadata\Collection $c
      * @param mixed[] $a
      * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
@@ -134,7 +134,7 @@ class RdKafkaCaster
         return $a;
     }
     /**
-     * @param TopicMetadata $c
+     * @param \RdKafka\Metadata\Topic $c
      * @param mixed[] $a
      * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
@@ -146,7 +146,7 @@ class RdKafkaCaster
         return $a;
     }
     /**
-     * @param PartitionMetadata $c
+     * @param \RdKafka\Metadata\Partition $c
      * @param mixed[] $a
      * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
@@ -158,7 +158,7 @@ class RdKafkaCaster
         return $a;
     }
     /**
-     * @param BrokerMetadata $c
+     * @param \RdKafka\Metadata\Broker $c
      * @param mixed[] $a
      * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
