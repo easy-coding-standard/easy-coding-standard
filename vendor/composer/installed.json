@@ -3963,10 +3963,10 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "9630241e05755a1a012e9f1e751cf02fd1384969"
+                "reference": "25a5b2bd468141e60e75185ee4fc6bd51be345dc"
             },
             "require": {
-                "friendsofphp\/php-cs-fixer": "^3.1",
+                "friendsofphp\/php-cs-fixer": "^3.2",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symplify\/autowire-array-parameter": "dev-main",
