@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit90afbdb1938aef14d4084beb2324b79d
+class ComposerStaticInit0c2cba020a14679e4973c4034ff07bc7
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -42,7 +42,6 @@ class ComposerStaticInit90afbdb1938aef14d4084beb2324b79d
             'ECSPrefix20211029\\Symplify\\RuleDocGenerator\\' => 44,
             'ECSPrefix20211029\\Symplify\\PackageBuilder\\' => 42,
             'ECSPrefix20211029\\Symplify\\EasyTesting\\' => 39,
-            'ECSPrefix20211029\\Symplify\\ConsolePackageBuilder\\' => 49,
             'ECSPrefix20211029\\Symplify\\ConsoleColorDiff\\' => 44,
             'ECSPrefix20211029\\Symplify\\ComposerJsonManipulator\\' => 51,
             'ECSPrefix20211029\\Symplify\\AutowireArrayParameter\\' => 50,
@@ -134,10 +133,6 @@ class ComposerStaticInit90afbdb1938aef14d4084beb2324b79d
         'ECSPrefix20211029\\Symplify\\EasyTesting\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/easy-testing/src',
-        ),
-        'ECSPrefix20211029\\Symplify\\ConsolePackageBuilder\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symplify/console-package-builder/src',
         ),
         'ECSPrefix20211029\\Symplify\\ConsoleColorDiff\\' => 
         array (
@@ -1356,8 +1351,6 @@ class ComposerStaticInit90afbdb1938aef14d4084beb2324b79d
         'ECSPrefix20211029\\Symplify\\ConsoleColorDiff\\Console\\Output\\ConsoleDiffer' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Console/Output/ConsoleDiffer.php',
         'ECSPrefix20211029\\Symplify\\ConsoleColorDiff\\DependencyInjection\\Extension\\ConsoleColorDiffExtension' => __DIR__ . '/..' . '/symplify/console-color-diff/src/DependencyInjection/Extension/ConsoleColorDiffExtension.php',
         'ECSPrefix20211029\\Symplify\\ConsoleColorDiff\\Diff\\Output\\CompleteUnifiedDiffOutputBuilderFactory' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Diff/Output/CompleteUnifiedDiffOutputBuilderFactory.php',
-        'ECSPrefix20211029\\Symplify\\ConsolePackageBuilder\\Bundle\\NamelessConsoleCommandBundle' => __DIR__ . '/..' . '/symplify/console-package-builder/src/Bundle/NamelessConsoleCommandBundle.php',
-        'ECSPrefix20211029\\Symplify\\ConsolePackageBuilder\\DependencyInjection\\CompilerPass\\NamelessConsoleCommandCompilerPass' => __DIR__ . '/..' . '/symplify/console-package-builder/src/DependencyInjection/CompilerPass/NamelessConsoleCommandCompilerPass.php',
         'ECSPrefix20211029\\Symplify\\EasyTesting\\Command\\ValidateFixtureSkipNamingCommand' => __DIR__ . '/..' . '/symplify/easy-testing/src/Command/ValidateFixtureSkipNamingCommand.php',
         'ECSPrefix20211029\\Symplify\\EasyTesting\\Console\\EasyTestingConsoleApplication' => __DIR__ . '/..' . '/symplify/easy-testing/src/Console/EasyTestingConsoleApplication.php',
         'ECSPrefix20211029\\Symplify\\EasyTesting\\DataProvider\\StaticFixtureFinder' => __DIR__ . '/..' . '/symplify/easy-testing/src/DataProvider/StaticFixtureFinder.php',
@@ -1377,6 +1370,7 @@ class ComposerStaticInit90afbdb1938aef14d4084beb2324b79d
         'ECSPrefix20211029\\Symplify\\EasyTesting\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Option.php',
         'ECSPrefix20211029\\Symplify\\EasyTesting\\ValueObject\\Prefix' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Prefix.php',
         'ECSPrefix20211029\\Symplify\\EasyTesting\\ValueObject\\SplitLine' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/SplitLine.php',
+        'ECSPrefix20211029\\Symplify\\PackageBuilder\\Bundle\\NamelessConsoleCommandBundle' => __DIR__ . '/..' . '/symplify/package-builder/src/Bundle/NamelessConsoleCommandBundle.php',
         'ECSPrefix20211029\\Symplify\\PackageBuilder\\Composer\\VendorDirProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Composer/VendorDirProvider.php',
         'ECSPrefix20211029\\Symplify\\PackageBuilder\\Configuration\\StaticEolConfiguration' => __DIR__ . '/..' . '/symplify/package-builder/src/Configuration/StaticEolConfiguration.php',
         'ECSPrefix20211029\\Symplify\\PackageBuilder\\Console\\Command\\AbstractSymplifyCommand' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Command/AbstractSymplifyCommand.php',
@@ -1385,6 +1379,7 @@ class ComposerStaticInit90afbdb1938aef14d4084beb2324b79d
         'ECSPrefix20211029\\Symplify\\PackageBuilder\\Console\\Style\\SymfonyStyleFactory' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Style/SymfonyStyleFactory.php',
         'ECSPrefix20211029\\Symplify\\PackageBuilder\\Contract\\HttpKernel\\ExtraConfigAwareKernelInterface' => __DIR__ . '/..' . '/symplify/package-builder/src/Contract/HttpKernel/ExtraConfigAwareKernelInterface.php',
         'ECSPrefix20211029\\Symplify\\PackageBuilder\\DependencyInjection\\CompilerPass\\AutowireInterfacesCompilerPass' => __DIR__ . '/..' . '/symplify/package-builder/src/DependencyInjection/CompilerPass/AutowireInterfacesCompilerPass.php',
+        'ECSPrefix20211029\\Symplify\\PackageBuilder\\DependencyInjection\\CompilerPass\\NamelessConsoleCommandCompilerPass' => __DIR__ . '/..' . '/symplify/package-builder/src/DependencyInjection/CompilerPass/NamelessConsoleCommandCompilerPass.php',
         'ECSPrefix20211029\\Symplify\\PackageBuilder\\DependencyInjection\\FileLoader\\ParameterMergingPhpFileLoader' => __DIR__ . '/..' . '/symplify/package-builder/src/DependencyInjection/FileLoader/ParameterMergingPhpFileLoader.php',
         'ECSPrefix20211029\\Symplify\\PackageBuilder\\Exception\\HttpKernel\\MissingInterfaceException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/HttpKernel/MissingInterfaceException.php',
         'ECSPrefix20211029\\Symplify\\PackageBuilder\\Matcher\\ArrayStringAndFnMatcher' => __DIR__ . '/..' . '/symplify/package-builder/src/Matcher/ArrayStringAndFnMatcher.php',
@@ -2108,9 +2103,9 @@ class ComposerStaticInit90afbdb1938aef14d4084beb2324b79d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit90afbdb1938aef14d4084beb2324b79d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit90afbdb1938aef14d4084beb2324b79d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit90afbdb1938aef14d4084beb2324b79d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0c2cba020a14679e4973c4034ff07bc7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0c2cba020a14679e4973c4034ff07bc7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0c2cba020a14679e4973c4034ff07bc7::$classMap;
 
         }, null, ClassLoader::class);
     }

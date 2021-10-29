@@ -16,7 +16,6 @@ return array(
     'ECSPrefix20211029\\Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator-contracts/src'),
     'ECSPrefix20211029\\Symplify\\PackageBuilder\\' => array($vendorDir . '/symplify/package-builder/src'),
     'ECSPrefix20211029\\Symplify\\EasyTesting\\' => array($vendorDir . '/symplify/easy-testing/src'),
-    'ECSPrefix20211029\\Symplify\\ConsolePackageBuilder\\' => array($vendorDir . '/symplify/console-package-builder/src'),
     'ECSPrefix20211029\\Symplify\\ConsoleColorDiff\\' => array($vendorDir . '/symplify/console-color-diff/src'),
     'ECSPrefix20211029\\Symplify\\ComposerJsonManipulator\\' => array($vendorDir . '/symplify/composer-json-manipulator/src'),
     'ECSPrefix20211029\\Symplify\\AutowireArrayParameter\\' => array($vendorDir . '/symplify/autowire-array-parameter/src'),

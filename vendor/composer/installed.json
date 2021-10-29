@@ -3888,7 +3888,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "d29851211f61093ba85876c7f8ddff6c9451ee46"
+                "reference": "08c9cdccb697403023f6e3ca97f3c6af490cffd4"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3903,7 +3903,6 @@
                 "symplify\/composer-json-manipulator": "<9.4.70",
                 "symplify\/config-transformer": "<9.4.70",
                 "symplify\/console-color-diff": "<9.4.70",
-                "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
@@ -3964,7 +3963,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "10a4fe49ed25b91dcd54558c41bde21a569ee96d"
+                "reference": "9630241e05755a1a012e9f1e751cf02fd1384969"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.1",
@@ -3981,7 +3980,6 @@
                 "symplify\/composer-json-manipulator": "<9.4.70",
                 "symplify\/config-transformer": "<9.4.70",
                 "symplify\/console-color-diff": "<9.4.70",
-                "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
@@ -4048,7 +4046,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "fbb9ba6d16cbdfa9b0ff134e13640b51b069d296"
+                "reference": "0a417ca0fdbff204c03311e3a8cdd63f9e29391a"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4067,7 +4065,6 @@
                 "symplify\/coding-standard": "<9.4.70",
                 "symplify\/config-transformer": "<9.4.70",
                 "symplify\/console-color-diff": "<9.4.70",
-                "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
@@ -4127,7 +4124,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-color-diff",
-                "reference": "0299b0e5d8cc9d3cae332cc684780117c102fd71"
+                "reference": "15bb027c788f62ba43253cb00a8d89b68fcc1ced"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4145,7 +4142,6 @@
                 "symplify\/coding-standard": "<9.4.70",
                 "symplify\/composer-json-manipulator": "<9.4.70",
                 "symplify\/config-transformer": "<9.4.70",
-                "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
@@ -4200,91 +4196,13 @@
             "install-path": "..\/symplify\/console-color-diff"
         },
         {
-            "name": "symplify\/console-package-builder",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "..\/..\/packages\/console-package-builder",
-                "reference": "14ab85a577d5b87c2e390f4964b628144511e7f1"
-            },
-            "require": {
-                "php": ">=8.0",
-                "symfony\/console": "^5.3|^6.0",
-                "symfony\/dependency-injection": "^5.3|^6.0",
-                "symplify\/symplify-kernel": "dev-main"
-            },
-            "conflict": {
-                "symplify\/amnesia": "<9.4.70",
-                "symplify\/astral": "<9.4.70",
-                "symplify\/autowire-array-parameter": "<9.4.70",
-                "symplify\/coding-standard": "<9.4.70",
-                "symplify\/composer-json-manipulator": "<9.4.70",
-                "symplify\/config-transformer": "<9.4.70",
-                "symplify\/console-color-diff": "<9.4.70",
-                "symplify\/easy-ci": "<9.4.70",
-                "symplify\/easy-coding-standard": "<9.4.70",
-                "symplify\/easy-testing": "<9.4.70",
-                "symplify\/git-wrapper": "<9.4.70",
-                "symplify\/latte-phpstan-compiler": "<9.4.70",
-                "symplify\/markdown-diff": "<9.4.70",
-                "symplify\/monorepo-builder": "<9.4.70",
-                "symplify\/package-builder": "<9.4.70",
-                "symplify\/php-config-printer": "<9.4.70",
-                "symplify\/phpstan-extensions": "<9.4.70",
-                "symplify\/phpstan-rules": "<9.4.70",
-                "symplify\/psr4-switcher": "<9.4.70",
-                "symplify\/rule-doc-generator": "<9.4.70",
-                "symplify\/rule-doc-generator-contracts": "<9.4.70",
-                "symplify\/simple-php-doc-parser": "<9.4.70",
-                "symplify\/skipper": "<9.4.70",
-                "symplify\/smart-file-system": "<9.4.70",
-                "symplify\/symfony-php-config": "<9.4.70",
-                "symplify\/symfony-static-dumper": "<9.4.70",
-                "symplify\/template-phpstan-compiler": "<9.4.70",
-                "symplify\/twig-phpstan-compiler": "<9.4.70",
-                "symplify\/vendor-patches": "<9.4.70"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.5",
-                "symfony\/http-kernel": "^5.3|^6.0",
-                "symplify\/package-builder": "dev-main"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "9.5-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "ECSPrefix20211029\\Symplify\\ConsolePackageBuilder\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "ECSPrefix20211029\\Symplify\\ConsolePackageBuilder\\Tests\\": "tests"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Package to speed up building command line applications",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/symplify\/console-package-builder"
-        },
-        {
             "name": "symplify\/easy-testing",
             "version": "dev-main",
             "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "5b0915e59ec32bd40af8341c9fa975528a1910f9"
+                "reference": "c98de8ef413ab3d79ca79b311d6497aa499cfc99"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4293,7 +4211,6 @@
                 "symfony\/dependency-injection": "^5.3|^6.0",
                 "symfony\/finder": "^5.3|^6.0",
                 "symfony\/http-kernel": "^5.3|^6.0",
-                "symplify\/console-package-builder": "dev-main",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
                 "symplify\/symplify-kernel": "dev-main"
@@ -4366,7 +4283,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "e80b57b8c45a3dccc1b1ad724b8b6d340224b954"
+                "reference": "a5dd22beeb064f76d7224834fa655b95d7ece887"
             },
             "require": {
                 "nette\/neon": "^3.2",
@@ -4388,7 +4305,6 @@
                 "symplify\/composer-json-manipulator": "<9.4.70",
                 "symplify\/config-transformer": "<9.4.70",
                 "symplify\/console-color-diff": "<9.4.70",
-                "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
                 "symplify\/git-wrapper": "<9.4.70",
@@ -4447,7 +4363,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/rule-doc-generator-contracts",
-                "reference": "e21d50a5e2b596ba96cf9a83f1a8e00c4efe0bd3"
+                "reference": "eb301ca0b6f7f3ea02870c0bf8ef491608506d1c"
             },
             "require": {
                 "danielstjules\/stringy": "^3.1",
@@ -4462,7 +4378,6 @@
                 "symplify\/composer-json-manipulator": "<9.4.70",
                 "symplify\/config-transformer": "<9.4.70",
                 "symplify\/console-color-diff": "<9.4.70",
-                "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
@@ -4515,7 +4430,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "b76dbd1e8b39d2bd014115cf8e34b122a431ff88"
+                "reference": "d72b5ca9f6da8d5168862afeaa1c7b4fde6cba21"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4536,7 +4451,6 @@
                 "symplify\/composer-json-manipulator": "<9.4.70",
                 "symplify\/config-transformer": "<9.4.70",
                 "symplify\/console-color-diff": "<9.4.70",
-                "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
@@ -4594,7 +4508,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "8944131cb7b2d3bafc6d1d2627a8d23ef809c560"
+                "reference": "f8a483339084ed74abc2ebf3c554d78ea373ddfe"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4610,7 +4524,6 @@
                 "symplify\/composer-json-manipulator": "<9.4.70",
                 "symplify\/config-transformer": "<9.4.70",
                 "symplify\/console-color-diff": "<9.4.70",
-                "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
@@ -4672,7 +4585,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "81c2d02eef05aa2c7d56bd8f8c075c44c3338449"
+                "reference": "5973c3fa44af1c9c10c90fd08d761b2596ee60f3"
             },
             "require": {
                 "php": ">=8.0",
@@ -4690,7 +4603,6 @@
                 "symplify\/coding-standard": "<9.4.70",
                 "symplify\/config-transformer": "<9.4.70",
                 "symplify\/console-color-diff": "<9.4.70",
-                "symplify\/console-package-builder": "<9.4.70",
                 "symplify\/easy-ci": "<9.4.70",
                 "symplify\/easy-coding-standard": "<9.4.70",
                 "symplify\/easy-testing": "<9.4.70",
