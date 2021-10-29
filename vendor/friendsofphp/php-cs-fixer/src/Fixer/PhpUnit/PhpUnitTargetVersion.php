@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Fixer\PhpUnit;
 
-use ECSPrefix20211027\Composer\Semver\Comparator;
+use ECSPrefix20211029\Composer\Semver\Comparator;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
@@ -46,6 +46,6 @@ final class PhpUnitTargetVersion
         if (self::VERSION_NEWEST === $candidate) {
             return \true;
         }
-        return \ECSPrefix20211027\Composer\Semver\Comparator::greaterThanOrEqualTo($candidate, $target);
+        return \ECSPrefix20211029\Composer\Semver\Comparator::greaterThanOrEqualTo($candidate, $target);
     }
 }

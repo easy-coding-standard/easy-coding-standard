@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211027\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20211029\Symfony\Component\HttpKernel\HttpCache;
 
-use ECSPrefix20211027\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211027\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20211029\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211029\Symfony\Component\HttpFoundation\Response;
 /**
  * Esi implements the ESI capabilities to Request and Response instances.
  *
@@ -23,7 +23,7 @@ use ECSPrefix20211027\Symfony\Component\HttpFoundation\Response;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Esi extends \ECSPrefix20211027\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
+class Esi extends \ECSPrefix20211029\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
 {
     public function getName()
     {

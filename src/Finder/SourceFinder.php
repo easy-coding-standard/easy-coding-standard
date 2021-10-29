@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Finder;
 
-use ECSPrefix20211027\Symfony\Component\Finder\Finder;
+use ECSPrefix20211029\Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Git\GitDiffProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20211027\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20211027\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use ECSPrefix20211027\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211029\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20211029\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ECSPrefix20211029\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Finder\SourceFinderTest
  */
@@ -26,7 +26,7 @@ final class SourceFinder
      * @var \Symplify\EasyCodingStandard\Git\GitDiffProvider
      */
     private $gitDiffProvider;
-    public function __construct(\ECSPrefix20211027\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \ECSPrefix20211027\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\EasyCodingStandard\Git\GitDiffProvider $gitDiffProvider)
+    public function __construct(\ECSPrefix20211029\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \ECSPrefix20211029\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\EasyCodingStandard\Git\GitDiffProvider $gitDiffProvider)
     {
         $this->finderSanitizer = $finderSanitizer;
         $this->gitDiffProvider = $gitDiffProvider;
@@ -42,7 +42,7 @@ final class SourceFinder
         $fileInfos = [];
         foreach ($source as $singleSource) {
             if (\is_file($singleSource)) {
-                $fileInfos[] = new \ECSPrefix20211027\Symplify\SmartFileSystem\SmartFileInfo($singleSource);
+                $fileInfos[] = new \ECSPrefix20211029\Symplify\SmartFileSystem\SmartFileInfo($singleSource);
             } else {
                 $filesInDirectory = $this->processDirectory($singleSource);
                 $fileInfos = \array_merge($fileInfos, $filesInDirectory);
@@ -58,7 +58,7 @@ final class SourceFinder
     private function processDirectory(string $directory) : array
     {
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
-        $finder = \ECSPrefix20211027\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
+        $finder = \ECSPrefix20211029\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
         return $this->finderSanitizer->sanitize($finder);
     }
     /**

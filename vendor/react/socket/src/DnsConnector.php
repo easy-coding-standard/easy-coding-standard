@@ -1,15 +1,15 @@
 <?php
 
-namespace ECSPrefix20211027\React\Socket;
+namespace ECSPrefix20211029\React\Socket;
 
-use ECSPrefix20211027\React\Dns\Resolver\ResolverInterface;
-use ECSPrefix20211027\React\Promise;
-use ECSPrefix20211027\React\Promise\CancellablePromiseInterface;
-final class DnsConnector implements \ECSPrefix20211027\React\Socket\ConnectorInterface
+use ECSPrefix20211029\React\Dns\Resolver\ResolverInterface;
+use ECSPrefix20211029\React\Promise;
+use ECSPrefix20211029\React\Promise\CancellablePromiseInterface;
+final class DnsConnector implements \ECSPrefix20211029\React\Socket\ConnectorInterface
 {
     private $connector;
     private $resolver;
-    public function __construct(\ECSPrefix20211027\React\Socket\ConnectorInterface $connector, \ECSPrefix20211027\React\Dns\Resolver\ResolverInterface $resolver)
+    public function __construct(\ECSPrefix20211029\React\Socket\ConnectorInterface $connector, \ECSPrefix20211029\React\Dns\Resolver\ResolverInterface $resolver)
     {
         $this->connector = $connector;
         $this->resolver = $resolver;
@@ -23,7 +23,7 @@ final class DnsConnector implements \ECSPrefix20211027\React\Socket\ConnectorInt
             $parts = \parse_url($uri);
         }
         if (!$parts || !isset($parts['host'])) {
-            return \ECSPrefix20211027\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \ECSPrefix20211029\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
         }
         $host = \trim($parts['host'], '[]');
         $connector = $this->connector;
@@ -33,7 +33,7 @@ final class DnsConnector implements \ECSPrefix20211027\React\Socket\ConnectorInt
         }
         $promise = $this->resolver->resolve($host);
         $resolved = null;
-        return new \ECSPrefix20211027\React\Promise\Promise(function ($resolve, $reject) use(&$promise, &$resolved, $uri, $connector, $host, $parts) {
+        return new \ECSPrefix20211029\React\Promise\Promise(function ($resolve, $reject) use(&$promise, &$resolved, $uri, $connector, $host, $parts) {
             // resolve/reject with result of DNS lookup
             $promise->then(function ($ip) use(&$promise, &$resolved, $connector, $host, $parts) {
                 $resolved = $ip;
@@ -82,7 +82,7 @@ final class DnsConnector implements \ECSPrefix20211027\React\Socket\ConnectorInt
                 $reject(new \RuntimeException('Connection to ' . $uri . ' cancelled during DNS lookup'));
             }
             // (try to) cancel pending DNS lookup / connection attempt
-            if ($promise instanceof \ECSPrefix20211027\React\Promise\CancellablePromiseInterface) {
+            if ($promise instanceof \ECSPrefix20211029\React\Promise\CancellablePromiseInterface) {
                 // overwrite callback arguments for PHP7+ only, so they do not show
                 // up in the Exception trace and do not cause a possible cyclic reference.
                 $_ = $reject = null;

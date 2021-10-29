@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211027\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20211029\Symfony\Component\HttpFoundation;
 
 /**
  * Http utility functions.
@@ -34,6 +34,9 @@ class IpUtils
      */
     public static function checkIp($requestIp, $ips)
     {
+        if (null === $requestIp) {
+            return \false;
+        }
         if (!\is_array($ips)) {
             $ips = [$ips];
         }

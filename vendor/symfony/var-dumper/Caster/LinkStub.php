@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211027\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20211029\Symfony\Component\VarDumper\Caster;
 
 /**
  * Represents a file or a URL.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class LinkStub extends \ECSPrefix20211027\Symfony\Component\VarDumper\Caster\ConstStub
+class LinkStub extends \ECSPrefix20211029\Symfony\Component\VarDumper\Caster\ConstStub
 {
     public $inVendor = \false;
     private static $vendorRoots;

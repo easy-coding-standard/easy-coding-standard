@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211027\Symfony\Component\Console\Exception;
+namespace ECSPrefix20211029\Symfony\Component\Console\Exception;
 
 /**
  * Represents failure to read input from stdin.
  *
  * @author Gabriel Ostrolucký <gabriel.ostrolucky@gmail.com>
  */
-class MissingInputException extends \ECSPrefix20211027\Symfony\Component\Console\Exception\RuntimeException implements \ECSPrefix20211027\Symfony\Component\Console\Exception\ExceptionInterface
+class MissingInputException extends \ECSPrefix20211029\Symfony\Component\Console\Exception\RuntimeException implements \ECSPrefix20211029\Symfony\Component\Console\Exception\ExceptionInterface
 {
 }

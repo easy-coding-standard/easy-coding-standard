@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20211027\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20211029\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * @author Boris Gorbylev <ekho@ekho.name>
  *
@@ -46,6 +46,6 @@ final class JsonReporter implements \PhpCsFixer\Console\Report\FixReport\Reporte
         }
         $json = ['files' => $jFiles, 'time' => ['total' => \round($reportSummary->getTime() / 1000, 3)], 'memory' => \round($reportSummary->getMemory() / 1024 / 1024, 3)];
         $json = \json_encode($json);
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20211027\Symfony\Component\Console\Formatter\OutputFormatter::escape($json) : $json;
+        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20211029\Symfony\Component\Console\Formatter\OutputFormatter::escape($json) : $json;
     }
 }

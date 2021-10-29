@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211027\Symfony\Component\Config\Resource;
+namespace ECSPrefix20211029\Symfony\Component\Config\Resource;
 
-use ECSPrefix20211027\Symfony\Component\Finder\Finder;
-use ECSPrefix20211027\Symfony\Component\Finder\Glob;
+use ECSPrefix20211029\Symfony\Component\Finder\Finder;
+use ECSPrefix20211029\Symfony\Component\Finder\Glob;
 /**
  * GlobResource represents a set of resources stored on the filesystem.
  *
@@ -21,7 +21,7 @@ use ECSPrefix20211027\Symfony\Component\Finder\Glob;
  *
  * @final
  */
-class GlobResource implements \IteratorAggregate, \ECSPrefix20211027\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class GlobResource implements \IteratorAggregate, \ECSPrefix20211029\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $prefix;
     private $pattern;
@@ -105,7 +105,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20211027\Symfony\Com
             }
         }
         if (null !== $paths) {
-            \sort($paths);
+            \natsort($paths);
             foreach ($paths as $path) {
                 if ($this->excludedPrefixes) {
                     $normalizedPath = \str_replace('\\', '/', $path);
@@ -131,7 +131,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20211027\Symfony\Com
                 $files = \iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveCallbackFilterIterator(new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS), function (\SplFileInfo $file, $path) {
                     return !isset($this->excludedPrefixes[\str_replace('\\', '/', $path)]) && '.' !== $file->getBasename()[0];
                 }), \RecursiveIteratorIterator::LEAVES_ONLY));
-                \uasort($files, 'strnatcmp');
+                \uksort($files, 'strnatcmp');
                 foreach ($files as $path => $info) {
                     if ($info->isFile()) {
                         (yield $path => $info);
@@ -140,11 +140,11 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20211027\Symfony\Com
             }
             return;
         }
-        if (!\class_exists(\ECSPrefix20211027\Symfony\Component\Finder\Finder::class)) {
+        if (!\class_exists(\ECSPrefix20211029\Symfony\Component\Finder\Finder::class)) {
             throw new \LogicException(\sprintf('Extended glob pattern "%s" cannot be used as the Finder component is not installed.', $this->pattern));
         }
-        $finder = new \ECSPrefix20211027\Symfony\Component\Finder\Finder();
-        $regex = \ECSPrefix20211027\Symfony\Component\Finder\Glob::toRegex($this->pattern);
+        $finder = new \ECSPrefix20211029\Symfony\Component\Finder\Finder();
+        $regex = \ECSPrefix20211029\Symfony\Component\Finder\Glob::toRegex($this->pattern);
         if ($this->recursive) {
             $regex = \substr_replace($regex, '(/|$)', -2, 1);
         }

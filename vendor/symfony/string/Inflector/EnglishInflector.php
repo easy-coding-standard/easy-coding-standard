@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211027\Symfony\Component\String\Inflector;
+namespace ECSPrefix20211029\Symfony\Component\String\Inflector;
 
-final class EnglishInflector implements \ECSPrefix20211027\Symfony\Component\String\Inflector\InflectorInterface
+final class EnglishInflector implements \ECSPrefix20211029\Symfony\Component\String\Inflector\InflectorInterface
 {
     /**
      * Map English plural to singular suffixes.
@@ -45,6 +45,8 @@ final class EnglishInflector implements \ECSPrefix20211027\Symfony\Component\Str
         ['seci', 4, \false, \true, ['ex', 'ix', 'ice']],
         // selfies (selfie)
         ['seifles', 7, \true, \true, 'selfie'],
+        // zombies (zombie)
+        ['seibmoz', 7, \true, \true, 'zombie'],
         // movies (movie)
         ['seivom', 6, \true, \true, 'movie'],
         // conspectuses (conspectus), prospectuses (prospectus)
