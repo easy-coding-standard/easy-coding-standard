@@ -1753,6 +1753,7 @@ return array(
     'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ReactCommand' => $baseDir . '/packages/Parallel/ValueObject/ReactCommand.php',
     'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ReactEvent' => $baseDir . '/packages/Parallel/ValueObject/ReactEvent.php',
     'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Schedule' => $baseDir . '/packages/Parallel/ValueObject/Schedule.php',
+    'Symplify\\EasyCodingStandard\\Parallel\\WorkerRunner' => $baseDir . '/packages/Parallel/WorkerRunner.php',
     'Symplify\\EasyCodingStandard\\Reporter\\ProcessedFileReporter' => $baseDir . '/src/Reporter/ProcessedFileReporter.php',
     'Symplify\\EasyCodingStandard\\SniffRunner\\Application\\SniffFileProcessor' => $baseDir . '/packages/SniffRunner/Application/SniffFileProcessor.php',
     'Symplify\\EasyCodingStandard\\SniffRunner\\DataCollector\\SniffMetadataCollector' => $baseDir . '/packages/SniffRunner/DataCollector/SniffMetadataCollector.php',

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit77981ade25f20785bf98a90c8a689526
+class ComposerStaticInitc68224a2e7022b2dbff7aa62e833a89a
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2072,6 +2072,7 @@ class ComposerStaticInit77981ade25f20785bf98a90c8a689526
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ReactCommand' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/ReactCommand.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ReactEvent' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/ReactEvent.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Schedule' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Schedule.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\WorkerRunner' => __DIR__ . '/../..' . '/packages/Parallel/WorkerRunner.php',
         'Symplify\\EasyCodingStandard\\Reporter\\ProcessedFileReporter' => __DIR__ . '/../..' . '/src/Reporter/ProcessedFileReporter.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Application\\SniffFileProcessor' => __DIR__ . '/../..' . '/packages/SniffRunner/Application/SniffFileProcessor.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\DataCollector\\SniffMetadataCollector' => __DIR__ . '/../..' . '/packages/SniffRunner/DataCollector/SniffMetadataCollector.php',
@@ -2103,9 +2104,9 @@ class ComposerStaticInit77981ade25f20785bf98a90c8a689526
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit77981ade25f20785bf98a90c8a689526::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit77981ade25f20785bf98a90c8a689526::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit77981ade25f20785bf98a90c8a689526::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc68224a2e7022b2dbff7aa62e833a89a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc68224a2e7022b2dbff7aa62e833a89a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc68224a2e7022b2dbff7aa62e833a89a::$classMap;
 
         }, null, ClassLoader::class);
     }

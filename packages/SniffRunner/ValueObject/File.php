@@ -12,8 +12,8 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Util\Common;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
-use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use ECSPrefix20211029\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20211029\Symplify\SmartFileSystem\SmartFileInfo;
 /**
@@ -34,11 +34,11 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * @var string|null
      */
-    private $activeSniffClass;
+    private $activeSniffClass = null;
     /**
      * @var string|null
      */
-    private $previousActiveSniffClass;
+    private $previousActiveSniffClass = null;
     /**
      * @var Sniff[][]
      */
@@ -87,12 +87,16 @@ final class File extends \PHP_CodeSniffer\Files\File
     {
         $this->parse();
         $this->fixer->startFile($this);
+        $currentFileInfo = $this->fileInfo;
+        if (!$currentFileInfo instanceof \ECSPrefix20211029\Symplify\SmartFileSystem\SmartFileInfo) {
+            throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
+        }
         foreach ($this->tokens as $stackPtr => $token) {
             if (!isset($this->tokenListeners[$token['code']])) {
                 continue;
             }
             foreach ($this->tokenListeners[$token['code']] as $sniff) {
-                if ($this->skipper->shouldSkipElementAndFileInfo($sniff, $this->fileInfo)) {
+                if ($this->skipper->shouldSkipElementAndFileInfo($sniff, $currentFileInfo)) {
                     continue;
                 }
                 $this->reportActiveSniffClass($sniff);
@@ -100,17 +104,6 @@ final class File extends \PHP_CodeSniffer\Files\File
             }
         }
         $this->fixedCount += $this->fixer->getFixCount();
-    }
-    public function getErrorCount() : int
-    {
-        throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public.', __METHOD__));
-    }
-    /**
-     * @return mixed[]
-     */
-    public function getErrors() : array
-    {
-        throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public.', __METHOD__));
     }
     /**
      * Delegate to addError().
@@ -137,6 +130,9 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
     {
+        if ($this->activeSniffClass === null) {
+            throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
+        }
         if (!$this->isSniffClassWarningAllowed($this->activeSniffClass)) {
             return \false;
         }
@@ -198,6 +194,9 @@ final class File extends \PHP_CodeSniffer\Files\File
     private function shouldSkipError(string $error, string $code, array $data) : bool
     {
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
+        if ($this->fileInfo === null) {
+            throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
+        }
         if ($this->skipper->shouldSkipElementAndFileInfo($fullyQualifiedCode, $this->fileInfo)) {
             return \true;
         }
