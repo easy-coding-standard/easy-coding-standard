@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix20211029\Symfony\Component\Config\FileLocator as SimpleFileLocator;
 use ECSPrefix20211029\Symfony\Component\Config\Loader\DelegatingLoader;
 use ECSPrefix20211029\Symfony\Component\Config\Loader\GlobFileLoader;
 use ECSPrefix20211029\Symfony\Component\Config\Loader\LoaderResolver;
@@ -18,18 +17,9 @@ final class DelegatingLoaderFactory
         $kernelFileLocator = new \ECSPrefix20211029\Symfony\Component\HttpKernel\Config\FileLocator($kernel);
         return $this->createFromContainerBuilderAndFileLocator($containerBuilder, $kernelFileLocator);
     }
-    /**
-     * For tests
-     */
-    public function createContainerBuilderAndConfig(\ECSPrefix20211029\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $config) : \ECSPrefix20211029\Symfony\Component\Config\Loader\DelegatingLoader
+    private function createFromContainerBuilderAndFileLocator(\ECSPrefix20211029\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20211029\Symfony\Component\HttpKernel\Config\FileLocator $fileLocator) : \ECSPrefix20211029\Symfony\Component\Config\Loader\DelegatingLoader
     {
-        $directory = \dirname($config);
-        $fileLocator = new \ECSPrefix20211029\Symfony\Component\Config\FileLocator($directory);
-        return $this->createFromContainerBuilderAndFileLocator($containerBuilder, $fileLocator);
-    }
-    private function createFromContainerBuilderAndFileLocator(\ECSPrefix20211029\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20211029\Symfony\Component\Config\FileLocator $simpleFileLocator) : \ECSPrefix20211029\Symfony\Component\Config\Loader\DelegatingLoader
-    {
-        $loaders = [new \ECSPrefix20211029\Symfony\Component\Config\Loader\GlobFileLoader($simpleFileLocator), new \ECSPrefix20211029\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $simpleFileLocator)];
+        $loaders = [new \ECSPrefix20211029\Symfony\Component\Config\Loader\GlobFileLoader($fileLocator), new \ECSPrefix20211029\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $fileLocator)];
         $loaderResolver = new \ECSPrefix20211029\Symfony\Component\Config\Loader\LoaderResolver($loaders);
         return new \ECSPrefix20211029\Symfony\Component\Config\Loader\DelegatingLoader($loaderResolver);
     }
