@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211029\Symfony\Component\Console\EventListener;
+namespace ECSPrefix20211030\Symfony\Component\Console\EventListener;
 
-use ECSPrefix20211029\Psr\Log\LoggerInterface;
-use ECSPrefix20211029\Symfony\Component\Console\ConsoleEvents;
-use ECSPrefix20211029\Symfony\Component\Console\Event\ConsoleErrorEvent;
-use ECSPrefix20211029\Symfony\Component\Console\Event\ConsoleEvent;
-use ECSPrefix20211029\Symfony\Component\Console\Event\ConsoleTerminateEvent;
-use ECSPrefix20211029\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20211030\Psr\Log\LoggerInterface;
+use ECSPrefix20211030\Symfony\Component\Console\ConsoleEvents;
+use ECSPrefix20211030\Symfony\Component\Console\Event\ConsoleErrorEvent;
+use ECSPrefix20211030\Symfony\Component\Console\Event\ConsoleEvent;
+use ECSPrefix20211030\Symfony\Component\Console\Event\ConsoleTerminateEvent;
+use ECSPrefix20211030\Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @author James Halsall <james.t.halsall@googlemail.com>
  * @author Robin Chalas <robin.chalas@gmail.com>
  */
-class ErrorListener implements \ECSPrefix20211029\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ErrorListener implements \ECSPrefix20211030\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $logger;
-    public function __construct(\ECSPrefix20211029\Psr\Log\LoggerInterface $logger = null)
+    public function __construct(\ECSPrefix20211030\Psr\Log\LoggerInterface $logger = null)
     {
         $this->logger = $logger;
     }
@@ -62,9 +62,9 @@ class ErrorListener implements \ECSPrefix20211029\Symfony\Component\EventDispatc
     }
     public static function getSubscribedEvents()
     {
-        return [\ECSPrefix20211029\Symfony\Component\Console\ConsoleEvents::ERROR => ['onConsoleError', -128], \ECSPrefix20211029\Symfony\Component\Console\ConsoleEvents::TERMINATE => ['onConsoleTerminate', -128]];
+        return [\ECSPrefix20211030\Symfony\Component\Console\ConsoleEvents::ERROR => ['onConsoleError', -128], \ECSPrefix20211030\Symfony\Component\Console\ConsoleEvents::TERMINATE => ['onConsoleTerminate', -128]];
     }
-    private static function getInputString(\ECSPrefix20211029\Symfony\Component\Console\Event\ConsoleEvent $event) : ?string
+    private static function getInputString(\ECSPrefix20211030\Symfony\Component\Console\Event\ConsoleEvent $event) : ?string
     {
         $commandName = $event->getCommand() ? $event->getCommand()->getName() : null;
         $input = $event->getInput();

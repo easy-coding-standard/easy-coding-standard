@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20211029\React\Dns\Query;
+namespace ECSPrefix20211030\React\Dns\Query;
 
-use ECSPrefix20211029\React\Dns\Config\HostsFile;
-use ECSPrefix20211029\React\Dns\Model\Message;
-use ECSPrefix20211029\React\Dns\Model\Record;
-use ECSPrefix20211029\React\Promise;
+use ECSPrefix20211030\React\Dns\Config\HostsFile;
+use ECSPrefix20211030\React\Dns\Model\Message;
+use ECSPrefix20211030\React\Dns\Model\Record;
+use ECSPrefix20211030\React\Promise;
 /**
  * Resolves hosts from the given HostsFile or falls back to another executor
  *
@@ -13,11 +13,11 @@ use ECSPrefix20211029\React\Promise;
  * DNS executor. If the host is not found in the hosts file, it will be passed
  * to the DNS executor as a fallback.
  */
-final class HostsFileExecutor implements \ECSPrefix20211029\React\Dns\Query\ExecutorInterface
+final class HostsFileExecutor implements \ECSPrefix20211030\React\Dns\Query\ExecutorInterface
 {
     private $hosts;
     private $fallback;
-    public function __construct(\ECSPrefix20211029\React\Dns\Config\HostsFile $hosts, \ECSPrefix20211029\React\Dns\Query\ExecutorInterface $fallback)
+    public function __construct(\ECSPrefix20211030\React\Dns\Config\HostsFile $hosts, \ECSPrefix20211030\React\Dns\Query\ExecutorInterface $fallback)
     {
         $this->hosts = $hosts;
         $this->fallback = $fallback;
@@ -27,29 +27,29 @@ final class HostsFileExecutor implements \ECSPrefix20211029\React\Dns\Query\Exec
      */
     public function query($query)
     {
-        if ($query->class === \ECSPrefix20211029\React\Dns\Model\Message::CLASS_IN && ($query->type === \ECSPrefix20211029\React\Dns\Model\Message::TYPE_A || $query->type === \ECSPrefix20211029\React\Dns\Model\Message::TYPE_AAAA)) {
+        if ($query->class === \ECSPrefix20211030\React\Dns\Model\Message::CLASS_IN && ($query->type === \ECSPrefix20211030\React\Dns\Model\Message::TYPE_A || $query->type === \ECSPrefix20211030\React\Dns\Model\Message::TYPE_AAAA)) {
             // forward lookup for type A or AAAA
             $records = array();
-            $expectsColon = $query->type === \ECSPrefix20211029\React\Dns\Model\Message::TYPE_AAAA;
+            $expectsColon = $query->type === \ECSPrefix20211030\React\Dns\Model\Message::TYPE_AAAA;
             foreach ($this->hosts->getIpsForHost($query->name) as $ip) {
                 // ensure this is an IPv4/IPV6 address according to query type
                 if ((\strpos($ip, ':') !== \false) === $expectsColon) {
-                    $records[] = new \ECSPrefix20211029\React\Dns\Model\Record($query->name, $query->type, $query->class, 0, $ip);
+                    $records[] = new \ECSPrefix20211030\React\Dns\Model\Record($query->name, $query->type, $query->class, 0, $ip);
                 }
             }
             if ($records) {
-                return \ECSPrefix20211029\React\Promise\resolve(\ECSPrefix20211029\React\Dns\Model\Message::createResponseWithAnswersForQuery($query, $records));
+                return \ECSPrefix20211030\React\Promise\resolve(\ECSPrefix20211030\React\Dns\Model\Message::createResponseWithAnswersForQuery($query, $records));
             }
-        } elseif ($query->class === \ECSPrefix20211029\React\Dns\Model\Message::CLASS_IN && $query->type === \ECSPrefix20211029\React\Dns\Model\Message::TYPE_PTR) {
+        } elseif ($query->class === \ECSPrefix20211030\React\Dns\Model\Message::CLASS_IN && $query->type === \ECSPrefix20211030\React\Dns\Model\Message::TYPE_PTR) {
             // reverse lookup: extract IPv4 or IPv6 from special `.arpa` domain
             $ip = $this->getIpFromHost($query->name);
             if ($ip !== null) {
                 $records = array();
                 foreach ($this->hosts->getHostsForIp($ip) as $host) {
-                    $records[] = new \ECSPrefix20211029\React\Dns\Model\Record($query->name, $query->type, $query->class, 0, $host);
+                    $records[] = new \ECSPrefix20211030\React\Dns\Model\Record($query->name, $query->type, $query->class, 0, $host);
                 }
                 if ($records) {
-                    return \ECSPrefix20211029\React\Promise\resolve(\ECSPrefix20211029\React\Dns\Model\Message::createResponseWithAnswersForQuery($query, $records));
+                    return \ECSPrefix20211030\React\Promise\resolve(\ECSPrefix20211030\React\Dns\Model\Message::createResponseWithAnswersForQuery($query, $records));
                 }
             }
         }

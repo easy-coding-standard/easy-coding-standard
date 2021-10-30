@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211029\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
+namespace ECSPrefix20211030\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
 
-use ECSPrefix20211029\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20211029\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class AutowireInterfacesCompilerPass implements \ECSPrefix20211029\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use ECSPrefix20211030\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20211030\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class AutowireInterfacesCompilerPass implements \ECSPrefix20211030\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var string[]
@@ -23,8 +23,8 @@ final class AutowireInterfacesCompilerPass implements \ECSPrefix20211029\Symfony
      */
     public function process($containerBuilder) : void
     {
-        $containerBuilderDefinitions = $containerBuilder->getDefinitions();
-        foreach ($containerBuilderDefinitions as $definition) {
+        $definitions = $containerBuilder->getDefinitions();
+        foreach ($definitions as $definition) {
             foreach ($this->typesToAutowire as $typeToAutowire) {
                 if (!\is_a((string) $definition->getClass(), $typeToAutowire, \true)) {
                     continue;

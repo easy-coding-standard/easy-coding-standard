@@ -9,7 +9,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory;
-use ECSPrefix20211029\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20211030\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class FirstLineLengthResolver
 {
     /**
@@ -36,7 +36,7 @@ final class FirstLineLengthResolver
         // includes indent in the beginning
         $lineLength += \strlen($currentToken->getContent());
         // minus end of lines, do not count line feeds as characters
-        $endOfLineCount = \substr_count($currentToken->getContent(), \ECSPrefix20211029\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar());
+        $endOfLineCount = \substr_count($currentToken->getContent(), \ECSPrefix20211030\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar());
         $lineLength -= $endOfLineCount;
         // compute from here to end of line
         $currentPosition = $blockInfo->getStart() + 1;
@@ -67,7 +67,7 @@ final class FirstLineLengthResolver
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
-        if (\strncmp($tokens[$position]->getContent(), \ECSPrefix20211029\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar(), \strlen(\ECSPrefix20211029\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) === 0) {
+        if (\strncmp($tokens[$position]->getContent(), \ECSPrefix20211030\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar(), \strlen(\ECSPrefix20211030\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) === 0) {
             return \true;
         }
         return $tokens[$position]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA);

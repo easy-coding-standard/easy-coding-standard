@@ -1,13 +1,13 @@
 <?php
 
-namespace ECSPrefix20211029\React\Dns\Query;
+namespace ECSPrefix20211030\React\Dns\Query;
 
-use ECSPrefix20211029\React\Dns\Model\Message;
-use ECSPrefix20211029\React\Dns\Protocol\BinaryDumper;
-use ECSPrefix20211029\React\Dns\Protocol\Parser;
-use ECSPrefix20211029\React\EventLoop\Loop;
-use ECSPrefix20211029\React\EventLoop\LoopInterface;
-use ECSPrefix20211029\React\Promise\Deferred;
+use ECSPrefix20211030\React\Dns\Model\Message;
+use ECSPrefix20211030\React\Dns\Protocol\BinaryDumper;
+use ECSPrefix20211030\React\Dns\Protocol\Parser;
+use ECSPrefix20211030\React\EventLoop\Loop;
+use ECSPrefix20211030\React\EventLoop\LoopInterface;
+use ECSPrefix20211030\React\Promise\Deferred;
 /**
  * Send DNS queries over a UDP transport.
  *
@@ -79,7 +79,7 @@ use ECSPrefix20211029\React\Promise\Deferred;
  *   packages. Higher-level components should take advantage of the Datagram
  *   component instead of reimplementing this socket logic from scratch.
  */
-final class UdpTransportExecutor implements \ECSPrefix20211029\React\Dns\Query\ExecutorInterface
+final class UdpTransportExecutor implements \ECSPrefix20211030\React\Dns\Query\ExecutorInterface
 {
     private $nameserver;
     private $loop;
@@ -95,7 +95,7 @@ final class UdpTransportExecutor implements \ECSPrefix20211029\React\Dns\Query\E
      * @param string         $nameserver
      * @param ?LoopInterface $loop
      */
-    public function __construct($nameserver, \ECSPrefix20211029\React\EventLoop\LoopInterface $loop = null)
+    public function __construct($nameserver, \ECSPrefix20211030\React\EventLoop\LoopInterface $loop = null)
     {
         if (\strpos($nameserver, '[') === \false && \substr_count($nameserver, ':') >= 2 && \strpos($nameserver, '://') === \false) {
             // several colons, but not enclosed in square brackets => enclose IPv6 address in square brackets
@@ -106,24 +106,24 @@ final class UdpTransportExecutor implements \ECSPrefix20211029\React\Dns\Query\E
             throw new \InvalidArgumentException('Invalid nameserver address given');
         }
         $this->nameserver = 'udp://' . $parts['host'] . ':' . (isset($parts['port']) ? $parts['port'] : 53);
-        $this->loop = $loop ?: \ECSPrefix20211029\React\EventLoop\Loop::get();
-        $this->parser = new \ECSPrefix20211029\React\Dns\Protocol\Parser();
-        $this->dumper = new \ECSPrefix20211029\React\Dns\Protocol\BinaryDumper();
+        $this->loop = $loop ?: \ECSPrefix20211030\React\EventLoop\Loop::get();
+        $this->parser = new \ECSPrefix20211030\React\Dns\Protocol\Parser();
+        $this->dumper = new \ECSPrefix20211030\React\Dns\Protocol\BinaryDumper();
     }
     /**
      * @param \React\Dns\Query\Query $query
      */
     public function query($query)
     {
-        $request = \ECSPrefix20211029\React\Dns\Model\Message::createRequestForQuery($query);
+        $request = \ECSPrefix20211030\React\Dns\Model\Message::createRequestForQuery($query);
         $queryData = $this->dumper->toBinary($request);
         if (isset($queryData[$this->maxPacketSize])) {
-            return \ECSPrefix20211029\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Query too large for UDP transport', \defined('SOCKET_EMSGSIZE') ? \SOCKET_EMSGSIZE : 90));
+            return \ECSPrefix20211030\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Query too large for UDP transport', \defined('SOCKET_EMSGSIZE') ? \SOCKET_EMSGSIZE : 90));
         }
         // UDP connections are instant, so try connection without a loop or timeout
         $socket = @\stream_socket_client($this->nameserver, $errno, $errstr, 0);
         if ($socket === \false) {
-            return \ECSPrefix20211029\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Unable to connect to DNS server ' . $this->nameserver . ' (' . $errstr . ')', $errno));
+            return \ECSPrefix20211030\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Unable to connect to DNS server ' . $this->nameserver . ' (' . $errstr . ')', $errno));
         }
         // set socket to non-blocking and immediately try to send (fill write buffer)
         \stream_set_blocking($socket, \false);
@@ -135,14 +135,14 @@ final class UdpTransportExecutor implements \ECSPrefix20211029\React\Dns\Query\E
             // fwrite(): send of 8192 bytes failed with errno=111 Connection refused
             $error = \error_get_last();
             \preg_match('/errno=(\\d+) (.+)/', $error['message'], $m);
-            return \ECSPrefix20211029\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Unable to send query to DNS server ' . $this->nameserver . ' (' . (isset($m[2]) ? $m[2] : $error['message']) . ')', isset($m[1]) ? (int) $m[1] : 0));
+            return \ECSPrefix20211030\React\Promise\reject(new \RuntimeException('DNS query for ' . $query->describe() . ' failed: Unable to send query to DNS server ' . $this->nameserver . ' (' . (isset($m[2]) ? $m[2] : $error['message']) . ')', isset($m[1]) ? (int) $m[1] : 0));
         }
         $loop = $this->loop;
-        $deferred = new \ECSPrefix20211029\React\Promise\Deferred(function () use($loop, $socket, $query) {
+        $deferred = new \ECSPrefix20211030\React\Promise\Deferred(function () use($loop, $socket, $query) {
             // cancellation should remove socket from loop and close socket
             $loop->removeReadStream($socket);
             \fclose($socket);
-            throw new \ECSPrefix20211029\React\Dns\Query\CancellationException('DNS query for ' . $query->describe() . ' has been cancelled');
+            throw new \ECSPrefix20211030\React\Dns\Query\CancellationException('DNS query for ' . $query->describe() . ' has been cancelled');
         });
         $max = $this->maxPacketSize;
         $parser = $this->parser;

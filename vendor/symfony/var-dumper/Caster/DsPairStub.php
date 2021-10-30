@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211029\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20211030\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20211029\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20211030\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class DsPairStub extends \ECSPrefix20211029\Symfony\Component\VarDumper\Cloner\Stub
+class DsPairStub extends \ECSPrefix20211030\Symfony\Component\VarDumper\Cloner\Stub
 {
     public function __construct($key, $value)
     {
-        $this->value = [\ECSPrefix20211029\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'key' => $key, \ECSPrefix20211029\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'value' => $value];
+        $this->value = [\ECSPrefix20211030\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'key' => $key, \ECSPrefix20211030\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'value' => $value];
     }
 }

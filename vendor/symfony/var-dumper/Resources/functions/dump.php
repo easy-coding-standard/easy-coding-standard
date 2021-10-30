@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211029;
+namespace ECSPrefix20211030;
 
 /*
  * This file is part of the Symfony package.
@@ -10,16 +10,16 @@ namespace ECSPrefix20211029;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use ECSPrefix20211029\Symfony\Component\VarDumper\VarDumper;
-if (!\function_exists('ECSPrefix20211029\\dump')) {
+use ECSPrefix20211030\Symfony\Component\VarDumper\VarDumper;
+if (!\function_exists('ECSPrefix20211030\\dump')) {
     /**
      * @author Nicolas Grekas <p@tchwork.com>
      */
     function dump($var, ...$moreVars)
     {
-        \ECSPrefix20211029\Symfony\Component\VarDumper\VarDumper::dump($var);
+        \ECSPrefix20211030\Symfony\Component\VarDumper\VarDumper::dump($var);
         foreach ($moreVars as $v) {
-            \ECSPrefix20211029\Symfony\Component\VarDumper\VarDumper::dump($v);
+            \ECSPrefix20211030\Symfony\Component\VarDumper\VarDumper::dump($v);
         }
         if (1 < \func_num_args()) {
             return \func_get_args();
@@ -27,11 +27,11 @@ if (!\function_exists('ECSPrefix20211029\\dump')) {
         return $var;
     }
 }
-if (!\function_exists('ECSPrefix20211029\\dd')) {
+if (!\function_exists('ECSPrefix20211030\\dd')) {
     function dd(...$vars)
     {
         foreach ($vars as $v) {
-            \ECSPrefix20211029\Symfony\Component\VarDumper\VarDumper::dump($v);
+            \ECSPrefix20211030\Symfony\Component\VarDumper\VarDumper::dump($v);
         }
         exit(1);
     }
