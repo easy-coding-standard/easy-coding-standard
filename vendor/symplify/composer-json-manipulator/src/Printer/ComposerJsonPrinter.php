@@ -24,7 +24,7 @@ final class ComposerJsonPrinter
         return $this->jsonFileManager->encodeJsonToFileContent($composerJson->getJsonArray());
     }
     /**
-     * @param string|\Symplify\SmartFileSystem\SmartFileInfo $targetFile
+     * @param \Symplify\SmartFileSystem\SmartFileInfo|string $targetFile
      */
     public function print(\ECSPrefix20211030\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $targetFile) : string
     {

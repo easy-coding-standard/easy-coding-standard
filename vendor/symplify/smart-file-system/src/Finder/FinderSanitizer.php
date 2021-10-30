@@ -14,7 +14,7 @@ use ECSPrefix20211030\Symplify\SmartFileSystem\SmartFileInfo;
 final class FinderSanitizer
 {
     /**
-     * @param \Nette\Utils\Finder|\Symfony\Component\Finder\Finder|mixed[] $files
+     * @param mixed[]|\Nette\Utils\Finder|\Symfony\Component\Finder\Finder $files
      * @return SmartFileInfo[]
      */
     public function sanitize($files) : array

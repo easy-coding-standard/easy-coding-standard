@@ -23,14 +23,14 @@ final class PathSkipVoter implements \ECSPrefix20211030\Symplify\Skipper\Contrac
         $this->skippedPathsResolver = $skippedPathsResolver;
     }
     /**
-     * @param string|object $element
+     * @param object|string $element
      */
     public function match($element) : bool
     {
         return \true;
     }
     /**
-     * @param string|object $element
+     * @param object|string $element
      * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
     public function shouldSkip($element, $smartFileInfo) : bool

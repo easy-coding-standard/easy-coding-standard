@@ -42,7 +42,7 @@ final class ClassSkipVoter implements \ECSPrefix20211030\Symplify\Skipper\Contra
         $this->skippedClassResolver = $skippedClassResolver;
     }
     /**
-     * @param string|object $element
+     * @param object|string $element
      */
     public function match($element) : bool
     {
@@ -52,7 +52,7 @@ final class ClassSkipVoter implements \ECSPrefix20211030\Symplify\Skipper\Contra
         return $this->classLikeExistenceChecker->doesClassLikeExist($element);
     }
     /**
-     * @param string|object $element
+     * @param object|string $element
      * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
     public function shouldSkip($element, $smartFileInfo) : bool

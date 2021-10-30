@@ -22,7 +22,7 @@ final class KernelBootAndApplicationRun
      */
     private $kernelClass;
     /**
-     * @var string[]|\Symplify\SmartFileSystem\SmartFileInfo[]
+     * @var \Symplify\SmartFileSystem\SmartFileInfo[]|string[]
      */
     private $extraConfigs = [];
     /**
