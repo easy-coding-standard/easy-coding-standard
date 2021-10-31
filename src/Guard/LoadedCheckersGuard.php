@@ -20,6 +20,16 @@ final class LoadedCheckersGuard
         $this->fileProcessorCollector = $fileProcessorCollector;
         $this->symfonyStyle = $symfonyStyle;
     }
+    public function areSomeCheckersRegistered() : bool
+    {
+        $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
+        foreach ($fileProcessors as $fileProcessor) {
+            if ($fileProcessor->getCheckers()) {
+                return \true;
+            }
+        }
+        return \false;
+    }
     public function report() : void
     {
         $this->symfonyStyle->error('We could not find any sniffs/fixers rules to run');
@@ -35,15 +45,5 @@ final class LoadedCheckersGuard
         $this->symfonyStyle->title('Missing "ecs.php" in your project? Let ECS create it for you');
         $this->symfonyStyle->writeln('  vendor/bin/ecs init');
         $this->symfonyStyle->newLine();
-    }
-    public function areSomeCheckersRegistered() : bool
-    {
-        $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
-        foreach ($fileProcessors as $fileProcessor) {
-            if ($fileProcessor->getCheckers()) {
-                return \true;
-            }
-        }
-        return \false;
     }
 }

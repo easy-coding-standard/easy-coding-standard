@@ -15,6 +15,7 @@ use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix20211031\Symplify\EasyTesting\StaticFixtureSplitter;
 use ECSPrefix20211031\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix20211031\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211031\Webmozart\Assert\Assert;
 // needed for scoped version to load unprefixed classes; does not have any effect inside the class
 $scoperAutoloadFilePath = __DIR__ . '/../../../vendor/scoper-autoload.php';
 if (\file_exists($scoperAutoloadFilePath)) {
@@ -135,14 +136,9 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
      */
     private function bootContainerWithConfigs(array $configs) : \ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerInterface
     {
-        $configsHash = '';
-        foreach ($configs as $config) {
-            $configsHash .= \md5_file($config);
-        }
-        $configsHash = \md5($configsHash);
-        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel('test_' . $configsHash, \true);
-        $easyCodingStandardKernel->setConfigs($configs);
-        $easyCodingStandardKernel->boot();
-        return $easyCodingStandardKernel->getContainer();
+        \ECSPrefix20211031\Webmozart\Assert\Assert::allString($configs);
+        \ECSPrefix20211031\Webmozart\Assert\Assert::allFile($configs);
+        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel();
+        return $easyCodingStandardKernel->createFromConfigs($configs);
     }
 }

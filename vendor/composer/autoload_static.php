@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477
+class ComposerStaticInite7be54bd7c17fc78d195da0c5e13d679
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -37,6 +37,7 @@ class ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477
         array (
             'ECSPrefix20211031\\Webmozart\\Assert\\' => 35,
             'ECSPrefix20211031\\Symplify\\SymplifyKernel\\' => 42,
+            'ECSPrefix20211031\\Symplify\\SymfonyContainerBuilder\\' => 51,
             'ECSPrefix20211031\\Symplify\\SmartFileSystem\\' => 43,
             'ECSPrefix20211031\\Symplify\\Skipper\\' => 35,
             'ECSPrefix20211031\\Symplify\\RuleDocGenerator\\' => 44,
@@ -113,6 +114,10 @@ class ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477
         'ECSPrefix20211031\\Symplify\\SymplifyKernel\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/symplify-kernel/src',
+        ),
+        'ECSPrefix20211031\\Symplify\\SymfonyContainerBuilder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/symfony-container-builder/src',
         ),
         'ECSPrefix20211031\\Symplify\\SmartFileSystem\\' => 
         array (
@@ -1435,7 +1440,11 @@ class ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477
         'ECSPrefix20211031\\Symplify\\SmartFileSystem\\Normalizer\\PathNormalizer' => __DIR__ . '/..' . '/symplify/smart-file-system/src/Normalizer/PathNormalizer.php',
         'ECSPrefix20211031\\Symplify\\SmartFileSystem\\SmartFileInfo' => __DIR__ . '/..' . '/symplify/smart-file-system/src/SmartFileInfo.php',
         'ECSPrefix20211031\\Symplify\\SmartFileSystem\\SmartFileSystem' => __DIR__ . '/..' . '/symplify/smart-file-system/src/SmartFileSystem.php',
+        'ECSPrefix20211031\\Symplify\\SymfonyContainerBuilder\\Config\\Loader\\ParameterMergingLoaderFactory' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/Config/Loader/ParameterMergingLoaderFactory.php',
+        'ECSPrefix20211031\\Symplify\\SymfonyContainerBuilder\\ContainerBuilderFactory' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/ContainerBuilderFactory.php',
+        'ECSPrefix20211031\\Symplify\\SymfonyContainerBuilder\\DependencyInjection\\LoadExtensionConfigsCompilerPass' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/DependencyInjection/LoadExtensionConfigsCompilerPass.php',
         'ECSPrefix20211031\\Symplify\\SymplifyKernel\\Bundle\\SymplifyKernelBundle' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Bundle/SymplifyKernelBundle.php',
+        'ECSPrefix20211031\\Symplify\\SymplifyKernel\\Contract\\LightKernelInterface' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Contract/LightKernelInterface.php',
         'ECSPrefix20211031\\Symplify\\SymplifyKernel\\DependencyInjection\\Extension\\SymplifyKernelExtension' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/DependencyInjection/Extension/SymplifyKernelExtension.php',
         'ECSPrefix20211031\\Symplify\\SymplifyKernel\\Exception\\BootException' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Exception/BootException.php',
         'ECSPrefix20211031\\Symplify\\SymplifyKernel\\Exception\\HttpKernel\\TooGenericKernelClassException' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Exception/HttpKernel/TooGenericKernelClassException.php',
@@ -2036,7 +2045,6 @@ class ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\FixerWhitespaceConfigCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/FixerWhitespaceConfigCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveExcludedCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveExcludedCheckersCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveMutualCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveMutualCheckersCompilerPass.php',
-        'Symplify\\EasyCodingStandard\\DependencyInjection\\DelegatingLoaderFactory' => __DIR__ . '/../..' . '/src/DependencyInjection/DelegatingLoaderFactory.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\EasyCodingStandardContainerFactory' => __DIR__ . '/../..' . '/src/DependencyInjection/EasyCodingStandardContainerFactory.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\Extension\\EasyCodingStandardExtension' => __DIR__ . '/../..' . '/src/DependencyInjection/Extension/EasyCodingStandardExtension.php',
         'Symplify\\EasyCodingStandard\\Error\\FileDiffFactory' => __DIR__ . '/../..' . '/src/Error/FileDiffFactory.php',
@@ -2076,7 +2084,6 @@ class ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477
         'Symplify\\EasyCodingStandard\\Reporter\\ProcessedFileReporter' => __DIR__ . '/../..' . '/src/Reporter/ProcessedFileReporter.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Application\\SniffFileProcessor' => __DIR__ . '/../..' . '/packages/SniffRunner/Application/SniffFileProcessor.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\DataCollector\\SniffMetadataCollector' => __DIR__ . '/../..' . '/packages/SniffRunner/DataCollector/SniffMetadataCollector.php',
-        'Symplify\\EasyCodingStandard\\SniffRunner\\Exception\\File\\NotImplementedException' => __DIR__ . '/../..' . '/packages/SniffRunner/Exception/File/NotImplementedException.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\File\\FileFactory' => __DIR__ . '/../..' . '/packages/SniffRunner/File/FileFactory.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError' => __DIR__ . '/../..' . '/packages/SniffRunner/ValueObject/Error/CodingStandardError.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\File' => __DIR__ . '/../..' . '/packages/SniffRunner/ValueObject/File.php',
@@ -2104,9 +2111,9 @@ class ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2896be1bfd505a2fad0a42359d3dd477::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite7be54bd7c17fc78d195da0c5e13d679::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite7be54bd7c17fc78d195da0c5e13d679::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite7be54bd7c17fc78d195da0c5e13d679::$classMap;
 
         }, null, ClassLoader::class);
     }

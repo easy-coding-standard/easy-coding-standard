@@ -3,71 +3,80 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\HttpKernel;
 
-use ECSPrefix20211031\Nette\Utils\FileSystem;
-use ECSPrefix20211031\Symfony\Component\Config\Loader\DelegatingLoader;
-use ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PhpCsFixer\Fixer\FixerInterface;
+use ECSPrefix20211031\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
-use ECSPrefix20211031\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
-use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
-use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
-use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
-use ECSPrefix20211031\Symplify\Skipper\Bundle\SkipperBundle;
-use ECSPrefix20211031\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use ECSPrefix20211031\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-use Throwable;
-/**
- * @see \Symplify\EasyCodingStandard\Tests\HttpKernel\EasyCodingStandardKernelTest
- */
-final class EasyCodingStandardKernel extends \ECSPrefix20211031\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use ECSPrefix20211031\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix20211031\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use Symplify\CodingStandard\DependencyInjection\Extension\SymplifyCodingStandardExtension;
+use ECSPrefix20211031\Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension;
+use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
+use Symplify\EasyCodingStandard\DependencyInjection\Extension\EasyCodingStandardExtension;
+use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
+use ECSPrefix20211031\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
+use ECSPrefix20211031\Symplify\Skipper\DependencyInjection\Extension\SkipperExtension;
+use ECSPrefix20211031\Symplify\SymfonyContainerBuilder\ContainerBuilderFactory;
+use ECSPrefix20211031\Symplify\SymplifyKernel\Contract\LightKernelInterface;
+use ECSPrefix20211031\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
+final class EasyCodingStandardKernel implements \ECSPrefix20211031\Symplify\SymplifyKernel\Contract\LightKernelInterface
 {
     /**
-     * @return BundleInterface[]
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface|null
      */
-    public function registerBundles() : iterable
+    private $container = null;
+    /**
+     * @param string[] $configFiles
+     */
+    public function createFromConfigs($configFiles) : \ECSPrefix20211031\Psr\Container\ContainerInterface
     {
-        return [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \ECSPrefix20211031\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \ECSPrefix20211031\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \ECSPrefix20211031\Symplify\Skipper\Bundle\SkipperBundle()];
+        $configFiles[] = __DIR__ . '/../../config/config.php';
+        $compilerPasses = $this->createCompilerPasses();
+        $extensions = $this->createExtensions();
+        $containerBuilderFactory = new \ECSPrefix20211031\Symplify\SymfonyContainerBuilder\ContainerBuilderFactory();
+        $containerBuilder = $containerBuilderFactory->create($extensions, $compilerPasses, $configFiles);
+        $containerBuilder->compile();
+        $this->container = $containerBuilder;
+        return $containerBuilder;
     }
-    public function getCacheDir() : string
+    public function getContainer() : \ECSPrefix20211031\Psr\Container\ContainerInterface
     {
-        return \sys_get_temp_dir() . '/ecs_' . \get_current_user();
-    }
-    public function getLogDir() : string
-    {
-        $logDirectory = \sys_get_temp_dir() . '/ecs_log_' . \get_current_user();
-        if (\Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver::PACKAGE_VERSION !== '@package_version@') {
-            $logDirectory .= '_' . \Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver::PACKAGE_VERSION;
+        if (!$this->container instanceof \ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerInterface) {
+            throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
         }
-        return $logDirectory;
-    }
-    public function boot() : void
-    {
-        $cacheDir = $this->getCacheDir();
-        try {
-            \ECSPrefix20211031\Nette\Utils\FileSystem::delete($cacheDir);
-            \ECSPrefix20211031\Nette\Utils\FileSystem::createDir($cacheDir);
-        } catch (\Throwable $exception) {
-            // the "@" is required for parallel run to avoid deleting locked directory
-            // Rebuild the container on each run
-        }
-        parent::boot();
+        return $this->container;
     }
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @return ExtensionInterface[]
      */
-    protected function prepareContainer($containerBuilder) : void
+    private function createExtensions() : array
     {
-        // works better with workers - see https://github.com/symfony/symfony/pull/32581
-        $containerBuilder->setParameter('container.dumper.inline_factories', \true);
-        parent::prepareContainer($containerBuilder);
+        $extensions = [];
+        $extensions[] = new \ECSPrefix20211031\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension();
+        $extensions[] = new \Symplify\EasyCodingStandard\DependencyInjection\Extension\EasyCodingStandardExtension();
+        $extensions[] = new \ECSPrefix20211031\Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension();
+        $extensions[] = new \ECSPrefix20211031\Symplify\Skipper\DependencyInjection\Extension\SkipperExtension();
+        $extensions[] = new \Symplify\CodingStandard\DependencyInjection\Extension\SymplifyCodingStandardExtension();
+        return $extensions;
     }
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @return CompilerPassInterface[]
      */
-    protected function getContainerLoader($container) : \ECSPrefix20211031\Symfony\Component\Config\Loader\DelegatingLoader
+    private function createCompilerPasses() : array
     {
-        $delegatingLoaderFactory = new \Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory();
-        return $delegatingLoaderFactory->createFromContainerBuilderAndKernel($container, $this);
+        $compilerPasses = [];
+        // cleanup
+        $compilerPasses[] = new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass();
+        $compilerPasses[] = new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass();
+        $compilerPasses[] = new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass();
+        // autowire
+        $compilerPasses[] = new \ECSPrefix20211031\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass([\PhpCsFixer\Fixer\FixerInterface::class, \PHP_CodeSniffer\Sniffs\Sniff::class, \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface::class]);
+        $compilerPasses[] = new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass();
+        $compilerPasses[] = new \ECSPrefix20211031\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass();
+        return $compilerPasses;
     }
 }

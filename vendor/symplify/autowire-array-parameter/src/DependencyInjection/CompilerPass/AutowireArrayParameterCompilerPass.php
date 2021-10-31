@@ -14,6 +14,7 @@ use ECSPrefix20211031\Symplify\AutowireArrayParameter\DependencyInjection\Defini
 use ECSPrefix20211031\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
 use ECSPrefix20211031\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
 use ECSPrefix20211031\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use ECSPrefix20211031\Symplify\PackageBuilder\ValueObject\MethodName;
 /**
  * @inspiration https://github.com/nette/di/pull/178
  * @see \Symplify\AutowireArrayParameter\Tests\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPassTest
@@ -101,7 +102,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20211031\Sym
         if (!$reflectionClass instanceof \ReflectionClass) {
             return \true;
         }
-        if (!$reflectionClass->hasMethod('__construct')) {
+        if (!$reflectionClass->hasMethod(\ECSPrefix20211031\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR)) {
             return \true;
         }
         /** @var ReflectionMethod $constructorReflectionMethod */

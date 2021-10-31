@@ -11,6 +11,7 @@ return array(
     'PhpCsFixer\\' => array($vendorDir . '/friendsofphp/php-cs-fixer/src'),
     'ECSPrefix20211031\\Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'ECSPrefix20211031\\Symplify\\SymplifyKernel\\' => array($vendorDir . '/symplify/symplify-kernel/src'),
+    'ECSPrefix20211031\\Symplify\\SymfonyContainerBuilder\\' => array($vendorDir . '/symplify/symfony-container-builder/src'),
     'ECSPrefix20211031\\Symplify\\SmartFileSystem\\' => array($vendorDir . '/symplify/smart-file-system/src'),
     'ECSPrefix20211031\\Symplify\\Skipper\\' => array($vendorDir . '/symplify/skipper/src'),
     'ECSPrefix20211031\\Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator-contracts/src'),

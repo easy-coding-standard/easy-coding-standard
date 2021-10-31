@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
 use ECSPrefix20211031\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211031\Webmozart\Assert\Assert;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
  */
@@ -63,17 +64,19 @@ final class ChangedFilesDetector
     /**
      * For cache invalidation
      *
+     * @param string[] $configFiles
      * @api
-     * @param SmartFileInfo[] $configFileInfos
      */
-    public function setUsedConfigs(array $configFileInfos) : void
+    public function setUsedConfigs(array $configFiles) : void
     {
-        if ($configFileInfos === []) {
+        if ($configFiles === []) {
             return;
         }
+        \ECSPrefix20211031\Webmozart\Assert\Assert::allString($configFiles);
+        \ECSPrefix20211031\Webmozart\Assert\Assert::allFile($configFiles);
         // the first config is core to all → if it was changed, just invalidate it
-        $firstConfigFileInfo = $configFileInfos[0];
-        $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($firstConfigFileInfo->getRealPath()));
+        $firstConfigFile = $configFiles[0];
+        $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($firstConfigFile));
     }
     private function storeConfigurationDataHash(string $configurationHash) : void
     {
