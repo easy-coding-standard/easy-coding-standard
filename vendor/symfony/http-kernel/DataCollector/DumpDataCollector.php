@@ -59,10 +59,7 @@ class DumpDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKernel\
     {
         $this->clonesIndex = ++$this->clonesCount;
     }
-    /**
-     * @param \Symfony\Component\VarDumper\Cloner\Data $data
-     */
-    public function dump($data)
+    public function dump(\ECSPrefix20211031\Symfony\Component\VarDumper\Cloner\Data $data)
     {
         if ($this->stopwatch) {
             $this->stopwatch->start('dump');
@@ -86,12 +83,7 @@ class DumpDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKernel\
             $this->stopwatch->stop('dump');
         }
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable|null $exception
-     */
-    public function collect($request, $response, $exception = null)
+    public function collect(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         if (!$this->dataCount) {
             $this->data = [];
@@ -101,8 +93,8 @@ class DumpDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKernel\
             return;
         }
         // In all other conditions that remove the web debug toolbar, dumps are written on the output.
-        if (!$this->requestStack || !$response->headers->has('X-Debug-Token') || $response->isRedirection() || $response->headers->has('Content-Type') && \strpos($response->headers->get('Content-Type'), 'html') === \false || 'html' !== $request->getRequestFormat() || \false === \strripos($response->getContent(), '</body>')) {
-            if ($response->headers->has('Content-Type') && \strpos($response->headers->get('Content-Type'), 'html') !== \false) {
+        if (!$this->requestStack || !$response->headers->has('X-Debug-Token') || $response->isRedirection() || $response->headers->has('Content-Type') && !\str_contains($response->headers->get('Content-Type'), 'html') || 'html' !== $request->getRequestFormat() || \false === \strripos($response->getContent(), '</body>')) {
+            if ($response->headers->has('Content-Type') && \str_contains($response->headers->get('Content-Type'), 'html')) {
                 $dumper = new \ECSPrefix20211031\Symfony\Component\VarDumper\Dumper\HtmlDumper('php://output', $this->charset);
                 $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
             } else {
@@ -164,12 +156,7 @@ class DumpDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKernel\
     {
         return $this->dataCount;
     }
-    /**
-     * @param string $format
-     * @param int $maxDepthLimit
-     * @param int $maxItemsPerDepth
-     */
-    public function getDumps($format, $maxDepthLimit = -1, $maxItemsPerDepth = -1) : array
+    public function getDumps(string $format, int $maxDepthLimit = -1, int $maxItemsPerDepth = -1) : array
     {
         $data = \fopen('php://memory', 'r+');
         if ('html' === $format) {

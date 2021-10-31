@@ -35,10 +35,7 @@ final class ControllerEvent extends \ECSPrefix20211031\Symfony\Component\HttpKer
     {
         return $this->controller;
     }
-    /**
-     * @param callable $controller
-     */
-    public function setController($controller) : void
+    public function setController(callable $controller) : void
     {
         $this->controller = $controller;
     }

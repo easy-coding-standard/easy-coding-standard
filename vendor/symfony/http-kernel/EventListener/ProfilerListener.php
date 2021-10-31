@@ -51,9 +51,8 @@ class ProfilerListener implements \ECSPrefix20211031\Symfony\Component\EventDisp
     }
     /**
      * Handles the onKernelException event.
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onKernelException($event)
+    public function onKernelException(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ExceptionEvent $event)
     {
         if ($this->onlyMainRequests && !$event->isMainRequest()) {
             return;
@@ -62,9 +61,8 @@ class ProfilerListener implements \ECSPrefix20211031\Symfony\Component\EventDisp
     }
     /**
      * Handles the onKernelResponse event.
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse($event)
+    public function onKernelResponse(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if ($this->onlyMainRequests && !$event->isMainRequest()) {
             return;
@@ -84,10 +82,7 @@ class ProfilerListener implements \ECSPrefix20211031\Symfony\Component\EventDisp
         $this->profiles[$request] = $profile;
         $this->parents[$request] = $this->requestStack->getParentRequest();
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\TerminateEvent $event
-     */
-    public function onKernelTerminate($event)
+    public function onKernelTerminate(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\TerminateEvent $event)
     {
         // attach children to parents
         foreach ($this->profiles as $request) {

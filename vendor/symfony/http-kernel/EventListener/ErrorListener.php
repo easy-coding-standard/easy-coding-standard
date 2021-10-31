@@ -36,18 +36,12 @@ class ErrorListener implements \ECSPrefix20211031\Symfony\Component\EventDispatc
         $this->logger = $logger;
         $this->debug = $debug;
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
-     */
-    public function logKernelException($event)
+    public function logKernelException(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ExceptionEvent $event)
     {
         $e = \ECSPrefix20211031\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($event->getThrowable());
         $this->logException($event->getThrowable(), \sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', $e->getClass(), $e->getMessage(), $e->getFile(), $e->getLine()));
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
-     */
-    public function onKernelException($event)
+    public function onKernelException(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ExceptionEvent $event)
     {
         if (null === $this->controller) {
             return;
@@ -75,19 +69,13 @@ class ErrorListener implements \ECSPrefix20211031\Symfony\Component\EventDispatc
             $event->getRequest()->attributes->set('_remove_csp_headers', \true);
         }
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     */
-    public function removeCspHeader($event) : void
+    public function removeCspHeader(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ResponseEvent $event) : void
     {
         if ($this->debug && $event->getRequest()->attributes->get('_remove_csp_headers', \false)) {
             $event->getResponse()->headers->remove('Content-Security-Policy');
         }
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent $event
-     */
-    public function onControllerArguments($event)
+    public function onControllerArguments(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent $event)
     {
         $e = $event->getRequest()->attributes->get('exception');
         if (!$e instanceof \Throwable || \false === ($k = \array_search($e, $event->getArguments(), \true))) {
@@ -107,10 +95,8 @@ class ErrorListener implements \ECSPrefix20211031\Symfony\Component\EventDispatc
     }
     /**
      * Logs an exception.
-     * @param \Throwable $exception
-     * @param string $message
      */
-    protected function logException($exception, $message) : void
+    protected function logException(\Throwable $exception, string $message) : void
     {
         if (null !== $this->logger) {
             if (!$exception instanceof \ECSPrefix20211031\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface || $exception->getStatusCode() >= 500) {
@@ -122,10 +108,8 @@ class ErrorListener implements \ECSPrefix20211031\Symfony\Component\EventDispatc
     }
     /**
      * Clones the request for the exception.
-     * @param \Throwable $exception
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    protected function duplicateRequest($exception, $request) : \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request
+    protected function duplicateRequest(\Throwable $exception, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request) : \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request
     {
         $attributes = ['_controller' => $this->controller, 'exception' => $exception, 'logger' => $this->logger instanceof \ECSPrefix20211031\Symfony\Component\HttpKernel\Log\DebugLoggerInterface ? $this->logger : null];
         $request = $request->duplicate(null, null, $attributes);

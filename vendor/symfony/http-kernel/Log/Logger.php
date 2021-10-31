@@ -58,9 +58,8 @@ class Logger extends \ECSPrefix20211031\Psr\Log\AbstractLogger
      * {@inheritdoc}
      *
      * @return void
-     * @param mixed[] $context
      */
-    public function log($level, $message, $context = [])
+    public function log($level, $message, array $context = [])
     {
         if (!isset(self::LEVELS[$level])) {
             throw new \ECSPrefix20211031\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
@@ -77,7 +76,7 @@ class Logger extends \ECSPrefix20211031\Psr\Log\AbstractLogger
     }
     private function format(string $level, string $message, array $context, bool $prefixDate = \true) : string
     {
-        if (\strpos($message, '{') !== \false) {
+        if (\str_contains($message, '{')) {
             $replacements = [];
             foreach ($context as $key => $val) {
                 if (null === $val || \is_scalar($val) || \is_object($val) && \method_exists($val, '__toString')) {

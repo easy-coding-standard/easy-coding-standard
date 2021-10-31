@@ -33,10 +33,7 @@ class FragmentRendererPass implements \ECSPrefix20211031\Symfony\Component\Depen
         $this->handlerService = $handlerService;
         $this->rendererTag = $rendererTag;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->handlerService)) {
             return;

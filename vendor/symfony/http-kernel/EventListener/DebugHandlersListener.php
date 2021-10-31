@@ -65,9 +65,8 @@ class DebugHandlersListener implements \ECSPrefix20211031\Symfony\Component\Even
     }
     /**
      * Configures the error handler.
-     * @param object $event
      */
-    public function configure($event = null)
+    public function configure(object $event = null)
     {
         if ($event instanceof \ECSPrefix20211031\Symfony\Component\Console\Event\ConsoleEvent && !\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true)) {
             return;

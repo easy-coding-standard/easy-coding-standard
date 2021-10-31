@@ -33,13 +33,8 @@ final class FragmentUriGenerator implements \ECSPrefix20211031\Symfony\Component
     }
     /**
      * {@inheritDoc}
-     * @param \Symfony\Component\HttpKernel\Controller\ControllerReference $controller
-     * @param \Symfony\Component\HttpFoundation\Request|null $request
-     * @param bool $absolute
-     * @param bool $strict
-     * @param bool $sign
      */
-    public function generate($controller, $request = null, $absolute = \false, $strict = \true, $sign = \true) : string
+    public function generate(\ECSPrefix20211031\Symfony\Component\HttpKernel\Controller\ControllerReference $controller, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request = null, bool $absolute = \false, bool $strict = \true, bool $sign = \true) : string
     {
         if (null === $request && (null === $this->requestStack || null === ($request = $this->requestStack->getCurrentRequest()))) {
             throw new \LogicException('Generating a fragment URL can only be done when handling a Request.');

@@ -38,11 +38,8 @@ class RequestDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKern
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable|null $exception
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         // attributes are serialized and as they can be anything, they need to be converted to strings.
         $attributes = [];
@@ -153,17 +150,11 @@ class RequestDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKern
     {
         return new \ECSPrefix20211031\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_headers']->getValue());
     }
-    /**
-     * @param bool $raw
-     */
-    public function getRequestServer($raw = \false)
+    public function getRequestServer(bool $raw = \false)
     {
         return new \ECSPrefix20211031\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_server']->getValue($raw));
     }
-    /**
-     * @param bool $raw
-     */
-    public function getRequestCookies($raw = \false)
+    public function getRequestCookies(bool $raw = \false)
     {
         return new \ECSPrefix20211031\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_cookies']->getValue($raw));
     }
@@ -286,17 +277,11 @@ class RequestDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKern
     {
         return $this->data['forward_token'] ?? null;
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ControllerEvent $event
-     */
-    public function onKernelController($event)
+    public function onKernelController(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ControllerEvent $event)
     {
         $this->controllers[$event->getRequest()] = $event->getController();
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     */
-    public function onKernelResponse($event)
+    public function onKernelResponse(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMainRequest()) {
             return;
@@ -346,7 +331,7 @@ class RequestDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKern
      */
     protected function parseController($controller)
     {
-        if (\is_string($controller) && \strpos($controller, '::') !== \false) {
+        if (\is_string($controller) && \str_contains($controller, '::')) {
             $controller = \explode('::', $controller);
         }
         if (\is_array($controller)) {
@@ -363,7 +348,7 @@ class RequestDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKern
         if ($controller instanceof \Closure) {
             $r = new \ReflectionFunction($controller);
             $controller = ['class' => $r->getName(), 'method' => null, 'file' => $r->getFileName(), 'line' => $r->getStartLine()];
-            if (\strpos($r->name, '{closure}') !== \false) {
+            if (\str_contains($r->name, '{closure}')) {
                 return $controller;
             }
             $controller['method'] = $r->name;

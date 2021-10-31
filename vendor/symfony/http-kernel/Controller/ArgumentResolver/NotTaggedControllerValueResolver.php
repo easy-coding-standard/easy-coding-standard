@@ -29,10 +29,8 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20211031\Symfo
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      */
-    public function supports($request, $argument) : bool
+    public function supports(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
     {
         $controller = $request->attributes->get('_controller');
         if (\is_array($controller) && \is_callable($controller, \true) && \is_string($controller[0])) {
@@ -50,10 +48,8 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20211031\Symfo
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      */
-    public function resolve($request, $argument) : iterable
+    public function resolve(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : iterable
     {
         if (\is_array($controller = $request->attributes->get('_controller'))) {
             $controller = $controller[0] . '::' . $controller[1];

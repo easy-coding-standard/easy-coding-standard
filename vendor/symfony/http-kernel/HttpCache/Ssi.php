@@ -28,31 +28,24 @@ class Ssi extends \ECSPrefix20211031\Symfony\Component\HttpKernel\HttpCache\Abst
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function addSurrogateControl($response)
+    public function addSurrogateControl(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response)
     {
-        if (\strpos($response->getContent(), '<!--#include') !== \false) {
+        if (\str_contains($response->getContent(), '<!--#include')) {
             $response->headers->set('Surrogate-Control', 'content="SSI/1.0"');
         }
     }
     /**
      * {@inheritdoc}
-     * @param string $uri
-     * @param string|null $alt
-     * @param bool $ignoreErrors
-     * @param string $comment
      */
-    public function renderIncludeTag($uri, $alt = null, $ignoreErrors = \true, $comment = '')
+    public function renderIncludeTag(string $uri, string $alt = null, bool $ignoreErrors = \true, string $comment = '')
     {
         return \sprintf('<!--#include virtual="%s" -->', $uri);
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function process($request, $response)
+    public function process(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response)
     {
         $type = $response->headers->get('Content-Type');
         if (empty($type)) {

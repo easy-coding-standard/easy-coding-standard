@@ -37,11 +37,7 @@ class ErrorController
         $exception = $this->errorRenderer->render($exception);
         return new \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response($exception->getAsString(), $exception->getStatusCode(), $exception->getHeaders());
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $code
-     */
-    public function preview($request, $code) : \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response
+    public function preview(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, int $code) : \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response
     {
         /*
          * This Request mimics the parameters set by

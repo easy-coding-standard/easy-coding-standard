@@ -24,10 +24,7 @@ class MergeExtensionConfigurationPass extends \ECSPrefix20211031\Symfony\Compone
     {
         $this->extensions = $extensions;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($this->extensions as $extension) {
             if (!\count($container->getExtensionConfig($extension))) {

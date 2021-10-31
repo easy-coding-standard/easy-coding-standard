@@ -28,19 +28,15 @@ class ConfigDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKerne
     private $kernel;
     /**
      * Sets the Kernel associated with this Request.
-     * @param \Symfony\Component\HttpKernel\KernelInterface|null $kernel
      */
-    public function setKernel($kernel = null)
+    public function setKernel(\ECSPrefix20211031\Symfony\Component\HttpKernel\KernelInterface $kernel = null)
     {
         $this->kernel = $kernel;
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable|null $exception
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $eom = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20211031\Symfony\Component\HttpKernel\Kernel::END_OF_MAINTENANCE);
         $eol = \DateTime::createFromFormat('d/m/Y', '01/' . \ECSPrefix20211031\Symfony\Component\HttpKernel\Kernel::END_OF_LIFE);

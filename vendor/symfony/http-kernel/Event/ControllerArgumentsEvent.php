@@ -38,10 +38,7 @@ final class ControllerArgumentsEvent extends \ECSPrefix20211031\Symfony\Componen
     {
         return $this->controller;
     }
-    /**
-     * @param callable $controller
-     */
-    public function setController($controller)
+    public function setController(callable $controller)
     {
         $this->controller = $controller;
     }
@@ -49,10 +46,7 @@ final class ControllerArgumentsEvent extends \ECSPrefix20211031\Symfony\Componen
     {
         return $this->arguments;
     }
-    /**
-     * @param mixed[] $arguments
-     */
-    public function setArguments($arguments)
+    public function setArguments(array $arguments)
     {
         $this->arguments = $arguments;
     }

@@ -27,10 +27,7 @@ class ContainerControllerResolver extends \ECSPrefix20211031\Symfony\Component\H
         $this->container = $container;
         parent::__construct($logger);
     }
-    /**
-     * @param string $controller
-     */
-    protected function createController($controller)
+    protected function createController(string $controller)
     {
         if (1 === \substr_count($controller, ':')) {
             $controller = \str_replace(':', '::', $controller);
@@ -40,9 +37,8 @@ class ContainerControllerResolver extends \ECSPrefix20211031\Symfony\Component\H
     }
     /**
      * {@inheritdoc}
-     * @param string $class
      */
-    protected function instantiateController($class)
+    protected function instantiateController(string $class)
     {
         $class = \ltrim($class, '\\');
         if ($this->container->has($class)) {

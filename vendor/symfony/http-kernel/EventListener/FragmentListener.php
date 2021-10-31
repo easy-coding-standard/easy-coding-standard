@@ -45,9 +45,8 @@ class FragmentListener implements \ECSPrefix20211031\Symfony\Component\EventDisp
      * Fixes request attributes when the path is '/_fragment'.
      *
      * @throws AccessDeniedHttpException if the request does not come from a trusted IP
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         $request = $event->getRequest();
         if ($this->fragmentPath !== \rawurldecode($request->getPathInfo())) {
@@ -66,10 +65,7 @@ class FragmentListener implements \ECSPrefix20211031\Symfony\Component\EventDisp
         $request->attributes->set('_route_params', \array_replace($request->attributes->get('_route_params', []), $attributes));
         $request->query->remove('_path');
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    protected function validateRequest($request)
+    protected function validateRequest(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request)
     {
         // is the Request safe?
         if (!$request->isMethodSafe()) {

@@ -34,9 +34,8 @@ interface KernelInterface extends \ECSPrefix20211031\Symfony\Component\HttpKerne
     public function registerBundles();
     /**
      * Loads the container configuration.
-     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
      */
-    public function registerContainerConfiguration($loader);
+    public function registerContainerConfiguration(\ECSPrefix20211031\Symfony\Component\Config\Loader\LoaderInterface $loader);
     /**
      * Boots the current kernel.
      */
@@ -59,9 +58,8 @@ interface KernelInterface extends \ECSPrefix20211031\Symfony\Component\HttpKerne
      * @return BundleInterface A BundleInterface instance
      *
      * @throws \InvalidArgumentException when the bundle is not enabled
-     * @param string $name
      */
-    public function getBundle($name);
+    public function getBundle(string $name);
     /**
      * Returns the file path for a given bundle resource.
      *
@@ -78,9 +76,8 @@ interface KernelInterface extends \ECSPrefix20211031\Symfony\Component\HttpKerne
      *
      * @throws \InvalidArgumentException if the file cannot be found or the name is not valid
      * @throws \RuntimeException         if the name contains invalid/unsafe characters
-     * @param string $name
      */
-    public function locateResource($name);
+    public function locateResource(string $name);
     /**
      * Gets the environment.
      *

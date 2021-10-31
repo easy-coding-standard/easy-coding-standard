@@ -37,10 +37,7 @@ class ControllerArgumentValueResolverPass implements \ECSPrefix20211031\Symfony\
         $this->argumentValueResolverTag = $argumentValueResolverTag;
         $this->traceableResolverStopwatch = $traceableResolverStopwatch;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->argumentResolverService)) {
             return;

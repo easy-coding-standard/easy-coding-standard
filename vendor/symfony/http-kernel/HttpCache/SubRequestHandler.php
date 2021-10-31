@@ -21,13 +21,7 @@ use ECSPrefix20211031\Symfony\Component\HttpKernel\HttpKernelInterface;
  */
 class SubRequestHandler
 {
-    /**
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $type
-     * @param bool $catch
-     */
-    public static function handle($kernel, $request, $type, $catch) : \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response
+    public static function handle(\ECSPrefix20211031\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, int $type, bool $catch) : \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response
     {
         // save global state related to trusted headers and proxies
         $trustedProxies = \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request::getTrustedProxies();

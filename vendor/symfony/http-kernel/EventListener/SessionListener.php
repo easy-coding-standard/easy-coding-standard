@@ -31,10 +31,7 @@ class SessionListener extends \ECSPrefix20211031\Symfony\Component\HttpKernel\Ev
     {
         parent::__construct($container, $debug);
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         parent::onKernelRequest($event);
         if (!$event->isMainRequest() || !$this->container->has('session')) {

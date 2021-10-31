@@ -39,7 +39,6 @@ interface HttpKernelInterface
      * @return Response A Response instance
      *
      * @throws \Exception When an Exception occurs during processing
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function handle($request, $type = self::MAIN_REQUEST, $catch = \true);
+    public function handle(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, int $type = self::MAIN_REQUEST, bool $catch = \true);
 }

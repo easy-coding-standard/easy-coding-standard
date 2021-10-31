@@ -63,11 +63,8 @@ class HttpKernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel\Http
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $type
-     * @param bool $catch
      */
-    public function handle($request, $type = \ECSPrefix20211031\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST, $catch = \true)
+    public function handle(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, int $type = \ECSPrefix20211031\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST, bool $catch = \true)
     {
         $request->headers->set('X-Php-Ob-Level', (string) \ob_get_level());
         try {
@@ -85,19 +82,15 @@ class HttpKernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel\Http
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function terminate($request, $response)
+    public function terminate(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response)
     {
         $this->dispatcher->dispatch(new \ECSPrefix20211031\Symfony\Component\HttpKernel\Event\TerminateEvent($this, $request, $response), \ECSPrefix20211031\Symfony\Component\HttpKernel\KernelEvents::TERMINATE);
     }
     /**
      * @internal
-     * @param \Throwable $exception
-     * @param \Symfony\Component\HttpFoundation\Request|null $request
      */
-    public function terminateWithException($exception, $request = null)
+    public function terminateWithException(\Throwable $exception, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request = null)
     {
         if (!($request = $request ?: $this->requestStack->getMainRequest())) {
             throw $exception;

@@ -36,12 +36,7 @@ final class HttpClientKernel implements \ECSPrefix20211031\Symfony\Component\Htt
         }
         $this->client = $client ?? \ECSPrefix20211031\Symfony\Component\HttpClient\HttpClient::create();
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $type
-     * @param bool $catch
-     */
-    public function handle($request, $type = \ECSPrefix20211031\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST, $catch = \true) : \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response
+    public function handle(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, int $type = \ECSPrefix20211031\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST, bool $catch = \true) : \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response
     {
         $headers = $this->getHeaders($request);
         $body = '';

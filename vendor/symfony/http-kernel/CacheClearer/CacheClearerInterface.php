@@ -19,7 +19,6 @@ interface CacheClearerInterface
 {
     /**
      * Clears any caches necessary.
-     * @param string $cacheDir
      */
-    public function clear($cacheDir);
+    public function clear(string $cacheDir);
 }

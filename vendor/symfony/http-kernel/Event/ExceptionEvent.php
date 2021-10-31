@@ -45,9 +45,8 @@ final class ExceptionEvent extends \ECSPrefix20211031\Symfony\Component\HttpKern
      * Replaces the thrown exception.
      *
      * This exception will be thrown if no response is set in the event.
-     * @param \Throwable $exception
      */
-    public function setThrowable($exception) : void
+    public function setThrowable(\Throwable $exception) : void
     {
         $this->throwable = $exception;
     }

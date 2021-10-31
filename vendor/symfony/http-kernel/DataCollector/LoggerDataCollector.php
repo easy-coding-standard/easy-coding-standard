@@ -26,10 +26,7 @@ class LoggerDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKerne
     private $containerPathPrefix;
     private $currentRequest;
     private $requestStack;
-    /**
-     * @param object $logger
-     */
-    public function __construct($logger = null, string $containerPathPrefix = null, \ECSPrefix20211031\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
+    public function __construct(object $logger = null, string $containerPathPrefix = null, \ECSPrefix20211031\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
     {
         if (null !== $logger && $logger instanceof \ECSPrefix20211031\Symfony\Component\HttpKernel\Log\DebugLoggerInterface) {
             $this->logger = $logger;
@@ -39,11 +36,8 @@ class LoggerDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKerne
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable|null $exception
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $this->currentRequest = $this->requestStack && $this->requestStack->getMainRequest() !== $request ? $request : null;
     }

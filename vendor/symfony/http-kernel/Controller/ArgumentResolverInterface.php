@@ -25,8 +25,6 @@ interface ArgumentResolverInterface
      * @return array An array of arguments to pass to the controller
      *
      * @throws \RuntimeException When no value could be provided for a required argument
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param callable $controller
      */
-    public function getArguments($request, $controller);
+    public function getArguments(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, callable $controller);
 }

@@ -32,7 +32,7 @@ class FileProfilerStorage implements \ECSPrefix20211031\Symfony\Component\HttpKe
      */
     public function __construct(string $dsn)
     {
-        if (\strncmp($dsn, 'file:', \strlen('file:')) !== 0) {
+        if (!\str_starts_with($dsn, 'file:')) {
             throw new \RuntimeException(\sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
         }
         $this->folder = \substr($dsn, 5);
@@ -42,15 +42,8 @@ class FileProfilerStorage implements \ECSPrefix20211031\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
-     * @param string|null $ip
-     * @param string|null $url
-     * @param int|null $limit
-     * @param string|null $method
-     * @param int|null $start
-     * @param int|null $end
-     * @param string|null $statusCode
      */
-    public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null) : array
+    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, int $start = null, int $end = null, string $statusCode = null) : array
     {
         $file = $this->getIndexFilename();
         if (!\file_exists($file)) {
@@ -63,7 +56,7 @@ class FileProfilerStorage implements \ECSPrefix20211031\Symfony\Component\HttpKe
             $values = \str_getcsv($line);
             [$csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode] = $values;
             $csvTime = (int) $csvTime;
-            if ($ip && \strpos($csvIp, $ip) === \false || $url && \strpos($csvUrl, $url) === \false || $method && \strpos($csvMethod, $method) === \false || $statusCode && \strpos($csvStatusCode, $statusCode) === \false) {
+            if ($ip && !\str_contains($csvIp, $ip) || $url && !\str_contains($csvUrl, $url) || $method && !\str_contains($csvMethod, $method) || $statusCode && !\str_contains($csvStatusCode, $statusCode)) {
                 continue;
             }
             if (!empty($start) && $csvTime < $start) {
@@ -95,9 +88,8 @@ class FileProfilerStorage implements \ECSPrefix20211031\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
-     * @param string $token
      */
-    public function read($token) : ?\ECSPrefix20211031\Symfony\Component\HttpKernel\Profiler\Profile
+    public function read(string $token) : ?\ECSPrefix20211031\Symfony\Component\HttpKernel\Profiler\Profile
     {
         if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;
@@ -111,9 +103,8 @@ class FileProfilerStorage implements \ECSPrefix20211031\Symfony\Component\HttpKe
      * {@inheritdoc}
      *
      * @throws \RuntimeException
-     * @param \Symfony\Component\HttpKernel\Profiler\Profile $profile
      */
-    public function write($profile) : bool
+    public function write(\ECSPrefix20211031\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool
     {
         $file = $this->getFilename($profile->getToken());
         $profileIndexed = \is_file($file);
@@ -155,9 +146,8 @@ class FileProfilerStorage implements \ECSPrefix20211031\Symfony\Component\HttpKe
      * Gets filename to store data, associated to the token.
      *
      * @return string The profile filename
-     * @param string $token
      */
-    protected function getFilename($token)
+    protected function getFilename(string $token)
     {
         // Uses 4 last characters, because first are mostly the same.
         $folderA = \substr($token, -2, 2);
@@ -211,12 +201,7 @@ class FileProfilerStorage implements \ECSPrefix20211031\Symfony\Component\HttpKe
         }
         return '' === $line ? null : $line;
     }
-    /**
-     * @param string $token
-     * @param mixed[] $data
-     * @param \Symfony\Component\HttpKernel\Profiler\Profile|null $parent
-     */
-    protected function createProfileFromData($token, $data, $parent = null)
+    protected function createProfileFromData(string $token, array $data, \ECSPrefix20211031\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
     {
         $profile = new \ECSPrefix20211031\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);

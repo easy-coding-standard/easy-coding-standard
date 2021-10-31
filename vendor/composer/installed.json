@@ -3963,7 +3963,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "25a5b2bd468141e60e75185ee4fc6bd51be345dc"
+                "reference": "feeb4d86ef83f028e2ee859ea9dca4a66626f0bf"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.2",
@@ -4007,10 +4007,10 @@
                 "nette\/bootstrap": "^3.1",
                 "phpunit\/phpunit": "^9.5",
                 "symfony\/framework-bundle": "^5.3|^6.0",
-                "symfony\/http-kernel": "^5.3|^6.0",
                 "symplify\/easy-coding-standard": "dev-main",
                 "symplify\/rule-doc-generator": "dev-main",
-                "symplify\/smart-file-system": "dev-main"
+                "symplify\/smart-file-system": "dev-main",
+                "symplify\/symfony-container-builder": "dev-main"
             },
             "type": "library",
             "extra": {

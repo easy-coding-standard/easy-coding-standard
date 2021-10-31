@@ -30,9 +30,8 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20211031\Symfony\Compo
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $annotatedClasses = $this->kernel->getAnnotatedClassesToCompile();
         foreach ($container->getExtensions() as $extension) {
@@ -55,7 +54,7 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20211031\Symfony\Compo
         $expanded = [];
         // Explicit classes declared in the patterns are returned directly
         foreach ($patterns as $key => $pattern) {
-            if (\substr_compare($pattern, '\\', -\strlen('\\')) !== 0 && \strpos($pattern, '*') === \false) {
+            if (!\str_ends_with($pattern, '\\') && !\str_contains($pattern, '*')) {
                 unset($patterns[$key]);
                 $expanded[] = \ltrim($pattern, '\\');
             }
@@ -104,9 +103,9 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20211031\Symfony\Compo
     }
     private function matchAnyRegexps(string $class, array $regexps) : bool
     {
-        $isTest = \strpos($class, 'Test') !== \false;
+        $isTest = \str_contains($class, 'Test');
         foreach ($regexps as $regex) {
-            if ($isTest && \strpos($regex, 'Test') === \false) {
+            if ($isTest && !\str_contains($regex, 'Test')) {
                 continue;
             }
             if (\preg_match($regex, '\\' . $class)) {

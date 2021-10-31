@@ -46,7 +46,7 @@ class HttpException extends \RuntimeException implements \ECSPrefix20211031\Symf
      *
      * @param array $headers Response headers
      */
-    public function setHeaders($headers)
+    public function setHeaders(array $headers)
     {
         $this->headers = $headers;
     }

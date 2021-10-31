@@ -81,16 +81,12 @@ class RouterListener implements \ECSPrefix20211031\Symfony\Component\EventDispat
     /**
      * After a sub-request is done, we need to reset the routing context to the parent request so that the URL generator
      * operates on the correct context again.
-     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
      */
-    public function onKernelFinishRequest($event)
+    public function onKernelFinishRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
     {
         $this->setCurrentRequest($this->requestStack->getParentRequest());
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         $request = $event->getRequest();
         $this->setCurrentRequest($request);
@@ -123,10 +119,7 @@ class RouterListener implements \ECSPrefix20211031\Symfony\Component\EventDispat
             throw new \ECSPrefix20211031\Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException($e->getAllowedMethods(), $message, $e);
         }
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
-     */
-    public function onKernelException($event)
+    public function onKernelException(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ExceptionEvent $event)
     {
         if (!$this->debug || !($e = $event->getThrowable()) instanceof \ECSPrefix20211031\Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
             return;

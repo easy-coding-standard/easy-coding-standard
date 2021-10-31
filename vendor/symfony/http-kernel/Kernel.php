@@ -118,9 +118,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
     }
     /**
      * {@inheritdoc}
-     * @param string|null $warmupDir
      */
-    public function reboot($warmupDir)
+    public function reboot(?string $warmupDir)
     {
         $this->shutdown();
         $this->warmupDir = $warmupDir;
@@ -128,10 +127,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function terminate($request, $response)
+    public function terminate(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response)
     {
         if (\false === $this->booted) {
             return;
@@ -159,11 +156,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $type
-     * @param bool $catch
      */
-    public function handle($request, $type = \ECSPrefix20211031\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST, $catch = \true)
+    public function handle(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, int $type = \ECSPrefix20211031\Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST, bool $catch = \true)
     {
         if (!$this->booted) {
             $container = $this->container ?? $this->preBoot();
@@ -198,9 +192,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getBundle($name)
+    public function getBundle(string $name)
     {
         if (!isset($this->bundles[$name])) {
             throw new \InvalidArgumentException(\sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the "registerBundles()" method of your "%s.php" file?', $name, \get_debug_type($this)));
@@ -209,19 +202,18 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function locateResource($name)
+    public function locateResource(string $name)
     {
         if ('@' !== $name[0]) {
             throw new \InvalidArgumentException(\sprintf('A resource name must start with @ ("%s" given).', $name));
         }
-        if (\strpos($name, '..') !== \false) {
+        if (\str_contains($name, '..')) {
             throw new \RuntimeException(\sprintf('File name "%s" contains invalid characters (..).', $name));
         }
         $bundleName = \substr($name, 1);
         $path = '';
-        if (\strpos($bundleName, '/') !== \false) {
+        if (\str_contains($bundleName, '/')) {
             [$bundleName, $path] = \explode('/', $bundleName, 2);
         }
         $bundle = $this->getBundle($bundleName);
@@ -279,9 +271,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
     }
     /**
      * @internal
-     * @param mixed[] $annotatedClasses
      */
-    public function setAnnotatedClassCache($annotatedClasses)
+    public function setAnnotatedClassCache(array $annotatedClasses)
     {
         \file_put_contents(($this->warmupDir ?: $this->getBuildDir()) . '/annotations.map', \sprintf('<?php return %s;', \var_export($annotatedClasses, \true)));
     }
@@ -349,9 +340,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
      * The extension point similar to the Bundle::build() method.
      *
      * Use this method to register compiler passes and manipulate the container during the building process.
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function build($container)
+    protected function build(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
     }
     /**
@@ -364,7 +354,7 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
     protected function getContainerClass()
     {
         $class = static::class;
-        $class = \strpos($class, "@anonymous\0") !== \false ? \get_parent_class($class) . \str_replace('.', '_', \ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder::hash($class)) : $class;
+        $class = \str_contains($class, "@anonymous\0") ? \get_parent_class($class) . \str_replace('.', '_', \ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder::hash($class)) : $class;
         $class = \str_replace('\\', '_', $class) . \ucfirst($this->environment) . ($this->debug ? 'Debug' : '') . 'Container';
         if (!\preg_match('/^[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*$/', $class)) {
             throw new \InvalidArgumentException(\sprintf('The environment "%s" contains invalid characters, it can only contain characters allowed in PHP class names.', $this->environment));
@@ -551,9 +541,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
     }
     /**
      * Prepares the ContainerBuilder before it is compiled.
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function prepareContainer($container)
+    protected function prepareContainer(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $extensions = [];
         foreach ($this->bundles as $bundle) {
@@ -599,10 +588,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
      *
      * @param string $class     The name of the class to generate
      * @param string $baseClass The name of the container's base class
-     * @param \Symfony\Component\Config\ConfigCache $cache
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function dumpContainer($cache, $container, $class, $baseClass)
+    protected function dumpContainer(\ECSPrefix20211031\Symfony\Component\Config\ConfigCache $cache, \ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $class, string $baseClass)
     {
         // cache the container
         $dumper = new \ECSPrefix20211031\Symfony\Component\DependencyInjection\Dumper\PhpDumper($container);
@@ -627,9 +614,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
      * Returns a loader for the container.
      *
      * @return DelegatingLoader The loader
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
-    protected function getContainerLoader($container)
+    protected function getContainerLoader(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
         $env = $this->getEnvironment();
         $locator = new \ECSPrefix20211031\Symfony\Component\HttpKernel\Config\FileLocator($this);
@@ -664,9 +650,8 @@ abstract class Kernel implements \ECSPrefix20211031\Symfony\Component\HttpKernel
      * as we want the content to be readable and well-formatted.
      *
      * @return string The PHP string with the comments removed
-     * @param string $source
      */
-    public static function stripComments($source)
+    public static function stripComments(string $source)
     {
         if (!\function_exists('token_get_all')) {
             return $source;

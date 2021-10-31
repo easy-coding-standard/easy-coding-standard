@@ -44,9 +44,8 @@ abstract class Bundle implements \ECSPrefix20211031\Symfony\Component\HttpKernel
      *
      * This method can be overridden to register compilation passes,
      * other extensions, ...
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function build($container)
+    public function build(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
     }
     /**
@@ -108,10 +107,7 @@ abstract class Bundle implements \ECSPrefix20211031\Symfony\Component\HttpKernel
         }
         return $this->name;
     }
-    /**
-     * @param \Symfony\Component\Console\Application $application
-     */
-    public function registerCommands($application)
+    public function registerCommands(\ECSPrefix20211031\Symfony\Component\Console\Application $application)
     {
     }
     /**

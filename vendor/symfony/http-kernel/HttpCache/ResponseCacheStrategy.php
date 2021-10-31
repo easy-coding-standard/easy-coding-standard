@@ -37,9 +37,8 @@ class ResponseCacheStrategy implements \ECSPrefix20211031\Symfony\Component\Http
     private $ageDirectives = ['max-age' => null, 's-maxage' => null, 'expires' => null];
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function add($response)
+    public function add(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response)
     {
         ++$this->embeddedResponses;
         foreach (self::OVERRIDE_DIRECTIVES as $directive) {
@@ -69,9 +68,8 @@ class ResponseCacheStrategy implements \ECSPrefix20211031\Symfony\Component\Http
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function update($response)
+    public function update(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response)
     {
         // if we have no embedded Response, do nothing
         if (0 === $this->embeddedResponses) {

@@ -35,10 +35,7 @@ abstract class AbstractTestSessionListener implements \ECSPrefix20211031\Symfony
     {
         $this->sessionOptions = $sessionOptions;
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         if (!$event->isMainRequest()) {
             return;
@@ -56,9 +53,8 @@ abstract class AbstractTestSessionListener implements \ECSPrefix20211031\Symfony
     /**
      * Checks if session was initialized and saves if current request is the main request
      * Runs on 'kernel.response' in test environment.
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse($event)
+    public function onKernelResponse(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMainRequest()) {
             return;
@@ -74,7 +70,7 @@ abstract class AbstractTestSessionListener implements \ECSPrefix20211031\Symfony
         if ($session instanceof \ECSPrefix20211031\Symfony\Component\HttpFoundation\Session\Session ? !$session->isEmpty() || null !== $this->sessionId && $session->getId() !== $this->sessionId : $wasStarted) {
             $params = \session_get_cookie_params() + ['samesite' => null];
             foreach ($this->sessionOptions as $k => $v) {
-                if (\strncmp($k, 'cookie_', \strlen('cookie_')) === 0) {
+                if (\str_starts_with($k, 'cookie_')) {
                     $params[\substr($k, 7)] = $v;
                 }
             }

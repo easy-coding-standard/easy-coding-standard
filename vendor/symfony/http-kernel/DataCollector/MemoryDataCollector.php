@@ -27,11 +27,8 @@ class MemoryDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKerne
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable|null $exception
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $this->updateMemoryUsage();
     }
@@ -91,9 +88,9 @@ class MemoryDataCollector extends \ECSPrefix20211031\Symfony\Component\HttpKerne
         }
         $memoryLimit = \strtolower($memoryLimit);
         $max = \strtolower(\ltrim($memoryLimit, '+'));
-        if (\strncmp($max, '0x', \strlen('0x')) === 0) {
+        if (\str_starts_with($max, '0x')) {
             $max = \intval($max, 16);
-        } elseif (\strncmp($max, '0', \strlen('0')) === 0) {
+        } elseif (\str_starts_with($max, '0')) {
             $max = \intval($max, 8);
         } else {
             $max = (int) $max;

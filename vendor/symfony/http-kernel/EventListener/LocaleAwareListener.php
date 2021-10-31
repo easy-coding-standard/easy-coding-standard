@@ -33,17 +33,11 @@ class LocaleAwareListener implements \ECSPrefix20211031\Symfony\Component\EventD
         $this->localeAwareServices = $localeAwareServices;
         $this->requestStack = $requestStack;
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event) : void
+    public function onKernelRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent $event) : void
     {
         $this->setLocale($event->getRequest()->getLocale(), $event->getRequest()->getDefaultLocale());
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
-     */
-    public function onKernelFinishRequest($event) : void
+    public function onKernelFinishRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event) : void
     {
         if (null === ($parentRequest = $this->requestStack->getParentRequest())) {
             foreach ($this->localeAwareServices as $service) {

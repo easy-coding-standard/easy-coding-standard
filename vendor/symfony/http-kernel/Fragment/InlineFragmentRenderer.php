@@ -38,10 +38,8 @@ class InlineFragmentRenderer extends \ECSPrefix20211031\Symfony\Component\HttpKe
      * Additional available options:
      *
      *  * alt: an alternative URI to render in case of an error
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param mixed[] $options
      */
-    public function render($uri, $request, $options = [])
+    public function render($uri, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, array $options = [])
     {
         $reference = null;
         if ($uri instanceof \ECSPrefix20211031\Symfony\Component\HttpKernel\Controller\ControllerReference) {
@@ -89,11 +87,7 @@ class InlineFragmentRenderer extends \ECSPrefix20211031\Symfony\Component\HttpKe
             return new \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response();
         }
     }
-    /**
-     * @param string $uri
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    protected function createSubRequest($uri, $request)
+    protected function createSubRequest(string $uri, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request)
     {
         $cookies = $request->cookies->all();
         $server = $request->server->all();

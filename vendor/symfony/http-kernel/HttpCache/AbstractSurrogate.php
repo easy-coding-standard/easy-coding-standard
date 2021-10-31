@@ -42,20 +42,18 @@ abstract class AbstractSurrogate implements \ECSPrefix20211031\Symfony\Component
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function hasSurrogateCapability($request)
+    public function hasSurrogateCapability(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request)
     {
         if (null === ($value = $request->headers->get('Surrogate-Capability'))) {
             return \false;
         }
-        return \strpos($value, \sprintf('%s/1.0', \strtoupper($this->getName()))) !== \false;
+        return \str_contains($value, \sprintf('%s/1.0', \strtoupper($this->getName())));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function addSurrogateCapability($request)
+    public function addSurrogateCapability(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request)
     {
         $current = $request->headers->get('Surrogate-Capability');
         $new = \sprintf('symfony="%s/1.0"', \strtoupper($this->getName()));
@@ -63,9 +61,8 @@ abstract class AbstractSurrogate implements \ECSPrefix20211031\Symfony\Component
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function needsParsing($response)
+    public function needsParsing(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response)
     {
         if (!($control = $response->headers->get('Surrogate-Control'))) {
             return \false;
@@ -75,12 +72,8 @@ abstract class AbstractSurrogate implements \ECSPrefix20211031\Symfony\Component
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpKernel\HttpCache\HttpCache $cache
-     * @param string $uri
-     * @param string $alt
-     * @param bool $ignoreErrors
      */
-    public function handle($cache, $uri, $alt, $ignoreErrors)
+    public function handle(\ECSPrefix20211031\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, string $uri, string $alt, bool $ignoreErrors)
     {
         $subRequest = \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request::create($uri, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request::METHOD_GET, [], $cache->getRequest()->cookies->all(), [], $cache->getRequest()->server->all());
         try {
@@ -101,9 +94,8 @@ abstract class AbstractSurrogate implements \ECSPrefix20211031\Symfony\Component
     }
     /**
      * Remove the Surrogate from the Surrogate-Control header.
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    protected function removeFromControl($response)
+    protected function removeFromControl(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response)
     {
         if (!$response->headers->has('Surrogate-Control')) {
             return;

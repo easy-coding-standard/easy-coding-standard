@@ -36,26 +36,17 @@ class LocaleListener implements \ECSPrefix20211031\Symfony\Component\EventDispat
         $this->requestStack = $requestStack;
         $this->router = $router;
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\KernelEvent $event
-     */
-    public function setDefaultLocale($event)
+    public function setDefaultLocale(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\KernelEvent $event)
     {
         $event->getRequest()->setDefaultLocale($this->defaultLocale);
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         $request = $event->getRequest();
         $this->setLocale($request);
         $this->setRouterContext($request);
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
-     */
-    public function onKernelFinishRequest($event)
+    public function onKernelFinishRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
     {
         if (null !== ($parentRequest = $this->requestStack->getParentRequest())) {
             $this->setRouterContext($parentRequest);

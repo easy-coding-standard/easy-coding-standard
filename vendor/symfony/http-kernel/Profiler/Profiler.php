@@ -56,9 +56,8 @@ class Profiler implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInte
      * Loads the Profile for the given Response.
      *
      * @return Profile|null A Profile instance
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function loadProfileFromResponse($response)
+    public function loadProfileFromResponse(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response)
     {
         if (!($token = $response->headers->get('X-Debug-Token'))) {
             return null;
@@ -69,9 +68,8 @@ class Profiler implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInte
      * Loads the Profile for the given token.
      *
      * @return Profile|null A Profile instance
-     * @param string $token
      */
-    public function loadProfile($token)
+    public function loadProfile(string $token)
     {
         return $this->storage->read($token);
     }
@@ -79,9 +77,8 @@ class Profiler implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInte
      * Saves a Profile.
      *
      * @return bool
-     * @param \Symfony\Component\HttpKernel\Profiler\Profile $profile
      */
-    public function saveProfile($profile)
+    public function saveProfile(\ECSPrefix20211031\Symfony\Component\HttpKernel\Profiler\Profile $profile)
     {
         // late collect
         foreach ($profile->getCollectors() as $collector) {
@@ -111,12 +108,8 @@ class Profiler implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInte
      * @return array An array of tokens
      *
      * @see https://php.net/datetime.formats for the supported date/time formats
-     * @param string|null $ip
-     * @param string|null $url
-     * @param string|null $method
-     * @param string|null $statusCode
      */
-    public function find($ip, $url, $limit, $method, $start, $end, $statusCode = null)
+    public function find(?string $ip, ?string $url, ?string $limit, ?string $method, ?string $start, ?string $end, string $statusCode = null)
     {
         return $this->storage->find($ip, $url, $limit, $method, $this->getTimestamp($start), $this->getTimestamp($end), $statusCode);
     }
@@ -124,11 +117,8 @@ class Profiler implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInte
      * Collects data for the given Response.
      *
      * @return Profile|null A Profile instance or null if the profiler is disabled
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable|null $exception
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         if (\false === $this->enabled) {
             return null;
@@ -175,7 +165,7 @@ class Profiler implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInte
      *
      * @param DataCollectorInterface[] $collectors An array of collectors
      */
-    public function set($collectors = [])
+    public function set(array $collectors = [])
     {
         $this->collectors = [];
         foreach ($collectors as $collector) {
@@ -184,9 +174,8 @@ class Profiler implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInte
     }
     /**
      * Adds a Collector.
-     * @param \Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $collector
      */
-    public function add($collector)
+    public function add(\ECSPrefix20211031\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $collector)
     {
         $this->collectors[$collector->getName()] = $collector;
     }
@@ -197,7 +186,7 @@ class Profiler implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInte
      *
      * @return bool
      */
-    public function has($name)
+    public function has(string $name)
     {
         return isset($this->collectors[$name]);
     }
@@ -210,7 +199,7 @@ class Profiler implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInte
      *
      * @throws \InvalidArgumentException if the collector does not exist
      */
-    public function get($name)
+    public function get(string $name)
     {
         if (!isset($this->collectors[$name])) {
             throw new \InvalidArgumentException(\sprintf('Collector "%s" does not exist.', $name));

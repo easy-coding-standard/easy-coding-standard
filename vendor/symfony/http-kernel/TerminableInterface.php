@@ -25,8 +25,6 @@ interface TerminableInterface
      * Terminates a request/response cycle.
      *
      * Should be called after sending the response and before shutting down the kernel.
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function terminate($request, $response);
+    public function terminate(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response);
 }

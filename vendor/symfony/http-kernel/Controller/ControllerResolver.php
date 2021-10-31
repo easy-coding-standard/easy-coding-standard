@@ -28,9 +28,8 @@ class ControllerResolver implements \ECSPrefix20211031\Symfony\Component\HttpKer
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function getController($request)
+    public function getController(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request)
     {
         if (!($controller = $request->attributes->get('_controller'))) {
             if (null !== $this->logger) {
@@ -86,11 +85,10 @@ class ControllerResolver implements \ECSPrefix20211031\Symfony\Component\HttpKer
      * @return callable A PHP callable
      *
      * @throws \InvalidArgumentException When the controller cannot be created
-     * @param string $controller
      */
-    protected function createController($controller)
+    protected function createController(string $controller)
     {
-        if (\strpos($controller, '::') === \false) {
+        if (!\str_contains($controller, '::')) {
             $controller = $this->instantiateController($controller);
             if (!\is_callable($controller)) {
                 throw new \InvalidArgumentException($this->getControllerError($controller));
@@ -119,16 +117,15 @@ class ControllerResolver implements \ECSPrefix20211031\Symfony\Component\HttpKer
      * Returns an instantiated controller.
      *
      * @return object
-     * @param string $class
      */
-    protected function instantiateController($class)
+    protected function instantiateController(string $class)
     {
         return new $class();
     }
     private function getControllerError($callable) : string
     {
         if (\is_string($callable)) {
-            if (\strpos($callable, '::') !== \false) {
+            if (\str_contains($callable, '::')) {
                 $callable = \explode('::', $callable, 2);
             } else {
                 return \sprintf('Function "%s" does not exist.', $callable);
@@ -157,7 +154,7 @@ class ControllerResolver implements \ECSPrefix20211031\Symfony\Component\HttpKer
         $alternatives = [];
         foreach ($collection as $item) {
             $lev = \levenshtein($method, $item);
-            if ($lev <= \strlen($method) / 3 || \strpos($item, $method) !== \false) {
+            if ($lev <= \strlen($method) / 3 || \str_contains($item, $method)) {
                 $alternatives[] = $item;
             }
         }

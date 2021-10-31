@@ -30,28 +30,24 @@ interface SurrogateInterface
      * Checks that at least one surrogate has Surrogate capability.
      *
      * @return bool true if one surrogate has Surrogate capability, false otherwise
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function hasSurrogateCapability($request);
+    public function hasSurrogateCapability(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request);
     /**
      * Adds Surrogate-capability to the given Request.
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function addSurrogateCapability($request);
+    public function addSurrogateCapability(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request);
     /**
      * Adds HTTP headers to specify that the Response needs to be parsed for Surrogate.
      *
      * This method only adds an Surrogate HTTP header if the Response has some Surrogate tags.
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function addSurrogateControl($response);
+    public function addSurrogateControl(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response);
     /**
      * Checks that the Response needs to be parsed for Surrogate tags.
      *
      * @return bool true if the Response needs to be parsed, false otherwise
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function needsParsing($response);
+    public function needsParsing(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response);
     /**
      * Renders a Surrogate tag.
      *
@@ -59,18 +55,14 @@ interface SurrogateInterface
      * @param string $comment A comment to add as an esi:include tag
      *
      * @return string
-     * @param string $uri
-     * @param bool $ignoreErrors
      */
-    public function renderIncludeTag($uri, $alt = null, $ignoreErrors = \true, $comment = '');
+    public function renderIncludeTag(string $uri, string $alt = null, bool $ignoreErrors = \true, string $comment = '');
     /**
      * Replaces a Response Surrogate tags with the included resource content.
      *
      * @return Response
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function process($request, $response);
+    public function process(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Response $response);
     /**
      * Handles a Surrogate from the cache.
      *
@@ -80,9 +72,6 @@ interface SurrogateInterface
      *
      * @throws \RuntimeException
      * @throws \Exception
-     * @param \Symfony\Component\HttpKernel\HttpCache\HttpCache $cache
-     * @param string $uri
-     * @param bool $ignoreErrors
      */
-    public function handle($cache, $uri, $alt, $ignoreErrors);
+    public function handle(\ECSPrefix20211031\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, string $uri, string $alt, bool $ignoreErrors);
 }

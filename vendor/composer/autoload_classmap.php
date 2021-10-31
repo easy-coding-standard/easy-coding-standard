@@ -1693,7 +1693,6 @@ return array(
     'Symplify\\EasyCodingStandard\\Application\\FileProcessorCollector' => $baseDir . '/src/Application/FileProcessorCollector.php',
     'Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor' => $baseDir . '/src/Application/SingleFileProcessor.php',
     'Symplify\\EasyCodingStandard\\Application\\Version\\StaticVersionResolver' => $baseDir . '/src/Application/Version/StaticVersionResolver.php',
-    'Symplify\\EasyCodingStandard\\Bundle\\EasyCodingStandardBundle' => $baseDir . '/src/Bundle/EasyCodingStandardBundle.php',
     'Symplify\\EasyCodingStandard\\Caching\\Cache' => $baseDir . '/packages/Caching/Cache.php',
     'Symplify\\EasyCodingStandard\\Caching\\CacheFactory' => $baseDir . '/packages/Caching/CacheFactory.php',
     'Symplify\\EasyCodingStandard\\Caching\\ChangedFilesDetector' => $baseDir . '/packages/Caching/ChangedFilesDetector.php',

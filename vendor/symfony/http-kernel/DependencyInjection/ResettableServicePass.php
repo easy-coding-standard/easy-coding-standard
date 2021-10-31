@@ -31,9 +31,8 @@ class ResettableServicePass implements \ECSPrefix20211031\Symfony\Component\Depe
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->has('services_resetter')) {
             return;

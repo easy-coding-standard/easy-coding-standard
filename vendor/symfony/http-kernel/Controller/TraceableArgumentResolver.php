@@ -26,10 +26,8 @@ class TraceableArgumentResolver implements \ECSPrefix20211031\Symfony\Component\
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param callable $controller
      */
-    public function getArguments($request, $controller)
+    public function getArguments(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, callable $controller)
     {
         $e = $this->stopwatch->start('controller.get_arguments');
         $ret = $this->resolver->getArguments($request, $controller);

@@ -36,9 +36,8 @@ class UriSigner
      * which value depends on the URI and the secret.
      *
      * @return string The signed URI
-     * @param string $uri
      */
-    public function sign($uri)
+    public function sign(string $uri)
     {
         $url = \parse_url($uri);
         if (isset($url['query'])) {
@@ -54,9 +53,8 @@ class UriSigner
      * Checks that a URI contains the correct hash.
      *
      * @return bool True if the URI is signed correctly, false otherwise
-     * @param string $uri
      */
-    public function check($uri)
+    public function check(string $uri)
     {
         $url = \parse_url($uri);
         if (isset($url['query'])) {
@@ -71,10 +69,7 @@ class UriSigner
         unset($params[$this->parameter]);
         return \hash_equals($this->computeHash($this->buildUrl($url, $params)), $hash);
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function checkRequest($request) : bool
+    public function checkRequest(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request) : bool
     {
         $qs = ($qs = $request->server->get('QUERY_STRING')) ? '?' . $qs : '';
         // we cannot use $request->getUri() here as we want to work with the original URI (no query string reordering)

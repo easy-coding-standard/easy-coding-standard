@@ -52,10 +52,8 @@ abstract class AbstractSurrogateFragmentRenderer extends \ECSPrefix20211031\Symf
      * 'alt' and 'comment' are only supported by ESI.
      *
      * @see Symfony\Component\HttpKernel\HttpCache\SurrogateInterface
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param mixed[] $options
      */
-    public function render($uri, $request, $options = [])
+    public function render($uri, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, array $options = [])
     {
         if (!$this->surrogate || !$this->surrogate->hasSurrogateCapability($request)) {
             if ($uri instanceof \ECSPrefix20211031\Symfony\Component\HttpKernel\Controller\ControllerReference && $this->containsNonScalars($uri->attributes)) {

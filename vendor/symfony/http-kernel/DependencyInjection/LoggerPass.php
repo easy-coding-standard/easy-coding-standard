@@ -23,9 +23,8 @@ class LoggerPass implements \ECSPrefix20211031\Symfony\Component\DependencyInjec
 {
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $container->setAlias(\ECSPrefix20211031\Psr\Log\LoggerInterface::class, 'logger')->setPublic(\false);
         if ($container->has('logger')) {
