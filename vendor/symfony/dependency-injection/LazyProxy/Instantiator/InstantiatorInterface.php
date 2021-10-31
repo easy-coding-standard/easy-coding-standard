@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211030\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
+namespace ECSPrefix20211031\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
 
-use ECSPrefix20211030\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20211030\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20211031\Symfony\Component\DependencyInjection\Definition;
 /**
  * Lazy proxy instantiator, capable of instantiating a proxy given a container, the
  * service definitions and a callback that produces the real service instance.

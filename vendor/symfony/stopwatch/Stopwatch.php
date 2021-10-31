@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211030\Symfony\Component\Stopwatch;
+namespace ECSPrefix20211031\Symfony\Component\Stopwatch;
 
-use ECSPrefix20211030\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20211031\Symfony\Contracts\Service\ResetInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20211030\Symfony\Component\Stopwatch\Section::class);
+\class_exists(\ECSPrefix20211031\Symfony\Component\Stopwatch\Section::class);
 /**
  * Stopwatch provides a way to profile code.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Stopwatch implements \ECSPrefix20211030\Symfony\Contracts\Service\ResetInterface
+class Stopwatch implements \ECSPrefix20211031\Symfony\Contracts\Service\ResetInterface
 {
     /**
      * @var bool
@@ -149,6 +149,6 @@ class Stopwatch implements \ECSPrefix20211030\Symfony\Contracts\Service\ResetInt
      */
     public function reset()
     {
-        $this->sections = $this->activeSections = ['__root__' => new \ECSPrefix20211030\Symfony\Component\Stopwatch\Section(null, $this->morePrecision)];
+        $this->sections = $this->activeSections = ['__root__' => new \ECSPrefix20211031\Symfony\Component\Stopwatch\Section(null, $this->morePrecision)];
     }
 }

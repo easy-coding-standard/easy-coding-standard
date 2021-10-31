@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211030\Symfony\Component\HttpFoundation\File\Exception;
+namespace ECSPrefix20211031\Symfony\Component\HttpFoundation\File\Exception;
 
 /**
  * Thrown when an UPLOAD_ERR_NO_FILE error occurred with UploadedFile.
  *
  * @author Florent Mata <florentmata@gmail.com>
  */
-class NoFileException extends \ECSPrefix20211030\Symfony\Component\HttpFoundation\File\Exception\FileException
+class NoFileException extends \ECSPrefix20211031\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
 }

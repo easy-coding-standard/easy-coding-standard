@@ -12,12 +12,12 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer;
 
-use ECSPrefix20211030\Symfony\Component\Finder\Finder as BaseFinder;
+use ECSPrefix20211031\Symfony\Component\Finder\Finder as BaseFinder;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-class Finder extends \ECSPrefix20211030\Symfony\Component\Finder\Finder
+class Finder extends \ECSPrefix20211031\Symfony\Component\Finder\Finder
 {
     public function __construct()
     {
