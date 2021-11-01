@@ -3,15 +3,17 @@
 declare (strict_types=1);
 namespace ECSPrefix20211101\Symplify\EasyTesting\HttpKernel;
 
-use ECSPrefix20211101\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix20211101\Psr\Container\ContainerInterface;
+use ECSPrefix20211101\Symplify\EasyTesting\ValueObject\EasyTestingConfig;
 use ECSPrefix20211101\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class EasyTestingKernel extends \ECSPrefix20211101\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
-     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
+     * @param string[] $configFiles
      */
-    public function registerContainerConfiguration($loader) : void
+    public function createFromConfigs($configFiles) : \ECSPrefix20211101\Psr\Container\ContainerInterface
     {
-        $loader->load(__DIR__ . '/../../config/config.php');
+        $configFiles[] = \ECSPrefix20211101\Symplify\EasyTesting\ValueObject\EasyTestingConfig::FILE_PATH;
+        return $this->create([], [], $configFiles);
     }
 }

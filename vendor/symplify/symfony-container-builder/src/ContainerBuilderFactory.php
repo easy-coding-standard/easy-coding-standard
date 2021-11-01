@@ -30,8 +30,8 @@ final class ContainerBuilderFactory
         \ECSPrefix20211101\Webmozart\Assert\Assert::allFile($configFiles);
         $containerBuilder = new \ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerBuilder();
         $this->registerExtensions($containerBuilder, $extensions);
-        $this->registerCompilerPasses($containerBuilder, $compilerPasses);
         $this->registerConfigFiles($containerBuilder, $configFiles);
+        $this->registerCompilerPasses($containerBuilder, $compilerPasses);
         // this calls load() method in every extensions
         // ensure these extensions are implicitly loaded
         $compilerPassConfig = $containerBuilder->getCompilerPassConfig();
