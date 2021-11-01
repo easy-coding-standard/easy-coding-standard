@@ -4216,7 +4216,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "3e42eaca0dd8fe076654baf9401fae47a2b02136"
+                "reference": "0a60e0cb08f06e4bb32ed14cfbeed7c5804209de"
             },
             "require": {
                 "php": ">=8.0",
@@ -4226,7 +4226,8 @@
                 "symplify\/composer-json-manipulator": "dev-main",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
-                "symplify\/symfony-container-builder": "dev-main"
+                "symplify\/symfony-container-builder": "dev-main",
+                "webmozart\/assert": "^1.10"
             },
             "conflict": {
                 "symplify\/amnesia": "<9.4.70",
