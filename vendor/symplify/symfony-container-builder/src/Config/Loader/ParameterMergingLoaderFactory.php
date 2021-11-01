@@ -9,9 +9,14 @@ use ECSPrefix20211101\Symfony\Component\Config\Loader\GlobFileLoader;
 use ECSPrefix20211101\Symfony\Component\Config\Loader\LoaderResolver;
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20211101\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
-final class ParameterMergingLoaderFactory
+use ECSPrefix20211101\Symplify\SymfonyContainerBuilder\Contract\Config\LoaderFactoryInterface;
+final class ParameterMergingLoaderFactory implements \ECSPrefix20211101\Symplify\SymfonyContainerBuilder\Contract\Config\LoaderFactoryInterface
 {
-    public function create(\ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $currentWorkingDirectory) : \ECSPrefix20211101\Symfony\Component\Config\Loader\DelegatingLoader
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param string $currentWorkingDirectory
+     */
+    public function create($containerBuilder, $currentWorkingDirectory) : \ECSPrefix20211101\Symfony\Component\Config\Loader\LoaderInterface
     {
         $fileLocator = new \ECSPrefix20211101\Symfony\Component\Config\FileLocator([$currentWorkingDirectory]);
         $loaders = [new \ECSPrefix20211101\Symfony\Component\Config\Loader\GlobFileLoader($fileLocator), new \ECSPrefix20211101\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $fileLocator)];

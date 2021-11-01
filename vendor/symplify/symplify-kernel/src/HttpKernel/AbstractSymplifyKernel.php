@@ -6,6 +6,7 @@ namespace ECSPrefix20211101\Symplify\SymplifyKernel\HttpKernel;
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\Container;
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerInterface;
 use ECSPrefix20211101\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use ECSPrefix20211101\Symplify\SymfonyContainerBuilder\Config\Loader\ParameterMergingLoaderFactory;
 use ECSPrefix20211101\Symplify\SymfonyContainerBuilder\ContainerBuilderFactory;
 use ECSPrefix20211101\Symplify\SymplifyKernel\Contract\LightKernelInterface;
 use ECSPrefix20211101\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
@@ -26,7 +27,7 @@ abstract class AbstractSymplifyKernel implements \ECSPrefix20211101\Symplify\Sym
      */
     public function create($extensions, $compilerPasses, $configFiles) : \ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerInterface
     {
-        $containerBuilderFactory = new \ECSPrefix20211101\Symplify\SymfonyContainerBuilder\ContainerBuilderFactory();
+        $containerBuilderFactory = new \ECSPrefix20211101\Symplify\SymfonyContainerBuilder\ContainerBuilderFactory(new \ECSPrefix20211101\Symplify\SymfonyContainerBuilder\Config\Loader\ParameterMergingLoaderFactory());
         $compilerPasses[] = new \ECSPrefix20211101\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass();
         $configFiles[] = \ECSPrefix20211101\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig::FILE_PATH;
         $containerBuilder = $containerBuilderFactory->create($extensions, $compilerPasses, $configFiles);
