@@ -1,13 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\HttpKernel;
+namespace Symplify\EasyCodingStandard\Kernel;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20211101\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use ECSPrefix20211101\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\CodingStandard\ValueObject\CodingStandardConfig;
 use ECSPrefix20211101\Symplify\ConsoleColorDiff\ValueObject\ConsoleColorDiffConfig;
@@ -16,10 +15,9 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingChec
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\Extension\EasyCodingStandardExtension;
+use Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig;
 use ECSPrefix20211101\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 use ECSPrefix20211101\Symplify\Skipper\ValueObject\SkipperConfig;
-use ECSPrefix20211101\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
 use ECSPrefix20211101\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class EasyCodingStandardKernel extends \ECSPrefix20211101\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
@@ -30,21 +28,11 @@ final class EasyCodingStandardKernel extends \ECSPrefix20211101\Symplify\Symplif
     {
         $configFiles[] = __DIR__ . '/../../config/config.php';
         $compilerPasses = $this->createCompilerPasses();
-        $extensions = $this->createExtensions();
         $configFiles[] = \ECSPrefix20211101\Symplify\ConsoleColorDiff\ValueObject\ConsoleColorDiffConfig::FILE_PATH;
         $configFiles[] = \ECSPrefix20211101\Symplify\Skipper\ValueObject\SkipperConfig::FILE_PATH;
         $configFiles[] = \Symplify\CodingStandard\ValueObject\CodingStandardConfig::FILE_PATH;
-        return $this->create($extensions, $compilerPasses, $configFiles);
-    }
-    /**
-     * @return ExtensionInterface[]
-     */
-    private function createExtensions() : array
-    {
-        $extensions = [];
-        $extensions[] = new \ECSPrefix20211101\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension();
-        $extensions[] = new \Symplify\EasyCodingStandard\DependencyInjection\Extension\EasyCodingStandardExtension();
-        return $extensions;
+        $configFiles[] = \Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig::FILE_PATH;
+        return $this->create([], $compilerPasses, $configFiles);
     }
     /**
      * @return CompilerPassInterface[]

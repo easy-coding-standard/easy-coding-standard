@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14
+class ComposerStaticInit5fd5ae929f936fa3fa4331cbfbd9a1ff
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1004,7 +1004,7 @@ class ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14
         'ECSPrefix20211101\\Symplify\\EasyTesting\\DataProvider\\StaticFixtureUpdater' => __DIR__ . '/..' . '/symplify/easy-testing/src/DataProvider/StaticFixtureUpdater.php',
         'ECSPrefix20211101\\Symplify\\EasyTesting\\Finder\\FixtureFinder' => __DIR__ . '/..' . '/symplify/easy-testing/src/Finder/FixtureFinder.php',
         'ECSPrefix20211101\\Symplify\\EasyTesting\\FixtureSplitter\\TrioFixtureSplitter' => __DIR__ . '/..' . '/symplify/easy-testing/src/FixtureSplitter/TrioFixtureSplitter.php',
-        'ECSPrefix20211101\\Symplify\\EasyTesting\\HttpKernel\\EasyTestingKernel' => __DIR__ . '/..' . '/symplify/easy-testing/src/HttpKernel/EasyTestingKernel.php',
+        'ECSPrefix20211101\\Symplify\\EasyTesting\\Kernel\\EasyTestingKernel' => __DIR__ . '/..' . '/symplify/easy-testing/src/Kernel/EasyTestingKernel.php',
         'ECSPrefix20211101\\Symplify\\EasyTesting\\MissplacedSkipPrefixResolver' => __DIR__ . '/..' . '/symplify/easy-testing/src/MissplacedSkipPrefixResolver.php',
         'ECSPrefix20211101\\Symplify\\EasyTesting\\PHPUnit\\Behavior\\DirectoryAssertableTrait' => __DIR__ . '/..' . '/symplify/easy-testing/src/PHPUnit/Behavior/DirectoryAssertableTrait.php',
         'ECSPrefix20211101\\Symplify\\EasyTesting\\PHPUnit\\StaticPHPUnitEnvironment' => __DIR__ . '/..' . '/symplify/easy-testing/src/PHPUnit/StaticPHPUnitEnvironment.php',
@@ -1081,9 +1081,7 @@ class ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14
         'ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\Config\\Loader\\ParameterMergingLoaderFactory' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/Config/Loader/ParameterMergingLoaderFactory.php',
         'ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\ContainerBuilderFactory' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/ContainerBuilderFactory.php',
         'ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\DependencyInjection\\LoadExtensionConfigsCompilerPass' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/DependencyInjection/LoadExtensionConfigsCompilerPass.php',
-        'ECSPrefix20211101\\Symplify\\SymplifyKernel\\Bundle\\SymplifyKernelBundle' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Bundle/SymplifyKernelBundle.php',
         'ECSPrefix20211101\\Symplify\\SymplifyKernel\\Contract\\LightKernelInterface' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Contract/LightKernelInterface.php',
-        'ECSPrefix20211101\\Symplify\\SymplifyKernel\\DependencyInjection\\Extension\\SymplifyKernelExtension' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/DependencyInjection/Extension/SymplifyKernelExtension.php',
         'ECSPrefix20211101\\Symplify\\SymplifyKernel\\Exception\\BootException' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Exception/BootException.php',
         'ECSPrefix20211101\\Symplify\\SymplifyKernel\\Exception\\ShouldNotHappenException' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Exception/ShouldNotHappenException.php',
         'ECSPrefix20211101\\Symplify\\SymplifyKernel\\HttpKernel\\AbstractSymplifyKernel' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/HttpKernel/AbstractSymplifyKernel.php',
@@ -1680,7 +1678,6 @@ class ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveExcludedCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveExcludedCheckersCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveMutualCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveMutualCheckersCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\EasyCodingStandardContainerFactory' => __DIR__ . '/../..' . '/src/DependencyInjection/EasyCodingStandardContainerFactory.php',
-        'Symplify\\EasyCodingStandard\\DependencyInjection\\Extension\\EasyCodingStandardExtension' => __DIR__ . '/../..' . '/src/DependencyInjection/Extension/EasyCodingStandardExtension.php',
         'Symplify\\EasyCodingStandard\\Error\\FileDiffFactory' => __DIR__ . '/../..' . '/src/Error/FileDiffFactory.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\ConflictingCheckersLoadedException' => __DIR__ . '/../..' . '/src/Exception/Configuration/ConflictingCheckersLoadedException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\FileNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/FileNotFoundException.php',
@@ -1698,7 +1695,7 @@ class ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14
         'Symplify\\EasyCodingStandard\\FixerRunner\\WhitespacesFixerConfigFactory' => __DIR__ . '/../..' . '/packages/FixerRunner/WhitespacesFixerConfigFactory.php',
         'Symplify\\EasyCodingStandard\\Git\\GitDiffProvider' => __DIR__ . '/../..' . '/src/Git/GitDiffProvider.php',
         'Symplify\\EasyCodingStandard\\Guard\\LoadedCheckersGuard' => __DIR__ . '/../..' . '/src/Guard/LoadedCheckersGuard.php',
-        'Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel' => __DIR__ . '/../..' . '/src/HttpKernel/EasyCodingStandardKernel.php',
+        'Symplify\\EasyCodingStandard\\Kernel\\EasyCodingStandardKernel' => __DIR__ . '/../..' . '/src/Kernel/EasyCodingStandardKernel.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor' => __DIR__ . '/../..' . '/packages/Parallel/Application/ParallelFileProcessor.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Command\\WorkerCommandLineFactory' => __DIR__ . '/../..' . '/packages/Parallel/Command/WorkerCommandLineFactory.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Contract\\SerializableInterface' => __DIR__ . '/../..' . '/packages/Parallel/Contract/SerializableInterface.php',
@@ -1733,6 +1730,7 @@ class ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14
         'Symplify\\EasyCodingStandard\\Testing\\Exception\\ShouldNotHappenException' => __DIR__ . '/../..' . '/src/Testing/Exception/ShouldNotHappenException.php',
         'Symplify\\EasyCodingStandard\\Testing\\PHPUnit\\AbstractCheckerTestCase' => __DIR__ . '/../..' . '/src/Testing/PHPUnit/AbstractCheckerTestCase.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Configuration' => __DIR__ . '/../..' . '/src/ValueObject/Configuration.php',
+        'Symplify\\EasyCodingStandard\\ValueObject\\EasyCodingStandardConfig' => __DIR__ . '/../..' . '/src/ValueObject/EasyCodingStandardConfig.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\ErrorAndDiffResult' => __DIR__ . '/../..' . '/src/ValueObject/Error/ErrorAndDiffResult.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff' => __DIR__ . '/../..' . '/src/ValueObject/Error/FileDiff.php',
         'Symplify\\EasyCodingStandard\\ValueObject\\Error\\SystemError' => __DIR__ . '/../..' . '/src/ValueObject/Error/SystemError.php',
@@ -1745,9 +1743,9 @@ class ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd195eab0cd7b87d448ac9d871e1b0e14::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5fd5ae929f936fa3fa4331cbfbd9a1ff::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5fd5ae929f936fa3fa4331cbfbd9a1ff::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5fd5ae929f936fa3fa4331cbfbd9a1ff::$classMap;
 
         }, null, ClassLoader::class);
     }

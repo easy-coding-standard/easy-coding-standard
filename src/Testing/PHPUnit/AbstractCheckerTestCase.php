@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 use PHPUnit\Framework\TestCase;
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
@@ -138,7 +138,7 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
     {
         \ECSPrefix20211101\Webmozart\Assert\Assert::allString($configs);
         \ECSPrefix20211101\Webmozart\Assert\Assert::allFile($configs);
-        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel();
+        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel();
         return $easyCodingStandardKernel->createFromConfigs($configs);
     }
 }

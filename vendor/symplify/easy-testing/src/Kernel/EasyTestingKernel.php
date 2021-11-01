@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211101\Symplify\EasyTesting\HttpKernel;
+namespace ECSPrefix20211101\Symplify\EasyTesting\Kernel;
 
 use ECSPrefix20211101\Psr\Container\ContainerInterface;
 use ECSPrefix20211101\Symplify\EasyTesting\ValueObject\EasyTestingConfig;

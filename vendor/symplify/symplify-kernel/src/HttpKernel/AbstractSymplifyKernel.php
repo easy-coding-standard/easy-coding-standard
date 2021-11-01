@@ -8,8 +8,8 @@ use ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerInterface;
 use ECSPrefix20211101\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use ECSPrefix20211101\Symplify\SymfonyContainerBuilder\ContainerBuilderFactory;
 use ECSPrefix20211101\Symplify\SymplifyKernel\Contract\LightKernelInterface;
-use ECSPrefix20211101\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
 use ECSPrefix20211101\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20211101\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig;
 /**
  * @api
  */
@@ -27,8 +27,8 @@ abstract class AbstractSymplifyKernel implements \ECSPrefix20211101\Symplify\Sym
     public function create($extensions, $compilerPasses, $configFiles) : \ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerInterface
     {
         $containerBuilderFactory = new \ECSPrefix20211101\Symplify\SymfonyContainerBuilder\ContainerBuilderFactory();
-        $extensions[] = new \ECSPrefix20211101\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension();
         $compilerPasses[] = new \ECSPrefix20211101\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass();
+        $configFiles[] = \ECSPrefix20211101\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig::FILE_PATH;
         $containerBuilder = $containerBuilderFactory->create($extensions, $compilerPasses, $configFiles);
         $containerBuilder->compile();
         $this->container = $containerBuilder;
