@@ -4,14 +4,14 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit06d13a6f7f068c0b73dad32351626664
+class ComposerStaticInit548cf3a7a5a652d44d2db97d07667f2a
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
@@ -36,7 +36,6 @@ class ComposerStaticInit06d13a6f7f068c0b73dad32351626664
         array (
             'ECSPrefix20211101\\Webmozart\\Assert\\' => 35,
             'ECSPrefix20211101\\Symplify\\SymplifyKernel\\' => 42,
-            'ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\' => 51,
             'ECSPrefix20211101\\Symplify\\SmartFileSystem\\' => 43,
             'ECSPrefix20211101\\Symplify\\Skipper\\' => 35,
             'ECSPrefix20211101\\Symplify\\RuleDocGenerator\\' => 44,
@@ -108,10 +107,6 @@ class ComposerStaticInit06d13a6f7f068c0b73dad32351626664
         'ECSPrefix20211101\\Symplify\\SymplifyKernel\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/symplify-kernel/src',
-        ),
-        'ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symplify/symfony-container-builder/src',
         ),
         'ECSPrefix20211101\\Symplify\\SmartFileSystem\\' => 
         array (
@@ -1078,11 +1073,11 @@ class ComposerStaticInit06d13a6f7f068c0b73dad32351626664
         'ECSPrefix20211101\\Symplify\\SmartFileSystem\\Normalizer\\PathNormalizer' => __DIR__ . '/..' . '/symplify/smart-file-system/src/Normalizer/PathNormalizer.php',
         'ECSPrefix20211101\\Symplify\\SmartFileSystem\\SmartFileInfo' => __DIR__ . '/..' . '/symplify/smart-file-system/src/SmartFileInfo.php',
         'ECSPrefix20211101\\Symplify\\SmartFileSystem\\SmartFileSystem' => __DIR__ . '/..' . '/symplify/smart-file-system/src/SmartFileSystem.php',
-        'ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\Config\\Loader\\ParameterMergingLoaderFactory' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/Config/Loader/ParameterMergingLoaderFactory.php',
-        'ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\ContainerBuilderFactory' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/ContainerBuilderFactory.php',
-        'ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\Contract\\Config\\LoaderFactoryInterface' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/Contract/Config/LoaderFactoryInterface.php',
-        'ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\DependencyInjection\\LoadExtensionConfigsCompilerPass' => __DIR__ . '/..' . '/symplify/symfony-container-builder/src/DependencyInjection/LoadExtensionConfigsCompilerPass.php',
+        'ECSPrefix20211101\\Symplify\\SymplifyKernel\\Config\\Loader\\ParameterMergingLoaderFactory' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Config/Loader/ParameterMergingLoaderFactory.php',
+        'ECSPrefix20211101\\Symplify\\SymplifyKernel\\ContainerBuilderFactory' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/ContainerBuilderFactory.php',
+        'ECSPrefix20211101\\Symplify\\SymplifyKernel\\Contract\\Config\\LoaderFactoryInterface' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Contract/Config/LoaderFactoryInterface.php',
         'ECSPrefix20211101\\Symplify\\SymplifyKernel\\Contract\\LightKernelInterface' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Contract/LightKernelInterface.php',
+        'ECSPrefix20211101\\Symplify\\SymplifyKernel\\DependencyInjection\\LoadExtensionConfigsCompilerPass' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/DependencyInjection/LoadExtensionConfigsCompilerPass.php',
         'ECSPrefix20211101\\Symplify\\SymplifyKernel\\Exception\\BootException' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Exception/BootException.php',
         'ECSPrefix20211101\\Symplify\\SymplifyKernel\\Exception\\ShouldNotHappenException' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Exception/ShouldNotHappenException.php',
         'ECSPrefix20211101\\Symplify\\SymplifyKernel\\HttpKernel\\AbstractSymplifyKernel' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/HttpKernel/AbstractSymplifyKernel.php',
@@ -1744,9 +1739,9 @@ class ComposerStaticInit06d13a6f7f068c0b73dad32351626664
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit06d13a6f7f068c0b73dad32351626664::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit06d13a6f7f068c0b73dad32351626664::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit06d13a6f7f068c0b73dad32351626664::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit548cf3a7a5a652d44d2db97d07667f2a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit548cf3a7a5a652d44d2db97d07667f2a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit548cf3a7a5a652d44d2db97d07667f2a::$classMap;
 
         }, null, ClassLoader::class);
     }

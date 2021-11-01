@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211101\Symplify\SymfonyContainerBuilder\DependencyInjection;
+namespace ECSPrefix20211101\Symplify\SymplifyKernel\DependencyInjection;
 
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass;
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerBuilder;

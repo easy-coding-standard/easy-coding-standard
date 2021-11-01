@@ -13,7 +13,6 @@
         "symfony\/console": "^5.3|^6.0",
         "symfony\/dependency-injection": "^5.3|^6.0",
         "symplify\/package-builder": "dev-main",
-        "symplify\/symfony-container-builder": "dev-main",
         "symplify\/smart-file-system": "dev-main",
         "symplify\/symplify-kernel": "dev-main"
     },

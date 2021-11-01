@@ -10,7 +10,6 @@
         "symfony\/dependency-injection": "^5.3|^6.0",
         "symfony\/finder": "^5.3|^6.0",
         "symplify\/symplify-kernel": "dev-main",
-        "symplify\/symfony-container-builder": "dev-main",
         "symplify\/easy-testing": "dev-main",
         "nette\/neon": "^3.2"
     },

@@ -15,7 +15,7 @@
         "nette\/application": "^3.1",
         "nette\/bootstrap": "^3.1",
         "doctrine\/orm": "^2.10",
-        "symplify\/symfony-container-builder": "dev-main",
+        "symplify\/symplify-kernel": "dev-main",
         "symplify\/smart-file-system": "dev-main",
         "symfony\/framework-bundle": "^5.3|^6.0",
         "symplify\/easy-coding-standard": "dev-main",

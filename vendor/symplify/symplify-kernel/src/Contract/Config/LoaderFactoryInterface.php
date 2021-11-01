@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211101\Symplify\SymfonyContainerBuilder\Contract\Config;
+namespace ECSPrefix20211101\Symplify\SymplifyKernel\Contract\Config;
 
 use ECSPrefix20211101\Symfony\Component\Config\Loader\LoaderInterface;
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerBuilder;

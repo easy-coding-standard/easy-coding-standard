@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211101\Symplify\SymfonyContainerBuilder\Config\Loader;
+namespace ECSPrefix20211101\Symplify\SymplifyKernel\Config\Loader;
 
 use ECSPrefix20211101\Symfony\Component\Config\FileLocator;
 use ECSPrefix20211101\Symfony\Component\Config\Loader\DelegatingLoader;
@@ -9,8 +9,8 @@ use ECSPrefix20211101\Symfony\Component\Config\Loader\GlobFileLoader;
 use ECSPrefix20211101\Symfony\Component\Config\Loader\LoaderResolver;
 use ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20211101\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
-use ECSPrefix20211101\Symplify\SymfonyContainerBuilder\Contract\Config\LoaderFactoryInterface;
-final class ParameterMergingLoaderFactory implements \ECSPrefix20211101\Symplify\SymfonyContainerBuilder\Contract\Config\LoaderFactoryInterface
+use ECSPrefix20211101\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface;
+final class ParameterMergingLoaderFactory implements \ECSPrefix20211101\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface
 {
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
