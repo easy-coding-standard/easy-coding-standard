@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit742cc1a72636ac99e1ff0726e4e9cf31
+class ComposerStaticInite5f4ed549cfa0dd52a79415dedd2b297
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1375,7 +1375,6 @@ class ComposerStaticInit742cc1a72636ac99e1ff0726e4e9cf31
         'ECSPrefix20211101\\Symplify\\EasyTesting\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Option.php',
         'ECSPrefix20211101\\Symplify\\EasyTesting\\ValueObject\\Prefix' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Prefix.php',
         'ECSPrefix20211101\\Symplify\\EasyTesting\\ValueObject\\SplitLine' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/SplitLine.php',
-        'ECSPrefix20211101\\Symplify\\PackageBuilder\\Bundle\\NamelessConsoleCommandBundle' => __DIR__ . '/..' . '/symplify/package-builder/src/Bundle/NamelessConsoleCommandBundle.php',
         'ECSPrefix20211101\\Symplify\\PackageBuilder\\Composer\\VendorDirProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Composer/VendorDirProvider.php',
         'ECSPrefix20211101\\Symplify\\PackageBuilder\\Configuration\\StaticEolConfiguration' => __DIR__ . '/..' . '/symplify/package-builder/src/Configuration/StaticEolConfiguration.php',
         'ECSPrefix20211101\\Symplify\\PackageBuilder\\Console\\Command\\AbstractSymplifyCommand' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Command/AbstractSymplifyCommand.php',
@@ -1384,7 +1383,6 @@ class ComposerStaticInit742cc1a72636ac99e1ff0726e4e9cf31
         'ECSPrefix20211101\\Symplify\\PackageBuilder\\Console\\Style\\SymfonyStyleFactory' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Style/SymfonyStyleFactory.php',
         'ECSPrefix20211101\\Symplify\\PackageBuilder\\Contract\\HttpKernel\\ExtraConfigAwareKernelInterface' => __DIR__ . '/..' . '/symplify/package-builder/src/Contract/HttpKernel/ExtraConfigAwareKernelInterface.php',
         'ECSPrefix20211101\\Symplify\\PackageBuilder\\DependencyInjection\\CompilerPass\\AutowireInterfacesCompilerPass' => __DIR__ . '/..' . '/symplify/package-builder/src/DependencyInjection/CompilerPass/AutowireInterfacesCompilerPass.php',
-        'ECSPrefix20211101\\Symplify\\PackageBuilder\\DependencyInjection\\CompilerPass\\NamelessConsoleCommandCompilerPass' => __DIR__ . '/..' . '/symplify/package-builder/src/DependencyInjection/CompilerPass/NamelessConsoleCommandCompilerPass.php',
         'ECSPrefix20211101\\Symplify\\PackageBuilder\\DependencyInjection\\FileLoader\\ParameterMergingPhpFileLoader' => __DIR__ . '/..' . '/symplify/package-builder/src/DependencyInjection/FileLoader/ParameterMergingPhpFileLoader.php',
         'ECSPrefix20211101\\Symplify\\PackageBuilder\\Exception\\HttpKernel\\MissingInterfaceException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/HttpKernel/MissingInterfaceException.php',
         'ECSPrefix20211101\\Symplify\\PackageBuilder\\Matcher\\ArrayStringAndFnMatcher' => __DIR__ . '/..' . '/symplify/package-builder/src/Matcher/ArrayStringAndFnMatcher.php',
@@ -2110,9 +2108,9 @@ class ComposerStaticInit742cc1a72636ac99e1ff0726e4e9cf31
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit742cc1a72636ac99e1ff0726e4e9cf31::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit742cc1a72636ac99e1ff0726e4e9cf31::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit742cc1a72636ac99e1ff0726e4e9cf31::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite5f4ed549cfa0dd52a79415dedd2b297::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite5f4ed549cfa0dd52a79415dedd2b297::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite5f4ed549cfa0dd52a79415dedd2b297::$classMap;
 
         }, null, ClassLoader::class);
     }
