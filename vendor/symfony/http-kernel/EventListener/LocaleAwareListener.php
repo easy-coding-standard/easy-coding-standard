@@ -8,36 +8,36 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211031\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20211101\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20211031\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20211031\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\KernelEvents;
-use ECSPrefix20211031\Symfony\Contracts\Translation\LocaleAwareInterface;
+use ECSPrefix20211101\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20211101\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20211101\Symfony\Contracts\Translation\LocaleAwareInterface;
 /**
  * Pass the current locale to the provided services.
  *
  * @author Pierre Bobiet <pierrebobiet@gmail.com>
  */
-class LocaleAwareListener implements \ECSPrefix20211031\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class LocaleAwareListener implements \ECSPrefix20211101\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $localeAwareServices;
     private $requestStack;
     /**
      * @param LocaleAwareInterface[] $localeAwareServices
      */
-    public function __construct(iterable $localeAwareServices, \ECSPrefix20211031\Symfony\Component\HttpFoundation\RequestStack $requestStack)
+    public function __construct(iterable $localeAwareServices, \ECSPrefix20211101\Symfony\Component\HttpFoundation\RequestStack $requestStack)
     {
         $this->localeAwareServices = $localeAwareServices;
         $this->requestStack = $requestStack;
     }
-    public function onKernelRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent $event) : void
+    public function onKernelRequest(\ECSPrefix20211101\Symfony\Component\HttpKernel\Event\RequestEvent $event) : void
     {
         $this->setLocale($event->getRequest()->getLocale(), $event->getRequest()->getDefaultLocale());
     }
-    public function onKernelFinishRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event) : void
+    public function onKernelFinishRequest(\ECSPrefix20211101\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event) : void
     {
         if (null === ($parentRequest = $this->requestStack->getParentRequest())) {
             foreach ($this->localeAwareServices as $service) {
@@ -51,8 +51,8 @@ class LocaleAwareListener implements \ECSPrefix20211031\Symfony\Component\EventD
     {
         return [
             // must be registered after the Locale listener
-            \ECSPrefix20211031\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 15]],
-            \ECSPrefix20211031\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', -15]],
+            \ECSPrefix20211101\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 15]],
+            \ECSPrefix20211101\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', -15]],
         ];
     }
     private function setLocale(string $locale, string $defaultLocale) : void

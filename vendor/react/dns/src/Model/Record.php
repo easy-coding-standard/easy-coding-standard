@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211031\React\Dns\Model;
+namespace ECSPrefix20211101\React\Dns\Model;
 
 /**
  * This class represents a single resulting record in a response message

@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211031\\Symplify\\SymfonyContainerBuilder\\": "src"
+            "ECSPrefix20211101\\Symplify\\SymfonyContainerBuilder\\": "src"
         }
     },
     "extra": {

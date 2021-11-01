@@ -35,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211031\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
+            "ECSPrefix20211101\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20211031\\Doctrine\\Tests\\": "tests\/Doctrine"
+            "ECSPrefix20211101\\Doctrine\\Tests\\": "tests\/Doctrine"
         }
     },
     "extra": {

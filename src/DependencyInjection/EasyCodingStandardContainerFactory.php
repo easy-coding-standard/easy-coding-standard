@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix20211031\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20211101\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 final class EasyCodingStandardContainerFactory
 {
-    public function createFromFromInput(\ECSPrefix20211031\Symfony\Component\Console\Input\InputInterface $input) : \ECSPrefix20211031\Symfony\Component\DependencyInjection\ContainerInterface
+    public function createFromFromInput(\ECSPrefix20211101\Symfony\Component\Console\Input\InputInterface $input) : \ECSPrefix20211101\Symfony\Component\DependencyInjection\ContainerInterface
     {
         $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel();
         $inputConfigFiles = [];

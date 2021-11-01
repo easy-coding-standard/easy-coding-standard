@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211031\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20211101\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20211031\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20211031\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211031\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\Event\KernelEvent;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\KernelEvents;
-use ECSPrefix20211031\Symfony\Component\Routing\RequestContextAwareInterface;
+use ECSPrefix20211101\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20211101\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211101\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\Event\KernelEvent;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20211101\Symfony\Component\Routing\RequestContextAwareInterface;
 /**
  * Initializes the locale based on the current request.
  *
@@ -25,40 +25,40 @@ use ECSPrefix20211031\Symfony\Component\Routing\RequestContextAwareInterface;
  *
  * @final
  */
-class LocaleListener implements \ECSPrefix20211031\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class LocaleListener implements \ECSPrefix20211101\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $router;
     private $defaultLocale;
     private $requestStack;
-    public function __construct(\ECSPrefix20211031\Symfony\Component\HttpFoundation\RequestStack $requestStack, string $defaultLocale = 'en', \ECSPrefix20211031\Symfony\Component\Routing\RequestContextAwareInterface $router = null)
+    public function __construct(\ECSPrefix20211101\Symfony\Component\HttpFoundation\RequestStack $requestStack, string $defaultLocale = 'en', \ECSPrefix20211101\Symfony\Component\Routing\RequestContextAwareInterface $router = null)
     {
         $this->defaultLocale = $defaultLocale;
         $this->requestStack = $requestStack;
         $this->router = $router;
     }
-    public function setDefaultLocale(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\KernelEvent $event)
+    public function setDefaultLocale(\ECSPrefix20211101\Symfony\Component\HttpKernel\Event\KernelEvent $event)
     {
         $event->getRequest()->setDefaultLocale($this->defaultLocale);
     }
-    public function onKernelRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    public function onKernelRequest(\ECSPrefix20211101\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         $request = $event->getRequest();
         $this->setLocale($request);
         $this->setRouterContext($request);
     }
-    public function onKernelFinishRequest(\ECSPrefix20211031\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
+    public function onKernelFinishRequest(\ECSPrefix20211101\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
     {
         if (null !== ($parentRequest = $this->requestStack->getParentRequest())) {
             $this->setRouterContext($parentRequest);
         }
     }
-    private function setLocale(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request)
+    private function setLocale(\ECSPrefix20211101\Symfony\Component\HttpFoundation\Request $request)
     {
         if ($locale = $request->attributes->get('_locale')) {
             $request->setLocale($locale);
         }
     }
-    private function setRouterContext(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request)
+    private function setRouterContext(\ECSPrefix20211101\Symfony\Component\HttpFoundation\Request $request)
     {
         if (null !== $this->router) {
             $this->router->getContext()->setParameter('_locale', $request->getLocale());
@@ -66,10 +66,10 @@ class LocaleListener implements \ECSPrefix20211031\Symfony\Component\EventDispat
     }
     public static function getSubscribedEvents() : array
     {
-        return [\ECSPrefix20211031\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [
+        return [\ECSPrefix20211101\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [
             ['setDefaultLocale', 100],
             // must be registered after the Router to have access to the _locale
             ['onKernelRequest', 16],
-        ], \ECSPrefix20211031\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', 0]]];
+        ], \ECSPrefix20211101\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', 0]]];
     }
 }

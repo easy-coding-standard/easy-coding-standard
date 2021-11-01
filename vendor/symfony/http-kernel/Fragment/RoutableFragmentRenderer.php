@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211031\Symfony\Component\HttpKernel\Fragment;
+namespace ECSPrefix20211101\Symfony\Component\HttpKernel\Fragment;
 
-use ECSPrefix20211031\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\Controller\ControllerReference;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\EventListener\FragmentListener;
+use ECSPrefix20211101\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\Controller\ControllerReference;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\EventListener\FragmentListener;
 /**
  * Adds the possibility to generate a fragment URI for a given Controller.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class RoutableFragmentRenderer implements \ECSPrefix20211031\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface
+abstract class RoutableFragmentRenderer implements \ECSPrefix20211101\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface
 {
     /**
      * @internal
@@ -41,8 +41,8 @@ abstract class RoutableFragmentRenderer implements \ECSPrefix20211031\Symfony\Co
      *
      * @return string A fragment URI
      */
-    protected function generateFragmentUri(\ECSPrefix20211031\Symfony\Component\HttpKernel\Controller\ControllerReference $reference, \ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, bool $absolute = \false, bool $strict = \true)
+    protected function generateFragmentUri(\ECSPrefix20211101\Symfony\Component\HttpKernel\Controller\ControllerReference $reference, \ECSPrefix20211101\Symfony\Component\HttpFoundation\Request $request, bool $absolute = \false, bool $strict = \true)
     {
-        return (new \ECSPrefix20211031\Symfony\Component\HttpKernel\Fragment\FragmentUriGenerator($this->fragmentPath))->generate($reference, $request, $absolute, $strict, \false);
+        return (new \ECSPrefix20211101\Symfony\Component\HttpKernel\Fragment\FragmentUriGenerator($this->fragmentPath))->generate($reference, $request, $absolute, $strict, \false);
     }
 }

@@ -8,29 +8,29 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211031\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+namespace ECSPrefix20211101\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-use ECSPrefix20211031\Psr\Container\ContainerInterface;
-use ECSPrefix20211031\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20211031\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use ECSPrefix20211031\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use ECSPrefix20211101\Psr\Container\ContainerInterface;
+use ECSPrefix20211101\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20211101\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use ECSPrefix20211101\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Provides an intuitive error message when controller fails because it is not registered as a service.
  *
  * @author Simeon Kolev <simeon.kolev9@gmail.com>
  */
-final class NotTaggedControllerValueResolver implements \ECSPrefix20211031\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
+final class NotTaggedControllerValueResolver implements \ECSPrefix20211101\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     private $container;
-    public function __construct(\ECSPrefix20211031\Psr\Container\ContainerInterface $container)
+    public function __construct(\ECSPrefix20211101\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
     }
     /**
      * {@inheritdoc}
      */
-    public function supports(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
+    public function supports(\ECSPrefix20211101\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211101\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
     {
         $controller = $request->attributes->get('_controller');
         if (\is_array($controller) && \is_callable($controller, \true) && \is_string($controller[0])) {
@@ -49,7 +49,7 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20211031\Symfo
     /**
      * {@inheritdoc}
      */
-    public function resolve(\ECSPrefix20211031\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211031\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : iterable
+    public function resolve(\ECSPrefix20211101\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20211101\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : iterable
     {
         if (\is_array($controller = $request->attributes->get('_controller'))) {
             $controller = $controller[0] . '::' . $controller[1];
@@ -63,6 +63,6 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20211031\Symfo
         }
         $what = \sprintf('argument $%s of "%s()"', $argument->getName(), $controller);
         $message = \sprintf('Could not resolve %s, maybe you forgot to register the controller as a service or missed tagging it with the "controller.service_arguments"?', $what);
-        throw new \ECSPrefix20211031\Symfony\Component\DependencyInjection\Exception\RuntimeException($message);
+        throw new \ECSPrefix20211101\Symfony\Component\DependencyInjection\Exception\RuntimeException($message);
     }
 }
