@@ -1396,7 +1396,6 @@ return array(
     'Symplify\\EasyCodingStandard\\FixerRunner\\Parser\\FileToTokensParser' => $baseDir . '/packages/FixerRunner/Parser/FileToTokensParser.php',
     'Symplify\\EasyCodingStandard\\FixerRunner\\ValueObject\\Spacing' => $baseDir . '/packages/FixerRunner/ValueObject/Spacing.php',
     'Symplify\\EasyCodingStandard\\FixerRunner\\WhitespacesFixerConfigFactory' => $baseDir . '/packages/FixerRunner/WhitespacesFixerConfigFactory.php',
-    'Symplify\\EasyCodingStandard\\Git\\GitDiffProvider' => $baseDir . '/src/Git/GitDiffProvider.php',
     'Symplify\\EasyCodingStandard\\Guard\\LoadedCheckersGuard' => $baseDir . '/src/Guard/LoadedCheckersGuard.php',
     'Symplify\\EasyCodingStandard\\Kernel\\EasyCodingStandardKernel' => $baseDir . '/src/Kernel/EasyCodingStandardKernel.php',
     'Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor' => $baseDir . '/packages/Parallel/Application/ParallelFileProcessor.php',

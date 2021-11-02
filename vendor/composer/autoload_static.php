@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4ae11e2fd380c0c6ec17c377059e2218
+class ComposerStaticInit512ccba5680f91ed655525a3664a8542
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1689,7 +1689,6 @@ class ComposerStaticInit4ae11e2fd380c0c6ec17c377059e2218
         'Symplify\\EasyCodingStandard\\FixerRunner\\Parser\\FileToTokensParser' => __DIR__ . '/../..' . '/packages/FixerRunner/Parser/FileToTokensParser.php',
         'Symplify\\EasyCodingStandard\\FixerRunner\\ValueObject\\Spacing' => __DIR__ . '/../..' . '/packages/FixerRunner/ValueObject/Spacing.php',
         'Symplify\\EasyCodingStandard\\FixerRunner\\WhitespacesFixerConfigFactory' => __DIR__ . '/../..' . '/packages/FixerRunner/WhitespacesFixerConfigFactory.php',
-        'Symplify\\EasyCodingStandard\\Git\\GitDiffProvider' => __DIR__ . '/../..' . '/src/Git/GitDiffProvider.php',
         'Symplify\\EasyCodingStandard\\Guard\\LoadedCheckersGuard' => __DIR__ . '/../..' . '/src/Guard/LoadedCheckersGuard.php',
         'Symplify\\EasyCodingStandard\\Kernel\\EasyCodingStandardKernel' => __DIR__ . '/../..' . '/src/Kernel/EasyCodingStandardKernel.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor' => __DIR__ . '/../..' . '/packages/Parallel/Application/ParallelFileProcessor.php',
@@ -1739,9 +1738,9 @@ class ComposerStaticInit4ae11e2fd380c0c6ec17c377059e2218
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4ae11e2fd380c0c6ec17c377059e2218::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4ae11e2fd380c0c6ec17c377059e2218::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4ae11e2fd380c0c6ec17c377059e2218::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit512ccba5680f91ed655525a3664a8542::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit512ccba5680f91ed655525a3664a8542::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit512ccba5680f91ed655525a3664a8542::$classMap;
 
         }, null, ClassLoader::class);
     }

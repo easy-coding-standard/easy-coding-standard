@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Finder;
 
 use ECSPrefix20211102\Symfony\Component\Finder\Finder;
-use Symplify\EasyCodingStandard\Git\GitDiffProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20211102\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use ECSPrefix20211102\Symplify\SmartFileSystem\Finder\FinderSanitizer;
@@ -22,14 +21,9 @@ final class SourceFinder
      * @var \Symplify\SmartFileSystem\Finder\FinderSanitizer
      */
     private $finderSanitizer;
-    /**
-     * @var \Symplify\EasyCodingStandard\Git\GitDiffProvider
-     */
-    private $gitDiffProvider;
-    public function __construct(\ECSPrefix20211102\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \ECSPrefix20211102\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\EasyCodingStandard\Git\GitDiffProvider $gitDiffProvider)
+    public function __construct(\ECSPrefix20211102\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \ECSPrefix20211102\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->finderSanitizer = $finderSanitizer;
-        $this->gitDiffProvider = $gitDiffProvider;
         $this->fileExtensions = $parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS);
     }
     /**
