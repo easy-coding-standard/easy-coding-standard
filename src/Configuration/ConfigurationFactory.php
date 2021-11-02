@@ -29,7 +29,6 @@ final class ConfigurationFactory
         $shouldClearCache = (bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::CLEAR_CACHE);
         $showProgressBar = $this->canShowProgressBar($input);
         $showErrorTable = !(bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_ERROR_TABLE);
-        $doesMatchGitDiff = (bool) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::MATCH_GIT_DIFF);
         $parallelPort = (string) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_PORT);
         $parallelIdentifier = (string) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_IDENTIFIER);
         $outputFormat = (string) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT);
@@ -38,7 +37,7 @@ final class ConfigurationFactory
         if ($config !== null) {
             $config = (string) $config;
         }
-        return new \Symplify\EasyCodingStandard\ValueObject\Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $doesMatchGitDiff, $isParallel, $config, $parallelPort, $parallelIdentifier);
+        return new \Symplify\EasyCodingStandard\ValueObject\Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $isParallel, $config, $parallelPort, $parallelIdentifier);
     }
     private function canShowProgressBar(\ECSPrefix20211102\Symfony\Component\Console\Input\InputInterface $input) : bool
     {

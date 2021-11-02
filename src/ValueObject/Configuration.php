@@ -33,10 +33,6 @@ final class Configuration
     /**
      * @var bool
      */
-    private $doesMatchGitDiff = \false;
-    /**
-     * @var bool
-     */
     private $isParallel = \false;
     /**
      * @var string|null
@@ -55,7 +51,7 @@ final class Configuration
      * @param string|null $parallelPort
      * @param string|null $parallelIdentifier
      */
-    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $doesMatchGitDiff = \false, bool $isParallel = \false, ?string $config = null, $parallelPort = null, $parallelIdentifier = null)
+    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $isParallel = \false, ?string $config = null, $parallelPort = null, $parallelIdentifier = null)
     {
         $this->isFixer = $isFixer;
         $this->shouldClearCache = $shouldClearCache;
@@ -63,7 +59,6 @@ final class Configuration
         $this->showErrorTable = $showErrorTable;
         $this->sources = $sources;
         $this->outputFormat = $outputFormat;
-        $this->doesMatchGitDiff = $doesMatchGitDiff;
         $this->isParallel = $isParallel;
         $this->config = $config;
         $this->parallelPort = $parallelPort;
@@ -95,13 +90,6 @@ final class Configuration
     public function getOutputFormat() : string
     {
         return $this->outputFormat;
-    }
-    /**
-     * @deprecated
-     */
-    public function doesMatchGitDiff() : bool
-    {
-        return $this->doesMatchGitDiff;
     }
     public function isParallel() : bool
     {

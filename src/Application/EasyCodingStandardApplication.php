@@ -99,7 +99,7 @@ final class EasyCodingStandardApplication
     public function run(\Symplify\EasyCodingStandard\ValueObject\Configuration $configuration, \ECSPrefix20211102\Symfony\Component\Console\Input\InputInterface $input) : array
     {
         // 1. find files in sources
-        $fileInfos = $this->sourceFinder->find($configuration->getSources(), $configuration->doesMatchGitDiff());
+        $fileInfos = $this->sourceFinder->find($configuration->getSources());
         // 2. clear cache
         if ($configuration->shouldClearCache()) {
             $this->changedFilesDetector->clearCache();
