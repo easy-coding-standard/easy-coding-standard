@@ -3454,7 +3454,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "5bc1b6a3960f64edae5bd8c9145b22daf739abf6"
+                "reference": "6d7a83e856edd84f315d0f2759b3c7156d33fe11"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3481,7 +3481,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator-contracts": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
@@ -3531,7 +3530,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "8ea5d5d37044f3e2760694b4302acfc232d1e9cc"
+                "reference": "01cda3a767526a0f96f67ef9c6758897ae49c194"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.2",
@@ -3560,7 +3559,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
                 "symplify\/skipper": "<10.0.0-beta1",
@@ -3616,7 +3614,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "ea1321959f2f901943419816cd5a0b3970065ff4"
+                "reference": "4fab73c1280510634eb834736bcf43e48d007d95"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3647,7 +3645,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator-contracts": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
@@ -3696,7 +3693,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/console-color-diff",
-                "reference": "cd422454c0d2d2bca4963032cc749d590098c72d"
+                "reference": "a68e7268d29cffdf858f85d06c99e11de438ac79"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3725,7 +3722,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator-contracts": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
@@ -3775,7 +3771,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "f5b3d21dd8c433b3d03bd6361c82923b5a6e7d6f"
+                "reference": "033b9394ce0e7ae7e369e07c4e0fe67c99af8e46"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3806,7 +3802,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator-contracts": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
@@ -3857,7 +3852,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "2437be5189066697c87a931fa97c139748c019fe"
+                "reference": "3a0f4c1917d504d9e6142b2d45235481d2bc2529"
             },
             "require": {
                 "nette\/neon": "^3.2",
@@ -3889,7 +3884,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator-contracts": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
@@ -3938,7 +3932,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/rule-doc-generator-contracts",
-                "reference": "7e614acc33c3efeb5080ba64e007d491ebf6fc2f"
+                "reference": "9e8cca45545acc9b3e12e4b3e77674501451e87c"
             },
             "require": {
                 "danielstjules\/stringy": "^3.1",
@@ -3966,7 +3960,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
                 "symplify\/skipper": "<10.0.0-beta1",
@@ -4007,7 +4000,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "f7f57dfda13c415d7d03aac0683c1e4b0963c165"
+                "reference": "b7d09a633fa629d0730325af9067e62a0cc50919"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4040,7 +4033,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator-contracts": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
@@ -4087,7 +4079,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "443f167fa75ba3804b793c3e0f62461d2408be09"
+                "reference": "021abd26821a6133fe599e3a470ed0aba9efed3e"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -4116,7 +4108,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator-contracts": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
@@ -4166,7 +4157,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "3bdad04057be1c02cb37225f3e19a3beba8f78ea"
+                "reference": "34458dd26e48b14fa79a8157ebc59d09615541c8"
             },
             "require": {
                 "php": ">=8.0",
@@ -4197,7 +4188,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-rules": "<10.0.0-beta1",
                 "symplify\/phpstan-twig-rules": "<10.0.0-beta1",
-                "symplify\/psr4-switcher": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator": "<10.0.0-beta1",
                 "symplify\/rule-doc-generator-contracts": "<10.0.0-beta1",
                 "symplify\/simple-php-doc-parser": "<10.0.0-beta1",
