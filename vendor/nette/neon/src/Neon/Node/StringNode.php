@@ -5,12 +5,12 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20211102\Nette\Neon\Node;
+namespace ECSPrefix20211103\Nette\Neon\Node;
 
-use ECSPrefix20211102\Nette;
-use ECSPrefix20211102\Nette\Neon\Node;
+use ECSPrefix20211103\Nette;
+use ECSPrefix20211103\Nette\Neon\Node;
 /** @internal */
-final class StringNode extends \ECSPrefix20211102\Nette\Neon\Node
+final class StringNode extends \ECSPrefix20211103\Nette\Neon\Node
 {
     /** @var string */
     public $value;
@@ -27,7 +27,7 @@ final class StringNode extends \ECSPrefix20211102\Nette\Neon\Node
     {
         $res = \json_encode($this->value, \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES);
         if ($res === \false) {
-            throw new \ECSPrefix20211102\Nette\Neon\Exception('Invalid UTF-8 sequence: ' . $this->value);
+            throw new \ECSPrefix20211103\Nette\Neon\Exception('Invalid UTF-8 sequence: ' . $this->value);
         }
         if (\strpos($this->value, "\n") !== \false) {
             $res = \preg_replace_callback('#[^\\\\]|\\\\(.)#s', function ($m) {

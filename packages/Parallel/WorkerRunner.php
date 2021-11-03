@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel;
 
-use ECSPrefix20211102\Clue\React\NDJson\Decoder;
-use ECSPrefix20211102\Clue\React\NDJson\Encoder;
+use ECSPrefix20211103\Clue\React\NDJson\Decoder;
+use ECSPrefix20211103\Clue\React\NDJson\Encoder;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Parallel\Enum\Action;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -12,8 +12,8 @@ use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use ECSPrefix20211102\Symplify\PackageBuilder\Yaml\ParametersMerger;
-use ECSPrefix20211102\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211103\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20211103\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 final class WorkerRunner
 {
@@ -29,12 +29,12 @@ final class WorkerRunner
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \ECSPrefix20211102\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
+    public function __construct(\Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \ECSPrefix20211103\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
     {
         $this->singleFileProcessor = $singleFileProcessor;
         $this->parametersMerger = $parametersMerger;
     }
-    public function run(\ECSPrefix20211102\Clue\React\NDJson\Encoder $encoder, \ECSPrefix20211102\Clue\React\NDJson\Decoder $decoder, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
+    public function run(\ECSPrefix20211103\Clue\React\NDJson\Encoder $encoder, \ECSPrefix20211103\Clue\React\NDJson\Decoder $decoder, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
     {
         // 1. handle system error
         $handleErrorCallback = static function (\Throwable $throwable) use($encoder) : void {
@@ -56,7 +56,7 @@ final class WorkerRunner
             $systemErrors = [];
             foreach ($filePaths as $filePath) {
                 try {
-                    $smartFileInfo = new \ECSPrefix20211102\Symplify\SmartFileSystem\SmartFileInfo($filePath);
+                    $smartFileInfo = new \ECSPrefix20211103\Symplify\SmartFileSystem\SmartFileInfo($filePath);
                     $currentErrorsAndFileDiffs = $this->singleFileProcessor->processFileInfo($smartFileInfo, $configuration);
                     $errorAndFileDiffs = $this->parametersMerger->merge($errorAndFileDiffs, $currentErrorsAndFileDiffs);
                 } catch (\Throwable $throwable) {
