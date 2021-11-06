@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211104\Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace ECSPrefix20211106\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use ECSPrefix20211104\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ComposerJsonAwareCodeSample extends \ECSPrefix20211104\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+use ECSPrefix20211106\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+final class ComposerJsonAwareCodeSample extends \ECSPrefix20211106\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
 {
     /**
      * @var string

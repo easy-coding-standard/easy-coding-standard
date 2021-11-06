@@ -43,12 +43,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211104\\React\\Dns\\": "src"
+            "ECSPrefix20211106\\React\\Dns\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20211104\\React\\Tests\\Dns\\": "tests"
+            "ECSPrefix20211106\\React\\Tests\\Dns\\": "tests"
         }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211104\Symplify\EasyTesting\ValueObject;
+namespace ECSPrefix20211106\Symplify\EasyTesting\ValueObject;
 
 final class Prefix
 {
