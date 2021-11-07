@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Annotation;
 
-use ECSPrefix20211106\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20211107\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token as DoctrineAnnotationToken;
 use PhpCsFixer\Doctrine\Annotation\Tokens as DoctrineAnnotationTokens;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -15,12 +15,12 @@ use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationElementAnalyzer;
 use Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationNameResolver;
-use ECSPrefix20211106\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix20211106\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20211106\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use ECSPrefix20211106\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use ECSPrefix20211106\Webmozart\Assert\Assert;
-final class DoctrineAnnotationNestedBracketsFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20211106\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \ECSPrefix20211106\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+use ECSPrefix20211107\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix20211107\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20211107\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix20211107\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20211107\Webmozart\Assert\Assert;
+final class DoctrineAnnotationNestedBracketsFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20211107\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \ECSPrefix20211107\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -56,9 +56,9 @@ final class DoctrineAnnotationNestedBracketsFixer extends \Symplify\CodingStanda
     {
         return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
-    public function getRuleDefinition() : \ECSPrefix20211106\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20211107\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20211106\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20211106\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20211107\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20211107\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 /**
 * @MainAnnotation(
 *     @NestedAnnotation(),
@@ -82,8 +82,8 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $annotationsClasses = $configuration[self::ANNOTATION_CLASSES] ?? [];
-        \ECSPrefix20211106\Webmozart\Assert\Assert::isArray($annotationsClasses);
-        \ECSPrefix20211106\Webmozart\Assert\Assert::allString($annotationsClasses);
+        \ECSPrefix20211107\Webmozart\Assert\Assert::isArray($annotationsClasses);
+        \ECSPrefix20211107\Webmozart\Assert\Assert::allString($annotationsClasses);
         $this->annotationClasses = $annotationsClasses;
     }
     /**
@@ -114,7 +114,7 @@ CODE_SAMPLE
     private function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens, array $useDeclarations) : void
     {
         foreach ($doctrineAnnotationTokens as $index => $token) {
-            $isAtToken = $doctrineAnnotationTokens[$index]->isType(\ECSPrefix20211106\Doctrine\Common\Annotations\DocLexer::T_AT);
+            $isAtToken = $doctrineAnnotationTokens[$index]->isType(\ECSPrefix20211107\Doctrine\Common\Annotations\DocLexer::T_AT);
             if (!$isAtToken) {
                 continue;
             }
@@ -139,9 +139,9 @@ CODE_SAMPLE
                 continue;
             }
             // add closing brace
-            $doctrineAnnotationTokens->insertAt($closingBraceIndex, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20211106\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES, '}'));
+            $doctrineAnnotationTokens->insertAt($closingBraceIndex, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20211107\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES, '}'));
             // add opening brace
-            $doctrineAnnotationTokens->insertAt($braceIndex + 1, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20211106\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES, '{'));
+            $doctrineAnnotationTokens->insertAt($braceIndex + 1, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20211107\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES, '{'));
         }
     }
 }

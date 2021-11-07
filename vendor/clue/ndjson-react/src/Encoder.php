@@ -1,13 +1,13 @@
 <?php
 
-namespace ECSPrefix20211106\Clue\React\NDJson;
+namespace ECSPrefix20211107\Clue\React\NDJson;
 
-use ECSPrefix20211106\Evenement\EventEmitter;
-use ECSPrefix20211106\React\Stream\WritableStreamInterface;
+use ECSPrefix20211107\Evenement\EventEmitter;
+use ECSPrefix20211107\React\Stream\WritableStreamInterface;
 /**
  * The Encoder / Serializer can be used to write any value, encode it as a JSON text and forward it to an output stream
  */
-class Encoder extends \ECSPrefix20211106\Evenement\EventEmitter implements \ECSPrefix20211106\React\Stream\WritableStreamInterface
+class Encoder extends \ECSPrefix20211107\Evenement\EventEmitter implements \ECSPrefix20211107\React\Stream\WritableStreamInterface
 {
     private $output;
     private $options;
@@ -20,7 +20,7 @@ class Encoder extends \ECSPrefix20211106\Evenement\EventEmitter implements \ECSP
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
-    public function __construct(\ECSPrefix20211106\React\Stream\WritableStreamInterface $output, $options = 0, $depth = 512)
+    public function __construct(\ECSPrefix20211107\React\Stream\WritableStreamInterface $output, $options = 0, $depth = 512)
     {
         // @codeCoverageIgnoreStart
         if (\defined('JSON_PRETTY_PRINT') && $options & \JSON_PRETTY_PRINT) {

@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20211106\React\Promise;
+namespace ECSPrefix20211107\React\Promise;
 
 /**
  * @deprecated 2.8.0 LazyPromise is deprecated and should not be used anymore.
  */
-class LazyPromise implements \ECSPrefix20211106\React\Promise\ExtendedPromiseInterface, \ECSPrefix20211106\React\Promise\CancellablePromiseInterface
+class LazyPromise implements \ECSPrefix20211107\React\Promise\ExtendedPromiseInterface, \ECSPrefix20211107\React\Promise\CancellablePromiseInterface
 {
     private $factory;
     private $promise;
@@ -66,9 +66,9 @@ class LazyPromise implements \ECSPrefix20211106\React\Promise\ExtendedPromiseInt
             try {
                 $this->promise = resolve(\call_user_func($this->factory));
             } catch (\Throwable $exception) {
-                $this->promise = new \ECSPrefix20211106\React\Promise\RejectedPromise($exception);
+                $this->promise = new \ECSPrefix20211107\React\Promise\RejectedPromise($exception);
             } catch (\Exception $exception) {
-                $this->promise = new \ECSPrefix20211106\React\Promise\RejectedPromise($exception);
+                $this->promise = new \ECSPrefix20211107\React\Promise\RejectedPromise($exception);
             }
         }
         return $this->promise;

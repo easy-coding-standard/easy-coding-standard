@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20211106\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211106\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20211106\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-final class InitCommand extends \ECSPrefix20211106\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20211107\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211107\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211107\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+final class InitCommand extends \ECSPrefix20211107\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     protected function configure() : void
     {

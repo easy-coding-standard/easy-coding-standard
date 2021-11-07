@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20211106\React\Cache;
+namespace ECSPrefix20211107\React\Cache;
 
-use ECSPrefix20211106\React\Promise;
-use ECSPrefix20211106\React\Promise\PromiseInterface;
-class ArrayCache implements \ECSPrefix20211106\React\Cache\CacheInterface
+use ECSPrefix20211107\React\Promise;
+use ECSPrefix20211107\React\Promise\PromiseInterface;
+class ArrayCache implements \ECSPrefix20211107\React\Cache\CacheInterface
 {
     private $limit;
     private $data = array();
@@ -60,13 +60,13 @@ class ArrayCache implements \ECSPrefix20211106\React\Cache\CacheInterface
             unset($this->data[$key], $this->expires[$key]);
         }
         if (!\array_key_exists($key, $this->data)) {
-            return \ECSPrefix20211106\React\Promise\resolve($default);
+            return \ECSPrefix20211107\React\Promise\resolve($default);
         }
         // remove and append to end of array to keep track of LRU info
         $value = $this->data[$key];
         unset($this->data[$key]);
         $this->data[$key] = $value;
-        return \ECSPrefix20211106\React\Promise\resolve($value);
+        return \ECSPrefix20211107\React\Promise\resolve($value);
     }
     public function set($key, $value, $ttl = null)
     {
@@ -93,12 +93,12 @@ class ArrayCache implements \ECSPrefix20211106\React\Cache\CacheInterface
             }
             unset($this->data[$key], $this->expires[$key]);
         }
-        return \ECSPrefix20211106\React\Promise\resolve(\true);
+        return \ECSPrefix20211107\React\Promise\resolve(\true);
     }
     public function delete($key)
     {
         unset($this->data[$key], $this->expires[$key]);
-        return \ECSPrefix20211106\React\Promise\resolve(\true);
+        return \ECSPrefix20211107\React\Promise\resolve(\true);
     }
     /**
      * @param mixed[] $keys
@@ -109,7 +109,7 @@ class ArrayCache implements \ECSPrefix20211106\React\Cache\CacheInterface
         foreach ($keys as $key) {
             $values[$key] = $this->get($key, $default);
         }
-        return \ECSPrefix20211106\React\Promise\all($values);
+        return \ECSPrefix20211107\React\Promise\all($values);
     }
     /**
      * @param mixed[] $values
@@ -119,7 +119,7 @@ class ArrayCache implements \ECSPrefix20211106\React\Cache\CacheInterface
         foreach ($values as $key => $value) {
             $this->set($key, $value, $ttl);
         }
-        return \ECSPrefix20211106\React\Promise\resolve(\true);
+        return \ECSPrefix20211107\React\Promise\resolve(\true);
     }
     /**
      * @param mixed[] $keys
@@ -129,13 +129,13 @@ class ArrayCache implements \ECSPrefix20211106\React\Cache\CacheInterface
         foreach ($keys as $key) {
             unset($this->data[$key], $this->expires[$key]);
         }
-        return \ECSPrefix20211106\React\Promise\resolve(\true);
+        return \ECSPrefix20211107\React\Promise\resolve(\true);
     }
     public function clear()
     {
         $this->data = array();
         $this->expires = array();
-        return \ECSPrefix20211106\React\Promise\resolve(\true);
+        return \ECSPrefix20211107\React\Promise\resolve(\true);
     }
     public function has($key)
     {
@@ -144,13 +144,13 @@ class ArrayCache implements \ECSPrefix20211106\React\Cache\CacheInterface
             unset($this->data[$key], $this->expires[$key]);
         }
         if (!\array_key_exists($key, $this->data)) {
-            return \ECSPrefix20211106\React\Promise\resolve(\false);
+            return \ECSPrefix20211107\React\Promise\resolve(\false);
         }
         // remove and append to end of array to keep track of LRU info
         $value = $this->data[$key];
         unset($this->data[$key]);
         $this->data[$key] = $value;
-        return \ECSPrefix20211106\React\Promise\resolve(\true);
+        return \ECSPrefix20211107\React\Promise\resolve(\true);
     }
     /**
      * @return float
