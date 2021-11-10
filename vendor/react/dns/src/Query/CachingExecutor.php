@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20211107\React\Dns\Query;
+namespace ECSPrefix20211110\React\Dns\Query;
 
-use ECSPrefix20211107\React\Cache\CacheInterface;
-use ECSPrefix20211107\React\Dns\Model\Message;
-use ECSPrefix20211107\React\Promise\Promise;
-final class CachingExecutor implements \ECSPrefix20211107\React\Dns\Query\ExecutorInterface
+use ECSPrefix20211110\React\Cache\CacheInterface;
+use ECSPrefix20211110\React\Dns\Model\Message;
+use ECSPrefix20211110\React\Promise\Promise;
+final class CachingExecutor implements \ECSPrefix20211110\React\Dns\Query\ExecutorInterface
 {
     /**
      * Default TTL for negative responses (NXDOMAIN etc.).
@@ -15,7 +15,7 @@ final class CachingExecutor implements \ECSPrefix20211107\React\Dns\Query\Execut
     const TTL = 60;
     private $executor;
     private $cache;
-    public function __construct(\ECSPrefix20211107\React\Dns\Query\ExecutorInterface $executor, \ECSPrefix20211107\React\Cache\CacheInterface $cache)
+    public function __construct(\ECSPrefix20211110\React\Dns\Query\ExecutorInterface $executor, \ECSPrefix20211110\React\Cache\CacheInterface $cache)
     {
         $this->executor = $executor;
         $this->cache = $cache;
@@ -30,14 +30,14 @@ final class CachingExecutor implements \ECSPrefix20211107\React\Dns\Query\Execut
         $that = $this;
         $executor = $this->executor;
         $pending = $cache->get($id);
-        return new \ECSPrefix20211107\React\Promise\Promise(function ($resolve, $reject) use($query, $id, $cache, $executor, &$pending, $that) {
+        return new \ECSPrefix20211110\React\Promise\Promise(function ($resolve, $reject) use($query, $id, $cache, $executor, &$pending, $that) {
             $pending->then(function ($message) use($query, $id, $cache, $executor, &$pending, $that) {
                 // return cached response message on cache hit
                 if ($message !== null) {
                     return $message;
                 }
                 // perform DNS lookup if not already cached
-                return $pending = $executor->query($query)->then(function (\ECSPrefix20211107\React\Dns\Model\Message $message) use($cache, $id, $that) {
+                return $pending = $executor->query($query)->then(function (\ECSPrefix20211110\React\Dns\Model\Message $message) use($cache, $id, $that) {
                     // DNS response message received => store in cache when not truncated and return
                     if (!$message->tc) {
                         $cache->set($id, $message, $that->ttl($message));

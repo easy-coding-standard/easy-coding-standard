@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211107\Symplify\SymplifyKernel\ValueObject;
+namespace ECSPrefix20211110\Symplify\SymplifyKernel\ValueObject;
 
-use ECSPrefix20211107\Symfony\Component\Console\Application;
-use ECSPrefix20211107\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211107\Symfony\Component\HttpKernel\KernelInterface;
-use ECSPrefix20211107\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
-use ECSPrefix20211107\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use ECSPrefix20211107\Symplify\SymplifyKernel\Contract\LightKernelInterface;
-use ECSPrefix20211107\Symplify\SymplifyKernel\Exception\BootException;
+use ECSPrefix20211110\Symfony\Component\Console\Application;
+use ECSPrefix20211110\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211110\Symfony\Component\HttpKernel\KernelInterface;
+use ECSPrefix20211110\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
+use ECSPrefix20211110\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix20211110\Symplify\SymplifyKernel\Contract\LightKernelInterface;
+use ECSPrefix20211110\Symplify\SymplifyKernel\Exception\BootException;
 use Throwable;
 /**
  * @api
@@ -39,10 +39,10 @@ final class KernelBootAndApplicationRun
         try {
             $this->booKernelAndRunApplication();
         } catch (\Throwable $throwable) {
-            $symfonyStyleFactory = new \ECSPrefix20211107\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+            $symfonyStyleFactory = new \ECSPrefix20211110\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
             $symfonyStyle = $symfonyStyleFactory->create();
             $symfonyStyle->error($throwable->getMessage());
-            exit(\ECSPrefix20211107\Symfony\Component\Console\Command\Command::FAILURE);
+            exit(\ECSPrefix20211110\Symfony\Component\Console\Command\Command::FAILURE);
         }
     }
     /**
@@ -52,23 +52,23 @@ final class KernelBootAndApplicationRun
     {
         // random has is needed, so cache is invalidated and changes from config are loaded
         $kernelClass = $this->kernelClass;
-        if (\is_a($kernelClass, \ECSPrefix20211107\Symplify\SymplifyKernel\Contract\LightKernelInterface::class, \true)) {
+        if (\is_a($kernelClass, \ECSPrefix20211110\Symplify\SymplifyKernel\Contract\LightKernelInterface::class, \true)) {
             return new $kernelClass();
         }
         $environment = 'prod' . \random_int(1, 100000);
-        return new $kernelClass($environment, \ECSPrefix20211107\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
+        return new $kernelClass($environment, \ECSPrefix20211110\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
     }
     private function booKernelAndRunApplication() : void
     {
         $kernel = $this->createKernel();
-        if ($kernel instanceof \ECSPrefix20211107\Symplify\SymplifyKernel\Contract\LightKernelInterface) {
+        if ($kernel instanceof \ECSPrefix20211110\Symplify\SymplifyKernel\Contract\LightKernelInterface) {
             $container = $kernel->createFromConfigs($this->extraConfigs);
         } else {
             $kernel->boot();
             $container = $kernel->getContainer();
         }
         /** @var Application $application */
-        $application = $container->get(\ECSPrefix20211107\Symfony\Component\Console\Application::class);
+        $application = $container->get(\ECSPrefix20211110\Symfony\Component\Console\Application::class);
         exit($application->run());
     }
     /**
@@ -76,13 +76,13 @@ final class KernelBootAndApplicationRun
      */
     private function validateKernelClass(string $kernelClass) : void
     {
-        if (\is_a($kernelClass, \ECSPrefix20211107\Symfony\Component\HttpKernel\KernelInterface::class, \true)) {
+        if (\is_a($kernelClass, \ECSPrefix20211110\Symfony\Component\HttpKernel\KernelInterface::class, \true)) {
             return;
         }
-        if (\is_a($kernelClass, \ECSPrefix20211107\Symplify\SymplifyKernel\Contract\LightKernelInterface::class, \true)) {
+        if (\is_a($kernelClass, \ECSPrefix20211110\Symplify\SymplifyKernel\Contract\LightKernelInterface::class, \true)) {
             return;
         }
-        $errorMessage = \sprintf('Class "%s" must by type of "%s" or "%s"', $kernelClass, \ECSPrefix20211107\Symfony\Component\HttpKernel\KernelInterface::class, \ECSPrefix20211107\Symplify\SymplifyKernel\Contract\LightKernelInterface::class);
-        throw new \ECSPrefix20211107\Symplify\SymplifyKernel\Exception\BootException($errorMessage);
+        $errorMessage = \sprintf('Class "%s" must by type of "%s" or "%s"', $kernelClass, \ECSPrefix20211110\Symfony\Component\HttpKernel\KernelInterface::class, \ECSPrefix20211110\Symplify\SymplifyKernel\Contract\LightKernelInterface::class);
+        throw new \ECSPrefix20211110\Symplify\SymplifyKernel\Exception\BootException($errorMessage);
     }
 }

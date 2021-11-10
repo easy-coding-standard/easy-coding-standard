@@ -5,11 +5,11 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20211107\Nette\Neon\Node;
+namespace ECSPrefix20211110\Nette\Neon\Node;
 
-use ECSPrefix20211107\Nette\Neon\Node;
+use ECSPrefix20211110\Nette\Neon\Node;
 /** @internal */
-final class ArrayItemNode extends \ECSPrefix20211107\Nette\Neon\Node
+final class ArrayItemNode extends \ECSPrefix20211110\Nette\Neon\Node
 {
     /** @var ?Node */
     public $key;
@@ -41,13 +41,14 @@ final class ArrayItemNode extends \ECSPrefix20211107\Nette\Neon\Node
         }
         return $res;
     }
-    /** @param  self[]  $items */
-    public static function itemsToBlockString($items) : string
+    /** @param  self[]  $items
+     * @param string $indentation */
+    public static function itemsToBlockString($items, $indentation) : string
     {
         $res = '';
         foreach ($items as $item) {
             $v = $item->value->toString();
-            $res .= ($item->key ? $item->key->toString() . ':' : '-') . (\strpos($v, "\n") === \false ? ' ' . $v . "\n" : "\n" . \preg_replace('#^(?=.)#m', "\t", $v) . (\substr($v, -2, 1) === "\n" ? '' : "\n"));
+            $res .= ($item->key ? $item->key->toString() . ':' : '-') . (\strpos($v, "\n") === \false ? ' ' . $v . "\n" : "\n" . \preg_replace('#^(?=.)#m', $indentation, $v) . (\substr($v, -2, 1) === "\n" ? '' : "\n"));
         }
         return $res;
     }
@@ -61,6 +62,6 @@ final class ArrayItemNode extends \ECSPrefix20211107\Nette\Neon\Node
     }
     public function getSubNodes() : array
     {
-        return $this->key ? [$this->key, $this->value] : [$this->value];
+        return $this->key ? [&$this->key, &$this->value] : [&$this->value];
     }
 }

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
-use ECSPrefix20211107\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20211107\Webmozart\Assert\Assert;
+use ECSPrefix20211110\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211110\Webmozart\Assert\Assert;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
  */
@@ -38,18 +38,18 @@ final class ChangedFilesDetector
     {
         $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($configurationFile));
     }
-    public function addFileInfo(\ECSPrefix20211107\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function addFileInfo(\ECSPrefix20211110\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $currentValue = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
         $this->cache->save($cacheKey, self::FILE_HASH, $currentValue);
     }
-    public function invalidateFileInfo(\ECSPrefix20211107\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function invalidateFileInfo(\ECSPrefix20211110\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $this->cache->clean($cacheKey);
     }
-    public function hasFileInfoChanged(\ECSPrefix20211107\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function hasFileInfoChanged(\ECSPrefix20211110\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
@@ -72,8 +72,8 @@ final class ChangedFilesDetector
         if ($configFiles === []) {
             return;
         }
-        \ECSPrefix20211107\Webmozart\Assert\Assert::allString($configFiles);
-        \ECSPrefix20211107\Webmozart\Assert\Assert::allFile($configFiles);
+        \ECSPrefix20211110\Webmozart\Assert\Assert::allString($configFiles);
+        \ECSPrefix20211110\Webmozart\Assert\Assert::allFile($configFiles);
         // the first config is core to all → if it was changed, just invalidate it
         $firstConfigFile = $configFiles[0];
         $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($firstConfigFile));
@@ -83,7 +83,7 @@ final class ChangedFilesDetector
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
         $this->cache->save(self::CONFIGURATION_HASH_KEY, self::FILE_HASH, $configurationHash);
     }
-    private function fileInfoToKey(\ECSPrefix20211107\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function fileInfoToKey(\ECSPrefix20211110\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         return \sha1($smartFileInfo->getRelativeFilePathFromCwd());
     }

@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20211107\Nette;
+namespace ECSPrefix20211110\Nette;
 
 /**
  * Static class.
@@ -24,6 +24,6 @@ trait StaticClass
      */
     public static function __callStatic(string $name, array $args)
     {
-        \ECSPrefix20211107\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
+        \ECSPrefix20211110\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
     }
 }

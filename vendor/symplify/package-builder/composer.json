@@ -11,19 +11,19 @@
         "symfony\/finder": "^5.3|^6.0",
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/easy-testing": "dev-main",
-        "nette\/neon": "^3.2"
+        "nette\/neon": "^3.3.1"
     },
     "require-dev": {
         "phpunit\/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211107\\Symplify\\PackageBuilder\\": "src"
+            "ECSPrefix20211110\\Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20211107\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "ECSPrefix20211110\\Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {
