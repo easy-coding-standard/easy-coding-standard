@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211111\Symfony\Component\Config;
+namespace ECSPrefix20211112\Symfony\Component\Config;
 
 /**
  * Interface for a ConfigCache factory. This factory creates

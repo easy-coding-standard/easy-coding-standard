@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211111\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20211112\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
-use ECSPrefix20211111\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20211112\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 trait DeprecateTrait
 {
     /**

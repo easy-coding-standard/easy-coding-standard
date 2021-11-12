@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211111\Symfony\Component\DependencyInjection\Config;
+namespace ECSPrefix20211112\Symfony\Component\DependencyInjection\Config;
 
-use ECSPrefix20211111\Symfony\Component\Config\Resource\ResourceInterface;
-use ECSPrefix20211111\Symfony\Component\Config\ResourceCheckerInterface;
-use ECSPrefix20211111\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20211112\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix20211112\Symfony\Component\Config\ResourceCheckerInterface;
+use ECSPrefix20211112\Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-class ContainerParametersResourceChecker implements \ECSPrefix20211111\Symfony\Component\Config\ResourceCheckerInterface
+class ContainerParametersResourceChecker implements \ECSPrefix20211112\Symfony\Component\Config\ResourceCheckerInterface
 {
     /** @var ContainerInterface */
     private $container;
-    public function __construct(\ECSPrefix20211111\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    public function __construct(\ECSPrefix20211112\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -30,7 +30,7 @@ class ContainerParametersResourceChecker implements \ECSPrefix20211111\Symfony\C
      */
     public function supports($metadata)
     {
-        return $metadata instanceof \ECSPrefix20211111\Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
+        return $metadata instanceof \ECSPrefix20211112\Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
     }
     /**
      * {@inheritdoc}

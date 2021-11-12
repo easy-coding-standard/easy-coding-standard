@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20211111\Nette\Neon;
+namespace ECSPrefix20211112\Nette\Neon;
 
 /**
  * The exception that indicates error of NEON processing.
