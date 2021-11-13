@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20211112\React\Socket;
+namespace ECSPrefix20211113\React\Socket;
 
-use ECSPrefix20211112\Evenement\EventEmitter;
-use ECSPrefix20211112\React\EventLoop\Loop;
-use ECSPrefix20211112\React\EventLoop\LoopInterface;
+use ECSPrefix20211113\Evenement\EventEmitter;
+use ECSPrefix20211113\React\EventLoop\Loop;
+use ECSPrefix20211113\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -20,7 +20,7 @@ use RuntimeException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class UnixServer extends \ECSPrefix20211112\Evenement\EventEmitter implements \ECSPrefix20211112\React\Socket\ServerInterface
+final class UnixServer extends \ECSPrefix20211113\Evenement\EventEmitter implements \ECSPrefix20211113\React\Socket\ServerInterface
 {
     private $master;
     private $loop;
@@ -48,9 +48,9 @@ final class UnixServer extends \ECSPrefix20211112\Evenement\EventEmitter impleme
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($path, \ECSPrefix20211112\React\EventLoop\LoopInterface $loop = null, array $context = array())
+    public function __construct($path, \ECSPrefix20211113\React\EventLoop\LoopInterface $loop = null, array $context = array())
     {
-        $this->loop = $loop ?: \ECSPrefix20211112\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20211113\React\EventLoop\Loop::get();
         if (\strpos($path, '://') === \false) {
             $path = 'unix://' . $path;
         } elseif (\substr($path, 0, 7) !== 'unix://') {
@@ -116,7 +116,7 @@ final class UnixServer extends \ECSPrefix20211112\Evenement\EventEmitter impleme
     /** @internal */
     public function handleConnection($socket)
     {
-        $connection = new \ECSPrefix20211112\React\Socket\Connection($socket, $this->loop);
+        $connection = new \ECSPrefix20211113\React\Socket\Connection($socket, $this->loop);
         $connection->unix = \true;
         $this->emit('connection', array($connection));
     }

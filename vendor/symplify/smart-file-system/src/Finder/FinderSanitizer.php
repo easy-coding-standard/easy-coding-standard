@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211112\Symplify\SmartFileSystem\Finder;
+namespace ECSPrefix20211113\Symplify\SmartFileSystem\Finder;
 
-use ECSPrefix20211112\Nette\Utils\Finder as NetteFinder;
+use ECSPrefix20211113\Nette\Utils\Finder as NetteFinder;
 use SplFileInfo;
-use ECSPrefix20211112\Symfony\Component\Finder\Finder as SymfonyFinder;
-use ECSPrefix20211112\Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
-use ECSPrefix20211112\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211113\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix20211113\Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
+use ECSPrefix20211113\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SmartFileSystem\Tests\Finder\FinderSanitizer\FinderSanitizerTest
  */
@@ -27,7 +27,7 @@ final class FinderSanitizer
             }
             /** @var string $realPath */
             $realPath = $fileInfo->getRealPath();
-            $smartFileInfos[] = new \ECSPrefix20211112\Symplify\SmartFileSystem\SmartFileInfo($realPath);
+            $smartFileInfos[] = new \ECSPrefix20211113\Symplify\SmartFileSystem\SmartFileInfo($realPath);
         }
         return $smartFileInfos;
     }
