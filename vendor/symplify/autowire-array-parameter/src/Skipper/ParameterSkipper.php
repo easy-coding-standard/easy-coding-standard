@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace ECSPrefix20211114\Symplify\AutowireArrayParameter\Skipper;
 
 use ReflectionMethod;
+use ReflectionNamedType;
 use ReflectionParameter;
 use ECSPrefix20211114\Symfony\Component\DependencyInjection\Definition;
 use ECSPrefix20211114\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
@@ -63,6 +64,9 @@ final class ParameterSkipper
             return \false;
         }
         $reflectionParameterType = $reflectionParameter->getType();
+        if (!$reflectionParameterType instanceof \ReflectionNamedType) {
+            return \false;
+        }
         return $reflectionParameterType->getName() === 'array';
     }
 }
