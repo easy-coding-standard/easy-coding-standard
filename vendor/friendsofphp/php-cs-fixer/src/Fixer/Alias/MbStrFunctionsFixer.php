@@ -36,7 +36,7 @@ final class MbStrFunctionsFixer extends \PhpCsFixer\AbstractFunctionReferenceFix
     {
         parent::__construct();
         $this->functions = \array_filter(self::$functionsMap, static function (array $mapping) : bool {
-            return \function_exists($mapping['alternativeName']) && (new \ReflectionFunction($mapping['alternativeName']))->isInternal();
+            return (new \ReflectionFunction($mapping['alternativeName']))->isInternal();
         });
     }
     /**

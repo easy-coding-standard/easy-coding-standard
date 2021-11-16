@@ -135,7 +135,7 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
             }
             $delimiters[$d] = [\substr_count($pattern, $d), $k];
         }
-        // return the least used delimiter, using the position in the list as a tie breaker
+        // return the least used delimiter, using the position in the list as a tiebreaker
         \uasort($delimiters, static function (array $a, array $b) : int {
             if ($a[0] === $b[0]) {
                 return $a[1] <=> $b[1];

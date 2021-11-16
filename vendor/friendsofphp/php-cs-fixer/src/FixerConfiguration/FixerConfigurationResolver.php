@@ -13,8 +13,8 @@ declare (strict_types=1);
 namespace PhpCsFixer\FixerConfiguration;
 
 use PhpCsFixer\Utils;
-use ECSPrefix20211114\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix20211114\Symfony\Component\OptionsResolver\OptionsResolver;
+use ECSPrefix20211116\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20211116\Symfony\Component\OptionsResolver\OptionsResolver;
 final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
 {
     /**
@@ -46,22 +46,22 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $options
+     * @param mixed[] $configuration
      */
-    public function resolve($options) : array
+    public function resolve($configuration) : array
     {
-        $resolver = new \ECSPrefix20211114\Symfony\Component\OptionsResolver\OptionsResolver();
+        $resolver = new \ECSPrefix20211116\Symfony\Component\OptionsResolver\OptionsResolver();
         foreach ($this->options as $option) {
             $name = $option->getName();
             if ($option instanceof \PhpCsFixer\FixerConfiguration\AliasedFixerOption) {
                 $alias = $option->getAlias();
-                if (\array_key_exists($alias, $options)) {
-                    if (\array_key_exists($name, $options)) {
-                        throw new \ECSPrefix20211114\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Aliased option "%s"/"%s" is passed multiple times.', $name, $alias));
+                if (\array_key_exists($alias, $configuration)) {
+                    if (\array_key_exists($name, $configuration)) {
+                        throw new \ECSPrefix20211116\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Aliased option "%s"/"%s" is passed multiple times.', $name, $alias));
                     }
                     \PhpCsFixer\Utils::triggerDeprecation(new \RuntimeException(\sprintf('Option "%s" is deprecated, use "%s" instead.', $alias, $name)));
-                    $options[$name] = $options[$alias];
-                    unset($options[$alias]);
+                    $configuration[$name] = $configuration[$alias];
+                    unset($configuration[$alias]);
                 }
             }
             if ($option->hasDefault()) {
@@ -89,7 +89,7 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
                 $resolver->setNormalizer($name, $normalizer);
             }
         }
-        return $resolver->resolve($options);
+        return $resolver->resolve($configuration);
     }
     /**
      * @throws \LogicException when the option is already defined

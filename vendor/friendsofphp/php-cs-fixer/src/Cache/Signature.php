@@ -76,9 +76,6 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
     }
     private static function utf8Encode(array $data) : array
     {
-        if (!\function_exists('mb_detect_encoding')) {
-            return $data;
-        }
         \array_walk_recursive($data, static function (&$item) : void {
             if (\is_string($item) && !\mb_detect_encoding($item, 'utf-8', \true)) {
                 $item = \utf8_encode($item);

@@ -132,7 +132,7 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     private function isTestMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
     {
-        // Check if we are dealing with a (non abstract, non lambda) function
+        // Check if we are dealing with a (non-abstract, non-lambda) function
         if (!$this->isMethod($tokens, $index)) {
             return \false;
         }
@@ -315,6 +315,6 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     private function doesDocBlockContainTest(\PhpCsFixer\DocBlock\DocBlock $doc) : bool
     {
-        return !empty($doc->getAnnotationsOfType('test'));
+        return 0 !== \count($doc->getAnnotationsOfType('test'));
     }
 }

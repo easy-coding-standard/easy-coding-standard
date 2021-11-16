@@ -79,7 +79,7 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
     private function updateDocBlockIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : void
     {
         $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
-        if (!empty($this->filterDocBlock($doc))) {
+        if (0 !== \count($this->filterDocBlock($doc))) {
             return;
         }
         $doc = $this->makeDocBlockMultiLineIfNeeded($doc, $tokens, $docBlockIndex);
@@ -102,7 +102,7 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
     private function makeDocBlockMultiLineIfNeeded(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : \PhpCsFixer\DocBlock\DocBlock
     {
         $lines = $doc->getLines();
-        if (1 === \count($lines) && empty($this->filterDocBlock($doc))) {
+        if (1 === \count($lines) && 0 === \count($this->filterDocBlock($doc))) {
             $lines = $this->splitUpDocBlock($lines, $tokens, $docBlockIndex);
             return new \PhpCsFixer\DocBlock\DocBlock(\implode('', $lines));
         }

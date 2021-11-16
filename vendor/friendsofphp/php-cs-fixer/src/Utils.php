@@ -36,7 +36,7 @@ final class Utils
      */
     public static function camelCaseToUnderscore(string $string) : string
     {
-        return \strtolower(\PhpCsFixer\Preg::replace('/(?<!^)((?=[A-Z][^A-Z])|(?<![A-Z])(?=[A-Z]))/', '_', $string));
+        return \mb_strtolower(\PhpCsFixer\Preg::replace('/(?<!^)((?=[\\p{Lu}][^\\p{Lu}])|(?<![\\p{Lu}])(?=[\\p{Lu}]))/', '_', $string));
     }
     /**
      * Calculate the trailing whitespace.
@@ -107,7 +107,7 @@ final class Utils
      */
     public static function naturalLanguageJoinWithBackticks(array $names) : string
     {
-        if (empty($names)) {
+        if (0 === \count($names)) {
             throw new \InvalidArgumentException('Array of names cannot be empty.');
         }
         $names = \array_map(static function (string $name) : string {

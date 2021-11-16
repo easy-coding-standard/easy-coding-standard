@@ -82,7 +82,7 @@ function foo() {}
             $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
             $annotations = $doc->getAnnotationsOfType($this->configuration['annotations']);
             // nothing to do if there are no annotations
-            if (empty($annotations)) {
+            if (0 === \count($annotations)) {
                 continue;
             }
             foreach ($annotations as $annotation) {

@@ -161,11 +161,11 @@ $f = fn () => null;
     }
     private function fixParenthesisInnerEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : void
     {
-        // remove single-line whitespace before )
+        // remove single-line whitespace before `)`
         if ($tokens[$end - 1]->isWhitespace($this->singleLineWhitespaceOptions)) {
             $tokens->clearAt($end - 1);
         }
-        // remove single-line whitespace after (
+        // remove single-line whitespace after `(`
         if ($tokens[$start + 1]->isWhitespace($this->singleLineWhitespaceOptions)) {
             $tokens->clearAt($start + 1);
         }

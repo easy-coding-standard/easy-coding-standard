@@ -125,7 +125,7 @@ final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferen
             // trailing ',' in function call (PHP 7.3)
         }
         $added = 0;
-        // check if the arguments need to be wrapped in parenthesis
+        // check if the arguments need to be wrapped in parentheses
         foreach (\array_reverse($arguments, \true) as $argumentStartIndex => $argumentEndIndex) {
             if ($this->isParenthesisNeeded($tokens, $argumentStartIndex, $argumentEndIndex)) {
                 $tokens->insertAt($argumentEndIndex + 1, new \PhpCsFixer\Tokenizer\Token(')'));

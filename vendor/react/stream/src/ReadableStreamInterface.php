@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20211114\React\Stream;
+namespace ECSPrefix20211116\React\Stream;
 
-use ECSPrefix20211114\Evenement\EventEmitterInterface;
+use ECSPrefix20211116\Evenement\EventEmitterInterface;
 /**
  * The `ReadableStreamInterface` is responsible for providing an interface for
  * read-only streams and the readable side of duplex streams.
@@ -161,7 +161,7 @@ use ECSPrefix20211114\Evenement\EventEmitterInterface;
  *
  * @see EventEmitterInterface
  */
-interface ReadableStreamInterface extends \ECSPrefix20211114\Evenement\EventEmitterInterface
+interface ReadableStreamInterface extends \ECSPrefix20211116\Evenement\EventEmitterInterface
 {
     /**
      * Checks whether this stream is in a readable state (not closed already).

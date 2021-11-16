@@ -59,7 +59,7 @@ final class NoExtraBlankLinesFixer extends \PhpCsFixer\AbstractFixer implements 
     public function configure(array $configuration) : void
     {
         if (isset($configuration['tokens']) && \in_array('use_trait', $configuration['tokens'], \true)) {
-            \PhpCsFixer\Utils::triggerDeprecation(new \RuntimeException('Option "use_trait" is deprecated, use the rule `class_attributes_separation` with `elements: trait_import` instead.'));
+            \PhpCsFixer\Utils::triggerDeprecation(new \RuntimeException('Option "tokens: use_trait" used in `no_extra_blank_lines` rule is deprecated, use the rule `class_attributes_separation` with `elements: trait_import` instead.'));
         }
         parent::configure($configuration);
         static $reprToTokenMap = ['break' => \T_BREAK, 'case' => \T_CASE, 'continue' => \T_CONTINUE, 'curly_brace_block' => '{', 'default' => \T_DEFAULT, 'extra' => \T_WHITESPACE, 'parenthesis_brace_block' => '(', 'return' => \T_RETURN, 'square_brace_block' => \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, 'switch' => \T_SWITCH, 'throw' => \T_THROW, 'use' => \T_USE, 'use_trait' => \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT];

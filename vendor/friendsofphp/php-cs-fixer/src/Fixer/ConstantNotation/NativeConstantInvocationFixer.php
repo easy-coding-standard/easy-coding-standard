@@ -26,7 +26,7 @@ use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20211114\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20211116\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
@@ -84,7 +84,7 @@ namespace {
     {
         parent::configure($configuration);
         $uniqueConfiguredExclude = \array_unique($this->configuration['exclude']);
-        // Case sensitive constants handling
+        // Case-sensitive constants handling
         $constantsToEscape = \array_values($this->configuration['include']);
         if (\true === $this->configuration['fix_built_in']) {
             $getDefinedConstants = \get_defined_constants(\true);
@@ -94,7 +94,7 @@ namespace {
             }
         }
         $constantsToEscape = \array_diff(\array_unique($constantsToEscape), $uniqueConfiguredExclude);
-        // Case insensitive constants handling
+        // Case-insensitive constants handling
         static $caseInsensitiveConstants = ['null', 'false', 'true'];
         $caseInsensitiveConstantsToEscape = [];
         foreach ($constantsToEscape as $constantIndex => $constant) {
@@ -140,7 +140,7 @@ namespace {
         $constantChecker = static function (array $value) : bool {
             foreach ($value as $constantName) {
                 if (!\is_string($constantName) || '' === \trim($constantName) || \trim($constantName) !== $constantName) {
-                    throw new \ECSPrefix20211114\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($constantName) ? \get_class($constantName) : \gettype($constantName)));
+                    throw new \ECSPrefix20211116\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($constantName) ? \get_class($constantName) : \gettype($constantName)));
                 }
             }
             return \true;

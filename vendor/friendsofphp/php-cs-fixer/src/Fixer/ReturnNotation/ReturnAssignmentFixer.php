@@ -245,7 +245,7 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
         if (null !== $originalIndent && $tokens[$assignVarIndex - 1]->isWhitespace() && $originalIndent !== $tokens[$assignVarIndex - 1]->getContent()) {
             $tokens[$assignVarIndex - 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $originalIndent]);
         }
-        // remove trailing space after the new return statement which might be added during the clean up process
+        // remove trailing space after the new return statement which might be added during the cleanup process
         $nextIndex = $tokens->getNonEmptySibling($assignVarIndex, 1);
         if (!$tokens[$nextIndex]->isWhitespace()) {
             $tokens->insertAt($nextIndex, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));

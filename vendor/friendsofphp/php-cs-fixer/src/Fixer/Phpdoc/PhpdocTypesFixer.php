@@ -21,6 +21,7 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+use PhpCsFixer\Preg;
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
@@ -32,20 +33,23 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
      *
      * @var array<string,string[]>
      */
-    private static $possibleTypes = ['simple' => ['array', 'bool', 'callable', 'float', 'int', 'iterable', 'null', 'object', 'string'], 'alias' => ['boolean', 'callback', 'double', 'integer', 'real'], 'meta' => ['$this', 'false', 'mixed', 'parent', 'resource', 'scalar', 'self', 'static', 'true', 'void']];
+    private const POSSIBLE_TYPES = ['simple' => ['array', 'bool', 'callable', 'float', 'int', 'iterable', 'null', 'object', 'string'], 'alias' => ['boolean', 'callback', 'double', 'integer', 'real'], 'meta' => ['$this', 'false', 'mixed', 'parent', 'resource', 'scalar', 'self', 'static', 'true', 'void']];
     /**
-     * @var array string[]
+     * @var string
      */
-    private $typesToFix = [];
+    private $patternToFix = '';
     /**
      * {@inheritdoc}
      */
     public function configure(array $configuration) : void
     {
         parent::configure($configuration);
-        $this->typesToFix = \array_merge(...\array_map(static function (string $group) : array {
-            return self::$possibleTypes[$group];
+        $typesToFix = \array_merge(...\array_map(static function (string $group) : array {
+            return self::POSSIBLE_TYPES[$group];
         }, $this->configuration['groups']));
+        $this->patternToFix = \sprintf('/(?<![a-zA-Z0-9_\\x80-\\xff]\\\\)(\\b|.(?=\\$))(%s)\\b(?!\\\\)/i', \implode('|', \array_map(function (string $type) : string {
+            return \preg_quote($type, '/');
+        }, $typesToFix)));
     }
     /**
      * {@inheritdoc}
@@ -89,15 +93,16 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
      */
     protected function normalize(string $type) : string
     {
-        $lower = \strtolower($type);
-        return \in_array($lower, $this->typesToFix, \true) ? $lower : $type;
+        return \PhpCsFixer\Preg::replaceCallback($this->patternToFix, function (array $matches) : string {
+            return \strtolower($matches[0]);
+        }, $type);
     }
     /**
      * {@inheritdoc}
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        $possibleGroups = \array_keys(self::$possibleTypes);
+        $possibleGroups = \array_keys(self::POSSIBLE_TYPES);
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('groups', 'Type groups to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($possibleGroups)])->setDefault($possibleGroups)->getOption()]);
     }
 }

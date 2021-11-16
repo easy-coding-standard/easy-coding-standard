@@ -70,7 +70,7 @@ function foo() {}
             }
             $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
             $annotations = $doc->getAnnotationsOfType('return');
-            if (empty($annotations)) {
+            if (0 === \count($annotations)) {
                 continue;
             }
             foreach ($annotations as $annotation) {
@@ -88,7 +88,7 @@ function foo() {}
         }
     }
     /**
-     * Remove return void or return null annotations..
+     * Remove `return void` or `return null` annotations.
      */
     private function fixAnnotation(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $annotation) : void
     {

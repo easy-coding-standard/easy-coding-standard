@@ -57,7 +57,7 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
             }
             $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
             $annotations = $doc->getAnnotationsOfType($this->tags);
-            if (empty($annotations)) {
+            if (0 === \count($annotations)) {
                 continue;
             }
             foreach ($annotations as $annotation) {

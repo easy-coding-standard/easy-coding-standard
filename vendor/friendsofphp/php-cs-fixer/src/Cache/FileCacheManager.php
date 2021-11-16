@@ -55,7 +55,7 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
         $this->handler = $handler;
         $this->signature = $signature;
         $this->isDryRun = $isDryRun;
-        $this->cacheDirectory = $cacheDirectory ?: new \PhpCsFixer\Cache\Directory('');
+        $this->cacheDirectory = $cacheDirectory ?? new \PhpCsFixer\Cache\Directory('');
         $this->readCache();
     }
     public function __destruct()

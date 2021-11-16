@@ -121,6 +121,9 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
         if ($prevToken->equalsAny($disallowedPrevTokens)) {
             return \false;
         }
+        if ($prevToken->isGivenKind(\T_AS)) {
+            return \true;
+        }
         $type = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
         $end = $tokens->findBlockEnd($type['type'], $index);
         $nextToken = $tokens[$tokens->getNextMeaningfulToken($end)];

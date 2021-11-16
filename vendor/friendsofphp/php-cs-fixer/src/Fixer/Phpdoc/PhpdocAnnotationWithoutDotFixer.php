@@ -69,7 +69,7 @@ function foo ($bar) {}
             }
             $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
             $annotations = $doc->getAnnotations();
-            if (empty($annotations)) {
+            if (0 === \count($annotations)) {
                 continue;
             }
             foreach ($annotations as $annotation) {
@@ -93,10 +93,7 @@ function foo ($bar) {}
                 $startLine = $doc->getLine($annotation->getStart());
                 $optionalTypeRegEx = $annotation->supportTypes() ? \sprintf('(?:%s\\s+(?:\\$\\w+\\s+)?)?', \preg_quote(\implode('|', $annotation->getTypes()), '/')) : '';
                 $content = \PhpCsFixer\Preg::replaceCallback('/^(\\s*\\*\\s*@\\w+\\s+' . $optionalTypeRegEx . ')(\\p{Lu}?(?=\\p{Ll}|\\p{Zs}))(.*)$/', static function (array $matches) : string {
-                    if (\function_exists('mb_strtolower')) {
-                        return $matches[1] . \mb_strtolower($matches[2]) . $matches[3];
-                    }
-                    return $matches[1] . \strtolower($matches[2]) . $matches[3];
+                    return $matches[1] . \mb_strtolower($matches[2]) . $matches[3];
                 }, $startLine->getContent(), 1);
                 $startLine->setContent($content);
             }

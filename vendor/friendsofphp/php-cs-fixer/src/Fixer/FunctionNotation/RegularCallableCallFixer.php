@@ -168,12 +168,12 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
     private function getTokensSubcollection(\PhpCsFixer\Tokenizer\Tokens $tokens, int $indexStart, int $indexEnd) : \PhpCsFixer\Tokenizer\Tokens
     {
         $size = $indexEnd - $indexStart + 1;
-        $subcollection = new \PhpCsFixer\Tokenizer\Tokens($size);
+        $subCollection = new \PhpCsFixer\Tokenizer\Tokens($size);
         for ($i = 0; $i < $size; ++$i) {
             /** @var Token $toClone */
             $toClone = $tokens[$i + $indexStart];
-            $subcollection[$i] = clone $toClone;
+            $subCollection[$i] = clone $toClone;
         }
-        return $subcollection;
+        return $subCollection;
     }
 }

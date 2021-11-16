@@ -56,8 +56,8 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
         $candidateSequence = [[\T_STRING, $functionNameToSearch], '('];
         $matches = $tokens->findSequence($candidateSequence, $start, $end, \false);
         if (null === $matches) {
-            // not found, simply return without further attempts
             return null;
+            // not found, simply return without further attempts
         }
         // translate results for humans
         [$functionName, $openParenthesis] = \array_keys($matches);

@@ -23,6 +23,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Preg;
+use PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
@@ -38,7 +39,7 @@ final class HeredocIndentationFixer extends \PhpCsFixer\AbstractFixer implements
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Heredoc/nowdoc content must be properly indented. Requires PHP >= 7.3.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20211114;
+namespace ECSPrefix20211116;
 
 $a = <<<EOD
 abc
@@ -50,7 +51,7 @@ SAMPLE
 , new \PhpCsFixer\FixerDefinition\VersionSpecification(70300)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20211114;
+namespace ECSPrefix20211116;
 
 $a = <<<'EOD'
 abc
@@ -62,7 +63,7 @@ SAMPLE
 , new \PhpCsFixer\FixerDefinition\VersionSpecification(70300)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20211114;
+namespace ECSPrefix20211116;
 
 $a = <<<'EOD'
 abc
@@ -100,7 +101,7 @@ SAMPLE
     }
     private function fixIndentation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : void
     {
-        $indent = $this->getIndentAt($tokens, $start);
+        $indent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $start);
         if ('start_plus_one' === $this->configuration['indentation']) {
             $indent .= $this->whitespacesConfig->getIndent();
         }
@@ -136,21 +137,5 @@ SAMPLE
             $content = \PhpCsFixer\Preg::replace('/^(?!' . $currentIndent . ')\\h+/', '', $content);
         }
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_ENCAPSED_AND_WHITESPACE, $content]);
-    }
-    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : string
-    {
-        for (; $index >= 0; --$index) {
-            if (!$tokens[$index]->isGivenKind([\T_WHITESPACE, \T_INLINE_HTML, \T_OPEN_TAG])) {
-                continue;
-            }
-            $content = $tokens[$index]->getContent();
-            if ($tokens[$index]->isWhitespace() && $tokens[$index - 1]->isGivenKind(\T_OPEN_TAG)) {
-                $content = $tokens[$index - 1]->getContent() . $content;
-            }
-            if (1 === \PhpCsFixer\Preg::match('/\\R(\\h*)$/', $content, $matches)) {
-                return $matches[1];
-            }
-        }
-        return '';
     }
 }

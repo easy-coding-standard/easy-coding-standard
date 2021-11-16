@@ -72,7 +72,7 @@ final class FooTest extends \\PHPUnit_Framework_TestCase {
      */
     public function getPriority() : int
     {
-        return -10;
+        return -8;
     }
     /**
      * {@inheritdoc}

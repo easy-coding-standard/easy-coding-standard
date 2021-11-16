@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20211114\Nette\Utils;
+namespace ECSPrefix20211116\Nette\Utils;
 
-use ECSPrefix20211114\Nette;
+use ECSPrefix20211116\Nette;
 /**
  * PHP type reflection.
  */
@@ -38,12 +38,12 @@ final class Type
         } elseif ($type instanceof \ReflectionNamedType) {
             $name = self::resolve($type->getName(), $reflection);
             return new self($type->allowsNull() && $type->getName() !== 'mixed' ? [$name, 'null'] : [$name]);
-        } elseif ($type instanceof \ReflectionUnionType || $type instanceof \ECSPrefix20211114\ReflectionIntersectionType) {
+        } elseif ($type instanceof \ReflectionUnionType || $type instanceof \ECSPrefix20211116\ReflectionIntersectionType) {
             return new self(\array_map(function ($t) use($reflection) {
                 return self::resolve($t->getName(), $reflection);
             }, $type->getTypes()), $type instanceof \ReflectionUnionType ? '|' : '&');
         } else {
-            throw new \ECSPrefix20211114\Nette\InvalidStateException('Unexpected type of ' . \ECSPrefix20211114\Nette\Utils\Reflection::toString($reflection));
+            throw new \ECSPrefix20211116\Nette\InvalidStateException('Unexpected type of ' . \ECSPrefix20211116\Nette\Utils\Reflection::toString($reflection));
         }
     }
     /**
@@ -56,7 +56,7 @@ final class Type
 			\\?([\\w\\\\]+)|
 			[\\w\\\\]+ (?: (&[\\w\\\\]+)* | (\\|[\\w\\\\]+)* )
 		)()$#xAD', $type, $m)) {
-            throw new \ECSPrefix20211114\Nette\InvalidArgumentException("Invalid type '{$type}'.");
+            throw new \ECSPrefix20211116\Nette\InvalidArgumentException("Invalid type '{$type}'.");
         }
         [, $nType, $iType] = $m;
         if ($nType) {
@@ -150,14 +150,14 @@ final class Type
      */
     public function isBuiltin() : bool
     {
-        return $this->single && \ECSPrefix20211114\Nette\Utils\Reflection::isBuiltinType($this->types[0]);
+        return $this->single && \ECSPrefix20211116\Nette\Utils\Reflection::isBuiltinType($this->types[0]);
     }
     /**
      * Returns true whether the type is both a single and a class name.
      */
     public function isClass() : bool
     {
-        return $this->single && !\ECSPrefix20211114\Nette\Utils\Reflection::isBuiltinType($this->types[0]);
+        return $this->single && !\ECSPrefix20211116\Nette\Utils\Reflection::isBuiltinType($this->types[0]);
     }
     /**
      * Verifies type compatibility. For example, it checks if a value of a certain type could be passed as a parameter.
@@ -173,17 +173,17 @@ final class Type
             if (!$type->isIntersection()) {
                 return \false;
             }
-            return \ECSPrefix20211114\Nette\Utils\Arrays::every($this->types, function ($currentType) use($type) {
-                $builtin = \ECSPrefix20211114\Nette\Utils\Reflection::isBuiltinType($currentType);
-                return \ECSPrefix20211114\Nette\Utils\Arrays::some($type->types, function ($testedType) use($currentType, $builtin) {
+            return \ECSPrefix20211116\Nette\Utils\Arrays::every($this->types, function ($currentType) use($type) {
+                $builtin = \ECSPrefix20211116\Nette\Utils\Reflection::isBuiltinType($currentType);
+                return \ECSPrefix20211116\Nette\Utils\Arrays::some($type->types, function ($testedType) use($currentType, $builtin) {
                     return $builtin ? \strcasecmp($currentType, $testedType) === 0 : \is_a($testedType, $currentType, \true);
                 });
             });
         }
         $method = $type->isIntersection() ? 'some' : 'every';
-        return \ECSPrefix20211114\Nette\Utils\Arrays::$method($type->types, function ($testedType) {
-            $builtin = \ECSPrefix20211114\Nette\Utils\Reflection::isBuiltinType($testedType);
-            return \ECSPrefix20211114\Nette\Utils\Arrays::some($this->types, function ($currentType) use($testedType, $builtin) {
+        return \ECSPrefix20211116\Nette\Utils\Arrays::$method($type->types, function ($testedType) {
+            $builtin = \ECSPrefix20211116\Nette\Utils\Reflection::isBuiltinType($testedType);
+            return \ECSPrefix20211116\Nette\Utils\Arrays::some($this->types, function ($currentType) use($testedType, $builtin) {
                 return $builtin ? \strcasecmp($currentType, $testedType) === 0 : \is_a($testedType, $currentType, \true);
             });
         });

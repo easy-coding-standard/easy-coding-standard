@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20211114\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20211116\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * @author Boris Gorbylev <ekho@ekho.name>
  *
@@ -33,19 +33,19 @@ final class JsonReporter implements \PhpCsFixer\Console\Report\FixReport\Reporte
      */
     public function generate($reportSummary) : string
     {
-        $jFiles = [];
+        $jsonFiles = [];
         foreach ($reportSummary->getChanged() as $file => $fixResult) {
-            $jfile = ['name' => $file];
+            $jsonFile = ['name' => $file];
             if ($reportSummary->shouldAddAppliedFixers()) {
-                $jfile['appliedFixers'] = $fixResult['appliedFixers'];
+                $jsonFile['appliedFixers'] = $fixResult['appliedFixers'];
             }
             if (!empty($fixResult['diff'])) {
-                $jfile['diff'] = $fixResult['diff'];
+                $jsonFile['diff'] = $fixResult['diff'];
             }
-            $jFiles[] = $jfile;
+            $jsonFiles[] = $jsonFile;
         }
-        $json = ['files' => $jFiles, 'time' => ['total' => \round($reportSummary->getTime() / 1000, 3)], 'memory' => \round($reportSummary->getMemory() / 1024 / 1024, 3)];
+        $json = ['files' => $jsonFiles, 'time' => ['total' => \round($reportSummary->getTime() / 1000, 3)], 'memory' => \round($reportSummary->getMemory() / 1024 / 1024, 3)];
         $json = \json_encode($json);
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20211114\Symfony\Component\Console\Formatter\OutputFormatter::escape($json) : $json;
+        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20211116\Symfony\Component\Console\Formatter\OutputFormatter::escape($json) : $json;
     }
 }

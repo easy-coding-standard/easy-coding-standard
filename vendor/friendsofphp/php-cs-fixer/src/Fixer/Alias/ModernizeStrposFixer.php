@@ -93,7 +93,12 @@ if (strpos($haystack, $needle) === false) {}
             $tokens->clearTokenAndMergeSurroundingWhitespace($operatorIndexes['operand_index']);
             $tokens->clearTokenAndMergeSurroundingWhitespace($functionIndex);
             if ($replacement['negate']) {
-                $tokens->insertAt($functionIndex, new \PhpCsFixer\Tokenizer\Token('!'));
+                $negateInsertIndex = $functionIndex;
+                $prevFunctionIndex = $tokens->getPrevMeaningfulToken($functionIndex);
+                if ($tokens[$prevFunctionIndex]->isGivenKind(\T_NS_SEPARATOR)) {
+                    $negateInsertIndex = $prevFunctionIndex;
+                }
+                $tokens->insertAt($negateInsertIndex, new \PhpCsFixer\Tokenizer\Token('!'));
                 ++$functionIndex;
             }
             $tokens->insertAt($functionIndex, new \PhpCsFixer\Tokenizer\Token($replacement['replacement']));
