@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject;
+namespace ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject;
 
-use ECSPrefix20211116\Nette\Utils\Arrays;
-use ECSPrefix20211116\Nette\Utils\Strings;
-use ECSPrefix20211116\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
-use ECSPrefix20211116\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20211116\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20211117\Nette\Utils\Arrays;
+use ECSPrefix20211117\Nette\Utils\Strings;
+use ECSPrefix20211117\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
+use ECSPrefix20211117\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211117\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @api
  * @see \Symplify\ComposerJsonManipulator\Tests\ValueObject\ComposerJsonTest
@@ -128,9 +128,9 @@ final class ComposerJson
     private $version;
     public function __construct()
     {
-        $this->composerPackageSorter = new \ECSPrefix20211116\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter();
+        $this->composerPackageSorter = new \ECSPrefix20211117\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter();
     }
-    public function setOriginalFileInfo(\ECSPrefix20211116\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function setOriginalFileInfo(\ECSPrefix20211117\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->fileInfo = $fileInfo;
     }
@@ -217,7 +217,7 @@ final class ComposerJson
     public function getAbsoluteAutoloadDirectories() : array
     {
         if ($this->fileInfo === null) {
-            throw new \ECSPrefix20211116\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20211117\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $autoloadDirectories = $this->getAutoloadDirectories();
         $absoluteAutoloadDirectories = [];
@@ -320,7 +320,7 @@ final class ComposerJson
         if ($this->name === null) {
             return null;
         }
-        return \ECSPrefix20211116\Nette\Utils\Strings::after($this->name, '/', -1);
+        return \ECSPrefix20211117\Nette\Utils\Strings::after($this->name, '/', -1);
     }
     /**
      * @return string[]
@@ -350,14 +350,14 @@ final class ComposerJson
      */
     public function getJsonArray() : array
     {
-        $array = \array_filter([\ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME => $this->name, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::DESCRIPTION => $this->description, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::KEYWORDS => $this->keywords, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::HOMEPAGE => $this->homepage, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::LICENSE => $this->license, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTHORS => $this->authors, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::TYPE => $this->type, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE => $this->require, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV => $this->requireDev, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD => $this->autoload, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV => $this->autoloadDev, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES => $this->repositories, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA => $this->extra, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::BIN => $this->bin, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS => $this->scripts, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS_DESCRIPTIONS => $this->scriptsDescriptions, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SUGGEST => $this->suggest, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG => $this->config, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE => $this->replace, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICT => $this->conflicts, \ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::VERSION => $this->version]);
+        $array = \array_filter([\ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME => $this->name, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::DESCRIPTION => $this->description, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::KEYWORDS => $this->keywords, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::HOMEPAGE => $this->homepage, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::LICENSE => $this->license, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTHORS => $this->authors, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::TYPE => $this->type, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE => $this->require, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV => $this->requireDev, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD => $this->autoload, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV => $this->autoloadDev, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES => $this->repositories, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA => $this->extra, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::BIN => $this->bin, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS => $this->scripts, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS_DESCRIPTIONS => $this->scriptsDescriptions, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SUGGEST => $this->suggest, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG => $this->config, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE => $this->replace, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICT => $this->conflicts, \ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::VERSION => $this->version]);
         if ($this->minimumStability !== null) {
-            $array[\ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY] = $this->minimumStability;
-            $this->moveValueToBack(\ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY);
+            $array[\ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY] = $this->minimumStability;
+            $this->moveValueToBack(\ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY);
         }
         if ($this->preferStable !== null) {
-            $array[\ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE] = $this->preferStable;
-            $this->moveValueToBack(\ECSPrefix20211116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE);
+            $array[\ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE] = $this->preferStable;
+            $this->moveValueToBack(\ECSPrefix20211117\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE);
         }
         return $this->sortItemsByOrderedListOfKeys($array, $this->orderedKeys);
     }
@@ -511,7 +511,7 @@ final class ComposerJson
             $this->addRequiredDevPackage($newPackageName, $targetVersion);
         }
     }
-    public function getFileInfo() : ?\ECSPrefix20211116\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : ?\ECSPrefix20211117\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }
@@ -595,7 +595,7 @@ final class ComposerJson
     public function getAutoloadDirectories() : array
     {
         $autoloadDirectories = \array_merge($this->getPsr4AndClassmapDirectories(), $this->getPsr4AndClassmapDevDirectories());
-        return \ECSPrefix20211116\Nette\Utils\Arrays::flatten($autoloadDirectories);
+        return \ECSPrefix20211117\Nette\Utils\Arrays::flatten($autoloadDirectories);
     }
     /**
      * @return string[]
@@ -672,7 +672,7 @@ final class ComposerJson
     private function resolveExistingAutoloadDirectory(string $autoloadDirectory) : string
     {
         if ($this->fileInfo === null) {
-            throw new \ECSPrefix20211116\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20211117\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $filePathCandidates = [
             $this->fileInfo->getPath() . \DIRECTORY_SEPARATOR . $autoloadDirectory,

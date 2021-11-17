@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211116\Symplify\EasyTesting\ValueObject;
+namespace ECSPrefix20211117\Symplify\EasyTesting\ValueObject;
 
 /**
  * @api
