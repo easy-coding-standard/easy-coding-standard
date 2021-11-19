@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211117\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211119\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211117\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211119\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Removes abstract Definitions.
  */
-class RemoveAbstractDefinitionsPass implements \ECSPrefix20211117\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class RemoveAbstractDefinitionsPass implements \ECSPrefix20211119\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * Removes abstract definitions from the ContainerBuilder.

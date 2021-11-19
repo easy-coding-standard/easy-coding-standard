@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20211117\Clue\React\NDJson\Decoder;
-use ECSPrefix20211117\Clue\React\NDJson\Encoder;
-use ECSPrefix20211117\React\EventLoop\StreamSelectLoop;
-use ECSPrefix20211117\React\Socket\ConnectionInterface;
-use ECSPrefix20211117\React\Socket\TcpConnector;
-use ECSPrefix20211117\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211117\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211119\Clue\React\NDJson\Decoder;
+use ECSPrefix20211119\Clue\React\NDJson\Encoder;
+use ECSPrefix20211119\React\EventLoop\StreamSelectLoop;
+use ECSPrefix20211119\React\Socket\ConnectionInterface;
+use ECSPrefix20211119\React\Socket\TcpConnector;
+use ECSPrefix20211119\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211119\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Parallel\Enum\Action;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand;
 use Symplify\EasyCodingStandard\Parallel\WorkerRunner;
@@ -43,13 +43,13 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
     protected function execute($input, $output) : int
     {
         $configuration = $this->configurationFactory->createFromInput($input);
-        $streamSelectLoop = new \ECSPrefix20211117\React\EventLoop\StreamSelectLoop();
+        $streamSelectLoop = new \ECSPrefix20211119\React\EventLoop\StreamSelectLoop();
         $parallelIdentifier = $configuration->getParallelIdentifier();
-        $tcpConnector = new \ECSPrefix20211117\React\Socket\TcpConnector($streamSelectLoop);
+        $tcpConnector = new \ECSPrefix20211119\React\Socket\TcpConnector($streamSelectLoop);
         $promise = $tcpConnector->connect('127.0.0.1:' . $configuration->getParallelPort());
-        $promise->then(function (\ECSPrefix20211117\React\Socket\ConnectionInterface $connection) use($parallelIdentifier, $configuration) : void {
-            $inDecoder = new \ECSPrefix20211117\Clue\React\NDJson\Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
-            $outEncoder = new \ECSPrefix20211117\Clue\React\NDJson\Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
+        $promise->then(function (\ECSPrefix20211119\React\Socket\ConnectionInterface $connection) use($parallelIdentifier, $configuration) : void {
+            $inDecoder = new \ECSPrefix20211119\Clue\React\NDJson\Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
+            $outEncoder = new \ECSPrefix20211119\Clue\React\NDJson\Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
             // handshake?
             $outEncoder->write([\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::ACTION => \Symplify\EasyCodingStandard\Parallel\Enum\Action::HELLO, \Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::IDENTIFIER => $parallelIdentifier]);
             $this->workerRunner->run($outEncoder, $inDecoder, $configuration);

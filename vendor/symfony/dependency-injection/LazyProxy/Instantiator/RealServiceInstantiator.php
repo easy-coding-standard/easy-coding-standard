@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211117\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
+namespace ECSPrefix20211119\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
 
-use ECSPrefix20211117\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20211117\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211119\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20211119\Symfony\Component\DependencyInjection\Definition;
 /**
  * {@inheritdoc}
  *
@@ -19,7 +19,7 @@ use ECSPrefix20211117\Symfony\Component\DependencyInjection\Definition;
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class RealServiceInstantiator implements \ECSPrefix20211117\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface
+class RealServiceInstantiator implements \ECSPrefix20211119\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface
 {
     /**
      * {@inheritdoc}

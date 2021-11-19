@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211117\Symplify\Skipper\SkipCriteriaResolver;
+namespace ECSPrefix20211119\Symplify\Skipper\SkipCriteriaResolver;
 
-use ECSPrefix20211117\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20211117\Symplify\Skipper\ValueObject\Option;
+use ECSPrefix20211119\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20211119\Symplify\Skipper\ValueObject\Option;
 final class SkippedClassAndCodesResolver
 {
     /**
@@ -15,7 +15,7 @@ final class SkippedClassAndCodesResolver
      * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\ECSPrefix20211117\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\ECSPrefix20211119\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
@@ -27,7 +27,7 @@ final class SkippedClassAndCodesResolver
         if ($this->skippedClassAndCodes !== []) {
             return $this->skippedClassAndCodes;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\ECSPrefix20211117\Symplify\Skipper\ValueObject\Option::SKIP);
+        $skip = $this->parameterProvider->provideArrayParameter(\ECSPrefix20211119\Symplify\Skipper\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
             if (\is_int($key)) {
