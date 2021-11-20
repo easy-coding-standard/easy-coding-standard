@@ -37,7 +37,7 @@ abstract class AbstractSymplifyCommand extends \ECSPrefix20211120\Symfony\Compon
     /**
      * @required
      */
-    public function autowireAbstractSymplifyCommand(\ECSPrefix20211120\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \ECSPrefix20211120\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20211120\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \ECSPrefix20211120\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard) : void
+    public function autowire(\ECSPrefix20211120\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \ECSPrefix20211120\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20211120\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \ECSPrefix20211120\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard) : void
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->smartFileSystem = $smartFileSystem;
