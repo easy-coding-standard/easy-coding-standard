@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211119\Symplify\PackageBuilder\DependencyInjection\FileLoader;
+namespace ECSPrefix20211120\Symplify\PackageBuilder\DependencyInjection\FileLoader;
 
-use ECSPrefix20211119\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix20211119\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211119\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use ECSPrefix20211119\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20211120\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix20211120\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211120\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix20211120\Symplify\PackageBuilder\Yaml\ParametersMerger;
 /**
  * @api
  *
@@ -14,15 +14,15 @@ use ECSPrefix20211119\Symplify\PackageBuilder\Yaml\ParametersMerger;
  * - https://github.com/symfony/symfony/issues/26713
  * - https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
  */
-final class ParameterMergingPhpFileLoader extends \ECSPrefix20211119\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+final class ParameterMergingPhpFileLoader extends \ECSPrefix20211120\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
     /**
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\ECSPrefix20211119\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20211119\Symfony\Component\Config\FileLocatorInterface $fileLocator)
+    public function __construct(\ECSPrefix20211120\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20211120\Symfony\Component\Config\FileLocatorInterface $fileLocator)
     {
-        $this->parametersMerger = new \ECSPrefix20211119\Symplify\PackageBuilder\Yaml\ParametersMerger();
+        $this->parametersMerger = new \ECSPrefix20211120\Symplify\PackageBuilder\Yaml\ParametersMerger();
         parent::__construct($containerBuilder, $fileLocator);
     }
     /**

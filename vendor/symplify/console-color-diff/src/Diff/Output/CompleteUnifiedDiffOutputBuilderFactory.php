@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211119\Symplify\ConsoleColorDiff\Diff\Output;
+namespace ECSPrefix20211120\Symplify\ConsoleColorDiff\Diff\Output;
 
-use ECSPrefix20211119\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
-use ECSPrefix20211119\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix20211120\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use ECSPrefix20211120\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 /**
  * @api
  * Creates @see UnifiedDiffOutputBuilder with "$contextLines = 1000;"
@@ -15,16 +15,16 @@ final class CompleteUnifiedDiffOutputBuilderFactory
      * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\ECSPrefix20211119\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+    public function __construct(\ECSPrefix20211120\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->privatesAccessor = $privatesAccessor;
     }
     /**
      * @api
      */
-    public function create() : \ECSPrefix20211119\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder
+    public function create() : \ECSPrefix20211120\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder
     {
-        $unifiedDiffOutputBuilder = new \ECSPrefix20211119\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder('');
+        $unifiedDiffOutputBuilder = new \ECSPrefix20211120\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder('');
         $this->privatesAccessor->setPrivateProperty($unifiedDiffOutputBuilder, 'contextLines', 10000);
         return $unifiedDiffOutputBuilder;
     }
