@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211120\Symplify\ComposerJsonManipulator\Printer;
+namespace ECSPrefix20211121\Symplify\ComposerJsonManipulator\Printer;
 
-use ECSPrefix20211120\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
-use ECSPrefix20211120\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use ECSPrefix20211120\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211121\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
+use ECSPrefix20211121\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use ECSPrefix20211121\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @api
  */
@@ -15,18 +15,18 @@ final class ComposerJsonPrinter
      * @var \Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager
      */
     private $jsonFileManager;
-    public function __construct(\ECSPrefix20211120\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager $jsonFileManager)
+    public function __construct(\ECSPrefix20211121\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager $jsonFileManager)
     {
         $this->jsonFileManager = $jsonFileManager;
     }
-    public function printToString(\ECSPrefix20211120\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : string
+    public function printToString(\ECSPrefix20211121\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : string
     {
         return $this->jsonFileManager->encodeJsonToFileContent($composerJson->getJsonArray());
     }
     /**
      * @param \Symplify\SmartFileSystem\SmartFileInfo|string $targetFile
      */
-    public function print(\ECSPrefix20211120\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $targetFile) : string
+    public function print(\ECSPrefix20211121\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $targetFile) : string
     {
         if (\is_string($targetFile)) {
             return $this->jsonFileManager->printComposerJsonToFilePath($composerJson, $targetFile);

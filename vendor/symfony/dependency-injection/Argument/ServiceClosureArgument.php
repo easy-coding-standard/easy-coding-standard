@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211120\Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix20211121\Symfony\Component\DependencyInjection\Argument;
 
-use ECSPrefix20211120\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20211120\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20211121\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20211121\Symfony\Component\DependencyInjection\Reference;
 /**
  * Represents a service wrapped in a memoizing closure.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceClosureArgument implements \ECSPrefix20211120\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
+class ServiceClosureArgument implements \ECSPrefix20211121\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
 {
     private $values;
-    public function __construct(\ECSPrefix20211120\Symfony\Component\DependencyInjection\Reference $reference)
+    public function __construct(\ECSPrefix20211121\Symfony\Component\DependencyInjection\Reference $reference)
     {
         $this->values = [$reference];
     }
@@ -37,8 +37,8 @@ class ServiceClosureArgument implements \ECSPrefix20211120\Symfony\Component\Dep
      */
     public function setValues($values)
     {
-        if ([0] !== \array_keys($values) || !($values[0] instanceof \ECSPrefix20211120\Symfony\Component\DependencyInjection\Reference || null === $values[0])) {
-            throw new \ECSPrefix20211120\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('A ServiceClosureArgument must hold one and only one Reference.');
+        if ([0] !== \array_keys($values) || !($values[0] instanceof \ECSPrefix20211121\Symfony\Component\DependencyInjection\Reference || null === $values[0])) {
+            throw new \ECSPrefix20211121\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('A ServiceClosureArgument must hold one and only one Reference.');
         }
         $this->values = $values;
     }
