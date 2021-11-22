@@ -54,7 +54,6 @@ abstract class AbstractCheckCommand extends \ECSPrefix20211122\Symplify\PackageB
         $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_PROGRESS_BAR, null, \ECSPrefix20211122\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide progress bar. Useful e.g. for nicer CI output.');
         $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_ERROR_TABLE, null, \ECSPrefix20211122\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide error table. Useful e.g. for fast check of error count.');
         $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT, null, \ECSPrefix20211122\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Select output format', \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME);
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::MATCH_GIT_DIFF, null, \ECSPrefix20211122\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Execute only on file(s) matching the git diff.');
         $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_PORT, null, \ECSPrefix20211122\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED);
         $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_IDENTIFIER, null, \ECSPrefix20211122\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED);
     }
