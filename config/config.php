@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211121;
+namespace ECSPrefix20211122;
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
@@ -23,7 +23,6 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL, \false);
     // how many files are processed in single process
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_JOB_SIZE, 60);
-    $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::SYSTEM_ERROR_COUNT_LIMIT, 50);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, []);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS, ['php']);
     $parameters->set('env(TEST_SUFFIX)', '');

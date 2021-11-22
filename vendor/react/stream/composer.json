@@ -45,12 +45,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211121\\React\\Stream\\": "src"
+            "ECSPrefix20211122\\React\\Stream\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20211121\\React\\Tests\\Stream\\": "tests"
+            "ECSPrefix20211122\\React\\Tests\\Stream\\": "tests"
         }
     }
 }

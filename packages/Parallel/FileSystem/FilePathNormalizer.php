@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\FileSystem;
 
-use ECSPrefix20211121\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211122\Symplify\SmartFileSystem\SmartFileInfo;
 final class FilePathNormalizer
 {
     /**
