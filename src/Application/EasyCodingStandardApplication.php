@@ -11,7 +11,6 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
-use Symplify\EasyCodingStandard\Parallel\FileSystem\FilePathNormalizer;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
@@ -20,6 +19,7 @@ use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20211123\Symplify\EasyParallel\CpuCoreCountProvider;
+use ECSPrefix20211123\Symplify\EasyParallel\FileSystem\FilePathNormalizer;
 use ECSPrefix20211123\Symplify\EasyParallel\ScheduleFactory;
 use ECSPrefix20211123\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use ECSPrefix20211123\Symplify\PackageBuilder\Yaml\ParametersMerger;
@@ -67,7 +67,7 @@ final class EasyCodingStandardApplication
      */
     private $symfonyStyle;
     /**
-     * @var \Symplify\EasyCodingStandard\Parallel\FileSystem\FilePathNormalizer
+     * @var \Symplify\EasyParallel\FileSystem\FilePathNormalizer
      */
     private $filePathNormalizer;
     /**
@@ -78,7 +78,7 @@ final class EasyCodingStandardApplication
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \ECSPrefix20211123\Symplify\EasyParallel\ScheduleFactory $scheduleFactory, \Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor $parallelFileProcessor, \ECSPrefix20211123\Symplify\EasyParallel\CpuCoreCountProvider $cpuCoreCountProvider, \ECSPrefix20211123\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Parallel\FileSystem\FilePathNormalizer $filePathNormalizer, \ECSPrefix20211123\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20211123\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
+    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \ECSPrefix20211123\Symplify\EasyParallel\ScheduleFactory $scheduleFactory, \Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor $parallelFileProcessor, \ECSPrefix20211123\Symplify\EasyParallel\CpuCoreCountProvider $cpuCoreCountProvider, \ECSPrefix20211123\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \ECSPrefix20211123\Symplify\EasyParallel\FileSystem\FilePathNormalizer $filePathNormalizer, \ECSPrefix20211123\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20211123\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -114,7 +114,7 @@ final class EasyCodingStandardApplication
         if ($configuration->isParallel()) {
             // must be a string, otherwise the serialization returns empty arrays
             $filePaths = $this->filePathNormalizer->resolveFilePathsFromFileInfos($fileInfos);
-            $schedule = $this->scheduleFactory->create($this->cpuCoreCountProvider->provide(), $this->parameterProvider->provideIntParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_JOB_SIZE), $filePaths);
+            $schedule = $this->scheduleFactory->create($this->cpuCoreCountProvider->provide(), $this->parameterProvider->provideIntParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_JOB_SIZE), $this->parameterProvider->provideIntParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_MAX_NUMBER_OF_PROCESSES), $filePaths);
             // for progress bar
             $isProgressBarStarted = \false;
             $postFileCallback = function (int $stepCount) use(&$isProgressBarStarted, $filePaths, $configuration) : void {

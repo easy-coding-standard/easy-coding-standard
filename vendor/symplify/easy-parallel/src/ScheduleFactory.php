@@ -13,10 +13,11 @@ final class ScheduleFactory
     /**
      * @param array<string> $files
      */
-    public function create(int $cpuCores, int $jobSize, array $files) : \ECSPrefix20211123\Symplify\EasyParallel\ValueObject\Schedule
+    public function create(int $cpuCores, int $jobSize, int $maxNumberOfProcesses, array $files) : \ECSPrefix20211123\Symplify\EasyParallel\ValueObject\Schedule
     {
         $jobs = \array_chunk($files, $jobSize);
         $numberOfProcesses = \min(\count($jobs), $cpuCores);
+        $numberOfProcesses = \min($maxNumberOfProcesses, $numberOfProcesses);
         return new \ECSPrefix20211123\Symplify\EasyParallel\ValueObject\Schedule($numberOfProcesses, $jobs);
     }
 }

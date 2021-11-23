@@ -23,6 +23,7 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL, \false);
     // how many files are processed in single process
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_JOB_SIZE, 60);
+    $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_MAX_NUMBER_OF_PROCESSES, 16);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, []);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS, ['php']);
     $parameters->set('env(TEST_SUFFIX)', '');

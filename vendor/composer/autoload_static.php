@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5c2ba1152ebb2275d25829238bb03c52
+class ComposerStaticInitbb85f07b7da83aed06771509ec516415
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1007,6 +1007,7 @@ class ComposerStaticInit5c2ba1152ebb2275d25829238bb03c52
         'ECSPrefix20211123\\Symplify\\EasyParallel\\Enum\\ReactCommand' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Enum/ReactCommand.php',
         'ECSPrefix20211123\\Symplify\\EasyParallel\\Enum\\ReactEvent' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Enum/ReactEvent.php',
         'ECSPrefix20211123\\Symplify\\EasyParallel\\Exception\\ParallelShouldNotHappenException' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Exception/ParallelShouldNotHappenException.php',
+        'ECSPrefix20211123\\Symplify\\EasyParallel\\FileSystem\\FilePathNormalizer' => __DIR__ . '/..' . '/symplify/easy-parallel/src/FileSystem/FilePathNormalizer.php',
         'ECSPrefix20211123\\Symplify\\EasyParallel\\Reflection\\CommandFromReflectionFactory' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Reflection/CommandFromReflectionFactory.php',
         'ECSPrefix20211123\\Symplify\\EasyParallel\\ScheduleFactory' => __DIR__ . '/..' . '/symplify/easy-parallel/src/ScheduleFactory.php',
         'ECSPrefix20211123\\Symplify\\EasyParallel\\ValueObject\\EasyParallelConfig' => __DIR__ . '/..' . '/symplify/easy-parallel/src/ValueObject/EasyParallelConfig.php',
@@ -1713,7 +1714,6 @@ class ComposerStaticInit5c2ba1152ebb2275d25829238bb03c52
         'Symplify\\EasyCodingStandard\\Guard\\LoadedCheckersGuard' => __DIR__ . '/../..' . '/src/Guard/LoadedCheckersGuard.php',
         'Symplify\\EasyCodingStandard\\Kernel\\EasyCodingStandardKernel' => __DIR__ . '/../..' . '/src/Kernel/EasyCodingStandardKernel.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor' => __DIR__ . '/../..' . '/packages/Parallel/Application/ParallelFileProcessor.php',
-        'Symplify\\EasyCodingStandard\\Parallel\\FileSystem\\FilePathNormalizer' => __DIR__ . '/../..' . '/packages/Parallel/FileSystem/FilePathNormalizer.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Bridge' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Bridge.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Name' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Name.php',
         'Symplify\\EasyCodingStandard\\Parallel\\WorkerRunner' => __DIR__ . '/../..' . '/packages/Parallel/WorkerRunner.php',
@@ -1748,9 +1748,9 @@ class ComposerStaticInit5c2ba1152ebb2275d25829238bb03c52
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5c2ba1152ebb2275d25829238bb03c52::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5c2ba1152ebb2275d25829238bb03c52::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5c2ba1152ebb2275d25829238bb03c52::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbb85f07b7da83aed06771509ec516415::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbb85f07b7da83aed06771509ec516415::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbb85f07b7da83aed06771509ec516415::$classMap;
 
         }, null, ClassLoader::class);
     }
