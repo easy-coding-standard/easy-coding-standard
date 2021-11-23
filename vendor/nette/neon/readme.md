@@ -39,13 +39,13 @@ composer require nette/neon
 
 It requires PHP version 7.1 and supports PHP up to 8.1. Documentation can be found on the [website](https://doc.nette.org/neon).
 
-`Neon::encode()` returns `$value` converted to NEON. As the second parameter `$blockMode` you can pass true, which will create multiline output. The third parameter `$indentation` specifies the characters used for indentation (default is tab).
+`Neon::encode()` returns `$value` converted to NEON. As the second parameter you can use `Neon::BLOCK`, which will create multiline output.
 
 ```php
 use Nette\Neon\Neon;
 
 $neon = Neon::encode($value); // Returns $value converted to NEON
-$neon = Neon::encode($value, true); // Returns $value converted to multiline NEON
+$neon = Neon::encode($value, Neon::BLOCK); // Returns $value converted to multiline NEON
 ```
 
 `Neon::decode()` converts given NEON to PHP value:
@@ -54,13 +54,7 @@ $neon = Neon::encode($value, true); // Returns $value converted to multiline NEO
 $value = Neon::decode('hello: world'); // Returns an array ['hello' => 'world']
 ```
 
-`Neon::decodeFile()` converts given NEON file to PHP value:
-
-```php
-$value = Neon::decodeFile('config.neon');
-```
-
-All methods throw `Nette\Neon\Exception` on error.
+Both methods throw `Nette\Neon\Exception` on error.
 
 
 Integration
@@ -77,12 +71,6 @@ Integration
 - [NEON for JavaScript](https://github.com/matej21/neon-js)
 - [NEON for Python](https://github.com/paveldedik/neon-py).
 
-
-You can check for syntax errors in Neon files using the `neon-lint` console command:
-
-```shell
-vendor/bin/neon-lint <path>
-```
 
 Syntax
 ======

@@ -14,10 +14,10 @@ final class ArrayNode extends \ECSPrefix20211123\Nette\Neon\Node
     /** @var ArrayItemNode[] */
     public $items = [];
     /** @var ?string */
-    public $indentation;
-    public function __construct(?string $indentation = null, int $pos = null)
+    public $indent;
+    public function __construct(?string $indent = null, int $pos = null)
     {
-        $this->indentation = $indentation;
+        $this->indent = $indent;
         $this->startPos = $this->endPos = $pos;
     }
     public function toValue() : array
@@ -26,7 +26,7 @@ final class ArrayNode extends \ECSPrefix20211123\Nette\Neon\Node
     }
     public function toString() : string
     {
-        if ($this->indentation === null) {
+        if ($this->indent === null) {
             $isList = !\array_filter($this->items, function ($item) {
                 return $item->key;
             });
@@ -35,15 +35,11 @@ final class ArrayNode extends \ECSPrefix20211123\Nette\Neon\Node
         } elseif (\count($this->items) === 0) {
             return '[]';
         } else {
-            return \ECSPrefix20211123\Nette\Neon\Node\ArrayItemNode::itemsToBlockString($this->items, $this->indentation);
+            return \ECSPrefix20211123\Nette\Neon\Node\ArrayItemNode::itemsToBlockString($this->items);
         }
     }
     public function getSubNodes() : array
     {
-        $res = [];
-        foreach ($this->items as &$item) {
-            $res[] =& $item;
-        }
-        return $res;
+        return $this->items;
     }
 }

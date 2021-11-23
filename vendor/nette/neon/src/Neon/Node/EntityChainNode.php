@@ -36,10 +36,6 @@ final class EntityChainNode extends \ECSPrefix20211123\Nette\Neon\Node
     }
     public function getSubNodes() : array
     {
-        $res = [];
-        foreach ($this->chain as &$item) {
-            $res[] =& $item;
-        }
-        return $res;
+        return $this->chain;
     }
 }

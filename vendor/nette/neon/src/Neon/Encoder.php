@@ -13,18 +13,13 @@ namespace ECSPrefix20211123\Nette\Neon;
  */
 final class Encoder
 {
-    /** @deprecated */
-    public const BLOCK = \true;
-    /** @var bool */
-    public $blockMode = \false;
-    /** @var string */
-    public $indentation = "\t";
+    public const BLOCK = 1;
     /**
      * Returns the NEON representation of a value.
      */
-    public function encode($val) : string
+    public function encode($val, int $flags = 0) : string
     {
-        $node = $this->valueToNode($val, $this->blockMode);
+        $node = $this->valueToNode($val, (bool) ($flags & self::BLOCK));
         return $node->toString();
     }
     public function valueToNode($val, bool $blockMode = \false) : \ECSPrefix20211123\Nette\Neon\Node
@@ -40,7 +35,7 @@ final class Encoder
         } elseif ($val instanceof \ECSPrefix20211123\Nette\Neon\Entity) {
             return new \ECSPrefix20211123\Nette\Neon\Node\EntityNode($this->valueToNode($val->value), $this->arrayToNodes((array) $val->attributes));
         } elseif (\is_object($val) || \is_array($val)) {
-            $node = new \ECSPrefix20211123\Nette\Neon\Node\ArrayNode($blockMode ? $this->indentation : null);
+            $node = new \ECSPrefix20211123\Nette\Neon\Node\ArrayNode($blockMode ? '' : null);
             $node->items = $this->arrayToNodes($val, $blockMode);
             return $node;
         } elseif (\is_string($val) && \ECSPrefix20211123\Nette\Neon\Lexer::requiresDelimiters($val)) {
