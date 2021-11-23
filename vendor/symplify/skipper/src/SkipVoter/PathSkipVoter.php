@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211122\Symplify\Skipper\SkipVoter;
+namespace ECSPrefix20211123\Symplify\Skipper\SkipVoter;
 
-use ECSPrefix20211122\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20211122\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20211122\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
-use ECSPrefix20211122\Symplify\SmartFileSystem\SmartFileInfo;
-final class PathSkipVoter implements \ECSPrefix20211122\Symplify\Skipper\Contract\SkipVoterInterface
+use ECSPrefix20211123\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20211123\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20211123\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+use ECSPrefix20211123\Symplify\SmartFileSystem\SmartFileInfo;
+final class PathSkipVoter implements \ECSPrefix20211123\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var \Symplify\Skipper\Matcher\FileInfoMatcher
@@ -17,7 +17,7 @@ final class PathSkipVoter implements \ECSPrefix20211122\Symplify\Skipper\Contrac
      * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    public function __construct(\ECSPrefix20211122\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher, \ECSPrefix20211122\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
+    public function __construct(\ECSPrefix20211123\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher, \ECSPrefix20211123\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
         $this->skippedPathsResolver = $skippedPathsResolver;

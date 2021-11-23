@@ -7,19 +7,19 @@
     <code_comparison>
         <code title="Valid: Max depth of 2.">
         <![CDATA[
-use ECSPrefix20211122\Vendor\Package\SomeNamespace\{
-    ECSPrefix20211122\SubnamespaceOne\ClassA,
-    ECSPrefix20211122\SubnamespaceOne\ClassB,
-    ECSPrefix20211122\SubnamespaceTwo\ClassY,
+use ECSPrefix20211123\Vendor\Package\SomeNamespace\{
+    ECSPrefix20211123\SubnamespaceOne\ClassA,
+    ECSPrefix20211123\SubnamespaceOne\ClassB,
+    ECSPrefix20211123\SubnamespaceTwo\ClassY,
     ClassZ,
 };
         ]]>
         </code>
         <code title="Invalid: Max depth of 3.">
         <![CDATA[
-use ECSPrefix20211122\Vendor\Package\SomeNamespace\{
-    <em>ECSPrefix20211122\SubnamespaceOne\AnotherNamespace\ClassA,</em>
-    ECSPrefix20211122\SubnamespaceOne\ClassB,
+use ECSPrefix20211123\Vendor\Package\SomeNamespace\{
+    <em>ECSPrefix20211123\SubnamespaceOne\AnotherNamespace\ClassA,</em>
+    ECSPrefix20211123\SubnamespaceOne\ClassB,
     ClassZ,
 };
         ]]>

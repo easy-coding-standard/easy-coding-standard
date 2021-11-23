@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use ECSPrefix20211122\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211123\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileFilter
 {
     /**
@@ -21,7 +21,7 @@ final class FileFilter
      */
     public function filterOnlyChangedFiles(array $fileInfos) : array
     {
-        return \array_filter($fileInfos, function (\ECSPrefix20211122\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool {
+        return \array_filter($fileInfos, function (\ECSPrefix20211123\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool {
             return $this->changedFilesDetector->hasFileInfoChanged($smartFileInfo);
         });
     }

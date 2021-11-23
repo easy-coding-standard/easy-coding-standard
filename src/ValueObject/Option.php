@@ -36,9 +36,15 @@ final class Option
      */
     public const SETS = 'sets';
     /**
+     * @api
+     * Alias for SOURCE
      * @var string
      */
-    public const PATHS = 'paths';
+    public const PATHS = self::SOURCE;
+    /**
+     * @var string
+     */
+    public const SOURCE = 'source';
     /**
      * @api
      * @var string

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211122\Psr\EventDispatcher;
+namespace ECSPrefix20211123\Psr\EventDispatcher;
 
 /**
  * An Event whose processing may be interrupted when the event has been handled.

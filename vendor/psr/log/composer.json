@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211122\\Psr\\Log\\": "src"
+            "ECSPrefix20211123\\Psr\\Log\\": "src"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "3.x-dev"
         }
     }
 }

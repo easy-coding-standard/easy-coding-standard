@@ -4,26 +4,28 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\Application;
 
 use Closure;
-use ECSPrefix20211122\Clue\React\NDJson\Decoder;
-use ECSPrefix20211122\Clue\React\NDJson\Encoder;
-use ECSPrefix20211122\Nette\Utils\Random;
-use ECSPrefix20211122\React\EventLoop\StreamSelectLoop;
-use ECSPrefix20211122\React\Socket\ConnectionInterface;
-use ECSPrefix20211122\React\Socket\TcpServer;
-use ECSPrefix20211122\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211122\Symfony\Component\Console\Input\InputInterface;
-use Symplify\EasyCodingStandard\Parallel\Command\WorkerCommandLineFactory;
-use Symplify\EasyCodingStandard\Parallel\Enum\Action;
+use ECSPrefix20211123\Clue\React\NDJson\Decoder;
+use ECSPrefix20211123\Clue\React\NDJson\Encoder;
+use ECSPrefix20211123\Nette\Utils\Random;
+use ECSPrefix20211123\React\EventLoop\StreamSelectLoop;
+use ECSPrefix20211123\React\Socket\ConnectionInterface;
+use ECSPrefix20211123\React\Socket\TcpServer;
+use ECSPrefix20211123\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211123\Symfony\Component\Console\Input\InputInterface;
+use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\ParallelProcess;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\ProcessPool;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\Schedule;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
+use ECSPrefix20211123\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory;
+use ECSPrefix20211123\Symplify\EasyParallel\Enum\Action;
+use ECSPrefix20211123\Symplify\EasyParallel\Enum\Content;
+use ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactCommand;
+use ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactEvent;
+use ECSPrefix20211123\Symplify\EasyParallel\ValueObject\ParallelProcess;
+use ECSPrefix20211123\Symplify\EasyParallel\ValueObject\ProcessPool;
+use ECSPrefix20211123\Symplify\EasyParallel\ValueObject\Schedule;
 use Throwable;
 /**
  * Inspired from @see
@@ -42,14 +44,14 @@ final class ParallelFileProcessor
      */
     private const SYSTEM_ERRORS_COUNT_LIMIT = 50;
     /**
-     * @var \Symplify\EasyCodingStandard\Parallel\ValueObject\ProcessPool|null
+     * @var \Symplify\EasyParallel\ValueObject\ProcessPool|null
      */
     private $processPool = null;
     /**
-     * @var \Symplify\EasyCodingStandard\Parallel\Command\WorkerCommandLineFactory
+     * @var \Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory
      */
     private $workerCommandLineFactory;
-    public function __construct(\Symplify\EasyCodingStandard\Parallel\Command\WorkerCommandLineFactory $workerCommandLineFactory)
+    public function __construct(\ECSPrefix20211123\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory $workerCommandLineFactory)
     {
         $this->workerCommandLineFactory = $workerCommandLineFactory;
     }
@@ -57,24 +59,24 @@ final class ParallelFileProcessor
      * @param Closure(int): void|null $postFileCallback Used for progress bar jump
      * @return mixed[]
      */
-    public function check(\Symplify\EasyCodingStandard\Parallel\ValueObject\Schedule $schedule, string $mainScript, \Closure $postFileCallback, ?string $projectConfigFile, \ECSPrefix20211122\Symfony\Component\Console\Input\InputInterface $input) : array
+    public function check(\ECSPrefix20211123\Symplify\EasyParallel\ValueObject\Schedule $schedule, string $mainScript, \Closure $postFileCallback, ?string $projectConfigFile, \ECSPrefix20211123\Symfony\Component\Console\Input\InputInterface $input) : array
     {
         $jobs = \array_reverse($schedule->getJobs());
-        $streamSelectLoop = new \ECSPrefix20211122\React\EventLoop\StreamSelectLoop();
+        $streamSelectLoop = new \ECSPrefix20211123\React\EventLoop\StreamSelectLoop();
         // basic properties setup
         $numberOfProcesses = $schedule->getNumberOfProcesses();
         // initial counters
         $codingStandardErrors = [];
         $fileDiffs = [];
         $systemErrors = [];
-        $tcpServer = new \ECSPrefix20211122\React\Socket\TcpServer('127.0.0.1:0', $streamSelectLoop);
-        $this->processPool = new \Symplify\EasyCodingStandard\Parallel\ValueObject\ProcessPool($tcpServer);
-        $tcpServer->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::CONNECTION, function (\ECSPrefix20211122\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
-            $inDecoder = new \ECSPrefix20211122\Clue\React\NDJson\Decoder($connection, \true, 512, 0, 4 * 1024 * 1024);
-            $outEncoder = new \ECSPrefix20211122\Clue\React\NDJson\Encoder($connection);
-            $inDecoder->on(\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactEvent::DATA, function (array $data) use(&$jobs, $inDecoder, $outEncoder) : void {
-                $action = $data[\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::ACTION];
-                if ($action !== \Symplify\EasyCodingStandard\Parallel\Enum\Action::HELLO) {
+        $tcpServer = new \ECSPrefix20211123\React\Socket\TcpServer('127.0.0.1:0', $streamSelectLoop);
+        $this->processPool = new \ECSPrefix20211123\Symplify\EasyParallel\ValueObject\ProcessPool($tcpServer);
+        $tcpServer->on(\ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactEvent::CONNECTION, function (\ECSPrefix20211123\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
+            $inDecoder = new \ECSPrefix20211123\Clue\React\NDJson\Decoder($connection, \true, 512, 0, 4 * 1024 * 1024);
+            $outEncoder = new \ECSPrefix20211123\Clue\React\NDJson\Encoder($connection);
+            $inDecoder->on(\ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactEvent::DATA, function (array $data) use(&$jobs, $inDecoder, $outEncoder) : void {
+                $action = $data[\ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactCommand::ACTION];
+                if ($action !== \ECSPrefix20211123\Symplify\EasyParallel\Enum\Action::HELLO) {
                     return;
                 }
                 $processIdentifier = $data[\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_IDENTIFIER];
@@ -85,7 +87,7 @@ final class ParallelFileProcessor
                     return;
                 }
                 $job = \array_pop($jobs);
-                $parallelProcess->request([\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::ACTION => \Symplify\EasyCodingStandard\Parallel\Enum\Action::CHECK, 'files' => $job]);
+                $parallelProcess->request([\ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactCommand::ACTION => \ECSPrefix20211123\Symplify\EasyParallel\Enum\Action::MAIN, \ECSPrefix20211123\Symplify\EasyParallel\Enum\Content::FILES => $job]);
             });
         });
         /** @var string $serverAddress */
@@ -105,9 +107,9 @@ final class ParallelFileProcessor
             if ($jobs === []) {
                 break;
             }
-            $processIdentifier = \ECSPrefix20211122\Nette\Utils\Random::generate();
-            $workerCommandLine = $this->workerCommandLineFactory->create($mainScript, $projectConfigFile, $input, $processIdentifier, $serverPort);
-            $parallelProcess = new \Symplify\EasyCodingStandard\Parallel\ValueObject\ParallelProcess($workerCommandLine, $streamSelectLoop, self::TIMEOUT_IN_SECONDS);
+            $processIdentifier = \ECSPrefix20211123\Nette\Utils\Random::generate();
+            $workerCommandLine = $this->workerCommandLineFactory->create($mainScript, \Symplify\EasyCodingStandard\Console\Command\CheckCommand::class, 'worker', \Symplify\EasyCodingStandard\ValueObject\Option::PATHS, $projectConfigFile, $input, $processIdentifier, $serverPort);
+            $parallelProcess = new \ECSPrefix20211123\Symplify\EasyParallel\ValueObject\ParallelProcess($workerCommandLine, $streamSelectLoop, self::TIMEOUT_IN_SECONDS);
             $parallelProcess->start(
                 // 1. callable on data
                 function (array $json) use($parallelProcess, &$systemErrors, &$fileDiffs, &$codingStandardErrors, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier) : void {
@@ -139,14 +141,14 @@ final class ParallelFileProcessor
                         return;
                     }
                     $job = \array_pop($jobs);
-                    $parallelProcess->request([\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::ACTION => \Symplify\EasyCodingStandard\Parallel\Enum\Action::CHECK, 'files' => $job]);
+                    $parallelProcess->request([\ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactCommand::ACTION => \ECSPrefix20211123\Symplify\EasyParallel\Enum\Action::MAIN, \ECSPrefix20211123\Symplify\EasyParallel\Enum\Content::FILES => $job]);
                 },
                 // 2. callable on error
                 $handleErrorCallable,
                 // 3. callable on exit
                 function ($exitCode, string $stdErr) use(&$systemErrors, $processIdentifier) : void {
                     $this->processPool->tryQuitProcess($processIdentifier);
-                    if ($exitCode === \ECSPrefix20211122\Symfony\Component\Console\Command\Command::SUCCESS) {
+                    if ($exitCode === \ECSPrefix20211123\Symfony\Component\Console\Command\Command::SUCCESS) {
                         return;
                     }
                     if ($exitCode === null) {

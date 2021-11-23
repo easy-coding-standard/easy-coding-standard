@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Parallel;
+namespace ECSPrefix20211123\Symplify\EasyParallel;
 
-use ECSPrefix20211122\Nette\Utils\Strings;
+use ECSPrefix20211123\Nette\Utils\Strings;
 /**
  * From https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92
  */
@@ -56,7 +56,7 @@ final class CpuCoreCountProvider
         if ($cpuinfo === \false) {
             return null;
         }
-        $matches = \ECSPrefix20211122\Nette\Utils\Strings::matchAll($cpuinfo, self::PROCESSOR_REGEX);
+        $matches = \ECSPrefix20211123\Nette\Utils\Strings::matchAll($cpuinfo, self::PROCESSOR_REGEX);
         if ($matches === []) {
             return 0;
         }

@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20211122\Clue\React\NDJson\Decoder;
-use ECSPrefix20211122\Clue\React\NDJson\Encoder;
-use ECSPrefix20211122\React\EventLoop\StreamSelectLoop;
-use ECSPrefix20211122\React\Socket\ConnectionInterface;
-use ECSPrefix20211122\React\Socket\TcpConnector;
-use ECSPrefix20211122\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211122\Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Parallel\Enum\Action;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand;
+use ECSPrefix20211123\Clue\React\NDJson\Decoder;
+use ECSPrefix20211123\Clue\React\NDJson\Encoder;
+use ECSPrefix20211123\React\EventLoop\StreamSelectLoop;
+use ECSPrefix20211123\React\Socket\ConnectionInterface;
+use ECSPrefix20211123\React\Socket\TcpConnector;
+use ECSPrefix20211123\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211123\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Parallel\WorkerRunner;
+use ECSPrefix20211123\Symplify\EasyParallel\Enum\Action;
+use ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactCommand;
 /**
  * Inspired at: https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92
  * https://github.com/phpstan/phpstan-src/blob/c471c7b050e0929daf432288770de673b394a983/src/Command/WorkerCommand.php
@@ -33,8 +33,9 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
     }
     protected function configure() : void
     {
-        parent::configure();
+        $this->setName('worker');
         $this->setDescription('(Internal) Support for parallel process');
+        parent::configure();
     }
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
@@ -43,15 +44,15 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
     protected function execute($input, $output) : int
     {
         $configuration = $this->configurationFactory->createFromInput($input);
-        $streamSelectLoop = new \ECSPrefix20211122\React\EventLoop\StreamSelectLoop();
+        $streamSelectLoop = new \ECSPrefix20211123\React\EventLoop\StreamSelectLoop();
         $parallelIdentifier = $configuration->getParallelIdentifier();
-        $tcpConnector = new \ECSPrefix20211122\React\Socket\TcpConnector($streamSelectLoop);
+        $tcpConnector = new \ECSPrefix20211123\React\Socket\TcpConnector($streamSelectLoop);
         $promise = $tcpConnector->connect('127.0.0.1:' . $configuration->getParallelPort());
-        $promise->then(function (\ECSPrefix20211122\React\Socket\ConnectionInterface $connection) use($parallelIdentifier, $configuration) : void {
-            $inDecoder = new \ECSPrefix20211122\Clue\React\NDJson\Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
-            $outEncoder = new \ECSPrefix20211122\Clue\React\NDJson\Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
+        $promise->then(function (\ECSPrefix20211123\React\Socket\ConnectionInterface $connection) use($parallelIdentifier, $configuration) : void {
+            $inDecoder = new \ECSPrefix20211123\Clue\React\NDJson\Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
+            $outEncoder = new \ECSPrefix20211123\Clue\React\NDJson\Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
             // handshake?
-            $outEncoder->write([\Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::ACTION => \Symplify\EasyCodingStandard\Parallel\Enum\Action::HELLO, \Symplify\EasyCodingStandard\Parallel\ValueObject\ReactCommand::IDENTIFIER => $parallelIdentifier]);
+            $outEncoder->write([\ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactCommand::ACTION => \ECSPrefix20211123\Symplify\EasyParallel\Enum\Action::HELLO, \ECSPrefix20211123\Symplify\EasyParallel\Enum\ReactCommand::IDENTIFIER => $parallelIdentifier]);
             $this->workerRunner->run($outEncoder, $inDecoder, $configuration);
         });
         $streamSelectLoop->run();

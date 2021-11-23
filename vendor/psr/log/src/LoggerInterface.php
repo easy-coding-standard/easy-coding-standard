@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211122\Psr\Log;
+namespace ECSPrefix20211123\Psr\Log;
 
 /**
  * Describes a logger instance.
@@ -27,7 +27,7 @@ interface LoggerInterface
      *
      * @return void
      */
-    public function emergency($message, $context = []);
+    public function emergency($message, $context = []) : void;
     /**
      * Action must be taken immediately.
      *
@@ -39,7 +39,7 @@ interface LoggerInterface
      *
      * @return void
      */
-    public function alert($message, $context = []);
+    public function alert($message, $context = []) : void;
     /**
      * Critical conditions.
      *
@@ -50,7 +50,7 @@ interface LoggerInterface
      *
      * @return void
      */
-    public function critical($message, $context = []);
+    public function critical($message, $context = []) : void;
     /**
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
@@ -60,7 +60,7 @@ interface LoggerInterface
      *
      * @return void
      */
-    public function error($message, $context = []);
+    public function error($message, $context = []) : void;
     /**
      * Exceptional occurrences that are not errors.
      *
@@ -72,7 +72,7 @@ interface LoggerInterface
      *
      * @return void
      */
-    public function warning($message, $context = []);
+    public function warning($message, $context = []) : void;
     /**
      * Normal but significant events.
      *
@@ -81,7 +81,7 @@ interface LoggerInterface
      *
      * @return void
      */
-    public function notice($message, $context = []);
+    public function notice($message, $context = []) : void;
     /**
      * Interesting events.
      *
@@ -92,7 +92,7 @@ interface LoggerInterface
      *
      * @return void
      */
-    public function info($message, $context = []);
+    public function info($message, $context = []) : void;
     /**
      * Detailed debug information.
      *
@@ -101,7 +101,7 @@ interface LoggerInterface
      *
      * @return void
      */
-    public function debug($message, $context = []);
+    public function debug($message, $context = []) : void;
     /**
      * Logs with an arbitrary level.
      *
@@ -113,5 +113,5 @@ interface LoggerInterface
      *
      * @throws \Psr\Log\InvalidArgumentException
      */
-    public function log($level, $message, $context = []);
+    public function log($level, $message, $context = []) : void;
 }
