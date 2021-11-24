@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211123\Symplify\ConsoleColorDiff\ValueObject;
+namespace ECSPrefix20211124\Symplify\ConsoleColorDiff\ValueObject;
 
 /**
  * @api

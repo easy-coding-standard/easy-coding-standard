@@ -1,7 +1,7 @@
 <?php
 
-namespace ECSPrefix20211123;
+namespace ECSPrefix20211124;
 
-if (!\function_exists('ECSPrefix20211123\\React\\Promise\\resolve')) {
+if (!\function_exists('ECSPrefix20211124\\React\\Promise\\resolve')) {
     require __DIR__ . '/functions.php';
 }
