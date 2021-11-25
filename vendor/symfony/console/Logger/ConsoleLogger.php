@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211124\Symfony\Component\Console\Logger;
+namespace ECSPrefix20211125\Symfony\Component\Console\Logger;
 
-use ECSPrefix20211124\Psr\Log\AbstractLogger;
-use ECSPrefix20211124\Psr\Log\InvalidArgumentException;
-use ECSPrefix20211124\Psr\Log\LogLevel;
-use ECSPrefix20211124\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface;
-if ((new \ReflectionMethod(\ECSPrefix20211124\Psr\Log\AbstractLogger::class, 'log'))->hasReturnType()) {
-    throw new \RuntimeException(\sprintf('The "%s" logger is not compatible with psr/log >= 3.0. Try running "composer require psr/log:^2.".', \ECSPrefix20211124\Symfony\Component\Console\Logger\ConsoleLogger::class));
+use ECSPrefix20211125\Psr\Log\AbstractLogger;
+use ECSPrefix20211125\Psr\Log\InvalidArgumentException;
+use ECSPrefix20211125\Psr\Log\LogLevel;
+use ECSPrefix20211125\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface;
+if ((new \ReflectionMethod(\ECSPrefix20211125\Psr\Log\AbstractLogger::class, 'log'))->hasReturnType()) {
+    throw new \RuntimeException(\sprintf('The "%s" logger is not compatible with psr/log >= 3.0. Try running "composer require psr/log:^2.".', \ECSPrefix20211125\Symfony\Component\Console\Logger\ConsoleLogger::class));
 }
 /**
  * PSR-3 compliant console logger.
@@ -25,15 +25,15 @@ if ((new \ReflectionMethod(\ECSPrefix20211124\Psr\Log\AbstractLogger::class, 'lo
  *
  * @see https://www.php-fig.org/psr/psr-3/
  */
-class ConsoleLogger extends \ECSPrefix20211124\Psr\Log\AbstractLogger
+class ConsoleLogger extends \ECSPrefix20211125\Psr\Log\AbstractLogger
 {
     public const INFO = 'info';
     public const ERROR = 'error';
     private $output;
-    private $verbosityLevelMap = [\ECSPrefix20211124\Psr\Log\LogLevel::EMERGENCY => \ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211124\Psr\Log\LogLevel::ALERT => \ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211124\Psr\Log\LogLevel::CRITICAL => \ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211124\Psr\Log\LogLevel::ERROR => \ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211124\Psr\Log\LogLevel::WARNING => \ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211124\Psr\Log\LogLevel::NOTICE => \ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE, \ECSPrefix20211124\Psr\Log\LogLevel::INFO => \ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE, \ECSPrefix20211124\Psr\Log\LogLevel::DEBUG => \ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG];
-    private $formatLevelMap = [\ECSPrefix20211124\Psr\Log\LogLevel::EMERGENCY => self::ERROR, \ECSPrefix20211124\Psr\Log\LogLevel::ALERT => self::ERROR, \ECSPrefix20211124\Psr\Log\LogLevel::CRITICAL => self::ERROR, \ECSPrefix20211124\Psr\Log\LogLevel::ERROR => self::ERROR, \ECSPrefix20211124\Psr\Log\LogLevel::WARNING => self::INFO, \ECSPrefix20211124\Psr\Log\LogLevel::NOTICE => self::INFO, \ECSPrefix20211124\Psr\Log\LogLevel::INFO => self::INFO, \ECSPrefix20211124\Psr\Log\LogLevel::DEBUG => self::INFO];
+    private $verbosityLevelMap = [\ECSPrefix20211125\Psr\Log\LogLevel::EMERGENCY => \ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211125\Psr\Log\LogLevel::ALERT => \ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211125\Psr\Log\LogLevel::CRITICAL => \ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211125\Psr\Log\LogLevel::ERROR => \ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211125\Psr\Log\LogLevel::WARNING => \ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \ECSPrefix20211125\Psr\Log\LogLevel::NOTICE => \ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE, \ECSPrefix20211125\Psr\Log\LogLevel::INFO => \ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE, \ECSPrefix20211125\Psr\Log\LogLevel::DEBUG => \ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG];
+    private $formatLevelMap = [\ECSPrefix20211125\Psr\Log\LogLevel::EMERGENCY => self::ERROR, \ECSPrefix20211125\Psr\Log\LogLevel::ALERT => self::ERROR, \ECSPrefix20211125\Psr\Log\LogLevel::CRITICAL => self::ERROR, \ECSPrefix20211125\Psr\Log\LogLevel::ERROR => self::ERROR, \ECSPrefix20211125\Psr\Log\LogLevel::WARNING => self::INFO, \ECSPrefix20211125\Psr\Log\LogLevel::NOTICE => self::INFO, \ECSPrefix20211125\Psr\Log\LogLevel::INFO => self::INFO, \ECSPrefix20211125\Psr\Log\LogLevel::DEBUG => self::INFO];
     private $errored = \false;
-    public function __construct(\ECSPrefix20211124\Symfony\Component\Console\Output\OutputInterface $output, array $verbosityLevelMap = [], array $formatLevelMap = [])
+    public function __construct(\ECSPrefix20211125\Symfony\Component\Console\Output\OutputInterface $output, array $verbosityLevelMap = [], array $formatLevelMap = [])
     {
         $this->output = $output;
         $this->verbosityLevelMap = $verbosityLevelMap + $this->verbosityLevelMap;
@@ -48,12 +48,12 @@ class ConsoleLogger extends \ECSPrefix20211124\Psr\Log\AbstractLogger
     public function log($level, $message, $context = [])
     {
         if (!isset($this->verbosityLevelMap[$level])) {
-            throw new \ECSPrefix20211124\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
+            throw new \ECSPrefix20211125\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
         }
         $output = $this->output;
         // Write to the error output if necessary and available
         if (self::ERROR === $this->formatLevelMap[$level]) {
-            if ($this->output instanceof \ECSPrefix20211124\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+            if ($this->output instanceof \ECSPrefix20211125\Symfony\Component\Console\Output\ConsoleOutputInterface) {
                 $output = $output->getErrorOutput();
             }
             $this->errored = \true;

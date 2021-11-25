@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211124\Symfony\Component\Config;
+namespace ECSPrefix20211125\Symfony\Component\Config;
 
-use ECSPrefix20211124\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+use ECSPrefix20211125\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 /**
  * FileLocator uses an array of pre-defined paths to find files.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FileLocator implements \ECSPrefix20211124\Symfony\Component\Config\FileLocatorInterface
+class FileLocator implements \ECSPrefix20211125\Symfony\Component\Config\FileLocatorInterface
 {
     protected $paths;
     /**
@@ -39,7 +39,7 @@ class FileLocator implements \ECSPrefix20211124\Symfony\Component\Config\FileLoc
         }
         if ($this->isAbsolutePath($name)) {
             if (!\file_exists($name)) {
-                throw new \ECSPrefix20211124\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException(\sprintf('The file "%s" does not exist.', $name), 0, null, [$name]);
+                throw new \ECSPrefix20211125\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException(\sprintf('The file "%s" does not exist.', $name), 0, null, [$name]);
             }
             return $name;
         }
@@ -60,7 +60,7 @@ class FileLocator implements \ECSPrefix20211124\Symfony\Component\Config\FileLoc
             }
         }
         if (!$filepaths) {
-            throw new \ECSPrefix20211124\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException(\sprintf('The file "%s" does not exist (in: "%s").', $name, \implode('", "', $paths)), 0, null, $notfound);
+            throw new \ECSPrefix20211125\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException(\sprintf('The file "%s" does not exist (in: "%s").', $name, \implode('", "', $paths)), 0, null, $notfound);
         }
         return $filepaths;
     }
