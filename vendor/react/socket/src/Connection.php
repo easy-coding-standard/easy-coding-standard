@@ -1,13 +1,13 @@
 <?php
 
-namespace ECSPrefix20211125\React\Socket;
+namespace ECSPrefix20211126\React\Socket;
 
-use ECSPrefix20211125\Evenement\EventEmitter;
-use ECSPrefix20211125\React\EventLoop\LoopInterface;
-use ECSPrefix20211125\React\Stream\DuplexResourceStream;
-use ECSPrefix20211125\React\Stream\Util;
-use ECSPrefix20211125\React\Stream\WritableResourceStream;
-use ECSPrefix20211125\React\Stream\WritableStreamInterface;
+use ECSPrefix20211126\Evenement\EventEmitter;
+use ECSPrefix20211126\React\EventLoop\LoopInterface;
+use ECSPrefix20211126\React\Stream\DuplexResourceStream;
+use ECSPrefix20211126\React\Stream\Util;
+use ECSPrefix20211126\React\Stream\WritableResourceStream;
+use ECSPrefix20211126\React\Stream\WritableStreamInterface;
 /**
  * The actual connection implementation for ConnectionInterface
  *
@@ -16,7 +16,7 @@ use ECSPrefix20211125\React\Stream\WritableStreamInterface;
  * @see ConnectionInterface
  * @internal
  */
-class Connection extends \ECSPrefix20211125\Evenement\EventEmitter implements \ECSPrefix20211125\React\Socket\ConnectionInterface
+class Connection extends \ECSPrefix20211126\Evenement\EventEmitter implements \ECSPrefix20211126\React\Socket\ConnectionInterface
 {
     /**
      * Internal flag whether this is a Unix domain socket (UDS) connection
@@ -36,7 +36,7 @@ class Connection extends \ECSPrefix20211125\Evenement\EventEmitter implements \E
     /** @internal */
     public $stream;
     private $input;
-    public function __construct($resource, \ECSPrefix20211125\React\EventLoop\LoopInterface $loop)
+    public function __construct($resource, \ECSPrefix20211126\React\EventLoop\LoopInterface $loop)
     {
         // PHP < 7.3.3 (and PHP < 7.2.15) suffers from a bug where feof() might
         // block with 100% CPU usage on fragmented TLS records.
@@ -57,9 +57,9 @@ class Connection extends \ECSPrefix20211125\Evenement\EventEmitter implements \E
         // This applies to all streams because TLS may be enabled later on.
         // See https://github.com/reactphp/socket/issues/105
         $limitWriteChunks = \PHP_VERSION_ID < 70018 || \PHP_VERSION_ID >= 70100 && \PHP_VERSION_ID < 70104;
-        $this->input = new \ECSPrefix20211125\React\Stream\DuplexResourceStream($resource, $loop, $clearCompleteBuffer ? -1 : null, new \ECSPrefix20211125\React\Stream\WritableResourceStream($resource, $loop, null, $limitWriteChunks ? 8192 : null));
+        $this->input = new \ECSPrefix20211126\React\Stream\DuplexResourceStream($resource, $loop, $clearCompleteBuffer ? -1 : null, new \ECSPrefix20211126\React\Stream\WritableResourceStream($resource, $loop, null, $limitWriteChunks ? 8192 : null));
         $this->stream = $resource;
-        \ECSPrefix20211125\React\Stream\Util::forwardEvents($this->input, $this, array('data', 'end', 'error', 'close', 'pipe', 'drain'));
+        \ECSPrefix20211126\React\Stream\Util::forwardEvents($this->input, $this, array('data', 'end', 'error', 'close', 'pipe', 'drain'));
         $this->input->on('close', array($this, 'close'));
     }
     public function isReadable()

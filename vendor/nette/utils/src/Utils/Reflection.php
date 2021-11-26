@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20211125\Nette\Utils;
+namespace ECSPrefix20211126\Nette\Utils;
 
-use ECSPrefix20211125\Nette;
+use ECSPrefix20211126\Nette;
 /**
  * PHP reflection helpers.
  */
@@ -49,7 +49,7 @@ final class Reflection
      */
     public static function getReturnTypes($func) : array
     {
-        $type = \ECSPrefix20211125\Nette\Utils\Type::fromReflection($func);
+        $type = \ECSPrefix20211126\Nette\Utils\Type::fromReflection($func);
         return $type ? $type->getNames() : [];
     }
     /**
@@ -68,7 +68,7 @@ final class Reflection
      */
     public static function getParameterTypes($param) : array
     {
-        $type = \ECSPrefix20211125\Nette\Utils\Type::fromReflection($param);
+        $type = \ECSPrefix20211126\Nette\Utils\Type::fromReflection($param);
         return $type ? $type->getNames() : [];
     }
     /**
@@ -87,7 +87,7 @@ final class Reflection
      */
     public static function getPropertyTypes($prop) : array
     {
-        $type = \ECSPrefix20211125\Nette\Utils\Type::fromReflection($prop);
+        $type = \ECSPrefix20211126\Nette\Utils\Type::fromReflection($prop);
         return $type ? $type->getNames() : [];
     }
     /**
@@ -98,11 +98,11 @@ final class Reflection
         if ($type === null) {
             return null;
         } elseif ($type instanceof \ReflectionNamedType) {
-            return \ECSPrefix20211125\Nette\Utils\Type::resolve($type->getName(), $reflection);
-        } elseif ($type instanceof \ReflectionUnionType || $type instanceof \ECSPrefix20211125\ReflectionIntersectionType) {
-            throw new \ECSPrefix20211125\Nette\InvalidStateException('The ' . self::toString($reflection) . ' is not expected to have a union or intersection type.');
+            return \ECSPrefix20211126\Nette\Utils\Type::resolve($type->getName(), $reflection);
+        } elseif ($type instanceof \ReflectionUnionType || $type instanceof \ECSPrefix20211126\ReflectionIntersectionType) {
+            throw new \ECSPrefix20211126\Nette\InvalidStateException('The ' . self::toString($reflection) . ' is not expected to have a union or intersection type.');
         } else {
-            throw new \ECSPrefix20211125\Nette\InvalidStateException('Unexpected type of ' . self::toString($reflection));
+            throw new \ECSPrefix20211126\Nette\InvalidStateException('Unexpected type of ' . self::toString($reflection));
         }
     }
     /**
@@ -117,7 +117,7 @@ final class Reflection
             $const = $orig = $param->getDefaultValueConstantName();
             $pair = \explode('::', $const);
             if (isset($pair[1])) {
-                $pair[0] = \ECSPrefix20211125\Nette\Utils\Type::resolve($pair[0], $param);
+                $pair[0] = \ECSPrefix20211126\Nette\Utils\Type::resolve($pair[0], $param);
                 try {
                     $rcc = new \ReflectionClassConstant($pair[0], $pair[1]);
                 } catch (\ReflectionException $e) {
@@ -196,7 +196,7 @@ final class Reflection
         } elseif ($ref instanceof \ReflectionParameter) {
             return '$' . $ref->name . ' in ' . self::toString($ref->getDeclaringFunction());
         } else {
-            throw new \ECSPrefix20211125\Nette\InvalidArgumentException();
+            throw new \ECSPrefix20211126\Nette\InvalidArgumentException();
         }
     }
     /**
@@ -210,7 +210,7 @@ final class Reflection
     {
         $lower = \strtolower($name);
         if (empty($name)) {
-            throw new \ECSPrefix20211125\Nette\InvalidArgumentException('Class name must not be empty.');
+            throw new \ECSPrefix20211126\Nette\InvalidArgumentException('Class name must not be empty.');
         } elseif (isset(self::BUILTIN_TYPES[$lower])) {
             return $lower;
         } elseif ($lower === 'self' || $lower === 'static') {
@@ -237,7 +237,7 @@ final class Reflection
     public static function getUseStatements($class) : array
     {
         if ($class->isAnonymous()) {
-            throw new \ECSPrefix20211125\Nette\NotImplementedException('Anonymous classes are not supported.');
+            throw new \ECSPrefix20211126\Nette\NotImplementedException('Anonymous classes are not supported.');
         }
         static $cache = [];
         if (!isset($cache[$name = $class->name])) {
