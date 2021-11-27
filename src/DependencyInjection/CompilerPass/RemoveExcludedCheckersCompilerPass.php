@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
-use ECSPrefix20211126\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20211126\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211126\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use ECSPrefix20211127\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20211127\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211127\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20211126\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20211127\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
@@ -26,7 +26,7 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20211126\Sym
     /**
      * @return array<int, class-string>
      */
-    private function getExcludedCheckersFromParameterBag(\ECSPrefix20211126\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag) : array
+    private function getExcludedCheckersFromParameterBag(\ECSPrefix20211127\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag) : array
     {
         // parts of "skip" parameter
         if (!$parameterBag->has(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP)) {
