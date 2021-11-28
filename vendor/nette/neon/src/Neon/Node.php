@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20211127\Nette\Neon;
+namespace ECSPrefix20211128\Nette\Neon;
 
 /** @internal */
 abstract class Node

@@ -23,23 +23,23 @@ use PhpCsFixer\Console\Report\FixReport\ReportSummary;
 use PhpCsFixer\Error\ErrorsManager;
 use PhpCsFixer\Runner\Runner;
 use PhpCsFixer\ToolInfoInterface;
-use ECSPrefix20211127\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211127\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20211127\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211127\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20211127\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20211127\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20211127\Symfony\Component\Console\Terminal;
-use ECSPrefix20211127\Symfony\Component\EventDispatcher\EventDispatcher;
-use ECSPrefix20211127\Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use ECSPrefix20211127\Symfony\Component\Stopwatch\Stopwatch;
+use ECSPrefix20211128\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211128\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20211128\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211128\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20211128\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20211128\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211128\Symfony\Component\Console\Terminal;
+use ECSPrefix20211128\Symfony\Component\EventDispatcher\EventDispatcher;
+use ECSPrefix20211128\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ECSPrefix20211128\Symfony\Component\Stopwatch\Stopwatch;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
  * @internal
  */
-final class FixCommand extends \ECSPrefix20211127\Symfony\Component\Console\Command\Command
+final class FixCommand extends \ECSPrefix20211128\Symfony\Component\Console\Command\Command
 {
     /**
      * @var string
@@ -70,8 +70,8 @@ final class FixCommand extends \ECSPrefix20211127\Symfony\Component\Console\Comm
         parent::__construct();
         $this->defaultConfig = new \PhpCsFixer\Config();
         $this->errorsManager = new \PhpCsFixer\Error\ErrorsManager();
-        $this->eventDispatcher = new \ECSPrefix20211127\Symfony\Component\EventDispatcher\EventDispatcher();
-        $this->stopwatch = new \ECSPrefix20211127\Symfony\Component\Stopwatch\Stopwatch();
+        $this->eventDispatcher = new \ECSPrefix20211128\Symfony\Component\EventDispatcher\EventDispatcher();
+        $this->stopwatch = new \ECSPrefix20211128\Symfony\Component\Stopwatch\Stopwatch();
         $this->toolInfo = $toolInfo;
     }
     /**
@@ -189,7 +189,7 @@ EOF;
      */
     protected function configure() : void
     {
-        $this->setDefinition([new \ECSPrefix20211127\Symfony\Component\Console\Input\InputArgument('path', \ECSPrefix20211127\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'The path.'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('path-mode', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Specify path mode (can be override or intersection).', \PhpCsFixer\Console\ConfigurationResolver::PATH_MODE_OVERRIDE), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('allow-risky', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Are risky fixers allowed (can be yes or no).'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('config', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('dry-run', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Only shows which files would have been modified.'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('rules', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The rules.'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('using-cache', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Does cache should be used (can be yes or no).'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('cache-file', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to the cache file.'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('diff', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Also produce diff for each file.'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('format', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'To output results in other formats.'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('stop-on-violation', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Stop execution on first violation.'), new \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption('show-progress', '', \ECSPrefix20211127\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Type of progress indicator (none, dots).')])->setDescription('Fixes a directory or a file.');
+        $this->setDefinition([new \ECSPrefix20211128\Symfony\Component\Console\Input\InputArgument('path', \ECSPrefix20211128\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'The path.'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('path-mode', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Specify path mode (can be override or intersection).', \PhpCsFixer\Console\ConfigurationResolver::PATH_MODE_OVERRIDE), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('allow-risky', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Are risky fixers allowed (can be yes or no).'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('config', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('dry-run', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Only shows which files would have been modified.'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('rules', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The rules.'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('using-cache', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Does cache should be used (can be yes or no).'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('cache-file', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to the cache file.'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('diff', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Also produce diff for each file.'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('format', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'To output results in other formats.'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('stop-on-violation', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Stop execution on first violation.'), new \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption('show-progress', '', \ECSPrefix20211128\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Type of progress indicator (none, dots).')])->setDescription('Fixes a directory or a file.');
     }
     /**
      * {@inheritdoc}
@@ -206,9 +206,9 @@ EOF;
         }
         $resolver = new \PhpCsFixer\Console\ConfigurationResolver($this->defaultConfig, ['allow-risky' => $input->getOption('allow-risky'), 'config' => $passedConfig, 'dry-run' => $input->getOption('dry-run'), 'rules' => $passedRules, 'path' => $input->getArgument('path'), 'path-mode' => $input->getOption('path-mode'), 'using-cache' => $input->getOption('using-cache'), 'cache-file' => $input->getOption('cache-file'), 'format' => $input->getOption('format'), 'diff' => $input->getOption('diff'), 'stop-on-violation' => $input->getOption('stop-on-violation'), 'verbosity' => $verbosity, 'show-progress' => $input->getOption('show-progress')], \getcwd(), $this->toolInfo);
         $reporter = $resolver->getReporter();
-        $stdErr = $output instanceof \ECSPrefix20211127\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : ('txt' === $reporter->getFormat() ? $output : null);
+        $stdErr = $output instanceof \ECSPrefix20211128\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : ('txt' === $reporter->getFormat() ? $output : null);
         if (null !== $stdErr) {
-            if (\ECSPrefix20211127\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $verbosity) {
+            if (\ECSPrefix20211128\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $verbosity) {
                 $stdErr->writeln($this->getApplication()->getLongVersion());
                 $stdErr->writeln(\sprintf('Runtime: <info>PHP %s</info>', \PHP_VERSION));
             }
@@ -230,7 +230,7 @@ EOF;
             $progressOutput = new \PhpCsFixer\Console\Output\NullOutput();
         } else {
             $finder = new \ArrayIterator(\iterator_to_array($finder));
-            $progressOutput = new \PhpCsFixer\Console\Output\ProcessOutput($stdErr, $this->eventDispatcher, (new \ECSPrefix20211127\Symfony\Component\Console\Terminal())->getWidth(), \count($finder));
+            $progressOutput = new \PhpCsFixer\Console\Output\ProcessOutput($stdErr, $this->eventDispatcher, (new \ECSPrefix20211128\Symfony\Component\Console\Terminal())->getWidth(), \count($finder));
         }
         $runner = new \PhpCsFixer\Runner\Runner($finder, $resolver->getFixers(), $resolver->getDiffer(), 'none' !== $progressType ? $this->eventDispatcher : null, $this->errorsManager, $resolver->getLinter(), $resolver->isDryRun(), $resolver->getCacheManager(), $resolver->getDirectory(), $resolver->shouldStopOnViolation());
         $this->stopwatch->start('fixFiles');
@@ -238,8 +238,8 @@ EOF;
         $this->stopwatch->stop('fixFiles');
         $progressOutput->printLegend();
         $fixEvent = $this->stopwatch->getEvent('fixFiles');
-        $reportSummary = new \PhpCsFixer\Console\Report\FixReport\ReportSummary($changed, $fixEvent->getDuration(), $fixEvent->getMemory(), \ECSPrefix20211127\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $verbosity, $resolver->isDryRun(), $output->isDecorated());
-        $output->isDecorated() ? $output->write($reporter->generate($reportSummary)) : $output->write($reporter->generate($reportSummary), \false, \ECSPrefix20211127\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
+        $reportSummary = new \PhpCsFixer\Console\Report\FixReport\ReportSummary($changed, $fixEvent->getDuration(), $fixEvent->getMemory(), \ECSPrefix20211128\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $verbosity, $resolver->isDryRun(), $output->isDecorated());
+        $output->isDecorated() ? $output->write($reporter->generate($reportSummary)) : $output->write($reporter->generate($reportSummary), \false, \ECSPrefix20211128\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
         $invalidErrors = $this->errorsManager->getInvalidErrors();
         $exceptionErrors = $this->errorsManager->getExceptionErrors();
         $lintErrors = $this->errorsManager->getLintErrors();

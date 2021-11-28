@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211127\Symfony\Component\Config;
+namespace ECSPrefix20211128\Symfony\Component\Config;
 
-use ECSPrefix20211127\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix20211128\Symfony\Component\Config\Resource\ResourceInterface;
 /**
  * Interface for ResourceCheckers.
  *
