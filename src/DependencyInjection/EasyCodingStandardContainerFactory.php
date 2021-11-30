@@ -18,7 +18,7 @@ final class EasyCodingStandardContainerFactory
             $commandLineConfigFile = $input->getParameterOption(['--config', '-c']);
             if (\is_string($commandLineConfigFile) && \file_exists($commandLineConfigFile)) {
                 // must be realpath, so container builder knows the location
-                $inputConfigFiles[] = \realpath($commandLineConfigFile);
+                $inputConfigFiles[] = (string) \realpath($commandLineConfigFile);
             }
         } elseif (\file_exists($rootECSConfig)) {
             $inputConfigFiles[] = $rootECSConfig;
