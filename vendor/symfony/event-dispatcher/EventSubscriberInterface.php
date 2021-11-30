@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20211130\Symfony\Component\EventDispatcher;
 
 /**
  * An EventSubscriber knows itself what events it is interested in.
@@ -42,7 +42,7 @@ interface EventSubscriberInterface
      * The code must not depend on runtime state as it will only be called at compile time.
      * All logic depending on runtime state must be put into the individual methods handling the events.
      *
-     * @return array<string, mixed> The event names to listen to
+     * @return array<string, string|array{0: string, 1: int}|list<array{0: string, 1?: int}>>
      */
     public static function getSubscribedEvents();
 }

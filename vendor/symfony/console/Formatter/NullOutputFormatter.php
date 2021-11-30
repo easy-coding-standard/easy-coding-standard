@@ -8,33 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Console\Formatter;
+namespace ECSPrefix20211130\Symfony\Component\Console\Formatter;
 
 /**
  * @author Tien Xuan Vo <tien.xuan.vo@gmail.com>
  */
-final class NullOutputFormatter implements \ECSPrefix20211128\Symfony\Component\Console\Formatter\OutputFormatterInterface
+final class NullOutputFormatter implements \ECSPrefix20211130\Symfony\Component\Console\Formatter\OutputFormatterInterface
 {
     private $style;
     /**
      * {@inheritdoc}
      * @param string|null $message
      */
-    public function format($message) : void
+    public function format($message) : ?string
     {
-        // do nothing
+        return null;
     }
     /**
      * {@inheritdoc}
      * @param string $name
      */
-    public function getStyle($name) : \ECSPrefix20211128\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+    public function getStyle($name) : \ECSPrefix20211130\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
     {
-        if ($this->style) {
-            return $this->style;
-        }
         // to comply with the interface we must return a OutputFormatterStyleInterface
-        return $this->style = new \ECSPrefix20211128\Symfony\Component\Console\Formatter\NullOutputFormatterStyle();
+        return $this->style ?? ($this->style = new \ECSPrefix20211130\Symfony\Component\Console\Formatter\NullOutputFormatterStyle());
     }
     /**
      * {@inheritdoc}

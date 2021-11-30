@@ -22,7 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211128\\Psr\\Container\\": "src\/"
+            "ECSPrefix20211130\\Psr\\Container\\": "src\/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
         }
     }
 }

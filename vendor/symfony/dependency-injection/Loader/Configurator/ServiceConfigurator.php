@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceConfigurator extends \ECSPrefix20211128\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class ServiceConfigurator extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
     use Traits\AbstractTrait;
     use Traits\ArgumentTrait;
@@ -37,12 +37,27 @@ class ServiceConfigurator extends \ECSPrefix20211128\Symfony\Component\Dependenc
     use Traits\SyntheticTrait;
     use Traits\TagTrait;
     public const FACTORY = 'services';
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
+     */
     private $container;
+    /**
+     * @var mixed[]
+     */
     private $instanceof;
+    /**
+     * @var bool
+     */
     private $allowParent;
+    /**
+     * @var string|null
+     */
     private $path;
+    /**
+     * @var bool
+     */
     private $destructed = \false;
-    public function __construct(\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \ECSPrefix20211128\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition $definition, ?string $id, array $defaultTags, string $path = null)
+    public function __construct(\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \ECSPrefix20211130\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition $definition, ?string $id, array $defaultTags, string $path = null)
     {
         $this->container = $container;
         $this->instanceof = $instanceof;

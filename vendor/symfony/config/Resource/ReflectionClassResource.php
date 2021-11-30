@@ -8,22 +8,37 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Resource;
+namespace ECSPrefix20211130\Symfony\Component\Config\Resource;
 
-use ECSPrefix20211128\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20211128\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
-use ECSPrefix20211128\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix20211130\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20211130\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use ECSPrefix20211130\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @final
  */
-class ReflectionClassResource implements \ECSPrefix20211128\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class ReflectionClassResource implements \ECSPrefix20211130\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
+    /**
+     * @var mixed[]
+     */
     private $files = [];
+    /**
+     * @var string
+     */
     private $className;
+    /**
+     * @var \ReflectionClass
+     */
     private $classReflector;
+    /**
+     * @var mixed[]
+     */
     private $excludedVendors = [];
+    /**
+     * @var string
+     */
     private $hash;
     public function __construct(\ReflectionClass $classReflector, array $excludedVendors = [])
     {
@@ -37,7 +52,7 @@ class ReflectionClassResource implements \ECSPrefix20211128\Symfony\Component\Co
      */
     public function isFresh($timestamp) : bool
     {
-        if (null === $this->hash) {
+        if (!isset($this->hash)) {
             $this->hash = $this->computeHash();
             $this->loadFiles($this->classReflector);
         }
@@ -60,7 +75,7 @@ class ReflectionClassResource implements \ECSPrefix20211128\Symfony\Component\Co
      */
     public function __sleep() : array
     {
-        if (null === $this->hash) {
+        if (!isset($this->hash)) {
             $this->hash = $this->computeHash();
             $this->loadFiles($this->classReflector);
         }
@@ -91,13 +106,11 @@ class ReflectionClassResource implements \ECSPrefix20211128\Symfony\Component\Co
     }
     private function computeHash() : string
     {
-        if (null === $this->classReflector) {
-            try {
-                $this->classReflector = new \ReflectionClass($this->className);
-            } catch (\ReflectionException $e) {
-                // the class does not exist anymore
-                return \false;
-            }
+        try {
+            $this->classReflector = $this->classReflector ?? new \ReflectionClass($this->className);
+        } catch (\ReflectionException $e) {
+            // the class does not exist anymore
+            return \false;
         }
         $hash = \hash_init('md5');
         foreach ($this->generateSignature($this->classReflector) as $info) {
@@ -107,14 +120,12 @@ class ReflectionClassResource implements \ECSPrefix20211128\Symfony\Component\Co
     }
     private function generateSignature(\ReflectionClass $class) : iterable
     {
-        if (\PHP_VERSION_ID >= 80000) {
-            $attributes = [];
-            foreach ($class->getAttributes() as $a) {
-                $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
-            }
-            (yield \print_r($attributes, \true));
-            $attributes = [];
+        $attributes = [];
+        foreach ($class->getAttributes() as $a) {
+            $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
         }
+        (yield \print_r($attributes, \true));
+        $attributes = [];
         (yield $class->getDocComment());
         (yield (int) $class->isFinal());
         (yield (int) $class->isAbstract());
@@ -128,13 +139,11 @@ class ReflectionClassResource implements \ECSPrefix20211128\Symfony\Component\Co
         if (!$class->isInterface()) {
             $defaults = $class->getDefaultProperties();
             foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED) as $p) {
-                if (\PHP_VERSION_ID >= 80000) {
-                    foreach ($p->getAttributes() as $a) {
-                        $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
-                    }
-                    (yield \print_r($attributes, \true));
-                    $attributes = [];
+                foreach ($p->getAttributes() as $a) {
+                    $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
                 }
+                (yield \print_r($attributes, \true));
+                $attributes = [];
                 (yield $p->getDocComment());
                 (yield $p->isDefault() ? '<default>' : '');
                 (yield $p->isPublic() ? 'public' : 'protected');
@@ -147,23 +156,19 @@ class ReflectionClassResource implements \ECSPrefix20211128\Symfony\Component\Co
             return \defined($c);
         }, null, $class->name);
         foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED) as $m) {
-            if (\PHP_VERSION_ID >= 80000) {
-                foreach ($m->getAttributes() as $a) {
+            foreach ($m->getAttributes() as $a) {
+                $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
+            }
+            (yield \print_r($attributes, \true));
+            $attributes = [];
+            $defaults = [];
+            $parametersWithUndefinedConstants = [];
+            foreach ($m->getParameters() as $p) {
+                foreach ($p->getAttributes() as $a) {
                     $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
                 }
                 (yield \print_r($attributes, \true));
                 $attributes = [];
-            }
-            $defaults = [];
-            $parametersWithUndefinedConstants = [];
-            foreach ($m->getParameters() as $p) {
-                if (\PHP_VERSION_ID >= 80000) {
-                    foreach ($p->getAttributes() as $a) {
-                        $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
-                    }
-                    (yield \print_r($attributes, \true));
-                    $attributes = [];
-                }
                 if (!$p->isDefaultValueAvailable()) {
                     $defaults[$p->name] = null;
                     continue;
@@ -203,18 +208,18 @@ class ReflectionClassResource implements \ECSPrefix20211128\Symfony\Component\Co
         if ($class->isAbstract() || $class->isInterface() || $class->isTrait()) {
             return;
         }
-        if (\interface_exists(\ECSPrefix20211128\Symfony\Component\EventDispatcher\EventSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20211128\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
-            (yield \ECSPrefix20211128\Symfony\Component\EventDispatcher\EventSubscriberInterface::class);
+        if (\interface_exists(\ECSPrefix20211130\Symfony\Component\EventDispatcher\EventSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20211130\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
+            (yield \ECSPrefix20211130\Symfony\Component\EventDispatcher\EventSubscriberInterface::class);
             (yield \print_r($class->name::getSubscribedEvents(), \true));
         }
-        if (\interface_exists(\ECSPrefix20211128\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20211128\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class)) {
-            (yield \ECSPrefix20211128\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class);
+        if (\interface_exists(\ECSPrefix20211130\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20211130\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class)) {
+            (yield \ECSPrefix20211130\Symfony\Component\Messenger\Handler\MessageSubscriberInterface::class);
             foreach ($class->name::getHandledMessages() as $key => $value) {
                 (yield $key . \print_r($value, \true));
             }
         }
-        if (\interface_exists(\ECSPrefix20211128\Symfony\Contracts\Service\ServiceSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20211128\Symfony\Contracts\Service\ServiceSubscriberInterface::class)) {
-            (yield \ECSPrefix20211128\Symfony\Contracts\Service\ServiceSubscriberInterface::class);
+        if (\interface_exists(\ECSPrefix20211130\Symfony\Contracts\Service\ServiceSubscriberInterface::class, \false) && $class->isSubclassOf(\ECSPrefix20211130\Symfony\Contracts\Service\ServiceSubscriberInterface::class)) {
+            (yield \ECSPrefix20211130\Symfony\Contracts\Service\ServiceSubscriberInterface::class);
             (yield \print_r($class->name::getSubscribedServices(), \true));
         }
     }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
 trait AutowireTrait
 {
@@ -18,7 +18,7 @@ trait AutowireTrait
      * @return $this
      * @param bool $autowired
      */
-    public final function autowire($autowired = \true) : self
+    public final function autowire($autowired = \true)
     {
         $this->definition->setAutowired($autowired);
         return $this;

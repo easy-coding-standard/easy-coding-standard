@@ -8,27 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Dumper;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Dumper;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Parameter;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20211128\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Parameter;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20211130\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * XmlDumper dumps a service container as an XML string.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Martin Hasoň <martin.hason@gmail.com>
  */
-class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection\Dumper\Dumper
+class XmlDumper extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\Dumper\Dumper
 {
     /**
      * @var \DOMDocument
@@ -36,11 +36,9 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
     private $document;
     /**
      * Dumps the service container as an XML string.
-     *
-     * @return string An xml string representing of the service container
      * @param mixed[] $options
      */
-    public function dump($options = [])
+    public function dump($options = []) : string
     {
         $this->document = new \DOMDocument('1.0', 'utf-8');
         $this->document->formatOutput = \true;
@@ -51,7 +49,7 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
         $this->addServices($container);
         $this->document->appendChild($container);
         $xml = $this->document->saveXML();
-        $this->document = null;
+        unset($this->document);
         return $this->container->resolveEnvPlaceholders($xml);
     }
     private function addParameters(\DOMElement $parent)
@@ -81,7 +79,7 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
             $parent->appendChild($call);
         }
     }
-    private function addService(\ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition $definition, ?string $id, \DOMElement $parent)
+    private function addService(\ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition $definition, ?string $id, \DOMElement $parent)
     {
         $service = $this->document->createElement('service');
         if (null !== $id) {
@@ -108,9 +106,9 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
         if (null !== ($decoratedService = $definition->getDecoratedService())) {
             [$decorated, $renamedId, $priority] = $decoratedService;
             $service->setAttribute('decorates', $decorated);
-            $decorationOnInvalid = $decoratedService[3] ?? \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
-            if (\in_array($decorationOnInvalid, [\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE, \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE], \true)) {
-                $invalidBehavior = \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $decorationOnInvalid ? 'null' : 'ignore';
+            $decorationOnInvalid = $decoratedService[3] ?? \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+            if (\in_array($decorationOnInvalid, [\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE, \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE], \true)) {
+                $invalidBehavior = \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $decorationOnInvalid ? 'null' : 'ignore';
                 $service->setAttribute('decoration-on-invalid', $invalidBehavior);
             }
             if (null !== $renamedId) {
@@ -148,12 +146,12 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
         $this->addMethodCalls($definition->getMethodCalls(), $service);
         if ($callable = $definition->getFactory()) {
             $factory = $this->document->createElement('factory');
-            if (\is_array($callable) && $callable[0] instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition) {
+            if (\is_array($callable) && $callable[0] instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition) {
                 $this->addService($callable[0], null, $factory);
                 $factory->setAttribute('method', $callable[1]);
             } elseif (\is_array($callable)) {
                 if (null !== $callable[0]) {
-                    $factory->setAttribute($callable[0] instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference ? 'service' : 'class', $callable[0]);
+                    $factory->setAttribute($callable[0] instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference ? 'service' : 'class', $callable[0]);
                 }
                 $factory->setAttribute('method', $callable[1]);
             } else {
@@ -180,11 +178,11 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
         }
         if ($callable = $definition->getConfigurator()) {
             $configurator = $this->document->createElement('configurator');
-            if (\is_array($callable) && $callable[0] instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition) {
+            if (\is_array($callable) && $callable[0] instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition) {
                 $this->addService($callable[0], null, $configurator);
                 $configurator->setAttribute('method', $callable[1]);
             } elseif (\is_array($callable)) {
-                $configurator->setAttribute($callable[0] instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference ? 'service' : 'class', $callable[0]);
+                $configurator->setAttribute($callable[0] instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference ? 'service' : 'class', $callable[0]);
                 $configurator->setAttribute('method', $callable[1]);
             } else {
                 $configurator->setAttribute('function', $callable);
@@ -193,7 +191,7 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
         }
         $parent->appendChild($service);
     }
-    private function addServiceAlias(string $alias, \ECSPrefix20211128\Symfony\Component\DependencyInjection\Alias $id, \DOMElement $parent)
+    private function addServiceAlias(string $alias, \ECSPrefix20211130\Symfony\Component\DependencyInjection\Alias $id, \DOMElement $parent)
     {
         $service = $this->document->createElement('service');
         $service->setAttribute('id', $alias);
@@ -232,7 +230,7 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
     }
     private function convertParameters(array $parameters, string $type, \DOMElement $parent, string $keyAttribute = 'key')
     {
-        $withKeys = \array_keys($parameters) !== \range(0, \count($parameters) - 1);
+        $withKeys = !array_is_list($parameters);
         foreach ($parameters as $key => $value) {
             $element = $this->document->createElement($type);
             if ($withKeys) {
@@ -241,8 +239,8 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
             if (\is_array($tag = $value)) {
                 $element->setAttribute('type', 'collection');
                 $this->convertParameters($value, $type, $element, 'key');
-            } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument || $value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument && ($tag = $value->getTaggedIteratorArgument())) {
-                $element->setAttribute('type', $value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument ? 'tagged_iterator' : 'tagged_locator');
+            } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument || $value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument && ($tag = $value->getTaggedIteratorArgument())) {
+                $element->setAttribute('type', $value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument ? 'tagged_iterator' : 'tagged_locator');
                 $element->setAttribute('tag', $tag->getTag());
                 if (null !== $tag->getIndexAttribute()) {
                     $element->setAttribute('index-by', $tag->getIndexAttribute());
@@ -253,31 +251,31 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
                         $element->setAttribute('default-priority-method', $tag->getDefaultPriorityMethod());
                     }
                 }
-            } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\IteratorArgument) {
+            } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\IteratorArgument) {
                 $element->setAttribute('type', 'iterator');
                 $this->convertParameters($value->getValues(), $type, $element, 'key');
-            } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
+            } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
                 $element->setAttribute('type', 'service_locator');
                 $this->convertParameters($value->getValues(), $type, $element, 'key');
-            } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference || $value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
+            } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference || $value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
                 $element->setAttribute('type', 'service');
-                if ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
+                if ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
                     $element->setAttribute('type', 'service_closure');
                     $value = $value->getValues()[0];
                 }
                 $element->setAttribute('id', (string) $value);
                 $behavior = $value->getInvalidBehavior();
-                if (\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE == $behavior) {
+                if (\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE == $behavior) {
                     $element->setAttribute('on-invalid', 'null');
-                } elseif (\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE == $behavior) {
+                } elseif (\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE == $behavior) {
                     $element->setAttribute('on-invalid', 'ignore');
-                } elseif (\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE == $behavior) {
+                } elseif (\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE == $behavior) {
                     $element->setAttribute('on-invalid', 'ignore_uninitialized');
                 }
-            } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition) {
+            } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition) {
                 $element->setAttribute('type', 'service');
                 $this->addService($value, null, $element);
-            } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\ExpressionLanguage\Expression) {
+            } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\ExpressionLanguage\Expression) {
                 $element->setAttribute('type', 'expression');
                 $text = $this->document->createTextNode(self::phpToXml((string) $value));
                 $element->appendChild($text);
@@ -285,10 +283,10 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
                 $element->setAttribute('type', 'binary');
                 $text = $this->document->createTextNode(self::phpToXml(\base64_encode($value)));
                 $element->appendChild($text);
-            } elseif ($value instanceof \ECSPrefix20211128\UnitEnum) {
+            } elseif ($value instanceof \ECSPrefix20211130\UnitEnum) {
                 $element->setAttribute('type', 'constant');
                 $element->appendChild($this->document->createTextNode(self::phpToXml($value)));
-            } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\AbstractArgument) {
+            } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\AbstractArgument) {
                 $element->setAttribute('type', 'abstract');
                 $text = $this->document->createTextNode(self::phpToXml($value->getText()));
                 $element->appendChild($text);
@@ -325,9 +323,8 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
     /**
      * Converts php types to xml types.
      *
-     * @param mixed $value Value to convert
-     *
      * @throws RuntimeException When trying to dump object or resource
+     * @param mixed $value
      */
     public static function phpToXml($value) : string
     {
@@ -338,12 +335,12 @@ class XmlDumper extends \ECSPrefix20211128\Symfony\Component\DependencyInjection
                 return 'true';
             case \false === $value:
                 return 'false';
-            case $value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Parameter:
+            case $value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Parameter:
                 return '%' . $value . '%';
-            case $value instanceof \ECSPrefix20211128\UnitEnum:
+            case $value instanceof \ECSPrefix20211130\UnitEnum:
                 return \sprintf('%s::%s', \get_class($value), $value->name);
             case \is_object($value) || \is_resource($value):
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\RuntimeException('Unable to dump a service container if a parameter is an object or a resource.');
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\RuntimeException('Unable to dump a service container if a parameter is an object or a resource.');
             default:
                 return (string) $value;
         }

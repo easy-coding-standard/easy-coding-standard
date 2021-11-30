@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20211128\React\Socket;
+namespace ECSPrefix20211130\React\Socket;
 
-use ECSPrefix20211128\Evenement\EventEmitterInterface;
+use ECSPrefix20211130\Evenement\EventEmitterInterface;
 /**
  * The `ServerInterface` is responsible for providing an interface for accepting
  * incoming streaming connections, such as a normal TCP/IP connection.
@@ -45,7 +45,7 @@ use ECSPrefix20211128\Evenement\EventEmitterInterface;
  *
  * @see ConnectionInterface
  */
-interface ServerInterface extends \ECSPrefix20211128\Evenement\EventEmitterInterface
+interface ServerInterface extends \ECSPrefix20211130\Evenement\EventEmitterInterface
 {
     /**
      * Returns the full address (URI) this server is currently listening on

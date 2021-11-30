@@ -17,11 +17,11 @@
     ],
     "require": {
         "php": ">=7.2.5",
-        "symfony\/service-contracts": "^1.0|^2"
+        "symfony\/service-contracts": "^1|^2|^3"
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211128\\Symfony\\Component\\Stopwatch\\": ""
+            "ECSPrefix20211130\\Symfony\\Component\\Stopwatch\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

@@ -8,20 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference;
 /**
  * Replaces aliases with actual service definitions, effectively removing these
  * aliases.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ReplaceAliasByActualDefinitionPass extends \ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ReplaceAliasByActualDefinitionPass extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
+    /**
+     * @var mixed[]
+     */
     private $replacements;
     /**
      * Process the Container to replace aliases with service definitions.
@@ -40,9 +43,12 @@ class ReplaceAliasByActualDefinitionPass extends \ECSPrefix20211128\Symfony\Comp
             if ('service_container' === $targetId) {
                 continue;
             }
-            // Check if target needs to be replaces
+            // Check if target needs to be replaced
             if (isset($replacements[$targetId])) {
                 $container->setAlias($definitionId, $replacements[$targetId])->setPublic($target->isPublic());
+                if ($target->isDeprecated()) {
+                    $container->getAlias($definitionId)->setDeprecated(...\array_values($target->getDeprecation('%alias_id%')));
+                }
             }
             // No need to process the same target twice
             if (isset($seenAliasTargets[$targetId])) {
@@ -52,9 +58,9 @@ class ReplaceAliasByActualDefinitionPass extends \ECSPrefix20211128\Symfony\Comp
             $seenAliasTargets[$targetId] = \true;
             try {
                 $definition = $container->getDefinition($targetId);
-            } catch (\ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException $e) {
+            } catch (\ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException $e) {
                 if ('' !== $e->getId() && '@' === $e->getId()[0]) {
-                    throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($e->getId(), $e->getSourceId(), null, [\substr($e->getId(), 1)]);
+                    throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($e->getId(), $e->getSourceId(), null, [\substr($e->getId(), 1)]);
                 }
                 throw $e;
             }
@@ -66,6 +72,9 @@ class ReplaceAliasByActualDefinitionPass extends \ECSPrefix20211128\Symfony\Comp
             $container->setDefinition($definitionId, $definition);
             $container->removeDefinition($targetId);
             $replacements[$targetId] = $definitionId;
+            if ($target->isPublic() && $target->isDeprecated()) {
+                $definition->addTag('container.private', $target->getDeprecation('%service_id%'));
+            }
         }
         $this->replacements = $replacements;
         parent::process($container);
@@ -73,14 +82,16 @@ class ReplaceAliasByActualDefinitionPass extends \ECSPrefix20211128\Symfony\Comp
     }
     /**
      * {@inheritdoc}
+     * @param mixed $value
+     * @return mixed
      * @param bool $isRoot
      */
     protected function processValue($value, $isRoot = \false)
     {
-        if ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference && isset($this->replacements[$referenceId = (string) $value])) {
+        if ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference && isset($this->replacements[$referenceId = (string) $value])) {
             // Perform the replacement
             $newId = $this->replacements[$referenceId];
-            $value = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference($newId, $value->getInvalidBehavior());
+            $value = new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference($newId, $value->getInvalidBehavior());
             $this->container->log($this, \sprintf('Changed reference of service "%s" previously pointing to "%s" to "%s".', $this->currentId, $referenceId, $newId));
         }
         return parent::processValue($value, $isRoot);

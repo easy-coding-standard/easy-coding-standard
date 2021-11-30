@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Definition;
+namespace ECSPrefix20211130\Symfony\Component\Config\Definition;
 
-use ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\DuplicateKeyException;
-use ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\Exception;
-use ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
+use ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\DuplicateKeyException;
+use ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\Exception;
+use ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * Represents a prototyped Array node in the config tree.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\Definition\ArrayNode
+class PrototypedArrayNode extends \ECSPrefix20211130\Symfony\Component\Config\Definition\ArrayNode
 {
     protected $prototype;
     protected $keyAttribute;
@@ -71,10 +71,8 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
     }
     /**
      * Retrieves the name of the attribute which value should be used as key.
-     *
-     * @return string|null The name of the attribute
      */
-    public function getKeyAttribute()
+    public function getKeyAttribute() : ?string
     {
         return $this->keyAttribute;
     }
@@ -89,7 +87,7 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
     /**
      * {@inheritdoc}
      */
-    public function hasDefaultValue()
+    public function hasDefaultValue() : bool
     {
         return \true;
     }
@@ -111,6 +109,7 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
      *
      * The default value could be either explicited or derived from the prototype
      * default value.
+     * @return mixed
      */
     public function getDefaultValue()
     {
@@ -134,10 +133,8 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
     }
     /**
      * Retrieves the prototype.
-     *
-     * @return PrototypeNodeInterface The prototype
      */
-    public function getPrototype()
+    public function getPrototype() : \ECSPrefix20211130\Symfony\Component\Config\Definition\PrototypeNodeInterface
     {
         return $this->prototype;
     }
@@ -149,26 +146,28 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
      */
     public function addChild($node)
     {
-        throw new \ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\Exception('A prototyped array node can not have concrete children.');
+        throw new \ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\Exception('A prototyped array node cannot have concrete children.');
     }
     /**
      * {@inheritdoc}
+     * @param mixed $value
+     * @return mixed
      */
     protected function finalizeValue($value)
     {
         if (\false === $value) {
-            throw new \ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\UnsetKeyException(\sprintf('Unsetting key for path "%s", value: %s.', $this->getPath(), \json_encode($value)));
+            throw new \ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\UnsetKeyException(\sprintf('Unsetting key for path "%s", value: %s.', $this->getPath(), \json_encode($value)));
         }
         foreach ($value as $k => $v) {
             $prototype = $this->getPrototypeForChild($k);
             try {
                 $value[$k] = $prototype->finalize($v);
-            } catch (\ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\UnsetKeyException $e) {
+            } catch (\ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\UnsetKeyException $e) {
                 unset($value[$k]);
             }
         }
         if (\count($value) < $this->minNumberOfElements) {
-            $ex = new \ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" should have at least %d element(s) defined.', $this->getPath(), $this->minNumberOfElements));
+            $ex = new \ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" should have at least %d element(s) defined.', $this->getPath(), $this->minNumberOfElements));
             $ex->setPath($this->getPath());
             throw $ex;
         }
@@ -178,6 +177,8 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
      * {@inheritdoc}
      *
      * @throws DuplicateKeyException
+     * @param mixed $value
+     * @return mixed
      */
     protected function normalizeValue($value)
     {
@@ -190,7 +191,7 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
         foreach ($value as $k => $v) {
             if (null !== $this->keyAttribute && \is_array($v)) {
                 if (!isset($v[$this->keyAttribute]) && \is_int($k) && $isList) {
-                    $ex = new \ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The attribute "%s" must be set for path "%s".', $this->keyAttribute, $this->getPath()));
+                    $ex = new \ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The attribute "%s" must be set for path "%s".', $this->keyAttribute, $this->getPath()));
                     $ex->setPath($this->getPath());
                     throw $ex;
                 } elseif (isset($v[$this->keyAttribute])) {
@@ -205,7 +206,7 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
                     // if only "value" is left
                     if (\array_keys($v) === ['value']) {
                         $v = $v['value'];
-                        if ($this->prototype instanceof \ECSPrefix20211128\Symfony\Component\Config\Definition\ArrayNode && ($children = $this->prototype->getChildren()) && \array_key_exists('value', $children)) {
+                        if ($this->prototype instanceof \ECSPrefix20211130\Symfony\Component\Config\Definition\ArrayNode && ($children = $this->prototype->getChildren()) && \array_key_exists('value', $children)) {
                             $valuePrototype = \current($this->valuePrototypes) ?: clone $children['value'];
                             $valuePrototype->parent = $this;
                             $originalClosures = $this->prototype->normalizationClosures;
@@ -218,7 +219,7 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
                     }
                 }
                 if (\array_key_exists($k, $normalized)) {
-                    $ex = new \ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\DuplicateKeyException(\sprintf('Duplicate key "%s" for path "%s".', $k, $this->getPath()));
+                    $ex = new \ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\DuplicateKeyException(\sprintf('Duplicate key "%s" for path "%s".', $k, $this->getPath()));
                     $ex->setPath($this->getPath());
                     throw $ex;
                 }
@@ -234,6 +235,9 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
     }
     /**
      * {@inheritdoc}
+     * @param mixed $leftSide
+     * @param mixed $rightSide
+     * @return mixed
      */
     protected function mergeValues($leftSide, $rightSide)
     {
@@ -255,7 +259,7 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
             // no conflict
             if (!\array_key_exists($k, $leftSide)) {
                 if (!$this->allowNewKeys) {
-                    $ex = new \ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file.', $this->getPath()));
+                    $ex = new \ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file.', $this->getPath()));
                     $ex->setPath($this->getPath());
                     throw $ex;
                 }
@@ -302,8 +306,7 @@ class PrototypedArrayNode extends \ECSPrefix20211128\Symfony\Component\Config\De
      *
      * Now, the key becomes 'name001' and the child node becomes 'value001' and
      * the prototype of child node 'name001' should be a ScalarNode instead of an ArrayNode instance.
-     *
-     * @return mixed The prototype instance
+     * @return mixed
      */
     private function getPrototypeForChild(string $key)
     {

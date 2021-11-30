@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class InlineServiceConfigurator extends \ECSPrefix20211128\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
+class InlineServiceConfigurator extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
     use Traits\ArgumentTrait;
     use Traits\AutowireTrait;
@@ -28,10 +28,19 @@ class InlineServiceConfigurator extends \ECSPrefix20211128\Symfony\Component\Dep
     use Traits\PropertyTrait;
     use Traits\TagTrait;
     public const FACTORY = 'service';
+    /**
+     * @var string
+     */
     private $id = '[inline]';
+    /**
+     * @var bool
+     */
     private $allowParent = \true;
-    private $path = null;
-    public function __construct(\ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition $definition)
+    /**
+     * @var string|null
+     */
+    private $path;
+    public function __construct(\ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition $definition)
     {
         $this->definition = $definition;
     }

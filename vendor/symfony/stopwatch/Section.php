@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Stopwatch;
+namespace ECSPrefix20211130\Symfony\Component\Stopwatch;
 
 /**
  * Stopwatch section.
@@ -49,7 +49,7 @@ class Section
     /**
      * Returns the child section.
      *
-     * @return self|null The child section or null when none found
+     * @return self|null
      * @param string $id
      */
     public function get($id)
@@ -76,7 +76,7 @@ class Section
         return $session;
     }
     /**
-     * @return string The identifier of the section
+     * @return string
      */
     public function getId()
     {
@@ -96,14 +96,14 @@ class Section
     /**
      * Starts an event.
      *
-     * @return StopwatchEvent The event
+     * @return StopwatchEvent
      * @param string $name
      * @param string|null $category
      */
     public function startEvent($name, $category)
     {
         if (!isset($this->events[$name])) {
-            $this->events[$name] = new \ECSPrefix20211128\Symfony\Component\Stopwatch\StopwatchEvent($this->origin ?: \microtime(\true) * 1000, $category, $this->morePrecision, $name);
+            $this->events[$name] = new \ECSPrefix20211130\Symfony\Component\Stopwatch\StopwatchEvent($this->origin ?: \microtime(\true) * 1000, $category, $this->morePrecision, $name);
         }
         return $this->events[$name]->start();
     }
@@ -120,7 +120,7 @@ class Section
     /**
      * Stops an event.
      *
-     * @return StopwatchEvent The event
+     * @return StopwatchEvent
      *
      * @throws \LogicException When the event has not been started
      * @param string $name
@@ -135,7 +135,7 @@ class Section
     /**
      * Stops then restarts an event.
      *
-     * @return StopwatchEvent The event
+     * @return StopwatchEvent
      *
      * @throws \LogicException When the event has not been started
      * @param string $name
@@ -147,7 +147,7 @@ class Section
     /**
      * Returns a specific event by name.
      *
-     * @return StopwatchEvent The event
+     * @return StopwatchEvent
      *
      * @throws \LogicException When the event is not known
      * @param string $name
@@ -162,7 +162,7 @@ class Section
     /**
      * Returns the events from this section.
      *
-     * @return StopwatchEvent[] An array of StopwatchEvent instances
+     * @return StopwatchEvent[]
      */
     public function getEvents()
     {

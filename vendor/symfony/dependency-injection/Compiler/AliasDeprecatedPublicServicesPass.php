@@ -8,30 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference;
-final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference;
+final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
-    private $tagName;
+    /**
+     * @var mixed[]
+     */
     private $aliases = [];
-    public function __construct(string $tagName = 'container.private')
-    {
-        if (0 < \func_num_args()) {
-            trigger_deprecation('symfony/dependency-injection', '5.3', 'Configuring "%s" is deprecated.', __CLASS__);
-        }
-        $this->tagName = $tagName;
-    }
     /**
      * {@inheritdoc}
+     * @param mixed $value
+     * @return mixed
      * @param bool $isRoot
      */
     protected function processValue($value, $isRoot = \false)
     {
-        if ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
-            return new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());
+        if ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
+            return new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());
         }
         return parent::processValue($value, $isRoot);
     }
@@ -41,18 +38,18 @@ final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20211128\Symfony
      */
     public function process($container)
     {
-        foreach ($container->findTaggedServiceIds($this->tagName) as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('container.private') as $id => $tags) {
             if (null === ($package = $tags[0]['package'] ?? null)) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "package" attribute is mandatory for the "%s" tag on the "%s" service.', $this->tagName, $id));
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "package" attribute is mandatory for the "container.private" tag on the "%s" service.', $id));
             }
             if (null === ($version = $tags[0]['version'] ?? null)) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "version" attribute is mandatory for the "%s" tag on the "%s" service.', $this->tagName, $id));
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "version" attribute is mandatory for the "container.private" tag on the "%s" service.', $id));
             }
             $definition = $container->getDefinition($id);
             if (!$definition->isPublic() || $definition->isPrivate()) {
                 continue;
             }
-            $container->setAlias($id, $aliasId = '.' . $this->tagName . '.' . $id)->setPublic(\true)->setDeprecated($package, $version, 'Accessing the "%alias_id%" service directly from the container is deprecated, use dependency injection instead.');
+            $container->setAlias($id, $aliasId = '.container.private.' . $id)->setPublic(\true)->setDeprecated($package, $version, 'Accessing the "%alias_id%" service directly from the container is deprecated, use dependency injection instead.');
             $container->setDefinition($aliasId, $definition);
             $this->aliases[$id] = $aliasId;
         }

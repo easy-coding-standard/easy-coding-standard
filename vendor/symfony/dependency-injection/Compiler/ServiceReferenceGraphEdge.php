@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler;
 
 /**
  * Represents an edge in your service graph.
@@ -19,13 +19,34 @@ namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler;
  */
 class ServiceReferenceGraphEdge
 {
+    /**
+     * @var \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+     */
     private $sourceNode;
+    /**
+     * @var \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+     */
     private $destNode;
+    /**
+     * @var mixed
+     */
     private $value;
+    /**
+     * @var bool
+     */
     private $lazy;
+    /**
+     * @var bool
+     */
     private $weak;
+    /**
+     * @var bool
+     */
     private $byConstructor;
-    public function __construct(\ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode, \ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode, $value = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
+    /**
+     * @param mixed $value
+     */
+    public function __construct(\ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode, \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode, $value = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
     {
         $this->sourceNode = $sourceNode;
         $this->destNode = $destNode;
@@ -36,7 +57,6 @@ class ServiceReferenceGraphEdge
     }
     /**
      * Returns the value of the edge.
-     *
      * @return mixed
      */
     public function getValue()
@@ -45,46 +65,36 @@ class ServiceReferenceGraphEdge
     }
     /**
      * Returns the source node.
-     *
-     * @return ServiceReferenceGraphNode
      */
-    public function getSourceNode()
+    public function getSourceNode() : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
     {
         return $this->sourceNode;
     }
     /**
      * Returns the destination node.
-     *
-     * @return ServiceReferenceGraphNode
      */
-    public function getDestNode()
+    public function getDestNode() : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
     {
         return $this->destNode;
     }
     /**
      * Returns true if the edge is lazy, meaning it's a dependency not requiring direct instantiation.
-     *
-     * @return bool
      */
-    public function isLazy()
+    public function isLazy() : bool
     {
         return $this->lazy;
     }
     /**
      * Returns true if the edge is weak, meaning it shouldn't prevent removing the target service.
-     *
-     * @return bool
      */
-    public function isWeak()
+    public function isWeak() : bool
     {
         return $this->weak;
     }
     /**
      * Returns true if the edge links with a constructor argument.
-     *
-     * @return bool
      */
-    public function isReferencedByConstructor()
+    public function isReferencedByConstructor() : bool
     {
         return $this->byConstructor;
     }

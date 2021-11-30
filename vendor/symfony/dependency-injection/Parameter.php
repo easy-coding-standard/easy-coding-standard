@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection;
 
 /**
  * Parameter represents a parameter reference.
@@ -17,15 +17,15 @@ namespace ECSPrefix20211128\Symfony\Component\DependencyInjection;
  */
 class Parameter
 {
+    /**
+     * @var string
+     */
     private $id;
     public function __construct(string $id)
     {
         $this->id = $id;
     }
-    /**
-     * @return string The parameter key
-     */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->id;
     }

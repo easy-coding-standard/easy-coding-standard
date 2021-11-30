@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Loader;
+namespace ECSPrefix20211130\Symfony\Component\Config\Loader;
 
 /**
  * LoaderResolver selects a loader for a given resource.
@@ -18,7 +18,7 @@ namespace ECSPrefix20211128\Symfony\Component\Config\Loader;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class LoaderResolver implements \ECSPrefix20211128\Symfony\Component\Config\Loader\LoaderResolverInterface
+class LoaderResolver implements \ECSPrefix20211130\Symfony\Component\Config\Loader\LoaderResolverInterface
 {
     /**
      * @var LoaderInterface[] An array of LoaderInterface objects
@@ -35,6 +35,8 @@ class LoaderResolver implements \ECSPrefix20211128\Symfony\Component\Config\Load
     }
     /**
      * {@inheritdoc}
+     * @return bool|\Symfony\Component\Config\Loader\LoaderInterface
+     * @param mixed $resource
      * @param string|null $type
      */
     public function resolve($resource, $type = null)
@@ -57,9 +59,9 @@ class LoaderResolver implements \ECSPrefix20211128\Symfony\Component\Config\Load
     /**
      * Returns the registered loaders.
      *
-     * @return LoaderInterface[] An array of LoaderInterface instances
+     * @return LoaderInterface[]
      */
-    public function getLoaders()
+    public function getLoaders() : array
     {
         return $this->loaders;
     }

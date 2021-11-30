@@ -8,21 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\String\Slugger;
+namespace ECSPrefix20211130\Symfony\Component\String\Slugger;
 
-use ECSPrefix20211128\Symfony\Component\String\AbstractUnicodeString;
-use ECSPrefix20211128\Symfony\Component\String\UnicodeString;
-use ECSPrefix20211128\Symfony\Contracts\Translation\LocaleAwareInterface;
-if (!\interface_exists(\ECSPrefix20211128\Symfony\Contracts\Translation\LocaleAwareInterface::class)) {
+use ECSPrefix20211130\Symfony\Component\String\AbstractUnicodeString;
+use ECSPrefix20211130\Symfony\Component\String\UnicodeString;
+use ECSPrefix20211130\Symfony\Contracts\Translation\LocaleAwareInterface;
+if (!\interface_exists(\ECSPrefix20211130\Symfony\Contracts\Translation\LocaleAwareInterface::class)) {
     throw new \LogicException('You cannot use the "Symfony\\Component\\String\\Slugger\\AsciiSlugger" as the "symfony/translation-contracts" package is not installed. Try running "composer require symfony/translation-contracts".');
 }
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>
  */
-class AsciiSlugger implements \ECSPrefix20211128\Symfony\Component\String\Slugger\SluggerInterface, \ECSPrefix20211128\Symfony\Contracts\Translation\LocaleAwareInterface
+class AsciiSlugger implements \ECSPrefix20211130\Symfony\Component\String\Slugger\SluggerInterface, \ECSPrefix20211130\Symfony\Contracts\Translation\LocaleAwareInterface
 {
     private const LOCALE_TO_TRANSLITERATOR_ID = ['am' => 'Amharic-Latin', 'ar' => 'Arabic-Latin', 'az' => 'Azerbaijani-Latin', 'be' => 'Belarusian-Latin', 'bg' => 'Bulgarian-Latin', 'bn' => 'Bengali-Latin', 'de' => 'de-ASCII', 'el' => 'Greek-Latin', 'fa' => 'Persian-Latin', 'he' => 'Hebrew-Latin', 'hy' => 'Armenian-Latin', 'ka' => 'Georgian-Latin', 'kk' => 'Kazakh-Latin', 'ky' => 'Kirghiz-Latin', 'ko' => 'Korean-Latin', 'mk' => 'Macedonian-Latin', 'mn' => 'Mongolian-Latin', 'or' => 'Oriya-Latin', 'ps' => 'Pashto-Latin', 'ru' => 'Russian-Latin', 'sr' => 'Serbian-Latin', 'sr_Cyrl' => 'Serbian-Latin', 'th' => 'Thai-Latin', 'tk' => 'Turkmen-Latin', 'uk' => 'Ukrainian-Latin', 'uz' => 'Uzbek-Latin', 'zh' => 'Han-Latin'];
+    /**
+     * @var string|null
+     */
     private $defaultLocale;
+    /**
+     * @var mixed[]|\Closure
+     */
     private $symbolsMap = ['en' => ['@' => 'at', '&' => 'and']];
     /**
      * Cache of transliterators per locale.
@@ -31,18 +37,16 @@ class AsciiSlugger implements \ECSPrefix20211128\Symfony\Component\String\Slugge
      */
     private $transliterators = [];
     /**
-     * @param array|\Closure|null $symbolsMap
+     * @param mixed[]|\Closure $symbolsMap
      */
     public function __construct(string $defaultLocale = null, $symbolsMap = null)
     {
-        if (null !== $symbolsMap && !\is_array($symbolsMap) && !$symbolsMap instanceof \Closure) {
-            throw new \TypeError(\sprintf('Argument 2 passed to "%s()" must be array, Closure or null, "%s" given.', __METHOD__, \gettype($symbolsMap)));
-        }
         $this->defaultLocale = $defaultLocale;
         $this->symbolsMap = $symbolsMap ?? $this->symbolsMap;
     }
     /**
      * {@inheritdoc}
+     * @param string $locale
      */
     public function setLocale($locale)
     {
@@ -51,7 +55,7 @@ class AsciiSlugger implements \ECSPrefix20211128\Symfony\Component\String\Slugge
     /**
      * {@inheritdoc}
      */
-    public function getLocale()
+    public function getLocale() : string
     {
         return $this->defaultLocale;
     }
@@ -61,7 +65,7 @@ class AsciiSlugger implements \ECSPrefix20211128\Symfony\Component\String\Slugge
      * @param string $separator
      * @param string|null $locale
      */
-    public function slug($string, $separator = '-', $locale = null) : \ECSPrefix20211128\Symfony\Component\String\AbstractUnicodeString
+    public function slug($string, $separator = '-', $locale = null) : \ECSPrefix20211130\Symfony\Component\String\AbstractUnicodeString
     {
         $locale = $locale ?? $this->defaultLocale;
         $transliterator = [];
@@ -79,7 +83,7 @@ class AsciiSlugger implements \ECSPrefix20211128\Symfony\Component\String\Slugge
                 return $symbolsMap($s, $locale);
             });
         }
-        $unicodeString = (new \ECSPrefix20211128\Symfony\Component\String\UnicodeString($string))->ascii($transliterator);
+        $unicodeString = (new \ECSPrefix20211130\Symfony\Component\String\UnicodeString($string))->ascii($transliterator);
         if (\is_array($this->symbolsMap)) {
             $map = null;
             if (isset($this->symbolsMap[$locale])) {

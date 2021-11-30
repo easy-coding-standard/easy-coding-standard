@@ -8,30 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config;
+namespace ECSPrefix20211130\Symfony\Component\Config;
 
-use ECSPrefix20211128\Symfony\Component\Config\Resource\ResourceInterface;
-use ECSPrefix20211128\Symfony\Component\Filesystem\Exception\IOException;
-use ECSPrefix20211128\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix20211130\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix20211130\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix20211130\Symfony\Component\Filesystem\Filesystem;
 /**
  * ResourceCheckerConfigCache uses instances of ResourceCheckerInterface
  * to check whether cached data is still fresh.
  *
  * @author Matthias Pigulla <mp@webfactory.de>
  */
-class ResourceCheckerConfigCache implements \ECSPrefix20211128\Symfony\Component\Config\ConfigCacheInterface
+class ResourceCheckerConfigCache implements \ECSPrefix20211130\Symfony\Component\Config\ConfigCacheInterface
 {
     /**
      * @var string
      */
     private $file;
     /**
-     * @var iterable|ResourceCheckerInterface[]
+     * @var iterable<mixed, ResourceCheckerInterface>
      */
     private $resourceCheckers;
     /**
-     * @param string                              $file             The absolute cache path
-     * @param iterable|ResourceCheckerInterface[] $resourceCheckers The ResourceCheckers to use for the freshness check
+     * @param string                                    $file             The absolute cache path
+     * @param iterable<mixed, ResourceCheckerInterface> $resourceCheckers The ResourceCheckers to use for the freshness check
      */
     public function __construct(string $file, iterable $resourceCheckers = [])
     {
@@ -41,7 +41,7 @@ class ResourceCheckerConfigCache implements \ECSPrefix20211128\Symfony\Component
     /**
      * {@inheritdoc}
      */
-    public function getPath()
+    public function getPath() : string
     {
         return $this->file;
     }
@@ -53,10 +53,8 @@ class ResourceCheckerConfigCache implements \ECSPrefix20211128\Symfony\Component
      *
      * The first ResourceChecker that supports a given resource is considered authoritative.
      * Resources with no matching ResourceChecker will silently be ignored and considered fresh.
-     *
-     * @return bool true if the cache is fresh, false otherwise
      */
-    public function isFresh()
+    public function isFresh() : bool
     {
         if (!\is_file($this->file)) {
             return \false;
@@ -78,7 +76,6 @@ class ResourceCheckerConfigCache implements \ECSPrefix20211128\Symfony\Component
         }
         $time = \filemtime($this->file);
         foreach ($meta as $resource) {
-            /* @var ResourceInterface $resource */
             foreach ($this->resourceCheckers as $checker) {
                 if (!$checker->supports($resource)) {
                     continue;
@@ -107,18 +104,18 @@ class ResourceCheckerConfigCache implements \ECSPrefix20211128\Symfony\Component
     {
         $mode = 0666;
         $umask = \umask();
-        $filesystem = new \ECSPrefix20211128\Symfony\Component\Filesystem\Filesystem();
+        $filesystem = new \ECSPrefix20211130\Symfony\Component\Filesystem\Filesystem();
         $filesystem->dumpFile($this->file, $content);
         try {
             $filesystem->chmod($this->file, $mode, $umask);
-        } catch (\ECSPrefix20211128\Symfony\Component\Filesystem\Exception\IOException $e) {
+        } catch (\ECSPrefix20211130\Symfony\Component\Filesystem\Exception\IOException $e) {
             // discard chmod failure (some filesystem may not support it)
         }
         if (null !== $metadata) {
             $filesystem->dumpFile($this->getMetaFile(), \serialize($metadata));
             try {
                 $filesystem->chmod($this->getMetaFile(), $mode, $umask);
-            } catch (\ECSPrefix20211128\Symfony\Component\Filesystem\Exception\IOException $e) {
+            } catch (\ECSPrefix20211130\Symfony\Component\Filesystem\Exception\IOException $e) {
                 // discard chmod failure (some filesystem may not support it)
             }
         }

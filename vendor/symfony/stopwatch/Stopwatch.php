@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Stopwatch;
+namespace ECSPrefix20211130\Symfony\Component\Stopwatch;
 
-use ECSPrefix20211128\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20211130\Symfony\Contracts\Service\ResetInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20211128\Symfony\Component\Stopwatch\Section::class);
+\class_exists(\ECSPrefix20211130\Symfony\Component\Stopwatch\Section::class);
 /**
  * Stopwatch provides a way to profile code.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Stopwatch implements \ECSPrefix20211128\Symfony\Contracts\Service\ResetInterface
+class Stopwatch implements \ECSPrefix20211130\Symfony\Contracts\Service\ResetInterface
 {
     /**
      * @var bool
@@ -58,7 +58,7 @@ class Stopwatch implements \ECSPrefix20211128\Symfony\Contracts\Service\ResetInt
     {
         $current = \end($this->activeSections);
         if (null !== $id && null === $current->get($id)) {
-            throw new \LogicException(\sprintf('The section "%s" has been started at an other level and can not be opened.', $id));
+            throw new \LogicException(\sprintf('The section "%s" has been started at an other level and cannot be opened.', $id));
         }
         $this->start('__section__.child', 'section');
         $this->activeSections[] = $current->open($id);
@@ -149,6 +149,6 @@ class Stopwatch implements \ECSPrefix20211128\Symfony\Contracts\Service\ResetInt
      */
     public function reset()
     {
-        $this->sections = $this->activeSections = ['__root__' => new \ECSPrefix20211128\Symfony\Component\Stopwatch\Section(null, $this->morePrecision)];
+        $this->sections = $this->activeSections = ['__root__' => new \ECSPrefix20211130\Symfony\Component\Stopwatch\Section(null, $this->morePrecision)];
     }
 }

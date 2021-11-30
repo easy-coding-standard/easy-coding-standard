@@ -8,8 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Definition;
+namespace ECSPrefix20211130\Symfony\Component\Config\Definition;
 
+use ECSPrefix20211130\Symfony\Component\Config\Definition\Builder\TreeBuilder;
 /**
  * Configuration interface.
  *
@@ -20,7 +21,7 @@ interface ConfigurationInterface
     /**
      * Generates the configuration tree builder.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder The tree builder
+     * @return TreeBuilder
      */
     public function getConfigTreeBuilder();
 }

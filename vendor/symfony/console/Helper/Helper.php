@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Console\Helper;
+namespace ECSPrefix20211130\Symfony\Component\Console\Helper;
 
-use ECSPrefix20211128\Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use ECSPrefix20211128\Symfony\Component\String\UnicodeString;
+use ECSPrefix20211130\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20211130\Symfony\Component\String\UnicodeString;
 /**
  * Helper is the base class for all helper classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Helper implements \ECSPrefix20211128\Symfony\Component\Console\Helper\HelperInterface
+abstract class Helper implements \ECSPrefix20211130\Symfony\Component\Console\Helper\HelperInterface
 {
     protected $helperSet = null;
     /**
@@ -40,7 +40,7 @@ abstract class Helper implements \ECSPrefix20211128\Symfony\Component\Console\He
      *
      * @deprecated since Symfony 5.3
      *
-     * @return int The length of the string
+     * @return int
      * @param string|null $string
      */
     public static function strlen($string)
@@ -57,7 +57,7 @@ abstract class Helper implements \ECSPrefix20211128\Symfony\Component\Console\He
     {
         $string ?? ($string = '');
         if (\preg_match('//u', $string)) {
-            return (new \ECSPrefix20211128\Symfony\Component\String\UnicodeString($string))->width(\false);
+            return (new \ECSPrefix20211130\Symfony\Component\String\UnicodeString($string))->width(\false);
         }
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
             return \strlen($string);
@@ -73,7 +73,7 @@ abstract class Helper implements \ECSPrefix20211128\Symfony\Component\Console\He
     {
         $string ?? ($string = '');
         if (\preg_match('//u', $string)) {
-            return (new \ECSPrefix20211128\Symfony\Component\String\UnicodeString($string))->length();
+            return (new \ECSPrefix20211130\Symfony\Component\String\UnicodeString($string))->length();
         }
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
             return \strlen($string);
@@ -83,7 +83,7 @@ abstract class Helper implements \ECSPrefix20211128\Symfony\Component\Console\He
     /**
      * Returns the subset of a string, using mb_substr if it is available.
      *
-     * @return string The string subset
+     * @return string
      * @param string|null $string
      * @param int $from
      * @param int|null $length

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
 /**
  * Definition represents a service definition.
  *
@@ -21,37 +21,99 @@ use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\OutOfBound
 class Definition
 {
     private const DEFAULT_DEPRECATION_TEMPLATE = 'The "%service_id%" service is deprecated. You should stop using it, as it will be removed in the future.';
+    /**
+     * @var string|null
+     */
     private $class;
+    /**
+     * @var string|null
+     */
     private $file;
-    private $factory;
+    /**
+     * @var mixed[]|string|null
+     */
+    private $factory = null;
+    /**
+     * @var bool
+     */
     private $shared = \true;
+    /**
+     * @var mixed[]
+     */
     private $deprecation = [];
+    /**
+     * @var mixed[]
+     */
     private $properties = [];
+    /**
+     * @var mixed[]
+     */
     private $calls = [];
+    /**
+     * @var mixed[]
+     */
     private $instanceof = [];
+    /**
+     * @var bool
+     */
     private $autoconfigured = \false;
-    private $configurator;
+    /**
+     * @var mixed[]|string|null
+     */
+    private $configurator = null;
+    /**
+     * @var mixed[]
+     */
     private $tags = [];
+    /**
+     * @var bool
+     */
     private $public = \false;
+    /**
+     * @var bool
+     */
     private $synthetic = \false;
+    /**
+     * @var bool
+     */
     private $abstract = \false;
+    /**
+     * @var bool
+     */
     private $lazy = \false;
+    /**
+     * @var mixed[]|null
+     */
     private $decoratedService;
+    /**
+     * @var bool
+     */
     private $autowired = \false;
+    /**
+     * @var mixed[]
+     */
     private $changes = [];
+    /**
+     * @var mixed[]
+     */
     private $bindings = [];
+    /**
+     * @var mixed[]
+     */
     private $errors = [];
     protected $arguments = [];
     /**
      * @internal
      *
      * Used to store the name of the inner id when using service decoration together with autowiring
+     * @var string|null
      */
     public $innerServiceId;
     /**
      * @internal
      *
      * Used to store the behavior to follow when using service decoration and the decorated service is invalid
+     * @var int|null
      */
     public $decorationOnInvalid;
     public function __construct(string $class = null, array $arguments = [])
@@ -63,10 +125,8 @@ class Definition
     }
     /**
      * Returns all changes tracked for the Definition object.
-     *
-     * @return array An array of changes for this Definition
      */
-    public function getChanges()
+    public function getChanges() : array
     {
         return $this->changes;
     }
@@ -94,7 +154,7 @@ class Definition
         $this->changes['factory'] = \true;
         if (\is_string($factory) && \strpos($factory, '::') !== \false) {
             $factory = \explode('::', $factory, 2);
-        } elseif ($factory instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference) {
+        } elseif ($factory instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference) {
             $factory = [$factory, '__invoke'];
         }
         $this->factory = $factory;
@@ -121,17 +181,17 @@ class Definition
      * @param int $priority
      * @param int $invalidBehavior
      */
-    public function setDecoratedService($id, $renamedId = null, $priority = 0, $invalidBehavior = \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function setDecoratedService($id, $renamedId = null, $priority = 0, $invalidBehavior = \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
         if ($renamedId && $id === $renamedId) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The decorated service inner name for "%s" must be different than the service name itself.', $id));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The decorated service inner name for "%s" must be different than the service name itself.', $id));
         }
         $this->changes['decorated_service'] = \true;
         if (null === $id) {
             $this->decoratedService = null;
         } else {
-            $this->decoratedService = [$id, $renamedId, (int) $priority];
-            if (\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE !== $invalidBehavior) {
+            $this->decoratedService = [$id, $renamedId, $priority];
+            if (\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE !== $invalidBehavior) {
                 $this->decoratedService[] = $invalidBehavior;
             }
         }
@@ -142,7 +202,7 @@ class Definition
      *
      * @return array|null An array composed of the decorated service id, the new id for it and the priority of decoration, null if no service is decorated
      */
-    public function getDecoratedService()
+    public function getDecoratedService() : ?array
     {
         return $this->decoratedService;
     }
@@ -160,10 +220,8 @@ class Definition
     }
     /**
      * Gets the service class.
-     *
-     * @return string|null The service class
      */
-    public function getClass()
+    public function getClass() : ?string
     {
         return $this->class;
     }
@@ -191,19 +249,16 @@ class Definition
     }
     /**
      * Gets the properties to define when creating the service.
-     *
-     * @return array
      */
-    public function getProperties()
+    public function getProperties() : array
     {
         return $this->properties;
     }
     /**
      * Sets a specific property.
      *
-     * @param mixed $value
-     *
      * @return $this
+     * @param mixed $value
      * @param string $name
      */
     public function setProperty($name, $value)
@@ -214,9 +269,8 @@ class Definition
     /**
      * Adds an argument to pass to the service constructor/factory method.
      *
-     * @param mixed $argument An argument
-     *
      * @return $this
+     * @param mixed $argument
      */
     public function addArgument($argument)
     {
@@ -226,23 +280,22 @@ class Definition
     /**
      * Replaces a specific argument.
      *
-     * @param int|string $index
-     * @param mixed      $argument
-     *
      * @return $this
      *
      * @throws OutOfBoundsException When the replaced argument does not exist
+     * @param int|string $index
+     * @param mixed $argument
      */
     public function replaceArgument($index, $argument)
     {
         if (0 === \count($this->arguments)) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException('Cannot replace arguments if none have been configured yet.');
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('Cannot replace arguments for class "%s" if none have been configured yet.', $this->class));
         }
         if (\is_int($index) && ($index < 0 || $index > \count($this->arguments) - 1)) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The index "%d" is not in the range [0, %d].', $index, \count($this->arguments) - 1));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The index "%d" is not in the range [0, %d] of the arguments of class "%s".', $index, \count($this->arguments) - 1, $this->class));
         }
         if (!\array_key_exists($index, $this->arguments)) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist.', $index));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist in class "%s".', $index, $this->class));
         }
         $this->arguments[$index] = $argument;
         return $this;
@@ -250,10 +303,9 @@ class Definition
     /**
      * Sets a specific argument.
      *
-     * @param int|string $key
-     * @param mixed      $value
-     *
      * @return $this
+     * @param int|string $key
+     * @param mixed $value
      */
     public function setArgument($key, $value)
     {
@@ -262,26 +314,22 @@ class Definition
     }
     /**
      * Gets the arguments to pass to the service constructor/factory method.
-     *
-     * @return array The array of arguments
      */
-    public function getArguments()
+    public function getArguments() : array
     {
         return $this->arguments;
     }
     /**
      * Gets an argument to pass to the service constructor/factory method.
      *
-     * @param int|string $index
-     *
-     * @return mixed The argument value
-     *
      * @throws OutOfBoundsException When the argument does not exist
+     * @param int|string $index
+     * @return mixed
      */
     public function getArgument($index)
     {
         if (!\array_key_exists($index, $this->arguments)) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist.', $index));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist in class "%s".', $index, $this->class));
         }
         return $this->arguments[$index];
     }
@@ -313,7 +361,7 @@ class Definition
     public function addMethodCall($method, $arguments = [], $returnsClone = \false)
     {
         if (empty($method)) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Method name cannot be empty.');
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Method name cannot be empty.');
         }
         $this->calls[] = $returnsClone ? [$method, $arguments, \true] : [$method, $arguments];
         return $this;
@@ -335,11 +383,9 @@ class Definition
     }
     /**
      * Check if the current definition has a given method to call after service initialization.
-     *
-     * @return bool
      * @param string $method
      */
-    public function hasMethodCall($method)
+    public function hasMethodCall($method) : bool
     {
         foreach ($this->calls as $call) {
             if ($call[0] === $method) {
@@ -350,10 +396,8 @@ class Definition
     }
     /**
      * Gets the methods to call after service initialization.
-     *
-     * @return array An array of method calls
      */
-    public function getMethodCalls()
+    public function getMethodCalls() : array
     {
         return $this->calls;
     }
@@ -374,7 +418,7 @@ class Definition
      *
      * @return ChildDefinition[]
      */
-    public function getInstanceofConditionals()
+    public function getInstanceofConditionals() : array
     {
         return $this->instanceof;
     }
@@ -390,10 +434,7 @@ class Definition
         $this->autoconfigured = $autoconfigured;
         return $this;
     }
-    /**
-     * @return bool
-     */
-    public function isAutoconfigured()
+    public function isAutoconfigured() : bool
     {
         return $this->autoconfigured;
     }
@@ -410,20 +451,16 @@ class Definition
     }
     /**
      * Returns all tags.
-     *
-     * @return array An array of tags
      */
-    public function getTags()
+    public function getTags() : array
     {
         return $this->tags;
     }
     /**
      * Gets a tag by name.
-     *
-     * @return array An array of attributes
      * @param string $name
      */
-    public function getTag($name)
+    public function getTag($name) : array
     {
         return $this->tags[$name] ?? [];
     }
@@ -441,11 +478,9 @@ class Definition
     }
     /**
      * Whether this definition has a tag with the given name.
-     *
-     * @return bool
      * @param string $name
      */
-    public function hasTag($name)
+    public function hasTag($name) : bool
     {
         return isset($this->tags[$name]);
     }
@@ -484,10 +519,8 @@ class Definition
     }
     /**
      * Gets the file to require before creating the service.
-     *
-     * @return string|null The full pathname to include
      */
-    public function getFile()
+    public function getFile() : ?string
     {
         return $this->file;
     }
@@ -505,10 +538,8 @@ class Definition
     }
     /**
      * Whether this service is shared.
-     *
-     * @return bool
      */
-    public function isShared()
+    public function isShared() : bool
     {
         return $this->shared;
     }
@@ -526,32 +557,15 @@ class Definition
     }
     /**
      * Whether this service is public facing.
-     *
-     * @return bool
      */
-    public function isPublic()
+    public function isPublic() : bool
     {
         return $this->public;
     }
     /**
-     * Sets if this service is private.
-     *
-     * @return $this
-     *
-     * @deprecated since Symfony 5.2, use setPublic() instead
-     * @param bool $boolean
-     */
-    public function setPrivate($boolean)
-    {
-        trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s()" method is deprecated, use "setPublic()" instead.', __METHOD__);
-        return $this->setPublic(!$boolean);
-    }
-    /**
      * Whether this service is private.
-     *
-     * @return bool
      */
-    public function isPrivate()
+    public function isPrivate() : bool
     {
         return !$this->public;
     }
@@ -569,10 +583,8 @@ class Definition
     }
     /**
      * Whether this service is lazy.
-     *
-     * @return bool
      */
-    public function isLazy()
+    public function isLazy() : bool
     {
         return $this->lazy;
     }
@@ -594,10 +606,8 @@ class Definition
     /**
      * Whether this definition is synthetic, that is not constructed by the
      * container, but dynamically injected.
-     *
-     * @return bool
      */
-    public function isSynthetic()
+    public function isSynthetic() : bool
     {
         return $this->synthetic;
     }
@@ -616,10 +626,8 @@ class Definition
     /**
      * Whether this definition is abstract, that means it merely serves as a
      * template for other definitions.
-     *
-     * @return bool
      */
-    public function isAbstract()
+    public function isAbstract() : bool
     {
         return $this->abstract;
     }
@@ -635,58 +643,27 @@ class Definition
      *
      * @throws InvalidArgumentException when the message template is invalid
      */
-    public function setDeprecated()
+    public function setDeprecated($package, $version, $message)
     {
-        $args = \func_get_args();
-        if (\func_num_args() < 3) {
-            trigger_deprecation('symfony/dependency-injection', '5.1', 'The signature of method "%s()" requires 3 arguments: "string $package, string $version, string $message", not defining them is deprecated.', __METHOD__);
-            $status = $args[0] ?? \true;
-            if (!$status) {
-                trigger_deprecation('symfony/dependency-injection', '5.1', 'Passing a null message to un-deprecate a node is deprecated.');
-            }
-            $message = (string) ($args[1] ?? null);
-            $package = $version = '';
-        } else {
-            $status = \true;
-            $package = (string) $args[0];
-            $version = (string) $args[1];
-            $message = (string) $args[2];
-        }
         if ('' !== $message) {
             if (\preg_match('#[\\r\\n]|\\*/#', $message)) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Invalid characters found in deprecation template.');
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Invalid characters found in deprecation template.');
             }
             if (\strpos($message, '%service_id%') === \false) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The deprecation template must contain the "%service_id%" placeholder.');
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The deprecation template must contain the "%service_id%" placeholder.');
             }
         }
         $this->changes['deprecated'] = \true;
-        $this->deprecation = $status ? ['package' => $package, 'version' => $version, 'message' => $message ?: self::DEFAULT_DEPRECATION_TEMPLATE] : [];
+        $this->deprecation = ['package' => $package, 'version' => $version, 'message' => $message ?: self::DEFAULT_DEPRECATION_TEMPLATE];
         return $this;
     }
     /**
      * Whether this definition is deprecated, that means it should not be called
      * anymore.
-     *
-     * @return bool
      */
-    public function isDeprecated()
+    public function isDeprecated() : bool
     {
         return (bool) $this->deprecation;
-    }
-    /**
-     * Message to use if this definition is deprecated.
-     *
-     * @deprecated since Symfony 5.1, use "getDeprecation()" instead.
-     *
-     * @param string $id Service id relying on this definition
-     *
-     * @return string
-     */
-    public function getDeprecationMessage($id)
-    {
-        trigger_deprecation('symfony/dependency-injection', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
-        return $this->getDeprecation($id)['message'];
     }
     /**
      * @param string $id Service id relying on this definition
@@ -707,7 +684,7 @@ class Definition
         $this->changes['configurator'] = \true;
         if (\is_string($configurator) && \strpos($configurator, '::') !== \false) {
             $configurator = \explode('::', $configurator, 2);
-        } elseif ($configurator instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference) {
+        } elseif ($configurator instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference) {
             $configurator = [$configurator, '__invoke'];
         }
         $this->configurator = $configurator;
@@ -716,7 +693,7 @@ class Definition
     /**
      * Gets the configurator to call after the service is fully initialized.
      *
-     * @return callable|array|null
+     * @return string|array|null
      */
     public function getConfigurator()
     {
@@ -724,10 +701,8 @@ class Definition
     }
     /**
      * Is the definition autowired?
-     *
-     * @return bool
      */
-    public function isAutowired()
+    public function isAutowired() : bool
     {
         return $this->autowired;
     }
@@ -746,9 +721,9 @@ class Definition
     /**
      * Gets bindings.
      *
-     * @return array|BoundArgument[]
+     * @return BoundArgument[]
      */
-    public function getBindings()
+    public function getBindings() : array
     {
         return $this->bindings;
     }
@@ -769,8 +744,8 @@ class Definition
                 unset($bindings[$key]);
                 $bindings[$key = $k] = $binding;
             }
-            if (!$binding instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\BoundArgument) {
-                $bindings[$key] = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\BoundArgument($binding);
+            if (!$binding instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\BoundArgument) {
+                $bindings[$key] = new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\BoundArgument($binding);
             }
         }
         $this->bindings = $bindings;
@@ -779,9 +754,8 @@ class Definition
     /**
      * Add an error that occurred when building this Definition.
      *
-     * @param string|\Closure|self $error
-     *
      * @return $this
+     * @param \Closure|string|\Symfony\Component\DependencyInjection\Definition $error
      */
     public function addError($error)
     {
@@ -794,10 +768,8 @@ class Definition
     }
     /**
      * Returns any errors that occurred while building this Definition.
-     *
-     * @return array
      */
-    public function getErrors()
+    public function getErrors() : array
     {
         foreach ($this->errors as $i => $error) {
             if ($error instanceof \Closure) {

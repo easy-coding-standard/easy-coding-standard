@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20211130\Symfony\Component\EventDispatcher;
 
-use ECSPrefix20211128\Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
+use ECSPrefix20211130\Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
 /**
  * The EventDispatcherInterface is the central point of Symfony's event listener system.
  * Listeners are registered on the manager and events are dispatched through the
@@ -18,7 +18,7 @@ use ECSPrefix20211128\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-interface EventDispatcherInterface extends \ECSPrefix20211128\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
+interface EventDispatcherInterface extends \ECSPrefix20211130\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
 {
     /**
      * Adds an event listener that listens on the specified events.
@@ -50,7 +50,7 @@ interface EventDispatcherInterface extends \ECSPrefix20211128\Symfony\Contracts\
     /**
      * Gets the listeners of a specific event or all listeners sorted by descending priority.
      *
-     * @return array The event listeners for the specified event, or all event listeners by event name
+     * @return array<callable[]|callable>
      * @param string|null $eventName
      */
     public function getListeners($eventName = null);
@@ -59,7 +59,7 @@ interface EventDispatcherInterface extends \ECSPrefix20211128\Symfony\Contracts\
      *
      * Returns null if the event or the listener does not exist.
      *
-     * @return int|null The event listener priority
+     * @return int|null
      * @param string $eventName
      * @param callable $listener
      */
@@ -67,7 +67,7 @@ interface EventDispatcherInterface extends \ECSPrefix20211128\Symfony\Contracts\
     /**
      * Checks whether an event has any registered listeners.
      *
-     * @return bool true if the specified event has any listeners, false otherwise
+     * @return bool
      * @param string|null $eventName
      */
     public function hasListeners($eventName = null);

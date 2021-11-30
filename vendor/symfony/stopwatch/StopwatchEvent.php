@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Stopwatch;
+namespace ECSPrefix20211130\Symfony\Component\Stopwatch;
 
 /**
  * Represents an Event managed by Stopwatch.
@@ -59,16 +59,16 @@ class StopwatchEvent
     /**
      * Gets the category.
      *
-     * @return string The category
+     * @return string
      */
     public function getCategory()
     {
         return $this->category;
     }
     /**
-     * Gets the origin.
+     * Gets the origin in milliseconds.
      *
-     * @return float The origin in milliseconds
+     * @return float
      */
     public function getOrigin()
     {
@@ -96,7 +96,7 @@ class StopwatchEvent
         if (!\count($this->started)) {
             throw new \LogicException('stop() called but start() has not been called before.');
         }
-        $this->periods[] = new \ECSPrefix20211128\Symfony\Component\Stopwatch\StopwatchPeriod(\array_pop($this->started), $this->getNow(), $this->morePrecision);
+        $this->periods[] = new \ECSPrefix20211130\Symfony\Component\Stopwatch\StopwatchPeriod(\array_pop($this->started), $this->getNow(), $this->morePrecision);
         return $this;
     }
     /**
@@ -129,16 +129,16 @@ class StopwatchEvent
     /**
      * Gets all event periods.
      *
-     * @return StopwatchPeriod[] An array of StopwatchPeriod instances
+     * @return StopwatchPeriod[]
      */
     public function getPeriods()
     {
         return $this->periods;
     }
     /**
-     * Gets the relative time of the start of the first period.
+     * Gets the relative time of the start of the first period in milliseconds.
      *
-     * @return int|float The time (in milliseconds)
+     * @return int|float
      */
     public function getStartTime()
     {
@@ -151,9 +151,9 @@ class StopwatchEvent
         return 0;
     }
     /**
-     * Gets the relative time of the end of the last period.
+     * Gets the relative time of the end of the last period in milliseconds.
      *
-     * @return int|float The time (in milliseconds)
+     * @return int|float
      */
     public function getEndTime()
     {
@@ -161,16 +161,16 @@ class StopwatchEvent
         return $count ? $this->periods[$count - 1]->getEndTime() : 0;
     }
     /**
-     * Gets the duration of the events (including all periods).
+     * Gets the duration of the events in milliseconds (including all periods).
      *
-     * @return int|float The duration (in milliseconds)
+     * @return int|float
      */
     public function getDuration()
     {
         $periods = $this->periods;
         $left = \count($this->started);
         for ($i = $left - 1; $i >= 0; --$i) {
-            $periods[] = new \ECSPrefix20211128\Symfony\Component\Stopwatch\StopwatchPeriod($this->started[$i], $this->getNow(), $this->morePrecision);
+            $periods[] = new \ECSPrefix20211130\Symfony\Component\Stopwatch\StopwatchPeriod($this->started[$i], $this->getNow(), $this->morePrecision);
         }
         $total = 0;
         foreach ($periods as $period) {
@@ -179,9 +179,9 @@ class StopwatchEvent
         return $total;
     }
     /**
-     * Gets the max memory usage of all periods.
+     * Gets the max memory usage of all periods in bytes.
      *
-     * @return int The memory usage (in bytes)
+     * @return int
      */
     public function getMemory()
     {
@@ -194,9 +194,9 @@ class StopwatchEvent
         return $memory;
     }
     /**
-     * Return the current time relative to origin.
+     * Return the current time relative to origin in milliseconds.
      *
-     * @return float Time in ms
+     * @return float
      */
     protected function getNow()
     {

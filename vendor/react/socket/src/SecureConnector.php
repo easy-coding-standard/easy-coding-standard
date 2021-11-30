@@ -1,28 +1,28 @@
 <?php
 
-namespace ECSPrefix20211128\React\Socket;
+namespace ECSPrefix20211130\React\Socket;
 
-use ECSPrefix20211128\React\EventLoop\Loop;
-use ECSPrefix20211128\React\EventLoop\LoopInterface;
-use ECSPrefix20211128\React\Promise;
+use ECSPrefix20211130\React\EventLoop\Loop;
+use ECSPrefix20211130\React\EventLoop\LoopInterface;
+use ECSPrefix20211130\React\Promise;
 use BadMethodCallException;
 use InvalidArgumentException;
 use UnexpectedValueException;
-final class SecureConnector implements \ECSPrefix20211128\React\Socket\ConnectorInterface
+final class SecureConnector implements \ECSPrefix20211130\React\Socket\ConnectorInterface
 {
     private $connector;
     private $streamEncryption;
     private $context;
-    public function __construct(\ECSPrefix20211128\React\Socket\ConnectorInterface $connector, \ECSPrefix20211128\React\EventLoop\LoopInterface $loop = null, array $context = array())
+    public function __construct(\ECSPrefix20211130\React\Socket\ConnectorInterface $connector, \ECSPrefix20211130\React\EventLoop\LoopInterface $loop = null, array $context = array())
     {
         $this->connector = $connector;
-        $this->streamEncryption = new \ECSPrefix20211128\React\Socket\StreamEncryption($loop ?: \ECSPrefix20211128\React\EventLoop\Loop::get(), \false);
+        $this->streamEncryption = new \ECSPrefix20211130\React\Socket\StreamEncryption($loop ?: \ECSPrefix20211130\React\EventLoop\Loop::get(), \false);
         $this->context = $context;
     }
     public function connect($uri)
     {
         if (!\function_exists('stream_socket_enable_crypto')) {
-            return \ECSPrefix20211128\React\Promise\reject(new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)'));
+            return \ECSPrefix20211130\React\Promise\reject(new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)'));
             // @codeCoverageIgnore
         }
         if (\strpos($uri, '://') === \false) {
@@ -30,16 +30,15 @@ final class SecureConnector implements \ECSPrefix20211128\React\Socket\Connector
         }
         $parts = \parse_url($uri);
         if (!$parts || !isset($parts['scheme']) || $parts['scheme'] !== 'tls') {
-            return \ECSPrefix20211128\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \ECSPrefix20211130\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22));
         }
-        $uri = \str_replace('tls://', '', $uri);
         $context = $this->context;
         $encryption = $this->streamEncryption;
         $connected = \false;
-        $promise = $this->connector->connect($uri)->then(function (\ECSPrefix20211128\React\Socket\ConnectionInterface $connection) use($context, $encryption, $uri, &$promise, &$connected) {
+        $promise = $this->connector->connect(\str_replace('tls://', '', $uri))->then(function (\ECSPrefix20211130\React\Socket\ConnectionInterface $connection) use($context, $encryption, $uri, &$promise, &$connected) {
             // (unencrypted) TCP/IP connection succeeded
             $connected = \true;
-            if (!$connection instanceof \ECSPrefix20211128\React\Socket\Connection) {
+            if (!$connection instanceof \ECSPrefix20211130\React\Socket\Connection) {
                 $connection->close();
                 throw new \UnexpectedValueException('Base connector does not use internal Connection class exposing stream resource');
             }
@@ -53,12 +52,36 @@ final class SecureConnector implements \ECSPrefix20211128\React\Socket\Connector
                 $connection->close();
                 throw new \RuntimeException('Connection to ' . $uri . ' failed during TLS handshake: ' . $error->getMessage(), $error->getCode());
             });
+        }, function (\Exception $e) use($uri) {
+            if ($e instanceof \RuntimeException) {
+                $message = \preg_replace('/^Connection to [^ ]+/', '', $e->getMessage());
+                $e = new \RuntimeException('Connection to ' . $uri . $message, $e->getCode(), $e);
+                // avoid garbage references by replacing all closures in call stack.
+                // what a lovely piece of code!
+                $r = new \ReflectionProperty('Exception', 'trace');
+                $r->setAccessible(\true);
+                $trace = $r->getValue($e);
+                // Exception trace arguments are not available on some PHP 7.4 installs
+                // @codeCoverageIgnoreStart
+                foreach ($trace as &$one) {
+                    if (isset($one['args'])) {
+                        foreach ($one['args'] as &$arg) {
+                            if ($arg instanceof \Closure) {
+                                $arg = 'Object(' . \get_class($arg) . ')';
+                            }
+                        }
+                    }
+                }
+                // @codeCoverageIgnoreEnd
+                $r->setValue($e, $trace);
+            }
+            throw $e;
         });
-        return new \ECSPrefix20211128\React\Promise\Promise(function ($resolve, $reject) use($promise) {
+        return new \ECSPrefix20211130\React\Promise\Promise(function ($resolve, $reject) use($promise) {
             $promise->then($resolve, $reject);
         }, function ($_, $reject) use(&$promise, $uri, &$connected) {
             if ($connected) {
-                $reject(new \RuntimeException('Connection to ' . $uri . ' cancelled during TLS handshake'));
+                $reject(new \RuntimeException('Connection to ' . $uri . ' cancelled during TLS handshake (ECONNABORTED)', \defined('SOCKET_ECONNABORTED') ? \SOCKET_ECONNABORTED : 103));
             }
             $promise->cancel();
             $promise = null;

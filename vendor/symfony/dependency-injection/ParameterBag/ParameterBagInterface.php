@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 /**
  * ParameterBagInterface is the interface implemented by objects that manage service container parameters.
  *
@@ -22,22 +22,20 @@ interface ParameterBagInterface
     /**
      * Clears all parameters.
      *
-     * @throws LogicException if the ParameterBagInterface can not be cleared
+     * @throws LogicException if the ParameterBagInterface cannot be cleared
      */
     public function clear();
     /**
      * Adds parameters to the service container parameters.
      *
-     * @throws LogicException if the parameter can not be added
+     * @throws LogicException if the parameter cannot be added
      * @param mixed[] $parameters
      */
     public function add($parameters);
     /**
      * Gets the service container parameters.
-     *
-     * @return array An array of parameters
      */
-    public function all();
+    public function all() : array;
     /**
      * Gets a service container parameter.
      *
@@ -55,19 +53,16 @@ interface ParameterBagInterface
     /**
      * Sets a service container parameter.
      *
-     * @param array|bool|string|int|float|null $value The parameter value
-     *
-     * @throws LogicException if the parameter can not be set
+     * @throws LogicException if the parameter cannot be set
+     * @param mixed[]|bool|float|int|string|null $value
      * @param string $name
      */
     public function set($name, $value);
     /**
      * Returns true if a parameter name is defined.
-     *
-     * @return bool true if the parameter name is defined, false otherwise
      * @param string $name
      */
-    public function has($name);
+    public function has($name) : bool;
     /**
      * Replaces parameter placeholders (%name%) by their values for all parameters.
      */
@@ -75,24 +70,19 @@ interface ParameterBagInterface
     /**
      * Replaces parameter placeholders (%name%) by their values.
      *
-     * @param mixed $value A value
-     *
      * @throws ParameterNotFoundException if a placeholder references a parameter that does not exist
+     * @param mixed $value
      */
     public function resolveValue($value);
     /**
      * Escape parameter placeholders %.
-     *
      * @param mixed $value
-     *
      * @return mixed
      */
     public function escapeValue($value);
     /**
      * Unescape parameter placeholders %.
-     *
      * @param mixed $value
-     *
      * @return mixed
      */
     public function unescapeValue($value);

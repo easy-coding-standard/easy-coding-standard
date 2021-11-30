@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\EventDispatcher\Attribute;
+namespace ECSPrefix20211130\Symfony\Component\EventDispatcher\Attribute;
 
 /**
  * Service tag to autoconfigure event listeners.
  *
  * @author Alexander M. Turek <me@derrabus.de>
  */
-#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class AsEventListener
 {
     /**

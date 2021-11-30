@@ -8,18 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference;
 /**
  * Removes unused service definitions from the container.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class RemoveUnusedDefinitionsPass extends \ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class RemoveUnusedDefinitionsPass extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
+    /**
+     * @var mixed[]
+     */
     private $connectedIds = [];
     /**
      * Processes the ContainerBuilder to remove unused definitions.
@@ -67,14 +70,16 @@ class RemoveUnusedDefinitionsPass extends \ECSPrefix20211128\Symfony\Component\D
     }
     /**
      * {@inheritdoc}
+     * @param mixed $value
+     * @return mixed
      * @param bool $isRoot
      */
     protected function processValue($value, $isRoot = \false)
     {
-        if (!$value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference) {
+        if (!$value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);
         }
-        if (\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior()) {
+        if (\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior()) {
             $this->connectedIds[] = (string) $value;
         }
         return $value;

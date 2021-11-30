@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20211130\Symfony\Component\Config\Definition\Builder;
 
 /**
  * This class builds validation conditions.
@@ -19,14 +19,14 @@ class ValidationBuilder
 {
     protected $node;
     public $rules = [];
-    public function __construct(\ECSPrefix20211128\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
+    public function __construct(\ECSPrefix20211130\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->node = $node;
     }
     /**
      * Registers a closure to run as normalization or an expression builder to build it if null is provided.
      *
-     * @return ExprBuilder|$this
+     * @return $this|\Symfony\Component\Config\Definition\Builder\ExprBuilder
      * @param \Closure|null $closure
      */
     public function rule($closure = null)
@@ -35,6 +35,6 @@ class ValidationBuilder
             $this->rules[] = $closure;
             return $this;
         }
-        return $this->rules[] = new \ECSPrefix20211128\Symfony\Component\Config\Definition\Builder\ExprBuilder($this->node);
+        return $this->rules[] = new \ECSPrefix20211130\Symfony\Component\Config\Definition\Builder\ExprBuilder($this->node);
     }
 }

@@ -8,16 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
 trait ReferenceSetArgumentTrait
 {
+    /**
+     * @var mixed[]
+     */
     private $values;
     /**
      * @param Reference[] $values
@@ -27,9 +30,9 @@ trait ReferenceSetArgumentTrait
         $this->setValues($values);
     }
     /**
-     * @return Reference[] The values in the set
+     * @return Reference[]
      */
-    public function getValues()
+    public function getValues() : array
     {
         return $this->values;
     }
@@ -39,8 +42,8 @@ trait ReferenceSetArgumentTrait
     public function setValues($values)
     {
         foreach ($values as $k => $v) {
-            if (null !== $v && !$v instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A "%s" must hold only Reference instances, "%s" given.', __CLASS__, \get_debug_type($v)));
+            if (null !== $v && !$v instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference) {
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A "%s" must hold only Reference instances, "%s" given.', __CLASS__, \get_debug_type($v)));
             }
         }
         $this->values = $values;

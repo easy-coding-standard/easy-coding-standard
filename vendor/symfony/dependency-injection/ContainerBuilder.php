@@ -8,82 +8,87 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection;
 
-use ECSPrefix20211128\Composer\InstalledVersions;
-use ECSPrefix20211128\Psr\Container\ContainerInterface as PsrContainerInterface;
-use ECSPrefix20211128\Symfony\Component\Config\Resource\ClassExistenceResource;
-use ECSPrefix20211128\Symfony\Component\Config\Resource\ComposerResource;
-use ECSPrefix20211128\Symfony\Component\Config\Resource\DirectoryResource;
-use ECSPrefix20211128\Symfony\Component\Config\Resource\FileExistenceResource;
-use ECSPrefix20211128\Symfony\Component\Config\Resource\FileResource;
-use ECSPrefix20211128\Symfony\Component\Config\Resource\GlobResource;
-use ECSPrefix20211128\Symfony\Component\Config\Resource\ReflectionClassResource;
-use ECSPrefix20211128\Symfony\Component\Config\Resource\ResourceInterface;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceLocator;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Attribute\Target;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\Compiler;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\PassConfig;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\ResolveEnvPlaceholdersPass;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\RealServiceInstantiator;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use ECSPrefix20211128\Symfony\Component\ExpressionLanguage\Expression;
-use ECSPrefix20211128\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use ECSPrefix20211130\Composer\InstalledVersions;
+use ECSPrefix20211130\Symfony\Component\Config\Resource\ClassExistenceResource;
+use ECSPrefix20211130\Symfony\Component\Config\Resource\ComposerResource;
+use ECSPrefix20211130\Symfony\Component\Config\Resource\DirectoryResource;
+use ECSPrefix20211130\Symfony\Component\Config\Resource\FileExistenceResource;
+use ECSPrefix20211130\Symfony\Component\Config\Resource\FileResource;
+use ECSPrefix20211130\Symfony\Component\Config\Resource\GlobResource;
+use ECSPrefix20211130\Symfony\Component\Config\Resource\ReflectionClassResource;
+use ECSPrefix20211130\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceLocator;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Attribute\Target;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\Compiler;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\ResolveEnvPlaceholdersPass;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\RealServiceInstantiator;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use ECSPrefix20211130\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix20211130\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 /**
  * ContainerBuilder is a DI container that provides an API to easily describe services.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyInjection\Container implements \ECSPrefix20211128\Symfony\Component\DependencyInjection\TaggedContainerInterface
+class ContainerBuilder extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\Container implements \ECSPrefix20211130\Symfony\Component\DependencyInjection\TaggedContainerInterface
 {
     /**
-     * @var ExtensionInterface[]
+     * @var array<string, ExtensionInterface>
      */
     private $extensions = [];
     /**
-     * @var ExtensionInterface[]
+     * @var array<string, ExtensionInterface>
      */
     private $extensionsByNs = [];
     /**
-     * @var Definition[]
+     * @var array<string, Definition>
      */
     private $definitions = [];
     /**
-     * @var Alias[]
+     * @var array<string, Alias>
      */
     private $aliasDefinitions = [];
     /**
-     * @var ResourceInterface[]
+     * @var array<string, ResourceInterface>
      */
     private $resources = [];
+    /**
+     * @var array<string, array<array<string, mixed>>>
+     */
     private $extensionConfigs = [];
     /**
-     * @var Compiler
+     * @var \Symfony\Component\DependencyInjection\Compiler\Compiler
      */
     private $compiler;
+    /**
+     * @var bool
+     */
     private $trackResources;
     /**
-     * @var InstantiatorInterface|null
+     * @var \Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface|null
      */
     private $proxyInstantiator;
     /**
-     * @var ExpressionLanguage|null
+     * @var \Symfony\Component\DependencyInjection\ExpressionLanguage
      */
     private $expressionLanguage;
     /**
@@ -106,24 +111,31 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
      * @var string[] the list of vendor directories
      */
     private $vendors;
+    /**
+     * @var array<string, ChildDefinition>
+     */
     private $autoconfiguredInstanceof = [];
     /**
-     * @var callable[]
+     * @var array<string, callable>
      */
     private $autoconfiguredAttributes = [];
+    /**
+     * @var array<string, bool>
+     */
     private $removedIds = [];
+    /**
+     * @var array<int, bool>
+     */
     private $removedBindingIds = [];
     private const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
-    public function __construct(\ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
+    public function __construct(\ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
     {
         parent::__construct($parameterBag);
-        $this->trackResources = \interface_exists(\ECSPrefix20211128\Symfony\Component\Config\Resource\ResourceInterface::class);
-        $this->setDefinition('service_container', (new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition(\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::class))->setSynthetic(\true)->setPublic(\true));
-        $this->setAlias(\ECSPrefix20211128\Psr\Container\ContainerInterface::class, new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Alias('service_container', \false))->setDeprecated('symfony/dependency-injection', '5.1', $deprecationMessage = 'The "%alias_id%" autowiring alias is deprecated. Define it explicitly in your app if you want to keep using it.');
-        $this->setAlias(\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::class, new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Alias('service_container', \false))->setDeprecated('symfony/dependency-injection', '5.1', $deprecationMessage);
+        $this->trackResources = \interface_exists(\ECSPrefix20211130\Symfony\Component\Config\Resource\ResourceInterface::class);
+        $this->setDefinition('service_container', (new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition(\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::class))->setSynthetic(\true)->setPublic(\true));
     }
     /**
-     * @var \ReflectionClass[] a list of class reflectors
+     * @var array<string, \ReflectionClass>
      */
     private $classReflectors;
     /**
@@ -139,10 +151,8 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     }
     /**
      * Checks if resources are tracked.
-     *
-     * @return bool true If resources are tracked, false otherwise
      */
-    public function isTrackingResources()
+    public function isTrackingResources() : bool
     {
         return $this->trackResources;
     }
@@ -167,12 +177,10 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * Returns an extension by alias or namespace.
      *
-     * @return ExtensionInterface An extension instance
-     *
      * @throws LogicException if the extension is not registered
      * @param string $name
      */
-    public function getExtension($name)
+    public function getExtension($name) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
         if (isset($this->extensions[$name])) {
             return $this->extensions[$name];
@@ -180,33 +188,31 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         if (isset($this->extensionsByNs[$name])) {
             return $this->extensionsByNs[$name];
         }
-        throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Container extension "%s" is not registered.', $name));
+        throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Container extension "%s" is not registered.', $name));
     }
     /**
      * Returns all registered extensions.
      *
-     * @return ExtensionInterface[] An array of ExtensionInterface
+     * @return array<string, ExtensionInterface>
      */
-    public function getExtensions()
+    public function getExtensions() : array
     {
         return $this->extensions;
     }
     /**
      * Checks if we have an extension.
-     *
-     * @return bool If the extension exists
      * @param string $name
      */
-    public function hasExtension($name)
+    public function hasExtension($name) : bool
     {
         return isset($this->extensions[$name]) || isset($this->extensionsByNs[$name]);
     }
     /**
      * Returns an array of resources loaded to build this configuration.
      *
-     * @return ResourceInterface[] An array of resources
+     * @return ResourceInterface[]
      */
-    public function getResources()
+    public function getResources() : array
     {
         return \array_values($this->resources);
     }
@@ -219,7 +225,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         if (!$this->trackResources) {
             return $this;
         }
-        if ($resource instanceof \ECSPrefix20211128\Symfony\Component\Config\Resource\GlobResource && $this->inVendors($resource->getPrefix())) {
+        if ($resource instanceof \ECSPrefix20211130\Symfony\Component\Config\Resource\GlobResource && $this->inVendors($resource->getPrefix())) {
             return $this;
         }
         $this->resources[(string) $resource] = $resource;
@@ -228,7 +234,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * Sets the resources for this configuration.
      *
-     * @param ResourceInterface[] $resources An array of resources
+     * @param array<string, ResourceInterface> $resources
      *
      * @return $this
      */
@@ -299,8 +305,8 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         try {
             if (isset($this->classReflectors[$class])) {
                 $classReflector = $this->classReflectors[$class];
-            } elseif (\class_exists(\ECSPrefix20211128\Symfony\Component\Config\Resource\ClassExistenceResource::class)) {
-                $resource = new \ECSPrefix20211128\Symfony\Component\Config\Resource\ClassExistenceResource($class, \false);
+            } elseif (\class_exists(\ECSPrefix20211130\Symfony\Component\Config\Resource\ClassExistenceResource::class)) {
+                $resource = new \ECSPrefix20211130\Symfony\Component\Config\Resource\ClassExistenceResource($class, \false);
                 $classReflector = $resource->isFresh(0) ? \false : new \ReflectionClass($class);
             } else {
                 $classReflector = \class_exists($class) ? new \ReflectionClass($class) : \false;
@@ -312,11 +318,11 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         }
         if ($this->trackResources) {
             if (!$classReflector) {
-                $this->addResource($resource ?? new \ECSPrefix20211128\Symfony\Component\Config\Resource\ClassExistenceResource($class, \false));
+                $this->addResource($resource ?? new \ECSPrefix20211130\Symfony\Component\Config\Resource\ClassExistenceResource($class, \false));
             } elseif (!$classReflector->isInternal()) {
                 $path = $classReflector->getFileName();
                 if (!$this->inVendors($path)) {
-                    $this->addResource(new \ECSPrefix20211128\Symfony\Component\Config\Resource\ReflectionClassResource($classReflector, $this->vendors));
+                    $this->addResource(new \ECSPrefix20211130\Symfony\Component\Config\Resource\ReflectionClassResource($classReflector, $this->vendors));
                 }
             }
             $this->classReflectors[$class] = $classReflector;
@@ -339,25 +345,25 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             return $exists;
         }
         if (!$exists) {
-            $this->addResource(new \ECSPrefix20211128\Symfony\Component\Config\Resource\FileExistenceResource($path));
+            $this->addResource(new \ECSPrefix20211130\Symfony\Component\Config\Resource\FileExistenceResource($path));
             return $exists;
         }
         if (\is_dir($path)) {
             if ($trackContents) {
-                $this->addResource(new \ECSPrefix20211128\Symfony\Component\Config\Resource\DirectoryResource($path, \is_string($trackContents) ? $trackContents : null));
+                $this->addResource(new \ECSPrefix20211130\Symfony\Component\Config\Resource\DirectoryResource($path, \is_string($trackContents) ? $trackContents : null));
             } else {
-                $this->addResource(new \ECSPrefix20211128\Symfony\Component\Config\Resource\GlobResource($path, '/*', \false));
+                $this->addResource(new \ECSPrefix20211130\Symfony\Component\Config\Resource\GlobResource($path, '/*', \false));
             }
         } elseif ($trackContents) {
-            $this->addResource(new \ECSPrefix20211128\Symfony\Component\Config\Resource\FileResource($path));
+            $this->addResource(new \ECSPrefix20211130\Symfony\Component\Config\Resource\FileResource($path));
         }
         return $exists;
     }
     /**
      * Loads the configuration for an extension.
      *
-     * @param string $extension The extension alias or namespace
-     * @param array  $values    An array of values that customizes the extension
+     * @param string                    $extension The extension alias or namespace
+     * @param array<string, mixed>|null $values    An array of values that customizes the extension
      *
      * @return $this
      *
@@ -367,13 +373,10 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     public function loadFromExtension($extension, $values = null)
     {
         if ($this->isCompiled()) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Cannot load from an extension on a compiled container.');
-        }
-        if (\func_num_args() < 2) {
-            $values = [];
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Cannot load from an extension on a compiled container.');
         }
         $namespace = $this->getExtension($extension)->getAlias();
-        $this->extensionConfigs[$namespace][] = $values;
+        $this->extensionConfigs[$namespace][] = $values ?? [];
         return $this;
     }
     /**
@@ -385,7 +388,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
      * @return $this
      * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
      */
-    public function addCompilerPass($pass, $type = \ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addCompilerPass($pass, $type = \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
     {
         $this->getCompiler()->addPass($pass, $type, $priority);
         $this->addObjectResource($pass);
@@ -393,24 +396,17 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     }
     /**
      * Returns the compiler pass config which can then be modified.
-     *
-     * @return PassConfig The compiler pass config
      */
-    public function getCompilerPassConfig()
+    public function getCompilerPassConfig() : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\PassConfig
     {
         return $this->getCompiler()->getPassConfig();
     }
     /**
      * Returns the compiler.
-     *
-     * @return Compiler The compiler
      */
-    public function getCompiler()
+    public function getCompiler() : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\Compiler
     {
-        if (null === $this->compiler) {
-            $this->compiler = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\Compiler();
-        }
-        return $this->compiler;
+        return $this->compiler = $this->compiler ?? new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\Compiler();
     }
     /**
      * Sets a service.
@@ -423,7 +419,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     {
         if ($this->isCompiled() && (isset($this->definitions[$id]) && !$this->definitions[$id]->isSynthetic())) {
             // setting a synthetic service on a compiled container is alright
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\BadMethodCallException(\sprintf('Setting service "%s" for an unknown or non-synthetic service definition on a compiled container is not allowed.', $id));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\BadMethodCallException(\sprintf('Setting service "%s" for an unknown or non-synthetic service definition on a compiled container is not allowed.', $id));
         }
         unset($this->definitions[$id], $this->aliasDefinitions[$id], $this->removedIds[$id]);
         parent::set($id, $service);
@@ -440,36 +436,34 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         }
     }
     /**
-     * Returns true if the given service is defined.
-     *
-     * @param string $id The service identifier
-     *
-     * @return bool true if the service is defined, false otherwise
+     * @param string $id
      */
-    public function has($id)
+    public function has($id) : bool
     {
         return isset($this->definitions[$id]) || isset($this->aliasDefinitions[$id]) || parent::has($id);
     }
     /**
-     * @return object|null The associated service
-     *
      * @throws InvalidArgumentException          when no definitions are available
      * @throws ServiceCircularReferenceException When a circular reference is detected
      * @throws ServiceNotFoundException          When the service is not defined
      * @throws \Exception
      *
      * @see Reference
+     * @return object|null
      * @param string $id
      * @param int $invalidBehavior
      */
-    public function get($id, $invalidBehavior = \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function get($id, $invalidBehavior = \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
-        if ($this->isCompiled() && isset($this->removedIds[$id]) && \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
+        if ($this->isCompiled() && isset($this->removedIds[$id]) && \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
             return parent::get($id);
         }
         return $this->doGet($id, $invalidBehavior);
     }
-    private function doGet(string $id, int $invalidBehavior = \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, array &$inlineServices = null, bool $isConstructorArgument = \false)
+    /**
+     * @return mixed
+     */
+    private function doGet(string $id, int $invalidBehavior = \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, array &$inlineServices = null, bool $isConstructorArgument = \false)
     {
         if (isset($inlineServices[$id])) {
             return $inlineServices[$id];
@@ -479,13 +473,13 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             $inlineServices = [];
         }
         try {
-            if (\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $invalidBehavior) {
+            if (\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $invalidBehavior) {
                 return parent::get($id, $invalidBehavior);
             }
-            if ($service = parent::get($id, \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE)) {
+            if ($service = parent::get($id, \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE)) {
                 return $service;
             }
-        } catch (\ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException $e) {
+        } catch (\ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException $e) {
             if ($isConstructorArgument) {
                 throw $e;
             }
@@ -500,14 +494,14 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         }
         try {
             $definition = $this->getDefinition($id);
-        } catch (\ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException $e) {
-            if (\ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $invalidBehavior) {
+        } catch (\ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException $e) {
+            if (\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $invalidBehavior) {
                 return null;
             }
             throw $e;
         }
         if ($definition->hasErrors() && ($e = $definition->getErrors())) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\RuntimeException(\reset($e));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\RuntimeException(\reset($e));
         }
         if ($isConstructorArgument) {
             $this->loading[$id] = \true;
@@ -544,7 +538,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     public function merge($container)
     {
         if ($this->isCompiled()) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Cannot merge on a compiled container.');
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Cannot merge on a compiled container.');
         }
         $this->addDefinitions($container->getDefinitions());
         $this->addAliases($container->getAliases());
@@ -560,7 +554,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             }
             $this->extensionConfigs[$name] = \array_merge($this->extensionConfigs[$name], $container->getExtensionConfig($name));
         }
-        if ($this->getParameterBag() instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag && $container->getParameterBag() instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
+        if ($this->getParameterBag() instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag && $container->getParameterBag() instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
             $envPlaceholders = $container->getParameterBag()->getEnvPlaceholders();
             $this->getParameterBag()->mergeEnvPlaceholders($container->getParameterBag());
         } else {
@@ -578,13 +572,13 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         }
         foreach ($container->getAutoconfiguredInstanceof() as $interface => $childDefinition) {
             if (isset($this->autoconfiguredInstanceof[$interface])) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"%s" has already been autoconfigured and merge() does not support merging autoconfiguration for the same class/interface.', $interface));
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"%s" has already been autoconfigured and merge() does not support merging autoconfiguration for the same class/interface.', $interface));
             }
             $this->autoconfiguredInstanceof[$interface] = $childDefinition;
         }
         foreach ($container->getAutoconfiguredAttributes() as $attribute => $configurator) {
             if (isset($this->autoconfiguredAttributes[$attribute])) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"%s" has already been autoconfigured and merge() does not support merging autoconfiguration for the same attribute.', $attribute));
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"%s" has already been autoconfigured and merge() does not support merging autoconfiguration for the same attribute.', $attribute));
             }
             $this->autoconfiguredAttributes[$attribute] = $configurator;
         }
@@ -592,10 +586,10 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * Returns the configuration array for the given extension.
      *
-     * @return array An array of configuration
+     * @return array<array<string, mixed>>
      * @param string $name
      */
-    public function getExtensionConfig($name)
+    public function getExtensionConfig($name) : array
     {
         if (!isset($this->extensionConfigs[$name])) {
             $this->extensionConfigs[$name] = [];
@@ -604,8 +598,9 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     }
     /**
      * Prepends a config array to the configs of the given extension.
+     *
+     * @param array<string, mixed> $config
      * @param string $name
-     * @param mixed[] $config
      */
     public function prependExtensionConfig($name, $config)
     {
@@ -642,8 +637,8 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             }
         }
         $bag = $this->getParameterBag();
-        if ($resolveEnvPlaceholders && $bag instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
-            $compiler->addPass(new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\ResolveEnvPlaceholdersPass(), \ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_AFTER_REMOVING, -1000);
+        if ($resolveEnvPlaceholders && $bag instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
+            $compiler->addPass(new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\ResolveEnvPlaceholdersPass(), \ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_AFTER_REMOVING, -1000);
         }
         $compiler->compile($this);
         foreach ($this->definitions as $id => $definition) {
@@ -652,9 +647,9 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             }
         }
         $this->extensionConfigs = [];
-        if ($bag instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
+        if ($bag instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
             if ($resolveEnvPlaceholders) {
-                $this->parameterBag = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($this->resolveEnvPlaceholders($bag->all(), \true));
+                $this->parameterBag = new \ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($this->resolveEnvPlaceholders($bag->all(), \true));
             }
             $this->envPlaceholders = $bag->getEnvPlaceholders();
         }
@@ -668,22 +663,23 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * {@inheritdoc}
      */
-    public function getServiceIds()
+    public function getServiceIds() : array
     {
         return \array_map('strval', \array_unique(\array_merge(\array_keys($this->getDefinitions()), \array_keys($this->aliasDefinitions), parent::getServiceIds())));
     }
     /**
      * Gets removed service or alias ids.
      *
-     * @return array
+     * @return array<string, bool>
      */
-    public function getRemovedIds()
+    public function getRemovedIds() : array
     {
         return $this->removedIds;
     }
     /**
      * Adds the service aliases.
-     * @param mixed[] $aliases
+     *
+     * @param array<string, string|Alias> $aliases
      */
     public function addAliases($aliases)
     {
@@ -693,7 +689,8 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     }
     /**
      * Sets the service aliases.
-     * @param mixed[] $aliases
+     *
+     * @param array<string, string|Alias> $aliases
      */
     public function setAliases($aliases)
     {
@@ -703,26 +700,21 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * Sets an alias for an existing service.
      *
-     * @param string       $alias The alias to create
-     * @param string|Alias $id    The service to alias
-     *
-     * @return Alias
-     *
      * @throws InvalidArgumentException if the id is not a string or an Alias
      * @throws InvalidArgumentException if the alias is for itself
+     * @param string|\Symfony\Component\DependencyInjection\Alias $id
+     * @param string $alias
      */
-    public function setAlias($alias, $id)
+    public function setAlias($alias, $id) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Alias
     {
         if ('' === $alias || '\\' === $alias[-1] || \strlen($alias) !== \strcspn($alias, "\0\r\n'")) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid alias id: "%s".', $alias));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid alias id: "%s".', $alias));
         }
         if (\is_string($id)) {
-            $id = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Alias($id);
-        } elseif (!$id instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Alias) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('$id must be a string, or an Alias object.');
+            $id = new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Alias($id);
         }
         if ($alias === (string) $id) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('An alias can not reference itself, got a circular reference on "%s".', $alias));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('An alias cannot reference itself, got a circular reference on "%s".', $alias));
         }
         unset($this->definitions[$alias], $this->removedIds[$alias]);
         return $this->aliasDefinitions[$alias] = $id;
@@ -738,30 +730,27 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         }
     }
     /**
-     * @return bool true if the alias exists, false otherwise
      * @param string $id
      */
-    public function hasAlias($id)
+    public function hasAlias($id) : bool
     {
         return isset($this->aliasDefinitions[$id]);
     }
     /**
-     * @return Alias[] An array of aliases
+     * @return array<string, Alias>
      */
-    public function getAliases()
+    public function getAliases() : array
     {
         return $this->aliasDefinitions;
     }
     /**
-     * @return Alias An Alias instance
-     *
      * @throws InvalidArgumentException if the alias does not exist
      * @param string $id
      */
-    public function getAlias($id)
+    public function getAlias($id) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Alias
     {
         if (!isset($this->aliasDefinitions[$id])) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service alias "%s" does not exist.', $id));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service alias "%s" does not exist.', $id));
         }
         return $this->aliasDefinitions[$id];
     }
@@ -770,33 +759,29 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
      *
      * This methods allows for simple registration of service definition
      * with a fluid interface.
-     *
-     * @return Definition A Definition instance
      * @param string $id
      * @param string|null $class
      */
-    public function register($id, $class = null)
+    public function register($id, $class = null) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition
     {
-        return $this->setDefinition($id, new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition($class));
+        return $this->setDefinition($id, new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition($class));
     }
     /**
      * Registers an autowired service definition.
      *
      * This method implements a shortcut for using setDefinition() with
      * an autowired definition.
-     *
-     * @return Definition The created definition
      * @param string $id
      * @param string|null $class
      */
-    public function autowire($id, $class = null)
+    public function autowire($id, $class = null) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition
     {
-        return $this->setDefinition($id, (new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition($class))->setAutowired(\true));
+        return $this->setDefinition($id, (new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition($class))->setAutowired(\true));
     }
     /**
      * Adds the service definitions.
      *
-     * @param Definition[] $definitions An array of service definitions
+     * @param array<string, Definition> $definitions
      */
     public function addDefinitions($definitions)
     {
@@ -807,7 +792,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * Sets the service definitions.
      *
-     * @param Definition[] $definitions An array of service definitions
+     * @param array<string, Definition> $definitions
      */
     public function setDefinitions($definitions)
     {
@@ -817,54 +802,48 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * Gets all service definitions.
      *
-     * @return Definition[] An array of Definition instances
+     * @return array<string, Definition>
      */
-    public function getDefinitions()
+    public function getDefinitions() : array
     {
         return $this->definitions;
     }
     /**
      * Sets a service definition.
      *
-     * @return Definition the service definition
-     *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
      * @param string $id
      * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
-    public function setDefinition($id, $definition)
+    public function setDefinition($id, $definition) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition
     {
         if ($this->isCompiled()) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Adding definition to a compiled container is not allowed.');
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Adding definition to a compiled container is not allowed.');
         }
         if ('' === $id || '\\' === $id[-1] || \strlen($id) !== \strcspn($id, "\0\r\n'")) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service id: "%s".', $id));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service id: "%s".', $id));
         }
         unset($this->aliasDefinitions[$id], $this->removedIds[$id]);
         return $this->definitions[$id] = $definition;
     }
     /**
      * Returns true if a service definition exists under the given identifier.
-     *
-     * @return bool true if the service definition exists, false otherwise
      * @param string $id
      */
-    public function hasDefinition($id)
+    public function hasDefinition($id) : bool
     {
         return isset($this->definitions[$id]);
     }
     /**
      * Gets a service definition.
      *
-     * @return Definition A Definition instance
-     *
      * @throws ServiceNotFoundException if the service definition does not exist
      * @param string $id
      */
-    public function getDefinition($id)
+    public function getDefinition($id) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition
     {
         if (!isset($this->definitions[$id])) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id);
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id);
         }
         return $this->definitions[$id];
     }
@@ -873,12 +852,10 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
      *
      * The method "unaliases" recursively to return a Definition instance.
      *
-     * @return Definition A Definition instance
-     *
      * @throws ServiceNotFoundException if the service definition does not exist
      * @param string $id
      */
-    public function findDefinition($id)
+    public function findDefinition($id) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition
     {
         $seen = [];
         while (isset($this->aliasDefinitions[$id])) {
@@ -887,7 +864,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
                 $seen = \array_values($seen);
                 $seen = \array_slice($seen, \array_search($id, $seen));
                 $seen[] = $id;
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, $seen);
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, $seen);
             }
             $seen[$id] = $id;
         }
@@ -896,28 +873,27 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * Creates a service for a service definition.
      *
-     * @return mixed The service described by the service definition
-     *
      * @throws RuntimeException         When the factory definition is incomplete
      * @throws RuntimeException         When the service is a synthetic service
      * @throws InvalidArgumentException When configure callable is not callable
+     * @return mixed
      */
-    private function createService(\ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition $definition, array &$inlineServices, bool $isConstructorArgument = \false, string $id = null, bool $tryProxy = \true)
+    private function createService(\ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition $definition, array &$inlineServices, bool $isConstructorArgument = \false, string $id = null, bool $tryProxy = \true)
     {
         if (null === $id && isset($inlineServices[$h = \spl_object_hash($definition)])) {
             return $inlineServices[$h];
         }
-        if ($definition instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\ChildDefinition) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Constructing service "%s" from a parent definition is not supported at build time.', $id));
+        if ($definition instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\ChildDefinition) {
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Constructing service "%s" from a parent definition is not supported at build time.', $id));
         }
         if ($definition->isSynthetic()) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('You have requested a synthetic service ("%s"). The DIC does not know how to construct this service.', $id));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('You have requested a synthetic service ("%s"). The DIC does not know how to construct this service.', $id));
         }
         if ($definition->isDeprecated()) {
             $deprecation = $definition->getDeprecation($id);
             trigger_deprecation($deprecation['package'], $deprecation['version'], $deprecation['message']);
         }
-        if ($tryProxy && $definition->isLazy() && !($tryProxy = !($proxy = $this->proxyInstantiator) || $proxy instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\RealServiceInstantiator)) {
+        if ($tryProxy && $definition->isLazy() && !($tryProxy = !($proxy = $this->proxyInstantiator) || $proxy instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\RealServiceInstantiator)) {
             $proxy = $proxy->instantiateProxy($this, $definition, $id, function () use($definition, &$inlineServices, $id) {
                 return $this->createService($definition, $inlineServices, \true, $id, \false);
             });
@@ -933,7 +909,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             if (\is_array($factory)) {
                 $factory = [$this->doResolveServices($parameterBag->resolveValue($factory[0]), $inlineServices, $isConstructorArgument), $factory[1]];
             } elseif (!\is_string($factory)) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Cannot create service "%s" because of invalid factory.', $id));
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Cannot create service "%s" because of invalid factory.', $id));
             }
         }
         if (null !== $id && $definition->isShared() && isset($this->services[$id]) && ($tryProxy || !$definition->isLazy())) {
@@ -978,14 +954,14 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         if ($callable = $definition->getConfigurator()) {
             if (\is_array($callable)) {
                 $callable[0] = $parameterBag->resolveValue($callable[0]);
-                if ($callable[0] instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference) {
+                if ($callable[0] instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference) {
                     $callable[0] = $this->doGet((string) $callable[0], $callable[0]->getInvalidBehavior(), $inlineServices);
-                } elseif ($callable[0] instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition) {
+                } elseif ($callable[0] instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition) {
                     $callable[0] = $this->createService($callable[0], $inlineServices);
                 }
             }
             if (!\is_callable($callable)) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The configure callable for class "%s" is not a callable.', \get_debug_type($service)));
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The configure callable for class "%s" is not a callable.', \get_debug_type($service)));
             }
             $callable($service);
         }
@@ -994,28 +970,31 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * Replaces service references by the real service instance and evaluates expressions.
      *
-     * @param mixed $value A value
-     *
      * @return mixed The same value with all service references replaced by
      *               the real service instances and all expressions evaluated
+     * @param mixed $value
      */
     public function resolveServices($value)
     {
         return $this->doResolveServices($value);
     }
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
     private function doResolveServices($value, array &$inlineServices = [], bool $isConstructorArgument = \false)
     {
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
                 $value[$k] = $this->doResolveServices($v, $inlineServices, $isConstructorArgument);
             }
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
             $reference = $value->getValues()[0];
             $value = function () use($reference) {
                 return $this->resolveServices($reference);
             };
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\IteratorArgument) {
-            $value = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\RewindableGenerator(function () use($value, &$inlineServices) {
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\IteratorArgument) {
+            $value = new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\RewindableGenerator(function () use($value, &$inlineServices) {
                 foreach ($value->getValues() as $k => $v) {
                     foreach (self::getServiceConditionals($v) as $s) {
                         if (!$this->has($s)) {
@@ -1023,7 +1002,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
                         }
                     }
                     foreach (self::getInitializedConditionals($v) as $s) {
-                        if (!$this->doGet($s, \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE, $inlineServices)) {
+                        if (!$this->doGet($s, \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE, $inlineServices)) {
                             continue 2;
                         }
                     }
@@ -1038,7 +1017,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
                         }
                     }
                     foreach (self::getInitializedConditionals($v) as $s) {
-                        if (!$this->doGet($s, \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE)) {
+                        if (!$this->doGet($s, \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE)) {
                             continue 2;
                         }
                     }
@@ -1046,25 +1025,25 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
                 }
                 return $count;
             });
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
             $refs = $types = [];
             foreach ($value->getValues() as $k => $v) {
                 if ($v) {
                     $refs[$k] = [$v];
-                    $types[$k] = $v instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\TypedReference ? $v->getType() : '?';
+                    $types[$k] = $v instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\TypedReference ? $v->getType() : '?';
                 }
             }
-            $value = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\ServiceLocator(\Closure::fromCallable([$this, 'resolveServices']), $refs, $types);
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference) {
+            $value = new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\ServiceLocator(\Closure::fromCallable([$this, 'resolveServices']), $refs, $types);
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference) {
             $value = $this->doGet((string) $value, $value->getInvalidBehavior(), $inlineServices, $isConstructorArgument);
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition) {
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition) {
             $value = $this->createService($value, $inlineServices, $isConstructorArgument);
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Parameter) {
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Parameter) {
             $value = $this->getParameter((string) $value);
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\ExpressionLanguage\Expression) {
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\ExpressionLanguage\Expression) {
             $value = $this->getExpressionLanguage()->evaluate($value, ['container' => $this]);
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument\AbstractArgument) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\RuntimeException($value->getTextWithContext());
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument\AbstractArgument) {
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\RuntimeException($value->getTextWithContext());
         }
         return $value;
     }
@@ -1082,18 +1061,18 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
      *         }
      *     }
      *
-     * @return array An array of tags with the tagged service as key, holding a list of attribute arrays
+     * @return array<string, array> An array of tags with the tagged service as key, holding a list of attribute arrays
      * @param string $name
      * @param bool $throwOnAbstract
      */
-    public function findTaggedServiceIds($name, $throwOnAbstract = \false)
+    public function findTaggedServiceIds($name, $throwOnAbstract = \false) : array
     {
         $this->usedTags[] = $name;
         $tags = [];
         foreach ($this->getDefinitions() as $id => $definition) {
             if ($definition->hasTag($name)) {
                 if ($throwOnAbstract && $definition->isAbstract()) {
-                    throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service "%s" tagged "%s" must not be abstract.', $id, $name));
+                    throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service "%s" tagged "%s" must not be abstract.', $id, $name));
                 }
                 $tags[$id] = $definition->getTag($name);
             }
@@ -1103,22 +1082,22 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * Returns all tags the defined services use.
      *
-     * @return array An array of tags
+     * @return string[]
      */
-    public function findTags()
+    public function findTags() : array
     {
         $tags = [];
         foreach ($this->getDefinitions() as $id => $definition) {
-            $tags = \array_merge(\array_keys($definition->getTags()), $tags);
+            $tags[] = \array_keys($definition->getTags());
         }
-        return \array_unique($tags);
+        return \array_unique(\array_merge([], ...$tags));
     }
     /**
      * Returns all tags not queried by findTaggedServiceIds.
      *
-     * @return string[] An array of tags
+     * @return string[]
      */
-    public function findUnusedTags()
+    public function findUnusedTags() : array
     {
         return \array_values(\array_diff($this->findTags(), $this->usedTags));
     }
@@ -1132,29 +1111,33 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     /**
      * @return ExpressionFunctionProviderInterface[]
      */
-    public function getExpressionLanguageProviders()
+    public function getExpressionLanguageProviders() : array
     {
         return $this->expressionLanguageProviders;
     }
     /**
      * Returns a ChildDefinition that will be used for autoconfiguring the interface/class.
-     *
-     * @return ChildDefinition
      * @param string $interface
      */
-    public function registerForAutoconfiguration($interface)
+    public function registerForAutoconfiguration($interface) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\ChildDefinition
     {
         if (!isset($this->autoconfiguredInstanceof[$interface])) {
-            $this->autoconfiguredInstanceof[$interface] = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\ChildDefinition('');
+            $this->autoconfiguredInstanceof[$interface] = new \ECSPrefix20211130\Symfony\Component\DependencyInjection\ChildDefinition('');
         }
         return $this->autoconfiguredInstanceof[$interface];
     }
     /**
      * Registers an attribute that will be used for autoconfiguring annotated classes.
      *
-     * The configurator will receive a ChildDefinition instance, an instance of the attribute and the corresponding \ReflectionClass, in that order.
-     * @param string $attributeClass
-     * @param callable $configurator
+     * The third argument passed to the callable is the reflector of the
+     * class/method/property/parameter that the attribute targets. Using one or many of
+     * \ReflectionClass|\ReflectionMethod|\ReflectionProperty|\ReflectionParameter as a type-hint
+     * for this argument allows filtering which attributes should be passed to the callable.
+     *
+     * @template T
+     *
+     * @param class-string<T>                                $attributeClass
+     * @param callable(ChildDefinition, T, \Reflector): void $configurator
      */
     public function registerAttributeForAutoconfiguration($attributeClass, $configurator) : void
     {
@@ -1171,41 +1154,41 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
      * @param string $type
      * @param string|null $name
      */
-    public function registerAliasForArgument($id, $type, $name = null) : \ECSPrefix20211128\Symfony\Component\DependencyInjection\Alias
+    public function registerAliasForArgument($id, $type, $name = null) : \ECSPrefix20211130\Symfony\Component\DependencyInjection\Alias
     {
-        $name = (new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Attribute\Target($name ?? $id))->name;
+        $name = (new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Attribute\Target($name ?? $id))->name;
         if (!\preg_match('/^[a-zA-Z_\\x7f-\\xff]/', $name)) {
-            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid argument name "%s" for service "%s": the first character must be a letter.', $name, $id));
+            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid argument name "%s" for service "%s": the first character must be a letter.', $name, $id));
         }
         return $this->setAlias($type . ' $' . $name, $id);
     }
     /**
      * Returns an array of ChildDefinition[] keyed by interface.
      *
-     * @return ChildDefinition[]
+     * @return array<string, ChildDefinition>
      */
-    public function getAutoconfiguredInstanceof()
+    public function getAutoconfiguredInstanceof() : array
     {
         return $this->autoconfiguredInstanceof;
     }
     /**
-     * @return callable[]
+     * @return array<string, callable>
      */
     public function getAutoconfiguredAttributes() : array
     {
         return $this->autoconfiguredAttributes;
     }
     /**
-     * Resolves env parameter placeholders in a string or an array.
-     *
-     * @param mixed            $value     The value to resolve
-     * @param string|true|null $format    A sprintf() format returning the replacement for each env var name or
-     *                                    null to resolve back to the original "%env(VAR)%" format or
-     *                                    true to resolve to the actual values of the referenced env vars
-     * @param array            &$usedEnvs Env vars found while resolving are added to this array
-     *
-     * @return mixed The value with env parameters resolved if a string or an array is passed
-     */
+    * Resolves env parameter placeholders in a string or an array.
+    *
+     * @param bool|string $format A sprintf() format returning the replacement for each env var name or
+                                  null to resolve back to the original "%env(VAR)%" format or
+                                  true to resolve to the actual values of the referenced env vars
+    * @param array            &$usedEnvs Env vars found while resolving are added to this array
+    *
+    * @return mixed The value with env parameters resolved if a string or an array is passed
+     * @param mixed $value
+    */
     public function resolveEnvPlaceholders($value, $format = null, &$usedEnvs = null)
     {
         if (null === $format) {
@@ -1215,7 +1198,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         if (\true === $format) {
             $value = $bag->resolveValue($value);
         }
-        if ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition) {
+        if ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition) {
             $value = (array) $value;
         }
         if (\is_array($value)) {
@@ -1228,7 +1211,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         if (!\is_string($value) || 38 > \strlen($value)) {
             return $value;
         }
-        $envPlaceholders = $bag instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag ? $bag->getEnvPlaceholders() : $this->envPlaceholders;
+        $envPlaceholders = $bag instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag ? $bag->getEnvPlaceholders() : $this->envPlaceholders;
         $completed = \false;
         foreach ($envPlaceholders as $env => $placeholders) {
             foreach ($placeholders as $placeholder) {
@@ -1243,7 +1226,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
                         $completed = \true;
                     } else {
                         if (!\is_string($resolved) && !\is_numeric($resolved)) {
-                            throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "env(%s)" of type "%s" inside string value "%s".', $env, \get_debug_type($resolved), $this->resolveEnvPlaceholders($value)));
+                            throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "env(%s)" of type "%s" inside string value "%s".', $env, \get_debug_type($resolved), $this->resolveEnvPlaceholders($value)));
                         }
                         $value = \str_ireplace($placeholder, $resolved, $value);
                     }
@@ -1262,10 +1245,10 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
      *
      * @return int[] The number of time each env vars has been resolved
      */
-    public function getEnvCounters()
+    public function getEnvCounters() : array
     {
         $bag = $this->getParameterBag();
-        $envPlaceholders = $bag instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag ? $bag->getEnvPlaceholders() : $this->envPlaceholders;
+        $envPlaceholders = $bag instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag ? $bag->getEnvPlaceholders() : $this->envPlaceholders;
         foreach ($envPlaceholders as $env => $placeholders) {
             if (!isset($this->envCounters[$env])) {
                 $this->envCounters[$env] = 0;
@@ -1287,25 +1270,30 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
      *
      * When parent packages are provided and if any of them is in dev-only mode,
      * the class will be considered available even if it is also in dev-only mode.
+     *
+     * @throws \LogicException If dependencies have been installed with Composer 1
      * @param string $package
      * @param string $class
      * @param mixed[] $parentPackages
      */
     public static final function willBeAvailable($package, $class, $parentPackages) : bool
     {
+        if (!\class_exists(\ECSPrefix20211130\Composer\InstalledVersions::class)) {
+            throw new \LogicException(\sprintf('Calling "%s" when dependencies have been installed with Composer 1 is not supported. Consider upgrading to Composer 2.', __METHOD__));
+        }
         if (!\class_exists($class) && !\interface_exists($class, \false) && !\trait_exists($class, \false)) {
             return \false;
         }
-        if (!\class_exists(\ECSPrefix20211128\Composer\InstalledVersions::class) || !\ECSPrefix20211128\Composer\InstalledVersions::isInstalled($package) || \ECSPrefix20211128\Composer\InstalledVersions::isInstalled($package, \false)) {
+        if (!\ECSPrefix20211130\Composer\InstalledVersions::isInstalled($package) || \ECSPrefix20211130\Composer\InstalledVersions::isInstalled($package, \false)) {
             return \true;
         }
         // the package is installed but in dev-mode only, check if this applies to one of the parent packages too
-        $rootPackage = \ECSPrefix20211128\Composer\InstalledVersions::getRootPackage()['name'] ?? '';
+        $rootPackage = \ECSPrefix20211130\Composer\InstalledVersions::getRootPackage()['name'] ?? '';
         if ('symfony/symfony' === $rootPackage) {
             return \true;
         }
         foreach ($parentPackages as $parentPackage) {
-            if ($rootPackage === $parentPackage || \ECSPrefix20211128\Composer\InstalledVersions::isInstalled($parentPackage) && !\ECSPrefix20211128\Composer\InstalledVersions::isInstalled($parentPackage, \false)) {
+            if ($rootPackage === $parentPackage || \ECSPrefix20211130\Composer\InstalledVersions::isInstalled($parentPackage) && !\ECSPrefix20211130\Composer\InstalledVersions::isInstalled($parentPackage, \false)) {
                 return \true;
             }
         }
@@ -1313,6 +1301,8 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
     }
     /**
      * Gets removed binding ids.
+     *
+     * @return array<int, bool>
      *
      * @internal
      */
@@ -1336,11 +1326,10 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         }
     }
     /**
-     * Returns the Service Conditionals.
-     *
-     * @param mixed $value An array of conditionals to return
+     * @return string[]
      *
      * @internal
+     * @param mixed $value
      */
     public static function getServiceConditionals($value) : array
     {
@@ -1349,17 +1338,16 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             foreach ($value as $v) {
                 $services = \array_unique(\array_merge($services, self::getServiceConditionals($v)));
             }
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference && \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $value->getInvalidBehavior()) {
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference && \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $value->getInvalidBehavior()) {
             $services[] = (string) $value;
         }
         return $services;
     }
     /**
-     * Returns the initialized conditionals.
-     *
-     * @param mixed $value An array of conditionals to return
+     * @return string[]
      *
      * @internal
+     * @param mixed $value
      */
     public static function getInitializedConditionals($value) : array
     {
@@ -1368,37 +1356,35 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             foreach ($value as $v) {
                 $services = \array_unique(\array_merge($services, self::getInitializedConditionals($v)));
             }
-        } elseif ($value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Reference && \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $value->getInvalidBehavior()) {
+        } elseif ($value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Reference && \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $value->getInvalidBehavior()) {
             $services[] = (string) $value;
         }
         return $services;
     }
     /**
-     * Computes a reasonably unique hash of a value.
-     *
-     * @param mixed $value A serializable value
-     *
-     * @return string
+     * Computes a reasonably unique hash of a serializable value.
+     * @param mixed $value
      */
-    public static function hash($value)
+    public static function hash($value) : string
     {
         $hash = \substr(\base64_encode(\hash('sha256', \serialize($value), \true)), 0, 7);
         return \str_replace(['/', '+'], ['.', '_'], $hash);
     }
     /**
      * {@inheritdoc}
+     * @return mixed
      * @param string $name
      */
     protected function getEnv($name)
     {
         $value = parent::getEnv($name);
         $bag = $this->getParameterBag();
-        if (!\is_string($value) || !$bag instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
+        if (!\is_string($value) || !$bag instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
             return $value;
         }
         $envPlaceholders = $bag->getEnvPlaceholders();
         if (isset($envPlaceholders[$name][$value])) {
-            $bag = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($bag->all());
+            $bag = new \ECSPrefix20211130\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($bag->all());
             return $bag->unescapeValue($bag->get("env({$name})"));
         }
         foreach ($envPlaceholders as $env => $placeholders) {
@@ -1414,6 +1400,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         }
     }
     /**
+     * @return mixed
      * @param object $service
      */
     private function callMethod($service, array $call, array &$inlineServices)
@@ -1424,7 +1411,7 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             }
         }
         foreach (self::getInitializedConditionals($call[1]) as $s) {
-            if (!$this->doGet($s, \ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE, $inlineServices)) {
+            if (!$this->doGet($s, \ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE, $inlineServices)) {
                 return $service;
             }
         }
@@ -1432,11 +1419,9 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
         return empty($call[2]) ? $service : $result;
     }
     /**
-     * Shares a given service in the container.
-     *
      * @param mixed $service
      */
-    private function shareService(\ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition $definition, $service, ?string $id, array &$inlineServices)
+    private function shareService(\ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition $definition, $service, ?string $id, array &$inlineServices)
     {
         $inlineServices[$id ?? \spl_object_hash($definition)] = $service;
         if (null !== $id && $definition->isShared()) {
@@ -1444,25 +1429,23 @@ class ContainerBuilder extends \ECSPrefix20211128\Symfony\Component\DependencyIn
             unset($this->loading[$id]);
         }
     }
-    private function getExpressionLanguage() : \ECSPrefix20211128\Symfony\Component\DependencyInjection\ExpressionLanguage
+    private function getExpressionLanguage() : \ECSPrefix20211130\Symfony\Component\DependencyInjection\ExpressionLanguage
     {
-        if (null === $this->expressionLanguage) {
-            if (!\class_exists(\ECSPrefix20211128\Symfony\Component\ExpressionLanguage\ExpressionLanguage::class)) {
-                throw new \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
+        if (!isset($this->expressionLanguage)) {
+            if (!\class_exists(\ECSPrefix20211130\Symfony\Component\ExpressionLanguage\ExpressionLanguage::class)) {
+                throw new \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
             }
-            $this->expressionLanguage = new \ECSPrefix20211128\Symfony\Component\DependencyInjection\ExpressionLanguage(null, $this->expressionLanguageProviders);
+            $this->expressionLanguage = new \ECSPrefix20211130\Symfony\Component\DependencyInjection\ExpressionLanguage(null, $this->expressionLanguageProviders);
         }
         return $this->expressionLanguage;
     }
     private function inVendors(string $path) : bool
     {
-        if (null === $this->vendors) {
-            $this->vendors = (new \ECSPrefix20211128\Symfony\Component\Config\Resource\ComposerResource())->getVendors();
-        }
+        $this->vendors = $this->vendors ?? (new \ECSPrefix20211130\Symfony\Component\Config\Resource\ComposerResource())->getVendors();
         $path = \realpath($path) ?: $path;
         foreach ($this->vendors as $vendor) {
             if (\strncmp($path, $vendor, \strlen($vendor)) === 0 && \false !== \strpbrk(\substr($path, \strlen($vendor), 1), '/' . \DIRECTORY_SEPARATOR)) {
-                $this->addResource(new \ECSPrefix20211128\Symfony\Component\Config\Resource\FileResource($vendor . '/composer/installed.json'));
+                $this->addResource(new \ECSPrefix20211130\Symfony\Component\Config\Resource\FileResource($vendor . '/composer/installed.json'));
                 return \true;
             }
         }

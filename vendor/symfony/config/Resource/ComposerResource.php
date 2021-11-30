@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Resource;
+namespace ECSPrefix20211130\Symfony\Component\Config\Resource;
 
 /**
  * ComposerResource tracks the PHP version and Composer dependencies.
@@ -17,9 +17,15 @@ namespace ECSPrefix20211128\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class ComposerResource implements \ECSPrefix20211128\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class ComposerResource implements \ECSPrefix20211130\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
+    /**
+     * @var mixed[]
+     */
     private $vendors;
+    /**
+     * @var mixed[]
+     */
     private static $runtimeVendors;
     public function __construct()
     {

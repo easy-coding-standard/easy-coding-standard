@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Resource;
+namespace ECSPrefix20211130\Symfony\Component\Config\Resource;
 
-use ECSPrefix20211128\Symfony\Component\Finder\Finder;
-use ECSPrefix20211128\Symfony\Component\Finder\Glob;
+use ECSPrefix20211130\Symfony\Component\Finder\Finder;
+use ECSPrefix20211130\Symfony\Component\Finder\Glob;
 /**
  * GlobResource represents a set of resources stored on the filesystem.
  *
@@ -20,15 +20,38 @@ use ECSPrefix20211128\Symfony\Component\Finder\Glob;
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @final
+ *
+ * @implements \IteratorAggregate<string, \SplFileInfo>
  */
-class GlobResource implements \IteratorAggregate, \ECSPrefix20211128\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class GlobResource implements \IteratorAggregate, \ECSPrefix20211130\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
+    /**
+     * @var string
+     */
     private $prefix;
+    /**
+     * @var string
+     */
     private $pattern;
+    /**
+     * @var bool
+     */
     private $recursive;
+    /**
+     * @var string
+     */
     private $hash;
+    /**
+     * @var bool
+     */
     private $forExclusion;
+    /**
+     * @var mixed[]
+     */
     private $excludedPrefixes;
+    /**
+     * @var int
+     */
     private $globBrace;
     /**
      * @param string $prefix    A directory prefix
@@ -40,15 +63,16 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20211128\Symfony\Com
     public function __construct(string $prefix, string $pattern, bool $recursive, bool $forExclusion = \false, array $excludedPrefixes = [])
     {
         \ksort($excludedPrefixes);
-        $this->prefix = \realpath($prefix) ?: (\file_exists($prefix) ? $prefix : \false);
+        $resolvedPrefix = \realpath($prefix) ?: (\file_exists($prefix) ? $prefix : \false);
         $this->pattern = $pattern;
         $this->recursive = $recursive;
         $this->forExclusion = $forExclusion;
         $this->excludedPrefixes = $excludedPrefixes;
         $this->globBrace = \defined('GLOB_BRACE') ? \GLOB_BRACE : 0;
-        if (\false === $this->prefix) {
+        if (\false === $resolvedPrefix) {
             throw new \InvalidArgumentException(\sprintf('The path "%s" does not exist.', $prefix));
         }
+        $this->prefix = $resolvedPrefix;
     }
     public function getPrefix() : string
     {
@@ -65,9 +89,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20211128\Symfony\Com
     public function isFresh($timestamp) : bool
     {
         $hash = $this->computeHash();
-        if (null === $this->hash) {
-            $this->hash = $hash;
-        }
+        $this->hash = $this->hash ?? $hash;
         return $this->hash === $hash;
     }
     /**
@@ -75,9 +97,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20211128\Symfony\Com
      */
     public function __sleep() : array
     {
-        if (null === $this->hash) {
-            $this->hash = $this->computeHash();
-        }
+        $this->hash = $this->hash ?? $this->computeHash();
         return ['prefix', 'pattern', 'recursive', 'hash', 'forExclusion', 'excludedPrefixes'];
     }
     /**
@@ -140,11 +160,11 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20211128\Symfony\Com
             }
             return;
         }
-        if (!\class_exists(\ECSPrefix20211128\Symfony\Component\Finder\Finder::class)) {
+        if (!\class_exists(\ECSPrefix20211130\Symfony\Component\Finder\Finder::class)) {
             throw new \LogicException(\sprintf('Extended glob pattern "%s" cannot be used as the Finder component is not installed.', $this->pattern));
         }
-        $finder = new \ECSPrefix20211128\Symfony\Component\Finder\Finder();
-        $regex = \ECSPrefix20211128\Symfony\Component\Finder\Glob::toRegex($this->pattern);
+        $finder = new \ECSPrefix20211130\Symfony\Component\Finder\Finder();
+        $regex = \ECSPrefix20211130\Symfony\Component\Finder\Glob::toRegex($this->pattern);
         if ($this->recursive) {
             $regex = \substr_replace($regex, '(/|$)', -2, 1);
         }

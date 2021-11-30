@@ -8,41 +8,40 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20211130\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20211128\Symfony\Component\Config\Definition\BooleanNode;
-use ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+use ECSPrefix20211130\Symfony\Component\Config\Definition\BooleanNode;
+use ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
 /**
  * This class provides a fluent interface for defining a node.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class BooleanNodeDefinition extends \ECSPrefix20211128\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
+class BooleanNodeDefinition extends \ECSPrefix20211130\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
 {
     /**
      * {@inheritdoc}
      */
-    public function __construct(?string $name, \ECSPrefix20211128\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
+    public function __construct(?string $name, \ECSPrefix20211130\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
     {
         parent::__construct($name, $parent);
         $this->nullEquivalent = \true;
     }
     /**
      * Instantiate a Node.
-     *
-     * @return BooleanNode The node
      */
-    protected function instantiateNode()
+    protected function instantiateNode() : \ECSPrefix20211130\Symfony\Component\Config\Definition\ScalarNode
     {
-        return new \ECSPrefix20211128\Symfony\Component\Config\Definition\BooleanNode($this->name, $this->parent, $this->pathSeparator);
+        return new \ECSPrefix20211130\Symfony\Component\Config\Definition\BooleanNode($this->name, $this->parent, $this->pathSeparator);
     }
     /**
      * {@inheritdoc}
      *
      * @throws InvalidDefinitionException
+     * @return $this
      */
     public function cannotBeEmpty()
     {
-        throw new \ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException('->cannotBeEmpty() is not applicable to BooleanNodeDefinition.');
+        throw new \ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException('->cannotBeEmpty() is not applicable to BooleanNodeDefinition.');
     }
 }

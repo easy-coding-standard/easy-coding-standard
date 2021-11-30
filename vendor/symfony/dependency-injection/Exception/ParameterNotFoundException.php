@@ -8,20 +8,35 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception;
 
-use ECSPrefix20211128\Psr\Container\NotFoundExceptionInterface;
+use ECSPrefix20211130\Psr\Container\NotFoundExceptionInterface;
 /**
  * This exception is thrown when a non-existent parameter is used.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ParameterNotFoundException extends \ECSPrefix20211128\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException implements \ECSPrefix20211128\Psr\Container\NotFoundExceptionInterface
+class ParameterNotFoundException extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException implements \ECSPrefix20211130\Psr\Container\NotFoundExceptionInterface
 {
+    /**
+     * @var string
+     */
     private $key;
+    /**
+     * @var string|null
+     */
     private $sourceId;
+    /**
+     * @var string|null
+     */
     private $sourceKey;
+    /**
+     * @var mixed[]
+     */
     private $alternatives;
+    /**
+     * @var string|null
+     */
     private $nonNestedAlternative;
     /**
      * @param string          $key                  The requested parameter key

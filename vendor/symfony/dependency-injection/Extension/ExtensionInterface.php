@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Extension;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * ExtensionInterface is the interface implemented by container extension classes.
  *
@@ -29,7 +29,7 @@ interface ExtensionInterface
     /**
      * Returns the namespace to be used for this extension (XML namespace).
      *
-     * @return string The XML namespace
+     * @return string
      */
     public function getNamespace();
     /**
@@ -43,7 +43,7 @@ interface ExtensionInterface
      *
      * This alias is also the mandatory prefix to use when using YAML.
      *
-     * @return string The alias
+     * @return string
      */
     public function getAlias();
 }

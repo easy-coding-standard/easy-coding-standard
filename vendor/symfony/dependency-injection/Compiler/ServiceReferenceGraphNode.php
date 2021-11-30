@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition;
 /**
  * Represents a node in your service graph.
  *
@@ -21,13 +21,24 @@ use ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition;
  */
 class ServiceReferenceGraphNode
 {
+    /**
+     * @var string
+     */
     private $id;
+    /**
+     * @var mixed[]
+     */
     private $inEdges = [];
+    /**
+     * @var mixed[]
+     */
     private $outEdges = [];
+    /**
+     * @var mixed
+     */
     private $value;
     /**
-     * @param string $id    The node identifier
-     * @param mixed  $value The node value
+     * @param mixed $value
      */
     public function __construct(string $id, $value)
     {
@@ -50,28 +61,22 @@ class ServiceReferenceGraphNode
     }
     /**
      * Checks if the value of this node is an Alias.
-     *
-     * @return bool True if the value is an Alias instance
      */
-    public function isAlias()
+    public function isAlias() : bool
     {
-        return $this->value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Alias;
+        return $this->value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Alias;
     }
     /**
      * Checks if the value of this node is a Definition.
-     *
-     * @return bool True if the value is a Definition instance
      */
-    public function isDefinition()
+    public function isDefinition() : bool
     {
-        return $this->value instanceof \ECSPrefix20211128\Symfony\Component\DependencyInjection\Definition;
+        return $this->value instanceof \ECSPrefix20211130\Symfony\Component\DependencyInjection\Definition;
     }
     /**
      * Returns the identifier.
-     *
-     * @return string
      */
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
@@ -80,7 +85,7 @@ class ServiceReferenceGraphNode
      *
      * @return ServiceReferenceGraphEdge[]
      */
-    public function getInEdges()
+    public function getInEdges() : array
     {
         return $this->inEdges;
     }
@@ -89,14 +94,13 @@ class ServiceReferenceGraphNode
      *
      * @return ServiceReferenceGraphEdge[]
      */
-    public function getOutEdges()
+    public function getOutEdges() : array
     {
         return $this->outEdges;
     }
     /**
      * Returns the value of this Node.
-     *
-     * @return mixed The value
+     * @return mixed
      */
     public function getValue()
     {

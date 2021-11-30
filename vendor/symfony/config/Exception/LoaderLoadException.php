@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Exception;
+namespace ECSPrefix20211130\Symfony\Component\Config\Exception;
 
 /**
  * Exception class for when a resource cannot be loaded or imported.
@@ -20,16 +20,12 @@ class LoaderLoadException extends \Exception
     /**
      * @param string          $resource       The resource that could not be imported
      * @param string|null     $sourceResource The original resource importing the new resource
-     * @param int|null        $code           The error code
+     * @param int             $code           The error code
      * @param \Throwable|null $previous       A previous exception
      * @param string|null     $type           The type of resource
      */
-    public function __construct(string $resource, string $sourceResource = null, ?int $code = 0, \Throwable $previous = null, string $type = null)
+    public function __construct(string $resource, string $sourceResource = null, int $code = 0, \Throwable $previous = null, string $type = null)
     {
-        if (null === $code) {
-            trigger_deprecation('symfony/config', '5.3', 'Passing null as $code to "%s()" is deprecated, pass 0 instead.', __METHOD__);
-            $code = 0;
-        }
         $message = '';
         if ($previous) {
             // Include the previous exception, to help the user see what might be the underlying cause
@@ -70,6 +66,9 @@ class LoaderLoadException extends \Exception
         }
         parent::__construct($message, $code, $previous);
     }
+    /**
+     * @param mixed $var
+     */
     protected function varToString($var)
     {
         if (\is_object($var)) {

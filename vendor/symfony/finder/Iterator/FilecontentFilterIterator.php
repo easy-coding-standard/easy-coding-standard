@@ -8,20 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20211130\Symfony\Component\Finder\Iterator;
 
 /**
  * FilecontentFilterIterator filters files by their contents using patterns (regexps or strings).
  *
  * @author Fabien Potencier  <fabien@symfony.com>
  * @author Włodzimierz Gajda <gajdaw@gajdaw.pl>
+ *
+ * @extends MultiplePcreFilterIterator<string, \SplFileInfo>
  */
-class FilecontentFilterIterator extends \ECSPrefix20211128\Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator
+class FilecontentFilterIterator extends \ECSPrefix20211130\Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator
 {
     /**
      * Filters the iterator values.
      *
-     * @return bool true if the value should be kept, false otherwise
+     * @return bool
      */
     #[\ReturnTypeWillChange]
     public function accept()
@@ -44,7 +46,7 @@ class FilecontentFilterIterator extends \ECSPrefix20211128\Symfony\Component\Fin
      *
      * @param string $str Pattern: string or regexp
      *
-     * @return string regexp corresponding to a given string or regexp
+     * @return string
      */
     protected function toRegex($str)
     {

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Finder\Comparator;
+namespace ECSPrefix20211130\Symfony\Component\Finder\Comparator;
 
 /**
  * DateCompare compiles date comparisons.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class DateComparator extends \ECSPrefix20211128\Symfony\Component\Finder\Comparator\Comparator
+class DateComparator extends \ECSPrefix20211130\Symfony\Component\Finder\Comparator\Comparator
 {
     /**
      * @param string $test A comparison string
@@ -40,7 +40,6 @@ class DateComparator extends \ECSPrefix20211128\Symfony\Component\Finder\Compara
         if ('until' === $operator || 'before' === $operator) {
             $operator = '<';
         }
-        $this->setOperator($operator);
-        $this->setTarget($target);
+        parent::__construct($target, $operator);
     }
 }

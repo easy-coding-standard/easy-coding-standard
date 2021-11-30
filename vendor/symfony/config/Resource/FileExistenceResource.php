@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Resource;
+namespace ECSPrefix20211130\Symfony\Component\Config\Resource;
 
 /**
  * FileExistenceResource represents a resource stored on the filesystem.
@@ -20,9 +20,15 @@ namespace ECSPrefix20211128\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class FileExistenceResource implements \ECSPrefix20211128\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class FileExistenceResource implements \ECSPrefix20211130\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
+    /**
+     * @var string
+     */
     private $resource;
+    /**
+     * @var bool
+     */
     private $exists;
     /**
      * @param string $resource The file path to the resource
@@ -36,9 +42,6 @@ class FileExistenceResource implements \ECSPrefix20211128\Symfony\Component\Conf
     {
         return $this->resource;
     }
-    /**
-     * @return string The file path to the resource
-     */
     public function getResource() : string
     {
         return $this->resource;

@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20211128\React\Socket;
+namespace ECSPrefix20211130\React\Socket;
 
-use ECSPrefix20211128\React\EventLoop\LoopInterface;
-use ECSPrefix20211128\React\Promise\Deferred;
+use ECSPrefix20211130\React\EventLoop\LoopInterface;
+use ECSPrefix20211130\React\Promise\Deferred;
 use RuntimeException;
 use UnexpectedValueException;
 /**
@@ -17,7 +17,7 @@ class StreamEncryption
     private $loop;
     private $method;
     private $server;
-    public function __construct(\ECSPrefix20211128\React\EventLoop\LoopInterface $loop, $server = \true)
+    public function __construct(\ECSPrefix20211130\React\EventLoop\LoopInterface $loop, $server = \true)
     {
         $this->loop = $loop;
         $this->server = $server;
@@ -56,7 +56,7 @@ class StreamEncryption
         $stream->pause();
         // TODO: add write() event to make sure we're not sending any excessive data
         // cancelling this leaves this stream in an inconsistent state…
-        $deferred = new \ECSPrefix20211128\React\Promise\Deferred(function () {
+        $deferred = new \ECSPrefix20211130\React\Promise\Deferred(function () {
             throw new \RuntimeException();
         });
         // get actual stream socket from stream instance
@@ -112,10 +112,10 @@ class StreamEncryption
                 $deferred = null;
                 if (\feof($socket) || $error === null) {
                     // EOF or failed without error => connection closed during handshake
-                    $d->reject(new \UnexpectedValueException('Connection lost during TLS handshake', \defined('SOCKET_ECONNRESET') ? \SOCKET_ECONNRESET : 0));
+                    $d->reject(new \UnexpectedValueException('Connection lost during TLS handshake (ECONNRESET)', \defined('SOCKET_ECONNRESET') ? \SOCKET_ECONNRESET : 104));
                 } else {
                     // handshake failed with error message
-                    $d->reject(new \UnexpectedValueException('Unable to complete TLS handshake: ' . $error));
+                    $d->reject(new \UnexpectedValueException($error));
                 }
             } else {
                 // need more data, will retry

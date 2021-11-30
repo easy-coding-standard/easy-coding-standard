@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Definition;
+namespace ECSPrefix20211130\Symfony\Component\Config\Definition;
 
-use ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
-use ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix20211128\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
+use ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix20211130\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 /**
  * Common Interface among all nodes.
  *
@@ -25,67 +25,52 @@ interface NodeInterface
 {
     /**
      * Returns the name of the node.
-     *
-     * @return string The name of the node
      */
-    public function getName();
+    public function getName() : string;
     /**
      * Returns the path of the node.
-     *
-     * @return string The node path
      */
-    public function getPath();
+    public function getPath() : string;
     /**
      * Returns true when the node is required.
-     *
-     * @return bool If the node is required
      */
-    public function isRequired();
+    public function isRequired() : bool;
     /**
      * Returns true when the node has a default value.
-     *
-     * @return bool If the node has a default value
      */
-    public function hasDefaultValue();
+    public function hasDefaultValue() : bool;
     /**
      * Returns the default value of the node.
      *
-     * @return mixed The default value
-     *
      * @throws \RuntimeException if the node has no default value
+     * @return mixed
      */
     public function getDefaultValue();
     /**
      * Normalizes a value.
      *
-     * @param mixed $value The value to normalize
-     *
-     * @return mixed The normalized value
-     *
      * @throws InvalidTypeException if the value type is invalid
+     * @param mixed $value
+     * @return mixed
      */
     public function normalize($value);
     /**
      * Merges two values together.
      *
-     * @param mixed $leftSide
-     * @param mixed $rightSide
-     *
-     * @return mixed The merged value
-     *
      * @throws ForbiddenOverwriteException if the configuration path cannot be overwritten
      * @throws InvalidTypeException        if the value type is invalid
+     * @param mixed $leftSide
+     * @param mixed $rightSide
+     * @return mixed
      */
     public function merge($leftSide, $rightSide);
     /**
      * Finalizes a value.
      *
-     * @param mixed $value The value to finalize
-     *
-     * @return mixed The finalized value
-     *
      * @throws InvalidTypeException          if the value type is invalid
      * @throws InvalidConfigurationException if the value is invalid configuration
+     * @param mixed $value
+     * @return mixed
      */
     public function finalize($value);
 }

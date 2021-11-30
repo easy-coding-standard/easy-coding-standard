@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211128\Psr\Container;
+namespace ECSPrefix20211130\Psr\Container;
 
 /**
  * Describes the interface of a container that exposes methods to read its entries.
@@ -30,5 +30,5 @@ interface ContainerInterface
      *
      * @return bool
      */
-    public function has($id);
+    public function has($id) : bool;
 }

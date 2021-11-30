@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Builder;
+namespace ECSPrefix20211130\Symfony\Component\Config\Builder;
 
 /**
  * Build PHP classes to generate config.
@@ -19,17 +19,34 @@ namespace ECSPrefix20211128\Symfony\Component\Config\Builder;
  */
 class ClassBuilder
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $namespace;
-    /** @var string */
+    /**
+     * @var string
+     */
     private $name;
     /** @var Property[] */
     private $properties = [];
     /** @var Method[] */
     private $methods = [];
+    /**
+     * @var mixed[]
+     */
     private $require = [];
+    /**
+     * @var mixed[]
+     */
     private $use = [];
+    /**
+     * @var mixed[]
+     */
     private $implements = [];
+    /**
+     * @var bool
+     */
+    private $allowExtraKeys = \false;
     public function __construct(string $namespace, string $name)
     {
         $this->namespace = $namespace;
@@ -83,8 +100,6 @@ USE
 
 /**
  * This class is automatically generated to help creating config.
- *
- * @experimental in 5.3
  */
 class CLASS IMPLEMENTS
 {
@@ -121,15 +136,15 @@ BODY
      */
     public function addMethod($name, $body, $params = []) : void
     {
-        $this->methods[] = new \ECSPrefix20211128\Symfony\Component\Config\Builder\Method(\strtr($body, ['NAME' => $this->camelCase($name)] + $params));
+        $this->methods[] = new \ECSPrefix20211130\Symfony\Component\Config\Builder\Method(\strtr($body, ['NAME' => $this->camelCase($name)] + $params));
     }
     /**
      * @param string $name
      * @param string|null $classType
      */
-    public function addProperty($name, $classType = null) : \ECSPrefix20211128\Symfony\Component\Config\Builder\Property
+    public function addProperty($name, $classType = null) : \ECSPrefix20211130\Symfony\Component\Config\Builder\Property
     {
-        $property = new \ECSPrefix20211128\Symfony\Component\Config\Builder\Property($name, $this->camelCase($name));
+        $property = new \ECSPrefix20211130\Symfony\Component\Config\Builder\Property($name, '_' !== $name[0] ? $this->camelCase($name) : $name);
         if (null !== $classType) {
             $property->setType($classType);
         }
@@ -157,5 +172,16 @@ BODY
     public function getFqcn() : string
     {
         return '\\' . $this->namespace . '\\' . $this->name;
+    }
+    /**
+     * @param bool $allowExtraKeys
+     */
+    public function setAllowExtraKeys($allowExtraKeys) : void
+    {
+        $this->allowExtraKeys = $allowExtraKeys;
+    }
+    public function shouldAllowExtraKeys() : bool
+    {
+        return $this->allowExtraKeys;
     }
 }

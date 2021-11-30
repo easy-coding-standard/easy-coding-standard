@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Console\Event;
+namespace ECSPrefix20211130\Symfony\Component\Console\Event;
 
-use ECSPrefix20211128\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211128\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211128\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20211128\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20211130\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211130\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211130\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211130\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Allows to inspect input and output of a command.
  *
  * @author Francesco Levorato <git@flevour.net>
  */
-class ConsoleEvent extends \ECSPrefix20211128\Symfony\Contracts\EventDispatcher\Event
+class ConsoleEvent extends \ECSPrefix20211130\Symfony\Contracts\EventDispatcher\Event
 {
     protected $command;
     private $input;
     private $output;
-    public function __construct(?\ECSPrefix20211128\Symfony\Component\Console\Command\Command $command, \ECSPrefix20211128\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211128\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(?\ECSPrefix20211130\Symfony\Component\Console\Command\Command $command, \ECSPrefix20211130\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211130\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->command = $command;
         $this->input = $input;
@@ -33,7 +33,7 @@ class ConsoleEvent extends \ECSPrefix20211128\Symfony\Contracts\EventDispatcher\
     /**
      * Gets the command that is executed.
      *
-     * @return Command|null A Command instance
+     * @return Command|null
      */
     public function getCommand()
     {
@@ -42,7 +42,7 @@ class ConsoleEvent extends \ECSPrefix20211128\Symfony\Contracts\EventDispatcher\
     /**
      * Gets the input instance.
      *
-     * @return InputInterface An InputInterface instance
+     * @return InputInterface
      */
     public function getInput()
     {
@@ -51,7 +51,7 @@ class ConsoleEvent extends \ECSPrefix20211128\Symfony\Contracts\EventDispatcher\
     /**
      * Gets the output instance.
      *
-     * @return OutputInterface An OutputInterface instance
+     * @return OutputInterface
      */
     public function getOutput()
     {

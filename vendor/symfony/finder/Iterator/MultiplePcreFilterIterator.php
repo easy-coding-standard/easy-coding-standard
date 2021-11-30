@@ -8,12 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20211130\Symfony\Component\Finder\Iterator;
 
 /**
  * MultiplePcreFilterIterator filters files using patterns (regexps, globs or strings).
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @template-covariant TKey
+ * @template-covariant TValue
+ *
+ * @extends \FilterIterator<TKey, TValue>
  */
 abstract class MultiplePcreFilterIterator extends \FilterIterator
 {

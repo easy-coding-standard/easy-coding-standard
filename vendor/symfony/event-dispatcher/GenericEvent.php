@@ -8,17 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20211130\Symfony\Component\EventDispatcher;
 
-use ECSPrefix20211128\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20211130\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Event encapsulation class.
  *
  * Encapsulates events thus decoupling the observer from the subject they encapsulate.
  *
  * @author Drak <drak@zikula.org>
+ *
+ * @implements \ArrayAccess<string, mixed>
+ * @implements \IteratorAggregate<string, mixed>
  */
-class GenericEvent extends \ECSPrefix20211128\Symfony\Contracts\EventDispatcher\Event implements \ArrayAccess, \IteratorAggregate
+class GenericEvent extends \ECSPrefix20211130\Symfony\Contracts\EventDispatcher\Event implements \ArrayAccess, \IteratorAggregate
 {
     protected $subject;
     protected $arguments;
@@ -36,7 +39,7 @@ class GenericEvent extends \ECSPrefix20211128\Symfony\Contracts\EventDispatcher\
     /**
      * Getter for subject property.
      *
-     * @return mixed The observer subject
+     * @return mixed
      */
     public function getSubject()
     {
@@ -45,7 +48,7 @@ class GenericEvent extends \ECSPrefix20211128\Symfony\Contracts\EventDispatcher\
     /**
      * Get argument by key.
      *
-     * @return mixed Contents of array key
+     * @return mixed
      *
      * @throws \InvalidArgumentException if key is not found
      * @param string $key
@@ -156,7 +159,7 @@ class GenericEvent extends \ECSPrefix20211128\Symfony\Contracts\EventDispatcher\
     /**
      * IteratorAggregate for iterating over the object like an array.
      *
-     * @return \ArrayIterator
+     * @return \ArrayIterator<string, mixed>
      */
     #[\ReturnTypeWillChange]
     public function getIterator()

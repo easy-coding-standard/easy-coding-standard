@@ -8,13 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Process;
+namespace ECSPrefix20211130\Symfony\Component\Process;
 
-use ECSPrefix20211128\Symfony\Component\Process\Exception\RuntimeException;
+use ECSPrefix20211130\Symfony\Component\Process\Exception\RuntimeException;
 /**
  * Provides a way to continuously write to the input of a Process until the InputStream is closed.
  *
  * @author Nicolas Grekas <p@tchwork.com>
+ *
+ * @implements \IteratorAggregate<int, string>
  */
 class InputStream implements \IteratorAggregate
 {
@@ -42,9 +44,9 @@ class InputStream implements \IteratorAggregate
             return;
         }
         if ($this->isClosed()) {
-            throw new \ECSPrefix20211128\Symfony\Component\Process\Exception\RuntimeException(\sprintf('"%s" is closed.', static::class));
+            throw new \ECSPrefix20211130\Symfony\Component\Process\Exception\RuntimeException(\sprintf('"%s" is closed.', static::class));
         }
-        $this->input[] = \ECSPrefix20211128\Symfony\Component\Process\ProcessUtils::validateInput(__METHOD__, $input);
+        $this->input[] = \ECSPrefix20211130\Symfony\Component\Process\ProcessUtils::validateInput(__METHOD__, $input);
     }
     /**
      * Closes the write buffer.
@@ -61,7 +63,7 @@ class InputStream implements \IteratorAggregate
         return !$this->open;
     }
     /**
-     * @return \Traversable
+     * @return \Traversable<int, string>
      */
     #[\ReturnTypeWillChange]
     public function getIterator()

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Resource;
+namespace ECSPrefix20211130\Symfony\Component\Config\Resource;
 
 /**
  * DirectoryResource represents a resources stored in a subdirectory tree.
@@ -17,9 +17,15 @@ namespace ECSPrefix20211128\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class DirectoryResource implements \ECSPrefix20211128\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class DirectoryResource implements \ECSPrefix20211130\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
+    /**
+     * @var string
+     */
     private $resource;
+    /**
+     * @var string|null
+     */
     private $pattern;
     /**
      * @param string      $resource The file path to the resource
@@ -29,26 +35,21 @@ class DirectoryResource implements \ECSPrefix20211128\Symfony\Component\Config\R
      */
     public function __construct(string $resource, string $pattern = null)
     {
-        $this->resource = \realpath($resource) ?: (\file_exists($resource) ? $resource : \false);
+        $resolvedResource = \realpath($resource) ?: (\file_exists($resource) ? $resource : \false);
         $this->pattern = $pattern;
-        if (\false === $this->resource || !\is_dir($this->resource)) {
+        if (\false === $resolvedResource || !\is_dir($resolvedResource)) {
             throw new \InvalidArgumentException(\sprintf('The directory "%s" does not exist.', $resource));
         }
+        $this->resource = $resolvedResource;
     }
     public function __toString() : string
     {
         return \md5(\serialize([$this->resource, $this->pattern]));
     }
-    /**
-     * @return string The file path to the resource
-     */
     public function getResource() : string
     {
         return $this->resource;
     }
-    /**
-     * Returns the pattern to restrict monitored files.
-     */
     public function getPattern() : ?string
     {
         return $this->pattern;

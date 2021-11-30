@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\Config\Loader;
+namespace ECSPrefix20211130\Symfony\Component\Config\Loader;
 
 /**
  * Placeholder for a parameter.
@@ -17,6 +17,9 @@ namespace ECSPrefix20211128\Symfony\Component\Config\Loader;
  */
 class ParamConfigurator
 {
+    /**
+     * @var string
+     */
     private $name;
     public function __construct(string $name)
     {

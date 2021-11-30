@@ -8,18 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211128\Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Argument;
 
-use ECSPrefix20211128\Symfony\Component\DependencyInjection\ServiceLocator as BaseServiceLocator;
+use ECSPrefix20211130\Symfony\Component\DependencyInjection\ServiceLocator as BaseServiceLocator;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @internal
  */
-class ServiceLocator extends \ECSPrefix20211128\Symfony\Component\DependencyInjection\ServiceLocator
+class ServiceLocator extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\ServiceLocator
 {
+    /**
+     * @var \Closure
+     */
     private $factory;
+    /**
+     * @var mixed[]
+     */
     private $serviceMap;
+    /**
+     * @var mixed[]|null
+     */
     private $serviceTypes;
     public function __construct(\Closure $factory, array $serviceMap, array $serviceTypes = null)
     {
@@ -30,7 +39,6 @@ class ServiceLocator extends \ECSPrefix20211128\Symfony\Component\DependencyInje
     }
     /**
      * {@inheritdoc}
-     *
      * @return mixed
      * @param string $id
      */

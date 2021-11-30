@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20211128\React\Socket;
+namespace ECSPrefix20211130\React\Socket;
 
-use ECSPrefix20211128\Evenement\EventEmitter;
-use ECSPrefix20211128\React\EventLoop\LoopInterface;
-final class SocketServer extends \ECSPrefix20211128\Evenement\EventEmitter implements \ECSPrefix20211128\React\Socket\ServerInterface
+use ECSPrefix20211130\Evenement\EventEmitter;
+use ECSPrefix20211130\React\EventLoop\LoopInterface;
+final class SocketServer extends \ECSPrefix20211130\Evenement\EventEmitter implements \ECSPrefix20211130\React\Socket\ServerInterface
 {
     private $server;
     /**
@@ -29,7 +29,7 @@ final class SocketServer extends \ECSPrefix20211128\Evenement\EventEmitter imple
      * @throws \InvalidArgumentException if the listening address is invalid
      * @throws \RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($uri, array $context = array(), \ECSPrefix20211128\React\EventLoop\LoopInterface $loop = null)
+    public function __construct($uri, array $context = array(), \ECSPrefix20211130\React\EventLoop\LoopInterface $loop = null)
     {
         // apply default options if not explicitly given
         $context += array('tcp' => array(), 'tls' => array(), 'unix' => array());
@@ -39,19 +39,21 @@ final class SocketServer extends \ECSPrefix20211128\Evenement\EventEmitter imple
             $scheme = \substr($uri, 0, $pos);
         }
         if ($scheme === 'unix') {
-            $server = new \ECSPrefix20211128\React\Socket\UnixServer($uri, $loop, $context['unix']);
+            $server = new \ECSPrefix20211130\React\Socket\UnixServer($uri, $loop, $context['unix']);
+        } elseif ($scheme === 'php') {
+            $server = new \ECSPrefix20211130\React\Socket\FdServer($uri, $loop);
         } else {
             if (\preg_match('#^(?:\\w+://)?\\d+$#', $uri)) {
-                throw new \InvalidArgumentException('Invalid URI given');
+                throw new \InvalidArgumentException('Invalid URI given (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22);
             }
-            $server = new \ECSPrefix20211128\React\Socket\TcpServer(\str_replace('tls://', '', $uri), $loop, $context['tcp']);
+            $server = new \ECSPrefix20211130\React\Socket\TcpServer(\str_replace('tls://', '', $uri), $loop, $context['tcp']);
             if ($scheme === 'tls') {
-                $server = new \ECSPrefix20211128\React\Socket\SecureServer($server, $loop, $context['tls']);
+                $server = new \ECSPrefix20211130\React\Socket\SecureServer($server, $loop, $context['tls']);
             }
         }
         $this->server = $server;
         $that = $this;
-        $server->on('connection', function (\ECSPrefix20211128\React\Socket\ConnectionInterface $conn) use($that) {
+        $server->on('connection', function (\ECSPrefix20211130\React\Socket\ConnectionInterface $conn) use($that) {
             $that->emit('connection', array($conn));
         });
         $server->on('error', function (\Exception $error) use($that) {
@@ -73,5 +75,83 @@ final class SocketServer extends \ECSPrefix20211128\Evenement\EventEmitter imple
     public function close()
     {
         $this->server->close();
+    }
+    /**
+     * [internal] Internal helper method to accept new connection from given server socket
+     *
+     * @param resource $socket server socket to accept connection from
+     * @return resource new client socket if any
+     * @throws \RuntimeException if accepting fails
+     * @internal
+     */
+    public static function accept($socket)
+    {
+        $newSocket = @\stream_socket_accept($socket, 0);
+        if (\false === $newSocket) {
+            // Match errstr from PHP's warning message.
+            // stream_socket_accept(): accept failed: Connection timed out
+            $error = \error_get_last();
+            $errstr = \preg_replace('#.*: #', '', $error['message']);
+            $errno = self::errno($errstr);
+            throw new \RuntimeException('Unable to accept new connection: ' . $errstr . self::errconst($errno), $errno);
+        }
+        return $newSocket;
+    }
+    /**
+     * [Internal] Returns errno value for given errstr
+     *
+     * The errno and errstr values describes the type of error that has been
+     * encountered. This method tries to look up the given errstr and find a
+     * matching errno value which can be useful to provide more context to error
+     * messages. It goes through the list of known errno constants when
+     * ext-sockets is available to find an errno matching the given errstr.
+     *
+     * @param string $errstr
+     * @return int errno value (e.g. value of `SOCKET_ECONNREFUSED`) or 0 if not found
+     * @internal
+     * @copyright Copyright (c) 2018 Christian Lück, taken from https://github.com/clue/errno with permission
+     * @codeCoverageIgnore
+     */
+    public static function errno($errstr)
+    {
+        if (\function_exists('socket_strerror')) {
+            foreach (\get_defined_constants(\false) as $name => $value) {
+                if (\strpos($name, 'SOCKET_E') === 0 && \socket_strerror($value) === $errstr) {
+                    return $value;
+                }
+            }
+        }
+        return 0;
+    }
+    /**
+     * [Internal] Returns errno constant name for given errno value
+     *
+     * The errno value describes the type of error that has been encountered.
+     * This method tries to look up the given errno value and find a matching
+     * errno constant name which can be useful to provide more context and more
+     * descriptive error messages. It goes through the list of known errno
+     * constants when ext-sockets is available to find the matching errno
+     * constant name.
+     *
+     * Because this method is used to append more context to error messages, the
+     * constant name will be prefixed with a space and put between parenthesis
+     * when found.
+     *
+     * @param int $errno
+     * @return string e.g. ` (ECONNREFUSED)` or empty string if no matching const for the given errno could be found
+     * @internal
+     * @copyright Copyright (c) 2018 Christian Lück, taken from https://github.com/clue/errno with permission
+     * @codeCoverageIgnore
+     */
+    public static function errconst($errno)
+    {
+        if (\function_exists('socket_strerror')) {
+            foreach (\get_defined_constants(\false) as $name => $value) {
+                if ($value === $errno && \strpos($name, 'SOCKET_E') === 0) {
+                    return ' (' . \substr($name, 7) . ')';
+                }
+            }
+        }
+        return '';
     }
 }
