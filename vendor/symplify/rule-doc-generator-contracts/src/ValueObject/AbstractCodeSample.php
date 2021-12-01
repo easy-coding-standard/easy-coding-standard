@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211130\Symplify\RuleDocGenerator\ValueObject;
+namespace ECSPrefix20211201\Symplify\RuleDocGenerator\ValueObject;
 
-use ECSPrefix20211130\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use ECSPrefix20211130\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
-abstract class AbstractCodeSample implements \ECSPrefix20211130\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
+use ECSPrefix20211201\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use ECSPrefix20211201\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
+abstract class AbstractCodeSample implements \ECSPrefix20211201\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
 {
     /**
      * @var non-empty-string
@@ -20,14 +20,14 @@ abstract class AbstractCodeSample implements \ECSPrefix20211130\Symplify\RuleDoc
         $badCode = \trim($badCode);
         $goodCode = \trim($goodCode);
         if ($badCode === '') {
-            throw new \ECSPrefix20211130\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException('Bad sample good code cannot be empty');
+            throw new \ECSPrefix20211201\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException('Bad sample good code cannot be empty');
         }
         if ($goodCode === '') {
-            throw new \ECSPrefix20211130\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException('Good sample good code cannot be empty');
+            throw new \ECSPrefix20211201\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException('Good sample good code cannot be empty');
         }
         if ($goodCode === $badCode) {
             $errorMessage = \sprintf('Good and bad code cannot be identical: "%s"', $goodCode);
-            throw new \ECSPrefix20211130\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($errorMessage);
+            throw new \ECSPrefix20211201\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($errorMessage);
         }
         $this->goodCode = $goodCode;
         $this->badCode = $badCode;

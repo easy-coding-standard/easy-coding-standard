@@ -6,9 +6,9 @@
     "require": {
         "php": ">=8.0",
         "nette\/utils": "^3.2",
-        "symfony\/config": "^5.3|^6.0",
-        "symfony\/dependency-injection": "^5.3|^6.0",
-        "symfony\/filesystem": "^5.3|^6.0",
+        "symfony\/config": "^5.4|^6.0",
+        "symfony\/dependency-injection": "^5.4|^6.0",
+        "symfony\/filesystem": "^5.4|^6.0",
         "symplify\/package-builder": "dev-main",
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/smart-file-system": "dev-main"
@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211130\\Symplify\\ComposerJsonManipulator\\": "src"
+            "ECSPrefix20211201\\Symplify\\ComposerJsonManipulator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20211130\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
+            "ECSPrefix20211201\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
         }
     },
     "extra": {

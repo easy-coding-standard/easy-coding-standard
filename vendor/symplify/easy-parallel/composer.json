@@ -8,7 +8,7 @@
         "react\/child-process": "^0.6.3",
         "react\/event-loop": "^1.2",
         "react\/socket": "^1.9",
-        "symfony\/console": "^5.3|^6.0",
+        "symfony\/console": "^5.4|^6.0",
         "symplify\/package-builder": "dev-main"
     },
     "require-dev": {
@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211130\\Symplify\\EasyParallel\\": "src"
+            "ECSPrefix20211201\\Symplify\\EasyParallel\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20211130\\Symplify\\EasyParallel\\Tests\\": "tests"
+            "ECSPrefix20211201\\Symplify\\EasyParallel\\Tests\\": "tests"
         }
     },
     "extra": {

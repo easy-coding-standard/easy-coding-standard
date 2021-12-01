@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211130\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20211201\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211201\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ParametersConfigurator extends \ECSPrefix20211130\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
+class ParametersConfigurator extends \ECSPrefix20211201\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
     public const FACTORY = 'parameters';
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerBuilder
      */
     private $container;
-    public function __construct(\ECSPrefix20211130\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function __construct(\ECSPrefix20211201\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
     }
