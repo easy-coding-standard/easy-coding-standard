@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211201\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211202\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211201\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20211201\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211202\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix20211202\Symfony\Component\DependencyInjection\Definition;
 /**
  * Represents a node in your service graph.
  *
@@ -64,14 +64,14 @@ class ServiceReferenceGraphNode
      */
     public function isAlias() : bool
     {
-        return $this->value instanceof \ECSPrefix20211201\Symfony\Component\DependencyInjection\Alias;
+        return $this->value instanceof \ECSPrefix20211202\Symfony\Component\DependencyInjection\Alias;
     }
     /**
      * Checks if the value of this node is a Definition.
      */
     public function isDefinition() : bool
     {
-        return $this->value instanceof \ECSPrefix20211201\Symfony\Component\DependencyInjection\Definition;
+        return $this->value instanceof \ECSPrefix20211202\Symfony\Component\DependencyInjection\Definition;
     }
     /**
      * Returns the identifier.
