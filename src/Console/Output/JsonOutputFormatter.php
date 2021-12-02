@@ -50,21 +50,21 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
      */
     public function createJsonContent($errorAndDiffResult) : string
     {
-        $errorsArray = $this->createBaseErrorsArray($errorAndDiffResult);
+        $errorsArrayJson = $this->createBaseErrorsJson($errorAndDiffResult);
         $codingStandardErrors = $errorAndDiffResult->getErrors();
         foreach ($codingStandardErrors as $codingStandardError) {
-            $errorsArray[self::FILES][$codingStandardError->getRelativeFilePath()]['errors'][] = ['line' => $codingStandardError->getLine(), 'file_path' => $codingStandardError->getRelativeFilePath(), 'message' => $codingStandardError->getMessage(), 'source_class' => $codingStandardError->getCheckerClass()];
+            $errorsArrayJson[self::FILES][$codingStandardError->getRelativeFilePath()]['errors'][] = ['line' => $codingStandardError->getLine(), 'file_path' => $codingStandardError->getRelativeFilePath(), 'message' => $codingStandardError->getMessage(), 'source_class' => $codingStandardError->getCheckerClass()];
         }
         $fileDiffs = $errorAndDiffResult->getFileDiffs();
         foreach ($fileDiffs as $fileDiff) {
-            $errorsArray[self::FILES][$fileDiff->getRelativeFilePath()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
+            $errorsArrayJson[self::FILES][$fileDiff->getRelativeFilePath()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
         }
-        return \ECSPrefix20211202\Nette\Utils\Json::encode($errorsArray, \ECSPrefix20211202\Nette\Utils\Json::PRETTY);
+        return \ECSPrefix20211202\Nette\Utils\Json::encode($errorsArrayJson, \ECSPrefix20211202\Nette\Utils\Json::PRETTY);
     }
     /**
      * @return mixed[]
      */
-    private function createBaseErrorsArray(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : array
+    private function createBaseErrorsJson(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : array
     {
         return ['totals' => ['errors' => $errorAndDiffResult->getErrorCount(), 'diffs' => $errorAndDiffResult->getFileDiffsCount()], self::FILES => []];
     }
