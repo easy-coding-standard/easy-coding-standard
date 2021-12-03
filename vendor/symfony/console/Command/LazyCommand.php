@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211202\Symfony\Component\Console\Command;
+namespace ECSPrefix20211203\Symfony\Component\Console\Command;
 
-use ECSPrefix20211202\Symfony\Component\Console\Application;
-use ECSPrefix20211202\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix20211202\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix20211202\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix20211202\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20211202\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211202\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211203\Symfony\Component\Console\Application;
+use ECSPrefix20211203\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix20211203\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix20211203\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix20211203\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20211203\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211203\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class LazyCommand extends \ECSPrefix20211202\Symfony\Component\Console\Command\Command
+final class LazyCommand extends \ECSPrefix20211203\Symfony\Component\Console\Command\Command
 {
     private $command;
     private $isEnabled;
@@ -99,11 +99,11 @@ final class LazyCommand extends \ECSPrefix20211202\Symfony\Component\Console\Com
         $this->getCommand()->setDefinition($definition);
         return $this;
     }
-    public function getDefinition() : \ECSPrefix20211202\Symfony\Component\Console\Input\InputDefinition
+    public function getDefinition() : \ECSPrefix20211203\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getDefinition();
     }
-    public function getNativeDefinition() : \ECSPrefix20211202\Symfony\Component\Console\Input\InputDefinition
+    public function getNativeDefinition() : \ECSPrefix20211203\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getNativeDefinition();
     }

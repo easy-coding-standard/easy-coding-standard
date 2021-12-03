@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211202\Symplify\Skipper\Contract;
+namespace ECSPrefix20211203\Symplify\Skipper\Contract;
 
-use ECSPrefix20211202\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20211203\Symplify\SmartFileSystem\SmartFileInfo;
 interface SkipVoterInterface
 {
     /**
