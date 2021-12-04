@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20211203\React\EventLoop;
+namespace ECSPrefix20211204\React\EventLoop;
 
 use Ev;
 use EvIo;
 use EvLoop;
-use ECSPrefix20211203\React\EventLoop\Tick\FutureTickQueue;
-use ECSPrefix20211203\React\EventLoop\Timer\Timer;
+use ECSPrefix20211204\React\EventLoop\Tick\FutureTickQueue;
+use ECSPrefix20211204\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-ev` based event loop.
@@ -20,7 +20,7 @@ use SplObjectStorage;
  * @see http://php.net/manual/en/book.ev.php
  * @see https://bitbucket.org/osmanov/pecl-ev/overview
  */
-class ExtEvLoop implements \ECSPrefix20211203\React\EventLoop\LoopInterface
+class ExtEvLoop implements \ECSPrefix20211204\React\EventLoop\LoopInterface
 {
     /**
      * @var EvLoop
@@ -57,9 +57,9 @@ class ExtEvLoop implements \ECSPrefix20211203\React\EventLoop\LoopInterface
     public function __construct()
     {
         $this->loop = new \EvLoop();
-        $this->futureTickQueue = new \ECSPrefix20211203\React\EventLoop\Tick\FutureTickQueue();
+        $this->futureTickQueue = new \ECSPrefix20211204\React\EventLoop\Tick\FutureTickQueue();
         $this->timers = new \SplObjectStorage();
-        $this->signals = new \ECSPrefix20211203\React\EventLoop\SignalsHandler();
+        $this->signals = new \ECSPrefix20211204\React\EventLoop\SignalsHandler();
     }
     public function addReadStream($stream, $listener)
     {
@@ -113,7 +113,7 @@ class ExtEvLoop implements \ECSPrefix20211203\React\EventLoop\LoopInterface
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20211203\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \ECSPrefix20211204\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $that = $this;
         $timers = $this->timers;
         $callback = function () use($timer, $timers, $that) {
@@ -128,7 +128,7 @@ class ExtEvLoop implements \ECSPrefix20211203\React\EventLoop\LoopInterface
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \ECSPrefix20211203\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \ECSPrefix20211204\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $callback = function () use($timer) {
             \call_user_func($timer->getCallback(), $timer);
         };

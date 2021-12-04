@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211203\Symplify\EasyParallel\Enum;
+namespace ECSPrefix20211204\Symplify\EasyParallel\Enum;
 
 final class Content
 {

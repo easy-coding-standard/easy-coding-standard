@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211203\Symplify\SymplifyKernel;
+namespace ECSPrefix20211204\Symplify\SymplifyKernel;
 
-use ECSPrefix20211203\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20211203\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211203\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix20211203\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface;
-use ECSPrefix20211203\Symplify\SymplifyKernel\DependencyInjection\LoadExtensionConfigsCompilerPass;
-use ECSPrefix20211203\Webmozart\Assert\Assert;
+use ECSPrefix20211204\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20211204\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211204\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix20211204\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface;
+use ECSPrefix20211204\Symplify\SymplifyKernel\DependencyInjection\LoadExtensionConfigsCompilerPass;
+use ECSPrefix20211204\Webmozart\Assert\Assert;
 final class ContainerBuilderFactory
 {
     /**
      * @var \Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface
      */
     private $loaderFactory;
-    public function __construct(\ECSPrefix20211203\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface $loaderFactory)
+    public function __construct(\ECSPrefix20211204\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface $loaderFactory)
     {
         $this->loaderFactory = $loaderFactory;
     }
@@ -24,24 +24,24 @@ final class ContainerBuilderFactory
      * @param CompilerPassInterface[] $compilerPasses
      * @param string[] $configFiles
      */
-    public function create(array $extensions, array $compilerPasses, array $configFiles) : \ECSPrefix20211203\Symfony\Component\DependencyInjection\ContainerBuilder
+    public function create(array $extensions, array $compilerPasses, array $configFiles) : \ECSPrefix20211204\Symfony\Component\DependencyInjection\ContainerBuilder
     {
-        \ECSPrefix20211203\Webmozart\Assert\Assert::allString($configFiles);
-        \ECSPrefix20211203\Webmozart\Assert\Assert::allFile($configFiles);
-        $containerBuilder = new \ECSPrefix20211203\Symfony\Component\DependencyInjection\ContainerBuilder();
+        \ECSPrefix20211204\Webmozart\Assert\Assert::allString($configFiles);
+        \ECSPrefix20211204\Webmozart\Assert\Assert::allFile($configFiles);
+        $containerBuilder = new \ECSPrefix20211204\Symfony\Component\DependencyInjection\ContainerBuilder();
         $this->registerExtensions($containerBuilder, $extensions);
         $this->registerConfigFiles($containerBuilder, $configFiles);
         $this->registerCompilerPasses($containerBuilder, $compilerPasses);
         // this calls load() method in every extensions
         // ensure these extensions are implicitly loaded
         $compilerPassConfig = $containerBuilder->getCompilerPassConfig();
-        $compilerPassConfig->setMergePass(new \ECSPrefix20211203\Symplify\SymplifyKernel\DependencyInjection\LoadExtensionConfigsCompilerPass());
+        $compilerPassConfig->setMergePass(new \ECSPrefix20211204\Symplify\SymplifyKernel\DependencyInjection\LoadExtensionConfigsCompilerPass());
         return $containerBuilder;
     }
     /**
      * @param ExtensionInterface[] $extensions
      */
-    private function registerExtensions(\ECSPrefix20211203\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, array $extensions) : void
+    private function registerExtensions(\ECSPrefix20211204\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, array $extensions) : void
     {
         foreach ($extensions as $extension) {
             $containerBuilder->registerExtension($extension);
@@ -50,7 +50,7 @@ final class ContainerBuilderFactory
     /**
      * @param CompilerPassInterface[] $compilerPasses
      */
-    private function registerCompilerPasses(\ECSPrefix20211203\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, array $compilerPasses) : void
+    private function registerCompilerPasses(\ECSPrefix20211204\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, array $compilerPasses) : void
     {
         foreach ($compilerPasses as $compilerPass) {
             $containerBuilder->addCompilerPass($compilerPass);
@@ -59,7 +59,7 @@ final class ContainerBuilderFactory
     /**
      * @param string[] $configFiles
      */
-    private function registerConfigFiles(\ECSPrefix20211203\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, array $configFiles) : void
+    private function registerConfigFiles(\ECSPrefix20211204\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, array $configFiles) : void
     {
         $delegatingLoader = $this->loaderFactory->create($containerBuilder, \getcwd());
         foreach ($configFiles as $configFile) {
