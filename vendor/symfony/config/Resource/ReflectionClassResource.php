@@ -121,7 +121,7 @@ class ReflectionClassResource implements \ECSPrefix20211206\Symfony\Component\Co
     private function generateSignature(\ReflectionClass $class) : iterable
     {
         $attributes = [];
-        foreach ($class->getAttributes() as $a) {
+        foreach ([] as $a) {
             $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
         }
         (yield \print_r($attributes, \true));
@@ -139,7 +139,7 @@ class ReflectionClassResource implements \ECSPrefix20211206\Symfony\Component\Co
         if (!$class->isInterface()) {
             $defaults = $class->getDefaultProperties();
             foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED) as $p) {
-                foreach ($p->getAttributes() as $a) {
+                foreach ([] as $a) {
                     $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
                 }
                 (yield \print_r($attributes, \true));
@@ -156,7 +156,7 @@ class ReflectionClassResource implements \ECSPrefix20211206\Symfony\Component\Co
             return \defined($c);
         }, null, $class->name);
         foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED) as $m) {
-            foreach ($m->getAttributes() as $a) {
+            foreach ([] as $a) {
                 $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
             }
             (yield \print_r($attributes, \true));
@@ -164,7 +164,7 @@ class ReflectionClassResource implements \ECSPrefix20211206\Symfony\Component\Co
             $defaults = [];
             $parametersWithUndefinedConstants = [];
             foreach ($m->getParameters() as $p) {
-                foreach ($p->getAttributes() as $a) {
+                foreach ([] as $a) {
                     $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
                 }
                 (yield \print_r($attributes, \true));

@@ -48,7 +48,7 @@ final class RegisterAutoconfigureAttributesPass implements \ECSPrefix20211206\Sy
      */
     public function processClass($container, $class)
     {
-        foreach ($class->getAttributes(\ECSPrefix20211206\Symfony\Component\DependencyInjection\Attribute\Autoconfigure::class, \ReflectionAttribute::IS_INSTANCEOF) as $attribute) {
+        foreach ([] as $attribute) {
             self::registerForAutoconfiguration($container, $class, $attribute);
         }
     }

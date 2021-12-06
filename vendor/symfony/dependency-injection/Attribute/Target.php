@@ -29,7 +29,7 @@ final class Target
     }
     public static function parseName(\ReflectionParameter $parameter) : string
     {
-        if (!($target = $parameter->getAttributes(self::class)[0] ?? null)) {
+        if (!($target = [][0] ?? null)) {
             return $parameter->name;
         }
         $name = $target->newInstance()->name;
