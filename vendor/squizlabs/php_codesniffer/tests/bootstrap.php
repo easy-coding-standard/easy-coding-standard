@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211204;
+namespace ECSPrefix20211206;
 
 /**
  * Bootstrap file for PHP_CodeSniffer unit tests.
@@ -25,17 +25,17 @@ if (\is_file(__DIR__ . '/../autoload.php') === \true) {
 }
 $tokens = new \PHP_CodeSniffer\Util\Tokens();
 // Compatibility for PHPUnit < 6 and PHPUnit 6+.
-if (\class_exists('ECSPrefix20211204\\PHPUnit_Framework_TestSuite') === \true && \class_exists('ECSPrefix20211204\\PHPUnit\\Framework\\TestSuite') === \false) {
-    \class_alias('ECSPrefix20211204\\PHPUnit_Framework_TestSuite', 'PHPUnit' . '\\Framework\\TestSuite');
+if (\class_exists('ECSPrefix20211206\\PHPUnit_Framework_TestSuite') === \true && \class_exists('ECSPrefix20211206\\PHPUnit\\Framework\\TestSuite') === \false) {
+    \class_alias('ECSPrefix20211206\\PHPUnit_Framework_TestSuite', 'PHPUnit' . '\\Framework\\TestSuite');
 }
-if (\class_exists('ECSPrefix20211204\\PHPUnit_Framework_TestCase') === \true && \class_exists('ECSPrefix20211204\\PHPUnit\\Framework\\TestCase') === \false) {
-    \class_alias('ECSPrefix20211204\\PHPUnit_Framework_TestCase', 'PHPUnit' . '\\Framework\\TestCase');
+if (\class_exists('ECSPrefix20211206\\PHPUnit_Framework_TestCase') === \true && \class_exists('ECSPrefix20211206\\PHPUnit\\Framework\\TestCase') === \false) {
+    \class_alias('ECSPrefix20211206\\PHPUnit_Framework_TestCase', 'PHPUnit' . '\\Framework\\TestCase');
 }
-if (\class_exists('ECSPrefix20211204\\PHPUnit_TextUI_TestRunner') === \true && \class_exists('ECSPrefix20211204\\PHPUnit\\TextUI\\TestRunner') === \false) {
-    \class_alias('ECSPrefix20211204\\PHPUnit_TextUI_TestRunner', 'PHPUnit' . '\\TextUI\\TestRunner');
+if (\class_exists('ECSPrefix20211206\\PHPUnit_TextUI_TestRunner') === \true && \class_exists('ECSPrefix20211206\\PHPUnit\\TextUI\\TestRunner') === \false) {
+    \class_alias('ECSPrefix20211206\\PHPUnit_TextUI_TestRunner', 'PHPUnit' . '\\TextUI\\TestRunner');
 }
-if (\class_exists('ECSPrefix20211204\\PHPUnit_Framework_TestResult') === \true && \class_exists('ECSPrefix20211204\\PHPUnit\\Framework\\TestResult') === \false) {
-    \class_alias('ECSPrefix20211204\\PHPUnit_Framework_TestResult', 'PHPUnit' . '\\Framework\\TestResult');
+if (\class_exists('ECSPrefix20211206\\PHPUnit_Framework_TestResult') === \true && \class_exists('ECSPrefix20211206\\PHPUnit\\Framework\\TestResult') === \false) {
+    \class_alias('ECSPrefix20211206\\PHPUnit_Framework_TestResult', 'PHPUnit' . '\\Framework\\TestResult');
 }
 // Determine whether this is a PEAR install or not.
 $GLOBALS['PHP_CODESNIFFER_PEAR'] = \false;

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211204\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20211206\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20211204\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20211204\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix20211206\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211206\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class PrototypeConfigurator extends \ECSPrefix20211204\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class PrototypeConfigurator extends \ECSPrefix20211206\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
     use Traits\AbstractTrait;
     use Traits\ArgumentTrait;
@@ -49,9 +49,9 @@ class PrototypeConfigurator extends \ECSPrefix20211204\Symfony\Component\Depende
      * @var bool
      */
     private $allowParent;
-    public function __construct(\ECSPrefix20211204\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20211204\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \ECSPrefix20211204\Symfony\Component\DependencyInjection\Definition $defaults, string $namespace, string $resource, bool $allowParent)
+    public function __construct(\ECSPrefix20211206\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20211206\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \ECSPrefix20211206\Symfony\Component\DependencyInjection\Definition $defaults, string $namespace, string $resource, bool $allowParent)
     {
-        $definition = new \ECSPrefix20211204\Symfony\Component\DependencyInjection\Definition();
+        $definition = new \ECSPrefix20211206\Symfony\Component\DependencyInjection\Definition();
         if (!$defaults->isPublic() || !$defaults->isPrivate()) {
             $definition->setPublic($defaults->isPublic());
         }

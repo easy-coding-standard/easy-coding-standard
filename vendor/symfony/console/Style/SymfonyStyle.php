@@ -8,31 +8,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211204\Symfony\Component\Console\Style;
+namespace ECSPrefix20211206\Symfony\Component\Console\Style;
 
-use ECSPrefix20211204\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20211204\Symfony\Component\Console\Exception\RuntimeException;
-use ECSPrefix20211204\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix20211204\Symfony\Component\Console\Helper\Helper;
-use ECSPrefix20211204\Symfony\Component\Console\Helper\ProgressBar;
-use ECSPrefix20211204\Symfony\Component\Console\Helper\SymfonyQuestionHelper;
-use ECSPrefix20211204\Symfony\Component\Console\Helper\Table;
-use ECSPrefix20211204\Symfony\Component\Console\Helper\TableCell;
-use ECSPrefix20211204\Symfony\Component\Console\Helper\TableSeparator;
-use ECSPrefix20211204\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211204\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20211204\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20211204\Symfony\Component\Console\Output\TrimmedBufferOutput;
-use ECSPrefix20211204\Symfony\Component\Console\Question\ChoiceQuestion;
-use ECSPrefix20211204\Symfony\Component\Console\Question\ConfirmationQuestion;
-use ECSPrefix20211204\Symfony\Component\Console\Question\Question;
-use ECSPrefix20211204\Symfony\Component\Console\Terminal;
+use ECSPrefix20211206\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20211206\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix20211206\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20211206\Symfony\Component\Console\Helper\Helper;
+use ECSPrefix20211206\Symfony\Component\Console\Helper\ProgressBar;
+use ECSPrefix20211206\Symfony\Component\Console\Helper\SymfonyQuestionHelper;
+use ECSPrefix20211206\Symfony\Component\Console\Helper\Table;
+use ECSPrefix20211206\Symfony\Component\Console\Helper\TableCell;
+use ECSPrefix20211206\Symfony\Component\Console\Helper\TableSeparator;
+use ECSPrefix20211206\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211206\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20211206\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211206\Symfony\Component\Console\Output\TrimmedBufferOutput;
+use ECSPrefix20211206\Symfony\Component\Console\Question\ChoiceQuestion;
+use ECSPrefix20211206\Symfony\Component\Console\Question\ConfirmationQuestion;
+use ECSPrefix20211206\Symfony\Component\Console\Question\Question;
+use ECSPrefix20211206\Symfony\Component\Console\Terminal;
 /**
  * Output decorator helpers for the Symfony Style Guide.
  *
  * @author Kevin Bond <kevinbond@gmail.com>
  */
-class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\OutputStyle
+class SymfonyStyle extends \ECSPrefix20211206\Symfony\Component\Console\Style\OutputStyle
 {
     public const MAX_LINE_LENGTH = 120;
     private $input;
@@ -41,12 +41,12 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
     private $progressBar;
     private $lineLength;
     private $bufferedOutput;
-    public function __construct(\ECSPrefix20211204\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211204\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(\ECSPrefix20211206\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211206\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->input = $input;
-        $this->bufferedOutput = new \ECSPrefix20211204\Symfony\Component\Console\Output\TrimmedBufferOutput(\DIRECTORY_SEPARATOR === '\\' ? 4 : 2, $output->getVerbosity(), \false, clone $output->getFormatter());
+        $this->bufferedOutput = new \ECSPrefix20211206\Symfony\Component\Console\Output\TrimmedBufferOutput(\DIRECTORY_SEPARATOR === '\\' ? 4 : 2, $output->getVerbosity(), \false, clone $output->getFormatter());
         // Windows cmd wraps lines as soon as the terminal width is reached, whether there are following chars or not.
-        $width = (new \ECSPrefix20211204\Symfony\Component\Console\Terminal())->getWidth() ?: self::MAX_LINE_LENGTH;
+        $width = (new \ECSPrefix20211206\Symfony\Component\Console\Terminal())->getWidth() ?: self::MAX_LINE_LENGTH;
         $this->lineLength = \min($width - (int) (\DIRECTORY_SEPARATOR === '\\'), self::MAX_LINE_LENGTH);
         parent::__construct($this->output = $output);
     }
@@ -68,7 +68,7 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
     public function title(string $message)
     {
         $this->autoPrependBlock();
-        $this->writeln([\sprintf('<comment>%s</>', \ECSPrefix20211204\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('=', \ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $message))))]);
+        $this->writeln([\sprintf('<comment>%s</>', \ECSPrefix20211206\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('=', \ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $message))))]);
         $this->newLine();
     }
     /**
@@ -77,7 +77,7 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
     public function section(string $message)
     {
         $this->autoPrependBlock();
-        $this->writeln([\sprintf('<comment>%s</>', \ECSPrefix20211204\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('-', \ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $message))))]);
+        $this->writeln([\sprintf('<comment>%s</>', \ECSPrefix20211206\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('-', \ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $message))))]);
         $this->newLine();
     }
     /**
@@ -187,18 +187,18 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
         $headers = [];
         $row = [];
         foreach ($list as $value) {
-            if ($value instanceof \ECSPrefix20211204\Symfony\Component\Console\Helper\TableSeparator) {
+            if ($value instanceof \ECSPrefix20211206\Symfony\Component\Console\Helper\TableSeparator) {
                 $headers[] = $value;
                 $row[] = $value;
                 continue;
             }
             if (\is_string($value)) {
-                $headers[] = new \ECSPrefix20211204\Symfony\Component\Console\Helper\TableCell($value, ['colspan' => 2]);
+                $headers[] = new \ECSPrefix20211206\Symfony\Component\Console\Helper\TableCell($value, ['colspan' => 2]);
                 $row[] = null;
                 continue;
             }
             if (!\is_array($value)) {
-                throw new \ECSPrefix20211204\Symfony\Component\Console\Exception\InvalidArgumentException('Value should be an array, string, or an instance of TableSeparator.');
+                throw new \ECSPrefix20211206\Symfony\Component\Console\Exception\InvalidArgumentException('Value should be an array, string, or an instance of TableSeparator.');
             }
             $headers[] = \key($value);
             $row[] = \current($value);
@@ -210,7 +210,7 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
      */
     public function ask(string $question, string $default = null, callable $validator = null)
     {
-        $question = new \ECSPrefix20211204\Symfony\Component\Console\Question\Question($question, $default);
+        $question = new \ECSPrefix20211206\Symfony\Component\Console\Question\Question($question, $default);
         $question->setValidator($validator);
         return $this->askQuestion($question);
     }
@@ -219,7 +219,7 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
      */
     public function askHidden(string $question, callable $validator = null)
     {
-        $question = new \ECSPrefix20211204\Symfony\Component\Console\Question\Question($question);
+        $question = new \ECSPrefix20211206\Symfony\Component\Console\Question\Question($question);
         $question->setHidden(\true);
         $question->setValidator($validator);
         return $this->askQuestion($question);
@@ -229,7 +229,7 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
      */
     public function confirm(string $question, bool $default = \true)
     {
-        return $this->askQuestion(new \ECSPrefix20211204\Symfony\Component\Console\Question\ConfirmationQuestion($question, $default));
+        return $this->askQuestion(new \ECSPrefix20211206\Symfony\Component\Console\Question\ConfirmationQuestion($question, $default));
     }
     /**
      * {@inheritdoc}
@@ -240,7 +240,7 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
             $values = \array_flip($choices);
             $default = $values[$default] ?? $default;
         }
-        return $this->askQuestion(new \ECSPrefix20211204\Symfony\Component\Console\Question\ChoiceQuestion($question, $choices, $default));
+        return $this->askQuestion(new \ECSPrefix20211206\Symfony\Component\Console\Question\ChoiceQuestion($question, $choices, $default));
     }
     /**
      * {@inheritdoc}
@@ -292,13 +292,13 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
     /**
      * @return mixed
      */
-    public function askQuestion(\ECSPrefix20211204\Symfony\Component\Console\Question\Question $question)
+    public function askQuestion(\ECSPrefix20211206\Symfony\Component\Console\Question\Question $question)
     {
         if ($this->input->isInteractive()) {
             $this->autoPrependBlock();
         }
         if (!$this->questionHelper) {
-            $this->questionHelper = new \ECSPrefix20211204\Symfony\Component\Console\Helper\SymfonyQuestionHelper();
+            $this->questionHelper = new \ECSPrefix20211206\Symfony\Component\Console\Helper\SymfonyQuestionHelper();
         }
         $answer = $this->questionHelper->ask($this->input, $this, $question);
         if ($this->input->isInteractive()) {
@@ -350,17 +350,17 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
     {
         return new self($this->input, $this->getErrorOutput());
     }
-    public function createTable() : \ECSPrefix20211204\Symfony\Component\Console\Helper\Table
+    public function createTable() : \ECSPrefix20211206\Symfony\Component\Console\Helper\Table
     {
-        $output = $this->output instanceof \ECSPrefix20211204\Symfony\Component\Console\Output\ConsoleOutputInterface ? $this->output->section() : $this->output;
-        $style = clone \ECSPrefix20211204\Symfony\Component\Console\Helper\Table::getStyleDefinition('symfony-style-guide');
+        $output = $this->output instanceof \ECSPrefix20211206\Symfony\Component\Console\Output\ConsoleOutputInterface ? $this->output->section() : $this->output;
+        $style = clone \ECSPrefix20211206\Symfony\Component\Console\Helper\Table::getStyleDefinition('symfony-style-guide');
         $style->setCellHeaderFormat('<info>%s</info>');
-        return (new \ECSPrefix20211204\Symfony\Component\Console\Helper\Table($output))->setStyle($style);
+        return (new \ECSPrefix20211206\Symfony\Component\Console\Helper\Table($output))->setStyle($style);
     }
-    private function getProgressBar() : \ECSPrefix20211204\Symfony\Component\Console\Helper\ProgressBar
+    private function getProgressBar() : \ECSPrefix20211206\Symfony\Component\Console\Helper\ProgressBar
     {
         if (!$this->progressBar) {
-            throw new \ECSPrefix20211204\Symfony\Component\Console\Exception\RuntimeException('The ProgressBar is not started.');
+            throw new \ECSPrefix20211206\Symfony\Component\Console\Exception\RuntimeException('The ProgressBar is not started.');
         }
         return $this->progressBar;
     }
@@ -391,7 +391,7 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
     private function createBlock(iterable $messages, string $type = null, string $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \false) : array
     {
         $indentLength = 0;
-        $prefixLength = \ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $prefix));
+        $prefixLength = \ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $prefix));
         $lines = [];
         if (null !== $type) {
             $type = \sprintf('[%s] ', $type);
@@ -401,9 +401,9 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
         // wrap and add newlines for each element
         foreach ($messages as $key => $message) {
             if ($escape) {
-                $message = \ECSPrefix20211204\Symfony\Component\Console\Formatter\OutputFormatter::escape($message);
+                $message = \ECSPrefix20211206\Symfony\Component\Console\Formatter\OutputFormatter::escape($message);
             }
-            $decorationLength = \ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::width($message) - \ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $message));
+            $decorationLength = \ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::width($message) - \ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $message));
             $messageLineLength = \min($this->lineLength - $prefixLength - $indentLength + $decorationLength, $this->lineLength);
             $messageLines = \explode(\PHP_EOL, \wordwrap($message, $messageLineLength, \PHP_EOL, \true));
             foreach ($messageLines as $messageLine) {
@@ -424,7 +424,7 @@ class SymfonyStyle extends \ECSPrefix20211204\Symfony\Component\Console\Style\Ou
                 $line = $firstLineIndex === $i ? $type . $line : $lineIndentation . $line;
             }
             $line = $prefix . $line;
-            $line .= \str_repeat(' ', \max($this->lineLength - \ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211204\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $line)), 0));
+            $line .= \str_repeat(' ', \max($this->lineLength - \ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::width(\ECSPrefix20211206\Symfony\Component\Console\Helper\Helper::removeDecoration($this->getFormatter(), $line)), 0));
             if ($style) {
                 $line = \sprintf('<%s>%s</>', $style, $line);
             }

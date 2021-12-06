@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211204\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20211206\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20211204\Symfony\Component\Config\Definition\ArrayNode;
-use ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
-use ECSPrefix20211204\Symfony\Component\Config\Definition\NodeInterface;
-use ECSPrefix20211204\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use ECSPrefix20211206\Symfony\Component\Config\Definition\ArrayNode;
+use ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+use ECSPrefix20211206\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix20211206\Symfony\Component\Config\Definition\PrototypedArrayNode;
 /**
  * This class provides a fluent interface for defining an array node.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\NodeDefinition implements \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface
+class ArrayNodeDefinition extends \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\NodeDefinition implements \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface
 {
     protected $performDeepMerging = \true;
     protected $ignoreExtraKeys = \false;
@@ -37,7 +37,7 @@ class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\De
     /**
      * {@inheritdoc}
      */
-    public function __construct(?string $name, \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
+    public function __construct(?string $name, \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
     {
         parent::__construct($name, $parent);
         $this->nullEquivalent = [];
@@ -54,7 +54,7 @@ class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\De
     /**
      * {@inheritdoc}
      */
-    public function children() : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\NodeBuilder
+    public function children() : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\NodeBuilder
     {
         return $this->getNodeBuilder();
     }
@@ -62,27 +62,27 @@ class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\De
      * Sets a prototype for child nodes.
      * @param string $type
      */
-    public function prototype($type) : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\NodeDefinition
+    public function prototype($type) : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
         return $this->prototype = $this->getNodeBuilder()->node(null, $type)->setParent($this);
     }
-    public function variablePrototype() : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition
+    public function variablePrototype() : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition
     {
         return $this->prototype('variable');
     }
-    public function scalarPrototype() : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
+    public function scalarPrototype() : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
     {
         return $this->prototype('scalar');
     }
-    public function booleanPrototype() : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\BooleanNodeDefinition
+    public function booleanPrototype() : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\BooleanNodeDefinition
     {
         return $this->prototype('boolean');
     }
-    public function integerPrototype() : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\IntegerNodeDefinition
+    public function integerPrototype() : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\IntegerNodeDefinition
     {
         return $this->prototype('integer');
     }
-    public function floatPrototype() : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\FloatNodeDefinition
+    public function floatPrototype() : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\FloatNodeDefinition
     {
         return $this->prototype('float');
     }
@@ -90,7 +90,7 @@ class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\De
     {
         return $this->prototype('array');
     }
-    public function enumPrototype() : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\EnumNodeDefinition
+    public function enumPrototype() : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\EnumNodeDefinition
     {
         return $this->prototype('enum');
     }
@@ -292,20 +292,20 @@ class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\De
     /**
      * Returns a node builder to be used to add children and prototype.
      */
-    protected function getNodeBuilder() : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\NodeBuilder
+    protected function getNodeBuilder() : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\NodeBuilder
     {
         if (null === $this->nodeBuilder) {
-            $this->nodeBuilder = new \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\NodeBuilder();
+            $this->nodeBuilder = new \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\NodeBuilder();
         }
         return $this->nodeBuilder->setParent($this);
     }
     /**
      * {@inheritdoc}
      */
-    protected function createNode() : \ECSPrefix20211204\Symfony\Component\Config\Definition\NodeInterface
+    protected function createNode() : \ECSPrefix20211206\Symfony\Component\Config\Definition\NodeInterface
     {
         if (null === $this->prototype) {
-            $node = new \ECSPrefix20211204\Symfony\Component\Config\Definition\ArrayNode($this->name, $this->parent, $this->pathSeparator);
+            $node = new \ECSPrefix20211206\Symfony\Component\Config\Definition\ArrayNode($this->name, $this->parent, $this->pathSeparator);
             $this->validateConcreteNode($node);
             $node->setAddIfNotSet($this->addDefaults);
             foreach ($this->children as $child) {
@@ -313,7 +313,7 @@ class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\De
                 $node->addChild($child->getNode());
             }
         } else {
-            $node = new \ECSPrefix20211204\Symfony\Component\Config\Definition\PrototypedArrayNode($this->name, $this->parent, $this->pathSeparator);
+            $node = new \ECSPrefix20211206\Symfony\Component\Config\Definition\PrototypedArrayNode($this->name, $this->parent, $this->pathSeparator);
             $this->validatePrototypeNode($node);
             if (null !== $this->key) {
                 $node->setKeyAttribute($this->key, $this->removeKeyItem);
@@ -370,19 +370,19 @@ class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\De
     {
         $path = $node->getPath();
         if (null !== $this->key) {
-            throw new \ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->useAttributeAsKey() is not applicable to concrete nodes at path "%s".', $path));
+            throw new \ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->useAttributeAsKey() is not applicable to concrete nodes at path "%s".', $path));
         }
         if (\false === $this->allowEmptyValue) {
-            throw new \ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->cannotBeEmpty() is not applicable to concrete nodes at path "%s".', $path));
+            throw new \ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->cannotBeEmpty() is not applicable to concrete nodes at path "%s".', $path));
         }
         if (\true === $this->atLeastOne) {
-            throw new \ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->requiresAtLeastOneElement() is not applicable to concrete nodes at path "%s".', $path));
+            throw new \ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->requiresAtLeastOneElement() is not applicable to concrete nodes at path "%s".', $path));
         }
         if ($this->default) {
-            throw new \ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->defaultValue() is not applicable to concrete nodes at path "%s".', $path));
+            throw new \ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->defaultValue() is not applicable to concrete nodes at path "%s".', $path));
         }
         if (\false !== $this->addDefaultChildren) {
-            throw new \ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->addDefaultChildrenIfNoneSet() is not applicable to concrete nodes at path "%s".', $path));
+            throw new \ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->addDefaultChildrenIfNoneSet() is not applicable to concrete nodes at path "%s".', $path));
         }
     }
     /**
@@ -395,17 +395,17 @@ class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\De
     {
         $path = $node->getPath();
         if ($this->addDefaults) {
-            throw new \ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->addDefaultsIfNotSet() is not applicable to prototype nodes at path "%s".', $path));
+            throw new \ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->addDefaultsIfNotSet() is not applicable to prototype nodes at path "%s".', $path));
         }
         if (\false !== $this->addDefaultChildren) {
             if ($this->default) {
-                throw new \ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('A default value and default children might not be used together at path "%s".', $path));
+                throw new \ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('A default value and default children might not be used together at path "%s".', $path));
             }
             if (null !== $this->key && (null === $this->addDefaultChildren || \is_int($this->addDefaultChildren) && $this->addDefaultChildren > 0)) {
-                throw new \ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->addDefaultChildrenIfNoneSet() should set default children names as ->useAttributeAsKey() is used at path "%s".', $path));
+                throw new \ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->addDefaultChildrenIfNoneSet() should set default children names as ->useAttributeAsKey() is used at path "%s".', $path));
             }
             if (null === $this->key && (\is_string($this->addDefaultChildren) || \is_array($this->addDefaultChildren))) {
-                throw new \ECSPrefix20211204\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->addDefaultChildrenIfNoneSet() might not set default children names as ->useAttributeAsKey() is not used at path "%s".', $path));
+                throw new \ECSPrefix20211206\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException(\sprintf('->addDefaultChildrenIfNoneSet() might not set default children names as ->useAttributeAsKey() is not used at path "%s".', $path));
             }
         }
     }
@@ -421,7 +421,7 @@ class ArrayNodeDefinition extends \ECSPrefix20211204\Symfony\Component\Config\De
      *
      * @param string $nodePath The path of the node to find. e.g "doctrine.orm.mappings"
      */
-    public function find($nodePath) : \ECSPrefix20211204\Symfony\Component\Config\Definition\Builder\NodeDefinition
+    public function find($nodePath) : \ECSPrefix20211206\Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
         $firstPathSegment = \false === ($pathSeparatorPos = \strpos($nodePath, $this->pathSeparator)) ? $nodePath : \substr($nodePath, 0, $pathSeparatorPos);
         if (null === ($node = $this->children[$firstPathSegment] ?? null)) {
