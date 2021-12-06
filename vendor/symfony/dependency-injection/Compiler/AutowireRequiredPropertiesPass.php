@@ -39,7 +39,7 @@ class AutowireRequiredPropertiesPass extends \ECSPrefix20211206\Symfony\Componen
         }
         $properties = $value->getProperties();
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
-            if (!($type = $reflectionProperty->getType()) instanceof \ReflectionNamedType) {
+            if (!($type = null) instanceof \ReflectionNamedType) {
                 continue;
             }
             if (![] && (\false === ($doc = $reflectionProperty->getDocComment()) || \false === \stripos($doc, '@required') || !\preg_match('#(?:^/\\*\\*|\\n\\s*+\\*)\\s*+@required(?:\\s|\\*/$)#i', $doc))) {

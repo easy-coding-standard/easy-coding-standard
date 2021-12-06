@@ -74,7 +74,7 @@ final class Preloader
             $r->getConstants();
             $r->getDefaultProperties();
             foreach ($r->getProperties(\ReflectionProperty::IS_PUBLIC) as $p) {
-                self::preloadType($p->getType(), $preloaded);
+                self::preloadType(null, $preloaded);
             }
             foreach ($r->getMethods(\ReflectionMethod::IS_PUBLIC) as $m) {
                 foreach ($m->getParameters() as $p) {
