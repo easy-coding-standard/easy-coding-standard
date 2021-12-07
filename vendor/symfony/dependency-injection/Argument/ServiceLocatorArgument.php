@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211206\Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix20211207\Symfony\Component\DependencyInjection\Argument;
 
-use ECSPrefix20211206\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20211207\Symfony\Component\DependencyInjection\Reference;
 /**
  * Represents a closure acting as a service locator.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceLocatorArgument implements \ECSPrefix20211206\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
+class ServiceLocatorArgument implements \ECSPrefix20211207\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
 {
     use ReferenceSetArgumentTrait;
     /**
@@ -28,14 +28,14 @@ class ServiceLocatorArgument implements \ECSPrefix20211206\Symfony\Component\Dep
      */
     public function __construct($values = [])
     {
-        if ($values instanceof \ECSPrefix20211206\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
+        if ($values instanceof \ECSPrefix20211207\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
             $this->taggedIteratorArgument = $values;
             $this->values = [];
         } else {
             $this->setValues($values);
         }
     }
-    public function getTaggedIteratorArgument() : ?\ECSPrefix20211206\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument
+    public function getTaggedIteratorArgument() : ?\ECSPrefix20211207\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument
     {
         return $this->taggedIteratorArgument;
     }

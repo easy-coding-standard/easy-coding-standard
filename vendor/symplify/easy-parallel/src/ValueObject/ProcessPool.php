@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211206\Symplify\EasyParallel\ValueObject;
+namespace ECSPrefix20211207\Symplify\EasyParallel\ValueObject;
 
-use ECSPrefix20211206\React\Socket\TcpServer;
-use ECSPrefix20211206\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use ECSPrefix20211207\React\Socket\TcpServer;
+use ECSPrefix20211207\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
 /**
  * Used from https://github.com/phpstan/phpstan-src/blob/master/src/Parallel/ProcessPool.php
  */
@@ -18,18 +18,18 @@ final class ProcessPool
      * @var \React\Socket\TcpServer
      */
     private $tcpServer;
-    public function __construct(\ECSPrefix20211206\React\Socket\TcpServer $tcpServer)
+    public function __construct(\ECSPrefix20211207\React\Socket\TcpServer $tcpServer)
     {
         $this->tcpServer = $tcpServer;
     }
-    public function getProcess(string $identifier) : \ECSPrefix20211206\Symplify\EasyParallel\ValueObject\ParallelProcess
+    public function getProcess(string $identifier) : \ECSPrefix20211207\Symplify\EasyParallel\ValueObject\ParallelProcess
     {
         if (!\array_key_exists($identifier, $this->processes)) {
-            throw new \ECSPrefix20211206\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException(\sprintf('Process "%s" not found.', $identifier));
+            throw new \ECSPrefix20211207\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException(\sprintf('Process "%s" not found.', $identifier));
         }
         return $this->processes[$identifier];
     }
-    public function attachProcess(string $identifier, \ECSPrefix20211206\Symplify\EasyParallel\ValueObject\ParallelProcess $parallelProcess) : void
+    public function attachProcess(string $identifier, \ECSPrefix20211207\Symplify\EasyParallel\ValueObject\ParallelProcess $parallelProcess) : void
     {
         $this->processes[$identifier] = $parallelProcess;
     }

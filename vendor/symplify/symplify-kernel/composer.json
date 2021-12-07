@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211206\\Symplify\\SymplifyKernel\\": "src"
+            "ECSPrefix20211207\\Symplify\\SymplifyKernel\\": "src"
         }
     },
     "extra": {

@@ -1,25 +1,25 @@
 <?php
 
-namespace ECSPrefix20211206\React\Socket;
+namespace ECSPrefix20211207\React\Socket;
 
-use ECSPrefix20211206\React\EventLoop\Loop;
-use ECSPrefix20211206\React\EventLoop\LoopInterface;
-use ECSPrefix20211206\React\Promise\Timer;
-use ECSPrefix20211206\React\Promise\Timer\TimeoutException;
-final class TimeoutConnector implements \ECSPrefix20211206\React\Socket\ConnectorInterface
+use ECSPrefix20211207\React\EventLoop\Loop;
+use ECSPrefix20211207\React\EventLoop\LoopInterface;
+use ECSPrefix20211207\React\Promise\Timer;
+use ECSPrefix20211207\React\Promise\Timer\TimeoutException;
+final class TimeoutConnector implements \ECSPrefix20211207\React\Socket\ConnectorInterface
 {
     private $connector;
     private $timeout;
     private $loop;
-    public function __construct(\ECSPrefix20211206\React\Socket\ConnectorInterface $connector, $timeout, \ECSPrefix20211206\React\EventLoop\LoopInterface $loop = null)
+    public function __construct(\ECSPrefix20211207\React\Socket\ConnectorInterface $connector, $timeout, \ECSPrefix20211207\React\EventLoop\LoopInterface $loop = null)
     {
         $this->connector = $connector;
         $this->timeout = $timeout;
-        $this->loop = $loop ?: \ECSPrefix20211206\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20211207\React\EventLoop\Loop::get();
     }
     public function connect($uri)
     {
-        return \ECSPrefix20211206\React\Promise\Timer\timeout($this->connector->connect($uri), $this->timeout, $this->loop)->then(null, self::handler($uri));
+        return \ECSPrefix20211207\React\Promise\Timer\timeout($this->connector->connect($uri), $this->timeout, $this->loop)->then(null, self::handler($uri));
     }
     /**
      * Creates a static rejection handler that reports a proper error message in case of a timeout.
@@ -34,7 +34,7 @@ final class TimeoutConnector implements \ECSPrefix20211206\React\Socket\Connecto
     private static function handler($uri)
     {
         return function (\Exception $e) use($uri) {
-            if ($e instanceof \ECSPrefix20211206\React\Promise\Timer\TimeoutException) {
+            if ($e instanceof \ECSPrefix20211207\React\Promise\Timer\TimeoutException) {
                 throw new \RuntimeException('Connection to ' . $uri . ' timed out after ' . $e->getTimeout() . ' seconds (ETIMEDOUT)', \defined('SOCKET_ETIMEDOUT') ? \SOCKET_ETIMEDOUT : 110);
             }
             throw $e;

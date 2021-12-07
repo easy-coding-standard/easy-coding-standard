@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211206\Symfony\Component\Console\Completion\Output;
+namespace ECSPrefix20211207\Symfony\Component\Console\Completion\Output;
 
-use ECSPrefix20211206\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix20211206\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211207\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix20211207\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Wouter de Jong <wouter@wouterj.nl>
  */
-class BashCompletionOutput implements \ECSPrefix20211206\Symfony\Component\Console\Completion\Output\CompletionOutputInterface
+class BashCompletionOutput implements \ECSPrefix20211207\Symfony\Component\Console\Completion\Output\CompletionOutputInterface
 {
     /**
      * @param \Symfony\Component\Console\Completion\CompletionSuggestions $suggestions
