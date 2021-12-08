@@ -8,29 +8,29 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211207\Symfony\Component\Console\Command;
+namespace ECSPrefix20211208\Symfony\Component\Console\Command;
 
-use ECSPrefix20211207\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix20211207\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix20211207\Symfony\Component\Console\Descriptor\ApplicationDescription;
-use ECSPrefix20211207\Symfony\Component\Console\Helper\DescriptorHelper;
-use ECSPrefix20211207\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20211207\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211207\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20211207\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211208\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix20211208\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix20211208\Symfony\Component\Console\Descriptor\ApplicationDescription;
+use ECSPrefix20211208\Symfony\Component\Console\Helper\DescriptorHelper;
+use ECSPrefix20211208\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20211208\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211208\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20211208\Symfony\Component\Console\Output\OutputInterface;
 /**
  * ListCommand displays the list of all available commands for the application.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ListCommand extends \ECSPrefix20211207\Symfony\Component\Console\Command\Command
+class ListCommand extends \ECSPrefix20211208\Symfony\Component\Console\Command\Command
 {
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
-        $this->setName('list')->setDefinition([new \ECSPrefix20211207\Symfony\Component\Console\Input\InputArgument('namespace', \ECSPrefix20211207\Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'The namespace name'), new \ECSPrefix20211207\Symfony\Component\Console\Input\InputOption('raw', null, \ECSPrefix20211207\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'To output raw command list'), new \ECSPrefix20211207\Symfony\Component\Console\Input\InputOption('format', null, \ECSPrefix20211207\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt'), new \ECSPrefix20211207\Symfony\Component\Console\Input\InputOption('short', null, \ECSPrefix20211207\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'To skip describing commands\' arguments')])->setDescription('List commands')->setHelp(<<<'EOF'
+        $this->setName('list')->setDefinition([new \ECSPrefix20211208\Symfony\Component\Console\Input\InputArgument('namespace', \ECSPrefix20211208\Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'The namespace name'), new \ECSPrefix20211208\Symfony\Component\Console\Input\InputOption('raw', null, \ECSPrefix20211208\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'To output raw command list'), new \ECSPrefix20211208\Symfony\Component\Console\Input\InputOption('format', null, \ECSPrefix20211208\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt'), new \ECSPrefix20211208\Symfony\Component\Console\Input\InputOption('short', null, \ECSPrefix20211208\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'To skip describing commands\' arguments')])->setDescription('List commands')->setHelp(<<<'EOF'
 The <info>%command.name%</info> command lists all commands:
 
   <info>%command.full_name%</info>
@@ -56,7 +56,7 @@ EOF
      */
     protected function execute($input, $output)
     {
-        $helper = new \ECSPrefix20211207\Symfony\Component\Console\Helper\DescriptorHelper();
+        $helper = new \ECSPrefix20211208\Symfony\Component\Console\Helper\DescriptorHelper();
         $helper->describe($output, $this->getApplication(), ['format' => $input->getOption('format'), 'raw_text' => $input->getOption('raw'), 'namespace' => $input->getArgument('namespace'), 'short' => $input->getOption('short')]);
         return 0;
     }
@@ -67,12 +67,12 @@ EOF
     public function complete($input, $suggestions) : void
     {
         if ($input->mustSuggestArgumentValuesFor('namespace')) {
-            $descriptor = new \ECSPrefix20211207\Symfony\Component\Console\Descriptor\ApplicationDescription($this->getApplication());
+            $descriptor = new \ECSPrefix20211208\Symfony\Component\Console\Descriptor\ApplicationDescription($this->getApplication());
             $suggestions->suggestValues(\array_keys($descriptor->getNamespaces()));
             return;
         }
         if ($input->mustSuggestOptionValuesFor('format')) {
-            $helper = new \ECSPrefix20211207\Symfony\Component\Console\Helper\DescriptorHelper();
+            $helper = new \ECSPrefix20211208\Symfony\Component\Console\Helper\DescriptorHelper();
             $suggestions->suggestValues($helper->getFormats());
         }
     }

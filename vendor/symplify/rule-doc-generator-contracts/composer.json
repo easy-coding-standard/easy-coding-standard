@@ -4,17 +4,16 @@
     "license": "MIT",
     "require": {
         "php": ">=8.0",
-        "danielstjules\/stringy": "^3.1",
         "nette\/utils": "^3.2"
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211207\\Symplify\\RuleDocGenerator\\": "src"
+            "ECSPrefix20211208\\Symplify\\RuleDocGenerator\\": "src"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "10.0-dev"
+            "dev-main": "10.1-dev"
         }
     },
     "conflict": {

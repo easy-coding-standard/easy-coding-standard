@@ -34,7 +34,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211207\\Symfony\\Contracts\\Service\\": ""
+            "ECSPrefix20211208\\Symfony\\Contracts\\Service\\": ""
         }
     },
     "minimum-stability": "dev",

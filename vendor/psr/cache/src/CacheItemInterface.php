@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211207\Psr\Cache;
+namespace ECSPrefix20211208\Psr\Cache;
 
 /**
  * CacheItemInterface defines an interface for interacting with objects inside a cache.

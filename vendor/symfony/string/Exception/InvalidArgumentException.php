@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211207\Symfony\Component\String\Exception;
+namespace ECSPrefix20211208\Symfony\Component\String\Exception;
 
-class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20211207\Symfony\Component\String\Exception\ExceptionInterface
+class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20211208\Symfony\Component\String\Exception\ExceptionInterface
 {
 }

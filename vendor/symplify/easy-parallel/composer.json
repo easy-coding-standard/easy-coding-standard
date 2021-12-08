@@ -16,17 +16,17 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211207\\Symplify\\EasyParallel\\": "src"
+            "ECSPrefix20211208\\Symplify\\EasyParallel\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20211207\\Symplify\\EasyParallel\\Tests\\": "tests"
+            "ECSPrefix20211208\\Symplify\\EasyParallel\\Tests\\": "tests"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "10.0-dev"
+            "dev-main": "10.1-dev"
         }
     },
     "config": {
