@@ -57,5 +57,6 @@ return array(
     'ECSPrefix20211208\\Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),
     'ECSPrefix20211208\\Composer\\XdebugHandler\\' => array($vendorDir . '/composer/xdebug-handler/src'),
     'ECSPrefix20211208\\Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
+    'ECSPrefix20211208\\Composer\\Pcre\\' => array($vendorDir . '/composer/pcre/src'),
     'ECSPrefix20211208\\Clue\\React\\NDJson\\' => array($vendorDir . '/clue/ndjson-react/src'),
 );

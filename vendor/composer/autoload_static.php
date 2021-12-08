@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite0b181ef7287660d8fa510784bcb7be1
+class ComposerStaticInit4da7e042fa7653fd65a1c59b714be1c0
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -81,6 +81,7 @@ class ComposerStaticInite0b181ef7287660d8fa510784bcb7be1
             'ECSPrefix20211208\\Doctrine\\Common\\Annotations\\' => 46,
             'ECSPrefix20211208\\Composer\\XdebugHandler\\' => 41,
             'ECSPrefix20211208\\Composer\\Semver\\' => 34,
+            'ECSPrefix20211208\\Composer\\Pcre\\' => 32,
             'ECSPrefix20211208\\Clue\\React\\NDJson\\' => 36,
         ),
     );
@@ -291,6 +292,10 @@ class ComposerStaticInite0b181ef7287660d8fa510784bcb7be1
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
         ),
+        'ECSPrefix20211208\\Composer\\Pcre\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/pcre/src',
+        ),
         'ECSPrefix20211208\\Clue\\React\\NDJson\\' => 
         array (
             0 => __DIR__ . '/..' . '/clue/ndjson-react/src',
@@ -302,6 +307,14 @@ class ComposerStaticInite0b181ef7287660d8fa510784bcb7be1
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'ECSPrefix20211208\\Clue\\React\\NDJson\\Decoder' => __DIR__ . '/..' . '/clue/ndjson-react/src/Decoder.php',
         'ECSPrefix20211208\\Clue\\React\\NDJson\\Encoder' => __DIR__ . '/..' . '/clue/ndjson-react/src/Encoder.php',
+        'ECSPrefix20211208\\Composer\\Pcre\\MatchAllResult' => __DIR__ . '/..' . '/composer/pcre/src/MatchAllResult.php',
+        'ECSPrefix20211208\\Composer\\Pcre\\MatchAllWithOffsetsResult' => __DIR__ . '/..' . '/composer/pcre/src/MatchAllWithOffsetsResult.php',
+        'ECSPrefix20211208\\Composer\\Pcre\\MatchResult' => __DIR__ . '/..' . '/composer/pcre/src/MatchResult.php',
+        'ECSPrefix20211208\\Composer\\Pcre\\MatchWithOffsetsResult' => __DIR__ . '/..' . '/composer/pcre/src/MatchWithOffsetsResult.php',
+        'ECSPrefix20211208\\Composer\\Pcre\\PcreException' => __DIR__ . '/..' . '/composer/pcre/src/PcreException.php',
+        'ECSPrefix20211208\\Composer\\Pcre\\Preg' => __DIR__ . '/..' . '/composer/pcre/src/Preg.php',
+        'ECSPrefix20211208\\Composer\\Pcre\\Regex' => __DIR__ . '/..' . '/composer/pcre/src/Regex.php',
+        'ECSPrefix20211208\\Composer\\Pcre\\ReplaceResult' => __DIR__ . '/..' . '/composer/pcre/src/ReplaceResult.php',
         'ECSPrefix20211208\\Composer\\Semver\\Comparator' => __DIR__ . '/..' . '/composer/semver/src/Comparator.php',
         'ECSPrefix20211208\\Composer\\Semver\\CompilingMatcher' => __DIR__ . '/..' . '/composer/semver/src/CompilingMatcher.php',
         'ECSPrefix20211208\\Composer\\Semver\\Constraint\\Bound' => __DIR__ . '/..' . '/composer/semver/src/Constraint/Bound.php',
@@ -1754,9 +1767,9 @@ class ComposerStaticInite0b181ef7287660d8fa510784bcb7be1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite0b181ef7287660d8fa510784bcb7be1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite0b181ef7287660d8fa510784bcb7be1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite0b181ef7287660d8fa510784bcb7be1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4da7e042fa7653fd65a1c59b714be1c0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4da7e042fa7653fd65a1c59b714be1c0::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4da7e042fa7653fd65a1c59b714be1c0::$classMap;
 
         }, null, ClassLoader::class);
     }
