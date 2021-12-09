@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211208\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20211209\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-class ClosureReferenceConfigurator extends \ECSPrefix20211208\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
+class ClosureReferenceConfigurator extends \ECSPrefix20211209\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
 {
 }

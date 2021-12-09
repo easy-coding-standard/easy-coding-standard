@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211208\React\Socket;
+namespace ECSPrefix20211209\React\Socket;
 
 /**
  * The `ConnectorInterface` is responsible for providing an interface for

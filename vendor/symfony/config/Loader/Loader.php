@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211208\Symfony\Component\Config\Loader;
+namespace ECSPrefix20211209\Symfony\Component\Config\Loader;
 
-use ECSPrefix20211208\Symfony\Component\Config\Exception\LoaderLoadException;
+use ECSPrefix20211209\Symfony\Component\Config\Exception\LoaderLoadException;
 /**
  * Loader is the abstract class used by all built-in loaders.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Loader implements \ECSPrefix20211208\Symfony\Component\Config\Loader\LoaderInterface
+abstract class Loader implements \ECSPrefix20211209\Symfony\Component\Config\Loader\LoaderInterface
 {
     protected $resolver;
     protected $env;
@@ -27,7 +27,7 @@ abstract class Loader implements \ECSPrefix20211208\Symfony\Component\Config\Loa
     /**
      * {@inheritdoc}
      */
-    public function getResolver() : \ECSPrefix20211208\Symfony\Component\Config\Loader\LoaderResolverInterface
+    public function getResolver() : \ECSPrefix20211209\Symfony\Component\Config\Loader\LoaderResolverInterface
     {
         return $this->resolver;
     }
@@ -57,14 +57,14 @@ abstract class Loader implements \ECSPrefix20211208\Symfony\Component\Config\Loa
      * @param mixed $resource
      * @param string|null $type
      */
-    public function resolve($resource, $type = null) : \ECSPrefix20211208\Symfony\Component\Config\Loader\LoaderInterface
+    public function resolve($resource, $type = null) : \ECSPrefix20211209\Symfony\Component\Config\Loader\LoaderInterface
     {
         if ($this->supports($resource, $type)) {
             return $this;
         }
         $loader = null === $this->resolver ? \false : $this->resolver->resolve($resource, $type);
         if (\false === $loader) {
-            throw new \ECSPrefix20211208\Symfony\Component\Config\Exception\LoaderLoadException($resource, null, 0, null, $type);
+            throw new \ECSPrefix20211209\Symfony\Component\Config\Exception\LoaderLoadException($resource, null, 0, null, $type);
         }
         return $loader;
     }

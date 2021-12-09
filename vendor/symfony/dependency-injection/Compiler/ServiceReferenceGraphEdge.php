@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211208\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler;
 
 /**
  * Represents an edge in your service graph.
@@ -19,13 +19,7 @@ namespace ECSPrefix20211208\Symfony\Component\DependencyInjection\Compiler;
  */
 class ServiceReferenceGraphEdge
 {
-    /**
-     * @var \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
-     */
     private $sourceNode;
-    /**
-     * @var \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
-     */
     private $destNode;
     /**
      * @var mixed
@@ -46,7 +40,7 @@ class ServiceReferenceGraphEdge
     /**
      * @param mixed $value
      */
-    public function __construct(\ECSPrefix20211208\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode, \ECSPrefix20211208\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode, $value = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
+    public function __construct(\ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode, \ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode, $value = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
     {
         $this->sourceNode = $sourceNode;
         $this->destNode = $destNode;
@@ -66,14 +60,14 @@ class ServiceReferenceGraphEdge
     /**
      * Returns the source node.
      */
-    public function getSourceNode() : \ECSPrefix20211208\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+    public function getSourceNode() : \ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
     {
         return $this->sourceNode;
     }
     /**
      * Returns the destination node.
      */
-    public function getDestNode() : \ECSPrefix20211208\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+    public function getDestNode() : \ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
     {
         return $this->destNode;
     }

@@ -42,12 +42,12 @@
         "symfony\/yaml": "<5.4"
     },
     "provide": {
-        "psr\/container-implementation": "1.1|2.0|3.0",
+        "psr\/container-implementation": "1.1|2.0",
         "symfony\/service-implementation": "1.1|2.0|3.0"
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211208\\Symfony\\Component\\DependencyInjection\\": ""
+            "ECSPrefix20211209\\Symfony\\Component\\DependencyInjection\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

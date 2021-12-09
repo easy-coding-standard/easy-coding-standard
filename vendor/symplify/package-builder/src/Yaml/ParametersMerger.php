@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211208\Symplify\PackageBuilder\Yaml;
+namespace ECSPrefix20211209\Symplify\PackageBuilder\Yaml;
 
 final class ParametersMerger
 {

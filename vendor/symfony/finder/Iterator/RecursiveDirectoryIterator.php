@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211208\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20211209\Symfony\Component\Finder\Iterator;
 
-use ECSPrefix20211208\Symfony\Component\Finder\Exception\AccessDeniedException;
-use ECSPrefix20211208\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20211209\Symfony\Component\Finder\Exception\AccessDeniedException;
+use ECSPrefix20211209\Symfony\Component\Finder\SplFileInfo;
 /**
  * Extends the \RecursiveDirectoryIterator to support relative paths.
  *
@@ -65,7 +65,7 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
         if ('/' !== ($basePath = $this->rootPath)) {
             $basePath .= $this->directorySeparator;
         }
-        return new \ECSPrefix20211208\Symfony\Component\Finder\SplFileInfo($basePath . $subPathname, $this->subPath, $subPathname);
+        return new \ECSPrefix20211209\Symfony\Component\Finder\SplFileInfo($basePath . $subPathname, $this->subPath, $subPathname);
     }
     /**
      * @param bool $allowLinks
@@ -106,7 +106,7 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
             }
             return $children;
         } catch (\UnexpectedValueException $e) {
-            throw new \ECSPrefix20211208\Symfony\Component\Finder\Exception\AccessDeniedException($e->getMessage(), $e->getCode(), $e);
+            throw new \ECSPrefix20211209\Symfony\Component\Finder\Exception\AccessDeniedException($e->getMessage(), $e->getCode(), $e);
         }
     }
     /**
