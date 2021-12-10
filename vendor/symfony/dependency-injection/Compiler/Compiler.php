@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211209\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211209\Symfony\Component\DependencyInjection\Exception\EnvParameterException;
+use ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\EnvParameterException;
 /**
  * This class is used to remove circular dependencies between individual passes.
  *
@@ -27,14 +27,14 @@ class Compiler
     private $serviceReferenceGraph;
     public function __construct()
     {
-        $this->passConfig = new \ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler\PassConfig();
-        $this->serviceReferenceGraph = new \ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraph();
+        $this->passConfig = new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\PassConfig();
+        $this->serviceReferenceGraph = new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraph();
     }
-    public function getPassConfig() : \ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler\PassConfig
+    public function getPassConfig() : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\PassConfig
     {
         return $this->passConfig;
     }
-    public function getServiceReferenceGraph() : \ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraph
+    public function getServiceReferenceGraph() : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraph
     {
         return $this->serviceReferenceGraph;
     }
@@ -43,7 +43,7 @@ class Compiler
      * @param string $type
      * @param int $priority
      */
-    public function addPass($pass, $type = \ECSPrefix20211209\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addPass($pass, $type = \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
     {
         $this->passConfig->addPass($pass, $type, $priority);
     }
@@ -85,7 +85,7 @@ class Compiler
                 }
             } while ($prev = $prev->getPrevious());
             if ($usedEnvs) {
-                $e = new \ECSPrefix20211209\Symfony\Component\DependencyInjection\Exception\EnvParameterException($usedEnvs, $e);
+                $e = new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\EnvParameterException($usedEnvs, $e);
             }
             throw $e;
         } finally {

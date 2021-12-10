@@ -17,16 +17,16 @@ use PhpCsFixer\ConfigInterface;
 use PhpCsFixer\Console\ConfigurationResolver;
 use PhpCsFixer\ToolInfoInterface;
 use SplFileInfo;
-use ECSPrefix20211209\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211209\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211209\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20211209\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211210\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211210\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Markus Staab <markus.staab@redaxo.org>
  *
  * @internal
  */
-final class ListFilesCommand extends \ECSPrefix20211209\Symfony\Component\Console\Command\Command
+final class ListFilesCommand extends \ECSPrefix20211210\Symfony\Component\Console\Command\Command
 {
     /**
      * @var string
@@ -51,7 +51,7 @@ final class ListFilesCommand extends \ECSPrefix20211209\Symfony\Component\Consol
      */
     protected function configure() : void
     {
-        $this->setDefinition([new \ECSPrefix20211209\Symfony\Component\Console\Input\InputOption('config', '', \ECSPrefix20211209\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.')])->setDescription('List all files being fixed by the given config.');
+        $this->setDefinition([new \ECSPrefix20211210\Symfony\Component\Console\Input\InputOption('config', '', \ECSPrefix20211210\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.')])->setDescription('List all files being fixed by the given config.');
     }
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
