@@ -22,10 +22,8 @@ abstract class AbstractSymplifyKernel implements \ECSPrefix20211210\Symplify\Sym
     private $container = null;
     /**
      * @param string[] $configFiles
-     * @param mixed[] $extensions
-     * @param mixed[] $compilerPasses
      */
-    public function create($extensions, $compilerPasses, $configFiles) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerInterface
+    public function create(array $extensions, array $compilerPasses, array $configFiles) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerInterface
     {
         $containerBuilderFactory = new \ECSPrefix20211210\Symplify\SymplifyKernel\ContainerBuilderFactory(new \ECSPrefix20211210\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory());
         $compilerPasses[] = new \ECSPrefix20211210\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass();

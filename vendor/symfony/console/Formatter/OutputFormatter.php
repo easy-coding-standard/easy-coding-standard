@@ -33,9 +33,8 @@ class OutputFormatter implements \ECSPrefix20211210\Symfony\Component\Console\Fo
      * Escapes "<" special char in given text.
      *
      * @return string
-     * @param string $text
      */
-    public static function escape($text)
+    public static function escape(string $text)
     {
         $text = \preg_replace('/([^\\\\]?)</', '$1\\<', $text);
         return self::escapeTrailingBackslash($text);
@@ -44,9 +43,8 @@ class OutputFormatter implements \ECSPrefix20211210\Symfony\Component\Console\Fo
      * Escapes trailing "\" in given text.
      *
      * @internal
-     * @param string $text
      */
-    public static function escapeTrailingBackslash($text) : string
+    public static function escapeTrailingBackslash(string $text) : string
     {
         if (\substr_compare($text, '\\', -\strlen('\\')) === 0) {
             $len = \strlen($text);
@@ -75,9 +73,8 @@ class OutputFormatter implements \ECSPrefix20211210\Symfony\Component\Console\Fo
     }
     /**
      * {@inheritdoc}
-     * @param bool $decorated
      */
-    public function setDecorated($decorated)
+    public function setDecorated(bool $decorated)
     {
         $this->decorated = $decorated;
     }
@@ -90,26 +87,22 @@ class OutputFormatter implements \ECSPrefix20211210\Symfony\Component\Console\Fo
     }
     /**
      * {@inheritdoc}
-     * @param string $name
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
-    public function setStyle($name, $style)
+    public function setStyle(string $name, \ECSPrefix20211210\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
         $this->styles[\strtolower($name)] = $style;
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function hasStyle($name)
+    public function hasStyle(string $name)
     {
         return isset($this->styles[\strtolower($name)]);
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getStyle($name)
+    public function getStyle(string $name)
     {
         if (!$this->hasStyle($name)) {
             throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Undefined style: "%s".', $name));
@@ -118,18 +111,15 @@ class OutputFormatter implements \ECSPrefix20211210\Symfony\Component\Console\Fo
     }
     /**
      * {@inheritdoc}
-     * @param string|null $message
      */
-    public function format($message)
+    public function format(?string $message)
     {
         return $this->formatAndWrap($message, 0);
     }
     /**
      * {@inheritdoc}
-     * @param string|null $message
-     * @param int $width
      */
-    public function formatAndWrap($message, $width)
+    public function formatAndWrap(?string $message, int $width)
     {
         $offset = 0;
         $output = '';

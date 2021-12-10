@@ -37,9 +37,8 @@ final class PsrCachedReader implements \ECSPrefix20211210\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotations($class)
+    public function getClassAnnotations(\ReflectionClass $class)
     {
         $cacheKey = $class->getName();
         if (isset($this->loadedAnnotations[$cacheKey])) {
@@ -50,9 +49,8 @@ final class PsrCachedReader implements \ECSPrefix20211210\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotation($class, $annotationName)
+    public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
         foreach ($this->getClassAnnotations($class) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -63,9 +61,8 @@ final class PsrCachedReader implements \ECSPrefix20211210\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotations($property)
+    public function getPropertyAnnotations(\ReflectionProperty $property)
     {
         $class = $property->getDeclaringClass();
         $cacheKey = $class->getName() . '$' . $property->getName();
@@ -77,9 +74,8 @@ final class PsrCachedReader implements \ECSPrefix20211210\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotation($property, $annotationName)
+    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
         foreach ($this->getPropertyAnnotations($property) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -90,9 +86,8 @@ final class PsrCachedReader implements \ECSPrefix20211210\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotations($method)
+    public function getMethodAnnotations(\ReflectionMethod $method)
     {
         $class = $method->getDeclaringClass();
         $cacheKey = $class->getName() . '#' . $method->getName();
@@ -104,9 +99,8 @@ final class PsrCachedReader implements \ECSPrefix20211210\Doctrine\Common\Annota
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotation($method, $annotationName)
+    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
         foreach ($this->getMethodAnnotations($method) as $annot) {
             if ($annot instanceof $annotationName) {

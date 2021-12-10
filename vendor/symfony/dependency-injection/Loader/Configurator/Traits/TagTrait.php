@@ -17,10 +17,8 @@ trait TagTrait
      * Adds a tag for this definition.
      *
      * @return $this
-     * @param string $name
-     * @param mixed[] $attributes
      */
-    public final function tag($name, $attributes = [])
+    public final function tag(string $name, array $attributes = [])
     {
         if ('' === $name) {
             throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The tag name for service "%s" must be a non-empty string.', $this->id));

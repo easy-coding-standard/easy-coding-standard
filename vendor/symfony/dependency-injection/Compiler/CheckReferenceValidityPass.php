@@ -26,9 +26,8 @@ class CheckReferenceValidityPass extends \ECSPrefix20211210\Symfony\Component\De
     /**
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($isRoot && $value instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition && ($value->isSynthetic() || $value->isAbstract())) {
             return $value;

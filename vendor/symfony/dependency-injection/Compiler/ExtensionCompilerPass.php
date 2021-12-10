@@ -21,9 +21,8 @@ class ExtensionCompilerPass implements \ECSPrefix20211210\Symfony\Component\Depe
 {
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->getExtensions() as $extension) {
             if (!$extension instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface) {

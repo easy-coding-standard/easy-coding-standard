@@ -33,11 +33,7 @@ class HelperSet implements \IteratorAggregate
             $this->set($helper, \is_int($alias) ? null : $alias);
         }
     }
-    /**
-     * @param \Symfony\Component\Console\Helper\HelperInterface $helper
-     * @param string|null $alias
-     */
-    public function set($helper, $alias = null)
+    public function set(\ECSPrefix20211210\Symfony\Component\Console\Helper\HelperInterface $helper, string $alias = null)
     {
         $this->helpers[$helper->getName()] = $helper;
         if (null !== $alias) {
@@ -49,9 +45,8 @@ class HelperSet implements \IteratorAggregate
      * Returns true if the helper if defined.
      *
      * @return bool
-     * @param string $name
      */
-    public function has($name)
+    public function has(string $name)
     {
         return isset($this->helpers[$name]);
     }
@@ -61,9 +56,8 @@ class HelperSet implements \IteratorAggregate
      * @return HelperInterface
      *
      * @throws InvalidArgumentException if the helper is not defined
-     * @param string $name
      */
-    public function get($name)
+    public function get(string $name)
     {
         if (!$this->has($name)) {
             throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
@@ -72,9 +66,8 @@ class HelperSet implements \IteratorAggregate
     }
     /**
      * @deprecated since Symfony 5.4
-     * @param \Symfony\Component\Console\Command\Command|null $command
      */
-    public function setCommand($command = null)
+    public function setCommand(\ECSPrefix20211210\Symfony\Component\Console\Command\Command $command = null)
     {
         trigger_deprecation('symfony/console', '5.4', 'Method "%s()" is deprecated.', __METHOD__);
         $this->command = $command;

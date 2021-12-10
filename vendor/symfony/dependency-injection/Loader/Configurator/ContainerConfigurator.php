@@ -58,11 +58,7 @@ class ContainerConfigurator extends \ECSPrefix20211210\Symfony\Component\Depende
         $this->file = $file;
         $this->env = $env;
     }
-    /**
-     * @param string $namespace
-     * @param mixed[] $config
-     */
-    public final function extension($namespace, $config)
+    public final function extension(string $namespace, array $config)
     {
         if (!$this->container->hasExtension($namespace)) {
             $extensions = \array_filter(\array_map(function (\ECSPrefix20211210\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $ext) {
@@ -74,10 +70,8 @@ class ContainerConfigurator extends \ECSPrefix20211210\Symfony\Component\Depende
     }
     /**
      * @param bool|string $ignoreErrors
-     * @param string $resource
-     * @param string|null $type
      */
-    public final function import($resource, $type = null, $ignoreErrors = \false)
+    public final function import(string $resource, string $type = null, $ignoreErrors = \false)
     {
         $this->loader->setCurrentDir(\dirname($this->path));
         $this->loader->import($resource, $type, $ignoreErrors, $this->file);
@@ -99,9 +93,8 @@ class ContainerConfigurator extends \ECSPrefix20211210\Symfony\Component\Depende
     }
     /**
      * @return $this
-     * @param string $path
      */
-    public final function withPath($path)
+    public final function withPath(string $path)
     {
         $clone = clone $this;
         $clone->path = $clone->file = $path;

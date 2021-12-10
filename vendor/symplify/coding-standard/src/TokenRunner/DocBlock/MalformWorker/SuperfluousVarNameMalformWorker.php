@@ -22,10 +22,8 @@ final class SuperfluousVarNameMalformWorker implements \Symplify\CodingStandard\
     private const VAR_VARIABLE_NAME_REGEX = '#(?<tag>@(?:psalm-|phpstan-)?var)(?<type>\\s+[|\\\\\\w]+)?(\\s+)(?<propertyName>\\$[\\w]+)#';
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
      */
-    public function work($docContent, $tokens, $position) : string
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
         if ($this->shouldSkip($tokens, $position)) {
             return $docContent;

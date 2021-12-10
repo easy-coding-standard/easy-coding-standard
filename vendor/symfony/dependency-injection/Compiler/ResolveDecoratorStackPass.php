@@ -22,10 +22,7 @@ use ECSPrefix20211210\Symfony\Component\DependencyInjection\Reference;
  */
 class ResolveDecoratorStackPass implements \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $stacks = [];
         foreach ($container->findTaggedServiceIds('container.stack') as $id => $tags) {

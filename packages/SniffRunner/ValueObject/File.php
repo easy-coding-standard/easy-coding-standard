@@ -140,9 +140,8 @@ final class File extends \PHP_CodeSniffer\Files\File
     }
     /**
      * @param array<int|string, Sniff[]> $tokenListeners
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
      */
-    public function processWithTokenListenersAndFileInfo($tokenListeners, $fileInfo) : void
+    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20211210\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->tokenListeners = $tokenListeners;
         $this->fileInfo = $fileInfo;

@@ -38,10 +38,8 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
      */
-    public function work($docContent, $tokens, $position) : string
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
         $argumentNames = $this->docblockRelatedParamNamesResolver->resolve($tokens, $position);
         if ($argumentNames === []) {

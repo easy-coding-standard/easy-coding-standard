@@ -110,10 +110,7 @@ final class UdpTransportExecutor implements \ECSPrefix20211210\React\Dns\Query\E
         $this->parser = new \ECSPrefix20211210\React\Dns\Protocol\Parser();
         $this->dumper = new \ECSPrefix20211210\React\Dns\Protocol\BinaryDumper();
     }
-    /**
-     * @param \React\Dns\Query\Query $query
-     */
-    public function query($query)
+    public function query(\ECSPrefix20211210\React\Dns\Query\Query $query)
     {
         $request = \ECSPrefix20211210\React\Dns\Model\Message::createRequestForQuery($query);
         $queryData = $this->dumper->toBinary($request);

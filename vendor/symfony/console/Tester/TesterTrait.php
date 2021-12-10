@@ -35,9 +35,8 @@ trait TesterTrait
      * @throws \RuntimeException If it's called before the execute method
      *
      * @return string
-     * @param bool $normalize
      */
-    public function getDisplay($normalize = \false)
+    public function getDisplay(bool $normalize = \false)
     {
         if (null === $this->output) {
             throw new \RuntimeException('Output not initialized, did you execute the command before requesting the display?');
@@ -56,7 +55,7 @@ trait TesterTrait
      *
      * @return string
      */
-    public function getErrorOutput($normalize = \false)
+    public function getErrorOutput(bool $normalize = \false)
     {
         if (!$this->captureStreamsIndependently) {
             throw new \LogicException('The error output is not available when the tester is run without "capture_stderr_separately" option set.');
@@ -100,10 +99,7 @@ trait TesterTrait
         }
         return $this->statusCode;
     }
-    /**
-     * @param string $message
-     */
-    public function assertCommandIsSuccessful($message = '') : void
+    public function assertCommandIsSuccessful(string $message = '') : void
     {
         \ECSPrefix20211210\PHPUnit\Framework\Assert::assertThat($this->statusCode, new \ECSPrefix20211210\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful(), $message);
     }
@@ -115,7 +111,7 @@ trait TesterTrait
      *
      * @return $this
      */
-    public function setInputs($inputs)
+    public function setInputs(array $inputs)
     {
         $this->inputs = $inputs;
         return $this;

@@ -19,11 +19,7 @@ namespace PhpCsFixer\Tokenizer;
  */
 abstract class AbstractTypeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
 {
-    /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param int $index
-     */
-    protected function doProcess($tokens, $index, $originalToken) : void
+    protected function doProcess(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, $originalToken) : void
     {
         if (!$tokens[$index]->equals($originalToken)) {
             return;
@@ -78,9 +74,5 @@ abstract class AbstractTypeTransformer extends \PhpCsFixer\Tokenizer\AbstractTra
         }
         $this->replaceToken($tokens, $index);
     }
-    /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param int $index
-     */
-    protected abstract function replaceToken($tokens, $index) : void;
+    protected abstract function replaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void;
 }

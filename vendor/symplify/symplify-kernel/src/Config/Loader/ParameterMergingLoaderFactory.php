@@ -12,11 +12,7 @@ use ECSPrefix20211210\Symplify\PackageBuilder\DependencyInjection\FileLoader\Par
 use ECSPrefix20211210\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface;
 final class ParameterMergingLoaderFactory implements \ECSPrefix20211210\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface
 {
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @param string $currentWorkingDirectory
-     */
-    public function create($containerBuilder, $currentWorkingDirectory) : \ECSPrefix20211210\Symfony\Component\Config\Loader\LoaderInterface
+    public function create(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $currentWorkingDirectory) : \ECSPrefix20211210\Symfony\Component\Config\Loader\LoaderInterface
     {
         $fileLocator = new \ECSPrefix20211210\Symfony\Component\Config\FileLocator([$currentWorkingDirectory]);
         $loaders = [new \ECSPrefix20211210\Symfony\Component\Config\Loader\GlobFileLoader($fileLocator), new \ECSPrefix20211210\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $fileLocator)];

@@ -42,10 +42,7 @@ final class CoopExecutor implements \ECSPrefix20211210\React\Dns\Query\ExecutorI
     {
         $this->executor = $base;
     }
-    /**
-     * @param \React\Dns\Query\Query $query
-     */
-    public function query($query)
+    public function query(\ECSPrefix20211210\React\Dns\Query\Query $query)
     {
         $key = $this->serializeQueryToIdentity($query);
         if (isset($this->pending[$key])) {

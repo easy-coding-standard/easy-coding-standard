@@ -49,11 +49,8 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \PhpCsFixer\Tokenizer\Token $token
-     * @param int $index
      */
-    public function process($tokens, $token, $index) : void
+    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
     {
         if ($this->isArrayDestructing($tokens, $index)) {
             $this->transformIntoDestructuringSquareBrace($tokens, $index);

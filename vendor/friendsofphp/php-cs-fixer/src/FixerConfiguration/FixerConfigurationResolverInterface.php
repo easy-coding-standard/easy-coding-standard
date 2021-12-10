@@ -23,5 +23,5 @@ interface FixerConfigurationResolverInterface
      *
      * @return array<string, mixed>
      */
-    public function resolve($configuration) : array;
+    public function resolve(array $configuration) : array;
 }

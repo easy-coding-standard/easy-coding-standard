@@ -51,9 +51,8 @@ class FileResource implements \ECSPrefix20211210\Symfony\Component\Config\Resour
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
      */
-    public function isFresh($timestamp) : bool
+    public function isFresh(int $timestamp) : bool
     {
         return \false !== ($filemtime = @\filemtime($this->resource)) && $filemtime <= $timestamp;
     }

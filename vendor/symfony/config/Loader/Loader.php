@@ -33,9 +33,8 @@ abstract class Loader implements \ECSPrefix20211210\Symfony\Component\Config\Loa
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
      */
-    public function setResolver($resolver)
+    public function setResolver(\ECSPrefix20211210\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver)
     {
         $this->resolver = $resolver;
     }
@@ -55,9 +54,8 @@ abstract class Loader implements \ECSPrefix20211210\Symfony\Component\Config\Loa
      *
      * @throws LoaderLoadException If no loader is found
      * @param mixed $resource
-     * @param string|null $type
      */
-    public function resolve($resource, $type = null) : \ECSPrefix20211210\Symfony\Component\Config\Loader\LoaderInterface
+    public function resolve($resource, string $type = null) : \ECSPrefix20211210\Symfony\Component\Config\Loader\LoaderInterface
     {
         if ($this->supports($resource, $type)) {
             return $this;

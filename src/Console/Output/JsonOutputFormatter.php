@@ -30,11 +30,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
-    /**
-     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
-     * @param \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration
-     */
-    public function report($errorAndDiffResult, $configuration) : int
+    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
     {
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
@@ -45,10 +41,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
     {
         return self::NAME;
     }
-    /**
-     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
-     */
-    public function createJsonContent($errorAndDiffResult) : string
+    public function createJsonContent(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : string
     {
         $errorsArrayJson = $this->createBaseErrorsJson($errorAndDiffResult);
         $codingStandardErrors = $errorAndDiffResult->getErrors();

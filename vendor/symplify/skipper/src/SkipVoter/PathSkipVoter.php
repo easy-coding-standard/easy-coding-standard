@@ -31,9 +31,8 @@ final class PathSkipVoter implements \ECSPrefix20211210\Symplify\Skipper\Contrac
     }
     /**
      * @param object|string $element
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function shouldSkip($element, $smartFileInfo) : bool
+    public function shouldSkip($element, \ECSPrefix20211210\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedPaths = $this->skippedPathsResolver->resolve();
         return $this->fileInfoMatcher->doesFileInfoMatchPatterns($smartFileInfo, $skippedPaths);

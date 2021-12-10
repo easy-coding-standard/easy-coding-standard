@@ -42,9 +42,8 @@ class Alias
      * Sets if this Alias is public.
      *
      * @return $this
-     * @param bool $boolean
      */
-    public function setPublic($boolean)
+    public function setPublic(bool $boolean)
     {
         $this->public = $boolean;
         return $this;
@@ -68,7 +67,7 @@ class Alias
      *
      * @throws InvalidArgumentException when the message template is invalid
      */
-    public function setDeprecated($package, $version, $message)
+    public function setDeprecated(string $package, string $version, string $message)
     {
         if ('' !== $message) {
             if (\preg_match('#[\\r\\n]|\\*/#', $message)) {
@@ -88,7 +87,7 @@ class Alias
     /**
      * @param string $id Service id relying on this definition
      */
-    public function getDeprecation($id) : array
+    public function getDeprecation(string $id) : array
     {
         return ['package' => $this->deprecation['package'], 'version' => $this->deprecation['version'], 'message' => \str_replace('%alias_id%', $id, $this->deprecation['message'])];
     }

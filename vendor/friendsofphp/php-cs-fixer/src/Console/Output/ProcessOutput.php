@@ -81,10 +81,7 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
     {
         throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
     }
-    /**
-     * @param \PhpCsFixer\FixerFileProcessedEvent $event
-     */
-    public function onFixerFileProcessed($event) : void
+    public function onFixerFileProcessed(\PhpCsFixer\FixerFileProcessedEvent $event) : void
     {
         $status = self::$eventStatusMap[$event->getStatus()];
         $this->output->write($this->output->isDecorated() ? \sprintf($status['format'], $status['symbol']) : $status['symbol']);

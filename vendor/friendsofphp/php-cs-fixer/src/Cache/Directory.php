@@ -29,9 +29,8 @@ final class Directory implements \PhpCsFixer\Cache\DirectoryInterface
     }
     /**
      * {@inheritdoc}
-     * @param string $file
      */
-    public function getRelativePathTo($file) : string
+    public function getRelativePathTo(string $file) : string
     {
         $file = $this->normalizePath($file);
         if ('' === $this->directoryName || 0 !== \stripos($file, $this->directoryName . \DIRECTORY_SEPARATOR)) {

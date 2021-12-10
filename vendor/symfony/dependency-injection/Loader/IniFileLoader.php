@@ -51,9 +51,8 @@ class IniFileLoader extends \ECSPrefix20211210\Symfony\Component\DependencyInjec
     /**
      * {@inheritdoc}
      * @param mixed $resource
-     * @param string|null $type
      */
-    public function supports($resource, $type = null) : bool
+    public function supports($resource, string $type = null) : bool
     {
         if (!\is_string($resource)) {
             return \false;

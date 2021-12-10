@@ -44,18 +44,16 @@ trait ServiceLocatorTrait
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    public function has($id) : bool
+    public function has(string $id) : bool
     {
         return isset($this->factories[$id]);
     }
     /**
      * {@inheritdoc}
      * @return mixed
-     * @param string $id
      */
-    public function get($id)
+    public function get(string $id)
     {
         if (!isset($this->factories[$id])) {
             throw $this->createNotFoundException($id);

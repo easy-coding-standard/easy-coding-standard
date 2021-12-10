@@ -39,5 +39,5 @@ interface ExecutorInterface
      * @return \React\Promise\PromiseInterface<\React\Dns\Model\Message,\Exception>
      *     resolves with response message on success or rejects with an Exception on error
      */
-    public function query($query);
+    public function query(\ECSPrefix20211210\React\Dns\Query\Query $query);
 }

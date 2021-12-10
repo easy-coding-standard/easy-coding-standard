@@ -46,9 +46,8 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      */
-    public function resolve($configuration) : array
+    public function resolve(array $configuration) : array
     {
         $resolver = new \ECSPrefix20211210\Symfony\Component\OptionsResolver\OptionsResolver();
         foreach ($this->options as $option) {

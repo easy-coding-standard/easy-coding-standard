@@ -26,9 +26,8 @@ final class Tokens extends \SplFixedArray
      * @param string[] $ignoredTags
      *
      * @throws \InvalidArgumentException
-     * @param PhpToken $input
      */
-    public static function createFromDocComment($input, $ignoredTags = []) : self
+    public static function createFromDocComment(\PhpCsFixer\Tokenizer\Token $input, array $ignoredTags = []) : self
     {
         if (!$input->isGivenKind(\T_DOC_COMMENT)) {
             throw new \InvalidArgumentException('Input must be a T_DOC_COMMENT token.');
@@ -105,17 +104,15 @@ final class Tokens extends \SplFixedArray
     }
     /**
      * Returns the index of the closest next token that is neither a comment nor a whitespace token.
-     * @param int $index
      */
-    public function getNextMeaningfulToken($index) : ?int
+    public function getNextMeaningfulToken(int $index) : ?int
     {
         return $this->getMeaningfulTokenSibling($index, 1);
     }
     /**
      * Returns the index of the closest previous token that is neither a comment nor a whitespace token.
-     * @param int $index
      */
-    public function getPreviousMeaningfulToken($index) : ?int
+    public function getPreviousMeaningfulToken(int $index) : ?int
     {
         return $this->getMeaningfulTokenSibling($index, -1);
     }
@@ -123,9 +120,8 @@ final class Tokens extends \SplFixedArray
      * Returns the index of the closest next token of the given type.
      *
      * @param string|string[] $type
-     * @param int $index
      */
-    public function getNextTokenOfType($type, $index) : ?int
+    public function getNextTokenOfType($type, int $index) : ?int
     {
         return $this->getTokenOfTypeSibling($index, $type, 1);
     }
@@ -133,17 +129,15 @@ final class Tokens extends \SplFixedArray
      * Returns the index of the closest previous token of the given type.
      *
      * @param string|string[] $type
-     * @param int $index
      */
-    public function getPreviousTokenOfType($type, $index) : ?int
+    public function getPreviousTokenOfType($type, int $index) : ?int
     {
         return $this->getTokenOfTypeSibling($index, $type, -1);
     }
     /**
      * Returns the index of the last token that is part of the annotation at the given index.
-     * @param int $index
      */
-    public function getAnnotationEnd($index) : ?int
+    public function getAnnotationEnd(int $index) : ?int
     {
         $currentIndex = null;
         if (isset($this[$index + 2])) {
@@ -171,9 +165,8 @@ final class Tokens extends \SplFixedArray
     }
     /**
      * Returns the index of the close brace that matches the open brace at the given index.
-     * @param int $index
      */
-    public function getArrayEnd($index) : ?int
+    public function getArrayEnd(int $index) : ?int
     {
         $level = 1;
         for (++$index, $max = \count($this); $index < $max; ++$index) {
@@ -201,10 +194,8 @@ final class Tokens extends \SplFixedArray
     }
     /**
      * Inserts a token at the given index.
-     * @param int $index
-     * @param \PhpCsFixer\Doctrine\Annotation\Token $token
      */
-    public function insertAt($index, $token) : void
+    public function insertAt(int $index, \PhpCsFixer\Doctrine\Annotation\Token $token) : void
     {
         $this->setSize($this->getSize() + 1);
         for ($i = $this->getSize() - 1; $i > $index; --$i) {

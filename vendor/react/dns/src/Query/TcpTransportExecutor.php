@@ -137,10 +137,7 @@ class TcpTransportExecutor implements \ECSPrefix20211210\React\Dns\Query\Executo
         $this->parser = new \ECSPrefix20211210\React\Dns\Protocol\Parser();
         $this->dumper = new \ECSPrefix20211210\React\Dns\Protocol\BinaryDumper();
     }
-    /**
-     * @param \React\Dns\Query\Query $query
-     */
-    public function query($query)
+    public function query(\ECSPrefix20211210\React\Dns\Query\Query $query)
     {
         $request = \ECSPrefix20211210\React\Dns\Model\Message::createRequestForQuery($query);
         // keep shuffing message ID to avoid using the same message ID for two pending queries at the same time

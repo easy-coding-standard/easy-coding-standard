@@ -22,9 +22,8 @@ abstract class Helper implements \ECSPrefix20211210\Symfony\Component\Console\He
     protected $helperSet = null;
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Helper\HelperSet|null $helperSet
      */
-    public function setHelperSet($helperSet = null)
+    public function setHelperSet(\ECSPrefix20211210\Symfony\Component\Console\Helper\HelperSet $helperSet = null)
     {
         $this->helperSet = $helperSet;
     }
@@ -41,9 +40,8 @@ abstract class Helper implements \ECSPrefix20211210\Symfony\Component\Console\He
      * @deprecated since Symfony 5.3
      *
      * @return int
-     * @param string|null $string
      */
-    public static function strlen($string)
+    public static function strlen(?string $string)
     {
         trigger_deprecation('symfony/console', '5.3', 'Method "%s()" is deprecated and will be removed in Symfony 6.0. Use Helper::width() or Helper::length() instead.', __METHOD__);
         return self::width($string);
@@ -51,9 +49,8 @@ abstract class Helper implements \ECSPrefix20211210\Symfony\Component\Console\He
     /**
      * Returns the width of a string, using mb_strwidth if it is available.
      * The width is how many characters positions the string will use.
-     * @param string|null $string
      */
-    public static function width($string) : int
+    public static function width(?string $string) : int
     {
         $string ?? ($string = '');
         if (\preg_match('//u', $string)) {
@@ -67,9 +64,8 @@ abstract class Helper implements \ECSPrefix20211210\Symfony\Component\Console\He
     /**
      * Returns the length of a string, using mb_strlen if it is available.
      * The length is related to how many bytes the string will use.
-     * @param string|null $string
      */
-    public static function length($string) : int
+    public static function length(?string $string) : int
     {
         $string ?? ($string = '');
         if (\preg_match('//u', $string)) {
@@ -84,11 +80,8 @@ abstract class Helper implements \ECSPrefix20211210\Symfony\Component\Console\He
      * Returns the subset of a string, using mb_substr if it is available.
      *
      * @return string
-     * @param string|null $string
-     * @param int $from
-     * @param int|null $length
      */
-    public static function substr($string, $from, $length = null)
+    public static function substr(?string $string, int $from, int $length = null)
     {
         $string ?? ($string = '');
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
@@ -110,10 +103,7 @@ abstract class Helper implements \ECSPrefix20211210\Symfony\Component\Console\He
             }
         }
     }
-    /**
-     * @param int $memory
-     */
-    public static function formatMemory($memory)
+    public static function formatMemory(int $memory)
     {
         if ($memory >= 1024 * 1024 * 1024) {
             return \sprintf('%.1f GiB', $memory / 1024 / 1024 / 1024);
@@ -128,19 +118,13 @@ abstract class Helper implements \ECSPrefix20211210\Symfony\Component\Console\He
     }
     /**
      * @deprecated since Symfony 5.3
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
-     * @param string|null $string
      */
-    public static function strlenWithoutDecoration($formatter, $string)
+    public static function strlenWithoutDecoration(\ECSPrefix20211210\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, ?string $string)
     {
         trigger_deprecation('symfony/console', '5.3', 'Method "%s()" is deprecated and will be removed in Symfony 6.0. Use Helper::removeDecoration() instead.', __METHOD__);
         return self::width(self::removeDecoration($formatter, $string));
     }
-    /**
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
-     * @param string|null $string
-     */
-    public static function removeDecoration($formatter, $string)
+    public static function removeDecoration(\ECSPrefix20211210\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, ?string $string)
     {
         $isDecorated = $formatter->isDecorated();
         $formatter->setDecorated(\false);

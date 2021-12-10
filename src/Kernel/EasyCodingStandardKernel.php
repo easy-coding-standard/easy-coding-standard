@@ -25,7 +25,7 @@ final class EasyCodingStandardKernel extends \ECSPrefix20211210\Symplify\Symplif
     /**
      * @param string[] $configFiles
      */
-    public function createFromConfigs($configFiles) : \ECSPrefix20211210\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFiles) : \ECSPrefix20211210\Psr\Container\ContainerInterface
     {
         $configFiles[] = __DIR__ . '/../../config/config.php';
         $compilerPasses = $this->createCompilerPasses();

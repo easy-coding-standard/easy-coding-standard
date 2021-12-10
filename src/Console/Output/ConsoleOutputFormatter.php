@@ -24,11 +24,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
-    /**
-     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
-     * @param \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration
-     */
-    public function report($errorAndDiffResult, $configuration) : int
+    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
     {
         $this->reportFileDiffs($errorAndDiffResult->getFileDiffs());
         $this->easyCodingStandardStyle->newLine(1);

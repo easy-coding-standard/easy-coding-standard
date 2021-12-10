@@ -76,10 +76,7 @@ final class ToolInfo implements \PhpCsFixer\ToolInfoInterface
         }
         return $this->isInstalledByComposer;
     }
-    /**
-     * @param string $version
-     */
-    public function getPharDownloadUri($version) : string
+    public function getPharDownloadUri(string $version) : string
     {
         return \sprintf('https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/%s/php-cs-fixer.phar', $version);
     }

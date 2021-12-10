@@ -15,10 +15,7 @@ use ECSPrefix20211210\Psr\Container\ContainerInterface;
 use ECSPrefix20211210\Symfony\Contracts\Service\ServiceLocatorTrait;
 abstract class ServiceLocatorTest extends \ECSPrefix20211210\PHPUnit\Framework\TestCase
 {
-    /**
-     * @param mixed[] $factories
-     */
-    protected function getServiceLocator($factories) : \ECSPrefix20211210\Psr\Container\ContainerInterface
+    protected function getServiceLocator(array $factories) : \ECSPrefix20211210\Psr\Container\ContainerInterface
     {
         return new class($factories) implements \ECSPrefix20211210\Psr\Container\ContainerInterface
         {

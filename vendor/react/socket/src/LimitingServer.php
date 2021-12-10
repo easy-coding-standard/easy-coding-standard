@@ -140,9 +140,8 @@ class LimitingServer extends \ECSPrefix20211210\Evenement\EventEmitter implement
     {
         $this->server->close();
     }
-    /** @internal
-     * @param \React\Socket\ConnectionInterface $connection */
-    public function handleConnection($connection)
+    /** @internal */
+    public function handleConnection(\ECSPrefix20211210\React\Socket\ConnectionInterface $connection)
     {
         // close connection if limit exceeded
         if ($this->limit !== null && \count($this->connections) >= $this->limit) {
@@ -164,9 +163,8 @@ class LimitingServer extends \ECSPrefix20211210\Evenement\EventEmitter implement
         }
         $this->emit('connection', array($connection));
     }
-    /** @internal
-     * @param \React\Socket\ConnectionInterface $connection */
-    public function handleDisconnection($connection)
+    /** @internal */
+    public function handleDisconnection(\ECSPrefix20211210\React\Socket\ConnectionInterface $connection)
     {
         unset($this->connections[\array_search($connection, $this->connections)]);
         // continue accepting new connection if below limit
@@ -177,9 +175,8 @@ class LimitingServer extends \ECSPrefix20211210\Evenement\EventEmitter implement
             }
         }
     }
-    /** @internal
-     * @param \Exception $error */
-    public function handleError($error)
+    /** @internal */
+    public function handleError(\Exception $error)
     {
         $this->emit('error', array($error));
     }

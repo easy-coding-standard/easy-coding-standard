@@ -36,9 +36,8 @@ abstract class FileLoader extends \ECSPrefix20211210\Symfony\Component\Config\Lo
     }
     /**
      * Sets the current directory.
-     * @param string $dir
      */
-    public function setCurrentDir($dir)
+    public function setCurrentDir(string $dir)
     {
         $this->currentDir = $dir;
     }
@@ -91,13 +90,8 @@ abstract class FileLoader extends \ECSPrefix20211210\Symfony\Component\Config\Lo
     /**
      * @internal
      * @param mixed[]|\Symfony\Component\Config\Resource\GlobResource $resource
-     * @param string $pattern
-     * @param bool $recursive
-     * @param bool $ignoreErrors
-     * @param bool $forExclusion
-     * @param mixed[] $excluded
      */
-    protected function glob($pattern, $recursive, &$resource = null, $ignoreErrors = \false, $forExclusion = \false, $excluded = [])
+    protected function glob(string $pattern, bool $recursive, &$resource = null, bool $ignoreErrors = \false, bool $forExclusion = \false, array $excluded = [])
     {
         if (\strlen($pattern) === ($i = \strcspn($pattern, '*?{['))) {
             $prefix = $pattern;

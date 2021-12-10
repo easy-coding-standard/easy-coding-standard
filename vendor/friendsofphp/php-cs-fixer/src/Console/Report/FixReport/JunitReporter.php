@@ -30,9 +30,8 @@ final class JunitReporter implements \PhpCsFixer\Console\Report\FixReport\Report
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary
      */
-    public function generate($reportSummary) : string
+    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary) : string
     {
         if (!\extension_loaded('dom')) {
             throw new \RuntimeException('Cannot generate report! `ext-dom` is not available!');

@@ -13,11 +13,7 @@ final class InitCommand extends \ECSPrefix20211210\Symplify\PackageBuilder\Conso
         $this->setName('init');
         $this->setDescription('Generate ecs.php configuration file');
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    protected function execute($input, $output) : int
+    protected function execute(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $rectorConfigFiles = $this->smartFileSystem->exists(\getcwd() . '/ecs.php');
         if (!$rectorConfigFiles) {

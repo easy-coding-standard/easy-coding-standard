@@ -28,17 +28,15 @@ class FactoryCommandLoader implements \ECSPrefix20211210\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function has($name)
+    public function has(string $name)
     {
         return isset($this->factories[$name]);
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function get($name)
+    public function get(string $name)
     {
         if (!isset($this->factories[$name])) {
             throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));

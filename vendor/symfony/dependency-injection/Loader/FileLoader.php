@@ -83,7 +83,7 @@ abstract class FileLoader extends \ECSPrefix20211210\Symfony\Component\Config\Lo
      * @param string               $resource  The directory to look for classes, glob-patterns allowed
      * @param mixed[]|string $exclude A globbed path of files to exclude or an array of globbed paths of files to exclude
      */
-    public function registerClasses($prototype, $namespace, $resource, $exclude = null)
+    public function registerClasses(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition $prototype, string $namespace, string $resource, $exclude = null)
     {
         if (\substr_compare($namespace, '\\', -\strlen('\\')) !== 0) {
             throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Namespace prefix must end with a "\\": "%s".', $namespace));
@@ -138,10 +138,8 @@ abstract class FileLoader extends \ECSPrefix20211210\Symfony\Component\Config\Lo
     }
     /**
      * Registers a definition in the container with its instanceof-conditionals.
-     * @param string $id
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
-    protected function setDefinition($id, $definition)
+    protected function setDefinition(string $id, \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition $definition)
     {
         $this->container->removeBindings($id);
         if ($this->isLoadingInstanceof) {

@@ -49,26 +49,22 @@ class TraceableEventDispatcher implements \ECSPrefix20211210\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
-     * @param int $priority
      */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener(string $eventName, $listener, int $priority = 0)
     {
         $this->dispatcher->addListener($eventName, $listener, $priority);
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function addSubscriber($subscriber)
+    public function addSubscriber(\ECSPrefix20211210\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         $this->dispatcher->addSubscriber($subscriber);
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function removeListener($eventName, $listener)
+    public function removeListener(string $eventName, $listener)
     {
         if (isset($this->wrappedListeners[$eventName])) {
             foreach ($this->wrappedListeners[$eventName] as $index => $wrappedListener) {
@@ -83,25 +79,22 @@ class TraceableEventDispatcher implements \ECSPrefix20211210\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function removeSubscriber($subscriber)
+    public function removeSubscriber(\ECSPrefix20211210\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         return $this->dispatcher->removeSubscriber($subscriber);
     }
     /**
      * {@inheritdoc}
-     * @param string|null $eventName
      */
-    public function getListeners($eventName = null)
+    public function getListeners(string $eventName = null)
     {
         return $this->dispatcher->getListeners($eventName);
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function getListenerPriority($eventName, $listener)
+    public function getListenerPriority(string $eventName, $listener)
     {
         // we might have wrapped listeners for the event (if called while dispatching)
         // in that case get the priority by wrapper
@@ -116,9 +109,8 @@ class TraceableEventDispatcher implements \ECSPrefix20211210\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param string|null $eventName
      */
-    public function hasListeners($eventName = null)
+    public function hasListeners(string $eventName = null)
     {
         return $this->dispatcher->hasListeners($eventName);
     }
@@ -126,9 +118,8 @@ class TraceableEventDispatcher implements \ECSPrefix20211210\Symfony\Component\E
      * {@inheritdoc}
      * @param object $event
      * @return object
-     * @param string|null $eventName
      */
-    public function dispatch($event, $eventName = null)
+    public function dispatch($event, string $eventName = null)
     {
         $eventName = $eventName ?? \get_class($event);
         if (null === $this->callStack) {
@@ -161,9 +152,8 @@ class TraceableEventDispatcher implements \ECSPrefix20211210\Symfony\Component\E
     }
     /**
      * @return array
-     * @param \Symfony\Component\HttpFoundation\Request|null $request
      */
-    public function getCalledListeners($request = null)
+    public function getCalledListeners(\ECSPrefix20211210\Symfony\Component\HttpFoundation\Request $request = null)
     {
         if (null === $this->callStack) {
             return [];
@@ -180,9 +170,8 @@ class TraceableEventDispatcher implements \ECSPrefix20211210\Symfony\Component\E
     }
     /**
      * @return array
-     * @param \Symfony\Component\HttpFoundation\Request|null $request
      */
-    public function getNotCalledListeners($request = null)
+    public function getNotCalledListeners(\ECSPrefix20211210\Symfony\Component\HttpFoundation\Request $request = null)
     {
         try {
             $allListeners = $this->getListeners();
@@ -217,10 +206,7 @@ class TraceableEventDispatcher implements \ECSPrefix20211210\Symfony\Component\E
         \uasort($notCalled, [$this, 'sortNotCalledListeners']);
         return $notCalled;
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request|null $request
-     */
-    public function getOrphanedEvents($request = null) : array
+    public function getOrphanedEvents(\ECSPrefix20211210\Symfony\Component\HttpFoundation\Request $request = null) : array
     {
         if ($request) {
             return $this->orphanedEvents[\spl_object_hash($request)] ?? [];
@@ -251,17 +237,15 @@ class TraceableEventDispatcher implements \ECSPrefix20211210\Symfony\Component\E
     /**
      * Called before dispatching the event.
      * @param object $event
-     * @param string $eventName
      */
-    protected function beforeDispatch($eventName, $event)
+    protected function beforeDispatch(string $eventName, $event)
     {
     }
     /**
      * Called after dispatching the event.
      * @param object $event
-     * @param string $eventName
      */
-    protected function afterDispatch($eventName, $event)
+    protected function afterDispatch(string $eventName, $event)
     {
     }
     private function preProcess(string $eventName) : void

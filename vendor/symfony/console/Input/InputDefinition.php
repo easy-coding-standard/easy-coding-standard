@@ -42,9 +42,8 @@ class InputDefinition
     }
     /**
      * Sets the definition of the input.
-     * @param mixed[] $definition
      */
-    public function setDefinition($definition)
+    public function setDefinition(array $definition)
     {
         $arguments = [];
         $options = [];
@@ -63,7 +62,7 @@ class InputDefinition
      *
      * @param InputArgument[] $arguments An array of InputArgument objects
      */
-    public function setArguments($arguments = [])
+    public function setArguments(array $arguments = [])
     {
         $this->arguments = [];
         $this->requiredCount = 0;
@@ -76,7 +75,7 @@ class InputDefinition
      *
      * @param InputArgument[] $arguments An array of InputArgument objects
      */
-    public function addArguments($arguments = [])
+    public function addArguments(?array $arguments = [])
     {
         if (null !== $arguments) {
             foreach ($arguments as $argument) {
@@ -86,9 +85,8 @@ class InputDefinition
     }
     /**
      * @throws LogicException When incorrect argument is given
-     * @param \Symfony\Component\Console\Input\InputArgument $argument
      */
-    public function addArgument($argument)
+    public function addArgument(\ECSPrefix20211210\Symfony\Component\Console\Input\InputArgument $argument)
     {
         if (isset($this->arguments[$argument->getName()])) {
             throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\LogicException(\sprintf('An argument with name "%s" already exists.', $argument->getName()));
@@ -181,7 +179,7 @@ class InputDefinition
      *
      * @param InputOption[] $options An array of InputOption objects
      */
-    public function setOptions($options = [])
+    public function setOptions(array $options = [])
     {
         $this->options = [];
         $this->shortcuts = [];
@@ -193,7 +191,7 @@ class InputDefinition
      *
      * @param InputOption[] $options An array of InputOption objects
      */
-    public function addOptions($options = [])
+    public function addOptions(array $options = [])
     {
         foreach ($options as $option) {
             $this->addOption($option);
@@ -201,9 +199,8 @@ class InputDefinition
     }
     /**
      * @throws LogicException When option given already exist
-     * @param \Symfony\Component\Console\Input\InputOption $option
      */
-    public function addOption($option)
+    public function addOption(\ECSPrefix20211210\Symfony\Component\Console\Input\InputOption $option)
     {
         if (isset($this->options[$option->getName()]) && !$option->equals($this->options[$option->getName()])) {
             throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\LogicException(\sprintf('An option named "%s" already exists.', $option->getName()));
@@ -238,9 +235,8 @@ class InputDefinition
      * @return InputOption
      *
      * @throws InvalidArgumentException When option given doesn't exist
-     * @param string $name
      */
-    public function getOption($name)
+    public function getOption(string $name)
     {
         if (!$this->hasOption($name)) {
             throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $name));
@@ -254,9 +250,8 @@ class InputDefinition
      * executing the command (use getOption() instead).
      *
      * @return bool
-     * @param string $name
      */
-    public function hasOption($name)
+    public function hasOption(string $name)
     {
         return isset($this->options[$name]);
     }
@@ -273,17 +268,15 @@ class InputDefinition
      * Returns true if an InputOption object exists by shortcut.
      *
      * @return bool
-     * @param string $name
      */
-    public function hasShortcut($name)
+    public function hasShortcut(string $name)
     {
         return isset($this->shortcuts[$name]);
     }
     /**
      * Returns true if an InputOption object exists by negated name.
-     * @param string $name
      */
-    public function hasNegation($name) : bool
+    public function hasNegation(string $name) : bool
     {
         return isset($this->negations[$name]);
     }
@@ -291,9 +284,8 @@ class InputDefinition
      * Gets an InputOption by shortcut.
      *
      * @return InputOption
-     * @param string $shortcut
      */
-    public function getOptionForShortcut($shortcut)
+    public function getOptionForShortcut(string $shortcut)
     {
         return $this->getOption($this->shortcutToName($shortcut));
     }
@@ -314,9 +306,8 @@ class InputDefinition
      * @throws InvalidArgumentException When option given does not exist
      *
      * @internal
-     * @param string $shortcut
      */
-    public function shortcutToName($shortcut) : string
+    public function shortcutToName(string $shortcut) : string
     {
         if (!isset($this->shortcuts[$shortcut])) {
             throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "-%s" option does not exist.', $shortcut));
@@ -329,9 +320,8 @@ class InputDefinition
      * @throws InvalidArgumentException When option given does not exist
      *
      * @internal
-     * @param string $negation
      */
-    public function negationToName($negation) : string
+    public function negationToName(string $negation) : string
     {
         if (!isset($this->negations[$negation])) {
             throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $negation));
@@ -342,9 +332,8 @@ class InputDefinition
      * Gets the synopsis.
      *
      * @return string
-     * @param bool $short
      */
-    public function getSynopsis($short = \false)
+    public function getSynopsis(bool $short = \false)
     {
         $elements = [];
         if ($short && $this->getOptions()) {

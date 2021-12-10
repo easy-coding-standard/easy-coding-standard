@@ -39,7 +39,7 @@ final class Resolver implements \ECSPrefix20211210\React\Dns\Resolver\ResolverIn
      * @throws RecordNotFoundException when response indicates an error or contains no data
      * @internal
      */
-    public function extractValues($query, $response)
+    public function extractValues(\ECSPrefix20211210\React\Dns\Query\Query $query, \ECSPrefix20211210\React\Dns\Model\Message $response)
     {
         // reject if response code indicates this is an error response message
         $code = $response->rcode;

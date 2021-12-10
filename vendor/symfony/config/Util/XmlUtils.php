@@ -39,7 +39,7 @@ class XmlUtils
      * @throws InvalidXmlException When parsing of XML with schema or callable produces any errors unrelated to the XML parsing itself
      * @throws \RuntimeException   When DOM extension is missing
      */
-    public static function parse($content, $schemaOrCallable = null) : \DOMDocument
+    public static function parse(string $content, $schemaOrCallable = null) : \DOMDocument
     {
         if (!\extension_loaded('dom')) {
             throw new \LogicException('Extension DOM is required.');
@@ -97,7 +97,7 @@ class XmlUtils
      * @throws XmlParsingException       When XML parsing returns any errors
      * @throws \RuntimeException         When DOM extension is missing
      */
-    public static function loadFile($file, $schemaOrCallable = null) : \DOMDocument
+    public static function loadFile(string $file, $schemaOrCallable = null) : \DOMDocument
     {
         if (!\is_file($file)) {
             throw new \InvalidArgumentException(\sprintf('Resource "%s" is not a file.', $file));
@@ -134,7 +134,7 @@ class XmlUtils
      * @param bool        $checkPrefix Check prefix in an element or an attribute name
      * @return mixed
      */
-    public static function convertDomElementToArray($element, $checkPrefix = \true)
+    public static function convertDomElementToArray(\DOMElement $element, bool $checkPrefix = \true)
     {
         $prefix = (string) $element->prefix;
         $empty = \true;
@@ -215,10 +215,7 @@ class XmlUtils
                 return $value;
         }
     }
-    /**
-     * @param bool $internalErrors
-     */
-    protected static function getXmlErrors($internalErrors)
+    protected static function getXmlErrors(bool $internalErrors)
     {
         $errors = [];
         foreach (\libxml_get_errors() as $error) {

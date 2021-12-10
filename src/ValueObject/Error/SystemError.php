@@ -41,9 +41,9 @@ final class SystemError implements \ECSPrefix20211210\Symplify\EasyParallel\Cont
         return [\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE => $this->line, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE => $this->message, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH => $this->relativeFilePath];
     }
     /**
-     * @param mixed[] $json
+     * @param array{line: int, message: string, relative_file_path: string} $json
      */
-    public static function decode($json) : \ECSPrefix20211210\Symplify\EasyParallel\Contract\SerializableInterface
+    public static function decode(array $json) : \ECSPrefix20211210\Symplify\EasyParallel\Contract\SerializableInterface
     {
         return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH]);
     }

@@ -39,9 +39,8 @@ class Comparator
     }
     /**
      * @deprecated set the target via the constructor instead
-     * @param string $target
      */
-    public function setTarget($target)
+    public function setTarget(string $target)
     {
         trigger_deprecation('symfony/finder', '5.4', '"%s" is deprecated. Set the target via the constructor instead.', __METHOD__);
         $this->target = $target;
@@ -61,9 +60,8 @@ class Comparator
      * @throws \InvalidArgumentException
      *
      * @deprecated set the operator via the constructor instead
-     * @param string $operator
      */
-    public function setOperator($operator)
+    public function setOperator(string $operator)
     {
         trigger_deprecation('symfony/finder', '5.4', '"%s" is deprecated. Set the operator via the constructor instead.', __METHOD__);
         $this->doSetOperator('' === $operator ? '==' : $operator);

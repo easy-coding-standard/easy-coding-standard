@@ -27,9 +27,8 @@ class PhpExecutableFinder
      * Finds The PHP executable.
      *
      * @return string|false
-     * @param bool $includeArgs
      */
-    public function find($includeArgs = \true)
+    public function find(bool $includeArgs = \true)
     {
         if ($php = \getenv('PHP_BINARY')) {
             if (!\is_executable($php)) {

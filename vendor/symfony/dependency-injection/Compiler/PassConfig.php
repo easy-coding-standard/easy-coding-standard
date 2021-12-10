@@ -67,11 +67,8 @@ class PassConfig
      * Adds a pass.
      *
      * @throws InvalidArgumentException when a pass type doesn't exist
-     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
-     * @param string $type
-     * @param int $priority
      */
-    public function addPass($pass, $type = self::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addPass(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = self::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
         $property = $type . 'Passes';
         if (!isset($this->{$property})) {
@@ -135,10 +132,7 @@ class PassConfig
     {
         return $this->mergePass;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
-     */
-    public function setMergePass($pass)
+    public function setMergePass(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass)
     {
         $this->mergePass = $pass;
     }
@@ -147,7 +141,7 @@ class PassConfig
      *
      * @param CompilerPassInterface[] $passes
      */
-    public function setAfterRemovingPasses($passes)
+    public function setAfterRemovingPasses(array $passes)
     {
         $this->afterRemovingPasses = [$passes];
     }
@@ -156,7 +150,7 @@ class PassConfig
      *
      * @param CompilerPassInterface[] $passes
      */
-    public function setBeforeOptimizationPasses($passes)
+    public function setBeforeOptimizationPasses(array $passes)
     {
         $this->beforeOptimizationPasses = [$passes];
     }
@@ -165,7 +159,7 @@ class PassConfig
      *
      * @param CompilerPassInterface[] $passes
      */
-    public function setBeforeRemovingPasses($passes)
+    public function setBeforeRemovingPasses(array $passes)
     {
         $this->beforeRemovingPasses = [$passes];
     }
@@ -174,7 +168,7 @@ class PassConfig
      *
      * @param CompilerPassInterface[] $passes
      */
-    public function setOptimizationPasses($passes)
+    public function setOptimizationPasses(array $passes)
     {
         $this->optimizationPasses = [$passes];
     }
@@ -183,7 +177,7 @@ class PassConfig
      *
      * @param CompilerPassInterface[] $passes
      */
-    public function setRemovingPasses($passes)
+    public function setRemovingPasses(array $passes)
     {
         $this->removingPasses = [$passes];
     }

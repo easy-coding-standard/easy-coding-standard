@@ -35,9 +35,8 @@ class ParameterBag implements \ECSPrefix20211210\Symfony\Component\DependencyInj
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $parameters
      */
-    public function add($parameters)
+    public function add(array $parameters)
     {
         foreach ($parameters as $key => $value) {
             $this->set($key, $value);
@@ -53,9 +52,8 @@ class ParameterBag implements \ECSPrefix20211210\Symfony\Component\DependencyInj
     /**
      * {@inheritdoc}
      * @return mixed[]|bool|float|int|string|null
-     * @param string $name
      */
-    public function get($name)
+    public function get(string $name)
     {
         if (!\array_key_exists($name, $this->parameters)) {
             if (!$name) {
@@ -89,25 +87,22 @@ class ParameterBag implements \ECSPrefix20211210\Symfony\Component\DependencyInj
     /**
      * {@inheritdoc}
      * @param mixed[]|bool|float|int|string|null $value
-     * @param string $name
      */
-    public function set($name, $value)
+    public function set(string $name, $value)
     {
         $this->parameters[$name] = $value;
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function has($name) : bool
+    public function has(string $name) : bool
     {
         return \array_key_exists($name, $this->parameters);
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function remove($name)
+    public function remove(string $name)
     {
         unset($this->parameters[$name]);
     }
@@ -143,7 +138,7 @@ class ParameterBag implements \ECSPrefix20211210\Symfony\Component\DependencyInj
      * @param mixed $value
      * @return mixed
      */
-    public function resolveValue($value, $resolving = [])
+    public function resolveValue($value, array $resolving = [])
     {
         if (\is_array($value)) {
             $args = [];
@@ -166,9 +161,8 @@ class ParameterBag implements \ECSPrefix20211210\Symfony\Component\DependencyInj
      * @throws ParameterCircularReferenceException if a circular reference if detected
      * @throws RuntimeException                    when a given parameter has a type problem
      * @return mixed
-     * @param string $value
      */
-    public function resolveString($value, $resolving = [])
+    public function resolveString(string $value, array $resolving = [])
     {
         // we do this to deal with non string values (Boolean, integer, ...)
         // as the preg_replace_callback throw an exception when trying

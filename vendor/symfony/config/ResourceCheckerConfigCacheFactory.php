@@ -31,10 +31,8 @@ class ResourceCheckerConfigCacheFactory implements \ECSPrefix20211210\Symfony\Co
     }
     /**
      * {@inheritdoc}
-     * @param string $file
-     * @param callable $callable
      */
-    public function cache($file, $callable) : \ECSPrefix20211210\Symfony\Component\Config\ConfigCacheInterface
+    public function cache(string $file, callable $callable) : \ECSPrefix20211210\Symfony\Component\Config\ConfigCacheInterface
     {
         $cache = new \ECSPrefix20211210\Symfony\Component\Config\ResourceCheckerConfigCache($file, $this->resourceCheckers);
         if (!$cache->isFresh()) {

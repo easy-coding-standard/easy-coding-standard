@@ -96,10 +96,8 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     }
     /**
      * @return array<string, FileDiff[]>
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
-     * @param \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration
      */
-    public function processFile($smartFileInfo, $configuration) : array
+    public function processFile(\ECSPrefix20211210\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
     {
         $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
         $appliedFixers = [];
@@ -131,10 +129,7 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         \PhpCsFixer\Tokenizer\Tokens::clearCache();
         return [\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS => $fileDiffs];
     }
-    /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
-     */
-    public function processFileToString($smartFileInfo) : string
+    public function processFileToString(\ECSPrefix20211210\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
         $appliedFixers = [];

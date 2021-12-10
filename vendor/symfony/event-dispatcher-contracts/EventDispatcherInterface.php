@@ -25,5 +25,5 @@ interface EventDispatcherInterface extends \ECSPrefix20211210\Psr\EventDispatche
      *
      * @return object The passed $event MUST be returned
      */
-    public function dispatch($event, $eventName = null);
+    public function dispatch($event, string $eventName = null);
 }

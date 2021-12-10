@@ -48,7 +48,7 @@ class PathFilterIterator extends \ECSPrefix20211210\Symfony\Component\Finder\Ite
      *
      * @return string
      */
-    protected function toRegex($str)
+    protected function toRegex(string $str)
     {
         return $this->isRegex($str) ? $str : '/' . \preg_quote($str, '/') . '/';
     }

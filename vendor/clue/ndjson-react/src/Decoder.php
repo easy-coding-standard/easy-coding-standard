@@ -74,11 +74,7 @@ class Decoder extends \ECSPrefix20211210\Evenement\EventEmitter implements \ECSP
     {
         $this->input->resume();
     }
-    /**
-     * @param \React\Stream\WritableStreamInterface $dest
-     * @param mixed[] $options
-     */
-    public function pipe($dest, $options = array())
+    public function pipe(\ECSPrefix20211210\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
         \ECSPrefix20211210\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
@@ -128,9 +124,8 @@ class Decoder extends \ECSPrefix20211210\Evenement\EventEmitter implements \ECSP
             $this->close();
         }
     }
-    /** @internal
-     * @param \Exception $error */
-    public function handleError($error)
+    /** @internal */
+    public function handleError(\Exception $error)
     {
         $this->emit('error', array($error));
         $this->close();

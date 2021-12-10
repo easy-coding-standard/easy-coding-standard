@@ -59,10 +59,8 @@ final class Application extends \ECSPrefix20211210\Symfony\Component\Console\App
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    public function doRun($input, $output) : int
+    public function doRun(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $stdErr = $output instanceof \ECSPrefix20211210\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : ($input->hasParameterOption('--format', \true) && 'txt' !== $input->getParameterOption('--format', null, \true) ? null : $output);
         if (null !== $stdErr) {

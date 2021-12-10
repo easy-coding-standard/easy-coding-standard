@@ -28,10 +28,7 @@ class RegisterReverseContainerPass implements \ECSPrefix20211210\Symfony\Compone
     {
         $this->beforeRemoving = $beforeRemoving;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition('reverse_container')) {
             return;

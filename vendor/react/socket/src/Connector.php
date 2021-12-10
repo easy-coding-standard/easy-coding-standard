@@ -138,7 +138,7 @@ final class Connector implements \ECSPrefix20211210\React\Socket\ConnectorInterf
      * @return string
      * @internal
      */
-    public static function uri($parts, $host, $ip)
+    public static function uri(array $parts, $host, $ip)
     {
         $uri = '';
         // prepend original scheme if known

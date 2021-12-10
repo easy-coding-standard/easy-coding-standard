@@ -16,8 +16,5 @@ namespace PhpCsFixer\Diff\Output;
  */
 interface DiffOutputBuilderInterface
 {
-    /**
-     * @param mixed[] $diff
-     */
-    public function getDiff($diff);
+    public function getDiff(array $diff);
 }

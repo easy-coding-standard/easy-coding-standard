@@ -100,7 +100,7 @@ class ResourceCheckerConfigCache implements \ECSPrefix20211210\Symfony\Component
      *
      * @throws \RuntimeException When cache file can't be written
      */
-    public function write($content, $metadata = null)
+    public function write(string $content, array $metadata = null)
     {
         $mode = 0666;
         $umask = \umask();
@@ -156,9 +156,8 @@ class ResourceCheckerConfigCache implements \ECSPrefix20211210\Symfony\Component
     }
     /**
      * @internal
-     * @param string $class
      */
-    public static function handleUnserializeCallback($class)
+    public static function handleUnserializeCallback(string $class)
     {
         \trigger_error('Class not found: ' . $class);
     }

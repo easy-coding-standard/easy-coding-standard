@@ -25,9 +25,8 @@ final class RegisterAutoconfigureAttributesPass implements \ECSPrefix20211210\Sy
     private static $registerForAutoconfiguration;
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->getDefinitions() as $id => $definition) {
             if ($this->accept($definition) && ($class = $container->getReflectionClass($definition->getClass(), \false))) {
@@ -35,18 +34,11 @@ final class RegisterAutoconfigureAttributesPass implements \ECSPrefix20211210\Sy
             }
         }
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     */
-    public function accept($definition) : bool
+    public function accept(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition $definition) : bool
     {
         return $definition->isAutoconfigured() && !$definition->hasTag('container.ignore_attributes');
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param \ReflectionClass $class
-     */
-    public function processClass($container, $class)
+    public function processClass(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ReflectionClass $class)
     {
         foreach ([] as $attribute) {
             self::registerForAutoconfiguration($container, $class, $attribute);

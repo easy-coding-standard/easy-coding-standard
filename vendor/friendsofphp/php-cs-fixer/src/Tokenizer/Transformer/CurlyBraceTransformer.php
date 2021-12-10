@@ -42,11 +42,8 @@ final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfor
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \PhpCsFixer\Tokenizer\Token $token
-     * @param int $index
      */
-    public function process($tokens, $token, $index) : void
+    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
     {
         $this->transformIntoCurlyCloseBrace($tokens, $token, $index);
         $this->transformIntoDollarCloseBrace($tokens, $token, $index);

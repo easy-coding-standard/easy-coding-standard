@@ -53,15 +53,14 @@ class VariableNode extends \ECSPrefix20211210\Symfony\Component\Config\Definitio
      *
      * @param bool $boolean True if this entity will accept empty values
      */
-    public function setAllowEmptyValue($boolean)
+    public function setAllowEmptyValue(bool $boolean)
     {
         $this->allowEmptyValue = $boolean;
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }

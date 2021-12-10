@@ -11,7 +11,7 @@ final class EasyTestingKernel extends \ECSPrefix20211210\Symplify\SymplifyKernel
     /**
      * @param string[] $configFiles
      */
-    public function createFromConfigs($configFiles) : \ECSPrefix20211210\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFiles) : \ECSPrefix20211210\Psr\Container\ContainerInterface
     {
         $configFiles[] = \ECSPrefix20211210\Symplify\EasyTesting\ValueObject\EasyTestingConfig::FILE_PATH;
         return $this->create([], [], $configFiles);

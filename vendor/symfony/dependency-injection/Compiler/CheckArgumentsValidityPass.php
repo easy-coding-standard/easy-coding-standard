@@ -32,9 +32,8 @@ class CheckArgumentsValidityPass extends \ECSPrefix20211210\Symfony\Component\De
      * {@inheritdoc}
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (!$value instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);

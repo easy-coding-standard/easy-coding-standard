@@ -69,9 +69,8 @@ class FileCacheReader implements \ECSPrefix20211210\Doctrine\Common\Annotations\
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotations($class)
+    public function getClassAnnotations(\ReflectionClass $class)
     {
         if (!isset($this->classNameHashes[$class->name])) {
             $this->classNameHashes[$class->name] = \sha1($class->name);
@@ -97,9 +96,8 @@ class FileCacheReader implements \ECSPrefix20211210\Doctrine\Common\Annotations\
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotations($property)
+    public function getPropertyAnnotations(\ReflectionProperty $property)
     {
         $class = $property->getDeclaringClass();
         if (!isset($this->classNameHashes[$class->name])) {
@@ -126,9 +124,8 @@ class FileCacheReader implements \ECSPrefix20211210\Doctrine\Common\Annotations\
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotations($method)
+    public function getMethodAnnotations(\ReflectionMethod $method)
     {
         $class = $method->getDeclaringClass();
         if (!isset($this->classNameHashes[$class->name])) {
@@ -188,9 +185,8 @@ EXCEPTION
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotation($class, $annotationName)
+    public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
         $annotations = $this->getClassAnnotations($class);
         foreach ($annotations as $annotation) {
@@ -202,9 +198,8 @@ EXCEPTION
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotation($method, $annotationName)
+    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
         $annotations = $this->getMethodAnnotations($method);
         foreach ($annotations as $annotation) {
@@ -216,9 +211,8 @@ EXCEPTION
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotation($property, $annotationName)
+    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
         $annotations = $this->getPropertyAnnotations($property);
         foreach ($annotations as $annotation) {

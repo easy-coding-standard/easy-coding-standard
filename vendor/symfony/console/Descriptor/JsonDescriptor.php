@@ -26,19 +26,15 @@ class JsonDescriptor extends \ECSPrefix20211210\Symfony\Component\Console\Descri
 {
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputArgument $argument
-     * @param mixed[] $options
      */
-    protected function describeInputArgument($argument, $options = [])
+    protected function describeInputArgument(\ECSPrefix20211210\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
     {
         $this->writeData($this->getInputArgumentData($argument), $options);
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputOption $option
-     * @param mixed[] $options
      */
-    protected function describeInputOption($option, $options = [])
+    protected function describeInputOption(\ECSPrefix20211210\Symfony\Component\Console\Input\InputOption $option, array $options = [])
     {
         $this->writeData($this->getInputOptionData($option), $options);
         if ($option->isNegatable()) {
@@ -47,28 +43,22 @@ class JsonDescriptor extends \ECSPrefix20211210\Symfony\Component\Console\Descri
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
-     * @param mixed[] $options
      */
-    protected function describeInputDefinition($definition, $options = [])
+    protected function describeInputDefinition(\ECSPrefix20211210\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
     {
         $this->writeData($this->getInputDefinitionData($definition), $options);
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Command\Command $command
-     * @param mixed[] $options
      */
-    protected function describeCommand($command, $options = [])
+    protected function describeCommand(\ECSPrefix20211210\Symfony\Component\Console\Command\Command $command, array $options = [])
     {
         $this->writeData($this->getCommandData($command, $options['short'] ?? \false), $options);
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Application $application
-     * @param mixed[] $options
      */
-    protected function describeApplication($application, $options = [])
+    protected function describeApplication(\ECSPrefix20211210\Symfony\Component\Console\Application $application, array $options = [])
     {
         $describedNamespace = $options['namespace'] ?? null;
         $description = new \ECSPrefix20211210\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace, \true);

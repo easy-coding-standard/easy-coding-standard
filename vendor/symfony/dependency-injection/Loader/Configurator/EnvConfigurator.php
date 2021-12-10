@@ -36,9 +36,8 @@ class EnvConfigurator extends \ECSPrefix20211210\Symfony\Component\Config\Loader
     }
     /**
      * @return $this
-     * @param string $processor
      */
-    public function custom($processor, ...$args)
+    public function custom(string $processor, ...$args)
     {
         \array_unshift($this->stack, $processor, ...$args);
         return $this;
@@ -117,9 +116,8 @@ class EnvConfigurator extends \ECSPrefix20211210\Symfony\Component\Config\Loader
     }
     /**
      * @return $this
-     * @param string $key
      */
-    public function key($key)
+    public function key(string $key)
     {
         \array_unshift($this->stack, 'key', $key);
         return $this;
@@ -150,9 +148,8 @@ class EnvConfigurator extends \ECSPrefix20211210\Symfony\Component\Config\Loader
     }
     /**
      * @return $this
-     * @param string $fallbackParam
      */
-    public function default($fallbackParam)
+    public function default(string $fallbackParam)
     {
         \array_unshift($this->stack, 'default', $fallbackParam);
         return $this;

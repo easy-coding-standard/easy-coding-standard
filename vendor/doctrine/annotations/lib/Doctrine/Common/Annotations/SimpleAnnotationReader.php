@@ -38,33 +38,29 @@ class SimpleAnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annot
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotations($class)
+    public function getClassAnnotations(\ReflectionClass $class)
     {
         return $this->parser->parse($class->getDocComment(), 'class ' . $class->getName());
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotations($method)
+    public function getMethodAnnotations(\ReflectionMethod $method)
     {
         return $this->parser->parse($method->getDocComment(), 'method ' . $method->getDeclaringClass()->name . '::' . $method->getName() . '()');
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotations($property)
+    public function getPropertyAnnotations(\ReflectionProperty $property)
     {
         return $this->parser->parse($property->getDocComment(), 'property ' . $property->getDeclaringClass()->name . '::$' . $property->getName());
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotation($class, $annotationName)
+    public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
         foreach ($this->getClassAnnotations($class) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -75,9 +71,8 @@ class SimpleAnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annot
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotation($method, $annotationName)
+    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
         foreach ($this->getMethodAnnotations($method) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -88,9 +83,8 @@ class SimpleAnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annot
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotation($property, $annotationName)
+    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
         foreach ($this->getPropertyAnnotations($property) as $annot) {
             if ($annot instanceof $annotationName) {

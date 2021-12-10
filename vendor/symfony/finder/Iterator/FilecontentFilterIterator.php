@@ -48,7 +48,7 @@ class FilecontentFilterIterator extends \ECSPrefix20211210\Symfony\Component\Fin
      *
      * @return string
      */
-    protected function toRegex($str)
+    protected function toRegex(string $str)
     {
         return $this->isRegex($str) ? $str : '/' . \preg_quote($str, '/') . '/';
     }

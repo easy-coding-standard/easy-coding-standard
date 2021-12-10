@@ -35,9 +35,8 @@ class ServiceLocator implements \ECSPrefix20211210\Symfony\Contracts\Service\Ser
     /**
      * {@inheritdoc}
      * @return mixed
-     * @param string $id
      */
-    public function get($id)
+    public function get(string $id)
     {
         if (!$this->externalId) {
             return $this->doGet($id);
@@ -63,10 +62,8 @@ class ServiceLocator implements \ECSPrefix20211210\Symfony\Contracts\Service\Ser
     /**
      * @internal
      * @return $this
-     * @param string $externalId
-     * @param \Symfony\Component\DependencyInjection\Container $container
      */
-    public function withContext($externalId, $container)
+    public function withContext(string $externalId, \ECSPrefix20211210\Symfony\Component\DependencyInjection\Container $container)
     {
         $locator = clone $this;
         $locator->externalId = $externalId;

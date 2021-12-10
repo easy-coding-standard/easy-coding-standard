@@ -24,10 +24,7 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20211210\Symfony\Co
     private $methodAttributeConfigurators = [];
     private $propertyAttributeConfigurators = [];
     private $parameterAttributeConfigurators = [];
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container) : void
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container) : void
     {
         if (!$container->getAutoconfiguredAttributes()) {
             return;
@@ -74,9 +71,8 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20211210\Symfony\Co
     /**
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (!$value instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition || !$value->isAutoconfigured() || $value->isAbstract() || $value->hasTag('container.ignore_attributes') || !($classReflector = $this->container->getReflectionClass($value->getClass(), \false))) {
             return parent::processValue($value, $isRoot);

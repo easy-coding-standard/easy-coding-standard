@@ -41,9 +41,8 @@ class ChildDefinition extends \ECSPrefix20211210\Symfony\Component\DependencyInj
      * Sets the Definition to inherit from.
      *
      * @return $this
-     * @param string $parent
      */
-    public function setParent($parent)
+    public function setParent(string $parent)
     {
         $this->parent = $parent;
         return $this;

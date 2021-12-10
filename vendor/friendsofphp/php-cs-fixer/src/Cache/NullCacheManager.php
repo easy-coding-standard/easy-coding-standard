@@ -19,19 +19,11 @@ namespace PhpCsFixer\Cache;
  */
 final class NullCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
 {
-    /**
-     * @param string $file
-     * @param string $fileContent
-     */
-    public function needFixing($file, $fileContent) : bool
+    public function needFixing(string $file, string $fileContent) : bool
     {
         return \true;
     }
-    /**
-     * @param string $file
-     * @param string $fileContent
-     */
-    public function setFile($file, $fileContent) : void
+    public function setFile(string $file, string $fileContent) : void
     {
     }
 }

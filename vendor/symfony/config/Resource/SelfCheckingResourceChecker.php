@@ -29,18 +29,14 @@ class SelfCheckingResourceChecker implements \ECSPrefix20211210\Symfony\Componen
      * @var mixed[]
      */
     private static $cache = [];
-    /**
-     * @param \Symfony\Component\Config\Resource\ResourceInterface $metadata
-     */
-    public function supports($metadata) : bool
+    public function supports(\ECSPrefix20211210\Symfony\Component\Config\Resource\ResourceInterface $metadata) : bool
     {
         return $metadata instanceof \ECSPrefix20211210\Symfony\Component\Config\Resource\SelfCheckingResourceInterface;
     }
     /**
      * @param SelfCheckingResourceInterface $resource
-     * @param int $timestamp
      */
-    public function isFresh($resource, $timestamp) : bool
+    public function isFresh(\ECSPrefix20211210\Symfony\Component\Config\Resource\ResourceInterface $resource, int $timestamp) : bool
     {
         $key = "{$resource}:{$timestamp}";
         return self::$cache[$key] ?? (self::$cache[$key] = $resource->isFresh($timestamp));

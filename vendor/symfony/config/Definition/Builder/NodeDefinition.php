@@ -44,9 +44,8 @@ abstract class NodeDefinition implements \ECSPrefix20211210\Symfony\Component\Co
      * Sets the parent node.
      *
      * @return $this
-     * @param \Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
      */
-    public function setParent($parent)
+    public function setParent(\ECSPrefix20211210\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent)
     {
         $this->parent = $parent;
         return $this;
@@ -55,9 +54,8 @@ abstract class NodeDefinition implements \ECSPrefix20211210\Symfony\Component\Co
      * Sets info message.
      *
      * @return $this
-     * @param string $info
      */
-    public function info($info)
+    public function info(string $info)
     {
         return $this->attribute('info', $info);
     }
@@ -76,9 +74,8 @@ abstract class NodeDefinition implements \ECSPrefix20211210\Symfony\Component\Co
      *
      * @return $this
      * @param mixed $value
-     * @param string $key
      */
-    public function attribute($key, $value)
+    public function attribute(string $key, $value)
     {
         $this->attributes[$key] = $value;
         return $this;
@@ -93,9 +90,8 @@ abstract class NodeDefinition implements \ECSPrefix20211210\Symfony\Component\Co
     }
     /**
      * Creates the node.
-     * @param bool $forceRootNode
      */
-    public function getNode($forceRootNode = \false) : \ECSPrefix20211210\Symfony\Component\Config\Definition\NodeInterface
+    public function getNode(bool $forceRootNode = \false) : \ECSPrefix20211210\Symfony\Component\Config\Definition\NodeInterface
     {
         if ($forceRootNode) {
             $this->parent = null;
@@ -146,7 +142,7 @@ abstract class NodeDefinition implements \ECSPrefix20211210\Symfony\Component\Co
      *
      * @return $this
      */
-    public function setDeprecated($package, $version, $message = 'The child node "%node%" at path "%path%" is deprecated.')
+    public function setDeprecated(string $package, string $version, string $message = 'The child node "%node%" at path "%path%" is deprecated.')
     {
         $this->deprecation = ['package' => $package, 'version' => $version, 'message' => $message];
         return $this;
@@ -243,9 +239,8 @@ abstract class NodeDefinition implements \ECSPrefix20211210\Symfony\Component\Co
      * Sets whether the node can be overwritten.
      *
      * @return $this
-     * @param bool $deny
      */
-    public function cannotBeOverwritten($deny = \true)
+    public function cannotBeOverwritten(bool $deny = \true)
     {
         $this->merge()->denyOverwrite($deny);
         return $this;
@@ -290,9 +285,8 @@ abstract class NodeDefinition implements \ECSPrefix20211210\Symfony\Component\Co
      * Set PathSeparator to use.
      *
      * @return $this
-     * @param string $separator
      */
-    public function setPathSeparator($separator)
+    public function setPathSeparator(string $separator)
     {
         if ($this instanceof \ECSPrefix20211210\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface) {
             foreach ($this->getChildNodeDefinitions() as $child) {

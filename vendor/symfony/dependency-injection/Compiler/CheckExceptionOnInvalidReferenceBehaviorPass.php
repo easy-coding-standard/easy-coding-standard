@@ -27,9 +27,8 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20211210\Sy
     private $serviceLocatorContextIds = [];
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->serviceLocatorContextIds = [];
         foreach ($container->findTaggedServiceIds('container.service_locator_context') as $id => $tags) {
@@ -45,9 +44,8 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20211210\Sy
     /**
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (!$value instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);

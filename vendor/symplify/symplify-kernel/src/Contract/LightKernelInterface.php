@@ -12,6 +12,6 @@ interface LightKernelInterface
     /**
      * @param string[] $configFiles
      */
-    public function createFromConfigs($configFiles) : \ECSPrefix20211210\Psr\Container\ContainerInterface;
+    public function createFromConfigs(array $configFiles) : \ECSPrefix20211210\Psr\Container\ContainerInterface;
     public function getContainer() : \ECSPrefix20211210\Psr\Container\ContainerInterface;
 }

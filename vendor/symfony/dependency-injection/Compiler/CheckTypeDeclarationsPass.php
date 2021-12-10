@@ -64,9 +64,8 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20211210\Symfony\Compone
      * {@inheritdoc}
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (isset($this->skippedIds[$this->currentId])) {
             return $value;

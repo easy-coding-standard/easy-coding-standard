@@ -21,17 +21,15 @@ class ExecutableFinder
     private $suffixes = ['.exe', '.bat', '.cmd', '.com'];
     /**
      * Replaces default suffixes of executable.
-     * @param mixed[] $suffixes
      */
-    public function setSuffixes($suffixes)
+    public function setSuffixes(array $suffixes)
     {
         $this->suffixes = $suffixes;
     }
     /**
      * Adds new possible suffix to check for executable.
-     * @param string $suffix
      */
-    public function addSuffix($suffix)
+    public function addSuffix(string $suffix)
     {
         $this->suffixes[] = $suffix;
     }
@@ -44,7 +42,7 @@ class ExecutableFinder
      *
      * @return string|null
      */
-    public function find($name, $default = null, $extraDirs = [])
+    public function find(string $name, string $default = null, array $extraDirs = [])
     {
         if (\ini_get('open_basedir')) {
             $searchPath = \array_merge(\explode(\PATH_SEPARATOR, \ini_get('open_basedir')), $extraDirs);

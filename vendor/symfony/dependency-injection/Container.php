@@ -126,9 +126,8 @@ class Container implements \ECSPrefix20211210\Symfony\Component\DependencyInject
      * Setting a synthetic service to null resets it: has() returns false and get()
      * behaves in the same way as if the service was never created.
      * @param object|null $service
-     * @param string $id
      */
-    public function set($id, $service)
+    public function set(string $id, $service)
     {
         // Runs the internal initializer; used by the dumped container to include always-needed files
         if (isset($this->privates['service_container']) && $this->privates['service_container'] instanceof \Closure) {
@@ -159,10 +158,7 @@ class Container implements \ECSPrefix20211210\Symfony\Component\DependencyInject
         }
         $this->services[$id] = $service;
     }
-    /**
-     * @param string $id
-     */
-    public function has($id) : bool
+    public function has(string $id) : bool
     {
         if (isset($this->aliases[$id])) {
             $id = $this->aliases[$id];
@@ -184,10 +180,8 @@ class Container implements \ECSPrefix20211210\Symfony\Component\DependencyInject
      *
      * @see Reference
      * @return object|null
-     * @param string $id
-     * @param int $invalidBehavior
      */
-    public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE)
+    public function get(string $id, int $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE)
     {
         return $this->services[$id] ?? $this->services[$id = $this->aliases[$id] ?? $id] ?? ('service_container' === $id ? $this : ($this->factories[$id] ?? [$this, 'make'])($id, $invalidBehavior));
     }
@@ -240,9 +234,8 @@ class Container implements \ECSPrefix20211210\Symfony\Component\DependencyInject
     }
     /**
      * Returns true if the given service has actually been initialized.
-     * @param string $id
      */
-    public function initialized($id) : bool
+    public function initialized(string $id) : bool
     {
         if (isset($this->aliases[$id])) {
             $id = $this->aliases[$id];
@@ -287,25 +280,22 @@ class Container implements \ECSPrefix20211210\Symfony\Component\DependencyInject
     }
     /**
      * Camelizes a string.
-     * @param string $id
      */
-    public static function camelize($id) : string
+    public static function camelize(string $id) : string
     {
         return \strtr(\ucwords(\strtr($id, ['_' => ' ', '.' => '_ ', '\\' => '_ '])), [' ' => '']);
     }
     /**
      * A string to underscore.
-     * @param string $id
      */
-    public static function underscore($id) : string
+    public static function underscore(string $id) : string
     {
         return \strtolower(\preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\\d])([A-Z])/'], ['\\1_\\2', '\\1_\\2'], \str_replace('_', '.', $id)));
     }
     /**
      * Creates a service by requiring its factory file.
-     * @param string $file
      */
-    protected function load($file)
+    protected function load(string $file)
     {
         return require $file;
     }
@@ -314,9 +304,8 @@ class Container implements \ECSPrefix20211210\Symfony\Component\DependencyInject
      *
      * @throws EnvNotFoundException When the environment variable is not found and has no default value
      * @return mixed
-     * @param string $name
      */
-    protected function getEnv($name)
+    protected function getEnv(string $name)
     {
         if (isset($this->resolving[$envName = "env({$name})"])) {
             throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($this->resolving));
@@ -349,10 +338,8 @@ class Container implements \ECSPrefix20211210\Symfony\Component\DependencyInject
      * @param bool|string $registry
      * @param bool|string $load
      * @return mixed
-     * @param string $id
-     * @param string|null $method
      */
-    protected final function getService($registry, $id, $method, $load)
+    protected final function getService($registry, string $id, ?string $method, $load)
     {
         if ('service_container' === $id) {
             return $this;

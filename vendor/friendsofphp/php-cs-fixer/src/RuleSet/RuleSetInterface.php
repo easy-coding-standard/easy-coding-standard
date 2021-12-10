@@ -27,7 +27,7 @@ interface RuleSetInterface
      *
      * @param string $rule name of rule
      */
-    public function getRuleConfiguration($rule) : ?array;
+    public function getRuleConfiguration(string $rule) : ?array;
     /**
      * Get all rules from rules set.
      */
@@ -37,5 +37,5 @@ interface RuleSetInterface
      *
      * @param string $rule name of rule
      */
-    public function hasRule($rule) : bool;
+    public function hasRule(string $rule) : bool;
 }

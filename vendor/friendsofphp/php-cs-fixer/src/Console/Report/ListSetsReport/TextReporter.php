@@ -29,9 +29,8 @@ final class TextReporter implements \PhpCsFixer\Console\Report\ListSetsReport\Re
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Console\Report\ListSetsReport\ReportSummary $reportSummary
      */
-    public function generate($reportSummary) : string
+    public function generate(\PhpCsFixer\Console\Report\ListSetsReport\ReportSummary $reportSummary) : string
     {
         $sets = $reportSummary->getSets();
         \usort($sets, static function (\PhpCsFixer\RuleSet\RuleSetDescriptionInterface $a, \PhpCsFixer\RuleSet\RuleSetDescriptionInterface $b) : int {

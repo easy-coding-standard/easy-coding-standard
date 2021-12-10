@@ -22,9 +22,8 @@ class RemovePrivateAliasesPass implements \ECSPrefix20211210\Symfony\Component\D
 {
     /**
      * Removes private aliases from the ContainerBuilder.
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->getAliases() as $id => $alias) {
             if ($alias->isPublic()) {

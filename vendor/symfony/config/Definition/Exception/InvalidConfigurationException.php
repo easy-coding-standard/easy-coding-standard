@@ -26,10 +26,7 @@ class InvalidConfigurationException extends \ECSPrefix20211210\Symfony\Component
      * @var bool
      */
     private $containsHints = \false;
-    /**
-     * @param string $path
-     */
-    public function setPath($path)
+    public function setPath(string $path)
     {
         $this->path = $path;
     }
@@ -39,9 +36,8 @@ class InvalidConfigurationException extends \ECSPrefix20211210\Symfony\Component
     }
     /**
      * Adds extra information that is suffixed to the original exception message.
-     * @param string $hint
      */
-    public function addHint($hint)
+    public function addHint(string $hint)
     {
         if (!$this->containsHints) {
             $this->message .= "\nHint: " . $hint;

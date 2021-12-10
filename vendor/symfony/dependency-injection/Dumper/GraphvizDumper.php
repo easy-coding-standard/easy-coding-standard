@@ -52,9 +52,8 @@ class GraphvizDumper extends \ECSPrefix20211210\Symfony\Component\DependencyInje
      *  * node.instance: The default options for services that are defined directly by object instances
      *  * node.definition: The default options for services that are defined via service definition instances
      *  * node.missing: The default options for missing services
-     * @param mixed[] $options
      */
-    public function dump($options = []) : string
+    public function dump(array $options = []) : string
     {
         foreach (['graph', 'node', 'edge', 'node.instance', 'node.definition', 'node.missing'] as $key) {
             if (isset($options[$key])) {

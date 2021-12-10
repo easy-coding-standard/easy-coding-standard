@@ -113,9 +113,8 @@ class Encoder extends \ECSPrefix20211210\Evenement\EventEmitter implements \ECSP
     {
         $this->emit('drain');
     }
-    /** @internal
-     * @param \Exception $error */
-    public function handleError($error)
+    /** @internal */
+    public function handleError(\Exception $error)
     {
         $this->emit('error', array($error));
         $this->close();

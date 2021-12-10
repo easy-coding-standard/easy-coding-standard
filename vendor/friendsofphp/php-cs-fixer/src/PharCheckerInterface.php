@@ -19,7 +19,6 @@ interface PharCheckerInterface
 {
     /**
      * @return null|string the invalidity reason if any, null otherwise
-     * @param string $filename
      */
-    public function checkFileValidity($filename) : ?string;
+    public function checkFileValidity(string $filename) : ?string;
 }

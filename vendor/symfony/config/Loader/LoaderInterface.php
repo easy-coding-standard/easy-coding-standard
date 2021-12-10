@@ -33,9 +33,8 @@ interface LoaderInterface
      * @param mixed $resource A resource
      *
      * @return bool
-     * @param string|null $type
      */
-    public function supports($resource, $type = null);
+    public function supports($resource, string $type = null);
     /**
      * Gets the loader resolver.
      *
@@ -44,7 +43,6 @@ interface LoaderInterface
     public function getResolver();
     /**
      * Sets the loader resolver.
-     * @param \Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
      */
-    public function setResolver($resolver);
+    public function setResolver(\ECSPrefix20211210\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver);
 }

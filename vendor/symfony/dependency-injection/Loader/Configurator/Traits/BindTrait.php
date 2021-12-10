@@ -29,7 +29,7 @@ trait BindTrait
      *
      * @return $this
      */
-    public final function bind($nameOrFqcn, $valueOrRef)
+    public final function bind(string $nameOrFqcn, $valueOrRef)
     {
         $valueOrRef = static::processValue($valueOrRef, \true);
         if (!\preg_match('/^(?:(?:array|bool|float|int|string|iterable)[ \\t]*+)?\\$/', $nameOrFqcn) && !$valueOrRef instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\Reference) {

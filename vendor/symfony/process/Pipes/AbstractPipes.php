@@ -150,10 +150,8 @@ abstract class AbstractPipes implements \ECSPrefix20211210\Symfony\Component\Pro
     }
     /**
      * @internal
-     * @param int $type
-     * @param string $msg
      */
-    public function handleError($type, $msg)
+    public function handleError(int $type, string $msg)
     {
         $this->lastError = $msg;
     }

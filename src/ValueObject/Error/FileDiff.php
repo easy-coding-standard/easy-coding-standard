@@ -64,9 +64,9 @@ final class FileDiff implements \ECSPrefix20211210\Symplify\EasyParallel\Contrac
         return [\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH => $this->relativeFilePath, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::DIFF => $this->diff, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::DIFF_CONSOLE_FORMATTED => $this->consoleFormattedDiff, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::APPLIED_CHECKERS => $this->getAppliedCheckers()];
     }
     /**
-     * @param mixed[] $json
+     * @param array{relative_file_path: string, diff: string, diff_console_formatted: string, applied_checkers: string[]} $json
      */
-    public static function decode($json) : \ECSPrefix20211210\Symplify\EasyParallel\Contract\SerializableInterface
+    public static function decode(array $json) : \ECSPrefix20211210\Symplify\EasyParallel\Contract\SerializableInterface
     {
         return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::DIFF], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::DIFF_CONSOLE_FORMATTED], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::APPLIED_CHECKERS]);
     }

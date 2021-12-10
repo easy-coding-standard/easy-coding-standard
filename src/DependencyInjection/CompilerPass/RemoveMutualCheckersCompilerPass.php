@@ -99,10 +99,7 @@ final class RemoveMutualCheckersCompilerPass implements \ECSPrefix20211210\Symfo
         [\PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\ClosingTagSniff::class],
         [\PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff::class],
     ];
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     */
-    public function process($containerBuilder) : void
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $checkersToRemove = $this->resolveCheckersToRemove($containerBuilder->getServiceIds());
         $definitions = $containerBuilder->getDefinitions();

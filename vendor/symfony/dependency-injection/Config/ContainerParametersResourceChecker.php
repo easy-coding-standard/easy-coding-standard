@@ -25,18 +25,15 @@ class ContainerParametersResourceChecker implements \ECSPrefix20211210\Symfony\C
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Config\Resource\ResourceInterface $metadata
      */
-    public function supports($metadata) : bool
+    public function supports(\ECSPrefix20211210\Symfony\Component\Config\Resource\ResourceInterface $metadata) : bool
     {
         return $metadata instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Config\Resource\ResourceInterface $resource
-     * @param int $timestamp
      */
-    public function isFresh($resource, $timestamp) : bool
+    public function isFresh(\ECSPrefix20211210\Symfony\Component\Config\Resource\ResourceInterface $resource, int $timestamp) : bool
     {
         foreach ($resource->getParameters() as $key => $value) {
             if (!$this->container->hasParameter($key) || $this->container->getParameter($key) !== $value) {

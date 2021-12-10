@@ -134,9 +134,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * If you are not using the loaders and therefore don't want
      * to depend on the Config component, set this flag to false.
-     * @param bool $track
      */
-    public function setResourceTracking($track)
+    public function setResourceTracking(bool $track)
     {
         $this->trackResources = $track;
     }
@@ -149,16 +148,12 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     }
     /**
      * Sets the instantiator to be used when fetching proxies.
-     * @param \Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface $proxyInstantiator
      */
-    public function setProxyInstantiator($proxyInstantiator)
+    public function setProxyInstantiator(\ECSPrefix20211210\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface $proxyInstantiator)
     {
         $this->proxyInstantiator = $proxyInstantiator;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
-     */
-    public function registerExtension($extension)
+    public function registerExtension(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension)
     {
         $this->extensions[$extension->getAlias()] = $extension;
         if (\false !== $extension->getNamespace()) {
@@ -169,9 +164,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * Returns an extension by alias or namespace.
      *
      * @throws LogicException if the extension is not registered
-     * @param string $name
      */
-    public function getExtension($name) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    public function getExtension(string $name) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
         if (isset($this->extensions[$name])) {
             return $this->extensions[$name];
@@ -192,9 +186,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     }
     /**
      * Checks if we have an extension.
-     * @param string $name
      */
-    public function hasExtension($name) : bool
+    public function hasExtension(string $name) : bool
     {
         return isset($this->extensions[$name]) || isset($this->extensionsByNs[$name]);
     }
@@ -209,9 +202,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     }
     /**
      * @return $this
-     * @param \Symfony\Component\Config\Resource\ResourceInterface $resource
      */
-    public function addResource($resource)
+    public function addResource(\ECSPrefix20211210\Symfony\Component\Config\Resource\ResourceInterface $resource)
     {
         if (!$this->trackResources) {
             return $this;
@@ -229,7 +221,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * @return $this
      */
-    public function setResources($resources)
+    public function setResources(array $resources)
     {
         if (!$this->trackResources) {
             return $this;
@@ -281,10 +273,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * @throws \ReflectionException when a parent class/interface/trait is not found and $throw is true
      *
      * @final
-     * @param string|null $class
-     * @param bool $throw
      */
-    public function getReflectionClass($class, $throw = \true) : ?\ReflectionClass
+    public function getReflectionClass(?string $class, bool $throw = \true) : ?\ReflectionClass
     {
         if (!($class = $this->getParameterBag()->resolveValue($class))) {
             return null;
@@ -329,7 +319,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * @final
      */
-    public function fileExists($path, $trackContents = \true) : bool
+    public function fileExists(string $path, $trackContents = \true) : bool
     {
         $exists = \file_exists($path);
         if (!$this->trackResources || $this->inVendors($path)) {
@@ -361,7 +351,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * @throws BadMethodCallException When this ContainerBuilder is compiled
      * @throws \LogicException        if the extension is not registered
      */
-    public function loadFromExtension($extension, $values = null)
+    public function loadFromExtension(string $extension, array $values = null)
     {
         if ($this->isCompiled()) {
             throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Cannot load from an extension on a compiled container.');
@@ -377,9 +367,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * @param int    $priority Used to sort the passes
      *
      * @return $this
-     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
      */
-    public function addCompilerPass($pass, $type = \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addCompilerPass(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
         $this->getCompiler()->addPass($pass, $type, $priority);
         $this->addObjectResource($pass);
@@ -404,9 +393,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
      * @param object|null $service
-     * @param string $id
      */
-    public function set($id, $service)
+    public function set(string $id, $service)
     {
         if ($this->isCompiled() && (isset($this->definitions[$id]) && !$this->definitions[$id]->isSynthetic())) {
             // setting a synthetic service on a compiled container is alright
@@ -417,19 +405,15 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     }
     /**
      * Removes a service definition.
-     * @param string $id
      */
-    public function removeDefinition($id)
+    public function removeDefinition(string $id)
     {
         if (isset($this->definitions[$id])) {
             unset($this->definitions[$id]);
             $this->removedIds[$id] = \true;
         }
     }
-    /**
-     * @param string $id
-     */
-    public function has($id) : bool
+    public function has(string $id) : bool
     {
         return isset($this->definitions[$id]) || isset($this->aliasDefinitions[$id]) || parent::has($id);
     }
@@ -441,10 +425,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * @see Reference
      * @return object|null
-     * @param string $id
-     * @param int $invalidBehavior
      */
-    public function get($id, $invalidBehavior = \ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function get(string $id, int $invalidBehavior = \ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
         if ($this->isCompiled() && isset($this->removedIds[$id]) && \ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
             return parent::get($id);
@@ -524,9 +506,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * constructor.
      *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
-     * @param $this $container
      */
-    public function merge($container)
+    public function merge(self $container)
     {
         if ($this->isCompiled()) {
             throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Cannot merge on a compiled container.');
@@ -578,9 +559,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * Returns the configuration array for the given extension.
      *
      * @return array<array<string, mixed>>
-     * @param string $name
      */
-    public function getExtensionConfig($name) : array
+    public function getExtensionConfig(string $name) : array
     {
         if (!isset($this->extensionConfigs[$name])) {
             $this->extensionConfigs[$name] = [];
@@ -591,9 +571,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * Prepends a config array to the configs of the given extension.
      *
      * @param array<string, mixed> $config
-     * @param string $name
      */
-    public function prependExtensionConfig($name, $config)
+    public function prependExtensionConfig(string $name, array $config)
     {
         if (!isset($this->extensionConfigs[$name])) {
             $this->extensionConfigs[$name] = [];
@@ -619,7 +598,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *                                     Set to "true" when you want to use the current ContainerBuilder
      *                                     directly, keep to "false" when the container is dumped instead.
      */
-    public function compile($resolveEnvPlaceholders = \false)
+    public function compile(bool $resolveEnvPlaceholders = \false)
     {
         $compiler = $this->getCompiler();
         if ($this->trackResources) {
@@ -672,7 +651,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * @param array<string, string|Alias> $aliases
      */
-    public function addAliases($aliases)
+    public function addAliases(array $aliases)
     {
         foreach ($aliases as $alias => $id) {
             $this->setAlias($alias, $id);
@@ -683,7 +662,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * @param array<string, string|Alias> $aliases
      */
-    public function setAliases($aliases)
+    public function setAliases(array $aliases)
     {
         $this->aliasDefinitions = [];
         $this->addAliases($aliases);
@@ -694,9 +673,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * @throws InvalidArgumentException if the id is not a string or an Alias
      * @throws InvalidArgumentException if the alias is for itself
      * @param string|\Symfony\Component\DependencyInjection\Alias $id
-     * @param string $alias
      */
-    public function setAlias($alias, $id) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Alias
+    public function setAlias(string $alias, $id) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Alias
     {
         if ('' === $alias || '\\' === $alias[-1] || \strlen($alias) !== \strcspn($alias, "\0\r\n'")) {
             throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid alias id: "%s".', $alias));
@@ -710,20 +688,14 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
         unset($this->definitions[$alias], $this->removedIds[$alias]);
         return $this->aliasDefinitions[$alias] = $id;
     }
-    /**
-     * @param string $alias
-     */
-    public function removeAlias($alias)
+    public function removeAlias(string $alias)
     {
         if (isset($this->aliasDefinitions[$alias])) {
             unset($this->aliasDefinitions[$alias]);
             $this->removedIds[$alias] = \true;
         }
     }
-    /**
-     * @param string $id
-     */
-    public function hasAlias($id) : bool
+    public function hasAlias(string $id) : bool
     {
         return isset($this->aliasDefinitions[$id]);
     }
@@ -736,9 +708,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     }
     /**
      * @throws InvalidArgumentException if the alias does not exist
-     * @param string $id
      */
-    public function getAlias($id) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Alias
+    public function getAlias(string $id) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Alias
     {
         if (!isset($this->aliasDefinitions[$id])) {
             throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service alias "%s" does not exist.', $id));
@@ -750,10 +721,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * This methods allows for simple registration of service definition
      * with a fluid interface.
-     * @param string $id
-     * @param string|null $class
      */
-    public function register($id, $class = null) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
+    public function register(string $id, string $class = null) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
     {
         return $this->setDefinition($id, new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition($class));
     }
@@ -762,10 +731,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * This method implements a shortcut for using setDefinition() with
      * an autowired definition.
-     * @param string $id
-     * @param string|null $class
      */
-    public function autowire($id, $class = null) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
+    public function autowire(string $id, string $class = null) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
     {
         return $this->setDefinition($id, (new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition($class))->setAutowired(\true));
     }
@@ -774,7 +741,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * @param array<string, Definition> $definitions
      */
-    public function addDefinitions($definitions)
+    public function addDefinitions(array $definitions)
     {
         foreach ($definitions as $id => $definition) {
             $this->setDefinition($id, $definition);
@@ -785,7 +752,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *
      * @param array<string, Definition> $definitions
      */
-    public function setDefinitions($definitions)
+    public function setDefinitions(array $definitions)
     {
         $this->definitions = [];
         $this->addDefinitions($definitions);
@@ -803,10 +770,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * Sets a service definition.
      *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
-     * @param string $id
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
-    public function setDefinition($id, $definition) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
+    public function setDefinition(string $id, \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition $definition) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
     {
         if ($this->isCompiled()) {
             throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Adding definition to a compiled container is not allowed.');
@@ -819,9 +784,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     }
     /**
      * Returns true if a service definition exists under the given identifier.
-     * @param string $id
      */
-    public function hasDefinition($id) : bool
+    public function hasDefinition(string $id) : bool
     {
         return isset($this->definitions[$id]);
     }
@@ -829,9 +793,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * Gets a service definition.
      *
      * @throws ServiceNotFoundException if the service definition does not exist
-     * @param string $id
      */
-    public function getDefinition($id) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
+    public function getDefinition(string $id) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
     {
         if (!isset($this->definitions[$id])) {
             throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id);
@@ -844,9 +807,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * The method "unaliases" recursively to return a Definition instance.
      *
      * @throws ServiceNotFoundException if the service definition does not exist
-     * @param string $id
      */
-    public function findDefinition($id) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
+    public function findDefinition(string $id) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition
     {
         $seen = [];
         while (isset($this->aliasDefinitions[$id])) {
@@ -1053,10 +1015,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      *     }
      *
      * @return array<string, array> An array of tags with the tagged service as key, holding a list of attribute arrays
-     * @param string $name
-     * @param bool $throwOnAbstract
      */
-    public function findTaggedServiceIds($name, $throwOnAbstract = \false) : array
+    public function findTaggedServiceIds(string $name, bool $throwOnAbstract = \false) : array
     {
         $this->usedTags[] = $name;
         $tags = [];
@@ -1092,10 +1052,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     {
         return \array_values(\array_diff($this->findTags(), $this->usedTags));
     }
-    /**
-     * @param \Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface $provider
-     */
-    public function addExpressionLanguageProvider($provider)
+    public function addExpressionLanguageProvider(\ECSPrefix20211210\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface $provider)
     {
         $this->expressionLanguageProviders[] = $provider;
     }
@@ -1108,9 +1065,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     }
     /**
      * Returns a ChildDefinition that will be used for autoconfiguring the interface/class.
-     * @param string $interface
      */
-    public function registerForAutoconfiguration($interface) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\ChildDefinition
+    public function registerForAutoconfiguration(string $interface) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\ChildDefinition
     {
         if (!isset($this->autoconfiguredInstanceof[$interface])) {
             $this->autoconfiguredInstanceof[$interface] = new \ECSPrefix20211210\Symfony\Component\DependencyInjection\ChildDefinition('');
@@ -1130,7 +1086,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * @param class-string<T>                                $attributeClass
      * @param callable(ChildDefinition, T, \Reflector): void $configurator
      */
-    public function registerAttributeForAutoconfiguration($attributeClass, $configurator) : void
+    public function registerAttributeForAutoconfiguration(string $attributeClass, callable $configurator) : void
     {
         $this->autoconfiguredAttributes[$attributeClass] = $configurator;
     }
@@ -1141,11 +1097,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * using camel case: "foo.bar" or "foo_bar" creates an alias bound to
      * "$fooBar"-named arguments with $type as type-hint. Such arguments will
      * receive the service $id when autowiring is used.
-     * @param string $id
-     * @param string $type
-     * @param string|null $name
      */
-    public function registerAliasForArgument($id, $type, $name = null) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Alias
+    public function registerAliasForArgument(string $id, string $type, string $name = null) : \ECSPrefix20211210\Symfony\Component\DependencyInjection\Alias
     {
         $name = (new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Attribute\Target($name ?? $id))->name;
         if (!\preg_match('/^[a-zA-Z_\\x7f-\\xff]/', $name)) {
@@ -1180,7 +1133,7 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     * @return mixed The value with env parameters resolved if a string or an array is passed
      * @param mixed $value
     */
-    public function resolveEnvPlaceholders($value, $format = null, &$usedEnvs = null)
+    public function resolveEnvPlaceholders($value, $format = null, array &$usedEnvs = null)
     {
         if (null === $format) {
             $format = '%%env(%s)%%';
@@ -1249,10 +1202,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     }
     /**
      * @final
-     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
-     * @param string $message
      */
-    public function log($pass, $message)
+    public function log(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $message)
     {
         $this->getCompiler()->log($pass, $this->resolveEnvPlaceholders($message));
     }
@@ -1263,11 +1214,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * the class will be considered available even if it is also in dev-only mode.
      *
      * @throws \LogicException If dependencies have been installed with Composer 1
-     * @param string $package
-     * @param string $class
-     * @param mixed[] $parentPackages
      */
-    public static final function willBeAvailable($package, $class, $parentPackages) : bool
+    public static final function willBeAvailable(string $package, string $class, array $parentPackages) : bool
     {
         if (!\class_exists(\ECSPrefix20211210\Composer\InstalledVersions::class)) {
             throw new \LogicException(\sprintf('Calling "%s" when dependencies have been installed with Composer 1 is not supported. Consider upgrading to Composer 2.', __METHOD__));
@@ -1305,9 +1253,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
      * Removes bindings for a service.
      *
      * @internal
-     * @param string $id
      */
-    public function removeBindings($id)
+    public function removeBindings(string $id)
     {
         if ($this->hasDefinition($id)) {
             foreach ($this->getDefinition($id)->getBindings() as $key => $binding) {
@@ -1364,9 +1311,8 @@ class ContainerBuilder extends \ECSPrefix20211210\Symfony\Component\DependencyIn
     /**
      * {@inheritdoc}
      * @return mixed
-     * @param string $name
      */
-    protected function getEnv($name)
+    protected function getEnv(string $name)
     {
         $value = parent::getEnv($name);
         $bag = $this->getParameterBag();

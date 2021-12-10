@@ -69,9 +69,8 @@ class AnalyzeServiceReferencesPass extends \ECSPrefix20211210\Symfony\Component\
     }
     /**
      * Processes a ContainerBuilder object to populate the service reference graph.
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
         $this->graph = $container->getCompiler()->getServiceReferenceGraph();
@@ -94,9 +93,8 @@ class AnalyzeServiceReferencesPass extends \ECSPrefix20211210\Symfony\Component\
     /**
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         $lazy = $this->lazy;
         $inExpression = $this->inExpression();

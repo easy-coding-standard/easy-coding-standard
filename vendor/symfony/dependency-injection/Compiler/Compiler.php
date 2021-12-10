@@ -38,21 +38,14 @@ class Compiler
     {
         return $this->serviceReferenceGraph;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
-     * @param string $type
-     * @param int $priority
-     */
-    public function addPass($pass, $type = \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addPass(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
         $this->passConfig->addPass($pass, $type, $priority);
     }
     /**
      * @final
-     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
-     * @param string $message
      */
-    public function log($pass, $message)
+    public function log(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $message)
     {
         if (\strpos($message, "\n") !== \false) {
             $message = \str_replace("\n", "\n" . \get_class($pass) . ': ', \trim($message));
@@ -65,9 +58,8 @@ class Compiler
     }
     /**
      * Run the Compiler and process all Passes.
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function compile($container)
+    public function compile(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         try {
             foreach ($this->passConfig->getPasses() as $pass) {

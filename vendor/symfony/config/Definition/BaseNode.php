@@ -64,10 +64,8 @@ abstract class BaseNode implements \ECSPrefix20211210\Symfony\Component\Config\D
      * successfully processed the configuration value is returned as is, thus preserving the placeholder.
      *
      * @internal
-     * @param string $placeholder
-     * @param mixed[] $values
      */
-    public static function setPlaceholder($placeholder, $values) : void
+    public static function setPlaceholder(string $placeholder, array $values) : void
     {
         if (!$values) {
             throw new \InvalidArgumentException('At least one value must be provided.');
@@ -81,9 +79,8 @@ abstract class BaseNode implements \ECSPrefix20211210\Symfony\Component\Config\D
      * placeholder. An exact match provided by {@see setPlaceholder()} might take precedence.
      *
      * @internal
-     * @param string $prefix
      */
-    public static function setPlaceholderUniquePrefix($prefix) : void
+    public static function setPlaceholderUniquePrefix(string $prefix) : void
     {
         self::$placeholderUniquePrefixes[] = $prefix;
     }
@@ -99,25 +96,20 @@ abstract class BaseNode implements \ECSPrefix20211210\Symfony\Component\Config\D
     }
     /**
      * @param mixed $value
-     * @param string $key
      */
-    public function setAttribute($key, $value)
+    public function setAttribute(string $key, $value)
     {
         $this->attributes[$key] = $value;
     }
     /**
      * @param mixed $default
      * @return mixed
-     * @param string $key
      */
-    public function getAttribute($key, $default = null)
+    public function getAttribute(string $key, $default = null)
     {
         return $this->attributes[$key] ?? $default;
     }
-    /**
-     * @param string $key
-     */
-    public function hasAttribute($key) : bool
+    public function hasAttribute(string $key) : bool
     {
         return isset($this->attributes[$key]);
     }
@@ -125,25 +117,18 @@ abstract class BaseNode implements \ECSPrefix20211210\Symfony\Component\Config\D
     {
         return $this->attributes;
     }
-    /**
-     * @param mixed[] $attributes
-     */
-    public function setAttributes($attributes)
+    public function setAttributes(array $attributes)
     {
         $this->attributes = $attributes;
     }
-    /**
-     * @param string $key
-     */
-    public function removeAttribute($key)
+    public function removeAttribute(string $key)
     {
         unset($this->attributes[$key]);
     }
     /**
      * Sets an info message.
-     * @param string $info
      */
-    public function setInfo($info)
+    public function setInfo(string $info)
     {
         $this->setAttribute('info', $info);
     }
@@ -181,9 +166,8 @@ abstract class BaseNode implements \ECSPrefix20211210\Symfony\Component\Config\D
     }
     /**
      * Set this node as required.
-     * @param bool $boolean
      */
-    public function setRequired($boolean)
+    public function setRequired(bool $boolean)
     {
         $this->required = $boolean;
     }
@@ -197,15 +181,14 @@ abstract class BaseNode implements \ECSPrefix20211210\Symfony\Component\Config\D
      * You can use %node% and %path% placeholders in your message to display,
      * respectively, the node name and its complete path
      */
-    public function setDeprecated($package, $version, $message = 'The child node "%node%" at path "%path%" is deprecated.')
+    public function setDeprecated(string $package, string $version, string $message = 'The child node "%node%" at path "%path%" is deprecated.')
     {
         $this->deprecation = ['package' => $package, 'version' => $version, 'message' => $message];
     }
     /**
      * Sets if this node can be overridden.
-     * @param bool $allow
      */
-    public function setAllowOverwrite($allow)
+    public function setAllowOverwrite(bool $allow)
     {
         $this->allowOverwrite = $allow;
     }
@@ -214,7 +197,7 @@ abstract class BaseNode implements \ECSPrefix20211210\Symfony\Component\Config\D
      *
      * @param \Closure[] $closures An array of Closures used for normalization
      */
-    public function setNormalizationClosures($closures)
+    public function setNormalizationClosures(array $closures)
     {
         $this->normalizationClosures = $closures;
     }
@@ -223,7 +206,7 @@ abstract class BaseNode implements \ECSPrefix20211210\Symfony\Component\Config\D
      *
      * @param \Closure[] $closures An array of Closures used for final validation
      */
-    public function setFinalValidationClosures($closures)
+    public function setFinalValidationClosures(array $closures)
     {
         $this->finalValidationClosures = $closures;
     }
@@ -245,7 +228,7 @@ abstract class BaseNode implements \ECSPrefix20211210\Symfony\Component\Config\D
      * @param string $node The configuration node name
      * @param string $path The path of the node
      */
-    public function getDeprecation($node, $path) : array
+    public function getDeprecation(string $node, string $path) : array
     {
         return ['package' => $this->deprecation['package'], 'version' => $this->deprecation['version'], 'message' => \strtr($this->deprecation['message'], ['%node%' => $node, '%path%' => $path])];
     }

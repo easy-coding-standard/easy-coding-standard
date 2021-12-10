@@ -37,9 +37,8 @@ final class ClassAndCodeSkipVoter implements \ECSPrefix20211210\Symplify\Skipper
     }
     /**
      * @param object|string $element
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function shouldSkip($element, $smartFileInfo) : bool
+    public function shouldSkip($element, \ECSPrefix20211210\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         if (\is_object($element)) {
             return \false;

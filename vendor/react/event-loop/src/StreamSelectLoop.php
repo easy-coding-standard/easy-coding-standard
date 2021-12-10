@@ -112,10 +112,7 @@ final class StreamSelectLoop implements \ECSPrefix20211210\React\EventLoop\LoopI
         $this->timers->add($timer);
         return $timer;
     }
-    /**
-     * @param \React\EventLoop\TimerInterface $timer
-     */
-    public function cancelTimer($timer)
+    public function cancelTimer(\ECSPrefix20211210\React\EventLoop\TimerInterface $timer)
     {
         $this->timers->cancel($timer);
     }

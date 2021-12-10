@@ -34,10 +34,8 @@ class ConfigCacheFactory implements \ECSPrefix20211210\Symfony\Component\Config\
     }
     /**
      * {@inheritdoc}
-     * @param string $file
-     * @param callable $callback
      */
-    public function cache($file, $callback) : \ECSPrefix20211210\Symfony\Component\Config\ConfigCacheInterface
+    public function cache(string $file, callable $callback) : \ECSPrefix20211210\Symfony\Component\Config\ConfigCacheInterface
     {
         $cache = new \ECSPrefix20211210\Symfony\Component\Config\ConfigCache($file, $this->debug);
         if (!$cache->isFresh()) {

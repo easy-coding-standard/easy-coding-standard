@@ -42,9 +42,8 @@ class EventDispatcher implements \ECSPrefix20211210\Symfony\Component\EventDispa
      * {@inheritdoc}
      * @param object $event
      * @return object
-     * @param string|null $eventName
      */
-    public function dispatch($event, $eventName = null)
+    public function dispatch($event, string $eventName = null)
     {
         $eventName = $eventName ?? \get_class($event);
         if (null !== $this->optimized) {
@@ -59,9 +58,8 @@ class EventDispatcher implements \ECSPrefix20211210\Symfony\Component\EventDispa
     }
     /**
      * {@inheritdoc}
-     * @param string|null $eventName
      */
-    public function getListeners($eventName = null)
+    public function getListeners(string $eventName = null)
     {
         if (null !== $eventName) {
             if (empty($this->listeners[$eventName])) {
@@ -81,9 +79,8 @@ class EventDispatcher implements \ECSPrefix20211210\Symfony\Component\EventDispa
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function getListenerPriority($eventName, $listener)
+    public function getListenerPriority(string $eventName, $listener)
     {
         if (empty($this->listeners[$eventName])) {
             return null;
@@ -107,9 +104,8 @@ class EventDispatcher implements \ECSPrefix20211210\Symfony\Component\EventDispa
     }
     /**
      * {@inheritdoc}
-     * @param string|null $eventName
      */
-    public function hasListeners($eventName = null)
+    public function hasListeners(string $eventName = null)
     {
         if (null !== $eventName) {
             return !empty($this->listeners[$eventName]);
@@ -123,19 +119,16 @@ class EventDispatcher implements \ECSPrefix20211210\Symfony\Component\EventDispa
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
-     * @param int $priority
      */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener(string $eventName, $listener, int $priority = 0)
     {
         $this->listeners[$eventName][$priority][] = $listener;
         unset($this->sorted[$eventName], $this->optimized[$eventName]);
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function removeListener($eventName, $listener)
+    public function removeListener(string $eventName, $listener)
     {
         if (empty($this->listeners[$eventName])) {
             return;
@@ -161,9 +154,8 @@ class EventDispatcher implements \ECSPrefix20211210\Symfony\Component\EventDispa
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function addSubscriber($subscriber)
+    public function addSubscriber(\ECSPrefix20211210\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
             if (\is_string($params)) {
@@ -179,9 +171,8 @@ class EventDispatcher implements \ECSPrefix20211210\Symfony\Component\EventDispa
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function removeSubscriber($subscriber)
+    public function removeSubscriber(\ECSPrefix20211210\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
             if (\is_array($params) && \is_array($params[0])) {
@@ -203,7 +194,7 @@ class EventDispatcher implements \ECSPrefix20211210\Symfony\Component\EventDispa
      * @param string     $eventName The name of the event to dispatch
      * @param object     $event     The event object to pass to the event handlers/listeners
      */
-    protected function callListeners($listeners, $eventName, $event)
+    protected function callListeners(iterable $listeners, string $eventName, $event)
     {
         $stoppable = $event instanceof \ECSPrefix20211210\Psr\EventDispatcher\StoppableEventInterface;
         foreach ($listeners as $listener) {

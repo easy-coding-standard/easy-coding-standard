@@ -88,10 +88,8 @@ class Table
     }
     /**
      * Sets a style definition.
-     * @param string $name
-     * @param \Symfony\Component\Console\Helper\TableStyle $style
      */
-    public static function setStyleDefinition($name, $style)
+    public static function setStyleDefinition(string $name, \ECSPrefix20211210\Symfony\Component\Console\Helper\TableStyle $style)
     {
         if (!self::$styles) {
             self::$styles = self::initStyles();
@@ -102,9 +100,8 @@ class Table
      * Gets a style definition by name.
      *
      * @return TableStyle
-     * @param string $name
      */
-    public static function getStyleDefinition($name)
+    public static function getStyleDefinition(string $name)
     {
         if (!self::$styles) {
             self::$styles = self::initStyles();
@@ -141,9 +138,8 @@ class Table
      * @param TableStyle|string $name The style name or a TableStyle instance
      *
      * @return $this
-     * @param int $columnIndex
      */
-    public function setColumnStyle($columnIndex, $name)
+    public function setColumnStyle(int $columnIndex, $name)
     {
         $this->columnStyles[$columnIndex] = $this->resolveStyle($name);
         return $this;
@@ -154,9 +150,8 @@ class Table
      * If style was not set, it returns the global table style.
      *
      * @return TableStyle
-     * @param int $columnIndex
      */
-    public function getColumnStyle($columnIndex)
+    public function getColumnStyle(int $columnIndex)
     {
         return $this->columnStyles[$columnIndex] ?? $this->getStyle();
     }
@@ -164,10 +159,8 @@ class Table
      * Sets the minimum width of a column.
      *
      * @return $this
-     * @param int $columnIndex
-     * @param int $width
      */
-    public function setColumnWidth($columnIndex, $width)
+    public function setColumnWidth(int $columnIndex, int $width)
     {
         $this->columnWidths[$columnIndex] = $width;
         return $this;
@@ -176,9 +169,8 @@ class Table
      * Sets the minimum width of all columns.
      *
      * @return $this
-     * @param mixed[] $widths
      */
-    public function setColumnWidths($widths)
+    public function setColumnWidths(array $widths)
     {
         $this->columnWidths = [];
         foreach ($widths as $index => $width) {
@@ -193,10 +185,8 @@ class Table
      * formatted strings are preserved.
      *
      * @return $this
-     * @param int $columnIndex
-     * @param int $width
      */
-    public function setColumnMaxWidth($columnIndex, $width) : self
+    public function setColumnMaxWidth(int $columnIndex, int $width) : self
     {
         if (!$this->output->getFormatter() instanceof \ECSPrefix20211210\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface) {
             throw new \LogicException(\sprintf('Setting a maximum column width is only supported when using a "%s" formatter, got "%s".', \ECSPrefix20211210\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface::class, \get_debug_type($this->output->getFormatter())));
@@ -206,9 +196,8 @@ class Table
     }
     /**
      * @return $this
-     * @param mixed[] $headers
      */
-    public function setHeaders($headers)
+    public function setHeaders(array $headers)
     {
         $headers = \array_values($headers);
         if (!empty($headers) && !\is_array($headers[0])) {
@@ -217,19 +206,15 @@ class Table
         $this->headers = $headers;
         return $this;
     }
-    /**
-     * @param mixed[] $rows
-     */
-    public function setRows($rows)
+    public function setRows(array $rows)
     {
         $this->rows = [];
         return $this->addRows($rows);
     }
     /**
      * @return $this
-     * @param mixed[] $rows
      */
-    public function addRows($rows)
+    public function addRows(array $rows)
     {
         foreach ($rows as $row) {
             $this->addRow($row);
@@ -270,36 +255,32 @@ class Table
     }
     /**
      * @return $this
-     * @param mixed[] $row
      */
-    public function setRow($column, $row)
+    public function setRow($column, array $row)
     {
         $this->rows[$column] = $row;
         return $this;
     }
     /**
      * @return $this
-     * @param string|null $title
      */
-    public function setHeaderTitle($title) : self
+    public function setHeaderTitle(?string $title) : self
     {
         $this->headerTitle = $title;
         return $this;
     }
     /**
      * @return $this
-     * @param string|null $title
      */
-    public function setFooterTitle($title) : self
+    public function setFooterTitle(?string $title) : self
     {
         $this->footerTitle = $title;
         return $this;
     }
     /**
      * @return $this
-     * @param bool $horizontal
      */
-    public function setHorizontal($horizontal = \true) : self
+    public function setHorizontal(bool $horizontal = \true) : self
     {
         $this->horizontal = $horizontal;
         return $this;

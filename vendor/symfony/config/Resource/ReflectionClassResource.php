@@ -48,9 +48,8 @@ class ReflectionClassResource implements \ECSPrefix20211210\Symfony\Component\Co
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
      */
-    public function isFresh($timestamp) : bool
+    public function isFresh(int $timestamp) : bool
     {
         if (!isset($this->hash)) {
             $this->hash = $this->computeHash();

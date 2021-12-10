@@ -27,9 +27,8 @@ class CommandCompletionTester
     }
     /**
      * Create completion suggestions from input tokens.
-     * @param mixed[] $input
      */
-    public function complete($input) : array
+    public function complete(array $input) : array
     {
         $currentIndex = \count($input);
         if ('' === \end($input)) {

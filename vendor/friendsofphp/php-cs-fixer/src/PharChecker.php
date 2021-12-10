@@ -19,9 +19,8 @@ final class PharChecker implements \PhpCsFixer\PharCheckerInterface
 {
     /**
      * {@inheritdoc}
-     * @param string $filename
      */
-    public function checkFileValidity($filename) : ?string
+    public function checkFileValidity(string $filename) : ?string
     {
         try {
             $phar = new \Phar($filename);

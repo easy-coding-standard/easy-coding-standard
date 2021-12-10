@@ -41,11 +41,7 @@ final class ListSetsCommand extends \ECSPrefix20211210\Symfony\Component\Console
     {
         $this->setDefinition([new \ECSPrefix20211210\Symfony\Component\Console\Input\InputOption('format', '', \ECSPrefix20211210\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'To output results in other formats.', (new \PhpCsFixer\Console\Report\ListSetsReport\TextReporter())->getFormat())])->setDescription('List all available RuleSets.');
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    protected function execute($input, $output)
+    protected function execute(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $reporter = $this->resolveReporterWithFactory($input->getOption('format'), new \PhpCsFixer\Console\Report\ListSetsReport\ReporterFactory());
         $reportSummary = new \PhpCsFixer\Console\Report\ListSetsReport\ReportSummary(\array_values(\PhpCsFixer\RuleSet\RuleSets::getSetDefinitions()));

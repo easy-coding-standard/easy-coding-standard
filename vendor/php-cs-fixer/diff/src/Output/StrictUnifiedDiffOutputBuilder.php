@@ -78,10 +78,7 @@ final class StrictUnifiedDiffOutputBuilder implements \PhpCsFixer\Diff\Output\Di
         $this->commonLineThreshold = $options['commonLineThreshold'];
         $this->contextLines = $options['contextLines'];
     }
-    /**
-     * @param mixed[] $diff
-     */
-    public function getDiff($diff)
+    public function getDiff(array $diff)
     {
         if (0 === \count($diff)) {
             return '';

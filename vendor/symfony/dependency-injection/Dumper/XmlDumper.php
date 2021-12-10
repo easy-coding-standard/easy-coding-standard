@@ -36,9 +36,8 @@ class XmlDumper extends \ECSPrefix20211210\Symfony\Component\DependencyInjection
     private $document;
     /**
      * Dumps the service container as an XML string.
-     * @param mixed[] $options
      */
-    public function dump($options = []) : string
+    public function dump(array $options = []) : string
     {
         $this->document = new \DOMDocument('1.0', 'utf-8');
         $this->document->formatOutput = \true;

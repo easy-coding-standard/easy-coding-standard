@@ -31,9 +31,8 @@ class ValidateEnvPlaceholdersPass implements \ECSPrefix20211210\Symfony\Componen
     private $extensionConfig = [];
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->extensionConfig = [];
         if (!\class_exists(\ECSPrefix20211210\Symfony\Component\Config\Definition\BaseNode::class) || !($extensions = $container->getExtensions())) {

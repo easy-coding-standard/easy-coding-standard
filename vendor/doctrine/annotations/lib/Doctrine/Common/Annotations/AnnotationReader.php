@@ -111,9 +111,8 @@ class AnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotations($class)
+    public function getClassAnnotations(\ReflectionClass $class)
     {
         $this->parser->setTarget(\ECSPrefix20211210\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
         $this->parser->setImports($this->getImports($class));
@@ -123,9 +122,8 @@ class AnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotation($class, $annotationName)
+    public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
         $annotations = $this->getClassAnnotations($class);
         foreach ($annotations as $annotation) {
@@ -137,9 +135,8 @@ class AnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotations($property)
+    public function getPropertyAnnotations(\ReflectionProperty $property)
     {
         $class = $property->getDeclaringClass();
         $context = 'property ' . $class->getName() . '::$' . $property->getName();
@@ -151,9 +148,8 @@ class AnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotation($property, $annotationName)
+    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
         $annotations = $this->getPropertyAnnotations($property);
         foreach ($annotations as $annotation) {
@@ -165,9 +161,8 @@ class AnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotations($method)
+    public function getMethodAnnotations(\ReflectionMethod $method)
     {
         $class = $method->getDeclaringClass();
         $context = 'method ' . $class->getName() . '::' . $method->getName() . '()';
@@ -179,9 +174,8 @@ class AnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotation($method, $annotationName)
+    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
         $annotations = $this->getMethodAnnotations($method);
         foreach ($annotations as $annotation) {
@@ -195,9 +189,8 @@ class AnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annotations
      * Gets the annotations applied to a function.
      *
      * @phpstan-return list<object> An array of Annotations.
-     * @param \ReflectionFunction $function
      */
-    public function getFunctionAnnotations($function) : array
+    public function getFunctionAnnotations(\ReflectionFunction $function) : array
     {
         $context = 'function ' . $function->getName();
         $this->parser->setTarget(\ECSPrefix20211210\Doctrine\Common\Annotations\Annotation\Target::TARGET_FUNCTION);
@@ -210,10 +203,8 @@ class AnnotationReader implements \ECSPrefix20211210\Doctrine\Common\Annotations
      * Gets a function annotation.
      *
      * @return object|null The Annotation or NULL, if the requested annotation does not exist.
-     * @param \ReflectionFunction $function
-     * @param string $annotationName
      */
-    public function getFunctionAnnotation($function, $annotationName)
+    public function getFunctionAnnotation(\ReflectionFunction $function, string $annotationName)
     {
         $annotations = $this->getFunctionAnnotations($function);
         foreach ($annotations as $annotation) {

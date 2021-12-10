@@ -43,19 +43,11 @@ final class CompleteCommand extends \ECSPrefix20211210\Symfony\Component\Console
     {
         $this->addOption('shell', 's', \ECSPrefix20211210\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The shell type ("' . \implode('", "', \array_keys($this->completionOutputs)) . '")')->addOption('input', 'i', \ECSPrefix20211210\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED | \ECSPrefix20211210\Symfony\Component\Console\Input\InputOption::VALUE_IS_ARRAY, 'An array of input tokens (e.g. COMP_WORDS or argv)')->addOption('current', 'c', \ECSPrefix20211210\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The index of the "input" array that the cursor is in (e.g. COMP_CWORD)')->addOption('symfony', 'S', \ECSPrefix20211210\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The version of the completion script');
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    protected function initialize($input, $output)
+    protected function initialize(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->isDebug = \filter_var(\getenv('SYMFONY_COMPLETION_DEBUG'), \FILTER_VALIDATE_BOOLEAN);
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    protected function execute($input, $output) : int
+    protected function execute(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         try {
             // uncomment when a bugfix or BC break has been introduced in the shell completion scripts

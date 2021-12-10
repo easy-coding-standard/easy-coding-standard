@@ -98,16 +98,12 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
     }
     /**
      * @final
-     * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
      */
-    public function setDispatcher($dispatcher)
+    public function setDispatcher(\ECSPrefix20211210\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
-    /**
-     * @param \Symfony\Component\Console\CommandLoader\CommandLoaderInterface $commandLoader
-     */
-    public function setCommandLoader($commandLoader)
+    public function setCommandLoader(\ECSPrefix20211210\Symfony\Component\Console\CommandLoader\CommandLoaderInterface $commandLoader)
     {
         $this->commandLoader = $commandLoader;
     }
@@ -118,10 +114,7 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
         }
         return $this->signalRegistry;
     }
-    /**
-     * @param int ...$signalsToDispatchEvent
-     */
-    public function setSignalsToDispatchEvent(...$signalsToDispatchEvent)
+    public function setSignalsToDispatchEvent(int ...$signalsToDispatchEvent)
     {
         $this->signalsToDispatchEvent = $signalsToDispatchEvent;
     }
@@ -131,10 +124,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * @return int 0 if everything went fine, or an error code
      *
      * @throws \Exception When running fails. Bypass this when {@link setCatchExceptions()}.
-     * @param \Symfony\Component\Console\Input\InputInterface|null $input
-     * @param \Symfony\Component\Console\Output\OutputInterface|null $output
      */
-    public function run($input = null, $output = null)
+    public function run(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input = null, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output = null)
     {
         if (\function_exists('putenv')) {
             @\putenv('LINES=' . $this->terminal->getHeight());
@@ -205,10 +196,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * Runs the current application.
      *
      * @return int 0 if everything went fine, or an error code
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    public function doRun($input, $output)
+    public function doRun(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output)
     {
         if (\true === $input->hasParameterOption(['--version', '-V'], \true)) {
             $output->writeln($this->getLongVersion());
@@ -277,10 +266,7 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
     public function reset()
     {
     }
-    /**
-     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
-     */
-    public function setHelperSet($helperSet)
+    public function setHelperSet(\ECSPrefix20211210\Symfony\Component\Console\Helper\HelperSet $helperSet)
     {
         $this->helperSet = $helperSet;
     }
@@ -296,10 +282,7 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
         }
         return $this->helperSet;
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
-     */
-    public function setDefinition($definition)
+    public function setDefinition(\ECSPrefix20211210\Symfony\Component\Console\Input\InputDefinition $definition)
     {
         $this->definition = $definition;
     }
@@ -322,10 +305,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
     }
     /**
      * Adds suggestions to $suggestions for the current completion input (e.g. option or argument).
-     * @param \Symfony\Component\Console\Completion\CompletionInput $input
-     * @param \Symfony\Component\Console\Completion\CompletionSuggestions $suggestions
      */
-    public function complete($input, $suggestions) : void
+    public function complete(\ECSPrefix20211210\Symfony\Component\Console\Completion\CompletionInput $input, \ECSPrefix20211210\Symfony\Component\Console\Completion\CompletionSuggestions $suggestions) : void
     {
         if (\ECSPrefix20211210\Symfony\Component\Console\Completion\CompletionInput::TYPE_ARGUMENT_VALUE === $input->getCompletionType() && 'command' === $input->getCompletionName()) {
             $suggestions->suggestValues(\array_filter(\array_map(function (\ECSPrefix20211210\Symfony\Component\Console\Command\Command $command) {
@@ -358,9 +339,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
     }
     /**
      * Sets whether to catch exceptions or not during commands execution.
-     * @param bool $boolean
      */
-    public function setCatchExceptions($boolean)
+    public function setCatchExceptions(bool $boolean)
     {
         $this->catchExceptions = $boolean;
     }
@@ -375,9 +355,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
     }
     /**
      * Sets whether to automatically exit after a command execution or not.
-     * @param bool $boolean
      */
-    public function setAutoExit($boolean)
+    public function setAutoExit(bool $boolean)
     {
         $this->autoExit = $boolean;
     }
@@ -392,9 +371,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
     }
     /**
      * Sets the application name.
-     * @param string $name
      **/
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -409,9 +387,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
     }
     /**
      * Sets the application version.
-     * @param string $version
      */
-    public function setVersion($version)
+    public function setVersion(string $version)
     {
         $this->version = $version;
     }
@@ -434,9 +411,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * Registers a new command.
      *
      * @return Command
-     * @param string $name
      */
-    public function register($name)
+    public function register(string $name)
     {
         return $this->add(new \ECSPrefix20211210\Symfony\Component\Console\Command\Command($name));
     }
@@ -447,7 +423,7 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      *
      * @param Command[] $commands An array of commands
      */
-    public function addCommands($commands)
+    public function addCommands(array $commands)
     {
         foreach ($commands as $command) {
             $this->add($command);
@@ -460,9 +436,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * If the command is not enabled it will not be added.
      *
      * @return Command|null
-     * @param \Symfony\Component\Console\Command\Command $command
      */
-    public function add($command)
+    public function add(\ECSPrefix20211210\Symfony\Component\Console\Command\Command $command)
     {
         $this->init();
         $command->setApplication($this);
@@ -489,9 +464,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * @return Command
      *
      * @throws CommandNotFoundException When given command name does not exist
-     * @param string $name
      */
-    public function get($name)
+    public function get(string $name)
     {
         $this->init();
         if (!$this->has($name)) {
@@ -514,9 +488,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * Returns true if the command exists, false otherwise.
      *
      * @return bool
-     * @param string $name
      */
-    public function has($name)
+    public function has(string $name)
     {
         $this->init();
         return isset($this->commands[$name]) || $this->commandLoader && $this->commandLoader->has($name) && $this->add($this->commandLoader->get($name));
@@ -548,9 +521,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * @return string
      *
      * @throws NamespaceNotFoundException When namespace is incorrect or ambiguous
-     * @param string $namespace
      */
-    public function findNamespace($namespace)
+    public function findNamespace(string $namespace)
     {
         $allNamespaces = $this->getNamespaces();
         $expr = \implode('[^:]*:', \array_map('preg_quote', \explode(':', $namespace))) . '[^:]*';
@@ -582,9 +554,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * @return Command
      *
      * @throws CommandNotFoundException When command name is incorrect or ambiguous
-     * @param string $name
      */
-    public function find($name)
+    public function find(string $name)
     {
         $this->init();
         $aliases = [];
@@ -669,9 +640,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * The array keys are the full names and the values the command instances.
      *
      * @return Command[]
-     * @param string|null $namespace
      */
-    public function all($namespace = null)
+    public function all(string $namespace = null)
     {
         $this->init();
         if (null === $namespace) {
@@ -705,9 +675,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * Returns an array of possible abbreviations given a set of names.
      *
      * @return string[][]
-     * @param mixed[] $names
      */
-    public static function getAbbreviations($names)
+    public static function getAbbreviations(array $names)
     {
         $abbrevs = [];
         foreach ($names as $name) {
@@ -718,11 +687,7 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
         }
         return $abbrevs;
     }
-    /**
-     * @param \Throwable $e
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    public function renderThrowable($e, $output) : void
+    public function renderThrowable(\Throwable $e, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         $output->writeln('', \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         $this->doRenderThrowable($e, $output);
@@ -731,11 +696,7 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
             $output->writeln('', \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         }
     }
-    /**
-     * @param \Throwable $e
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    protected function doRenderThrowable($e, $output) : void
+    protected function doRenderThrowable(\Throwable $e, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         do {
             $message = \trim($e->getMessage());
@@ -794,10 +755,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
     }
     /**
      * Configures the input and output instances based on the user arguments and options.
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function configureIO($input, $output)
+    protected function configureIO(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output)
     {
         if (\true === $input->hasParameterOption(['--ansi'], \true)) {
             $output->setDecorated(\true);
@@ -855,11 +814,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * events are also dispatched during the life-cycle of the command.
      *
      * @return int 0 if everything went fine, or an error code
-     * @param \Symfony\Component\Console\Command\Command $command
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function doRunCommand($command, $input, $output)
+    protected function doRunCommand(\ECSPrefix20211210\Symfony\Component\Console\Command\Command $command, \ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output)
     {
         foreach ($command->getHelperSet() as $helper) {
             if ($helper instanceof \ECSPrefix20211210\Symfony\Component\Console\Input\InputAwareInterface) {
@@ -926,9 +882,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * Gets the name of the command based on input.
      *
      * @return string|null
-     * @param \Symfony\Component\Console\Input\InputInterface $input
      */
-    protected function getCommandName($input)
+    protected function getCommandName(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input)
     {
         return $this->singleCommand ? $this->defaultCommand : $input->getFirstArgument();
     }
@@ -972,10 +927,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * This method is not part of public API and should not be used directly.
      *
      * @return string
-     * @param string $name
-     * @param int|null $limit
      */
-    public function extractNamespace($name, $limit = null)
+    public function extractNamespace(string $name, int $limit = null)
     {
         $parts = \explode(':', $name, -1);
         return \implode(':', null === $limit ? $parts : \array_slice($parts, 0, $limit));
@@ -1027,10 +980,8 @@ class Application implements \ECSPrefix20211210\Symfony\Contracts\Service\ResetI
      * Sets the default Command name.
      *
      * @return $this
-     * @param string $commandName
-     * @param bool $isSingleCommand
      */
-    public function setDefaultCommand($commandName, $isSingleCommand = \false)
+    public function setDefaultCommand(string $commandName, bool $isSingleCommand = \false)
     {
         $this->defaultCommand = \explode('|', \ltrim($commandName, '|'))[0];
         if ($isSingleCommand) {

@@ -27,5 +27,5 @@ interface SignatureInterface
     /**
      * @param SignatureInterface $signature
      */
-    public function equals($signature) : bool;
+    public function equals(self $signature) : bool;
 }

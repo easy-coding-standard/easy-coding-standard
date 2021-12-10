@@ -29,9 +29,8 @@ class MergeExtensionConfigurationPass implements \ECSPrefix20211210\Symfony\Comp
 {
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $parameters = $container->getParameterBag()->all();
         $definitions = $container->getDefinitions();
@@ -105,11 +104,7 @@ class MergeExtensionConfigurationParameterBag extends \ECSPrefix20211210\Symfony
         parent::__construct($parameterBag->all());
         $this->mergeEnvPlaceholders($parameterBag);
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\Extension\Extension $extension
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function freezeAfterProcessing($extension, $container)
+    public function freezeAfterProcessing(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Extension\Extension $extension, \ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!($config = $extension->getProcessedConfigs())) {
             // Extension::processConfiguration() wasn't called, we cannot know how configs were merged
@@ -158,27 +153,22 @@ class MergeExtensionConfigurationContainerBuilder extends \ECSPrefix20211210\Sym
     /**
      * {@inheritdoc}
      * @return $this
-     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
-     * @param string $type
-     * @param int $priority
      */
-    public function addCompilerPass($pass, $type = \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addCompilerPass(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \ECSPrefix20211210\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
         throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('You cannot add compiler pass "%s" from extension "%s". Compiler passes must be registered before the container is compiled.', \get_debug_type($pass), $this->extensionClass));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
      */
-    public function registerExtension($extension)
+    public function registerExtension(\ECSPrefix20211210\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension)
     {
         throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('You cannot register extension "%s" from "%s". Extensions must be registered before the container is compiled.', \get_debug_type($extension), $this->extensionClass));
     }
     /**
      * {@inheritdoc}
-     * @param bool $resolveEnvPlaceholders
      */
-    public function compile($resolveEnvPlaceholders = \false)
+    public function compile(bool $resolveEnvPlaceholders = \false)
     {
         throw new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Cannot compile the container in extension "%s".', $this->extensionClass));
     }
@@ -187,9 +177,8 @@ class MergeExtensionConfigurationContainerBuilder extends \ECSPrefix20211210\Sym
      * @param bool|string $format
      * @param mixed $value
      * @return mixed
-     * @param mixed[]|null $usedEnvs
      */
-    public function resolveEnvPlaceholders($value, $format = null, &$usedEnvs = null)
+    public function resolveEnvPlaceholders($value, $format = null, array &$usedEnvs = null)
     {
         if (\true !== $format || !\is_string($value)) {
             return parent::resolveEnvPlaceholders($value, $format, $usedEnvs);

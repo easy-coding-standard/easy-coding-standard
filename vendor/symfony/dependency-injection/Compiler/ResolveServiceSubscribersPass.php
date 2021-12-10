@@ -28,9 +28,8 @@ class ResolveServiceSubscribersPass extends \ECSPrefix20211210\Symfony\Component
     /**
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\Reference && $this->serviceLocator && \in_array((string) $value, [\ECSPrefix20211210\Psr\Container\ContainerInterface::class, \ECSPrefix20211210\Symfony\Contracts\Service\ServiceProviderInterface::class], \true)) {
             return new \ECSPrefix20211210\Symfony\Component\DependencyInjection\Reference($this->serviceLocator);

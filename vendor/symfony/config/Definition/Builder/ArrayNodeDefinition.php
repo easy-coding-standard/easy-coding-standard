@@ -45,9 +45,8 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $builder
      */
-    public function setBuilder($builder)
+    public function setBuilder(\ECSPrefix20211210\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder)
     {
         $this->nodeBuilder = $builder;
     }
@@ -60,9 +59,8 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
     }
     /**
      * Sets a prototype for child nodes.
-     * @param string $type
      */
-    public function prototype($type) : \ECSPrefix20211210\Symfony\Component\Config\Definition\Builder\NodeDefinition
+    public function prototype(string $type) : \ECSPrefix20211210\Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
         return $this->prototype = $this->getNodeBuilder()->node(null, $type)->setParent($this);
     }
@@ -154,7 +152,7 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
      *
      * @return $this
      */
-    public function fixXmlConfig($singular, $plural = null)
+    public function fixXmlConfig(string $singular, string $plural = null)
     {
         $this->normalization()->remap($singular, $plural);
         return $this;
@@ -187,7 +185,7 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
      *
      * @return $this
      */
-    public function useAttributeAsKey($name, $removeKeyItem = \true)
+    public function useAttributeAsKey(string $name, bool $removeKeyItem = \true)
     {
         $this->key = $name;
         $this->removeKeyItem = $removeKeyItem;
@@ -197,9 +195,8 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
      * Sets whether the node can be unset.
      *
      * @return $this
-     * @param bool $allow
      */
-    public function canBeUnset($allow = \true)
+    public function canBeUnset(bool $allow = \true)
     {
         $this->merge()->allowUnset($allow);
         return $this;
@@ -262,7 +259,7 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
      *
      * @return $this
      */
-    public function ignoreExtraKeys($remove = \true)
+    public function ignoreExtraKeys(bool $remove = \true)
     {
         $this->ignoreExtraKeys = \true;
         $this->removeExtraKeys = $remove;
@@ -272,9 +269,8 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
      * Sets whether to enable key normalization.
      *
      * @return $this
-     * @param bool $bool
      */
-    public function normalizeKeys($bool)
+    public function normalizeKeys(bool $bool)
     {
         $this->normalizeKeys = $bool;
         return $this;
@@ -282,9 +278,8 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
     /**
      * {@inheritdoc}
      * @return $this
-     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition $node
      */
-    public function append($node)
+    public function append(\ECSPrefix20211210\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->children[$node->name] = $node->setParent($this);
         return $this;
@@ -364,9 +359,8 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
      * Validate the configuration of a concrete node.
      *
      * @throws InvalidDefinitionException
-     * @param \Symfony\Component\Config\Definition\ArrayNode $node
      */
-    protected function validateConcreteNode($node)
+    protected function validateConcreteNode(\ECSPrefix20211210\Symfony\Component\Config\Definition\ArrayNode $node)
     {
         $path = $node->getPath();
         if (null !== $this->key) {
@@ -389,9 +383,8 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
      * Validate the configuration of a prototype node.
      *
      * @throws InvalidDefinitionException
-     * @param \Symfony\Component\Config\Definition\PrototypedArrayNode $node
      */
-    protected function validatePrototypeNode($node)
+    protected function validatePrototypeNode(\ECSPrefix20211210\Symfony\Component\Config\Definition\PrototypedArrayNode $node)
     {
         $path = $node->getPath();
         if ($this->addDefaults) {
@@ -421,7 +414,7 @@ class ArrayNodeDefinition extends \ECSPrefix20211210\Symfony\Component\Config\De
      *
      * @param string $nodePath The path of the node to find. e.g "doctrine.orm.mappings"
      */
-    public function find($nodePath) : \ECSPrefix20211210\Symfony\Component\Config\Definition\Builder\NodeDefinition
+    public function find(string $nodePath) : \ECSPrefix20211210\Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
         $firstPathSegment = \false === ($pathSeparatorPos = \strpos($nodePath, $this->pathSeparator)) ? $nodePath : \substr($nodePath, 0, $pathSeparatorPos);
         if (null === ($node = $this->children[$firstPathSegment] ?? null)) {

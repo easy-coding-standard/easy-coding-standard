@@ -26,9 +26,8 @@ class AutowireRequiredPropertiesPass extends \ECSPrefix20211210\Symfony\Componen
      * {@inheritdoc}
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         $value = parent::processValue($value, $isRoot);
         if (!$value instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {

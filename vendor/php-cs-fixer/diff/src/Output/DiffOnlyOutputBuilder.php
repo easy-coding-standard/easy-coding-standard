@@ -25,10 +25,7 @@ final class DiffOnlyOutputBuilder implements \PhpCsFixer\Diff\Output\DiffOutputB
     {
         $this->header = $header;
     }
-    /**
-     * @param mixed[] $diff
-     */
-    public function getDiff($diff)
+    public function getDiff(array $diff)
     {
         $buffer = \fopen('php://memory', 'r+b');
         if ('' !== $this->header) {

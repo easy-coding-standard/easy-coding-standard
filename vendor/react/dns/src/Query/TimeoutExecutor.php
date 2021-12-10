@@ -16,10 +16,7 @@ final class TimeoutExecutor implements \ECSPrefix20211210\React\Dns\Query\Execut
         $this->loop = $loop ?: \ECSPrefix20211210\React\EventLoop\Loop::get();
         $this->timeout = $timeout;
     }
-    /**
-     * @param \React\Dns\Query\Query $query
-     */
-    public function query($query)
+    public function query(\ECSPrefix20211210\React\Dns\Query\Query $query)
     {
         return \ECSPrefix20211210\React\Promise\Timer\timeout($this->executor->query($query), $this->timeout, $this->loop)->then(null, function ($e) use($query) {
             if ($e instanceof \ECSPrefix20211210\React\Promise\Timer\TimeoutException) {

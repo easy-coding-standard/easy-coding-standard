@@ -30,9 +30,8 @@ final class GitlabReporter implements \PhpCsFixer\Console\Report\FixReport\Repor
     }
     /**
      * Process changed files array. Returns generated report.
-     * @param \PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary
      */
-    public function generate($reportSummary) : string
+    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary) : string
     {
         $report = [];
         foreach ($reportSummary->getChanged() as $fileName => $change) {

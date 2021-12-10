@@ -23,9 +23,8 @@ class SingleCommandApplication extends \ECSPrefix20211210\Symfony\Component\Cons
     private $running = \false;
     /**
      * @return $this
-     * @param string $version
      */
-    public function setVersion($version) : self
+    public function setVersion(string $version) : self
     {
         $this->version = $version;
         return $this;
@@ -34,18 +33,13 @@ class SingleCommandApplication extends \ECSPrefix20211210\Symfony\Component\Cons
      * @final
      *
      * @return $this
-     * @param bool $autoExit
      */
-    public function setAutoExit($autoExit) : self
+    public function setAutoExit(bool $autoExit) : self
     {
         $this->autoExit = $autoExit;
         return $this;
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface|null $input
-     * @param \Symfony\Component\Console\Output\OutputInterface|null $output
-     */
-    public function run($input = null, $output = null) : int
+    public function run(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input = null, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output = null) : int
     {
         if ($this->running) {
             return parent::run($input, $output);

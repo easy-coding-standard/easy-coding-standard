@@ -57,9 +57,6 @@ interface TransformerInterface
     public function getRequiredPhpVersionId() : int;
     /**
      * Process Token to transform it into custom token when needed.
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \PhpCsFixer\Tokenizer\Token $token
-     * @param int $index
      */
-    public function process($tokens, $token, $index) : void;
+    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void;
 }

@@ -20,22 +20,9 @@ namespace PhpCsFixer\Cache;
 interface CacheInterface
 {
     public function getSignature() : \PhpCsFixer\Cache\SignatureInterface;
-    /**
-     * @param string $file
-     */
-    public function has($file) : bool;
-    /**
-     * @param string $file
-     */
-    public function get($file) : ?int;
-    /**
-     * @param string $file
-     * @param int $hash
-     */
-    public function set($file, $hash) : void;
-    /**
-     * @param string $file
-     */
-    public function clear($file) : void;
+    public function has(string $file) : bool;
+    public function get(string $file) : ?int;
+    public function set(string $file, int $hash) : void;
+    public function clear(string $file) : void;
     public function toJson() : string;
 }

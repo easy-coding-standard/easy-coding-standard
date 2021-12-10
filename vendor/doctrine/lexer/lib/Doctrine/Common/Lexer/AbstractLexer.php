@@ -143,7 +143,7 @@ abstract class AbstractLexer
      *
      * @return bool
      */
-    public function isNextTokenAny($tokens)
+    public function isNextTokenAny(array $tokens)
     {
         return $this->lookahead !== null && \in_array($this->lookahead['type'], $tokens, \true);
     }

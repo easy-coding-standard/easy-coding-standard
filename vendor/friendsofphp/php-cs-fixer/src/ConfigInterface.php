@@ -77,42 +77,24 @@ interface ConfigInterface
      *
      * @param FixerInterface[]|iterable|\Traversable $fixers
      */
-    public function registerCustomFixers($fixers) : self;
+    public function registerCustomFixers(iterable $fixers) : self;
     /**
      * Sets the path to the cache file.
-     * @param string $cacheFile
      */
-    public function setCacheFile($cacheFile) : self;
-    /**
-     * @param mixed[] $finder
-     */
-    public function setFinder($finder) : self;
-    /**
-     * @param string $format
-     */
-    public function setFormat($format) : self;
-    /**
-     * @param bool $hideProgress
-     */
-    public function setHideProgress($hideProgress) : self;
-    /**
-     * @param string $indent
-     */
-    public function setIndent($indent) : self;
-    /**
-     * @param string $lineEnding
-     */
-    public function setLineEnding($lineEnding) : self;
+    public function setCacheFile(string $cacheFile) : self;
+    public function setFinder(iterable $finder) : self;
+    public function setFormat(string $format) : self;
+    public function setHideProgress(bool $hideProgress) : self;
+    public function setIndent(string $indent) : self;
+    public function setLineEnding(string $lineEnding) : self;
     /**
      * Set PHP executable.
-     * @param string|null $phpExecutable
      */
-    public function setPhpExecutable($phpExecutable) : self;
+    public function setPhpExecutable(?string $phpExecutable) : self;
     /**
      * Set if it is allowed to run risky fixers.
-     * @param bool $isRiskyAllowed
      */
-    public function setRiskyAllowed($isRiskyAllowed) : self;
+    public function setRiskyAllowed(bool $isRiskyAllowed) : self;
     /**
      * Set rules.
      *
@@ -120,11 +102,7 @@ interface ConfigInterface
      * Value for set must be bool (turn it on or off).
      * Value for fixer may be bool (turn it on or off) or array of configuration
      * (turn it on and contains configuration for FixerInterface::configure method).
-     * @param mixed[] $rules
      */
-    public function setRules($rules) : self;
-    /**
-     * @param bool $usingCache
-     */
-    public function setUsingCache($usingCache) : self;
+    public function setRules(array $rules) : self;
+    public function setUsingCache(bool $usingCache) : self;
 }

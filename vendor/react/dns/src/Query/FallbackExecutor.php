@@ -12,10 +12,7 @@ final class FallbackExecutor implements \ECSPrefix20211210\React\Dns\Query\Execu
         $this->executor = $executor;
         $this->fallback = $fallback;
     }
-    /**
-     * @param \React\Dns\Query\Query $query
-     */
-    public function query($query)
+    public function query(\ECSPrefix20211210\React\Dns\Query\Query $query)
     {
         $cancelled = \false;
         $fallback = $this->fallback;

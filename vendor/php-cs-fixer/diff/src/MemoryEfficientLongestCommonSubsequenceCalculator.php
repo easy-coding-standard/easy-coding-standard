@@ -14,10 +14,8 @@ final class MemoryEfficientLongestCommonSubsequenceCalculator implements \PhpCsF
 {
     /**
      * {@inheritdoc}
-     * @param mixed[] $from
-     * @param mixed[] $to
      */
-    public function calculate($from, $to)
+    public function calculate(array $from, array $to)
     {
         $cFrom = \count($from);
         $cTo = \count($to);

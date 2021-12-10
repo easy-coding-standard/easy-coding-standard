@@ -38,9 +38,8 @@ class ResolveParameterPlaceHoldersPass extends \ECSPrefix20211210\Symfony\Compon
      * {@inheritdoc}
      *
      * @throws ParameterNotFoundException
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->bag = $container->getParameterBag();
         try {
@@ -61,9 +60,8 @@ class ResolveParameterPlaceHoldersPass extends \ECSPrefix20211210\Symfony\Compon
     /**
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (\is_string($value)) {
             try {

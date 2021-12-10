@@ -89,7 +89,7 @@ class XdebugHandler
      *
      * @return $this
      */
-    public function setLogger($logger)
+    public function setLogger(\ECSPrefix20211210\Psr\Log\LoggerInterface $logger)
     {
         $this->statusWriter->setLogger($logger);
         return $this;

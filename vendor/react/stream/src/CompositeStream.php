@@ -36,11 +36,7 @@ final class CompositeStream extends \ECSPrefix20211210\Evenement\EventEmitter im
         }
         $this->readable->resume();
     }
-    /**
-     * @param \React\Stream\WritableStreamInterface $dest
-     * @param mixed[] $options
-     */
-    public function pipe($dest, $options = array())
+    public function pipe(\ECSPrefix20211210\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
         return \ECSPrefix20211210\React\Stream\Util::pipe($this, $dest, $options);
     }

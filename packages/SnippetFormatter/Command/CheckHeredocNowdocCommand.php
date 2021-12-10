@@ -26,11 +26,7 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
         $this->setDescription('Format Heredoc/Nowdoc PHP snippets in PHP files');
         parent::configure();
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    protected function execute($input, $output) : int
+    protected function execute(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             $this->loadedCheckersGuard->report();

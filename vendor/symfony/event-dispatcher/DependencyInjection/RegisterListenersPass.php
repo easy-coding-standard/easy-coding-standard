@@ -43,9 +43,8 @@ class RegisterListenersPass implements \ECSPrefix20211210\Symfony\Component\Depe
     }
     /**
      * @return $this
-     * @param mixed[] $hotPathEvents
      */
-    public function setHotPathEvents($hotPathEvents)
+    public function setHotPathEvents(array $hotPathEvents)
     {
         $this->hotPathEvents = \array_flip($hotPathEvents);
         if (1 < \func_num_args()) {
@@ -56,9 +55,8 @@ class RegisterListenersPass implements \ECSPrefix20211210\Symfony\Component\Depe
     }
     /**
      * @return $this
-     * @param mixed[] $noPreloadEvents
      */
-    public function setNoPreloadEvents($noPreloadEvents) : self
+    public function setNoPreloadEvents(array $noPreloadEvents) : self
     {
         $this->noPreloadEvents = \array_flip($noPreloadEvents);
         if (1 < \func_num_args()) {
@@ -67,10 +65,7 @@ class RegisterListenersPass implements \ECSPrefix20211210\Symfony\Component\Depe
         }
         return $this;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->dispatcherService) && !$container->hasAlias($this->dispatcherService)) {
             return;
@@ -176,11 +171,7 @@ class ExtractingEventDispatcher extends \ECSPrefix20211210\Symfony\Component\Eve
     public $listeners = [];
     public static $aliases = [];
     public static $subscriber;
-    /**
-     * @param string $eventName
-     * @param int $priority
-     */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener(string $eventName, $listener, int $priority = 0)
     {
         $this->listeners[] = [$eventName, $listener[1], $priority];
     }

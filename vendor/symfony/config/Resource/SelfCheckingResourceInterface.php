@@ -23,5 +23,5 @@ interface SelfCheckingResourceInterface extends \ECSPrefix20211210\Symfony\Compo
      *
      * @param int $timestamp The last time the resource was loaded
      */
-    public function isFresh($timestamp) : bool;
+    public function isFresh(int $timestamp) : bool;
 }

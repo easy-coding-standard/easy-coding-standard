@@ -25,9 +25,8 @@ class ParametersConfigurator extends \ECSPrefix20211210\Symfony\Component\Depend
     /**
      * @return $this
      * @param mixed $value
-     * @param string $name
      */
-    public final function set($name, $value)
+    public final function set(string $name, $value)
     {
         $this->container->setParameter($name, static::processValue($value, \true));
         return $this;

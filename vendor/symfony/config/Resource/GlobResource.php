@@ -84,9 +84,8 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20211210\Symfony\Com
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
      */
-    public function isFresh($timestamp) : bool
+    public function isFresh(int $timestamp) : bool
     {
         $hash = $this->computeHash();
         $this->hash = $this->hash ?? $hash;

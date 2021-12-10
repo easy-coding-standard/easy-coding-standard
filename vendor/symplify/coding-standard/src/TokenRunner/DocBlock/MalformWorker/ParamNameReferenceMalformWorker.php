@@ -16,10 +16,8 @@ final class ParamNameReferenceMalformWorker implements \Symplify\CodingStandard\
     private const PARAM_NAME_REGEX = '#(?<param>@param(.*?))&(?<paramName>\\$\\w+)#';
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
      */
-    public function work($docContent, $tokens, $position) : string
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
         return \ECSPrefix20211210\Nette\Utils\Strings::replace($docContent, self::PARAM_NAME_REGEX, function ($match) : string {
             return $match['param'] . $match['paramName'];

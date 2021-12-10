@@ -17,11 +17,7 @@ use ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface;
  */
 class BashCompletionOutput implements \ECSPrefix20211210\Symfony\Component\Console\Completion\Output\CompletionOutputInterface
 {
-    /**
-     * @param \Symfony\Component\Console\Completion\CompletionSuggestions $suggestions
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    public function write($suggestions, $output) : void
+    public function write(\ECSPrefix20211210\Symfony\Component\Console\Completion\CompletionSuggestions $suggestions, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         $values = $suggestions->getValueSuggestions();
         foreach ($suggestions->getOptionSuggestions() as $option) {

@@ -51,7 +51,7 @@ abstract class AbstractConfigurator
      * @return mixed the value, optionally cast to a Definition/Reference
      * @param mixed $value
      */
-    public static function processValue($value, $allowServices = \false)
+    public static function processValue($value, bool $allowServices = \false)
     {
         if (\is_array($value)) {
             foreach ($value as $k => $v) {

@@ -31,10 +31,7 @@ final class DiffOnlyOutputBuilder implements \ECSPrefix20211210\SebastianBergman
     {
         $this->header = $header;
     }
-    /**
-     * @param mixed[] $diff
-     */
-    public function getDiff($diff) : string
+    public function getDiff(array $diff) : string
     {
         $buffer = \fopen('php://memory', 'r+b');
         if ('' !== $this->header) {

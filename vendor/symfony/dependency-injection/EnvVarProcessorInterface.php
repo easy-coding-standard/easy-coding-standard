@@ -28,7 +28,7 @@ interface EnvVarProcessorInterface
      * @throws RuntimeException on error
      * @return mixed
      */
-    public function getEnv($prefix, $name, $getEnv);
+    public function getEnv(string $prefix, string $name, \Closure $getEnv);
     /**
      * @return string[] The PHP-types managed by getEnv(), keyed by prefixes
      */

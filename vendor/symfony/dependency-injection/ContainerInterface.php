@@ -29,28 +29,21 @@ interface ContainerInterface extends \ECSPrefix20211210\Psr\Container\ContainerI
     public const IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
     /**
      * @param object|null $service
-     * @param string $id
      */
-    public function set($id, $service);
+    public function set(string $id, $service);
     /**
      * @throws ServiceCircularReferenceException When a circular reference is detected
      * @throws ServiceNotFoundException          When the service is not defined
      *
      * @see Reference
      * @return object|null
-     * @param string $id
-     * @param int $invalidBehavior
      */
-    public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE);
-    /**
-     * @param string $id
-     */
-    public function has($id) : bool;
+    public function get(string $id, int $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE);
+    public function has(string $id) : bool;
     /**
      * Check for whether or not a service has been initialized.
-     * @param string $id
      */
-    public function initialized($id) : bool;
+    public function initialized(string $id) : bool;
     /**
      * @return array|bool|string|int|float|null
      *

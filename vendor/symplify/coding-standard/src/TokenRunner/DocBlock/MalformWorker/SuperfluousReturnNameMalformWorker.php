@@ -30,10 +30,8 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
     private const VARIABLE_NAME_PART = 'variableName';
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
      */
-    public function work($docContent, $tokens, $position) : string
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
         $lines = $docBlock->getLines();

@@ -70,9 +70,8 @@ final class DocBlock
     }
     /**
      * Get a single line.
-     * @param int $pos
      */
-    public function getLine($pos) : ?\PhpCsFixer\DocBlock\Line
+    public function getLine(int $pos) : ?\PhpCsFixer\DocBlock\Line
     {
         return $this->lines[$pos] ?? null;
     }
@@ -109,10 +108,8 @@ final class DocBlock
     }
     /**
      * Take a one line doc block, and turn it into a multi line doc block.
-     * @param string $indent
-     * @param string $lineEnd
      */
-    public function makeMultiLine($indent, $lineEnd) : void
+    public function makeMultiLine(string $indent, string $lineEnd) : void
     {
         if ($this->isMultiLine()) {
             return;
@@ -141,10 +138,7 @@ final class DocBlock
         }
         $this->lines = [new \PhpCsFixer\DocBlock\Line('/** ' . $lineContent . ' */')];
     }
-    /**
-     * @param int $pos
-     */
-    public function getAnnotation($pos) : ?\PhpCsFixer\DocBlock\Annotation
+    public function getAnnotation(int $pos) : ?\PhpCsFixer\DocBlock\Annotation
     {
         $annotations = $this->getAnnotations();
         return $annotations[$pos] ?? null;

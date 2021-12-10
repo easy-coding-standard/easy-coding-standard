@@ -20,10 +20,7 @@ final class CachingExecutor implements \ECSPrefix20211210\React\Dns\Query\Execut
         $this->executor = $executor;
         $this->cache = $cache;
     }
-    /**
-     * @param \React\Dns\Query\Query $query
-     */
-    public function query($query)
+    public function query(\ECSPrefix20211210\React\Dns\Query\Query $query)
     {
         $id = $query->name . ':' . $query->type . ':' . $query->class;
         $cache = $this->cache;
@@ -59,7 +56,7 @@ final class CachingExecutor implements \ECSPrefix20211210\React\Dns\Query\Execut
      * @return int
      * @internal
      */
-    public function ttl($message)
+    public function ttl(\ECSPrefix20211210\React\Dns\Model\Message $message)
     {
         // select TTL from answers (should all be the same), use smallest value if available
         // @link https://tools.ietf.org/html/rfc2181#section-5.2

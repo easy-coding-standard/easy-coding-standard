@@ -58,10 +58,7 @@ class SelectiveTransportExecutor implements \ECSPrefix20211210\React\Dns\Query\E
         $this->datagramExecutor = $datagramExecutor;
         $this->streamExecutor = $streamExecutor;
     }
-    /**
-     * @param \React\Dns\Query\Query $query
-     */
-    public function query($query)
+    public function query(\ECSPrefix20211210\React\Dns\Query\Query $query)
     {
         $stream = $this->streamExecutor;
         $pending = $this->datagramExecutor->query($query);

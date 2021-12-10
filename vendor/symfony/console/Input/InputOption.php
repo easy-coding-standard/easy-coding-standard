@@ -187,9 +187,8 @@ class InputOption
      * Checks whether the given option equals this one.
      *
      * @return bool
-     * @param $this $option
      */
-    public function equals($option)
+    public function equals(self $option)
     {
         return $option->getName() === $this->getName() && $option->getShortcut() === $this->getShortcut() && $option->getDefault() === $this->getDefault() && $option->isNegatable() === $this->isNegatable() && $option->isArray() === $this->isArray() && $option->isValueRequired() === $this->isValueRequired() && $option->isValueOptional() === $this->isValueOptional();
     }

@@ -44,10 +44,7 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
         $this->fixerFileProcessor = $container->get(\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::class);
         $this->sniffFileProcessor = $container->get(\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor::class);
     }
-    /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
-     */
-    protected function doTestFileInfo($fileInfo) : void
+    protected function doTestFileInfo(\ECSPrefix20211210\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $staticFixtureSplitter = new \ECSPrefix20211210\Symplify\EasyTesting\StaticFixtureSplitter();
         $inputFileInfoAndExpectedFileInfo = $staticFixtureSplitter->splitFileInfoToLocalInputAndExpectedFileInfos($fileInfo);
@@ -55,9 +52,8 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
     }
     /**
      * File should stay the same and contain 0 errors
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
      */
-    protected function doTestCorrectFileInfo($fileInfo) : void
+    protected function doTestCorrectFileInfo(\ECSPrefix20211210\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->ensureSomeCheckersAreRegistered();
         if ($this->fixerFileProcessor->getCheckers() !== []) {
@@ -71,11 +67,7 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
             $this->assertStringEqualsWithFileLocation($fileInfo->getRealPath(), $processedFileContent, $fileInfo);
         }
     }
-    /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $wrongFileInfo
-     * @param int $expectedErrorCount
-     */
-    protected function doTestFileInfoWithErrorCountOf($wrongFileInfo, $expectedErrorCount) : void
+    protected function doTestFileInfoWithErrorCountOf(\ECSPrefix20211210\Symplify\SmartFileSystem\SmartFileInfo $wrongFileInfo, int $expectedErrorCount) : void
     {
         $this->ensureSomeCheckersAreRegistered();
         $configuration = new \Symplify\EasyCodingStandard\ValueObject\Configuration();

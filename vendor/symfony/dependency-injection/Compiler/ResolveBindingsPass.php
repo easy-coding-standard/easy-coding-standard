@@ -40,9 +40,8 @@ class ResolveBindingsPass extends \ECSPrefix20211210\Symfony\Component\Dependenc
     private $errorMessages = [];
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->usedBindings = $container->getRemovedBindingIds();
         try {
@@ -91,9 +90,8 @@ class ResolveBindingsPass extends \ECSPrefix20211210\Symfony\Component\Dependenc
      * {@inheritdoc}
      * @param mixed $value
      * @return mixed
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \ECSPrefix20211210\Symfony\Component\DependencyInjection\TypedReference && $value->getType() === (string) $value) {
             // Already checked

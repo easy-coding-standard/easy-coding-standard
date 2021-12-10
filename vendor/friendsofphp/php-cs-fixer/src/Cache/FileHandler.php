@@ -45,10 +45,7 @@ final class FileHandler implements \PhpCsFixer\Cache\FileHandlerInterface
         }
         return $cache;
     }
-    /**
-     * @param \PhpCsFixer\Cache\CacheInterface $cache
-     */
-    public function write($cache) : void
+    public function write(\PhpCsFixer\Cache\CacheInterface $cache) : void
     {
         $content = $cache->toJson();
         if (\file_exists($this->file)) {

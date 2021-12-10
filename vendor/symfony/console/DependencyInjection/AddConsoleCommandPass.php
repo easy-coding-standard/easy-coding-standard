@@ -41,10 +41,7 @@ class AddConsoleCommandPass implements \ECSPrefix20211210\Symfony\Component\Depe
         $this->noPreloadTag = $noPreloadTag;
         $this->privateTagName = $privateTagName;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\ECSPrefix20211210\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $commandServices = $container->findTaggedServiceIds($this->commandTag, \true);
         $lazyCommandMap = [];

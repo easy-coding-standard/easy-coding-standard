@@ -43,11 +43,8 @@ class QuestionHelper extends \ECSPrefix20211210\Symfony\Component\Console\Helper
      * @return mixed The user answer
      *
      * @throws RuntimeException If there is no data to read in the input stream
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Symfony\Component\Console\Question\Question $question
      */
-    public function ask($input, $output, $question)
+    public function ask(\ECSPrefix20211210\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20211210\Symfony\Component\Console\Question\Question $question)
     {
         if ($output instanceof \ECSPrefix20211210\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
@@ -160,10 +157,8 @@ class QuestionHelper extends \ECSPrefix20211210\Symfony\Component\Console\Helper
     }
     /**
      * Outputs the question prompt.
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Symfony\Component\Console\Question\Question $question
      */
-    protected function writePrompt($output, $question)
+    protected function writePrompt(\ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20211210\Symfony\Component\Console\Question\Question $question)
     {
         $message = $question->getQuestion();
         if ($question instanceof \ECSPrefix20211210\Symfony\Component\Console\Question\ChoiceQuestion) {
@@ -174,10 +169,8 @@ class QuestionHelper extends \ECSPrefix20211210\Symfony\Component\Console\Helper
     }
     /**
      * @return string[]
-     * @param \Symfony\Component\Console\Question\ChoiceQuestion $question
-     * @param string $tag
      */
-    protected function formatChoiceQuestionChoices($question, $tag)
+    protected function formatChoiceQuestionChoices(\ECSPrefix20211210\Symfony\Component\Console\Question\ChoiceQuestion $question, string $tag)
     {
         $messages = [];
         $maxWidth = \max(\array_map([__CLASS__, 'width'], \array_keys($choices = $question->getChoices())));
@@ -189,10 +182,8 @@ class QuestionHelper extends \ECSPrefix20211210\Symfony\Component\Console\Helper
     }
     /**
      * Outputs an error message.
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Exception $error
      */
-    protected function writeError($output, $error)
+    protected function writeError(\ECSPrefix20211210\Symfony\Component\Console\Output\OutputInterface $output, \Exception $error)
     {
         if (null !== $this->getHelperSet() && $this->getHelperSet()->has('formatter')) {
             $message = $this->getHelperSet()->get('formatter')->formatBlock($error->getMessage(), 'error');

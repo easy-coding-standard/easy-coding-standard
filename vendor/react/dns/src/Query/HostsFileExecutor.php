@@ -22,10 +22,7 @@ final class HostsFileExecutor implements \ECSPrefix20211210\React\Dns\Query\Exec
         $this->hosts = $hosts;
         $this->fallback = $fallback;
     }
-    /**
-     * @param \React\Dns\Query\Query $query
-     */
-    public function query($query)
+    public function query(\ECSPrefix20211210\React\Dns\Query\Query $query)
     {
         if ($query->class === \ECSPrefix20211210\React\Dns\Model\Message::CLASS_IN && ($query->type === \ECSPrefix20211210\React\Dns\Model\Message::TYPE_A || $query->type === \ECSPrefix20211210\React\Dns\Model\Message::TYPE_AAAA)) {
             // forward lookup for type A or AAAA

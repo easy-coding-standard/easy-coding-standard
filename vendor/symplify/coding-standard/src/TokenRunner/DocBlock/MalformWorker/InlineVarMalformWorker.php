@@ -16,10 +16,8 @@ final class InlineVarMalformWorker implements \Symplify\CodingStandard\TokenRunn
     private const SINGLE_ASTERISK_START_REGEX = '#^/\\*(\\n?\\s+@(?:psalm-|phpstan-)?var)#';
     /**
      * @param Tokens<Token> $tokens
-     * @param string $docContent
-     * @param int $position
      */
-    public function work($docContent, $tokens, $position) : string
+    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
         /** @var Token $token */
         $token = $tokens[$position];

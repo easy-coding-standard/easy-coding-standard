@@ -40,9 +40,8 @@ class ConsoleLogger extends \ECSPrefix20211210\Psr\Log\AbstractLogger
      * {@inheritdoc}
      *
      * @return void
-     * @param mixed[] $context
      */
-    public function log($level, $message, $context = [])
+    public function log($level, $message, array $context = [])
     {
         if (!isset($this->verbosityLevelMap[$level])) {
             throw new \ECSPrefix20211210\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));

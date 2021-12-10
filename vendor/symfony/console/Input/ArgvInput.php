@@ -48,10 +48,7 @@ class ArgvInput extends \ECSPrefix20211210\Symfony\Component\Console\Input\Input
         $this->tokens = $argv;
         parent::__construct($definition);
     }
-    /**
-     * @param mixed[] $tokens
-     */
-    protected function setTokens($tokens)
+    protected function setTokens(array $tokens)
     {
         $this->tokens = $tokens;
     }
@@ -66,11 +63,7 @@ class ArgvInput extends \ECSPrefix20211210\Symfony\Component\Console\Input\Input
             $parseOptions = $this->parseToken($token, $parseOptions);
         }
     }
-    /**
-     * @param string $token
-     * @param bool $parseOptions
-     */
-    protected function parseToken($token, $parseOptions) : bool
+    protected function parseToken(string $token, bool $parseOptions) : bool
     {
         if ($parseOptions && '' == $token) {
             $this->parseArgument($token);
@@ -267,9 +260,8 @@ class ArgvInput extends \ECSPrefix20211210\Symfony\Component\Console\Input\Input
     }
     /**
      * {@inheritdoc}
-     * @param bool $onlyParams
      */
-    public function hasParameterOption($values, $onlyParams = \false)
+    public function hasParameterOption($values, bool $onlyParams = \false)
     {
         $values = (array) $values;
         foreach ($this->tokens as $token) {
@@ -290,9 +282,8 @@ class ArgvInput extends \ECSPrefix20211210\Symfony\Component\Console\Input\Input
     }
     /**
      * {@inheritdoc}
-     * @param bool $onlyParams
      */
-    public function getParameterOption($values, $default = \false, $onlyParams = \false)
+    public function getParameterOption($values, $default = \false, bool $onlyParams = \false)
     {
         $values = (array) $values;
         $tokens = $this->tokens;
