@@ -8,21 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211210\Symfony\Component\Config\Loader;
+namespace ECSPrefix20211211\Symfony\Component\Config\Loader;
 
 /**
  * GlobFileLoader loads files from a glob pattern.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class GlobFileLoader extends \ECSPrefix20211210\Symfony\Component\Config\Loader\FileLoader
+class GlobFileLoader extends \ECSPrefix20211211\Symfony\Component\Config\Loader\FileLoader
 {
     /**
      * {@inheritdoc}
      * @param mixed $resource
      * @return mixed
+     * @param string|null $type
      */
-    public function load($resource, string $type = null)
+    public function load($resource, $type = null)
     {
         return $this->import($resource);
     }

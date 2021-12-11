@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211210\Symfony\Component\Console\Question;
+namespace ECSPrefix20211211\Symfony\Component\Console\Question;
 
-use ECSPrefix20211210\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20211210\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix20211211\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20211211\Symfony\Component\Console\Exception\LogicException;
 /**
  * Represents a Question.
  *
@@ -92,7 +92,7 @@ class Question
     public function setHidden(bool $hidden)
     {
         if ($this->autocompleterCallback) {
-            throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
+            throw new \ECSPrefix20211211\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
         }
         $this->hidden = $hidden;
         return $this;
@@ -167,7 +167,7 @@ class Question
     public function setAutocompleterCallback(callable $callback = null) : self
     {
         if ($this->hidden && null !== $callback) {
-            throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
+            throw new \ECSPrefix20211211\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
         }
         $this->autocompleterCallback = $callback;
         return $this;
@@ -203,7 +203,7 @@ class Question
     public function setMaxAttempts(?int $attempts)
     {
         if (null !== $attempts && $attempts < 1) {
-            throw new \ECSPrefix20211210\Symfony\Component\Console\Exception\InvalidArgumentException('Maximum number of attempts must be a positive value.');
+            throw new \ECSPrefix20211211\Symfony\Component\Console\Exception\InvalidArgumentException('Maximum number of attempts must be a positive value.');
         }
         $this->attempts = $attempts;
         return $this;
