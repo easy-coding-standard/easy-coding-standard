@@ -177,11 +177,7 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
         $prevToken = $tokens[$prevIndex];
         if ($prevToken->isWhitespace()) {
             $content = \rtrim($prevToken->getContent(), " \t");
-            if ('' === $content) {
-                $tokens->clearAt($prevIndex);
-            } else {
-                $tokens[$prevIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $content]);
-            }
+            $tokens->ensureWhitespaceAtIndex($prevIndex, 0, $content);
             $prevToken = $tokens[$prevIndex];
         }
         if (!isset($tokens[$useDeclaration->getEndIndex() + 1])) {
@@ -194,20 +190,12 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
         $nextToken = $tokens[$nextIndex];
         if ($nextToken->isWhitespace()) {
             $content = \PhpCsFixer\Preg::replace("#^\r\n|^\n#", '', \ltrim($nextToken->getContent(), " \t"), 1);
-            if ('' !== $content) {
-                $tokens[$nextIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $content]);
-            } else {
-                $tokens->clearAt($nextIndex);
-            }
+            $tokens->ensureWhitespaceAtIndex($nextIndex, 0, $content);
             $nextToken = $tokens[$nextIndex];
         }
         if ($prevToken->isWhitespace() && $nextToken->isWhitespace()) {
             $content = $prevToken->getContent() . $nextToken->getContent();
-            if ('' !== $content) {
-                $tokens[$nextIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $content]);
-            } else {
-                $tokens->clearAt($nextIndex);
-            }
+            $tokens->ensureWhitespaceAtIndex($nextIndex, 0, $content);
             $tokens->clearAt($prevIndex);
         }
     }

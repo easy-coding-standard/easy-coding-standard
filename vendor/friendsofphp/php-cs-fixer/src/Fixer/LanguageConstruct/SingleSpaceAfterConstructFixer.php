@@ -117,7 +117,7 @@ yield  from  baz();
                 continue;
             }
             $whitespaceTokenIndex = $index + 1;
-            if ($tokens[$whitespaceTokenIndex]->equalsAny([',', ';', ')', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE]])) {
+            if ($tokens[$whitespaceTokenIndex]->equalsAny([',', ';', ')', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE]])) {
                 continue;
             }
             if ($token->isGivenKind(\T_STATIC) && !$tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind([\T_FUNCTION, \T_VARIABLE])) {
@@ -143,11 +143,7 @@ yield  from  baz();
                     continue;
                 }
             }
-            if ($tokens[$whitespaceTokenIndex]->equals([\T_WHITESPACE])) {
-                $tokens[$whitespaceTokenIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
-            } else {
-                $tokens->insertAt($whitespaceTokenIndex, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
-            }
+            $tokens->ensureWhitespaceAtIndex($whitespaceTokenIndex, 0, ' ');
             if ($token->isGivenKind(\T_YIELD_FROM) && 'yield from' !== \strtolower($token->getContent())) {
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_YIELD_FROM, \PhpCsFixer\Preg::replace('/\\s+/', ' ', $token->getContent())]);
             }

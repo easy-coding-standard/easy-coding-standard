@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Completion;
+namespace ECSPrefix20211212\Symfony\Component\Console\Completion;
 
 /**
  * Represents a single suggested value.
@@ -17,6 +17,9 @@ namespace ECSPrefix20211211\Symfony\Component\Console\Completion;
  */
 class Suggestion
 {
+    /**
+     * @var string
+     */
     private $value;
     public function __construct(string $value)
     {

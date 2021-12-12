@@ -255,7 +255,7 @@ class Example
         if ($nameToken->equals([\T_STRING, '__destruct'], \false)) {
             return 'destruct';
         }
-        if ($nameToken->equalsAny([[\T_STRING, 'setUpBeforeClass'], [\T_STRING, 'doSetUpBeforeClass'], [\T_STRING, 'tearDownAfterClass'], [\T_STRING, 'doTearDownAfterClass'], [\T_STRING, 'setUp'], [\T_STRING, 'doSetUp'], [\T_STRING, 'tearDown'], [\T_STRING, 'doTearDown']], \false)) {
+        if ($nameToken->equalsAny([[\T_STRING, 'setUpBeforeClass'], [\T_STRING, 'doSetUpBeforeClass'], [\T_STRING, 'tearDownAfterClass'], [\T_STRING, 'doTearDownAfterClass'], [\T_STRING, 'setUp'], [\T_STRING, 'doSetUp'], [\T_STRING, 'assertPreConditions'], [\T_STRING, 'assertPostConditions'], [\T_STRING, 'tearDown'], [\T_STRING, 'doTearDown']], \false)) {
             return ['phpunit', \strtolower($nameToken->getContent())];
         }
         return \strncmp($nameToken->getContent(), '__', \strlen('__')) === 0 ? 'magic' : 'method';
@@ -278,7 +278,7 @@ class Example
      */
     private function sortElements(array $elements) : array
     {
-        static $phpunitPositions = ['setupbeforeclass' => 1, 'dosetupbeforeclass' => 2, 'teardownafterclass' => 3, 'doteardownafterclass' => 4, 'setup' => 5, 'dosetup' => 6, 'teardown' => 7, 'doteardown' => 8];
+        static $phpunitPositions = ['setupbeforeclass' => 1, 'dosetupbeforeclass' => 2, 'teardownafterclass' => 3, 'doteardownafterclass' => 4, 'setup' => 5, 'dosetup' => 6, 'assertpreconditions' => 7, 'assertpostconditions' => 8, 'teardown' => 9, 'doteardown' => 10];
         foreach ($elements as &$element) {
             $type = $element['type'];
             if (\array_key_exists($type, self::$specialTypes)) {

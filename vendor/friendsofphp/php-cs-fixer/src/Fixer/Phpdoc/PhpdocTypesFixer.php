@@ -47,7 +47,7 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
         $typesToFix = \array_merge(...\array_map(static function (string $group) : array {
             return self::POSSIBLE_TYPES[$group];
         }, $this->configuration['groups']));
-        $this->patternToFix = \sprintf('/(?<![a-zA-Z0-9_\\x80-\\xff]\\\\)(\\b|.(?=\\$))(%s)\\b(?!\\\\)/i', \implode('|', \array_map(function (string $type) : string {
+        $this->patternToFix = \sprintf('/(?<![a-zA-Z0-9_\\x80-\\xff]\\\\)(\\b|.(?=\\$))(%s)\\b(?!\\\\)/i', \implode('|', \array_map(static function (string $type) : string {
             return \preg_quote($type, '/');
         }, $typesToFix)));
     }

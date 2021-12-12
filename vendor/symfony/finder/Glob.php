@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Finder;
+namespace ECSPrefix20211212\Symfony\Component\Finder;
 
 /**
  * Glob matches globbing patterns against text.
@@ -36,10 +36,8 @@ class Glob
 {
     /**
      * Returns a regexp which is the equivalent of the glob pattern.
-     *
-     * @return string
      */
-    public static function toRegex(string $glob, bool $strictLeadingDot = \true, bool $strictWildcardSlash = \true, string $delimiter = '#')
+    public static function toRegex(string $glob, bool $strictLeadingDot = \true, bool $strictWildcardSlash = \true, string $delimiter = '#') : string
     {
         $firstByte = \true;
         $escaping = \false;

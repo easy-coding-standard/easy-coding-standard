@@ -8,10 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Helper;
+namespace ECSPrefix20211212\Symfony\Component\Console\Helper;
 
-use ECSPrefix20211211\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211211\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20211212\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * HelperSet represents a set of helpers to be used with a command.
  *
@@ -23,7 +22,6 @@ class HelperSet implements \IteratorAggregate
 {
     /** @var array<string, Helper> */
     private $helpers = [];
-    private $command;
     /**
      * @param Helper[] $helpers An array of helper
      */
@@ -33,7 +31,7 @@ class HelperSet implements \IteratorAggregate
             $this->set($helper, \is_int($alias) ? null : $alias);
         }
     }
-    public function set(\ECSPrefix20211211\Symfony\Component\Console\Helper\HelperInterface $helper, string $alias = null)
+    public function set(\ECSPrefix20211212\Symfony\Component\Console\Helper\HelperInterface $helper, string $alias = null)
     {
         $this->helpers[$helper->getName()] = $helper;
         if (null !== $alias) {
@@ -43,52 +41,24 @@ class HelperSet implements \IteratorAggregate
     }
     /**
      * Returns true if the helper if defined.
-     *
-     * @return bool
      */
-    public function has(string $name)
+    public function has(string $name) : bool
     {
         return isset($this->helpers[$name]);
     }
     /**
      * Gets a helper value.
      *
-     * @return HelperInterface
-     *
      * @throws InvalidArgumentException if the helper is not defined
      */
-    public function get(string $name)
+    public function get(string $name) : \ECSPrefix20211212\Symfony\Component\Console\Helper\HelperInterface
     {
         if (!$this->has($name)) {
-            throw new \ECSPrefix20211211\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
+            throw new \ECSPrefix20211212\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
         }
         return $this->helpers[$name];
     }
-    /**
-     * @deprecated since Symfony 5.4
-     */
-    public function setCommand(\ECSPrefix20211211\Symfony\Component\Console\Command\Command $command = null)
-    {
-        trigger_deprecation('symfony/console', '5.4', 'Method "%s()" is deprecated.', __METHOD__);
-        $this->command = $command;
-    }
-    /**
-     * Gets the command associated with this helper set.
-     *
-     * @return Command
-     *
-     * @deprecated since Symfony 5.4
-     */
-    public function getCommand()
-    {
-        trigger_deprecation('symfony/console', '5.4', 'Method "%s()" is deprecated.', __METHOD__);
-        return $this->command;
-    }
-    /**
-     * @return \Traversable<string, Helper>
-     */
-    #[\ReturnTypeWillChange]
-    public function getIterator()
+    public function getIterator() : \Traversable
     {
         return new \ArrayIterator($this->helpers);
     }

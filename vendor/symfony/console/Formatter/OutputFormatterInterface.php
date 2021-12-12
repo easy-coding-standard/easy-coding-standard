@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Formatter;
+namespace ECSPrefix20211212\Symfony\Component\Console\Formatter;
 
 /**
  * Formatter interface for console output.
@@ -23,32 +23,24 @@ interface OutputFormatterInterface
     public function setDecorated(bool $decorated);
     /**
      * Whether the output will decorate messages.
-     *
-     * @return bool
      */
-    public function isDecorated();
+    public function isDecorated() : bool;
     /**
      * Sets a new style.
      */
-    public function setStyle(string $name, \ECSPrefix20211211\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style);
+    public function setStyle(string $name, \ECSPrefix20211212\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style);
     /**
      * Checks if output formatter has style with specified name.
-     *
-     * @return bool
      */
-    public function hasStyle(string $name);
+    public function hasStyle(string $name) : bool;
     /**
      * Gets style options from style with specified name.
      *
-     * @return OutputFormatterStyleInterface
-     *
      * @throws \InvalidArgumentException When style isn't defined
      */
-    public function getStyle(string $name);
+    public function getStyle(string $name) : \ECSPrefix20211212\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface;
     /**
      * Formats a message according to the given styles.
-     *
-     * @return string|null
      */
-    public function format(?string $message);
+    public function format(?string $message) : ?string;
 }

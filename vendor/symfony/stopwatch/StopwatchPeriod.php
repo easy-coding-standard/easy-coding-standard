@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Stopwatch;
+namespace ECSPrefix20211212\Symfony\Component\Stopwatch;
 
 /**
  * Represents an Period for an Event.
@@ -17,8 +17,17 @@ namespace ECSPrefix20211211\Symfony\Component\Stopwatch;
  */
 class StopwatchPeriod
 {
+    /**
+     * @var float|int
+     */
     private $start;
+    /**
+     * @var float|int
+     */
     private $end;
+    /**
+     * @var int
+     */
     private $memory;
     /**
      * @param int|float $start         The relative time of the start of the period (in milliseconds)
@@ -33,8 +42,7 @@ class StopwatchPeriod
     }
     /**
      * Gets the relative time of the start of the period in milliseconds.
-     *
-     * @return int|float
+     * @return float|int
      */
     public function getStartTime()
     {
@@ -42,8 +50,7 @@ class StopwatchPeriod
     }
     /**
      * Gets the relative time of the end of the period in milliseconds.
-     *
-     * @return int|float
+     * @return float|int
      */
     public function getEndTime()
     {
@@ -51,8 +58,7 @@ class StopwatchPeriod
     }
     /**
      * Gets the time spent in this period in milliseconds.
-     *
-     * @return int|float
+     * @return float|int
      */
     public function getDuration()
     {
@@ -60,10 +66,8 @@ class StopwatchPeriod
     }
     /**
      * Gets the memory usage in bytes.
-     *
-     * @return int
      */
-    public function getMemory()
+    public function getMemory() : int
     {
         return $this->memory;
     }

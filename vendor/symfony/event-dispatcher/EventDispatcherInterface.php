@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20211212\Symfony\Component\EventDispatcher;
 
-use ECSPrefix20211211\Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
+use ECSPrefix20211212\Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
 /**
  * The EventDispatcherInterface is the central point of Symfony's event listener system.
  * Listeners are registered on the manager and events are dispatched through the
@@ -18,7 +18,7 @@ use ECSPrefix20211211\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-interface EventDispatcherInterface extends \ECSPrefix20211211\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
+interface EventDispatcherInterface extends \ECSPrefix20211212\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
 {
     /**
      * Adds an event listener that listens on the specified events.
@@ -33,30 +33,26 @@ interface EventDispatcherInterface extends \ECSPrefix20211211\Symfony\Contracts\
      * The subscriber is asked for all the events it is
      * interested in and added as a listener for these events.
      */
-    public function addSubscriber(\ECSPrefix20211211\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
+    public function addSubscriber(\ECSPrefix20211212\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
     /**
      * Removes an event listener from the specified events.
      */
     public function removeListener(string $eventName, callable $listener);
-    public function removeSubscriber(\ECSPrefix20211211\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
+    public function removeSubscriber(\ECSPrefix20211212\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
     /**
      * Gets the listeners of a specific event or all listeners sorted by descending priority.
      *
      * @return array<callable[]|callable>
      */
-    public function getListeners(string $eventName = null);
+    public function getListeners(string $eventName = null) : array;
     /**
      * Gets the listener priority for a specific event.
      *
      * Returns null if the event or the listener does not exist.
-     *
-     * @return int|null
      */
-    public function getListenerPriority(string $eventName, callable $listener);
+    public function getListenerPriority(string $eventName, callable $listener) : ?int;
     /**
      * Checks whether an event has any registered listeners.
-     *
-     * @return bool
      */
-    public function hasListeners(string $eventName = null);
+    public function hasListeners(string $eventName = null) : bool;
 }

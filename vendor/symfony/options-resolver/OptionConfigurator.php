@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\OptionsResolver;
+namespace ECSPrefix20211212\Symfony\Component\OptionsResolver;
 
-use ECSPrefix20211211\Symfony\Component\OptionsResolver\Exception\AccessException;
+use ECSPrefix20211212\Symfony\Component\OptionsResolver\Exception\AccessException;
 final class OptionConfigurator
 {
     private $name;
     private $resolver;
-    public function __construct(string $name, \ECSPrefix20211211\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
+    public function __construct(string $name, \ECSPrefix20211212\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
     {
         $this->name = $name;
         $this->resolver = $resolver;
@@ -28,7 +28,7 @@ final class OptionConfigurator
      *
      * @throws AccessException If called from a lazy option or normalizer
      */
-    public function allowedTypes(string ...$types) : self
+    public function allowedTypes(string ...$types)
     {
         $this->resolver->setAllowedTypes($this->name, $types);
         return $this;
@@ -42,7 +42,7 @@ final class OptionConfigurator
      *
      * @throws AccessException If called from a lazy option or normalizer
      */
-    public function allowedValues(...$values) : self
+    public function allowedValues(...$values)
     {
         $this->resolver->setAllowedValues($this->name, $values);
         return $this;
@@ -50,13 +50,12 @@ final class OptionConfigurator
     /**
      * Sets the default value for this option.
      *
-     * @param mixed $value The default value of the option
-     *
      * @return $this
      *
      * @throws AccessException If called from a lazy option or normalizer
+     * @param mixed $value
      */
-    public function default($value) : self
+    public function default($value)
     {
         $this->resolver->setDefault($this->name, $value);
         return $this;
@@ -77,7 +76,7 @@ final class OptionConfigurator
      *
      * @return $this
      */
-    public function deprecated(string $package, string $version, $message = 'The option "%name%" is deprecated.') : self
+    public function deprecated(string $package, string $version, $message = 'The option "%name%" is deprecated.')
     {
         $this->resolver->setDeprecated($this->name, $package, $version, $message);
         return $this;
@@ -89,7 +88,7 @@ final class OptionConfigurator
      *
      * @throws AccessException If called from a lazy option or normalizer
      */
-    public function normalize(\Closure $normalizer) : self
+    public function normalize(\Closure $normalizer)
     {
         $this->resolver->setNormalizer($this->name, $normalizer);
         return $this;
@@ -101,7 +100,7 @@ final class OptionConfigurator
      *
      * @throws AccessException If called from a lazy option or normalizer
      */
-    public function required() : self
+    public function required()
     {
         $this->resolver->setRequired($this->name);
         return $this;
@@ -113,7 +112,7 @@ final class OptionConfigurator
      *
      * @throws AccessException If called from a lazy option or normalizer
      */
-    public function info(string $info) : self
+    public function info(string $info)
     {
         $this->resolver->setInfo($this->name, $info);
         return $this;

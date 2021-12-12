@@ -61,11 +61,7 @@ final class NoTrailingWhitespaceFixer extends \PhpCsFixer\AbstractFixer
             $token = $tokens[$index];
             if ($token->isGivenKind(\T_OPEN_TAG) && $tokens->offsetExists($index + 1) && $tokens[$index + 1]->isWhitespace() && 1 === \PhpCsFixer\Preg::match('/(.*)\\h$/', $token->getContent(), $openTagMatches) && 1 === \PhpCsFixer\Preg::match('/^(\\R)(.*)$/s', $tokens[$index + 1]->getContent(), $whitespaceMatches)) {
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_OPEN_TAG, $openTagMatches[1] . $whitespaceMatches[1]]);
-                if ('' === $whitespaceMatches[2]) {
-                    $tokens->clearAt($index + 1);
-                } else {
-                    $tokens[$index + 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $whitespaceMatches[2]]);
-                }
+                $tokens->ensureWhitespaceAtIndex($index + 1, 0, $whitespaceMatches[2]);
                 continue;
             }
             if (!$token->isWhitespace()) {

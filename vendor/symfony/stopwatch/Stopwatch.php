@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Stopwatch;
+namespace ECSPrefix20211212\Symfony\Component\Stopwatch;
 
-use ECSPrefix20211211\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20211212\Symfony\Contracts\Service\ResetInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20211211\Symfony\Component\Stopwatch\Section::class);
+\class_exists(\ECSPrefix20211212\Symfony\Component\Stopwatch\Section::class);
 /**
  * Stopwatch provides a way to profile code.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Stopwatch implements \ECSPrefix20211211\Symfony\Contracts\Service\ResetInterface
+class Stopwatch implements \ECSPrefix20211212\Symfony\Contracts\Service\ResetInterface
 {
     /**
      * @var bool
@@ -43,7 +43,7 @@ class Stopwatch implements \ECSPrefix20211211\Symfony\Contracts\Service\ResetInt
     /**
      * @return Section[]
      */
-    public function getSections()
+    public function getSections() : array
     {
         return $this->sections;
     }
@@ -84,46 +84,36 @@ class Stopwatch implements \ECSPrefix20211211\Symfony\Contracts\Service\ResetInt
     }
     /**
      * Starts an event.
-     *
-     * @return StopwatchEvent
      */
-    public function start(string $name, string $category = null)
+    public function start(string $name, string $category = null) : \ECSPrefix20211212\Symfony\Component\Stopwatch\StopwatchEvent
     {
         return \end($this->activeSections)->startEvent($name, $category);
     }
     /**
      * Checks if the event was started.
-     *
-     * @return bool
      */
-    public function isStarted(string $name)
+    public function isStarted(string $name) : bool
     {
         return \end($this->activeSections)->isEventStarted($name);
     }
     /**
      * Stops an event.
-     *
-     * @return StopwatchEvent
      */
-    public function stop(string $name)
+    public function stop(string $name) : \ECSPrefix20211212\Symfony\Component\Stopwatch\StopwatchEvent
     {
         return \end($this->activeSections)->stopEvent($name);
     }
     /**
      * Stops then restarts an event.
-     *
-     * @return StopwatchEvent
      */
-    public function lap(string $name)
+    public function lap(string $name) : \ECSPrefix20211212\Symfony\Component\Stopwatch\StopwatchEvent
     {
         return \end($this->activeSections)->stopEvent($name)->start();
     }
     /**
      * Returns a specific event by name.
-     *
-     * @return StopwatchEvent
      */
-    public function getEvent(string $name)
+    public function getEvent(string $name) : \ECSPrefix20211212\Symfony\Component\Stopwatch\StopwatchEvent
     {
         return \end($this->activeSections)->getEvent($name);
     }
@@ -132,7 +122,7 @@ class Stopwatch implements \ECSPrefix20211211\Symfony\Contracts\Service\ResetInt
      *
      * @return StopwatchEvent[]
      */
-    public function getSectionEvents(string $id)
+    public function getSectionEvents(string $id) : array
     {
         return isset($this->sections[$id]) ? $this->sections[$id]->getEvents() : [];
     }
@@ -141,6 +131,6 @@ class Stopwatch implements \ECSPrefix20211211\Symfony\Contracts\Service\ResetInt
      */
     public function reset()
     {
-        $this->sections = $this->activeSections = ['__root__' => new \ECSPrefix20211211\Symfony\Component\Stopwatch\Section(null, $this->morePrecision)];
+        $this->sections = $this->activeSections = ['__root__' => new \ECSPrefix20211212\Symfony\Component\Stopwatch\Section(null, $this->morePrecision)];
     }
 }

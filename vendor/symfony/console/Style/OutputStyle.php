@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Style;
+namespace ECSPrefix20211212\Symfony\Component\Console\Style;
 
-use ECSPrefix20211211\Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use ECSPrefix20211211\Symfony\Component\Console\Helper\ProgressBar;
-use ECSPrefix20211211\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20211211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211212\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20211212\Symfony\Component\Console\Helper\ProgressBar;
+use ECSPrefix20211212\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20211212\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Decorates output to add console style guide helpers.
  *
  * @author Kevin Bond <kevinbond@gmail.com>
  */
-abstract class OutputStyle implements \ECSPrefix20211211\Symfony\Component\Console\Output\OutputInterface, \ECSPrefix20211211\Symfony\Component\Console\Style\StyleInterface
+abstract class OutputStyle implements \ECSPrefix20211212\Symfony\Component\Console\Output\OutputInterface, \ECSPrefix20211212\Symfony\Component\Console\Style\StyleInterface
 {
     private $output;
-    public function __construct(\ECSPrefix20211211\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(\ECSPrefix20211212\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->output = $output;
     }
@@ -33,15 +33,13 @@ abstract class OutputStyle implements \ECSPrefix20211211\Symfony\Component\Conso
     {
         $this->output->write(\str_repeat(\PHP_EOL, $count));
     }
-    /**
-     * @return ProgressBar
-     */
-    public function createProgressBar(int $max = 0)
+    public function createProgressBar(int $max = 0) : \ECSPrefix20211212\Symfony\Component\Console\Helper\ProgressBar
     {
-        return new \ECSPrefix20211211\Symfony\Component\Console\Helper\ProgressBar($this->output, $max);
+        return new \ECSPrefix20211212\Symfony\Component\Console\Helper\ProgressBar($this->output, $max);
     }
     /**
      * {@inheritdoc}
+     * @param mixed[]|string $messages
      */
     public function write($messages, bool $newline = \false, int $type = self::OUTPUT_NORMAL)
     {
@@ -49,6 +47,7 @@ abstract class OutputStyle implements \ECSPrefix20211211\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
+     * @param mixed[]|string $messages
      */
     public function writeln($messages, int $type = self::OUTPUT_NORMAL)
     {
@@ -64,7 +63,7 @@ abstract class OutputStyle implements \ECSPrefix20211211\Symfony\Component\Conso
     /**
      * {@inheritdoc}
      */
-    public function getVerbosity()
+    public function getVerbosity() : int
     {
         return $this->output->getVerbosity();
     }
@@ -78,55 +77,55 @@ abstract class OutputStyle implements \ECSPrefix20211211\Symfony\Component\Conso
     /**
      * {@inheritdoc}
      */
-    public function isDecorated()
+    public function isDecorated() : bool
     {
         return $this->output->isDecorated();
     }
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(\ECSPrefix20211211\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function setFormatter(\ECSPrefix20211212\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         $this->output->setFormatter($formatter);
     }
     /**
      * {@inheritdoc}
      */
-    public function getFormatter()
+    public function getFormatter() : \ECSPrefix20211212\Symfony\Component\Console\Formatter\OutputFormatterInterface
     {
         return $this->output->getFormatter();
     }
     /**
      * {@inheritdoc}
      */
-    public function isQuiet()
+    public function isQuiet() : bool
     {
         return $this->output->isQuiet();
     }
     /**
      * {@inheritdoc}
      */
-    public function isVerbose()
+    public function isVerbose() : bool
     {
         return $this->output->isVerbose();
     }
     /**
      * {@inheritdoc}
      */
-    public function isVeryVerbose()
+    public function isVeryVerbose() : bool
     {
         return $this->output->isVeryVerbose();
     }
     /**
      * {@inheritdoc}
      */
-    public function isDebug()
+    public function isDebug() : bool
     {
         return $this->output->isDebug();
     }
     protected function getErrorOutput()
     {
-        if (!$this->output instanceof \ECSPrefix20211211\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if (!$this->output instanceof \ECSPrefix20211212\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             return $this->output;
         }
         return $this->output->getErrorOutput();

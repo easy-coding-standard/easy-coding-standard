@@ -78,12 +78,13 @@ class DocBlocks
             if ($prevToken->isGivenKind(\T_OPEN_TAG) || $prevToken->isWhitespace(" \t") && !$tokens[$index - 2]->isGivenKind(\T_OPEN_TAG) || $prevToken->equalsAny([';', ',', '{', '('])) {
                 continue;
             }
-            $indent = '';
             if ($tokens[$nextIndex - 1]->isWhitespace()) {
                 $indent = \PhpCsFixer\Utils::calculateTrailingWhitespaceIndent($tokens[$nextIndex - 1]);
+            } else {
+                $indent = '';
             }
             $newPrevContent = $this->fixWhitespaceBeforeDocblock($prevToken->getContent(), $indent);
-            if ($newPrevContent) {
+            if ('' !== $newPrevContent) {
                 if ($prevToken->isArray()) {
                     $tokens[$prevIndex] = new \PhpCsFixer\Tokenizer\Token([$prevToken->getId(), $newPrevContent]);
                 } else {

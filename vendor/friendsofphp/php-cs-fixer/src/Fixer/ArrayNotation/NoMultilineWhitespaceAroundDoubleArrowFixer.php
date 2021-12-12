@@ -35,11 +35,11 @@ final class NoMultilineWhitespaceAroundDoubleArrowFixer extends \PhpCsFixer\Abst
     /**
      * {@inheritdoc}
      *
-     * Must run before BinaryOperatorSpacesFixer, TrailingCommaInMultilineFixer.
+     * Must run before BinaryOperatorSpacesFixer, MethodArgumentSpaceFixer, TrailingCommaInMultilineFixer.
      */
     public function getPriority() : int
     {
-        return 1;
+        return 31;
     }
     /**
      * {@inheritdoc}

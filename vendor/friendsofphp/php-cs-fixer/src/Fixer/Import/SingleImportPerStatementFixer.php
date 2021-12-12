@@ -115,10 +115,10 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
                 if ($tokens[$j]->equals([\T_AS])) {
                     $statement .= ' as ';
                     $i += 2;
-                } elseif ($tokens[$j]->equals([\T_FUNCTION])) {
+                } elseif ($tokens[$j]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
                     $statement = ' function' . $statement;
                     $i += 2;
-                } elseif ($tokens[$j]->equals([\T_CONST])) {
+                } elseif ($tokens[$j]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT)) {
                     $statement = ' const' . $statement;
                     $i += 2;
                 }

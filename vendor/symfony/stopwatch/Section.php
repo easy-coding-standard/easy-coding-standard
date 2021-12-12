@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Stopwatch;
+namespace ECSPrefix20211212\Symfony\Component\Stopwatch;
 
 /**
  * Stopwatch section.
@@ -30,7 +30,7 @@ class Section
      */
     private $morePrecision;
     /**
-     * @var string
+     * @var string|null
      */
     private $id;
     /**
@@ -48,10 +48,8 @@ class Section
     }
     /**
      * Returns the child section.
-     *
-     * @return self|null
      */
-    public function get(string $id)
+    public function get(string $id) : ?self
     {
         foreach ($this->children as $child) {
             if ($id === $child->getId()) {
@@ -64,20 +62,15 @@ class Section
      * Creates or re-opens a child section.
      *
      * @param string|null $id Null to create a new section, the identifier to re-open an existing one
-     *
-     * @return self
      */
-    public function open(?string $id)
+    public function open(?string $id) : self
     {
         if (null === $id || null === ($session = $this->get($id))) {
             $session = $this->children[] = new self(\microtime(\true) * 1000, $this->morePrecision);
         }
         return $session;
     }
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId() : ?string
     {
         return $this->id;
     }
@@ -93,33 +86,27 @@ class Section
     }
     /**
      * Starts an event.
-     *
-     * @return StopwatchEvent
      */
-    public function startEvent(string $name, ?string $category)
+    public function startEvent(string $name, ?string $category) : \ECSPrefix20211212\Symfony\Component\Stopwatch\StopwatchEvent
     {
         if (!isset($this->events[$name])) {
-            $this->events[$name] = new \ECSPrefix20211211\Symfony\Component\Stopwatch\StopwatchEvent($this->origin ?: \microtime(\true) * 1000, $category, $this->morePrecision, $name);
+            $this->events[$name] = new \ECSPrefix20211212\Symfony\Component\Stopwatch\StopwatchEvent($this->origin ?: \microtime(\true) * 1000, $category, $this->morePrecision, $name);
         }
         return $this->events[$name]->start();
     }
     /**
      * Checks if the event was started.
-     *
-     * @return bool
      */
-    public function isEventStarted(string $name)
+    public function isEventStarted(string $name) : bool
     {
         return isset($this->events[$name]) && $this->events[$name]->isStarted();
     }
     /**
      * Stops an event.
      *
-     * @return StopwatchEvent
-     *
      * @throws \LogicException When the event has not been started
      */
-    public function stopEvent(string $name)
+    public function stopEvent(string $name) : \ECSPrefix20211212\Symfony\Component\Stopwatch\StopwatchEvent
     {
         if (!isset($this->events[$name])) {
             throw new \LogicException(\sprintf('Event "%s" is not started.', $name));
@@ -129,22 +116,18 @@ class Section
     /**
      * Stops then restarts an event.
      *
-     * @return StopwatchEvent
-     *
      * @throws \LogicException When the event has not been started
      */
-    public function lap(string $name)
+    public function lap(string $name) : \ECSPrefix20211212\Symfony\Component\Stopwatch\StopwatchEvent
     {
         return $this->stopEvent($name)->start();
     }
     /**
      * Returns a specific event by name.
      *
-     * @return StopwatchEvent
-     *
      * @throws \LogicException When the event is not known
      */
-    public function getEvent(string $name)
+    public function getEvent(string $name) : \ECSPrefix20211212\Symfony\Component\Stopwatch\StopwatchEvent
     {
         if (!isset($this->events[$name])) {
             throw new \LogicException(\sprintf('Event "%s" is not known.', $name));
@@ -156,7 +139,7 @@ class Section
      *
      * @return StopwatchEvent[]
      */
-    public function getEvents()
+    public function getEvents() : array
     {
         return $this->events;
     }

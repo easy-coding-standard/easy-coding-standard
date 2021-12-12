@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\OptionsResolver\Debug;
+namespace ECSPrefix20211212\Symfony\Component\OptionsResolver\Debug;
 
-use ECSPrefix20211211\Symfony\Component\OptionsResolver\Exception\NoConfigurationException;
-use ECSPrefix20211211\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
-use ECSPrefix20211211\Symfony\Component\OptionsResolver\OptionsResolver;
+use ECSPrefix20211212\Symfony\Component\OptionsResolver\Exception\NoConfigurationException;
+use ECSPrefix20211212\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
+use ECSPrefix20211212\Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  *
@@ -21,23 +21,22 @@ use ECSPrefix20211211\Symfony\Component\OptionsResolver\OptionsResolver;
 class OptionsResolverIntrospector
 {
     private $get;
-    public function __construct(\ECSPrefix20211211\Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver)
+    public function __construct(\ECSPrefix20211212\Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver)
     {
         $this->get = \Closure::bind(function ($property, $option, $message) {
             /** @var OptionsResolver $this */
             if (!$this->isDefined($option)) {
-                throw new \ECSPrefix20211211\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException(\sprintf('The option "%s" does not exist.', $option));
+                throw new \ECSPrefix20211212\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException(\sprintf('The option "%s" does not exist.', $option));
             }
             if (!\array_key_exists($option, $this->{$property})) {
-                throw new \ECSPrefix20211211\Symfony\Component\OptionsResolver\Exception\NoConfigurationException($message);
+                throw new \ECSPrefix20211212\Symfony\Component\OptionsResolver\Exception\NoConfigurationException($message);
             }
             return $this->{$property}[$option];
         }, $optionsResolver, $optionsResolver);
     }
     /**
-     * @return mixed
-     *
      * @throws NoConfigurationException on no configured value
+     * @return mixed
      */
     public function getDefault(string $option)
     {
@@ -83,18 +82,6 @@ class OptionsResolverIntrospector
     public function getNormalizers(string $option) : array
     {
         return ($this->get)('normalizers', $option, \sprintf('No normalizer was set for the "%s" option.', $option));
-    }
-    /**
-     * @return string|\Closure
-     *
-     * @throws NoConfigurationException on no configured deprecation
-     *
-     * @deprecated since Symfony 5.1, use "getDeprecation()" instead.
-     */
-    public function getDeprecationMessage(string $option)
-    {
-        trigger_deprecation('symfony/options-resolver', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
-        return $this->getDeprecation($option)['message'];
     }
     /**
      * @throws NoConfigurationException on no configured deprecation

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix20211212\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20211211\Symfony\Component\Console\Application;
-use ECSPrefix20211211\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211211\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix20211212\Symfony\Component\Console\Application;
+use ECSPrefix20211212\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211212\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  *
@@ -22,10 +22,16 @@ class ApplicationDescription
 {
     public const GLOBAL_NAMESPACE = '_global';
     private $application;
+    /**
+     * @var string|null
+     */
     private $namespace;
+    /**
+     * @var bool
+     */
     private $showHidden;
     /**
-     * @var array
+     * @var mixed[]
      */
     private $namespaces;
     /**
@@ -35,8 +41,8 @@ class ApplicationDescription
     /**
      * @var array<string, Command>
      */
-    private $aliases;
-    public function __construct(\ECSPrefix20211211\Symfony\Component\Console\Application $application, string $namespace = null, bool $showHidden = \false)
+    private $aliases = [];
+    public function __construct(\ECSPrefix20211212\Symfony\Component\Console\Application $application, string $namespace = null, bool $showHidden = \false)
     {
         $this->application = $application;
         $this->namespace = $namespace;
@@ -44,7 +50,7 @@ class ApplicationDescription
     }
     public function getNamespaces() : array
     {
-        if (null === $this->namespaces) {
+        if (!isset($this->namespaces)) {
             $this->inspectApplication();
         }
         return $this->namespaces;
@@ -54,7 +60,7 @@ class ApplicationDescription
      */
     public function getCommands() : array
     {
-        if (null === $this->commands) {
+        if (!isset($this->commands)) {
             $this->inspectApplication();
         }
         return $this->commands;
@@ -62,10 +68,10 @@ class ApplicationDescription
     /**
      * @throws CommandNotFoundException
      */
-    public function getCommand(string $name) : \ECSPrefix20211211\Symfony\Component\Console\Command\Command
+    public function getCommand(string $name) : \ECSPrefix20211212\Symfony\Component\Console\Command\Command
     {
         if (!isset($this->commands[$name]) && !isset($this->aliases[$name])) {
-            throw new \ECSPrefix20211211\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
+            throw new \ECSPrefix20211212\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
         return $this->commands[$name] ?? $this->aliases[$name];
     }

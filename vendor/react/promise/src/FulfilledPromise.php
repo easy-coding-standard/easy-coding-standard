@@ -1,16 +1,16 @@
 <?php
 
-namespace ECSPrefix20211211\React\Promise;
+namespace ECSPrefix20211212\React\Promise;
 
 /**
  * @deprecated 2.8.0 External usage of FulfilledPromise is deprecated, use `resolve()` instead.
  */
-class FulfilledPromise implements \ECSPrefix20211211\React\Promise\ExtendedPromiseInterface, \ECSPrefix20211211\React\Promise\CancellablePromiseInterface
+class FulfilledPromise implements \ECSPrefix20211212\React\Promise\ExtendedPromiseInterface, \ECSPrefix20211212\React\Promise\CancellablePromiseInterface
 {
     private $value;
     public function __construct($value = null)
     {
-        if ($value instanceof \ECSPrefix20211211\React\Promise\PromiseInterface) {
+        if ($value instanceof \ECSPrefix20211212\React\Promise\PromiseInterface) {
             throw new \InvalidArgumentException('You cannot create React\\Promise\\FulfilledPromise with a promise. Use React\\Promise\\resolve($promiseOrValue) instead.');
         }
         $this->value = $value;
@@ -23,9 +23,9 @@ class FulfilledPromise implements \ECSPrefix20211211\React\Promise\ExtendedPromi
         try {
             return resolve($onFulfilled($this->value));
         } catch (\Throwable $exception) {
-            return new \ECSPrefix20211211\React\Promise\RejectedPromise($exception);
+            return new \ECSPrefix20211212\React\Promise\RejectedPromise($exception);
         } catch (\Exception $exception) {
-            return new \ECSPrefix20211211\React\Promise\RejectedPromise($exception);
+            return new \ECSPrefix20211212\React\Promise\RejectedPromise($exception);
         }
     }
     public function done(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null)
@@ -34,7 +34,7 @@ class FulfilledPromise implements \ECSPrefix20211211\React\Promise\ExtendedPromi
             return;
         }
         $result = $onFulfilled($this->value);
-        if ($result instanceof \ECSPrefix20211211\React\Promise\ExtendedPromiseInterface) {
+        if ($result instanceof \ECSPrefix20211212\React\Promise\ExtendedPromiseInterface) {
             $result->done();
         }
     }

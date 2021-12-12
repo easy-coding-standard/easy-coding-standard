@@ -75,11 +75,7 @@ final class NoWhitespaceInBlankLineFixer extends \PhpCsFixer\AbstractFixer imple
                 $lines[$l] = \PhpCsFixer\Preg::replace('/^\\h+$/', '', $lines[$l]);
             }
             $content = \implode($this->whitespacesConfig->getLineEnding(), $lines);
-            if ('' !== $content) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $content]);
-            } else {
-                $tokens->clearAt($index);
-            }
+            $tokens->ensureWhitespaceAtIndex($index, 0, $content);
         }
     }
 }

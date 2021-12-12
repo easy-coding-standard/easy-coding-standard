@@ -118,7 +118,7 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
         // if the function name starts with test it's a test
         $functionNameIndex = $tokens->getNextMeaningfulToken($index);
         $functionName = $tokens[$functionNameIndex]->getContent();
-        if ($this->startsWith('test', $functionName)) {
+        if (\strncmp($functionName, 'test', \strlen('test')) === 0) {
             return \true;
         }
         $docBlockIndex = $this->getDocBlockIndex($tokens, $index);
@@ -128,10 +128,6 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         return $tokens[$index]->isGivenKind(\T_FUNCTION) && !$tokensAnalyzer->isLambda($index);
-    }
-    private function startsWith(string $needle, string $haystack) : bool
-    {
-        return \substr($haystack, 0, \strlen($needle)) === $needle;
     }
     private function updateDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docBlockIndex) : void
     {

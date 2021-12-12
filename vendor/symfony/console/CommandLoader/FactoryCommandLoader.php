@@ -8,16 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\CommandLoader;
+namespace ECSPrefix20211212\Symfony\Component\Console\CommandLoader;
 
-use ECSPrefix20211211\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix20211212\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211212\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * A simple command loader using factories to instantiate commands lazily.
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-class FactoryCommandLoader implements \ECSPrefix20211211\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
+class FactoryCommandLoader implements \ECSPrefix20211212\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
 {
+    /**
+     * @var mixed[]
+     */
     private $factories;
     /**
      * @param callable[] $factories Indexed by command names
@@ -29,17 +33,17 @@ class FactoryCommandLoader implements \ECSPrefix20211211\Symfony\Component\Conso
     /**
      * {@inheritdoc}
      */
-    public function has(string $name)
+    public function has(string $name) : bool
     {
         return isset($this->factories[$name]);
     }
     /**
      * {@inheritdoc}
      */
-    public function get(string $name)
+    public function get(string $name) : \ECSPrefix20211212\Symfony\Component\Console\Command\Command
     {
         if (!isset($this->factories[$name])) {
-            throw new \ECSPrefix20211211\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
+            throw new \ECSPrefix20211212\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
         $factory = $this->factories[$name];
         return $factory();
@@ -47,7 +51,7 @@ class FactoryCommandLoader implements \ECSPrefix20211211\Symfony\Component\Conso
     /**
      * {@inheritdoc}
      */
-    public function getNames()
+    public function getNames() : array
     {
         return \array_keys($this->factories);
     }

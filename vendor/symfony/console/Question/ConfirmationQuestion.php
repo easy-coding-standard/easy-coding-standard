@@ -8,15 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Question;
+namespace ECSPrefix20211212\Symfony\Component\Console\Question;
 
 /**
  * Represents a yes/no question.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ConfirmationQuestion extends \ECSPrefix20211211\Symfony\Component\Console\Question\Question
+class ConfirmationQuestion extends \ECSPrefix20211212\Symfony\Component\Console\Question\Question
 {
+    /**
+     * @var string
+     */
     private $trueAnswerRegex;
     /**
      * @param string $question        The question to ask to the user

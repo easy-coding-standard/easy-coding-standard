@@ -65,8 +65,12 @@ function example($foo = "two words", $bar) {}
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
+        $functionKinds = [\T_FUNCTION];
+        if (\defined('T_FN')) {
+            $functionKinds[] = \T_FN;
+        }
         for ($i = 0, $l = $tokens->count(); $i < $l; ++$i) {
-            if (!$tokens[$i]->isGivenKind(\T_FUNCTION) && (\PHP_VERSION_ID < 70400 || !$tokens[$i]->isGivenKind(\T_FN))) {
+            if (!$tokens[$i]->isGivenKind($functionKinds)) {
                 continue;
             }
             $startIndex = $tokens->getNextTokenOfKind($i, ['(']);
@@ -89,9 +93,7 @@ function example($foo = "two words", $bar) {}
             if (!$token->equals('=') || $this->isNonNullableTypehintedNullableVariable($tokens, $i)) {
                 continue;
             }
-            $endIndex = $tokens->getPrevTokenOfKind($lastArgumentIndex, [',']);
-            $endIndex = $tokens->getPrevMeaningfulToken($endIndex);
-            $this->removeDefaultArgument($tokens, $i, $endIndex);
+            $this->removeDefaultValue($tokens, $i, $this->getDefaultValueEndIndex($tokens, $lastArgumentIndex));
         }
     }
     private function getLastNonDefaultArgumentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : ?int
@@ -112,7 +114,17 @@ function example($foo = "two words", $bar) {}
     {
         return $tokens[$tokens->getPrevMeaningfulToken($variableIndex)]->isGivenKind(\T_ELLIPSIS);
     }
-    private function removeDefaultArgument(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    private function getDefaultValueEndIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
+    {
+        do {
+            $index = $tokens->getPrevMeaningfulToken($index);
+            if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE)) {
+                $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ATTRIBUTE, $index);
+            }
+        } while (!$tokens[$index]->equals(','));
+        return $tokens->getPrevMeaningfulToken($index);
+    }
+    private function removeDefaultValue(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($i = $startIndex; $i <= $endIndex;) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($i);

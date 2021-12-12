@@ -33,6 +33,15 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
+     *
+     * Must run before ClassDefinitionFixer.
+     */
+    public function getPriority() : int
+    {
+        return 37;
+    }
+    /**
+     * {@inheritdoc}
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
@@ -46,6 +55,11 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
         static $nextTokenKinds = null;
         if (null === $nextTokenKinds) {
             $nextTokenKinds = ['?', ';', ',', '(', ')', '[', ']', ':', '<', '>', '+', '-', '*', '/', '%', '&', '^', '|', [\T_CLASS], [\T_IS_SMALLER_OR_EQUAL], [\T_IS_GREATER_OR_EQUAL], [\T_IS_EQUAL], [\T_IS_NOT_EQUAL], [\T_IS_IDENTICAL], [\T_IS_NOT_IDENTICAL], [\T_CLOSE_TAG], [\T_LOGICAL_AND], [\T_LOGICAL_OR], [\T_LOGICAL_XOR], [\T_BOOLEAN_AND], [\T_BOOLEAN_OR], [\T_SL], [\T_SR], [\T_INSTANCEOF], [\T_AS], [\T_DOUBLE_ARROW], [\T_POW], [\T_SPACESHIP], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_BRACE_CLASS_INSTANTIATION_OPEN], [\PhpCsFixer\Tokenizer\CT::T_BRACE_CLASS_INSTANTIATION_CLOSE]];
+            if (\defined('T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG')) {
+                // @TODO: drop condition when PHP 8.1+ is required
+                $nextTokenKinds[] = [T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG];
+                $nextTokenKinds[] = [T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG];
+            }
         }
         for ($index = $tokens->count() - 3; $index > 0; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_NEW)) {

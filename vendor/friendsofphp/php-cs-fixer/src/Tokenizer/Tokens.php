@@ -919,8 +919,8 @@ class Tokens extends \SplFixedArray
             $newContent = '';
             $tokenToCheck = $this[$whitespaceIndex];
             // if the token candidate to remove is preceded by single line comment we do not consider the new line after this comment as part of T_WHITESPACE
-            if (isset($this[$whitespaceIndex - 1]) && $this[$whitespaceIndex - 1]->isComment() && '/*' !== \substr($this[$whitespaceIndex - 1]->getContent(), 0, 2)) {
-                [$emptyString, $newContent, $whitespacesToCheck] = \PhpCsFixer\Preg::split('/^(\\R)/', $this[$whitespaceIndex]->getContent(), -1, \PREG_SPLIT_DELIM_CAPTURE);
+            if (isset($this[$whitespaceIndex - 1]) && $this[$whitespaceIndex - 1]->isComment() && \strncmp($this[$whitespaceIndex - 1]->getContent(), '/*', \strlen('/*')) !== 0) {
+                [, $newContent, $whitespacesToCheck] = \PhpCsFixer\Preg::split('/^(\\R)/', $this[$whitespaceIndex]->getContent(), -1, \PREG_SPLIT_DELIM_CAPTURE);
                 if ('' === $whitespacesToCheck) {
                     return;
                 }

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20211212\Symfony\Component\Finder\Iterator;
 
-use ECSPrefix20211211\Symfony\Component\Finder\Comparator\DateComparator;
+use ECSPrefix20211212\Symfony\Component\Finder\Comparator\DateComparator;
 /**
  * DateRangeFilterIterator filters out files that are not in the given date range (last modified dates).
  *
@@ -20,6 +20,9 @@ use ECSPrefix20211211\Symfony\Component\Finder\Comparator\DateComparator;
  */
 class DateRangeFilterIterator extends \FilterIterator
 {
+    /**
+     * @var mixed[]
+     */
     private $comparators = [];
     /**
      * @param \Iterator<string, \SplFileInfo> $iterator
@@ -32,11 +35,8 @@ class DateRangeFilterIterator extends \FilterIterator
     }
     /**
      * Filters the iterator values.
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function accept()
+    public function accept() : bool
     {
         $fileinfo = $this->current();
         if (!\file_exists($fileinfo->getPathname())) {

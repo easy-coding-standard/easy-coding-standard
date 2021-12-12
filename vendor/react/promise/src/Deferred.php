@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20211211\React\Promise;
+namespace ECSPrefix20211212\React\Promise;
 
-class Deferred implements \ECSPrefix20211211\React\Promise\PromisorInterface
+class Deferred implements \ECSPrefix20211212\React\Promise\PromisorInterface
 {
     private $promise;
     private $resolveCallback;
@@ -16,7 +16,7 @@ class Deferred implements \ECSPrefix20211211\React\Promise\PromisorInterface
     public function promise()
     {
         if (null === $this->promise) {
-            $this->promise = new \ECSPrefix20211211\React\Promise\Promise(function ($resolve, $reject, $notify) {
+            $this->promise = new \ECSPrefix20211212\React\Promise\Promise(function ($resolve, $reject, $notify) {
                 $this->resolveCallback = $resolve;
                 $this->rejectCallback = $reject;
                 $this->notifyCallback = $notify;

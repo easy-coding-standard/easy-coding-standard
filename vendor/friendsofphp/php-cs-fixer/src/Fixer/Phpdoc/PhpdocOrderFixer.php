@@ -71,7 +71,7 @@ final class PhpdocOrderFixer extends \PhpCsFixer\AbstractFixer
             // move param to start, return to end, leave throws in the middle
             $content = $this->moveParamAnnotations($content);
             // we're parsing the content again to make sure the internal
-            // state of the dockblock is correct after the modifications
+            // state of the docblock is correct after the modifications
             $content = $this->moveReturnAnnotations($content);
             // persist the content at the end
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $content]);

@@ -8,33 +8,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Helper;
+namespace ECSPrefix20211212\Symfony\Component\Console\Helper;
 
-use ECSPrefix20211211\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20211212\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * The Formatter class provides helpers to format messages.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FormatterHelper extends \ECSPrefix20211211\Symfony\Component\Console\Helper\Helper
+class FormatterHelper extends \ECSPrefix20211212\Symfony\Component\Console\Helper\Helper
 {
     /**
      * Formats a message within a section.
-     *
-     * @return string
      */
-    public function formatSection(string $section, string $message, string $style = 'info')
+    public function formatSection(string $section, string $message, string $style = 'info') : string
     {
         return \sprintf('<%s>[%s]</%s> %s', $style, $section, $style, $message);
     }
     /**
      * Formats a message as a block of text.
-     *
-     * @param string|array $messages The message to write in the block
-     *
-     * @return string
+     * @param mixed[]|string $messages
      */
-    public function formatBlock($messages, string $style, bool $large = \false)
+    public function formatBlock($messages, string $style, bool $large = \false) : string
     {
         if (!\is_array($messages)) {
             $messages = [$messages];
@@ -42,7 +37,7 @@ class FormatterHelper extends \ECSPrefix20211211\Symfony\Component\Console\Helpe
         $len = 0;
         $lines = [];
         foreach ($messages as $message) {
-            $message = \ECSPrefix20211211\Symfony\Component\Console\Formatter\OutputFormatter::escape($message);
+            $message = \ECSPrefix20211212\Symfony\Component\Console\Formatter\OutputFormatter::escape($message);
             $lines[] = \sprintf($large ? '  %s  ' : ' %s ', $message);
             $len = \max(self::width($message) + ($large ? 4 : 2), $len);
         }
@@ -60,10 +55,8 @@ class FormatterHelper extends \ECSPrefix20211211\Symfony\Component\Console\Helpe
     }
     /**
      * Truncates a message to the given length.
-     *
-     * @return string
      */
-    public function truncate(string $message, int $length, string $suffix = '...')
+    public function truncate(string $message, int $length, string $suffix = '...') : string
     {
         $computedLength = $length - self::width($suffix);
         if ($computedLength > self::width($message)) {
@@ -74,7 +67,7 @@ class FormatterHelper extends \ECSPrefix20211211\Symfony\Component\Console\Helpe
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName() : string
     {
         return 'formatter';
     }

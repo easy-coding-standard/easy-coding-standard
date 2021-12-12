@@ -238,7 +238,7 @@ final class LambdaNotUsedImportFixer extends \PhpCsFixer\AbstractFixer
     }
     private function clearImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $imports) : void
     {
-        foreach ($imports as $content => $removeIndex) {
+        foreach ($imports as $removeIndex) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($removeIndex);
             $previousRemoveIndex = $tokens->getPrevMeaningfulToken($removeIndex);
             if ($tokens[$previousRemoveIndex]->equals(',')) {

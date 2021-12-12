@@ -8,37 +8,41 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Tester;
+namespace ECSPrefix20211212\Symfony\Component\Console\Tester;
 
-use ECSPrefix20211211\PHPUnit\Framework\Assert;
-use ECSPrefix20211211\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211211\Symfony\Component\Console\Output\ConsoleOutput;
-use ECSPrefix20211211\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20211211\Symfony\Component\Console\Output\StreamOutput;
-use ECSPrefix20211211\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful;
+use ECSPrefix20211212\PHPUnit\Framework\Assert;
+use ECSPrefix20211212\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211212\Symfony\Component\Console\Output\ConsoleOutput;
+use ECSPrefix20211212\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211212\Symfony\Component\Console\Output\StreamOutput;
+use ECSPrefix20211212\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful;
 /**
  * @author Amrouche Hamza <hamza.simperfit@gmail.com>
  */
 trait TesterTrait
 {
-    /** @var StreamOutput */
     private $output;
+    /**
+     * @var mixed[]
+     */
     private $inputs = [];
+    /**
+     * @var bool
+     */
     private $captureStreamsIndependently = \false;
-    /** @var InputInterface */
     private $input;
-    /** @var int */
+    /**
+     * @var int
+     */
     private $statusCode;
     /**
      * Gets the display returned by the last execution of the command or application.
      *
      * @throws \RuntimeException If it's called before the execute method
-     *
-     * @return string
      */
-    public function getDisplay(bool $normalize = \false)
+    public function getDisplay(bool $normalize = \false) : string
     {
-        if (null === $this->output) {
+        if (!isset($this->output)) {
             throw new \RuntimeException('Output not initialized, did you execute the command before requesting the display?');
         }
         \rewind($this->output->getStream());
@@ -52,10 +56,8 @@ trait TesterTrait
      * Gets the output written to STDERR by the application.
      *
      * @param bool $normalize Whether to normalize end of lines to \n or not
-     *
-     * @return string
      */
-    public function getErrorOutput(bool $normalize = \false)
+    public function getErrorOutput(bool $normalize = \false) : string
     {
         if (!$this->captureStreamsIndependently) {
             throw new \LogicException('The error output is not available when the tester is run without "capture_stderr_separately" option set.');
@@ -69,19 +71,15 @@ trait TesterTrait
     }
     /**
      * Gets the input instance used by the last execution of the command or application.
-     *
-     * @return InputInterface
      */
-    public function getInput()
+    public function getInput() : \ECSPrefix20211212\Symfony\Component\Console\Input\InputInterface
     {
         return $this->input;
     }
     /**
      * Gets the output instance used by the last execution of the command or application.
-     *
-     * @return OutputInterface
      */
-    public function getOutput()
+    public function getOutput() : \ECSPrefix20211212\Symfony\Component\Console\Output\OutputInterface
     {
         return $this->output;
     }
@@ -89,19 +87,17 @@ trait TesterTrait
      * Gets the status code returned by the last execution of the command or application.
      *
      * @throws \RuntimeException If it's called before the execute method
-     *
-     * @return int
      */
-    public function getStatusCode()
+    public function getStatusCode() : int
     {
-        if (null === $this->statusCode) {
+        if (!isset($this->statusCode)) {
             throw new \RuntimeException('Status code not initialized, did you execute the command before requesting the status code?');
         }
         return $this->statusCode;
     }
     public function assertCommandIsSuccessful(string $message = '') : void
     {
-        \ECSPrefix20211211\PHPUnit\Framework\Assert::assertThat($this->statusCode, new \ECSPrefix20211211\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful(), $message);
+        \ECSPrefix20211212\PHPUnit\Framework\Assert::assertThat($this->statusCode, new \ECSPrefix20211212\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful(), $message);
     }
     /**
      * Sets the user inputs.
@@ -129,7 +125,7 @@ trait TesterTrait
     {
         $this->captureStreamsIndependently = \array_key_exists('capture_stderr_separately', $options) && $options['capture_stderr_separately'];
         if (!$this->captureStreamsIndependently) {
-            $this->output = new \ECSPrefix20211211\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
+            $this->output = new \ECSPrefix20211212\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
             if (isset($options['decorated'])) {
                 $this->output->setDecorated($options['decorated']);
             }
@@ -137,8 +133,8 @@ trait TesterTrait
                 $this->output->setVerbosity($options['verbosity']);
             }
         } else {
-            $this->output = new \ECSPrefix20211211\Symfony\Component\Console\Output\ConsoleOutput($options['verbosity'] ?? \ECSPrefix20211211\Symfony\Component\Console\Output\ConsoleOutput::VERBOSITY_NORMAL, $options['decorated'] ?? null);
-            $errorOutput = new \ECSPrefix20211211\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
+            $this->output = new \ECSPrefix20211212\Symfony\Component\Console\Output\ConsoleOutput($options['verbosity'] ?? \ECSPrefix20211212\Symfony\Component\Console\Output\ConsoleOutput::VERBOSITY_NORMAL, $options['decorated'] ?? null);
+            $errorOutput = new \ECSPrefix20211212\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
             $errorOutput->setFormatter($this->output->getFormatter());
             $errorOutput->setVerbosity($this->output->getVerbosity());
             $errorOutput->setDecorated($this->output->isDecorated());

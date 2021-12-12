@@ -8,21 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Command;
+namespace ECSPrefix20211212\Symfony\Component\Console\Command;
 
-use ECSPrefix20211211\Symfony\Component\Console\Application;
-use ECSPrefix20211211\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix20211211\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix20211211\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix20211211\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20211211\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211212\Symfony\Component\Console\Application;
+use ECSPrefix20211212\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix20211212\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix20211212\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix20211212\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20211212\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211212\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class LazyCommand extends \ECSPrefix20211211\Symfony\Component\Console\Command\Command
+final class LazyCommand extends \ECSPrefix20211212\Symfony\Component\Console\Command\Command
 {
     private $command;
+    /**
+     * @var bool|null
+     */
     private $isEnabled;
     public function __construct(string $name, array $aliases, string $description, bool $isHidden, \Closure $commandFactory, ?bool $isEnabled = \true)
     {
@@ -34,14 +37,14 @@ final class LazyCommand extends \ECSPrefix20211211\Symfony\Component\Console\Com
     {
         $this->getCommand()->ignoreValidationErrors();
     }
-    public function setApplication(\ECSPrefix20211211\Symfony\Component\Console\Application $application = null) : void
+    public function setApplication(\ECSPrefix20211212\Symfony\Component\Console\Application $application = null) : void
     {
         if ($this->command instanceof parent) {
             $this->command->setApplication($application);
         }
         parent::setApplication($application);
     }
-    public function setHelperSet(\ECSPrefix20211211\Symfony\Component\Console\Helper\HelperSet $helperSet) : void
+    public function setHelperSet(\ECSPrefix20211212\Symfony\Component\Console\Helper\HelperSet $helperSet) : void
     {
         if ($this->command instanceof parent) {
             $this->command->setHelperSet($helperSet);
@@ -52,18 +55,18 @@ final class LazyCommand extends \ECSPrefix20211211\Symfony\Component\Console\Com
     {
         return $this->isEnabled ?? $this->getCommand()->isEnabled();
     }
-    public function run(\ECSPrefix20211211\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211211\Symfony\Component\Console\Output\OutputInterface $output) : int
+    public function run(\ECSPrefix20211212\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211212\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         return $this->getCommand()->run($input, $output);
     }
-    public function complete(\ECSPrefix20211211\Symfony\Component\Console\Completion\CompletionInput $input, \ECSPrefix20211211\Symfony\Component\Console\Completion\CompletionSuggestions $suggestions) : void
+    public function complete(\ECSPrefix20211212\Symfony\Component\Console\Completion\CompletionInput $input, \ECSPrefix20211212\Symfony\Component\Console\Completion\CompletionSuggestions $suggestions) : void
     {
         $this->getCommand()->complete($input, $suggestions);
     }
     /**
      * @return $this
      */
-    public function setCode(callable $code) : self
+    public function setCode(callable $code)
     {
         $this->getCommand()->setCode($code);
         return $this;
@@ -76,33 +79,37 @@ final class LazyCommand extends \ECSPrefix20211211\Symfony\Component\Console\Com
         $this->getCommand()->mergeApplicationDefinition($mergeArgs);
     }
     /**
+     * @param mixed[]|\Symfony\Component\Console\Input\InputDefinition $definition
      * @return $this
      */
-    public function setDefinition($definition) : self
+    public function setDefinition($definition)
     {
         $this->getCommand()->setDefinition($definition);
         return $this;
     }
-    public function getDefinition() : \ECSPrefix20211211\Symfony\Component\Console\Input\InputDefinition
+    public function getDefinition() : \ECSPrefix20211212\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getDefinition();
     }
-    public function getNativeDefinition() : \ECSPrefix20211211\Symfony\Component\Console\Input\InputDefinition
+    public function getNativeDefinition() : \ECSPrefix20211212\Symfony\Component\Console\Input\InputDefinition
     {
         return $this->getCommand()->getNativeDefinition();
     }
     /**
+     * @param mixed $default
      * @return $this
      */
-    public function addArgument(string $name, int $mode = null, string $description = '', $default = null) : self
+    public function addArgument(string $name, int $mode = null, string $description = '', $default = null)
     {
         $this->getCommand()->addArgument($name, $mode, $description, $default);
         return $this;
     }
     /**
+     * @param mixed[]|string $shortcut
+     * @param mixed $default
      * @return $this
      */
-    public function addOption(string $name, $shortcut = null, int $mode = null, string $description = '', $default = null) : self
+    public function addOption(string $name, $shortcut = null, int $mode = null, string $description = '', $default = null)
     {
         $this->getCommand()->addOption($name, $shortcut, $mode, $description, $default);
         return $this;
@@ -110,7 +117,7 @@ final class LazyCommand extends \ECSPrefix20211211\Symfony\Component\Console\Com
     /**
      * @return $this
      */
-    public function setProcessTitle(string $title) : self
+    public function setProcessTitle(string $title)
     {
         $this->getCommand()->setProcessTitle($title);
         return $this;
@@ -118,7 +125,7 @@ final class LazyCommand extends \ECSPrefix20211211\Symfony\Component\Console\Com
     /**
      * @return $this
      */
-    public function setHelp(string $help) : self
+    public function setHelp(string $help)
     {
         $this->getCommand()->setHelp($help);
         return $this;
@@ -138,7 +145,7 @@ final class LazyCommand extends \ECSPrefix20211211\Symfony\Component\Console\Com
     /**
      * @return $this
      */
-    public function addUsage(string $usage) : self
+    public function addUsage(string $usage)
     {
         $this->getCommand()->addUsage($usage);
         return $this;

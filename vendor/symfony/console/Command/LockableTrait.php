@@ -8,13 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Command;
+namespace ECSPrefix20211212\Symfony\Component\Console\Command;
 
-use ECSPrefix20211211\Symfony\Component\Console\Exception\LogicException;
-use ECSPrefix20211211\Symfony\Component\Lock\LockFactory;
-use ECSPrefix20211211\Symfony\Component\Lock\LockInterface;
-use ECSPrefix20211211\Symfony\Component\Lock\Store\FlockStore;
-use ECSPrefix20211211\Symfony\Component\Lock\Store\SemaphoreStore;
+use ECSPrefix20211212\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix20211212\Symfony\Component\Lock\LockFactory;
+use ECSPrefix20211212\Symfony\Component\Lock\Store\FlockStore;
+use ECSPrefix20211212\Symfony\Component\Lock\Store\SemaphoreStore;
 /**
  * Basic lock feature for commands.
  *
@@ -22,25 +21,24 @@ use ECSPrefix20211211\Symfony\Component\Lock\Store\SemaphoreStore;
  */
 trait LockableTrait
 {
-    /** @var LockInterface|null */
-    private $lock;
+    private $lock = null;
     /**
      * Locks a command.
      */
     private function lock(string $name = null, bool $blocking = \false) : bool
     {
-        if (!\class_exists(\ECSPrefix20211211\Symfony\Component\Lock\Store\SemaphoreStore::class)) {
-            throw new \ECSPrefix20211211\Symfony\Component\Console\Exception\LogicException('To enable the locking feature you must install the symfony/lock component.');
+        if (!\class_exists(\ECSPrefix20211212\Symfony\Component\Lock\Store\SemaphoreStore::class)) {
+            throw new \ECSPrefix20211212\Symfony\Component\Console\Exception\LogicException('To enable the locking feature you must install the symfony/lock component.');
         }
         if (null !== $this->lock) {
-            throw new \ECSPrefix20211211\Symfony\Component\Console\Exception\LogicException('A lock is already in place.');
+            throw new \ECSPrefix20211212\Symfony\Component\Console\Exception\LogicException('A lock is already in place.');
         }
-        if (\ECSPrefix20211211\Symfony\Component\Lock\Store\SemaphoreStore::isSupported()) {
-            $store = new \ECSPrefix20211211\Symfony\Component\Lock\Store\SemaphoreStore();
+        if (\ECSPrefix20211212\Symfony\Component\Lock\Store\SemaphoreStore::isSupported()) {
+            $store = new \ECSPrefix20211212\Symfony\Component\Lock\Store\SemaphoreStore();
         } else {
-            $store = new \ECSPrefix20211211\Symfony\Component\Lock\Store\FlockStore();
+            $store = new \ECSPrefix20211212\Symfony\Component\Lock\Store\FlockStore();
         }
-        $this->lock = (new \ECSPrefix20211211\Symfony\Component\Lock\LockFactory($store))->createLock($name ?: $this->getName());
+        $this->lock = (new \ECSPrefix20211212\Symfony\Component\Lock\LockFactory($store))->createLock($name ?: $this->getName());
         if (!$this->lock->acquire($blocking)) {
             $this->lock = null;
             return \false;

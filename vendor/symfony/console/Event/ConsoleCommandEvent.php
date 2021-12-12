@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Event;
+namespace ECSPrefix20211212\Symfony\Component\Console\Event;
 
 /**
  * Allows to do things before the command is executed, like skipping the command or changing the input.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-final class ConsoleCommandEvent extends \ECSPrefix20211211\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleCommandEvent extends \ECSPrefix20211212\Symfony\Component\Console\Event\ConsoleEvent
 {
     /**
      * The return code for skipped commands, this will also be passed into the terminate event.
@@ -23,6 +23,7 @@ final class ConsoleCommandEvent extends \ECSPrefix20211211\Symfony\Component\Con
     public const RETURN_CODE_DISABLED = 113;
     /**
      * Indicates if the command should be run or skipped.
+     * @var bool
      */
     private $commandShouldRun = \true;
     /**

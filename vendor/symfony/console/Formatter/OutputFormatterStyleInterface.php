@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\Console\Formatter;
+namespace ECSPrefix20211212\Symfony\Component\Console\Formatter;
 
 /**
  * Formatter style interface for defining styles.
@@ -39,8 +39,6 @@ interface OutputFormatterStyleInterface
     public function setOptions(array $options);
     /**
      * Applies the style to a given text.
-     *
-     * @return string
      */
-    public function apply(string $text);
+    public function apply(string $text) : string;
 }

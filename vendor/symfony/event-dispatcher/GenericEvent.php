@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211211\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20211212\Symfony\Component\EventDispatcher;
 
-use ECSPrefix20211211\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20211212\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Event encapsulation class.
  *
@@ -21,7 +21,7 @@ use ECSPrefix20211211\Symfony\Contracts\EventDispatcher\Event;
  * @implements \ArrayAccess<string, mixed>
  * @implements \IteratorAggregate<string, mixed>
  */
-class GenericEvent extends \ECSPrefix20211211\Symfony\Contracts\EventDispatcher\Event implements \ArrayAccess, \IteratorAggregate
+class GenericEvent extends \ECSPrefix20211212\Symfony\Contracts\EventDispatcher\Event implements \ArrayAccess, \IteratorAggregate
 {
     protected $subject;
     protected $arguments;
@@ -38,7 +38,6 @@ class GenericEvent extends \ECSPrefix20211211\Symfony\Contracts\EventDispatcher\
     }
     /**
      * Getter for subject property.
-     *
      * @return mixed
      */
     public function getSubject()
@@ -48,9 +47,8 @@ class GenericEvent extends \ECSPrefix20211211\Symfony\Contracts\EventDispatcher\
     /**
      * Get argument by key.
      *
-     * @return mixed
-     *
      * @throws \InvalidArgumentException if key is not found
+     * @return mixed
      */
     public function getArgument(string $key)
     {
@@ -62,9 +60,8 @@ class GenericEvent extends \ECSPrefix20211211\Symfony\Contracts\EventDispatcher\
     /**
      * Add argument to event.
      *
-     * @param mixed $value Value
-     *
      * @return $this
+     * @param mixed $value
      */
     public function setArgument(string $key, $value)
     {
@@ -73,10 +70,8 @@ class GenericEvent extends \ECSPrefix20211211\Symfony\Contracts\EventDispatcher\
     }
     /**
      * Getter for all arguments.
-     *
-     * @return array
      */
-    public function getArguments()
+    public function getArguments() : array
     {
         return $this->arguments;
     }
@@ -92,23 +87,19 @@ class GenericEvent extends \ECSPrefix20211211\Symfony\Contracts\EventDispatcher\
     }
     /**
      * Has argument.
-     *
-     * @return bool
      */
-    public function hasArgument(string $key)
+    public function hasArgument(string $key) : bool
     {
         return \array_key_exists($key, $this->arguments);
     }
     /**
      * ArrayAccess for argument getter.
      *
-     * @param string $key Array key
-     *
-     * @return mixed
+     * @param mixed $key Array key
      *
      * @throws \InvalidArgumentException if key does not exist in $this->args
+     * @return mixed
      */
-    #[\ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return $this->getArgument($key);
@@ -116,25 +107,19 @@ class GenericEvent extends \ECSPrefix20211211\Symfony\Contracts\EventDispatcher\
     /**
      * ArrayAccess for argument setter.
      *
-     * @param string $key   Array key to set
-     * @param mixed  $value Value
-     *
-     * @return void
+     * @param mixed $key Array key to set
+     * @param mixed $value
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value) : void
     {
         $this->setArgument($key, $value);
     }
     /**
      * ArrayAccess for unset argument.
      *
-     * @param string $key Array key
-     *
-     * @return void
+     * @param mixed $key Array key
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($key)
+    public function offsetUnset($key) : void
     {
         if ($this->hasArgument($key)) {
             unset($this->arguments[$key]);
@@ -143,22 +128,16 @@ class GenericEvent extends \ECSPrefix20211211\Symfony\Contracts\EventDispatcher\
     /**
      * ArrayAccess has argument.
      *
-     * @param string $key Array key
-     *
-     * @return bool
+     * @param mixed $key Array key
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($key)
+    public function offsetExists($key) : bool
     {
         return $this->hasArgument($key);
     }
     /**
      * IteratorAggregate for iterating over the object like an array.
-     *
-     * @return \ArrayIterator<string, mixed>
      */
-    #[\ReturnTypeWillChange]
-    public function getIterator()
+    public function getIterator() : \ArrayIterator
     {
         return new \ArrayIterator($this->arguments);
     }
