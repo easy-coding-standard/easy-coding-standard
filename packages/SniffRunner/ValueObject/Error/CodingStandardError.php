@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error;
 
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
-use ECSPrefix20211212\Symplify\EasyParallel\Contract\SerializableInterface;
-final class CodingStandardError implements \ECSPrefix20211212\Symplify\EasyParallel\Contract\SerializableInterface
+use ECSPrefix20211214\Symplify\EasyParallel\Contract\SerializableInterface;
+final class CodingStandardError implements \ECSPrefix20211214\Symplify\EasyParallel\Contract\SerializableInterface
 {
     /**
      * @var int
@@ -60,7 +60,7 @@ final class CodingStandardError implements \ECSPrefix20211212\Symplify\EasyParal
     /**
      * @param array{line: int, message: string, checker_class: string, relative_file_path: string} $json
      */
-    public static function decode(array $json) : \ECSPrefix20211212\Symplify\EasyParallel\Contract\SerializableInterface
+    public static function decode(array $json) : \ECSPrefix20211214\Symplify\EasyParallel\Contract\SerializableInterface
     {
         return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::CHECKER_CLASS], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH]);
     }

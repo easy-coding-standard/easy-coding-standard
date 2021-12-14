@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211212\React\Stream;
+namespace ECSPrefix20211214\React\Stream;
 
 /**
  * The `DuplexStreamInterface` is responsible for providing an interface for
@@ -34,6 +34,6 @@ namespace ECSPrefix20211212\React\Stream;
  * @see ReadableStreamInterface
  * @see WritableStreamInterface
  */
-interface DuplexStreamInterface extends \ECSPrefix20211212\React\Stream\ReadableStreamInterface, \ECSPrefix20211212\React\Stream\WritableStreamInterface
+interface DuplexStreamInterface extends \ECSPrefix20211214\React\Stream\ReadableStreamInterface, \ECSPrefix20211214\React\Stream\WritableStreamInterface
 {
 }

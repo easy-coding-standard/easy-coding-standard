@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20211212\React\Stream;
+namespace ECSPrefix20211214\React\Stream;
 
-use ECSPrefix20211212\Evenement\EventEmitter;
-use ECSPrefix20211212\React\EventLoop\Loop;
-use ECSPrefix20211212\React\EventLoop\LoopInterface;
+use ECSPrefix20211214\Evenement\EventEmitter;
+use ECSPrefix20211214\React\EventLoop\Loop;
+use ECSPrefix20211214\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class DuplexResourceStream extends \ECSPrefix20211212\Evenement\EventEmitter implements \ECSPrefix20211212\React\Stream\DuplexStreamInterface
+final class DuplexResourceStream extends \ECSPrefix20211214\Evenement\EventEmitter implements \ECSPrefix20211214\React\Stream\DuplexStreamInterface
 {
     private $stream;
     /** @var LoopInterface */
@@ -33,7 +33,7 @@ final class DuplexResourceStream extends \ECSPrefix20211212\Evenement\EventEmitt
     private $writable = \true;
     private $closing = \false;
     private $listening = \false;
-    public function __construct($stream, \ECSPrefix20211212\React\EventLoop\LoopInterface $loop = null, $readChunkSize = null, \ECSPrefix20211212\React\Stream\WritableStreamInterface $buffer = null)
+    public function __construct($stream, \ECSPrefix20211214\React\EventLoop\LoopInterface $loop = null, $readChunkSize = null, \ECSPrefix20211214\React\Stream\WritableStreamInterface $buffer = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -60,10 +60,10 @@ final class DuplexResourceStream extends \ECSPrefix20211212\Evenement\EventEmitt
             \stream_set_read_buffer($stream, 0);
         }
         if ($buffer === null) {
-            $buffer = new \ECSPrefix20211212\React\Stream\WritableResourceStream($stream, $loop);
+            $buffer = new \ECSPrefix20211214\React\Stream\WritableResourceStream($stream, $loop);
         }
         $this->stream = $stream;
-        $this->loop = $loop ?: \ECSPrefix20211212\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20211214\React\EventLoop\Loop::get();
         $this->bufferSize = $readChunkSize === null ? 65536 : (int) $readChunkSize;
         $this->buffer = $buffer;
         $that = $this;
@@ -132,9 +132,9 @@ final class DuplexResourceStream extends \ECSPrefix20211212\Evenement\EventEmitt
         $this->pause();
         $this->buffer->end($data);
     }
-    public function pipe(\ECSPrefix20211212\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\ECSPrefix20211214\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \ECSPrefix20211212\React\Stream\Util::pipe($this, $dest, $options);
+        return \ECSPrefix20211214\React\Stream\Util::pipe($this, $dest, $options);
     }
     /** @internal */
     public function handleData($stream)

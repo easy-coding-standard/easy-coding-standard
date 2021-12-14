@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211212\Symfony\Component\Console\Tester;
+namespace ECSPrefix20211214\Symfony\Component\Console\Tester;
 
-use ECSPrefix20211212\PHPUnit\Framework\Assert;
-use ECSPrefix20211212\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211212\Symfony\Component\Console\Output\ConsoleOutput;
-use ECSPrefix20211212\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20211212\Symfony\Component\Console\Output\StreamOutput;
-use ECSPrefix20211212\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful;
+use ECSPrefix20211214\PHPUnit\Framework\Assert;
+use ECSPrefix20211214\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211214\Symfony\Component\Console\Output\ConsoleOutput;
+use ECSPrefix20211214\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211214\Symfony\Component\Console\Output\StreamOutput;
+use ECSPrefix20211214\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful;
 /**
  * @author Amrouche Hamza <hamza.simperfit@gmail.com>
  */
@@ -72,14 +72,14 @@ trait TesterTrait
     /**
      * Gets the input instance used by the last execution of the command or application.
      */
-    public function getInput() : \ECSPrefix20211212\Symfony\Component\Console\Input\InputInterface
+    public function getInput() : \ECSPrefix20211214\Symfony\Component\Console\Input\InputInterface
     {
         return $this->input;
     }
     /**
      * Gets the output instance used by the last execution of the command or application.
      */
-    public function getOutput() : \ECSPrefix20211212\Symfony\Component\Console\Output\OutputInterface
+    public function getOutput() : \ECSPrefix20211214\Symfony\Component\Console\Output\OutputInterface
     {
         return $this->output;
     }
@@ -97,7 +97,7 @@ trait TesterTrait
     }
     public function assertCommandIsSuccessful(string $message = '') : void
     {
-        \ECSPrefix20211212\PHPUnit\Framework\Assert::assertThat($this->statusCode, new \ECSPrefix20211212\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful(), $message);
+        \ECSPrefix20211214\PHPUnit\Framework\Assert::assertThat($this->statusCode, new \ECSPrefix20211214\Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful(), $message);
     }
     /**
      * Sets the user inputs.
@@ -125,7 +125,7 @@ trait TesterTrait
     {
         $this->captureStreamsIndependently = \array_key_exists('capture_stderr_separately', $options) && $options['capture_stderr_separately'];
         if (!$this->captureStreamsIndependently) {
-            $this->output = new \ECSPrefix20211212\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
+            $this->output = new \ECSPrefix20211214\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
             if (isset($options['decorated'])) {
                 $this->output->setDecorated($options['decorated']);
             }
@@ -133,8 +133,8 @@ trait TesterTrait
                 $this->output->setVerbosity($options['verbosity']);
             }
         } else {
-            $this->output = new \ECSPrefix20211212\Symfony\Component\Console\Output\ConsoleOutput($options['verbosity'] ?? \ECSPrefix20211212\Symfony\Component\Console\Output\ConsoleOutput::VERBOSITY_NORMAL, $options['decorated'] ?? null);
-            $errorOutput = new \ECSPrefix20211212\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
+            $this->output = new \ECSPrefix20211214\Symfony\Component\Console\Output\ConsoleOutput($options['verbosity'] ?? \ECSPrefix20211214\Symfony\Component\Console\Output\ConsoleOutput::VERBOSITY_NORMAL, $options['decorated'] ?? null);
+            $errorOutput = new \ECSPrefix20211214\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
             $errorOutput->setFormatter($this->output->getFormatter());
             $errorOutput->setVerbosity($this->output->getVerbosity());
             $errorOutput->setDecorated($this->output->isDecorated());

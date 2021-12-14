@@ -22,7 +22,7 @@ class ScopeClosingBraceUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstrac
      */
     public function getErrorList()
     {
-        return [11 => 1, 13 => 1, 24 => 1, 80 => 1, 102 => 1, 111 => 1, 116 => 1];
+        return [11 => 1, 13 => 1, 24 => 1, 80 => 1, 102 => 1, 111 => 1, 116 => 1, 122 => 1];
     }
     //end getErrorList()
     /**
