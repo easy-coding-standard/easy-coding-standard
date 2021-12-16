@@ -3,17 +3,17 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20211214\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20211214\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20211214\Symfony\Contracts\Service\Attribute\Required;
+use ECSPrefix20211216\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20211216\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20211216\Symfony\Contracts\Service\Attribute\Required;
 use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20211214\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-abstract class AbstractCheckCommand extends \ECSPrefix20211214\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20211216\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+abstract class AbstractCheckCommand extends \ECSPrefix20211216\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
@@ -46,15 +46,15 @@ abstract class AbstractCheckCommand extends \ECSPrefix20211214\Symplify\PackageB
         $this->addArgument(
             \Symplify\EasyCodingStandard\ValueObject\Option::PATHS,
             // optional is on purpose here, since path from ecs.php can se ubsed
-            \ECSPrefix20211214\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \ECSPrefix20211214\Symfony\Component\Console\Input\InputArgument::IS_ARRAY,
+            \ECSPrefix20211216\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \ECSPrefix20211216\Symfony\Component\Console\Input\InputArgument::IS_ARRAY,
             'The path(s) to be checked.'
         );
         $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::FIX, null, null, 'Fix found violations.');
         $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::CLEAR_CACHE, null, null, 'Clear cache for already checked files.');
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_PROGRESS_BAR, null, \ECSPrefix20211214\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide progress bar. Useful e.g. for nicer CI output.');
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_ERROR_TABLE, null, \ECSPrefix20211214\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide error table. Useful e.g. for fast check of error count.');
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT, null, \ECSPrefix20211214\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Select output format', \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME);
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_PORT, null, \ECSPrefix20211214\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED);
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_IDENTIFIER, null, \ECSPrefix20211214\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED);
+        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_PROGRESS_BAR, null, \ECSPrefix20211216\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide progress bar. Useful e.g. for nicer CI output.');
+        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_ERROR_TABLE, null, \ECSPrefix20211216\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide error table. Useful e.g. for fast check of error count.');
+        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT, null, \ECSPrefix20211216\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Select output format', \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME);
+        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_PORT, null, \ECSPrefix20211216\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED);
+        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_IDENTIFIER, null, \ECSPrefix20211216\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED);
     }
 }

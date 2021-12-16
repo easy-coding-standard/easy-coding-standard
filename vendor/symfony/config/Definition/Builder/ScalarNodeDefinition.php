@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211214\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20211216\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20211214\Symfony\Component\Config\Definition\ScalarNode;
+use ECSPrefix20211216\Symfony\Component\Config\Definition\ScalarNode;
 /**
  * This class provides a fluent interface for defining a node.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ScalarNodeDefinition extends \ECSPrefix20211214\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition
+class ScalarNodeDefinition extends \ECSPrefix20211216\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition
 {
     /**
      * Instantiate a Node.
      */
-    protected function instantiateNode() : \ECSPrefix20211214\Symfony\Component\Config\Definition\VariableNode
+    protected function instantiateNode() : \ECSPrefix20211216\Symfony\Component\Config\Definition\VariableNode
     {
-        return new \ECSPrefix20211214\Symfony\Component\Config\Definition\ScalarNode($this->name, $this->parent, $this->pathSeparator);
+        return new \ECSPrefix20211216\Symfony\Component\Config\Definition\ScalarNode($this->name, $this->parent, $this->pathSeparator);
     }
 }

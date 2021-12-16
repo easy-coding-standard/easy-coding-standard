@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211214\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20211216\Symfony\Component\EventDispatcher;
 
-use ECSPrefix20211214\Psr\EventDispatcher\StoppableEventInterface;
-use ECSPrefix20211214\Symfony\Component\EventDispatcher\Debug\WrappedListener;
+use ECSPrefix20211216\Psr\EventDispatcher\StoppableEventInterface;
+use ECSPrefix20211216\Symfony\Component\EventDispatcher\Debug\WrappedListener;
 /**
  * The EventDispatcherInterface is the central point of Symfony's event listener system.
  *
@@ -27,7 +27,7 @@ use ECSPrefix20211214\Symfony\Component\EventDispatcher\Debug\WrappedListener;
  * @author Jordan Alliot <jordan.alliot@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class EventDispatcher implements \ECSPrefix20211214\Symfony\Component\EventDispatcher\EventDispatcherInterface
+class EventDispatcher implements \ECSPrefix20211216\Symfony\Component\EventDispatcher\EventDispatcherInterface
 {
     /**
      * @var mixed[]
@@ -167,7 +167,7 @@ class EventDispatcher implements \ECSPrefix20211214\Symfony\Component\EventDispa
     /**
      * {@inheritdoc}
      */
-    public function addSubscriber(\ECSPrefix20211214\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
+    public function addSubscriber(\ECSPrefix20211216\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
             if (\is_string($params)) {
@@ -184,7 +184,7 @@ class EventDispatcher implements \ECSPrefix20211214\Symfony\Component\EventDispa
     /**
      * {@inheritdoc}
      */
-    public function removeSubscriber(\ECSPrefix20211214\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
+    public function removeSubscriber(\ECSPrefix20211216\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
             if (\is_array($params) && \is_array($params[0])) {
@@ -208,7 +208,7 @@ class EventDispatcher implements \ECSPrefix20211214\Symfony\Component\EventDispa
      */
     protected function callListeners(iterable $listeners, string $eventName, $event)
     {
-        $stoppable = $event instanceof \ECSPrefix20211214\Psr\EventDispatcher\StoppableEventInterface;
+        $stoppable = $event instanceof \ECSPrefix20211216\Psr\EventDispatcher\StoppableEventInterface;
         foreach ($listeners as $listener) {
             if ($stoppable && $event->isPropagationStopped()) {
                 break;
@@ -252,7 +252,7 @@ class EventDispatcher implements \ECSPrefix20211214\Symfony\Component\EventDispa
                         ($closure = \Closure::fromCallable($listener))(...$args);
                     };
                 } else {
-                    $closure = $listener instanceof \Closure || $listener instanceof \ECSPrefix20211214\Symfony\Component\EventDispatcher\Debug\WrappedListener ? $listener : \Closure::fromCallable($listener);
+                    $closure = $listener instanceof \Closure || $listener instanceof \ECSPrefix20211216\Symfony\Component\EventDispatcher\Debug\WrappedListener ? $listener : \Closure::fromCallable($listener);
                 }
             }
         }

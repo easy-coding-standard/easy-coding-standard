@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20211214\React\Socket;
+namespace ECSPrefix20211216\React\Socket;
 
-use ECSPrefix20211214\React\EventLoop\Loop;
-use ECSPrefix20211214\React\EventLoop\LoopInterface;
-use ECSPrefix20211214\React\Promise;
+use ECSPrefix20211216\React\EventLoop\Loop;
+use ECSPrefix20211216\React\EventLoop\LoopInterface;
+use ECSPrefix20211216\React\Promise;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -13,26 +13,26 @@ use RuntimeException;
  * Unix domain sockets use atomic operations, so we can as well emulate
  * async behavior.
  */
-final class UnixConnector implements \ECSPrefix20211214\React\Socket\ConnectorInterface
+final class UnixConnector implements \ECSPrefix20211216\React\Socket\ConnectorInterface
 {
     private $loop;
-    public function __construct(\ECSPrefix20211214\React\EventLoop\LoopInterface $loop = null)
+    public function __construct(\ECSPrefix20211216\React\EventLoop\LoopInterface $loop = null)
     {
-        $this->loop = $loop ?: \ECSPrefix20211214\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20211216\React\EventLoop\Loop::get();
     }
     public function connect($path)
     {
         if (\strpos($path, '://') === \false) {
             $path = 'unix://' . $path;
         } elseif (\substr($path, 0, 7) !== 'unix://') {
-            return \ECSPrefix20211214\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $path . '" is invalid (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22));
+            return \ECSPrefix20211216\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $path . '" is invalid (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22));
         }
         $resource = @\stream_socket_client($path, $errno, $errstr, 1.0);
         if (!$resource) {
-            return \ECSPrefix20211214\React\Promise\reject(new \RuntimeException('Unable to connect to unix domain socket "' . $path . '": ' . $errstr . \ECSPrefix20211214\React\Socket\SocketServer::errconst($errno), $errno));
+            return \ECSPrefix20211216\React\Promise\reject(new \RuntimeException('Unable to connect to unix domain socket "' . $path . '": ' . $errstr . \ECSPrefix20211216\React\Socket\SocketServer::errconst($errno), $errno));
         }
-        $connection = new \ECSPrefix20211214\React\Socket\Connection($resource, $this->loop);
+        $connection = new \ECSPrefix20211216\React\Socket\Connection($resource, $this->loop);
         $connection->unix = \true;
-        return \ECSPrefix20211214\React\Promise\resolve($connection);
+        return \ECSPrefix20211216\React\Promise\resolve($connection);
     }
 }

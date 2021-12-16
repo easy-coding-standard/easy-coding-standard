@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211214\Symfony\Component\Process\Exception;
+namespace ECSPrefix20211216\Symfony\Component\Process\Exception;
 
-use ECSPrefix20211214\Symfony\Component\Process\Process;
+use ECSPrefix20211216\Symfony\Component\Process\Process;
 /**
  * Exception that is thrown when a process has been signaled.
  *
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class ProcessSignaledException extends \ECSPrefix20211214\Symfony\Component\Process\Exception\RuntimeException
+final class ProcessSignaledException extends \ECSPrefix20211216\Symfony\Component\Process\Exception\RuntimeException
 {
     private $process;
-    public function __construct(\ECSPrefix20211214\Symfony\Component\Process\Process $process)
+    public function __construct(\ECSPrefix20211216\Symfony\Component\Process\Process $process)
     {
         $this->process = $process;
         parent::__construct(\sprintf('The process has been signaled with signal "%s".', $process->getTermSignal()));
     }
-    public function getProcess() : \ECSPrefix20211214\Symfony\Component\Process\Process
+    public function getProcess() : \ECSPrefix20211216\Symfony\Component\Process\Process
     {
         return $this->process;
     }

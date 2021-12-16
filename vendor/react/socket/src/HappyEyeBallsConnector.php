@@ -1,17 +1,17 @@
 <?php
 
-namespace ECSPrefix20211214\React\Socket;
+namespace ECSPrefix20211216\React\Socket;
 
-use ECSPrefix20211214\React\Dns\Resolver\ResolverInterface;
-use ECSPrefix20211214\React\EventLoop\Loop;
-use ECSPrefix20211214\React\EventLoop\LoopInterface;
-use ECSPrefix20211214\React\Promise;
-final class HappyEyeBallsConnector implements \ECSPrefix20211214\React\Socket\ConnectorInterface
+use ECSPrefix20211216\React\Dns\Resolver\ResolverInterface;
+use ECSPrefix20211216\React\EventLoop\Loop;
+use ECSPrefix20211216\React\EventLoop\LoopInterface;
+use ECSPrefix20211216\React\Promise;
+final class HappyEyeBallsConnector implements \ECSPrefix20211216\React\Socket\ConnectorInterface
 {
     private $loop;
     private $connector;
     private $resolver;
-    public function __construct(\ECSPrefix20211214\React\EventLoop\LoopInterface $loop = null, \ECSPrefix20211214\React\Socket\ConnectorInterface $connector = null, \ECSPrefix20211214\React\Dns\Resolver\ResolverInterface $resolver = null)
+    public function __construct(\ECSPrefix20211216\React\EventLoop\LoopInterface $loop = null, \ECSPrefix20211216\React\Socket\ConnectorInterface $connector = null, \ECSPrefix20211216\React\Dns\Resolver\ResolverInterface $resolver = null)
     {
         // $connector and $resolver arguments are actually required, marked
         // optional for technical reasons only. Nullable $loop without default
@@ -21,7 +21,7 @@ final class HappyEyeBallsConnector implements \ECSPrefix20211214\React\Socket\Co
         if ($connector === null || $resolver === null) {
             throw new \InvalidArgumentException('Missing required $connector or $resolver argument');
         }
-        $this->loop = $loop ?: \ECSPrefix20211214\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20211216\React\EventLoop\Loop::get();
         $this->connector = $connector;
         $this->resolver = $resolver;
     }
@@ -36,14 +36,14 @@ final class HappyEyeBallsConnector implements \ECSPrefix20211214\React\Socket\Co
             $parts = \parse_url($uri);
         }
         if (!$parts || !isset($parts['host'])) {
-            return \ECSPrefix20211214\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $original . '" is invalid (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22));
+            return \ECSPrefix20211216\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $original . '" is invalid (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22));
         }
         $host = \trim($parts['host'], '[]');
         // skip DNS lookup / URI manipulation if this URI already contains an IP
         if (\false !== \filter_var($host, \FILTER_VALIDATE_IP)) {
             return $this->connector->connect($original);
         }
-        $builder = new \ECSPrefix20211214\React\Socket\HappyEyeBallsConnectionBuilder($this->loop, $this->connector, $this->resolver, $uri, $host, $parts);
+        $builder = new \ECSPrefix20211216\React\Socket\HappyEyeBallsConnectionBuilder($this->loop, $this->connector, $this->resolver, $uri, $host, $parts);
         return $builder->connect();
     }
 }

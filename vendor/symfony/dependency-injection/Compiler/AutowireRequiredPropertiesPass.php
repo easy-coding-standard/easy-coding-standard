@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211214\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211216\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211214\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20211214\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20211214\Symfony\Component\DependencyInjection\TypedReference;
-use ECSPrefix20211214\Symfony\Contracts\Service\Attribute\Required;
+use ECSPrefix20211216\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20211216\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211216\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix20211216\Symfony\Contracts\Service\Attribute\Required;
 /**
  * Looks for definitions with autowiring enabled and registers their corresponding "@required" properties.
  *
  * @author Sebastien Morel (Plopix) <morel.seb@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class AutowireRequiredPropertiesPass extends \ECSPrefix20211214\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class AutowireRequiredPropertiesPass extends \ECSPrefix20211216\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     /**
      * {@inheritdoc}
@@ -30,7 +30,7 @@ class AutowireRequiredPropertiesPass extends \ECSPrefix20211214\Symfony\Componen
     protected function processValue($value, bool $isRoot = \false)
     {
         $value = parent::processValue($value, $isRoot);
-        if (!$value instanceof \ECSPrefix20211214\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
+        if (!$value instanceof \ECSPrefix20211216\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
             return $value;
         }
         if (!($reflectionClass = $this->container->getReflectionClass($value->getClass(), \false))) {
@@ -48,7 +48,7 @@ class AutowireRequiredPropertiesPass extends \ECSPrefix20211214\Symfony\Componen
                 continue;
             }
             $type = $type->getName();
-            $value->setProperty($name, new \ECSPrefix20211214\Symfony\Component\DependencyInjection\TypedReference($type, $type, \ECSPrefix20211214\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name));
+            $value->setProperty($name, new \ECSPrefix20211216\Symfony\Component\DependencyInjection\TypedReference($type, $type, \ECSPrefix20211216\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name));
         }
         return $value;
     }
