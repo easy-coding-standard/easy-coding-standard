@@ -3,17 +3,17 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20211216\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211216\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20211216\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-final class InitCommand extends \ECSPrefix20211216\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20211219\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211219\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211219\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+final class InitCommand extends \ECSPrefix20211219\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     protected function configure() : void
     {
         $this->setName('init');
         $this->setDescription('Generate ecs.php configuration file');
     }
-    protected function execute(\ECSPrefix20211216\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211216\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20211219\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211219\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $rectorConfigFiles = $this->smartFileSystem->exists(\getcwd() . '/ecs.php');
         if (!$rectorConfigFiles) {

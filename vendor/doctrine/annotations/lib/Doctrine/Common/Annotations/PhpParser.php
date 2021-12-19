@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211216\Doctrine\Common\Annotations;
+namespace ECSPrefix20211219\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use ReflectionFunction;
@@ -49,7 +49,7 @@ final class PhpParser
         }
         $namespace = \preg_quote($reflection->getNamespaceName());
         $content = \preg_replace('/^.*?(\\bnamespace\\s+' . $namespace . '\\s*[;{].*)$/s', '\\1', $content);
-        $tokenizer = new \ECSPrefix20211216\Doctrine\Common\Annotations\TokenParser('<?php ' . $content);
+        $tokenizer = new \ECSPrefix20211219\Doctrine\Common\Annotations\TokenParser('<?php ' . $content);
         return $tokenizer->parseUseStatements($reflection->getNamespaceName());
     }
     /**

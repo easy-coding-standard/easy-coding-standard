@@ -1,17 +1,17 @@
 <?php
 
-namespace ECSPrefix20211216\React\Dns\Protocol;
+namespace ECSPrefix20211219\React\Dns\Protocol;
 
-use ECSPrefix20211216\React\Dns\Model\Message;
-use ECSPrefix20211216\React\Dns\Model\Record;
-use ECSPrefix20211216\React\Dns\Query\Query;
+use ECSPrefix20211219\React\Dns\Model\Message;
+use ECSPrefix20211219\React\Dns\Model\Record;
+use ECSPrefix20211219\React\Dns\Query\Query;
 final class BinaryDumper
 {
     /**
      * @param Message $message
      * @return string
      */
-    public function toBinary(\ECSPrefix20211216\React\Dns\Model\Message $message)
+    public function toBinary(\ECSPrefix20211219\React\Dns\Model\Message $message)
     {
         $data = '';
         $data .= $this->headerToBinary($message);
@@ -25,7 +25,7 @@ final class BinaryDumper
      * @param Message $message
      * @return string
      */
-    private function headerToBinary(\ECSPrefix20211216\React\Dns\Model\Message $message)
+    private function headerToBinary(\ECSPrefix20211219\React\Dns\Model\Message $message)
     {
         $data = '';
         $data .= \pack('n', $message->id);
@@ -69,44 +69,44 @@ final class BinaryDumper
         foreach ($records as $record) {
             /* @var $record Record */
             switch ($record->type) {
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_A:
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_AAAA:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_A:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_AAAA:
                     $binary = \inet_pton($record->data);
                     break;
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_CNAME:
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_NS:
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_PTR:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_CNAME:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_NS:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_PTR:
                     $binary = $this->domainNameToBinary($record->data);
                     break;
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_TXT:
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_SPF:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_TXT:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_SPF:
                     $binary = $this->textsToBinary($record->data);
                     break;
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_MX:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_MX:
                     $binary = \pack('n', $record->data['priority']);
                     $binary .= $this->domainNameToBinary($record->data['target']);
                     break;
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_SRV:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_SRV:
                     $binary = \pack('n*', $record->data['priority'], $record->data['weight'], $record->data['port']);
                     $binary .= $this->domainNameToBinary($record->data['target']);
                     break;
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_SOA:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_SOA:
                     $binary = $this->domainNameToBinary($record->data['mname']);
                     $binary .= $this->domainNameToBinary($record->data['rname']);
                     $binary .= \pack('N*', $record->data['serial'], $record->data['refresh'], $record->data['retry'], $record->data['expire'], $record->data['minimum']);
                     break;
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_CAA:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_CAA:
                     $binary = \pack('C*', $record->data['flag'], \strlen($record->data['tag']));
                     $binary .= $record->data['tag'];
                     $binary .= $record->data['value'];
                     break;
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_SSHFP:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_SSHFP:
                     $binary = \pack('CCH*', $record->data['algorithm'], $record->data['type'], $record->data['fingerprint']);
                     break;
-                case \ECSPrefix20211216\React\Dns\Model\Message::TYPE_OPT:
+                case \ECSPrefix20211219\React\Dns\Model\Message::TYPE_OPT:
                     $binary = '';
                     foreach ($record->data as $opt => $value) {
-                        if ($opt === \ECSPrefix20211216\React\Dns\Model\Message::OPT_TCP_KEEPALIVE && $value !== null) {
+                        if ($opt === \ECSPrefix20211219\React\Dns\Model\Message::OPT_TCP_KEEPALIVE && $value !== null) {
                             $value = \pack('n', \round($value * 10));
                         }
                         $binary .= \pack('n*', $opt, \strlen($value)) . $value;

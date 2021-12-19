@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211216\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20211219\Symfony\Component\DependencyInjection\Exception;
 
 /**
  * This exception is thrown when a circular reference in a parameter is detected.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ParameterCircularReferenceException extends \ECSPrefix20211216\Symfony\Component\DependencyInjection\Exception\RuntimeException
+class ParameterCircularReferenceException extends \ECSPrefix20211219\Symfony\Component\DependencyInjection\Exception\RuntimeException
 {
     /**
      * @var mixed[]

@@ -28,7 +28,7 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20211216\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20211219\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * Make sure there is one blank line above and below class elements.
  *
@@ -167,11 +167,11 @@ class Sample
             foreach ($option as $type => $spacing) {
                 $supportedTypes = ['const', 'method', 'property', 'trait_import'];
                 if (!\in_array($type, $supportedTypes, \true)) {
-                    throw new \ECSPrefix20211216\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected element type, expected any of "%s", got "%s".', \implode('", "', $supportedTypes), \gettype($type) . '#' . $type));
+                    throw new \ECSPrefix20211219\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected element type, expected any of "%s", got "%s".', \implode('", "', $supportedTypes), \gettype($type) . '#' . $type));
                 }
                 $supportedSpacings = [self::SPACING_NONE, self::SPACING_ONE, self::SPACING_ONLY_IF_META];
                 if (!\in_array($spacing, $supportedSpacings, \true)) {
-                    throw new \ECSPrefix20211216\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected spacing for element type "%s", expected any of "%s", got "%s".', $spacing, \implode('", "', $supportedSpacings), \is_object($spacing) ? \get_class($spacing) : (null === $spacing ? 'null' : \gettype($spacing) . '#' . $spacing)));
+                    throw new \ECSPrefix20211219\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected spacing for element type "%s", expected any of "%s", got "%s".', $spacing, \implode('", "', $supportedSpacings), \is_object($spacing) ? \get_class($spacing) : (null === $spacing ? 'null' : \gettype($spacing) . '#' . $spacing)));
                 }
             }
             return \true;
