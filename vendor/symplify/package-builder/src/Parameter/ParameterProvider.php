@@ -18,8 +18,8 @@ final class ParameterProvider
     private $parameters = [];
     public function __construct(\ECSPrefix20211219\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
-        $parameterBag = $container->getParameterBag();
         /** @var ParameterBag $parameterBag */
+        $parameterBag = $container->getParameterBag();
         $this->parameters = $parameterBag->all();
     }
     public function hasParameter(string $name) : bool
