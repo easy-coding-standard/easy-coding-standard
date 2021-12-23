@@ -17,16 +17,16 @@ use PhpCsFixer\ConfigInterface;
 use PhpCsFixer\Console\ConfigurationResolver;
 use PhpCsFixer\ToolInfoInterface;
 use SplFileInfo;
-use ECSPrefix20211219\Symfony\Component\Console\Command\Command;
-use ECSPrefix20211219\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20211219\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20211219\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20211223\Symfony\Component\Console\Command\Command;
+use ECSPrefix20211223\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20211223\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20211223\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Markus Staab <markus.staab@redaxo.org>
  *
  * @internal
  */
-final class ListFilesCommand extends \ECSPrefix20211219\Symfony\Component\Console\Command\Command
+final class ListFilesCommand extends \ECSPrefix20211223\Symfony\Component\Console\Command\Command
 {
     /**
      * @var string
@@ -51,9 +51,9 @@ final class ListFilesCommand extends \ECSPrefix20211219\Symfony\Component\Consol
      */
     protected function configure() : void
     {
-        $this->setDefinition([new \ECSPrefix20211219\Symfony\Component\Console\Input\InputOption('config', '', \ECSPrefix20211219\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.')])->setDescription('List all files being fixed by the given config.');
+        $this->setDefinition([new \ECSPrefix20211223\Symfony\Component\Console\Input\InputOption('config', '', \ECSPrefix20211223\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.')])->setDescription('List all files being fixed by the given config.');
     }
-    protected function execute(\ECSPrefix20211219\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211219\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20211223\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20211223\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $passedConfig = $input->getOption('config');
         $cwd = \getcwd();

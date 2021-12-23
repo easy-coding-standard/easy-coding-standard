@@ -36,12 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20211219\\React\\Cache\\": "src\/"
+            "ECSPrefix20211223\\React\\Cache\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20211219\\React\\Tests\\Cache\\": "tests\/"
+            "ECSPrefix20211223\\React\\Tests\\Cache\\": "tests\/"
         }
     },
     "require-dev": {

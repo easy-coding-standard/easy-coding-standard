@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211219\Doctrine\Common\Annotations;
+namespace ECSPrefix20211223\Doctrine\Common\Annotations;
 
 /**
  * Marker interface for PHP7/PHP8 compatible support

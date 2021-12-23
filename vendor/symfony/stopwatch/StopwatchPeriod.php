@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211219\Symfony\Component\Stopwatch;
+namespace ECSPrefix20211223\Symfony\Component\Stopwatch;
 
 /**
  * Represents an Period for an Event.

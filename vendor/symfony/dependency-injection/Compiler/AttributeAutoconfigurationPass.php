@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211219\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20211223\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20211219\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix20211219\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211219\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20211219\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix20211219\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20211223\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix20211223\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211223\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20211223\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix20211223\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 /**
  * @author Alexander M. Turek <me@derrabus.de>
  */
-final class AttributeAutoconfigurationPass extends \ECSPrefix20211219\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+final class AttributeAutoconfigurationPass extends \ECSPrefix20211223\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $classAttributeConfigurators = [];
     private $methodAttributeConfigurators = [];
     private $propertyAttributeConfigurators = [];
     private $parameterAttributeConfigurators = [];
-    public function process(\ECSPrefix20211219\Symfony\Component\DependencyInjection\ContainerBuilder $container) : void
+    public function process(\ECSPrefix20211223\Symfony\Component\DependencyInjection\ContainerBuilder $container) : void
     {
         if (!$container->getAutoconfiguredAttributes()) {
             return;
@@ -45,14 +45,14 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20211219\Symfony\Co
             } elseif ($parameterType instanceof \ReflectionNamedType) {
                 $types[] = $parameterType->getName();
             } else {
-                throw new \ECSPrefix20211219\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Argument "$%s" of attribute autoconfigurator should have a type, use one or more of "\\ReflectionClass|\\ReflectionMethod|\\ReflectionProperty|\\ReflectionParameter|\\Reflector" in "%s" on line "%d".', $reflectorParameter->getName(), $callableReflector->getFileName(), $callableReflector->getStartLine()));
+                throw new \ECSPrefix20211223\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Argument "$%s" of attribute autoconfigurator should have a type, use one or more of "\\ReflectionClass|\\ReflectionMethod|\\ReflectionProperty|\\ReflectionParameter|\\Reflector" in "%s" on line "%d".', $reflectorParameter->getName(), $callableReflector->getFileName(), $callableReflector->getStartLine()));
             }
             try {
                 $attributeReflector = new \ReflectionClass($attributeName);
             } catch (\ReflectionException $e) {
                 continue;
             }
-            $targets = [][0] ?? 0;
+            $targets = (\method_exists($attributeReflector, 'getAttributes') ? $attributeReflector->getAttributes(\Attribute::class) : [])[0] ?? 0;
             $targets = $targets ? $targets->getArguments()[0] ?? -1 : 0;
             foreach (['class', 'method', 'property', 'parameter'] as $symbol) {
                 if (['Reflector'] !== $types) {
@@ -60,7 +60,7 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20211219\Symfony\Co
                         continue;
                     }
                     if (!($targets & \constant('Attribute::TARGET_' . \strtoupper($symbol)))) {
-                        throw new \ECSPrefix20211219\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Invalid type "Reflection%s" on argument "$%s": attribute "%s" cannot target a ' . $symbol . ' in "%s" on line "%d".', \ucfirst($symbol), $reflectorParameter->getName(), $attributeName, $callableReflector->getFileName(), $callableReflector->getStartLine()));
+                        throw new \ECSPrefix20211223\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Invalid type "Reflection%s" on argument "$%s": attribute "%s" cannot target a ' . $symbol . ' in "%s" on line "%d".', \ucfirst($symbol), $reflectorParameter->getName(), $attributeName, $callableReflector->getFileName(), $callableReflector->getStartLine()));
                     }
                 }
                 $this->{$symbol . 'AttributeConfigurators'}[$attributeName] = $callable;
@@ -74,13 +74,13 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20211219\Symfony\Co
      */
     protected function processValue($value, bool $isRoot = \false)
     {
-        if (!$value instanceof \ECSPrefix20211219\Symfony\Component\DependencyInjection\Definition || !$value->isAutoconfigured() || $value->isAbstract() || $value->hasTag('container.ignore_attributes') || !($classReflector = $this->container->getReflectionClass($value->getClass(), \false))) {
+        if (!$value instanceof \ECSPrefix20211223\Symfony\Component\DependencyInjection\Definition || !$value->isAutoconfigured() || $value->isAbstract() || $value->hasTag('container.ignore_attributes') || !($classReflector = $this->container->getReflectionClass($value->getClass(), \false))) {
             return parent::processValue($value, $isRoot);
         }
         $instanceof = $value->getInstanceofConditionals();
-        $conditionals = $instanceof[$classReflector->getName()] ?? new \ECSPrefix20211219\Symfony\Component\DependencyInjection\ChildDefinition('');
+        $conditionals = $instanceof[$classReflector->getName()] ?? new \ECSPrefix20211223\Symfony\Component\DependencyInjection\ChildDefinition('');
         if ($this->classAttributeConfigurators) {
-            foreach ([] as $attribute) {
+            foreach (\method_exists($classReflector, 'getAttributes') ? $classReflector->getAttributes() : [] as $attribute) {
                 if ($configurator = $this->classAttributeConfigurators[$attribute->getName()] ?? null) {
                     $configurator($conditionals, $attribute->newInstance(), $classReflector);
                 }
@@ -89,12 +89,12 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20211219\Symfony\Co
         if ($this->parameterAttributeConfigurators) {
             try {
                 $constructorReflector = $this->getConstructor($value, \false);
-            } catch (\ECSPrefix20211219\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
+            } catch (\ECSPrefix20211223\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
                 $constructorReflector = null;
             }
             if ($constructorReflector) {
                 foreach ($constructorReflector->getParameters() as $parameterReflector) {
-                    foreach ([] as $attribute) {
+                    foreach (\method_exists($parameterReflector, 'getAttributes') ? $parameterReflector->getAttributes() : [] as $attribute) {
                         if ($configurator = $this->parameterAttributeConfigurators[$attribute->getName()] ?? null) {
                             $configurator($conditionals, $attribute->newInstance(), $parameterReflector);
                         }
@@ -108,7 +108,7 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20211219\Symfony\Co
                     continue;
                 }
                 if ($this->methodAttributeConfigurators) {
-                    foreach ([] as $attribute) {
+                    foreach (\method_exists($methodReflector, 'getAttributes') ? $methodReflector->getAttributes() : [] as $attribute) {
                         if ($configurator = $this->methodAttributeConfigurators[$attribute->getName()] ?? null) {
                             $configurator($conditionals, $attribute->newInstance(), $methodReflector);
                         }
@@ -116,7 +116,7 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20211219\Symfony\Co
                 }
                 if ($this->parameterAttributeConfigurators) {
                     foreach ($methodReflector->getParameters() as $parameterReflector) {
-                        foreach ([] as $attribute) {
+                        foreach (\method_exists($parameterReflector, 'getAttributes') ? $parameterReflector->getAttributes() : [] as $attribute) {
                             if ($configurator = $this->parameterAttributeConfigurators[$attribute->getName()] ?? null) {
                                 $configurator($conditionals, $attribute->newInstance(), $parameterReflector);
                             }
@@ -130,14 +130,14 @@ final class AttributeAutoconfigurationPass extends \ECSPrefix20211219\Symfony\Co
                 if ($propertyReflector->isStatic()) {
                     continue;
                 }
-                foreach ([] as $attribute) {
+                foreach (\method_exists($propertyReflector, 'getAttributes') ? $propertyReflector->getAttributes() : [] as $attribute) {
                     if ($configurator = $this->propertyAttributeConfigurators[$attribute->getName()] ?? null) {
                         $configurator($conditionals, $attribute->newInstance(), $propertyReflector);
                     }
                 }
             }
         }
-        if (!isset($instanceof[$classReflector->getName()]) && new \ECSPrefix20211219\Symfony\Component\DependencyInjection\ChildDefinition('') != $conditionals) {
+        if (!isset($instanceof[$classReflector->getName()]) && new \ECSPrefix20211223\Symfony\Component\DependencyInjection\ChildDefinition('') != $conditionals) {
             $instanceof[$classReflector->getName()] = $conditionals;
             $value->setInstanceofConditionals($instanceof);
         }

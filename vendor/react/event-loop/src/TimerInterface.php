@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20211219\React\EventLoop;
+namespace ECSPrefix20211223\React\EventLoop;
 
 interface TimerInterface
 {

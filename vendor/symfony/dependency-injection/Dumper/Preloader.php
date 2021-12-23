@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211219\Symfony\Component\DependencyInjection\Dumper;
+namespace ECSPrefix20211223\Symfony\Component\DependencyInjection\Dumper;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -74,7 +74,7 @@ final class Preloader
             $r->getConstants();
             $r->getDefaultProperties();
             foreach ($r->getProperties(\ReflectionProperty::IS_PUBLIC) as $p) {
-                self::preloadType(null, $preloaded);
+                self::preloadType(\method_exists($p, 'getType') ? $p->getType() : null, $preloaded);
             }
             foreach ($r->getMethods(\ReflectionMethod::IS_PUBLIC) as $m) {
                 foreach ($m->getParameters() as $p) {
@@ -97,7 +97,7 @@ final class Preloader
         if (!$t) {
             return;
         }
-        foreach ($t instanceof \ReflectionUnionType || $t instanceof \ECSPrefix20211219\ReflectionIntersectionType ? $t->getTypes() : [$t] as $t) {
+        foreach ($t instanceof \ReflectionUnionType || $t instanceof \ECSPrefix20211223\ReflectionIntersectionType ? $t->getTypes() : [$t] as $t) {
             if (!$t->isBuiltin()) {
                 self::doPreload($t instanceof \ReflectionNamedType ? $t->getName() : $t, $preloaded);
             }

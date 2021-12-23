@@ -5,12 +5,12 @@ namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
-use ECSPrefix20211219\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20211219\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20211219\Symfony\Component\DependencyInjection\Reference;
-final class FixerWhitespaceConfigCompilerPass implements \ECSPrefix20211219\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use ECSPrefix20211223\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20211223\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20211223\Symfony\Component\DependencyInjection\Reference;
+final class FixerWhitespaceConfigCompilerPass implements \ECSPrefix20211223\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    public function process(\ECSPrefix20211219\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function process(\ECSPrefix20211223\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $definitions = $containerBuilder->getDefinitions();
         foreach ($definitions as $definition) {
@@ -20,7 +20,7 @@ final class FixerWhitespaceConfigCompilerPass implements \ECSPrefix20211219\Symf
             if (!\is_a($definition->getClass(), \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface::class, \true)) {
                 continue;
             }
-            $definition->addMethodCall('setWhitespacesConfig', [new \ECSPrefix20211219\Symfony\Component\DependencyInjection\Reference(\PhpCsFixer\WhitespacesFixerConfig::class)]);
+            $definition->addMethodCall('setWhitespacesConfig', [new \ECSPrefix20211223\Symfony\Component\DependencyInjection\Reference(\PhpCsFixer\WhitespacesFixerConfig::class)]);
         }
     }
 }
