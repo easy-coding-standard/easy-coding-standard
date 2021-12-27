@@ -1,15 +1,15 @@
 <?php
 
-namespace ECSPrefix20211223\Clue\React\NDJson;
+namespace ECSPrefix20211227\Clue\React\NDJson;
 
-use ECSPrefix20211223\Evenement\EventEmitter;
-use ECSPrefix20211223\React\Stream\ReadableStreamInterface;
-use ECSPrefix20211223\React\Stream\Util;
-use ECSPrefix20211223\React\Stream\WritableStreamInterface;
+use ECSPrefix20211227\Evenement\EventEmitter;
+use ECSPrefix20211227\React\Stream\ReadableStreamInterface;
+use ECSPrefix20211227\React\Stream\Util;
+use ECSPrefix20211227\React\Stream\WritableStreamInterface;
 /**
  * The Decoder / Parser reads from a plain stream and emits data objects for each JSON element
  */
-class Decoder extends \ECSPrefix20211223\Evenement\EventEmitter implements \ECSPrefix20211223\React\Stream\ReadableStreamInterface
+class Decoder extends \ECSPrefix20211227\Evenement\EventEmitter implements \ECSPrefix20211227\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $assoc;
@@ -27,7 +27,7 @@ class Decoder extends \ECSPrefix20211223\Evenement\EventEmitter implements \ECSP
      * @param int $maxlength
      * @throws \BadMethodCallException
      */
-    public function __construct(\ECSPrefix20211223\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
+    public function __construct(\ECSPrefix20211227\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
     {
         // @codeCoverageIgnoreStart
         if ($options !== 0 && \PHP_VERSION < 5.4) {
@@ -74,9 +74,9 @@ class Decoder extends \ECSPrefix20211223\Evenement\EventEmitter implements \ECSP
     {
         $this->input->resume();
     }
-    public function pipe(\ECSPrefix20211223\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\ECSPrefix20211227\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \ECSPrefix20211223\React\Stream\Util::pipe($this, $dest, $options);
+        \ECSPrefix20211227\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     /** @internal */
