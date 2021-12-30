@@ -71,7 +71,8 @@ final class PrivatesAccessor
         }
         $parentClass = \get_parent_class($object);
         if ($parentClass === \false) {
-            throw new \ECSPrefix20211230\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+            $errorMessage = \sprintf('Property "$%s" was not found in "%s" class', $propertyName, \get_class($object));
+            throw new \ECSPrefix20211230\Symplify\PHPStanRules\Exception\ShouldNotHappenException($errorMessage);
         }
         return new \ReflectionProperty($parentClass, $propertyName);
     }
