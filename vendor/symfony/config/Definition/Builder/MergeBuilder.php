@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211227\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20211230\Symfony\Component\Config\Definition\Builder;
 
 /**
  * This class builds merge conditions.
@@ -20,7 +20,7 @@ class MergeBuilder
     protected $node;
     public $allowFalse = \false;
     public $allowOverwrite = \true;
-    public function __construct(\ECSPrefix20211227\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
+    public function __construct(\ECSPrefix20211230\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->node = $node;
     }
@@ -46,8 +46,7 @@ class MergeBuilder
     }
     /**
      * Returns the related node.
-     *
-     * @return NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition|\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition
      */
     public function end()
     {

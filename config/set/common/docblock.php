@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211227;
+namespace ECSPrefix20211230;
 
 use PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer;

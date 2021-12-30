@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211227\Webmozart\Assert;
+namespace ECSPrefix20211230\Webmozart\Assert;
 
 use ArrayAccess;
 use BadMethodCallException;
@@ -1588,7 +1588,7 @@ class Assert
      */
     protected static function reportInvalidArgument($message)
     {
-        throw new \ECSPrefix20211227\Webmozart\Assert\InvalidArgumentException($message);
+        throw new \ECSPrefix20211230\Webmozart\Assert\InvalidArgumentException($message);
     }
     private function __construct()
     {

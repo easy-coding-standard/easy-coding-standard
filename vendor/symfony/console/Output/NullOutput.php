@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20211227\Symfony\Component\Console\Output;
+namespace ECSPrefix20211230\Symfony\Component\Console\Output;
 
-use ECSPrefix20211227\Symfony\Component\Console\Formatter\NullOutputFormatter;
-use ECSPrefix20211227\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20211230\Symfony\Component\Console\Formatter\NullOutputFormatter;
+use ECSPrefix20211230\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * NullOutput suppresses all output.
  *
@@ -20,23 +20,23 @@ use ECSPrefix20211227\Symfony\Component\Console\Formatter\OutputFormatterInterfa
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class NullOutput implements \ECSPrefix20211227\Symfony\Component\Console\Output\OutputInterface
+class NullOutput implements \ECSPrefix20211230\Symfony\Component\Console\Output\OutputInterface
 {
     private $formatter;
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(\ECSPrefix20211227\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function setFormatter(\ECSPrefix20211230\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         // do nothing
     }
     /**
      * {@inheritdoc}
      */
-    public function getFormatter() : \ECSPrefix20211227\Symfony\Component\Console\Formatter\OutputFormatterInterface
+    public function getFormatter() : \ECSPrefix20211230\Symfony\Component\Console\Formatter\OutputFormatterInterface
     {
         // to comply with the interface we must return a OutputFormatterInterface
-        return $this->formatter = $this->formatter ?? new \ECSPrefix20211227\Symfony\Component\Console\Formatter\NullOutputFormatter();
+        return $this->formatter = $this->formatter ?? new \ECSPrefix20211230\Symfony\Component\Console\Formatter\NullOutputFormatter();
     }
     /**
      * {@inheritdoc}
