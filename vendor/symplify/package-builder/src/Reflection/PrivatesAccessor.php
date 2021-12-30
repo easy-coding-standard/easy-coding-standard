@@ -12,6 +12,22 @@ use ECSPrefix20211230\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
 final class PrivatesAccessor
 {
     /**
+     * @template T
+     *
+     * @param class-string<T> $valueClassName
+     *
+     * @return T
+     * @param object $object
+     */
+    public function getPrivatePropertyOfClass($object, string $propertyName, string $valueClassName)
+    {
+        $value = $this->getPrivateProperty($object, $propertyName);
+        if ($value instanceof $valueClassName) {
+            return $value;
+        }
+        throw new \ECSPrefix20211230\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+    }
+    /**
      * @return mixed
      * @param object $object
      */
@@ -20,6 +36,20 @@ final class PrivatesAccessor
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);
         return $propertyReflection->getValue($object);
+    }
+    /**
+     * @template T
+     *
+     * @param class-string<T> $valueClassName
+     * @param mixed $value
+     * @param object $object
+     */
+    public function setPrivatePropertyOfClass($object, string $propertyName, $value, string $valueClassName) : void
+    {
+        if (!$value instanceof $valueClassName) {
+            throw new \ECSPrefix20211230\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+        }
+        $this->setPrivateProperty($object, $propertyName, $value);
     }
     /**
      * @param mixed $value
