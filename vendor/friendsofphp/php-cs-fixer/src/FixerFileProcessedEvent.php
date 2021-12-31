@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer;
 
-use ECSPrefix20211230\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20211231\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Event that is fired when file was processed by Fixer.
  *
@@ -20,7 +20,7 @@ use ECSPrefix20211230\Symfony\Contracts\EventDispatcher\Event;
  *
  * @internal
  */
-final class FixerFileProcessedEvent extends \ECSPrefix20211230\Symfony\Contracts\EventDispatcher\Event
+final class FixerFileProcessedEvent extends \ECSPrefix20211231\Symfony\Contracts\EventDispatcher\Event
 {
     /**
      * Event name.

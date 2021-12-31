@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211230\Symplify\PackageBuilder\Reflection;
+namespace ECSPrefix20211231\Symplify\PackageBuilder\Reflection;
 
 use ReflectionProperty;
-use ECSPrefix20211230\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
+use ECSPrefix20211231\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
 /**
  * @api
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesAccessorTest
@@ -16,7 +16,7 @@ final class PrivatesAccessor
      *
      * @param class-string<T> $valueClassName
      *
-     * @return T
+     * @return object&mixed
      * @param object $object
      */
     public function getPrivatePropertyOfClass($object, string $propertyName, string $valueClassName)
@@ -25,7 +25,7 @@ final class PrivatesAccessor
         if ($value instanceof $valueClassName) {
             return $value;
         }
-        throw new \ECSPrefix20211230\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+        throw new \ECSPrefix20211231\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
     }
     /**
      * @return mixed
@@ -47,7 +47,7 @@ final class PrivatesAccessor
     public function setPrivatePropertyOfClass($object, string $propertyName, $value, string $valueClassName) : void
     {
         if (!$value instanceof $valueClassName) {
-            throw new \ECSPrefix20211230\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20211231\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
         }
         $this->setPrivateProperty($object, $propertyName, $value);
     }
@@ -72,7 +72,7 @@ final class PrivatesAccessor
         $parentClass = \get_parent_class($object);
         if ($parentClass === \false) {
             $errorMessage = \sprintf('Property "$%s" was not found in "%s" class', $propertyName, \get_class($object));
-            throw new \ECSPrefix20211230\Symplify\PHPStanRules\Exception\ShouldNotHappenException($errorMessage);
+            throw new \ECSPrefix20211231\Symplify\PHPStanRules\Exception\ShouldNotHappenException($errorMessage);
         }
         return new \ReflectionProperty($parentClass, $propertyName);
     }

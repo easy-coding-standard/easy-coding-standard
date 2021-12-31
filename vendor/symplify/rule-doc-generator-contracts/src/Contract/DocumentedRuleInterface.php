@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211230\Symplify\RuleDocGenerator\Contract;
+namespace ECSPrefix20211231\Symplify\RuleDocGenerator\Contract;
 
-use ECSPrefix20211230\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20211231\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @api
  */
 interface DocumentedRuleInterface
 {
-    public function getRuleDefinition() : \ECSPrefix20211230\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+    public function getRuleDefinition() : \ECSPrefix20211231\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 }

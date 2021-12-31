@@ -15,7 +15,7 @@ final class ErrorAndDiffResult
      */
     private $fileDiffs = [];
     /**
-     * @var string[]|\Symplify\EasyCodingStandard\ValueObject\Error\SystemError[]
+     * @var array<(SystemError | string)>
      */
     private $systemErrors;
     /**

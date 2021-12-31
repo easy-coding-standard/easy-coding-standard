@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20211230\Symplify\EasyParallel\ValueObject;
+namespace ECSPrefix20211231\Symplify\EasyParallel\ValueObject;
 
 /**
  * From
@@ -14,7 +14,7 @@ final class Schedule
      */
     private $numberOfProcesses;
     /**
-     * @var string[][]
+     * @var array<array<string>>
      */
     private $jobs;
     /**

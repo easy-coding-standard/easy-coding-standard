@@ -6,11 +6,11 @@ namespace Symplify\CodingStandard\ValueObject;
 final class DocBlockLines
 {
     /**
-     * @var string[]
+     * @var array<string>
      */
     private $descriptionLines;
     /**
-     * @var string[]
+     * @var array<string>
      */
     private $otherLines;
     /**
