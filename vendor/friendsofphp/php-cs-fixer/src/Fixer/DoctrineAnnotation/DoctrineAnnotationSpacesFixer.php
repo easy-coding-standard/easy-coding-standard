@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Fixer\DoctrineAnnotation;
 
-use ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\AbstractDoctrineAnnotationFixer;
 use PhpCsFixer\Doctrine\Annotation\Token;
 use PhpCsFixer\Doctrine\Annotation\Tokens;
@@ -75,7 +75,7 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
                     $inAnnotationUntilIndex = null;
                     continue;
                 }
-            } elseif ($tokens[$index]->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            } elseif ($tokens[$index]->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_AT)) {
                 $endIndex = $tokens->getAnnotationEnd($index);
                 if (null !== $endIndex) {
                     $inAnnotationUntilIndex = $endIndex + 1;
@@ -85,19 +85,19 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
             if (null === $inAnnotationUntilIndex) {
                 continue;
             }
-            if (!$token->isType([\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, \ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS])) {
+            if (!$token->isType([\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, \ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS])) {
                 continue;
             }
-            if ($token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+            if ($token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
                 $token = $tokens[$index - 1];
-                if ($token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+                if ($token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
                     $token->clear();
                 }
                 $token = $tokens[$index + 1];
             } else {
                 $token = $tokens[$index - 1];
             }
-            if ($token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+            if ($token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
                 if (\strpos($token->getContent(), "\n") !== \false) {
                     continue;
                 }
@@ -114,7 +114,7 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
                     $inAnnotationUntilIndex = null;
                     continue;
                 }
-            } elseif ($tokens[$index]->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            } elseif ($tokens[$index]->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_AT)) {
                 $endIndex = $tokens->getAnnotationEnd($index);
                 if (null !== $endIndex) {
                     $inAnnotationUntilIndex = $endIndex;
@@ -124,15 +124,15 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
             if (null === $inAnnotationUntilIndex) {
                 continue;
             }
-            if (!$token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_COMMA)) {
+            if (!$token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_COMMA)) {
                 continue;
             }
             $token = $tokens[$index - 1];
-            if ($token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+            if ($token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
                 $token->clear();
             }
             if ($index < \count($tokens) - 1 && !\PhpCsFixer\Preg::match('/^\\s/', $tokens[$index + 1]->getContent())) {
-                $tokens->insertAt($index + 1, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_NONE, ' '));
+                $tokens->insertAt($index + 1, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_NONE, ' '));
             }
         }
     }
@@ -151,26 +151,26 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
                 \array_pop($scopes);
                 continue;
             }
-            if ($tokens[$index]->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_AT)) {
-                $scopes[] = \ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS;
+            if ($tokens[$index]->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+                $scopes[] = \ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS;
                 continue;
             }
-            if ($tokens[$index]->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES)) {
-                $scopes[] = \ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES;
+            if ($tokens[$index]->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES)) {
+                $scopes[] = \ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES;
                 continue;
             }
-            if (\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS === $endScopeType && $token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_EQUALS)) {
+            if (\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS === $endScopeType && $token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_EQUALS)) {
                 $this->updateSpacesAfter($tokens, $index, $afterArguments);
                 $this->updateSpacesBefore($tokens, $index, $beforeArguments);
                 continue;
             }
-            if (\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES === $endScopeType) {
-                if ($token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_EQUALS)) {
+            if (\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES === $endScopeType) {
+                if ($token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_EQUALS)) {
                     $this->updateSpacesAfter($tokens, $index, $afterArraysEquals);
                     $this->updateSpacesBefore($tokens, $index, $beforeArraysEquals);
                     continue;
                 }
-                if ($token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_COLON)) {
+                if ($token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_COLON)) {
                     $this->updateSpacesAfter($tokens, $index, $afterArraysColon);
                     $this->updateSpacesBefore($tokens, $index, $beforeArraysColon);
                 }
@@ -192,11 +192,11 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
         }
         $token = $tokens[$index];
         if ($insert) {
-            if (!$token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+            if (!$token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
                 $tokens->insertAt($insertIndex, $token = new \PhpCsFixer\Doctrine\Annotation\Token());
             }
             $token->setContent(' ');
-        } elseif ($token->isType(\ECSPrefix20211231\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+        } elseif ($token->isType(\ECSPrefix20220102\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
             $token->clear();
         }
     }
