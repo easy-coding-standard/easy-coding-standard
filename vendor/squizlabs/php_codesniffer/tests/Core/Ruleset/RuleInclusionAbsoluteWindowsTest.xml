@@ -2,7 +2,7 @@
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="RuleInclusionAbsoluteWindowsTest" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
 
     <!-- %path_slash_back% will be replaced on the fly -->
-    <rule ref="%path_slash_back%\ECSPrefix20220102\src\Standards\Generic\Sniffs\Formatting\SpaceAfterCastSniff.php">
+    <rule ref="%path_slash_back%\ECSPrefix20220103\src\Standards\Generic\Sniffs\Formatting\SpaceAfterCastSniff.php">
         <properties>
             <property name="spacing" value="10" />
         </properties>

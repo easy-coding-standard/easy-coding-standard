@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220102\React\Promise;
+namespace ECSPrefix20220103\React\Promise;
 
-interface ExtendedPromiseInterface extends \ECSPrefix20220102\React\Promise\PromiseInterface
+interface ExtendedPromiseInterface extends \ECSPrefix20220103\React\Promise\PromiseInterface
 {
     /**
      * Consumes the promise's ultimate value if the promise fulfills, or handles the

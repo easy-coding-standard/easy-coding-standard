@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220102;
+namespace ECSPrefix20220103;
 
 use PhpCsFixer\Fixer\Basic\BracesFixer;
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
