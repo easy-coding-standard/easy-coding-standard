@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20220103\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220103\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220107\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220107\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
@@ -23,7 +23,7 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
         $this->setDescription('Check coding standard in one or more directories.');
         parent::configure();
     }
-    protected function execute(\ECSPrefix20220103\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220103\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20220107\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220107\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             $this->loadedCheckersGuard->report();

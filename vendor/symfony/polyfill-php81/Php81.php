@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220103\Symfony\Polyfill\Php81;
+namespace ECSPrefix20220107\Symfony\Polyfill\Php81;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -19,7 +19,7 @@ final class Php81
 {
     public static function array_is_list(array $array) : bool
     {
-        if ([] === $array) {
+        if ([] === $array || $array === \array_values($array)) {
             return \true;
         }
         $nextKey = -1;
