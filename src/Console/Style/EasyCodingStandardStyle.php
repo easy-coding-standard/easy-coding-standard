@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use ECSPrefix20220107\Symfony\Component\Console\Helper\ProgressBar;
 use ECSPrefix20220107\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220107\Symfony\Component\Console\Output\OutputInterface;
 use ECSPrefix20220107\Symfony\Component\Console\Style\SymfonyStyle;
@@ -47,7 +46,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20220107\Symfony\Component
     public function enableDebugProgressBar() : void
     {
         $privatesAccessor = new \ECSPrefix20220107\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
-        $progressBar = $privatesAccessor->getPrivatePropertyOfClass($this, 'progressBar', \ECSPrefix20220107\Symfony\Component\Console\Helper\ProgressBar::class);
+        $progressBar = $privatesAccessor->getPrivateProperty($this, 'progressBar');
         $privatesCaller = new \ECSPrefix20220107\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', ['debug']);
     }
