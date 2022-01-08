@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220107;
+namespace ECSPrefix20220108;
 
-use ECSPrefix20220107\SebastianBergmann\Diff\Differ;
+use ECSPrefix20220108\SebastianBergmann\Diff\Differ;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix20220107\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix20220108\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('ECSPrefix20220107\Symplify\ConsoleColorDiff\\', __DIR__ . '/../src');
-    $services->set(\ECSPrefix20220107\SebastianBergmann\Diff\Differ::class);
-    $services->set(\ECSPrefix20220107\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
+    $services->load('ECSPrefix20220108\Symplify\ConsoleColorDiff\\', __DIR__ . '/../src');
+    $services->set(\ECSPrefix20220108\SebastianBergmann\Diff\Differ::class);
+    $services->set(\ECSPrefix20220108\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
 };

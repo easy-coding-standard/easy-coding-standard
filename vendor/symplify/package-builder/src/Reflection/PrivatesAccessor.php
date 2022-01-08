@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220107\Symplify\PackageBuilder\Reflection;
+namespace ECSPrefix20220108\Symplify\PackageBuilder\Reflection;
 
 use ReflectionProperty;
-use ECSPrefix20220107\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
+use ECSPrefix20220108\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
 /**
  * @api
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesAccessorTest
@@ -12,7 +12,7 @@ use ECSPrefix20220107\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
 final class PrivatesAccessor
 {
     /**
-     * @template T as object
+     * @template T of object
      *
      * @param class-string<T> $valueClassName
      * @return object
@@ -24,7 +24,7 @@ final class PrivatesAccessor
         if ($value instanceof $valueClassName) {
             return $value;
         }
-        throw new \ECSPrefix20220107\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+        throw new \ECSPrefix20220108\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
     }
     /**
      * @return mixed
@@ -37,7 +37,7 @@ final class PrivatesAccessor
         return $propertyReflection->getValue($object);
     }
     /**
-     * @template T
+     * @template T of object
      *
      * @param class-string<T> $valueClassName
      * @param mixed $value
@@ -46,7 +46,7 @@ final class PrivatesAccessor
     public function setPrivatePropertyOfClass($object, string $propertyName, $value, string $valueClassName) : void
     {
         if (!$value instanceof $valueClassName) {
-            throw new \ECSPrefix20220107\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20220108\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
         }
         $this->setPrivateProperty($object, $propertyName, $value);
     }
@@ -71,7 +71,7 @@ final class PrivatesAccessor
         $parentClass = \get_parent_class($object);
         if ($parentClass === \false) {
             $errorMessage = \sprintf('Property "$%s" was not found in "%s" class', $propertyName, \get_class($object));
-            throw new \ECSPrefix20220107\Symplify\PHPStanRules\Exception\ShouldNotHappenException($errorMessage);
+            throw new \ECSPrefix20220108\Symplify\PHPStanRules\Exception\ShouldNotHappenException($errorMessage);
         }
         return new \ReflectionProperty($parentClass, $propertyName);
     }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220107;
+namespace ECSPrefix20220108;
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
@@ -20,7 +20,7 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $cacheNamespace = \str_replace(\DIRECTORY_SEPARATOR, '_', \getcwd());
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::CACHE_NAMESPACE, $cacheNamespace);
     // parallel
-    $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL, \false);
+    $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL, \true);
     // how many files are processed in single process
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_JOB_SIZE, 60);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_MAX_NUMBER_OF_PROCESSES, 16);
