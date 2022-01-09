@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220108\React\Socket;
+namespace ECSPrefix20220109\React\Socket;
 
-use ECSPrefix20220108\Evenement\EventEmitter;
+use ECSPrefix20220109\Evenement\EventEmitter;
 use Exception;
 use OverflowException;
 /**
@@ -32,7 +32,7 @@ use OverflowException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-class LimitingServer extends \ECSPrefix20220108\Evenement\EventEmitter implements \ECSPrefix20220108\React\Socket\ServerInterface
+class LimitingServer extends \ECSPrefix20220109\Evenement\EventEmitter implements \ECSPrefix20220109\React\Socket\ServerInterface
 {
     private $connections = array();
     private $server;
@@ -89,7 +89,7 @@ class LimitingServer extends \ECSPrefix20220108\Evenement\EventEmitter implement
      * @param int|null        $connectionLimit
      * @param bool            $pauseOnLimit
      */
-    public function __construct(\ECSPrefix20220108\React\Socket\ServerInterface $server, $connectionLimit, $pauseOnLimit = \false)
+    public function __construct(\ECSPrefix20220109\React\Socket\ServerInterface $server, $connectionLimit, $pauseOnLimit = \false)
     {
         $this->server = $server;
         $this->limit = $connectionLimit;
@@ -141,7 +141,7 @@ class LimitingServer extends \ECSPrefix20220108\Evenement\EventEmitter implement
         $this->server->close();
     }
     /** @internal */
-    public function handleConnection(\ECSPrefix20220108\React\Socket\ConnectionInterface $connection)
+    public function handleConnection(\ECSPrefix20220109\React\Socket\ConnectionInterface $connection)
     {
         // close connection if limit exceeded
         if ($this->limit !== null && \count($this->connections) >= $this->limit) {
@@ -164,7 +164,7 @@ class LimitingServer extends \ECSPrefix20220108\Evenement\EventEmitter implement
         $this->emit('connection', array($connection));
     }
     /** @internal */
-    public function handleDisconnection(\ECSPrefix20220108\React\Socket\ConnectionInterface $connection)
+    public function handleDisconnection(\ECSPrefix20220109\React\Socket\ConnectionInterface $connection)
     {
         unset($this->connections[\array_search($connection, $this->connections)]);
         // continue accepting new connection if below limit

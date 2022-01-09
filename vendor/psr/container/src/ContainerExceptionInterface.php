@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220108\Psr\Container;
+namespace ECSPrefix20220109\Psr\Container;
 
 use Throwable;
 /**

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220108\Composer\XdebugHandler;
+namespace ECSPrefix20220109\Composer\XdebugHandler;
 
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>
@@ -62,7 +62,7 @@ class PhpConfig
      */
     private function getDataAndReset()
     {
-        $data = \ECSPrefix20220108\Composer\XdebugHandler\XdebugHandler::getRestartSettings();
+        $data = \ECSPrefix20220109\Composer\XdebugHandler\XdebugHandler::getRestartSettings();
         if ($data !== null) {
             $this->updateEnv('PHPRC', $data['phprc']);
             $this->updateEnv('PHP_INI_SCAN_DIR', $data['scanDir']);
@@ -79,6 +79,6 @@ class PhpConfig
      */
     private function updateEnv($name, $value)
     {
-        \ECSPrefix20220108\Composer\XdebugHandler\Process::setEnv($name, \false !== $value ? $value : null);
+        \ECSPrefix20220109\Composer\XdebugHandler\Process::setEnv($name, \false !== $value ? $value : null);
     }
 }
