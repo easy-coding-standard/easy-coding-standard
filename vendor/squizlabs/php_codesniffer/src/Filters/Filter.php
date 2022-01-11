@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Filters;
 use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Ruleset;
 use PHP_CodeSniffer\Config;
-use ECSPrefix20220109\ReturnTypeWillChange;
+use ECSPrefix20220111\ReturnTypeWillChange;
 class Filter extends \RecursiveFilterIterator
 {
     /**

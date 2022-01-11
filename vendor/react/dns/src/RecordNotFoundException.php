@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220109\React\Dns;
+namespace ECSPrefix20220111\React\Dns;
 
 final class RecordNotFoundException extends \Exception
 {
