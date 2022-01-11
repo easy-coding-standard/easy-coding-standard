@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit85304d9a78e95609afeb2b0396c8a0c6
+class ComposerStaticInit9b20e5169a1d11a0688e7c9b6a83b015
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1047,6 +1047,8 @@ class ComposerStaticInit85304d9a78e95609afeb2b0396c8a0c6
         'ECSPrefix20220111\\Symplify\\PackageBuilder\\DependencyInjection\\CompilerPass\\AutowireInterfacesCompilerPass' => __DIR__ . '/..' . '/symplify/package-builder/src/DependencyInjection/CompilerPass/AutowireInterfacesCompilerPass.php',
         'ECSPrefix20220111\\Symplify\\PackageBuilder\\DependencyInjection\\FileLoader\\ParameterMergingPhpFileLoader' => __DIR__ . '/..' . '/symplify/package-builder/src/DependencyInjection/FileLoader/ParameterMergingPhpFileLoader.php',
         'ECSPrefix20220111\\Symplify\\PackageBuilder\\Exception\\HttpKernel\\MissingInterfaceException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/HttpKernel/MissingInterfaceException.php',
+        'ECSPrefix20220111\\Symplify\\PackageBuilder\\Exception\\InvalidPrivatePropertyTypeException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/InvalidPrivatePropertyTypeException.php',
+        'ECSPrefix20220111\\Symplify\\PackageBuilder\\Exception\\MissingPrivatePropertyException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/MissingPrivatePropertyException.php',
         'ECSPrefix20220111\\Symplify\\PackageBuilder\\Matcher\\ArrayStringAndFnMatcher' => __DIR__ . '/..' . '/symplify/package-builder/src/Matcher/ArrayStringAndFnMatcher.php',
         'ECSPrefix20220111\\Symplify\\PackageBuilder\\Neon\\NeonPrinter' => __DIR__ . '/..' . '/symplify/package-builder/src/Neon/NeonPrinter.php',
         'ECSPrefix20220111\\Symplify\\PackageBuilder\\Parameter\\ParameterProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Parameter/ParameterProvider.php',
@@ -1752,9 +1754,9 @@ class ComposerStaticInit85304d9a78e95609afeb2b0396c8a0c6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit85304d9a78e95609afeb2b0396c8a0c6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit85304d9a78e95609afeb2b0396c8a0c6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit85304d9a78e95609afeb2b0396c8a0c6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9b20e5169a1d11a0688e7c9b6a83b015::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9b20e5169a1d11a0688e7c9b6a83b015::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9b20e5169a1d11a0688e7c9b6a83b015::$classMap;
 
         }, null, ClassLoader::class);
     }

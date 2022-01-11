@@ -159,7 +159,8 @@ final class File extends \PHP_CodeSniffer\Files\File
             return \false;
         }
         $message = $data !== [] ? \vsprintf($message, $data) : $message;
-        $codingStandardError = new \Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError($line, $message, $this->resolveFullyQualifiedCode($sniffClassOrCode), $this->getFilename());
+        $checkerClass = $this->resolveFullyQualifiedCode($sniffClassOrCode);
+        $codingStandardError = new \Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError($line, $message, $checkerClass, $this->getFilename());
         $this->sniffMetadataCollector->addCodingStandardError($codingStandardError);
         if ($isFixable) {
             return $isFixable;
