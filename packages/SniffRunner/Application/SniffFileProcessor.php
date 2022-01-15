@@ -16,6 +16,7 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardErro
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use ECSPrefix20220115\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use ECSPrefix20220115\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20220115\Symplify\SmartFileSystem\SmartFileSystem;
 /**
@@ -56,9 +57,13 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      */
     private $fileDiffFactory;
     /**
+     * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
+     */
+    private $privatesAccessor;
+    /**
      * @param Sniff[] $sniffs
      */
-    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory $fileFactory, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \ECSPrefix20220115\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, array $sniffs)
+    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory $fileFactory, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \ECSPrefix20220115\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, \ECSPrefix20220115\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, array $sniffs)
     {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
@@ -66,6 +71,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         $this->sniffMetadataCollector = $sniffMetadataCollector;
         $this->smartFileSystem = $smartFileSystem;
         $this->fileDiffFactory = $fileDiffFactory;
+        $this->privatesAccessor = $privatesAccessor;
         $this->addCompatibilityLayer();
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
@@ -146,6 +152,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         do {
             // Only needed once file content has changed.
             $content = $previousContent;
+            $this->privatesAccessor->setPrivateProperty($fixer, 'inConflict', \false);
             $file->setContent($content);
             $file->processWithTokenListenersAndFileInfo($tokenListeners, $smartFileInfo);
             // fixed content
