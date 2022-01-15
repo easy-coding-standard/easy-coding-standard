@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220111\React\Dns\Query;
+namespace ECSPrefix20220115\React\Dns\Query;
 
 final class TimeoutException extends \Exception
 {

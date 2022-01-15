@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
-use ECSPrefix20220111\Symplify\EasyParallel\Contract\SerializableInterface;
-final class SystemError implements \ECSPrefix20220111\Symplify\EasyParallel\Contract\SerializableInterface
+use ECSPrefix20220115\Symplify\EasyParallel\Contract\SerializableInterface;
+final class SystemError implements \ECSPrefix20220115\Symplify\EasyParallel\Contract\SerializableInterface
 {
     /**
      * @var int
@@ -43,7 +43,7 @@ final class SystemError implements \ECSPrefix20220111\Symplify\EasyParallel\Cont
     /**
      * @param array{line: int, message: string, relative_file_path: string} $json
      */
-    public static function decode(array $json) : \ECSPrefix20220111\Symplify\EasyParallel\Contract\SerializableInterface
+    public static function decode(array $json) : \ECSPrefix20220115\Symplify\EasyParallel\Contract\SerializableInterface
     {
         return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH]);
     }
