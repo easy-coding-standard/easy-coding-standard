@@ -40,7 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220115\\Symfony\\Component\\String\\": ""
+            "ECSPrefix20220116\\Symfony\\Component\\String\\": ""
         },
         "files": [
             "Resources\/functions.php"

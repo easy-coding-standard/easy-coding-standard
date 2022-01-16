@@ -1,23 +1,23 @@
 <?php
 
-namespace ECSPrefix20220115\React\Dns\Query;
+namespace ECSPrefix20220116\React\Dns\Query;
 
-use ECSPrefix20220115\React\Promise\Promise;
-final class FallbackExecutor implements \ECSPrefix20220115\React\Dns\Query\ExecutorInterface
+use ECSPrefix20220116\React\Promise\Promise;
+final class FallbackExecutor implements \ECSPrefix20220116\React\Dns\Query\ExecutorInterface
 {
     private $executor;
     private $fallback;
-    public function __construct(\ECSPrefix20220115\React\Dns\Query\ExecutorInterface $executor, \ECSPrefix20220115\React\Dns\Query\ExecutorInterface $fallback)
+    public function __construct(\ECSPrefix20220116\React\Dns\Query\ExecutorInterface $executor, \ECSPrefix20220116\React\Dns\Query\ExecutorInterface $fallback)
     {
         $this->executor = $executor;
         $this->fallback = $fallback;
     }
-    public function query(\ECSPrefix20220115\React\Dns\Query\Query $query)
+    public function query(\ECSPrefix20220116\React\Dns\Query\Query $query)
     {
         $cancelled = \false;
         $fallback = $this->fallback;
         $promise = $this->executor->query($query);
-        return new \ECSPrefix20220115\React\Promise\Promise(function ($resolve, $reject) use(&$promise, $fallback, $query, &$cancelled) {
+        return new \ECSPrefix20220116\React\Promise\Promise(function ($resolve, $reject) use(&$promise, $fallback, $query, &$cancelled) {
             $promise->then($resolve, function (\Exception $e1) use($fallback, $query, $resolve, $reject, &$cancelled, &$promise) {
                 // reject if primary resolution rejected due to cancellation
                 if ($cancelled) {

@@ -16,7 +16,7 @@ use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Ruleset;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Exceptions\DeepExitException;
-use ECSPrefix20220115\ReturnTypeWillChange;
+use ECSPrefix20220116\ReturnTypeWillChange;
 class FileList implements \Iterator, \Countable
 {
     /**
