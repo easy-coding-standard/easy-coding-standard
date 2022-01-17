@@ -59,6 +59,7 @@ final class CodingStandardError implements \ECSPrefix20220117\Symplify\EasyParal
     }
     /**
      * @param array{line: int, message: string, checker_class: string, relative_file_path: string} $json
+     * @return $this
      */
     public static function decode(array $json) : \ECSPrefix20220117\Symplify\EasyParallel\Contract\SerializableInterface
     {

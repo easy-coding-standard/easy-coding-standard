@@ -65,6 +65,7 @@ final class FileDiff implements \ECSPrefix20220117\Symplify\EasyParallel\Contrac
     }
     /**
      * @param array{relative_file_path: string, diff: string, diff_console_formatted: string, applied_checkers: string[]} $json
+     * @return $this
      */
     public static function decode(array $json) : \ECSPrefix20220117\Symplify\EasyParallel\Contract\SerializableInterface
     {

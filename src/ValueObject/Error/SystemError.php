@@ -42,6 +42,7 @@ final class SystemError implements \ECSPrefix20220117\Symplify\EasyParallel\Cont
     }
     /**
      * @param array{line: int, message: string, relative_file_path: string} $json
+     * @return $this
      */
     public static function decode(array $json) : \ECSPrefix20220117\Symplify\EasyParallel\Contract\SerializableInterface
     {
