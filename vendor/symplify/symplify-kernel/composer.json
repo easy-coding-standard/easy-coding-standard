@@ -10,7 +10,6 @@
         "symplify\/composer-json-manipulator": "dev-main",
         "symplify\/autowire-array-parameter": "dev-main",
         "symplify\/package-builder": "dev-main",
-        "symplify\/symplify-kernel": "dev-main",
         "webmozart\/assert": "^1.10"
     },
     "require-dev": {

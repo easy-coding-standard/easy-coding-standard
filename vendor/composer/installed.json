@@ -4090,7 +4090,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "8eec615cc1467129e401701acf58a44dfd49d315"
+                "reference": "c4d634e9e325de9177e10b0b6e81fca79757a167"
             },
             "require": {
                 "php": ">=8.0",
@@ -4100,7 +4100,6 @@
                 "symplify\/composer-json-manipulator": "dev-main",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
-                "symplify\/symplify-kernel": "dev-main",
                 "webmozart\/assert": "^1.10"
             },
             "conflict": {
