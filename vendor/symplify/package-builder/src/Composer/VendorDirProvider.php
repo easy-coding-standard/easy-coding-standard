@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220120\Symplify\PackageBuilder\Composer;
+namespace ECSPrefix20220121\Symplify\PackageBuilder\Composer;
 
-use ECSPrefix20220120\Composer\Autoload\ClassLoader;
+use ECSPrefix20220121\Composer\Autoload\ClassLoader;
 use ReflectionClass;
 /**
  * @api
@@ -25,7 +25,7 @@ final class VendorDirProvider
     }
     private function reflectionFallback() : string
     {
-        $reflectionClass = new \ReflectionClass(\ECSPrefix20220120\Composer\Autoload\ClassLoader::class);
+        $reflectionClass = new \ReflectionClass(\ECSPrefix20220121\Composer\Autoload\ClassLoader::class);
         return \dirname($reflectionClass->getFileName(), 2);
     }
 }

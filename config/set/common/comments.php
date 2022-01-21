@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220120;
+namespace ECSPrefix20220121;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl\GitMergeConflictSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

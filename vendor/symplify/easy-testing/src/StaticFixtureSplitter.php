@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220120\Symplify\EasyTesting;
+namespace ECSPrefix20220121\Symplify\EasyTesting;
 
-use ECSPrefix20220120\Nette\Utils\Strings;
-use ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputAndExpected;
-use ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected;
-use ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo;
-use ECSPrefix20220120\Symplify\EasyTesting\ValueObject\SplitLine;
-use ECSPrefix20220120\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220120\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20220121\Nette\Utils\Strings;
+use ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputAndExpected;
+use ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected;
+use ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo;
+use ECSPrefix20220121\Symplify\EasyTesting\ValueObject\SplitLine;
+use ECSPrefix20220121\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220121\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @api
  */
@@ -19,20 +19,20 @@ final class StaticFixtureSplitter
      * @var string|null
      */
     public static $customTemporaryPath;
-    public static function splitFileInfoToInputAndExpected(\ECSPrefix20220120\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputAndExpected
+    public static function splitFileInfoToInputAndExpected(\ECSPrefix20220121\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputAndExpected
     {
-        $splitLineCount = \count(\ECSPrefix20220120\Nette\Utils\Strings::matchAll($smartFileInfo->getContents(), \ECSPrefix20220120\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX));
+        $splitLineCount = \count(\ECSPrefix20220121\Nette\Utils\Strings::matchAll($smartFileInfo->getContents(), \ECSPrefix20220121\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX));
         // if more or less, it could be a test cases for monorepo line in it
         if ($splitLineCount === 1) {
             // input → expected
-            [$input, $expected] = \ECSPrefix20220120\Nette\Utils\Strings::split($smartFileInfo->getContents(), \ECSPrefix20220120\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
+            [$input, $expected] = \ECSPrefix20220121\Nette\Utils\Strings::split($smartFileInfo->getContents(), \ECSPrefix20220121\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
             $expected = self::retypeExpected($expected);
-            return new \ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputAndExpected($input, $expected);
+            return new \ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputAndExpected($input, $expected);
         }
         // no changes
-        return new \ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputAndExpected($smartFileInfo->getContents(), $smartFileInfo->getContents());
+        return new \ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputAndExpected($smartFileInfo->getContents(), $smartFileInfo->getContents());
     }
-    public static function splitFileInfoToLocalInputAndExpectedFileInfos(\ECSPrefix20220120\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, bool $autoloadTestFixture = \false) : \ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo
+    public static function splitFileInfoToLocalInputAndExpectedFileInfos(\ECSPrefix20220121\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, bool $autoloadTestFixture = \false) : \ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo
     {
         $inputAndExpected = self::splitFileInfoToInputAndExpected($smartFileInfo);
         $inputFileInfo = self::createTemporaryFileInfo($smartFileInfo, 'input', $inputAndExpected->getInput());
@@ -41,7 +41,7 @@ final class StaticFixtureSplitter
             require_once $inputFileInfo->getRealPath();
         }
         $expectedFileInfo = self::createTemporaryFileInfo($smartFileInfo, 'expected', $inputAndExpected->getExpected());
-        return new \ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo($inputFileInfo, $expectedFileInfo);
+        return new \ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo($inputFileInfo, $expectedFileInfo);
     }
     public static function getTemporaryPath() : string
     {
@@ -50,7 +50,7 @@ final class StaticFixtureSplitter
         }
         return \sys_get_temp_dir() . '/_temp_fixture_easy_testing';
     }
-    public static function createTemporaryFileInfo(\ECSPrefix20220120\Symplify\SmartFileSystem\SmartFileInfo $fixtureSmartFileInfo, string $prefix, string $fileContent) : \ECSPrefix20220120\Symplify\SmartFileSystem\SmartFileInfo
+    public static function createTemporaryFileInfo(\ECSPrefix20220121\Symplify\SmartFileSystem\SmartFileInfo $fixtureSmartFileInfo, string $prefix, string $fileContent) : \ECSPrefix20220121\Symplify\SmartFileSystem\SmartFileInfo
     {
         $temporaryFilePath = self::createTemporaryPathWithPrefix($fixtureSmartFileInfo, $prefix);
         $dir = \dirname($temporaryFilePath);
@@ -59,9 +59,9 @@ final class StaticFixtureSplitter
         }
         /** @phpstan-ignore-next-line we don't use SmartFileSystem->dump() for performance reasons */
         \file_put_contents($temporaryFilePath, $fileContent);
-        return new \ECSPrefix20220120\Symplify\SmartFileSystem\SmartFileInfo($temporaryFilePath);
+        return new \ECSPrefix20220121\Symplify\SmartFileSystem\SmartFileInfo($temporaryFilePath);
     }
-    public static function splitFileInfoToLocalInputAndExpected(\ECSPrefix20220120\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, bool $autoloadTestFixture = \false) : \ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected
+    public static function splitFileInfoToLocalInputAndExpected(\ECSPrefix20220121\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, bool $autoloadTestFixture = \false) : \ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected
     {
         $inputAndExpected = self::splitFileInfoToInputAndExpected($smartFileInfo);
         $inputFileInfo = self::createTemporaryFileInfo($smartFileInfo, 'input', $inputAndExpected->getInput());
@@ -69,11 +69,11 @@ final class StaticFixtureSplitter
         if ($autoloadTestFixture) {
             require_once $inputFileInfo->getRealPath();
         }
-        return new \ECSPrefix20220120\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected($inputFileInfo, $inputAndExpected->getExpected());
+        return new \ECSPrefix20220121\Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected($inputFileInfo, $inputAndExpected->getExpected());
     }
-    private static function createTemporaryPathWithPrefix(\ECSPrefix20220120\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $prefix) : string
+    private static function createTemporaryPathWithPrefix(\ECSPrefix20220121\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $prefix) : string
     {
-        $hash = \ECSPrefix20220120\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -20);
+        $hash = \ECSPrefix20220121\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -20);
         $fileBaseName = $smartFileInfo->getBasename('.inc');
         return self::getTemporaryPath() . \sprintf('/%s_%s_%s', $prefix, $hash, $fileBaseName);
     }
