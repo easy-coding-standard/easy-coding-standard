@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220121\Composer\Pcre;
+namespace ECSPrefix20220123\Composer\Pcre;
 
 final class ReplaceResult
 {
@@ -19,7 +19,7 @@ final class ReplaceResult
     public $result;
     /**
      * @readonly
-     * @var int
+     * @var 0|positive-int
      */
     public $count;
     /**
@@ -28,7 +28,7 @@ final class ReplaceResult
      */
     public $matched;
     /**
-     * @param int $count
+     * @param 0|positive-int $count
      * @param string $result
      */
     public function __construct($count, $result)

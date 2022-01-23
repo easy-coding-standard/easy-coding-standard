@@ -23,7 +23,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220121\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20220123\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Vladimir Reznichenko <kalessil@gmail.com>
  */
@@ -91,10 +91,10 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('replacements', 'Mapping between replaced functions with the new ones.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
             foreach ($value as $functionName => $replacement) {
                 if (!\array_key_exists($functionName, self::$argumentCounts)) {
-                    throw new \ECSPrefix20220121\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Function "%s" is not handled by the fixer.', $functionName));
+                    throw new \ECSPrefix20220123\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Function "%s" is not handled by the fixer.', $functionName));
                 }
                 if (!\is_string($replacement)) {
-                    throw new \ECSPrefix20220121\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Replacement for function "%s" must be a string, "%s" given.', $functionName, \is_object($replacement) ? \get_class($replacement) : \gettype($replacement)));
+                    throw new \ECSPrefix20220123\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Replacement for function "%s" must be a string, "%s" given.', $functionName, \is_object($replacement) ? \get_class($replacement) : \gettype($replacement)));
                 }
             }
             return \true;

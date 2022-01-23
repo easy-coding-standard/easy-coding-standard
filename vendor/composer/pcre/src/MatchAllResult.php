@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220121\Composer\Pcre;
+namespace ECSPrefix20220123\Composer\Pcre;
 
 final class MatchAllResult
 {
@@ -21,7 +21,7 @@ final class MatchAllResult
     public $matches;
     /**
      * @readonly
-     * @var int
+     * @var 0|positive-int
      */
     public $count;
     /**
@@ -30,7 +30,7 @@ final class MatchAllResult
      */
     public $matched;
     /**
-     * @param int $count
+     * @param 0|positive-int $count
      * @param array<array<string|null>> $matches
      */
     public function __construct($count, array $matches)

@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220121\Symfony\Component\Console\Exception;
+namespace ECSPrefix20220123\Symfony\Component\Console\Exception;
 
 /**
  * Represents an incorrect namespace typed in the console.
  *
  * @author Pierre du Plessis <pdples@gmail.com>
  */
-class NamespaceNotFoundException extends \ECSPrefix20220121\Symfony\Component\Console\Exception\CommandNotFoundException
+class NamespaceNotFoundException extends \ECSPrefix20220123\Symfony\Component\Console\Exception\CommandNotFoundException
 {
 }

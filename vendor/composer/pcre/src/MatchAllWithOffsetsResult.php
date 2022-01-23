@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220121\Composer\Pcre;
+namespace ECSPrefix20220123\Composer\Pcre;
 
 final class MatchAllWithOffsetsResult
 {
@@ -22,7 +22,7 @@ final class MatchAllWithOffsetsResult
     public $matches;
     /**
      * @readonly
-     * @var int
+     * @var 0|positive-int
      */
     public $count;
     /**
@@ -31,7 +31,7 @@ final class MatchAllWithOffsetsResult
      */
     public $matched;
     /**
-     * @param int $count
+     * @param 0|positive-int $count
      * @param array<int|string, list<array{string|null, int}>> $matches
      * @phpstan-param array<int|string, list<array{string|null, int<-1, max>}>> $matches
      */

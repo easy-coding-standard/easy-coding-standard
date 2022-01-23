@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220121\Symfony\Component\Config;
+namespace ECSPrefix20220123\Symfony\Component\Config;
 
-use ECSPrefix20220121\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix20220123\Symfony\Component\Config\Resource\ResourceInterface;
 /**
  * Interface for ConfigCache.
  *

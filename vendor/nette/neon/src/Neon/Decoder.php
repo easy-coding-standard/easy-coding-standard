@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220121\Nette\Neon;
+namespace ECSPrefix20220123\Nette\Neon;
 
 /**
  * Parser for Nette Object Notation.
@@ -22,10 +22,10 @@ final class Decoder
         $node = $this->parseToNode($input);
         return $node->toValue();
     }
-    public function parseToNode(string $input) : \ECSPrefix20220121\Nette\Neon\Node
+    public function parseToNode(string $input) : \ECSPrefix20220123\Nette\Neon\Node
     {
-        $lexer = new \ECSPrefix20220121\Nette\Neon\Lexer();
-        $parser = new \ECSPrefix20220121\Nette\Neon\Parser();
+        $lexer = new \ECSPrefix20220123\Nette\Neon\Lexer();
+        $parser = new \ECSPrefix20220123\Nette\Neon\Parser();
         $tokens = $lexer->tokenize($input);
         return $parser->parse($tokens);
     }

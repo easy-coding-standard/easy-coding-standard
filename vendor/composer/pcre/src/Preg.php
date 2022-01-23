@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220121\Composer\Pcre;
+namespace ECSPrefix20220123\Composer\Pcre;
 
 class Preg
 {
     const ARRAY_MSG = '$subject as an array is not supported. You can use \'foreach\' instead.';
     /**
-     * @param string   $pattern
+     * @param non-empty-string   $pattern
      * @param string   $subject
      * @param array<string|null> $matches Set by method
      * @param int      $flags PREG_UNMATCHED_AS_NULL, only available on PHP 7.2+
      * @param int      $offset
-     * @return int
+     * @return 0|1
      */
     public static function match($pattern, $subject, &$matches = null, $flags = 0, $offset = 0)
     {
@@ -28,19 +28,19 @@ class Preg
         }
         $result = \preg_match($pattern, $subject, $matches, $flags, $offset);
         if ($result === \false) {
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_match', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_match', $pattern);
         }
         return $result;
     }
     /**
-     * Runs preg_match_all with PREG_OFFSET_CAPTURE
+     * Runs preg_match with PREG_OFFSET_CAPTURE
      *
-     * @param string   $pattern
+     * @param non-empty-string   $pattern
      * @param string   $subject
      * @param array<int|string, array{string|null, int}> $matches Set by method
      * @param int      $flags PREG_UNMATCHED_AS_NULL, only available on PHP 7.2+
      * @param int      $offset
-     * @return int
+     * @return 0|1
      *
      * @phpstan-param array<int|string, array{string|null, int<-1, max>}> $matches
      */
@@ -48,17 +48,17 @@ class Preg
     {
         $result = \preg_match($pattern, $subject, $matches, $flags | \PREG_OFFSET_CAPTURE, $offset);
         if ($result === \false) {
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_match', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_match', $pattern);
         }
         return $result;
     }
     /**
-     * @param string   $pattern
+     * @param non-empty-string   $pattern
      * @param string   $subject
      * @param array<int|string, list<string|null>> $matches Set by method
      * @param int      $flags PREG_UNMATCHED_AS_NULL, only available on PHP 7.2+
      * @param int      $offset
-     * @return int
+     * @return 0|positive-int
      */
     public static function matchAll($pattern, $subject, &$matches = null, $flags = 0, $offset = 0)
     {
@@ -70,19 +70,19 @@ class Preg
         }
         $result = \preg_match_all($pattern, $subject, $matches, $flags, $offset);
         if ($result === \false || $result === null) {
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_match_all', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_match_all', $pattern);
         }
         return $result;
     }
     /**
      * Runs preg_match_all with PREG_OFFSET_CAPTURE
      *
-     * @param string   $pattern
+     * @param non-empty-string   $pattern
      * @param string   $subject
      * @param array<int|string, list<array{string|null, int}>> $matches Set by method
      * @param int      $flags PREG_UNMATCHED_AS_NULL, only available on PHP 7.2+
      * @param int      $offset
-     * @return int
+     * @return 0|positive-int
      *
      * @phpstan-param array<int|string, list<array{string|null, int<-1, max>}>> $matches
      */
@@ -90,7 +90,7 @@ class Preg
     {
         $result = \preg_match_all($pattern, $subject, $matches, $flags | \PREG_OFFSET_CAPTURE, $offset);
         if ($result === \false || $result === null) {
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_match_all', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_match_all', $pattern);
         }
         return $result;
     }
@@ -110,7 +110,7 @@ class Preg
         }
         $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
         if ($result === null) {
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_replace', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_replace', $pattern);
         }
         return $result;
     }
@@ -135,7 +135,7 @@ class Preg
             $result = \preg_replace_callback($pattern, $replacement, $subject, $limit, $count);
         }
         if ($result === null) {
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_replace_callback', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_replace_callback', $pattern);
         }
         return $result;
     }
@@ -162,7 +162,7 @@ class Preg
         }
         if ($result === null) {
             $pattern = \array_keys($pattern);
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_replace_callback_array', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_replace_callback_array', $pattern);
         }
         return $result;
     }
@@ -180,7 +180,7 @@ class Preg
         }
         $result = \preg_split($pattern, $subject, $limit, $flags);
         if ($result === \false) {
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_split', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_split', $pattern);
         }
         return $result;
     }
@@ -196,9 +196,8 @@ class Preg
     {
         $result = \preg_split($pattern, $subject, $limit, $flags | \PREG_SPLIT_OFFSET_CAPTURE);
         if ($result === \false) {
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_split', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_split', $pattern);
         }
-        // @phpstan-ignore-next-line See https://github.com/phpstan/phpstan/issues/6155
         return $result;
     }
     /**
@@ -212,12 +211,12 @@ class Preg
     {
         $result = \preg_grep($pattern, $array, $flags);
         if ($result === \false) {
-            throw \ECSPrefix20220121\Composer\Pcre\PcreException::fromFunction('preg_grep', $pattern);
+            throw \ECSPrefix20220123\Composer\Pcre\PcreException::fromFunction('preg_grep', $pattern);
         }
         return $result;
     }
     /**
-     * @param string   $pattern
+     * @param non-empty-string   $pattern
      * @param string   $subject
      * @param array<string|null> $matches Set by method
      * @param int      $flags PREG_UNMATCHED_AS_NULL, only available on PHP 7.2+
@@ -229,7 +228,7 @@ class Preg
         return (bool) static::match($pattern, $subject, $matches, $flags, $offset);
     }
     /**
-     * @param string   $pattern
+     * @param non-empty-string   $pattern
      * @param string   $subject
      * @param array<int|string, list<string|null>> $matches Set by method
      * @param int      $flags PREG_UNMATCHED_AS_NULL, only available on PHP 7.2+
@@ -241,9 +240,9 @@ class Preg
         return (bool) static::matchAll($pattern, $subject, $matches, $flags, $offset);
     }
     /**
-     * Runs preg_match_all with PREG_OFFSET_CAPTURE
+     * Runs preg_match with PREG_OFFSET_CAPTURE
      *
-     * @param string   $pattern
+     * @param non-empty-string   $pattern
      * @param string   $subject
      * @param array<int|string, array{string|null, int}> $matches Set by method
      * @param int      $flags PREG_UNMATCHED_AS_NULL, only available on PHP 7.2+
@@ -259,7 +258,7 @@ class Preg
     /**
      * Runs preg_match_all with PREG_OFFSET_CAPTURE
      *
-     * @param string   $pattern
+     * @param non-empty-string   $pattern
      * @param string   $subject
      * @param array<int|string, list<array{string|null, int}>> $matches Set by method
      * @param int      $flags PREG_UNMATCHED_AS_NULL, only available on PHP 7.2+
