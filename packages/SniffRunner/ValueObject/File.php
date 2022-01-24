@@ -9,6 +9,7 @@ use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PHP_CodeSniffer\Util\Common;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
@@ -26,7 +27,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      *
      * @var array<class-string<Sniff>>
      */
-    private const REPORT_WARNINGS_SNIFFS = ['\\PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\CodeAnalysis\\AssignmentInConditionSniff', \PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff::class];
+    private const REPORT_WARNINGS_SNIFFS = ['\\PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\CodeAnalysis\\AssignmentInConditionSniff', \PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff::class, \PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff::class];
     /**
      * @var string
      */
