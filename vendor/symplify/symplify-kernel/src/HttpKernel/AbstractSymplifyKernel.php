@@ -3,8 +3,10 @@
 declare (strict_types=1);
 namespace ECSPrefix20220124\Symplify\SymplifyKernel\HttpKernel;
 
+use ECSPrefix20220124\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20220124\Symfony\Component\DependencyInjection\Container;
 use ECSPrefix20220124\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220124\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use ECSPrefix20220124\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use ECSPrefix20220124\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory;
 use ECSPrefix20220124\Symplify\SymplifyKernel\ContainerBuilderFactory;
@@ -21,6 +23,8 @@ abstract class AbstractSymplifyKernel implements \ECSPrefix20220124\Symplify\Sym
      */
     private $container = null;
     /**
+     * @param ExtensionInterface[] $extensions
+     * @param CompilerPassInterface[] $compilerPasses
      * @param string[] $configFiles
      */
     public function create(array $extensions, array $compilerPasses, array $configFiles) : \ECSPrefix20220124\Symfony\Component\DependencyInjection\ContainerInterface
