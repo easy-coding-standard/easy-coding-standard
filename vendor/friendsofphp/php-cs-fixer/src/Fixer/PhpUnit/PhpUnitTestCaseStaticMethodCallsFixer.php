@@ -25,7 +25,7 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20220123\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20220124\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
@@ -331,10 +331,10 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('call_type', 'The call type to use for referring to PHPUnit methods.'))->setAllowedTypes(['string'])->setAllowedValues(\array_keys($this->allowedValues))->setDefault('static')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('methods', 'Dictionary of `method` => `call_type` values that differ from the default strategy.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) use($thisFixer) : bool {
             foreach ($option as $method => $value) {
                 if (!isset($thisFixer->staticMethods[$method])) {
-                    throw new \ECSPrefix20220123\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected "methods" key, expected any of "%s", got "%s".', \implode('", "', \array_keys($thisFixer->staticMethods)), \gettype($method) . '#' . $method));
+                    throw new \ECSPrefix20220124\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected "methods" key, expected any of "%s", got "%s".', \implode('", "', \array_keys($thisFixer->staticMethods)), \gettype($method) . '#' . $method));
                 }
                 if (!isset($thisFixer->allowedValues[$value])) {
-                    throw new \ECSPrefix20220123\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected value for method "%s", expected any of "%s", got "%s".', $method, \implode('", "', \array_keys($thisFixer->allowedValues)), \is_object($value) ? \get_class($value) : (null === $value ? 'null' : \gettype($value) . '#' . $value)));
+                    throw new \ECSPrefix20220124\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected value for method "%s", expected any of "%s", got "%s".', $method, \implode('", "', \array_keys($thisFixer->allowedValues)), \is_object($value) ? \get_class($value) : (null === $value ? 'null' : \gettype($value) . '#' . $value)));
                 }
             }
             return \true;

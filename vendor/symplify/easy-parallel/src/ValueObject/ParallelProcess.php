@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220123\Symplify\EasyParallel\ValueObject;
+namespace ECSPrefix20220124\Symplify\EasyParallel\ValueObject;
 
-use ECSPrefix20220123\Clue\React\NDJson\Decoder;
-use ECSPrefix20220123\Clue\React\NDJson\Encoder;
+use ECSPrefix20220124\Clue\React\NDJson\Decoder;
+use ECSPrefix20220124\Clue\React\NDJson\Encoder;
 use Exception;
-use ECSPrefix20220123\React\ChildProcess\Process;
-use ECSPrefix20220123\React\EventLoop\LoopInterface;
-use ECSPrefix20220123\React\EventLoop\TimerInterface;
-use ECSPrefix20220123\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix20220123\Symplify\EasyParallel\Enum\Content;
-use ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactCommand;
-use ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactEvent;
-use ECSPrefix20220123\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use ECSPrefix20220124\React\ChildProcess\Process;
+use ECSPrefix20220124\React\EventLoop\LoopInterface;
+use ECSPrefix20220124\React\EventLoop\TimerInterface;
+use ECSPrefix20220124\Symplify\EasyParallel\Enum\Action;
+use ECSPrefix20220124\Symplify\EasyParallel\Enum\Content;
+use ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactCommand;
+use ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactEvent;
+use ECSPrefix20220124\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
 use Throwable;
 /**
  * Inspired at @see https://raw.githubusercontent.com/phpstan/phpstan-src/master/src/Parallel/Process.php
@@ -56,7 +56,7 @@ final class ParallelProcess
      * @var int
      */
     private $timetoutInSeconds;
-    public function __construct(string $command, \ECSPrefix20220123\React\EventLoop\LoopInterface $loop, int $timetoutInSeconds)
+    public function __construct(string $command, \ECSPrefix20220124\React\EventLoop\LoopInterface $loop, int $timetoutInSeconds)
     {
         $this->command = $command;
         $this->loop = $loop;
@@ -71,14 +71,14 @@ final class ParallelProcess
     {
         $tmp = \tmpfile();
         if ($tmp === \false) {
-            throw new \ECSPrefix20220123\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException('Failed creating temp file.');
+            throw new \ECSPrefix20220124\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException('Failed creating temp file.');
         }
         $this->stdErr = $tmp;
-        $this->process = new \ECSPrefix20220123\React\ChildProcess\Process($this->command, null, null, [2 => $this->stdErr]);
+        $this->process = new \ECSPrefix20220124\React\ChildProcess\Process($this->command, null, null, [2 => $this->stdErr]);
         $this->process->start($this->loop);
         $this->onData = $onData;
         $this->onError = $onError;
-        $this->process->on(\ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactEvent::EXIT, function ($exitCode) use($onExit) : void {
+        $this->process->on(\ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactEvent::EXIT, function ($exitCode) use($onExit) : void {
             $this->cancelTimer();
             \rewind($this->stdErr);
             /** @var string $streamContents */
@@ -112,22 +112,22 @@ final class ParallelProcess
         $this->encoder->end();
         $this->process->terminate();
     }
-    public function bindConnection(\ECSPrefix20220123\Clue\React\NDJson\Decoder $decoder, \ECSPrefix20220123\Clue\React\NDJson\Encoder $encoder) : void
+    public function bindConnection(\ECSPrefix20220124\Clue\React\NDJson\Decoder $decoder, \ECSPrefix20220124\Clue\React\NDJson\Encoder $encoder) : void
     {
-        $decoder->on(\ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactEvent::DATA, function (array $json) : void {
+        $decoder->on(\ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactEvent::DATA, function (array $json) : void {
             $this->cancelTimer();
-            if ($json[\ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactCommand::ACTION] !== \ECSPrefix20220123\Symplify\EasyParallel\Enum\Action::RESULT) {
+            if ($json[\ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactCommand::ACTION] !== \ECSPrefix20220124\Symplify\EasyParallel\Enum\Action::RESULT) {
                 return;
             }
             $onData = $this->onData;
-            $onData($json[\ECSPrefix20220123\Symplify\EasyParallel\Enum\Content::RESULT]);
+            $onData($json[\ECSPrefix20220124\Symplify\EasyParallel\Enum\Content::RESULT]);
         });
         $this->encoder = $encoder;
-        $decoder->on(\ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactEvent::ERROR, function (\Throwable $error) : void {
+        $decoder->on(\ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactEvent::ERROR, function (\Throwable $error) : void {
             $onError = $this->onError;
             $onError($error);
         });
-        $encoder->on(\ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactEvent::ERROR, function (\Throwable $error) : void {
+        $encoder->on(\ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactEvent::ERROR, function (\Throwable $error) : void {
             $onError = $this->onError;
             $onError($error);
         });

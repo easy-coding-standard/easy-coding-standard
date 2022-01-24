@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20220123\Clue\React\NDJson\Decoder;
-use ECSPrefix20220123\Clue\React\NDJson\Encoder;
-use ECSPrefix20220123\React\EventLoop\StreamSelectLoop;
-use ECSPrefix20220123\React\Socket\ConnectionInterface;
-use ECSPrefix20220123\React\Socket\TcpConnector;
-use ECSPrefix20220123\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220123\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220124\Clue\React\NDJson\Decoder;
+use ECSPrefix20220124\Clue\React\NDJson\Encoder;
+use ECSPrefix20220124\React\EventLoop\StreamSelectLoop;
+use ECSPrefix20220124\React\Socket\ConnectionInterface;
+use ECSPrefix20220124\React\Socket\TcpConnector;
+use ECSPrefix20220124\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220124\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Parallel\WorkerRunner;
-use ECSPrefix20220123\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactCommand;
+use ECSPrefix20220124\Symplify\EasyParallel\Enum\Action;
+use ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactCommand;
 /**
  * Inspired at: https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92
  * https://github.com/phpstan/phpstan-src/blob/c471c7b050e0929daf432288770de673b394a983/src/Command/WorkerCommand.php
@@ -37,18 +37,18 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         $this->setDescription('(Internal) Support for parallel process');
         parent::configure();
     }
-    protected function execute(\ECSPrefix20220123\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220123\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20220124\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220124\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $configuration = $this->configurationFactory->createFromInput($input);
-        $streamSelectLoop = new \ECSPrefix20220123\React\EventLoop\StreamSelectLoop();
+        $streamSelectLoop = new \ECSPrefix20220124\React\EventLoop\StreamSelectLoop();
         $parallelIdentifier = $configuration->getParallelIdentifier();
-        $tcpConnector = new \ECSPrefix20220123\React\Socket\TcpConnector($streamSelectLoop);
+        $tcpConnector = new \ECSPrefix20220124\React\Socket\TcpConnector($streamSelectLoop);
         $promise = $tcpConnector->connect('127.0.0.1:' . $configuration->getParallelPort());
-        $promise->then(function (\ECSPrefix20220123\React\Socket\ConnectionInterface $connection) use($parallelIdentifier, $configuration) : void {
-            $inDecoder = new \ECSPrefix20220123\Clue\React\NDJson\Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
-            $outEncoder = new \ECSPrefix20220123\Clue\React\NDJson\Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
+        $promise->then(function (\ECSPrefix20220124\React\Socket\ConnectionInterface $connection) use($parallelIdentifier, $configuration) : void {
+            $inDecoder = new \ECSPrefix20220124\Clue\React\NDJson\Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
+            $outEncoder = new \ECSPrefix20220124\Clue\React\NDJson\Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
             // handshake?
-            $outEncoder->write([\ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactCommand::ACTION => \ECSPrefix20220123\Symplify\EasyParallel\Enum\Action::HELLO, \ECSPrefix20220123\Symplify\EasyParallel\Enum\ReactCommand::IDENTIFIER => $parallelIdentifier]);
+            $outEncoder->write([\ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactCommand::ACTION => \ECSPrefix20220124\Symplify\EasyParallel\Enum\Action::HELLO, \ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactCommand::IDENTIFIER => $parallelIdentifier]);
             $this->workerRunner->run($outEncoder, $inDecoder, $configuration);
         });
         $streamSelectLoop->run();

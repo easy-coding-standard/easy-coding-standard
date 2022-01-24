@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220123\React\EventLoop;
+namespace ECSPrefix20220124\React\EventLoop;
 
 /**
  * @internal

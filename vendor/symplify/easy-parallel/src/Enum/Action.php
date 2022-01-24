@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220123\Symplify\EasyParallel\Enum;
+namespace ECSPrefix20220124\Symplify\EasyParallel\Enum;
 
 final class Action
 {
