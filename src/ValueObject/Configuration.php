@@ -47,11 +47,16 @@ final class Configuration
      */
     private $parallelIdentifier = null;
     /**
+     * @var string|null
+     */
+    private $memoryLimit = null;
+    /**
      * @param string[] $sources
      * @param string|null $parallelPort
      * @param string|null $parallelIdentifier
+     * @param string|null $memoryLimit
      */
-    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $isParallel = \false, ?string $config = null, $parallelPort = null, $parallelIdentifier = null)
+    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $isParallel = \false, ?string $config = null, $parallelPort = null, $parallelIdentifier = null, $memoryLimit = null)
     {
         $this->isFixer = $isFixer;
         $this->shouldClearCache = $shouldClearCache;
@@ -63,6 +68,7 @@ final class Configuration
         $this->config = $config;
         $this->parallelPort = $parallelPort;
         $this->parallelIdentifier = $parallelIdentifier;
+        $this->memoryLimit = $memoryLimit;
     }
     public function isFixer() : bool
     {
@@ -106,5 +112,9 @@ final class Configuration
     public function getParallelIdentifier() : ?string
     {
         return $this->parallelIdentifier;
+    }
+    public function getMemoryLimit() : ?string
+    {
+        return $this->memoryLimit;
     }
 }

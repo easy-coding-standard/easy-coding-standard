@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitec07957c0b7e7cbb5c54113db4ecc4a7
+class ComposerStaticInitdd2037562dd7e067de58baeeca07fb2b
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1705,6 +1705,7 @@ class ComposerStaticInitec07957c0b7e7cbb5c54113db4ecc4a7
         'Symplify\\EasyCodingStandard\\Error\\FileDiffFactory' => __DIR__ . '/../..' . '/src/Error/FileDiffFactory.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\ConflictingCheckersLoadedException' => __DIR__ . '/../..' . '/src/Exception/Configuration/ConflictingCheckersLoadedException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\FileNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/FileNotFoundException.php',
+        'Symplify\\EasyCodingStandard\\Exception\\Configuration\\InitializationException' => __DIR__ . '/../..' . '/src/Exception/Configuration/InitializationException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\OutputFormatterNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/OutputFormatterNotFoundException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\SourceNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/SourceNotFoundException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\WhitespaceConfigurationException' => __DIR__ . '/../..' . '/src/Exception/Configuration/WhitespaceConfigurationException.php',
@@ -1719,6 +1720,7 @@ class ComposerStaticInitec07957c0b7e7cbb5c54113db4ecc4a7
         'Symplify\\EasyCodingStandard\\FixerRunner\\WhitespacesFixerConfigFactory' => __DIR__ . '/../..' . '/packages/FixerRunner/WhitespacesFixerConfigFactory.php',
         'Symplify\\EasyCodingStandard\\Guard\\LoadedCheckersGuard' => __DIR__ . '/../..' . '/src/Guard/LoadedCheckersGuard.php',
         'Symplify\\EasyCodingStandard\\Kernel\\EasyCodingStandardKernel' => __DIR__ . '/../..' . '/src/Kernel/EasyCodingStandardKernel.php',
+        'Symplify\\EasyCodingStandard\\MemoryLimitter' => __DIR__ . '/../..' . '/src/MemoryLimitter.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor' => __DIR__ . '/../..' . '/packages/Parallel/Application/ParallelFileProcessor.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Bridge' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Bridge.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Name' => __DIR__ . '/../..' . '/packages/Parallel/ValueObject/Name.php',
@@ -1754,9 +1756,9 @@ class ComposerStaticInitec07957c0b7e7cbb5c54113db4ecc4a7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitec07957c0b7e7cbb5c54113db4ecc4a7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitec07957c0b7e7cbb5c54113db4ecc4a7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitec07957c0b7e7cbb5c54113db4ecc4a7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdd2037562dd7e067de58baeeca07fb2b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdd2037562dd7e067de58baeeca07fb2b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitdd2037562dd7e067de58baeeca07fb2b::$classMap;
 
         }, null, ClassLoader::class);
     }

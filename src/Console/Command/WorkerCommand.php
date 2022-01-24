@@ -10,6 +10,7 @@ use ECSPrefix20220124\React\Socket\ConnectionInterface;
 use ECSPrefix20220124\React\Socket\TcpConnector;
 use ECSPrefix20220124\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220124\Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\MemoryLimitter;
 use Symplify\EasyCodingStandard\Parallel\WorkerRunner;
 use ECSPrefix20220124\Symplify\EasyParallel\Enum\Action;
 use ECSPrefix20220124\Symplify\EasyParallel\Enum\ReactCommand;
@@ -26,9 +27,14 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
      * @var \Symplify\EasyCodingStandard\Parallel\WorkerRunner
      */
     private $workerRunner;
-    public function __construct(\Symplify\EasyCodingStandard\Parallel\WorkerRunner $workerRunner)
+    /**
+     * @var \Symplify\EasyCodingStandard\MemoryLimitter
+     */
+    private $memoryLimitter;
+    public function __construct(\Symplify\EasyCodingStandard\Parallel\WorkerRunner $workerRunner, \Symplify\EasyCodingStandard\MemoryLimitter $memoryLimitter)
     {
         $this->workerRunner = $workerRunner;
+        $this->memoryLimitter = $memoryLimitter;
         parent::__construct();
     }
     protected function configure() : void
@@ -40,6 +46,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
     protected function execute(\ECSPrefix20220124\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220124\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $configuration = $this->configurationFactory->createFromInput($input);
+        $this->memoryLimitter->adjust($configuration);
         $streamSelectLoop = new \ECSPrefix20220124\React\EventLoop\StreamSelectLoop();
         $parallelIdentifier = $configuration->getParallelIdentifier();
         $tcpConnector = new \ECSPrefix20220124\React\Socket\TcpConnector($streamSelectLoop);

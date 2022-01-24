@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\Console\Command;
 
 use ECSPrefix20220124\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220124\Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\MemoryLimitter;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
@@ -12,9 +13,14 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
      * @var \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter
      */
     private $processedFileReporter;
-    public function __construct(\Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter)
+    /**
+     * @var \Symplify\EasyCodingStandard\MemoryLimitter
+     */
+    private $memoryLimitter;
+    public function __construct(\Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter, \Symplify\EasyCodingStandard\MemoryLimitter $memoryLimitter)
     {
         $this->processedFileReporter = $processedFileReporter;
+        $this->memoryLimitter = $memoryLimitter;
         parent::__construct();
     }
     protected function configure() : void
@@ -30,6 +36,7 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
             return self::FAILURE;
         }
         $configuration = $this->configurationFactory->createFromInput($input);
+        $this->memoryLimitter->adjust($configuration);
         $errorsAndDiffs = $this->easyCodingStandardApplication->run($configuration, $input);
         return $this->processedFileReporter->report($errorsAndDiffs, $configuration);
     }

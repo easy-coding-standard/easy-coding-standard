@@ -32,12 +32,14 @@ final class ConfigurationFactory
         $parallelPort = (string) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_PORT);
         $parallelIdentifier = (string) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_IDENTIFIER);
         $outputFormat = (string) $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT);
+        /** @var string|null $memoryLimit */
+        $memoryLimit = $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::MEMORY_LIMIT);
         $isParallel = $this->parameterProvider->provideBoolParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL);
         $config = $input->getOption(\Symplify\EasyCodingStandard\ValueObject\Option::CONFIG);
         if ($config !== null) {
             $config = (string) $config;
         }
-        return new \Symplify\EasyCodingStandard\ValueObject\Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $isParallel, $config, $parallelPort, $parallelIdentifier);
+        return new \Symplify\EasyCodingStandard\ValueObject\Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $isParallel, $config, $parallelPort, $parallelIdentifier, $memoryLimit);
     }
     private function canShowProgressBar(\ECSPrefix20220124\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
