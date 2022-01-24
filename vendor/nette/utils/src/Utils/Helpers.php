@@ -7,6 +7,7 @@
 declare (strict_types=1);
 namespace ECSPrefix20220124\Nette\Utils;
 
+use ECSPrefix20220124\Nette;
 class Helpers
 {
     /**
@@ -54,7 +55,7 @@ class Helpers
     public static function clamp($value, $min, $max)
     {
         if ($min > $max) {
-            throw new \InvalidArgumentException("Minimum ({$min}) is not less than maximum ({$max}).");
+            throw new \ECSPrefix20220124\Nette\InvalidArgumentException("Minimum ({$min}) is not less than maximum ({$max}).");
         }
         return \min(\max($value, $min), $max);
     }
