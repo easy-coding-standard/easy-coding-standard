@@ -26,7 +26,7 @@ final class TypeExpression
      * @internal
      */
     public const REGEX_TYPES = '
-    (?<types> # alternation of several types separated by `|`
+    (?<types> # several types separated by `|` or `&`
         (?<type> # single type
             \\?? # optionally nullable
             (?:
@@ -85,13 +85,9 @@ final class TypeExpression
                     [\\\\\\w-]++
                 )
             )
-            (?: # intersection
-                \\h*&\\h*
-                (?&type)
-            )*
         )
         (?:
-            \\h*\\|\\h*
+            \\h*[|&]\\h*
             (?&type)
         )*
     )
@@ -116,7 +112,7 @@ final class TypeExpression
         while ('' !== $value) {
             \PhpCsFixer\Preg::match('{^' . self::REGEX_TYPES . '$}x', $value, $matches);
             $this->types[] = $matches['type'];
-            $value = \PhpCsFixer\Preg::replace('/^' . \preg_quote($matches['type'], '/') . '(\\h*\\|\\h*)?/', '', $value);
+            $value = \PhpCsFixer\Preg::replace('/^' . \preg_quote($matches['type'], '/') . '(\\h*[|&]\\h*)?/', '', $value);
         }
         $this->namespace = $namespace;
         $this->namespaceUses = $namespaceUses;

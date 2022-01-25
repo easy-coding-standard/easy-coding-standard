@@ -25,7 +25,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220124\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix20220125\Symfony\Component\OptionsResolver\Options;
 /**
  * @author Antonio J. García Lagar <aj@garcialagar.es>
  */
@@ -100,15 +100,14 @@ echo 1;
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $location = $this->configuration['location'];
-        $locationIndexes = [];
+        $locationIndices = [];
         foreach (['after_open', 'after_declare_strict'] as $possibleLocation) {
             $locationIndex = $this->findHeaderCommentInsertionIndex($tokens, $possibleLocation);
-            if (!isset($locationIndexes[$locationIndex]) || $possibleLocation === $location) {
-                $locationIndexes[$locationIndex] = $possibleLocation;
-                continue;
+            if (!isset($locationIndices[$locationIndex]) || $possibleLocation === $location) {
+                $locationIndices[$locationIndex] = $possibleLocation;
             }
         }
-        foreach (\array_values($locationIndexes) as $possibleLocation) {
+        foreach ($locationIndices as $possibleLocation) {
             // figure out where the comment should be placed
             $headerNewIndex = $this->findHeaderCommentInsertionIndex($tokens, $possibleLocation);
             // check if there is already a comment
@@ -143,7 +142,7 @@ echo 1;
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $fixerName = $this->getName();
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('header', 'Proper header content.'))->setAllowedTypes(['string'])->setNormalizer(static function (\ECSPrefix20220124\Symfony\Component\OptionsResolver\Options $options, string $value) use($fixerName) : string {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('header', 'Proper header content.'))->setAllowedTypes(['string'])->setNormalizer(static function (\ECSPrefix20220125\Symfony\Component\OptionsResolver\Options $options, string $value) use($fixerName) : string {
             if ('' === \trim($value)) {
                 return '';
             }

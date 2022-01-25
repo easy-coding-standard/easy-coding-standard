@@ -42,7 +42,7 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
-        // fetch indexes one time, this is safe as we never add or remove a token during fixing
+        // fetch indices one time, this is safe as we never add or remove a token during fixing
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $this->classyElements = $analyzer->getClassyElements();
         /** @var Token $docCommentToken */

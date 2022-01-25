@@ -35,7 +35,7 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      *
-     * Must run before FunctionToConstantFixer, StringLengthToEmptyFixer.
+     * Must run before FunctionToConstantFixer, GetClassToClassKeywordFixer, StringLengthToEmptyFixer.
      * Must run after CombineConsecutiveIssetsFixer, CombineNestedDirnameFixer, LambdaNotUsedImportFixer, ModernizeStrposFixer, NoUselessSprintfFixer, PowToExponentiationFixer.
      */
     public function getPriority() : int

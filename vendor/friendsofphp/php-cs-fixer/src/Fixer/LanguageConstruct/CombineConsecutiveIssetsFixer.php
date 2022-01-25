@@ -90,29 +90,29 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param int[] $indexes
+     * @param int[] $indices
      */
-    private function clearTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes) : void
+    private function clearTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices) : void
     {
-        foreach ($indexes as $index) {
+        foreach ($indices as $index) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index);
         }
     }
     /**
      * @param int $index of T_ISSET
      *
-     * @return int[] indexes of meaningful tokens belonging to the isset statement
+     * @return int[] indices of meaningful tokens belonging to the isset statement
      */
     private function getIssetInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : array
     {
         $openIndex = $tokens->getNextMeaningfulToken($index);
         $braceOpenCount = 1;
-        $meaningfulTokenIndexes = [$openIndex];
+        $meaningfulTokenIndices = [$openIndex];
         for ($i = $openIndex + 1;; ++$i) {
             if ($tokens[$i]->isWhitespace() || $tokens[$i]->isComment()) {
                 continue;
             }
-            $meaningfulTokenIndexes[] = $i;
+            $meaningfulTokenIndices[] = $i;
             if ($tokens[$i]->equals(')')) {
                 --$braceOpenCount;
                 if (0 === $braceOpenCount) {
@@ -122,17 +122,17 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
                 ++$braceOpenCount;
             }
         }
-        return $meaningfulTokenIndexes;
+        return $meaningfulTokenIndices;
     }
     /**
-     * @param int[] $indexes
+     * @param int[] $indices
      *
      * @return Token[]
      */
-    private function getTokenClones(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes) : array
+    private function getTokenClones(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices) : array
     {
         $clones = [];
-        foreach ($indexes as $i) {
+        foreach ($indices as $i) {
             $clones[] = clone $tokens[$i];
         }
         return $clones;

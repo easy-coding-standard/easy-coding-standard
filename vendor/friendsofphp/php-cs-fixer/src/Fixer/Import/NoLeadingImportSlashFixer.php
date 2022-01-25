@@ -55,8 +55,8 @@ final class NoLeadingImportSlashFixer extends \PhpCsFixer\AbstractFixer
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
-        $usesIndexes = $tokensAnalyzer->getImportUseIndexes();
-        foreach ($usesIndexes as $idx) {
+        $usesIndices = $tokensAnalyzer->getImportUseIndexes();
+        foreach ($usesIndices as $idx) {
             $nextTokenIdx = $tokens->getNextMeaningfulToken($idx);
             $nextToken = $tokens[$nextTokenIdx];
             if ($nextToken->isGivenKind(\T_NS_SEPARATOR)) {

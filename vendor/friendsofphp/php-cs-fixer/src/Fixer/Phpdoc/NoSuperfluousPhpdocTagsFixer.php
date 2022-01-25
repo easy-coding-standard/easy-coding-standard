@@ -271,7 +271,7 @@ class Foo {
         $types = [];
         while (\true) {
             $type = '';
-            while ($tokens[$index]->isGivenKind([\T_NS_SEPARATOR, \T_STATIC, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \T_CALLABLE, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION])) {
+            while ($tokens[$index]->isGivenKind([\T_NS_SEPARATOR, \T_STATIC, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \T_CALLABLE])) {
                 $type .= $tokens[$index]->getContent();
                 $index = $tokens->getNextMeaningfulToken($index);
             }
@@ -279,7 +279,7 @@ class Foo {
                 break;
             }
             $types[] = $type;
-            if (!$tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION)) {
+            if (!$tokens[$index]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION])) {
                 break;
             }
             $index = $tokens->getNextMeaningfulToken($index);

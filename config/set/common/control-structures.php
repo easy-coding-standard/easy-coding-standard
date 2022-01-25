@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220124;
+namespace ECSPrefix20220125;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer;

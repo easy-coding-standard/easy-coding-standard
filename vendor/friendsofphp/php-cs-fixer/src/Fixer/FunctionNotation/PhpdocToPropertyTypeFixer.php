@@ -95,11 +95,11 @@ class Foo {
                 continue;
             }
             $docCommentIndex = $index;
-            $propertyIndexes = $this->findNextUntypedPropertiesDeclaration($tokens, $docCommentIndex);
-            if ([] === $propertyIndexes) {
+            $propertyIndices = $this->findNextUntypedPropertiesDeclaration($tokens, $docCommentIndex);
+            if ([] === $propertyIndices) {
                 continue;
             }
-            $typeInfo = $this->resolveApplicableType($propertyIndexes, $this->getAnnotationsFromDocComment('var', $tokens, $docCommentIndex));
+            $typeInfo = $this->resolveApplicableType($propertyIndices, $this->getAnnotationsFromDocComment('var', $tokens, $docCommentIndex));
             if (null === $typeInfo) {
                 continue;
             }
@@ -108,8 +108,8 @@ class Foo {
                 continue;
             }
             $newTokens = \array_merge($this->createTypeDeclarationTokens($propertyType, $isNullable), [new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]);
-            $tokens->insertAt(\current($propertyIndexes), $newTokens);
-            $index = \max($propertyIndexes) + \count($newTokens) + 1;
+            $tokens->insertAt(\current($propertyIndices), $newTokens);
+            $index = \max($propertyIndices) + \count($newTokens) + 1;
             $classEndIndex += \count($newTokens);
         }
     }
@@ -134,21 +134,21 @@ class Foo {
         return $properties;
     }
     /**
-     * @param array<string, int> $propertyIndexes
+     * @param array<string, int> $propertyIndices
      * @param Annotation[]       $annotations
      */
-    private function resolveApplicableType(array $propertyIndexes, array $annotations) : ?array
+    private function resolveApplicableType(array $propertyIndices, array $annotations) : ?array
     {
         $propertyTypes = [];
         foreach ($annotations as $annotation) {
             $propertyName = $annotation->getVariableName();
             if (null === $propertyName) {
-                if (1 !== \count($propertyIndexes)) {
+                if (1 !== \count($propertyIndices)) {
                     continue;
                 }
-                $propertyName = \key($propertyIndexes);
+                $propertyName = \key($propertyIndices);
             }
-            if (!isset($propertyIndexes[$propertyName])) {
+            if (!isset($propertyIndices[$propertyName])) {
                 continue;
             }
             $typeInfo = $this->getCommonTypeFromAnnotation($annotation, \false);
@@ -159,7 +159,7 @@ class Foo {
             }
             $propertyTypes[$propertyName] = $typeInfo;
         }
-        if (\count($propertyTypes) !== \count($propertyIndexes)) {
+        if (\count($propertyTypes) !== \count($propertyIndices)) {
             return null;
         }
         $type = \array_shift($propertyTypes);

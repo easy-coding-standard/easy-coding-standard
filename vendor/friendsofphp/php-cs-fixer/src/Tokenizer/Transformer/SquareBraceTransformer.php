@@ -114,12 +114,23 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
             return \false;
         }
         static $disallowedPrevTokens = [')', ']', '"', [\T_CONSTANT_ENCAPSED_STRING], [\T_STRING], [\T_STRING_VARNAME], [\T_VARIABLE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE]];
-        $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
+        $prevIndex = $tokens->getPrevMeaningfulToken($index);
+        $prevToken = $tokens[$prevIndex];
         if ($prevToken->equalsAny($disallowedPrevTokens)) {
             return \false;
         }
         if ($prevToken->isGivenKind(\T_AS)) {
             return \true;
+        }
+        if ($prevToken->isGivenKind(\T_DOUBLE_ARROW)) {
+            $variableIndex = $tokens->getPrevMeaningfulToken($prevIndex);
+            if (!$tokens[$variableIndex]->isGivenKind(\T_VARIABLE)) {
+                return \false;
+            }
+            $prevVariableIndex = $tokens->getPrevMeaningfulToken($variableIndex);
+            if ($tokens[$prevVariableIndex]->isGivenKind(\T_AS)) {
+                return \true;
+            }
         }
         $type = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
         $end = $tokens->findBlockEnd($type['type'], $index);

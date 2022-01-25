@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220124;
+namespace ECSPrefix20220125;
 
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
 use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;

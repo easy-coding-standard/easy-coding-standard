@@ -73,7 +73,7 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
                 if (null === $match) {
                     break;
                 }
-                // findSequence also returns the tokens, but we're only interested in the indexes, i.e.:
+                // findSequence also returns the tokens, but we're only interested in the indices, i.e.:
                 // 0 => function name,
                 // 1 => bracket "("
                 // 2 => quoted string passed as 1st parameter

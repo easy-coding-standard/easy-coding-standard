@@ -56,7 +56,7 @@ final class Example
         }
     }
     /**
-     * @param int[] $candidates ',' indexes to fix
+     * @param int[] $candidates ',' indices to fix
      */
     private function fixTraitUse(\PhpCsFixer\Tokenizer\Tokens $tokens, int $useTraitIndex, array $candidates) : void
     {
@@ -78,16 +78,16 @@ final class Example
      */
     private function getCandidates(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : array
     {
-        $indexes = [];
+        $indices = [];
         $index = $tokens->getNextTokenOfKind($index, [',', ';', '{']);
         while (!$tokens[$index]->equals(';')) {
             if ($tokens[$index]->equals('{')) {
                 return [];
                 // do not fix use cases with grouping
             }
-            $indexes[] = $index;
+            $indices[] = $index;
             $index = $tokens->getNextTokenOfKind($index, [',', ';', '{']);
         }
-        return \array_reverse($indexes);
+        return \array_reverse($indices);
     }
 }

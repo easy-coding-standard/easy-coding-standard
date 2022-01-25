@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220124;
+namespace ECSPrefix20220125;
 
 use PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer;
 use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;

@@ -22,6 +22,7 @@ final class PHP80MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractMigration
     {
         return [
             '@PHP74Migration:risky' => \true,
+            'get_class_to_class_keyword' => \true,
             'modernize_strpos' => \true,
             'no_alias_functions' => ['sets' => ['@all']],
             'no_php4_constructor' => \true,

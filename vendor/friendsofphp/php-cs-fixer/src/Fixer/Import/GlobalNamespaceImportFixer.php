@@ -148,7 +148,7 @@ if (count($x)) {
             $other[$tokens[$index]->getContent()] = \true;
         }
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
-        $indexes = [];
+        $indices = [];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind(\T_STRING)) {
@@ -174,9 +174,9 @@ if (count($x)) {
             if ($tokens[$prevIndex]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR, \T_STRING])) {
                 continue;
             }
-            $indexes[] = $index;
+            $indices[] = $index;
         }
-        return $this->prepareImports($tokens, $indexes, $global, $other, \true);
+        return $this->prepareImports($tokens, $indices, $global, $other, \true);
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
@@ -192,7 +192,7 @@ if (count($x)) {
             $other[\strtolower($name)] = \true;
         }
         $analyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
-        $indexes = [];
+        $indices = [];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind(\T_STRING)) {
@@ -212,9 +212,9 @@ if (count($x)) {
                 }
                 continue;
             }
-            $indexes[] = $index;
+            $indices[] = $index;
         }
-        return $this->prepareImports($tokens, $indexes, $global, $other, \false);
+        return $this->prepareImports($tokens, $indices, $global, $other, \false);
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
@@ -251,7 +251,7 @@ if (count($x)) {
             }
         }
         $analyzer = new \PhpCsFixer\Tokenizer\Analyzer\ClassyAnalyzer();
-        $indexes = [];
+        $indices = [];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind(\T_STRING)) {
@@ -274,7 +274,7 @@ if (count($x)) {
             if ($tokens[$tokens->getPrevMeaningfulToken($nsSeparatorIndex)]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR, \T_STRING])) {
                 continue;
             }
-            $indexes[] = $index;
+            $indices[] = $index;
         }
         $imports = [];
         foreach ($docBlocks as $index => $docBlock) {
@@ -297,19 +297,19 @@ if (count($x)) {
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $docBlock->getContent()]);
             }
         }
-        return $imports + $this->prepareImports($tokens, $indexes, $global, $other, \false);
+        return $imports + $this->prepareImports($tokens, $indices, $global, $other, \false);
     }
     /**
-     * Removes the leading slash at the given indexes (when the name is not already used).
+     * Removes the leading slash at the given indices (when the name is not already used).
      *
-     * @param int[] $indexes
+     * @param int[] $indices
      *
      * @return array array keys contain the names that must be imported
      */
-    private function prepareImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes, array $global, array $other, bool $caseSensitive) : array
+    private function prepareImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices, array $global, array $other, bool $caseSensitive) : array
     {
         $imports = [];
-        foreach ($indexes as $index) {
+        foreach ($indices as $index) {
             $name = $tokens[$index]->getContent();
             $checkName = $caseSensitive ? $name : \strtolower($name);
             if (isset($other[$checkName])) {

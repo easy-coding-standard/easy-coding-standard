@@ -62,18 +62,18 @@ final class CleanNamespaceFixer extends \PhpCsFixer\AbstractLinesBeforeNamespace
             $tillIndex = $tokens->getNextMeaningfulToken($tillIndex);
         }
         $tillIndex = $tokens->getPrevMeaningfulToken($tillIndex);
-        $spaceIndexes = [];
+        $spaceIndices = [];
         for (; $index <= $tillIndex; ++$index) {
             if ($tokens[$index]->isGivenKind(\T_WHITESPACE)) {
-                $spaceIndexes[] = $index;
+                $spaceIndices[] = $index;
             } elseif ($tokens[$index]->isComment()) {
                 $tokens->clearAt($index);
             }
         }
         if ($tokens[$index - 1]->isWhitespace()) {
-            \array_pop($spaceIndexes);
+            \array_pop($spaceIndices);
         }
-        foreach ($spaceIndexes as $i) {
+        foreach ($spaceIndices as $i) {
             $tokens->clearAt($i);
         }
         return $index;

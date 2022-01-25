@@ -177,7 +177,7 @@ class Foo
             // using parent::ParentClassName() or ParentClassName::ParentClassName()
             $parentSeq = $tokens->findSequence([[\T_STRING], [\T_DOUBLE_COLON], [\T_STRING, $parentClass], '('], $classStart, $classEnd, [2 => \false]);
             if (null !== $parentSeq) {
-                // we only need indexes
+                // we only need indices
                 $parentSeq = \array_keys($parentSeq);
                 // match either of the possibilities
                 if ($tokens[$parentSeq[0]]->equalsAny([[\T_STRING, 'parent'], [\T_STRING, $parentClass]], \false)) {
@@ -190,7 +190,7 @@ class Foo
                 // using $this->ParentClassName()
                 $parentSeq = $tokens->findSequence([[\T_VARIABLE, '$this'], [$objectOperatorKind], [\T_STRING, $parentClass], '('], $classStart, $classEnd, [2 => \false]);
                 if (null !== $parentSeq) {
-                    // we only need indexes
+                    // we only need indices
                     $parentSeq = \array_keys($parentSeq);
                     // replace call with parent::__construct()
                     $tokens[$parentSeq[0]] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'parent']);
@@ -287,7 +287,7 @@ class Foo
         if (null === $function) {
             return null;
         }
-        // keep only the indexes
+        // keep only the indices
         $function = \array_keys($function);
         // find previous block, saving method modifiers for later use
         $possibleModifiers = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_STATIC, \T_ABSTRACT, \T_FINAL];

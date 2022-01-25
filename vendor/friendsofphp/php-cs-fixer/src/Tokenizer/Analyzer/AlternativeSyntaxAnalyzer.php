@@ -33,6 +33,6 @@ final class AlternativeSyntaxAnalyzer
         }
         $openParenthesisIndex = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $prevIndex);
         $beforeOpenParenthesisIndex = $tokens->getPrevMeaningfulToken($openParenthesisIndex);
-        return $tokens[$beforeOpenParenthesisIndex]->isGivenKind([\T_DECLARE, \T_FOR, \T_FOREACH, \T_IF, \T_SWITCH, \T_WHILE]);
+        return $tokens[$beforeOpenParenthesisIndex]->isGivenKind([\T_DECLARE, \T_ELSEIF, \T_FOR, \T_FOREACH, \T_IF, \T_SWITCH, \T_WHILE]);
     }
 }

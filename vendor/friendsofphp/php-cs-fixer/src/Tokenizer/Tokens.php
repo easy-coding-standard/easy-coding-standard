@@ -128,12 +128,12 @@ class Tokens extends \SplFixedArray
      * Create token collection from array.
      *
      * @param Token[] $array       the array to import
-     * @param ?bool   $saveIndexes save the numeric indexes used in the original array, default is yes
+     * @param ?bool   $saveIndices save the numeric indices used in the original array, default is yes
      */
-    public static function fromArray($array, $saveIndexes = null) : self
+    public static function fromArray($array, $saveIndices = null) : self
     {
         $tokens = new self(\count($array));
-        if (null === $saveIndexes || $saveIndexes) {
+        if (null === $saveIndices || $saveIndices) {
             foreach ($array as $key => $val) {
                 $tokens[$key] = $val;
             }
@@ -357,7 +357,7 @@ class Tokens extends \SplFixedArray
         return $code;
     }
     /**
-     * Generate code from tokens between given indexes.
+     * Generate code from tokens between given indices.
      *
      * @param int $start start index
      * @param int $end   end index
@@ -653,7 +653,7 @@ class Tokens extends \SplFixedArray
      * - should we deprecate `insertAt` method ?
      *
      * The `$slices` parameter is an assoc array, in which:
-     * - index: starting point for inserting of individual slice, with indexes being relatives to original array collection before any Token inserted
+     * - index: starting point for inserting of individual slice, with indices being relatives to original array collection before any Token inserted
      * - value under index: a slice of Tokens to be inserted
      *
      * @internal
@@ -675,25 +675,31 @@ class Tokens extends \SplFixedArray
         $this->blockEndCache = [];
         $this->setSize($oldSize + $itemsCount);
         \krsort($slices);
-        $insertBound = $oldSize - 1;
+        $farthestSliceIndex = \key($slices);
+        // We check only the farthest index, if it's within the size of collection, other indices will be valid too.
+        if (!\is_int($farthestSliceIndex) || $farthestSliceIndex > $oldSize) {
+            throw new \OutOfBoundsException(\sprintf('Cannot insert index "%s" outside of collection.', $farthestSliceIndex));
+        }
+        $previousSliceIndex = $oldSize;
         // since we only move already existing items around, we directly call into SplFixedArray::offset* methods.
         // that way we get around additional overhead this class adds with overridden offset* methods.
         foreach ($slices as $index => $slice) {
+            if (!\is_int($index) || $index < 0) {
+                throw new \OutOfBoundsException(\sprintf('Invalid index "%s".', $index));
+            }
             $slice = \is_array($slice) || $slice instanceof self ? $slice : [$slice];
             $sliceCount = \count($slice);
-            for ($i = $insertBound; $i >= $index; --$i) {
-                $oldItem = parent::offsetExists($i) ? parent::offsetGet($i) : new \PhpCsFixer\Tokenizer\Token('');
-                parent::offsetSet($i + $itemsCount, $oldItem);
+            for ($i = $previousSliceIndex - 1; $i >= $index; --$i) {
+                parent::offsetSet($i + $itemsCount, parent::offsetGet($i));
             }
-            $insertBound = $index - $sliceCount;
+            $previousSliceIndex = $index;
             $itemsCount -= $sliceCount;
             foreach ($slice as $indexItem => $item) {
                 if ('' === $item->getContent()) {
                     throw new \InvalidArgumentException('Must not add empty token to collection.');
                 }
                 $this->registerFoundToken($item);
-                $newOffset = $index + $itemsCount + $indexItem;
-                parent::offsetSet($newOffset, $item);
+                parent::offsetSet($index + $itemsCount + $indexItem, $item);
             }
         }
     }
@@ -702,10 +708,7 @@ class Tokens extends \SplFixedArray
      */
     public function isChanged() : bool
     {
-        if ($this->changed) {
-            return \true;
-        }
-        return \false;
+        return $this->changed;
     }
     public function isEmptyAt(int $index) : bool
     {
@@ -859,14 +862,16 @@ class Tokens extends \SplFixedArray
      */
     public function isMonolithicPhp() : bool
     {
-        $size = $this->count();
-        if (0 === $size) {
+        if (0 === $this->count()) {
             return \false;
         }
-        if ($this->isTokenKindFound(\T_INLINE_HTML)) {
+        if ($this->countTokenKind(\T_INLINE_HTML) > 1) {
             return \false;
         }
-        return 1 >= $this->countTokenKind(\T_OPEN_TAG) + $this->countTokenKind(\T_OPEN_TAG_WITH_ECHO);
+        if (1 === $this->countTokenKind(\T_INLINE_HTML)) {
+            return 1 === \PhpCsFixer\Preg::match('/^#!.+$/', $this[0]->getContent());
+        }
+        return 1 === $this->countTokenKind(\T_OPEN_TAG) + $this->countTokenKind(\T_OPEN_TAG_WITH_ECHO);
     }
     /**
      * @param int $start start index

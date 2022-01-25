@@ -138,6 +138,9 @@ yield  from  baz();
             if ($token->isGivenKind(\T_RETURN) && $this->isMultiLineReturn($tokens, $index)) {
                 continue;
             }
+            if ($token->isGivenKind(\T_CONST) && $this->isMultilineConstant($tokens, $index)) {
+                continue;
+            }
             if ($token->isComment() || $token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE)) {
                 if ($tokens[$whitespaceTokenIndex]->equals([\T_WHITESPACE]) && \strpos($tokens[$whitespaceTokenIndex]->getContent(), "\n") !== \false) {
                     continue;
@@ -193,5 +196,11 @@ yield  from  baz();
             }
         }
         return \false;
+    }
+    private function isMultilineConstant(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    {
+        $scopeEnd = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]) - 1;
+        $hasMoreThanOneConstant = null !== $tokens->findSequence([new \PhpCsFixer\Tokenizer\Token(',')], $index + 1, $scopeEnd);
+        return $hasMoreThanOneConstant && $tokens->isPartialCodeMultiline($index, $scopeEnd);
     }
 }

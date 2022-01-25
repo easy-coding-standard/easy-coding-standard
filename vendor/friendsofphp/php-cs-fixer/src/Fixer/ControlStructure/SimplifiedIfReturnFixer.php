@@ -73,11 +73,11 @@ final class SimplifiedIfReturnFixer extends \PhpCsFixer\AbstractFixer
                 if ($firstSequenceIndex !== $firstCandidateIndex) {
                     continue;
                 }
-                $indexesToClear = \array_keys($sequenceFound);
-                \array_pop($indexesToClear);
+                $indicesToClear = \array_keys($sequenceFound);
+                \array_pop($indicesToClear);
                 // Preserve last semicolon
-                \rsort($indexesToClear);
-                foreach ($indexesToClear as $index) {
+                \rsort($indicesToClear);
+                foreach ($indicesToClear as $index) {
                     $tokens->clearTokenAndMergeSurroundingWhitespace($index);
                 }
                 $newTokens = [new \PhpCsFixer\Tokenizer\Token([\T_RETURN, 'return']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];

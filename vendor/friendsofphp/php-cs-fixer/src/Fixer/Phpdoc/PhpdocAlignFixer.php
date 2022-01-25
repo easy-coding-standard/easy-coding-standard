@@ -45,7 +45,7 @@ final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      */
     public const ALIGN_VERTICAL = 'vertical';
     private const ALIGNABLE_TAGS = ['param', 'property', 'property-read', 'property-write', 'return', 'throws', 'type', 'var', 'method'];
-    private const TAGS_WITH_NAME = ['param', 'property'];
+    private const TAGS_WITH_NAME = ['param', 'property', 'property-read', 'property-write'];
     private const TAGS_WITH_METHOD_SIGNATURE = ['method'];
     /**
      * @var string
@@ -96,7 +96,7 @@ final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
         $code = <<<'EOF'
 <?php
 
-namespace ECSPrefix20220124;
+namespace ECSPrefix20220125;
 
 /**
  * @param  EngineInterface $templating

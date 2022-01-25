@@ -39,7 +39,7 @@ final class BacktickToShellExecFixer extends \PhpCsFixer\AbstractFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts backtick operators to `shell_exec` calls.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
 <?php
 
-namespace ECSPrefix20220124;
+namespace ECSPrefix20220125;
 
 $plain = `ls -lah`;
 $withVar = `ls -lah {$var1} {$var2} {$var3} {$var4[0]} {$var5->call()}`;
@@ -86,7 +86,7 @@ EOT
      */
     private function fixBackticks(\PhpCsFixer\Tokenizer\Tokens $tokens, array $backtickTokens) : void
     {
-        // Track indexes for final override
+        // Track indices for final override
         \ksort($backtickTokens);
         $openingBacktickIndex = \key($backtickTokens);
         \end($backtickTokens);

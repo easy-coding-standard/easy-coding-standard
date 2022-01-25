@@ -120,13 +120,22 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
                 }
                 if ($swapQuotes) {
                     $content = \str_replace('"', '\\"', $content);
-                    $content = \PhpCsFixer\Preg::replace('/^\'(.*)\'$/', '"$1"', $content);
+                    $content = \PhpCsFixer\Preg::replace('/^\'(.*)\'$/s', '"$1"', $content);
                 }
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), \strtr($content, $escapeSequences)]);
                 continue;
             }
             if ($token->isGivenKind(self::$tokens)) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), \strtr($content, $replacements)]);
+                $newContent = \strtr($content, $replacements);
+                // variable name cannot contain space
+                if ($token->isGivenKind([\T_STRING_VARNAME, \T_VARIABLE]) && \strpos($newContent, ' ') !== \false) {
+                    continue;
+                }
+                // multiline comment must have "*/" only at the end
+                if ($token->isGivenKind([\T_COMMENT, \T_DOC_COMMENT]) && \strncmp($newContent, '/*', \strlen('/*')) === 0 && \strpos($newContent, '*/') !== \strlen($newContent) - 2) {
+                    continue;
+                }
+                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $newContent]);
             }
         }
     }

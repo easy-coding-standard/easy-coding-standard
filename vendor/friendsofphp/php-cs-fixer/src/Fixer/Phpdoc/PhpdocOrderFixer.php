@@ -98,7 +98,7 @@ final class PhpdocOrderFixer extends \PhpCsFixer\AbstractFixer
         // move stuff about if required
         foreach ($others as $other) {
             if ($other->getStart() < $end) {
-                // we're doing this to maintain the original line indexes
+                // we're doing this to maintain the original line indices
                 $line->setContent($line->getContent() . $other->getContent());
                 $other->remove();
             }
@@ -127,7 +127,7 @@ final class PhpdocOrderFixer extends \PhpCsFixer\AbstractFixer
         // move stuff about if required
         foreach (\array_reverse($others) as $other) {
             if ($other->getEnd() > $start) {
-                // we're doing this to maintain the original line indexes
+                // we're doing this to maintain the original line indices
                 $line->setContent($other->getContent() . $line->getContent());
                 $other->remove();
             }

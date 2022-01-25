@@ -13,7 +13,7 @@ declare (strict_types=1);
 namespace PhpCsFixer\Differ;
 
 use PhpCsFixer\Preg;
-use ECSPrefix20220124\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20220125\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
@@ -41,7 +41,7 @@ final class DiffConsoleFormatter
         return \sprintf($template, \implode(\PHP_EOL, \array_map(static function (string $line) use($isDecorated, $lineTemplate) : string {
             if ($isDecorated) {
                 $count = 0;
-                $line = \PhpCsFixer\Preg::replaceCallback(['/^(\\+.*)/', '/^(\\-.*)/', '/^(@.*)/'], static function (array $matches) : string {
+                $line = \PhpCsFixer\Preg::replaceCallback('/^([+\\-@].*)/', static function (array $matches) : string {
                     if ('+' === $matches[0][0]) {
                         $colour = 'green';
                     } elseif ('-' === $matches[0][0]) {
@@ -49,10 +49,10 @@ final class DiffConsoleFormatter
                     } else {
                         $colour = 'cyan';
                     }
-                    return \sprintf('<fg=%s>%s</fg=%s>', $colour, \ECSPrefix20220124\Symfony\Component\Console\Formatter\OutputFormatter::escape($matches[0]), $colour);
+                    return \sprintf('<fg=%s>%s</fg=%s>', $colour, \ECSPrefix20220125\Symfony\Component\Console\Formatter\OutputFormatter::escape($matches[0]), $colour);
                 }, $line, 1, $count);
                 if (0 === $count) {
-                    $line = \ECSPrefix20220124\Symfony\Component\Console\Formatter\OutputFormatter::escape($line);
+                    $line = \ECSPrefix20220125\Symfony\Component\Console\Formatter\OutputFormatter::escape($line);
                 }
             }
             return \sprintf($lineTemplate, $line);

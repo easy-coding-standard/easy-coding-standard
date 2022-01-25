@@ -47,7 +47,7 @@ final class PhpUnitTestCaseIndicator
         return \false;
     }
     /**
-     * @return \Generator array of [int start, int end] indexes from sooner to later classes
+     * @return \Generator array of [int start, int end] indices from sooner to later classes
      */
     public function findPhpUnitClasses(\PhpCsFixer\Tokenizer\Tokens $tokens) : \Generator
     {

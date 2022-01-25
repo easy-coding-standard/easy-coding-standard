@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220124\Symplify\PackageBuilder\Exception;
+namespace ECSPrefix20220125\Symplify\PackageBuilder\Exception;
 
 use Exception;
 final class MissingPrivatePropertyException extends \Exception

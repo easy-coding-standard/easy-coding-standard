@@ -28,8 +28,8 @@ final class NamespaceUsesAnalyzer
     public function getDeclarationsFromTokens(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
         $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
-        $useIndexes = $tokenAnalyzer->getImportUseIndexes();
-        return $this->getDeclarations($tokens, $useIndexes);
+        $useIndices = $tokenAnalyzer->getImportUseIndexes();
+        return $this->getDeclarations($tokens, $useIndices);
     }
     /**
      * @return NamespaceUseAnalysis[]
@@ -47,10 +47,10 @@ final class NamespaceUsesAnalyzer
     /**
      * @return NamespaceUseAnalysis[]
      */
-    private function getDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useIndexes) : array
+    private function getDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useIndices) : array
     {
         $uses = [];
-        foreach ($useIndexes as $index) {
+        foreach ($useIndices as $index) {
             $endIndex = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
             $analysis = $this->parseDeclaration($tokens, $index, $endIndex);
             if (null !== $analysis) {

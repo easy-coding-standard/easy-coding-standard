@@ -51,8 +51,8 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
-        $issetIndexes = \array_keys($tokens->findGivenKind(\T_ISSET));
-        while ($issetIndex = \array_pop($issetIndexes)) {
+        $issetIndices = \array_keys($tokens->findGivenKind(\T_ISSET));
+        while ($issetIndex = \array_pop($issetIndices)) {
             $this->fixIsset($tokens, $issetIndex);
         }
     }

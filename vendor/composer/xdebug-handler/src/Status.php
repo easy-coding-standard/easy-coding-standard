@@ -8,10 +8,11 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220124\Composer\XdebugHandler;
+declare (strict_types=1);
+namespace ECSPrefix20220125\Composer\XdebugHandler;
 
-use ECSPrefix20220124\Psr\Log\LoggerInterface;
-use ECSPrefix20220124\Psr\Log\LogLevel;
+use ECSPrefix20220125\Psr\Log\LoggerInterface;
+use ECSPrefix20220125\Psr\Log\LogLevel;
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>
  * @internal
@@ -39,136 +40,117 @@ class Status
     /** @var float */
     private $time;
     /**
-     * Constructor
-     *
      * @param string $envAllowXdebug Prefixed _ALLOW_XDEBUG name
      * @param bool $debug Whether debug output is required
      */
-    public function __construct($envAllowXdebug, $debug)
+    public function __construct(string $envAllowXdebug, bool $debug)
     {
         $start = \getenv(self::ENV_RESTART);
-        \ECSPrefix20220124\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART);
+        \ECSPrefix20220125\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART);
         $this->time = \is_numeric($start) ? \round((\microtime(\true) - $start) * 1000) : 0;
         $this->envAllowXdebug = $envAllowXdebug;
         $this->debug = $debug && \defined('STDERR');
         $this->modeOff = \false;
     }
     /**
-     * @param LoggerInterface $logger
+     * Activates status message output to a PSR3 logger
      *
      * @return void
      */
-    public function setLogger(\ECSPrefix20220124\Psr\Log\LoggerInterface $logger)
+    public function setLogger(\ECSPrefix20220125\Psr\Log\LoggerInterface $logger) : void
     {
         $this->logger = $logger;
     }
     /**
      * Calls a handler method to report a message
      *
-     * @param string $op The handler constant
-     * @param null|string $data Data required by the handler
-     *
-     * @return void
      * @throws \InvalidArgumentException If $op is not known
      */
-    public function report($op, $data)
+    public function report(string $op, ?string $data) : void
     {
         if ($this->logger !== null || $this->debug) {
-            $callable = array($this, 'report' . $op);
+            $callable = [$this, 'report' . $op];
             if (!\is_callable($callable)) {
                 throw new \InvalidArgumentException('Unknown op handler: ' . $op);
             }
-            $params = $data !== null ? $data : array();
-            \call_user_func_array($callable, array($params));
+            $params = $data !== null ? [$data] : [];
+            \call_user_func_array($callable, $params);
         }
     }
     /**
      * Outputs a status message
-     *
-     * @param string $text
-     * @param string $level
-     *
-     * @return void
      */
-    private function output($text, $level = null)
+    private function output(string $text, ?string $level = null) : void
     {
         if ($this->logger !== null) {
-            $this->logger->log($level !== null ? $level : \ECSPrefix20220124\Psr\Log\LogLevel::DEBUG, $text);
+            $this->logger->log($level !== null ? $level : \ECSPrefix20220125\Psr\Log\LogLevel::DEBUG, $text);
         }
         if ($this->debug) {
             \fwrite(\STDERR, \sprintf('xdebug-handler[%d] %s', \getmypid(), $text . \PHP_EOL));
         }
     }
     /**
-     * @param string $loaded
-     *
-     * @return void
+     * Checking status message
      */
-    private function reportCheck($loaded)
+    private function reportCheck(string $loaded) : void
     {
         list($version, $mode) = \explode('|', $loaded);
         if ($version !== '') {
-            $this->loaded = '(' . $version . ')' . ($mode !== '' ? ' mode=' . $mode : '');
+            $this->loaded = '(' . $version . ')' . ($mode !== '' ? ' xdebug.mode=' . $mode : '');
         }
         $this->modeOff = $mode === 'off';
         $this->output('Checking ' . $this->envAllowXdebug);
     }
     /**
-     * @param string $error
-     *
-     * @return void
+     * Error status message
      */
-    private function reportError($error)
+    private function reportError(string $error) : void
     {
-        $this->output(\sprintf('No restart (%s)', $error), \ECSPrefix20220124\Psr\Log\LogLevel::WARNING);
+        $this->output(\sprintf('No restart (%s)', $error), \ECSPrefix20220125\Psr\Log\LogLevel::WARNING);
     }
     /**
-     * @param string $info
-     *
-     * @return void
+     * Info status message
      */
-    private function reportInfo($info)
+    private function reportInfo(string $info) : void
     {
         $this->output($info);
     }
     /**
-     * @return void
+     * No restart status message
      */
-    private function reportNoRestart()
+    private function reportNoRestart() : void
     {
         $this->output($this->getLoadedMessage());
         if ($this->loaded !== null) {
             $text = \sprintf('No restart (%s)', $this->getEnvAllow());
             if (!(bool) \getenv($this->envAllowXdebug)) {
-                $text .= ' Allowed by ' . ($this->modeOff ? 'mode' : 'application');
+                $text .= ' Allowed by ' . ($this->modeOff ? 'xdebug.mode' : 'application');
             }
             $this->output($text);
         }
     }
     /**
-     * @return void
+     * Restart status message
      */
-    private function reportRestart()
+    private function reportRestart() : void
     {
         $this->output($this->getLoadedMessage());
-        \ECSPrefix20220124\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART, (string) \microtime(\true));
+        \ECSPrefix20220125\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART, (string) \microtime(\true));
     }
     /**
-     * @return void
+     * Restarted status message
      */
-    private function reportRestarted()
+    private function reportRestarted() : void
     {
         $loaded = $this->getLoadedMessage();
         $text = \sprintf('Restarted (%d ms). %s', $this->time, $loaded);
-        $level = $this->loaded !== null ? \ECSPrefix20220124\Psr\Log\LogLevel::WARNING : null;
+        $level = $this->loaded !== null ? \ECSPrefix20220125\Psr\Log\LogLevel::WARNING : null;
         $this->output($text, $level);
     }
     /**
-     * @param string $command
-     *
-     * @return void
+     * Restarting status message
      */
-    private function reportRestarting($command)
+    private function reportRestarting(string $command) : void
     {
         $text = \sprintf('Process restarting (%s)', $this->getEnvAllow());
         $this->output($text);
@@ -177,19 +159,15 @@ class Status
     }
     /**
      * Returns the _ALLOW_XDEBUG environment variable as name=value
-     *
-     * @return string
      */
-    private function getEnvAllow()
+    private function getEnvAllow() : string
     {
         return $this->envAllowXdebug . '=' . \getenv($this->envAllowXdebug);
     }
     /**
      * Returns the Xdebug status and version
-     *
-     * @return string
      */
-    private function getLoadedMessage()
+    private function getLoadedMessage() : string
     {
         $loaded = $this->loaded !== null ? \sprintf('loaded %s', $this->loaded) : 'not loaded';
         return 'The Xdebug extension is ' . $loaded;

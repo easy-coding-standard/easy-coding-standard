@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20220124\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20220125\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * Generates a report according to gitlabs subset of codeclimate json files.
  *
@@ -36,10 +36,10 @@ final class GitlabReporter implements \PhpCsFixer\Console\Report\FixReport\Repor
         $report = [];
         foreach ($reportSummary->getChanged() as $fileName => $change) {
             foreach ($change['appliedFixers'] as $fixerName) {
-                $report[] = ['description' => $fixerName, 'fingerprint' => \md5($fileName . $fixerName), 'location' => ['path' => $fileName, 'lines' => ['begin' => 0]]];
+                $report[] = ['description' => $fixerName, 'fingerprint' => \md5($fileName . $fixerName), 'severity' => 'minor', 'location' => ['path' => $fileName, 'lines' => ['begin' => 0]]];
             }
         }
         $jsonString = \json_encode($report);
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20220124\Symfony\Component\Console\Formatter\OutputFormatter::escape($jsonString) : $jsonString;
+        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20220125\Symfony\Component\Console\Formatter\OutputFormatter::escape($jsonString) : $jsonString;
     }
 }

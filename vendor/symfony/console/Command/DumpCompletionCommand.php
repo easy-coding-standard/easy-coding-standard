@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220124\Symfony\Component\Console\Command;
+namespace ECSPrefix20220125\Symfony\Component\Console\Command;
 
-use ECSPrefix20220124\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix20220124\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix20220124\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20220124\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220124\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20220124\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20220124\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220124\Symfony\Component\Process\Process;
+use ECSPrefix20220125\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix20220125\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix20220125\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20220125\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220125\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20220125\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20220125\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220125\Symfony\Component\Process\Process;
 /**
  * Dumps the completion script for the current shell.
  *
  * @author Wouter de Jong <wouter@wouterj.nl>
  */
-final class DumpCompletionCommand extends \ECSPrefix20220124\Symfony\Component\Console\Command\Command
+final class DumpCompletionCommand extends \ECSPrefix20220125\Symfony\Component\Console\Command\Command
 {
     protected static $defaultName = 'completion';
     protected static $defaultDescription = 'Dump the shell completion script';
-    public function complete(\ECSPrefix20220124\Symfony\Component\Console\Completion\CompletionInput $input, \ECSPrefix20220124\Symfony\Component\Console\Completion\CompletionSuggestions $suggestions) : void
+    public function complete(\ECSPrefix20220125\Symfony\Component\Console\Completion\CompletionInput $input, \ECSPrefix20220125\Symfony\Component\Console\Completion\CompletionSuggestions $suggestions) : void
     {
         if ($input->mustSuggestArgumentValuesFor('shell')) {
             $suggestions->suggestValues($this->getSupportedShells());
@@ -66,9 +66,9 @@ Add this add the end of your shell configuration file (e.g. <info>"~/.bashrc"</>
 
     <info>eval "\$({$fullCommand} completion bash)"</>
 EOH
-)->addArgument('shell', \ECSPrefix20220124\Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'The shell type (e.g. "bash"), the value of the "$SHELL" env var will be used if this is not given')->addOption('debug', null, \ECSPrefix20220124\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Tail the completion debug log');
+)->addArgument('shell', \ECSPrefix20220125\Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'The shell type (e.g. "bash"), the value of the "$SHELL" env var will be used if this is not given')->addOption('debug', null, \ECSPrefix20220125\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Tail the completion debug log');
     }
-    protected function execute(\ECSPrefix20220124\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220124\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20220125\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220125\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $commandName = \basename($_SERVER['argv'][0]);
         if ($input->getOption('debug')) {
@@ -79,7 +79,7 @@ EOH
         $completionFile = __DIR__ . '/../Resources/completion.' . $shell;
         if (!\file_exists($completionFile)) {
             $supportedShells = $this->getSupportedShells();
-            ($output instanceof \ECSPrefix20220124\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : $output)->writeln(\sprintf('<error>Detected shell "%s", which is not supported by Symfony shell completion (supported shells: "%s").</>', $shell, \implode('", "', $supportedShells)));
+            ($output instanceof \ECSPrefix20220125\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : $output)->writeln(\sprintf('<error>Detected shell "%s", which is not supported by Symfony shell completion (supported shells: "%s").</>', $shell, \implode('", "', $supportedShells)));
             return self::INVALID;
         }
         $output->write(\str_replace(['{{ COMMAND_NAME }}', '{{ VERSION }}'], [$commandName, $this->getApplication()->getVersion()], \file_get_contents($completionFile)));
@@ -89,13 +89,13 @@ EOH
     {
         return \basename($_SERVER['SHELL'] ?? '');
     }
-    private function tailDebugLog(string $commandName, \ECSPrefix20220124\Symfony\Component\Console\Output\OutputInterface $output) : void
+    private function tailDebugLog(string $commandName, \ECSPrefix20220125\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         $debugFile = \sys_get_temp_dir() . '/sf_' . $commandName . '.log';
         if (!\file_exists($debugFile)) {
             \touch($debugFile);
         }
-        $process = new \ECSPrefix20220124\Symfony\Component\Process\Process(['tail', '-f', $debugFile], null, null, null, 0);
+        $process = new \ECSPrefix20220125\Symfony\Component\Process\Process(['tail', '-f', $debugFile], null, null, null, 0);
         $process->run(function (string $type, string $line) use($output) : void {
             $output->write($line);
         });

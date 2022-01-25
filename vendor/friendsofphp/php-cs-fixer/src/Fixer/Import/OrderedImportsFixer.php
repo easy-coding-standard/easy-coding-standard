@@ -26,7 +26,7 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20220124\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20220125\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
@@ -181,11 +181,11 @@ use Bar;
             if (null !== $value) {
                 $missing = \array_diff($supportedSortTypes, $value);
                 if (\count($missing) > 0) {
-                    throw new \ECSPrefix20220124\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Missing sort %s "%s".', 1 === \count($missing) ? 'type' : 'types', \implode('", "', $missing)));
+                    throw new \ECSPrefix20220125\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Missing sort %s "%s".', 1 === \count($missing) ? 'type' : 'types', \implode('", "', $missing)));
                 }
                 $unknown = \array_diff($value, $supportedSortTypes);
                 if (\count($unknown) > 0) {
-                    throw new \ECSPrefix20220124\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown sort %s "%s".', 1 === \count($unknown) ? 'type' : 'types', \implode('", "', $unknown)));
+                    throw new \ECSPrefix20220125\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown sort %s "%s".', 1 === \count($unknown) ? 'type' : 'types', \implode('", "', $unknown)));
                 }
             }
             return \true;
@@ -236,8 +236,8 @@ use Bar;
      */
     private function getNewOrder(array $uses, \PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
-        $indexes = [];
-        $originalIndexes = [];
+        $indices = [];
+        $originalIndices = [];
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         for ($i = \count($uses) - 1; $i >= 0; --$i) {
             $index = $uses[$i];
@@ -319,8 +319,8 @@ use Bar;
                     } else {
                         $namespace = \PhpCsFixer\Tokenizer\Tokens::fromArray($namespaceTokens)->generateCode();
                     }
-                    $indexes[$startIndex] = ['namespace' => $namespace, 'startIndex' => $startIndex, 'endIndex' => $index - 1, 'importType' => $type, 'group' => $group];
-                    $originalIndexes[] = $startIndex;
+                    $indices[$startIndex] = ['namespace' => $namespace, 'startIndex' => $startIndex, 'endIndex' => $index - 1, 'importType' => $type, 'group' => $group];
+                    $originalIndices[] = $startIndex;
                     if ($index === $endIndex) {
                         break;
                     }
@@ -336,14 +336,14 @@ use Bar;
         }
         // Is sort types provided, sorting by groups and each group by algorithm
         if (null !== $this->configuration['imports_order']) {
-            // Grouping indexes by import type.
+            // Grouping indices by import type.
             $groupedByTypes = [];
-            foreach ($indexes as $startIndex => $item) {
+            foreach ($indices as $startIndex => $item) {
                 $groupedByTypes[$item['importType']][$startIndex] = $item;
             }
             // Sorting each group by algorithm.
-            foreach ($groupedByTypes as $type => $groupIndexes) {
-                $groupedByTypes[$type] = $this->sortByAlgorithm($groupIndexes);
+            foreach ($groupedByTypes as $type => $groupIndices) {
+                $groupedByTypes[$type] = $this->sortByAlgorithm($groupIndices);
             }
             // Ordering groups
             $sortedGroups = [];
@@ -354,29 +354,29 @@ use Bar;
                     }
                 }
             }
-            $indexes = $sortedGroups;
+            $indices = $sortedGroups;
         } else {
             // Sorting only by algorithm
-            $indexes = $this->sortByAlgorithm($indexes);
+            $indices = $this->sortByAlgorithm($indices);
         }
         $index = -1;
         $usesOrder = [];
         // Loop through the index but use original index order
-        foreach ($indexes as $v) {
-            $usesOrder[$originalIndexes[++$index]] = $v;
+        foreach ($indices as $v) {
+            $usesOrder[$originalIndices[++$index]] = $v;
         }
         return $usesOrder;
     }
     /**
-     * @param array[] $indexes
+     * @param array[] $indices
      */
-    private function sortByAlgorithm(array $indexes) : array
+    private function sortByAlgorithm(array $indices) : array
     {
         if (self::SORT_ALPHA === $this->configuration['sort_algorithm']) {
-            \uasort($indexes, [$this, 'sortAlphabetically']);
+            \uasort($indices, [$this, 'sortAlphabetically']);
         } elseif (self::SORT_LENGTH === $this->configuration['sort_algorithm']) {
-            \uasort($indexes, [$this, 'sortByLength']);
+            \uasort($indices, [$this, 'sortByLength']);
         }
-        return $indexes;
+        return $indices;
     }
 }

@@ -32,7 +32,7 @@ final class ArgumentsAnalyzer
         return \count($this->getArguments($tokens, $openParenthesis, $closeParenthesis));
     }
     /**
-     * Returns start and end token indexes of arguments.
+     * Returns start and end token indices of arguments.
      *
      * Returns an array with each key being the first token of an
      * argument and the value the last. Including non-function tokens
@@ -73,11 +73,23 @@ final class ArgumentsAnalyzer
     }
     public function getArgumentInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $argumentStart, int $argumentEnd) : \PhpCsFixer\Tokenizer\Analyzer\Analysis\ArgumentAnalysis
     {
+        static $skipTypes = null;
+        if (null === $skipTypes) {
+            $skipTypes = [\T_ELLIPSIS, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE];
+            if (\defined('T_READONLY')) {
+                // @TODO: drop condition when PHP 8.1+ is required
+                $skipTypes[] = T_READONLY;
+            }
+        }
         $info = ['default' => null, 'name' => null, 'name_index' => null, 'type' => null, 'type_index_start' => null, 'type_index_end' => null];
         $sawName = \false;
         for ($index = $argumentStart; $index <= $argumentEnd; ++$index) {
             $token = $tokens[$index];
-            if ($token->isComment() || $token->isWhitespace() || $token->isGivenKind([\T_ELLIPSIS, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE]) || $token->equals('&')) {
+            if (\defined('T_ATTRIBUTE') && $token->isGivenKind(\T_ATTRIBUTE)) {
+                $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ATTRIBUTE, $index);
+                continue;
+            }
+            if ($token->isComment() || $token->isWhitespace() || $token->isGivenKind($skipTypes) || $token->equals('&')) {
                 continue;
             }
             if ($token->isGivenKind(\T_VARIABLE)) {
@@ -87,10 +99,6 @@ final class ArgumentsAnalyzer
                 continue;
             }
             if ($token->equals('=')) {
-                continue;
-            }
-            if (\defined('T_ATTRIBUTE') && $token->isGivenKind(\T_ATTRIBUTE)) {
-                $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ATTRIBUTE, $index);
                 continue;
             }
             if ($sawName) {

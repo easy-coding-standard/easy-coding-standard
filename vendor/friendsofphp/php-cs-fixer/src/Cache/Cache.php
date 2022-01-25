@@ -64,8 +64,6 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
     }
     /**
      * @throws \InvalidArgumentException
-     *
-     * @return Cache
      */
     public static function fromJson(string $json) : self
     {

@@ -72,9 +72,13 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
             if (!$tokens[$index]->isGivenKind(\T_DECLARE)) {
                 continue;
             }
-            while (!$tokens[++$index]->equals('=')) {
+            $openParenthesisIndex = $tokens->getNextMeaningfulToken($index);
+            $closeParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisIndex);
+            for ($i = $closeParenthesisIndex; $i > $openParenthesisIndex; --$i) {
+                if ($tokens[$i]->equals('=')) {
+                    $this->{$callback}($tokens, $i);
+                }
             }
-            $this->{$callback}($tokens, $index);
         }
     }
     /**

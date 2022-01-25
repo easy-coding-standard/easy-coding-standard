@@ -131,19 +131,19 @@ function foo() {
      */
     private function getExcludedIndices(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
-        $colonIndexes = [];
+        $colonIndices = [];
         foreach (\PhpCsFixer\Tokenizer\Analyzer\ControlCaseStructuresAnalyzer::findControlStructures($tokens, [\T_SWITCH]) as $analysis) {
             foreach ($analysis->getCases() as $case) {
-                $colonIndexes[] = $case->getColonIndex();
+                $colonIndices[] = $case->getColonIndex();
             }
             if ($analysis instanceof \PhpCsFixer\Tokenizer\Analyzer\Analysis\SwitchAnalysis) {
                 $defaultAnalysis = $analysis->getDefaultAnalysis();
                 if (null !== $defaultAnalysis) {
-                    $colonIndexes[] = $defaultAnalysis->getColonIndex();
+                    $colonIndices[] = $defaultAnalysis->getColonIndex();
                 }
             }
         }
-        return $colonIndexes;
+        return $colonIndices;
     }
     /**
      * @param int[] $operatorIndices

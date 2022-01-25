@@ -19,12 +19,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220124\\Clue\\React\\NDJson\\": "src\/"
+            "ECSPrefix20220125\\Clue\\React\\NDJson\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220124\\Clue\\Tests\\React\\NDJson\\": "tests\/"
+            "ECSPrefix20220125\\Clue\\Tests\\React\\NDJson\\": "tests\/"
         }
     },
     "require": {
