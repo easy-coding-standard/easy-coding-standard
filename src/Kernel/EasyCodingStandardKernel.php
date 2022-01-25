@@ -34,7 +34,7 @@ final class EasyCodingStandardKernel extends \ECSPrefix20220125\Symplify\Symplif
         $configFiles[] = \Symplify\CodingStandard\ValueObject\CodingStandardConfig::FILE_PATH;
         $configFiles[] = \Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig::FILE_PATH;
         $configFiles[] = \ECSPrefix20220125\Symplify\EasyParallel\ValueObject\EasyParallelConfig::FILE_PATH;
-        return $this->create([], $compilerPasses, $configFiles);
+        return $this->create($configFiles, $compilerPasses, []);
     }
     /**
      * @return CompilerPassInterface[]

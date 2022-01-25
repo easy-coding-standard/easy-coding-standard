@@ -115,8 +115,7 @@ CODE_SAMPLE
     private function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens, array $useDeclarations) : void
     {
         foreach ($doctrineAnnotationTokens as $index => $token) {
-            $isAtToken = $token->isType(\ECSPrefix20220125\Doctrine\Common\Annotations\DocLexer::T_AT);
-            if (!$isAtToken) {
+            if (!$token->isType(\ECSPrefix20220125\Doctrine\Common\Annotations\DocLexer::T_AT)) {
                 continue;
             }
             $annotationName = $this->doctrineAnnotationNameResolver->resolveName($doctrineAnnotationTokens, $index, $useDeclarations);

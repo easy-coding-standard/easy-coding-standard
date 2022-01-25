@@ -23,16 +23,16 @@ abstract class AbstractSymplifyKernel implements \ECSPrefix20220125\Symplify\Sym
      */
     private $container = null;
     /**
-     * @param ExtensionInterface[] $extensions
-     * @param CompilerPassInterface[] $compilerPasses
      * @param string[] $configFiles
+     * @param CompilerPassInterface[] $compilerPasses
+     * @param ExtensionInterface[] $extensions
      */
-    public function create(array $extensions, array $compilerPasses, array $configFiles) : \ECSPrefix20220125\Symfony\Component\DependencyInjection\ContainerInterface
+    public function create(array $configFiles, array $compilerPasses, array $extensions) : \ECSPrefix20220125\Symfony\Component\DependencyInjection\ContainerInterface
     {
         $containerBuilderFactory = new \ECSPrefix20220125\Symplify\SymplifyKernel\ContainerBuilderFactory(new \ECSPrefix20220125\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory());
         $compilerPasses[] = new \ECSPrefix20220125\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass();
         $configFiles[] = \ECSPrefix20220125\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig::FILE_PATH;
-        $containerBuilder = $containerBuilderFactory->create($extensions, $compilerPasses, $configFiles);
+        $containerBuilder = $containerBuilderFactory->create($configFiles, $compilerPasses, $extensions);
         $containerBuilder->compile();
         $this->container = $containerBuilder;
         return $containerBuilder;
