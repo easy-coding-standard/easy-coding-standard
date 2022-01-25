@@ -4090,7 +4090,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "88a8ba19843f284f5f231803608e985b2867f5d7"
+                "reference": "5f686341cfa73bae7b26542853228d7a13da6501"
             },
             "require": {
                 "php": ">=8.0",
@@ -4143,6 +4143,11 @@
             "autoload": {
                 "psr-4": {
                     "ECSPrefix20220125\\Symplify\\SymplifyKernel\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "ECSPrefix20220125\\Symplify\\SymplifyKernel\\Tests\\": "tests"
                 }
             },
             "license": [

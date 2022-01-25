@@ -20,6 +20,11 @@
             "ECSPrefix20220125\\Symplify\\SymplifyKernel\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "ECSPrefix20220125\\Symplify\\SymplifyKernel\\Tests\\": "tests"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-main": "10.1-dev"
