@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220125\React\EventLoop;
+namespace ECSPrefix20220126\React\EventLoop;
 
 /**
  * [Deprecated] The `Factory` class exists as a convenient way to pick the best available event loop implementation.
@@ -34,7 +34,7 @@ final class Factory
     public static function create()
     {
         $loop = self::construct();
-        \ECSPrefix20220125\React\EventLoop\Loop::set($loop);
+        \ECSPrefix20220126\React\EventLoop\Loop::set($loop);
         return $loop;
     }
     /**
@@ -46,22 +46,22 @@ final class Factory
         // @codeCoverageIgnoreStart
         if (\function_exists('uv_loop_new')) {
             // only use ext-uv on PHP 7
-            return new \ECSPrefix20220125\React\EventLoop\ExtUvLoop();
+            return new \ECSPrefix20220126\React\EventLoop\ExtUvLoop();
         }
-        if (\class_exists('ECSPrefix20220125\\libev\\EventLoop', \false)) {
-            return new \ECSPrefix20220125\React\EventLoop\ExtLibevLoop();
+        if (\class_exists('ECSPrefix20220126\\libev\\EventLoop', \false)) {
+            return new \ECSPrefix20220126\React\EventLoop\ExtLibevLoop();
         }
         if (\class_exists('EvLoop', \false)) {
-            return new \ECSPrefix20220125\React\EventLoop\ExtEvLoop();
+            return new \ECSPrefix20220126\React\EventLoop\ExtEvLoop();
         }
         if (\class_exists('EventBase', \false)) {
-            return new \ECSPrefix20220125\React\EventLoop\ExtEventLoop();
+            return new \ECSPrefix20220126\React\EventLoop\ExtEventLoop();
         }
         if (\function_exists('event_base_new') && \PHP_MAJOR_VERSION === 5) {
             // only use ext-libevent on PHP 5 for now
-            return new \ECSPrefix20220125\React\EventLoop\ExtLibeventLoop();
+            return new \ECSPrefix20220126\React\EventLoop\ExtLibeventLoop();
         }
-        return new \ECSPrefix20220125\React\EventLoop\StreamSelectLoop();
+        return new \ECSPrefix20220126\React\EventLoop\StreamSelectLoop();
         // @codeCoverageIgnoreEnd
     }
 }
