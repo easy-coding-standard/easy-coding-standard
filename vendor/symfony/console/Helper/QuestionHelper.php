@@ -8,28 +8,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220126\Symfony\Component\Console\Helper;
+namespace ECSPrefix20220127\Symfony\Component\Console\Helper;
 
-use ECSPrefix20220126\Symfony\Component\Console\Cursor;
-use ECSPrefix20220126\Symfony\Component\Console\Exception\MissingInputException;
-use ECSPrefix20220126\Symfony\Component\Console\Exception\RuntimeException;
-use ECSPrefix20220126\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix20220126\Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use ECSPrefix20220126\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220126\Symfony\Component\Console\Input\StreamableInputInterface;
-use ECSPrefix20220126\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20220126\Symfony\Component\Console\Output\ConsoleSectionOutput;
-use ECSPrefix20220126\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220126\Symfony\Component\Console\Question\ChoiceQuestion;
-use ECSPrefix20220126\Symfony\Component\Console\Question\Question;
-use ECSPrefix20220126\Symfony\Component\Console\Terminal;
-use function ECSPrefix20220126\Symfony\Component\String\s;
+use ECSPrefix20220127\Symfony\Component\Console\Cursor;
+use ECSPrefix20220127\Symfony\Component\Console\Exception\MissingInputException;
+use ECSPrefix20220127\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix20220127\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20220127\Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use ECSPrefix20220127\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220127\Symfony\Component\Console\Input\StreamableInputInterface;
+use ECSPrefix20220127\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20220127\Symfony\Component\Console\Output\ConsoleSectionOutput;
+use ECSPrefix20220127\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220127\Symfony\Component\Console\Question\ChoiceQuestion;
+use ECSPrefix20220127\Symfony\Component\Console\Question\Question;
+use ECSPrefix20220127\Symfony\Component\Console\Terminal;
+use function ECSPrefix20220127\Symfony\Component\String\s;
 /**
  * The QuestionHelper class provides helpers to interact with the user.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper\Helper
+class QuestionHelper extends \ECSPrefix20220127\Symfony\Component\Console\Helper\Helper
 {
     /**
      * @var resource|null
@@ -50,15 +50,15 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
      *
      * @throws RuntimeException If there is no data to read in the input stream
      */
-    public function ask(\ECSPrefix20220126\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220126\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220126\Symfony\Component\Console\Question\Question $question)
+    public function ask(\ECSPrefix20220127\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220127\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220127\Symfony\Component\Console\Question\Question $question)
     {
-        if ($output instanceof \ECSPrefix20220126\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if ($output instanceof \ECSPrefix20220127\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
         if (!$input->isInteractive()) {
             return $this->getDefaultAnswer($question);
         }
-        if ($input instanceof \ECSPrefix20220126\Symfony\Component\Console\Input\StreamableInputInterface && ($stream = $input->getStream())) {
+        if ($input instanceof \ECSPrefix20220127\Symfony\Component\Console\Input\StreamableInputInterface && ($stream = $input->getStream())) {
             $this->inputStream = $stream;
         }
         try {
@@ -69,7 +69,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
                 return $this->doAsk($output, $question);
             };
             return $this->validateAttempts($interviewer, $output, $question);
-        } catch (\ECSPrefix20220126\Symfony\Component\Console\Exception\MissingInputException $exception) {
+        } catch (\ECSPrefix20220127\Symfony\Component\Console\Exception\MissingInputException $exception) {
             $input->setInteractive(\false);
             if (null === ($fallbackOutput = $this->getDefaultAnswer($question))) {
                 throw $exception;
@@ -97,18 +97,18 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
      * @throws RuntimeException In case the fallback is deactivated and the response cannot be hidden
      * @return mixed
      */
-    private function doAsk(\ECSPrefix20220126\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220126\Symfony\Component\Console\Question\Question $question)
+    private function doAsk(\ECSPrefix20220127\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220127\Symfony\Component\Console\Question\Question $question)
     {
         $this->writePrompt($output, $question);
         $inputStream = $this->inputStream ?: \STDIN;
         $autocomplete = $question->getAutocompleterCallback();
-        if (null === $autocomplete || !self::$stty || !\ECSPrefix20220126\Symfony\Component\Console\Terminal::hasSttyAvailable()) {
+        if (null === $autocomplete || !self::$stty || !\ECSPrefix20220127\Symfony\Component\Console\Terminal::hasSttyAvailable()) {
             $ret = \false;
             if ($question->isHidden()) {
                 try {
                     $hiddenResponse = $this->getHiddenResponse($output, $inputStream, $question->isTrimmable());
                     $ret = $question->isTrimmable() ? \trim($hiddenResponse) : $hiddenResponse;
-                } catch (\ECSPrefix20220126\Symfony\Component\Console\Exception\RuntimeException $e) {
+                } catch (\ECSPrefix20220127\Symfony\Component\Console\Exception\RuntimeException $e) {
                     if (!$question->isHiddenFallback()) {
                         throw $e;
                     }
@@ -117,7 +117,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
             if (\false === $ret) {
                 $ret = $this->readInput($inputStream, $question);
                 if (\false === $ret) {
-                    throw new \ECSPrefix20220126\Symfony\Component\Console\Exception\MissingInputException('Aborted.');
+                    throw new \ECSPrefix20220127\Symfony\Component\Console\Exception\MissingInputException('Aborted.');
                 }
                 if ($question->isTrimmable()) {
                     $ret = \trim($ret);
@@ -127,7 +127,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
             $autocomplete = $this->autocomplete($output, $question, $inputStream, $autocomplete);
             $ret = $question->isTrimmable() ? \trim($autocomplete) : $autocomplete;
         }
-        if ($output instanceof \ECSPrefix20220126\Symfony\Component\Console\Output\ConsoleSectionOutput) {
+        if ($output instanceof \ECSPrefix20220127\Symfony\Component\Console\Output\ConsoleSectionOutput) {
             $output->addContent($ret);
         }
         $ret = \strlen($ret) > 0 ? $ret : $question->getDefault();
@@ -139,7 +139,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
     /**
      * @return mixed
      */
-    private function getDefaultAnswer(\ECSPrefix20220126\Symfony\Component\Console\Question\Question $question)
+    private function getDefaultAnswer(\ECSPrefix20220127\Symfony\Component\Console\Question\Question $question)
     {
         $default = $question->getDefault();
         if (null === $default) {
@@ -147,7 +147,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
         }
         if ($validator = $question->getValidator()) {
             return \call_user_func($question->getValidator(), $default);
-        } elseif ($question instanceof \ECSPrefix20220126\Symfony\Component\Console\Question\ChoiceQuestion) {
+        } elseif ($question instanceof \ECSPrefix20220127\Symfony\Component\Console\Question\ChoiceQuestion) {
             $choices = $question->getChoices();
             if (!$question->isMultiselect()) {
                 return $choices[$default] ?? $default;
@@ -163,10 +163,10 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
     /**
      * Outputs the question prompt.
      */
-    protected function writePrompt(\ECSPrefix20220126\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220126\Symfony\Component\Console\Question\Question $question)
+    protected function writePrompt(\ECSPrefix20220127\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220127\Symfony\Component\Console\Question\Question $question)
     {
         $message = $question->getQuestion();
-        if ($question instanceof \ECSPrefix20220126\Symfony\Component\Console\Question\ChoiceQuestion) {
+        if ($question instanceof \ECSPrefix20220127\Symfony\Component\Console\Question\ChoiceQuestion) {
             $output->writeln(\array_merge([$question->getQuestion()], $this->formatChoiceQuestionChoices($question, 'info')));
             $message = $question->getPrompt();
         }
@@ -175,7 +175,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
     /**
      * @return string[]
      */
-    protected function formatChoiceQuestionChoices(\ECSPrefix20220126\Symfony\Component\Console\Question\ChoiceQuestion $question, string $tag) : array
+    protected function formatChoiceQuestionChoices(\ECSPrefix20220127\Symfony\Component\Console\Question\ChoiceQuestion $question, string $tag) : array
     {
         $messages = [];
         $maxWidth = \max(\array_map([__CLASS__, 'width'], \array_keys($choices = $question->getChoices())));
@@ -188,7 +188,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
     /**
      * Outputs an error message.
      */
-    protected function writeError(\ECSPrefix20220126\Symfony\Component\Console\Output\OutputInterface $output, \Exception $error)
+    protected function writeError(\ECSPrefix20220127\Symfony\Component\Console\Output\OutputInterface $output, \Exception $error)
     {
         if (null !== $this->getHelperSet() && $this->getHelperSet()->has('formatter')) {
             $message = $this->getHelperSet()->get('formatter')->formatBlock($error->getMessage(), 'error');
@@ -202,9 +202,9 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
      *
      * @param resource $inputStream
      */
-    private function autocomplete(\ECSPrefix20220126\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220126\Symfony\Component\Console\Question\Question $question, $inputStream, callable $autocomplete) : string
+    private function autocomplete(\ECSPrefix20220127\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220127\Symfony\Component\Console\Question\Question $question, $inputStream, callable $autocomplete) : string
     {
-        $cursor = new \ECSPrefix20220126\Symfony\Component\Console\Cursor($output, $inputStream);
+        $cursor = new \ECSPrefix20220127\Symfony\Component\Console\Cursor($output, $inputStream);
         $fullChoice = '';
         $ret = '';
         $i = 0;
@@ -215,19 +215,19 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
         // Disable icanon (so we can fread each keypress) and echo (we'll do echoing here instead)
         \shell_exec('stty -icanon -echo');
         // Add highlighted text style
-        $output->getFormatter()->setStyle('hl', new \ECSPrefix20220126\Symfony\Component\Console\Formatter\OutputFormatterStyle('black', 'white'));
+        $output->getFormatter()->setStyle('hl', new \ECSPrefix20220127\Symfony\Component\Console\Formatter\OutputFormatterStyle('black', 'white'));
         // Read a keypress
         while (!\feof($inputStream)) {
             $c = \fread($inputStream, 1);
             // as opposed to fgets(), fread() returns an empty string when the stream content is empty, not false.
             if (\false === $c || '' === $ret && '' === $c && null === $question->getDefault()) {
                 \shell_exec(\sprintf('stty %s', $sttyMode));
-                throw new \ECSPrefix20220126\Symfony\Component\Console\Exception\MissingInputException('Aborted.');
+                throw new \ECSPrefix20220127\Symfony\Component\Console\Exception\MissingInputException('Aborted.');
             } elseif ("" === $c) {
                 // Backspace Character
                 if (0 === $numMatches && 0 !== $i) {
                     --$i;
-                    $cursor->moveLeft(\ECSPrefix20220126\Symfony\Component\String\s($fullChoice)->slice(-1)->width(\false));
+                    $cursor->moveLeft(\ECSPrefix20220127\Symfony\Component\String\s($fullChoice)->slice(-1)->width(\false));
                     $fullChoice = self::substr($fullChoice, 0, $i);
                 }
                 if (0 === $i) {
@@ -284,7 +284,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
                 $fullChoice .= $c;
                 ++$i;
                 $tempRet = $ret;
-                if ($question instanceof \ECSPrefix20220126\Symfony\Component\Console\Question\ChoiceQuestion && $question->isMultiselect()) {
+                if ($question instanceof \ECSPrefix20220127\Symfony\Component\Console\Question\ChoiceQuestion && $question->isMultiselect()) {
                     $tempRet = $this->mostRecentlyEnteredValue($fullChoice);
                 }
                 $numMatches = 0;
@@ -301,7 +301,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
                 $cursor->savePosition();
                 // Write highlighted text, complete the partially entered response
                 $charactersEntered = \strlen(\trim($this->mostRecentlyEnteredValue($fullChoice)));
-                $output->write('<hl>' . \ECSPrefix20220126\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash(\substr($matches[$ofs], $charactersEntered)) . '</hl>');
+                $output->write('<hl>' . \ECSPrefix20220127\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash(\substr($matches[$ofs], $charactersEntered)) . '</hl>');
                 $cursor->restorePosition();
             }
         }
@@ -329,7 +329,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
      *
      * @throws RuntimeException In case the fallback is deactivated and the response cannot be hidden
      */
-    private function getHiddenResponse(\ECSPrefix20220126\Symfony\Component\Console\Output\OutputInterface $output, $inputStream, bool $trimmable = \true) : string
+    private function getHiddenResponse(\ECSPrefix20220127\Symfony\Component\Console\Output\OutputInterface $output, $inputStream, bool $trimmable = \true) : string
     {
         if ('\\' === \DIRECTORY_SEPARATOR) {
             $exe = __DIR__ . '/../Resources/bin/hiddeninput.exe';
@@ -347,18 +347,18 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
             }
             return $value;
         }
-        if (self::$stty && \ECSPrefix20220126\Symfony\Component\Console\Terminal::hasSttyAvailable()) {
+        if (self::$stty && \ECSPrefix20220127\Symfony\Component\Console\Terminal::hasSttyAvailable()) {
             $sttyMode = \shell_exec('stty -g');
             \shell_exec('stty -echo');
         } elseif ($this->isInteractiveInput($inputStream)) {
-            throw new \ECSPrefix20220126\Symfony\Component\Console\Exception\RuntimeException('Unable to hide the response.');
+            throw new \ECSPrefix20220127\Symfony\Component\Console\Exception\RuntimeException('Unable to hide the response.');
         }
         $value = \fgets($inputStream, 4096);
-        if (self::$stty && \ECSPrefix20220126\Symfony\Component\Console\Terminal::hasSttyAvailable()) {
+        if (self::$stty && \ECSPrefix20220127\Symfony\Component\Console\Terminal::hasSttyAvailable()) {
             \shell_exec(\sprintf('stty %s', $sttyMode));
         }
         if (\false === $value) {
-            throw new \ECSPrefix20220126\Symfony\Component\Console\Exception\MissingInputException('Aborted.');
+            throw new \ECSPrefix20220127\Symfony\Component\Console\Exception\MissingInputException('Aborted.');
         }
         if ($trimmable) {
             $value = \trim($value);
@@ -374,7 +374,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
      * @throws \Exception In case the max number of attempts has been reached and no valid response has been given
      * @return mixed
      */
-    private function validateAttempts(callable $interviewer, \ECSPrefix20220126\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220126\Symfony\Component\Console\Question\Question $question)
+    private function validateAttempts(callable $interviewer, \ECSPrefix20220127\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220127\Symfony\Component\Console\Question\Question $question)
     {
         $error = null;
         $attempts = $question->getMaxAttempts();
@@ -384,7 +384,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
             }
             try {
                 return $question->getValidator()($interviewer());
-            } catch (\ECSPrefix20220126\Symfony\Component\Console\Exception\RuntimeException $e) {
+            } catch (\ECSPrefix20220127\Symfony\Component\Console\Exception\RuntimeException $e) {
                 throw $e;
             } catch (\Exception $error) {
             }
@@ -418,7 +418,7 @@ class QuestionHelper extends \ECSPrefix20220126\Symfony\Component\Console\Helper
      * @param Question $question    The question being asked
      * @return string|true
      */
-    private function readInput($inputStream, \ECSPrefix20220126\Symfony\Component\Console\Question\Question $question)
+    private function readInput($inputStream, \ECSPrefix20220127\Symfony\Component\Console\Question\Question $question)
     {
         if (!$question->isMultiline()) {
             $cp = $this->setIOCodepage();
