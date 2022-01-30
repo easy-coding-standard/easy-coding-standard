@@ -27,11 +27,13 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
     }
     /**
      * @param Tokens<Token> $tokens
-     * @return Token[]|null[]
+     * @return Token[]
      */
     protected function reverseTokens(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
     {
-        return \array_reverse($tokens->toArray(), \true);
+        $reversedTokens = \array_reverse($tokens->toArray(), \true);
+        // remove null values
+        return \array_filter($reversedTokens);
     }
     /**
      * @param Tokens<Token> $tokens

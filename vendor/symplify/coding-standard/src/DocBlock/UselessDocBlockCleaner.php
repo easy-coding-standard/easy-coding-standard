@@ -46,6 +46,9 @@ final class UselessDocBlockCleaner
      * @var string
      */
     private const COMMENT_CONSTRUCTOR_CLASS_REGEX = '#^\\s{0,}(\\/\\*{2}\\s+?)?(\\*|\\/\\/)\\s+[^\\s]*\\s+[Cc]onstructor\\.?(\\s+\\*\\/)?$#';
+    /**
+     * @param Token[] $tokens
+     */
     public function clearDocTokenContent(array $tokens, int $position, string $docContent) : string
     {
         foreach (self::CLEANING_REGEXES as $cleaningRegex) {
@@ -77,6 +80,9 @@ final class UselessDocBlockCleaner
         }
         return \ECSPrefix20220130\Nette\Utils\Strings::replace($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX, '');
     }
+    /**
+     * @param Token[] $reversedTokens
+     */
     private function isNextFunction(array $reversedTokens, int $index) : bool
     {
         if (!isset($reversedTokens[$index + 4])) {
