@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220127\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220130\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220127\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220127\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix20220130\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220130\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 /**
  * Checks your services for circular references.
  *
@@ -22,7 +22,7 @@ use ECSPrefix20220127\Symfony\Component\DependencyInjection\Exception\ServiceCir
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class CheckCircularReferencesPass implements \ECSPrefix20220127\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class CheckCircularReferencesPass implements \ECSPrefix20220130\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var mixed[]
@@ -35,7 +35,7 @@ class CheckCircularReferencesPass implements \ECSPrefix20220127\Symfony\Componen
     /**
      * Checks the ContainerBuilder object for circular references.
      */
-    public function process(\ECSPrefix20220127\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\ECSPrefix20220130\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $graph = $container->getCompiler()->getServiceReferenceGraph();
         $this->checkedNodes = [];
@@ -62,7 +62,7 @@ class CheckCircularReferencesPass implements \ECSPrefix20220127\Symfony\Componen
                     $searchKey = \array_search($id, $this->currentPath);
                     $this->currentPath[] = $id;
                     if (\false !== $searchKey) {
-                        throw new \ECSPrefix20220127\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, \array_slice($this->currentPath, $searchKey));
+                        throw new \ECSPrefix20220130\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, \array_slice($this->currentPath, $searchKey));
                     }
                     $this->checkOutEdges($node->getOutEdges());
                 }

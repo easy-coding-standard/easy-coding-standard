@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220127\Symfony\Polyfill\Ctype;
+namespace ECSPrefix20220130\Symfony\Polyfill\Ctype;
 
 /**
  * Ctype implementation through regex.

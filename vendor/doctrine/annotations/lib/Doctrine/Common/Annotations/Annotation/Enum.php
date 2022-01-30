@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220127\Doctrine\Common\Annotations\Annotation;
+namespace ECSPrefix20220130\Doctrine\Common\Annotations\Annotation;
 
 use InvalidArgumentException;
 use function get_class;
