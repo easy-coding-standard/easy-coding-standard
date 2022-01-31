@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220130\Symplify\EasyParallel\FileSystem;
+namespace ECSPrefix20220131\Symplify\EasyParallel\FileSystem;
 
-use ECSPrefix20220130\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220131\Symplify\SmartFileSystem\SmartFileInfo;
 final class FilePathNormalizer
 {
     /**

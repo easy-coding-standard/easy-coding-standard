@@ -1,28 +1,28 @@
 <?php
 
-namespace ECSPrefix20220130\React\Socket;
+namespace ECSPrefix20220131\React\Socket;
 
-use ECSPrefix20220130\React\EventLoop\Loop;
-use ECSPrefix20220130\React\EventLoop\LoopInterface;
-use ECSPrefix20220130\React\Promise;
+use ECSPrefix20220131\React\EventLoop\Loop;
+use ECSPrefix20220131\React\EventLoop\LoopInterface;
+use ECSPrefix20220131\React\Promise;
 use BadMethodCallException;
 use InvalidArgumentException;
 use UnexpectedValueException;
-final class SecureConnector implements \ECSPrefix20220130\React\Socket\ConnectorInterface
+final class SecureConnector implements \ECSPrefix20220131\React\Socket\ConnectorInterface
 {
     private $connector;
     private $streamEncryption;
     private $context;
-    public function __construct(\ECSPrefix20220130\React\Socket\ConnectorInterface $connector, \ECSPrefix20220130\React\EventLoop\LoopInterface $loop = null, array $context = array())
+    public function __construct(\ECSPrefix20220131\React\Socket\ConnectorInterface $connector, \ECSPrefix20220131\React\EventLoop\LoopInterface $loop = null, array $context = array())
     {
         $this->connector = $connector;
-        $this->streamEncryption = new \ECSPrefix20220130\React\Socket\StreamEncryption($loop ?: \ECSPrefix20220130\React\EventLoop\Loop::get(), \false);
+        $this->streamEncryption = new \ECSPrefix20220131\React\Socket\StreamEncryption($loop ?: \ECSPrefix20220131\React\EventLoop\Loop::get(), \false);
         $this->context = $context;
     }
     public function connect($uri)
     {
         if (!\function_exists('stream_socket_enable_crypto')) {
-            return \ECSPrefix20220130\React\Promise\reject(new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)'));
+            return \ECSPrefix20220131\React\Promise\reject(new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)'));
             // @codeCoverageIgnore
         }
         if (\strpos($uri, '://') === \false) {
@@ -30,15 +30,15 @@ final class SecureConnector implements \ECSPrefix20220130\React\Socket\Connector
         }
         $parts = \parse_url($uri);
         if (!$parts || !isset($parts['scheme']) || $parts['scheme'] !== 'tls') {
-            return \ECSPrefix20220130\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22));
+            return \ECSPrefix20220131\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22));
         }
         $context = $this->context;
         $encryption = $this->streamEncryption;
         $connected = \false;
-        $promise = $this->connector->connect(\str_replace('tls://', '', $uri))->then(function (\ECSPrefix20220130\React\Socket\ConnectionInterface $connection) use($context, $encryption, $uri, &$promise, &$connected) {
+        $promise = $this->connector->connect(\str_replace('tls://', '', $uri))->then(function (\ECSPrefix20220131\React\Socket\ConnectionInterface $connection) use($context, $encryption, $uri, &$promise, &$connected) {
             // (unencrypted) TCP/IP connection succeeded
             $connected = \true;
-            if (!$connection instanceof \ECSPrefix20220130\React\Socket\Connection) {
+            if (!$connection instanceof \ECSPrefix20220131\React\Socket\Connection) {
                 $connection->close();
                 throw new \UnexpectedValueException('Base connector does not use internal Connection class exposing stream resource');
             }
@@ -77,7 +77,7 @@ final class SecureConnector implements \ECSPrefix20220130\React\Socket\Connector
             }
             throw $e;
         });
-        return new \ECSPrefix20220130\React\Promise\Promise(function ($resolve, $reject) use($promise) {
+        return new \ECSPrefix20220131\React\Promise\Promise(function ($resolve, $reject) use($promise) {
             $promise->then($resolve, $reject);
         }, function ($_, $reject) use(&$promise, $uri, &$connected) {
             if ($connected) {

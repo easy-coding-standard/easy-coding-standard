@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use ECSPrefix20220130\Symfony\Component\Console\Command\Command;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
@@ -20,9 +19,14 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    /**
+     * @var \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver
+     */
+    private $exitCodeResolver;
+    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver $exitCodeResolver)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
+        $this->exitCodeResolver = $exitCodeResolver;
     }
     public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
     {
@@ -30,10 +34,15 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         $this->easyCodingStandardStyle->newLine(1);
         if ($errorAndDiffResult->getErrorCount() === 0 && $errorAndDiffResult->getFileDiffsCount() === 0) {
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
-            return \ECSPrefix20220130\Symfony\Component\Console\Command\Command::SUCCESS;
+            return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
         }
         $this->easyCodingStandardStyle->newLine();
-        return $configuration->isFixer() ? $this->printAfterFixerStatus($errorAndDiffResult, $configuration) : $this->printNoFixerStatus($errorAndDiffResult, $configuration);
+        if ($configuration->isFixer()) {
+            $this->printAfterFixerStatus($errorAndDiffResult, $configuration);
+        } else {
+            $this->printNoFixerStatus($errorAndDiffResult, $configuration);
+        }
+        return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
     }
     public function getName() : string
     {
@@ -62,7 +71,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
             $this->easyCodingStandardStyle->listing($fileDiff->getAppliedCheckers());
         }
     }
-    private function printAfterFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
+    private function printAfterFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
     {
         if ($configuration->shouldShowErrorTable()) {
             $this->easyCodingStandardStyle->printErrors($errorAndDiffResult->getErrors());
@@ -70,12 +79,11 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         if ($errorAndDiffResult->getErrorCount() === 0) {
             $successMessage = \sprintf('%d error%s successfully fixed and no other errors found!', $errorAndDiffResult->getFileDiffsCount(), $errorAndDiffResult->getFileDiffsCount() === 1 ? '' : 's');
             $this->easyCodingStandardStyle->success($successMessage);
-            return \ECSPrefix20220130\Symfony\Component\Console\Command\Command::SUCCESS;
+            return;
         }
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getCodingStandardErrorCount(), $errorAndDiffResult->getFileDiffsCount(), $configuration);
-        return \ECSPrefix20220130\Symfony\Component\Console\Command\Command::FAILURE;
     }
-    private function printNoFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
+    private function printNoFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
     {
         if ($configuration->shouldShowErrorTable()) {
             $errors = $errorAndDiffResult->getErrors();
@@ -94,7 +102,6 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
             }
         }
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getCodingStandardErrorCount(), $errorAndDiffResult->getFileDiffsCount(), $configuration);
-        return \ECSPrefix20220130\Symfony\Component\Console\Command\Command::FAILURE;
     }
     private function printErrorMessageFromErrorCounts(int $codingStandardErrorCount, int $fileDiffsCount, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
     {

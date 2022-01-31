@@ -3,8 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use ECSPrefix20220130\Nette\Utils\Json;
-use ECSPrefix20220130\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220131\Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
@@ -26,16 +25,20 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    /**
+     * @var \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver
+     */
+    private $exitCodeResolver;
+    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver $exitCodeResolver)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
+        $this->exitCodeResolver = $exitCodeResolver;
     }
     public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
     {
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
-        $errorCount = $errorAndDiffResult->getErrorCount();
-        return $errorCount === 0 ? \ECSPrefix20220130\Symfony\Component\Console\Command\Command::SUCCESS : \ECSPrefix20220130\Symfony\Component\Console\Command\Command::FAILURE;
+        return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
     }
     public function getName() : string
     {
@@ -52,7 +55,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         foreach ($fileDiffs as $fileDiff) {
             $errorsArrayJson[self::FILES][$fileDiff->getRelativeFilePath()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
         }
-        return \ECSPrefix20220130\Nette\Utils\Json::encode($errorsArrayJson, \ECSPrefix20220130\Nette\Utils\Json::PRETTY);
+        return \ECSPrefix20220131\Nette\Utils\Json::encode($errorsArrayJson, \ECSPrefix20220131\Nette\Utils\Json::PRETTY);
     }
     /**
      * @return mixed[]
