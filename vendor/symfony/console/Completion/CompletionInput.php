@@ -195,7 +195,7 @@ final class CompletionInput extends \ECSPrefix20220131\Symfony\Component\Console
         }
         return $this->currentIndex >= $nrOfTokens;
     }
-    public function __toString()
+    public function __toString() : string
     {
         $str = '';
         foreach ($this->tokens as $i => $token) {

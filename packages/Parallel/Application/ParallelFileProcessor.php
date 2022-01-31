@@ -26,6 +26,7 @@ use ECSPrefix20220131\Symplify\EasyParallel\Enum\ReactEvent;
 use ECSPrefix20220131\Symplify\EasyParallel\ValueObject\ParallelProcess;
 use ECSPrefix20220131\Symplify\EasyParallel\ValueObject\ProcessPool;
 use ECSPrefix20220131\Symplify\EasyParallel\ValueObject\Schedule;
+use ECSPrefix20220131\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Throwable;
 /**
  * Inspired from @see
@@ -36,14 +37,6 @@ use Throwable;
 final class ParallelFileProcessor
 {
     /**
-     * @var int
-     */
-    public const TIMEOUT_IN_SECONDS = 60;
-    /**
-     * @var int
-     */
-    private const SYSTEM_ERRORS_COUNT_LIMIT = 50;
-    /**
      * @var \Symplify\EasyParallel\ValueObject\ProcessPool|null
      */
     private $processPool = null;
@@ -51,9 +44,14 @@ final class ParallelFileProcessor
      * @var \Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory
      */
     private $workerCommandLineFactory;
-    public function __construct(\ECSPrefix20220131\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory $workerCommandLineFactory)
+    /**
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     */
+    private $parameterProvider;
+    public function __construct(\ECSPrefix20220131\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory $workerCommandLineFactory, \ECSPrefix20220131\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->workerCommandLineFactory = $workerCommandLineFactory;
+        $this->parameterProvider = $parameterProvider;
     }
     /**
      * @param Closure(int): void|null $postFileCallback Used for progress bar jump
@@ -102,6 +100,8 @@ final class ParallelFileProcessor
             $reachedSystemErrorsCountLimit = \true;
             $this->processPool->quitAll();
         };
+        $timeoutInSeconds = $this->parameterProvider->provideIntParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_TIMEOUT_IN_SECONDS);
+        $systemErrorCountLimit = $this->parameterProvider->provideIntParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_SYSTEM_ERROR_COUNT_LIMIT);
         for ($i = 0; $i < $numberOfProcesses; ++$i) {
             // nothing else to process, stop now
             if ($jobs === []) {
@@ -109,10 +109,10 @@ final class ParallelFileProcessor
             }
             $processIdentifier = \ECSPrefix20220131\Nette\Utils\Random::generate();
             $workerCommandLine = $this->workerCommandLineFactory->create($mainScript, \Symplify\EasyCodingStandard\Console\Command\CheckCommand::class, 'worker', \Symplify\EasyCodingStandard\ValueObject\Option::PATHS, $projectConfigFile, $input, $processIdentifier, $serverPort);
-            $parallelProcess = new \ECSPrefix20220131\Symplify\EasyParallel\ValueObject\ParallelProcess($workerCommandLine, $streamSelectLoop, self::TIMEOUT_IN_SECONDS);
+            $parallelProcess = new \ECSPrefix20220131\Symplify\EasyParallel\ValueObject\ParallelProcess($workerCommandLine, $streamSelectLoop, $timeoutInSeconds);
             $parallelProcess->start(
                 // 1. callable on data
-                function (array $json) use($parallelProcess, &$systemErrors, &$fileDiffs, &$codingStandardErrors, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier) : void {
+                function (array $json) use($parallelProcess, &$systemErrors, &$fileDiffs, &$codingStandardErrors, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier, $systemErrorCountLimit) : void {
                     // decode arrays to objects
                     foreach ($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS] as $jsonError) {
                         if (\is_string($jsonError)) {
@@ -132,7 +132,7 @@ final class ParallelFileProcessor
                         $postFileCallback($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILES_COUNT]);
                     }
                     $systemErrorsCount += $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS_COUNT];
-                    if ($systemErrorsCount >= self::SYSTEM_ERRORS_COUNT_LIMIT) {
+                    if ($systemErrorsCount >= $systemErrorCountLimit) {
                         $reachedInternalErrorsCountLimit = \true;
                         $this->processPool->quitAll();
                     }
@@ -161,7 +161,7 @@ final class ParallelFileProcessor
         }
         $streamSelectLoop->run();
         if ($reachedSystemErrorsCountLimit) {
-            $systemErrors[] = \sprintf('Reached system errors count limit of %d, exiting...', self::SYSTEM_ERRORS_COUNT_LIMIT);
+            $systemErrors[] = \sprintf('Reached system errors count limit of %d, exiting...', $systemErrorCountLimit);
         }
         return [\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::CODING_STANDARD_ERRORS => $codingStandardErrors, \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS => $fileDiffs, \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS => $systemErrors, \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS_COUNT => \count($systemErrors)];
     }

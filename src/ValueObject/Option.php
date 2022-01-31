@@ -119,4 +119,12 @@ final class Option
      * @var string
      */
     public const MEMORY_LIMIT = 'memory-limit';
+    /**
+     * @var string
+     */
+    public const PARALLEL_TIMEOUT_IN_SECONDS = 'parallel-timeout-in-seconds';
+    /**
+     * @var string
+     */
+    public const PARALLEL_SYSTEM_ERROR_COUNT_LIMIT = 'parallel-system-error-count-limit';
 }
