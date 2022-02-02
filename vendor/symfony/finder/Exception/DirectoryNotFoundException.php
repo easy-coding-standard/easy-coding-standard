@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220131\Symfony\Component\Finder\Exception;
+namespace ECSPrefix20220202\Symfony\Component\Finder\Exception;
 
 /**
  * @author Andreas Erhard <andreas.erhard@i-med.ac.at>

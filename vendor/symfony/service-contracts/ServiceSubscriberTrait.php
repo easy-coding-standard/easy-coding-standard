@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220131\Symfony\Contracts\Service;
+namespace ECSPrefix20220202\Symfony\Contracts\Service;
 
-use ECSPrefix20220131\Psr\Container\ContainerInterface;
-use ECSPrefix20220131\Symfony\Contracts\Service\Attribute\SubscribedService;
+use ECSPrefix20220202\Psr\Container\ContainerInterface;
+use ECSPrefix20220202\Symfony\Contracts\Service\Attribute\SubscribedService;
 /**
  * Implementation of ServiceSubscriberInterface that determines subscribed services from
  * method return types. Service ids are available as "ClassName::methodName".
@@ -36,14 +36,14 @@ trait ServiceSubscriberTrait
             if (self::class !== $method->getDeclaringClass()->name) {
                 continue;
             }
-            if (!($attribute = (\method_exists($method, 'getAttributes') ? $method->getAttributes(\ECSPrefix20220131\Symfony\Contracts\Service\Attribute\SubscribedService::class) : [])[0] ?? null)) {
+            if (!($attribute = (\method_exists($method, 'getAttributes') ? $method->getAttributes(\ECSPrefix20220202\Symfony\Contracts\Service\Attribute\SubscribedService::class) : [])[0] ?? null)) {
                 continue;
             }
             if ($method->isStatic() || $method->isAbstract() || $method->isGenerator() || $method->isInternal() || $method->getNumberOfRequiredParameters()) {
-                throw new \LogicException(\sprintf('Cannot use "%s" on method "%s::%s()" (can only be used on non-static, non-abstract methods with no parameters).', \ECSPrefix20220131\Symfony\Contracts\Service\Attribute\SubscribedService::class, self::class, $method->name));
+                throw new \LogicException(\sprintf('Cannot use "%s" on method "%s::%s()" (can only be used on non-static, non-abstract methods with no parameters).', \ECSPrefix20220202\Symfony\Contracts\Service\Attribute\SubscribedService::class, self::class, $method->name));
             }
             if (!($returnType = $method->getReturnType())) {
-                throw new \LogicException(\sprintf('Cannot use "%s" on methods without a return type in "%s::%s()".', \ECSPrefix20220131\Symfony\Contracts\Service\Attribute\SubscribedService::class, $method->name, self::class));
+                throw new \LogicException(\sprintf('Cannot use "%s" on methods without a return type in "%s::%s()".', \ECSPrefix20220202\Symfony\Contracts\Service\Attribute\SubscribedService::class, $method->name, self::class));
             }
             $serviceId = $returnType instanceof \ReflectionNamedType ? $returnType->getName() : (string) $returnType;
             if ($returnType->allowsNull()) {
@@ -56,7 +56,7 @@ trait ServiceSubscriberTrait
     /**
      * @required
      */
-    public function setContainer(\ECSPrefix20220131\Psr\Container\ContainerInterface $container) : ?\ECSPrefix20220131\Psr\Container\ContainerInterface
+    public function setContainer(\ECSPrefix20220202\Psr\Container\ContainerInterface $container) : ?\ECSPrefix20220202\Psr\Container\ContainerInterface
     {
         $this->container = $container;
         if (\is_callable(['parent', __FUNCTION__])) {

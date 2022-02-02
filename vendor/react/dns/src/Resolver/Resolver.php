@@ -1,32 +1,32 @@
 <?php
 
-namespace ECSPrefix20220131\React\Dns\Resolver;
+namespace ECSPrefix20220202\React\Dns\Resolver;
 
-use ECSPrefix20220131\React\Dns\Model\Message;
-use ECSPrefix20220131\React\Dns\Query\ExecutorInterface;
-use ECSPrefix20220131\React\Dns\Query\Query;
-use ECSPrefix20220131\React\Dns\RecordNotFoundException;
+use ECSPrefix20220202\React\Dns\Model\Message;
+use ECSPrefix20220202\React\Dns\Query\ExecutorInterface;
+use ECSPrefix20220202\React\Dns\Query\Query;
+use ECSPrefix20220202\React\Dns\RecordNotFoundException;
 /**
  * @see ResolverInterface for the base interface
  */
-final class Resolver implements \ECSPrefix20220131\React\Dns\Resolver\ResolverInterface
+final class Resolver implements \ECSPrefix20220202\React\Dns\Resolver\ResolverInterface
 {
     private $executor;
-    public function __construct(\ECSPrefix20220131\React\Dns\Query\ExecutorInterface $executor)
+    public function __construct(\ECSPrefix20220202\React\Dns\Query\ExecutorInterface $executor)
     {
         $this->executor = $executor;
     }
     public function resolve($domain)
     {
-        return $this->resolveAll($domain, \ECSPrefix20220131\React\Dns\Model\Message::TYPE_A)->then(function (array $ips) {
+        return $this->resolveAll($domain, \ECSPrefix20220202\React\Dns\Model\Message::TYPE_A)->then(function (array $ips) {
             return $ips[\array_rand($ips)];
         });
     }
     public function resolveAll($domain, $type)
     {
-        $query = new \ECSPrefix20220131\React\Dns\Query\Query($domain, $type, \ECSPrefix20220131\React\Dns\Model\Message::CLASS_IN);
+        $query = new \ECSPrefix20220202\React\Dns\Query\Query($domain, $type, \ECSPrefix20220202\React\Dns\Model\Message::CLASS_IN);
         $that = $this;
-        return $this->executor->query($query)->then(function (\ECSPrefix20220131\React\Dns\Model\Message $response) use($query, $that) {
+        return $this->executor->query($query)->then(function (\ECSPrefix20220202\React\Dns\Model\Message $response) use($query, $that) {
             return $that->extractValues($query, $response);
         });
     }
@@ -39,37 +39,37 @@ final class Resolver implements \ECSPrefix20220131\React\Dns\Resolver\ResolverIn
      * @throws RecordNotFoundException when response indicates an error or contains no data
      * @internal
      */
-    public function extractValues(\ECSPrefix20220131\React\Dns\Query\Query $query, \ECSPrefix20220131\React\Dns\Model\Message $response)
+    public function extractValues(\ECSPrefix20220202\React\Dns\Query\Query $query, \ECSPrefix20220202\React\Dns\Model\Message $response)
     {
         // reject if response code indicates this is an error response message
         $code = $response->rcode;
-        if ($code !== \ECSPrefix20220131\React\Dns\Model\Message::RCODE_OK) {
+        if ($code !== \ECSPrefix20220202\React\Dns\Model\Message::RCODE_OK) {
             switch ($code) {
-                case \ECSPrefix20220131\React\Dns\Model\Message::RCODE_FORMAT_ERROR:
+                case \ECSPrefix20220202\React\Dns\Model\Message::RCODE_FORMAT_ERROR:
                     $message = 'Format Error';
                     break;
-                case \ECSPrefix20220131\React\Dns\Model\Message::RCODE_SERVER_FAILURE:
+                case \ECSPrefix20220202\React\Dns\Model\Message::RCODE_SERVER_FAILURE:
                     $message = 'Server Failure';
                     break;
-                case \ECSPrefix20220131\React\Dns\Model\Message::RCODE_NAME_ERROR:
+                case \ECSPrefix20220202\React\Dns\Model\Message::RCODE_NAME_ERROR:
                     $message = 'Non-Existent Domain / NXDOMAIN';
                     break;
-                case \ECSPrefix20220131\React\Dns\Model\Message::RCODE_NOT_IMPLEMENTED:
+                case \ECSPrefix20220202\React\Dns\Model\Message::RCODE_NOT_IMPLEMENTED:
                     $message = 'Not Implemented';
                     break;
-                case \ECSPrefix20220131\React\Dns\Model\Message::RCODE_REFUSED:
+                case \ECSPrefix20220202\React\Dns\Model\Message::RCODE_REFUSED:
                     $message = 'Refused';
                     break;
                 default:
                     $message = 'Unknown error response code ' . $code;
             }
-            throw new \ECSPrefix20220131\React\Dns\RecordNotFoundException('DNS query for ' . $query->describe() . ' returned an error response (' . $message . ')', $code);
+            throw new \ECSPrefix20220202\React\Dns\RecordNotFoundException('DNS query for ' . $query->describe() . ' returned an error response (' . $message . ')', $code);
         }
         $answers = $response->answers;
         $addresses = $this->valuesByNameAndType($answers, $query->name, $query->type);
         // reject if we did not receive a valid answer (domain is valid, but no record for this type could be found)
         if (0 === \count($addresses)) {
-            throw new \ECSPrefix20220131\React\Dns\RecordNotFoundException('DNS query for ' . $query->describe() . ' did not return a valid answer (NOERROR / NODATA)');
+            throw new \ECSPrefix20220202\React\Dns\RecordNotFoundException('DNS query for ' . $query->describe() . ' did not return a valid answer (NOERROR / NODATA)');
         }
         return \array_values($addresses);
     }
@@ -88,7 +88,7 @@ final class Resolver implements \ECSPrefix20220131\React\Dns\Resolver\ResolverIn
             return $this->mapRecordData($records);
         }
         // no matching records found? check if there are any matching CNAMEs instead
-        $cnameRecords = $this->filterByType($named, \ECSPrefix20220131\React\Dns\Model\Message::TYPE_CNAME);
+        $cnameRecords = $this->filterByType($named, \ECSPrefix20220202\React\Dns\Model\Message::TYPE_CNAME);
         if ($cnameRecords) {
             $cnames = $this->mapRecordData($cnameRecords);
             foreach ($cnames as $cname) {

@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20220131\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220131\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220202\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220202\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use ECSPrefix20220131\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-final class ShowCommand extends \ECSPrefix20220131\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20220202\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+final class ShowCommand extends \ECSPrefix20220202\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @var \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor
@@ -47,7 +47,7 @@ final class ShowCommand extends \ECSPrefix20220131\Symplify\PackageBuilder\Conso
         $this->setName('show');
         $this->setDescription('Show loaded checkers');
     }
-    protected function execute(\ECSPrefix20220131\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220131\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20220202\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220202\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             $this->loadedCheckersGuard->report();
@@ -58,6 +58,9 @@ final class ShowCommand extends \ECSPrefix20220131\Symplify\PackageBuilder\Conso
         $this->checkerListReporter->report($this->fixerFileProcessor->getCheckers(), 'PHP-CS-Fixer');
         $successMessage = \sprintf('Loaded %d checker%s in total', $totalCheckerCount, $totalCheckerCount === 1 ? '' : 's');
         $this->easyCodingStandardStyle->success($successMessage);
-        return self::SUCCESS;
+        $this->easyCodingStandardStyle->error('The "show" command is deprecated and will be removed, as it was used only for more output on Rector run. Use the "--debug" option and process command for debugging output instead.');
+        // to spot the error message
+        \sleep(3);
+        return self::FAILURE;
     }
 }

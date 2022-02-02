@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix20220131\Nette\Utils\Strings;
+use ECSPrefix20220202\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-use ECSPrefix20220131\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20220202\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
 {
     /**
@@ -34,15 +34,15 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
             return $docContent;
         }
         // more than 2 newlines - keep it
-        if (\substr_count($docContent, \ECSPrefix20220131\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar()) > 2) {
+        if (\substr_count($docContent, \ECSPrefix20220202\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar()) > 2) {
             return $docContent;
         }
         // asterisk start
-        $docContent = \ECSPrefix20220131\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
+        $docContent = \ECSPrefix20220202\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
         // inline
-        $docContent = \ECSPrefix20220131\Nette\Utils\Strings::replace($docContent, self::SPACE_REGEX, ' ');
+        $docContent = \ECSPrefix20220202\Nette\Utils\Strings::replace($docContent, self::SPACE_REGEX, ' ');
         // remove asterisk leftover
-        return \ECSPrefix20220131\Nette\Utils\Strings::replace($docContent, self::ASTERISK_LEFTOVERS_REGEX, '$1');
+        return \ECSPrefix20220202\Nette\Utils\Strings::replace($docContent, self::ASTERISK_LEFTOVERS_REGEX, '$1');
     }
     /**
      * @param Tokens<Token> $tokens
