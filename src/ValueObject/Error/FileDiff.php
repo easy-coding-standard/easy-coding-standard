@@ -6,8 +6,8 @@ namespace Symplify\EasyCodingStandard\ValueObject\Error;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
-use ECSPrefix20220202\Symplify\EasyParallel\Contract\SerializableInterface;
-final class FileDiff implements \ECSPrefix20220202\Symplify\EasyParallel\Contract\SerializableInterface
+use ECSPrefix20220204\Symplify\EasyParallel\Contract\SerializableInterface;
+final class FileDiff implements \ECSPrefix20220204\Symplify\EasyParallel\Contract\SerializableInterface
 {
     /**
      * @var string
@@ -67,7 +67,7 @@ final class FileDiff implements \ECSPrefix20220202\Symplify\EasyParallel\Contrac
      * @param array{relative_file_path: string, diff: string, diff_console_formatted: string, applied_checkers: string[]} $json
      * @return $this
      */
-    public static function decode(array $json) : \ECSPrefix20220202\Symplify\EasyParallel\Contract\SerializableInterface
+    public static function decode(array $json) : \ECSPrefix20220204\Symplify\EasyParallel\Contract\SerializableInterface
     {
         return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::DIFF], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::DIFF_CONSOLE_FORMATTED], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::APPLIED_CHECKERS]);
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220202\React\Cache;
+namespace ECSPrefix20220204\React\Cache;
 
-use ECSPrefix20220202\React\Promise\PromiseInterface;
+use ECSPrefix20220204\React\Promise\PromiseInterface;
 interface CacheInterface
 {
     /**

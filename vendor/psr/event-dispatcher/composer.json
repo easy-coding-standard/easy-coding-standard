@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220202\\Psr\\EventDispatcher\\": "src\/"
+            "ECSPrefix20220204\\Psr\\EventDispatcher\\": "src\/"
         }
     },
     "extra": {

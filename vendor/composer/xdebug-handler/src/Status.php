@@ -9,10 +9,10 @@
  * the LICENSE file that was distributed with this source code.
  */
 declare (strict_types=1);
-namespace ECSPrefix20220202\Composer\XdebugHandler;
+namespace ECSPrefix20220204\Composer\XdebugHandler;
 
-use ECSPrefix20220202\Psr\Log\LoggerInterface;
-use ECSPrefix20220202\Psr\Log\LogLevel;
+use ECSPrefix20220204\Psr\Log\LoggerInterface;
+use ECSPrefix20220204\Psr\Log\LogLevel;
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>
  * @internal
@@ -46,7 +46,7 @@ class Status
     public function __construct(string $envAllowXdebug, bool $debug)
     {
         $start = \getenv(self::ENV_RESTART);
-        \ECSPrefix20220202\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART);
+        \ECSPrefix20220204\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART);
         $this->time = \is_numeric($start) ? \round((\microtime(\true) - $start) * 1000) : 0;
         $this->envAllowXdebug = $envAllowXdebug;
         $this->debug = $debug && \defined('STDERR');
@@ -57,7 +57,7 @@ class Status
      *
      * @return void
      */
-    public function setLogger(\ECSPrefix20220202\Psr\Log\LoggerInterface $logger) : void
+    public function setLogger(\ECSPrefix20220204\Psr\Log\LoggerInterface $logger) : void
     {
         $this->logger = $logger;
     }
@@ -83,7 +83,7 @@ class Status
     private function output(string $text, ?string $level = null) : void
     {
         if ($this->logger !== null) {
-            $this->logger->log($level !== null ? $level : \ECSPrefix20220202\Psr\Log\LogLevel::DEBUG, $text);
+            $this->logger->log($level !== null ? $level : \ECSPrefix20220204\Psr\Log\LogLevel::DEBUG, $text);
         }
         if ($this->debug) {
             \fwrite(\STDERR, \sprintf('xdebug-handler[%d] %s', \getmypid(), $text . \PHP_EOL));
@@ -106,7 +106,7 @@ class Status
      */
     private function reportError(string $error) : void
     {
-        $this->output(\sprintf('No restart (%s)', $error), \ECSPrefix20220202\Psr\Log\LogLevel::WARNING);
+        $this->output(\sprintf('No restart (%s)', $error), \ECSPrefix20220204\Psr\Log\LogLevel::WARNING);
     }
     /**
      * Info status message
@@ -135,7 +135,7 @@ class Status
     private function reportRestart() : void
     {
         $this->output($this->getLoadedMessage());
-        \ECSPrefix20220202\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART, (string) \microtime(\true));
+        \ECSPrefix20220204\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART, (string) \microtime(\true));
     }
     /**
      * Restarted status message
@@ -144,7 +144,7 @@ class Status
     {
         $loaded = $this->getLoadedMessage();
         $text = \sprintf('Restarted (%d ms). %s', $this->time, $loaded);
-        $level = $this->loaded !== null ? \ECSPrefix20220202\Psr\Log\LogLevel::WARNING : null;
+        $level = $this->loaded !== null ? \ECSPrefix20220204\Psr\Log\LogLevel::WARNING : null;
         $this->output($text, $level);
     }
     /**

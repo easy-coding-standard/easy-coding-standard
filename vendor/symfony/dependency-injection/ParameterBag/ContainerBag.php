@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220202\Symfony\Component\DependencyInjection\ParameterBag;
+namespace ECSPrefix20220204\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix20220202\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix20220204\Symfony\Component\DependencyInjection\Container;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ContainerBag extends \ECSPrefix20220202\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag implements \ECSPrefix20220202\Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface
+class ContainerBag extends \ECSPrefix20220204\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag implements \ECSPrefix20220204\Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface
 {
     private $container;
-    public function __construct(\ECSPrefix20220202\Symfony\Component\DependencyInjection\Container $container)
+    public function __construct(\ECSPrefix20220204\Symfony\Component\DependencyInjection\Container $container)
     {
         $this->container = $container;
     }
