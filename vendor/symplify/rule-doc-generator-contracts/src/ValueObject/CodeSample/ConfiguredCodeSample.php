@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220204\Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace ECSPrefix20220205\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use ECSPrefix20220204\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use ECSPrefix20220204\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
-use ECSPrefix20220204\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ConfiguredCodeSample extends \ECSPrefix20220204\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample implements \ECSPrefix20220204\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
+use ECSPrefix20220205\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use ECSPrefix20220205\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
+use ECSPrefix20220205\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+final class ConfiguredCodeSample extends \ECSPrefix20220205\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample implements \ECSPrefix20220205\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
 {
     /**
      * @var mixed[]
@@ -19,7 +19,7 @@ final class ConfiguredCodeSample extends \ECSPrefix20220204\Symplify\RuleDocGene
     {
         if ($configuration === []) {
             $message = \sprintf('Configuration cannot be empty. Look for "%s"', $badCode);
-            throw new \ECSPrefix20220204\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($message);
+            throw new \ECSPrefix20220205\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($message);
         }
         $this->configuration = $configuration;
         parent::__construct($badCode, $goodCode);

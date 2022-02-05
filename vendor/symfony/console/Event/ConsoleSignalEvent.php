@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220204\Symfony\Component\Console\Event;
+namespace ECSPrefix20220205\Symfony\Component\Console\Event;
 
-use ECSPrefix20220204\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220204\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220204\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220205\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220205\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220205\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author marie <marie@users.noreply.github.com>
  */
-final class ConsoleSignalEvent extends \ECSPrefix20220204\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleSignalEvent extends \ECSPrefix20220205\Symfony\Component\Console\Event\ConsoleEvent
 {
     /**
      * @var int
      */
     private $handlingSignal;
-    public function __construct(\ECSPrefix20220204\Symfony\Component\Console\Command\Command $command, \ECSPrefix20220204\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220204\Symfony\Component\Console\Output\OutputInterface $output, int $handlingSignal)
+    public function __construct(\ECSPrefix20220205\Symfony\Component\Console\Command\Command $command, \ECSPrefix20220205\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220205\Symfony\Component\Console\Output\OutputInterface $output, int $handlingSignal)
     {
         parent::__construct($command, $input, $output);
         $this->handlingSignal = $handlingSignal;

@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220204\Symfony\Component\Config\Definition\Exception;
+namespace ECSPrefix20220205\Symfony\Component\Config\Definition\Exception;
 
 /**
  * Thrown when an error is detected in a node Definition.
  *
  * @author Victor Berchet <victor.berchet@suumit.com>
  */
-class InvalidDefinitionException extends \ECSPrefix20220204\Symfony\Component\Config\Definition\Exception\Exception
+class InvalidDefinitionException extends \ECSPrefix20220205\Symfony\Component\Config\Definition\Exception\Exception
 {
 }
