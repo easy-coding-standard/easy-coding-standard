@@ -2609,12 +2609,12 @@
             },
             "installation-source": "dist",
             "autoload": {
-                "psr-4": {
-                    "ECSPrefix20220205\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "ECSPrefix20220205\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
+                }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
             "license": [
@@ -2693,12 +2693,12 @@
             },
             "installation-source": "dist",
             "autoload": {
-                "psr-4": {
-                    "ECSPrefix20220205\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
-                },
                 "files": [
                     "bootstrap.php"
                 ],
+                "psr-4": {
+                    "ECSPrefix20220205\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                },
                 "classmap": [
                     "Resources\/stubs"
                 ]
@@ -2863,12 +2863,12 @@
             },
             "installation-source": "dist",
             "autoload": {
-                "psr-4": {
-                    "ECSPrefix20220205\\Symfony\\Polyfill\\Php80\\": ""
-                },
                 "files": [
                     "bootstrap.php"
                 ],
+                "psr-4": {
+                    "ECSPrefix20220205\\Symfony\\Polyfill\\Php80\\": ""
+                },
                 "classmap": [
                     "Resources\/stubs"
                 ]
@@ -2949,12 +2949,12 @@
             },
             "installation-source": "dist",
             "autoload": {
-                "psr-4": {
-                    "ECSPrefix20220205\\Symfony\\Polyfill\\Php81\\": ""
-                },
                 "files": [
                     "bootstrap.php"
                 ],
+                "psr-4": {
+                    "ECSPrefix20220205\\Symfony\\Polyfill\\Php81\\": ""
+                },
                 "classmap": [
                     "Resources\/stubs"
                 ]
