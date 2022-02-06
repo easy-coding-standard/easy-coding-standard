@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Doctrine\Annotation;
 
-use ECSPrefix20220205\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20220206\Doctrine\Common\Annotations\DocLexer;
 /**
  * A Doctrine annotation token.
  *
@@ -32,7 +32,7 @@ final class Token
      * @param int    $type    The type
      * @param string $content The content
      */
-    public function __construct(int $type = \ECSPrefix20220205\Doctrine\Common\Annotations\DocLexer::T_NONE, string $content = '')
+    public function __construct(int $type = \ECSPrefix20220206\Doctrine\Common\Annotations\DocLexer::T_NONE, string $content = '')
     {
         $this->type = $type;
         $this->content = $content;
