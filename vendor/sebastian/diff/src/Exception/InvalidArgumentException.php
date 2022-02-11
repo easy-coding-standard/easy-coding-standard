@@ -9,8 +9,8 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220207\SebastianBergmann\Diff;
+namespace ECSPrefix20220211\SebastianBergmann\Diff;
 
-class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20220207\SebastianBergmann\Diff\Exception
+class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20220211\SebastianBergmann\Diff\Exception
 {
 }

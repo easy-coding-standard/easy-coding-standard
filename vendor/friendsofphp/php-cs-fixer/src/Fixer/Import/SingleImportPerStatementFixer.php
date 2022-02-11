@@ -112,7 +112,7 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
             }
             if ($token->isWhitespace()) {
                 $j = $tokens->getNextMeaningfulToken($i);
-                if ($tokens[$j]->equals([\T_AS])) {
+                if ($tokens[$j]->isGivenKind(\T_AS)) {
                     $statement .= ' as ';
                     $i += 2;
                 } elseif ($tokens[$j]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {

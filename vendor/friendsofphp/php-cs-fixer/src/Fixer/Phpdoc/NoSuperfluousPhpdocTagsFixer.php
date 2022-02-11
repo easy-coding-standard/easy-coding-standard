@@ -292,7 +292,7 @@ class Foo {
     private function annotationIsSuperfluous(\PhpCsFixer\DocBlock\Annotation $annotation, array $info, array $symbolShortNames) : bool
     {
         if ('param' === $annotation->getTag()->getName()) {
-            $regex = '/@param\\s+(?:\\S|\\s(?!\\$))++\\s\\$\\S+\\s+\\S/';
+            $regex = '/@param\\s+[^\\$]+\\s(?:\\&\\s*)?(?:\\.{3}\\s*)?\\$\\S+\\s+\\S/';
         } elseif ('var' === $annotation->getTag()->getName()) {
             $regex = '/@var\\s+\\S+(\\s+\\$\\S+)?(\\s+)(?!\\*+\\/)([^$\\s]+)/';
         } else {

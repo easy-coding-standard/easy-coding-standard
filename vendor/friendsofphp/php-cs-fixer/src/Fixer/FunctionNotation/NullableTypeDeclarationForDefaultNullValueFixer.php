@@ -90,6 +90,11 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
      */
     private function fixFunctionParameters(\PhpCsFixer\Tokenizer\Tokens $tokens, array $arguments) : void
     {
+        $constructorPropertyModifiers = [\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE];
+        if (\defined('T_READONLY')) {
+            // @TODO: drop condition when PHP 8.1+ is required
+            $constructorPropertyModifiers[] = T_READONLY;
+        }
         foreach (\array_reverse($arguments) as $argumentInfo) {
             if (!$argumentInfo->hasTypeAnalysis() || \strpos($argumentInfo->getTypeAnalysis()->getName(), '|') !== \false || !$argumentInfo->hasDefault() || 'null' !== \strtolower($argumentInfo->getDefault())) {
                 continue;
@@ -97,7 +102,7 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
             $argumentTypeInfo = $argumentInfo->getTypeAnalysis();
             if (\PHP_VERSION_ID >= 80000 && \false === $this->configuration['use_nullable_type_declaration']) {
                 $visibility = $tokens[$tokens->getPrevMeaningfulToken($argumentTypeInfo->getStartIndex())];
-                if ($visibility->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE])) {
+                if ($visibility->isGivenKind($constructorPropertyModifiers)) {
                     continue;
                 }
             }

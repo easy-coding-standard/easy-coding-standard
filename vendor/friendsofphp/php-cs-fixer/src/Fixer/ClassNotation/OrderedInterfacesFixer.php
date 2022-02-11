@@ -101,7 +101,7 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
                 $actualInterfaceIndex = $interfaceTokens->getNextMeaningfulToken(-1);
                 while ($interfaceTokens->offsetExists($actualInterfaceIndex)) {
                     $token = $interfaceTokens[$actualInterfaceIndex];
-                    if (null === $token || $token->isComment() || $token->isWhitespace()) {
+                    if ($token->isComment() || $token->isWhitespace()) {
                         break;
                     }
                     $normalized .= \str_replace('\\', ' ', $token->getContent());

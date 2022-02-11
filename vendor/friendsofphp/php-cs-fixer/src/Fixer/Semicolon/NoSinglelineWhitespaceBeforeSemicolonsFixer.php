@@ -32,7 +32,7 @@ final class NoSinglelineWhitespaceBeforeSemicolonsFixer extends \PhpCsFixer\Abst
     /**
      * {@inheritdoc}
      *
-     * Must run after CombineConsecutiveIssetsFixer, FunctionToConstantFixer, NoEmptyStatementFixer, SimplifiedIfReturnFixer, SingleImportPerStatementFixer.
+     * Must run after CombineConsecutiveIssetsFixer, FunctionToConstantFixer, NoEmptyStatementFixer, NoUnneededImportAliasFixer, SimplifiedIfReturnFixer, SingleImportPerStatementFixer.
      */
     public function getPriority() : int
     {

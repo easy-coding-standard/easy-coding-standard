@@ -86,4 +86,8 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
     {
         return $this->scopeEndIndex;
     }
+    public function isGlobalNamespace() : bool
+    {
+        return '' === $this->getFullName();
+    }
 }

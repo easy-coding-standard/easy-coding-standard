@@ -65,7 +65,7 @@ final class PhpUnitDedicateAssertFixer extends \PhpCsFixer\Fixer\AbstractPhpUnit
         $this->functions = ['array_key_exists', 'file_exists', 'is_null', 'str_ends_with', 'str_starts_with'];
         if (\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::fulfills($this->configuration['target'], \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_5)) {
             // assertions added in 3.5: assertInternalType assertNotEmpty assertEmpty
-            $this->functions = \array_merge($this->functions, ['empty', 'is_array', 'is_bool', 'is_boolean', 'is_callable', 'is_double', 'is_float', 'is_int', 'is_integer', 'is_long', 'is_numeric', 'is_object', 'is_real', 'is_resource', 'is_scalar', 'is_string']);
+            $this->functions = \array_merge($this->functions, ['empty', 'is_array', 'is_bool', 'is_boolean', 'is_callable', 'is_double', 'is_float', 'is_int', 'is_integer', 'is_long', 'is_numeric', 'is_object', 'is_real', 'is_scalar', 'is_string']);
         }
         if (\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::fulfills($this->configuration['target'], \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_0)) {
             // assertions added in 5.0: assertFinite assertInfinite assertNan

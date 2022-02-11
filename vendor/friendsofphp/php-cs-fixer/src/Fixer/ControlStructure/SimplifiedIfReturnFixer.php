@@ -57,9 +57,12 @@ final class SimplifiedIfReturnFixer extends \PhpCsFixer\AbstractFixer
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         for ($ifIndex = $tokens->count() - 1; 0 <= $ifIndex; --$ifIndex) {
-            $ifToken = $tokens[$ifIndex];
-            if (!$ifToken->isGivenKind([\T_IF, \T_ELSEIF])) {
+            if (!$tokens[$ifIndex]->isGivenKind([\T_IF, \T_ELSEIF])) {
                 continue;
+            }
+            if ($tokens[$tokens->getPrevMeaningfulToken($ifIndex)]->equals(')')) {
+                continue;
+                // in a loop without braces
             }
             $startParenthesisIndex = $tokens->getNextTokenOfKind($ifIndex, ['(']);
             $endParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);

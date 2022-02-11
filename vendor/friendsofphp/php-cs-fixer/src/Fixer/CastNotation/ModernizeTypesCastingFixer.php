@@ -71,7 +71,7 @@ final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionRefer
                 // check if something complex passed as an argument and preserve parentheses then
                 $countParamTokens = 0;
                 for ($paramContentIndex = $openParenthesis + 1; $paramContentIndex < $paramContentEnd; ++$paramContentIndex) {
-                    //not a space, means some sensible token
+                    // not a space, means some sensible token
                     if (!$tokens[$paramContentIndex]->isGivenKind(\T_WHITESPACE)) {
                         ++$countParamTokens;
                     }

@@ -25,7 +25,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220207\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix20220211\Symfony\Component\OptionsResolver\Options;
 /**
  * @author Antonio J. García Lagar <aj@garcialagar.es>
  */
@@ -79,7 +79,7 @@ echo 1;
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return isset($tokens[0]) && $tokens[0]->isGivenKind(\T_OPEN_TAG) && $tokens->isMonolithicPhp();
+        return $tokens->isMonolithicPhp();
     }
     /**
      * {@inheritdoc}
@@ -142,7 +142,7 @@ echo 1;
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $fixerName = $this->getName();
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('header', 'Proper header content.'))->setAllowedTypes(['string'])->setNormalizer(static function (\ECSPrefix20220207\Symfony\Component\OptionsResolver\Options $options, string $value) use($fixerName) : string {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('header', 'Proper header content.'))->setAllowedTypes(['string'])->setNormalizer(static function (\ECSPrefix20220211\Symfony\Component\OptionsResolver\Options $options, string $value) use($fixerName) : string {
             if ('' === \trim($value)) {
                 return '';
             }
@@ -191,41 +191,45 @@ echo 1;
      */
     private function findHeaderCommentInsertionIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, string $location) : int
     {
-        if ('after_open' === $location) {
+        $openTagIndex = $tokens[0]->isGivenKind(\T_OPEN_TAG) ? 0 : $tokens->getNextTokenOfKind(0, [[\T_OPEN_TAG]]);
+        if (null === $openTagIndex) {
             return 1;
         }
-        $index = $tokens->getNextMeaningfulToken(0);
+        if ('after_open' === $location) {
+            return $openTagIndex + 1;
+        }
+        $index = $tokens->getNextMeaningfulToken($openTagIndex);
         if (null === $index) {
-            return 1;
+            return $openTagIndex + 1;
             // file without meaningful tokens but an open tag, comment should always be placed directly after the open tag
         }
         if (!$tokens[$index]->isGivenKind(\T_DECLARE)) {
-            return 1;
+            return $openTagIndex + 1;
         }
         $next = $tokens->getNextMeaningfulToken($index);
         if (null === $next || !$tokens[$next]->equals('(')) {
-            return 1;
+            return $openTagIndex + 1;
         }
         $next = $tokens->getNextMeaningfulToken($next);
         if (null === $next || !$tokens[$next]->equals([\T_STRING, 'strict_types'], \false)) {
-            return 1;
+            return $openTagIndex + 1;
         }
         $next = $tokens->getNextMeaningfulToken($next);
         if (null === $next || !$tokens[$next]->equals('=')) {
-            return 1;
+            return $openTagIndex + 1;
         }
         $next = $tokens->getNextMeaningfulToken($next);
         if (null === $next || !$tokens[$next]->isGivenKind(\T_LNUMBER)) {
-            return 1;
+            return $openTagIndex + 1;
         }
         $next = $tokens->getNextMeaningfulToken($next);
         if (null === $next || !$tokens[$next]->equals(')')) {
-            return 1;
+            return $openTagIndex + 1;
         }
         $next = $tokens->getNextMeaningfulToken($next);
         if (null === $next || !$tokens[$next]->equals(';')) {
             // don't insert after close tag
-            return 1;
+            return $openTagIndex + 1;
         }
         return $next + 1;
     }

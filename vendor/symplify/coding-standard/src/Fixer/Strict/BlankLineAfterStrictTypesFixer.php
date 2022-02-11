@@ -10,16 +10,16 @@ use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use ECSPrefix20220207\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20220207\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20220207\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220211\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20220211\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20220211\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Inspired at https://github.com/aidantwoods/PHP-CS-Fixer/tree/feature/DeclareStrictTypesFixer-split
  *
  * @thanks Aidan Woods
  * @see \Symplify\CodingStandard\Tests\Fixer\Strict\BlankLineAfterStrictTypesFixer\BlankLineAfterStrictTypesFixerTest
  */
-final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220207\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220211\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -69,9 +69,9 @@ final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixe
         $lineEnding = $this->whitespacesFixerConfig->getLineEnding();
         $tokens->ensureWhitespaceAtIndex($semicolonPosition + 1, 0, $lineEnding . $lineEnding);
     }
-    public function getRuleDefinition() : \ECSPrefix20220207\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20220211\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20220207\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220207\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20220211\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220211\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 declare(strict_types=1);
 namespace App;
 CODE_SAMPLE

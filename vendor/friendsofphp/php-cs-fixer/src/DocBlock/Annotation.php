@@ -170,7 +170,7 @@ final class Annotation
     public function setTypes(array $types) : void
     {
         $pattern = '/' . \preg_quote($this->getTypesContent(), '/') . '/';
-        $this->lines[0]->setContent(\PhpCsFixer\Preg::replace($pattern, \implode('|', $types), $this->lines[0]->getContent(), 1));
+        $this->lines[0]->setContent(\PhpCsFixer\Preg::replace($pattern, \implode($this->getTypeExpression()->getTypesGlue(), $types), $this->lines[0]->getContent(), 1));
         $this->clearCache();
     }
     /**
@@ -233,7 +233,7 @@ final class Annotation
             if (!$this->supportTypes()) {
                 throw new \RuntimeException('This tag does not support types.');
             }
-            $matchingResult = \PhpCsFixer\Preg::match('{^(?:\\s*\\*|/\\*\\*)\\s*@' . $name . '\\s+' . \PhpCsFixer\DocBlock\TypeExpression::REGEX_TYPES . '(?:[*\\h\\v].*)?\\r?$}sx', $this->lines[0]->getContent(), $matches);
+            $matchingResult = \PhpCsFixer\Preg::match('{^(?:\\s*\\*|/\\*\\*)\\s*@' . $name . '\\s+' . \PhpCsFixer\DocBlock\TypeExpression::REGEX_TYPES . '(?:(?:[*\\h\\v]|\\&[\\.\\$]).*)?\\r?$}sx', $this->lines[0]->getContent(), $matches);
             $this->typesContent = 1 === $matchingResult ? $matches['types'] : '';
         }
         return $this->typesContent;

@@ -15,6 +15,7 @@ namespace PhpCsFixer\Fixer\Phpdoc;
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\DocBlock\Annotation;
 use PhpCsFixer\DocBlock\DocBlock;
+use PhpCsFixer\DocBlock\TypeExpression;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
@@ -25,7 +26,6 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use PhpCsFixer\Utils;
 final class PhpdocTypesOrderFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
@@ -91,9 +91,8 @@ final class PhpdocTypesOrderFixer extends \PhpCsFixer\AbstractFixer implements \
                 continue;
             }
             foreach ($annotations as $annotation) {
-                $types = $annotation->getTypes();
                 // fix main types
-                $annotation->setTypes($this->sortTypes($types));
+                $annotation->setTypes($this->sortTypes($annotation->getTypeExpression()));
                 // fix @method parameters types
                 $line = $doc->getLine($annotation->getStart());
                 $line->setContent(\PhpCsFixer\Preg::replaceCallback('/(@method\\s+.+?\\s+\\w+\\()(.*)\\)/', function (array $matches) {
@@ -107,48 +106,36 @@ final class PhpdocTypesOrderFixer extends \PhpCsFixer\AbstractFixer implements \
         }
     }
     /**
-     * @param string[] $types
-     *
      * @return string[]
      */
-    private function sortTypes(array $types) : array
+    private function sortTypes(\PhpCsFixer\DocBlock\TypeExpression $typeExpression) : array
     {
-        foreach ($types as $index => $type) {
-            $types[$index] = \PhpCsFixer\Preg::replaceCallback('/^([^<]+)<(?:([\\w\\|]+?|<?.*>)(,\\s*))?(.*)>$/', function (array $matches) {
-                return $matches[1] . '<' . $this->sortJoinedTypes($matches[2]) . $matches[3] . $this->sortJoinedTypes($matches[4]) . '>';
-            }, $type);
-        }
-        if ('alpha' === $this->configuration['sort_algorithm']) {
-            $types = \PhpCsFixer\Utils::stableSort($types, static function (string $type) : string {
-                return $type;
-            }, static function (string $typeA, string $typeB) : int {
-                $regexp = '/^\\??\\\\?/';
-                return \strcasecmp(\PhpCsFixer\Preg::replace($regexp, '', $typeA), \PhpCsFixer\Preg::replace($regexp, '', $typeB));
-            });
-        }
-        if ('none' !== $this->configuration['null_adjustment']) {
-            $nulls = [];
-            foreach ($types as $index => $type) {
-                if (\PhpCsFixer\Preg::match('/^\\\\?null$/i', $type)) {
-                    $nulls[$index] = $type;
-                    unset($types[$index]);
+        $normalizeType = static function (string $type) : string {
+            return \PhpCsFixer\Preg::replace('/^\\??\\\\?/', '', $type);
+        };
+        $typeExpression->sortTypes(function (\PhpCsFixer\DocBlock\TypeExpression $a, \PhpCsFixer\DocBlock\TypeExpression $b) use($normalizeType) : int {
+            $a = $normalizeType($a->toString());
+            $b = $normalizeType($b->toString());
+            $lowerCaseA = \strtolower($a);
+            $lowerCaseB = \strtolower($b);
+            if ('none' !== $this->configuration['null_adjustment']) {
+                if ('null' === $lowerCaseA && 'null' !== $lowerCaseB) {
+                    return 'always_last' === $this->configuration['null_adjustment'] ? 1 : -1;
+                }
+                if ('null' !== $lowerCaseA && 'null' === $lowerCaseB) {
+                    return 'always_last' === $this->configuration['null_adjustment'] ? -1 : 1;
                 }
             }
-            if (\count($nulls) > 0) {
-                if ('always_last' === $this->configuration['null_adjustment']) {
-                    \array_push($types, ...$nulls);
-                } else {
-                    \array_unshift($types, ...$nulls);
-                }
+            if ('alpha' === $this->configuration['sort_algorithm']) {
+                return \strcasecmp($a, $b);
             }
-        }
-        return $types;
+            return 0;
+        });
+        return $typeExpression->getTypes();
     }
     private function sortJoinedTypes(string $types) : string
     {
-        $types = \array_filter(\PhpCsFixer\Preg::split('/([^|<{\\(]+(?:[<{].*[>}]|\\(.+\\)(?::.+)?)?)/', $types, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY), static function (string $value) : bool {
-            return '|' !== $value;
-        });
-        return \implode('|', $this->sortTypes($types));
+        $typeExpression = new \PhpCsFixer\DocBlock\TypeExpression($types, null, []);
+        return \implode('|', $this->sortTypes($typeExpression));
     }
 }

@@ -53,13 +53,6 @@ final class FixerDocumentGenerator
         $title = "Rule ``{$name}``";
         $titleLine = \str_repeat('=', \strlen($title));
         $doc = "{$titleLine}\n{$title}\n{$titleLine}";
-        if ($fixer instanceof \PhpCsFixer\Fixer\DeprecatedFixerInterface) {
-            $doc .= "\n\n.. warning:: This rule is deprecated and will be removed on next major version.";
-            $alternatives = $fixer->getSuccessorsNames();
-            if (0 !== \count($alternatives)) {
-                $doc .= \PhpCsFixer\Documentation\RstUtils::toRst(\sprintf("\n\nYou should use %s instead.", \PhpCsFixer\Utils::naturalLanguageJoinWithBackticks($alternatives)), 3);
-            }
-        }
         $definition = $fixer->getDefinition();
         $doc .= "\n\n" . \PhpCsFixer\Documentation\RstUtils::toRst($definition->getSummary());
         $description = $definition->getDescription();
@@ -74,16 +67,39 @@ Description
 {$description}
 RST;
         }
-        $riskyDescription = $definition->getRiskyDescription();
-        if (null !== $riskyDescription) {
-            $riskyDescription = \PhpCsFixer\Documentation\RstUtils::toRst($riskyDescription, 3);
-            $doc .= <<<RST
+        $deprecationDescription = '';
+        if ($fixer instanceof \PhpCsFixer\Fixer\DeprecatedFixerInterface) {
+            $deprecationDescription = <<<'RST'
 
-
-.. warning:: Using this rule is risky.
-
-   {$riskyDescription}
+This rule is deprecated and will be removed on next major version
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 RST;
+            $alternatives = $fixer->getSuccessorsNames();
+            if (0 !== \count($alternatives)) {
+                $deprecationDescription .= \PhpCsFixer\Documentation\RstUtils::toRst(\sprintf("\n\nYou should use %s instead.", \PhpCsFixer\Utils::naturalLanguageJoinWithBackticks($alternatives)), 0);
+            }
+        }
+        $riskyDescription = '';
+        $riskyDescriptionRaw = $definition->getRiskyDescription();
+        if (null !== $riskyDescriptionRaw) {
+            $riskyDescriptionRaw = \PhpCsFixer\Documentation\RstUtils::toRst($riskyDescriptionRaw, 0);
+            $riskyDescription = <<<RST
+
+Using this rule is risky
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+{$riskyDescriptionRaw}
+RST;
+        }
+        if ($deprecationDescription || $riskyDescription) {
+            $warningsHeader = 'Warning';
+            $warningsSeparator = '';
+            if ($deprecationDescription && $riskyDescription) {
+                $warningsHeader = 'Warnings';
+                $warningsSeparator = "\n";
+            }
+            $warningsHeaderLine = \str_repeat('-', \strlen($warningsHeader));
+            $doc .= "\n\n" . \implode("\n", \array_filter([$warningsHeader, $warningsHeaderLine, $deprecationDescription, $riskyDescription]));
         }
         if ($fixer instanceof \PhpCsFixer\Fixer\ConfigurableFixerInterface) {
             $doc .= <<<'RST'

@@ -72,7 +72,7 @@ final class FunctionsAnalyzer
             $scopeStartIndex = $declaration->getScopeStartIndex();
             $scopeEndIndex = $declaration->getScopeEndIndex();
             if ($index >= $scopeStartIndex && $index <= $scopeEndIndex) {
-                $inGlobalNamespace = '' === $declaration->getFullName();
+                $inGlobalNamespace = $declaration->isGlobalNamespace();
                 break;
             }
         }

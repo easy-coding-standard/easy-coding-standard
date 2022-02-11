@@ -21,8 +21,7 @@ use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
-use PhpCsFixer\Tokenizer\Generator\NamespacedStringTokenGenerator;
-use PhpCsFixer\Tokenizer\Resolver\TypeShortNameResolver;
+use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author VeeWee <toonverwerft@gmail.com>
@@ -72,42 +71,49 @@ class SomeClass
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return $tokens->isTokenKindFound(\T_FUNCTION) && (\count((new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens)) > 0 || \count((new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens)) > 0);
+        return $tokens->isTokenKindFound(\T_FUNCTION);
     }
     /**
      * {@inheritdoc}
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
-        $lastIndex = $tokens->count() - 1;
-        for ($index = $lastIndex; $index >= 0; --$index) {
-            if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
-                continue;
+        $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
+        $namespaceUsesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
+        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        foreach ($namespacesAnalyzer->getDeclarations($tokens) as $namespace) {
+            $namespaceName = \strtolower($namespace->getFullName());
+            $uses = [];
+            foreach ($namespaceUsesAnalyzer->getDeclarationsInNamespace($tokens, $namespace) as $use) {
+                $uses[\strtolower(\ltrim($use->getFullName(), '\\'))] = $use->getShortName();
             }
-            // Return types are only available since PHP 7.0
-            $this->fixFunctionReturnType($tokens, $index);
-            $this->fixFunctionArguments($tokens, $index);
+            for ($index = $namespace->getScopeStartIndex(); $index < $namespace->getScopeEndIndex(); ++$index) {
+                if ($tokens[$index]->isGivenKind(\T_FUNCTION)) {
+                    $this->fixFunction($functionsAnalyzer, $tokens, $index, $uses, $namespaceName);
+                }
+            }
         }
     }
-    private function fixFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    /**
+     * @param array<string, string> $uses
+     */
+    private function fixFunction(\PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionsAnalyzer, \PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $uses, string $namespaceName) : void
     {
-        $arguments = (new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->getFunctionArguments($tokens, $index);
+        $arguments = $functionsAnalyzer->getFunctionArguments($tokens, $index);
         foreach ($arguments as $argument) {
-            if (!$argument->hasTypeAnalysis()) {
-                continue;
+            if ($argument->hasTypeAnalysis()) {
+                $this->replaceByShortType($tokens, $argument->getTypeAnalysis(), $uses, $namespaceName);
             }
-            $this->detectAndReplaceTypeWithShortType($tokens, $argument->getTypeAnalysis());
+        }
+        $returnTypeAnalysis = $functionsAnalyzer->getFunctionReturnType($tokens, $index);
+        if (null !== $returnTypeAnalysis) {
+            $this->replaceByShortType($tokens, $returnTypeAnalysis, $uses, $namespaceName);
         }
     }
-    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
-    {
-        $returnType = (new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->getFunctionReturnType($tokens, $index);
-        if (null === $returnType) {
-            return;
-        }
-        $this->detectAndReplaceTypeWithShortType($tokens, $returnType);
-    }
-    private function detectAndReplaceTypeWithShortType(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis $type) : void
+    /**
+     * @param array<string, string> $uses
+     */
+    private function replaceByShortType(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis $type, array $uses, string $namespaceName) : void
     {
         if ($type->isReservedType()) {
             return;
@@ -116,39 +122,66 @@ class SomeClass
         if ($tokens[$typeStartIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE)) {
             $typeStartIndex = $tokens->getNextMeaningfulToken($typeStartIndex);
         }
-        foreach ($this->getSimpleTypes($tokens, $typeStartIndex, $type->getEndIndex()) as $simpleType) {
-            $typeName = $tokens->generatePartialCode($simpleType['start'], $simpleType['end']);
+        $namespaceNameLength = \strlen($namespaceName);
+        $types = $this->getTypes($tokens, $typeStartIndex, $type->getEndIndex());
+        foreach ($types as $typeName => [$startIndex, $endIndex]) {
             if (\strncmp($typeName, '\\', \strlen('\\')) !== 0) {
                 continue;
+                // no shorter type possible
             }
-            $shortType = (new \PhpCsFixer\Tokenizer\Resolver\TypeShortNameResolver())->resolve($tokens, $typeName);
-            if ($shortType === $typeName) {
+            $typeName = \substr($typeName, 1);
+            $typeNameLower = \strtolower($typeName);
+            if (isset($uses[$typeNameLower])) {
+                // if the type without leading "\" equals any of the full "uses" long names, it can be replaced with the short one
+                $tokens->overrideRange($startIndex, $endIndex, $this->namespacedStringToTokens($uses[$typeNameLower]));
+            } elseif ('' === $namespaceName) {
+                // if we are in the global namespace and the type is not imported the leading '\' can be removed (TODO nice config candidate)
+                foreach ($uses as $useShortName) {
+                    if (\strtolower($useShortName) === $typeNameLower) {
+                        continue 2;
+                    }
+                }
+                $tokens->overrideRange($startIndex, $endIndex, $this->namespacedStringToTokens($typeName));
+            } elseif ($typeNameLower !== $namespaceName && \strncmp($typeNameLower, $namespaceName, \strlen($namespaceName)) === 0) {
+                // if the type starts with namespace and the type is not the same as the namespace it can be shortened
+                $typeNameShort = \substr($typeName, $namespaceNameLength + 1);
+                $tokens->overrideRange($startIndex, $endIndex, $this->namespacedStringToTokens($typeNameShort));
+            }
+        }
+    }
+    private function getTypes(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex) : iterable
+    {
+        $index = $typeStartIndex = $typeEndIndex = $tokens->getNextMeaningfulToken($index - 1);
+        $type = $tokens[$index]->getContent();
+        while (\true) {
+            $index = $tokens->getNextMeaningfulToken($index);
+            if ($tokens[$index]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION])) {
+                (yield $type => [$typeStartIndex, $typeEndIndex]);
+                $index = $typeStartIndex = $typeEndIndex = $tokens->getNextMeaningfulToken($index);
+                $type = $tokens[$index]->getContent();
                 continue;
             }
-            $shortType = (new \PhpCsFixer\Tokenizer\Generator\NamespacedStringTokenGenerator())->generate($shortType);
-            $tokens->overrideRange($simpleType['start'], $simpleType['end'], $shortType);
+            if ($index > $endIndex || !$tokens[$index]->isGivenKind([\T_STRING, \T_NS_SEPARATOR])) {
+                (yield $type => [$typeStartIndex, $typeEndIndex]);
+                break;
+            }
+            $typeEndIndex = $index;
+            $type .= $tokens[$index]->getContent();
         }
     }
     /**
-     * @return \Generator<array<int>>
+     * @return Token[]
      */
-    private function getSimpleTypes(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : iterable
+    private function namespacedStringToTokens(string $input) : array
     {
-        $index = $startIndex;
-        while (\true) {
-            $prevIndex = $index;
-            $index = $tokens->getNextMeaningfulToken($index);
-            if (null === $startIndex) {
-                $startIndex = $index;
-            }
-            if ($index >= $endIndex) {
-                (yield ['start' => $startIndex, 'end' => $index]);
-                break;
-            }
-            if ($tokens[$index]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION])) {
-                (yield ['start' => $startIndex, 'end' => $prevIndex]);
-                $startIndex = null;
+        $tokens = [];
+        $parts = \explode('\\', $input);
+        foreach ($parts as $index => $part) {
+            $tokens[] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $part]);
+            if ($index !== \count($parts) - 1) {
+                $tokens[] = new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']);
             }
         }
+        return $tokens;
     }
 }

@@ -13,8 +13,8 @@ declare (strict_types=1);
 namespace PhpCsFixer\Console\Output;
 
 use PhpCsFixer\FixerFileProcessedEvent;
-use ECSPrefix20220207\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220207\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ECSPrefix20220211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220211\Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * Output writer to show the process of a FixCommand.
  *
@@ -48,13 +48,13 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
      * @var int
      */
     private $symbolsPerLine;
-    public function __construct(\ECSPrefix20220207\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220207\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher, int $width, int $nbFiles)
+    public function __construct(\ECSPrefix20220211\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220211\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher, int $width, int $nbFiles)
     {
         $this->output = $output;
         $this->eventDispatcher = $dispatcher;
         $this->eventDispatcher->addListener(\PhpCsFixer\FixerFileProcessedEvent::NAME, [$this, 'onFixerFileProcessed']);
         $this->files = $nbFiles;
-        //   max number of characters per line
+        // max number of characters per line
         // - total length x 2 (e.g. "  1 / 123" => 6 digits and padding spaces)
         // - 11               (extra spaces, parentheses and percentage characters, e.g. " x / x (100%)")
         $this->symbolsPerLine = \max(1, $width - \strlen((string) $this->files) * 2 - 11);

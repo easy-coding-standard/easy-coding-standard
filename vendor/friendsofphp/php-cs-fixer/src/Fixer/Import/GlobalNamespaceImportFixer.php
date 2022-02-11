@@ -95,7 +95,7 @@ if (count($x)) {
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $namespaceAnalyses = (new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens);
-        if (1 !== \count($namespaceAnalyses) || '' === $namespaceAnalyses[0]->getFullName()) {
+        if (1 !== \count($namespaceAnalyses) || $namespaceAnalyses[0]->isGlobalNamespace()) {
             return;
         }
         $useDeclarations = (new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
