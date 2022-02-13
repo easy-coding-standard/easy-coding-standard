@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220211\Symfony\Component\Console;
+namespace ECSPrefix20220213\Symfony\Component\Console;
 
-use ECSPrefix20220211\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220211\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220213\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220213\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220213\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class SingleCommandApplication extends \ECSPrefix20220211\Symfony\Component\Console\Command\Command
+class SingleCommandApplication extends \ECSPrefix20220213\Symfony\Component\Console\Command\Command
 {
     /**
      * @var string
@@ -48,13 +48,13 @@ class SingleCommandApplication extends \ECSPrefix20220211\Symfony\Component\Cons
         $this->autoExit = $autoExit;
         return $this;
     }
-    public function run(\ECSPrefix20220211\Symfony\Component\Console\Input\InputInterface $input = null, \ECSPrefix20220211\Symfony\Component\Console\Output\OutputInterface $output = null) : int
+    public function run(\ECSPrefix20220213\Symfony\Component\Console\Input\InputInterface $input = null, \ECSPrefix20220213\Symfony\Component\Console\Output\OutputInterface $output = null) : int
     {
         if ($this->running) {
             return parent::run($input, $output);
         }
         // We use the command name as the application name
-        $application = new \ECSPrefix20220211\Symfony\Component\Console\Application($this->getName() ?: 'UNKNOWN', $this->version);
+        $application = new \ECSPrefix20220213\Symfony\Component\Console\Application($this->getName() ?: 'UNKNOWN', $this->version);
         $application->setAutoExit($this->autoExit);
         // Fix the usage of the command displayed with "--help"
         $this->setName($_SERVER['argv'][0]);

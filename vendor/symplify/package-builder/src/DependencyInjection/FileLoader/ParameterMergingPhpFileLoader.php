@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220211\Symplify\PackageBuilder\DependencyInjection\FileLoader;
+namespace ECSPrefix20220213\Symplify\PackageBuilder\DependencyInjection\FileLoader;
 
-use ECSPrefix20220211\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix20220211\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220211\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use ECSPrefix20220211\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20220213\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix20220213\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220213\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix20220213\Symplify\PackageBuilder\Yaml\ParametersMerger;
 /**
  * @api
  *
@@ -16,15 +16,15 @@ use ECSPrefix20220211\Symplify\PackageBuilder\Yaml\ParametersMerger;
  *
  * @property ContainerBuilder $container
  */
-final class ParameterMergingPhpFileLoader extends \ECSPrefix20220211\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+final class ParameterMergingPhpFileLoader extends \ECSPrefix20220213\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
     /**
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\ECSPrefix20220211\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20220211\Symfony\Component\Config\FileLocatorInterface $fileLocator)
+    public function __construct(\ECSPrefix20220213\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20220213\Symfony\Component\Config\FileLocatorInterface $fileLocator)
     {
-        $this->parametersMerger = new \ECSPrefix20220211\Symplify\PackageBuilder\Yaml\ParametersMerger();
+        $this->parametersMerger = new \ECSPrefix20220213\Symplify\PackageBuilder\Yaml\ParametersMerger();
         parent::__construct($containerBuilder, $fileLocator);
     }
     /**

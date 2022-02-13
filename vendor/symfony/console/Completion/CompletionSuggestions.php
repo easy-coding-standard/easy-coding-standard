@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220211\Symfony\Component\Console\Completion;
+namespace ECSPrefix20220213\Symfony\Component\Console\Completion;
 
-use ECSPrefix20220211\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20220213\Symfony\Component\Console\Input\InputOption;
 /**
  * Stores all completion suggestions for the current input.
  *
@@ -28,7 +28,7 @@ final class CompletionSuggestions
      */
     public function suggestValue($value)
     {
-        $this->valueSuggestions[] = !$value instanceof \ECSPrefix20220211\Symfony\Component\Console\Completion\Suggestion ? new \ECSPrefix20220211\Symfony\Component\Console\Completion\Suggestion($value) : $value;
+        $this->valueSuggestions[] = !$value instanceof \ECSPrefix20220213\Symfony\Component\Console\Completion\Suggestion ? new \ECSPrefix20220213\Symfony\Component\Console\Completion\Suggestion($value) : $value;
         return $this;
     }
     /**
@@ -50,7 +50,7 @@ final class CompletionSuggestions
      *
      * @return $this
      */
-    public function suggestOption(\ECSPrefix20220211\Symfony\Component\Console\Input\InputOption $option)
+    public function suggestOption(\ECSPrefix20220213\Symfony\Component\Console\Input\InputOption $option)
     {
         $this->optionSuggestions[] = $option;
         return $this;

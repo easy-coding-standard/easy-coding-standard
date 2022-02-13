@@ -23,18 +23,18 @@ use PhpCsFixer\Console\SelfUpdate\NewVersionChecker;
 use PhpCsFixer\PharChecker;
 use PhpCsFixer\ToolInfo;
 use PhpCsFixer\Utils;
-use ECSPrefix20220211\Symfony\Component\Console\Application as BaseApplication;
-use ECSPrefix20220211\Symfony\Component\Console\Command\ListCommand;
-use ECSPrefix20220211\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220211\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20220211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220213\Symfony\Component\Console\Application as BaseApplication;
+use ECSPrefix20220213\Symfony\Component\Console\Command\ListCommand;
+use ECSPrefix20220213\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220213\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20220213\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
  * @internal
  */
-final class Application extends \ECSPrefix20220211\Symfony\Component\Console\Application
+final class Application extends \ECSPrefix20220213\Symfony\Component\Console\Application
 {
     public const VERSION = '3.6.0';
     public const VERSION_CODENAME = 'Roe Deer';
@@ -60,9 +60,9 @@ final class Application extends \ECSPrefix20220211\Symfony\Component\Console\App
     /**
      * {@inheritdoc}
      */
-    public function doRun(\ECSPrefix20220211\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220211\Symfony\Component\Console\Output\OutputInterface $output) : int
+    public function doRun(\ECSPrefix20220213\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220213\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
-        $stdErr = $output instanceof \ECSPrefix20220211\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : ($input->hasParameterOption('--format', \true) && 'txt' !== $input->getParameterOption('--format', null, \true) ? null : $output);
+        $stdErr = $output instanceof \ECSPrefix20220213\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : ($input->hasParameterOption('--format', \true) && 'txt' !== $input->getParameterOption('--format', null, \true) ? null : $output);
         if (null !== $stdErr) {
             $warningsDetector = new \PhpCsFixer\Console\WarningsDetector($this->toolInfo);
             $warningsDetector->detectOldVendor();
@@ -76,7 +76,7 @@ final class Application extends \ECSPrefix20220211\Symfony\Component\Console\App
             }
         }
         $result = parent::doRun($input, $output);
-        if (null !== $stdErr && $output->getVerbosity() >= \ECSPrefix20220211\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
+        if (null !== $stdErr && $output->getVerbosity() >= \ECSPrefix20220213\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE) {
             $triggeredDeprecations = \PhpCsFixer\Utils::getTriggeredDeprecations();
             if (\count($triggeredDeprecations) > 0) {
                 $stdErr->writeln('');
@@ -114,6 +114,6 @@ final class Application extends \ECSPrefix20220211\Symfony\Component\Console\App
      */
     protected function getDefaultCommands() : array
     {
-        return [new \PhpCsFixer\Console\Command\HelpCommand(), new \ECSPrefix20220211\Symfony\Component\Console\Command\ListCommand()];
+        return [new \PhpCsFixer\Console\Command\HelpCommand(), new \ECSPrefix20220213\Symfony\Component\Console\Command\ListCommand()];
     }
 }

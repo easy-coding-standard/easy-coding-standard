@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220211\Symfony\Component\Console\Output;
+namespace ECSPrefix20220213\Symfony\Component\Console\Output;
 
-use ECSPrefix20220211\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20220213\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * OutputInterface is the interface implemented by all Output classes.
  *
@@ -71,9 +71,9 @@ interface OutputInterface
      * Gets the decorated flag.
      */
     public function isDecorated() : bool;
-    public function setFormatter(\ECSPrefix20220211\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter);
+    public function setFormatter(\ECSPrefix20220213\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter);
     /**
      * Returns current output formatter instance.
      */
-    public function getFormatter() : \ECSPrefix20220211\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+    public function getFormatter() : \ECSPrefix20220213\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 }
