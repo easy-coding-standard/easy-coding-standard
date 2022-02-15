@@ -210,4 +210,4 @@ The sources of this package are contained in the Symplify monorepo. We welcome c
 
 ## Acknowledgment
 
-The parallel run is package is heavily inspired by [https://github.com/phpstan/phpstan-src](phpstan/phpstan-src) by Ondřej Mirtes. Thank you.
+The parallel run is package is heavily inspired by [phpstan/phpstan-src](https://github.com/phpstan/phpstan-src) by Ondřej Mirtes. Thank you.
