@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220213;
+namespace ECSPrefix20220215;
 
 /*
  * This file is part of Evenement.
@@ -13,9 +13,9 @@ namespace ECSPrefix20220213;
  */
 \ini_set('memory_limit', '512M');
 const ITERATIONS = 100000;
-use ECSPrefix20220213\Evenement\EventEmitter;
+use ECSPrefix20220215\Evenement\EventEmitter;
 require __DIR__ . '/../vendor/autoload.php';
-$emitter = new \ECSPrefix20220213\Evenement\EventEmitter();
+$emitter = new \ECSPrefix20220215\Evenement\EventEmitter();
 for ($i = 0; $i < \ITERATIONS; $i++) {
     $emitter->once('event', function ($a, $b, $c) {
     });

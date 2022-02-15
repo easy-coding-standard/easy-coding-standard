@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220213\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20220215\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20220213\Symfony\Component\Config\Loader\ParamConfigurator;
-use ECSPrefix20220213\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix20220213\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix20220213\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix20220213\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220213\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20220213\Symfony\Component\DependencyInjection\Parameter;
-use ECSPrefix20220213\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20220213\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix20220215\Symfony\Component\Config\Loader\ParamConfigurator;
+use ECSPrefix20220215\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix20220215\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix20220215\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20220215\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220215\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20220215\Symfony\Component\DependencyInjection\Parameter;
+use ECSPrefix20220215\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20220215\Symfony\Component\ExpressionLanguage\Expression;
 abstract class AbstractConfigurator
 {
     public const FACTORY = 'unknown';
@@ -62,35 +62,35 @@ abstract class AbstractConfigurator
         if (self::$valuePreProcessor) {
             $value = (self::$valuePreProcessor)($value, $allowServices);
         }
-        if ($value instanceof \ECSPrefix20220213\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator) {
-            $reference = new \ECSPrefix20220213\Symfony\Component\DependencyInjection\Reference($value->id, $value->invalidBehavior);
-            return $value instanceof \ECSPrefix20220213\Symfony\Component\DependencyInjection\Loader\Configurator\ClosureReferenceConfigurator ? new \ECSPrefix20220213\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument($reference) : $reference;
+        if ($value instanceof \ECSPrefix20220215\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator) {
+            $reference = new \ECSPrefix20220215\Symfony\Component\DependencyInjection\Reference($value->id, $value->invalidBehavior);
+            return $value instanceof \ECSPrefix20220215\Symfony\Component\DependencyInjection\Loader\Configurator\ClosureReferenceConfigurator ? new \ECSPrefix20220215\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument($reference) : $reference;
         }
-        if ($value instanceof \ECSPrefix20220213\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator) {
+        if ($value instanceof \ECSPrefix20220215\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator) {
             $def = $value->definition;
             $value->definition = null;
             return $def;
         }
-        if ($value instanceof \ECSPrefix20220213\Symfony\Component\Config\Loader\ParamConfigurator) {
+        if ($value instanceof \ECSPrefix20220215\Symfony\Component\Config\Loader\ParamConfigurator) {
             return (string) $value;
         }
         if ($value instanceof self) {
-            throw new \ECSPrefix20220213\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"%s()" can be used only at the root of service configuration files.', $value::FACTORY));
+            throw new \ECSPrefix20220215\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"%s()" can be used only at the root of service configuration files.', $value::FACTORY));
         }
         switch (\true) {
             case null === $value:
             case \is_scalar($value):
                 return $value;
-            case $value instanceof \ECSPrefix20220213\Symfony\Component\DependencyInjection\Argument\ArgumentInterface:
-            case $value instanceof \ECSPrefix20220213\Symfony\Component\DependencyInjection\Definition:
-            case $value instanceof \ECSPrefix20220213\Symfony\Component\ExpressionLanguage\Expression:
-            case $value instanceof \ECSPrefix20220213\Symfony\Component\DependencyInjection\Parameter:
-            case $value instanceof \ECSPrefix20220213\Symfony\Component\DependencyInjection\Argument\AbstractArgument:
-            case $value instanceof \ECSPrefix20220213\Symfony\Component\DependencyInjection\Reference:
+            case $value instanceof \ECSPrefix20220215\Symfony\Component\DependencyInjection\Argument\ArgumentInterface:
+            case $value instanceof \ECSPrefix20220215\Symfony\Component\DependencyInjection\Definition:
+            case $value instanceof \ECSPrefix20220215\Symfony\Component\ExpressionLanguage\Expression:
+            case $value instanceof \ECSPrefix20220215\Symfony\Component\DependencyInjection\Parameter:
+            case $value instanceof \ECSPrefix20220215\Symfony\Component\DependencyInjection\Argument\AbstractArgument:
+            case $value instanceof \ECSPrefix20220215\Symfony\Component\DependencyInjection\Reference:
                 if ($allowServices) {
                     return $value;
                 }
         }
-        throw new \ECSPrefix20220213\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Cannot use values of type "%s" in service configuration files.', \get_debug_type($value)));
+        throw new \ECSPrefix20220215\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Cannot use values of type "%s" in service configuration files.', \get_debug_type($value)));
     }
 }

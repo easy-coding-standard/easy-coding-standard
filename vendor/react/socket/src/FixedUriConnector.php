@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220213\React\Socket;
+namespace ECSPrefix20220215\React\Socket;
 
 /**
  * Decorates an existing Connector to always use a fixed, preconfigured URI
@@ -19,7 +19,7 @@ namespace ECSPrefix20220213\React\Socket;
  * $promise = $connector->connect('localhost:80');
  * ```
  */
-class FixedUriConnector implements \ECSPrefix20220213\React\Socket\ConnectorInterface
+class FixedUriConnector implements \ECSPrefix20220215\React\Socket\ConnectorInterface
 {
     private $uri;
     private $connector;
@@ -27,7 +27,7 @@ class FixedUriConnector implements \ECSPrefix20220213\React\Socket\ConnectorInte
      * @param string $uri
      * @param ConnectorInterface $connector
      */
-    public function __construct($uri, \ECSPrefix20220213\React\Socket\ConnectorInterface $connector)
+    public function __construct($uri, \ECSPrefix20220215\React\Socket\ConnectorInterface $connector)
     {
         $this->uri = $uri;
         $this->connector = $connector;

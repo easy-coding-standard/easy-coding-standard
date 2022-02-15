@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220213\React\Dns\Resolver;
+namespace ECSPrefix20220215\React\Dns\Resolver;
 
 interface ResolverInterface
 {
