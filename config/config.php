@@ -25,7 +25,6 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_JOB_SIZE, 60);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_MAX_NUMBER_OF_PROCESSES, 16);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_TIMEOUT_IN_SECONDS, 120);
-    $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_SYSTEM_ERROR_COUNT_LIMIT, 50);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, []);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS, ['php']);
     $parameters->set('env(TEST_SUFFIX)', '');
