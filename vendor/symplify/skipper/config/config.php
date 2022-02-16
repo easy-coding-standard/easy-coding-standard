@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220215;
+namespace ECSPrefix20220216;
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix20220215\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use ECSPrefix20220215\Symplify\Skipper\ValueObject\Option;
-use ECSPrefix20220215\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+use ECSPrefix20220216\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use ECSPrefix20220216\Symplify\Skipper\ValueObject\Option;
+use ECSPrefix20220216\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\ECSPrefix20220215\Symplify\Skipper\ValueObject\Option::SKIP, []);
-    $parameters->set(\ECSPrefix20220215\Symplify\Skipper\ValueObject\Option::ONLY, []);
+    $parameters->set(\ECSPrefix20220216\Symplify\Skipper\ValueObject\Option::SKIP, []);
+    $parameters->set(\ECSPrefix20220216\Symplify\Skipper\ValueObject\Option::ONLY, []);
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('ECSPrefix20220215\Symplify\Skipper\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/ValueObject']);
-    $services->set(\ECSPrefix20220215\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker::class);
-    $services->set(\ECSPrefix20220215\Symplify\SmartFileSystem\Normalizer\PathNormalizer::class);
+    $services->load('ECSPrefix20220216\Symplify\Skipper\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/ValueObject']);
+    $services->set(\ECSPrefix20220216\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker::class);
+    $services->set(\ECSPrefix20220216\Symplify\SmartFileSystem\Normalizer\PathNormalizer::class);
 };

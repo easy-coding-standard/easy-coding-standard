@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard;
 
-use ECSPrefix20220215\Nette\Utils\Strings;
+use ECSPrefix20220216\Nette\Utils\Strings;
 use Symplify\EasyCodingStandard\Exception\Configuration\InitializationException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 /**
@@ -31,7 +31,7 @@ final class MemoryLimitter
     }
     private function validateMemoryLimitFormat(string $memoryLimit) : void
     {
-        $memoryLimitFormatMatch = \ECSPrefix20220215\Nette\Utils\Strings::match($memoryLimit, self::VALID_MEMORY_LIMIT_REGEX);
+        $memoryLimitFormatMatch = \ECSPrefix20220216\Nette\Utils\Strings::match($memoryLimit, self::VALID_MEMORY_LIMIT_REGEX);
         if ($memoryLimitFormatMatch !== null) {
             return;
         }
