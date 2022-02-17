@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220216;
+namespace ECSPrefix20220217;
 
-use ECSPrefix20220216\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20220217\Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix20220216\Symplify\ComposerJsonManipulator\ValueObject\Option;
-use ECSPrefix20220216\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use ECSPrefix20220216\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20220216\Symplify\PackageBuilder\Reflection\PrivatesCaller;
-use ECSPrefix20220216\Symplify\SmartFileSystem\SmartFileSystem;
-use function ECSPrefix20220216\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use ECSPrefix20220217\Symplify\ComposerJsonManipulator\ValueObject\Option;
+use ECSPrefix20220217\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix20220217\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220217\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use ECSPrefix20220217\Symplify\SmartFileSystem\SmartFileSystem;
+use function ECSPrefix20220217\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\ECSPrefix20220216\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS, ['keywords']);
+    $parameters->set(\ECSPrefix20220217\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS, ['keywords']);
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('ECSPrefix20220216\Symplify\ComposerJsonManipulator\\', __DIR__ . '/../src');
-    $services->set(\ECSPrefix20220216\Symplify\SmartFileSystem\SmartFileSystem::class);
-    $services->set(\ECSPrefix20220216\Symplify\PackageBuilder\Reflection\PrivatesCaller::class);
-    $services->set(\ECSPrefix20220216\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->args([\ECSPrefix20220216\Symfony\Component\DependencyInjection\Loader\Configurator\service('service_container')]);
-    $services->set(\ECSPrefix20220216\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
-    $services->set(\ECSPrefix20220216\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20220216\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20220216\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
+    $services->load('ECSPrefix20220217\Symplify\ComposerJsonManipulator\\', __DIR__ . '/../src');
+    $services->set(\ECSPrefix20220217\Symplify\SmartFileSystem\SmartFileSystem::class);
+    $services->set(\ECSPrefix20220217\Symplify\PackageBuilder\Reflection\PrivatesCaller::class);
+    $services->set(\ECSPrefix20220217\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->args([\ECSPrefix20220217\Symfony\Component\DependencyInjection\Loader\Configurator\service('service_container')]);
+    $services->set(\ECSPrefix20220217\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
+    $services->set(\ECSPrefix20220217\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20220217\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20220217\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
 };

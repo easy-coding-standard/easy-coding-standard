@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220216\Symplify\PackageBuilder\ValueObject;
+namespace ECSPrefix20220217\Symplify\PackageBuilder\ValueObject;
 
 final class Option
 {
