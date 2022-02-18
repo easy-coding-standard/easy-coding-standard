@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix20220217\Nette\Utils\Strings;
+use ECSPrefix20220218\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\DocBlock\Line;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-use ECSPrefix20220217\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20220218\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
 {
     /**
@@ -61,7 +61,7 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     {
         foreach ($functionArgumentNames as $key => $functionArgumentName) {
             $pattern = '# ' . \preg_quote($functionArgumentName, '#') . '\\b#';
-            if (\ECSPrefix20220217\Nette\Utils\Strings::match($docContent, $pattern)) {
+            if (\ECSPrefix20220218\Nette\Utils\Strings::match($docContent, $pattern)) {
                 unset($functionArgumentNames[$key]);
             }
         }
@@ -102,10 +102,10 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
             return \true;
         }
         // already has a param name
-        if (\ECSPrefix20220217\Nette\Utils\Strings::match($line->getContent(), self::PARAM_WITH_NAME_REGEX)) {
+        if (\ECSPrefix20220218\Nette\Utils\Strings::match($line->getContent(), self::PARAM_WITH_NAME_REGEX)) {
             return \true;
         }
-        $match = \ECSPrefix20220217\Nette\Utils\Strings::match($line->getContent(), self::PARAM_WITHOUT_NAME_REGEX);
+        $match = \ECSPrefix20220218\Nette\Utils\Strings::match($line->getContent(), self::PARAM_WITHOUT_NAME_REGEX);
         return $match === null;
     }
     private function createNewLineContent(string $newArgumentName, \PhpCsFixer\DocBlock\Line $line) : string
@@ -113,10 +113,10 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
         // @see https://regex101.com/r/4FL49H/1
         $missingDollarSignPattern = '#(@param\\s+([\\w\\|\\[\\]\\\\]+\\s)?)(' . \ltrim($newArgumentName, '$') . ')#';
         // missing \$ case - possibly own worker
-        if (\ECSPrefix20220217\Nette\Utils\Strings::match($line->getContent(), $missingDollarSignPattern)) {
-            return \ECSPrefix20220217\Nette\Utils\Strings::replace($line->getContent(), $missingDollarSignPattern, '$1$$3');
+        if (\ECSPrefix20220218\Nette\Utils\Strings::match($line->getContent(), $missingDollarSignPattern)) {
+            return \ECSPrefix20220218\Nette\Utils\Strings::replace($line->getContent(), $missingDollarSignPattern, '$1$$3');
         }
-        $replacement = '@param $1 ' . $newArgumentName . '$2' . \ECSPrefix20220217\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar();
-        return \ECSPrefix20220217\Nette\Utils\Strings::replace($line->getContent(), self::PARAM_WITHOUT_NAME_REGEX, $replacement);
+        $replacement = '@param $1 ' . $newArgumentName . '$2' . \ECSPrefix20220218\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar();
+        return \ECSPrefix20220218\Nette\Utils\Strings::replace($line->getContent(), self::PARAM_WITHOUT_NAME_REGEX, $replacement);
     }
 }

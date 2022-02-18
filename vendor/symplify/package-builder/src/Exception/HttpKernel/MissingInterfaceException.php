@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220217\Symplify\PackageBuilder\Exception\HttpKernel;
+namespace ECSPrefix20220218\Symplify\PackageBuilder\Exception\HttpKernel;
 
 use Exception;
 final class MissingInterfaceException extends \Exception

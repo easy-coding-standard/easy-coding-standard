@@ -32,7 +32,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220217\\React\\Promise\\": "src\/"
+            "ECSPrefix20220218\\React\\Promise\\": "src\/"
         },
         "files": [
             "src\/functions_include.php"
@@ -40,7 +40,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220217\\React\\Promise\\": [
+            "ECSPrefix20220218\\React\\Promise\\": [
                 "tests",
                 "tests\/fixtures"
             ]
