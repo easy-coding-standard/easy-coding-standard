@@ -55,6 +55,7 @@ final class ArrayAnalyzer
     }
     /**
      * @param Tokens<Token> $tokens
+     * @param callable(Token $token, int $i, Tokens $tokens): void $callable
      */
     public function traverseArrayWithoutNesting(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, callable $callable) : void
     {
