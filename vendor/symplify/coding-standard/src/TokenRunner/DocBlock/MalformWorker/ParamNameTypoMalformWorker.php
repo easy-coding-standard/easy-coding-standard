@@ -16,7 +16,7 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
      * @var string
      * @see https://regex101.com/r/5szHlw/1
      */
-    private const PARAM_NAME_REGEX = '#@param(\\s+)(?<callable>callable)?(.*?)(?<paramName>\\$\\w+)#';
+    private const PARAM_NAME_REGEX = '#@param(.*?)(?<paramName>\\$\\w+)#';
     /**
      * @var \Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver
      */
@@ -62,10 +62,6 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
         foreach ($paramAnnotations as $paramAnnotation) {
             $match = \ECSPrefix20220219\Nette\Utils\Strings::match($paramAnnotation->getContent(), self::PARAM_NAME_REGEX);
             if (isset($match['paramName'])) {
-                // skip callables, as they contain nested params
-                if (isset($match['callable']) && $match['callable'] === 'callable') {
-                    continue;
-                }
                 $paramNames[] = $match['paramName'];
             }
         }
