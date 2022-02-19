@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\Application;
 
-use Closure;
 use ECSPrefix20220219\Clue\React\NDJson\Decoder;
 use ECSPrefix20220219\Clue\React\NDJson\Encoder;
 use ECSPrefix20220219\Nette\Utils\Random;
@@ -58,10 +57,10 @@ final class ParallelFileProcessor
         $this->parameterProvider = $parameterProvider;
     }
     /**
-     * @param Closure(int): void|null $postFileCallback Used for progress bar jump
+     * @param callable(int $stepCount): void $postFileCallback Used for progress bar jump
      * @return mixed[]
      */
-    public function check(\ECSPrefix20220219\Symplify\EasyParallel\ValueObject\Schedule $schedule, string $mainScript, \Closure $postFileCallback, ?string $projectConfigFile, \ECSPrefix20220219\Symfony\Component\Console\Input\InputInterface $input) : array
+    public function check(\ECSPrefix20220219\Symplify\EasyParallel\ValueObject\Schedule $schedule, string $mainScript, callable $postFileCallback, ?string $projectConfigFile, \ECSPrefix20220219\Symfony\Component\Console\Input\InputInterface $input) : array
     {
         $jobs = \array_reverse($schedule->getJobs());
         $streamSelectLoop = new \ECSPrefix20220219\React\EventLoop\StreamSelectLoop();
