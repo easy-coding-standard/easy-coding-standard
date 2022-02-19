@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220218\Symplify\EasyTesting;
+namespace ECSPrefix20220219\Symplify\EasyTesting;
 
-use ECSPrefix20220218\Nette\Utils\Strings;
-use ECSPrefix20220218\Symplify\EasyTesting\ValueObject\Prefix;
-use ECSPrefix20220218\Symplify\EasyTesting\ValueObject\SplitLine;
-use ECSPrefix20220218\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220219\Nette\Utils\Strings;
+use ECSPrefix20220219\Symplify\EasyTesting\ValueObject\Prefix;
+use ECSPrefix20220219\Symplify\EasyTesting\ValueObject\SplitLine;
+use ECSPrefix20220219\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyTesting\Tests\MissingSkipPrefixResolver\MissingSkipPrefixResolverTest
  */
@@ -22,7 +22,7 @@ final class MissplacedSkipPrefixResolver
         foreach ($fixtureFileInfos as $fixtureFileInfo) {
             $hasNameSkipStart = $this->hasNameSkipStart($fixtureFileInfo);
             $fileContents = $fixtureFileInfo->getContents();
-            $hasSplitLine = (bool) \ECSPrefix20220218\Nette\Utils\Strings::match($fileContents, \ECSPrefix20220218\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
+            $hasSplitLine = (bool) \ECSPrefix20220219\Nette\Utils\Strings::match($fileContents, \ECSPrefix20220219\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
             if ($hasNameSkipStart && $hasSplitLine) {
                 $invalidFileInfos['incorrect_skips'][] = $fixtureFileInfo;
                 continue;
@@ -34,8 +34,8 @@ final class MissplacedSkipPrefixResolver
         }
         return $invalidFileInfos;
     }
-    private function hasNameSkipStart(\ECSPrefix20220218\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : bool
+    private function hasNameSkipStart(\ECSPrefix20220219\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : bool
     {
-        return (bool) \ECSPrefix20220218\Nette\Utils\Strings::match($fixtureFileInfo->getBasenameWithoutSuffix(), \ECSPrefix20220218\Symplify\EasyTesting\ValueObject\Prefix::SKIP_PREFIX_REGEX);
+        return (bool) \ECSPrefix20220219\Nette\Utils\Strings::match($fixtureFileInfo->getBasenameWithoutSuffix(), \ECSPrefix20220219\Symplify\EasyTesting\ValueObject\Prefix::SKIP_PREFIX_REGEX);
     }
 }
