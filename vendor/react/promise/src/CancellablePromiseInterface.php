@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220219\React\Promise;
+namespace ECSPrefix20220220\React\Promise;
 
-interface CancellablePromiseInterface extends \ECSPrefix20220219\React\Promise\PromiseInterface
+interface CancellablePromiseInterface extends \ECSPrefix20220220\React\Promise\PromiseInterface
 {
     /**
      * The `cancel()` method notifies the creator of the promise that there is no

@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php 
-namespace ECSPrefix20220219;
+namespace ECSPrefix20220220;
 
 /*
  * This file is part of PHP CS Fixer.
@@ -85,10 +85,10 @@ namespace ECSPrefix20220219;
         require_once $file;
     }
 })();
-use ECSPrefix20220219\Composer\XdebugHandler\XdebugHandler;
+use ECSPrefix20220220\Composer\XdebugHandler\XdebugHandler;
 use PhpCsFixer\Console\Application;
 // Restart if xdebug is loaded, unless the environment variable PHP_CS_FIXER_ALLOW_XDEBUG is set.
-$xdebug = new \ECSPrefix20220219\Composer\XdebugHandler\XdebugHandler('PHP_CS_FIXER');
+$xdebug = new \ECSPrefix20220220\Composer\XdebugHandler\XdebugHandler('PHP_CS_FIXER');
 $xdebug->check();
 unset($xdebug);
 $application = new \PhpCsFixer\Console\Application();

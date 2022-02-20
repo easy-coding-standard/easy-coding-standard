@@ -13,12 +13,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220219\\Symplify\\AutowireArrayParameter\\": "src"
+            "ECSPrefix20220220\\Symplify\\AutowireArrayParameter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220219\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
+            "ECSPrefix20220220\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -33,10 +33,8 @@
         "symplify\/phpstan-rules": "<10.0.24",
         "symplify\/easy-testing": "<10.0.24",
         "symplify\/rule-doc-generator-contracts": "<10.0.24",
-        "symplify\/symfony-php-config": "<10.0.24",
         "symplify\/simple-php-doc-parser": "<10.0.24",
         "symplify\/php-config-printer": "<10.0.24",
-        "symplify\/console-color-diff": "<10.0.24",
         "symplify\/markdown-diff": "<10.0.24",
         "symplify\/amnesia": "<10.0.24",
         "symplify\/phpstan-extensions": "<10.0.24",

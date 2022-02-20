@@ -5,6 +5,7 @@
     "require": {
         "php": ">=8.0",
         "nette\/utils": "^3.2",
+        "sebastian\/diff": "^4.0",
         "symfony\/config": "^5.4|^6.0",
         "symfony\/console": "^5.4|^6.0",
         "symfony\/dependency-injection": "^5.4|^6.0",
@@ -18,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220219\\Symplify\\PackageBuilder\\": "src"
+            "ECSPrefix20220220\\Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220219\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "ECSPrefix20220220\\Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -37,10 +38,8 @@
         "symplify\/easy-coding-standard": "<10.0.24",
         "symplify\/phpstan-rules": "<10.0.24",
         "symplify\/rule-doc-generator-contracts": "<10.0.24",
-        "symplify\/symfony-php-config": "<10.0.24",
         "symplify\/simple-php-doc-parser": "<10.0.24",
         "symplify\/php-config-printer": "<10.0.24",
-        "symplify\/console-color-diff": "<10.0.24",
         "symplify\/autowire-array-parameter": "<10.0.24",
         "symplify\/markdown-diff": "<10.0.24",
         "symplify\/amnesia": "<10.0.24",

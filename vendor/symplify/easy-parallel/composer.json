@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220219\\Symplify\\EasyParallel\\": "src"
+            "ECSPrefix20220220\\Symplify\\EasyParallel\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220219\\Symplify\\EasyParallel\\Tests\\": "tests"
+            "ECSPrefix20220220\\Symplify\\EasyParallel\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -38,7 +38,6 @@
         "symplify\/phpstan-rules": "<10.0.24",
         "symplify\/easy-testing": "<10.0.24",
         "symplify\/rule-doc-generator-contracts": "<10.0.24",
-        "symplify\/symfony-php-config": "<10.0.24",
         "symplify\/simple-php-doc-parser": "<10.0.24",
         "symplify\/php-config-printer": "<10.0.24",
         "symplify\/autowire-array-parameter": "<10.0.24",
@@ -59,7 +58,6 @@
         "symplify\/composer-json-manipulator": "<10.0.24",
         "symplify\/smart-file-system": "<10.0.24",
         "symplify\/monorepo-builder": "<10.0.24",
-        "symplify\/console-color-diff": "<10.0.24",
         "symplify\/symplify-kernel": "<10.0.24",
         "symplify\/neon-config-dumper": "<10.0.24"
     },
