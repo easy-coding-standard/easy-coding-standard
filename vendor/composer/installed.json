@@ -3335,7 +3335,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "3980db13567ecc595a8d83cadc08d15e6c2a3a7c"
+                "reference": "5d36498624b71174456ba8f203ec99897dd66079"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3364,7 +3364,6 @@
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
                 "symplify\/rule-doc-generator-contracts": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/skipper": "<10.0.25",
                 "symplify\/smart-file-system": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
@@ -3409,7 +3408,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "2410783fa84bb274d7eda779336e61e19b85f87d"
+                "reference": "f5c708aa7795a0035a31dcfe04b165035546d868"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.6",
@@ -3439,7 +3438,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.25",
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/skipper": "<10.0.25",
                 "symplify\/smart-file-system": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
@@ -3491,7 +3489,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "46073c075f4e9c2e5a34a24998e4c1df06c6a758"
+                "reference": "5c57cae2c50350690229be6df56ffdfba9f11c0c"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3524,7 +3522,6 @@
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
                 "symplify\/rule-doc-generator-contracts": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/skipper": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
                 "symplify\/symplify-kernel": "<9.4.70",
@@ -3568,7 +3565,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "58cb4b81aeca63c1db95e4cae6379280ffef4d88"
+                "reference": "d75974d463a403e2c2b051dbf6e5ea6491d095b3"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
@@ -3600,7 +3597,6 @@
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
                 "symplify\/rule-doc-generator-contracts": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/skipper": "<10.0.25",
                 "symplify\/smart-file-system": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
@@ -3645,7 +3641,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "ee0f4ac4071b3a643884bc58d9f5e6032669380c"
+                "reference": "ea19008915a0fd17f115ba72df1f413b1790b70e"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3678,7 +3674,6 @@
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
                 "symplify\/rule-doc-generator-contracts": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/skipper": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
                 "symplify\/template-phpstan-compiler": "<10.0.25",
@@ -3724,7 +3719,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "3ea824af0d451f3c74b4f58eaa1b5b15940581d1"
+                "reference": "ed58ed2b28b33deccd40fdbf94feaad6d3b417c3"
             },
             "require": {
                 "nette\/neon": "^3.3.2",
@@ -3759,7 +3754,6 @@
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
                 "symplify\/rule-doc-generator-contracts": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/skipper": "<10.0.25",
                 "symplify\/smart-file-system": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
@@ -3803,7 +3797,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/rule-doc-generator-contracts",
-                "reference": "84f24eceab1fa58ea774a435484538962789935c"
+                "reference": "d9901b1666a4c30c71dbe8cdbc8dcc3f2fbe8153"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3831,7 +3825,6 @@
                 "symplify\/phpstan-latte-rules": "<10.0.25",
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/skipper": "<10.0.25",
                 "symplify\/smart-file-system": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
@@ -3868,7 +3861,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "8388bf369eec3297a22c9639f50807d70a9ae4a2"
+                "reference": "6677887a40726e2af7221c445464d5bf4a306d5d"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3903,7 +3896,6 @@
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
                 "symplify\/rule-doc-generator-contracts": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
                 "symplify\/template-phpstan-compiler": "<10.0.25",
                 "symplify\/vendor-patches": "<10.0.25"
@@ -3945,7 +3937,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "31840b87f52aa755c5d42480bcba2ccbdedf4554"
+                "reference": "61ac2a88542b3d582d304718a49b76d4037bd521"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3976,7 +3968,6 @@
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
                 "symplify\/rule-doc-generator-contracts": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/skipper": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
                 "symplify\/symplify-kernel": "<10.0.25",
@@ -4021,7 +4012,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "a3d39397edb9834f7f98142b5e16a890af249a33"
+                "reference": "e6ec250f0af70f6c9ee6d146b1d260b99dbfe642"
             },
             "require": {
                 "php": ">=8.0",
@@ -4053,7 +4044,6 @@
                 "symplify\/phpstan-rules": "<10.0.25",
                 "symplify\/rule-doc-generator": "<10.0.25",
                 "symplify\/rule-doc-generator-contracts": "<10.0.25",
-                "symplify\/simple-php-doc-parser": "<10.0.25",
                 "symplify\/skipper": "<10.0.25",
                 "symplify\/symfony-static-dumper": "<10.0.25",
                 "symplify\/template-phpstan-compiler": "<10.0.25",
