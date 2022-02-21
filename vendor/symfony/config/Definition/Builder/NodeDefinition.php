@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220220\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20220221\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20220220\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix20220220\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
-use ECSPrefix20220220\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix20220221\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix20220221\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+use ECSPrefix20220221\Symfony\Component\Config\Definition\NodeInterface;
 /**
  * This class provides a fluent interface for defining a node.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class NodeDefinition implements \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\NodeParentInterface
+abstract class NodeDefinition implements \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\NodeParentInterface
 {
     protected $name;
     protected $normalization;
@@ -32,10 +32,10 @@ abstract class NodeDefinition implements \ECSPrefix20220220\Symfony\Component\Co
     protected $nullEquivalent;
     protected $trueEquivalent = \true;
     protected $falseEquivalent = \false;
-    protected $pathSeparator = \ECSPrefix20220220\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR;
+    protected $pathSeparator = \ECSPrefix20220221\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR;
     protected $parent;
     protected $attributes = [];
-    public function __construct(?string $name, \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
+    public function __construct(?string $name, \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
     {
         $this->parent = $parent;
         $this->name = $name;
@@ -45,7 +45,7 @@ abstract class NodeDefinition implements \ECSPrefix20220220\Symfony\Component\Co
      *
      * @return $this
      */
-    public function setParent(\ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent)
+    public function setParent(\ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent)
     {
         $this->parent = $parent;
         return $this;
@@ -91,19 +91,19 @@ abstract class NodeDefinition implements \ECSPrefix20220220\Symfony\Component\Co
     /**
      * Creates the node.
      */
-    public function getNode(bool $forceRootNode = \false) : \ECSPrefix20220220\Symfony\Component\Config\Definition\NodeInterface
+    public function getNode(bool $forceRootNode = \false) : \ECSPrefix20220221\Symfony\Component\Config\Definition\NodeInterface
     {
         if ($forceRootNode) {
             $this->parent = null;
         }
         if (null !== $this->normalization) {
-            $this->normalization->before = \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\ExprBuilder::buildExpressions($this->normalization->before);
+            $this->normalization->before = \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\ExprBuilder::buildExpressions($this->normalization->before);
         }
         if (null !== $this->validation) {
-            $this->validation->rules = \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\ExprBuilder::buildExpressions($this->validation->rules);
+            $this->validation->rules = \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\ExprBuilder::buildExpressions($this->validation->rules);
         }
         $node = $this->createNode();
-        if ($node instanceof \ECSPrefix20220220\Symfony\Component\Config\Definition\BaseNode) {
+        if ($node instanceof \ECSPrefix20220221\Symfony\Component\Config\Definition\BaseNode) {
             $node->setAttributes($this->attributes);
         }
         return $node;
@@ -210,7 +210,7 @@ abstract class NodeDefinition implements \ECSPrefix20220220\Symfony\Component\Co
     /**
      * Sets an expression to run before the normalization.
      */
-    public function beforeNormalization() : \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\ExprBuilder
+    public function beforeNormalization() : \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\ExprBuilder
     {
         return $this->normalization()->before();
     }
@@ -231,7 +231,7 @@ abstract class NodeDefinition implements \ECSPrefix20220220\Symfony\Component\Co
      * modify it.
      * An exception should be thrown when the node is not valid.
      */
-    public function validate() : \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\ExprBuilder
+    public function validate() : \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\ExprBuilder
     {
         return $this->validation()->rule();
     }
@@ -248,30 +248,30 @@ abstract class NodeDefinition implements \ECSPrefix20220220\Symfony\Component\Co
     /**
      * Gets the builder for validation rules.
      */
-    protected function validation() : \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\ValidationBuilder
+    protected function validation() : \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\ValidationBuilder
     {
         if (null === $this->validation) {
-            $this->validation = new \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\ValidationBuilder($this);
+            $this->validation = new \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\ValidationBuilder($this);
         }
         return $this->validation;
     }
     /**
      * Gets the builder for merging rules.
      */
-    protected function merge() : \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\MergeBuilder
+    protected function merge() : \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\MergeBuilder
     {
         if (null === $this->merge) {
-            $this->merge = new \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\MergeBuilder($this);
+            $this->merge = new \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\MergeBuilder($this);
         }
         return $this->merge;
     }
     /**
      * Gets the builder for normalization rules.
      */
-    protected function normalization() : \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\NormalizationBuilder
+    protected function normalization() : \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\NormalizationBuilder
     {
         if (null === $this->normalization) {
-            $this->normalization = new \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\NormalizationBuilder($this);
+            $this->normalization = new \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\NormalizationBuilder($this);
         }
         return $this->normalization;
     }
@@ -280,7 +280,7 @@ abstract class NodeDefinition implements \ECSPrefix20220220\Symfony\Component\Co
      *
      * @throws InvalidDefinitionException When the definition is invalid
      */
-    protected abstract function createNode() : \ECSPrefix20220220\Symfony\Component\Config\Definition\NodeInterface;
+    protected abstract function createNode() : \ECSPrefix20220221\Symfony\Component\Config\Definition\NodeInterface;
     /**
      * Set PathSeparator to use.
      *
@@ -288,7 +288,7 @@ abstract class NodeDefinition implements \ECSPrefix20220220\Symfony\Component\Co
      */
     public function setPathSeparator(string $separator)
     {
-        if ($this instanceof \ECSPrefix20220220\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface) {
+        if ($this instanceof \ECSPrefix20220221\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface) {
             foreach ($this->getChildNodeDefinitions() as $child) {
                 $child->setPathSeparator($separator);
             }

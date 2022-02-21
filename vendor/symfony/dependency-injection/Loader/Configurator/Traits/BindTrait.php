@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220220\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20220221\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
-use ECSPrefix20220220\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix20220220\Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator;
-use ECSPrefix20220220\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator;
+use ECSPrefix20220221\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ECSPrefix20220221\Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator;
+use ECSPrefix20220221\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator;
 trait BindTrait
 {
     /**
@@ -31,8 +31,8 @@ trait BindTrait
     {
         $valueOrRef = static::processValue($valueOrRef, \true);
         $bindings = $this->definition->getBindings();
-        $type = $this instanceof \ECSPrefix20220220\Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator ? \ECSPrefix20220220\Symfony\Component\DependencyInjection\Argument\BoundArgument::DEFAULTS_BINDING : ($this instanceof \ECSPrefix20220220\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator ? \ECSPrefix20220220\Symfony\Component\DependencyInjection\Argument\BoundArgument::INSTANCEOF_BINDING : \ECSPrefix20220220\Symfony\Component\DependencyInjection\Argument\BoundArgument::SERVICE_BINDING);
-        $bindings[$nameOrFqcn] = new \ECSPrefix20220220\Symfony\Component\DependencyInjection\Argument\BoundArgument($valueOrRef, \true, $type, $this->path ?? null);
+        $type = $this instanceof \ECSPrefix20220221\Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator ? \ECSPrefix20220221\Symfony\Component\DependencyInjection\Argument\BoundArgument::DEFAULTS_BINDING : ($this instanceof \ECSPrefix20220221\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator ? \ECSPrefix20220221\Symfony\Component\DependencyInjection\Argument\BoundArgument::INSTANCEOF_BINDING : \ECSPrefix20220221\Symfony\Component\DependencyInjection\Argument\BoundArgument::SERVICE_BINDING);
+        $bindings[$nameOrFqcn] = new \ECSPrefix20220221\Symfony\Component\DependencyInjection\Argument\BoundArgument($valueOrRef, \true, $type, $this->path ?? null);
         $this->definition->setBindings($bindings);
         return $this;
     }
