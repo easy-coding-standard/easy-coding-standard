@@ -1,14 +1,14 @@
 <?php
 
-namespace ECSPrefix20220221\React\Stream;
+namespace ECSPrefix20220223\React\Stream;
 
-use ECSPrefix20220221\Evenement\EventEmitter;
-final class CompositeStream extends \ECSPrefix20220221\Evenement\EventEmitter implements \ECSPrefix20220221\React\Stream\DuplexStreamInterface
+use ECSPrefix20220223\Evenement\EventEmitter;
+final class CompositeStream extends \ECSPrefix20220223\Evenement\EventEmitter implements \ECSPrefix20220223\React\Stream\DuplexStreamInterface
 {
     private $readable;
     private $writable;
     private $closed = \false;
-    public function __construct(\ECSPrefix20220221\React\Stream\ReadableStreamInterface $readable, \ECSPrefix20220221\React\Stream\WritableStreamInterface $writable)
+    public function __construct(\ECSPrefix20220223\React\Stream\ReadableStreamInterface $readable, \ECSPrefix20220223\React\Stream\WritableStreamInterface $writable)
     {
         $this->readable = $readable;
         $this->writable = $writable;
@@ -16,8 +16,8 @@ final class CompositeStream extends \ECSPrefix20220221\Evenement\EventEmitter im
             $this->close();
             return;
         }
-        \ECSPrefix20220221\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
-        \ECSPrefix20220221\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
+        \ECSPrefix20220223\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
+        \ECSPrefix20220223\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
         $this->readable->on('close', array($this, 'close'));
         $this->writable->on('close', array($this, 'close'));
     }
@@ -36,9 +36,9 @@ final class CompositeStream extends \ECSPrefix20220221\Evenement\EventEmitter im
         }
         $this->readable->resume();
     }
-    public function pipe(\ECSPrefix20220221\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\ECSPrefix20220223\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \ECSPrefix20220221\React\Stream\Util::pipe($this, $dest, $options);
+        return \ECSPrefix20220223\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function isWritable()
     {

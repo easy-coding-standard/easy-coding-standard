@@ -13,12 +13,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220221\\Symplify\\AutowireArrayParameter\\": "src"
+            "ECSPrefix20220223\\Symplify\\AutowireArrayParameter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220221\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
+            "ECSPrefix20220223\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
         }
     },
     "extra": {

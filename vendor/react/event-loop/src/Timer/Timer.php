@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220221\React\EventLoop\Timer;
+namespace ECSPrefix20220223\React\EventLoop\Timer;
 
-use ECSPrefix20220221\React\EventLoop\TimerInterface;
+use ECSPrefix20220223\React\EventLoop\TimerInterface;
 /**
  * The actual connection implementation for TimerInterface
  *
@@ -11,7 +11,7 @@ use ECSPrefix20220221\React\EventLoop\TimerInterface;
  * @see TimerInterface
  * @internal
  */
-final class Timer implements \ECSPrefix20220221\React\EventLoop\TimerInterface
+final class Timer implements \ECSPrefix20220223\React\EventLoop\TimerInterface
 {
     const MIN_INTERVAL = 1.0E-6;
     private $interval;
