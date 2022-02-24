@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220223\Nette\Utils;
+namespace ECSPrefix20220224\Nette\Utils;
 
-use ECSPrefix20220223\Nette;
+use ECSPrefix20220224\Nette;
 class Helpers
 {
     /**
@@ -32,7 +32,7 @@ class Helpers
     public static function getLastError() : string
     {
         $message = \error_get_last()['message'] ?? '';
-        $message = \ini_get('html_errors') ? \ECSPrefix20220223\Nette\Utils\Html::htmlToText($message) : $message;
+        $message = \ini_get('html_errors') ? \ECSPrefix20220224\Nette\Utils\Html::htmlToText($message) : $message;
         $message = \preg_replace('#^\\w+\\(.*?\\): #', '', $message);
         return $message;
     }
@@ -55,7 +55,7 @@ class Helpers
     public static function clamp($value, $min, $max)
     {
         if ($min > $max) {
-            throw new \ECSPrefix20220223\Nette\InvalidArgumentException("Minimum ({$min}) is not less than maximum ({$max}).");
+            throw new \ECSPrefix20220224\Nette\InvalidArgumentException("Minimum ({$min}) is not less than maximum ({$max}).");
         }
         return \min(\max($value, $min), $max);
     }

@@ -5,17 +5,17 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220223\Nette\Neon\Node;
+namespace ECSPrefix20220224\Nette\Neon\Node;
 
-use ECSPrefix20220223\Nette\Neon\Node;
+use ECSPrefix20220224\Nette\Neon\Node;
 /** @internal */
-abstract class ArrayNode extends \ECSPrefix20220223\Nette\Neon\Node
+abstract class ArrayNode extends \ECSPrefix20220224\Nette\Neon\Node
 {
     /** @var ArrayItemNode[] */
     public $items = [];
     public function toValue() : array
     {
-        return \ECSPrefix20220223\Nette\Neon\Node\ArrayItemNode::itemsToArray($this->items);
+        return \ECSPrefix20220224\Nette\Neon\Node\ArrayItemNode::itemsToArray($this->items);
     }
     public function getSubNodes() : array
     {
