@@ -167,6 +167,9 @@ CODE_SAMPLE
     {
         return 5;
     }
+    /**
+     * @param array<string, mixed> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->lineLength = $configuration[self::LINE_LENGTH] ?? self::DEFAULT_LINE_LENGHT;

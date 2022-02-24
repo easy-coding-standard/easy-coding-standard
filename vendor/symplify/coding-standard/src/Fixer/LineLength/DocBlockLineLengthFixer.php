@@ -144,6 +144,9 @@ CODE_SAMPLE
         $matches = \ECSPrefix20220224\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
         return $matches[self::INDENTATION_PART] ?? '';
     }
+    /**
+     * @param array<int, string> $docBlockLines
+     */
     private function formatLinesAsDocBlockContent(array $docBlockLines, string $indentationString) : string
     {
         foreach ($docBlockLines as $index => $docBlockLine) {
@@ -154,6 +157,7 @@ CODE_SAMPLE
         return \implode(\PHP_EOL, $docBlockLines);
     }
     /**
+     * @param array<string> $descriptionLines
      * @return array<string>
      */
     private function extractParagraphsFromDescriptionLines(array $descriptionLines) : array

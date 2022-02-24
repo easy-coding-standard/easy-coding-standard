@@ -87,6 +87,9 @@ $value = <<<'CODE_SNIPPET'
 CODE_SAMPLE
 , [self::KEYWORD => 'CODE_SNIPPET'])]);
     }
+    /**
+     * @param array<string, mixed> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->keyword = $configuration[self::KEYWORD] ?? self::DEFAULT_KEYWORD;
