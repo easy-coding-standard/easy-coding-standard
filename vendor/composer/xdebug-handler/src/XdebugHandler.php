@@ -521,6 +521,7 @@ class XdebugHandler
         // See if xdebug.mode is supported in this version
         $iniMode = \ini_get('xdebug.mode');
         if ($iniMode === \false) {
+            self::$xdebugActive = \true;
             return;
         }
         // Environment value wins but cannot be empty
