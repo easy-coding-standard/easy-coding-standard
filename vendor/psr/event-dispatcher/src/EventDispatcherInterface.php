@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220224\Psr\EventDispatcher;
+namespace ECSPrefix20220225\Psr\EventDispatcher;
 
 /**
  * Defines a dispatcher for events.

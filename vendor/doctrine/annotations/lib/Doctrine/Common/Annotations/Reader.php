@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220224\Doctrine\Common\Annotations;
+namespace ECSPrefix20220225\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use ReflectionMethod;

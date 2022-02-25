@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220224\Symplify\SymplifyKernel\ValueObject;
+namespace ECSPrefix20220225\Symplify\SymplifyKernel\ValueObject;
 
 /**
  * @api

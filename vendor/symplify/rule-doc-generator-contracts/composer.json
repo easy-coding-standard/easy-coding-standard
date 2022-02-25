@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220224\\Symplify\\RuleDocGenerator\\": "src"
+            "ECSPrefix20220225\\Symplify\\RuleDocGenerator\\": "src"
         }
     },
     "extra": {
@@ -24,7 +24,6 @@
         "symplify\/easy-testing": "<10.1.0",
         "symplify\/php-config-printer": "<10.1.0",
         "symplify\/autowire-array-parameter": "<10.1.0",
-        "symplify\/markdown-diff": "<10.1.0",
         "symplify\/package-builder": "<10.1.0",
         "symplify\/amnesia": "<10.1.0",
         "symplify\/phpstan-extensions": "<10.1.0",
