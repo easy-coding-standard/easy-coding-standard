@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220225\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20220227\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
-use ECSPrefix20220225\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 trait CallTrait
 {
     /**

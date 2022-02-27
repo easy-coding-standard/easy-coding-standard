@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220225\Symplify\RuleDocGenerator\Contract;
+namespace ECSPrefix20220227\Symplify\RuleDocGenerator\Contract;
 
-use ECSPrefix20220225\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 interface RuleCodeSamplePrinterInterface
 {
     public function isMatch(string $class) : bool;
     /**
      * @return string[]
      */
-    public function print(\ECSPrefix20220225\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \ECSPrefix20220225\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition, bool $shouldUseConfigureMethod) : array;
+    public function print(\ECSPrefix20220227\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \ECSPrefix20220227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition, bool $shouldUseConfigureMethod) : array;
 }

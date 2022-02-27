@@ -3,7 +3,7 @@
 /**
  * provides type inference and auto-completion for magic static methods of Assert.
  */
-namespace ECSPrefix20220225\Webmozart\Assert;
+namespace ECSPrefix20220227\Webmozart\Assert;
 
 use ArrayAccess;
 use Closure;

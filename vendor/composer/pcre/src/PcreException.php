@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220225\Composer\Pcre;
+namespace ECSPrefix20220227\Composer\Pcre;
 
 class PcreException extends \RuntimeException
 {
@@ -23,7 +23,7 @@ class PcreException extends \RuntimeException
         if (\is_array($pattern)) {
             $pattern = \implode(', ', $pattern);
         }
-        return new \ECSPrefix20220225\Composer\Pcre\PcreException($function . '(): failed executing "' . $pattern . '": ' . self::pcreLastErrorMessage($code), $code);
+        return new \ECSPrefix20220227\Composer\Pcre\PcreException($function . '(): failed executing "' . $pattern . '": ' . self::pcreLastErrorMessage($code), $code);
     }
     /**
      * @param  int $code
@@ -31,7 +31,7 @@ class PcreException extends \RuntimeException
      */
     private static function pcreLastErrorMessage($code)
     {
-        if (\PHP_VERSION_ID >= 80000) {
+        if (\function_exists('preg_last_error_msg')) {
             return \preg_last_error_msg();
         }
         // older php versions did not set the code properly in all cases

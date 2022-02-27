@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220225\Symfony\Component\DependencyInjection\Dumper;
+namespace ECSPrefix20220227\Symfony\Component\DependencyInjection\Dumper;
 
-use ECSPrefix20220225\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix20220225\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220225\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220225\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use ECSPrefix20220225\Symfony\Component\DependencyInjection\Parameter;
-use ECSPrefix20220225\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-use ECSPrefix20220225\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20220227\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix20220227\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220227\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use ECSPrefix20220227\Symfony\Component\DependencyInjection\Parameter;
+use ECSPrefix20220227\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use ECSPrefix20220227\Symfony\Component\DependencyInjection\Reference;
 /**
  * GraphvizDumper dumps a service container as a graphviz file.
  *
@@ -26,7 +26,7 @@ use ECSPrefix20220225\Symfony\Component\DependencyInjection\Reference;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class GraphvizDumper extends \ECSPrefix20220225\Symfony\Component\DependencyInjection\Dumper\Dumper
+class GraphvizDumper extends \ECSPrefix20220227\Symfony\Component\DependencyInjection\Dumper\Dumper
 {
     /**
      * @var mixed[]
@@ -96,12 +96,12 @@ class GraphvizDumper extends \ECSPrefix20220225\Symfony\Component\DependencyInje
     {
         $edges = [];
         foreach ($arguments as $argument) {
-            if ($argument instanceof \ECSPrefix20220225\Symfony\Component\DependencyInjection\Parameter) {
+            if ($argument instanceof \ECSPrefix20220227\Symfony\Component\DependencyInjection\Parameter) {
                 $argument = $this->container->hasParameter($argument) ? $this->container->getParameter($argument) : null;
             } elseif (\is_string($argument) && \preg_match('/^%([^%]+)%$/', $argument, $match)) {
                 $argument = $this->container->hasParameter($match[1]) ? $this->container->getParameter($match[1]) : null;
             }
-            if ($argument instanceof \ECSPrefix20220225\Symfony\Component\DependencyInjection\Reference) {
+            if ($argument instanceof \ECSPrefix20220227\Symfony\Component\DependencyInjection\Reference) {
                 $lazyEdge = $lazy;
                 if (!$this->container->has((string) $argument)) {
                     $this->nodes[(string) $argument] = ['name' => $name, 'required' => $required, 'class' => '', 'attributes' => $this->options['node.missing']];
@@ -109,9 +109,9 @@ class GraphvizDumper extends \ECSPrefix20220225\Symfony\Component\DependencyInje
                     $lazyEdge = $lazy || $this->container->getDefinition((string) $argument)->isLazy();
                 }
                 $edges[] = [['name' => $name, 'required' => $required, 'to' => $argument, 'lazy' => $lazyEdge]];
-            } elseif ($argument instanceof \ECSPrefix20220225\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
+            } elseif ($argument instanceof \ECSPrefix20220227\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
                 $edges[] = $this->findEdges($id, $argument->getValues(), $required, $name, \true);
-            } elseif ($argument instanceof \ECSPrefix20220225\Symfony\Component\DependencyInjection\Definition) {
+            } elseif ($argument instanceof \ECSPrefix20220227\Symfony\Component\DependencyInjection\Definition) {
                 $edges[] = $this->findEdges($id, $argument->getArguments(), $required, '');
                 $edges[] = $this->findEdges($id, $argument->getProperties(), \false, '');
                 foreach ($argument->getMethodCalls() as $call) {
@@ -134,10 +134,10 @@ class GraphvizDumper extends \ECSPrefix20220225\Symfony\Component\DependencyInje
             }
             try {
                 $class = $this->container->getParameterBag()->resolveValue($class);
-            } catch (\ECSPrefix20220225\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException $e) {
+            } catch (\ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException $e) {
             }
             $nodes[$id] = ['class' => \str_replace('\\', '\\\\', $class), 'attributes' => \array_merge($this->options['node.definition'], ['style' => $definition->isShared() ? 'filled' : 'dotted'])];
-            $container->setDefinition($id, new \ECSPrefix20220225\Symfony\Component\DependencyInjection\Definition('stdClass'));
+            $container->setDefinition($id, new \ECSPrefix20220227\Symfony\Component\DependencyInjection\Definition('stdClass'));
         }
         foreach ($container->getServiceIds() as $id) {
             if (\array_key_exists($id, $container->getAliases())) {
@@ -149,10 +149,10 @@ class GraphvizDumper extends \ECSPrefix20220225\Symfony\Component\DependencyInje
         }
         return $nodes;
     }
-    private function cloneContainer() : \ECSPrefix20220225\Symfony\Component\DependencyInjection\ContainerBuilder
+    private function cloneContainer() : \ECSPrefix20220227\Symfony\Component\DependencyInjection\ContainerBuilder
     {
-        $parameterBag = new \ECSPrefix20220225\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($this->container->getParameterBag()->all());
-        $container = new \ECSPrefix20220225\Symfony\Component\DependencyInjection\ContainerBuilder($parameterBag);
+        $parameterBag = new \ECSPrefix20220227\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($this->container->getParameterBag()->all());
+        $container = new \ECSPrefix20220227\Symfony\Component\DependencyInjection\ContainerBuilder($parameterBag);
         $container->setDefinitions($this->container->getDefinitions());
         $container->setAliases($this->container->getAliases());
         $container->setResources($this->container->getResources());

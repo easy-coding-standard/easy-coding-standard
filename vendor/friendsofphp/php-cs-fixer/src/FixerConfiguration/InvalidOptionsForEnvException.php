@@ -12,12 +12,12 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\FixerConfiguration;
 
-use ECSPrefix20220225\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20220227\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
  * @internal
  */
-final class InvalidOptionsForEnvException extends \ECSPrefix20220225\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+final class InvalidOptionsForEnvException extends \ECSPrefix20220227\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
 {
 }

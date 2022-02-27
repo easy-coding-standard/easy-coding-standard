@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Command;
 
-use ECSPrefix20220225\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220225\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220227\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220227\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
 use Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication;
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
-use ECSPrefix20220225\Symplify\PackageBuilder\Console\Command\CommandNaming;
+use ECSPrefix20220227\Symplify\PackageBuilder\Console\Command\CommandNaming;
 final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
@@ -22,11 +22,11 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
     }
     protected function configure() : void
     {
-        $this->setName(\ECSPrefix20220225\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(self::class));
+        $this->setName(\ECSPrefix20220227\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(self::class));
         $this->setDescription('Format Heredoc/Nowdoc PHP snippets in PHP files');
         parent::configure();
     }
-    protected function execute(\ECSPrefix20220225\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220225\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20220227\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220227\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             $this->loadedCheckersGuard->report();
