@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220227\Symfony\Component\DependencyInjection\ParameterBag;
+namespace ECSPrefix20220302\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
-use ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20220302\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
+use ECSPrefix20220302\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use ECSPrefix20220302\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 /**
  * Holds parameters.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ParameterBag implements \ECSPrefix20220227\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface
+class ParameterBag implements \ECSPrefix20220302\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface
 {
     protected $parameters = [];
     protected $resolved = \false;
@@ -51,13 +51,13 @@ class ParameterBag implements \ECSPrefix20220227\Symfony\Component\DependencyInj
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]|bool|float|int|string|null
+     * @return mixed[]|bool|float|int|string|\UnitEnum|null
      */
     public function get(string $name)
     {
         if (!\array_key_exists($name, $this->parameters)) {
             if (!$name) {
-                throw new \ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
+                throw new \ECSPrefix20220302\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
             }
             $alternatives = [];
             foreach ($this->parameters as $key => $parameterValue) {
@@ -80,13 +80,13 @@ class ParameterBag implements \ECSPrefix20220227\Symfony\Component\DependencyInj
                     $key = \substr($key, 0, -1 * (1 + \array_pop($namePartsLength)));
                 }
             }
-            throw new \ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name, null, null, null, $alternatives, $nonNestedAlternative);
+            throw new \ECSPrefix20220302\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name, null, null, null, $alternatives, $nonNestedAlternative);
         }
         return $this->parameters[$name];
     }
     /**
      * {@inheritdoc}
-     * @param mixed[]|bool|float|int|string|null $value
+     * @param mixed[]|bool|float|int|string|\UnitEnum|null $value
      */
     public function set(string $name, $value)
     {
@@ -119,7 +119,7 @@ class ParameterBag implements \ECSPrefix20220227\Symfony\Component\DependencyInj
             try {
                 $value = $this->resolveValue($value);
                 $parameters[$key] = $this->unescapeValue($value);
-            } catch (\ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException $e) {
+            } catch (\ECSPrefix20220302\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException $e) {
                 $e->setSourceKey($key);
                 throw $e;
             }
@@ -170,7 +170,7 @@ class ParameterBag implements \ECSPrefix20220227\Symfony\Component\DependencyInj
         if (\preg_match('/^%([^%\\s]+)%$/', $value, $match)) {
             $key = $match[1];
             if (isset($resolving[$key])) {
-                throw new \ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($resolving));
+                throw new \ECSPrefix20220302\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($resolving));
             }
             $resolving[$key] = \true;
             return $this->resolved ? $this->get($key) : $this->resolveValue($this->get($key), $resolving);
@@ -182,11 +182,11 @@ class ParameterBag implements \ECSPrefix20220227\Symfony\Component\DependencyInj
             }
             $key = $match[1];
             if (isset($resolving[$key])) {
-                throw new \ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($resolving));
+                throw new \ECSPrefix20220302\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($resolving));
             }
             $resolved = $this->get($key);
             if (!\is_string($resolved) && !\is_numeric($resolved)) {
-                throw new \ECSPrefix20220227\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type "%s" inside string value "%s".', $key, \get_debug_type($resolved), $value));
+                throw new \ECSPrefix20220302\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type "%s" inside string value "%s".', $key, \get_debug_type($resolved), $value));
             }
             $resolved = (string) $resolved;
             $resolving[$key] = \true;

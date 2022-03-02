@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220227\Symfony\Component\Console\Event;
+namespace ECSPrefix20220302\Symfony\Component\Console\Event;
 
-use ECSPrefix20220227\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220227\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220227\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220227\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20220302\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220302\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220302\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220302\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Allows to inspect input and output of a command.
  *
  * @author Francesco Levorato <git@flevour.net>
  */
-class ConsoleEvent extends \ECSPrefix20220227\Symfony\Contracts\EventDispatcher\Event
+class ConsoleEvent extends \ECSPrefix20220302\Symfony\Contracts\EventDispatcher\Event
 {
     protected $command;
     private $input;
     private $output;
-    public function __construct(?\ECSPrefix20220227\Symfony\Component\Console\Command\Command $command, \ECSPrefix20220227\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220227\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(?\ECSPrefix20220302\Symfony\Component\Console\Command\Command $command, \ECSPrefix20220302\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220302\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->command = $command;
         $this->input = $input;
@@ -33,21 +33,21 @@ class ConsoleEvent extends \ECSPrefix20220227\Symfony\Contracts\EventDispatcher\
     /**
      * Gets the command that is executed.
      */
-    public function getCommand() : ?\ECSPrefix20220227\Symfony\Component\Console\Command\Command
+    public function getCommand() : ?\ECSPrefix20220302\Symfony\Component\Console\Command\Command
     {
         return $this->command;
     }
     /**
      * Gets the input instance.
      */
-    public function getInput() : \ECSPrefix20220227\Symfony\Component\Console\Input\InputInterface
+    public function getInput() : \ECSPrefix20220302\Symfony\Component\Console\Input\InputInterface
     {
         return $this->input;
     }
     /**
      * Gets the output instance.
      */
-    public function getOutput() : \ECSPrefix20220227\Symfony\Component\Console\Output\OutputInterface
+    public function getOutput() : \ECSPrefix20220302\Symfony\Component\Console\Output\OutputInterface
     {
         return $this->output;
     }

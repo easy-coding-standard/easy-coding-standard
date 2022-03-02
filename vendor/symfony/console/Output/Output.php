@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220227\Symfony\Component\Console\Output;
+namespace ECSPrefix20220302\Symfony\Component\Console\Output;
 
-use ECSPrefix20220227\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix20220227\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20220302\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20220302\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * Base class for output classes.
  *
@@ -25,7 +25,7 @@ use ECSPrefix20220227\Symfony\Component\Console\Formatter\OutputFormatterInterfa
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Output implements \ECSPrefix20220227\Symfony\Component\Console\Output\OutputInterface
+abstract class Output implements \ECSPrefix20220302\Symfony\Component\Console\Output\OutputInterface
 {
     /**
      * @var int
@@ -37,23 +37,23 @@ abstract class Output implements \ECSPrefix20220227\Symfony\Component\Console\Ou
      * @param bool                          $decorated Whether to decorate messages
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      */
-    public function __construct(?int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \ECSPrefix20220227\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    public function __construct(?int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \ECSPrefix20220302\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         $this->verbosity = $verbosity ?? self::VERBOSITY_NORMAL;
-        $this->formatter = $formatter ?? new \ECSPrefix20220227\Symfony\Component\Console\Formatter\OutputFormatter();
+        $this->formatter = $formatter ?? new \ECSPrefix20220302\Symfony\Component\Console\Formatter\OutputFormatter();
         $this->formatter->setDecorated($decorated);
     }
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(\ECSPrefix20220227\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function setFormatter(\ECSPrefix20220302\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         $this->formatter = $formatter;
     }
     /**
      * {@inheritdoc}
      */
-    public function getFormatter() : \ECSPrefix20220227\Symfony\Component\Console\Formatter\OutputFormatterInterface
+    public function getFormatter() : \ECSPrefix20220302\Symfony\Component\Console\Formatter\OutputFormatterInterface
     {
         return $this->formatter;
     }
@@ -139,12 +139,12 @@ abstract class Output implements \ECSPrefix20220227\Symfony\Component\Console\Ou
         }
         foreach ($messages as $message) {
             switch ($type) {
-                case \ECSPrefix20220227\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL:
+                case \ECSPrefix20220302\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL:
                     $message = $this->formatter->format($message);
                     break;
-                case \ECSPrefix20220227\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW:
+                case \ECSPrefix20220302\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW:
                     break;
-                case \ECSPrefix20220227\Symfony\Component\Console\Output\OutputInterface::OUTPUT_PLAIN:
+                case \ECSPrefix20220302\Symfony\Component\Console\Output\OutputInterface::OUTPUT_PLAIN:
                     $message = \strip_tags($this->formatter->format($message));
                     break;
             }

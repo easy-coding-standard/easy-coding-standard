@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220227\Symfony\Component\DependencyInjection\Dumper;
+namespace ECSPrefix20220302\Symfony\Component\DependencyInjection\Dumper;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -97,7 +97,7 @@ final class Preloader
         if (!$t) {
             return;
         }
-        foreach ($t instanceof \ReflectionUnionType || $t instanceof \ECSPrefix20220227\ReflectionIntersectionType ? $t->getTypes() : [$t] as $t) {
+        foreach ($t instanceof \ReflectionUnionType || $t instanceof \ECSPrefix20220302\ReflectionIntersectionType ? $t->getTypes() : [$t] as $t) {
             if (!$t->isBuiltin()) {
                 self::doPreload($t instanceof \ReflectionNamedType ? $t->getName() : $t, $preloaded);
             }

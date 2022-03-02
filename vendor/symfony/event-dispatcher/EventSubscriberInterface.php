@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220227\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20220302\Symfony\Component\EventDispatcher;
 
 /**
  * An EventSubscriber knows itself what events it is interested in.
