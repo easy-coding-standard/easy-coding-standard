@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220302\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20220303\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20220302\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220303\Symfony\Component\DependencyInjection\Definition;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class InstanceofConfigurator extends \ECSPrefix20220302\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class InstanceofConfigurator extends \ECSPrefix20220303\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
     use Traits\AutowireTrait;
     use Traits\BindTrait;
@@ -30,7 +30,7 @@ class InstanceofConfigurator extends \ECSPrefix20220302\Symfony\Component\Depend
      * @var string|null
      */
     private $path;
-    public function __construct(\ECSPrefix20220302\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20220302\Symfony\Component\DependencyInjection\Definition $definition, string $id, string $path = null)
+    public function __construct(\ECSPrefix20220303\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20220303\Symfony\Component\DependencyInjection\Definition $definition, string $id, string $path = null)
     {
         parent::__construct($parent, $definition, $id, []);
         $this->path = $path;

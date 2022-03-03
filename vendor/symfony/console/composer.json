@@ -53,7 +53,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220302\\Symfony\\Component\\Console\\": ""
+            "ECSPrefix20220303\\Symfony\\Component\\Console\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220302\Psr\Log;
+namespace ECSPrefix20220303\Psr\Log;
 
 /**
  * Describes log levels.

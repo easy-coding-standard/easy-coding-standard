@@ -6,14 +6,18 @@ namespace Symplify\EasyCodingStandard\FixerRunner;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException;
 use Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing;
-use ECSPrefix20220302\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220303\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class WhitespacesFixerConfigFactory
 {
+    /**
+     * @var string[]
+     */
+    private const ALLOWED_VALUES = ['tab', 'spaces', \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::TWO_SPACES, \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::FOUR_SPACES, \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::ONE_TAB];
     /**
      * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\ECSPrefix20220302\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\ECSPrefix20220303\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
@@ -37,8 +41,7 @@ final class WhitespacesFixerConfigFactory
         if ($this->isFourSpaces($indentation)) {
             return \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::FOUR_SPACES;
         }
-        $allowedValues = ['tab', 'spaces', \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::TWO_SPACES, \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::FOUR_SPACES, \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::ONE_TAB];
-        throw new \Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException(\sprintf('Value "%s" is not supported in "parameters > indentation".%sUse one of: "%s".', $indentation, \PHP_EOL, \implode('", "', $allowedValues)));
+        throw new \Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException(\sprintf('Value "%s" is not supported in "parameters > indentation".%sUse one of: "%s".', $indentation, \PHP_EOL, \implode('", "', self::ALLOWED_VALUES)));
     }
     private function isOneTab(string $indentation) : bool
     {

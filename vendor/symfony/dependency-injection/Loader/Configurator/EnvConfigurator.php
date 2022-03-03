@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220302\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20220303\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20220302\Symfony\Component\Config\Loader\ParamConfigurator;
-class EnvConfigurator extends \ECSPrefix20220302\Symfony\Component\Config\Loader\ParamConfigurator
+use ECSPrefix20220303\Symfony\Component\Config\Loader\ParamConfigurator;
+class EnvConfigurator extends \ECSPrefix20220303\Symfony\Component\Config\Loader\ParamConfigurator
 {
     /**
      * @var string[]
@@ -30,7 +30,7 @@ class EnvConfigurator extends \ECSPrefix20220302\Symfony\Component\Config\Loader
      */
     public function __call(string $name, array $arguments)
     {
-        $processor = \strtolower(\preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\\d])([A-Z])/'], 'ECSPrefix20220302\\1_\\2', $name));
+        $processor = \strtolower(\preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\\d])([A-Z])/'], 'ECSPrefix20220303\\1_\\2', $name));
         $this->custom($processor, ...$arguments);
         return $this;
     }

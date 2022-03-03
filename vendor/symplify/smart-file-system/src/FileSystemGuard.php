@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220302\Symplify\SmartFileSystem;
+namespace ECSPrefix20220303\Symplify\SmartFileSystem;
 
-use ECSPrefix20220302\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
-use ECSPrefix20220302\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use ECSPrefix20220303\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
+use ECSPrefix20220303\Symplify\SmartFileSystem\Exception\FileNotFoundException;
 final class FileSystemGuard
 {
     public function ensureFileExists(string $file, string $location) : void
@@ -12,7 +12,7 @@ final class FileSystemGuard
         if (\file_exists($file)) {
             return;
         }
-        throw new \ECSPrefix20220302\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
+        throw new \ECSPrefix20220303\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
     }
     public function ensureDirectoryExists(string $directory, string $extraMessage) : void
     {
@@ -23,6 +23,6 @@ final class FileSystemGuard
         if ($extraMessage !== '') {
             $message .= ' ' . $extraMessage;
         }
-        throw new \ECSPrefix20220302\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException($message);
+        throw new \ECSPrefix20220303\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException($message);
     }
 }
