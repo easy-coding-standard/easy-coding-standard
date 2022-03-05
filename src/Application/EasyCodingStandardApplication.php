@@ -94,7 +94,7 @@ final class EasyCodingStandardApplication
         $this->parametersMerger = $parametersMerger;
     }
     /**
-     * @return array<string, array<SystemError|FileDiff|CodingStandardError>>
+     * @return array{coding_standard_errors?: CodingStandardError[], file_diffs?: FileDiff[], system_errors?: SystemError[]|string[], system_errors_count?: int}
      */
     public function run(\Symplify\EasyCodingStandard\ValueObject\Configuration $configuration, \ECSPrefix20220305\Symfony\Component\Console\Input\InputInterface $input) : array
     {
@@ -141,7 +141,7 @@ final class EasyCodingStandardApplication
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @return array<string, array<SystemError|FileDiff|CodingStandardError>>
+     * @return array{coding_standard_errors: CodingStandardError[], file_diffs: FileDiff[], system_errors: SystemError[], system_errors_count: int}
      */
     private function processFoundFiles(array $fileInfos, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
     {

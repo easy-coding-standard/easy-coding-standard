@@ -51,7 +51,7 @@ final class CodingStandardError implements \ECSPrefix20220305\Symplify\EasyParal
         return $this->relativeFilePath;
     }
     /**
-     * @return array<string, mixed>
+     * @return array{line: int, message: string, checker_class: string, relative_file_path: string}
      */
     public function jsonSerialize() : array
     {

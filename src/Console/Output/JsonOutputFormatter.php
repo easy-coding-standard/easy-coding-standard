@@ -58,7 +58,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         return \ECSPrefix20220305\Nette\Utils\Json::encode($errorsArrayJson, \ECSPrefix20220305\Nette\Utils\Json::PRETTY);
     }
     /**
-     * @return mixed[]
+     * @return array{totals: array{errors: int, diffs: int}, files: string[]}
      */
     private function createBaseErrorsJson(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : array
     {

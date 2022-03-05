@@ -95,7 +95,7 @@ final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         return $this->fixers;
     }
     /**
-     * @return array<string, FileDiff[]>
+     * @return array{file_diffs?: FileDiff[]}
      */
     public function processFile(\ECSPrefix20220305\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
     {

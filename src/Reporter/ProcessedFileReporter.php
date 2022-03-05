@@ -21,13 +21,13 @@ final class ProcessedFileReporter
         $this->outputFormatterCollector = $outputFormatterCollector;
     }
     /**
-     * @param array<string, array<SystemError|FileDiff|CodingStandardError>> $errorsAndDiffs
+     * @param array{system_errors?: SystemError[]|string[], file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[], system_errors_count?: int} $errorsAndDiffs
      */
     public function report(array $errorsAndDiffs, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
     {
         $outputFormat = $configuration->getOutputFormat();
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
-        /** @var SystemError[] $systemErrors */
+        /** @var SystemError[]|string[] $systemErrors */
         $systemErrors = $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS] ?? [];
         /** @var FileDiff[] $fileDiffs */
         $fileDiffs = $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS] ?? [];

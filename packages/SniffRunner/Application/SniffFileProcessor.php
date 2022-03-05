@@ -93,7 +93,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         return $this->sniffs;
     }
     /**
-     * @return array<string, array<FileDiff|CodingStandardError>>
+     * @return array{file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[]}
      */
     public function processFile(\ECSPrefix20220305\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
     {

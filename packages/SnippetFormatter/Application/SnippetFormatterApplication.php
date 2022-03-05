@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\SnippetFormatter\Application;
 use PhpCsFixer\Differ\DifferInterface;
 use ECSPrefix20220305\Symfony\Component\Console\Command\Command;
 use ECSPrefix20220305\Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
 use Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter;
@@ -68,35 +69,34 @@ final class SnippetFormatterApplication
         $this->symfonyStyle->progressStart($fileCount);
         $errorsAndDiffs = [];
         foreach ($fileInfos as $fileInfo) {
-            $errorsAndDiffs = \array_merge($errorsAndDiffs, $this->processFileInfoWithPattern($fileInfo, $snippetPattern, $kind, $configuration));
+            $fileDiff = $this->processFileInfoWithPattern($fileInfo, $snippetPattern, $kind, $configuration);
+            if ($fileDiff instanceof \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff) {
+                $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS][] = $fileDiff;
+            }
             $this->symfonyStyle->progressAdvance();
         }
         return $this->processedFileReporter->report($errorsAndDiffs, $configuration);
     }
-    /**
-     * @return array<string, array<FileDiff>>
-     */
-    private function processFileInfoWithPattern(\ECSPrefix20220305\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, string $snippetPattern, string $kind, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
+    private function processFileInfoWithPattern(\ECSPrefix20220305\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, string $snippetPattern, string $kind, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : ?\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
     {
         $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern, $kind, $configuration);
         $originalContent = $phpFileInfo->getContents();
         if ($phpFileInfo->getContents() === $fixedContent) {
             // nothing has changed
-            return [];
+            return null;
         }
         if (!$configuration->isFixer()) {
-            return [];
+            return null;
         }
         $this->smartFileSystem->dumpFile($phpFileInfo->getPathname(), $fixedContent);
         $diff = $this->differ->diff($originalContent, $fixedContent);
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
-        $fileDiff = new \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff(
+        return new \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff(
             $phpFileInfo->getRelativeFilePathFromCwd(),
             $diff,
             $consoleFormattedDiff,
             // @todo
             []
         );
-        return ['files_diffs' => [$fileDiff]];
     }
 }
