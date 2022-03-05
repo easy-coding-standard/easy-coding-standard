@@ -79,7 +79,7 @@ final class ComposerJson
      */
     private $orderedKeys = [];
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $replace = [];
     /**

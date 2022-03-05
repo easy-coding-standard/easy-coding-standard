@@ -16,7 +16,7 @@ use ECSPrefix20220305\Symplify\SmartFileSystem\SmartFileSystem;
 final class JsonFileManager
 {
     /**
-     * @var mixed[]
+     * @var array<string, mixed[]>
      */
     private $cachedJSONFiles = [];
     /**

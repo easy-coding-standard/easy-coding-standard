@@ -8,7 +8,7 @@ use Symplify\EasyCodingStandard\Exception\Configuration\OutputFormatterNotFoundE
 final class OutputFormatterCollector
 {
     /**
-     * @var OutputFormatterInterface[]
+     * @var array<string, OutputFormatterInterface>
      */
     private $outputFormatters = [];
     /**
