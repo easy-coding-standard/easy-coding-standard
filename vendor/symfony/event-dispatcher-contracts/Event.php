@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220303\Symfony\Contracts\EventDispatcher;
+namespace ECSPrefix20220305\Symfony\Contracts\EventDispatcher;
 
-use ECSPrefix20220303\Psr\EventDispatcher\StoppableEventInterface;
+use ECSPrefix20220305\Psr\EventDispatcher\StoppableEventInterface;
 /**
  * Event is the base class for classes containing event data.
  *
@@ -26,7 +26,7 @@ use ECSPrefix20220303\Psr\EventDispatcher\StoppableEventInterface;
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class Event implements \ECSPrefix20220303\Psr\EventDispatcher\StoppableEventInterface
+class Event implements \ECSPrefix20220305\Psr\EventDispatcher\StoppableEventInterface
 {
     /**
      * @var bool

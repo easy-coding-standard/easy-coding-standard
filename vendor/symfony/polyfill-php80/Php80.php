@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220303\Symfony\Polyfill\Php80;
+namespace ECSPrefix20220305\Symfony\Polyfill\Php80;
 
 /**
  * @author Ion Bazan <ion.bazan@gmail.com>
@@ -95,6 +95,13 @@ final class Php80
     }
     public static function str_ends_with(string $haystack, string $needle) : bool
     {
-        return '' === $needle || '' !== $haystack && 0 === \substr_compare($haystack, $needle, -\strlen($needle));
+        if ('' === $needle || $needle === $haystack) {
+            return \true;
+        }
+        if ('' === $haystack) {
+            return \false;
+        }
+        $needleLength = \strlen($needle);
+        return $needleLength <= \strlen($haystack) && 0 === \substr_compare($haystack, $needle, -$needleLength);
     }
 }

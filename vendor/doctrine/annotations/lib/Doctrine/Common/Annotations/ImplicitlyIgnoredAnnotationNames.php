@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220303\Doctrine\Common\Annotations;
+namespace ECSPrefix20220305\Doctrine\Common\Annotations;
 
 /**
  *  A list of annotations that are implicitly ignored during the parsing process.

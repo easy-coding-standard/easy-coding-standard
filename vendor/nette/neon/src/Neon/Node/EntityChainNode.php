@@ -5,12 +5,12 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220303\Nette\Neon\Node;
+namespace ECSPrefix20220305\Nette\Neon\Node;
 
-use ECSPrefix20220303\Nette\Neon;
-use ECSPrefix20220303\Nette\Neon\Node;
+use ECSPrefix20220305\Nette\Neon;
+use ECSPrefix20220305\Nette\Neon\Node;
 /** @internal */
-final class EntityChainNode extends \ECSPrefix20220303\Nette\Neon\Node
+final class EntityChainNode extends \ECSPrefix20220305\Nette\Neon\Node
 {
     /** @var EntityNode[] */
     public $chain = [];
@@ -20,13 +20,13 @@ final class EntityChainNode extends \ECSPrefix20220303\Nette\Neon\Node
         $this->startPos = $startPos;
         $this->endPos = $endPos ?? $startPos;
     }
-    public function toValue() : \ECSPrefix20220303\Nette\Neon\Entity
+    public function toValue() : \ECSPrefix20220305\Nette\Neon\Entity
     {
         $entities = [];
         foreach ($this->chain as $item) {
             $entities[] = $item->toValue();
         }
-        return new \ECSPrefix20220303\Nette\Neon\Entity(\ECSPrefix20220303\Nette\Neon\Neon::CHAIN, $entities);
+        return new \ECSPrefix20220305\Nette\Neon\Entity(\ECSPrefix20220305\Nette\Neon\Neon::CHAIN, $entities);
     }
     public function toString() : string
     {

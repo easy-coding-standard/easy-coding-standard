@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220303\\Symfony\\Component\\Stopwatch\\": ""
+            "ECSPrefix20220305\\Symfony\\Component\\Stopwatch\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

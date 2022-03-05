@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220303\\Symfony\\Component\\Filesystem\\": ""
+            "ECSPrefix20220305\\Symfony\\Component\\Filesystem\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

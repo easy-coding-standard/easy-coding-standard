@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220303\\Composer\\Pcre\\": "src"
+            "ECSPrefix20220305\\Composer\\Pcre\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220303\\Composer\\Pcre\\": "tests"
+            "ECSPrefix20220305\\Composer\\Pcre\\": "tests"
         }
     },
     "extra": {

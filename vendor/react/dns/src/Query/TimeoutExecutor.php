@@ -1,26 +1,26 @@
 <?php
 
-namespace ECSPrefix20220303\React\Dns\Query;
+namespace ECSPrefix20220305\React\Dns\Query;
 
-use ECSPrefix20220303\React\EventLoop\Loop;
-use ECSPrefix20220303\React\EventLoop\LoopInterface;
-use ECSPrefix20220303\React\Promise\Timer;
-final class TimeoutExecutor implements \ECSPrefix20220303\React\Dns\Query\ExecutorInterface
+use ECSPrefix20220305\React\EventLoop\Loop;
+use ECSPrefix20220305\React\EventLoop\LoopInterface;
+use ECSPrefix20220305\React\Promise\Timer;
+final class TimeoutExecutor implements \ECSPrefix20220305\React\Dns\Query\ExecutorInterface
 {
     private $executor;
     private $loop;
     private $timeout;
-    public function __construct(\ECSPrefix20220303\React\Dns\Query\ExecutorInterface $executor, $timeout, \ECSPrefix20220303\React\EventLoop\LoopInterface $loop = null)
+    public function __construct(\ECSPrefix20220305\React\Dns\Query\ExecutorInterface $executor, $timeout, \ECSPrefix20220305\React\EventLoop\LoopInterface $loop = null)
     {
         $this->executor = $executor;
-        $this->loop = $loop ?: \ECSPrefix20220303\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20220305\React\EventLoop\Loop::get();
         $this->timeout = $timeout;
     }
-    public function query(\ECSPrefix20220303\React\Dns\Query\Query $query)
+    public function query(\ECSPrefix20220305\React\Dns\Query\Query $query)
     {
-        return \ECSPrefix20220303\React\Promise\Timer\timeout($this->executor->query($query), $this->timeout, $this->loop)->then(null, function ($e) use($query) {
-            if ($e instanceof \ECSPrefix20220303\React\Promise\Timer\TimeoutException) {
-                $e = new \ECSPrefix20220303\React\Dns\Query\TimeoutException(\sprintf("DNS query for %s timed out", $query->describe()), 0, $e);
+        return \ECSPrefix20220305\React\Promise\Timer\timeout($this->executor->query($query), $this->timeout, $this->loop)->then(null, function ($e) use($query) {
+            if ($e instanceof \ECSPrefix20220305\React\Promise\Timer\TimeoutException) {
+                $e = new \ECSPrefix20220305\React\Dns\Query\TimeoutException(\sprintf("DNS query for %s timed out", $query->describe()), 0, $e);
             }
             throw $e;
         });
