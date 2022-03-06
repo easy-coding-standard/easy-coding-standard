@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20220305\React\Socket;
+namespace ECSPrefix20220306\React\Socket;
 
-use ECSPrefix20220305\Evenement\EventEmitter;
-use ECSPrefix20220305\React\EventLoop\Loop;
-use ECSPrefix20220305\React\EventLoop\LoopInterface;
+use ECSPrefix20220306\Evenement\EventEmitter;
+use ECSPrefix20220306\React\EventLoop\Loop;
+use ECSPrefix20220306\React\EventLoop\LoopInterface;
 use BadMethodCallException;
 use UnexpectedValueException;
 /**
@@ -51,7 +51,7 @@ use UnexpectedValueException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class SecureServer extends \ECSPrefix20220305\Evenement\EventEmitter implements \ECSPrefix20220305\React\Socket\ServerInterface
+final class SecureServer extends \ECSPrefix20220306\Evenement\EventEmitter implements \ECSPrefix20220306\React\Socket\ServerInterface
 {
     private $tcp;
     private $encryption;
@@ -120,7 +120,7 @@ final class SecureServer extends \ECSPrefix20220305\Evenement\EventEmitter imple
      * @see TcpServer
      * @link https://www.php.net/manual/en/context.ssl.php for TLS context options
      */
-    public function __construct(\ECSPrefix20220305\React\Socket\ServerInterface $tcp, \ECSPrefix20220305\React\EventLoop\LoopInterface $loop = null, array $context = array())
+    public function __construct(\ECSPrefix20220306\React\Socket\ServerInterface $tcp, \ECSPrefix20220306\React\EventLoop\LoopInterface $loop = null, array $context = array())
     {
         if (!\function_exists('stream_socket_enable_crypto')) {
             throw new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)');
@@ -129,7 +129,7 @@ final class SecureServer extends \ECSPrefix20220305\Evenement\EventEmitter imple
         // default to empty passphrase to suppress blocking passphrase prompt
         $context += array('passphrase' => '');
         $this->tcp = $tcp;
-        $this->encryption = new \ECSPrefix20220305\React\Socket\StreamEncryption($loop ?: \ECSPrefix20220305\React\EventLoop\Loop::get());
+        $this->encryption = new \ECSPrefix20220306\React\Socket\StreamEncryption($loop ?: \ECSPrefix20220306\React\EventLoop\Loop::get());
         $this->context = $context;
         $that = $this;
         $this->tcp->on('connection', function ($connection) use($that) {
@@ -160,9 +160,9 @@ final class SecureServer extends \ECSPrefix20220305\Evenement\EventEmitter imple
         return $this->tcp->close();
     }
     /** @internal */
-    public function handleConnection(\ECSPrefix20220305\React\Socket\ConnectionInterface $connection)
+    public function handleConnection(\ECSPrefix20220306\React\Socket\ConnectionInterface $connection)
     {
-        if (!$connection instanceof \ECSPrefix20220305\React\Socket\Connection) {
+        if (!$connection instanceof \ECSPrefix20220306\React\Socket\Connection) {
             $this->emit('error', array(new \UnexpectedValueException('Base server does not use internal Connection class exposing stream resource')));
             $connection->close();
             return;

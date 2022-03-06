@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220305\Symplify\SymplifyKernel\HttpKernel;
+namespace ECSPrefix20220306\Symplify\SymplifyKernel\HttpKernel;
 
-use ECSPrefix20220305\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20220305\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix20220305\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220305\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix20220305\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-use ECSPrefix20220305\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory;
-use ECSPrefix20220305\Symplify\SymplifyKernel\ContainerBuilderFactory;
-use ECSPrefix20220305\Symplify\SymplifyKernel\Contract\LightKernelInterface;
-use ECSPrefix20220305\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-use ECSPrefix20220305\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig;
+use ECSPrefix20220306\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20220306\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix20220306\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220306\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix20220306\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use ECSPrefix20220306\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory;
+use ECSPrefix20220306\Symplify\SymplifyKernel\ContainerBuilderFactory;
+use ECSPrefix20220306\Symplify\SymplifyKernel\Contract\LightKernelInterface;
+use ECSPrefix20220306\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20220306\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig;
 /**
  * @api
  */
-abstract class AbstractSymplifyKernel implements \ECSPrefix20220305\Symplify\SymplifyKernel\Contract\LightKernelInterface
+abstract class AbstractSymplifyKernel implements \ECSPrefix20220306\Symplify\SymplifyKernel\Contract\LightKernelInterface
 {
     /**
      * @var \Symfony\Component\DependencyInjection\Container|null
@@ -27,20 +27,20 @@ abstract class AbstractSymplifyKernel implements \ECSPrefix20220305\Symplify\Sym
      * @param CompilerPassInterface[] $compilerPasses
      * @param ExtensionInterface[] $extensions
      */
-    public function create(array $configFiles, array $compilerPasses = [], array $extensions = []) : \ECSPrefix20220305\Symfony\Component\DependencyInjection\ContainerInterface
+    public function create(array $configFiles, array $compilerPasses = [], array $extensions = []) : \ECSPrefix20220306\Symfony\Component\DependencyInjection\ContainerInterface
     {
-        $containerBuilderFactory = new \ECSPrefix20220305\Symplify\SymplifyKernel\ContainerBuilderFactory(new \ECSPrefix20220305\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory());
-        $compilerPasses[] = new \ECSPrefix20220305\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass();
-        $configFiles[] = \ECSPrefix20220305\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig::FILE_PATH;
+        $containerBuilderFactory = new \ECSPrefix20220306\Symplify\SymplifyKernel\ContainerBuilderFactory(new \ECSPrefix20220306\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory());
+        $compilerPasses[] = new \ECSPrefix20220306\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass();
+        $configFiles[] = \ECSPrefix20220306\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig::FILE_PATH;
         $containerBuilder = $containerBuilderFactory->create($configFiles, $compilerPasses, $extensions);
         $containerBuilder->compile();
         $this->container = $containerBuilder;
         return $containerBuilder;
     }
-    public function getContainer() : \ECSPrefix20220305\Psr\Container\ContainerInterface
+    public function getContainer() : \ECSPrefix20220306\Psr\Container\ContainerInterface
     {
-        if (!$this->container instanceof \ECSPrefix20220305\Symfony\Component\DependencyInjection\Container) {
-            throw new \ECSPrefix20220305\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        if (!$this->container instanceof \ECSPrefix20220306\Symfony\Component\DependencyInjection\Container) {
+            throw new \ECSPrefix20220306\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->container;
     }
