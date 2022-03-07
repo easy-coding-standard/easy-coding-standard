@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220306\React\Promise;
+namespace ECSPrefix20220307\React\Promise;
 
 class UnhandledRejectionException extends \RuntimeException
 {

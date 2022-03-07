@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220306\Symplify\PackageBuilder\Console\Command;
+namespace ECSPrefix20220307\Symplify\PackageBuilder\Console\Command;
 
-use ECSPrefix20220306\Nette\Utils\Strings;
-use ECSPrefix20220306\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220307\Nette\Utils\Strings;
+use ECSPrefix20220307\Symfony\Component\Console\Command\Command;
 /**
  * @api
  * @see \Symplify\PackageBuilder\Tests\Console\Command\CommandNamingTest
@@ -21,7 +21,7 @@ final class CommandNaming
      * - "SomeClass\SomeSuperCommand" → "some-super"
      * - "SomeClass\SOMESuperCommand" → "some-super"
      */
-    public function resolveFromCommand(\ECSPrefix20220306\Symfony\Component\Console\Command\Command $command) : string
+    public function resolveFromCommand(\ECSPrefix20220307\Symfony\Component\Console\Command\Command $command) : string
     {
         $commandClass = \get_class($command);
         return self::classToName($commandClass);
@@ -35,7 +35,7 @@ final class CommandNaming
     {
         /** @var string $shortClassName */
         $shortClassName = self::resolveShortName($class);
-        $rawCommandName = \ECSPrefix20220306\Nette\Utils\Strings::substring($shortClassName, 0, -\strlen('Command'));
+        $rawCommandName = \ECSPrefix20220307\Nette\Utils\Strings::substring($shortClassName, 0, -\strlen('Command'));
         // ECSCommand => ecs
         for ($i = 0; $i < \strlen($rawCommandName); ++$i) {
             if (\ctype_upper($rawCommandName[$i]) && self::isFollowedByUpperCaseLetterOrNothing($rawCommandName, $i)) {
@@ -45,7 +45,7 @@ final class CommandNaming
             }
         }
         $lowercasedRawCommandName = \lcfirst($rawCommandName);
-        return \ECSPrefix20220306\Nette\Utils\Strings::replace($lowercasedRawCommandName, self::BIG_LETTER_REGEX, function (array $matches) : string {
+        return \ECSPrefix20220307\Nette\Utils\Strings::replace($lowercasedRawCommandName, self::BIG_LETTER_REGEX, function (array $matches) : string {
             return '-' . \strtolower($matches[0]);
         });
     }
