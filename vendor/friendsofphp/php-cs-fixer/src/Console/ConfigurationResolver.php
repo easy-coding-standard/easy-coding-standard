@@ -73,7 +73,7 @@ final class ConfigurationResolver
      */
     private $cwd;
     /**
-     * @var ConfigInterface
+     * @var \PhpCsFixer\ConfigInterface
      */
     private $defaultConfig;
     /**
@@ -97,11 +97,11 @@ final class ConfigurationResolver
      */
     private $configFinderIsOverridden;
     /**
-     * @var ToolInfoInterface
+     * @var \PhpCsFixer\ToolInfoInterface
      */
     private $toolInfo;
     /**
-     * @var array
+     * @var mixed[]
      */
     private $options = ['allow-risky' => null, 'cache-file' => null, 'config' => null, 'diff' => null, 'dry-run' => null, 'format' => null, 'path' => [], 'path-mode' => self::PATH_MODE_OVERRIDE, 'rules' => null, 'show-progress' => null, 'stop-on-violation' => null, 'using-cache' => null, 'verbosity' => null];
     /**
@@ -148,8 +148,8 @@ final class ConfigurationResolver
     private $fixerFactory;
     public function __construct(\PhpCsFixer\ConfigInterface $config, array $options, string $cwd, \PhpCsFixer\ToolInfoInterface $toolInfo)
     {
-        $this->cwd = $cwd;
         $this->defaultConfig = $config;
+        $this->cwd = $cwd;
         $this->toolInfo = $toolInfo;
         foreach ($options as $name => $value) {
             $this->setOption($name, $value);
@@ -258,7 +258,7 @@ final class ConfigurationResolver
     public function getLinter() : \PhpCsFixer\Linter\LinterInterface
     {
         if (null === $this->linter) {
-            $this->linter = new \PhpCsFixer\Linter\Linter($this->getConfig()->getPhpExecutable());
+            $this->linter = new \PhpCsFixer\Linter\Linter();
         }
         return $this->linter;
     }

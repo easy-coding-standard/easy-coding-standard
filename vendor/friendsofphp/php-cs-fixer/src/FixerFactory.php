@@ -35,7 +35,7 @@ use ECSPrefix20220307\Symfony\Component\Finder\SplFileInfo;
 final class FixerFactory
 {
     /**
-     * @var FixerNameValidator
+     * @var \PhpCsFixer\FixerNameValidator
      */
     private $nameValidator;
     /**

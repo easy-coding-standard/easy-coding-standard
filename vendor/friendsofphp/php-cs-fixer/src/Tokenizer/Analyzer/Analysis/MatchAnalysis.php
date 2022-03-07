@@ -18,7 +18,7 @@ namespace PhpCsFixer\Tokenizer\Analyzer\Analysis;
 final class MatchAnalysis extends \PhpCsFixer\Tokenizer\Analyzer\Analysis\AbstractControlCaseStructuresAnalysis
 {
     /**
-     * @var null|DefaultAnalysis
+     * @var \PhpCsFixer\Tokenizer\Analyzer\Analysis\DefaultAnalysis|null
      */
     private $defaultAnalysis;
     public function __construct(int $index, int $open, int $close, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\DefaultAnalysis $defaultAnalysis)

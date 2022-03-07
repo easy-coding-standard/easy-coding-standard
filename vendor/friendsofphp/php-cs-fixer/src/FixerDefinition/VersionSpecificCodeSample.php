@@ -18,11 +18,11 @@ namespace PhpCsFixer\FixerDefinition;
 final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface
 {
     /**
-     * @var CodeSampleInterface
+     * @var \PhpCsFixer\FixerDefinition\CodeSampleInterface
      */
     private $codeSample;
     /**
-     * @var VersionSpecificationInterface
+     * @var \PhpCsFixer\FixerDefinition\VersionSpecificationInterface
      */
     private $versionSpecification;
     public function __construct(string $code, \PhpCsFixer\FixerDefinition\VersionSpecificationInterface $versionSpecification, ?array $configuration = null)

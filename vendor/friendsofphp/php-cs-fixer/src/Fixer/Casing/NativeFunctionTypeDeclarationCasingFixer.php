@@ -45,7 +45,7 @@ final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\Abstrac
      */
     private $hints;
     /**
-     * @var FunctionsAnalyzer
+     * @var \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer
      */
     private $functionsAnalyzer;
     public function __construct()

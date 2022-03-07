@@ -20,7 +20,7 @@ namespace PhpCsFixer\FixerDefinition;
 final class FileSpecificCodeSample implements \PhpCsFixer\FixerDefinition\FileSpecificCodeSampleInterface
 {
     /**
-     * @var CodeSampleInterface
+     * @var \PhpCsFixer\FixerDefinition\CodeSampleInterface
      */
     private $codeSample;
     /**

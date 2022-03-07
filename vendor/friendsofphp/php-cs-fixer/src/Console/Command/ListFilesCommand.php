@@ -33,11 +33,11 @@ final class ListFilesCommand extends \ECSPrefix20220307\Symfony\Component\Consol
      */
     protected static $defaultName = 'list-files';
     /**
-     * @var ConfigInterface
+     * @var \PhpCsFixer\ConfigInterface
      */
     private $defaultConfig;
     /**
-     * @var ToolInfoInterface
+     * @var \PhpCsFixer\ToolInfoInterface
      */
     private $toolInfo;
     public function __construct(\PhpCsFixer\ToolInfoInterface $toolInfo)

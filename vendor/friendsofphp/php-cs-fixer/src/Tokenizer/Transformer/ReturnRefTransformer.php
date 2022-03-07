@@ -37,11 +37,7 @@ final class ReturnRefTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
     {
-        $prevKinds = [\T_FUNCTION];
-        if (\PHP_VERSION_ID >= 70400) {
-            $prevKinds[] = \T_FN;
-        }
-        if ($token->equals('&') && $tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind($prevKinds)) {
+        if ($token->equals('&') && $tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind([\T_FUNCTION, \T_FN])) {
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_RETURN_REF, '&']);
         }
     }

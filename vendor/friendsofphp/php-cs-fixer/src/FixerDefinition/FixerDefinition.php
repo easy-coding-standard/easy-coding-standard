@@ -18,21 +18,21 @@ namespace PhpCsFixer\FixerDefinition;
 final class FixerDefinition implements \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
 {
     /**
-     * @var null|string
+     * @var string
      */
-    private $riskyDescription;
+    private $summary;
     /**
      * @var CodeSampleInterface[]
      */
     private $codeSamples;
     /**
-     * @var string
-     */
-    private $summary;
-    /**
      * @var null|string
      */
     private $description;
+    /**
+     * @var null|string
+     */
+    private $riskyDescription;
     /**
      * @param CodeSampleInterface[] $codeSamples      array of samples, where single sample is [code, configuration]
      * @param null|string           $riskyDescription null for non-risky fixer

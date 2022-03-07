@@ -24,7 +24,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class FinalPublicMethodForAbstractClassFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private $magicMethods = ['__construct' => \true, '__destruct' => \true, '__call' => \true, '__callstatic' => \true, '__get' => \true, '__set' => \true, '__isset' => \true, '__unset' => \true, '__sleep' => \true, '__wakeup' => \true, '__tostring' => \true, '__invoke' => \true, '__set_state' => \true, '__clone' => \true, '__debuginfo' => \true];
     /**

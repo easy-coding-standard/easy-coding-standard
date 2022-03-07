@@ -33,7 +33,7 @@ final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration
         foreach ($options as $option) {
             $this->addOption($option);
         }
-        if (empty($this->registeredNames)) {
+        if (0 === \count($this->registeredNames)) {
             throw new \LogicException('Options cannot be empty.');
         }
     }

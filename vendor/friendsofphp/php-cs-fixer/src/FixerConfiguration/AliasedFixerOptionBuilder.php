@@ -20,7 +20,7 @@ namespace PhpCsFixer\FixerConfiguration;
 final class AliasedFixerOptionBuilder
 {
     /**
-     * @var FixerOptionBuilder
+     * @var \PhpCsFixer\FixerConfiguration\FixerOptionBuilder
      */
     private $optionBuilder;
     /**
@@ -34,8 +34,6 @@ final class AliasedFixerOptionBuilder
     }
     /**
      * @param mixed $default
-     *
-     * @return $this
      */
     public function setDefault($default) : self
     {
@@ -44,25 +42,17 @@ final class AliasedFixerOptionBuilder
     }
     /**
      * @param string[] $allowedTypes
-     *
-     * @return $this
      */
     public function setAllowedTypes(array $allowedTypes) : self
     {
         $this->optionBuilder->setAllowedTypes($allowedTypes);
         return $this;
     }
-    /**
-     * @return $this
-     */
     public function setAllowedValues(array $allowedValues) : self
     {
         $this->optionBuilder->setAllowedValues($allowedValues);
         return $this;
     }
-    /**
-     * @return $this
-     */
     public function setNormalizer(\Closure $normalizer) : self
     {
         $this->optionBuilder->setNormalizer($normalizer);

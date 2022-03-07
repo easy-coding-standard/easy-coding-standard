@@ -75,10 +75,7 @@ final class Foo {
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
-            return \true;
-        }
-        return $tokens->isTokenKindFound(\T_FUNCTION);
+        return $tokens->isAnyTokenKindsFound([\T_FUNCTION, \T_FN]);
     }
     /**
      * {@inheritdoc}
@@ -103,7 +100,7 @@ final class Foo {
             unset($this->skippedTypes['mixed']);
         }
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
-            if (!$tokens[$index]->isGivenKind(\T_FUNCTION) && (\PHP_VERSION_ID < 70400 || !$tokens[$index]->isGivenKind(\T_FN))) {
+            if (!$tokens[$index]->isGivenKind([\T_FUNCTION, \T_FN])) {
                 continue;
             }
             $funcName = $tokens->getNextMeaningfulToken($index);

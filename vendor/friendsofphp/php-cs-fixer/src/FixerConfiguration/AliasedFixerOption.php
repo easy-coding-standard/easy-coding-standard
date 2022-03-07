@@ -20,7 +20,7 @@ namespace PhpCsFixer\FixerConfiguration;
 final class AliasedFixerOption implements \PhpCsFixer\FixerConfiguration\FixerOptionInterface
 {
     /**
-     * @var FixerOptionInterface
+     * @var \PhpCsFixer\FixerConfiguration\FixerOptionInterface
      */
     private $fixerOption;
     /**

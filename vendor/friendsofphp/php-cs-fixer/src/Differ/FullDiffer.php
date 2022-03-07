@@ -22,7 +22,7 @@ use PhpCsFixer\Diff\Output\StrictUnifiedDiffOutputBuilder;
 final class FullDiffer implements \PhpCsFixer\Differ\DifferInterface
 {
     /**
-     * @var Differ
+     * @var \PhpCsFixer\Diff\Differ
      */
     private $differ;
     public function __construct()

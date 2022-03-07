@@ -19,37 +19,31 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
 {
     /**
      * The fully qualified namespace name.
-     *
      * @var string
      */
     private $fullName;
     /**
      * The short version of the namespace.
-     *
      * @var string
      */
     private $shortName;
     /**
      * The start index of the namespace declaration in the analyzed Tokens.
-     *
      * @var int
      */
     private $startIndex;
     /**
      * The end index of the namespace declaration in the analyzed Tokens.
-     *
      * @var int
      */
     private $endIndex;
     /**
      * The start index of the scope of the namespace in the analyzed Tokens.
-     *
      * @var int
      */
     private $scopeStartIndex;
     /**
      * The end index of the scope of the namespace in the analyzed Tokens.
-     *
      * @var int
      */
     private $scopeEndIndex;

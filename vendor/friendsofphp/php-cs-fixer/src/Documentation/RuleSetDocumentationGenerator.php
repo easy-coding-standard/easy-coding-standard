@@ -22,7 +22,7 @@ use PhpCsFixer\RuleSet\RuleSetDescriptionInterface;
 final class RuleSetDocumentationGenerator
 {
     /**
-     * @var DocumentationLocator
+     * @var \PhpCsFixer\Documentation\DocumentationLocator
      */
     private $locator;
     public function __construct(\PhpCsFixer\Documentation\DocumentationLocator $locator)

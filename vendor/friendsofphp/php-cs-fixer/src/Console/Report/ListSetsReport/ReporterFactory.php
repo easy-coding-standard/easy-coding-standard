@@ -21,7 +21,9 @@ use ECSPrefix20220307\Symfony\Component\Finder\SplFileInfo;
  */
 final class ReporterFactory
 {
-    /** @var ReporterInterface[] */
+    /**
+     * @var ReporterInterface[]
+     */
     private $reporters = [];
     public function registerBuiltInReporters() : self
     {

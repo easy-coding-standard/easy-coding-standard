@@ -28,10 +28,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
-    /**
-     * @var string
-     */
-    private $classRegex = '/^\\\\?[a-zA-Z_\\x7f-\\xff](?:\\\\?[a-zA-Z0-9_\\x7f-\\xff]+)*$/';
+    private const CLASS_REGEX = '/^\\\\?[a-zA-Z_\\x7f-\\xff](?:\\\\?[a-zA-Z0-9_\\x7f-\\xff]+)*$/';
     /**
      * @var array<string, int>
      */
@@ -139,7 +136,7 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
             if (\false === $this->configuration['scalar_types']) {
                 return null;
             }
-        } elseif (1 !== \PhpCsFixer\Preg::match($this->classRegex, $commonType)) {
+        } elseif (1 !== \PhpCsFixer\Preg::match(self::CLASS_REGEX, $commonType)) {
             return null;
         }
         return [$commonType, $isNullable];

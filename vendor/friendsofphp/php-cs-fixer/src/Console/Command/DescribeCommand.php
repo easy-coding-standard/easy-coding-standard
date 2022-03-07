@@ -52,7 +52,7 @@ final class DescribeCommand extends \ECSPrefix20220307\Symfony\Component\Console
      */
     private $setNames;
     /**
-     * @var FixerFactory
+     * @var \PhpCsFixer\FixerFactory
      */
     private $fixerFactory;
     /**

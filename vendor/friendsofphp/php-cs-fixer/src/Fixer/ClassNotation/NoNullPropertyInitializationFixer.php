@@ -52,7 +52,8 @@ class Foo {
         $inClass = [];
         $classLevel = 0;
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {
-            if ($tokens[$index]->isClassy()) {
+            if ($tokens[$index]->isGivenKind([\T_CLASS, \T_TRAIT])) {
+                // Enums and interfaces do not have properties
                 ++$classLevel;
                 $inClass[$classLevel] = 1;
                 $index = $tokens->getNextTokenOfKind($index, ['{']);

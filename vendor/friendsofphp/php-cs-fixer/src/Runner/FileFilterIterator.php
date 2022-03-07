@@ -29,7 +29,7 @@ final class FileFilterIterator extends \FilterIterator
      */
     private $eventDispatcher;
     /**
-     * @var CacheManagerInterface
+     * @var \PhpCsFixer\Cache\CacheManagerInterface
      */
     private $cacheManager;
     /**
@@ -49,7 +49,7 @@ final class FileFilterIterator extends \FilterIterator
     {
         $file = $this->current();
         if (!$file instanceof \SplFileInfo) {
-            throw new \RuntimeException(\sprintf('Expected instance of "\\SplFileInfo", got "%s".', \is_object($file) ? \get_class($file) : \gettype($file)));
+            throw new \RuntimeException(\sprintf('Expected instance of "\\SplFileInfo", got "%s".', \get_debug_type($file)));
         }
         $path = $file->isLink() ? $file->getPathname() : $file->getRealPath();
         if (isset($this->visitedElements[$path])) {

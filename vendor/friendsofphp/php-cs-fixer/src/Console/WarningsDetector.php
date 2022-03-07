@@ -22,7 +22,7 @@ use PhpCsFixer\ToolInfoInterface;
 final class WarningsDetector
 {
     /**
-     * @var ToolInfoInterface
+     * @var \PhpCsFixer\ToolInfoInterface
      */
     private $toolInfo;
     /**

@@ -41,8 +41,7 @@ class Tokens extends \SplFixedArray
     public const BLOCK_TYPE_ATTRIBUTE = 11;
     /**
      * Static class cache.
-     *
-     * @var array
+     * @var mixed[]
      */
     private static $cache = [];
     /**
@@ -67,7 +66,6 @@ class Tokens extends \SplFixedArray
      * Flag is collection was changed.
      *
      * It doesn't know about change of collection's items. To check it run `isChanged` method.
-     *
      * @var bool
      */
     private $changed = \false;

@@ -28,8 +28,7 @@ final class TokensAnalyzer
 {
     /**
      * Tokens collection instance.
-     *
-     * @var Tokens
+     * @var \PhpCsFixer\Tokenizer\Tokens
      */
     private $tokens;
     /**
@@ -213,7 +212,7 @@ final class TokensAnalyzer
      */
     public function isLambda(int $index) : bool
     {
-        if (!$this->tokens[$index]->isGivenKind(\T_FUNCTION) && (\PHP_VERSION_ID < 70400 || !$this->tokens[$index]->isGivenKind(\T_FN))) {
+        if (!$this->tokens[$index]->isGivenKind([\T_FUNCTION, \T_FN])) {
             throw new \LogicException(\sprintf('No T_FUNCTION or T_FN at given index %d, got "%s".', $index, $this->tokens[$index]->getName()));
         }
         $startParenthesisIndex = $this->tokens->getNextMeaningfulToken($index);
@@ -416,12 +415,9 @@ final class TokensAnalyzer
                 \T_SPACESHIP => \true,
                 // <=>
                 \T_COALESCE => \true,
+                // ??
+                \T_COALESCE_EQUAL => \true,
             ];
-            // @TODO: drop condition when PHP 7.4+ is required
-            if (\defined('T_COALESCE_EQUAL')) {
-                $arrayOperators[\T_COALESCE_EQUAL] = \true;
-                // ??=
-            }
         }
         $tokens = $this->tokens;
         $token = $tokens[$index];
@@ -487,7 +483,7 @@ final class TokensAnalyzer
             if ($token->isGivenKind(\T_ENCAPSED_AND_WHITESPACE)) {
                 continue;
             }
-            if ($token->isClassy()) {
+            if ($token->isGivenKind(\T_CLASS)) {
                 // anonymous class in class
                 // check for nested anonymous classes inside the new call of an anonymous class,
                 // for example `new class(function (){new class(function (){new class(function (){}){};}){};}){};` etc.
@@ -512,7 +508,7 @@ final class TokensAnalyzer
                             }
                             continue;
                         }
-                        if ($token->isClassy()) {
+                        if ($token->isGivenKind(\T_CLASS)) {
                             // anonymous class in class
                             [$index, $newElements] = $this->findClassyElements($index, $index);
                             $elements += $newElements;
@@ -556,6 +552,8 @@ final class TokensAnalyzer
                 $elements[$index] = ['classIndex' => $classIndex, 'token' => $token, 'type' => 'const'];
             } elseif ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
                 $elements[$index] = ['classIndex' => $classIndex, 'token' => $token, 'type' => 'trait_import'];
+            } elseif ($token->isGivenKind(\T_CASE)) {
+                $elements[$index] = ['classIndex' => $classIndex, 'token' => $token, 'type' => 'case'];
             }
         }
         return [$index, $elements];

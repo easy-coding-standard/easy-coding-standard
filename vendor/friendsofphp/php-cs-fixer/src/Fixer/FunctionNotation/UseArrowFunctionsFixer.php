@@ -48,7 +48,7 @@ SAMPLE
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return \PHP_VERSION_ID >= 70400 && $tokens->isAllTokenKindsFound([\T_FUNCTION, \T_RETURN]);
+        return $tokens->isAllTokenKindsFound([\T_FUNCTION, \T_RETURN]);
     }
     /**
      * {@inheritdoc}

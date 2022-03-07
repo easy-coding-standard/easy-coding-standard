@@ -31,25 +31,25 @@ namespace PhpCsFixer\Cache;
 final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
 {
     /**
-     * @var FileHandlerInterface
+     * @var \PhpCsFixer\Cache\FileHandlerInterface
      */
     private $handler;
     /**
-     * @var SignatureInterface
+     * @var \PhpCsFixer\Cache\SignatureInterface
      */
     private $signature;
-    /**
-     * @var CacheInterface
-     */
-    private $cache;
     /**
      * @var bool
      */
     private $isDryRun;
     /**
-     * @var DirectoryInterface
+     * @var \PhpCsFixer\Cache\DirectoryInterface
      */
     private $cacheDirectory;
+    /**
+     * @var CacheInterface
+     */
+    private $cache;
     public function __construct(\PhpCsFixer\Cache\FileHandlerInterface $handler, \PhpCsFixer\Cache\SignatureInterface $signature, bool $isDryRun = \false, ?\PhpCsFixer\Cache\DirectoryInterface $cacheDirectory = null)
     {
         $this->handler = $handler;

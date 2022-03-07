@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit33c8a28e187dbca0f985991c20123024
+class ComposerStaticInitd0f84fffeaf9967a0b5b26d09ff453ef
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1299,6 +1299,7 @@ class ComposerStaticInit33c8a28e187dbca0f985991c20123024
         'PhpCsFixer\\Fixer\\Comment\\MultilineCommentOpeningClosingFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Comment/MultilineCommentOpeningClosingFixer.php',
         'PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Comment/NoEmptyCommentFixer.php',
         'PhpCsFixer\\Fixer\\Comment\\NoTrailingWhitespaceInCommentFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Comment/NoTrailingWhitespaceInCommentFixer.php',
+        'PhpCsFixer\\Fixer\\Comment\\SingleLineCommentSpacingFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Comment/SingleLineCommentSpacingFixer.php',
         'PhpCsFixer\\Fixer\\Comment\\SingleLineCommentStyleFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Comment/SingleLineCommentStyleFixer.php',
         'PhpCsFixer\\Fixer\\ConfigurableFixerInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ConfigurableFixerInterface.php',
         'PhpCsFixer\\Fixer\\ConstantNotation\\NativeConstantInvocationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ConstantNotation/NativeConstantInvocationFixer.php',
@@ -1336,6 +1337,7 @@ class ComposerStaticInit33c8a28e187dbca0f985991c20123024
         'PhpCsFixer\\Fixer\\FunctionNotation\\MethodArgumentSpaceFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/FunctionNotation/MethodArgumentSpaceFixer.php',
         'PhpCsFixer\\Fixer\\FunctionNotation\\NativeFunctionInvocationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/FunctionNotation/NativeFunctionInvocationFixer.php',
         'PhpCsFixer\\Fixer\\FunctionNotation\\NoSpacesAfterFunctionNameFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/FunctionNotation/NoSpacesAfterFunctionNameFixer.php',
+        'PhpCsFixer\\Fixer\\FunctionNotation\\NoTrailingCommaInSinglelineFunctionCallFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/FunctionNotation/NoTrailingCommaInSinglelineFunctionCallFixer.php',
         'PhpCsFixer\\Fixer\\FunctionNotation\\NoUnreachableDefaultArgumentValueFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/FunctionNotation/NoUnreachableDefaultArgumentValueFixer.php',
         'PhpCsFixer\\Fixer\\FunctionNotation\\NoUselessSprintfFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/FunctionNotation/NoUselessSprintfFixer.php',
         'PhpCsFixer\\Fixer\\FunctionNotation\\NullableTypeDeclarationForDefaultNullValueFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/FunctionNotation/NullableTypeDeclarationForDefaultNullValueFixer.php',
@@ -1754,9 +1756,9 @@ class ComposerStaticInit33c8a28e187dbca0f985991c20123024
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit33c8a28e187dbca0f985991c20123024::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit33c8a28e187dbca0f985991c20123024::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit33c8a28e187dbca0f985991c20123024::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd0f84fffeaf9967a0b5b26d09ff453ef::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd0f84fffeaf9967a0b5b26d09ff453ef::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd0f84fffeaf9967a0b5b26d09ff453ef::$classMap;
 
         }, null, ClassLoader::class);
     }

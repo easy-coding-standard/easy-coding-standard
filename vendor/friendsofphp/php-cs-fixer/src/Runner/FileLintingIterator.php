@@ -26,7 +26,7 @@ final class FileLintingIterator extends \IteratorIterator
      */
     private $currentResult;
     /**
-     * @var null|LinterInterface
+     * @var \PhpCsFixer\Linter\LinterInterface
      */
     private $linter;
     public function __construct(\Iterator $iterator, \PhpCsFixer\Linter\LinterInterface $linter)

@@ -15,7 +15,7 @@ namespace PhpCsFixer\FixerConfiguration;
 final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\DeprecatedFixerOptionInterface
 {
     /**
-     * @var FixerOptionInterface
+     * @var \PhpCsFixer\FixerConfiguration\FixerOptionInterface
      */
     private $option;
     /**

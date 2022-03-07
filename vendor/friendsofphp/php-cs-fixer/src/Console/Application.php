@@ -36,10 +36,10 @@ use ECSPrefix20220307\Symfony\Component\Console\Output\OutputInterface;
  */
 final class Application extends \ECSPrefix20220307\Symfony\Component\Console\Application
 {
-    public const VERSION = '3.6.0';
-    public const VERSION_CODENAME = 'Roe Deer';
+    public const VERSION = '3.7.0';
+    public const VERSION_CODENAME = '#StandWithUkraine️';
     /**
-     * @var ToolInfo
+     * @var \PhpCsFixer\ToolInfo
      */
     private $toolInfo;
     public function __construct()

@@ -28,7 +28,7 @@ use PhpCsFixer\Utils;
 final class ListDocumentGenerator
 {
     /**
-     * @var DocumentationLocator
+     * @var \PhpCsFixer\Documentation\DocumentationLocator
      */
     private $locator;
     public function __construct(\PhpCsFixer\Documentation\DocumentationLocator $locator)

@@ -34,7 +34,7 @@ final class ClassDefinitionFixer extends \PhpCsFixer\AbstractFixer implements \P
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Whitespace around the keywords of a class, trait or interfaces definition should be one space.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Whitespace around the keywords of a class, trait, enum or interfaces definition should be one space.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 class  Foo  extends  Bar  implements  Baz,  BarBaz
 {
@@ -68,7 +68,7 @@ interface Bar extends
 {}
 ', ['multi_line_extends_each_single_line' => \true]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 $foo = new class(){};
-', ['space_before_parenthesis' => \true])]);
+', ['space_before_parenthesis' => \true]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$foo = new class(\n    \$bar,\n    \$baz\n) {};\n", ['inline_constructor_arguments' => \true])]);
     }
     /**
      * {@inheritdoc}
@@ -104,7 +104,7 @@ $foo = new class(){};
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('multi_line_extends_each_single_line', 'Whether definitions should be multiline.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_item_single_line', 'Whether definitions should be single line when including a single item.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_line', 'Whether definitions should be single line.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('space_before_parenthesis', 'Whether there should be a single space after the parenthesis of anonymous class (PSR12) or not.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('multi_line_extends_each_single_line', 'Whether definitions should be multiline.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_item_single_line', 'Whether definitions should be single line when including a single item.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_line', 'Whether definitions should be single line.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('space_before_parenthesis', 'Whether there should be a single space after the parenthesis of anonymous class (PSR12) or not.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('inline_constructor_arguments', 'Whether constructor argument list in anonymous classes should be single line.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
     /**
      * @param int $classyIndex Class definition token start index
@@ -129,6 +129,18 @@ $foo = new class(){};
             $end = $classDefInfo['extends']['start'];
         } else {
             $end = $tokens->getPrevNonWhitespace($classDefInfo['open']);
+        }
+        if ($classDefInfo['anonymousClass'] && !$this->configuration['inline_constructor_arguments']) {
+            if (!$tokens[$end]->equals(')')) {
+                // anonymous class with `extends` and/or `implements`
+                $start = $tokens->getPrevMeaningfulToken($end);
+                $this->makeClassyDefinitionSingleLine($tokens, $start, $end);
+                $end = $start;
+            }
+            if ($tokens[$end]->equals(')')) {
+                // skip constructor arguments of anonymous class
+                $end = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $end);
+            }
         }
         // 4.1 The extends and implements keywords MUST be declared on the same line as the class name.
         $this->makeClassyDefinitionSingleLine($tokens, $classDefInfo['start'], $end);

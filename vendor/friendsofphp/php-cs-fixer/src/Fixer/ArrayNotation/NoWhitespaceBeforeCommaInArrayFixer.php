@@ -17,7 +17,6 @@ use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
@@ -73,9 +72,6 @@ SAMPLE
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_heredoc', 'Whether the whitespace between heredoc end and comma should be removed.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (\ECSPrefix20220307\Symfony\Component\OptionsResolver\Options $options, $value) {
-            if (\PHP_VERSION_ID < 70300 && $value) {
-                throw new \PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException('"after_heredoc" option can only be enabled with PHP 7.3+.');
-            }
             return $value;
         })->getOption()]);
     }
@@ -95,7 +91,7 @@ SAMPLE
             $i = $this->skipNonArrayElements($i, $tokens);
             $currentToken = $tokens[$i];
             $prevIndex = $tokens->getPrevNonWhitespace($i - 1);
-            if ($currentToken->equals(',') && !$tokens[$prevIndex]->isComment() && (\true === $this->configuration['after_heredoc'] || !$tokens[$prevIndex]->equals([\T_END_HEREDOC]))) {
+            if ($currentToken->equals(',') && !$tokens[$prevIndex]->isComment() && (\true === $this->configuration['after_heredoc'] || !$tokens[$prevIndex]->isGivenKind(\T_END_HEREDOC))) {
                 $tokens->removeLeadingWhitespace($i);
             }
         }

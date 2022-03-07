@@ -102,7 +102,7 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
         $statement = $groupPrefix;
         for ($i = $groupOpenIndex + 1; $i <= $groupCloseIndex; ++$i) {
             $token = $tokens[$i];
-            if ($token->equals(',') && $tokens[$tokens->getNextMeaningfulToken($i)]->equals([\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE])) {
+            if ($token->equals(',') && $tokens[$tokens->getNextMeaningfulToken($i)]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE)) {
                 continue;
             }
             if ($token->equalsAny([',', [\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE]])) {

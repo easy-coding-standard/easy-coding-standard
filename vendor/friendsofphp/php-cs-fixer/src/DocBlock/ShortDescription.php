@@ -21,8 +21,7 @@ final class ShortDescription
 {
     /**
      * The docblock containing the short description.
-     *
-     * @var DocBlock
+     * @var \PhpCsFixer\DocBlock\DocBlock
      */
     private $doc;
     public function __construct(\PhpCsFixer\DocBlock\DocBlock $doc)

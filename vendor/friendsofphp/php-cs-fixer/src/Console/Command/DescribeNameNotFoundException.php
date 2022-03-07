@@ -22,7 +22,8 @@ final class DescribeNameNotFoundException extends \InvalidArgumentException
      */
     private $name;
     /**
-     * @var string 'rule'|'set'
+     * 'rule'|'set'.
+     * @var string
      */
     private $type;
     public function __construct(string $name, string $type)

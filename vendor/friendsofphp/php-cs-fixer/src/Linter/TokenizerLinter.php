@@ -24,12 +24,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class TokenizerLinter implements \PhpCsFixer\Linter\LinterInterface
 {
-    public function __construct()
-    {
-        if (\false === \class_exists(\CompileError::class)) {
-            throw new \PhpCsFixer\Linter\UnavailableLinterException('Cannot use tokenizer as linter.');
-        }
-    }
     /**
      * {@inheritdoc}
      */

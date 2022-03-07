@@ -45,7 +45,7 @@ final class AssignNullCoalescingToCoalesceEqualFixer extends \PhpCsFixer\Abstrac
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return \defined('T_COALESCE_EQUAL') && $tokens->isTokenKindFound(\T_COALESCE);
+        return $tokens->isTokenKindFound(\T_COALESCE);
     }
     /**
      * {@inheritdoc}

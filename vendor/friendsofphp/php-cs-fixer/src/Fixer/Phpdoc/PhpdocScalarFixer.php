@@ -28,8 +28,7 @@ final class PhpdocScalarFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer imple
 {
     /**
      * The types to fix.
-     *
-     * @var array
+     * @var mixed[]
      */
     private static $types = ['boolean' => 'bool', 'callback' => 'callable', 'double' => 'float', 'integer' => 'int', 'real' => 'float', 'str' => 'string'];
     /**

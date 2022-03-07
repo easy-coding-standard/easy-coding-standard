@@ -26,7 +26,7 @@ final class FileCachingLintingIterator extends \CachingIterator
      */
     private $currentResult;
     /**
-     * @var LinterInterface
+     * @var \PhpCsFixer\Linter\LinterInterface
      */
     private $linter;
     /**

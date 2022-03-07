@@ -36,15 +36,15 @@ final class SelfUpdateCommand extends \ECSPrefix20220307\Symfony\Component\Conso
      */
     protected static $defaultName = 'self-update';
     /**
-     * @var NewVersionCheckerInterface
+     * @var \PhpCsFixer\Console\SelfUpdate\NewVersionCheckerInterface
      */
     private $versionChecker;
     /**
-     * @var ToolInfoInterface
+     * @var \PhpCsFixer\ToolInfoInterface
      */
     private $toolInfo;
     /**
-     * @var PharCheckerInterface
+     * @var \PhpCsFixer\PharCheckerInterface
      */
     private $pharChecker;
     public function __construct(\PhpCsFixer\Console\SelfUpdate\NewVersionCheckerInterface $versionChecker, \PhpCsFixer\ToolInfoInterface $toolInfo, \PhpCsFixer\PharCheckerInterface $pharChecker)

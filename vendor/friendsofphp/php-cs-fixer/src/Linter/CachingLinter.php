@@ -20,7 +20,7 @@ namespace PhpCsFixer\Linter;
 final class CachingLinter implements \PhpCsFixer\Linter\LinterInterface
 {
     /**
-     * @var LinterInterface
+     * @var \PhpCsFixer\Linter\LinterInterface
      */
     private $sublinter;
     /**

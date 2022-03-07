@@ -22,8 +22,7 @@ final class TagComparator
 {
     /**
      * Groups of tags that should be allowed to immediately follow each other.
-     *
-     * @var array
+     * @var mixed[]
      */
     private static $groups = [['deprecated', 'link', 'see', 'since'], ['author', 'copyright', 'license'], ['category', 'package', 'subpackage'], ['property', 'property-read', 'property-write']];
     /**

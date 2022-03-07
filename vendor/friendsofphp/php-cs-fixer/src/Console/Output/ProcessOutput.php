@@ -24,18 +24,17 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
 {
     /**
      * File statuses map.
-     *
-     * @var array
+     * @var mixed[]
      */
     private static $eventStatusMap = [\PhpCsFixer\FixerFileProcessedEvent::STATUS_UNKNOWN => ['symbol' => '?', 'format' => '%s', 'description' => 'unknown'], \PhpCsFixer\FixerFileProcessedEvent::STATUS_INVALID => ['symbol' => 'I', 'format' => '<bg=red>%s</bg=red>', 'description' => 'invalid file syntax (file ignored)'], \PhpCsFixer\FixerFileProcessedEvent::STATUS_SKIPPED => ['symbol' => 'S', 'format' => '<fg=cyan>%s</fg=cyan>', 'description' => 'skipped (cached or empty file)'], \PhpCsFixer\FixerFileProcessedEvent::STATUS_NO_CHANGES => ['symbol' => '.', 'format' => '%s', 'description' => 'no changes'], \PhpCsFixer\FixerFileProcessedEvent::STATUS_FIXED => ['symbol' => 'F', 'format' => '<fg=green>%s</fg=green>', 'description' => 'fixed'], \PhpCsFixer\FixerFileProcessedEvent::STATUS_EXCEPTION => ['symbol' => 'E', 'format' => '<bg=red>%s</bg=red>', 'description' => 'error'], \PhpCsFixer\FixerFileProcessedEvent::STATUS_LINT => ['symbol' => 'E', 'format' => '<bg=red>%s</bg=red>', 'description' => 'error']];
     /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
-     * @var OutputInterface
+     * @var \Symfony\Component\Console\Output\OutputInterface
      */
     private $output;
+    /**
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
+    private $eventDispatcher;
     /**
      * @var int
      */

@@ -48,10 +48,7 @@ function example($foo = "two words", $bar) {}
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
-            return \true;
-        }
-        return $tokens->isTokenKindFound(\T_FUNCTION);
+        return $tokens->isAnyTokenKindsFound([\T_FUNCTION, \T_FN]);
     }
     /**
      * {@inheritdoc}
@@ -65,10 +62,7 @@ function example($foo = "two words", $bar) {}
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
-        $functionKinds = [\T_FUNCTION];
-        if (\defined('T_FN')) {
-            $functionKinds[] = \T_FN;
-        }
+        $functionKinds = [\T_FUNCTION, \T_FN];
         for ($i = 0, $l = $tokens->count(); $i < $l; ++$i) {
             if (!$tokens[$i]->isGivenKind($functionKinds)) {
                 continue;

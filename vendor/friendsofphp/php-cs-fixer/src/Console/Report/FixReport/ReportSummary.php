@@ -20,29 +20,29 @@ namespace PhpCsFixer\Console\Report\FixReport;
 final class ReportSummary
 {
     /**
-     * @var bool
-     */
-    private $addAppliedFixers;
-    /**
-     * @var array
+     * @var mixed[]
      */
     private $changed;
     /**
-     * @var bool
+     * @var int
      */
-    private $isDecoratedOutput;
-    /**
-     * @var bool
-     */
-    private $isDryRun;
+    private $time;
     /**
      * @var int
      */
     private $memory;
     /**
-     * @var int
+     * @var bool
      */
-    private $time;
+    private $addAppliedFixers;
+    /**
+     * @var bool
+     */
+    private $isDryRun;
+    /**
+     * @var bool
+     */
+    private $isDecoratedOutput;
     /**
      * @param int $time   duration in milliseconds
      * @param int $memory memory usage in bytes

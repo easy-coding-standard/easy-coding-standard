@@ -23,37 +23,31 @@ final class NamespaceUseAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analy
     public const TYPE_CONSTANT = 3;
     /**
      * The fully qualified use namespace.
-     *
      * @var string
      */
     private $fullName;
     /**
      * The short version of use namespace or the alias name in case of aliased use statements.
-     *
      * @var string
      */
     private $shortName;
     /**
      * Is the use statement being aliased?
-     *
      * @var bool
      */
     private $isAliased;
     /**
      * The start index of the namespace declaration in the analyzed Tokens.
-     *
      * @var int
      */
     private $startIndex;
     /**
      * The end index of the namespace declaration in the analyzed Tokens.
-     *
      * @var int
      */
     private $endIndex;
     /**
      * The type of import: class, function or constant.
-     *
      * @var int
      */
     private $type;

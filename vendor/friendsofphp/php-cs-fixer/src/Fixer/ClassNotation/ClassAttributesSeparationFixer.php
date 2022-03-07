@@ -163,9 +163,9 @@ class Sample
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'Dictionary of `const|method|property|trait_import` => `none|one|only_if_meta` values.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) : bool {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'Dictionary of `const|method|property|trait_import|case` => `none|one|only_if_meta` values.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) : bool {
             foreach ($option as $type => $spacing) {
-                $supportedTypes = ['const', 'method', 'property', 'trait_import'];
+                $supportedTypes = ['const', 'method', 'property', 'trait_import', 'case'];
                 if (!\in_array($type, $supportedTypes, \true)) {
                     throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected element type, expected any of "%s", got "%s".', \implode('", "', $supportedTypes), \gettype($type) . '#' . $type));
                 }
@@ -175,7 +175,7 @@ class Sample
                 }
             }
             return \true;
-        }])->setDefault(['const' => self::SPACING_ONE, 'method' => self::SPACING_ONE, 'property' => self::SPACING_ONE, 'trait_import' => self::SPACING_NONE])->getOption()]);
+        }])->setDefault(['const' => self::SPACING_ONE, 'method' => self::SPACING_ONE, 'property' => self::SPACING_ONE, 'trait_import' => self::SPACING_NONE, 'case' => self::SPACING_NONE])->getOption()]);
     }
     /**
      * Fix spacing above an element of a class, interface or trait.
@@ -391,7 +391,7 @@ class Sample
                 $elementEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $tokens->getNextTokenOfKind($element['index'], ['{']));
             }
         } else {
-            // const or property
+            // 'const', 'property', enum-'case', or 'method' of an interface
             $elementEndIndex = $tokens->getNextTokenOfKind($element['index'], [';']);
         }
         $singleLineElement = \true;

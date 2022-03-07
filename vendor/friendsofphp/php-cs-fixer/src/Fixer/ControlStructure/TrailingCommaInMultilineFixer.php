@@ -88,14 +88,8 @@ SAMPLE
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_heredoc', 'Whether a trailing comma should also be placed after heredoc end.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (\ECSPrefix20220307\Symfony\Component\OptionsResolver\Options $options, $value) {
-            if (\PHP_VERSION_ID < 70300 && $value) {
-                throw new \PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException('"after_heredoc" option can only be enabled with PHP 7.3+.');
-            }
             return $value;
         })->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', \sprintf('Where to fix multiline trailing comma (PHP >= 7.3 required for `%s`, PHP >= 8.0 for `%s`).', self::ELEMENTS_ARGUMENTS, self::ELEMENTS_PARAMETERS)))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset([self::ELEMENTS_ARRAYS, self::ELEMENTS_ARGUMENTS, self::ELEMENTS_PARAMETERS])])->setDefault([self::ELEMENTS_ARRAYS])->setNormalizer(static function (\ECSPrefix20220307\Symfony\Component\OptionsResolver\Options $options, $value) {
-            if (\PHP_VERSION_ID < 70300 && \in_array(self::ELEMENTS_ARGUMENTS, $value, \true)) {
-                throw new \PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException(\sprintf('"%s" option can only be enabled with PHP 7.3+.', self::ELEMENTS_ARGUMENTS));
-            }
             if (\PHP_VERSION_ID < 80000 && \in_array(self::ELEMENTS_PARAMETERS, $value, \true)) {
                 throw new \PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException(\sprintf('"%s" option can only be enabled with PHP 8.0+.', self::ELEMENTS_PARAMETERS));
             }

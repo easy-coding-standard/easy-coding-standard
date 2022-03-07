@@ -46,7 +46,7 @@ final class Error
      */
     private $source;
     /**
-     * @var array
+     * @var mixed[]
      */
     private $appliedFixers;
     /**

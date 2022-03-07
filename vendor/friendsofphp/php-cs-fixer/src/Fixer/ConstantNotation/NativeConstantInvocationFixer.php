@@ -140,7 +140,7 @@ namespace {
         $constantChecker = static function (array $value) : bool {
             foreach ($value as $constantName) {
                 if (!\is_string($constantName) || '' === \trim($constantName) || \trim($constantName) !== $constantName) {
-                    throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($constantName) ? \get_class($constantName) : \gettype($constantName)));
+                    throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \get_debug_type($constantName)));
                 }
             }
             return \true;

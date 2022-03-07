@@ -23,7 +23,7 @@ use ECSPrefix20220307\Symfony\Component\Console\Output\OutputInterface;
 final class ErrorOutput
 {
     /**
-     * @var OutputInterface
+     * @var \Symfony\Component\Console\Output\OutputInterface
      */
     private $output;
     /**

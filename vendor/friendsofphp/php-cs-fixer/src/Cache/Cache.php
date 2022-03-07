@@ -20,7 +20,7 @@ namespace PhpCsFixer\Cache;
 final class Cache implements \PhpCsFixer\Cache\CacheInterface
 {
     /**
-     * @var SignatureInterface
+     * @var \PhpCsFixer\Cache\SignatureInterface
      */
     private $signature;
     /**

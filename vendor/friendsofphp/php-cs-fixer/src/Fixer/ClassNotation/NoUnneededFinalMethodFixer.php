@@ -32,7 +32,7 @@ final class NoUnneededFinalMethodFixer extends \PhpCsFixer\AbstractFixer impleme
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('A `final` class must not have `final` methods and `private` methods must not be `final`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Removes `final` from methods where possible.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Foo
 {
     final public function foo1() {}
@@ -61,7 +61,14 @@ class Bar
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return $tokens->isAllTokenKindsFound([\T_CLASS, \T_FINAL]);
+        if (!$tokens->isAllTokenKindsFound([\T_FINAL, \T_FUNCTION])) {
+            return \false;
+        }
+        if (\defined('T_ENUM') && $tokens->isTokenKindFound(T_ENUM)) {
+            // @TODO: drop condition when PHP 8.1+ is required
+            return \true;
+        }
+        return $tokens->isTokenKindFound(\T_CLASS);
     }
     public function isRisky() : bool
     {
@@ -72,9 +79,9 @@ class Bar
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
-        foreach ($this->getClassMethods($tokens) as $element) {
+        foreach ($this->getMethods($tokens) as $element) {
             $index = $element['method_final_index'];
-            if ($element['class_is_final']) {
+            if ($element['method_of_enum'] || $element['class_is_final']) {
                 $this->clearFinal($tokens, $index);
                 continue;
             }
@@ -91,10 +98,11 @@ class Bar
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('private_methods', 'Private methods of non-`final` classes must not be declared `final`.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-    private function getClassMethods(\PhpCsFixer\Tokenizer\Tokens $tokens) : \Generator
+    private function getMethods(\PhpCsFixer\Tokenizer\Tokens $tokens) : \Generator
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $modifierKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_STATIC];
+        $enums = [];
         $classesAreFinal = [];
         $elements = $tokensAnalyzer->getClassyElements();
         for (\end($elements);; \prev($elements)) {
@@ -108,12 +116,10 @@ class Bar
                 // not a method
             }
             $classIndex = $element['classIndex'];
-            if (!\array_key_exists($classIndex, $classesAreFinal)) {
-                $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classIndex)];
-                $classesAreFinal[$classIndex] = $prevToken->isGivenKind(\T_FINAL);
+            if (!\array_key_exists($classIndex, $enums)) {
+                $enums[$classIndex] = \defined('T_ENUM') && $tokens[$classIndex]->isGivenKind(T_ENUM);
+                // @TODO: drop condition when PHP 8.1+ is required
             }
-            $element['class_is_final'] = $classesAreFinal[$classIndex];
-            $element['method_is_constructor'] = '__construct' === \strtolower($tokens[$tokens->getNextMeaningfulToken($index)]->getContent());
             $element['method_final_index'] = null;
             $element['method_is_private'] = \false;
             $previous = $index;
@@ -125,6 +131,18 @@ class Bar
                     $element['method_final_index'] = $previous;
                 }
             } while ($tokens[$previous]->isGivenKind($modifierKinds));
+            if ($enums[$classIndex]) {
+                $element['method_of_enum'] = \true;
+                (yield $element);
+                continue;
+            }
+            if (!\array_key_exists($classIndex, $classesAreFinal)) {
+                $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classIndex)];
+                $classesAreFinal[$classIndex] = $prevToken->isGivenKind(\T_FINAL);
+            }
+            $element['method_of_enum'] = \false;
+            $element['class_is_final'] = $classesAreFinal[$classIndex];
+            $element['method_is_constructor'] = '__construct' === \strtolower($tokens[$tokens->getNextMeaningfulToken($index)]->getContent());
             (yield $element);
         }
     }

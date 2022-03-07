@@ -37,7 +37,7 @@ final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implemen
     /**
      * @var array Array containing all class element base types (keys) and their parent types (values)
      */
-    private static $typeHierarchy = ['use_trait' => null, 'public' => null, 'protected' => null, 'private' => null, 'constant' => null, 'constant_public' => ['constant', 'public'], 'constant_protected' => ['constant', 'protected'], 'constant_private' => ['constant', 'private'], 'property' => null, 'property_static' => ['property'], 'property_public' => ['property', 'public'], 'property_protected' => ['property', 'protected'], 'property_private' => ['property', 'private'], 'property_public_readonly' => ['property_readonly', 'property_public'], 'property_protected_readonly' => ['property_readonly', 'property_protected'], 'property_private_readonly' => ['property_readonly', 'property_private'], 'property_public_static' => ['property_static', 'property_public'], 'property_protected_static' => ['property_static', 'property_protected'], 'property_private_static' => ['property_static', 'property_private'], 'method' => null, 'method_abstract' => ['method'], 'method_static' => ['method'], 'method_public' => ['method', 'public'], 'method_protected' => ['method', 'protected'], 'method_private' => ['method', 'private'], 'method_public_abstract' => ['method_abstract', 'method_public'], 'method_protected_abstract' => ['method_abstract', 'method_protected'], 'method_private_abstract' => ['method_abstract', 'method_private'], 'method_public_abstract_static' => ['method_abstract', 'method_static', 'method_public'], 'method_protected_abstract_static' => ['method_abstract', 'method_static', 'method_protected'], 'method_private_abstract_static' => ['method_abstract', 'method_static', 'method_private'], 'method_public_static' => ['method_static', 'method_public'], 'method_protected_static' => ['method_static', 'method_protected'], 'method_private_static' => ['method_static', 'method_private']];
+    private static $typeHierarchy = ['use_trait' => null, 'public' => null, 'protected' => null, 'private' => null, 'case' => ['public'], 'constant' => null, 'constant_public' => ['constant', 'public'], 'constant_protected' => ['constant', 'protected'], 'constant_private' => ['constant', 'private'], 'property' => null, 'property_static' => ['property'], 'property_public' => ['property', 'public'], 'property_protected' => ['property', 'protected'], 'property_private' => ['property', 'private'], 'property_public_readonly' => ['property_readonly', 'property_public'], 'property_protected_readonly' => ['property_readonly', 'property_protected'], 'property_private_readonly' => ['property_readonly', 'property_private'], 'property_public_static' => ['property_static', 'property_public'], 'property_protected_static' => ['property_static', 'property_protected'], 'property_private_static' => ['property_static', 'property_private'], 'method' => null, 'method_abstract' => ['method'], 'method_static' => ['method'], 'method_public' => ['method', 'public'], 'method_protected' => ['method', 'protected'], 'method_private' => ['method', 'private'], 'method_public_abstract' => ['method_abstract', 'method_public'], 'method_protected_abstract' => ['method_abstract', 'method_protected'], 'method_private_abstract' => ['method_abstract', 'method_private'], 'method_public_abstract_static' => ['method_abstract', 'method_static', 'method_public'], 'method_protected_abstract_static' => ['method_abstract', 'method_static', 'method_protected'], 'method_private_abstract_static' => ['method_abstract', 'method_static', 'method_private'], 'method_public_static' => ['method_static', 'method_public'], 'method_protected_static' => ['method_static', 'method_protected'], 'method_private_static' => ['method_static', 'method_private']];
     /**
      * @var array Array containing special method types
      */
@@ -94,7 +94,7 @@ final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implemen
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Orders the elements of classes/interfaces/traits.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Orders the elements of classes/interfaces/traits/enums.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Example
 {
     use BarTrait;
@@ -177,14 +177,14 @@ class Example
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('order', 'List of strings defining order of elements.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(\array_merge(self::$typeHierarchy, self::$specialTypes)))])->setDefault(['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property_public', 'property_protected', 'property_private', 'construct', 'destruct', 'magic', 'phpunit', 'method_public', 'method_protected', 'method_private'])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'How multiple occurrences of same type statements should be sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_NONE)->getOption()]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('order', 'List of strings defining order of elements.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(\array_merge(self::$typeHierarchy, self::$specialTypes)))])->setDefault(['use_trait', 'case', 'constant_public', 'constant_protected', 'constant_private', 'property_public', 'property_protected', 'property_private', 'construct', 'destruct', 'magic', 'phpunit', 'method_public', 'method_protected', 'method_private'])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'How multiple occurrences of same type statements should be sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_NONE)->getOption()]);
     }
     /**
      * @return array[]
      */
     private function getElements(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex) : array
     {
-        static $elementTokenKinds = [\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \T_CONST, \T_VARIABLE, \T_FUNCTION];
+        static $elementTokenKinds = [\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \T_CASE, \T_CONST, \T_VARIABLE, \T_FUNCTION];
         ++$startIndex;
         $elements = [];
         while (\true) {
@@ -223,7 +223,7 @@ class Example
                 }
                 if ('property' === $element['type']) {
                     $element['name'] = $tokens[$i]->getContent();
-                } elseif (\in_array($element['type'], ['use_trait', 'constant', 'method', 'magic', 'construct', 'destruct'], \true)) {
+                } elseif (\in_array($element['type'], ['use_trait', 'case', 'constant', 'method', 'magic', 'construct', 'destruct'], \true)) {
                     $element['name'] = $tokens[$tokens->getNextMeaningfulToken($i)]->getContent();
                 }
                 $element['end'] = $this->findElementEnd($tokens, $i);
@@ -241,6 +241,9 @@ class Example
         $token = $tokens[$index];
         if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
             return 'use_trait';
+        }
+        if ($token->isGivenKind(\T_CASE)) {
+            return 'case';
         }
         if ($token->isGivenKind(\T_CONST)) {
             return 'constant';

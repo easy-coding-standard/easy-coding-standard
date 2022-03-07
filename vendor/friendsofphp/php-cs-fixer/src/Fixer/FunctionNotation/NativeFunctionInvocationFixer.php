@@ -160,14 +160,14 @@ $c = get_class($d);
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('exclude', 'List of functions to ignore.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
             foreach ($value as $functionName) {
                 if (!\is_string($functionName) || '' === \trim($functionName) || \trim($functionName) !== $functionName) {
-                    throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($functionName) ? \get_class($functionName) : \gettype($functionName)));
+                    throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \get_debug_type($functionName)));
                 }
             }
             return \true;
         }])->setDefault([])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('include', 'List of function names or sets to fix. Defined sets are `@internal` (all native functions), `@all` (all global functions) and `@compiler_optimized` (functions that are specially optimized by Zend).'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
             foreach ($value as $functionName) {
                 if (!\is_string($functionName) || '' === \trim($functionName) || \trim($functionName) !== $functionName) {
-                    throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \is_object($functionName) ? \get_class($functionName) : \gettype($functionName)));
+                    throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \get_debug_type($functionName)));
                 }
                 $sets = [self::SET_ALL, self::SET_INTERNAL, self::SET_COMPILER_OPTIMIZED];
                 if (\strncmp($functionName, '@', \strlen('@')) === 0 && !\in_array($functionName, $sets, \true)) {
@@ -273,17 +273,22 @@ $c = get_class($d);
             'is_object',
             'is_real',
             'is_resource',
+            'is_scalar',
             'is_string',
             'ord',
+            'sizeof',
             'strlen',
             'strval',
             // @see https://github.com/php/php-src/blob/php-7.2.6/ext/opcache/Optimizer/pass1_5.c
+            // @see https://github.com/php/php-src/blob/PHP-8.1.2/Zend/Optimizer/block_pass.c
+            // @see https://github.com/php/php-src/blob/php-8.1.3/Zend/Optimizer/zend_optimizer.c
             'constant',
             'define',
             'dirname',
             'extension_loaded',
             'function_exists',
             'is_callable',
+            'ini_get',
         ]);
     }
     /**

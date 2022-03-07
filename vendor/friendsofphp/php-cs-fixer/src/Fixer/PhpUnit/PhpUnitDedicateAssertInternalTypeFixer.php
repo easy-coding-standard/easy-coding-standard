@@ -29,7 +29,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 final class PhpUnitDedicateAssertInternalTypeFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private $typeToDedicatedAssertMap = ['array' => 'assertIsArray', 'boolean' => 'assertIsBool', 'bool' => 'assertIsBool', 'double' => 'assertIsFloat', 'float' => 'assertIsFloat', 'integer' => 'assertIsInt', 'int' => 'assertIsInt', 'null' => 'assertNull', 'numeric' => 'assertIsNumeric', 'object' => 'assertIsObject', 'real' => 'assertIsFloat', 'resource' => 'assertIsResource', 'string' => 'assertIsString', 'scalar' => 'assertIsScalar', 'callable' => 'assertIsCallable', 'iterable' => 'assertIsIterable'];
     /**
@@ -88,7 +88,7 @@ final class MyTest extends \\PHPUnit\\Framework\\TestCase
         $anonymousClassIndices = [];
         $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = $startIndex; $index < $endIndex; ++$index) {
-            if (!$tokens[$index]->isClassy() || !$tokenAnalyzer->isAnonymousClass($index)) {
+            if (!$tokens[$index]->isGivenKind(\T_CLASS) || !$tokenAnalyzer->isAnonymousClass($index)) {
                 continue;
             }
             $openingBraceIndex = $tokens->getNextTokenOfKind($index, ['{']);
@@ -113,7 +113,7 @@ final class MyTest extends \\PHPUnit\\Framework\\TestCase
             }
             $expectedTypeTokenIndex = $tokens->getNextMeaningfulToken($bracketTokenIndex);
             $expectedTypeToken = $tokens[$expectedTypeTokenIndex];
-            if (!$expectedTypeToken->equals([\T_CONSTANT_ENCAPSED_STRING])) {
+            if (!$expectedTypeToken->isGivenKind(\T_CONSTANT_ENCAPSED_STRING)) {
                 continue;
             }
             $expectedType = \trim($expectedTypeToken->getContent(), '\'"');

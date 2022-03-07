@@ -46,32 +46,32 @@ final class FixCommand extends \ECSPrefix20220307\Symfony\Component\Console\Comm
      */
     protected static $defaultName = 'fix';
     /**
-     * @var EventDispatcherInterface
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     private $eventDispatcher;
     /**
-     * @var ErrorsManager
+     * @var \PhpCsFixer\Error\ErrorsManager
      */
     private $errorsManager;
     /**
-     * @var Stopwatch
+     * @var \Symfony\Component\Stopwatch\Stopwatch
      */
     private $stopwatch;
     /**
-     * @var ConfigInterface
+     * @var \PhpCsFixer\ConfigInterface
      */
     private $defaultConfig;
     /**
-     * @var ToolInfoInterface
+     * @var \PhpCsFixer\ToolInfoInterface
      */
     private $toolInfo;
     public function __construct(\PhpCsFixer\ToolInfoInterface $toolInfo)
     {
         parent::__construct();
-        $this->defaultConfig = new \PhpCsFixer\Config();
-        $this->errorsManager = new \PhpCsFixer\Error\ErrorsManager();
         $this->eventDispatcher = new \ECSPrefix20220307\Symfony\Component\EventDispatcher\EventDispatcher();
+        $this->errorsManager = new \PhpCsFixer\Error\ErrorsManager();
         $this->stopwatch = new \ECSPrefix20220307\Symfony\Component\Stopwatch\Stopwatch();
+        $this->defaultConfig = new \PhpCsFixer\Config();
         $this->toolInfo = $toolInfo;
     }
     /**

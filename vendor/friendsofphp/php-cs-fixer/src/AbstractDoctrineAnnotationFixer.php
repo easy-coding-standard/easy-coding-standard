@@ -27,7 +27,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private $classyElements;
     /**
@@ -183,7 +183,7 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
                 return \false;
             }
         } while ($tokens[$index]->isGivenKind([\T_ABSTRACT, \T_FINAL]));
-        if ($tokens[$index]->isClassy()) {
+        if ($tokens[$index]->isGivenKind(\T_CLASS)) {
             return \true;
         }
         $modifierKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_NS_SEPARATOR, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE];
@@ -194,6 +194,10 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
         while ($tokens[$index]->isGivenKind($modifierKinds)) {
             $index = $tokens->getNextMeaningfulToken($index);
         }
-        return isset($this->classyElements[$index]);
+        if (!isset($this->classyElements[$index])) {
+            return \false;
+        }
+        return $tokens[$this->classyElements[$index]['classIndex']]->isGivenKind(\T_CLASS);
+        // interface, enums and traits cannot have doctrine annotations
     }
 }

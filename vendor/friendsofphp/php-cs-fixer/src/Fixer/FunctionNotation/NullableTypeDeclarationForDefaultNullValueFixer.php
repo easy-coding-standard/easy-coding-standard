@@ -42,13 +42,7 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        if (!$tokens->isTokenKindFound(\T_VARIABLE)) {
-            return \false;
-        }
-        if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
-            return \true;
-        }
-        return $tokens->isTokenKindFound(\T_FUNCTION);
+        return $tokens->isTokenKindFound(\T_VARIABLE) && $tokens->isAnyTokenKindsFound([\T_FUNCTION, \T_FN]);
     }
     /**
      * {@inheritdoc}
@@ -72,10 +66,7 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
-        $tokenKinds = [\T_FUNCTION];
-        if (\PHP_VERSION_ID >= 70400) {
-            $tokenKinds[] = \T_FN;
-        }
+        $tokenKinds = [\T_FUNCTION, \T_FN];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind($tokenKinds)) {

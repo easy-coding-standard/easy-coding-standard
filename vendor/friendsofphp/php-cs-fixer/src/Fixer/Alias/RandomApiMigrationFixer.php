@@ -30,7 +30,7 @@ use ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptions
 final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private static $argumentCounts = ['getrandmax' => [0], 'mt_rand' => [1, 2], 'rand' => [0, 2], 'srand' => [0, 1], 'random_int' => [0, 2]];
     /**
@@ -94,7 +94,7 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
                     throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Function "%s" is not handled by the fixer.', $functionName));
                 }
                 if (!\is_string($replacement)) {
-                    throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Replacement for function "%s" must be a string, "%s" given.', $functionName, \is_object($replacement) ? \get_class($replacement) : \gettype($replacement)));
+                    throw new \ECSPrefix20220307\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Replacement for function "%s" must be a string, "%s" given.', $functionName, \get_debug_type($replacement)));
                 }
             }
             return \true;

@@ -28,6 +28,10 @@ final class PhpUnitTestCaseIndicator
         if (!$tokens[$index]->isGivenKind(\T_STRING)) {
             return \false;
         }
+        $extendsIndex = $tokens->getNextTokenOfKind($index, ['{', [\T_EXTENDS]]);
+        if (!$tokens[$extendsIndex]->isGivenKind(\T_EXTENDS)) {
+            return \false;
+        }
         if (0 !== \PhpCsFixer\Preg::match('/(?:Test|TestCase)$/', $tokens[$index]->getContent())) {
             return \true;
         }

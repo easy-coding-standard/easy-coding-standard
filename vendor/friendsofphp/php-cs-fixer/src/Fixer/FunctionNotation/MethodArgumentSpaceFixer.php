@@ -18,7 +18,6 @@ use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
-use PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
@@ -83,10 +82,7 @@ SAMPLE
      */
     protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
     {
-        $expectedTokens = [\T_LIST, \T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA];
-        if (\PHP_VERSION_ID >= 70400) {
-            $expectedTokens[] = \T_FN;
-        }
+        $expectedTokens = [\T_LIST, \T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_FN, \T_CLASS];
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
             $token = $tokens[$index];
             if (!$token->equals('(')) {
@@ -108,9 +104,6 @@ SAMPLE
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('keep_multiple_spaces_after_comma', 'Whether keep multiple spaces after comma.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('on_multiline', 'Defines how to handle function arguments lists that contain newlines.'))->setAllowedValues(['ignore', 'ensure_single_line', 'ensure_fully_multiline'])->setDefault('ensure_fully_multiline')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_heredoc', 'Whether the whitespace between heredoc end and comma should be removed.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (\ECSPrefix20220307\Symfony\Component\OptionsResolver\Options $options, $value) {
-            if (\PHP_VERSION_ID < 70300 && $value) {
-                throw new \PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException('"after_heredoc" option can only be enabled with PHP 7.3+.');
-            }
             return $value;
         })->getOption()]);
     }

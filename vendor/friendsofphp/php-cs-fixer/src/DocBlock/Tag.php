@@ -28,8 +28,7 @@ final class Tag
     private static $tags = ['api', 'author', 'category', 'copyright', 'deprecated', 'example', 'global', 'internal', 'license', 'link', 'method', 'package', 'param', 'property', 'property-read', 'property-write', 'return', 'see', 'since', 'subpackage', 'throws', 'todo', 'uses', 'var', 'version'];
     /**
      * The line containing the tag.
-     *
-     * @var Line
+     * @var \PhpCsFixer\DocBlock\Line
      */
     private $line;
     /**

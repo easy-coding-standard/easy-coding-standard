@@ -21,11 +21,11 @@ use ECSPrefix20220307\Composer\Semver\VersionParser;
 final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersionCheckerInterface
 {
     /**
-     * @var GithubClientInterface
+     * @var \PhpCsFixer\Console\SelfUpdate\GithubClientInterface
      */
     private $githubClient;
     /**
-     * @var VersionParser
+     * @var \Composer\Semver\VersionParser
      */
     private $versionParser;
     /**

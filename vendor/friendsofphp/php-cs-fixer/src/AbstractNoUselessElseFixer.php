@@ -42,7 +42,7 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
             if (null === $candidateIndex || $tokens[$candidateIndex]->equalsAny([';', [\T_CLOSE_TAG], [\T_IF]])) {
                 return \false;
             }
-            if ($tokens[$candidateIndex]->equals([\T_THROW])) {
+            if ($tokens[$candidateIndex]->isGivenKind(\T_THROW)) {
                 $previousIndex = $tokens->getPrevMeaningfulToken($candidateIndex);
                 if (!$tokens[$previousIndex]->equalsAny([';', '{'])) {
                     return \false;

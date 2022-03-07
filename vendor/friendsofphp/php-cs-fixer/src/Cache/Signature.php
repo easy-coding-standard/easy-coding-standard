@@ -36,7 +36,7 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
      */
     private $lineEnding;
     /**
-     * @var array
+     * @var mixed[]
      */
     private $rules;
     public function __construct(string $phpVersion, string $fixerVersion, string $indent, string $lineEnding, array $rules)

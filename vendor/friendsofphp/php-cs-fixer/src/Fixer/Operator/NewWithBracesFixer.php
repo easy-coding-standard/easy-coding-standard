@@ -13,6 +13,10 @@ declare (strict_types=1);
 namespace PhpCsFixer\Fixer\Operator;
 
 use PhpCsFixer\AbstractFixer;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
+use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
@@ -22,14 +26,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
+final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
      */
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('All instances created with new keyword must be followed by braces.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$x = new X;\n")]);
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('All instances created with `new` keyword must (not) be followed by braces.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\n\$x = new X;\n\$y = new class {};\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\n\$y = new class() {};\n", ['anonymous_class' => \false]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\n\$x = new X();\n", ['named_class' => \false])]);
     }
     /**
      * {@inheritdoc}
@@ -66,33 +70,53 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
                 continue;
             }
             $nextIndex = $tokens->getNextTokenOfKind($index, $nextTokenKinds);
-            $nextToken = $tokens[$nextIndex];
             // new anonymous class definition
-            if ($nextToken->isGivenKind(\T_CLASS)) {
-                if (!$tokens[$tokens->getNextMeaningfulToken($nextIndex)]->equals('(')) {
-                    $this->insertBracesAfter($tokens, $nextIndex);
+            if ($tokens[$nextIndex]->isGivenKind(\T_CLASS)) {
+                $nextIndex = $tokens->getNextMeaningfulToken($nextIndex);
+                if ($this->configuration['anonymous_class']) {
+                    $this->ensureBracesAt($tokens, $nextIndex);
+                } else {
+                    $this->ensureNoBracesAt($tokens, $nextIndex);
                 }
                 continue;
             }
             // entrance into array index syntax - need to look for exit
-            while ($nextToken->equals('[') || $nextToken->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN)) {
-                $nextIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::detectBlockType($nextToken)['type'], $nextIndex) + 1;
-                $nextToken = $tokens[$nextIndex];
+            while ($tokens[$nextIndex]->equals('[') || $tokens[$nextIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN)) {
+                $nextIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$nextIndex])['type'], $nextIndex);
+                $nextIndex = $tokens->getNextMeaningfulToken($nextIndex);
             }
-            // new statement has a gap in it - advance to the next token
-            if ($nextToken->isWhitespace()) {
-                $nextIndex = $tokens->getNextNonWhitespace($nextIndex);
-                $nextToken = $tokens[$nextIndex];
+            if ($this->configuration['named_class']) {
+                $this->ensureBracesAt($tokens, $nextIndex);
+            } else {
+                $this->ensureNoBracesAt($tokens, $nextIndex);
             }
-            // new statement with () - nothing to do
-            if ($nextToken->equals('(') || $nextToken->isObjectOperator()) {
-                continue;
-            }
-            $this->insertBracesAfter($tokens, $tokens->getPrevMeaningfulToken($nextIndex));
         }
     }
-    private function insertBracesAfter(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    /**
+     * {@inheritdoc}
+     */
+    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        $tokens->insertAt(++$index, [new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token(')')]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('named_class', 'Whether named classes should be followed by parentheses.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('anonymous_class', 'Whether anonymous classes should be followed by parentheses.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+    }
+    private function ensureBracesAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    {
+        $token = $tokens[$index];
+        if (!$token->equals('(') && !$token->isObjectOperator()) {
+            $tokens->insertAt($tokens->getPrevMeaningfulToken($index) + 1, [new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token(')')]);
+        }
+    }
+    private function ensureNoBracesAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    {
+        if (!$tokens[$index]->equals('(')) {
+            return;
+        }
+        $closingIndex = $tokens->getNextMeaningfulToken($index);
+        // constructor has arguments - braces can not be removed
+        if (!$tokens[$closingIndex]->equals(')')) {
+            return;
+        }
+        $tokens->clearTokenAndMergeSurroundingWhitespace($closingIndex);
+        $tokens->clearTokenAndMergeSurroundingWhitespace($index);
     }
 }

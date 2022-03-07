@@ -500,22 +500,22 @@
         },
         {
             "name": "friendsofphp\/php-cs-fixer",
-            "version": "v3.6.0",
-            "version_normalized": "3.6.0.0",
+            "version": "v3.7.0",
+            "version_normalized": "3.7.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer.git",
-                "reference": "1975e4453eb2726d1f50da0ce7fa91295029a4fa"
+                "reference": "7705d5a985132a40282d18a176eb9a4a0497747c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/FriendsOfPHP\/PHP-CS-Fixer\/zipball\/1975e4453eb2726d1f50da0ce7fa91295029a4fa",
-                "reference": "1975e4453eb2726d1f50da0ce7fa91295029a4fa",
+                "url": "https:\/\/api.github.com\/repos\/FriendsOfPHP\/PHP-CS-Fixer\/zipball\/7705d5a985132a40282d18a176eb9a4a0497747c",
+                "reference": "7705d5a985132a40282d18a176eb9a4a0497747c",
                 "shasum": ""
             },
             "require": {
                 "composer\/semver": "^3.2",
-                "composer\/xdebug-handler": "^3.0",
+                "composer\/xdebug-handler": "^3.0.3",
                 "doctrine\/annotations": "^1.13",
                 "ext-json": "*",
                 "ext-tokenizer": "*",
@@ -527,8 +527,8 @@
                 "symfony\/finder": "^5.4 || ^6.0",
                 "symfony\/options-resolver": "^5.4 || ^6.0",
                 "symfony\/polyfill-mbstring": "^1.23",
-                "symfony\/polyfill-php80": "^1.23",
-                "symfony\/polyfill-php81": "^1.23",
+                "symfony\/polyfill-php80": "^1.25",
+                "symfony\/polyfill-php81": "^1.25",
                 "symfony\/process": "^5.4 || ^6.0",
                 "symfony\/stopwatch": "^5.4 || ^6.0"
             },
@@ -552,7 +552,7 @@
                 "ext-dom": "For handling output formats in XML",
                 "ext-mbstring": "For handling non-UTF8 characters."
             },
-            "time": "2022-02-07T18:02:40+00:00",
+            "time": "2022-03-07T16:59:59+00:00",
             "bin": [
                 "php-cs-fixer"
             ],
@@ -580,7 +580,7 @@
             "description": "A tool to automatically fix PHP code style",
             "support": {
                 "issues": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer\/issues",
-                "source": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer\/tree\/v3.6.0"
+                "source": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer\/tree\/v3.7.0"
             },
             "funding": [
                 {
@@ -3407,10 +3407,10 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "2977f77c0c4efde0d701e182d736a75ffe0e70da"
+                "reference": "d1fb6ff4b4cc8530000ad5c641d4b073ee100575"
             },
             "require": {
-                "friendsofphp\/php-cs-fixer": "^3.6",
+                "friendsofphp\/php-cs-fixer": "^3.7",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symplify\/autowire-array-parameter": "dev-main",

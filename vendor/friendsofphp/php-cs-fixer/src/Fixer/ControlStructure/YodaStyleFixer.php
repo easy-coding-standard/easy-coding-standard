@@ -377,12 +377,9 @@ return $foo === count($bar);
                 \T_SR_EQUAL,
                 // >>=
                 \T_XOR_EQUAL,
+                // ^=
+                \T_COALESCE_EQUAL,
             ];
-            // @TODO: drop condition when PHP 7.4+ is required
-            if (\defined('T_COALESCE_EQUAL')) {
-                $tokens[] = \T_COALESCE_EQUAL;
-                // ??=
-            }
         }
         return $token->equals('=') || $token->isGivenKind($tokens);
     }

@@ -35,11 +35,11 @@ use ECSPrefix20220307\Symfony\Contracts\EventDispatcher\Event;
 final class Runner
 {
     /**
-     * @var DifferInterface
+     * @var \PhpCsFixer\Differ\DifferInterface
      */
     private $differ;
     /**
-     * @var DirectoryInterface
+     * @var \PhpCsFixer\Cache\DirectoryInterface|null
      */
     private $directory;
     /**
@@ -47,11 +47,11 @@ final class Runner
      */
     private $eventDispatcher;
     /**
-     * @var ErrorsManager
+     * @var \PhpCsFixer\Error\ErrorsManager
      */
     private $errorsManager;
     /**
-     * @var CacheManagerInterface
+     * @var \PhpCsFixer\Cache\CacheManagerInterface
      */
     private $cacheManager;
     /**
@@ -59,7 +59,7 @@ final class Runner
      */
     private $isDryRun;
     /**
-     * @var LinterInterface
+     * @var \PhpCsFixer\Linter\LinterInterface
      */
     private $linter;
     /**

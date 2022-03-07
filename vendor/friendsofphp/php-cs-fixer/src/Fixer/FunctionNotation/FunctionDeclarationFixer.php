@@ -50,7 +50,7 @@ final class FunctionDeclarationFixer extends \PhpCsFixer\AbstractFixer implement
      */
     public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
     {
-        return $tokens->isTokenKindFound(\T_FUNCTION) || \PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN);
+        return $tokens->isAnyTokenKindsFound([\T_FUNCTION, \T_FN]);
     }
     /**
      * {@inheritdoc}
@@ -95,7 +95,7 @@ $f = fn () => null;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
-            if (!$token->isGivenKind(\T_FUNCTION) && (\PHP_VERSION_ID < 70400 || !$token->isGivenKind(\T_FN))) {
+            if (!$token->isGivenKind([\T_FUNCTION, \T_FN])) {
                 continue;
             }
             $startParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(', ';', [\T_CLOSE_TAG]]);
@@ -103,6 +103,12 @@ $f = fn () => null;
                 continue;
             }
             $endParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
+            if (\false === $this->configuration['trailing_comma_single_line'] && !$tokens->isPartialCodeMultiline($index, $endParenthesisIndex)) {
+                $commaIndex = $tokens->getPrevMeaningfulToken($endParenthesisIndex);
+                if ($tokens[$commaIndex]->equals(',')) {
+                    $tokens->clearTokenAndMergeSurroundingWhitespace($commaIndex);
+                }
+            }
             $startBraceIndex = $tokens->getNextTokenOfKind($endParenthesisIndex, [';', '{', [\T_DOUBLE_ARROW]]);
             // fix single-line whitespace before { or =>
             // eg: `function foo(){}` => `function foo() {}`
@@ -118,6 +124,12 @@ $f = fn () => null;
                 $tokens->ensureWhitespaceAtIndex($afterParenthesisIndex + 1, 0, ' ');
                 $useStartParenthesisIndex = $tokens->getNextTokenOfKind($afterParenthesisIndex, ['(']);
                 $useEndParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $useStartParenthesisIndex);
+                if (\false === $this->configuration['trailing_comma_single_line'] && !$tokens->isPartialCodeMultiline($index, $useEndParenthesisIndex)) {
+                    $commaIndex = $tokens->getPrevMeaningfulToken($useEndParenthesisIndex);
+                    if ($tokens[$commaIndex]->equals(',')) {
+                        $tokens->clearTokenAndMergeSurroundingWhitespace($commaIndex);
+                    }
+                }
                 // remove single-line edge whitespaces inside use parentheses
                 $this->fixParenthesisInnerEdge($tokens, $useStartParenthesisIndex, $useEndParenthesisIndex);
                 // fix whitespace before CT::T_USE_LAMBDA
@@ -157,13 +169,16 @@ $f = fn () => null;
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('closure_function_spacing', 'Spacing to use before open parenthesis for closures.'))->setDefault(self::SPACING_ONE)->setAllowedValues(self::SUPPORTED_SPACINGS)->getOption()]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('closure_function_spacing', 'Spacing to use before open parenthesis for closures.'))->setDefault(self::SPACING_ONE)->setAllowedValues(self::SUPPORTED_SPACINGS)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('trailing_comma_single_line', 'Whether trailing commas are allowed in single line signatures.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
     private function fixParenthesisInnerEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : void
     {
+        do {
+            --$end;
+        } while ($tokens->isEmptyAt($end));
         // remove single-line whitespace before `)`
-        if ($tokens[$end - 1]->isWhitespace($this->singleLineWhitespaceOptions)) {
-            $tokens->clearAt($end - 1);
+        if ($tokens[$end]->isWhitespace($this->singleLineWhitespaceOptions)) {
+            $tokens->clearAt($end);
         }
         // remove single-line whitespace after `(`
         if ($tokens[$start + 1]->isWhitespace($this->singleLineWhitespaceOptions)) {

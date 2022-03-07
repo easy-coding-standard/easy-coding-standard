@@ -22,6 +22,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
+use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
@@ -152,6 +153,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         $testDefaultNamespaceTokenIndex = null;
         $testIndex = $tokens->getNextMeaningfulToken($assertCall['openBraceIndex']);
         if (!$tokens[$testIndex]->isGivenKind([\T_EMPTY, \T_STRING])) {
+            if ($this->fixAssertTrueFalseInstanceof($tokens, $assertCall, $testIndex)) {
+                return;
+            }
             if (!$tokens[$testIndex]->isGivenKind(\T_NS_SEPARATOR)) {
                 return;
             }
@@ -212,6 +216,54 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $tokens->clearTokenAndMergeSurroundingWhitespace($testDefaultNamespaceTokenIndex);
         }
     }
+    private function fixAssertTrueFalseInstanceof(\PhpCsFixer\Tokenizer\Tokens $tokens, array $assertCall, int $testIndex) : bool
+    {
+        if ($tokens[$testIndex]->equals('!')) {
+            $variableIndex = $tokens->getNextMeaningfulToken($testIndex);
+            $positive = \false;
+        } else {
+            $variableIndex = $testIndex;
+            $positive = \true;
+        }
+        if (!$tokens[$variableIndex]->isGivenKind(\T_VARIABLE)) {
+            return \false;
+        }
+        $instanceOfIndex = $tokens->getNextMeaningfulToken($variableIndex);
+        if (!$tokens[$instanceOfIndex]->isGivenKind(\T_INSTANCEOF)) {
+            return \false;
+        }
+        $classEndIndex = $instanceOfIndex;
+        $classPartTokens = [];
+        do {
+            $classEndIndex = $tokens->getNextMeaningfulToken($classEndIndex);
+            $classPartTokens[] = $tokens[$classEndIndex];
+        } while ($tokens[$classEndIndex]->isGivenKind([\T_STRING, \T_NS_SEPARATOR, \T_VARIABLE]));
+        if ($tokens[$classEndIndex]->equalsAny([',', ')'])) {
+            // do the fixing
+            \array_pop($classPartTokens);
+            $isInstanceOfVar = \reset($classPartTokens)->isGivenKind(\T_VARIABLE);
+            $insertIndex = $testIndex - 1;
+            $newTokens = [];
+            foreach ($classPartTokens as $token) {
+                $newTokens[++$insertIndex] = clone $token;
+            }
+            if (!$isInstanceOfVar) {
+                $newTokens[++$insertIndex] = new \PhpCsFixer\Tokenizer\Token([\T_DOUBLE_COLON, '::']);
+                $newTokens[++$insertIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CLASS_CONSTANT, 'class']);
+            }
+            $newTokens[++$insertIndex] = new \PhpCsFixer\Tokenizer\Token(',');
+            $newTokens[++$insertIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+            $newTokens[++$insertIndex] = clone $tokens[$variableIndex];
+            for ($i = $classEndIndex - 1; $i >= $testIndex; --$i) {
+                if (!$tokens[$i]->isComment()) {
+                    $tokens->clearTokenAndMergeSurroundingWhitespace($i);
+                }
+            }
+            $tokens->insertSlices($newTokens);
+            $tokens[$assertCall['index']] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $positive ? 'assertInstanceOf' : 'assertNotInstanceOf']);
+        }
+        return \true;
+    }
     private function fixAssertSameEquals(\PhpCsFixer\Tokenizer\Tokens $tokens, array $assertCall) : void
     {
         // @ $this->/self::assertEquals/Same([$nextIndex])
@@ -219,7 +271,11 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         // do not fix
         // let $a = [1,2]; $b = "2";
         // "$this->assertEquals("2", count($a)); $this->assertEquals($b, count($a)); $this->assertEquals(2.1, count($a));"
-        if (!$tokens[$expectedIndex]->isGivenKind(\T_LNUMBER)) {
+        if ($tokens[$expectedIndex]->isGivenKind([\T_VARIABLE])) {
+            if (!$tokens[$tokens->getNextMeaningfulToken($expectedIndex)]->equals(',')) {
+                return;
+            }
+        } elseif (!$tokens[$expectedIndex]->isGivenKind([\T_LNUMBER, \T_VARIABLE])) {
             return;
         }
         // @ $this->/self::assertEquals/Same([$nextIndex,$commaIndex])

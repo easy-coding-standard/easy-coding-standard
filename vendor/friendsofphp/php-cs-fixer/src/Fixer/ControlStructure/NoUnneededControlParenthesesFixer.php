@@ -32,7 +32,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class NoUnneededControlParenthesesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private static $loops = ['break' => ['lookupTokens' => \T_BREAK, 'neededSuccessors' => [';']], 'clone' => ['lookupTokens' => \T_CLONE, 'neededSuccessors' => [';', ':', ',', ')'], 'forbiddenContents' => ['?', ':', [\T_COALESCE, '??']]], 'continue' => ['lookupTokens' => \T_CONTINUE, 'neededSuccessors' => [';']], 'echo_print' => ['lookupTokens' => [\T_ECHO, \T_PRINT], 'neededSuccessors' => [';', [\T_CLOSE_TAG]]], 'return' => ['lookupTokens' => \T_RETURN, 'neededSuccessors' => [';', [\T_CLOSE_TAG]]], 'switch_case' => ['lookupTokens' => \T_CASE, 'neededSuccessors' => [';', ':']], 'yield' => ['lookupTokens' => \T_YIELD, 'neededSuccessors' => [';', ')']], 'yield_from' => ['lookupTokens' => \T_YIELD_FROM, 'neededSuccessors' => [';', ')']]];
     /**
