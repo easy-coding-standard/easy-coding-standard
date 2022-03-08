@@ -15,7 +15,7 @@ final class Cache
         $this->fileCacheStorage = $fileCacheStorage;
     }
     /**
-     * @return mixed|null
+     * @return mixed
      */
     public function load(string $key, string $variableKey)
     {

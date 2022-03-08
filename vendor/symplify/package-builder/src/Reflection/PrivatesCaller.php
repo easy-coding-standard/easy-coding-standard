@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220307\Symplify\PackageBuilder\Reflection;
+namespace ECSPrefix20220308\Symplify\PackageBuilder\Reflection;
 
 use ReflectionClass;
 use ReflectionMethod;
@@ -12,8 +12,8 @@ final class PrivatesCaller
 {
     /**
      * @param mixed[] $arguments
-     * @return mixed
      * @param object|string $object
+     * @return mixed
      */
     public function callPrivateMethod($object, string $methodName, array $arguments)
     {
@@ -25,9 +25,9 @@ final class PrivatesCaller
         return $methodReflection->invokeArgs($object, $arguments);
     }
     /**
-     * @return mixed
      * @param object|string $object
      * @param mixed $argument
+     * @return mixed
      */
     public function callPrivateMethodWithReference($object, string $methodName, $argument)
     {

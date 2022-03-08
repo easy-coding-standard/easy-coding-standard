@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220307\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20220308\Symfony\Component\Finder\Iterator;
 
 /**
  * PathFilterIterator filters files by path patterns (e.g. some/special/dir).
@@ -18,7 +18,7 @@ namespace ECSPrefix20220307\Symfony\Component\Finder\Iterator;
  *
  * @extends MultiplePcreFilterIterator<string, \SplFileInfo>
  */
-class PathFilterIterator extends \ECSPrefix20220307\Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator
+class PathFilterIterator extends \ECSPrefix20220308\Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator
 {
     /**
      * Filters the iterator values.

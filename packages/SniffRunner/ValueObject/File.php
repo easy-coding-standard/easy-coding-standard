@@ -15,8 +15,8 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use ECSPrefix20220307\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20220307\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220308\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20220308\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject\FileTest
  */
@@ -60,7 +60,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20220307\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20220308\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $this->skipper = $skipper;
         $this->sniffMetadataCollector = $sniffMetadataCollector;
@@ -89,7 +89,7 @@ final class File extends \PHP_CodeSniffer\Files\File
         $this->parse();
         $this->fixer->startFile($this);
         $currentFileInfo = $this->fileInfo;
-        if (!$currentFileInfo instanceof \ECSPrefix20220307\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$currentFileInfo instanceof \ECSPrefix20220308\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
         }
         foreach ($this->tokens as $stackPtr => $token) {
@@ -109,11 +109,7 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * Delegate to addError().
      *
-     * @param string $error
-     * @param int $stackPtr
-     * @param mixed $code
      * @param mixed[] $data
-     * @param int $severity
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0) : bool
     {
@@ -122,12 +118,7 @@ final class File extends \PHP_CodeSniffer\Files\File
         return !$this->shouldSkipError($error, $code, $data);
     }
     /**
-     * @param string $error
-     * @param int $stackPtr
-     * @param string $code
      * @param mixed[] $data
-     * @param mixed $severity
-     * @param bool $fixable
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
     {
@@ -137,9 +128,8 @@ final class File extends \PHP_CodeSniffer\Files\File
         return parent::addError($error, $stackPtr, $code, $data, $severity, $fixable);
     }
     /**
-     * Allow only specific classes
-     *
      * @param mixed $data
+     * Allow only specific classes
      */
     public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
     {
@@ -154,23 +144,15 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * @param array<int|string, Sniff[]> $tokenListeners
      */
-    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20220307\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20220308\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->tokenListeners = $tokenListeners;
         $this->fileInfo = $fileInfo;
         $this->process();
     }
     /**
-     * Delegated from addError().
-     *
-     * @param bool $isError
-     * @param string $message
-     * @param int $line
-     * @param mixed $column
-     * @param mixed $sniffClassOrCode
      * @param mixed $data
-     * @param mixed $severity
-     * @param bool $isFixable
+     * Delegated from addError().
      */
     protected function addMessage($isError, $message, $line, $column, $sniffClassOrCode, $data, $severity, $isFixable = \false) : bool
     {

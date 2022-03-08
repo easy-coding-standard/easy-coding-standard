@@ -42,7 +42,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220307\\Symfony\\Component\\EventDispatcher\\": ""
+            "ECSPrefix20220308\\Symfony\\Component\\EventDispatcher\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"
