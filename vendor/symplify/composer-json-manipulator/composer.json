@@ -6,9 +6,9 @@
     "require": {
         "php": ">=8.0",
         "nette\/utils": "^3.2",
-        "symfony\/config": "^5.4|^6.0",
-        "symfony\/dependency-injection": "^5.4|^6.0",
-        "symfony\/filesystem": "^5.4|^6.0",
+        "symfony\/config": "^6.0",
+        "symfony\/dependency-injection": "^6.0",
+        "symfony\/filesystem": "^6.0",
         "symplify\/package-builder": "dev-main",
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/smart-file-system": "dev-main"
