@@ -3562,14 +3562,14 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "fee21993dae6fedfa46079605afb2f4674a56d66"
+                "reference": "67a352d1996b50d847ca3cc0bc49a8366cccbd8c"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
                 "php": ">=8.0",
                 "react\/child-process": "^0.6.4",
                 "react\/event-loop": "^1.2",
-                "react\/socket": "^1.10",
+                "react\/socket": "^1.11",
                 "symfony\/console": "^6.0",
                 "symplify\/package-builder": "dev-main"
             },

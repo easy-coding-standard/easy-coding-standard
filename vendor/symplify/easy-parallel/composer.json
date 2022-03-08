@@ -7,7 +7,7 @@
         "clue\/ndjson-react": "^1.2",
         "react\/child-process": "^0.6.4",
         "react\/event-loop": "^1.2",
-        "react\/socket": "^1.10",
+        "react\/socket": "^1.11",
         "symfony\/console": "^6.0",
         "symplify\/package-builder": "dev-main"
     },
