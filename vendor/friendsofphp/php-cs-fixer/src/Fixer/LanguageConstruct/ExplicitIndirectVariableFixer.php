@@ -32,7 +32,7 @@ final class ExplicitIndirectVariableFixer extends \PhpCsFixer\AbstractFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Add curly braces to indirect variables to make them clear to understand. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
 <?php
 
-namespace ECSPrefix20220308;
+namespace ECSPrefix20220313;
 
 echo ${$foo};
 echo ${$foo}['bar'];

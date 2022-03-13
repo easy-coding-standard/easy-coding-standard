@@ -5,21 +5,20 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220308\Nette\Neon\Node;
+namespace ECSPrefix20220313\Nette\Neon\Node;
 
-use ECSPrefix20220308\Nette\Neon\Node;
+use ECSPrefix20220313\Nette\Neon\Node;
 /** @internal */
-final class ArrayItemNode extends \ECSPrefix20220308\Nette\Neon\Node
+final class ArrayItemNode extends \ECSPrefix20220313\Nette\Neon\Node
 {
     /** @var ?Node */
     public $key;
     /** @var Node */
     public $value;
-    public function __construct(int $pos = null)
-    {
-        $this->startPos = $this->endPos = $pos;
-    }
-    /** @param  self[]  $items */
+    /**
+     * @param  self[]  $items
+     * @return mixed[]
+     */
     public static function itemsToArray(array $items) : array
     {
         $res = [];
@@ -47,7 +46,7 @@ final class ArrayItemNode extends \ECSPrefix20220308\Nette\Neon\Node
         $res = '';
         foreach ($items as $item) {
             $v = $item->value->toString();
-            $res .= ($item->key ? $item->key->toString() . ':' : '-') . ($item->value instanceof \ECSPrefix20220308\Nette\Neon\Node\BlockArrayNode && $item->value->items ? "\n" . $v . (\substr($v, -2, 1) === "\n" ? '' : "\n") : ' ' . $v . "\n");
+            $res .= ($item->key ? $item->key->toString() . ':' : '-') . ($item->value instanceof \ECSPrefix20220313\Nette\Neon\Node\BlockArrayNode && $item->value->items ? "\n" . $v . (\substr($v, -2, 1) === "\n" ? '' : "\n") : ' ' . $v . "\n");
         }
         return $res;
     }
@@ -59,8 +58,11 @@ final class ArrayItemNode extends \ECSPrefix20220308\Nette\Neon\Node
     {
         throw new \LogicException();
     }
-    public function getSubNodes() : array
+    public function &getIterator() : \Generator
     {
-        return $this->key ? [&$this->key, &$this->value] : [&$this->value];
+        if ($this->key) {
+            (yield $this->key);
+        }
+        (yield $this->value);
     }
 }

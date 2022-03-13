@@ -14,9 +14,9 @@ namespace PhpCsFixer\Linter;
 
 use PhpCsFixer\FileReader;
 use PhpCsFixer\FileRemoval;
-use ECSPrefix20220308\Symfony\Component\Filesystem\Exception\IOException;
-use ECSPrefix20220308\Symfony\Component\Process\PhpExecutableFinder;
-use ECSPrefix20220308\Symfony\Component\Process\Process;
+use ECSPrefix20220313\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix20220313\Symfony\Component\Process\PhpExecutableFinder;
+use ECSPrefix20220313\Symfony\Component\Process\Process;
 /**
  * Handle PHP code linting using separated process of `php -l _file_`.
  *
@@ -46,7 +46,7 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     public function __construct(?string $executable = null)
     {
         if (null === $executable) {
-            $executableFinder = new \ECSPrefix20220308\Symfony\Component\Process\PhpExecutableFinder();
+            $executableFinder = new \ECSPrefix20220313\Symfony\Component\Process\PhpExecutableFinder();
             $executable = $executableFinder->find(\false);
             if (\false === $executable) {
                 throw new \PhpCsFixer\Linter\UnavailableLinterException('Cannot find PHP executable.');
@@ -113,7 +113,7 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * @param string $path path to file
      */
-    private function createProcessForFile(string $path) : \ECSPrefix20220308\Symfony\Component\Process\Process
+    private function createProcessForFile(string $path) : \ECSPrefix20220313\Symfony\Component\Process\Process
     {
         // in case php://stdin
         if (!\is_file($path)) {
@@ -129,14 +129,14 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      *
      * @param string $source code
      */
-    private function createProcessForSource(string $source) : \ECSPrefix20220308\Symfony\Component\Process\Process
+    private function createProcessForSource(string $source) : \ECSPrefix20220313\Symfony\Component\Process\Process
     {
         if (null === $this->temporaryFile) {
             $this->temporaryFile = \tempnam(\sys_get_temp_dir(), 'cs_fixer_tmp_');
             $this->fileRemoval->observe($this->temporaryFile);
         }
         if (\false === @\file_put_contents($this->temporaryFile, $source)) {
-            throw new \ECSPrefix20220308\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s".', $this->temporaryFile), 0, null, $this->temporaryFile);
+            throw new \ECSPrefix20220313\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s".', $this->temporaryFile), 0, null, $this->temporaryFile);
         }
         return $this->createProcessForFile($this->temporaryFile);
     }

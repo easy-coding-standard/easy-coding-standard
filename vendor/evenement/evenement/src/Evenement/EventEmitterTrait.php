@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220308\Evenement;
+namespace ECSPrefix20220313\Evenement;
 
 use InvalidArgumentException;
 trait EventEmitterTrait

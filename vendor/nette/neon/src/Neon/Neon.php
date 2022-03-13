@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220308\Nette\Neon;
+namespace ECSPrefix20220313\Nette\Neon;
 
 /**
  * Simple parser & generator for Nette Object Notation.
@@ -13,14 +13,15 @@ namespace ECSPrefix20220308\Nette\Neon;
  */
 final class Neon
 {
-    public const BLOCK = \ECSPrefix20220308\Nette\Neon\Encoder::BLOCK;
-    public const CHAIN = '!!chain';
+    public const BLOCK = \ECSPrefix20220313\Nette\Neon\Encoder::BLOCK;
+    public const Chain = '!!chain';
+    public const CHAIN = self::Chain;
     /**
      * Returns value converted to NEON.
      */
     public static function encode($value, bool $blockMode = \false, string $indentation = "\t") : string
     {
-        $encoder = new \ECSPrefix20220308\Nette\Neon\Encoder();
+        $encoder = new \ECSPrefix20220313\Nette\Neon\Encoder();
         $encoder->blockMode = $blockMode;
         $encoder->indentation = $indentation;
         return $encoder->encode($value);
@@ -31,7 +32,7 @@ final class Neon
      */
     public static function decode(string $input)
     {
-        $decoder = new \ECSPrefix20220308\Nette\Neon\Decoder();
+        $decoder = new \ECSPrefix20220313\Nette\Neon\Decoder();
         return $decoder->decode($input);
     }
     /**
@@ -41,7 +42,7 @@ final class Neon
     public static function decodeFile(string $file)
     {
         if (!\is_file($file)) {
-            throw new \ECSPrefix20220308\Nette\Neon\Exception("File '{$file}' does not exist.");
+            throw new \ECSPrefix20220313\Nette\Neon\Exception("File '{$file}' does not exist.");
         }
         $input = \file_get_contents($file);
         if (\substr($input, 0, 3) === "﻿") {

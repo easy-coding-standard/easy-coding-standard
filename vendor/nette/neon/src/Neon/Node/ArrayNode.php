@@ -5,24 +5,23 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220308\Nette\Neon\Node;
+namespace ECSPrefix20220313\Nette\Neon\Node;
 
-use ECSPrefix20220308\Nette\Neon\Node;
+use ECSPrefix20220313\Nette\Neon\Node;
 /** @internal */
-abstract class ArrayNode extends \ECSPrefix20220308\Nette\Neon\Node
+abstract class ArrayNode extends \ECSPrefix20220313\Nette\Neon\Node
 {
     /** @var ArrayItemNode[] */
     public $items = [];
+    /** @return mixed[] */
     public function toValue() : array
     {
-        return \ECSPrefix20220308\Nette\Neon\Node\ArrayItemNode::itemsToArray($this->items);
+        return \ECSPrefix20220313\Nette\Neon\Node\ArrayItemNode::itemsToArray($this->items);
     }
-    public function getSubNodes() : array
+    public function &getIterator() : \Generator
     {
-        $res = [];
         foreach ($this->items as &$item) {
-            $res[] =& $item;
+            (yield $item);
         }
-        return $res;
     }
 }
