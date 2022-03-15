@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220313\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20220315\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20220313\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix20220315\Symfony\Component\Config\Definition\NodeInterface;
 /**
  * This is the entry class for building a config tree.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class TreeBuilder implements \ECSPrefix20220313\Symfony\Component\Config\Definition\Builder\NodeParentInterface
+class TreeBuilder implements \ECSPrefix20220315\Symfony\Component\Config\Definition\Builder\NodeParentInterface
 {
     protected $tree;
     protected $root;
-    public function __construct(string $name, string $type = 'array', \ECSPrefix20220313\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
+    public function __construct(string $name, string $type = 'array', \ECSPrefix20220315\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
     {
-        $builder = $builder ?? new \ECSPrefix20220313\Symfony\Component\Config\Definition\Builder\NodeBuilder();
+        $builder = $builder ?? new \ECSPrefix20220315\Symfony\Component\Config\Definition\Builder\NodeBuilder();
         $this->root = $builder->node($name, $type)->setParent($this);
     }
     /**
@@ -37,7 +37,7 @@ class TreeBuilder implements \ECSPrefix20220313\Symfony\Component\Config\Definit
      *
      * @throws \RuntimeException
      */
-    public function buildTree() : \ECSPrefix20220313\Symfony\Component\Config\Definition\NodeInterface
+    public function buildTree() : \ECSPrefix20220315\Symfony\Component\Config\Definition\NodeInterface
     {
         if (null !== $this->tree) {
             return $this->tree;

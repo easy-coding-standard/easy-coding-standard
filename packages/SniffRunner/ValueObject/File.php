@@ -15,8 +15,8 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use ECSPrefix20220313\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20220313\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220315\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20220315\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject\FileTest
  */
@@ -60,7 +60,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20220313\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20220315\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $this->skipper = $skipper;
         $this->sniffMetadataCollector = $sniffMetadataCollector;
@@ -89,7 +89,7 @@ final class File extends \PHP_CodeSniffer\Files\File
         $this->parse();
         $this->fixer->startFile($this);
         $currentFileInfo = $this->fileInfo;
-        if (!$currentFileInfo instanceof \ECSPrefix20220313\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$currentFileInfo instanceof \ECSPrefix20220315\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
         }
         foreach ($this->tokens as $stackPtr => $token) {
@@ -144,7 +144,7 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * @param array<int|string, Sniff[]> $tokenListeners
      */
-    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20220313\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20220315\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->tokenListeners = $tokenListeners;
         $this->fileInfo = $fileInfo;

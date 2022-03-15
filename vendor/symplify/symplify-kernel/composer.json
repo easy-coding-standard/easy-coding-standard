@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220313\\Symplify\\SymplifyKernel\\": "src"
+            "ECSPrefix20220315\\Symplify\\SymplifyKernel\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220313\\Symplify\\SymplifyKernel\\Tests\\": "tests"
+            "ECSPrefix20220315\\Symplify\\SymplifyKernel\\Tests\\": "tests"
         }
     },
     "extra": {

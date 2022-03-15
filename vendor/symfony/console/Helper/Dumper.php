@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220313\Symfony\Component\Console\Helper;
+namespace ECSPrefix20220315\Symfony\Component\Console\Helper;
 
-use ECSPrefix20220313\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220313\Symfony\Component\VarDumper\Cloner\ClonerInterface;
-use ECSPrefix20220313\Symfony\Component\VarDumper\Cloner\VarCloner;
-use ECSPrefix20220313\Symfony\Component\VarDumper\Dumper\CliDumper;
+use ECSPrefix20220315\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220315\Symfony\Component\VarDumper\Cloner\ClonerInterface;
+use ECSPrefix20220315\Symfony\Component\VarDumper\Cloner\VarCloner;
+use ECSPrefix20220315\Symfony\Component\VarDumper\Dumper\CliDumper;
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
@@ -26,16 +26,16 @@ final class Dumper
      * @var \Closure
      */
     private $handler;
-    public function __construct(\ECSPrefix20220313\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220313\Symfony\Component\VarDumper\Dumper\CliDumper $dumper = null, \ECSPrefix20220313\Symfony\Component\VarDumper\Cloner\ClonerInterface $cloner = null)
+    public function __construct(\ECSPrefix20220315\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220315\Symfony\Component\VarDumper\Dumper\CliDumper $dumper = null, \ECSPrefix20220315\Symfony\Component\VarDumper\Cloner\ClonerInterface $cloner = null)
     {
         $this->output = $output;
         $this->dumper = $dumper;
         $this->cloner = $cloner;
-        if (\class_exists(\ECSPrefix20220313\Symfony\Component\VarDumper\Dumper\CliDumper::class)) {
+        if (\class_exists(\ECSPrefix20220315\Symfony\Component\VarDumper\Dumper\CliDumper::class)) {
             $this->handler = function ($var) : string {
-                $dumper = $this->dumper ?? ($this->dumper = new \ECSPrefix20220313\Symfony\Component\VarDumper\Dumper\CliDumper(null, null, \ECSPrefix20220313\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_LIGHT_ARRAY | \ECSPrefix20220313\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_COMMA_SEPARATOR));
+                $dumper = $this->dumper ?? ($this->dumper = new \ECSPrefix20220315\Symfony\Component\VarDumper\Dumper\CliDumper(null, null, \ECSPrefix20220315\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_LIGHT_ARRAY | \ECSPrefix20220315\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_COMMA_SEPARATOR));
                 $dumper->setColors($this->output->isDecorated());
-                return \rtrim($dumper->dump(($this->cloner ?? ($this->cloner = new \ECSPrefix20220313\Symfony\Component\VarDumper\Cloner\VarCloner()))->cloneVar($var)->withRefHandles(\false), \true));
+                return \rtrim($dumper->dump(($this->cloner ?? ($this->cloner = new \ECSPrefix20220315\Symfony\Component\VarDumper\Cloner\VarCloner()))->cloneVar($var)->withRefHandles(\false), \true));
             };
         } else {
             $this->handler = function ($var) : string {
