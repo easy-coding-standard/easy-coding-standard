@@ -143,17 +143,17 @@
         },
         {
             "name": "composer\/semver",
-            "version": "3.2.9",
-            "version_normalized": "3.2.9.0",
+            "version": "3.3.0",
+            "version_normalized": "3.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/composer\/semver.git",
-                "reference": "a951f614bd64dcd26137bc9b7b2637ddcfc57649"
+                "reference": "f79c90ad4e9b41ac4dfc5d77bf398cf61fbd718b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/composer\/semver\/zipball\/a951f614bd64dcd26137bc9b7b2637ddcfc57649",
-                "reference": "a951f614bd64dcd26137bc9b7b2637ddcfc57649",
+                "url": "https:\/\/api.github.com\/repos\/composer\/semver\/zipball\/f79c90ad4e9b41ac4dfc5d77bf398cf61fbd718b",
+                "reference": "f79c90ad4e9b41ac4dfc5d77bf398cf61fbd718b",
                 "shasum": ""
             },
             "require": {
@@ -163,7 +163,7 @@
                 "phpstan\/phpstan": "^1.4",
                 "symfony\/phpunit-bridge": "^4.2 || ^5"
             },
-            "time": "2022-02-04T13:58:43+00:00",
+            "time": "2022-03-15T08:35:57+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -207,7 +207,7 @@
             "support": {
                 "irc": "irc:\/\/irc.freenode.org\/composer",
                 "issues": "https:\/\/github.com\/composer\/semver\/issues",
-                "source": "https:\/\/github.com\/composer\/semver\/tree\/3.2.9"
+                "source": "https:\/\/github.com\/composer\/semver\/tree\/3.3.0"
             },
             "funding": [
                 {
