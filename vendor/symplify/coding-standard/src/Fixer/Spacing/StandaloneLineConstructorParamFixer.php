@@ -39,7 +39,7 @@ final class StandaloneLineConstructorParamFixer extends \Symplify\CodingStandard
         $this->methodNameResolver = $methodNameResolver;
     }
     /**
-     * Must run after
+     * Must run before
      *
      * @see BracesFixer::getPriority()
      */
