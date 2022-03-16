@@ -1353,6 +1353,8 @@ return array(
     'Symplify\\CodingStandard\\TokenAnalyzer\\DoctrineAnnotationElementAnalyzer' => $vendorDir . '/symplify/coding-standard/src/TokenAnalyzer/DoctrineAnnotationElementAnalyzer.php',
     'Symplify\\CodingStandard\\TokenAnalyzer\\DoctrineAnnotationNameResolver' => $vendorDir . '/symplify/coding-standard/src/TokenAnalyzer/DoctrineAnnotationNameResolver.php',
     'Symplify\\CodingStandard\\TokenAnalyzer\\FunctionCallNameMatcher' => $vendorDir . '/symplify/coding-standard/src/TokenAnalyzer/FunctionCallNameMatcher.php',
+    'Symplify\\CodingStandard\\TokenAnalyzer\\HeredocAnalyzer' => $vendorDir . '/symplify/coding-standard/src/TokenAnalyzer/HeredocAnalyzer.php',
+    'Symplify\\CodingStandard\\TokenAnalyzer\\Naming\\MethodNameResolver' => $vendorDir . '/symplify/coding-standard/src/TokenAnalyzer/Naming/MethodNameResolver.php',
     'Symplify\\CodingStandard\\TokenAnalyzer\\NewlineAnalyzer' => $vendorDir . '/symplify/coding-standard/src/TokenAnalyzer/NewlineAnalyzer.php',
     'Symplify\\CodingStandard\\TokenAnalyzer\\ParamNewliner' => $vendorDir . '/symplify/coding-standard/src/TokenAnalyzer/ParamNewliner.php',
     'Symplify\\CodingStandard\\TokenAnalyzer\\SymfonyClosureAnalyzer' => $vendorDir . '/symplify/coding-standard/src/TokenAnalyzer/SymfonyClosureAnalyzer.php',

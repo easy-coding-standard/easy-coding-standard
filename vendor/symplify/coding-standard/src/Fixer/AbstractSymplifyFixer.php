@@ -40,11 +40,11 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
      */
     protected function getNextMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?\PhpCsFixer\Tokenizer\Token
     {
-        $nextMeaninfulTokenPosition = $tokens->getNextMeaningfulToken($index);
-        if ($nextMeaninfulTokenPosition === null) {
+        $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($index);
+        if ($nextMeaningfulTokenPosition === null) {
             return null;
         }
-        return $tokens[$nextMeaninfulTokenPosition];
+        return $tokens[$nextMeaningfulTokenPosition];
     }
     /**
      * @param Tokens<Token> $tokens

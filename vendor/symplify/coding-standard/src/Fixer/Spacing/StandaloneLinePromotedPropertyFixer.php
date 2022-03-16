@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Spacing;
 
-use Symplify\CodingStandard\TokenAnalyzer\ParamNewliner;
 use PhpCsFixer\Fixer\Basic\BracesFixer;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
@@ -12,6 +11,8 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
+use Symplify\CodingStandard\TokenAnalyzer\ParamNewliner;
 use ECSPrefix20220316\Symplify\PackageBuilder\ValueObject\MethodName;
 use ECSPrefix20220316\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix20220316\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -29,9 +30,14 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
      * @var \Symplify\CodingStandard\TokenAnalyzer\ParamNewliner
      */
     private $paramNewliner;
-    public function __construct(\Symplify\CodingStandard\TokenAnalyzer\ParamNewliner $paramNewliner)
+    /**
+     * @var \Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver
+     */
+    private $methodNameResolver;
+    public function __construct(\Symplify\CodingStandard\TokenAnalyzer\ParamNewliner $paramNewliner, \Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver $methodNameResolver)
     {
         $this->paramNewliner = $paramNewliner;
+        $this->methodNameResolver = $methodNameResolver;
     }
     /**
      * Must run before
@@ -65,8 +71,7 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
             if (!$token->isGivenKind([\T_FUNCTION])) {
                 continue;
             }
-            $functionName = $this->getFunctionName($tokens, $position);
-            if ($functionName !== \ECSPrefix20220316\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR) {
+            if (!$this->methodNameResolver->isMethodName($tokens, $position, \ECSPrefix20220316\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR)) {
                 continue;
             }
             $this->paramNewliner->processFunction($tokens, $position);
@@ -93,16 +98,5 @@ final class PromotedProperties
 }
 CODE_SAMPLE
 )]);
-    }
-    /**
-     * @param Tokens<Token> $tokens
-     */
-    private function getFunctionName(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : ?string
-    {
-        $nextToken = $this->getNextMeaningfulToken($tokens, $position);
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
-            return null;
-        }
-        return $nextToken->getContent();
     }
 }

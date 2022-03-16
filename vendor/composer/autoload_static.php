@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite81e5fb1cc1d4d012762881f8a9459d0
+class ComposerStaticInit7287855cb8a100cf3bd3e0b960bb729e
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -1633,6 +1633,8 @@ class ComposerStaticInite81e5fb1cc1d4d012762881f8a9459d0
         'Symplify\\CodingStandard\\TokenAnalyzer\\DoctrineAnnotationElementAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/DoctrineAnnotationElementAnalyzer.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\DoctrineAnnotationNameResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/DoctrineAnnotationNameResolver.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\FunctionCallNameMatcher' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/FunctionCallNameMatcher.php',
+        'Symplify\\CodingStandard\\TokenAnalyzer\\HeredocAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/HeredocAnalyzer.php',
+        'Symplify\\CodingStandard\\TokenAnalyzer\\Naming\\MethodNameResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/Naming/MethodNameResolver.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\NewlineAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/NewlineAnalyzer.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\ParamNewliner' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/ParamNewliner.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\SymfonyClosureAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/SymfonyClosureAnalyzer.php',
@@ -1758,9 +1760,9 @@ class ComposerStaticInite81e5fb1cc1d4d012762881f8a9459d0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite81e5fb1cc1d4d012762881f8a9459d0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite81e5fb1cc1d4d012762881f8a9459d0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite81e5fb1cc1d4d012762881f8a9459d0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7287855cb8a100cf3bd3e0b960bb729e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7287855cb8a100cf3bd3e0b960bb729e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7287855cb8a100cf3bd3e0b960bb729e::$classMap;
 
         }, null, ClassLoader::class);
     }

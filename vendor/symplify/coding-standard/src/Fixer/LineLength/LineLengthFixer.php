@@ -12,10 +12,14 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
 use Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher;
+use Symplify\CodingStandard\TokenAnalyzer\HeredocAnalyzer;
+use Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
 use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220316\Symplify\PackageBuilder\ValueObject\MethodName;
 use ECSPrefix20220316\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use ECSPrefix20220316\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix20220316\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -74,11 +78,26 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
      * @var \Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher
      */
     private $functionCallNameMatcher;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer $lineLengthTransformer, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher $functionCallNameMatcher)
+    /**
+     * @var \Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver
+     */
+    private $methodNameResolver;
+    /**
+     * @var \Symplify\CodingStandard\TokenAnalyzer\HeredocAnalyzer
+     */
+    private $heredocAnalyzer;
+    /**
+     * @var \Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer|null
+     */
+    private $standaloneLineConstructorParamFixer;
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer $lineLengthTransformer, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher $functionCallNameMatcher, \Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver $methodNameResolver, \Symplify\CodingStandard\TokenAnalyzer\HeredocAnalyzer $heredocAnalyzer, ?\Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer $standaloneLineConstructorParamFixer = null)
     {
         $this->lineLengthTransformer = $lineLengthTransformer;
         $this->blockFinder = $blockFinder;
         $this->functionCallNameMatcher = $functionCallNameMatcher;
+        $this->methodNameResolver = $methodNameResolver;
+        $this->heredocAnalyzer = $heredocAnalyzer;
+        $this->standaloneLineConstructorParamFixer = $standaloneLineConstructorParamFixer;
     }
     public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
     {
@@ -161,7 +180,7 @@ CODE_SAMPLE
     /**
      * Must run before
      *
-     * @see \PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer
+     * @see \PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer::getPriority()
      */
     public function getPriority() : int
     {
@@ -209,6 +228,10 @@ CODE_SAMPLE
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
             return;
         }
+        // @todo is __construct() class method and is newline parma enabled? → skip it
+        if ($this->standaloneLineConstructorParamFixer && $this->methodNameResolver->isMethodName($tokens, $position, \ECSPrefix20220316\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR)) {
+            return;
+        }
         if ($this->shouldSkip($tokens, $blockInfo)) {
             return;
         }
@@ -223,7 +246,7 @@ CODE_SAMPLE
         if ($blockInfo->getEnd() - $blockInfo->getStart() <= 1) {
             return \true;
         }
-        if ($this->isHerenowDoc($tokens, $blockInfo)) {
+        if ($this->heredocAnalyzer->isHerenowDoc($tokens, $blockInfo)) {
             return \true;
         }
         // is array with indexed values "=>"
@@ -233,17 +256,5 @@ CODE_SAMPLE
         }
         // has comments => dangerous to change: https://github.com/symplify/symplify/issues/973
         return (bool) $tokens->findGivenKind(\T_COMMENT, $blockInfo->getStart(), $blockInfo->getEnd());
-    }
-    /**
-     * @param Tokens<Token> $tokens
-     */
-    private function isHerenowDoc(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
-    {
-        // heredoc/nowdoc => skip
-        $nextToken = $this->getNextMeaningfulToken($tokens, $blockInfo->getStart());
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
-            return \false;
-        }
-        return \strpos($nextToken->getContent(), '<<<') !== \false;
     }
 }
