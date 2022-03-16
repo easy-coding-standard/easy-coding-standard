@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220315\Symfony\Component\Console\CommandLoader;
+namespace ECSPrefix20220316\Symfony\Component\Console\CommandLoader;
 
-use ECSPrefix20220315\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220315\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix20220316\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220316\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * A simple command loader using factories to instantiate commands lazily.
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-class FactoryCommandLoader implements \ECSPrefix20220315\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
+class FactoryCommandLoader implements \ECSPrefix20220316\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
 {
     /**
      * @var mixed[]
@@ -40,10 +40,10 @@ class FactoryCommandLoader implements \ECSPrefix20220315\Symfony\Component\Conso
     /**
      * {@inheritdoc}
      */
-    public function get(string $name) : \ECSPrefix20220315\Symfony\Component\Console\Command\Command
+    public function get(string $name) : \ECSPrefix20220316\Symfony\Component\Console\Command\Command
     {
         if (!isset($this->factories[$name])) {
-            throw new \ECSPrefix20220315\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
+            throw new \ECSPrefix20220316\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
         $factory = $this->factories[$name];
         return $factory();

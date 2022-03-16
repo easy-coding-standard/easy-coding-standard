@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220315\Symfony\Component\Console\Output;
+namespace ECSPrefix20220316\Symfony\Component\Console\Output;
 
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class BufferedOutput extends \ECSPrefix20220315\Symfony\Component\Console\Output\Output
+class BufferedOutput extends \ECSPrefix20220316\Symfony\Component\Console\Output\Output
 {
     /**
      * @var string

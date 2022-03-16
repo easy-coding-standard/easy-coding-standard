@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Spacing;
 
+use Symplify\CodingStandard\TokenAnalyzer\ParamNewliner;
 use PhpCsFixer\Fixer\Basic\BracesFixer;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
@@ -11,35 +12,26 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
-use Symplify\CodingStandard\TokenRunner\Enum\LineKind;
-use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20220315\Symplify\PackageBuilder\ValueObject\MethodName;
-use ECSPrefix20220315\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20220315\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20220315\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220316\Symplify\PackageBuilder\ValueObject\MethodName;
+use ECSPrefix20220316\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20220316\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20220316\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\StandaloneLinePromotedPropertyFixer\StandaloneLinePromotedPropertyFixerTest
  */
-final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220315\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220316\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
      */
     private const ERROR_MESSAGE = 'Promoted property should be on standalone line';
     /**
-     * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder
+     * @var \Symplify\CodingStandard\TokenAnalyzer\ParamNewliner
      */
-    private $blockFinder;
-    /**
-     * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner
-     */
-    private $tokensNewliner;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner $tokensNewliner)
+    private $paramNewliner;
+    public function __construct(\Symplify\CodingStandard\TokenAnalyzer\ParamNewliner $paramNewliner)
     {
-        $this->blockFinder = $blockFinder;
-        $this->tokensNewliner = $tokensNewliner;
+        $this->paramNewliner = $paramNewliner;
     }
     /**
      * Must run before
@@ -74,15 +66,15 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
                 continue;
             }
             $functionName = $this->getFunctionName($tokens, $position);
-            if ($functionName !== \ECSPrefix20220315\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR) {
+            if ($functionName !== \ECSPrefix20220316\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR) {
                 continue;
             }
-            $this->processFunction($tokens, $position);
+            $this->paramNewliner->processFunction($tokens, $position);
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20220315\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20220316\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20220315\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220315\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20220316\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220316\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class PromotedProperties
 {
     public function __construct(public int $age, private string $name)
@@ -101,17 +93,6 @@ final class PromotedProperties
 }
 CODE_SAMPLE
 )]);
-    }
-    /**
-     * @param Tokens<Token> $tokens
-     */
-    private function processFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : void
-    {
-        $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
-        if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
-            return;
-        }
-        $this->tokensNewliner->breakItems($blockInfo, $tokens, \Symplify\CodingStandard\TokenRunner\Enum\LineKind::CALLS);
     }
     /**
      * @param Tokens<Token> $tokens

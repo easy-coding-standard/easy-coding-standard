@@ -43,6 +43,16 @@ final class TokensNewliner
     /**
      * @param Tokens<Token> $tokens
      */
+    public function breakMultipleItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $kind) : void
+    {
+        if (!$this->containsTokensComma($tokens, $blockInfo)) {
+            return;
+        }
+        $this->breakItems($blockInfo, $tokens, $kind);
+    }
+    /**
+     * @param Tokens<Token> $tokens
+     */
     public function breakItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $kind) : void
     {
         // from bottom top, to prevent skipping ids
@@ -99,5 +109,22 @@ final class TokensNewliner
             return \false;
         }
         return $nextNextToken->isComment();
+    }
+    /**
+     * @param Tokens<Token> $tokens
+     */
+    private function containsTokensComma(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
+    {
+        // must be at least 2 items
+        $start = $blockInfo->getStart();
+        $end = $blockInfo->getEnd();
+        for ($i = $start; $i < $end; ++$i) {
+            /** @var Token $currentToken */
+            $currentToken = $tokens[$i];
+            if ($currentToken->getContent() === ',') {
+                return \true;
+            }
+        }
+        return \false;
     }
 }
