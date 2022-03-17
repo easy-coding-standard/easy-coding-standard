@@ -1264,17 +1264,17 @@
         },
         {
             "name": "react\/event-loop",
-            "version": "v1.2.0",
-            "version_normalized": "1.2.0.0",
+            "version": "v1.3.0",
+            "version_normalized": "1.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/reactphp\/event-loop.git",
-                "reference": "be6dee480fc4692cec0504e65eb486e3be1aa6f2"
+                "reference": "187fb56f46d424afb6ec4ad089269c72eec2e137"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/reactphp\/event-loop\/zipball\/be6dee480fc4692cec0504e65eb486e3be1aa6f2",
-                "reference": "be6dee480fc4692cec0504e65eb486e3be1aa6f2",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/event-loop\/zipball\/187fb56f46d424afb6ec4ad089269c72eec2e137",
+                "reference": "187fb56f46d424afb6ec4ad089269c72eec2e137",
                 "shasum": ""
             },
             "require": {
@@ -1288,7 +1288,7 @@
                 "ext-pcntl": "For signal handling support when using the StreamSelectLoop",
                 "ext-uv": "* for ExtUvLoop"
             },
-            "time": "2021-07-11T12:31:24+00:00",
+            "time": "2022-03-17T11:10:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1329,7 +1329,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/reactphp\/event-loop\/issues",
-                "source": "https:\/\/github.com\/reactphp\/event-loop\/tree\/v1.2.0"
+                "source": "https:\/\/github.com\/reactphp\/event-loop\/tree\/v1.3.0"
             },
             "funding": [
                 {

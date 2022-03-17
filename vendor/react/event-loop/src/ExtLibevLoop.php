@@ -109,7 +109,7 @@ final class ExtLibevLoop implements \ECSPrefix20220317\React\EventLoop\LoopInter
         $callback = function () use($timer) {
             \call_user_func($timer->getCallback(), $timer);
         };
-        $event = new \ECSPrefix20220317\libev\TimerEvent($callback, $interval, $interval);
+        $event = new \ECSPrefix20220317\libev\TimerEvent($callback, $timer->getInterval(), $timer->getInterval());
         $this->timerEvents->attach($timer, $event);
         $this->loop->add($event);
         return $timer;
