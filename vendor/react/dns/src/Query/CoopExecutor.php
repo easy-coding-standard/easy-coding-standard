@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220316\React\Dns\Query;
+namespace ECSPrefix20220317\React\Dns\Query;
 
-use ECSPrefix20220316\React\Promise\Promise;
+use ECSPrefix20220317\React\Promise\Promise;
 /**
  * Cooperatively resolves hosts via the given base executor to ensure same query is not run concurrently
  *
@@ -33,16 +33,16 @@ use ECSPrefix20220316\React\Promise\Promise;
  * );
  * ```
  */
-final class CoopExecutor implements \ECSPrefix20220316\React\Dns\Query\ExecutorInterface
+final class CoopExecutor implements \ECSPrefix20220317\React\Dns\Query\ExecutorInterface
 {
     private $executor;
     private $pending = array();
     private $counts = array();
-    public function __construct(\ECSPrefix20220316\React\Dns\Query\ExecutorInterface $base)
+    public function __construct(\ECSPrefix20220317\React\Dns\Query\ExecutorInterface $base)
     {
         $this->executor = $base;
     }
-    public function query(\ECSPrefix20220316\React\Dns\Query\Query $query)
+    public function query(\ECSPrefix20220317\React\Dns\Query\Query $query)
     {
         $key = $this->serializeQueryToIdentity($query);
         if (isset($this->pending[$key])) {
@@ -67,7 +67,7 @@ final class CoopExecutor implements \ECSPrefix20220316\React\Dns\Query\ExecutorI
         // when no other child promise is awaiting the same query.
         $pending =& $this->pending;
         $counts =& $this->counts;
-        return new \ECSPrefix20220316\React\Promise\Promise(function ($resolve, $reject) use($promise) {
+        return new \ECSPrefix20220317\React\Promise\Promise(function ($resolve, $reject) use($promise) {
             $promise->then($resolve, $reject);
         }, function () use(&$promise, $key, $query, &$pending, &$counts) {
             if (--$counts[$key] < 1) {
@@ -78,7 +78,7 @@ final class CoopExecutor implements \ECSPrefix20220316\React\Dns\Query\ExecutorI
             throw new \RuntimeException('DNS query for ' . $query->describe() . ' has been cancelled');
         });
     }
-    private function serializeQueryToIdentity(\ECSPrefix20220316\React\Dns\Query\Query $query)
+    private function serializeQueryToIdentity(\ECSPrefix20220317\React\Dns\Query\Query $query)
     {
         return \sprintf('%s:%s:%s', $query->name, $query->type, $query->class);
     }

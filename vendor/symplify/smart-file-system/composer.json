@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220316\\Symplify\\SmartFileSystem\\": "src"
+            "ECSPrefix20220317\\Symplify\\SmartFileSystem\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220316\\Symplify\\SmartFileSystem\\Tests\\": "tests"
+            "ECSPrefix20220317\\Symplify\\SmartFileSystem\\Tests\\": "tests"
         }
     },
     "extra": {
