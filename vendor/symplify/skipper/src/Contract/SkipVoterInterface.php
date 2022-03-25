@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220317\Symplify\Skipper\Contract;
+namespace ECSPrefix20220325\Symplify\Skipper\Contract;
 
-use ECSPrefix20220317\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220325\Symplify\SmartFileSystem\SmartFileInfo;
 interface SkipVoterInterface
 {
     /**
@@ -13,5 +13,5 @@ interface SkipVoterInterface
     /**
      * @param object|string $element
      */
-    public function shouldSkip($element, \ECSPrefix20220317\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool;
+    public function shouldSkip($element, \ECSPrefix20220325\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool;
 }

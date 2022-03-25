@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220317\Symfony\Component\Config;
+namespace ECSPrefix20220325\Symfony\Component\Config;
 
-use ECSPrefix20220317\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix20220325\Symfony\Component\Config\Resource\ResourceInterface;
 /**
  * Interface for ResourceCheckers.
  *
@@ -30,7 +30,7 @@ interface ResourceCheckerInterface
      *
      * @return bool
      */
-    public function supports(\ECSPrefix20220317\Symfony\Component\Config\Resource\ResourceInterface $metadata);
+    public function supports(\ECSPrefix20220325\Symfony\Component\Config\Resource\ResourceInterface $metadata);
     /**
      * Validates the resource.
      *
@@ -38,5 +38,5 @@ interface ResourceCheckerInterface
      *
      * @return bool
      */
-    public function isFresh(\ECSPrefix20220317\Symfony\Component\Config\Resource\ResourceInterface $resource, int $timestamp);
+    public function isFresh(\ECSPrefix20220325\Symfony\Component\Config\Resource\ResourceInterface $resource, int $timestamp);
 }

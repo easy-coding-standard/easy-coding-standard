@@ -5,7 +5,7 @@
  * https://github.com/nette/coding-standard
  */
 declare (strict_types=1);
-namespace ECSPrefix20220317;
+namespace ECSPrefix20220325;
 
 return [
     // use function in Arrays.php, Callback.php, Html.php, Strings.php

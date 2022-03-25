@@ -39,7 +39,7 @@ final class HeredocIndentationFixer extends \PhpCsFixer\AbstractFixer implements
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Heredoc/nowdoc content must be properly indented. Requires PHP >= 7.3.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20220317;
+namespace ECSPrefix20220325;
 
 $a = <<<EOD
 abc
@@ -51,7 +51,7 @@ SAMPLE
 , new \PhpCsFixer\FixerDefinition\VersionSpecification(70300)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20220317;
+namespace ECSPrefix20220325;
 
 $a = <<<'EOD'
 abc
@@ -63,7 +63,7 @@ SAMPLE
 , new \PhpCsFixer\FixerDefinition\VersionSpecification(70300)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20220317;
+namespace ECSPrefix20220325;
 
 $a = <<<'EOD'
 abc
@@ -131,7 +131,7 @@ SAMPLE
             return;
         }
         $content = $tokens[$index]->getContent();
-        if (!\in_array($content[0], ["\r", "\n"], \true) && (!$currentIndent || $currentIndent === \substr($content, 0, $currentIndentLength))) {
+        if (!\in_array($content[0], ["\r", "\n"], \true) && (!$currentIndent || \strncmp($content, $currentIndent, \strlen($currentIndent)) === 0)) {
             $content = $indent . \substr($content, $currentIndentLength);
         } elseif ($currentIndent) {
             $content = \PhpCsFixer\Preg::replace('/^(?!' . $currentIndent . ')\\h+/', '', $content);

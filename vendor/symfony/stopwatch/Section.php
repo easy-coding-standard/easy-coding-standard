@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220317\Symfony\Component\Stopwatch;
+namespace ECSPrefix20220325\Symfony\Component\Stopwatch;
 
 /**
  * Stopwatch section.
@@ -87,10 +87,10 @@ class Section
     /**
      * Starts an event.
      */
-    public function startEvent(string $name, ?string $category) : \ECSPrefix20220317\Symfony\Component\Stopwatch\StopwatchEvent
+    public function startEvent(string $name, ?string $category) : \ECSPrefix20220325\Symfony\Component\Stopwatch\StopwatchEvent
     {
         if (!isset($this->events[$name])) {
-            $this->events[$name] = new \ECSPrefix20220317\Symfony\Component\Stopwatch\StopwatchEvent($this->origin ?: \microtime(\true) * 1000, $category, $this->morePrecision, $name);
+            $this->events[$name] = new \ECSPrefix20220325\Symfony\Component\Stopwatch\StopwatchEvent($this->origin ?: \microtime(\true) * 1000, $category, $this->morePrecision, $name);
         }
         return $this->events[$name]->start();
     }
@@ -106,7 +106,7 @@ class Section
      *
      * @throws \LogicException When the event has not been started
      */
-    public function stopEvent(string $name) : \ECSPrefix20220317\Symfony\Component\Stopwatch\StopwatchEvent
+    public function stopEvent(string $name) : \ECSPrefix20220325\Symfony\Component\Stopwatch\StopwatchEvent
     {
         if (!isset($this->events[$name])) {
             throw new \LogicException(\sprintf('Event "%s" is not started.', $name));
@@ -118,7 +118,7 @@ class Section
      *
      * @throws \LogicException When the event has not been started
      */
-    public function lap(string $name) : \ECSPrefix20220317\Symfony\Component\Stopwatch\StopwatchEvent
+    public function lap(string $name) : \ECSPrefix20220325\Symfony\Component\Stopwatch\StopwatchEvent
     {
         return $this->stopEvent($name)->start();
     }
@@ -127,7 +127,7 @@ class Section
      *
      * @throws \LogicException When the event is not known
      */
-    public function getEvent(string $name) : \ECSPrefix20220317\Symfony\Component\Stopwatch\StopwatchEvent
+    public function getEvent(string $name) : \ECSPrefix20220325\Symfony\Component\Stopwatch\StopwatchEvent
     {
         if (!isset($this->events[$name])) {
             throw new \LogicException(\sprintf('Event "%s" is not known.', $name));

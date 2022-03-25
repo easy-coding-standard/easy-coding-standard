@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20220317\React\Socket;
+namespace ECSPrefix20220325\React\Socket;
 
-use ECSPrefix20220317\Evenement\EventEmitter;
-use ECSPrefix20220317\React\EventLoop\Loop;
-use ECSPrefix20220317\React\EventLoop\LoopInterface;
+use ECSPrefix20220325\Evenement\EventEmitter;
+use ECSPrefix20220325\React\EventLoop\Loop;
+use ECSPrefix20220325\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -31,7 +31,7 @@ use RuntimeException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class TcpServer extends \ECSPrefix20220317\Evenement\EventEmitter implements \ECSPrefix20220317\React\Socket\ServerInterface
+final class TcpServer extends \ECSPrefix20220325\Evenement\EventEmitter implements \ECSPrefix20220325\React\Socket\ServerInterface
 {
     private $master;
     private $loop;
@@ -126,9 +126,9 @@ final class TcpServer extends \ECSPrefix20220317\Evenement\EventEmitter implemen
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($uri, \ECSPrefix20220317\React\EventLoop\LoopInterface $loop = null, array $context = array())
+    public function __construct($uri, \ECSPrefix20220325\React\EventLoop\LoopInterface $loop = null, array $context = array())
     {
-        $this->loop = $loop ?: \ECSPrefix20220317\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20220325\React\EventLoop\Loop::get();
         // a single port has been given => assume localhost
         if ((string) (int) $uri === (string) $uri) {
             $uri = '127.0.0.1:' . $uri;
@@ -158,9 +158,9 @@ final class TcpServer extends \ECSPrefix20220317\Evenement\EventEmitter implemen
             if ($errno === 0) {
                 // PHP does not seem to report errno, so match errno from errstr
                 // @link https://3v4l.org/3qOBl
-                $errno = \ECSPrefix20220317\React\Socket\SocketServer::errno($errstr);
+                $errno = \ECSPrefix20220325\React\Socket\SocketServer::errno($errstr);
             }
-            throw new \RuntimeException('Failed to listen on "' . $uri . '": ' . $errstr . \ECSPrefix20220317\React\Socket\SocketServer::errconst($errno), $errno);
+            throw new \RuntimeException('Failed to listen on "' . $uri . '": ' . $errstr . \ECSPrefix20220325\React\Socket\SocketServer::errconst($errno), $errno);
         }
         \stream_set_blocking($this->master, \false);
         $this->resume();
@@ -195,7 +195,7 @@ final class TcpServer extends \ECSPrefix20220317\Evenement\EventEmitter implemen
         $that = $this;
         $this->loop->addReadStream($this->master, function ($master) use($that) {
             try {
-                $newSocket = \ECSPrefix20220317\React\Socket\SocketServer::accept($master);
+                $newSocket = \ECSPrefix20220325\React\Socket\SocketServer::accept($master);
             } catch (\RuntimeException $e) {
                 $that->emit('error', array($e));
                 return;
@@ -216,6 +216,6 @@ final class TcpServer extends \ECSPrefix20220317\Evenement\EventEmitter implemen
     /** @internal */
     public function handleConnection($socket)
     {
-        $this->emit('connection', array(new \ECSPrefix20220317\React\Socket\Connection($socket, $this->loop)));
+        $this->emit('connection', array(new \ECSPrefix20220325\React\Socket\Connection($socket, $this->loop)));
     }
 }

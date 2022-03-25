@@ -233,7 +233,7 @@ final class Annotation
             if (!$this->supportTypes()) {
                 throw new \RuntimeException('This tag does not support types.');
             }
-            $matchingResult = \PhpCsFixer\Preg::match('{^(?:\\s*\\*|/\\*\\*)\\s*@' . $name . '\\s+' . \PhpCsFixer\DocBlock\TypeExpression::REGEX_TYPES . '(?:(?:[*\\h\\v]|\\&[\\.\\$]).*)?\\r?$}sx', $this->lines[0]->getContent(), $matches);
+            $matchingResult = \PhpCsFixer\Preg::match('{^(?:\\s*\\*|/\\*\\*)\\s*@' . $name . '\\s+' . \PhpCsFixer\DocBlock\TypeExpression::REGEX_TYPES . '(?:(?:[*\\h\\v]|\\&[\\.\\$]).*)?\\r?$}isx', $this->lines[0]->getContent(), $matches);
             $this->typesContent = 1 === $matchingResult ? $matches['types'] : '';
         }
         return $this->typesContent;

@@ -52,6 +52,9 @@ final class LineLengthCloserTransformer
         if (!$previousToken->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
             return \false;
         }
+        if ($previousPreviousToken->isArray() && \trim($previousPreviousToken->getContent()) === '') {
+            return \false;
+        }
         return !$previousPreviousToken->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]);
     }
 }

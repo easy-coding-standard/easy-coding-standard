@@ -63,6 +63,7 @@ final class ClassReferenceNameCasingFixer extends \PhpCsFixer\AbstractFixer
     private function getClassReference(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace) : \Generator
     {
         static $notBeforeKinds;
+        static $blockKinds;
         if (null === $notBeforeKinds) {
             $notBeforeKinds = [
                 \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT,
@@ -83,6 +84,13 @@ final class ClassReferenceNameCasingFixer extends \PhpCsFixer\AbstractFixer
                 $notBeforeKinds[] = T_ENUM;
             }
         }
+        if (null === $blockKinds) {
+            $blockKinds = ['before' => [','], 'after' => [',']];
+            foreach (\PhpCsFixer\Tokenizer\Tokens::getBlockEdgeDefinitions() as $definition) {
+                $blockKinds['before'][] = $definition['start'];
+                $blockKinds['after'][] = $definition['end'];
+            }
+        }
         $namespaceIsGlobal = $namespace->isGlobalNamespace();
         for ($index = $namespace->getScopeStartIndex(); $index < $namespace->getScopeEndIndex(); ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_STRING)) {
@@ -93,6 +101,7 @@ final class ClassReferenceNameCasingFixer extends \PhpCsFixer\AbstractFixer
                 continue;
             }
             $prevIndex = $tokens->getPrevMeaningfulToken($index);
+            $nextIndex = $tokens->getNextMeaningfulToken($index);
             $isNamespaceSeparator = $tokens[$prevIndex]->isGivenKind(\T_NS_SEPARATOR);
             if (!$isNamespaceSeparator && !$namespaceIsGlobal) {
                 continue;
@@ -105,7 +114,10 @@ final class ClassReferenceNameCasingFixer extends \PhpCsFixer\AbstractFixer
             } elseif ($tokens[$prevIndex]->isGivenKind($notBeforeKinds)) {
                 continue;
             }
-            if (!$tokens[$prevIndex]->isGivenKind(\T_NEW) && $tokens[$nextIndex]->equals('(')) {
+            if ($tokens[$prevIndex]->equalsAny($blockKinds['before']) && $tokens[$nextIndex]->equalsAny($blockKinds['after'])) {
+                continue;
+            }
+            if (!$tokens[$prevIndex]->isGivenKind(\T_NEW) && $tokens[$nextIndex]->equalsAny(['(', ';', [\T_CLOSE_TAG]])) {
                 continue;
             }
             (yield $index);

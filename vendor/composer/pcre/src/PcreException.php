@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220317\Composer\Pcre;
+namespace ECSPrefix20220325\Composer\Pcre;
 
 class PcreException extends \RuntimeException
 {
@@ -23,7 +23,7 @@ class PcreException extends \RuntimeException
         if (\is_array($pattern)) {
             $pattern = \implode(', ', $pattern);
         }
-        return new \ECSPrefix20220317\Composer\Pcre\PcreException($function . '(): failed executing "' . $pattern . '": ' . self::pcreLastErrorMessage($code), $code);
+        return new \ECSPrefix20220325\Composer\Pcre\PcreException($function . '(): failed executing "' . $pattern . '": ' . self::pcreLastErrorMessage($code), $code);
     }
     /**
      * @param  int $code

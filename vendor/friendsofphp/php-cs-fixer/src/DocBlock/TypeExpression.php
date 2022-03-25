@@ -235,7 +235,7 @@ final class TypeExpression
             return;
         }
         if ('' !== ($matches['callable'] ?? '')) {
-            $this->parseCommaSeparatedInnerTypes($index + \strlen($matches['callable_start']), $matches['callable_arguments']);
+            $this->parseCommaSeparatedInnerTypes($index + \strlen($matches['callable_start']), $matches['callable_arguments'] ?? '');
             $return = $matches['callable_return'] ?? null;
             if (null !== $return) {
                 $this->innerTypeExpressions[] = ['start_index' => \strlen($this->value) - \strlen($matches['callable_return']), 'expression' => $this->inner($matches['callable_return'])];
