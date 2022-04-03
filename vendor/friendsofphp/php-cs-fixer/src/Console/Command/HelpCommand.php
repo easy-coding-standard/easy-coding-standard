@@ -15,17 +15,17 @@ namespace PhpCsFixer\Console\Command;
 use PhpCsFixer\FixerConfiguration\AllowedValueSubset;
 use PhpCsFixer\FixerConfiguration\FixerOptionInterface;
 use PhpCsFixer\Preg;
-use ECSPrefix20220325\Symfony\Component\Console\Command\HelpCommand as BaseHelpCommand;
-use ECSPrefix20220325\Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use ECSPrefix20220325\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220325\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220403\Symfony\Component\Console\Command\HelpCommand as BaseHelpCommand;
+use ECSPrefix20220403\Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use ECSPrefix20220403\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220403\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
  * @internal
  */
-final class HelpCommand extends \ECSPrefix20220325\Symfony\Component\Console\Command\HelpCommand
+final class HelpCommand extends \ECSPrefix20220403\Symfony\Component\Console\Command\HelpCommand
 {
     /**
      * @var string
@@ -66,9 +66,9 @@ final class HelpCommand extends \ECSPrefix20220325\Symfony\Component\Console\Com
     /**
      * {@inheritdoc}
      */
-    protected function initialize(\ECSPrefix20220325\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220325\Symfony\Component\Console\Output\OutputInterface $output) : void
+    protected function initialize(\ECSPrefix20220403\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220403\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
-        $output->getFormatter()->setStyle('url', new \ECSPrefix20220325\Symfony\Component\Console\Formatter\OutputFormatterStyle('blue'));
+        $output->getFormatter()->setStyle('url', new \ECSPrefix20220403\Symfony\Component\Console\Formatter\OutputFormatterStyle('blue'));
     }
     /**
      * @param mixed $value
@@ -83,7 +83,23 @@ final class HelpCommand extends \ECSPrefix20220325\Symfony\Component\Console\Com
         if (0 === \count($value)) {
             return '[]';
         }
-        $isHash = !array_is_list($value);
+        $arrayIsList = function (array $array) : bool {
+            if (\function_exists('ECSPrefix20220403\\array_is_list')) {
+                return array_is_list($array);
+            }
+            if ($array === []) {
+                return \true;
+            }
+            $current_key = 0;
+            foreach ($array as $key => $noop) {
+                if ($key !== $current_key) {
+                    return \false;
+                }
+                ++$current_key;
+            }
+            return \true;
+        };
+        $isHash = !$arrayIsList($value);
         $str = '[';
         foreach ($value as $k => $v) {
             if ($isHash) {

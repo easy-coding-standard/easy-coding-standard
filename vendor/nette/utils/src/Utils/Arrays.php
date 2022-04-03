@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220325\Nette\Utils;
+namespace ECSPrefix20220403\Nette\Utils;
 
-use ECSPrefix20220325\Nette;
+use ECSPrefix20220403\Nette;
 use function is_array, is_int, is_object, count;
 /**
  * Array tools library.
@@ -31,7 +31,7 @@ class Arrays
                 $array = $array[$k];
             } else {
                 if (\func_num_args() < 3) {
-                    throw new \ECSPrefix20220325\Nette\InvalidArgumentException("Missing item '{$k}'.");
+                    throw new \ECSPrefix20220403\Nette\InvalidArgumentException("Missing item '{$k}'.");
                 }
                 return $default;
             }
@@ -52,7 +52,7 @@ class Arrays
             if (\is_array($array) || $array === null) {
                 $array =& $array[$k];
             } else {
-                throw new \ECSPrefix20220325\Nette\InvalidArgumentException('Traversed item is not an array.');
+                throw new \ECSPrefix20220403\Nette\InvalidArgumentException('Traversed item is not an array.');
             }
         }
         return $array;
@@ -84,7 +84,7 @@ class Arrays
      */
     public static function getKeyOffset(array $array, $key) : ?int
     {
-        return \ECSPrefix20220325\Nette\Utils\Helpers::falseToNull(\array_search(self::toKey($key), \array_keys($array), \true));
+        return \ECSPrefix20220403\Nette\Utils\Helpers::falseToNull(\array_search(self::toKey($key), \array_keys($array), \true));
     }
     /**
      * @deprecated  use  getKeyOffset()
@@ -168,7 +168,7 @@ class Arrays
      */
     public static function grep(array $array, string $pattern, int $flags = 0) : array
     {
-        return \ECSPrefix20220325\Nette\Utils\Strings::pcre('preg_grep', [$pattern, $array, $flags]);
+        return \ECSPrefix20220403\Nette\Utils\Strings::pcre('preg_grep', [$pattern, $array, $flags]);
     }
     /**
      * Transforms multidimensional array to flat array.
@@ -190,7 +190,23 @@ class Arrays
      */
     public static function isList($value) : bool
     {
-        return \is_array($value) && (\PHP_VERSION_ID < 80100 ? !$value || \array_keys($value) === \range(0, \count($value) - 1) : array_is_list($value));
+        $arrayIsList = function (array $array) : bool {
+            if (\function_exists('ECSPrefix20220403\\array_is_list')) {
+                return array_is_list($array);
+            }
+            if ($array === []) {
+                return \true;
+            }
+            $current_key = 0;
+            foreach ($array as $key => $noop) {
+                if ($key !== $current_key) {
+                    return \false;
+                }
+                ++$current_key;
+            }
+            return \true;
+        };
+        return \is_array($value) && (\PHP_VERSION_ID < 80100 ? !$value || \array_keys($value) === \range(0, \count($value) - 1) : $arrayIsList($value));
     }
     /**
      * Reformats table to associative tree. Path looks like 'field|field[]field->field=field'.
@@ -201,7 +217,7 @@ class Arrays
     {
         $parts = \is_array($path) ? $path : \preg_split('#(\\[\\]|->|=|\\|)#', $path, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY);
         if (!$parts || $parts === ['->'] || $parts[0] === '=' || $parts[0] === '|') {
-            throw new \ECSPrefix20220325\Nette\InvalidArgumentException("Invalid path '{$path}'.");
+            throw new \ECSPrefix20220403\Nette\InvalidArgumentException("Invalid path '{$path}'.");
         }
         $res = $parts[0] === '->' ? new \stdClass() : [];
         foreach ($array as $rowOrig) {
@@ -264,7 +280,7 @@ class Arrays
             unset($array[$key]);
             return $value;
         } elseif (\func_num_args() < 3) {
-            throw new \ECSPrefix20220325\Nette\InvalidArgumentException("Missing item '{$key}'.");
+            throw new \ECSPrefix20220403\Nette\InvalidArgumentException("Missing item '{$key}'.");
         } else {
             return $default;
         }

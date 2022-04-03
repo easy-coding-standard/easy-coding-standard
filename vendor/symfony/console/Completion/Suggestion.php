@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220325\Symfony\Component\Console\Completion;
+namespace ECSPrefix20220403\Symfony\Component\Console\Completion;
 
 /**
  * Represents a single suggested value.

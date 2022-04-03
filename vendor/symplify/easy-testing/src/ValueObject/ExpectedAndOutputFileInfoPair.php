@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220325\Symplify\EasyTesting\ValueObject;
+namespace ECSPrefix20220403\Symplify\EasyTesting\ValueObject;
 
-use ECSPrefix20220325\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220325\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20220403\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220403\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class ExpectedAndOutputFileInfoPair
 {
     /**
@@ -15,7 +15,7 @@ final class ExpectedAndOutputFileInfoPair
      * @var \Symplify\SmartFileSystem\SmartFileInfo|null
      */
     private $outputFileInfo;
-    public function __construct(\ECSPrefix20220325\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, ?\ECSPrefix20220325\Symplify\SmartFileSystem\SmartFileInfo $outputFileInfo)
+    public function __construct(\ECSPrefix20220403\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, ?\ECSPrefix20220403\Symplify\SmartFileSystem\SmartFileInfo $outputFileInfo)
     {
         $this->expectedFileInfo = $expectedFileInfo;
         $this->outputFileInfo = $outputFileInfo;
@@ -32,8 +32,8 @@ final class ExpectedAndOutputFileInfoPair
      */
     public function getOutputFileContent() : string
     {
-        if (!$this->outputFileInfo instanceof \ECSPrefix20220325\Symplify\SmartFileSystem\SmartFileInfo) {
-            throw new \ECSPrefix20220325\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        if (!$this->outputFileInfo instanceof \ECSPrefix20220403\Symplify\SmartFileSystem\SmartFileInfo) {
+            throw new \ECSPrefix20220403\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->outputFileInfo->getContents();
     }
