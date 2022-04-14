@@ -16,13 +16,21 @@ final class StaticVersionResolver
     /**
      * @var string
      */
-    public const PACKAGE_VERSION = 'a31301cd6235526480315505debd002627ab54ed';
+    public const PACKAGE_VERSION = '68870a9ef1867f5961bbc6cded720541e7193127';
     /**
      * @var string
      */
-    public const RELEASE_DATE = '2022-04-14 22:17:56';
+    public const RELEASE_DATE = '2022-04-14 23:28:17';
     public static function resolvePackageVersion() : string
     {
+        $pointsAtProcess = new \ECSPrefix20220414\Symfony\Component\Process\Process(['git', 'tag', '--points-at'], __DIR__);
+        if ($pointsAtProcess->run() !== \ECSPrefix20220414\Symfony\Component\Console\Command\Command::SUCCESS) {
+            throw new \Symplify\EasyCodingStandard\Exception\VersionException('You must ensure to run compile from composer git repository clone and that git binary is available.');
+        }
+        $tag = \trim($pointsAtProcess->getOutput());
+        if ($tag) {
+            return $tag;
+        }
         $process = new \ECSPrefix20220414\Symfony\Component\Process\Process(['git', 'log', '--pretty="%H"', '-n1', 'HEAD'], __DIR__);
         if ($process->run() !== \ECSPrefix20220414\Symfony\Component\Console\Command\Command::SUCCESS) {
             throw new \Symplify\EasyCodingStandard\Exception\VersionException('You must ensure to run compile from composer git repository clone and that git binary is available.');
