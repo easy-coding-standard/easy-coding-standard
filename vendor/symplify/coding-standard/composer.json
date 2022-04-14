@@ -35,6 +35,12 @@
     "extra": {
         "branch-alias": {
             "dev-main": "10.2-dev"
+        },
+        "enable-patching": true
+    },
+    "config": {
+        "allow-plugins": {
+            "cweagans\/composer-patches": true
         }
     },
     "conflict": {

@@ -34,9 +34,9 @@ final class UseArrowFunctionsFixer extends \PhpCsFixer\AbstractFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Anonymous functions with one-liner return statement must use arrow functions.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20220403;
+namespace ECSPrefix20220414;
 
-\ECSPrefix20220403\foo(function ($a) use($b) {
+\ECSPrefix20220414\foo(function ($a) use($b) {
     return $a + $b;
 });
 

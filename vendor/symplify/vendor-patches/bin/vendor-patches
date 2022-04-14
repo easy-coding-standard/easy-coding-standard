@@ -1,0 +1,5 @@
+#!/usr/bin/env php
+<?php 
+namespace ECSPrefix20220414;
+
+require __DIR__ . '/vendor-patches.php';
