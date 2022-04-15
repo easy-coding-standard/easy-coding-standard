@@ -8,8 +8,8 @@ use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20220414\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix20220414\Webmozart\Assert\Assert;
+use ECSPrefix20220415\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix20220415\Webmozart\Assert\Assert;
 /**
  * @api
  */
@@ -20,7 +20,7 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
      */
     public function paths(array $paths) : void
     {
-        \ECSPrefix20220414\Webmozart\Assert\Assert::allString($paths);
+        \ECSPrefix20220415\Webmozart\Assert\Assert::allString($paths);
         $parameters = $this->parameters();
         $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, $paths);
     }
@@ -37,8 +37,8 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
      */
     public function sets(array $sets) : void
     {
-        \ECSPrefix20220414\Webmozart\Assert\Assert::allString($sets);
-        \ECSPrefix20220414\Webmozart\Assert\Assert::allFileExists($sets);
+        \ECSPrefix20220415\Webmozart\Assert\Assert::allString($sets);
+        \ECSPrefix20220415\Webmozart\Assert\Assert::allFileExists($sets);
         foreach ($sets as $set) {
             $this->import($set);
         }
@@ -62,7 +62,7 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
         $services = $this->services();
         $service = $services->set($checkerClass);
         if (\is_a($checkerClass, \PhpCsFixer\Fixer\FixerInterface::class, \true)) {
-            \ECSPrefix20220414\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PhpCsFixer\Fixer\ConfigurableFixerInterface::class, \ECSPrefix20220414\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface::class]);
+            \ECSPrefix20220415\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PhpCsFixer\Fixer\ConfigurableFixerInterface::class, \ECSPrefix20220415\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface::class]);
             $service->call('configure', [$configuration]);
         }
         // @todo
@@ -72,6 +72,6 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
      */
     private function isCheckerClass(string $checkerClass) : void
     {
-        \ECSPrefix20220414\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PHP_CodeSniffer\Sniffs\Sniff::class, \PhpCsFixer\Fixer\FixerInterface::class]);
+        \ECSPrefix20220415\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PHP_CodeSniffer\Sniffs\Sniff::class, \PhpCsFixer\Fixer\FixerInterface::class]);
     }
 }

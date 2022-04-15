@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220414\Nette\Neon;
+namespace ECSPrefix20220415\Nette\Neon;
 
 /**
  * @implements \IteratorAggregate<Node>
