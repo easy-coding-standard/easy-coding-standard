@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220415\Symplify\EasyTesting\PHPUnit;
+namespace ECSPrefix20220416\Symplify\EasyTesting\PHPUnit;
 
 /**
  * @api

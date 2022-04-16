@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220415\Symplify\PackageBuilder\Console\Output;
+namespace ECSPrefix20220416\Symplify\PackageBuilder\Console\Output;
 
-use ECSPrefix20220415\SebastianBergmann\Diff\Differ;
-use ECSPrefix20220415\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
+use ECSPrefix20220416\SebastianBergmann\Diff\Differ;
+use ECSPrefix20220416\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
 /**
  * @api
  */
@@ -18,7 +18,7 @@ final class ConsoleDiffer
      * @var \Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
-    public function __construct(\ECSPrefix20220415\SebastianBergmann\Diff\Differ $differ, \ECSPrefix20220415\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
+    public function __construct(\ECSPrefix20220416\SebastianBergmann\Diff\Differ $differ, \ECSPrefix20220416\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
     {
         $this->differ = $differ;
         $this->colorConsoleDiffFormatter = $colorConsoleDiffFormatter;

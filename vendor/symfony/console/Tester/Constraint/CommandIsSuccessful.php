@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220415\Symfony\Component\Console\Tester\Constraint;
+namespace ECSPrefix20220416\Symfony\Component\Console\Tester\Constraint;
 
-use ECSPrefix20220415\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20220415\Symfony\Component\Console\Command\Command;
-final class CommandIsSuccessful extends \ECSPrefix20220415\PHPUnit\Framework\Constraint\Constraint
+use ECSPrefix20220416\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20220416\Symfony\Component\Console\Command\Command;
+final class CommandIsSuccessful extends \ECSPrefix20220416\PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * {@inheritdoc}
@@ -26,7 +26,7 @@ final class CommandIsSuccessful extends \ECSPrefix20220415\PHPUnit\Framework\Con
      */
     protected function matches($other) : bool
     {
-        return \ECSPrefix20220415\Symfony\Component\Console\Command\Command::SUCCESS === $other;
+        return \ECSPrefix20220416\Symfony\Component\Console\Command\Command::SUCCESS === $other;
     }
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ final class CommandIsSuccessful extends \ECSPrefix20220415\PHPUnit\Framework\Con
      */
     protected function additionalFailureDescription($other) : string
     {
-        $mapping = [\ECSPrefix20220415\Symfony\Component\Console\Command\Command::FAILURE => 'Command failed.', \ECSPrefix20220415\Symfony\Component\Console\Command\Command::INVALID => 'Command was invalid.'];
+        $mapping = [\ECSPrefix20220416\Symfony\Component\Console\Command\Command::FAILURE => 'Command failed.', \ECSPrefix20220416\Symfony\Component\Console\Command\Command::INVALID => 'Command was invalid.'];
         return $mapping[$other] ?? \sprintf('Command returned exit status %d.', $other);
     }
 }

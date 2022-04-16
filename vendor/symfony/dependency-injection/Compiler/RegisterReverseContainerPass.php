@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220415\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220416\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220415\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix20220415\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220415\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220415\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220415\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20220416\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20220416\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220416\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220416\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220416\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class RegisterReverseContainerPass implements \ECSPrefix20220415\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class RegisterReverseContainerPass implements \ECSPrefix20220416\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var bool
@@ -28,27 +28,27 @@ class RegisterReverseContainerPass implements \ECSPrefix20220415\Symfony\Compone
     {
         $this->beforeRemoving = $beforeRemoving;
     }
-    public function process(\ECSPrefix20220415\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\ECSPrefix20220416\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition('reverse_container')) {
             return;
         }
-        $refType = $this->beforeRemoving ? \ECSPrefix20220415\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE : \ECSPrefix20220415\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+        $refType = $this->beforeRemoving ? \ECSPrefix20220416\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE : \ECSPrefix20220416\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
         $services = [];
         foreach ($container->findTaggedServiceIds('container.reversible') as $id => $tags) {
-            $services[$id] = new \ECSPrefix20220415\Symfony\Component\DependencyInjection\Reference($id, $refType);
+            $services[$id] = new \ECSPrefix20220416\Symfony\Component\DependencyInjection\Reference($id, $refType);
         }
         if ($this->beforeRemoving) {
             // prevent inlining of the reverse container
-            $services['reverse_container'] = new \ECSPrefix20220415\Symfony\Component\DependencyInjection\Reference('reverse_container', $refType);
+            $services['reverse_container'] = new \ECSPrefix20220416\Symfony\Component\DependencyInjection\Reference('reverse_container', $refType);
         }
         $locator = $container->getDefinition('reverse_container')->getArgument(1);
-        if ($locator instanceof \ECSPrefix20220415\Symfony\Component\DependencyInjection\Reference) {
+        if ($locator instanceof \ECSPrefix20220416\Symfony\Component\DependencyInjection\Reference) {
             $locator = $container->getDefinition((string) $locator);
         }
-        if ($locator instanceof \ECSPrefix20220415\Symfony\Component\DependencyInjection\Definition) {
+        if ($locator instanceof \ECSPrefix20220416\Symfony\Component\DependencyInjection\Definition) {
             foreach ($services as $id => $ref) {
-                $services[$id] = new \ECSPrefix20220415\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument($ref);
+                $services[$id] = new \ECSPrefix20220416\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument($ref);
             }
             $locator->replaceArgument(0, $services);
         } else {

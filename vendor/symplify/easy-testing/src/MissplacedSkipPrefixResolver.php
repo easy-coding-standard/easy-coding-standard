@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220415\Symplify\EasyTesting;
+namespace ECSPrefix20220416\Symplify\EasyTesting;
 
-use ECSPrefix20220415\Nette\Utils\Strings;
-use ECSPrefix20220415\Symplify\EasyTesting\ValueObject\IncorrectAndMissingSkips;
-use ECSPrefix20220415\Symplify\EasyTesting\ValueObject\Prefix;
-use ECSPrefix20220415\Symplify\EasyTesting\ValueObject\SplitLine;
-use ECSPrefix20220415\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220416\Nette\Utils\Strings;
+use ECSPrefix20220416\Symplify\EasyTesting\ValueObject\IncorrectAndMissingSkips;
+use ECSPrefix20220416\Symplify\EasyTesting\ValueObject\Prefix;
+use ECSPrefix20220416\Symplify\EasyTesting\ValueObject\SplitLine;
+use ECSPrefix20220416\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyTesting\Tests\MissingSkipPrefixResolver\MissingSkipPrefixResolverTest
  */
@@ -16,14 +16,14 @@ final class MissplacedSkipPrefixResolver
     /**
      * @param SmartFileInfo[] $fixtureFileInfos
      */
-    public function resolve(array $fixtureFileInfos) : \ECSPrefix20220415\Symplify\EasyTesting\ValueObject\IncorrectAndMissingSkips
+    public function resolve(array $fixtureFileInfos) : \ECSPrefix20220416\Symplify\EasyTesting\ValueObject\IncorrectAndMissingSkips
     {
         $incorrectSkips = [];
         $missingSkips = [];
         foreach ($fixtureFileInfos as $fixtureFileInfo) {
             $hasNameSkipStart = $this->hasNameSkipStart($fixtureFileInfo);
             $fileContents = $fixtureFileInfo->getContents();
-            $hasSplitLine = (bool) \ECSPrefix20220415\Nette\Utils\Strings::match($fileContents, \ECSPrefix20220415\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
+            $hasSplitLine = (bool) \ECSPrefix20220416\Nette\Utils\Strings::match($fileContents, \ECSPrefix20220416\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
             if ($hasNameSkipStart && $hasSplitLine) {
                 $incorrectSkips[] = $fixtureFileInfo;
                 continue;
@@ -32,10 +32,10 @@ final class MissplacedSkipPrefixResolver
                 $missingSkips[] = $fixtureFileInfo;
             }
         }
-        return new \ECSPrefix20220415\Symplify\EasyTesting\ValueObject\IncorrectAndMissingSkips($incorrectSkips, $missingSkips);
+        return new \ECSPrefix20220416\Symplify\EasyTesting\ValueObject\IncorrectAndMissingSkips($incorrectSkips, $missingSkips);
     }
-    private function hasNameSkipStart(\ECSPrefix20220415\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : bool
+    private function hasNameSkipStart(\ECSPrefix20220416\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : bool
     {
-        return (bool) \ECSPrefix20220415\Nette\Utils\Strings::match($fixtureFileInfo->getBasenameWithoutSuffix(), \ECSPrefix20220415\Symplify\EasyTesting\ValueObject\Prefix::SKIP_PREFIX_REGEX);
+        return (bool) \ECSPrefix20220416\Nette\Utils\Strings::match($fixtureFileInfo->getBasenameWithoutSuffix(), \ECSPrefix20220416\Symplify\EasyTesting\ValueObject\Prefix::SKIP_PREFIX_REGEX);
     }
 }
