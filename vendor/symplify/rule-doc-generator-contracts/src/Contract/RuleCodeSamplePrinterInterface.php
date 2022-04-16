@@ -10,5 +10,5 @@ interface RuleCodeSamplePrinterInterface
     /**
      * @return string[]
      */
-    public function print(\ECSPrefix20220416\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \ECSPrefix20220416\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition, bool $shouldUseConfigureMethod) : array;
+    public function print(\ECSPrefix20220416\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \ECSPrefix20220416\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array;
 }
