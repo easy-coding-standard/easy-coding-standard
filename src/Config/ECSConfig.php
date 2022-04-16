@@ -104,6 +104,7 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
      */
     private function isCheckerClass(string $checkerClass) : void
     {
+        \ECSPrefix20220416\Webmozart\Assert\Assert::classExists($checkerClass);
         \ECSPrefix20220416\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PHP_CodeSniffer\Sniffs\Sniff::class, \PhpCsFixer\Fixer\FixerInterface::class]);
     }
 }
