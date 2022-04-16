@@ -53,6 +53,15 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
         $services->set($checkerClass);
     }
     /**
+     * @param array<class-string<Sniff|FixerInterface>> $checkerClasses
+     */
+    public function rules(array $checkerClasses) : void
+    {
+        foreach ($checkerClasses as $checkerClass) {
+            $this->rule($checkerClass);
+        }
+    }
+    /**
      * @param class-string $checkerClass
      * @param mixed[] $configuration
      */
@@ -71,6 +80,24 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
                 $service->property($propertyName, $value);
             }
         }
+    }
+    /**
+     * @param Option::INDENTATION_* $indentation
+     */
+    public function indentation(string $indentation) : void
+    {
+        $parameters = $this->parameters();
+        $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::INDENTATION, $indentation);
+    }
+    public function lineEnding(string $lineEnding) : void
+    {
+        $parameters = $this->parameters();
+        $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::LINE_ENDING, $lineEnding);
+    }
+    public function parallel() : void
+    {
+        $parameters = $this->parameters();
+        $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL, \true);
     }
     /**
      * @param class-string $checkerClass

@@ -5,9 +5,8 @@ namespace ECSPrefix20220416;
 
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
-    $services = $containerConfigurator->services();
-    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer::class);
-    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer::class);
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
+    $ecsConfig->rule(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer::class);
 };

@@ -6,10 +6,9 @@ namespace ECSPrefix20220416;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
-    $services = $containerConfigurator->services();
-    $services->set(\PhpCsFixer\Fixer\Import\NoUnusedImportsFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Import\OrderedImportsFixer::class);
-    $services->set(\PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer::class);
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
+    $ecsConfig->rule(\PhpCsFixer\Fixer\Import\NoUnusedImportsFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\Import\OrderedImportsFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer::class);
 };

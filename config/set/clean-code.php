@@ -10,16 +10,15 @@ use PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
-    $services = $containerConfigurator->services();
-    $services->set(\Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer::class)->call('configure', [['syntax' => 'short']]);
-    $services->set(\PhpCsFixer\Fixer\Import\NoUnusedImportsFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Import\OrderedImportsFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer::class);
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
+    $ecsConfig->rule(\Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer::class);
+    $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer::class, ['syntax' => 'short']);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\Import\NoUnusedImportsFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\Import\OrderedImportsFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer::class);
 };

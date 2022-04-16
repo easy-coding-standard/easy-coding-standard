@@ -7,11 +7,10 @@ use PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PhpCsFixer\Fixer\Strict\StrictComparisonFixer;
 use PhpCsFixer\Fixer\Strict\StrictParamFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
-    $services = $containerConfigurator->services();
-    $services->set(\PhpCsFixer\Fixer\Strict\StrictComparisonFixer::class);
-    $services->set(\PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Strict\StrictParamFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer::class);
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
+    $ecsConfig->rule(\PhpCsFixer\Fixer\Strict\StrictComparisonFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\Strict\StrictParamFixer::class);
+    $ecsConfig->rule(\PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer::class);
 };
