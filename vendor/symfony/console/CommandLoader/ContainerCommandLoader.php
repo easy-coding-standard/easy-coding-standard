@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220416\Symfony\Component\Console\CommandLoader;
+namespace ECSPrefix20220417\Symfony\Component\Console\CommandLoader;
 
-use ECSPrefix20220416\Psr\Container\ContainerInterface;
-use ECSPrefix20220416\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220416\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix20220417\Psr\Container\ContainerInterface;
+use ECSPrefix20220417\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220417\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * Loads commands from a PSR-11 container.
  *
  * @author Robin Chalas <robin.chalas@gmail.com>
  */
-class ContainerCommandLoader implements \ECSPrefix20220416\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
+class ContainerCommandLoader implements \ECSPrefix20220417\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
 {
     private $container;
     /**
@@ -28,7 +28,7 @@ class ContainerCommandLoader implements \ECSPrefix20220416\Symfony\Component\Con
     /**
      * @param array $commandMap An array with command names as keys and service ids as values
      */
-    public function __construct(\ECSPrefix20220416\Psr\Container\ContainerInterface $container, array $commandMap)
+    public function __construct(\ECSPrefix20220417\Psr\Container\ContainerInterface $container, array $commandMap)
     {
         $this->container = $container;
         $this->commandMap = $commandMap;
@@ -36,10 +36,10 @@ class ContainerCommandLoader implements \ECSPrefix20220416\Symfony\Component\Con
     /**
      * {@inheritdoc}
      */
-    public function get(string $name) : \ECSPrefix20220416\Symfony\Component\Console\Command\Command
+    public function get(string $name) : \ECSPrefix20220417\Symfony\Component\Console\Command\Command
     {
         if (!$this->has($name)) {
-            throw new \ECSPrefix20220416\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
+            throw new \ECSPrefix20220417\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
         return $this->container->get($this->commandMap[$name]);
     }

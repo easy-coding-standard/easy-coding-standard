@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220416\Symplify\VendorPatches;
+namespace ECSPrefix20220417\Symplify\VendorPatches;
 
-use ECSPrefix20220416\Nette\Utils\Strings;
-use ECSPrefix20220416\Symplify\VendorPatches\ValueObject\OldAndNewFileInfo;
+use ECSPrefix20220417\Nette\Utils\Strings;
+use ECSPrefix20220417\Symplify\VendorPatches\ValueObject\OldAndNewFileInfo;
 final class PatchFileFactory
 {
-    public function createPatchFilePath(\ECSPrefix20220416\Symplify\VendorPatches\ValueObject\OldAndNewFileInfo $oldAndNewFileInfo, string $vendorDirectory) : string
+    public function createPatchFilePath(\ECSPrefix20220417\Symplify\VendorPatches\ValueObject\OldAndNewFileInfo $oldAndNewFileInfo, string $vendorDirectory) : string
     {
         $newFileInfo = $oldAndNewFileInfo->getNewFileInfo();
         $inVendorRelativeFilePath = $newFileInfo->getRelativeFilePathFromDirectory($vendorDirectory);
-        $relativeFilePathWithoutSuffix = \ECSPrefix20220416\Nette\Utils\Strings::lower($inVendorRelativeFilePath);
-        $pathFileName = \ECSPrefix20220416\Nette\Utils\Strings::webalize($relativeFilePathWithoutSuffix) . '.patch';
+        $relativeFilePathWithoutSuffix = \ECSPrefix20220417\Nette\Utils\Strings::lower($inVendorRelativeFilePath);
+        $pathFileName = \ECSPrefix20220417\Nette\Utils\Strings::webalize($relativeFilePathWithoutSuffix) . '.patch';
         return 'patches' . \DIRECTORY_SEPARATOR . $pathFileName;
     }
 }

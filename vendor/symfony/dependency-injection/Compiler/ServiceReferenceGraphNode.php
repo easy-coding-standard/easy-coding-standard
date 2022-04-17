@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220416\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220417\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220416\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20220416\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220417\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix20220417\Symfony\Component\DependencyInjection\Definition;
 /**
  * Represents a node in your service graph.
  *
@@ -45,11 +45,11 @@ class ServiceReferenceGraphNode
         $this->id = $id;
         $this->value = $value;
     }
-    public function addInEdge(\ECSPrefix20220416\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
+    public function addInEdge(\ECSPrefix20220417\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
     {
         $this->inEdges[] = $edge;
     }
-    public function addOutEdge(\ECSPrefix20220416\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
+    public function addOutEdge(\ECSPrefix20220417\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
     {
         $this->outEdges[] = $edge;
     }
@@ -58,14 +58,14 @@ class ServiceReferenceGraphNode
      */
     public function isAlias() : bool
     {
-        return $this->value instanceof \ECSPrefix20220416\Symfony\Component\DependencyInjection\Alias;
+        return $this->value instanceof \ECSPrefix20220417\Symfony\Component\DependencyInjection\Alias;
     }
     /**
      * Checks if the value of this node is a Definition.
      */
     public function isDefinition() : bool
     {
-        return $this->value instanceof \ECSPrefix20220416\Symfony\Component\DependencyInjection\Definition;
+        return $this->value instanceof \ECSPrefix20220417\Symfony\Component\DependencyInjection\Definition;
     }
     /**
      * Returns the identifier.

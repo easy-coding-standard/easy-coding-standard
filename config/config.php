@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220416;
+namespace ECSPrefix20220417;
 
 use PHP_CodeSniffer\Fixer;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\WhitespacesFixerConfig;
-use ECSPrefix20220416\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20220416\Symfony\Component\Console\Terminal;
+use ECSPrefix20220417\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20220417\Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
@@ -18,14 +18,14 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20220416\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use ECSPrefix20220416\Symplify\PackageBuilder\Yaml\ParametersMerger;
-use ECSPrefix20220416\Symplify\SmartFileSystem\FileSystemFilter;
-use ECSPrefix20220416\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix20220416\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use ECSPrefix20220416\Symplify\SmartFileSystem\Finder\SmartFinder;
-use ECSPrefix20220416\Symplify\SmartFileSystem\SmartFileSystem;
-use function ECSPrefix20220416\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use ECSPrefix20220417\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix20220417\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20220417\Symplify\SmartFileSystem\FileSystemFilter;
+use ECSPrefix20220417\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix20220417\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ECSPrefix20220417\Symplify\SmartFileSystem\Finder\SmartFinder;
+use ECSPrefix20220417\Symplify\SmartFileSystem\SmartFileSystem;
+use function ECSPrefix20220417\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
     $parameters = $ecsConfig->parameters();
     $ecsConfig->indentation(\Symplify\EasyCodingStandard\ValueObject\Option::INDENTATION_SPACES);
@@ -60,18 +60,18 @@ return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig
         __DIR__ . '/../src/Testing',
     ]);
     $services->load('Symplify\\EasyCodingStandard\\', __DIR__ . '/../packages')->exclude([__DIR__ . '/../packages/*/ValueObject/*']);
-    $services->set(\Symplify\EasyCodingStandard\Caching\Cache::class)->factory([\ECSPrefix20220416\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\Caching\CacheFactory::class), 'create']);
-    $services->set(\ECSPrefix20220416\Symfony\Component\Console\Terminal::class);
-    $services->set(\ECSPrefix20220416\Symplify\SmartFileSystem\FileSystemGuard::class);
-    $services->set(\ECSPrefix20220416\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
-    $services->set(\ECSPrefix20220416\Symplify\SmartFileSystem\SmartFileSystem::class);
-    $services->set(\ECSPrefix20220416\Symplify\SmartFileSystem\Finder\SmartFinder::class);
-    $services->set(\ECSPrefix20220416\Symplify\SmartFileSystem\FileSystemFilter::class);
-    $services->set(\ECSPrefix20220416\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
-    $services->set(\ECSPrefix20220416\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20220416\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20220416\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
-    $services->set(\ECSPrefix20220416\Symplify\PackageBuilder\Yaml\ParametersMerger::class);
-    $services->set(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle::class)->factory([\ECSPrefix20220416\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory::class), 'create']);
-    $services->set(\PhpCsFixer\WhitespacesFixerConfig::class)->factory([\ECSPrefix20220416\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory::class), 'create']);
+    $services->set(\Symplify\EasyCodingStandard\Caching\Cache::class)->factory([\ECSPrefix20220417\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\Caching\CacheFactory::class), 'create']);
+    $services->set(\ECSPrefix20220417\Symfony\Component\Console\Terminal::class);
+    $services->set(\ECSPrefix20220417\Symplify\SmartFileSystem\FileSystemGuard::class);
+    $services->set(\ECSPrefix20220417\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
+    $services->set(\ECSPrefix20220417\Symplify\SmartFileSystem\SmartFileSystem::class);
+    $services->set(\ECSPrefix20220417\Symplify\SmartFileSystem\Finder\SmartFinder::class);
+    $services->set(\ECSPrefix20220417\Symplify\SmartFileSystem\FileSystemFilter::class);
+    $services->set(\ECSPrefix20220417\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
+    $services->set(\ECSPrefix20220417\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20220417\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20220417\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
+    $services->set(\ECSPrefix20220417\Symplify\PackageBuilder\Yaml\ParametersMerger::class);
+    $services->set(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle::class)->factory([\ECSPrefix20220417\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory::class), 'create']);
+    $services->set(\PhpCsFixer\WhitespacesFixerConfig::class)->factory([\ECSPrefix20220417\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory::class), 'create']);
     // code sniffer
     $services->set(\PHP_CodeSniffer\Fixer::class);
     // fixer
