@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220417;
+namespace ECSPrefix20220418;
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix20220417\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileSystem;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\ECSPrefix20220417\Symplify\SmartFileSystem\SmartFileSystem::class);
+    $services->set(\ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileSystem::class);
 };

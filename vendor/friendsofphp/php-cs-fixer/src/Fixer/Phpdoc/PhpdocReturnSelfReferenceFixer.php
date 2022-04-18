@@ -24,8 +24,8 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20220417\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix20220417\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix20220418\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20220418\Symfony\Component\OptionsResolver\Options;
 final class PhpdocReturnSelfReferenceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
@@ -112,17 +112,17 @@ class Sample
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
         $default = ['this' => '$this', '@this' => '$this', '$self' => 'self', '@self' => 'self', '$static' => 'static', '@static' => 'static'];
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('replacements', 'Mapping between replaced return types with new ones.'))->setAllowedTypes(['array'])->setNormalizer(static function (\ECSPrefix20220417\Symfony\Component\OptionsResolver\Options $options, array $value) use($default) : array {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('replacements', 'Mapping between replaced return types with new ones.'))->setAllowedTypes(['array'])->setNormalizer(static function (\ECSPrefix20220418\Symfony\Component\OptionsResolver\Options $options, array $value) use($default) : array {
             $normalizedValue = [];
             foreach ($value as $from => $to) {
                 if (\is_string($from)) {
                     $from = \strtolower($from);
                 }
                 if (!isset($default[$from])) {
-                    throw new \ECSPrefix20220417\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown key "%s", expected any of "%s".', \gettype($from) . '#' . $from, \implode('", "', \array_keys($default))));
+                    throw new \ECSPrefix20220418\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown key "%s", expected any of "%s".', \gettype($from) . '#' . $from, \implode('", "', \array_keys($default))));
                 }
                 if (!\in_array($to, self::$toTypes, \true)) {
-                    throw new \ECSPrefix20220417\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown value "%s", expected any of "%s".', \is_object($to) ? \get_class($to) : \gettype($to) . (\is_resource($to) ? '' : '#' . $to), \implode('", "', self::$toTypes)));
+                    throw new \ECSPrefix20220418\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown value "%s", expected any of "%s".', \is_object($to) ? \get_class($to) : \gettype($to) . (\is_resource($to) ? '' : '#' . $to), \implode('", "', self::$toTypes)));
                 }
                 $normalizedValue[$from] = $to;
             }

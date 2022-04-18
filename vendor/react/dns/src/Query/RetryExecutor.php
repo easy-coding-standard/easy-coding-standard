@@ -1,27 +1,27 @@
 <?php
 
-namespace ECSPrefix20220417\React\Dns\Query;
+namespace ECSPrefix20220418\React\Dns\Query;
 
-use ECSPrefix20220417\React\Promise\CancellablePromiseInterface;
-use ECSPrefix20220417\React\Promise\Deferred;
-use ECSPrefix20220417\React\Promise\PromiseInterface;
-final class RetryExecutor implements \ECSPrefix20220417\React\Dns\Query\ExecutorInterface
+use ECSPrefix20220418\React\Promise\CancellablePromiseInterface;
+use ECSPrefix20220418\React\Promise\Deferred;
+use ECSPrefix20220418\React\Promise\PromiseInterface;
+final class RetryExecutor implements \ECSPrefix20220418\React\Dns\Query\ExecutorInterface
 {
     private $executor;
     private $retries;
-    public function __construct(\ECSPrefix20220417\React\Dns\Query\ExecutorInterface $executor, $retries = 2)
+    public function __construct(\ECSPrefix20220418\React\Dns\Query\ExecutorInterface $executor, $retries = 2)
     {
         $this->executor = $executor;
         $this->retries = $retries;
     }
-    public function query(\ECSPrefix20220417\React\Dns\Query\Query $query)
+    public function query(\ECSPrefix20220418\React\Dns\Query\Query $query)
     {
         return $this->tryQuery($query, $this->retries);
     }
-    public function tryQuery(\ECSPrefix20220417\React\Dns\Query\Query $query, $retries)
+    public function tryQuery(\ECSPrefix20220418\React\Dns\Query\Query $query, $retries)
     {
-        $deferred = new \ECSPrefix20220417\React\Promise\Deferred(function () use(&$promise) {
-            if ($promise instanceof \ECSPrefix20220417\React\Promise\CancellablePromiseInterface || !\interface_exists('ECSPrefix20220417\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+        $deferred = new \ECSPrefix20220418\React\Promise\Deferred(function () use(&$promise) {
+            if ($promise instanceof \ECSPrefix20220418\React\Promise\CancellablePromiseInterface || !\interface_exists('ECSPrefix20220418\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
                 $promise->cancel();
             }
         });
@@ -31,7 +31,7 @@ final class RetryExecutor implements \ECSPrefix20220417\React\Dns\Query\Executor
         };
         $executor = $this->executor;
         $errorback = function ($e) use($deferred, &$promise, $query, $success, &$errorback, &$retries, $executor) {
-            if (!$e instanceof \ECSPrefix20220417\React\Dns\Query\TimeoutException) {
+            if (!$e instanceof \ECSPrefix20220418\React\Dns\Query\TimeoutException) {
                 $errorback = null;
                 $deferred->reject($e);
             } elseif ($retries <= 0) {

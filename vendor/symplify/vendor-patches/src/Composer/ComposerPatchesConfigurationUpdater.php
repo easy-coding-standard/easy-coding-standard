@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220417\Symplify\VendorPatches\Composer;
+namespace ECSPrefix20220418\Symplify\VendorPatches\Composer;
 
-use ECSPrefix20220417\Symplify\Astral\Exception\ShouldNotHappenException;
-use ECSPrefix20220417\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use ECSPrefix20220417\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
-use ECSPrefix20220417\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use ECSPrefix20220417\Symplify\PackageBuilder\Yaml\ParametersMerger;
-use ECSPrefix20220417\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220418\Symplify\Astral\Exception\ShouldNotHappenException;
+use ECSPrefix20220418\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use ECSPrefix20220418\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
+use ECSPrefix20220418\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use ECSPrefix20220418\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\VendorPatches\Tests\Composer\ComposerPatchesConfigurationUpdater\ComposerPatchesConfigurationUpdaterTest
  */
@@ -26,7 +26,7 @@ final class ComposerPatchesConfigurationUpdater
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\ECSPrefix20220417\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \ECSPrefix20220417\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager $jsonFileManager, \ECSPrefix20220417\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
+    public function __construct(\ECSPrefix20220418\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \ECSPrefix20220418\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager $jsonFileManager, \ECSPrefix20220418\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
     {
         $this->composerJsonFactory = $composerJsonFactory;
         $this->jsonFileManager = $jsonFileManager;
@@ -35,7 +35,7 @@ final class ComposerPatchesConfigurationUpdater
     /**
      * @param mixed[] $composerExtraPatches
      */
-    public function updateComposerJson(string $composerJsonFilePath, array $composerExtraPatches) : \ECSPrefix20220417\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function updateComposerJson(string $composerJsonFilePath, array $composerExtraPatches) : \ECSPrefix20220418\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         $extra = ['patches' => $composerExtraPatches];
         $composerJson = $this->composerJsonFactory->createFromFilePath($composerJsonFilePath);
@@ -51,8 +51,8 @@ final class ComposerPatchesConfigurationUpdater
     {
         $composerJson = $this->updateComposerJson($composerJsonFilePath, $composerExtraPatches);
         $fileInfo = $composerJson->getFileInfo();
-        if (!$fileInfo instanceof \ECSPrefix20220417\Symplify\SmartFileSystem\SmartFileInfo) {
-            throw new \ECSPrefix20220417\Symplify\Astral\Exception\ShouldNotHappenException();
+        if (!$fileInfo instanceof \ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo) {
+            throw new \ECSPrefix20220418\Symplify\Astral\Exception\ShouldNotHappenException();
         }
         $this->jsonFileManager->printComposerJsonToFilePath($composerJson, $fileInfo->getRealPath());
     }

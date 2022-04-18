@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220417\Symplify\Skipper\SkipCriteriaResolver;
+namespace ECSPrefix20220418\Symplify\Skipper\SkipCriteriaResolver;
 
-use ECSPrefix20220417\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20220417\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use ECSPrefix20220417\Symplify\Skipper\ValueObject\Option;
+use ECSPrefix20220418\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220418\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use ECSPrefix20220418\Symplify\Skipper\ValueObject\Option;
 final class SkippedClassResolver
 {
     /**
@@ -20,7 +20,7 @@ final class SkippedClassResolver
      * @var \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
-    public function __construct(\ECSPrefix20220417\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20220417\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
+    public function __construct(\ECSPrefix20220418\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20220418\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
     {
         $this->parameterProvider = $parameterProvider;
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
@@ -33,7 +33,7 @@ final class SkippedClassResolver
         if ($this->skippedClasses !== []) {
             return $this->skippedClasses;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\ECSPrefix20220417\Symplify\Skipper\ValueObject\Option::SKIP);
+        $skip = $this->parameterProvider->provideArrayParameter(\ECSPrefix20220418\Symplify\Skipper\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
             if (\is_int($key)) {

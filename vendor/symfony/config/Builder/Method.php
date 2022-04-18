@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220417\Symfony\Component\Config\Builder;
+namespace ECSPrefix20220418\Symfony\Component\Config\Builder;
 
 /**
  * Represents a method when building classes.
