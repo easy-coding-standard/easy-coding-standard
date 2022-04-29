@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220418\Symplify\Skipper\Skipper;
+namespace ECSPrefix20220429\Symplify\Skipper\Skipper;
 
-use ECSPrefix20220418\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220429\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @api
  * @see \Symplify\Skipper\Tests\Skipper\Skipper\SkipperTest
@@ -27,21 +27,21 @@ final class Skipper
         $this->skipVoters = $skipVoters;
     }
     /**
-     * @param object|string $element
+     * @param string|object $element
      */
     public function shouldSkipElement($element) : bool
     {
-        $fileInfo = new \ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
+        $fileInfo = new \ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
         return $this->shouldSkipElementAndFileInfo($element, $fileInfo);
     }
-    public function shouldSkipFileInfo(\ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkipFileInfo(\ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         return $this->shouldSkipElementAndFileInfo(self::FILE_ELEMENT, $smartFileInfo);
     }
     /**
-     * @param object|string $element
+     * @param string|object $element
      */
-    public function shouldSkipElementAndFileInfo($element, \ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkipElementAndFileInfo($element, \ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         foreach ($this->skipVoters as $skipVoter) {
             if ($skipVoter->match($element)) {

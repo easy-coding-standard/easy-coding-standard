@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220418\Symplify\Skipper\SkipVoter;
+namespace ECSPrefix20220429\Symplify\Skipper\SkipVoter;
 
-use ECSPrefix20220418\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20220418\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20220418\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
-use ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220429\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20220429\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20220429\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
+use ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Matching class and code, e.g. App\Category\ArraySniff.SomeCode
  */
-final class ClassAndCodeSkipVoter implements \ECSPrefix20220418\Symplify\Skipper\Contract\SkipVoterInterface
+final class ClassAndCodeSkipVoter implements \ECSPrefix20220429\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver
@@ -20,13 +20,13 @@ final class ClassAndCodeSkipVoter implements \ECSPrefix20220418\Symplify\Skipper
      * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\ECSPrefix20220418\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \ECSPrefix20220418\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\ECSPrefix20220429\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \ECSPrefix20220429\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedClassAndCodesResolver = $skippedClassAndCodesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
     /**
-     * @param object|string $element
+     * @param string|object $element
      */
     public function match($element) : bool
     {
@@ -36,9 +36,9 @@ final class ClassAndCodeSkipVoter implements \ECSPrefix20220418\Symplify\Skipper
         return \substr_count($element, '.') === 1;
     }
     /**
-     * @param object|string $element
+     * @param string|object $element
      */
-    public function shouldSkip($element, \ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         if (\is_object($element)) {
             return \false;

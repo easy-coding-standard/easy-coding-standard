@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220418\\Symplify\\PackageBuilder\\": "src"
+            "ECSPrefix20220429\\Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220418\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "ECSPrefix20220429\\Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {

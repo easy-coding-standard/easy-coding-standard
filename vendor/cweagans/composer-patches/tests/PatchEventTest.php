@@ -4,21 +4,21 @@
  * @file
  * Tests event dispatching.
  */
-namespace ECSPrefix20220418\cweagans\Composer\Tests;
+namespace ECSPrefix20220429\cweagans\Composer\Tests;
 
-use ECSPrefix20220418\cweagans\Composer\PatchEvent;
-use ECSPrefix20220418\cweagans\Composer\PatchEvents;
-use ECSPrefix20220418\Composer\Package\PackageInterface;
-class PatchEventTest extends \ECSPrefix20220418\PHPUnit_Framework_TestCase
+use ECSPrefix20220429\cweagans\Composer\PatchEvent;
+use ECSPrefix20220429\cweagans\Composer\PatchEvents;
+use ECSPrefix20220429\Composer\Package\PackageInterface;
+class PatchEventTest extends \ECSPrefix20220429\PHPUnit_Framework_TestCase
 {
     /**
      * Tests all the getters.
      *
      * @dataProvider patchEventDataProvider
      */
-    public function testGetters($event_name, \ECSPrefix20220418\Composer\Package\PackageInterface $package, $url, $description)
+    public function testGetters($event_name, \ECSPrefix20220429\Composer\Package\PackageInterface $package, $url, $description)
     {
-        $patch_event = new \ECSPrefix20220418\cweagans\Composer\PatchEvent($event_name, $package, $url, $description);
+        $patch_event = new \ECSPrefix20220429\cweagans\Composer\PatchEvent($event_name, $package, $url, $description);
         $this->assertEquals($event_name, $patch_event->getName());
         $this->assertEquals($package, $patch_event->getPackage());
         $this->assertEquals($url, $patch_event->getUrl());
@@ -26,8 +26,8 @@ class PatchEventTest extends \ECSPrefix20220418\PHPUnit_Framework_TestCase
     }
     public function patchEventDataProvider()
     {
-        $prophecy = $this->prophesize('ECSPrefix20220418\\Composer\\Package\\PackageInterface');
+        $prophecy = $this->prophesize('ECSPrefix20220429\\Composer\\Package\\PackageInterface');
         $package = $prophecy->reveal();
-        return array(array(\ECSPrefix20220418\cweagans\Composer\PatchEvents::PRE_PATCH_APPLY, $package, 'https://www.drupal.org', 'A test patch'), array(\ECSPrefix20220418\cweagans\Composer\PatchEvents::POST_PATCH_APPLY, $package, 'https://www.drupal.org', 'A test patch'));
+        return array(array(\ECSPrefix20220429\cweagans\Composer\PatchEvents::PRE_PATCH_APPLY, $package, 'https://www.drupal.org', 'A test patch'), array(\ECSPrefix20220429\cweagans\Composer\PatchEvents::POST_PATCH_APPLY, $package, 'https://www.drupal.org', 'A test patch'));
     }
 }

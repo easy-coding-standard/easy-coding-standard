@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220418\Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix20220429\Symfony\Component\DependencyInjection\Argument;
 
 /**
  * @internal
@@ -24,7 +24,7 @@ class RewindableGenerator implements \IteratorAggregate, \Countable
      */
     private $count;
     /**
-     * @param callable|int $count
+     * @param int|callable $count
      */
     public function __construct(callable $generator, $count)
     {

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220418\Symplify\Skipper\SkipVoter;
+namespace ECSPrefix20220429\Symplify\Skipper\SkipVoter;
 
-use ECSPrefix20220418\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20220418\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20220418\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
-use ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo;
-final class MessageSkipVoter implements \ECSPrefix20220418\Symplify\Skipper\Contract\SkipVoterInterface
+use ECSPrefix20220429\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20220429\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20220429\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
+use ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo;
+final class MessageSkipVoter implements \ECSPrefix20220429\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver
@@ -17,13 +17,13 @@ final class MessageSkipVoter implements \ECSPrefix20220418\Symplify\Skipper\Cont
      * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\ECSPrefix20220418\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver, \ECSPrefix20220418\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\ECSPrefix20220429\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver, \ECSPrefix20220429\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedMessagesResolver = $skippedMessagesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
     /**
-     * @param object|string $element
+     * @param string|object $element
      */
     public function match($element) : bool
     {
@@ -33,9 +33,9 @@ final class MessageSkipVoter implements \ECSPrefix20220418\Symplify\Skipper\Cont
         return \substr_count($element, ' ') > 0;
     }
     /**
-     * @param object|string $element
+     * @param string|object $element
      */
-    public function shouldSkip($element, \ECSPrefix20220418\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         if (\is_object($element)) {
             return \false;

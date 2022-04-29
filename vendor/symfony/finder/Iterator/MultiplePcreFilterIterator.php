@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220418\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20220429\Symfony\Component\Finder\Iterator;
 
 /**
  * MultiplePcreFilterIterator filters files using patterns (regexps, globs or strings).
@@ -71,7 +71,11 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      */
     protected function isRegex(string $str) : bool
     {
-        if (\preg_match('/^(.{3,}?)[imsxuADU]*$/', $str, $m)) {
+        $availableModifiers = 'imsxuADU';
+        if (\PHP_VERSION_ID >= 80200) {
+            $availableModifiers .= 'n';
+        }
+        if (\preg_match('/^(.{3,}?)[' . $availableModifiers . ']*$/', $str, $m)) {
             $start = \substr($m[1], 0, 1);
             $end = \substr($m[1], -1);
             if ($start === $end) {

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220418\Symfony\Component\Stopwatch;
+namespace ECSPrefix20220429\Symfony\Component\Stopwatch;
 
 /**
  * Represents an Event managed by Stopwatch.
@@ -92,7 +92,7 @@ class StopwatchEvent
         if (!\count($this->started)) {
             throw new \LogicException('stop() called but start() has not been called before.');
         }
-        $this->periods[] = new \ECSPrefix20220418\Symfony\Component\Stopwatch\StopwatchPeriod(\array_pop($this->started), $this->getNow(), $this->morePrecision);
+        $this->periods[] = new \ECSPrefix20220429\Symfony\Component\Stopwatch\StopwatchPeriod(\array_pop($this->started), $this->getNow(), $this->morePrecision);
         return $this;
     }
     /**
@@ -131,7 +131,7 @@ class StopwatchEvent
     }
     /**
      * Gets the relative time of the start of the first period in milliseconds.
-     * @return float|int
+     * @return int|float
      */
     public function getStartTime()
     {
@@ -145,7 +145,7 @@ class StopwatchEvent
     }
     /**
      * Gets the relative time of the end of the last period in milliseconds.
-     * @return float|int
+     * @return int|float
      */
     public function getEndTime()
     {
@@ -154,14 +154,14 @@ class StopwatchEvent
     }
     /**
      * Gets the duration of the events in milliseconds (including all periods).
-     * @return float|int
+     * @return int|float
      */
     public function getDuration()
     {
         $periods = $this->periods;
         $left = \count($this->started);
         for ($i = $left - 1; $i >= 0; --$i) {
-            $periods[] = new \ECSPrefix20220418\Symfony\Component\Stopwatch\StopwatchPeriod($this->started[$i], $this->getNow(), $this->morePrecision);
+            $periods[] = new \ECSPrefix20220429\Symfony\Component\Stopwatch\StopwatchPeriod($this->started[$i], $this->getNow(), $this->morePrecision);
         }
         $total = 0;
         foreach ($periods as $period) {
