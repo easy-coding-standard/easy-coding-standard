@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220429\Nette\Neon;
+namespace ECSPrefix20220501\Nette\Neon;
 
 /** @internal */
 final class Token

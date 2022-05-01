@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220429\Psr\Log;
+namespace ECSPrefix20220501\Psr\Log;
 
 /**
  * This is a simple Logger implementation that other Loggers can inherit from.
@@ -9,7 +9,7 @@ namespace ECSPrefix20220429\Psr\Log;
  * reduce boilerplate code that a simple Logger that does the same thing with
  * messages regardless of the error level has to implement.
  */
-abstract class AbstractLogger implements \ECSPrefix20220429\Psr\Log\LoggerInterface
+abstract class AbstractLogger implements \ECSPrefix20220501\Psr\Log\LoggerInterface
 {
     use LoggerTrait;
 }

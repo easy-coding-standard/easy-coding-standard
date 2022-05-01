@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20220429\React\Socket;
+namespace ECSPrefix20220501\React\Socket;
 
-use ECSPrefix20220429\React\EventLoop\LoopInterface;
-use ECSPrefix20220429\React\Promise\Deferred;
+use ECSPrefix20220501\React\EventLoop\LoopInterface;
+use ECSPrefix20220501\React\Promise\Deferred;
 use RuntimeException;
 use UnexpectedValueException;
 /**
@@ -17,7 +17,7 @@ class StreamEncryption
     private $loop;
     private $method;
     private $server;
-    public function __construct(\ECSPrefix20220429\React\EventLoop\LoopInterface $loop, $server = \true)
+    public function __construct(\ECSPrefix20220501\React\EventLoop\LoopInterface $loop, $server = \true)
     {
         $this->loop = $loop;
         $this->server = $server;
@@ -40,17 +40,17 @@ class StreamEncryption
             }
         }
     }
-    public function enable(\ECSPrefix20220429\React\Socket\Connection $stream)
+    public function enable(\ECSPrefix20220501\React\Socket\Connection $stream)
     {
         return $this->toggle($stream, \true);
     }
-    public function toggle(\ECSPrefix20220429\React\Socket\Connection $stream, $toggle)
+    public function toggle(\ECSPrefix20220501\React\Socket\Connection $stream, $toggle)
     {
         // pause actual stream instance to continue operation on raw stream socket
         $stream->pause();
         // TODO: add write() event to make sure we're not sending any excessive data
         // cancelling this leaves this stream in an inconsistent state…
-        $deferred = new \ECSPrefix20220429\React\Promise\Deferred(function () {
+        $deferred = new \ECSPrefix20220501\React\Promise\Deferred(function () {
             throw new \RuntimeException();
         });
         // get actual stream socket from stream instance
@@ -81,7 +81,7 @@ class StreamEncryption
             throw $error;
         });
     }
-    public function toggleCrypto($socket, \ECSPrefix20220429\React\Promise\Deferred $deferred, $toggle, $method)
+    public function toggleCrypto($socket, \ECSPrefix20220501\React\Promise\Deferred $deferred, $toggle, $method)
     {
         $error = null;
         \set_error_handler(function ($_, $errstr) use(&$error) {

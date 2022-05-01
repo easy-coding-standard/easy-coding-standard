@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220429;
+namespace ECSPrefix20220501;
 
-use ECSPrefix20220429\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
-use ECSPrefix20220429\Symplify\VendorPatches\Kernel\VendorPatchesKernel;
+use ECSPrefix20220501\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
+use ECSPrefix20220501\Symplify\VendorPatches\Kernel\VendorPatchesKernel;
 $possibleAutoloadPaths = [__DIR__ . '/../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/../../../autoload.php', __DIR__ . '/../../../vendor/autoload.php'];
 foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
     if (!\file_exists($possibleAutoloadPath)) {
@@ -12,5 +12,5 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
     }
     require_once $possibleAutoloadPath;
 }
-$kernelBootAndApplicationRun = new \ECSPrefix20220429\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\ECSPrefix20220429\Symplify\VendorPatches\Kernel\VendorPatchesKernel::class);
+$kernelBootAndApplicationRun = new \ECSPrefix20220501\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\ECSPrefix20220501\Symplify\VendorPatches\Kernel\VendorPatchesKernel::class);
 $kernelBootAndApplicationRun->run();

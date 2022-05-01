@@ -4,7 +4,7 @@
  * @file
  * Dispatch events when patches are applied.
  */
-namespace ECSPrefix20220429\cweagans\Composer;
+namespace ECSPrefix20220501\cweagans\Composer;
 
 class PatchEvents
 {

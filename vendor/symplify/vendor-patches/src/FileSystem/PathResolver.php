@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220429\Symplify\VendorPatches\FileSystem;
+namespace ECSPrefix20220501\Symplify\VendorPatches\FileSystem;
 
-use ECSPrefix20220429\Nette\Utils\Strings;
-use ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220429\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20220501\Nette\Utils\Strings;
+use ECSPrefix20220501\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220501\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class PathResolver
 {
     /**
@@ -13,11 +13,11 @@ final class PathResolver
      * @var string
      */
     private const VENDOR_PACKAGE_DIRECTORY_REGEX = '#^(?<vendor_package_directory>.*?vendor\\/(\\w|\\.|\\-)+\\/(\\w|\\.|\\-)+)\\/#si';
-    public function resolveVendorDirectory(\ECSPrefix20220429\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
+    public function resolveVendorDirectory(\ECSPrefix20220501\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
     {
-        $match = \ECSPrefix20220429\Nette\Utils\Strings::match($fileInfo->getRealPath(), self::VENDOR_PACKAGE_DIRECTORY_REGEX);
+        $match = \ECSPrefix20220501\Nette\Utils\Strings::match($fileInfo->getRealPath(), self::VENDOR_PACKAGE_DIRECTORY_REGEX);
         if (!isset($match['vendor_package_directory'])) {
-            throw new \ECSPrefix20220429\Symplify\SymplifyKernel\Exception\ShouldNotHappenException('Could not resolve vendor package directory');
+            throw new \ECSPrefix20220501\Symplify\SymplifyKernel\Exception\ShouldNotHappenException('Could not resolve vendor package directory');
         }
         return $match['vendor_package_directory'];
     }

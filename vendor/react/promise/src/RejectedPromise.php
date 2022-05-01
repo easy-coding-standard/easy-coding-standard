@@ -1,16 +1,16 @@
 <?php
 
-namespace ECSPrefix20220429\React\Promise;
+namespace ECSPrefix20220501\React\Promise;
 
 /**
  * @deprecated 2.8.0 External usage of RejectedPromise is deprecated, use `reject()` instead.
  */
-class RejectedPromise implements \ECSPrefix20220429\React\Promise\ExtendedPromiseInterface, \ECSPrefix20220429\React\Promise\CancellablePromiseInterface
+class RejectedPromise implements \ECSPrefix20220501\React\Promise\ExtendedPromiseInterface, \ECSPrefix20220501\React\Promise\CancellablePromiseInterface
 {
     private $reason;
     public function __construct($reason = null)
     {
-        if ($reason instanceof \ECSPrefix20220429\React\Promise\PromiseInterface) {
+        if ($reason instanceof \ECSPrefix20220501\React\Promise\PromiseInterface) {
             throw new \InvalidArgumentException('You cannot create React\\Promise\\RejectedPromise with a promise. Use React\\Promise\\reject($promiseOrValue) instead.');
         }
         $this->reason = $reason;
@@ -23,21 +23,21 @@ class RejectedPromise implements \ECSPrefix20220429\React\Promise\ExtendedPromis
         try {
             return resolve($onRejected($this->reason));
         } catch (\Throwable $exception) {
-            return new \ECSPrefix20220429\React\Promise\RejectedPromise($exception);
+            return new \ECSPrefix20220501\React\Promise\RejectedPromise($exception);
         } catch (\Exception $exception) {
-            return new \ECSPrefix20220429\React\Promise\RejectedPromise($exception);
+            return new \ECSPrefix20220501\React\Promise\RejectedPromise($exception);
         }
     }
     public function done(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null)
     {
         if (null === $onRejected) {
-            throw \ECSPrefix20220429\React\Promise\UnhandledRejectionException::resolve($this->reason);
+            throw \ECSPrefix20220501\React\Promise\UnhandledRejectionException::resolve($this->reason);
         }
         $result = $onRejected($this->reason);
         if ($result instanceof self) {
-            throw \ECSPrefix20220429\React\Promise\UnhandledRejectionException::resolve($result->reason);
+            throw \ECSPrefix20220501\React\Promise\UnhandledRejectionException::resolve($result->reason);
         }
-        if ($result instanceof \ECSPrefix20220429\React\Promise\ExtendedPromiseInterface) {
+        if ($result instanceof \ECSPrefix20220501\React\Promise\ExtendedPromiseInterface) {
             $result->done();
         }
     }
@@ -52,7 +52,7 @@ class RejectedPromise implements \ECSPrefix20220429\React\Promise\ExtendedPromis
     {
         return $this->then(null, function ($reason) use($onFulfilledOrRejected) {
             return resolve($onFulfilledOrRejected())->then(function () use($reason) {
-                return new \ECSPrefix20220429\React\Promise\RejectedPromise($reason);
+                return new \ECSPrefix20220501\React\Promise\RejectedPromise($reason);
             });
         });
     }

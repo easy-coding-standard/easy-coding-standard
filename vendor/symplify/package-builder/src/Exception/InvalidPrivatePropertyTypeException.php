@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220429\Symplify\PackageBuilder\Exception;
+namespace ECSPrefix20220501\Symplify\PackageBuilder\Exception;
 
 use Exception;
 final class InvalidPrivatePropertyTypeException extends \Exception
