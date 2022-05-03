@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220501\Nette\Utils;
+namespace ECSPrefix20220503\Nette\Utils;
 
-use ECSPrefix20220501\Nette;
+use ECSPrefix20220503\Nette;
 /**
  * Paginating math.
  *

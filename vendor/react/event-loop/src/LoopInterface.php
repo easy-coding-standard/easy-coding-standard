@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220501\React\EventLoop;
+namespace ECSPrefix20220503\React\EventLoop;
 
 interface LoopInterface
 {
@@ -298,7 +298,7 @@ interface LoopInterface
      *
      * @return void
      */
-    public function cancelTimer(\ECSPrefix20220501\React\EventLoop\TimerInterface $timer);
+    public function cancelTimer(\ECSPrefix20220503\React\EventLoop\TimerInterface $timer);
     /**
      * Schedule a callback to be invoked on a future tick of the event loop.
      *

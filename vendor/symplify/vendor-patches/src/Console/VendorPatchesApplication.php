@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220501\Symplify\VendorPatches\Console;
+namespace ECSPrefix20220503\Symplify\VendorPatches\Console;
 
-use ECSPrefix20220501\Symfony\Component\Console\Application;
-use ECSPrefix20220501\Symfony\Component\Console\Command\Command;
-final class VendorPatchesApplication extends \ECSPrefix20220501\Symfony\Component\Console\Application
+use ECSPrefix20220503\Symfony\Component\Console\Application;
+use ECSPrefix20220503\Symfony\Component\Console\Command\Command;
+final class VendorPatchesApplication extends \ECSPrefix20220503\Symfony\Component\Console\Application
 {
     /**
      * @param Command[] $commands

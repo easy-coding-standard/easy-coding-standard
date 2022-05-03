@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 // inspired by https://github.com/phpstan/phpstan/blob/master/bootstrap.php
 
+use Composer\Autoload\ClassLoader;
+
 spl_autoload_register(function (string $class): void {
     static $composerAutoloader;
 
@@ -19,6 +21,9 @@ spl_autoload_register(function (string $class): void {
             $composerAutoloader = require __DIR__ . '/vendor/autoload.php';
         }
 
-        $composerAutoloader->loadClass($class);
+        // avoid autoloading collision
+        if ($composerAutoloader instanceof ClassLoader) {
+            $composerAutoloader->loadClass($class);
+        }
     }
 });
