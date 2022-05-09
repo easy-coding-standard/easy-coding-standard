@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220503\Symplify\VendorPatches\Differ;
+namespace ECSPrefix20220509\Symplify\VendorPatches\Differ;
 
-use ECSPrefix20220503\Nette\Utils\Strings;
-use ECSPrefix20220503\SebastianBergmann\Diff\Differ;
-use ECSPrefix20220503\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220503\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-use ECSPrefix20220503\Symplify\VendorPatches\ValueObject\OldAndNewFileInfo;
+use ECSPrefix20220509\Nette\Utils\Strings;
+use ECSPrefix20220509\SebastianBergmann\Diff\Differ;
+use ECSPrefix20220509\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220509\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20220509\Symplify\VendorPatches\ValueObject\OldAndNewFileInfo;
 /**
  * @see \Symplify\VendorPatches\Tests\Differ\PatchDifferTest
  */
@@ -32,24 +32,24 @@ final class PatchDiffer
      * @var \SebastianBergmann\Diff\Differ
      */
     private $differ;
-    public function __construct(\ECSPrefix20220503\SebastianBergmann\Diff\Differ $differ)
+    public function __construct(\ECSPrefix20220509\SebastianBergmann\Diff\Differ $differ)
     {
         $this->differ = $differ;
     }
-    public function diff(\ECSPrefix20220503\Symplify\VendorPatches\ValueObject\OldAndNewFileInfo $oldAndNewFileInfo) : string
+    public function diff(\ECSPrefix20220509\Symplify\VendorPatches\ValueObject\OldAndNewFileInfo $oldAndNewFileInfo) : string
     {
         $oldFileInfo = $oldAndNewFileInfo->getOldFileInfo();
         $newFileInfo = $oldAndNewFileInfo->getNewFileInfo();
         $diff = $this->differ->diff($oldFileInfo->getContents(), $newFileInfo->getContents());
         $patchedFileRelativePath = $this->resolveFileInfoPathRelativeFilePath($newFileInfo);
-        $clearedDiff = \ECSPrefix20220503\Nette\Utils\Strings::replace($diff, self::START_ORIGINAL_REGEX, '--- /dev/null');
-        return \ECSPrefix20220503\Nette\Utils\Strings::replace($clearedDiff, self::START_NEW_REGEX, '+++ ' . $patchedFileRelativePath);
+        $clearedDiff = \ECSPrefix20220509\Nette\Utils\Strings::replace($diff, self::START_ORIGINAL_REGEX, '--- /dev/null');
+        return \ECSPrefix20220509\Nette\Utils\Strings::replace($clearedDiff, self::START_NEW_REGEX, '+++ ' . $patchedFileRelativePath);
     }
-    private function resolveFileInfoPathRelativeFilePath(\ECSPrefix20220503\Symplify\SmartFileSystem\SmartFileInfo $beforeFileInfo) : string
+    private function resolveFileInfoPathRelativeFilePath(\ECSPrefix20220509\Symplify\SmartFileSystem\SmartFileInfo $beforeFileInfo) : string
     {
-        $match = \ECSPrefix20220503\Nette\Utils\Strings::match($beforeFileInfo->getRealPath(), self::LOCAL_PATH_REGEX);
+        $match = \ECSPrefix20220509\Nette\Utils\Strings::match($beforeFileInfo->getRealPath(), self::LOCAL_PATH_REGEX);
         if (!isset($match['local_path'])) {
-            throw new \ECSPrefix20220503\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20220509\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return '../' . $match['local_path'];
     }
