@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220509\Symplify\PackageBuilder\Matcher;
+namespace ECSPrefix20220511\Symplify\PackageBuilder\Matcher;
 
 /**
  * @api
