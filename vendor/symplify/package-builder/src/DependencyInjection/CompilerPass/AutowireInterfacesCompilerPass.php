@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220511\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
+namespace ECSPrefix20220512\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
 
-use ECSPrefix20220511\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20220511\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class AutowireInterfacesCompilerPass implements \ECSPrefix20220511\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use ECSPrefix20220512\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20220512\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class AutowireInterfacesCompilerPass implements \ECSPrefix20220512\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var string[]
@@ -18,7 +18,7 @@ final class AutowireInterfacesCompilerPass implements \ECSPrefix20220511\Symfony
     {
         $this->typesToAutowire = $typesToAutowire;
     }
-    public function process(\ECSPrefix20220511\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function process(\ECSPrefix20220512\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $definitions = $containerBuilder->getDefinitions();
         foreach ($definitions as $definition) {

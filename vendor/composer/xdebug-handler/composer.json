@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220511\\Composer\\XdebugHandler\\": "src"
+            "ECSPrefix20220512\\Composer\\XdebugHandler\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220511\\Composer\\XdebugHandler\\Tests\\": "tests"
+            "ECSPrefix20220512\\Composer\\XdebugHandler\\Tests\\": "tests"
         }
     },
     "scripts": {

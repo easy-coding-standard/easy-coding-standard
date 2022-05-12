@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220511\Symplify\SmartFileSystem\Json;
+namespace ECSPrefix20220512\Symplify\SmartFileSystem\Json;
 
-use ECSPrefix20220511\Nette\Utils\Arrays;
-use ECSPrefix20220511\Nette\Utils\Json;
-use ECSPrefix20220511\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix20220511\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20220512\Nette\Utils\Arrays;
+use ECSPrefix20220512\Nette\Utils\Json;
+use ECSPrefix20220512\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix20220512\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @api
  * @see \Symplify\SmartFileSystem\Tests\Json\JsonFileSystem\JsonFileSystemTest
@@ -21,7 +21,7 @@ final class JsonFileSystem
      * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\ECSPrefix20220511\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \ECSPrefix20220511\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\ECSPrefix20220512\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \ECSPrefix20220512\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->fileSystemGuard = $fileSystemGuard;
         $this->smartFileSystem = $smartFileSystem;
@@ -33,14 +33,14 @@ final class JsonFileSystem
     {
         $this->fileSystemGuard->ensureFileExists($filePath, __METHOD__);
         $fileContent = $this->smartFileSystem->readFile($filePath);
-        return \ECSPrefix20220511\Nette\Utils\Json::decode($fileContent, \ECSPrefix20220511\Nette\Utils\Json::FORCE_ARRAY);
+        return \ECSPrefix20220512\Nette\Utils\Json::decode($fileContent, \ECSPrefix20220512\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param array<string, mixed> $jsonArray
      */
     public function writeJsonToFilePath(array $jsonArray, string $filePath) : void
     {
-        $jsonContent = \ECSPrefix20220511\Nette\Utils\Json::encode($jsonArray, \ECSPrefix20220511\Nette\Utils\Json::PRETTY) . \PHP_EOL;
+        $jsonContent = \ECSPrefix20220512\Nette\Utils\Json::encode($jsonArray, \ECSPrefix20220512\Nette\Utils\Json::PRETTY) . \PHP_EOL;
         $this->smartFileSystem->dumpFile($filePath, $jsonContent);
     }
     /**
@@ -49,7 +49,7 @@ final class JsonFileSystem
     public function mergeArrayToJsonFile(string $filePath, array $newJsonArray) : void
     {
         $jsonArray = $this->loadFilePathToJson($filePath);
-        $newComposerJsonArray = \ECSPrefix20220511\Nette\Utils\Arrays::mergeTree($jsonArray, $newJsonArray);
+        $newComposerJsonArray = \ECSPrefix20220512\Nette\Utils\Arrays::mergeTree($jsonArray, $newJsonArray);
         $this->writeJsonToFilePath($newComposerJsonArray, $filePath);
     }
 }

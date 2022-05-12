@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220511\React\Promise;
+namespace ECSPrefix20220512\React\Promise;
 
 interface PromiseInterface
 {
