@@ -29,6 +29,17 @@ $autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
 final class AutoloadIncluder
 {
     /**
+     * @var string
+     */
+    private const POSSIBLE_AUTOLOAD_PATHS = [
+        // after split package
+        __DIR__ . '/../vendor',
+        // dependency
+        __DIR__ . '/../../..',
+        // monorepo
+        __DIR__ . '/../../../vendor',
+    ];
+    /**
      * @var string[]
      */
     private $alreadyLoadedAutoloadFiles = [];
@@ -65,15 +76,7 @@ final class AutoloadIncluder
         // file is autoloaded with classmap in PHAR
         // without phar, we still need to autoload it
         # 1. autoload
-        $possibleAutoloadPaths = [
-            // after split package
-            __DIR__ . '/../vendor',
-            // dependency
-            __DIR__ . '/../../..',
-            // monorepo
-            __DIR__ . '/../../../vendor',
-        ];
-        foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
+        foreach (self::POSSIBLE_AUTOLOAD_PATHS as $possibleAutoloadPath) {
             $possiblePhpCodeSnifferAutoloadPath = $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
             if (!\is_file($possiblePhpCodeSnifferAutoloadPath)) {
                 continue;
