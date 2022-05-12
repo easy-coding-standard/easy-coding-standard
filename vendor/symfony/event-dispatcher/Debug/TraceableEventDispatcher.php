@@ -126,10 +126,8 @@ class TraceableEventDispatcher implements \ECSPrefix20220512\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param object $event
-     * @return object
      */
-    public function dispatch($event, string $eventName = null)
+    public function dispatch(object $event, string $eventName = null) : object
     {
         $eventName = $eventName ?? \get_class($event);
         if (null === $this->callStack) {
@@ -239,16 +237,14 @@ class TraceableEventDispatcher implements \ECSPrefix20220512\Symfony\Component\E
     }
     /**
      * Called before dispatching the event.
-     * @param object $event
      */
-    protected function beforeDispatch(string $eventName, $event)
+    protected function beforeDispatch(string $eventName, object $event)
     {
     }
     /**
      * Called after dispatching the event.
-     * @param object $event
      */
-    protected function afterDispatch(string $eventName, $event)
+    protected function afterDispatch(string $eventName, object $event)
     {
     }
     private function preProcess(string $eventName) : void

@@ -43,9 +43,8 @@ abstract class Loader implements \ECSPrefix20220512\Symfony\Component\Config\Loa
      *
      * @return mixed
      * @param mixed $resource
-     * @param string|null $type
      */
-    public function import($resource, $type = null)
+    public function import($resource, string $type = null)
     {
         return $this->resolve($resource, $type)->load($resource, $type);
     }

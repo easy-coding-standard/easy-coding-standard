@@ -3,7 +3,7 @@
     "description": "Prefixed scoped version of ECS package",
     "license": "MIT",
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.2"
     },
     "autoload": {
         "files": [

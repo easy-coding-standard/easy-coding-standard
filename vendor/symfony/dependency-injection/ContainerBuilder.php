@@ -392,9 +392,8 @@ class ContainerBuilder extends \ECSPrefix20220512\Symfony\Component\DependencyIn
      * Sets a service.
      *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
-     * @param object|null $service
      */
-    public function set(string $id, $service)
+    public function set(string $id, ?object $service)
     {
         if ($this->isCompiled() && (isset($this->definitions[$id]) && !$this->definitions[$id]->isSynthetic())) {
             // setting a synthetic service on a compiled container is alright
@@ -424,9 +423,8 @@ class ContainerBuilder extends \ECSPrefix20220512\Symfony\Component\DependencyIn
      * @throws \Exception
      *
      * @see Reference
-     * @return object|null
      */
-    public function get(string $id, int $invalidBehavior = \ECSPrefix20220512\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function get(string $id, int $invalidBehavior = \ECSPrefix20220512\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE) : ?object
     {
         if ($this->isCompiled() && isset($this->removedIds[$id]) && \ECSPrefix20220512\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
             return parent::get($id);
@@ -1338,9 +1336,8 @@ class ContainerBuilder extends \ECSPrefix20220512\Symfony\Component\DependencyIn
     }
     /**
      * @return mixed
-     * @param object $service
      */
-    private function callMethod($service, array $call, array &$inlineServices)
+    private function callMethod(object $service, array $call, array &$inlineServices)
     {
         foreach (self::getServiceConditionals($call[1]) as $s) {
             if (!$this->has($s)) {

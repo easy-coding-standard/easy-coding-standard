@@ -55,9 +55,8 @@ class YamlFileLoader extends \ECSPrefix20220512\Symfony\Component\DependencyInje
      * {@inheritdoc}
      * @param mixed $resource
      * @return mixed
-     * @param string|null $type
      */
-    public function load($resource, $type = null)
+    public function load($resource, string $type = null)
     {
         $path = $this->locator->locate($resource);
         $content = $this->loadFile($path);

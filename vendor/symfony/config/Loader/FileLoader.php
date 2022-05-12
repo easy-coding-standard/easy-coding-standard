@@ -63,7 +63,7 @@ abstract class FileLoader extends \ECSPrefix20220512\Symfony\Component\Config\Lo
      * @throws FileLoaderImportCircularReferenceException
      * @throws FileLocatorFileNotFoundException
      */
-    public function import($resource, $type = null, $ignoreErrors = \false, $sourceResource = null, $exclude = null)
+    public function import($resource, string $type = null, bool $ignoreErrors = \false, string $sourceResource = null, $exclude = null)
     {
         if (\is_string($resource) && \strlen($resource) !== ($i = \strcspn($resource, '*?{[')) && \strpos($resource, "\n") === \false) {
             $excluded = [];

@@ -21,9 +21,8 @@ class DirectoryLoader extends \ECSPrefix20220512\Symfony\Component\DependencyInj
      * {@inheritdoc}
      * @param mixed $file
      * @return mixed
-     * @param string|null $type
      */
-    public function load($file, $type = null)
+    public function load($file, string $type = null)
     {
         $file = \rtrim($file, '/');
         $path = $this->locator->locate($file);

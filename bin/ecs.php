@@ -23,19 +23,6 @@ $autoloadIncluder->loadIfNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php'
 $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
-try {
-    $input = new \ECSPrefix20220512\Symfony\Component\Console\Input\ArgvInput();
-    $ecsContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory();
-    $container = $ecsContainerFactory->createFromFromInput($input);
-} catch (\Throwable $throwable) {
-    $symfonyStyleFactory = new \ECSPrefix20220512\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
-    $symfonyStyle = $symfonyStyleFactory->create();
-    $symfonyStyle->error($throwable->getMessage());
-    $symfonyStyle->writeln($throwable->getTraceAsString());
-    exit(\ECSPrefix20220512\Symfony\Component\Console\Command\Command::FAILURE);
-}
-$application = $container->get(\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication::class);
-exit($application->run());
 /**
  * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
  */
@@ -115,3 +102,16 @@ final class AutoloadIncluder
  * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
  */
 \class_alias('ECSPrefix20220512\\AutoloadIncluder', 'AutoloadIncluder', \false);
+try {
+    $input = new \ECSPrefix20220512\Symfony\Component\Console\Input\ArgvInput();
+    $ecsContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory();
+    $container = $ecsContainerFactory->createFromFromInput($input);
+} catch (\Throwable $throwable) {
+    $symfonyStyleFactory = new \ECSPrefix20220512\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+    $symfonyStyle = $symfonyStyleFactory->create();
+    $symfonyStyle->error($throwable->getMessage());
+    $symfonyStyle->writeln($throwable->getTraceAsString());
+    exit(\ECSPrefix20220512\Symfony\Component\Console\Command\Command::FAILURE);
+}
+$application = $container->get(\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication::class);
+exit($application->run());

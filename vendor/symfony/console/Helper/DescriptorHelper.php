@@ -40,9 +40,8 @@ class DescriptorHelper extends \ECSPrefix20220512\Symfony\Component\Console\Help
      * * raw_text: boolean, sets output type as raw
      *
      * @throws InvalidArgumentException when the given format is not supported
-     * @param object|null $object
      */
-    public function describe(\ECSPrefix20220512\Symfony\Component\Console\Output\OutputInterface $output, $object, array $options = [])
+    public function describe(\ECSPrefix20220512\Symfony\Component\Console\Output\OutputInterface $output, ?object $object, array $options = [])
     {
         $options = \array_merge(['raw_text' => \false, 'format' => 'txt'], $options);
         if (!isset($this->descriptors[$options['format']])) {
