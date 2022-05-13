@@ -24,5 +24,4 @@ return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer::class, ['elements' => ['const', 'property']]);
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer::class, ['single_line' => \true]);
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer::class, ['equal' => \false, 'identical' => \false, 'less_and_greater' => \false]);
-    $ecsConfig->skip([\PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff::class . '.FoundInWhileCondition']);
 };

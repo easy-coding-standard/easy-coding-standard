@@ -160,6 +160,11 @@ final class File extends \PHP_CodeSniffer\Files\File
         if (!$isError) {
             return \false;
         }
+        // hardcode skip the PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff.FoundInWhileCondition
+        // as the only code is passed and this rule does not make sense
+        if ($sniffClassOrCode === 'FoundInWhileCondition') {
+            return \false;
+        }
         $message = $data !== [] ? \vsprintf($message, $data) : $message;
         $checkerClass = $this->resolveFullyQualifiedCode($sniffClassOrCode);
         $codingStandardError = new \Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError($line, $message, $checkerClass, $this->getFilename());
