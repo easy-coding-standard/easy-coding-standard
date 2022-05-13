@@ -3771,10 +3771,10 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "d6b02a03c7f6f1e4a56070f15877caec1ab905d4"
+                "reference": "52a025f5e6e6dbd24192481e9e612dd9df4f8480"
             },
             "require": {
-                "nette\/neon": "^3.3.2",
+                "nette\/neon": "^3.3.3",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "sebastian\/diff": "^4.0",
