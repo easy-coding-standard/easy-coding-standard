@@ -51,7 +51,7 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
     {
         $this->isCheckerClass($checkerClass);
         $services = $this->services();
-        $services->set($checkerClass);
+        $services->set($checkerClass)->public();
     }
     /**
      * @param array<class-string<Sniff|FixerInterface>> $checkerClasses

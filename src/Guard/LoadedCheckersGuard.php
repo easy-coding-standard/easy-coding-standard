@@ -36,11 +36,10 @@ final class LoadedCheckersGuard
         $this->symfonyStyle->writeln('You have few options to add them:');
         $this->symfonyStyle->newLine();
         $this->symfonyStyle->title('Add single rule to "ecs.php"');
-        $this->symfonyStyle->writeln('  $services = $containerConfigurator->services();');
-        $this->symfonyStyle->writeln('  $services->set(...);');
+        $this->symfonyStyle->writeln('  $ecsConfig->rule(...);');
         $this->symfonyStyle->newLine(2);
         $this->symfonyStyle->title('Add set of rules to "ecs.php"');
-        $this->symfonyStyle->writeln('  $containerConfigurator->import(...);');
+        $this->symfonyStyle->writeln('  $ecsConfig->sets([...]);');
         $this->symfonyStyle->newLine(2);
         $this->symfonyStyle->title('Missing "ecs.php" in your project? Let ECS create it for you');
         $this->symfonyStyle->writeln('  vendor/bin/ecs init');
