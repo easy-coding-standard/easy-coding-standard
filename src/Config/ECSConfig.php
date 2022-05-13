@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220513\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use ECSPrefix20220513\Webmozart\Assert\Assert;
+use ECSPrefix20220513\Webmozart\Assert\InvalidArgumentException;
 /**
  * @api
  */
@@ -57,8 +58,7 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
      */
     public function rules(array $checkerClasses) : void
     {
-        // ensure all rules are registered exactly once
-        \ECSPrefix20220513\Webmozart\Assert\Assert::uniqueValues($checkerClasses);
+        $this->ensureCheckerClassesAreUnique($checkerClasses);
         foreach ($checkerClasses as $checkerClass) {
             $this->rule($checkerClass);
         }
@@ -108,5 +108,22 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
     {
         \ECSPrefix20220513\Webmozart\Assert\Assert::classExists($checkerClass);
         \ECSPrefix20220513\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PHP_CodeSniffer\Sniffs\Sniff::class, \PhpCsFixer\Fixer\FixerInterface::class]);
+    }
+    /**
+     * @param string[] $checkerClasses
+     */
+    private function ensureCheckerClassesAreUnique(array $checkerClasses) : void
+    {
+        // ensure all rules are registered exactly once
+        $checkerClassToCount = \array_count_values($checkerClasses);
+        $duplicatedCheckerClassToCount = \array_filter($checkerClassToCount, function (int $count) : bool {
+            return $count > 1;
+        });
+        if ($duplicatedCheckerClassToCount === []) {
+            return;
+        }
+        $duplicatedCheckerClasses = \array_flip($duplicatedCheckerClassToCount);
+        $errorMessage = \sprintf('There are duplicated classes in $rectorConfig->rules(): "%s". Make them unique to avoid unexpected behavior.', \implode('", "', $duplicatedCheckerClasses));
+        throw new \ECSPrefix20220513\Webmozart\Assert\InvalidArgumentException($errorMessage);
     }
 }
