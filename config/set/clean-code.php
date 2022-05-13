@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220512;
+namespace ECSPrefix20220513;
 
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer;
@@ -13,12 +13,6 @@ use PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer;
 use Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
-    $ecsConfig->rule(\Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer::class);
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer::class, ['syntax' => 'short']);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\Import\NoUnusedImportsFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\Import\OrderedImportsFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer::class);
+    $ecsConfig->rules([\Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer::class, \PhpCsFixer\Fixer\Import\NoUnusedImportsFixer::class, \PhpCsFixer\Fixer\Import\OrderedImportsFixer::class, \PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer::class, \PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer::class, \PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer::class, \PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer::class]);
 };

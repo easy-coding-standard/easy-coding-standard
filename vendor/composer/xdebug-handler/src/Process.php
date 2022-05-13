@@ -9,9 +9,9 @@
  * the LICENSE file that was distributed with this source code.
  */
 declare (strict_types=1);
-namespace ECSPrefix20220512\Composer\XdebugHandler;
+namespace ECSPrefix20220513\Composer\XdebugHandler;
 
-use ECSPrefix20220512\Composer\Pcre\Preg;
+use ECSPrefix20220513\Composer\Pcre\Preg;
 /**
  * Process utility functions
  *
@@ -35,9 +35,9 @@ class Process
             return "'" . \str_replace("'", "'\\''", $arg) . "'";
         }
         $quote = \strpbrk($arg, " \t") !== \false || $arg === '';
-        $arg = \ECSPrefix20220512\Composer\Pcre\Preg::replace('/(\\\\*)"/', '$1$1\\"', $arg, -1, $dquotes);
+        $arg = \ECSPrefix20220513\Composer\Pcre\Preg::replace('/(\\\\*)"/', '$1$1\\"', $arg, -1, $dquotes);
         if ($meta) {
-            $meta = $dquotes || \ECSPrefix20220512\Composer\Pcre\Preg::isMatch('/%[^%]+%/', $arg);
+            $meta = $dquotes || \ECSPrefix20220513\Composer\Pcre\Preg::isMatch('/%[^%]+%/', $arg);
             if (!$meta) {
                 $quote = $quote || \strpbrk($arg, '^&|<>()') !== \false;
             } elseif ($module && !$dquotes && $quote) {
@@ -45,10 +45,10 @@ class Process
             }
         }
         if ($quote) {
-            $arg = '"' . \ECSPrefix20220512\Composer\Pcre\Preg::replace('/(\\\\*)$/', '$1$1', $arg) . '"';
+            $arg = '"' . \ECSPrefix20220513\Composer\Pcre\Preg::replace('/(\\\\*)$/', '$1$1', $arg) . '"';
         }
         if ($meta) {
-            $arg = \ECSPrefix20220512\Composer\Pcre\Preg::replace('/(["^&|<>()%])/', '^$1', $arg);
+            $arg = \ECSPrefix20220513\Composer\Pcre\Preg::replace('/(["^&|<>()%])/', '^$1', $arg);
         }
         return $arg;
     }

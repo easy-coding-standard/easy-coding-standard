@@ -6,12 +6,6 @@ namespace Symplify\EasyCodingStandard\ValueObject\Set;
 final class SetList
 {
     /**
-     * @deprecated Use PSR_12 instead
-     * @var string
-     * @api
-     */
-    public const PSR_1 = __DIR__ . '/../../../config/set/psr1.php';
-    /**
      * @var string
      * @api
      */

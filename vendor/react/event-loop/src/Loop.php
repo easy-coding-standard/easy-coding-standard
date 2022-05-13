@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220512\React\EventLoop;
+namespace ECSPrefix20220513\React\EventLoop;
 
 /**
  * The `Loop` class exists as a convenient way to get the currently relevant loop
@@ -27,10 +27,10 @@ final class Loop
      */
     public static function get()
     {
-        if (self::$instance instanceof \ECSPrefix20220512\React\EventLoop\LoopInterface) {
+        if (self::$instance instanceof \ECSPrefix20220513\React\EventLoop\LoopInterface) {
             return self::$instance;
         }
-        self::$instance = $loop = \ECSPrefix20220512\React\EventLoop\Factory::create();
+        self::$instance = $loop = \ECSPrefix20220513\React\EventLoop\Factory::create();
         // Automatically run loop at end of program, unless already started or stopped explicitly.
         // This is tested using child processes, so coverage is actually 100%, see BinTest.
         // @codeCoverageIgnoreStart
@@ -59,7 +59,7 @@ final class Loop
      * @internal
      * @return void
      */
-    public static function set(\ECSPrefix20220512\React\EventLoop\LoopInterface $loop)
+    public static function set(\ECSPrefix20220513\React\EventLoop\LoopInterface $loop)
     {
         self::$instance = $loop;
     }
@@ -142,7 +142,7 @@ final class Loop
      * @return void
      * @see LoopInterface::cancelTimer()
      */
-    public static function cancelTimer(\ECSPrefix20220512\React\EventLoop\TimerInterface $timer)
+    public static function cancelTimer(\ECSPrefix20220513\React\EventLoop\TimerInterface $timer)
     {
         return self::get()->cancelTimer($timer);
     }

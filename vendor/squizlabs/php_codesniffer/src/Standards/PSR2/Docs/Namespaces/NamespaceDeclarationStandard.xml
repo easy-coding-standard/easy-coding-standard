@@ -7,14 +7,14 @@
     <code_comparison>
         <code title="Valid: One blank line after the namespace declaration.">
         <![CDATA[
-namespace \ECSPrefix20220512\Foo\Bar;
+namespace \ECSPrefix20220513\Foo\Bar;
 <em></em>
 use \Baz;
         ]]>
         </code>
         <code title="Invalid: No blank line after the namespace declaration.">
         <![CDATA[
-namespace \ECSPrefix20220512\Foo\Bar;
+namespace \ECSPrefix20220513\Foo\Bar;
 use \Baz;
         ]]>
         </code>

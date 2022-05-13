@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220512\Symplify\EasyTesting\ValueObject;
+namespace ECSPrefix20220513\Symplify\EasyTesting\ValueObject;
 
-use ECSPrefix20220512\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220513\Symplify\SmartFileSystem\SmartFileInfo;
 final class IncorrectAndMissingSkips
 {
     /**

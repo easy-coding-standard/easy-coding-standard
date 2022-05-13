@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220512\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20220513\Symfony\Component\DependencyInjection\Exception;
 
-use ECSPrefix20220512\Psr\Container\NotFoundExceptionInterface;
+use ECSPrefix20220513\Psr\Container\NotFoundExceptionInterface;
 /**
  * This exception is thrown when a non-existent service is requested.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ServiceNotFoundException extends \ECSPrefix20220512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException implements \ECSPrefix20220512\Psr\Container\NotFoundExceptionInterface
+class ServiceNotFoundException extends \ECSPrefix20220513\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException implements \ECSPrefix20220513\Psr\Container\NotFoundExceptionInterface
 {
     /**
      * @var string

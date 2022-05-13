@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220512;
+namespace ECSPrefix20220513;
 
 use PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer;
 use PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer;
@@ -28,13 +28,7 @@ use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
     $ecsConfig->import(__DIR__ . '/php_cs_fixer/php-cs-fixer-psr2.php');
-    $ecsConfig->rule(\PhpCsFixer\Fixer\Basic\EncodingFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\CastNotation\ShortScalarCastFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\Import\NoLeadingImportSlashFixer::class);
-    $ecsConfig->rule(\PhpCsFixer\Fixer\Operator\NewWithBracesFixer::class);
+    $ecsConfig->rules([\PhpCsFixer\Fixer\Basic\EncodingFixer::class, \PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer::class, \PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer::class, \PhpCsFixer\Fixer\CastNotation\ShortScalarCastFixer::class, \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class, \PhpCsFixer\Fixer\Import\NoLeadingImportSlashFixer::class, \PhpCsFixer\Fixer\Operator\NewWithBracesFixer::class]);
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\Import\OrderedImportsFixer::class, ['imports_order' => ['class', 'function', 'const']]);
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer::class, ['space' => 'none']);
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\Basic\BracesFixer::class, ['allow_single_line_closure' => \false, 'position_after_functions_and_oop_constructs' => 'next', 'position_after_control_structures' => 'same', 'position_after_anonymous_constructs' => 'same']);
