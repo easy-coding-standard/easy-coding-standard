@@ -10,13 +10,13 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use ECSPrefix20220513\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20220513\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20220513\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20220514\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20220514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\RemoveUselessDefaultCommentFixer\RemoveUselessDefaultCommentFixerTest
  */
-final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220513\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -59,9 +59,9 @@ final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fi
             $tokens->clearAt($index);
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20220513\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20220514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20220513\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220513\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20220514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220514\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 /**
  * class SomeClass
  */

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220513\React\Stream;
+namespace ECSPrefix20220514\React\Stream;
 
-use ECSPrefix20220513\Evenement\EventEmitterInterface;
+use ECSPrefix20220514\Evenement\EventEmitterInterface;
 /**
  * The `WritableStreamInterface` is responsible for providing an interface for
  * write-only streams and the writable side of duplex streams.
@@ -138,7 +138,7 @@ use ECSPrefix20220513\Evenement\EventEmitterInterface;
  * @see EventEmitterInterface
  * @see DuplexStreamInterface
  */
-interface WritableStreamInterface extends \ECSPrefix20220513\Evenement\EventEmitterInterface
+interface WritableStreamInterface extends \ECSPrefix20220514\Evenement\EventEmitterInterface
 {
     /**
      * Checks whether this stream is in a writable state (not closed already).
