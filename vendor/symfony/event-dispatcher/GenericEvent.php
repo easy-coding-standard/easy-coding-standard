@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220514\Symfony\Component\EventDispatcher;
+namespace ECSPrefix20220516\Symfony\Component\EventDispatcher;
 
-use ECSPrefix20220514\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20220516\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Event encapsulation class.
  *
@@ -21,7 +21,7 @@ use ECSPrefix20220514\Symfony\Contracts\EventDispatcher\Event;
  * @implements \ArrayAccess<string, mixed>
  * @implements \IteratorAggregate<string, mixed>
  */
-class GenericEvent extends \ECSPrefix20220514\Symfony\Contracts\EventDispatcher\Event implements \ArrayAccess, \IteratorAggregate
+class GenericEvent extends \ECSPrefix20220516\Symfony\Contracts\EventDispatcher\Event implements \ArrayAccess, \IteratorAggregate
 {
     protected $subject;
     protected $arguments;

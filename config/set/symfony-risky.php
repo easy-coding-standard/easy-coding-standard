@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220514;
+namespace ECSPrefix20220516;
 
 use PhpCsFixer\Fixer\Alias\EregToPregFixer;
 use PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer;
@@ -23,6 +23,12 @@ use PhpCsFixer\Fixer\Naming\NoHomoglyphNamesFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitConstructFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitMockShortWillReturnFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
+use ECSPrefix20220516\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+$deprecatedMessage = \sprintf('The "%s" set from ECS is outdated and deprecated. Use "%s" with custom loader to use the latest configuration always updated, or even better switch to more standard PSR 12.', 'SetList::SYMFONY_RISKY', 'https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/RuleSet/Sets/SymfonySet.php');
+$symfonyStyleFactory = new \ECSPrefix20220516\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+$symfonyStyle = $symfonyStyleFactory->create();
+$symfonyStyle->warning($deprecatedMessage);
+\sleep(3);
 return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\FunctionNotation\FopenFlagsFixer::class, ['b_mode' => \false]);
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer::class, ['functions' => ['get_called_class', 'get_class', 'get_class_this', 'php_sapi_name', 'phpversion', 'pi']]);

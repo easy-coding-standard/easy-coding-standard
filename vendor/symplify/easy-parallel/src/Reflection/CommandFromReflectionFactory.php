@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220514\Symplify\EasyParallel\Reflection;
+namespace ECSPrefix20220516\Symplify\EasyParallel\Reflection;
 
 use ReflectionClass;
 use ReflectionMethod;
-use ECSPrefix20220514\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220514\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use ECSPrefix20220516\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220516\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
 final class CommandFromReflectionFactory
 {
     /**
      * @param class-string<Command> $className
      */
-    public function create(string $className) : \ECSPrefix20220514\Symfony\Component\Console\Command\Command
+    public function create(string $className) : \ECSPrefix20220516\Symfony\Component\Console\Command\Command
     {
         $commandReflectionClass = new \ReflectionClass($className);
         $command = $commandReflectionClass->newInstanceWithoutConstructor();
         $parentClassReflection = $commandReflectionClass->getParentClass();
         if (!$parentClassReflection instanceof \ReflectionClass) {
-            throw new \ECSPrefix20220514\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException();
+            throw new \ECSPrefix20220516\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException();
         }
         $parentConstructorReflectionMethod = $parentClassReflection->getConstructor();
         if (!$parentConstructorReflectionMethod instanceof \ReflectionMethod) {
-            throw new \ECSPrefix20220514\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException();
+            throw new \ECSPrefix20220516\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException();
         }
         $parentConstructorReflectionMethod->invoke($command);
         return $command;

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220514\Symplify\VendorPatches\Command;
+namespace ECSPrefix20220516\Symplify\VendorPatches\Command;
 
-use ECSPrefix20220514\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220514\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220514\Symplify\PackageBuilder\Composer\VendorDirProvider;
-use ECSPrefix20220514\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-use ECSPrefix20220514\Symplify\PackageBuilder\Console\Command\CommandNaming;
-use ECSPrefix20220514\Symplify\VendorPatches\Composer\ComposerPatchesConfigurationUpdater;
-use ECSPrefix20220514\Symplify\VendorPatches\Console\GenerateCommandReporter;
-use ECSPrefix20220514\Symplify\VendorPatches\Differ\PatchDiffer;
-use ECSPrefix20220514\Symplify\VendorPatches\Finder\OldToNewFilesFinder;
-use ECSPrefix20220514\Symplify\VendorPatches\PatchFileFactory;
-final class GenerateCommand extends \ECSPrefix20220514\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20220516\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220516\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220516\Symplify\PackageBuilder\Composer\VendorDirProvider;
+use ECSPrefix20220516\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use ECSPrefix20220516\Symplify\PackageBuilder\Console\Command\CommandNaming;
+use ECSPrefix20220516\Symplify\VendorPatches\Composer\ComposerPatchesConfigurationUpdater;
+use ECSPrefix20220516\Symplify\VendorPatches\Console\GenerateCommandReporter;
+use ECSPrefix20220516\Symplify\VendorPatches\Differ\PatchDiffer;
+use ECSPrefix20220516\Symplify\VendorPatches\Finder\OldToNewFilesFinder;
+use ECSPrefix20220516\Symplify\VendorPatches\PatchFileFactory;
+final class GenerateCommand extends \ECSPrefix20220516\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @var \Symplify\VendorPatches\Finder\OldToNewFilesFinder
@@ -39,7 +39,7 @@ final class GenerateCommand extends \ECSPrefix20220514\Symplify\PackageBuilder\C
      * @var \Symplify\VendorPatches\Console\GenerateCommandReporter
      */
     private $generateCommandReporter;
-    public function __construct(\ECSPrefix20220514\Symplify\VendorPatches\Finder\OldToNewFilesFinder $oldToNewFilesFinder, \ECSPrefix20220514\Symplify\VendorPatches\Differ\PatchDiffer $patchDiffer, \ECSPrefix20220514\Symplify\VendorPatches\Composer\ComposerPatchesConfigurationUpdater $composerPatchesConfigurationUpdater, \ECSPrefix20220514\Symplify\PackageBuilder\Composer\VendorDirProvider $vendorDirProvider, \ECSPrefix20220514\Symplify\VendorPatches\PatchFileFactory $patchFileFactory, \ECSPrefix20220514\Symplify\VendorPatches\Console\GenerateCommandReporter $generateCommandReporter)
+    public function __construct(\ECSPrefix20220516\Symplify\VendorPatches\Finder\OldToNewFilesFinder $oldToNewFilesFinder, \ECSPrefix20220516\Symplify\VendorPatches\Differ\PatchDiffer $patchDiffer, \ECSPrefix20220516\Symplify\VendorPatches\Composer\ComposerPatchesConfigurationUpdater $composerPatchesConfigurationUpdater, \ECSPrefix20220516\Symplify\PackageBuilder\Composer\VendorDirProvider $vendorDirProvider, \ECSPrefix20220516\Symplify\VendorPatches\PatchFileFactory $patchFileFactory, \ECSPrefix20220516\Symplify\VendorPatches\Console\GenerateCommandReporter $generateCommandReporter)
     {
         $this->oldToNewFilesFinder = $oldToNewFilesFinder;
         $this->patchDiffer = $patchDiffer;
@@ -51,10 +51,10 @@ final class GenerateCommand extends \ECSPrefix20220514\Symplify\PackageBuilder\C
     }
     protected function configure() : void
     {
-        $this->setName(\ECSPrefix20220514\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(self::class));
+        $this->setName(\ECSPrefix20220516\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(self::class));
         $this->setDescription('Generate patches from /vendor directory');
     }
-    protected function execute(\ECSPrefix20220514\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220514\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20220516\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220516\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $vendorDirectory = $this->vendorDirProvider->provide();
         $oldAndNewFileInfos = $this->oldToNewFilesFinder->find($vendorDirectory);

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220514;
+namespace ECSPrefix20220516;
 
 use PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
@@ -137,6 +137,12 @@ use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
+use ECSPrefix20220516\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+$deprecatedMessage = \sprintf('The "%s" set from ECS is outdated and deprecated. Use "%s" with custom loader to use the latest configuration always updated, or even better switch to more standard PSR 12.', 'SetList::PHP_CS_FIXER', 'https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/RuleSet/Sets/PhpCsFixerSet.php');
+$symfonyStyleFactory = new \ECSPrefix20220516\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+$symfonyStyle = $symfonyStyleFactory->create();
+$symfonyStyle->warning($deprecatedMessage);
+\sleep(3);
 return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer::class, ['syntax' => 'short']);
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\Basic\BracesFixer::class, ['allow_single_line_closure' => \true]);
