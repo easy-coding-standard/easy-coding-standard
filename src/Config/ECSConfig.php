@@ -8,9 +8,9 @@ use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20220516\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix20220516\Webmozart\Assert\Assert;
-use ECSPrefix20220516\Webmozart\Assert\InvalidArgumentException;
+use ECSPrefix20220517\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix20220517\Webmozart\Assert\Assert;
+use ECSPrefix20220517\Webmozart\Assert\InvalidArgumentException;
 /**
  * @api
  */
@@ -21,7 +21,7 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
      */
     public function paths(array $paths) : void
     {
-        \ECSPrefix20220516\Webmozart\Assert\Assert::allString($paths);
+        \ECSPrefix20220517\Webmozart\Assert\Assert::allString($paths);
         $parameters = $this->parameters();
         $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, $paths);
     }
@@ -38,8 +38,8 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
      */
     public function sets(array $sets) : void
     {
-        \ECSPrefix20220516\Webmozart\Assert\Assert::allString($sets);
-        \ECSPrefix20220516\Webmozart\Assert\Assert::allFileExists($sets);
+        \ECSPrefix20220517\Webmozart\Assert\Assert::allString($sets);
+        \ECSPrefix20220517\Webmozart\Assert\Assert::allFileExists($sets);
         foreach ($sets as $set) {
             $this->import($set);
         }
@@ -73,12 +73,12 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
         $services = $this->services();
         $service = $services->set($checkerClass);
         if (\is_a($checkerClass, \PhpCsFixer\Fixer\FixerInterface::class, \true)) {
-            \ECSPrefix20220516\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PhpCsFixer\Fixer\ConfigurableFixerInterface::class, \ECSPrefix20220516\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface::class]);
+            \ECSPrefix20220517\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PhpCsFixer\Fixer\ConfigurableFixerInterface::class, \ECSPrefix20220517\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface::class]);
             $service->call('configure', [$configuration]);
         }
         if (\is_a($checkerClass, \PHP_CodeSniffer\Sniffs\Sniff::class, \true)) {
             foreach ($configuration as $propertyName => $value) {
-                \ECSPrefix20220516\Webmozart\Assert\Assert::propertyExists($checkerClass, $propertyName);
+                \ECSPrefix20220517\Webmozart\Assert\Assert::propertyExists($checkerClass, $propertyName);
                 $service->property($propertyName, $value);
             }
         }
@@ -106,8 +106,8 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
      */
     private function isCheckerClass(string $checkerClass) : void
     {
-        \ECSPrefix20220516\Webmozart\Assert\Assert::classExists($checkerClass);
-        \ECSPrefix20220516\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PHP_CodeSniffer\Sniffs\Sniff::class, \PhpCsFixer\Fixer\FixerInterface::class]);
+        \ECSPrefix20220517\Webmozart\Assert\Assert::classExists($checkerClass);
+        \ECSPrefix20220517\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PHP_CodeSniffer\Sniffs\Sniff::class, \PhpCsFixer\Fixer\FixerInterface::class]);
     }
     /**
      * @param string[] $checkerClasses
@@ -124,6 +124,6 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
         }
         $duplicatedCheckerClasses = \array_flip($duplicatedCheckerClassToCount);
         $errorMessage = \sprintf('There are duplicated classes in $rectorConfig->rules(): "%s". Make them unique to avoid unexpected behavior.', \implode('", "', $duplicatedCheckerClasses));
-        throw new \ECSPrefix20220516\Webmozart\Assert\InvalidArgumentException($errorMessage);
+        throw new \ECSPrefix20220517\Webmozart\Assert\InvalidArgumentException($errorMessage);
     }
 }

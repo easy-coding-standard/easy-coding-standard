@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220516;
+namespace ECSPrefix20220517;
 
 use PhpCsFixer\Fixer\Alias\EregToPregFixer;
 use PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer;
@@ -34,9 +34,9 @@ use PhpCsFixer\Fixer\Strict\StrictComparisonFixer;
 use PhpCsFixer\Fixer\Strict\StrictParamFixer;
 use PhpCsFixer\Fixer\StringNotation\StringLineEndingFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
-use ECSPrefix20220516\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix20220517\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 $deprecatedMessage = \sprintf('The "%s" set from ECS is outdated and deprecated. Use "%s" with custom loader to use the latest configuration always updated, or even better switch to more standard PSR 12.', 'SetList::PHP_CS_FIXER_RISKY', 'https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/RuleSet/Sets/PhpCsFixerRiskySet.php');
-$symfonyStyleFactory = new \ECSPrefix20220516\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+$symfonyStyleFactory = new \ECSPrefix20220517\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
 $symfonyStyle = $symfonyStyleFactory->create();
 $symfonyStyle->warning($deprecatedMessage);
 \sleep(3);

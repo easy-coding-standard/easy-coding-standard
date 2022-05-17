@@ -23,8 +23,8 @@ use PhpCsFixer\FixerConfiguration\DeprecatedFixerOption;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220516\Symfony\Component\OptionsResolver\Exception\ExceptionInterface;
-use ECSPrefix20220516\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use ECSPrefix20220517\Symfony\Component\OptionsResolver\Exception\ExceptionInterface;
+use ECSPrefix20220517\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
@@ -112,11 +112,11 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
         }
         try {
             $this->configuration = $this->getConfigurationDefinition()->resolve($configuration);
-        } catch (\ECSPrefix20220516\Symfony\Component\OptionsResolver\Exception\MissingOptionsException $exception) {
+        } catch (\ECSPrefix20220517\Symfony\Component\OptionsResolver\Exception\MissingOptionsException $exception) {
             throw new \PhpCsFixer\ConfigurationException\RequiredFixerConfigurationException($this->getName(), \sprintf('Missing required configuration: %s', $exception->getMessage()), $exception);
         } catch (\PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException $exception) {
             throw new \PhpCsFixer\ConfigurationException\InvalidForEnvFixerConfigurationException($this->getName(), \sprintf('Invalid configuration for env: %s', $exception->getMessage()), $exception);
-        } catch (\ECSPrefix20220516\Symfony\Component\OptionsResolver\Exception\ExceptionInterface $exception) {
+        } catch (\ECSPrefix20220517\Symfony\Component\OptionsResolver\Exception\ExceptionInterface $exception) {
             throw new \PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException($this->getName(), \sprintf('Invalid configuration: %s', $exception->getMessage()), $exception);
         }
     }

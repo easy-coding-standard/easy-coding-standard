@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220516\Symplify\Skipper\Skipper;
+namespace ECSPrefix20220517\Symplify\Skipper\Skipper;
 
-use ECSPrefix20220516\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20220516\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220517\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20220517\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\Skipper\Tests\Skipper\Skip\SkipSkipperTest
  */
@@ -14,7 +14,7 @@ final class SkipSkipper
      * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\ECSPrefix20220516\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\ECSPrefix20220517\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
@@ -22,7 +22,7 @@ final class SkipSkipper
      * @param array<string, string[]|null> $skippedClasses
      * @param object|string $checker
      */
-    public function doesMatchSkip($checker, \ECSPrefix20220516\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $skippedClasses) : bool
+    public function doesMatchSkip($checker, \ECSPrefix20220517\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $skippedClasses) : bool
     {
         foreach ($skippedClasses as $skippedClass => $skippedFiles) {
             if (!\is_a($checker, $skippedClass, \true)) {
