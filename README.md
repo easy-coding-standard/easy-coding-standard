@@ -81,11 +81,11 @@ Configuration can be extended with many options. Here is list of them with examp
 
 ```php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
+return static function (ECSConfig $ecsConfig): void {
+    $parameters = $ecsConfig->parameters();
 
     // alternative to CLI arguments, easier to maintain and extend
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
@@ -147,11 +147,11 @@ That means 1600 % faster run with same amount of analysed files. Did you code ba
 How to enable it?
 
 ```php
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
+return static function (ECSConfig $ecsConfig): void {
+    $parameters = $ecsConfig->parameters();
 
     $parameters->set(Option::PARALLEL, true);
 };
