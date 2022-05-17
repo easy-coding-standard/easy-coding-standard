@@ -81,21 +81,13 @@ Configuration can be extended with many options. Here is list of them with examp
 
 ```php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
-
+return static function (ECSConfig $ecsConfig): void {
     // alternative to CLI arguments, easier to maintain and extend
-    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
+    $ecsConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
 
-    // run single rule only on specific path
-    $parameters->set(Option::ONLY, [
-        ArraySyntaxFixer::class => [__DIR__ . '/src/NewCode'],
-    ]);
-
-    $parameters->set(Option::SKIP, [
+    $ecsConfig->skip([
         // skip paths with legacy code
         __DIR__ . '/packages/*/src/Legacy',
 
@@ -118,6 +110,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]);
 
     // scan other file extendsions; [default: [php]]
+    $parameters = $ecsConfig->parameters();
     $parameters->set(Option::FILE_EXTENSIONS, ['php', 'phpt']);
 
     // configure cache paths & namespace - useful for Gitlab CI caching, where getcwd() produces always different path
@@ -129,10 +122,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // indent and tabs/spaces
     // [default: spaces]
-    $parameters->set(Option::INDENTATION, 'tab');
+    $ecsConfig->indentation('tab');
 
     // [default: PHP_EOL]; other options: "\n"
-    $parameters->set(Option::LINE_ENDING, "\r\n");
+    $ecsConfig->lineEnding("\r\n");
 };
 ```
 
@@ -144,18 +137,7 @@ Do you have multi-core CPUs? ECS can run in *X* parallel threads, where *X* is n
 
 That means 1600 % faster run with same amount of analysed files. Did you code base took 16 minutes to fix? Now it's 1 minute.
 
-How to enable it?
-
-```php
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
-
-    $parameters->set(Option::PARALLEL, true);
-};
-```
+It is enabled by default, so you can enjoy it out of the box.
 
 ## Coding Standards in Markdown
 
