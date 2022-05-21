@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220520;
+namespace ECSPrefix20220521;
 
 use PhpCsFixer\Fixer\Alias\EregToPregFixer;
 use PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer;
@@ -34,12 +34,6 @@ use PhpCsFixer\Fixer\Strict\StrictComparisonFixer;
 use PhpCsFixer\Fixer\Strict\StrictParamFixer;
 use PhpCsFixer\Fixer\StringNotation\StringLineEndingFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
-use ECSPrefix20220520\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-$deprecatedMessage = \sprintf('The "%s" set from ECS is outdated and deprecated. Use "%s" with custom loader to use the latest configuration always updated, or even better switch to more standard PSR 12.', 'SetList::PHP_CS_FIXER_RISKY', 'https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/RuleSet/Sets/PhpCsFixerRiskySet.php');
-$symfonyStyleFactory = new \ECSPrefix20220520\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
-$symfonyStyle = $symfonyStyleFactory->create();
-$symfonyStyle->warning($deprecatedMessage);
-\sleep(3);
 return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
     $ecsConfig->rules([\PhpCsFixer\Fixer\Comment\CommentToPhpdocFixer::class, \PhpCsFixer\Fixer\LanguageConstruct\DirConstantFixer::class, \PhpCsFixer\Fixer\Alias\EregToPregFixer::class, \PhpCsFixer\Fixer\LanguageConstruct\ErrorSuppressionFixer::class, \PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer::class, \PhpCsFixer\Fixer\FunctionNotation\FopenFlagOrderFixer::class, \PhpCsFixer\Fixer\FunctionNotation\ImplodeCallFixer::class, \PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer::class, \PhpCsFixer\Fixer\Operator\LogicalOperatorsFixer::class, \PhpCsFixer\Fixer\CastNotation\ModernizeTypesCastingFixer::class, \PhpCsFixer\Fixer\Naming\NoHomoglyphNamesFixer::class, \PhpCsFixer\Fixer\ClassNotation\NoUnneededFinalMethodFixer::class, \PhpCsFixer\Fixer\FunctionNotation\NoUnreachableDefaultArgumentValueFixer::class, \PhpCsFixer\Fixer\LanguageConstruct\NoUnsetOnPropertyFixer::class, \PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer::class, \PhpCsFixer\Fixer\PhpUnit\PhpUnitConstructFixer::class, \PhpCsFixer\Fixer\PhpUnit\PhpUnitMockShortWillReturnFixer::class, \PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer::class, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer::class, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTestCaseStaticMethodCallsFixer::class, \PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer::class, \PhpCsFixer\Fixer\Alias\SetTypeToCastFixer::class, \PhpCsFixer\Fixer\Strict\StrictComparisonFixer::class, \PhpCsFixer\Fixer\Strict\StrictParamFixer::class, \PhpCsFixer\Fixer\StringNotation\StringLineEndingFixer::class]);
     $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\FunctionNotation\FopenFlagsFixer::class, ['b_mode' => \false]);

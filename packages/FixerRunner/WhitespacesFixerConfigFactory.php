@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\FixerRunner;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException;
 use Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing;
-use ECSPrefix20220520\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220521\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class WhitespacesFixerConfigFactory
 {
     /**
@@ -17,7 +17,7 @@ final class WhitespacesFixerConfigFactory
      * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\ECSPrefix20220520\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\ECSPrefix20220521\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
@@ -41,7 +41,7 @@ final class WhitespacesFixerConfigFactory
         if ($this->isFourSpaces($indentation)) {
             return \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::FOUR_SPACES;
         }
-        throw new \Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException(\sprintf('Value "%s" is not supported in "parameters > indentation".%sUse one of: "%s".', $indentation, \PHP_EOL, \implode('", "', self::ALLOWED_VALUES)));
+        throw new \Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException(\sprintf('Value "%s" is not supported in "$ecsConfig->indentation(...)".%sUse one of: "%s".', $indentation, \PHP_EOL, \implode('", "', self::ALLOWED_VALUES)));
     }
     private function isOneTab(string $indentation) : bool
     {

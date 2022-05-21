@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220520\Symfony\Contracts\Service\Attribute;
+namespace ECSPrefix20220521\Symfony\Contracts\Service\Attribute;
 
-use ECSPrefix20220520\Symfony\Contracts\Service\ServiceSubscriberTrait;
+use ECSPrefix20220521\Symfony\Contracts\Service\ServiceSubscriberTrait;
 /**
  * Use with {@see ServiceSubscriberTrait} to mark a method's return type
  * as a subscribed service.

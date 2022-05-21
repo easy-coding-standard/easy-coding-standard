@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220520\Symplify\PackageBuilder\Console\Command;
+namespace ECSPrefix20220521\Symplify\PackageBuilder\Console\Command;
 
-use ECSPrefix20220520\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220520\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20220520\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20220520\Symfony\Contracts\Service\Attribute\Required;
-use ECSPrefix20220520\Symplify\PackageBuilder\ValueObject\Option;
-use ECSPrefix20220520\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix20220520\Symplify\SmartFileSystem\Finder\SmartFinder;
-use ECSPrefix20220520\Symplify\SmartFileSystem\SmartFileSystem;
-abstract class AbstractSymplifyCommand extends \ECSPrefix20220520\Symfony\Component\Console\Command\Command
+use ECSPrefix20220521\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220521\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20220521\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20220521\Symfony\Contracts\Service\Attribute\Required;
+use ECSPrefix20220521\Symplify\PackageBuilder\ValueObject\Option;
+use ECSPrefix20220521\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix20220521\Symplify\SmartFileSystem\Finder\SmartFinder;
+use ECSPrefix20220521\Symplify\SmartFileSystem\SmartFileSystem;
+abstract class AbstractSymplifyCommand extends \ECSPrefix20220521\Symfony\Component\Console\Command\Command
 {
     /**
      * @var \Symfony\Component\Console\Style\SymfonyStyle
@@ -32,12 +32,12 @@ abstract class AbstractSymplifyCommand extends \ECSPrefix20220520\Symfony\Compon
     public function __construct()
     {
         parent::__construct();
-        $this->addOption(\ECSPrefix20220520\Symplify\PackageBuilder\ValueObject\Option::CONFIG, 'c', \ECSPrefix20220520\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file');
+        $this->addOption(\ECSPrefix20220521\Symplify\PackageBuilder\ValueObject\Option::CONFIG, 'c', \ECSPrefix20220521\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file');
     }
     /**
      * @required
      */
-    public function autowire(\ECSPrefix20220520\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \ECSPrefix20220520\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20220520\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \ECSPrefix20220520\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard) : void
+    public function autowire(\ECSPrefix20220521\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \ECSPrefix20220521\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20220521\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \ECSPrefix20220521\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard) : void
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->smartFileSystem = $smartFileSystem;

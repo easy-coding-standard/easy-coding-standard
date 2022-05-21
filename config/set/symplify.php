@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220520;
+namespace ECSPrefix20220521;
 
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
-    # A. monorepo
+    // A. monorepo
     $ecsConfig->import(__DIR__ . '/../../../coding-standard/config/symplify.php', null, 'not_found');
-    # B. installed as dependency
+    // B. installed as dependency
     $ecsConfig->import(__DIR__ . '/../../vendor/symplify/coding-standard/config/symplify.php', null, 'not_found');
 };

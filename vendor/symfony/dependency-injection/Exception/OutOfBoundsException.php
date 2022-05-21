@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220520\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20220521\Symfony\Component\DependencyInjection\Exception;
 
 /**
  * Base OutOfBoundsException for Dependency Injection component.
  */
-class OutOfBoundsException extends \OutOfBoundsException implements \ECSPrefix20220520\Symfony\Component\DependencyInjection\Exception\ExceptionInterface
+class OutOfBoundsException extends \OutOfBoundsException implements \ECSPrefix20220521\Symfony\Component\DependencyInjection\Exception\ExceptionInterface
 {
 }

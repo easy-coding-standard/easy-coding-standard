@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220520\Symplify\EasyTesting\Kernel;
+namespace ECSPrefix20220521\Symplify\EasyTesting\Kernel;
 
-use ECSPrefix20220520\Psr\Container\ContainerInterface;
-use ECSPrefix20220520\Symplify\EasyTesting\ValueObject\EasyTestingConfig;
-use ECSPrefix20220520\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class EasyTestingKernel extends \ECSPrefix20220520\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use ECSPrefix20220521\Psr\Container\ContainerInterface;
+use ECSPrefix20220521\Symplify\EasyTesting\ValueObject\EasyTestingConfig;
+use ECSPrefix20220521\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class EasyTestingKernel extends \ECSPrefix20220521\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @param string[] $configFiles
      */
-    public function createFromConfigs(array $configFiles) : \ECSPrefix20220520\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFiles) : \ECSPrefix20220521\Psr\Container\ContainerInterface
     {
-        $configFiles[] = \ECSPrefix20220520\Symplify\EasyTesting\ValueObject\EasyTestingConfig::FILE_PATH;
+        $configFiles[] = \ECSPrefix20220521\Symplify\EasyTesting\ValueObject\EasyTestingConfig::FILE_PATH;
         return $this->create($configFiles);
     }
 }
