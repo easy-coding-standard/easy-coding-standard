@@ -3,7 +3,7 @@
 
 
 if (\PHP_VERSION_ID < 80000 && \extension_loaded('tokenizer')) {
-    class PhpToken extends \ECSPrefix20220521\Symfony\Polyfill\Php80\PhpToken
+    class PhpToken extends \ECSPrefix20220522\Symfony\Polyfill\Php80\PhpToken
     {
     }
 }

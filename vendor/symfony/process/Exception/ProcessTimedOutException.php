@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220521\Symfony\Component\Process\Exception;
+namespace ECSPrefix20220522\Symfony\Component\Process\Exception;
 
-use ECSPrefix20220521\Symfony\Component\Process\Process;
+use ECSPrefix20220522\Symfony\Component\Process\Process;
 /**
  * Exception that is thrown when a process times out.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ProcessTimedOutException extends \ECSPrefix20220521\Symfony\Component\Process\Exception\RuntimeException
+class ProcessTimedOutException extends \ECSPrefix20220522\Symfony\Component\Process\Exception\RuntimeException
 {
     public const TYPE_GENERAL = 1;
     public const TYPE_IDLE = 2;
     private $process;
     private $timeoutType;
-    public function __construct(\ECSPrefix20220521\Symfony\Component\Process\Process $process, int $timeoutType)
+    public function __construct(\ECSPrefix20220522\Symfony\Component\Process\Process $process, int $timeoutType)
     {
         $this->process = $process;
         $this->timeoutType = $timeoutType;

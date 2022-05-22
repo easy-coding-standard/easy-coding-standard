@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220521\Symplify\Skipper\SkipCriteriaResolver;
+namespace ECSPrefix20220522\Symplify\Skipper\SkipCriteriaResolver;
 
-use ECSPrefix20220521\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20220521\Symplify\Skipper\ValueObject\Option;
-use ECSPrefix20220521\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+use ECSPrefix20220522\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220522\Symplify\Skipper\ValueObject\Option;
+use ECSPrefix20220522\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
 /**
  * @see \Symplify\Skipper\Tests\SkipCriteriaResolver\SkippedPathsResolver\SkippedPathsResolverTest
  */
@@ -23,7 +23,7 @@ final class SkippedPathsResolver
      * @var \Symplify\SmartFileSystem\Normalizer\PathNormalizer
      */
     private $pathNormalizer;
-    public function __construct(\ECSPrefix20220521\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20220521\Symplify\SmartFileSystem\Normalizer\PathNormalizer $pathNormalizer)
+    public function __construct(\ECSPrefix20220522\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20220522\Symplify\SmartFileSystem\Normalizer\PathNormalizer $pathNormalizer)
     {
         $this->parameterProvider = $parameterProvider;
         $this->pathNormalizer = $pathNormalizer;
@@ -36,7 +36,7 @@ final class SkippedPathsResolver
         if ($this->skippedPaths !== []) {
             return $this->skippedPaths;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\ECSPrefix20220521\Symplify\Skipper\ValueObject\Option::SKIP);
+        $skip = $this->parameterProvider->provideArrayParameter(\ECSPrefix20220522\Symplify\Skipper\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             if (!\is_int($key)) {
                 continue;

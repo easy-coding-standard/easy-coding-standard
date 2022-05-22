@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220521\Symfony\Component\Config;
+namespace ECSPrefix20220522\Symfony\Component\Config;
 
-use ECSPrefix20220521\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+use ECSPrefix20220522\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */

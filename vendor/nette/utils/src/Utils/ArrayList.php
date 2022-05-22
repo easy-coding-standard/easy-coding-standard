@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220521\Nette\Utils;
+namespace ECSPrefix20220522\Nette\Utils;
 
-use ECSPrefix20220521\Nette;
+use ECSPrefix20220522\Nette;
 /**
  * Provides the base class for a generic list (items can be accessed by index).
  * @template T
@@ -24,8 +24,8 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public static function from(array $array)
     {
-        if (!\ECSPrefix20220521\Nette\Utils\Arrays::isList($array)) {
-            throw new \ECSPrefix20220521\Nette\InvalidArgumentException('Array is not valid list.');
+        if (!\ECSPrefix20220522\Nette\Utils\Arrays::isList($array)) {
+            throw new \ECSPrefix20220522\Nette\InvalidArgumentException('Array is not valid list.');
         }
         $obj = new static();
         $obj->list = $array;
@@ -57,7 +57,7 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
         if ($index === null) {
             $this->list[] = $value;
         } elseif (!\is_int($index) || $index < 0 || $index >= \count($this->list)) {
-            throw new \ECSPrefix20220521\Nette\OutOfRangeException('Offset invalid or out of range');
+            throw new \ECSPrefix20220522\Nette\OutOfRangeException('Offset invalid or out of range');
         } else {
             $this->list[$index] = $value;
         }
@@ -72,7 +72,7 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
     public function offsetGet($index)
     {
         if (!\is_int($index) || $index < 0 || $index >= \count($this->list)) {
-            throw new \ECSPrefix20220521\Nette\OutOfRangeException('Offset invalid or out of range');
+            throw new \ECSPrefix20220522\Nette\OutOfRangeException('Offset invalid or out of range');
         }
         return $this->list[$index];
     }
@@ -92,7 +92,7 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
     public function offsetUnset($index) : void
     {
         if (!\is_int($index) || $index < 0 || $index >= \count($this->list)) {
-            throw new \ECSPrefix20220521\Nette\OutOfRangeException('Offset invalid or out of range');
+            throw new \ECSPrefix20220522\Nette\OutOfRangeException('Offset invalid or out of range');
         }
         \array_splice($this->list, $index, 1);
     }

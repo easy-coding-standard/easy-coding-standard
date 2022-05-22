@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220521\Composer\Semver;
+namespace ECSPrefix20220522\Composer\Semver;
 
-use ECSPrefix20220521\Composer\Semver\Constraint\Constraint;
-use ECSPrefix20220521\Composer\Semver\Constraint\ConstraintInterface;
+use ECSPrefix20220522\Composer\Semver\Constraint\Constraint;
+use ECSPrefix20220522\Composer\Semver\Constraint\ConstraintInterface;
 /**
  * Helper class to evaluate constraint by compiling and reusing the code to evaluate
  */
@@ -32,7 +32,7 @@ class CompilingMatcher
     /**
      * @phpstan-var array<Constraint::OP_*, Constraint::STR_OP_*>
      */
-    private static $transOpInt = array(\ECSPrefix20220521\Composer\Semver\Constraint\Constraint::OP_EQ => \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::STR_OP_EQ, \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::OP_LT => \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::STR_OP_LT, \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::OP_LE => \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::STR_OP_LE, \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::OP_GT => \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::STR_OP_GT, \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::OP_GE => \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::STR_OP_GE, \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::OP_NE => \ECSPrefix20220521\Composer\Semver\Constraint\Constraint::STR_OP_NE);
+    private static $transOpInt = array(\ECSPrefix20220522\Composer\Semver\Constraint\Constraint::OP_EQ => \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::STR_OP_EQ, \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::OP_LT => \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::STR_OP_LT, \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::OP_LE => \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::STR_OP_LE, \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::OP_GT => \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::STR_OP_GT, \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::OP_GE => \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::STR_OP_GE, \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::OP_NE => \ECSPrefix20220522\Composer\Semver\Constraint\Constraint::STR_OP_NE);
     /**
      * Clears the memoization cache once you are done
      *
@@ -53,7 +53,7 @@ class CompilingMatcher
      *
      * @return mixed
      */
-    public static function match(\ECSPrefix20220521\Composer\Semver\Constraint\ConstraintInterface $constraint, $operator, $version)
+    public static function match(\ECSPrefix20220522\Composer\Semver\Constraint\ConstraintInterface $constraint, $operator, $version)
     {
         $resultCacheKey = $operator . $constraint . ';' . $version;
         if (isset(self::$resultCache[$resultCacheKey])) {
@@ -63,7 +63,7 @@ class CompilingMatcher
             self::$enabled = !\in_array('eval', \explode(',', (string) \ini_get('disable_functions')), \true);
         }
         if (!self::$enabled) {
-            return self::$resultCache[$resultCacheKey] = $constraint->matches(new \ECSPrefix20220521\Composer\Semver\Constraint\Constraint(self::$transOpInt[$operator], $version));
+            return self::$resultCache[$resultCacheKey] = $constraint->matches(new \ECSPrefix20220522\Composer\Semver\Constraint\Constraint(self::$transOpInt[$operator], $version));
         }
         $cacheKey = $operator . $constraint;
         if (!isset(self::$compiledCheckerCache[$cacheKey])) {
