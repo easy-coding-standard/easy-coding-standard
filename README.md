@@ -165,13 +165,6 @@ vendor/bin/ecs check-markdown --fix
 
 ## FAQ
 
-### How can I see all loaded checkers?
-
-```bash
-vendor/bin/ecs show
-vendor/bin/ecs show --config ...
-```
-
 ### How do I clear cache?
 
 ```bash

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220522\Symplify\VendorPatches\Composer;
+namespace ECSPrefix20220523\Symplify\VendorPatches\Composer;
 
-use ECSPrefix20220522\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix20220522\Symplify\SmartFileSystem\Json\JsonFileSystem;
-use ECSPrefix20220522\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220522\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-use ECSPrefix20220522\Symplify\VendorPatches\FileSystem\PathResolver;
+use ECSPrefix20220523\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix20220523\Symplify\SmartFileSystem\Json\JsonFileSystem;
+use ECSPrefix20220523\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220523\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20220523\Symplify\VendorPatches\FileSystem\PathResolver;
 /**
  * @see \Symplify\VendorPatches\Tests\Composer\PackageNameResolverTest
  */
@@ -25,22 +25,22 @@ final class PackageNameResolver
      * @var \Symplify\SmartFileSystem\FileSystemGuard
      */
     private $fileSystemGuard;
-    public function __construct(\ECSPrefix20220522\Symplify\SmartFileSystem\Json\JsonFileSystem $jsonFileSystem, \ECSPrefix20220522\Symplify\VendorPatches\FileSystem\PathResolver $pathResolver, \ECSPrefix20220522\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
+    public function __construct(\ECSPrefix20220523\Symplify\SmartFileSystem\Json\JsonFileSystem $jsonFileSystem, \ECSPrefix20220523\Symplify\VendorPatches\FileSystem\PathResolver $pathResolver, \ECSPrefix20220523\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
     {
         $this->jsonFileSystem = $jsonFileSystem;
         $this->pathResolver = $pathResolver;
         $this->fileSystemGuard = $fileSystemGuard;
     }
-    public function resolveFromFileInfo(\ECSPrefix20220522\Symplify\SmartFileSystem\SmartFileInfo $vendorFile) : string
+    public function resolveFromFileInfo(\ECSPrefix20220523\Symplify\SmartFileSystem\SmartFileInfo $vendorFile) : string
     {
         $packageComposerJsonFilePath = $this->getPackageComposerJsonFilePath($vendorFile);
         $composerJson = $this->jsonFileSystem->loadFilePathToJson($packageComposerJsonFilePath);
         if (!isset($composerJson['name'])) {
-            throw new \ECSPrefix20220522\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20220523\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $composerJson['name'];
     }
-    private function getPackageComposerJsonFilePath(\ECSPrefix20220522\Symplify\SmartFileSystem\SmartFileInfo $vendorFileInfo) : string
+    private function getPackageComposerJsonFilePath(\ECSPrefix20220523\Symplify\SmartFileSystem\SmartFileInfo $vendorFileInfo) : string
     {
         $vendorPackageDirectory = $this->pathResolver->resolveVendorDirectory($vendorFileInfo);
         $packageComposerJsonFilePath = $vendorPackageDirectory . '/composer.json';

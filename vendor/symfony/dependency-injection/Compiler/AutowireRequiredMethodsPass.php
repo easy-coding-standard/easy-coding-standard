@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220522\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220523\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220522\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220522\Symfony\Contracts\Service\Attribute\Required;
+use ECSPrefix20220523\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220523\Symfony\Contracts\Service\Attribute\Required;
 /**
  * Looks for definitions with autowiring enabled and registers their corresponding "@required" methods as setters.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class AutowireRequiredMethodsPass extends \ECSPrefix20220522\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class AutowireRequiredMethodsPass extends \ECSPrefix20220523\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     /**
      * {@inheritdoc}
@@ -27,7 +27,7 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20220522\Symfony\Component\D
     protected function processValue($value, bool $isRoot = \false)
     {
         $value = parent::processValue($value, $isRoot);
-        if (!$value instanceof \ECSPrefix20220522\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
+        if (!$value instanceof \ECSPrefix20220523\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
             return $value;
         }
         if (!($reflectionClass = $this->container->getReflectionClass($value->getClass(), \false))) {
@@ -44,7 +44,7 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20220522\Symfony\Component\D
                 continue;
             }
             while (\true) {
-                if (\method_exists($r, 'getAttributes') ? $r->getAttributes(\ECSPrefix20220522\Symfony\Contracts\Service\Attribute\Required::class) : []) {
+                if (\method_exists($r, 'getAttributes') ? $r->getAttributes(\ECSPrefix20220523\Symfony\Contracts\Service\Attribute\Required::class) : []) {
                     if ($this->isWither($r, $r->getDocComment() ?: '')) {
                         $withers[] = [$r->name, [], \true];
                     } else {
