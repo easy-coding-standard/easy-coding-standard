@@ -6,14 +6,14 @@ namespace Symplify\EasyCodingStandard\Contract\Application;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20220524\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220525\Symplify\SmartFileSystem\SmartFileInfo;
 interface FileProcessorInterface
 {
-    public function processFileToString(\ECSPrefix20220524\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string;
+    public function processFileToString(\ECSPrefix20220525\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string;
     /**
      * @return array{file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[]}
      */
-    public function processFile(\ECSPrefix20220524\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array;
+    public function processFile(\ECSPrefix20220525\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array;
     /**
      * @return object[]
      */
