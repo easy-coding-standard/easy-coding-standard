@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220525\\Symplify\\SmartFileSystem\\": "src"
+            "ECSPrefix20220527\\Symplify\\SmartFileSystem\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220525\\Symplify\\SmartFileSystem\\Tests\\": "tests"
+            "ECSPrefix20220527\\Symplify\\SmartFileSystem\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -37,7 +37,6 @@
         "symplify\/php-config-printer": "<10.2.7",
         "symplify\/autowire-array-parameter": "<10.2.7",
         "symplify\/package-builder": "<10.2.7",
-        "symplify\/amnesia": "<10.2.7",
         "symplify\/phpstan-extensions": "<10.2.7",
         "symplify\/rule-doc-generator": "<10.2.7",
         "symplify\/vendor-patches": "<10.2.7",

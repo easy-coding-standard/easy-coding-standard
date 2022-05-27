@@ -13,12 +13,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220525\\Symplify\\AutowireArrayParameter\\": "src"
+            "ECSPrefix20220527\\Symplify\\AutowireArrayParameter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220525\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
+            "ECSPrefix20220527\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -34,7 +34,6 @@
         "symplify\/easy-testing": "<10.2.7",
         "symplify\/rule-doc-generator-contracts": "<10.2.7",
         "symplify\/php-config-printer": "<10.2.7",
-        "symplify\/amnesia": "<10.2.7",
         "symplify\/phpstan-extensions": "<10.2.7",
         "symplify\/rule-doc-generator": "<10.2.7",
         "symplify\/vendor-patches": "<10.2.7",

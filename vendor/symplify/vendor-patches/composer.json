@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220525\\Symplify\\VendorPatches\\": "src"
+            "ECSPrefix20220527\\Symplify\\VendorPatches\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220525\\Symplify\\VendorPatches\\Tests\\": "tests"
+            "ECSPrefix20220527\\Symplify\\VendorPatches\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -42,7 +42,6 @@
         "symplify\/php-config-printer": "<10.2.7",
         "symplify\/autowire-array-parameter": "<10.2.7",
         "symplify\/package-builder": "<10.2.7",
-        "symplify\/amnesia": "<10.2.7",
         "symplify\/phpstan-extensions": "<10.2.7",
         "symplify\/rule-doc-generator": "<10.2.7",
         "symplify\/skipper": "<10.2.7",

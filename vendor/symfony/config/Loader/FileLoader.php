@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220525\Symfony\Component\Config\Loader;
+namespace ECSPrefix20220527\Symfony\Component\Config\Loader;
 
-use ECSPrefix20220525\Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceException;
-use ECSPrefix20220525\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
-use ECSPrefix20220525\Symfony\Component\Config\Exception\LoaderLoadException;
-use ECSPrefix20220525\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix20220525\Symfony\Component\Config\Resource\FileExistenceResource;
-use ECSPrefix20220525\Symfony\Component\Config\Resource\GlobResource;
+use ECSPrefix20220527\Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceException;
+use ECSPrefix20220527\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+use ECSPrefix20220527\Symfony\Component\Config\Exception\LoaderLoadException;
+use ECSPrefix20220527\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix20220527\Symfony\Component\Config\Resource\FileExistenceResource;
+use ECSPrefix20220527\Symfony\Component\Config\Resource\GlobResource;
 /**
  * FileLoader is the abstract class used by all built-in loaders that are file based.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class FileLoader extends \ECSPrefix20220525\Symfony\Component\Config\Loader\Loader
+abstract class FileLoader extends \ECSPrefix20220527\Symfony\Component\Config\Loader\Loader
 {
     protected static $loading = [];
     protected $locator;
@@ -29,7 +29,7 @@ abstract class FileLoader extends \ECSPrefix20220525\Symfony\Component\Config\Lo
      * @var string|null
      */
     private $currentDir;
-    public function __construct(\ECSPrefix20220525\Symfony\Component\Config\FileLocatorInterface $locator, string $env = null)
+    public function __construct(\ECSPrefix20220527\Symfony\Component\Config\FileLocatorInterface $locator, string $env = null)
     {
         $this->locator = $locator;
         parent::__construct($env);
@@ -44,7 +44,7 @@ abstract class FileLoader extends \ECSPrefix20220525\Symfony\Component\Config\Lo
     /**
      * Returns the file locator used by this loader.
      */
-    public function getLocator() : \ECSPrefix20220525\Symfony\Component\Config\FileLocatorInterface
+    public function getLocator() : \ECSPrefix20220527\Symfony\Component\Config\FileLocatorInterface
     {
         return $this->locator;
     }
@@ -105,17 +105,17 @@ abstract class FileLoader extends \ECSPrefix20220525\Symfony\Component\Config\Lo
         }
         try {
             $prefix = $this->locator->locate($prefix, $this->currentDir, \true);
-        } catch (\ECSPrefix20220525\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException $e) {
+        } catch (\ECSPrefix20220527\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException $e) {
             if (!$ignoreErrors) {
                 throw $e;
             }
             $resource = [];
             foreach ($e->getPaths() as $path) {
-                $resource[] = new \ECSPrefix20220525\Symfony\Component\Config\Resource\FileExistenceResource($path);
+                $resource[] = new \ECSPrefix20220527\Symfony\Component\Config\Resource\FileExistenceResource($path);
             }
             return;
         }
-        $resource = new \ECSPrefix20220525\Symfony\Component\Config\Resource\GlobResource($prefix, $pattern, $recursive, $forExclusion, $excluded);
+        $resource = new \ECSPrefix20220527\Symfony\Component\Config\Resource\GlobResource($prefix, $pattern, $recursive, $forExclusion, $excluded);
         yield from $resource;
     }
     /**
@@ -132,7 +132,7 @@ abstract class FileLoader extends \ECSPrefix20220525\Symfony\Component\Config\Lo
             for ($i = 0; $i < ($resourcesCount = \count($resources)); ++$i) {
                 if (isset(self::$loading[$resources[$i]])) {
                     if ($i == $resourcesCount - 1) {
-                        throw new \ECSPrefix20220525\Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceException(\array_keys(self::$loading));
+                        throw new \ECSPrefix20220527\Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceException(\array_keys(self::$loading));
                     }
                 } else {
                     $resource = $resources[$i];
@@ -146,15 +146,15 @@ abstract class FileLoader extends \ECSPrefix20220525\Symfony\Component\Config\Lo
                 unset(self::$loading[$resource]);
             }
             return $ret;
-        } catch (\ECSPrefix20220525\Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceException $e) {
+        } catch (\ECSPrefix20220527\Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceException $e) {
             throw $e;
         } catch (\Exception $e) {
             if (!$ignoreErrors) {
                 // prevent embedded imports from nesting multiple exceptions
-                if ($e instanceof \ECSPrefix20220525\Symfony\Component\Config\Exception\LoaderLoadException) {
+                if ($e instanceof \ECSPrefix20220527\Symfony\Component\Config\Exception\LoaderLoadException) {
                     throw $e;
                 }
-                throw new \ECSPrefix20220525\Symfony\Component\Config\Exception\LoaderLoadException($resource, $sourceResource, 0, $e, $type);
+                throw new \ECSPrefix20220527\Symfony\Component\Config\Exception\LoaderLoadException($resource, $sourceResource, 0, $e, $type);
             }
         }
         return null;

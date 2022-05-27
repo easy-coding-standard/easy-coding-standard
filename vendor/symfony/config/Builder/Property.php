@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220525\Symfony\Component\Config\Builder;
+namespace ECSPrefix20220527\Symfony\Component\Config\Builder;
 
 /**
  * Represents a property when building classes.
@@ -31,6 +31,10 @@ class Property
      * @var bool
      */
     private $array = \false;
+    /**
+     * @var bool
+     */
+    private $scalarsAllowed = \false;
     /**
      * @var string|null
      */
@@ -56,6 +60,10 @@ class Property
     {
         $this->array = \false;
         $this->type = $type;
+        if ('|scalar' === \substr($type, -7)) {
+            $this->scalarsAllowed = \true;
+            $this->type = $type = \substr($type, 0, -7);
+        }
         if ('[]' === \substr($type, -2)) {
             $this->array = \true;
             $this->type = \substr($type, 0, -2);
@@ -76,5 +84,9 @@ class Property
     public function isArray() : bool
     {
         return $this->array;
+    }
+    public function areScalarsAllowed() : bool
+    {
+        return $this->scalarsAllowed;
     }
 }

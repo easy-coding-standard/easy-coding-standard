@@ -50,7 +50,6 @@
         "symplify\/phpstan-rules": "<10.2.7",
         "symplify\/easy-testing": "<10.2.7",
         "symplify\/php-config-printer": "<10.2.7",
-        "symplify\/amnesia": "<10.2.7",
         "symplify\/phpstan-extensions": "<10.2.7",
         "symplify\/rule-doc-generator": "<10.2.7",
         "symplify\/vendor-patches": "<10.2.7",
