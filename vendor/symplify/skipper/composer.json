@@ -48,9 +48,6 @@
         "symplify\/config-transformer": "<10.2.7",
         "symplify\/easy-ci": "<10.2.7",
         "symplify\/coding-standard": "<10.2.7",
-        "symplify\/latte-phpstan-compiler": "<10.2.2",
-        "symplify\/template-phpstan-compiler": "<10.2.2",
-        "symplify\/phpstan-latte-rules": "<10.2.2",
         "symplify\/easy-parallel": "<10.2.7",
         "symplify\/neon-config-dumper": "<10.2.7"
     },
