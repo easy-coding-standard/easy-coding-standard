@@ -4,11 +4,11 @@
  * @file
  * Dispatch events when patches are applied.
  */
-namespace ECSPrefix20220527\cweagans\Composer;
+namespace ECSPrefix20220529\cweagans\Composer;
 
-use ECSPrefix20220527\Composer\EventDispatcher\Event;
-use ECSPrefix20220527\Composer\Package\PackageInterface;
-class PatchEvent extends \ECSPrefix20220527\Composer\EventDispatcher\Event
+use ECSPrefix20220529\Composer\EventDispatcher\Event;
+use ECSPrefix20220529\Composer\Package\PackageInterface;
+class PatchEvent extends \ECSPrefix20220529\Composer\EventDispatcher\Event
 {
     /**
      * @var PackageInterface $package
@@ -30,7 +30,7 @@ class PatchEvent extends \ECSPrefix20220527\Composer\EventDispatcher\Event
      * @param string $url
      * @param string $description
      */
-    public function __construct($eventName, \ECSPrefix20220527\Composer\Package\PackageInterface $package, $url, $description)
+    public function __construct($eventName, \ECSPrefix20220529\Composer\Package\PackageInterface $package, $url, $description)
     {
         parent::__construct($eventName);
         $this->package = $package;

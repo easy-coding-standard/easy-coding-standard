@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220527\Doctrine\Common\Annotations;
+namespace ECSPrefix20220529\Doctrine\Common\Annotations;
 
 use Exception;
 use function get_class;

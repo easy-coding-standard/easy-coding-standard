@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220527\\Symplify\\PackageBuilder\\": "src"
+            "ECSPrefix20220529\\Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220527\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "ECSPrefix20220529\\Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -46,7 +46,6 @@
         "symplify\/skipper": "<10.2.7",
         "symplify\/smart-file-system": "<10.2.7",
         "symplify\/symfony-static-dumper": "<10.2.7",
-        "symplify\/git-wrapper": "<10.2.7",
         "symplify\/monorepo-builder": "<10.2.7",
         "symplify\/config-transformer": "<10.2.7",
         "symplify\/easy-ci": "<10.2.7",

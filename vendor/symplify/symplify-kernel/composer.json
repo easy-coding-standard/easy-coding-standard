@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220527\\Symplify\\SymplifyKernel\\": "src"
+            "ECSPrefix20220529\\Symplify\\SymplifyKernel\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220527\\Symplify\\SymplifyKernel\\Tests\\": "tests"
+            "ECSPrefix20220529\\Symplify\\SymplifyKernel\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -42,7 +42,6 @@
         "symplify\/vendor-patches": "<10.2.7",
         "symplify\/skipper": "<10.2.7",
         "symplify\/symfony-static-dumper": "<10.2.7",
-        "symplify\/git-wrapper": "<10.2.7",
         "symplify\/monorepo-builder": "<10.2.7",
         "symplify\/config-transformer": "<10.2.7",
         "symplify\/easy-ci": "<10.2.7",

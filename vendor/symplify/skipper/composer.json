@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220527\\Symplify\\Skipper\\": "src"
+            "ECSPrefix20220529\\Symplify\\Skipper\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220527\\Symplify\\Skipper\\Tests\\": "tests"
+            "ECSPrefix20220529\\Symplify\\Skipper\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -44,7 +44,6 @@
         "symplify\/rule-doc-generator": "<10.2.7",
         "symplify\/vendor-patches": "<10.2.7",
         "symplify\/symfony-static-dumper": "<10.2.7",
-        "symplify\/git-wrapper": "<10.2.7",
         "symplify\/monorepo-builder": "<10.2.7",
         "symplify\/config-transformer": "<10.2.7",
         "symplify\/easy-ci": "<10.2.7",

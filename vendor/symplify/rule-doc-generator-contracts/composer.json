@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220527\\Symplify\\RuleDocGenerator\\": "src"
+            "ECSPrefix20220529\\Symplify\\RuleDocGenerator\\": "src"
         }
     },
     "extra": {
@@ -31,7 +31,6 @@
         "symplify\/skipper": "<10.2.7",
         "symplify\/smart-file-system": "<10.2.7",
         "symplify\/symfony-static-dumper": "<10.2.7",
-        "symplify\/git-wrapper": "<10.2.7",
         "symplify\/symplify-kernel": "<10.2.7",
         "symplify\/monorepo-builder": "<10.2.7",
         "symplify\/config-transformer": "<10.2.7",

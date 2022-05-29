@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220527\React\Socket;
+namespace ECSPrefix20220529\React\Socket;
 
-use ECSPrefix20220527\React\Stream\DuplexStreamInterface;
+use ECSPrefix20220529\React\Stream\DuplexStreamInterface;
 /**
  * Any incoming and outgoing connection is represented by this interface,
  * such as a normal TCP/IP connection.
@@ -51,7 +51,7 @@ use ECSPrefix20220527\React\Stream\DuplexStreamInterface;
  * @see ServerInterface
  * @see ConnectorInterface
  */
-interface ConnectionInterface extends \ECSPrefix20220527\React\Stream\DuplexStreamInterface
+interface ConnectionInterface extends \ECSPrefix20220529\React\Stream\DuplexStreamInterface
 {
     /**
      * Returns the full remote address (URI) where this connection has been established with
