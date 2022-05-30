@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit645675a07a4f913642af7e2dc52295e6
+class ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1027,40 +1027,6 @@ class ComposerStaticInit645675a07a4f913642af7e2dc52295e6
         'PhpCsFixer\\ConfigurationException\\InvalidFixerConfigurationException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/ConfigurationException/InvalidFixerConfigurationException.php',
         'PhpCsFixer\\ConfigurationException\\InvalidForEnvFixerConfigurationException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/ConfigurationException/InvalidForEnvFixerConfigurationException.php',
         'PhpCsFixer\\ConfigurationException\\RequiredFixerConfigurationException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/ConfigurationException/RequiredFixerConfigurationException.php',
-        'PhpCsFixer\\Console\\Application' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Application.php',
-        'PhpCsFixer\\Console\\Command\\DescribeCommand' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/DescribeCommand.php',
-        'PhpCsFixer\\Console\\Command\\DescribeNameNotFoundException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/DescribeNameNotFoundException.php',
-        'PhpCsFixer\\Console\\Command\\DocumentationCommand' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/DocumentationCommand.php',
-        'PhpCsFixer\\Console\\Command\\FixCommand' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/FixCommand.php',
-        'PhpCsFixer\\Console\\Command\\FixCommandExitStatusCalculator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/FixCommandExitStatusCalculator.php',
-        'PhpCsFixer\\Console\\Command\\HelpCommand' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/HelpCommand.php',
-        'PhpCsFixer\\Console\\Command\\ListFilesCommand' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/ListFilesCommand.php',
-        'PhpCsFixer\\Console\\Command\\ListSetsCommand' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/ListSetsCommand.php',
-        'PhpCsFixer\\Console\\Command\\SelfUpdateCommand' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/SelfUpdateCommand.php',
-        'PhpCsFixer\\Console\\ConfigurationResolver' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/ConfigurationResolver.php',
-        'PhpCsFixer\\Console\\Output\\ErrorOutput' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Output/ErrorOutput.php',
-        'PhpCsFixer\\Console\\Output\\NullOutput' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Output/NullOutput.php',
-        'PhpCsFixer\\Console\\Output\\ProcessOutput' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Output/ProcessOutput.php',
-        'PhpCsFixer\\Console\\Output\\ProcessOutputInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Output/ProcessOutputInterface.php',
-        'PhpCsFixer\\Console\\Report\\FixReport\\CheckstyleReporter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/FixReport/CheckstyleReporter.php',
-        'PhpCsFixer\\Console\\Report\\FixReport\\GitlabReporter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/FixReport/GitlabReporter.php',
-        'PhpCsFixer\\Console\\Report\\FixReport\\JsonReporter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/FixReport/JsonReporter.php',
-        'PhpCsFixer\\Console\\Report\\FixReport\\JunitReporter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/FixReport/JunitReporter.php',
-        'PhpCsFixer\\Console\\Report\\FixReport\\ReportSummary' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/FixReport/ReportSummary.php',
-        'PhpCsFixer\\Console\\Report\\FixReport\\ReporterFactory' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/FixReport/ReporterFactory.php',
-        'PhpCsFixer\\Console\\Report\\FixReport\\ReporterInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/FixReport/ReporterInterface.php',
-        'PhpCsFixer\\Console\\Report\\FixReport\\TextReporter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/FixReport/TextReporter.php',
-        'PhpCsFixer\\Console\\Report\\FixReport\\XmlReporter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/FixReport/XmlReporter.php',
-        'PhpCsFixer\\Console\\Report\\ListSetsReport\\JsonReporter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/ListSetsReport/JsonReporter.php',
-        'PhpCsFixer\\Console\\Report\\ListSetsReport\\ReportSummary' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/ListSetsReport/ReportSummary.php',
-        'PhpCsFixer\\Console\\Report\\ListSetsReport\\ReporterFactory' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/ListSetsReport/ReporterFactory.php',
-        'PhpCsFixer\\Console\\Report\\ListSetsReport\\ReporterInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/ListSetsReport/ReporterInterface.php',
-        'PhpCsFixer\\Console\\Report\\ListSetsReport\\TextReporter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Report/ListSetsReport/TextReporter.php',
-        'PhpCsFixer\\Console\\SelfUpdate\\GithubClient' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/SelfUpdate/GithubClient.php',
-        'PhpCsFixer\\Console\\SelfUpdate\\GithubClientInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/SelfUpdate/GithubClientInterface.php',
-        'PhpCsFixer\\Console\\SelfUpdate\\NewVersionChecker' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/SelfUpdate/NewVersionChecker.php',
-        'PhpCsFixer\\Console\\SelfUpdate\\NewVersionCheckerInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/SelfUpdate/NewVersionCheckerInterface.php',
-        'PhpCsFixer\\Console\\WarningsDetector' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/WarningsDetector.php',
         'PhpCsFixer\\Diff\\Chunk' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Chunk.php',
         'PhpCsFixer\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Exception/ConfigurationException.php',
         'PhpCsFixer\\Diff\\Diff' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Diff.php',
@@ -1653,9 +1619,9 @@ class ComposerStaticInit645675a07a4f913642af7e2dc52295e6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit645675a07a4f913642af7e2dc52295e6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit645675a07a4f913642af7e2dc52295e6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit645675a07a4f913642af7e2dc52295e6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3::$classMap;
 
         }, null, ClassLoader::class);
     }
