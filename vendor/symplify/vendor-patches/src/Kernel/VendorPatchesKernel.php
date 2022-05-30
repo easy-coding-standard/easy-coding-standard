@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220529\Symplify\VendorPatches\Kernel;
+namespace ECSPrefix20220530\Symplify\VendorPatches\Kernel;
 
-use ECSPrefix20220529\Psr\Container\ContainerInterface;
-use ECSPrefix20220529\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonManipulatorConfig;
-use ECSPrefix20220529\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class VendorPatchesKernel extends \ECSPrefix20220529\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use ECSPrefix20220530\Psr\Container\ContainerInterface;
+use ECSPrefix20220530\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonManipulatorConfig;
+use ECSPrefix20220530\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class VendorPatchesKernel extends \ECSPrefix20220530\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @param string[] $configFiles
      */
-    public function createFromConfigs(array $configFiles) : \ECSPrefix20220529\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFiles) : \ECSPrefix20220530\Psr\Container\ContainerInterface
     {
         $configFiles[] = __DIR__ . '/../../config/config.php';
-        $configFiles[] = \ECSPrefix20220529\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonManipulatorConfig::FILE_PATH;
+        $configFiles[] = \ECSPrefix20220530\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonManipulatorConfig::FILE_PATH;
         return $this->create($configFiles);
     }
 }

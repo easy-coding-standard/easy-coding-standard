@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220529\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix20220530\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20220529\Symfony\Component\Console\Application;
-use ECSPrefix20220529\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220529\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20220529\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20220529\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20220530\Symfony\Component\Console\Application;
+use ECSPrefix20220530\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220530\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20220530\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20220530\Symfony\Component\Console\Input\InputOption;
 /**
  * JSON descriptor.
  *
@@ -22,19 +22,19 @@ use ECSPrefix20220529\Symfony\Component\Console\Input\InputOption;
  *
  * @internal
  */
-class JsonDescriptor extends \ECSPrefix20220529\Symfony\Component\Console\Descriptor\Descriptor
+class JsonDescriptor extends \ECSPrefix20220530\Symfony\Component\Console\Descriptor\Descriptor
 {
     /**
      * {@inheritdoc}
      */
-    protected function describeInputArgument(\ECSPrefix20220529\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
+    protected function describeInputArgument(\ECSPrefix20220530\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
     {
         $this->writeData($this->getInputArgumentData($argument), $options);
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeInputOption(\ECSPrefix20220529\Symfony\Component\Console\Input\InputOption $option, array $options = [])
+    protected function describeInputOption(\ECSPrefix20220530\Symfony\Component\Console\Input\InputOption $option, array $options = [])
     {
         $this->writeData($this->getInputOptionData($option), $options);
         if ($option->isNegatable()) {
@@ -44,24 +44,24 @@ class JsonDescriptor extends \ECSPrefix20220529\Symfony\Component\Console\Descri
     /**
      * {@inheritdoc}
      */
-    protected function describeInputDefinition(\ECSPrefix20220529\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
+    protected function describeInputDefinition(\ECSPrefix20220530\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
     {
         $this->writeData($this->getInputDefinitionData($definition), $options);
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeCommand(\ECSPrefix20220529\Symfony\Component\Console\Command\Command $command, array $options = [])
+    protected function describeCommand(\ECSPrefix20220530\Symfony\Component\Console\Command\Command $command, array $options = [])
     {
         $this->writeData($this->getCommandData($command, $options['short'] ?? \false), $options);
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeApplication(\ECSPrefix20220529\Symfony\Component\Console\Application $application, array $options = [])
+    protected function describeApplication(\ECSPrefix20220530\Symfony\Component\Console\Application $application, array $options = [])
     {
         $describedNamespace = $options['namespace'] ?? null;
-        $description = new \ECSPrefix20220529\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace, \true);
+        $description = new \ECSPrefix20220530\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace, \true);
         $commands = [];
         foreach ($description->getCommands() as $command) {
             $commands[] = $this->getCommandData($command, $options['short'] ?? \false);
@@ -89,15 +89,15 @@ class JsonDescriptor extends \ECSPrefix20220529\Symfony\Component\Console\Descri
         $flags = $options['json_encoding'] ?? 0;
         $this->write(\json_encode($data, $flags));
     }
-    private function getInputArgumentData(\ECSPrefix20220529\Symfony\Component\Console\Input\InputArgument $argument) : array
+    private function getInputArgumentData(\ECSPrefix20220530\Symfony\Component\Console\Input\InputArgument $argument) : array
     {
         return ['name' => $argument->getName(), 'is_required' => $argument->isRequired(), 'is_array' => $argument->isArray(), 'description' => \preg_replace('/\\s*[\\r\\n]\\s*/', ' ', $argument->getDescription()), 'default' => \INF === $argument->getDefault() ? 'INF' : $argument->getDefault()];
     }
-    private function getInputOptionData(\ECSPrefix20220529\Symfony\Component\Console\Input\InputOption $option, bool $negated = \false) : array
+    private function getInputOptionData(\ECSPrefix20220530\Symfony\Component\Console\Input\InputOption $option, bool $negated = \false) : array
     {
         return $negated ? ['name' => '--no-' . $option->getName(), 'shortcut' => '', 'accept_value' => \false, 'is_value_required' => \false, 'is_multiple' => \false, 'description' => 'Negate the "--' . $option->getName() . '" option', 'default' => \false] : ['name' => '--' . $option->getName(), 'shortcut' => $option->getShortcut() ? '-' . \str_replace('|', '|-', $option->getShortcut()) : '', 'accept_value' => $option->acceptValue(), 'is_value_required' => $option->isValueRequired(), 'is_multiple' => $option->isArray(), 'description' => \preg_replace('/\\s*[\\r\\n]\\s*/', ' ', $option->getDescription()), 'default' => \INF === $option->getDefault() ? 'INF' : $option->getDefault()];
     }
-    private function getInputDefinitionData(\ECSPrefix20220529\Symfony\Component\Console\Input\InputDefinition $definition) : array
+    private function getInputDefinitionData(\ECSPrefix20220530\Symfony\Component\Console\Input\InputDefinition $definition) : array
     {
         $inputArguments = [];
         foreach ($definition->getArguments() as $name => $argument) {
@@ -112,7 +112,7 @@ class JsonDescriptor extends \ECSPrefix20220529\Symfony\Component\Console\Descri
         }
         return ['arguments' => $inputArguments, 'options' => $inputOptions];
     }
-    private function getCommandData(\ECSPrefix20220529\Symfony\Component\Console\Command\Command $command, bool $short = \false) : array
+    private function getCommandData(\ECSPrefix20220530\Symfony\Component\Console\Command\Command $command, bool $short = \false) : array
     {
         $data = ['name' => $command->getName(), 'description' => $command->getDescription()];
         if ($short) {

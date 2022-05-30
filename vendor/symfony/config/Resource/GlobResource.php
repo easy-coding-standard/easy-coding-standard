@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220529\Symfony\Component\Config\Resource;
+namespace ECSPrefix20220530\Symfony\Component\Config\Resource;
 
-use ECSPrefix20220529\Symfony\Component\Finder\Finder;
-use ECSPrefix20220529\Symfony\Component\Finder\Glob;
+use ECSPrefix20220530\Symfony\Component\Finder\Finder;
+use ECSPrefix20220530\Symfony\Component\Finder\Glob;
 /**
  * GlobResource represents a set of resources stored on the filesystem.
  *
@@ -23,7 +23,7 @@ use ECSPrefix20220529\Symfony\Component\Finder\Glob;
  *
  * @implements \IteratorAggregate<string, \SplFileInfo>
  */
-class GlobResource implements \IteratorAggregate, \ECSPrefix20220529\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class GlobResource implements \IteratorAggregate, \ECSPrefix20220530\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     /**
      * @var string
@@ -161,7 +161,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20220529\Symfony\Com
             }
             return;
         }
-        if (!\class_exists(\ECSPrefix20220529\Symfony\Component\Finder\Finder::class)) {
+        if (!\class_exists(\ECSPrefix20220530\Symfony\Component\Finder\Finder::class)) {
             throw new \LogicException(\sprintf('Extended glob pattern "%s" cannot be used as the Finder component is not installed.', $this->pattern));
         }
         if (\is_file($prefix = $this->prefix)) {
@@ -170,8 +170,8 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20220529\Symfony\Com
         } else {
             $pattern = $this->pattern;
         }
-        $finder = new \ECSPrefix20220529\Symfony\Component\Finder\Finder();
-        $regex = \ECSPrefix20220529\Symfony\Component\Finder\Glob::toRegex($pattern);
+        $finder = new \ECSPrefix20220530\Symfony\Component\Finder\Finder();
+        $regex = \ECSPrefix20220530\Symfony\Component\Finder\Glob::toRegex($pattern);
         if ($this->recursive) {
             $regex = \substr_replace($regex, '(/|$)', -2, 1);
         }

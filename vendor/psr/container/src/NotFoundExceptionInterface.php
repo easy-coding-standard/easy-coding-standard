@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20220529\Psr\Container;
+namespace ECSPrefix20220530\Psr\Container;
 
 /**
  * No entry was found in the container.
  */
-interface NotFoundExceptionInterface extends \ECSPrefix20220529\Psr\Container\ContainerExceptionInterface
+interface NotFoundExceptionInterface extends \ECSPrefix20220530\Psr\Container\ContainerExceptionInterface
 {
 }

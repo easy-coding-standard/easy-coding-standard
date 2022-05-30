@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220529\\cweagans\\Composer\\": "src"
+            "ECSPrefix20220530\\cweagans\\Composer\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220529\\cweagans\\Composer\\Tests\\": "tests"
+            "ECSPrefix20220530\\cweagans\\Composer\\Tests\\": "tests"
         }
     }
 }

@@ -5,29 +5,29 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220529\Nette\Neon\Node;
+namespace ECSPrefix20220530\Nette\Neon\Node;
 
-use ECSPrefix20220529\Nette\Neon\Entity;
-use ECSPrefix20220529\Nette\Neon\Node;
+use ECSPrefix20220530\Nette\Neon\Entity;
+use ECSPrefix20220530\Nette\Neon\Node;
 /** @internal */
-final class EntityNode extends \ECSPrefix20220529\Nette\Neon\Node
+final class EntityNode extends \ECSPrefix20220530\Nette\Neon\Node
 {
     /** @var Node */
     public $value;
     /** @var ArrayItemNode[] */
     public $attributes;
-    public function __construct(\ECSPrefix20220529\Nette\Neon\Node $value, array $attributes = [])
+    public function __construct(\ECSPrefix20220530\Nette\Neon\Node $value, array $attributes = [])
     {
         $this->value = $value;
         $this->attributes = $attributes;
     }
-    public function toValue() : \ECSPrefix20220529\Nette\Neon\Entity
+    public function toValue() : \ECSPrefix20220530\Nette\Neon\Entity
     {
-        return new \ECSPrefix20220529\Nette\Neon\Entity($this->value->toValue(), \ECSPrefix20220529\Nette\Neon\Node\ArrayItemNode::itemsToArray($this->attributes));
+        return new \ECSPrefix20220530\Nette\Neon\Entity($this->value->toValue(), \ECSPrefix20220530\Nette\Neon\Node\ArrayItemNode::itemsToArray($this->attributes));
     }
     public function toString() : string
     {
-        return $this->value->toString() . '(' . ($this->attributes ? \ECSPrefix20220529\Nette\Neon\Node\ArrayItemNode::itemsToInlineString($this->attributes) : '') . ')';
+        return $this->value->toString() . '(' . ($this->attributes ? \ECSPrefix20220530\Nette\Neon\Node\ArrayItemNode::itemsToInlineString($this->attributes) : '') . ')';
     }
     public function &getIterator() : \Generator
     {
