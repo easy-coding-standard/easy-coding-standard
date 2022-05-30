@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3
+class ComposerStaticInit64194c2619710c31e47f2b1514b7930a
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1010,17 +1010,6 @@ class ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3
         'PhpCsFixer\\AbstractPhpdocToTypeDeclarationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractPhpdocToTypeDeclarationFixer.php',
         'PhpCsFixer\\AbstractPhpdocTypesFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractPhpdocTypesFixer.php',
         'PhpCsFixer\\AbstractProxyFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractProxyFixer.php',
-        'PhpCsFixer\\Cache\\Cache' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/Cache.php',
-        'PhpCsFixer\\Cache\\CacheInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/CacheInterface.php',
-        'PhpCsFixer\\Cache\\CacheManagerInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/CacheManagerInterface.php',
-        'PhpCsFixer\\Cache\\Directory' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/Directory.php',
-        'PhpCsFixer\\Cache\\DirectoryInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/DirectoryInterface.php',
-        'PhpCsFixer\\Cache\\FileCacheManager' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/FileCacheManager.php',
-        'PhpCsFixer\\Cache\\FileHandler' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/FileHandler.php',
-        'PhpCsFixer\\Cache\\FileHandlerInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/FileHandlerInterface.php',
-        'PhpCsFixer\\Cache\\NullCacheManager' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/NullCacheManager.php',
-        'PhpCsFixer\\Cache\\Signature' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/Signature.php',
-        'PhpCsFixer\\Cache\\SignatureInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Cache/SignatureInterface.php',
         'PhpCsFixer\\Config' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Config.php',
         'PhpCsFixer\\ConfigInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/ConfigInterface.php',
         'PhpCsFixer\\ConfigurationException\\InvalidConfigurationException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/ConfigurationException/InvalidConfigurationException.php',
@@ -1057,11 +1046,6 @@ class ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3
         'PhpCsFixer\\DocBlock\\TypeExpression' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/DocBlock/TypeExpression.php',
         'PhpCsFixer\\Doctrine\\Annotation\\Token' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Doctrine/Annotation/Token.php',
         'PhpCsFixer\\Doctrine\\Annotation\\Tokens' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Doctrine/Annotation/Tokens.php',
-        'PhpCsFixer\\Documentation\\DocumentationLocator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Documentation/DocumentationLocator.php',
-        'PhpCsFixer\\Documentation\\FixerDocumentGenerator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Documentation/FixerDocumentGenerator.php',
-        'PhpCsFixer\\Documentation\\ListDocumentGenerator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Documentation/ListDocumentGenerator.php',
-        'PhpCsFixer\\Documentation\\RstUtils' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Documentation/RstUtils.php',
-        'PhpCsFixer\\Documentation\\RuleSetDocumentationGenerator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Documentation/RuleSetDocumentationGenerator.php',
         'PhpCsFixer\\Error\\Error' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Error/Error.php',
         'PhpCsFixer\\Error\\ErrorsManager' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Error/ErrorsManager.php',
         'PhpCsFixer\\FileReader' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/FileReader.php',
@@ -1345,17 +1329,6 @@ class ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3
         'PhpCsFixer\\Fixer\\Whitespace\\TypesSpacesFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/TypesSpacesFixer.php',
         'PhpCsFixer\\Fixer\\WhitespacesAwareFixerInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/WhitespacesAwareFixerInterface.php',
         'PhpCsFixer\\Indicator\\PhpUnitTestCaseIndicator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Indicator/PhpUnitTestCaseIndicator.php',
-        'PhpCsFixer\\Linter\\CachingLinter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/CachingLinter.php',
-        'PhpCsFixer\\Linter\\Linter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/Linter.php',
-        'PhpCsFixer\\Linter\\LinterInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/LinterInterface.php',
-        'PhpCsFixer\\Linter\\LintingException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/LintingException.php',
-        'PhpCsFixer\\Linter\\LintingResultInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/LintingResultInterface.php',
-        'PhpCsFixer\\Linter\\ProcessLinter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/ProcessLinter.php',
-        'PhpCsFixer\\Linter\\ProcessLinterProcessBuilder' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/ProcessLinterProcessBuilder.php',
-        'PhpCsFixer\\Linter\\ProcessLintingResult' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/ProcessLintingResult.php',
-        'PhpCsFixer\\Linter\\TokenizerLinter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/TokenizerLinter.php',
-        'PhpCsFixer\\Linter\\TokenizerLintingResult' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/TokenizerLintingResult.php',
-        'PhpCsFixer\\Linter\\UnavailableLinterException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Linter/UnavailableLinterException.php',
         'PhpCsFixer\\PharChecker' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/PharChecker.php',
         'PhpCsFixer\\PharCheckerInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/PharCheckerInterface.php',
         'PhpCsFixer\\Preg' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Preg.php',
@@ -1401,10 +1374,6 @@ class ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3
         'PhpCsFixer\\RuleSet\\Sets\\PhpCsFixerSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PhpCsFixerSet.php',
         'PhpCsFixer\\RuleSet\\Sets\\SymfonyRiskySet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/SymfonyRiskySet.php',
         'PhpCsFixer\\RuleSet\\Sets\\SymfonySet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/SymfonySet.php',
-        'PhpCsFixer\\Runner\\FileCachingLintingIterator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Runner/FileCachingLintingIterator.php',
-        'PhpCsFixer\\Runner\\FileFilterIterator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Runner/FileFilterIterator.php',
-        'PhpCsFixer\\Runner\\FileLintingIterator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Runner/FileLintingIterator.php',
-        'PhpCsFixer\\Runner\\Runner' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Runner/Runner.php',
         'PhpCsFixer\\StdinFileInfo' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/StdinFileInfo.php',
         'PhpCsFixer\\Tokenizer\\AbstractTransformer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Tokenizer/AbstractTransformer.php',
         'PhpCsFixer\\Tokenizer\\AbstractTypeTransformer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Tokenizer/AbstractTypeTransformer.php',
@@ -1619,9 +1588,9 @@ class ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit516dabe6cc06b20d7827b94fcd4b09d3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit64194c2619710c31e47f2b1514b7930a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit64194c2619710c31e47f2b1514b7930a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit64194c2619710c31e47f2b1514b7930a::$classMap;
 
         }, null, ClassLoader::class);
     }
