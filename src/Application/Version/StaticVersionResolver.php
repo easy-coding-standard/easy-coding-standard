@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application\Version;
 
 use DateTime;
-use ECSPrefix20220530\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220530\Symfony\Component\Process\Process;
 use Symplify\EasyCodingStandard\Exception\VersionException;
 /**
  * Inspired by https://github.com/composer/composer/blob/master/src/Composer/Composer.php See
@@ -16,11 +14,11 @@ final class StaticVersionResolver
     /**
      * @var string
      */
-    public const PACKAGE_VERSION = '036099a3f85cf8a9d3b2fc1cc2c4deaf0dd3daf6';
+    public const PACKAGE_VERSION = 'be2938e27f4b9cade4e9e9e960b5409452df4edd';
     /**
      * @var string
      */
-    public const RELEASE_DATE = '2022-05-30 12:12:00';
+    public const RELEASE_DATE = '2022-05-30 12:13:03';
     /**
      * @var int
      */
