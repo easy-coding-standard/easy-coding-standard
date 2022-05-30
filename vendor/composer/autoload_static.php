@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit49040ae9031f67bfcd48d842a3f0d783
+class ComposerStaticIniteba2b2e5b41580257abadbb801ed0aa3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -364,25 +364,6 @@ class ComposerStaticInit49040ae9031f67bfcd48d842a3f0d783
         'ECSPrefix20220530\\Nette\\Localization\\ITranslator' => __DIR__ . '/..' . '/nette/utils/src/compatibility.php',
         'ECSPrefix20220530\\Nette\\Localization\\Translator' => __DIR__ . '/..' . '/nette/utils/src/Translator.php',
         'ECSPrefix20220530\\Nette\\MemberAccessException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Decoder' => __DIR__ . '/..' . '/nette/neon/src/Neon/Decoder.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Encoder' => __DIR__ . '/..' . '/nette/neon/src/Neon/Encoder.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Entity' => __DIR__ . '/..' . '/nette/neon/src/Neon/Entity.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Exception' => __DIR__ . '/..' . '/nette/neon/src/Neon/Exception.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Lexer' => __DIR__ . '/..' . '/nette/neon/src/Neon/Lexer.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Neon' => __DIR__ . '/..' . '/nette/neon/src/Neon/Neon.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Node' => __DIR__ . '/..' . '/nette/neon/src/Neon/Node.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Node\\ArrayItemNode' => __DIR__ . '/..' . '/nette/neon/src/Neon/Node/ArrayItemNode.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Node\\ArrayNode' => __DIR__ . '/..' . '/nette/neon/src/Neon/Node/ArrayNode.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Node\\BlockArrayNode' => __DIR__ . '/..' . '/nette/neon/src/Neon/Node/BlockArrayNode.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Node\\EntityChainNode' => __DIR__ . '/..' . '/nette/neon/src/Neon/Node/EntityChainNode.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Node\\EntityNode' => __DIR__ . '/..' . '/nette/neon/src/Neon/Node/EntityNode.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Node\\InlineArrayNode' => __DIR__ . '/..' . '/nette/neon/src/Neon/Node/InlineArrayNode.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Node\\LiteralNode' => __DIR__ . '/..' . '/nette/neon/src/Neon/Node/LiteralNode.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Node\\StringNode' => __DIR__ . '/..' . '/nette/neon/src/Neon/Node/StringNode.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Parser' => __DIR__ . '/..' . '/nette/neon/src/Neon/Parser.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Token' => __DIR__ . '/..' . '/nette/neon/src/Neon/Token.php',
-        'ECSPrefix20220530\\Nette\\Neon\\TokenStream' => __DIR__ . '/..' . '/nette/neon/src/Neon/TokenStream.php',
-        'ECSPrefix20220530\\Nette\\Neon\\Traverser' => __DIR__ . '/..' . '/nette/neon/src/Neon/Traverser.php',
         'ECSPrefix20220530\\Nette\\NotImplementedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix20220530\\Nette\\NotSupportedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix20220530\\Nette\\OutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -1056,7 +1037,6 @@ class ComposerStaticInit49040ae9031f67bfcd48d842a3f0d783
         'ECSPrefix20220530\\Symplify\\PackageBuilder\\Exception\\InvalidPrivatePropertyTypeException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/InvalidPrivatePropertyTypeException.php',
         'ECSPrefix20220530\\Symplify\\PackageBuilder\\Exception\\MissingPrivatePropertyException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/MissingPrivatePropertyException.php',
         'ECSPrefix20220530\\Symplify\\PackageBuilder\\Matcher\\ArrayStringAndFnMatcher' => __DIR__ . '/..' . '/symplify/package-builder/src/Matcher/ArrayStringAndFnMatcher.php',
-        'ECSPrefix20220530\\Symplify\\PackageBuilder\\Neon\\NeonPrinter' => __DIR__ . '/..' . '/symplify/package-builder/src/Neon/NeonPrinter.php',
         'ECSPrefix20220530\\Symplify\\PackageBuilder\\Parameter\\ParameterProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Parameter/ParameterProvider.php',
         'ECSPrefix20220530\\Symplify\\PackageBuilder\\Php\\TypeChecker' => __DIR__ . '/..' . '/symplify/package-builder/src/Php/TypeChecker.php',
         'ECSPrefix20220530\\Symplify\\PackageBuilder\\Reflection\\ClassLikeExistenceChecker' => __DIR__ . '/..' . '/symplify/package-builder/src/Reflection/ClassLikeExistenceChecker.php',
@@ -1787,9 +1767,9 @@ class ComposerStaticInit49040ae9031f67bfcd48d842a3f0d783
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit49040ae9031f67bfcd48d842a3f0d783::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit49040ae9031f67bfcd48d842a3f0d783::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit49040ae9031f67bfcd48d842a3f0d783::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticIniteba2b2e5b41580257abadbb801ed0aa3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticIniteba2b2e5b41580257abadbb801ed0aa3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticIniteba2b2e5b41580257abadbb801ed0aa3::$classMap;
 
         }, null, ClassLoader::class);
     }
