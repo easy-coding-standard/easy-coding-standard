@@ -4,15 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit08b79a5c568fa91f9aefdc8c29200a81
+class ComposerStaticIniteabdc4f5c6394cbe15c01a7af506bf12
 {
     public static $files = array (
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
-        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '972fda704d680a3a53c68e34e193cb22' => __DIR__ . '/..' . '/react/promise-timer/src/functions_include.php',
@@ -43,10 +39,6 @@ class ComposerStaticInit08b79a5c568fa91f9aefdc8c29200a81
             'ECSPrefix20220530\\Symplify\\AutowireArrayParameter\\' => 50,
             'ECSPrefix20220530\\Symfony\\Polyfill\\Php81\\' => 41,
             'ECSPrefix20220530\\Symfony\\Polyfill\\Php80\\' => 41,
-            'ECSPrefix20220530\\Symfony\\Polyfill\\Mbstring\\' => 44,
-            'ECSPrefix20220530\\Symfony\\Polyfill\\Intl\\Normalizer\\' => 51,
-            'ECSPrefix20220530\\Symfony\\Polyfill\\Intl\\Grapheme\\' => 49,
-            'ECSPrefix20220530\\Symfony\\Polyfill\\Ctype\\' => 41,
             'ECSPrefix20220530\\Symfony\\Contracts\\Service\\' => 44,
             'ECSPrefix20220530\\Symfony\\Component\\String\\' => 43,
             'ECSPrefix20220530\\Symfony\\Component\\OptionsResolver\\' => 52,
@@ -137,22 +129,6 @@ class ComposerStaticInit08b79a5c568fa91f9aefdc8c29200a81
         'ECSPrefix20220530\\Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
-        ),
-        'ECSPrefix20220530\\Symfony\\Polyfill\\Mbstring\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
-        ),
-        'ECSPrefix20220530\\Symfony\\Polyfill\\Intl\\Normalizer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
-        ),
-        'ECSPrefix20220530\\Symfony\\Polyfill\\Intl\\Grapheme\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
-        ),
-        'ECSPrefix20220530\\Symfony\\Polyfill\\Ctype\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'ECSPrefix20220530\\Symfony\\Contracts\\Service\\' => 
         array (
@@ -893,10 +869,6 @@ class ComposerStaticInit08b79a5c568fa91f9aefdc8c29200a81
         'ECSPrefix20220530\\Symfony\\Contracts\\Service\\ServiceSubscriberInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberInterface.php',
         'ECSPrefix20220530\\Symfony\\Contracts\\Service\\ServiceSubscriberTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberTrait.php',
         'ECSPrefix20220530\\Symfony\\Contracts\\Service\\Test\\ServiceLocatorTest' => __DIR__ . '/..' . '/symfony/service-contracts/Test/ServiceLocatorTest.php',
-        'ECSPrefix20220530\\Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
-        'ECSPrefix20220530\\Symfony\\Polyfill\\Intl\\Grapheme\\Grapheme' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/Grapheme.php',
-        'ECSPrefix20220530\\Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Normalizer.php',
-        'ECSPrefix20220530\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'ECSPrefix20220530\\Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
         'ECSPrefix20220530\\Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
         'ECSPrefix20220530\\Symfony\\Polyfill\\Php81\\Php81' => __DIR__ . '/..' . '/symfony/polyfill-php81/Php81.php',
@@ -1029,7 +1001,6 @@ class ComposerStaticInit08b79a5c568fa91f9aefdc8c29200a81
         'ECSPrefix20220530\\Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'ECSPrefix20220530\\Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
         'ECSPrefix20220530\\Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
-        'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'PhpCsFixer\\AbstractDoctrineAnnotationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractDoctrineAnnotationFixer.php',
         'PhpCsFixer\\AbstractFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractFixer.php',
         'PhpCsFixer\\AbstractFopenFlagFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractFopenFlagFixer.php',
@@ -1682,9 +1653,9 @@ class ComposerStaticInit08b79a5c568fa91f9aefdc8c29200a81
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit08b79a5c568fa91f9aefdc8c29200a81::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit08b79a5c568fa91f9aefdc8c29200a81::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit08b79a5c568fa91f9aefdc8c29200a81::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticIniteabdc4f5c6394cbe15c01a7af506bf12::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticIniteabdc4f5c6394cbe15c01a7af506bf12::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticIniteabdc4f5c6394cbe15c01a7af506bf12::$classMap;
 
         }, null, ClassLoader::class);
     }
