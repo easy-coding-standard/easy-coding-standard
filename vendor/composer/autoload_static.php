@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
+class ComposerStaticInit00a3a0e8b8534f3f08ebca89abcc6c80
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -31,9 +31,7 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         ),
         'E' => 
         array (
-            'ECSPrefix20220530\\cweagans\\Composer\\' => 36,
             'ECSPrefix20220530\\Webmozart\\Assert\\' => 35,
-            'ECSPrefix20220530\\Symplify\\VendorPatches\\' => 41,
             'ECSPrefix20220530\\Symplify\\SymplifyKernel\\' => 42,
             'ECSPrefix20220530\\Symplify\\SmartFileSystem\\' => 43,
             'ECSPrefix20220530\\Symplify\\Skipper\\' => 35,
@@ -50,14 +48,10 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
             'ECSPrefix20220530\\Symfony\\Polyfill\\Intl\\Grapheme\\' => 49,
             'ECSPrefix20220530\\Symfony\\Polyfill\\Ctype\\' => 41,
             'ECSPrefix20220530\\Symfony\\Contracts\\Service\\' => 44,
-            'ECSPrefix20220530\\Symfony\\Contracts\\EventDispatcher\\' => 52,
             'ECSPrefix20220530\\Symfony\\Component\\String\\' => 43,
-            'ECSPrefix20220530\\Symfony\\Component\\Stopwatch\\' => 46,
-            'ECSPrefix20220530\\Symfony\\Component\\Process\\' => 44,
             'ECSPrefix20220530\\Symfony\\Component\\OptionsResolver\\' => 52,
             'ECSPrefix20220530\\Symfony\\Component\\Finder\\' => 43,
             'ECSPrefix20220530\\Symfony\\Component\\Filesystem\\' => 47,
-            'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\' => 52,
             'ECSPrefix20220530\\Symfony\\Component\\DependencyInjection\\' => 56,
             'ECSPrefix20220530\\Symfony\\Component\\Console\\' => 44,
             'ECSPrefix20220530\\Symfony\\Component\\Config\\' => 43,
@@ -70,7 +64,6 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
             'ECSPrefix20220530\\React\\ChildProcess\\' => 37,
             'ECSPrefix20220530\\React\\Cache\\' => 30,
             'ECSPrefix20220530\\Psr\\Log\\' => 26,
-            'ECSPrefix20220530\\Psr\\EventDispatcher\\' => 38,
             'ECSPrefix20220530\\Psr\\Container\\' => 32,
             'ECSPrefix20220530\\Psr\\Cache\\' => 28,
             'ECSPrefix20220530\\Evenement\\' => 28,
@@ -97,17 +90,9 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         array (
             0 => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src',
         ),
-        'ECSPrefix20220530\\cweagans\\Composer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
-        ),
         'ECSPrefix20220530\\Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
-        ),
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symplify/vendor-patches/src',
         ),
         'ECSPrefix20220530\\Symplify\\SymplifyKernel\\' => 
         array (
@@ -173,21 +158,9 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
         ),
-        'ECSPrefix20220530\\Symfony\\Contracts\\EventDispatcher\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
-        ),
         'ECSPrefix20220530\\Symfony\\Component\\String\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
-        ),
-        'ECSPrefix20220530\\Symfony\\Component\\Stopwatch\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/stopwatch',
-        ),
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/process',
         ),
         'ECSPrefix20220530\\Symfony\\Component\\OptionsResolver\\' => 
         array (
@@ -200,10 +173,6 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         'ECSPrefix20220530\\Symfony\\Component\\Filesystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/filesystem',
-        ),
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
         'ECSPrefix20220530\\Symfony\\Component\\DependencyInjection\\' => 
         array (
@@ -252,10 +221,6 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         'ECSPrefix20220530\\Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
-        ),
-        'ECSPrefix20220530\\Psr\\EventDispatcher\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
         ),
         'ECSPrefix20220530\\Psr\\Container\\' => 
         array (
@@ -402,9 +367,6 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         'ECSPrefix20220530\\Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'ECSPrefix20220530\\Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'ECSPrefix20220530\\Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
-        'ECSPrefix20220530\\Psr\\EventDispatcher\\EventDispatcherInterface' => __DIR__ . '/..' . '/psr/event-dispatcher/src/EventDispatcherInterface.php',
-        'ECSPrefix20220530\\Psr\\EventDispatcher\\ListenerProviderInterface' => __DIR__ . '/..' . '/psr/event-dispatcher/src/ListenerProviderInterface.php',
-        'ECSPrefix20220530\\Psr\\EventDispatcher\\StoppableEventInterface' => __DIR__ . '/..' . '/psr/event-dispatcher/src/StoppableEventInterface.php',
         'ECSPrefix20220530\\Psr\\Log\\AbstractLogger' => __DIR__ . '/..' . '/psr/log/src/AbstractLogger.php',
         'ECSPrefix20220530\\Psr\\Log\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/log/src/InvalidArgumentException.php',
         'ECSPrefix20220530\\Psr\\Log\\LogLevel' => __DIR__ . '/..' . '/psr/log/src/LogLevel.php',
@@ -865,16 +827,6 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         'ECSPrefix20220530\\Symfony\\Component\\DependencyInjection\\TaggedContainerInterface' => __DIR__ . '/..' . '/symfony/dependency-injection/TaggedContainerInterface.php',
         'ECSPrefix20220530\\Symfony\\Component\\DependencyInjection\\TypedReference' => __DIR__ . '/..' . '/symfony/dependency-injection/TypedReference.php',
         'ECSPrefix20220530\\Symfony\\Component\\DependencyInjection\\Variable' => __DIR__ . '/..' . '/symfony/dependency-injection/Variable.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\Attribute\\AsEventListener' => __DIR__ . '/..' . '/symfony/event-dispatcher/Attribute/AsEventListener.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\Debug\\TraceableEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/TraceableEventDispatcher.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\Debug\\WrappedListener' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/WrappedListener.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\DependencyInjection\\AddEventAliasesPass' => __DIR__ . '/..' . '/symfony/event-dispatcher/DependencyInjection/AddEventAliasesPass.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\DependencyInjection\\RegisterListenersPass' => __DIR__ . '/..' . '/symfony/event-dispatcher/DependencyInjection/RegisterListenersPass.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\EventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/EventDispatcher.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher/EventDispatcherInterface.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher/EventSubscriberInterface.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\GenericEvent' => __DIR__ . '/..' . '/symfony/event-dispatcher/GenericEvent.php',
-        'ECSPrefix20220530\\Symfony\\Component\\EventDispatcher\\ImmutableEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/ImmutableEventDispatcher.php',
         'ECSPrefix20220530\\Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/filesystem/Exception/ExceptionInterface.php',
         'ECSPrefix20220530\\Symfony\\Component\\Filesystem\\Exception\\FileNotFoundException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/FileNotFoundException.php',
         'ECSPrefix20220530\\Symfony\\Component\\Filesystem\\Exception\\IOException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/IOException.php',
@@ -919,27 +871,6 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         'ECSPrefix20220530\\Symfony\\Component\\OptionsResolver\\OptionConfigurator' => __DIR__ . '/..' . '/symfony/options-resolver/OptionConfigurator.php',
         'ECSPrefix20220530\\Symfony\\Component\\OptionsResolver\\Options' => __DIR__ . '/..' . '/symfony/options-resolver/Options.php',
         'ECSPrefix20220530\\Symfony\\Component\\OptionsResolver\\OptionsResolver' => __DIR__ . '/..' . '/symfony/options-resolver/OptionsResolver.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/process/Exception/ExceptionInterface.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/process/Exception/InvalidArgumentException.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/process/Exception/LogicException.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Exception\\ProcessFailedException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessFailedException.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Exception\\ProcessSignaledException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessSignaledException.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Exception\\ProcessTimedOutException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessTimedOutException.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/process/Exception/RuntimeException.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\ExecutableFinder' => __DIR__ . '/..' . '/symfony/process/ExecutableFinder.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\InputStream' => __DIR__ . '/..' . '/symfony/process/InputStream.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\PhpExecutableFinder' => __DIR__ . '/..' . '/symfony/process/PhpExecutableFinder.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\PhpProcess' => __DIR__ . '/..' . '/symfony/process/PhpProcess.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Pipes\\AbstractPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/AbstractPipes.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Pipes\\PipesInterface' => __DIR__ . '/..' . '/symfony/process/Pipes/PipesInterface.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Pipes\\UnixPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/UnixPipes.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Pipes\\WindowsPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/WindowsPipes.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\Process' => __DIR__ . '/..' . '/symfony/process/Process.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Process\\ProcessUtils' => __DIR__ . '/..' . '/symfony/process/ProcessUtils.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Stopwatch\\Section' => __DIR__ . '/..' . '/symfony/stopwatch/Section.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Stopwatch\\Stopwatch' => __DIR__ . '/..' . '/symfony/stopwatch/Stopwatch.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Stopwatch\\StopwatchEvent' => __DIR__ . '/..' . '/symfony/stopwatch/StopwatchEvent.php',
-        'ECSPrefix20220530\\Symfony\\Component\\Stopwatch\\StopwatchPeriod' => __DIR__ . '/..' . '/symfony/stopwatch/StopwatchPeriod.php',
         'ECSPrefix20220530\\Symfony\\Component\\String\\AbstractString' => __DIR__ . '/..' . '/symfony/string/AbstractString.php',
         'ECSPrefix20220530\\Symfony\\Component\\String\\AbstractUnicodeString' => __DIR__ . '/..' . '/symfony/string/AbstractUnicodeString.php',
         'ECSPrefix20220530\\Symfony\\Component\\String\\ByteString' => __DIR__ . '/..' . '/symfony/string/ByteString.php',
@@ -954,8 +885,6 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         'ECSPrefix20220530\\Symfony\\Component\\String\\Slugger\\AsciiSlugger' => __DIR__ . '/..' . '/symfony/string/Slugger/AsciiSlugger.php',
         'ECSPrefix20220530\\Symfony\\Component\\String\\Slugger\\SluggerInterface' => __DIR__ . '/..' . '/symfony/string/Slugger/SluggerInterface.php',
         'ECSPrefix20220530\\Symfony\\Component\\String\\UnicodeString' => __DIR__ . '/..' . '/symfony/string/UnicodeString.php',
-        'ECSPrefix20220530\\Symfony\\Contracts\\EventDispatcher\\Event' => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts/Event.php',
-        'ECSPrefix20220530\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts/EventDispatcherInterface.php',
         'ECSPrefix20220530\\Symfony\\Contracts\\Service\\Attribute\\Required' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/Required.php',
         'ECSPrefix20220530\\Symfony\\Contracts\\Service\\Attribute\\SubscribedService' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/SubscribedService.php',
         'ECSPrefix20220530\\Symfony\\Contracts\\Service\\ResetInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ResetInterface.php',
@@ -1097,23 +1026,9 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
         'ECSPrefix20220530\\Symplify\\SymplifyKernel\\HttpKernel\\AbstractSymplifyKernel' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/HttpKernel/AbstractSymplifyKernel.php',
         'ECSPrefix20220530\\Symplify\\SymplifyKernel\\ValueObject\\KernelBootAndApplicationRun' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/ValueObject/KernelBootAndApplicationRun.php',
         'ECSPrefix20220530\\Symplify\\SymplifyKernel\\ValueObject\\SymplifyKernelConfig' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/ValueObject/SymplifyKernelConfig.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\Command\\GenerateCommand' => __DIR__ . '/..' . '/symplify/vendor-patches/src/Command/GenerateCommand.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\Composer\\ComposerPatchesConfigurationUpdater' => __DIR__ . '/..' . '/symplify/vendor-patches/src/Composer/ComposerPatchesConfigurationUpdater.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\Composer\\PackageNameResolver' => __DIR__ . '/..' . '/symplify/vendor-patches/src/Composer/PackageNameResolver.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\Console\\GenerateCommandReporter' => __DIR__ . '/..' . '/symplify/vendor-patches/src/Console/GenerateCommandReporter.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\Console\\VendorPatchesApplication' => __DIR__ . '/..' . '/symplify/vendor-patches/src/Console/VendorPatchesApplication.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\Differ\\PatchDiffer' => __DIR__ . '/..' . '/symplify/vendor-patches/src/Differ/PatchDiffer.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\FileSystem\\PathResolver' => __DIR__ . '/..' . '/symplify/vendor-patches/src/FileSystem/PathResolver.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\Finder\\OldToNewFilesFinder' => __DIR__ . '/..' . '/symplify/vendor-patches/src/Finder/OldToNewFilesFinder.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\Kernel\\VendorPatchesKernel' => __DIR__ . '/..' . '/symplify/vendor-patches/src/Kernel/VendorPatchesKernel.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\PatchFileFactory' => __DIR__ . '/..' . '/symplify/vendor-patches/src/PatchFileFactory.php',
-        'ECSPrefix20220530\\Symplify\\VendorPatches\\ValueObject\\OldAndNewFileInfo' => __DIR__ . '/..' . '/symplify/vendor-patches/src/ValueObject/OldAndNewFileInfo.php',
         'ECSPrefix20220530\\Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'ECSPrefix20220530\\Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
         'ECSPrefix20220530\\Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
-        'ECSPrefix20220530\\cweagans\\Composer\\PatchEvent' => __DIR__ . '/..' . '/cweagans/composer-patches/src/PatchEvent.php',
-        'ECSPrefix20220530\\cweagans\\Composer\\PatchEvents' => __DIR__ . '/..' . '/cweagans/composer-patches/src/PatchEvents.php',
-        'ECSPrefix20220530\\cweagans\\Composer\\Patches' => __DIR__ . '/..' . '/cweagans/composer-patches/src/Patches.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'PhpCsFixer\\AbstractDoctrineAnnotationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractDoctrineAnnotationFixer.php',
         'PhpCsFixer\\AbstractFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractFixer.php',
@@ -1767,9 +1682,9 @@ class ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4abcf197eaa1a45799177bac88bdaebe::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit00a3a0e8b8534f3f08ebca89abcc6c80::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit00a3a0e8b8534f3f08ebca89abcc6c80::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit00a3a0e8b8534f3f08ebca89abcc6c80::$classMap;
 
         }, null, ClassLoader::class);
     }
