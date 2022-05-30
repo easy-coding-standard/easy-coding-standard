@@ -1963,6 +1963,11 @@
             },
             "time": "2022-05-27T06:40:13+00:00",
             "type": "library",
+            "extra": {
+                "patches_applied": [
+                    "https:\/\/raw.githubusercontent.com\/symplify\/vendor-patch-files\/main\/patches\/generic-php-config-loader.patch"
+                ]
+            },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
