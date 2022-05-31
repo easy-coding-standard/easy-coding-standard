@@ -37,7 +37,7 @@ final class BlockFinder
             /** @var Token $token */
             $token = $tokens[$position];
         }
-        if ($token->isGivenKind([\T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_NEW])) {
+        if ($token->isGivenKind([\T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_NEW, \T_ATTRIBUTE])) {
             $position = $tokens->getNextTokenOfKind($position, ['(', ';']);
             /** @var Token $token */
             $token = $tokens[$position];

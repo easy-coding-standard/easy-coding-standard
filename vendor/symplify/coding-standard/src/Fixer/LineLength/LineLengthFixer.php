@@ -121,6 +121,8 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
             \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA,
             // "new"
             \T_NEW,
+            // "#["
+            \T_ATTRIBUTE,
         ]);
     }
     /**
@@ -137,7 +139,7 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
                 continue;
             }
             // opener
-            if ($token->isGivenKind([\T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_NEW])) {
+            if ($token->isGivenKind([\T_ATTRIBUTE, \T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_NEW])) {
                 $this->processFunctionOrArray($tokens, $position);
                 continue;
             }
