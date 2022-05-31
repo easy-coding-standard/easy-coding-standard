@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220530\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
+namespace ECSPrefix20220531\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
 
-use ECSPrefix20220530\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220530\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220531\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220531\Symfony\Component\DependencyInjection\Definition;
 /**
  * {@inheritdoc}
  *
@@ -19,12 +19,12 @@ use ECSPrefix20220530\Symfony\Component\DependencyInjection\Definition;
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class RealServiceInstantiator implements \ECSPrefix20220530\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface
+class RealServiceInstantiator implements \ECSPrefix20220531\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function instantiateProxy(\ECSPrefix20220530\Symfony\Component\DependencyInjection\ContainerInterface $container, \ECSPrefix20220530\Symfony\Component\DependencyInjection\Definition $definition, string $id, callable $realInstantiator) : object
+    public function instantiateProxy(\ECSPrefix20220531\Symfony\Component\DependencyInjection\ContainerInterface $container, \ECSPrefix20220531\Symfony\Component\DependencyInjection\Definition $definition, string $id, callable $realInstantiator) : object
     {
         return $realInstantiator();
     }

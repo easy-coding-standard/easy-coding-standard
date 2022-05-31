@@ -20,7 +20,8 @@
         "symfony\/framework-bundle": "^6.0",
         "symplify\/easy-coding-standard": "dev-main",
         "phpunit\/phpunit": "^9.5",
-        "symplify\/rule-doc-generator": "dev-main"
+        "symplify\/rule-doc-generator": "dev-main",
+        "cweagans\/composer-patches": "^1.7"
     },
     "autoload": {
         "psr-4": {
@@ -36,7 +37,12 @@
         "branch-alias": {
             "dev-main": "10.3-dev"
         },
-        "enable-patching": true
+        "enable-patching": true,
+        "patches": {
+            "symfony\/dependency-injection": [
+                "https:\/\/raw.githubusercontent.com\/symplify\/vendor-patch-files\/main\/patches\/generic-php-config-loader.patch"
+            ]
+        }
     },
     "config": {
         "allow-plugins": {

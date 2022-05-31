@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220530\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20220531\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
-use ECSPrefix20220530\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
+use ECSPrefix20220531\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 trait ConfiguratorTrait
 {
     /**

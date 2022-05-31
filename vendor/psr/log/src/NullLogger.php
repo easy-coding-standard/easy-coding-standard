@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220530\Psr\Log;
+namespace ECSPrefix20220531\Psr\Log;
 
 /**
  * This Logger can be used to avoid conditional log calls.
@@ -10,7 +10,7 @@ namespace ECSPrefix20220530\Psr\Log;
  * is a good way to avoid littering your code with `if ($this->logger) { }`
  * blocks.
  */
-class NullLogger extends \ECSPrefix20220530\Psr\Log\AbstractLogger
+class NullLogger extends \ECSPrefix20220531\Psr\Log\AbstractLogger
 {
     /**
      * Logs with an arbitrary level.

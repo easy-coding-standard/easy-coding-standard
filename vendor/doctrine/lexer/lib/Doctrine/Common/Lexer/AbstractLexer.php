@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220530\Doctrine\Common\Lexer;
+namespace ECSPrefix20220531\Doctrine\Common\Lexer;
 
 use ReflectionClass;
 use function implode;
