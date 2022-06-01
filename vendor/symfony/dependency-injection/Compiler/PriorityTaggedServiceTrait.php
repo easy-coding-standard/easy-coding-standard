@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220531\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220601\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220531\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix20220531\Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
-use ECSPrefix20220531\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220531\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20220531\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20220531\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix20220601\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix20220601\Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
+use ECSPrefix20220601\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20220601\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20220601\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * Trait that allows a generic method to find and sort service by priority option in the tag.
  *
@@ -36,10 +36,10 @@ trait PriorityTaggedServiceTrait
      * @return Reference[]
      * @param string|\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument $tagName
      */
-    private function findAndSortTaggedServices($tagName, \ECSPrefix20220531\Symfony\Component\DependencyInjection\ContainerBuilder $container) : array
+    private function findAndSortTaggedServices($tagName, \ECSPrefix20220601\Symfony\Component\DependencyInjection\ContainerBuilder $container) : array
     {
         $indexAttribute = $defaultIndexMethod = $needsIndexes = $defaultPriorityMethod = null;
-        if ($tagName instanceof \ECSPrefix20220531\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
+        if ($tagName instanceof \ECSPrefix20220601\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
             $indexAttribute = $tagName->getIndexAttribute();
             $defaultIndexMethod = $tagName->getDefaultIndexMethod();
             $needsIndexes = $tagName->needsIndexes();
@@ -60,7 +60,7 @@ trait PriorityTaggedServiceTrait
                 if (isset($attribute['priority'])) {
                     $priority = $attribute['priority'];
                 } elseif (null === $defaultPriority && $defaultPriorityMethod && $class) {
-                    $defaultPriority = \ECSPrefix20220531\Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceUtil::getDefault($container, $serviceId, $class, $defaultPriorityMethod, $tagName, 'priority', $checkTaggedItem);
+                    $defaultPriority = \ECSPrefix20220601\Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceUtil::getDefault($container, $serviceId, $class, $defaultPriorityMethod, $tagName, 'priority', $checkTaggedItem);
                 }
                 $priority = $priority ?? $defaultPriority ?? ($defaultPriority = 0);
                 if (null === $indexAttribute && !$defaultIndexMethod && !$needsIndexes) {
@@ -70,7 +70,7 @@ trait PriorityTaggedServiceTrait
                 if (null !== $indexAttribute && isset($attribute[$indexAttribute])) {
                     $index = $attribute[$indexAttribute];
                 } elseif (null === $defaultIndex && $defaultPriorityMethod && $class) {
-                    $defaultIndex = \ECSPrefix20220531\Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceUtil::getDefault($container, $serviceId, $class, $defaultIndexMethod ?? 'getDefaultName', $tagName, $indexAttribute, $checkTaggedItem);
+                    $defaultIndex = \ECSPrefix20220601\Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceUtil::getDefault($container, $serviceId, $class, $defaultIndexMethod ?? 'getDefaultName', $tagName, $indexAttribute, $checkTaggedItem);
                 }
                 $index = $index ?? $defaultIndex ?? ($defaultIndex = $serviceId);
                 $services[] = [$priority, ++$i, $index, $serviceId, $class];
@@ -82,11 +82,11 @@ trait PriorityTaggedServiceTrait
         $refs = [];
         foreach ($services as [, , $index, $serviceId, $class]) {
             if (!$class) {
-                $reference = new \ECSPrefix20220531\Symfony\Component\DependencyInjection\Reference($serviceId);
+                $reference = new \ECSPrefix20220601\Symfony\Component\DependencyInjection\Reference($serviceId);
             } elseif ($index === $serviceId) {
-                $reference = new \ECSPrefix20220531\Symfony\Component\DependencyInjection\TypedReference($serviceId, $class);
+                $reference = new \ECSPrefix20220601\Symfony\Component\DependencyInjection\TypedReference($serviceId, $class);
             } else {
-                $reference = new \ECSPrefix20220531\Symfony\Component\DependencyInjection\TypedReference($serviceId, $class, \ECSPrefix20220531\Symfony\Component\DependencyInjection\ContainerBuilder::EXCEPTION_ON_INVALID_REFERENCE, $index);
+                $reference = new \ECSPrefix20220601\Symfony\Component\DependencyInjection\TypedReference($serviceId, $class, \ECSPrefix20220601\Symfony\Component\DependencyInjection\ContainerBuilder::EXCEPTION_ON_INVALID_REFERENCE, $index);
             }
             if (null === $index) {
                 $refs[] = $reference;
@@ -105,13 +105,13 @@ class PriorityTaggedServiceUtil
     /**
      * @return string|int|null
      */
-    public static function getDefault(\ECSPrefix20220531\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultMethod, string $tagName, ?string $indexAttribute, bool $checkTaggedItem)
+    public static function getDefault(\ECSPrefix20220601\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultMethod, string $tagName, ?string $indexAttribute, bool $checkTaggedItem)
     {
         if (!($r = $container->getReflectionClass($class)) || !$checkTaggedItem && !$r->hasMethod($defaultMethod)) {
             return null;
         }
         if ($checkTaggedItem && !$r->hasMethod($defaultMethod)) {
-            foreach (\method_exists($r, 'getAttributes') ? $r->getAttributes(\ECSPrefix20220531\Symfony\Component\DependencyInjection\Attribute\AsTaggedItem::class) : [] as $attribute) {
+            foreach (\method_exists($r, 'getAttributes') ? $r->getAttributes(\ECSPrefix20220601\Symfony\Component\DependencyInjection\Attribute\AsTaggedItem::class) : [] as $attribute) {
                 return 'priority' === $indexAttribute ? $attribute->newInstance()->priority : $attribute->newInstance()->index;
             }
             return null;
@@ -123,15 +123,15 @@ class PriorityTaggedServiceUtil
             $message = [\sprintf('Method "%s::%s()" should ', $class, $defaultMethod), '.'];
         }
         if (!($rm = $r->getMethod($defaultMethod))->isStatic()) {
-            throw new \ECSPrefix20220531\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode('be static', $message));
+            throw new \ECSPrefix20220601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode('be static', $message));
         }
         if (!$rm->isPublic()) {
-            throw new \ECSPrefix20220531\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode('be public', $message));
+            throw new \ECSPrefix20220601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode('be public', $message));
         }
         $default = $rm->invoke(null);
         if ('priority' === $indexAttribute) {
             if (!\is_int($default)) {
-                throw new \ECSPrefix20220531\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode(\sprintf('return int (got "%s")', \get_debug_type($default)), $message));
+                throw new \ECSPrefix20220601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode(\sprintf('return int (got "%s")', \get_debug_type($default)), $message));
             }
             return $default;
         }
@@ -139,7 +139,7 @@ class PriorityTaggedServiceUtil
             $default = (string) $default;
         }
         if (!\is_string($default)) {
-            throw new \ECSPrefix20220531\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode(\sprintf('return string|int (got "%s")', \get_debug_type($default)), $message));
+            throw new \ECSPrefix20220601\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode(\sprintf('return string|int (got "%s")', \get_debug_type($default)), $message));
         }
         return $default;
     }

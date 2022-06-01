@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220531\Doctrine\Common\Annotations;
+namespace ECSPrefix20220601\Doctrine\Common\Annotations;
 
-use ECSPrefix20220531\Psr\Cache\CacheItemPoolInterface;
+use ECSPrefix20220601\Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -17,7 +17,7 @@ use function time;
 /**
  * A cache aware annotation reader.
  */
-final class PsrCachedReader implements \ECSPrefix20220531\Doctrine\Common\Annotations\Reader
+final class PsrCachedReader implements \ECSPrefix20220601\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $delegate;
@@ -29,7 +29,7 @@ final class PsrCachedReader implements \ECSPrefix20220531\Doctrine\Common\Annota
     private $loadedAnnotations = [];
     /** @var int[] */
     private $loadedFilemtimes = [];
-    public function __construct(\ECSPrefix20220531\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20220531\Psr\Cache\CacheItemPoolInterface $cache, bool $debug = \false)
+    public function __construct(\ECSPrefix20220601\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20220601\Psr\Cache\CacheItemPoolInterface $cache, bool $debug = \false)
     {
         $this->delegate = $reader;
         $this->cache = $cache;

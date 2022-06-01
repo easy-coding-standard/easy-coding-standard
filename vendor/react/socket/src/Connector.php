@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20220531\React\Socket;
+namespace ECSPrefix20220601\React\Socket;
 
-use ECSPrefix20220531\React\Dns\Config\Config as DnsConfig;
-use ECSPrefix20220531\React\Dns\Resolver\Factory as DnsFactory;
-use ECSPrefix20220531\React\Dns\Resolver\ResolverInterface;
-use ECSPrefix20220531\React\EventLoop\LoopInterface;
+use ECSPrefix20220601\React\Dns\Config\Config as DnsConfig;
+use ECSPrefix20220601\React\Dns\Resolver\Factory as DnsFactory;
+use ECSPrefix20220601\React\Dns\Resolver\ResolverInterface;
+use ECSPrefix20220601\React\EventLoop\LoopInterface;
 /**
  * The `Connector` class is the main class in this package that implements the
  * `ConnectorInterface` and allows you to create streaming connections.
@@ -21,7 +21,7 @@ use ECSPrefix20220531\React\EventLoop\LoopInterface;
  *
  * @see ConnectorInterface for the base interface
  */
-final class Connector implements \ECSPrefix20220531\React\Socket\ConnectorInterface
+final class Connector implements \ECSPrefix20220601\React\Socket\ConnectorInterface
 {
     private $connectors = array();
     /**
@@ -54,12 +54,12 @@ final class Connector implements \ECSPrefix20220531\React\Socket\ConnectorInterf
     public function __construct($context = array(), $loop = null)
     {
         // swap arguments for legacy constructor signature
-        if (($context instanceof \ECSPrefix20220531\React\EventLoop\LoopInterface || $context === null) && (\func_num_args() <= 1 || \is_array($loop))) {
+        if (($context instanceof \ECSPrefix20220601\React\EventLoop\LoopInterface || $context === null) && (\func_num_args() <= 1 || \is_array($loop))) {
             $swap = $loop === null ? array() : $loop;
             $loop = $context;
             $context = $swap;
         }
-        if (!\is_array($context) || $loop !== null && !$loop instanceof \ECSPrefix20220531\React\EventLoop\LoopInterface) {
+        if (!\is_array($context) || $loop !== null && !$loop instanceof \ECSPrefix20220601\React\EventLoop\LoopInterface) {
             throw new \InvalidArgumentException('Expected "array $context" and "?LoopInterface $loop" arguments');
         }
         // apply default options if not explicitly given
@@ -67,53 +67,53 @@ final class Connector implements \ECSPrefix20220531\React\Socket\ConnectorInterf
         if ($context['timeout'] === \true) {
             $context['timeout'] = (float) \ini_get("default_socket_timeout");
         }
-        if ($context['tcp'] instanceof \ECSPrefix20220531\React\Socket\ConnectorInterface) {
+        if ($context['tcp'] instanceof \ECSPrefix20220601\React\Socket\ConnectorInterface) {
             $tcp = $context['tcp'];
         } else {
-            $tcp = new \ECSPrefix20220531\React\Socket\TcpConnector($loop, \is_array($context['tcp']) ? $context['tcp'] : array());
+            $tcp = new \ECSPrefix20220601\React\Socket\TcpConnector($loop, \is_array($context['tcp']) ? $context['tcp'] : array());
         }
         if ($context['dns'] !== \false) {
-            if ($context['dns'] instanceof \ECSPrefix20220531\React\Dns\Resolver\ResolverInterface) {
+            if ($context['dns'] instanceof \ECSPrefix20220601\React\Dns\Resolver\ResolverInterface) {
                 $resolver = $context['dns'];
             } else {
                 if ($context['dns'] !== \true) {
                     $config = $context['dns'];
                 } else {
                     // try to load nameservers from system config or default to Google's public DNS
-                    $config = \ECSPrefix20220531\React\Dns\Config\Config::loadSystemConfigBlocking();
+                    $config = \ECSPrefix20220601\React\Dns\Config\Config::loadSystemConfigBlocking();
                     if (!$config->nameservers) {
                         $config->nameservers[] = '8.8.8.8';
                         // @codeCoverageIgnore
                     }
                 }
-                $factory = new \ECSPrefix20220531\React\Dns\Resolver\Factory();
+                $factory = new \ECSPrefix20220601\React\Dns\Resolver\Factory();
                 $resolver = $factory->createCached($config, $loop);
             }
             if ($context['happy_eyeballs'] === \true) {
-                $tcp = new \ECSPrefix20220531\React\Socket\HappyEyeBallsConnector($loop, $tcp, $resolver);
+                $tcp = new \ECSPrefix20220601\React\Socket\HappyEyeBallsConnector($loop, $tcp, $resolver);
             } else {
-                $tcp = new \ECSPrefix20220531\React\Socket\DnsConnector($tcp, $resolver);
+                $tcp = new \ECSPrefix20220601\React\Socket\DnsConnector($tcp, $resolver);
             }
         }
         if ($context['tcp'] !== \false) {
             $context['tcp'] = $tcp;
             if ($context['timeout'] !== \false) {
-                $context['tcp'] = new \ECSPrefix20220531\React\Socket\TimeoutConnector($context['tcp'], $context['timeout'], $loop);
+                $context['tcp'] = new \ECSPrefix20220601\React\Socket\TimeoutConnector($context['tcp'], $context['timeout'], $loop);
             }
             $this->connectors['tcp'] = $context['tcp'];
         }
         if ($context['tls'] !== \false) {
-            if (!$context['tls'] instanceof \ECSPrefix20220531\React\Socket\ConnectorInterface) {
-                $context['tls'] = new \ECSPrefix20220531\React\Socket\SecureConnector($tcp, $loop, \is_array($context['tls']) ? $context['tls'] : array());
+            if (!$context['tls'] instanceof \ECSPrefix20220601\React\Socket\ConnectorInterface) {
+                $context['tls'] = new \ECSPrefix20220601\React\Socket\SecureConnector($tcp, $loop, \is_array($context['tls']) ? $context['tls'] : array());
             }
             if ($context['timeout'] !== \false) {
-                $context['tls'] = new \ECSPrefix20220531\React\Socket\TimeoutConnector($context['tls'], $context['timeout'], $loop);
+                $context['tls'] = new \ECSPrefix20220601\React\Socket\TimeoutConnector($context['tls'], $context['timeout'], $loop);
             }
             $this->connectors['tls'] = $context['tls'];
         }
         if ($context['unix'] !== \false) {
-            if (!$context['unix'] instanceof \ECSPrefix20220531\React\Socket\ConnectorInterface) {
-                $context['unix'] = new \ECSPrefix20220531\React\Socket\UnixConnector($loop);
+            if (!$context['unix'] instanceof \ECSPrefix20220601\React\Socket\ConnectorInterface) {
+                $context['unix'] = new \ECSPrefix20220601\React\Socket\UnixConnector($loop);
             }
             $this->connectors['unix'] = $context['unix'];
         }
@@ -125,7 +125,7 @@ final class Connector implements \ECSPrefix20220531\React\Socket\ConnectorInterf
             $scheme = (string) \substr($uri, 0, \strpos($uri, '://'));
         }
         if (!isset($this->connectors[$scheme])) {
-            return \ECSPrefix20220531\React\Promise\reject(new \RuntimeException('No connector available for URI scheme "' . $scheme . '" (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22));
+            return \ECSPrefix20220601\React\Promise\reject(new \RuntimeException('No connector available for URI scheme "' . $scheme . '" (EINVAL)', \defined('SOCKET_EINVAL') ? \SOCKET_EINVAL : 22));
         }
         return $this->connectors[$scheme]->connect($uri);
     }

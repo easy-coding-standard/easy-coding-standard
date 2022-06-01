@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20220531\React\Promise\Timer;
+namespace ECSPrefix20220601\React\Promise\Timer;
 
-use ECSPrefix20220531\React\EventLoop\Loop;
-use ECSPrefix20220531\React\EventLoop\LoopInterface;
-use ECSPrefix20220531\React\Promise\CancellablePromiseInterface;
-use ECSPrefix20220531\React\Promise\Promise;
-use ECSPrefix20220531\React\Promise\PromiseInterface;
+use ECSPrefix20220601\React\EventLoop\Loop;
+use ECSPrefix20220601\React\EventLoop\LoopInterface;
+use ECSPrefix20220601\React\Promise\CancellablePromiseInterface;
+use ECSPrefix20220601\React\Promise\Promise;
+use ECSPrefix20220601\React\Promise\PromiseInterface;
 /**
  * Cancel operations that take *too long*.
  *
@@ -138,12 +138,12 @@ use ECSPrefix20220531\React\Promise\PromiseInterface;
  * @param ?LoopInterface $loop
  * @return PromiseInterface<mixed, TimeoutException|\Exception|mixed>
  */
-function timeout(\ECSPrefix20220531\React\Promise\PromiseInterface $promise, $time, \ECSPrefix20220531\React\EventLoop\LoopInterface $loop = null)
+function timeout(\ECSPrefix20220601\React\Promise\PromiseInterface $promise, $time, \ECSPrefix20220601\React\EventLoop\LoopInterface $loop = null)
 {
     // cancelling this promise will only try to cancel the input promise,
     // thus leaving responsibility to the input promise.
     $canceller = null;
-    if ($promise instanceof \ECSPrefix20220531\React\Promise\CancellablePromiseInterface || !\interface_exists('ECSPrefix20220531\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+    if ($promise instanceof \ECSPrefix20220601\React\Promise\CancellablePromiseInterface || !\interface_exists('ECSPrefix20220601\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
         // pass promise by reference to clean reference after cancellation handler
         // has been invoked once in order to avoid garbage references in call stack.
         $canceller = function () use(&$promise) {
@@ -152,9 +152,9 @@ function timeout(\ECSPrefix20220531\React\Promise\PromiseInterface $promise, $ti
         };
     }
     if ($loop === null) {
-        $loop = \ECSPrefix20220531\React\EventLoop\Loop::get();
+        $loop = \ECSPrefix20220601\React\EventLoop\Loop::get();
     }
-    return new \ECSPrefix20220531\React\Promise\Promise(function ($resolve, $reject) use($loop, $time, $promise) {
+    return new \ECSPrefix20220601\React\Promise\Promise(function ($resolve, $reject) use($loop, $time, $promise) {
         $timer = null;
         $promise = $promise->then(function ($v) use(&$timer, $loop, $resolve) {
             if ($timer) {
@@ -175,10 +175,10 @@ function timeout(\ECSPrefix20220531\React\Promise\PromiseInterface $promise, $ti
         }
         // start timeout timer which will cancel the input promise
         $timer = $loop->addTimer($time, function () use($time, &$promise, $reject) {
-            $reject(new \ECSPrefix20220531\React\Promise\Timer\TimeoutException($time, 'Timed out after ' . $time . ' seconds'));
+            $reject(new \ECSPrefix20220601\React\Promise\Timer\TimeoutException($time, 'Timed out after ' . $time . ' seconds'));
             // try to invoke cancellation handler of input promise and then clean
             // reference in order to avoid garbage references in call stack.
-            if ($promise instanceof \ECSPrefix20220531\React\Promise\CancellablePromiseInterface || !\interface_exists('ECSPrefix20220531\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+            if ($promise instanceof \ECSPrefix20220601\React\Promise\CancellablePromiseInterface || !\interface_exists('ECSPrefix20220601\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
                 $promise->cancel();
             }
             $promise = null;
@@ -219,13 +219,13 @@ function timeout(\ECSPrefix20220531\React\Promise\PromiseInterface $promise, $ti
  * @param ?LoopInterface $loop
  * @return PromiseInterface<void, \RuntimeException>
  */
-function sleep($time, \ECSPrefix20220531\React\EventLoop\LoopInterface $loop = null)
+function sleep($time, \ECSPrefix20220601\React\EventLoop\LoopInterface $loop = null)
 {
     if ($loop === null) {
-        $loop = \ECSPrefix20220531\React\EventLoop\Loop::get();
+        $loop = \ECSPrefix20220601\React\EventLoop\Loop::get();
     }
     $timer = null;
-    return new \ECSPrefix20220531\React\Promise\Promise(function ($resolve) use($loop, $time, &$timer) {
+    return new \ECSPrefix20220601\React\Promise\Promise(function ($resolve) use($loop, $time, &$timer) {
         // resolve the promise when the timer fires in $time seconds
         $timer = $loop->addTimer($time, function () use($resolve) {
             $resolve();
@@ -274,7 +274,7 @@ function sleep($time, \ECSPrefix20220531\React\EventLoop\LoopInterface $loop = n
  * @deprecated 1.8.0 See `sleep()` instead
  * @see sleep()
  */
-function resolve($time, \ECSPrefix20220531\React\EventLoop\LoopInterface $loop = null)
+function resolve($time, \ECSPrefix20220601\React\EventLoop\LoopInterface $loop = null)
 {
     return \sleep($time, $loop)->then(function () use($time) {
         return $time;
@@ -316,9 +316,9 @@ function resolve($time, \ECSPrefix20220531\React\EventLoop\LoopInterface $loop =
  * @deprecated 1.8.0 See `sleep()` instead
  * @see sleep()
  */
-function reject($time, \ECSPrefix20220531\React\EventLoop\LoopInterface $loop = null)
+function reject($time, \ECSPrefix20220601\React\EventLoop\LoopInterface $loop = null)
 {
     return \sleep($time, $loop)->then(function () use($time) {
-        throw new \ECSPrefix20220531\React\Promise\Timer\TimeoutException($time, 'Timer expired after ' . $time . ' seconds');
+        throw new \ECSPrefix20220601\React\Promise\Timer\TimeoutException($time, 'Timer expired after ' . $time . ' seconds');
     });
 }

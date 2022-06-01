@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220531\Symplify\PackageBuilder\Parameter;
+namespace ECSPrefix20220601\Symplify\PackageBuilder\Parameter;
 
-use ECSPrefix20220531\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220531\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use ECSPrefix20220531\Symfony\Component\HttpFoundation\ParameterBag;
+use ECSPrefix20220601\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220601\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use ECSPrefix20220601\Symfony\Component\HttpFoundation\ParameterBag;
 /**
  * @api
  * @see \Symplify\PackageBuilder\Tests\Parameter\ParameterProviderTest
@@ -16,7 +16,7 @@ final class ParameterProvider
      * @var array<string, mixed>
      */
     private $parameters = [];
-    public function __construct(\ECSPrefix20220531\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    public function __construct(\ECSPrefix20220601\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
         /** @var ParameterBag $parameterBag */
         $parameterBag = $container->getParameterBag();
@@ -89,6 +89,6 @@ final class ParameterProvider
         if (\array_key_exists($name, $this->parameters)) {
             return;
         }
-        throw new \ECSPrefix20220531\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
+        throw new \ECSPrefix20220601\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
     }
 }
