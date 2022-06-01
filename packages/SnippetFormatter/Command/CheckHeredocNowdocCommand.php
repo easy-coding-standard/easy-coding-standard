@@ -7,6 +7,7 @@ use ECSPrefix20220601\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220601\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
 use Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
 use ECSPrefix20220601\Symplify\PackageBuilder\Console\Command\CommandNaming;
 final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
@@ -34,6 +35,6 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
         }
         $configuration = $this->configurationFactory->createFromInput($input);
         $phpFileInfos = $this->smartFinder->find($configuration->getSources(), '*.php', ['Fixture']);
-        return $this->snippetFormatterApplication->processFileInfosWithSnippetPattern($configuration, $phpFileInfos, \Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern::HERENOWDOC_SNIPPET_REGEX, 'heredocnowdox');
+        return $this->snippetFormatterApplication->processFileInfosWithSnippetPattern($configuration, $phpFileInfos, \Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern::HERENOWDOC_SNIPPET_REGEX, \Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind::HERE_NOW_DOC);
     }
 }

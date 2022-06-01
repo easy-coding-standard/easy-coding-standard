@@ -10,6 +10,8 @@ use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
 use Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20220601\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
@@ -57,6 +59,8 @@ final class SnippetFormatterApplication
     }
     /**
      * @param SmartFileInfo[] $fileInfos
+     * @param SnippetPattern::* $snippetPattern
+     * @param SnippetKind::* $kind
      */
     public function processFileInfosWithSnippetPattern(\Symplify\EasyCodingStandard\ValueObject\Configuration $configuration, array $fileInfos, string $snippetPattern, string $kind) : int
     {
@@ -77,6 +81,10 @@ final class SnippetFormatterApplication
         }
         return $this->processedFileReporter->report($errorsAndDiffs, $configuration);
     }
+    /**
+     * @param SnippetPattern::* $snippetPattern
+     * @param SnippetKind::* $kind
+     */
     private function processFileInfoWithPattern(\ECSPrefix20220601\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, string $snippetPattern, string $kind, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : ?\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
     {
         $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern, $kind, $configuration);
