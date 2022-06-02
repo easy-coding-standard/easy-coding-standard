@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220601\Symfony\Component\Config\Loader;
+namespace ECSPrefix20220602\Symfony\Component\Config\Loader;
 
 /**
  * LoaderResolver selects a loader for a given resource.
@@ -18,7 +18,7 @@ namespace ECSPrefix20220601\Symfony\Component\Config\Loader;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class LoaderResolver implements \ECSPrefix20220601\Symfony\Component\Config\Loader\LoaderResolverInterface
+class LoaderResolver implements \ECSPrefix20220602\Symfony\Component\Config\Loader\LoaderResolverInterface
 {
     /**
      * @var LoaderInterface[] An array of LoaderInterface objects
@@ -47,7 +47,7 @@ class LoaderResolver implements \ECSPrefix20220601\Symfony\Component\Config\Load
         }
         return \false;
     }
-    public function addLoader(\ECSPrefix20220601\Symfony\Component\Config\Loader\LoaderInterface $loader)
+    public function addLoader(\ECSPrefix20220602\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $this->loaders[] = $loader;
         $loader->setResolver($this);
