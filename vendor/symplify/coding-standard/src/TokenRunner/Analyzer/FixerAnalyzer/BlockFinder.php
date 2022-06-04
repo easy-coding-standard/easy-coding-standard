@@ -14,7 +14,7 @@ final class BlockFinder
     /**
      * @var array<string, int>
      */
-    private const CONTENT_TO_BLOCK_TYPE = ['(' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, ')' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, '[' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, ']' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, '{' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, '}' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE];
+    private const CONTENT_TO_BLOCK_TYPE = ['(' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, ')' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, '[' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, ']' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, '{' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, '}' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, '#[' => \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ATTRIBUTE];
     /**
      * @var string[]
      */
@@ -31,13 +31,16 @@ final class BlockFinder
         if (!$token instanceof \PhpCsFixer\Tokenizer\Token) {
             return null;
         }
+        if ($token->isGivenKind(\T_ATTRIBUTE)) {
+            return $this->createAttributeBlockInfo($tokens, $position);
+        }
         // shift "array" to "(", event its position
         if ($token->isGivenKind(\T_ARRAY)) {
             $position = $tokens->getNextMeaningfulToken($position);
             /** @var Token $token */
             $token = $tokens[$position];
         }
-        if ($token->isGivenKind([\T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_NEW, \T_ATTRIBUTE])) {
+        if ($token->isGivenKind([\T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_NEW])) {
             $position = $tokens->getNextTokenOfKind($position, ['(', ';']);
             /** @var Token $token */
             $token = $tokens[$position];
@@ -100,5 +103,19 @@ final class BlockFinder
             return null;
         }
         return new \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo($blockStart, $blockEnd);
+    }
+    /**
+     * @param Tokens<Token> $tokens
+     */
+    private function createAttributeBlockInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : ?\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo
+    {
+        // find optional attribute opener, "#[Some()]"
+        $openerPosition = $tokens->getNextTokenOfKind($position, ['(']);
+        if (\is_int($openerPosition)) {
+            $position = $openerPosition;
+        }
+        /** @var Token $token */
+        $token = $tokens[$position];
+        return $this->createBlockInfo($token, $position, $tokens, \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ATTRIBUTE);
     }
 }
