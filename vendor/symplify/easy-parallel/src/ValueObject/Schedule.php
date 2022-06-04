@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220602\Symplify\EasyParallel\ValueObject;
+namespace ECSPrefix20220604\Symplify\EasyParallel\ValueObject;
 
 /**
  * From
