@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5cd86d71bfffd44a2dc15726ad6a2eb8
+class ComposerStaticInitf312e99fee46e1cf93a5902a533d7f38
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1017,7 +1017,6 @@ class ComposerStaticInit5cd86d71bfffd44a2dc15726ad6a2eb8
         'PhpCsFixer\\ConfigurationException\\InvalidForEnvFixerConfigurationException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/ConfigurationException/InvalidForEnvFixerConfigurationException.php',
         'PhpCsFixer\\ConfigurationException\\RequiredFixerConfigurationException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/ConfigurationException/RequiredFixerConfigurationException.php',
         'PhpCsFixer\\Console\\Command\\DescribeNameNotFoundException' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/DescribeNameNotFoundException.php',
-        'PhpCsFixer\\Console\\Command\\DocumentationCommand' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/DocumentationCommand.php',
         'PhpCsFixer\\Console\\Command\\FixCommandExitStatusCalculator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/FixCommandExitStatusCalculator.php',
         'PhpCsFixer\\Console\\ConfigurationResolver' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/ConfigurationResolver.php',
         'PhpCsFixer\\Console\\WarningsDetector' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/WarningsDetector.php',
@@ -1593,9 +1592,9 @@ class ComposerStaticInit5cd86d71bfffd44a2dc15726ad6a2eb8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5cd86d71bfffd44a2dc15726ad6a2eb8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5cd86d71bfffd44a2dc15726ad6a2eb8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5cd86d71bfffd44a2dc15726ad6a2eb8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf312e99fee46e1cf93a5902a533d7f38::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf312e99fee46e1cf93a5902a533d7f38::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf312e99fee46e1cf93a5902a533d7f38::$classMap;
 
         }, null, ClassLoader::class);
     }

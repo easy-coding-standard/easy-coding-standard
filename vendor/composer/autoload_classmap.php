@@ -786,7 +786,6 @@ return array(
     'PhpCsFixer\\ConfigurationException\\InvalidForEnvFixerConfigurationException' => $vendorDir . '/friendsofphp/php-cs-fixer/src/ConfigurationException/InvalidForEnvFixerConfigurationException.php',
     'PhpCsFixer\\ConfigurationException\\RequiredFixerConfigurationException' => $vendorDir . '/friendsofphp/php-cs-fixer/src/ConfigurationException/RequiredFixerConfigurationException.php',
     'PhpCsFixer\\Console\\Command\\DescribeNameNotFoundException' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Console/Command/DescribeNameNotFoundException.php',
-    'PhpCsFixer\\Console\\Command\\DocumentationCommand' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Console/Command/DocumentationCommand.php',
     'PhpCsFixer\\Console\\Command\\FixCommandExitStatusCalculator' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Console/Command/FixCommandExitStatusCalculator.php',
     'PhpCsFixer\\Console\\ConfigurationResolver' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Console/ConfigurationResolver.php',
     'PhpCsFixer\\Console\\WarningsDetector' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Console/WarningsDetector.php',
