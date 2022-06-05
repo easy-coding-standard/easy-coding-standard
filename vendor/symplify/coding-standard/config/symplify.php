@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $containerConfigurator->import(__DIR__ . '/config.php');
     $services = $containerConfigurator->services();
-    $services->defaults()->public()->autowire()->autoconfigure();
+    $services->defaults()->public()->autowire();
     $services->set(\PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer::class);
     $services->load('Symplify\\CodingStandard\\Fixer\\', __DIR__ . '/../src/Fixer')->exclude([__DIR__ . '/../src/Fixer/Annotation', __DIR__ . '/../src/Fixer/Spacing/StandaloneLineConstructorParamFixer.php']);
     $services->set(\PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer::class)->call('configure', [['annotations' => ['throws', 'author', 'package', 'group', 'covers']]]);

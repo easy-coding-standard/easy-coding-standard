@@ -48,7 +48,7 @@ return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS, ['php']);
     $parameters->set('env(TEST_SUFFIX)', '');
     $services = $ecsConfig->services();
-    $services->defaults()->public()->autowire()->autoconfigure();
+    $services->defaults()->public()->autowire();
     $services->load('Symplify\\EasyCodingStandard\\', __DIR__ . '/../src')->exclude([
         // only for "bin/ecs" file, where container does not exist yet
         __DIR__ . '/../src/Config/ECSConfig.php',

@@ -15,7 +15,7 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\ECSPrefix20220605\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS, ['keywords']);
     $services = $containerConfigurator->services();
-    $services->defaults()->public()->autowire()->autoconfigure();
+    $services->defaults()->public()->autowire();
     $services->load('ECSPrefix20220605\Symplify\ComposerJsonManipulator\\', __DIR__ . '/../src');
     $services->set(\ECSPrefix20220605\Symplify\SmartFileSystem\SmartFileSystem::class);
     $services->set(\ECSPrefix20220605\Symplify\PackageBuilder\Reflection\PrivatesCaller::class);

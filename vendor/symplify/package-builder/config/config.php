@@ -11,7 +11,7 @@ use ECSPrefix20220605\Symplify\PackageBuilder\Diff\Output\CompleteUnifiedDiffOut
 use ECSPrefix20220605\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->defaults()->public()->autowire()->autoconfigure();
+    $services->defaults()->public()->autowire();
     $services->set(\ECSPrefix20220605\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter::class);
     $services->set(\ECSPrefix20220605\Symplify\PackageBuilder\Console\Output\ConsoleDiffer::class);
     $services->set(\ECSPrefix20220605\Symplify\PackageBuilder\Diff\Output\CompleteUnifiedDiffOutputBuilderFactory::class);
