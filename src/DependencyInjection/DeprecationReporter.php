@@ -37,7 +37,7 @@ final class DeprecationReporter
             $symfonyStyle->warning($deprecatedMessage);
         }
         // to make deprecation noticeable
-        \sleep(3);
+        \sleep(10);
     }
     /**
      * @return string[]

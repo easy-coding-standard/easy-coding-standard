@@ -56,7 +56,7 @@ final class EasyCodingStandardContainerFactory
             $warningMessage = \sprintf('Your "%s" config is using old syntax with "ContainerConfigurator".%sPlease upgrade to "ECSConfig" that allows better autocomplete and future standard.', $inputConfigFile, \PHP_EOL);
             $symfonyStyle->warning($warningMessage);
             // to make message noticeable
-            \sleep(3);
+            \sleep(10);
         }
     }
 }
