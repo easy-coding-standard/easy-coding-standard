@@ -19,17 +19,17 @@ use Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
 use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20220604\Symplify\PackageBuilder\ValueObject\MethodName;
-use ECSPrefix20220604\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix20220604\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20220604\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use ECSPrefix20220604\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use ECSPrefix20220604\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20220605\Symplify\PackageBuilder\ValueObject\MethodName;
+use ECSPrefix20220605\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix20220605\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20220605\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix20220605\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220605\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\LineLengthFixerTest
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\ConfiguredLineLengthFixerTest
  */
-final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220604\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface, \ECSPrefix20220604\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220605\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface, \ECSPrefix20220605\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @api
@@ -153,9 +153,9 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
             $this->processFunctionOrArray($tokens, $position);
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20220604\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \ECSPrefix20220605\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \ECSPrefix20220604\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220604\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20220605\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220605\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 function some($veryLong, $superLong, $oneMoreTime)
 {
 }
@@ -199,7 +199,7 @@ CODE_SAMPLE
     }
     public function getConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        throw new \ECSPrefix20220604\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        throw new \ECSPrefix20220605\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
     /**
      * @param Tokens<Token> $tokens
@@ -231,7 +231,7 @@ CODE_SAMPLE
             return;
         }
         // @todo is __construct() class method and is newline parma enabled? → skip it
-        if ($this->standaloneLineConstructorParamFixer && $this->methodNameResolver->isMethodName($tokens, $position, \ECSPrefix20220604\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR)) {
+        if ($this->standaloneLineConstructorParamFixer && $this->methodNameResolver->isMethodName($tokens, $position, \ECSPrefix20220605\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR)) {
             return;
         }
         if ($this->shouldSkip($tokens, $blockInfo)) {

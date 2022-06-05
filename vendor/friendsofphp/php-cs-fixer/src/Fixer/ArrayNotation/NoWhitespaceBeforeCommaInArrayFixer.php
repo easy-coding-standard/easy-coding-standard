@@ -24,7 +24,7 @@ use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220604\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix20220605\Symfony\Component\OptionsResolver\Options;
 /**
  * @author Adam Marczuk <adam@marczuk.info>
  */
@@ -38,7 +38,7 @@ final class NoWhitespaceBeforeCommaInArrayFixer extends \PhpCsFixer\AbstractFixe
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('In array declaration, there MUST NOT be a whitespace before each comma.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$x = array(1 , \"2\");\n"), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20220604;
+namespace ECSPrefix20220605;
 
 $x = [<<<EOD
 foo
@@ -71,7 +71,7 @@ SAMPLE
      */
     protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_heredoc', 'Whether the whitespace between heredoc end and comma should be removed.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (\ECSPrefix20220604\Symfony\Component\OptionsResolver\Options $options, $value) {
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_heredoc', 'Whether the whitespace between heredoc end and comma should be removed.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (\ECSPrefix20220605\Symfony\Component\OptionsResolver\Options $options, $value) {
             return $value;
         })->getOption()]);
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20220604\React\Stream;
+namespace ECSPrefix20220605\React\Stream;
 
-use ECSPrefix20220604\Evenement\EventEmitter;
-use ECSPrefix20220604\React\EventLoop\Loop;
-use ECSPrefix20220604\React\EventLoop\LoopInterface;
+use ECSPrefix20220605\Evenement\EventEmitter;
+use ECSPrefix20220605\React\EventLoop\Loop;
+use ECSPrefix20220605\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
-final class ReadableResourceStream extends \ECSPrefix20220604\Evenement\EventEmitter implements \ECSPrefix20220604\React\Stream\ReadableStreamInterface
+final class ReadableResourceStream extends \ECSPrefix20220605\Evenement\EventEmitter implements \ECSPrefix20220605\React\Stream\ReadableStreamInterface
 {
     /**
      * @var resource
@@ -35,7 +35,7 @@ final class ReadableResourceStream extends \ECSPrefix20220604\Evenement\EventEmi
     private $bufferSize;
     private $closed = \false;
     private $listening = \false;
-    public function __construct($stream, \ECSPrefix20220604\React\EventLoop\LoopInterface $loop = null, $readChunkSize = null)
+    public function __construct($stream, \ECSPrefix20220605\React\EventLoop\LoopInterface $loop = null, $readChunkSize = null)
     {
         if (!\is_resource($stream) || \get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
@@ -62,7 +62,7 @@ final class ReadableResourceStream extends \ECSPrefix20220604\Evenement\EventEmi
             \stream_set_read_buffer($stream, 0);
         }
         $this->stream = $stream;
-        $this->loop = $loop ?: \ECSPrefix20220604\React\EventLoop\Loop::get();
+        $this->loop = $loop ?: \ECSPrefix20220605\React\EventLoop\Loop::get();
         $this->bufferSize = $readChunkSize === null ? 65536 : (int) $readChunkSize;
         $this->resume();
     }
@@ -84,9 +84,9 @@ final class ReadableResourceStream extends \ECSPrefix20220604\Evenement\EventEmi
             $this->listening = \true;
         }
     }
-    public function pipe(\ECSPrefix20220604\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\ECSPrefix20220605\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \ECSPrefix20220604\React\Stream\Util::pipe($this, $dest, $options);
+        return \ECSPrefix20220605\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {
