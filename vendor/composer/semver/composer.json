@@ -39,12 +39,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220606\\Composer\\Semver\\": "src"
+            "ECSPrefix20220607\\Composer\\Semver\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20220606\\Composer\\Semver\\": "tests"
+            "ECSPrefix20220607\\Composer\\Semver\\": "tests"
         }
     },
     "extra": {

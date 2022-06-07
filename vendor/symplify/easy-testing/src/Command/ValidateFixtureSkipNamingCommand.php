@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220606\Symplify\EasyTesting\Command;
+namespace ECSPrefix20220607\Symplify\EasyTesting\Command;
 
-use ECSPrefix20220606\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20220606\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220606\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220606\Symplify\EasyTesting\Finder\FixtureFinder;
-use ECSPrefix20220606\Symplify\EasyTesting\MissplacedSkipPrefixResolver;
-use ECSPrefix20220606\Symplify\EasyTesting\ValueObject\Option;
-use ECSPrefix20220606\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-final class ValidateFixtureSkipNamingCommand extends \ECSPrefix20220606\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20220607\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220607\Symplify\EasyTesting\Finder\FixtureFinder;
+use ECSPrefix20220607\Symplify\EasyTesting\MissplacedSkipPrefixResolver;
+use ECSPrefix20220607\Symplify\EasyTesting\ValueObject\Option;
+use ECSPrefix20220607\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+final class ValidateFixtureSkipNamingCommand extends \ECSPrefix20220607\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @var \Symplify\EasyTesting\MissplacedSkipPrefixResolver
@@ -20,7 +20,7 @@ final class ValidateFixtureSkipNamingCommand extends \ECSPrefix20220606\Symplify
      * @var \Symplify\EasyTesting\Finder\FixtureFinder
      */
     private $fixtureFinder;
-    public function __construct(\ECSPrefix20220606\Symplify\EasyTesting\MissplacedSkipPrefixResolver $missplacedSkipPrefixResolver, \ECSPrefix20220606\Symplify\EasyTesting\Finder\FixtureFinder $fixtureFinder)
+    public function __construct(\ECSPrefix20220607\Symplify\EasyTesting\MissplacedSkipPrefixResolver $missplacedSkipPrefixResolver, \ECSPrefix20220607\Symplify\EasyTesting\Finder\FixtureFinder $fixtureFinder)
     {
         $this->missplacedSkipPrefixResolver = $missplacedSkipPrefixResolver;
         $this->fixtureFinder = $fixtureFinder;
@@ -29,12 +29,12 @@ final class ValidateFixtureSkipNamingCommand extends \ECSPrefix20220606\Symplify
     protected function configure() : void
     {
         $this->setName('validate-fixture-skip-naming');
-        $this->addArgument(\ECSPrefix20220606\Symplify\EasyTesting\ValueObject\Option::SOURCE, \ECSPrefix20220606\Symfony\Component\Console\Input\InputArgument::REQUIRED | \ECSPrefix20220606\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths to analyse');
+        $this->addArgument(\ECSPrefix20220607\Symplify\EasyTesting\ValueObject\Option::SOURCE, \ECSPrefix20220607\Symfony\Component\Console\Input\InputArgument::REQUIRED | \ECSPrefix20220607\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths to analyse');
         $this->setDescription('Check that skipped fixture files (without `-----` separator) have a "skip" prefix');
     }
-    protected function execute(\ECSPrefix20220606\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220606\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
-        $source = (array) $input->getArgument(\ECSPrefix20220606\Symplify\EasyTesting\ValueObject\Option::SOURCE);
+        $source = (array) $input->getArgument(\ECSPrefix20220607\Symplify\EasyTesting\ValueObject\Option::SOURCE);
         $fixtureFileInfos = $this->fixtureFinder->find($source);
         $incorrectAndMissingSkips = $this->missplacedSkipPrefixResolver->resolve($fixtureFileInfos);
         foreach ($incorrectAndMissingSkips->getIncorrectSkipFileInfos() as $incorrectSkipFileInfo) {

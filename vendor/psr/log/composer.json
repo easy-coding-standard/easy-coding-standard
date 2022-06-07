@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220606\\Psr\\Log\\": "src"
+            "ECSPrefix20220607\\Psr\\Log\\": "src"
         }
     },
     "extra": {
