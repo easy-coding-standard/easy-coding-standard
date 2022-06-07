@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf2475d674163dc1b2507f9855766b0cd
+class ComposerStaticInit203e5e611dac17fc6ed270083e976e62
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -20,6 +20,8 @@ class ComposerStaticInitf2475d674163dc1b2507f9855766b0cd
         array (
             'Symplify\\EasyCodingStandard\\' => 28,
             'Symplify\\CodingStandard\\' => 24,
+            'Symfony\\Polyfill\\Php81\\' => 23,
+            'Symfony\\Polyfill\\Php80\\' => 23,
         ),
         'P' => 
         array (
@@ -37,8 +39,6 @@ class ComposerStaticInitf2475d674163dc1b2507f9855766b0cd
             'ECSPrefix20220607\\Symplify\\EasyParallel\\' => 40,
             'ECSPrefix20220607\\Symplify\\ComposerJsonManipulator\\' => 51,
             'ECSPrefix20220607\\Symplify\\AutowireArrayParameter\\' => 50,
-            'ECSPrefix20220607\\Symfony\\Polyfill\\Php81\\' => 41,
-            'ECSPrefix20220607\\Symfony\\Polyfill\\Php80\\' => 41,
             'ECSPrefix20220607\\Symfony\\Contracts\\Service\\' => 44,
             'ECSPrefix20220607\\Symfony\\Component\\String\\' => 43,
             'ECSPrefix20220607\\Symfony\\Component\\OptionsResolver\\' => 52,
@@ -77,6 +77,14 @@ class ComposerStaticInitf2475d674163dc1b2507f9855766b0cd
         'Symplify\\CodingStandard\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/coding-standard/src',
+        ),
+        'Symfony\\Polyfill\\Php81\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php81',
+        ),
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
         'PhpCsFixer\\' => 
         array (
@@ -121,14 +129,6 @@ class ComposerStaticInitf2475d674163dc1b2507f9855766b0cd
         'ECSPrefix20220607\\Symplify\\AutowireArrayParameter\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src',
-        ),
-        'ECSPrefix20220607\\Symfony\\Polyfill\\Php81\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php81',
-        ),
-        'ECSPrefix20220607\\Symfony\\Polyfill\\Php80\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
         'ECSPrefix20220607\\Symfony\\Contracts\\Service\\' => 
         array (
@@ -435,7 +435,6 @@ class ComposerStaticInitf2475d674163dc1b2507f9855766b0cd
         'ECSPrefix20220607\\React\\Stream\\Util' => __DIR__ . '/..' . '/react/stream/src/Util.php',
         'ECSPrefix20220607\\React\\Stream\\WritableResourceStream' => __DIR__ . '/..' . '/react/stream/src/WritableResourceStream.php',
         'ECSPrefix20220607\\React\\Stream\\WritableStreamInterface' => __DIR__ . '/..' . '/react/stream/src/WritableStreamInterface.php',
-        'ECSPrefix20220607\\ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'ECSPrefix20220607\\SebastianBergmann\\Diff\\Chunk' => __DIR__ . '/..' . '/sebastian/diff/src/Chunk.php',
         'ECSPrefix20220607\\SebastianBergmann\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/ConfigurationException.php',
         'ECSPrefix20220607\\SebastianBergmann\\Diff\\Diff' => __DIR__ . '/..' . '/sebastian/diff/src/Diff.php',
@@ -870,9 +869,6 @@ class ComposerStaticInitf2475d674163dc1b2507f9855766b0cd
         'ECSPrefix20220607\\Symfony\\Contracts\\Service\\ServiceSubscriberInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberInterface.php',
         'ECSPrefix20220607\\Symfony\\Contracts\\Service\\ServiceSubscriberTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberTrait.php',
         'ECSPrefix20220607\\Symfony\\Contracts\\Service\\Test\\ServiceLocatorTest' => __DIR__ . '/..' . '/symfony/service-contracts/Test/ServiceLocatorTest.php',
-        'ECSPrefix20220607\\Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
-        'ECSPrefix20220607\\Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
-        'ECSPrefix20220607\\Symfony\\Polyfill\\Php81\\Php81' => __DIR__ . '/..' . '/symfony/polyfill-php81/Php81.php',
         'ECSPrefix20220607\\Symplify\\AutowireArrayParameter\\DependencyInjection\\CompilerPass\\AutowireArrayParameterCompilerPass' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DependencyInjection/CompilerPass/AutowireArrayParameterCompilerPass.php',
         'ECSPrefix20220607\\Symplify\\AutowireArrayParameter\\DependencyInjection\\DefinitionFinder' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DependencyInjection/DefinitionFinder.php',
         'ECSPrefix20220607\\Symplify\\AutowireArrayParameter\\DocBlock\\ParamTypeDocBlockResolver' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DocBlock/ParamTypeDocBlockResolver.php',
@@ -1438,7 +1434,11 @@ class ComposerStaticInitf2475d674163dc1b2507f9855766b0cd
         'PhpCsFixer\\WhitespacesFixerConfig' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/WhitespacesFixerConfig.php',
         'PhpCsFixer\\WordMatcher' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/WordMatcher.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
+        'Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
+        'Symfony\\Polyfill\\Php81\\Php81' => __DIR__ . '/..' . '/symfony/polyfill-php81/Php81.php',
         'Symplify\\CodingStandard\\DocBlock\\UselessDocBlockCleaner' => __DIR__ . '/..' . '/symplify/coding-standard/src/DocBlock/UselessDocBlockCleaner.php',
         'Symplify\\CodingStandard\\Fixer\\AbstractSymplifyFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/AbstractSymplifyFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Annotation\\DoctrineAnnotationNestedBracketsFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Annotation/DoctrineAnnotationNestedBracketsFixer.php',
@@ -1592,9 +1592,9 @@ class ComposerStaticInitf2475d674163dc1b2507f9855766b0cd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf2475d674163dc1b2507f9855766b0cd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf2475d674163dc1b2507f9855766b0cd::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf2475d674163dc1b2507f9855766b0cd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit203e5e611dac17fc6ed270083e976e62::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit203e5e611dac17fc6ed270083e976e62::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit203e5e611dac17fc6ed270083e976e62::$classMap;
 
         }, null, ClassLoader::class);
     }

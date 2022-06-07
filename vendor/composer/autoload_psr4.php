@@ -8,6 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symplify\\EasyCodingStandard\\' => array($baseDir . '/src', $baseDir . '/packages'),
     'Symplify\\CodingStandard\\' => array($vendorDir . '/symplify/coding-standard/src'),
+    'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
+    'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'PhpCsFixer\\' => array($vendorDir . '/friendsofphp/php-cs-fixer/src'),
     'ECSPrefix20220607\\Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'ECSPrefix20220607\\Symplify\\SymplifyKernel\\' => array($vendorDir . '/symplify/symplify-kernel/src'),
@@ -19,8 +21,6 @@ return array(
     'ECSPrefix20220607\\Symplify\\EasyParallel\\' => array($vendorDir . '/symplify/easy-parallel/src'),
     'ECSPrefix20220607\\Symplify\\ComposerJsonManipulator\\' => array($vendorDir . '/symplify/composer-json-manipulator/src'),
     'ECSPrefix20220607\\Symplify\\AutowireArrayParameter\\' => array($vendorDir . '/symplify/autowire-array-parameter/src'),
-    'ECSPrefix20220607\\Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
-    'ECSPrefix20220607\\Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'ECSPrefix20220607\\Symfony\\Contracts\\Service\\' => array($vendorDir . '/symfony/service-contracts'),
     'ECSPrefix20220607\\Symfony\\Component\\String\\' => array($vendorDir . '/symfony/string'),
     'ECSPrefix20220607\\Symfony\\Component\\OptionsResolver\\' => array($vendorDir . '/symfony/options-resolver'),

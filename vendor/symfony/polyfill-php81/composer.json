@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20220607\\Symfony\\Polyfill\\Php81\\": ""
+            "Symfony\\Polyfill\\Php81\\": ""
         },
         "files": [
             "bootstrap.php"
