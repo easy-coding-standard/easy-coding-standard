@@ -26,7 +26,7 @@ class DuplicatePropertySniff implements Sniff
      */
     public function register()
     {
-        return [T_OBJECT];
+        return [\T_OBJECT];
     }
     //end register()
     /**
@@ -42,10 +42,10 @@ class DuplicatePropertySniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $properties = [];
-        $wantedTokens = [T_PROPERTY, T_OBJECT];
+        $wantedTokens = [\T_PROPERTY, \T_OBJECT];
         $next = $phpcsFile->findNext($wantedTokens, $stackPtr + 1, $tokens[$stackPtr]['bracket_closer']);
         while ($next !== \false && $next < $tokens[$stackPtr]['bracket_closer']) {
-            if ($tokens[$next]['code'] === T_OBJECT) {
+            if ($tokens[$next]['code'] === \T_OBJECT) {
                 // Skip nested objects.
                 $next = $tokens[$next]['bracket_closer'];
             } else {

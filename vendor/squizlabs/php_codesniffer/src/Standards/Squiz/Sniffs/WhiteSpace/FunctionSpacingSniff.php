@@ -86,7 +86,7 @@ class FunctionSpacingSniff implements Sniff
         $this->spacingAfterLast = (int) $this->spacingAfterLast;
         if (isset($tokens[$stackPtr]['scope_closer']) === \false) {
             // Must be an interface method, so the closer is the semicolon.
-            $closer = $phpcsFile->findNext(T_SEMICOLON, $stackPtr);
+            $closer = $phpcsFile->findNext(\T_SEMICOLON, $stackPtr);
         } else {
             $closer = $tokens[$stackPtr]['scope_closer'];
         }
@@ -94,15 +94,15 @@ class FunctionSpacingSniff implements Sniff
         $isLast = \false;
         $ignore = [\T_WHITESPACE => \T_WHITESPACE] + Tokens::$methodPrefixes;
         $prev = $phpcsFile->findPrevious($ignore, $stackPtr - 1, null, \true);
-        while ($tokens[$prev]['code'] === T_ATTRIBUTE_END) {
+        while ($tokens[$prev]['code'] === \T_ATTRIBUTE_END) {
             // Skip past function attributes.
             $prev = $phpcsFile->findPrevious($ignore, $tokens[$prev]['attribute_opener'] - 1, null, \true);
         }
-        if ($tokens[$prev]['code'] === T_DOC_COMMENT_CLOSE_TAG) {
+        if ($tokens[$prev]['code'] === \T_DOC_COMMENT_CLOSE_TAG) {
             // Skip past function docblocks.
             $prev = $phpcsFile->findPrevious($ignore, $tokens[$prev]['comment_opener'] - 1, null, \true);
         }
-        if ($tokens[$prev]['code'] === T_OPEN_CURLY_BRACKET) {
+        if ($tokens[$prev]['code'] === \T_OPEN_CURLY_BRACKET) {
             $isFirst = \true;
         }
         $next = $phpcsFile->findNext($ignore, $closer + 1, null, \true);
@@ -110,7 +110,7 @@ class FunctionSpacingSniff implements Sniff
             // Skip past "end" comments.
             $next = $phpcsFile->findNext($ignore, $next + 1, null, \true);
         }
-        if ($tokens[$next]['code'] === T_CLOSE_CURLY_BRACKET) {
+        if ($tokens[$next]['code'] === \T_CLOSE_CURLY_BRACKET) {
             $isLast = \true;
         }
         /*
@@ -199,12 +199,12 @@ class FunctionSpacingSniff implements Sniff
                 // isn't a proper function comment anyway.
                 return;
             }
-            while ($tokens[$prevContent]['code'] === T_ATTRIBUTE_END && $tokens[$prevContent]['line'] === $currentLine - 1) {
+            while ($tokens[$prevContent]['code'] === \T_ATTRIBUTE_END && $tokens[$prevContent]['line'] === $currentLine - 1) {
                 // Account for function attributes.
                 $currentLine = $tokens[$tokens[$prevContent]['attribute_opener']]['line'];
                 $prevContent = $phpcsFile->findPrevious(\T_WHITESPACE, $tokens[$prevContent]['attribute_opener'] - 1, null, \true);
             }
-            if ($tokens[$prevContent]['code'] === T_DOC_COMMENT_CLOSE_TAG && $tokens[$prevContent]['line'] === $currentLine - 1) {
+            if ($tokens[$prevContent]['code'] === \T_DOC_COMMENT_CLOSE_TAG && $tokens[$prevContent]['line'] === $currentLine - 1) {
                 // Account for function comments.
                 $prevContent = $phpcsFile->findPrevious(\T_WHITESPACE, $tokens[$prevContent]['comment_opener'] - 1, null, \true);
             }
@@ -226,7 +226,7 @@ class FunctionSpacingSniff implements Sniff
                     // Found another interface or abstract function.
                     return;
                 }
-                if ($tokens[$i]['code'] === T_CLOSE_CURLY_BRACKET && $tokens[$tokens[$i]['scope_condition']]['code'] === \T_FUNCTION) {
+                if ($tokens[$i]['code'] === \T_CLOSE_CURLY_BRACKET && $tokens[$tokens[$i]['scope_condition']]['code'] === \T_FUNCTION) {
                     // Found a previous function.
                     return;
                 }

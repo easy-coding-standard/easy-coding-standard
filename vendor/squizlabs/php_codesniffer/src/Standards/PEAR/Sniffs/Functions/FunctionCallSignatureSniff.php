@@ -53,9 +53,9 @@ class FunctionCallSignatureSniff implements Sniff
     {
         $tokens = Tokens::$functionNameTokens;
         $tokens[] = \T_VARIABLE;
-        $tokens[] = T_CLOSE_CURLY_BRACKET;
-        $tokens[] = T_CLOSE_SQUARE_BRACKET;
-        $tokens[] = T_CLOSE_PARENTHESIS;
+        $tokens[] = \T_CLOSE_CURLY_BRACKET;
+        $tokens[] = \T_CLOSE_SQUARE_BRACKET;
+        $tokens[] = \T_CLOSE_PARENTHESIS;
         return $tokens;
     }
     //end register()
@@ -73,13 +73,13 @@ class FunctionCallSignatureSniff implements Sniff
         $this->requiredSpacesAfterOpen = (int) $this->requiredSpacesAfterOpen;
         $this->requiredSpacesBeforeClose = (int) $this->requiredSpacesBeforeClose;
         $tokens = $phpcsFile->getTokens();
-        if ($tokens[$stackPtr]['code'] === T_CLOSE_CURLY_BRACKET && isset($tokens[$stackPtr]['scope_condition']) === \true) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSE_CURLY_BRACKET && isset($tokens[$stackPtr]['scope_condition']) === \true) {
             // Not a function call.
             return;
         }
         // Find the next non-empty token.
         $openBracket = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
-        if ($tokens[$openBracket]['code'] !== T_OPEN_PARENTHESIS) {
+        if ($tokens[$openBracket]['code'] !== \T_OPEN_PARENTHESIS) {
             // Not a function call.
             return;
         }
@@ -89,7 +89,7 @@ class FunctionCallSignatureSniff implements Sniff
         }
         // Find the previous non-empty token.
         $search = Tokens::$emptyTokens;
-        $search[] = T_BITWISE_AND;
+        $search[] = \T_BITWISE_AND;
         $previous = $phpcsFile->findPrevious($search, $stackPtr - 1, null, \true);
         if ($tokens[$previous]['code'] === \T_FUNCTION) {
             // It's a function definition, not a function call.
@@ -112,7 +112,7 @@ class FunctionCallSignatureSniff implements Sniff
             }
         }
         $next = $phpcsFile->findNext(\T_WHITESPACE, $closeBracket + 1, null, \true);
-        if ($tokens[$next]['code'] === T_SEMICOLON) {
+        if ($tokens[$next]['code'] === \T_SEMICOLON) {
             if (isset(Tokens::$emptyTokens[$tokens[$closeBracket + 1]['code']]) === \true) {
                 $error = 'Space after closing parenthesis of function call prohibited';
                 $fix = $phpcsFile->addFixableError($error, $closeBracket, 'SpaceAfterCloseBracket');
@@ -218,7 +218,7 @@ class FunctionCallSignatureSniff implements Sniff
         // Checking this: $value = my_function(...[*]).
         $spaceBeforeClose = 0;
         $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $closer - 1, $openBracket, \true);
-        if ($tokens[$prev]['code'] === \T_END_HEREDOC || $tokens[$prev]['code'] === T_END_NOWDOC) {
+        if ($tokens[$prev]['code'] === \T_END_HEREDOC || $tokens[$prev]['code'] === \T_END_NOWDOC) {
             // Need a newline after these tokens, so ignore this rule.
             return;
         }
@@ -242,7 +242,7 @@ class FunctionCallSignatureSniff implements Sniff
                         $phpcsFile->fixer->beginChangeset();
                         $closingContent = ')';
                         $next = $phpcsFile->findNext(\T_WHITESPACE, $closer + 1, null, \true);
-                        if ($tokens[$next]['code'] === T_SEMICOLON) {
+                        if ($tokens[$next]['code'] === \T_SEMICOLON) {
                             $closingContent .= ';';
                             for ($i = $closer + 1; $i <= $next; $i++) {
                                 $phpcsFile->fixer->replaceToken($i, '');
@@ -429,7 +429,7 @@ class FunctionCallSignatureSniff implements Sniff
                     } else {
                         $expectedIndent = $foundFunctionIndent + $this->indent + $adjustment;
                     }
-                    if ($tokens[$i]['code'] !== \T_WHITESPACE && $tokens[$i]['code'] !== T_DOC_COMMENT_WHITESPACE) {
+                    if ($tokens[$i]['code'] !== \T_WHITESPACE && $tokens[$i]['code'] !== \T_DOC_COMMENT_WHITESPACE) {
                         // Just check if it is a multi-line block comment. If so, we can
                         // calculate the indent from the whitespace before the content.
                         if ($tokens[$i]['code'] === \T_COMMENT && $tokens[$i - 1]['code'] === \T_COMMENT) {
@@ -480,13 +480,13 @@ class FunctionCallSignatureSniff implements Sniff
                 //end if
                 if ($inArg === \false) {
                     $argStart = $nextCode;
-                    $argEnd = $phpcsFile->findEndOfStatement($nextCode, [T_COLON]);
+                    $argEnd = $phpcsFile->findEndOfStatement($nextCode, [\T_COLON]);
                 }
             }
             //end if
             // If we are within an argument we should be ignoring commas
             // as these are not signalling the end of an argument.
-            if ($inArg === \false && $tokens[$i]['code'] === T_COMMA) {
+            if ($inArg === \false && $tokens[$i]['code'] === \T_COMMA) {
                 $next = $phpcsFile->findNext(Tokens::$emptyTokens, $i + 1, $closeBracket, \true);
                 if ($next === \false) {
                     continue;
@@ -511,7 +511,7 @@ class FunctionCallSignatureSniff implements Sniff
                 }
                 //end if
                 $argStart = $next;
-                $argEnd = $phpcsFile->findEndOfStatement($next, [T_COLON]);
+                $argEnd = $phpcsFile->findEndOfStatement($next, [\T_COLON]);
             }
             //end if
         }

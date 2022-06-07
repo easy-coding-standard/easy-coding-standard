@@ -30,7 +30,7 @@ class LowerCaseTypeSniff implements Sniff
     {
         $tokens = Tokens::$castTokens;
         $tokens[] = \T_FUNCTION;
-        $tokens[] = T_CLOSURE;
+        $tokens[] = \T_CLOSURE;
         $tokens[] = \T_VARIABLE;
         return $tokens;
     }
@@ -136,7 +136,7 @@ class LowerCaseTypeSniff implements Sniff
         $tokens = $phpcsFile->getTokens();
         $current = $typeDeclStart;
         do {
-            $endOfType = $phpcsFile->findNext(T_TYPE_UNION, $current, $typeDeclEnd);
+            $endOfType = $phpcsFile->findNext(\T_TYPE_UNION, $current, $typeDeclEnd);
             if ($endOfType === \false) {
                 // This must be the last type in the union.
                 $endOfType = $typeDeclEnd + 1;

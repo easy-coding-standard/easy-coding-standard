@@ -97,7 +97,7 @@ class ControlStructureSpacingSniff implements Sniff
             break;
         }
         // We ignore spacing for some structures that tend to have their own rules.
-        $ignore = [\T_FUNCTION => \true, \T_CLASS => \true, \T_INTERFACE => \true, \T_TRAIT => \true, T_DOC_COMMENT_OPEN_TAG => \true];
+        $ignore = [\T_FUNCTION => \true, \T_CLASS => \true, \T_INTERFACE => \true, \T_TRAIT => \true, \T_DOC_COMMENT_OPEN_TAG => \true];
         if (isset($ignore[$tokens[$firstContent]['code']]) === \false && $tokens[$firstContent]['line'] >= $tokens[$scopeOpener]['line'] + 2) {
             $gap = $tokens[$firstContent]['line'] - $tokens[$scopeOpener]['line'] - 1;
             $phpcsFile->recordMetric($stackPtr, 'Blank lines at start of control structure', $gap);
@@ -160,7 +160,7 @@ class ControlStructureSpacingSniff implements Sniff
         if ($tokens[$stackPtr]['code'] === \T_MATCH) {
             // Move the scope closer to the semicolon/comma.
             $next = $phpcsFile->findNext(Tokens::$emptyTokens, $scopeCloser + 1, null, \true);
-            if ($next !== \false && ($tokens[$next]['code'] === T_SEMICOLON || $tokens[$next]['code'] === T_COMMA)) {
+            if ($next !== \false && ($tokens[$next]['code'] === \T_SEMICOLON || $tokens[$next]['code'] === \T_COMMA)) {
                 $scopeCloser = $next;
             }
         }
@@ -196,7 +196,7 @@ class ControlStructureSpacingSniff implements Sniff
                 // so normal function rules apply and we can ignore it.
                 return;
             }
-            if ($tokens[$owner]['code'] === T_CLOSURE && ($phpcsFile->hasCondition($stackPtr, [\T_FUNCTION, T_CLOSURE]) === \true || isset($tokens[$stackPtr]['nested_parenthesis']) === \true)) {
+            if ($tokens[$owner]['code'] === \T_CLOSURE && ($phpcsFile->hasCondition($stackPtr, [\T_FUNCTION, \T_CLOSURE]) === \true || isset($tokens[$stackPtr]['nested_parenthesis']) === \true)) {
                 return;
             }
             if ($tokens[$trailingContent]['line'] !== $tokens[$scopeCloser]['line'] + 1) {

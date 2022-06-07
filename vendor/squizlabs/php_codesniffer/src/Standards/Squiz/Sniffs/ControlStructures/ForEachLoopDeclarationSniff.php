@@ -49,7 +49,7 @@ class ForEachLoopDeclarationSniff implements Sniff
         $this->requiredSpacesAfterOpen = (int) $this->requiredSpacesAfterOpen;
         $this->requiredSpacesBeforeClose = (int) $this->requiredSpacesBeforeClose;
         $tokens = $phpcsFile->getTokens();
-        $openingBracket = $phpcsFile->findNext(T_OPEN_PARENTHESIS, $stackPtr);
+        $openingBracket = $phpcsFile->findNext(\T_OPEN_PARENTHESIS, $stackPtr);
         if ($openingBracket === \false) {
             $error = 'Possible parse error: FOREACH has no opening parenthesis';
             $phpcsFile->addWarning($error, $stackPtr, 'MissingOpenParenthesis');

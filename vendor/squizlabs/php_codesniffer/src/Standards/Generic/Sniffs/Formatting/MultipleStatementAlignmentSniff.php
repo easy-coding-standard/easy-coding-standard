@@ -115,9 +115,9 @@ class MultipleStatementAlignmentSniff implements Sniff
         $find = Tokens::$assignmentTokens;
         unset($find[\T_DOUBLE_ARROW]);
         $scopes = Tokens::$scopeOpeners;
-        unset($scopes[T_CLOSURE]);
-        unset($scopes[T_ANON_CLASS]);
-        unset($scopes[T_OBJECT]);
+        unset($scopes[\T_CLOSURE]);
+        unset($scopes[\T_ANON_CLASS]);
+        unset($scopes[\T_OBJECT]);
         for ($assign = $stackPtr; $assign < $end; $assign++) {
             if ($tokens[$assign]['level'] < $tokens[$stackPtr]['level']) {
                 // Statement is in a different context, so the block is over.
@@ -151,7 +151,7 @@ class MultipleStatementAlignmentSniff implements Sniff
                     // Breaking out of PHP ends the assignment block.
                     break;
                 }
-                if ($tokens[$assign]['code'] === T_OPEN_SHORT_ARRAY && isset($tokens[$assign]['bracket_closer']) === \true) {
+                if ($tokens[$assign]['code'] === \T_OPEN_SHORT_ARRAY && isset($tokens[$assign]['bracket_closer']) === \true) {
                     $arrayEnd = $tokens[$assign]['bracket_closer'];
                 }
                 if ($tokens[$assign]['code'] === \T_ARRAY && isset($tokens[$assign]['parenthesis_opener']) === \true && isset($tokens[$tokens[$assign]['parenthesis_opener']]['parenthesis_closer']) === \true) {
@@ -159,7 +159,7 @@ class MultipleStatementAlignmentSniff implements Sniff
                 }
                 if (isset(Tokens::$emptyTokens[$tokens[$assign]['code']]) === \false) {
                     $lastCode = $assign;
-                    if ($tokens[$assign]['code'] === T_SEMICOLON) {
+                    if ($tokens[$assign]['code'] === \T_SEMICOLON) {
                         if ($tokens[$assign]['conditions'] === $tokens[$stackPtr]['conditions']) {
                             if ($lastSemi !== null && $prevAssign !== null && $lastSemi > $prevAssign) {
                                 // This statement did not have an assignment operator in it.

@@ -47,7 +47,7 @@ class LongConditionClosingCommentSniff implements Sniff
      */
     public function register()
     {
-        return [T_CLOSE_CURLY_BRACKET];
+        return [\T_CLOSE_CURLY_BRACKET];
     }
     //end register()
     /**
@@ -124,7 +124,7 @@ class LongConditionClosingCommentSniff implements Sniff
         if ($startCondition['code'] === \T_MATCH) {
             // Move the stackPtr to after the semi-colon/comma if there is one.
             $nextToken = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
-            if ($nextToken !== \false && ($tokens[$nextToken]['code'] === T_SEMICOLON || $tokens[$nextToken]['code'] === T_COMMA)) {
+            if ($nextToken !== \false && ($tokens[$nextToken]['code'] === \T_SEMICOLON || $tokens[$nextToken]['code'] === \T_COMMA)) {
                 $stackPtr = $nextToken;
             }
         }

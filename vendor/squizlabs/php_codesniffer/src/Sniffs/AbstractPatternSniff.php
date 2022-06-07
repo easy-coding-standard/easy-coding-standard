@@ -403,13 +403,13 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                         return \false;
                     }
                     if ($lastAddedStackPtr !== null) {
-                        if (($tokens[$next]['code'] === T_OPEN_CURLY_BRACKET || $tokens[$next]['code'] === T_CLOSE_CURLY_BRACKET) && isset($tokens[$next]['scope_condition']) === \true && $tokens[$next]['scope_condition'] > $lastAddedStackPtr) {
+                        if (($tokens[$next]['code'] === \T_OPEN_CURLY_BRACKET || $tokens[$next]['code'] === \T_CLOSE_CURLY_BRACKET) && isset($tokens[$next]['scope_condition']) === \true && $tokens[$next]['scope_condition'] > $lastAddedStackPtr) {
                             // This is a brace, but the owner of it is after the current
                             // token, which means it does not belong to any token in
                             // our pattern. This means the pattern is not for us.
                             return \false;
                         }
-                        if (($tokens[$next]['code'] === T_OPEN_PARENTHESIS || $tokens[$next]['code'] === T_CLOSE_PARENTHESIS) && isset($tokens[$next]['parenthesis_owner']) === \true && $tokens[$next]['parenthesis_owner'] > $lastAddedStackPtr) {
+                        if (($tokens[$next]['code'] === \T_OPEN_PARENTHESIS || $tokens[$next]['code'] === \T_CLOSE_PARENTHESIS) && isset($tokens[$next]['parenthesis_owner']) === \true && $tokens[$next]['parenthesis_owner'] > $lastAddedStackPtr) {
                             // This is a bracket, but the owner of it is after the current
                             // token, which means it does not belong to any token in
                             // our pattern. This means the pattern is not for us.

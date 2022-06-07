@@ -47,7 +47,7 @@ class FileCommentSniff implements Sniff
             $phpcsFile->recordMetric($stackPtr, 'File has doc comment', 'yes');
             return $phpcsFile->numTokens + 1;
         } else {
-            if ($commentStart === \false || $tokens[$commentStart]['code'] !== T_DOC_COMMENT_OPEN_TAG) {
+            if ($commentStart === \false || $tokens[$commentStart]['code'] !== \T_DOC_COMMENT_OPEN_TAG) {
                 $phpcsFile->addError('Missing file doc comment', $stackPtr, 'Missing');
                 $phpcsFile->recordMetric($stackPtr, 'File has doc comment', 'no');
                 return $phpcsFile->numTokens + 1;
@@ -71,7 +71,7 @@ class FileCommentSniff implements Sniff
         if ($nextToken === $phpcsFile->numTokens) {
             $nextToken--;
         }
-        $ignore = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION, T_CLOSURE, \T_PUBLIC, \T_PRIVATE, \T_PROTECTED, \T_FINAL, \T_STATIC, \T_ABSTRACT, \T_CONST, T_PROPERTY, \T_INCLUDE, \T_INCLUDE_ONCE, \T_REQUIRE, \T_REQUIRE_ONCE];
+        $ignore = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION, \T_CLOSURE, \T_PUBLIC, \T_PRIVATE, \T_PROTECTED, \T_FINAL, \T_STATIC, \T_ABSTRACT, \T_CONST, \T_PROPERTY, \T_INCLUDE, \T_INCLUDE_ONCE, \T_REQUIRE, \T_REQUIRE_ONCE];
         if (\in_array($tokens[$nextToken]['code'], $ignore, \true) === \true) {
             $phpcsFile->addError('Missing file doc comment', $stackPtr, 'Missing');
             $phpcsFile->recordMetric($stackPtr, 'File has doc comment', 'no');
@@ -104,7 +104,7 @@ class FileCommentSniff implements Sniff
             if ($isRequired === \false) {
                 continue;
             }
-            $string = $phpcsFile->findNext(T_DOC_COMMENT_STRING, $tag, $commentEnd);
+            $string = $phpcsFile->findNext(\T_DOC_COMMENT_STRING, $tag, $commentEnd);
             if ($string === \false || $tokens[$string]['line'] !== $tokens[$tag]['line']) {
                 $error = 'Content missing for %s tag in file comment';
                 $data = [$name];

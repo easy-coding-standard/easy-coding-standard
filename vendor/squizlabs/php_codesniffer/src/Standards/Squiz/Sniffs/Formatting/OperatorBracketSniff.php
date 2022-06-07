@@ -42,19 +42,19 @@ class OperatorBracketSniff implements Sniff
     public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        if ($phpcsFile->tokenizerType === 'JS' && $tokens[$stackPtr]['code'] === T_PLUS) {
+        if ($phpcsFile->tokenizerType === 'JS' && $tokens[$stackPtr]['code'] === \T_PLUS) {
             // JavaScript uses the plus operator for string concatenation as well
             // so we cannot accurately determine if it is a string concat or addition.
             // So just ignore it.
             return;
         }
         // If the & is a reference, then we don't want to check for brackets.
-        if ($tokens[$stackPtr]['code'] === T_BITWISE_AND && $phpcsFile->isReference($stackPtr) === \true) {
+        if ($tokens[$stackPtr]['code'] === \T_BITWISE_AND && $phpcsFile->isReference($stackPtr) === \true) {
             return;
         }
         // There is one instance where brackets aren't needed, which involves
         // the minus sign being used to assign a negative number to a variable.
-        if ($tokens[$stackPtr]['code'] === T_MINUS) {
+        if ($tokens[$stackPtr]['code'] === \T_MINUS) {
             // Check to see if we are trying to return -n.
             $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
             if ($tokens[$prev]['code'] === \T_RETURN) {
@@ -86,12 +86,12 @@ class OperatorBracketSniff implements Sniff
         if ($previousToken !== \false) {
             // A list of tokens that indicate that the token is not
             // part of an arithmetic operation.
-            $invalidTokens = [T_COMMA => \true, T_COLON => \true, T_OPEN_PARENTHESIS => \true, T_OPEN_SQUARE_BRACKET => \true, T_OPEN_CURLY_BRACKET => \true, T_OPEN_SHORT_ARRAY => \true, \T_CASE => \true, \T_EXIT => \true];
+            $invalidTokens = [\T_COMMA => \true, \T_COLON => \true, \T_OPEN_PARENTHESIS => \true, \T_OPEN_SQUARE_BRACKET => \true, \T_OPEN_CURLY_BRACKET => \true, \T_OPEN_SHORT_ARRAY => \true, \T_CASE => \true, \T_EXIT => \true];
             if (isset($invalidTokens[$tokens[$previousToken]['code']]) === \true) {
                 return;
             }
         }
-        if ($tokens[$stackPtr]['code'] === T_BITWISE_OR && isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
+        if ($tokens[$stackPtr]['code'] === \T_BITWISE_OR && isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
             $brackets = $tokens[$stackPtr]['nested_parenthesis'];
             $lastBracket = \array_pop($brackets);
             if (isset($tokens[$lastBracket]['parenthesis_owner']) === \true && $tokens[$tokens[$lastBracket]['parenthesis_owner']]['code'] === \T_CATCH) {
@@ -101,7 +101,7 @@ class OperatorBracketSniff implements Sniff
             }
         }
         // Tokens that are allowed inside a bracketed operation.
-        $allowed = [\T_VARIABLE, \T_LNUMBER, \T_DNUMBER, \T_STRING, \T_WHITESPACE, \T_NS_SEPARATOR, T_THIS, T_SELF, \T_STATIC, \T_OBJECT_OPERATOR, \T_NULLSAFE_OBJECT_OPERATOR, \T_DOUBLE_COLON, T_OPEN_SQUARE_BRACKET, T_CLOSE_SQUARE_BRACKET, T_MODULUS, T_NONE, T_BITWISE_NOT];
+        $allowed = [\T_VARIABLE, \T_LNUMBER, \T_DNUMBER, \T_STRING, \T_WHITESPACE, \T_NS_SEPARATOR, \T_THIS, \T_SELF, \T_STATIC, \T_OBJECT_OPERATOR, \T_NULLSAFE_OBJECT_OPERATOR, \T_DOUBLE_COLON, \T_OPEN_SQUARE_BRACKET, \T_CLOSE_SQUARE_BRACKET, \T_MODULUS, \T_NONE, \T_BITWISE_NOT];
         $allowed += Tokens::$operators;
         $lastBracket = \false;
         if (isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
@@ -121,7 +121,7 @@ class OperatorBracketSniff implements Sniff
                         if (\in_array($tokens[$prev]['code'], $allowed, \true) === \true) {
                             continue;
                         }
-                        if ($tokens[$prev]['code'] === T_CLOSE_PARENTHESIS) {
+                        if ($tokens[$prev]['code'] === \T_CLOSE_PARENTHESIS) {
                             $prev = $tokens[$prev]['parenthesis_opener'];
                         } else {
                             break;
@@ -134,7 +134,7 @@ class OperatorBracketSniff implements Sniff
                         if (\in_array($tokens[$next]['code'], $allowed, \true) === \true) {
                             continue;
                         }
-                        if ($tokens[$next]['code'] === T_OPEN_PARENTHESIS) {
+                        if ($tokens[$next]['code'] === \T_OPEN_PARENTHESIS) {
                             $next = $tokens[$next]['parenthesis_closer'];
                         } else {
                             break;
@@ -153,7 +153,7 @@ class OperatorBracketSniff implements Sniff
                         break;
                     }
                 }
-                if ($prevCode === T_OPEN_PARENTHESIS) {
+                if ($prevCode === \T_OPEN_PARENTHESIS) {
                     // These are two open parenthesis in a row. If the current
                     // one doesn't enclose the operator, go to the previous one.
                     if ($endBracket < $stackPtr) {
@@ -179,11 +179,11 @@ class OperatorBracketSniff implements Sniff
                 // We are enclosed in a set of bracket, so the last thing to
                 // check is that we are not also enclosed in square brackets
                 // like this: ($array[$index + 1]), which is invalid.
-                $brackets = [T_OPEN_SQUARE_BRACKET, T_CLOSE_SQUARE_BRACKET];
+                $brackets = [\T_OPEN_SQUARE_BRACKET, \T_CLOSE_SQUARE_BRACKET];
                 $squareBracket = $phpcsFile->findPrevious($brackets, $stackPtr - 1, $lastBracket);
-                if ($squareBracket !== \false && $tokens[$squareBracket]['code'] === T_OPEN_SQUARE_BRACKET) {
+                if ($squareBracket !== \false && $tokens[$squareBracket]['code'] === \T_OPEN_SQUARE_BRACKET) {
                     $closeSquareBracket = $phpcsFile->findNext($brackets, $stackPtr + 1);
-                    if ($closeSquareBracket !== \false && $tokens[$closeSquareBracket]['code'] === T_CLOSE_SQUARE_BRACKET) {
+                    if ($closeSquareBracket !== \false && $tokens[$closeSquareBracket]['code'] === \T_CLOSE_SQUARE_BRACKET) {
                         $this->addMissingBracketsError($phpcsFile, $stackPtr);
                     }
                 }
@@ -209,26 +209,26 @@ class OperatorBracketSniff implements Sniff
     public function addMissingBracketsError($phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $allowed = [\T_VARIABLE => \true, \T_LNUMBER => \true, \T_DNUMBER => \true, \T_STRING => \true, \T_CONSTANT_ENCAPSED_STRING => \true, T_DOUBLE_QUOTED_STRING => \true, \T_WHITESPACE => \true, \T_NS_SEPARATOR => \true, T_THIS => \true, T_SELF => \true, \T_STATIC => \true, \T_OBJECT_OPERATOR => \true, \T_NULLSAFE_OBJECT_OPERATOR => \true, \T_DOUBLE_COLON => \true, T_MODULUS => \true, \T_ISSET => \true, \T_ARRAY => \true, T_NONE => \true, T_BITWISE_NOT => \true];
+        $allowed = [\T_VARIABLE => \true, \T_LNUMBER => \true, \T_DNUMBER => \true, \T_STRING => \true, \T_CONSTANT_ENCAPSED_STRING => \true, \T_DOUBLE_QUOTED_STRING => \true, \T_WHITESPACE => \true, \T_NS_SEPARATOR => \true, \T_THIS => \true, \T_SELF => \true, \T_STATIC => \true, \T_OBJECT_OPERATOR => \true, \T_NULLSAFE_OBJECT_OPERATOR => \true, \T_DOUBLE_COLON => \true, \T_MODULUS => \true, \T_ISSET => \true, \T_ARRAY => \true, \T_NONE => \true, \T_BITWISE_NOT => \true];
         // Find the first token in the expression.
         for ($before = $stackPtr - 1; $before > 0; $before--) {
             // Special case for plus operators because we can't tell if they are used
             // for addition or string contact. So assume string concat to be safe.
-            if ($phpcsFile->tokenizerType === 'JS' && $tokens[$before]['code'] === T_PLUS) {
+            if ($phpcsFile->tokenizerType === 'JS' && $tokens[$before]['code'] === \T_PLUS) {
                 break;
             }
             if (isset(Tokens::$emptyTokens[$tokens[$before]['code']]) === \true || isset(Tokens::$operators[$tokens[$before]['code']]) === \true || isset(Tokens::$castTokens[$tokens[$before]['code']]) === \true || isset($allowed[$tokens[$before]['code']]) === \true) {
                 continue;
             }
-            if ($tokens[$before]['code'] === T_CLOSE_PARENTHESIS) {
+            if ($tokens[$before]['code'] === \T_CLOSE_PARENTHESIS) {
                 $before = $tokens[$before]['parenthesis_opener'];
                 continue;
             }
-            if ($tokens[$before]['code'] === T_CLOSE_SQUARE_BRACKET) {
+            if ($tokens[$before]['code'] === \T_CLOSE_SQUARE_BRACKET) {
                 $before = $tokens[$before]['bracket_opener'];
                 continue;
             }
-            if ($tokens[$before]['code'] === T_CLOSE_SHORT_ARRAY) {
+            if ($tokens[$before]['code'] === \T_CLOSE_SHORT_ARRAY) {
                 $before = $tokens[$before]['bracket_opener'];
                 continue;
             }
@@ -237,27 +237,27 @@ class OperatorBracketSniff implements Sniff
         //end for
         $before = $phpcsFile->findNext(Tokens::$emptyTokens, $before + 1, null, \true);
         // A few extra tokens are allowed to be on the right side of the expression.
-        $allowed[T_EQUAL] = \true;
+        $allowed[\T_EQUAL] = \true;
         $allowed[\T_NEW] = \true;
         // Find the last token in the expression.
         for ($after = $stackPtr + 1; $after < $phpcsFile->numTokens; $after++) {
             // Special case for plus operators because we can't tell if they are used
             // for addition or string concat. So assume string concat to be safe.
-            if ($phpcsFile->tokenizerType === 'JS' && $tokens[$after]['code'] === T_PLUS) {
+            if ($phpcsFile->tokenizerType === 'JS' && $tokens[$after]['code'] === \T_PLUS) {
                 break;
             }
             if (isset(Tokens::$emptyTokens[$tokens[$after]['code']]) === \true || isset(Tokens::$operators[$tokens[$after]['code']]) === \true || isset(Tokens::$castTokens[$tokens[$after]['code']]) === \true || isset($allowed[$tokens[$after]['code']]) === \true) {
                 continue;
             }
-            if ($tokens[$after]['code'] === T_OPEN_PARENTHESIS) {
+            if ($tokens[$after]['code'] === \T_OPEN_PARENTHESIS) {
                 $after = $tokens[$after]['parenthesis_closer'];
                 continue;
             }
-            if ($tokens[$after]['code'] === T_OPEN_SQUARE_BRACKET) {
+            if ($tokens[$after]['code'] === \T_OPEN_SQUARE_BRACKET) {
                 $after = $tokens[$after]['bracket_closer'];
                 continue;
             }
-            if ($tokens[$after]['code'] === T_OPEN_SHORT_ARRAY) {
+            if ($tokens[$after]['code'] === \T_OPEN_SHORT_ARRAY) {
                 $after = $tokens[$after]['bracket_closer'];
                 continue;
             }

@@ -37,7 +37,7 @@ class ClassInstantiationSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         // Find the class name.
-        $allowed = [\T_STRING => \T_STRING, \T_NS_SEPARATOR => \T_NS_SEPARATOR, T_SELF => T_SELF, \T_STATIC => \T_STATIC, \T_VARIABLE => \T_VARIABLE, T_DOLLAR => T_DOLLAR, \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR, \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR, \T_DOUBLE_COLON => \T_DOUBLE_COLON];
+        $allowed = [\T_STRING => \T_STRING, \T_NS_SEPARATOR => \T_NS_SEPARATOR, \T_SELF => \T_SELF, \T_STATIC => \T_STATIC, \T_VARIABLE => \T_VARIABLE, \T_DOLLAR => \T_DOLLAR, \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR, \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR, \T_DOUBLE_COLON => \T_DOUBLE_COLON];
         $allowed += Tokens::$emptyTokens;
         $classNameEnd = null;
         for ($i = $stackPtr + 1; $i < $phpcsFile->numTokens; $i++) {
@@ -49,7 +49,7 @@ class ClassInstantiationSniff implements Sniff
                 $i = $tokens[$i]['attribute_closer'];
                 continue;
             }
-            if ($tokens[$i]['code'] === T_OPEN_SQUARE_BRACKET || $tokens[$i]['code'] === T_OPEN_CURLY_BRACKET) {
+            if ($tokens[$i]['code'] === \T_OPEN_SQUARE_BRACKET || $tokens[$i]['code'] === \T_OPEN_CURLY_BRACKET) {
                 $i = $tokens[$i]['bracket_closer'];
                 continue;
             }
@@ -60,11 +60,11 @@ class ClassInstantiationSniff implements Sniff
         if ($classNameEnd === null) {
             return;
         }
-        if ($tokens[$classNameEnd]['code'] === T_ANON_CLASS) {
+        if ($tokens[$classNameEnd]['code'] === \T_ANON_CLASS) {
             // Ignore anon classes.
             return;
         }
-        if ($tokens[$classNameEnd]['code'] === T_OPEN_PARENTHESIS) {
+        if ($tokens[$classNameEnd]['code'] === \T_OPEN_PARENTHESIS) {
             // Using parenthesis.
             return;
         }

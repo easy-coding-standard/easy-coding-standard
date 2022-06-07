@@ -79,10 +79,10 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                 $content = Util\Common::prepareForOutput($token['content']);
                 echo "\tProcess token {$stackPtr}: {$type} => {$content}" . \PHP_EOL;
             }
-            if ($token['code'] === T_BITWISE_XOR && $tokens[$stackPtr + 1]['content'] === 'PHPCS_CSS_T_OPEN_TAG') {
+            if ($token['code'] === \T_BITWISE_XOR && $tokens[$stackPtr + 1]['content'] === 'PHPCS_CSS_T_OPEN_TAG') {
                 $content = '<?php';
                 for ($stackPtr += 3; $stackPtr < $numTokens; $stackPtr++) {
-                    if ($tokens[$stackPtr]['code'] === T_BITWISE_XOR && $tokens[$stackPtr + 1]['content'] === 'PHPCS_CSS_T_CLOSE_TAG') {
+                    if ($tokens[$stackPtr]['code'] === \T_BITWISE_XOR && $tokens[$stackPtr + 1]['content'] === 'PHPCS_CSS_T_CLOSE_TAG') {
                         // Add the end tag and ignore the * we put at the end.
                         $content .= '?>';
                         $stackPtr += 2;
@@ -96,17 +96,17 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                     $cleanContent = Util\Common::prepareForOutput($content);
                     echo $cleanContent . \PHP_EOL;
                 }
-                $finalTokens[$newStackPtr] = ['type' => 'T_EMBEDDED_PHP', 'code' => T_EMBEDDED_PHP, 'content' => $content];
+                $finalTokens[$newStackPtr] = ['type' => 'T_EMBEDDED_PHP', 'code' => \T_EMBEDDED_PHP, 'content' => $content];
                 $newStackPtr++;
                 continue;
             }
             //end if
-            if ($token['code'] === T_GOTO_LABEL) {
+            if ($token['code'] === \T_GOTO_LABEL) {
                 // Convert these back to T_STRING followed by T_COLON so we can
                 // more easily process style definitions.
                 $finalTokens[$newStackPtr] = ['type' => 'T_STRING', 'code' => \T_STRING, 'content' => \substr($token['content'], 0, -1)];
                 $newStackPtr++;
-                $finalTokens[$newStackPtr] = ['type' => 'T_COLON', 'code' => T_COLON, 'content' => ':'];
+                $finalTokens[$newStackPtr] = ['type' => 'T_COLON', 'code' => \T_COLON, 'content' => ':'];
                 $newStackPtr++;
                 continue;
             }
@@ -154,9 +154,9 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                         \array_shift($commentTokens);
                         // Work out what we trimmed off above and remember to re-add it.
                         $trimmed = \substr($token['content'], 0, \strlen($token['content']) - \strlen($content));
-                        $finalTokens[$newStackPtr] = ['type' => 'T_COLOUR', 'code' => T_COLOUR, 'content' => $trimmed . $firstContent];
+                        $finalTokens[$newStackPtr] = ['type' => 'T_COLOUR', 'code' => \T_COLOUR, 'content' => $trimmed . $firstContent];
                     } else {
-                        $finalTokens[$newStackPtr] = ['type' => 'T_HASH', 'code' => T_HASH, 'content' => '#'];
+                        $finalTokens[$newStackPtr] = ['type' => 'T_HASH', 'code' => \T_HASH, 'content' => '#'];
                     }
                 } else {
                     $finalTokens[$newStackPtr] = ['type' => 'T_STRING', 'code' => \T_STRING, 'content' => '//'];
@@ -196,7 +196,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                 echo "\tProcess token {$stackPtr}: {$type} => {$content}" . \PHP_EOL;
             }
             switch ($token['code']) {
-                case T_OPEN_CURLY_BRACKET:
+                case \T_OPEN_CURLY_BRACKET:
                     // Opening curly brackets for an At-rule do not start a style
                     // definition. We also reset the asperand flag here because the next
                     // opening curly bracket could be indeed the start of a style
@@ -219,7 +219,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                         }
                     }
                     break;
-                case T_CLOSE_CURLY_BRACKET:
+                case \T_CLOSE_CURLY_BRACKET:
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         if ($inStyleDef === \true) {
                             echo "\t\t* style definition closed *" . \PHP_EOL;
@@ -231,7 +231,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                     $inStyleDef = \false;
                     $asperandStart = \false;
                     break;
-                case T_MINUS:
+                case \T_MINUS:
                     // Minus signs are often used instead of spaces inside
                     // class names, IDs and styles.
                     if ($finalTokens[$stackPtr + 1]['code'] === \T_STRING) {
@@ -265,7 +265,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                     }
                     //end if
                     break;
-                case T_COLON:
+                case \T_COLON:
                     // Only interested in colons that are defining styles.
                     if ($inStyleDef === \false) {
                         break;
@@ -280,7 +280,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                         echo "\t\t=> token {$x} changed from {$type} to T_STYLE" . \PHP_EOL;
                     }
                     $finalTokens[$x]['type'] = 'T_STYLE';
-                    $finalTokens[$x]['code'] = T_STYLE;
+                    $finalTokens[$x]['code'] = \T_STYLE;
                     break;
                 case \T_STRING:
                     if (\strtolower($token['content']) === 'url') {
@@ -291,7 +291,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                             }
                         }
                         // Needs to be in the format "url(" for it to be a URL.
-                        if ($finalTokens[$x]['code'] !== T_OPEN_PARENTHESIS) {
+                        if ($finalTokens[$x]['code'] !== \T_OPEN_PARENTHESIS) {
                             continue 2;
                         }
                         // Make sure the content isn't empty.
@@ -300,7 +300,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                                 break;
                             }
                         }
-                        if ($finalTokens[$y]['code'] === T_CLOSE_PARENTHESIS) {
+                        if ($finalTokens[$y]['code'] === \T_CLOSE_PARENTHESIS) {
                             continue 2;
                         }
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
@@ -314,7 +314,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                         // Join all the content together inside the url() statement.
                         $newContent = '';
                         for ($i = $x + 2; $i < $numTokens; $i++) {
-                            if ($finalTokens[$i]['code'] === T_CLOSE_PARENTHESIS) {
+                            if ($finalTokens[$i]['code'] === \T_CLOSE_PARENTHESIS) {
                                 break;
                             }
                             $newContent .= $finalTokens[$i]['content'];
@@ -330,7 +330,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                         // anything except change its type. If it is not empty,
                         // we need to do some token merging.
                         $finalTokens[$x + 1]['type'] = 'T_URL';
-                        $finalTokens[$x + 1]['code'] = T_URL;
+                        $finalTokens[$x + 1]['code'] = \T_URL;
                         if ($newContent !== '') {
                             $finalTokens[$x + 1]['content'] .= $newContent;
                             if (PHP_CODESNIFFER_VERBOSITY > 1) {
@@ -360,7 +360,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                     }
                     //end if
                     break;
-                case T_ASPERAND:
+                case \T_ASPERAND:
                     $asperandStart = \true;
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         echo "\t\t* at-rule definition opened *" . \PHP_EOL;

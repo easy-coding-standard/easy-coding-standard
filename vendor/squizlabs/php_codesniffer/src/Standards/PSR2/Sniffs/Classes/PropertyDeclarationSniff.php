@@ -36,8 +36,8 @@ class PropertyDeclarationSniff extends AbstractVariableSniff
         $find = Tokens::$scopeModifiers;
         $find[] = \T_VARIABLE;
         $find[] = \T_VAR;
-        $find[] = T_SEMICOLON;
-        $find[] = T_OPEN_CURLY_BRACKET;
+        $find[] = \T_SEMICOLON;
+        $find[] = \T_OPEN_CURLY_BRACKET;
         $prev = $phpcsFile->findPrevious($find, $stackPtr - 1);
         if ($tokens[$prev]['code'] === \T_VARIABLE) {
             return;
@@ -46,7 +46,7 @@ class PropertyDeclarationSniff extends AbstractVariableSniff
             $error = 'The var keyword must not be used to declare a property';
             $phpcsFile->addError($error, $stackPtr, 'VarUsed');
         }
-        $next = $phpcsFile->findNext([\T_VARIABLE, T_SEMICOLON], $stackPtr + 1);
+        $next = $phpcsFile->findNext([\T_VARIABLE, \T_SEMICOLON], $stackPtr + 1);
         if ($next !== \false && $tokens[$next]['code'] === \T_VARIABLE) {
             $error = 'There must not be more than one property declared per statement';
             $phpcsFile->addError($error, $stackPtr, 'Multiple');

@@ -26,7 +26,7 @@ class DocCommentSniff implements Sniff
      */
     public function register()
     {
-        return [T_DOC_COMMENT_OPEN_TAG];
+        return [\T_DOC_COMMENT_OPEN_TAG];
     }
     //end register()
     /**
@@ -47,7 +47,7 @@ class DocCommentSniff implements Sniff
         }
         $commentStart = $stackPtr;
         $commentEnd = $tokens[$stackPtr]['comment_closer'];
-        $empty = [T_DOC_COMMENT_WHITESPACE, T_DOC_COMMENT_STAR];
+        $empty = [\T_DOC_COMMENT_WHITESPACE, \T_DOC_COMMENT_STAR];
         $short = $phpcsFile->findNext($empty, $stackPtr + 1, $commentEnd, \true);
         if ($short === \false) {
             // No content at all.
@@ -91,7 +91,7 @@ class DocCommentSniff implements Sniff
             }
         }
         // Check for a comment description.
-        if ($tokens[$short]['code'] !== T_DOC_COMMENT_STRING) {
+        if ($tokens[$short]['code'] !== \T_DOC_COMMENT_STRING) {
             $error = 'Missing short description in doc comment';
             $phpcsFile->addError($error, $stackPtr, 'MissingShort');
         } else {
@@ -119,7 +119,7 @@ class DocCommentSniff implements Sniff
             $shortContent = $tokens[$short]['content'];
             $shortEnd = $short;
             for ($i = $short + 1; $i < $commentEnd; $i++) {
-                if ($tokens[$i]['code'] === T_DOC_COMMENT_STRING) {
+                if ($tokens[$i]['code'] === \T_DOC_COMMENT_STRING) {
                     if ($tokens[$i]['line'] === $tokens[$shortEnd]['line'] + 1) {
                         $shortContent .= $tokens[$i]['content'];
                         $shortEnd = $i;
@@ -133,7 +133,7 @@ class DocCommentSniff implements Sniff
                 $phpcsFile->addError($error, $short, 'ShortNotCapital');
             }
             $long = $phpcsFile->findNext($empty, $shortEnd + 1, $commentEnd - 1, \true);
-            if ($long !== \false && $tokens[$long]['code'] === T_DOC_COMMENT_STRING) {
+            if ($long !== \false && $tokens[$long]['code'] === \T_DOC_COMMENT_STRING) {
                 if ($tokens[$long]['line'] !== $tokens[$shortEnd]['line'] + 2) {
                     $error = 'There must be exactly one blank line between descriptions in a doc comment';
                     $fix = $phpcsFile->addFixableError($error, $long, 'SpacingBetween');
@@ -166,7 +166,7 @@ class DocCommentSniff implements Sniff
         }
         $firstTag = $tokens[$commentStart]['comment_tags'][0];
         $prev = $phpcsFile->findPrevious($empty, $firstTag - 1, $stackPtr, \true);
-        if ($tokens[$firstTag]['line'] !== $tokens[$prev]['line'] + 2 && $tokens[$prev]['code'] !== T_DOC_COMMENT_OPEN_TAG) {
+        if ($tokens[$firstTag]['line'] !== $tokens[$prev]['line'] + 2 && $tokens[$prev]['code'] !== \T_DOC_COMMENT_OPEN_TAG) {
             $error = 'There must be exactly one blank line before the tags in a doc comment';
             $fix = $phpcsFile->addFixableError($error, $firstTag, 'SpacingBeforeTags');
             if ($fix === \true) {
@@ -190,7 +190,7 @@ class DocCommentSniff implements Sniff
         $paramGroupid = null;
         foreach ($tokens[$commentStart]['comment_tags'] as $pos => $tag) {
             if ($pos > 0) {
-                $prev = $phpcsFile->findPrevious(T_DOC_COMMENT_STRING, $tag - 1, $tokens[$commentStart]['comment_tags'][$pos - 1]);
+                $prev = $phpcsFile->findPrevious(\T_DOC_COMMENT_STRING, $tag - 1, $tokens[$commentStart]['comment_tags'][$pos - 1]);
                 if ($prev === \false) {
                     $prev = $tokens[$commentStart]['comment_tags'][$pos - 1];
                 }
@@ -225,7 +225,7 @@ class DocCommentSniff implements Sniff
                     $maxLength = $tagLength;
                 }
                 // Check for a value. No value means no padding needed.
-                $string = $phpcsFile->findNext(T_DOC_COMMENT_STRING, $tag, $commentEnd);
+                $string = $phpcsFile->findNext(\T_DOC_COMMENT_STRING, $tag, $commentEnd);
                 if ($string !== \false && $tokens[$string]['line'] === $tokens[$tag]['line']) {
                     $paddings[$tag] = $tokens[$tag + 1]['length'];
                 }
@@ -233,9 +233,9 @@ class DocCommentSniff implements Sniff
             // Check that there was single blank line after the tag block
             // but account for a multi-line tag comments.
             $lastTag = $group[$pos];
-            $next = $phpcsFile->findNext(T_DOC_COMMENT_TAG, $lastTag + 3, $commentEnd);
+            $next = $phpcsFile->findNext(\T_DOC_COMMENT_TAG, $lastTag + 3, $commentEnd);
             if ($next !== \false) {
-                $prev = $phpcsFile->findPrevious([T_DOC_COMMENT_TAG, T_DOC_COMMENT_STRING], $next - 1, $commentStart);
+                $prev = $phpcsFile->findPrevious([\T_DOC_COMMENT_TAG, \T_DOC_COMMENT_STRING], $next - 1, $commentStart);
                 if ($tokens[$next]['line'] !== $tokens[$prev]['line'] + 2) {
                     $error = 'There must be a single blank line after a tag group';
                     $fix = $phpcsFile->addFixableError($error, $lastTag, 'SpacingAfterTagGroup');

@@ -44,7 +44,7 @@ class NonExecutableCodeSniff implements Sniff
         }
         // Check if this token is actually part of a one-line IF or ELSE statement.
         for ($i = $stackPtr - 1; $i > 0; $i--) {
-            if ($tokens[$i]['code'] === T_CLOSE_PARENTHESIS) {
+            if ($tokens[$i]['code'] === \T_CLOSE_PARENTHESIS) {
                 $i = $tokens[$i]['parenthesis_opener'];
                 continue;
             } else {
@@ -59,9 +59,9 @@ class NonExecutableCodeSniff implements Sniff
         }
         if ($tokens[$stackPtr]['code'] === \T_RETURN) {
             $next = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
-            if ($tokens[$next]['code'] === T_SEMICOLON) {
+            if ($tokens[$next]['code'] === \T_SEMICOLON) {
                 $next = $phpcsFile->findNext(\T_WHITESPACE, $next + 1, null, \true);
-                if ($tokens[$next]['code'] === T_CLOSE_CURLY_BRACKET) {
+                if ($tokens[$next]['code'] === \T_CLOSE_CURLY_BRACKET) {
                     // If this is the closing brace of a function
                     // then this return statement doesn't return anything
                     // and is not required anyway.
@@ -81,7 +81,7 @@ class NonExecutableCodeSniff implements Sniff
                 // so any code between this statement and the next CASE, DEFAULT or
                 // end of SWITCH token will not be executable.
                 $end = $phpcsFile->findEndOfStatement($stackPtr);
-                $next = $phpcsFile->findNext([\T_CASE, \T_DEFAULT, T_CLOSE_CURLY_BRACKET, \T_ENDSWITCH], $end + 1);
+                $next = $phpcsFile->findNext([\T_CASE, \T_DEFAULT, \T_CLOSE_CURLY_BRACKET, \T_ENDSWITCH], $end + 1);
                 if ($next !== \false) {
                     $lastLine = $tokens[$end]['line'];
                     for ($i = $stackPtr + 1; $i < $next; $i++) {
@@ -166,15 +166,15 @@ class NonExecutableCodeSniff implements Sniff
             if ($start === $end) {
                 break;
             }
-            if (isset($tokens[$start]['parenthesis_closer']) === \true && $tokens[$start]['code'] === T_OPEN_PARENTHESIS) {
+            if (isset($tokens[$start]['parenthesis_closer']) === \true && $tokens[$start]['code'] === \T_OPEN_PARENTHESIS) {
                 $start = $tokens[$start]['parenthesis_closer'];
                 continue;
             }
-            if (isset($tokens[$start]['bracket_closer']) === \true && $tokens[$start]['code'] === T_OPEN_CURLY_BRACKET) {
+            if (isset($tokens[$start]['bracket_closer']) === \true && $tokens[$start]['code'] === \T_OPEN_CURLY_BRACKET) {
                 $start = $tokens[$start]['bracket_closer'];
                 continue;
             }
-            if ($tokens[$start]['code'] === T_SEMICOLON) {
+            if ($tokens[$start]['code'] === \T_SEMICOLON) {
                 break;
             }
         }
@@ -184,12 +184,12 @@ class NonExecutableCodeSniff implements Sniff
         }
         $lastLine = $tokens[$start]['line'];
         for ($i = $start + 1; $i < $end; $i++) {
-            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === \true || isset(Tokens::$bracketTokens[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === T_SEMICOLON) {
+            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === \true || isset(Tokens::$bracketTokens[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === \T_SEMICOLON) {
                 continue;
             }
             // Skip whole functions and classes/interfaces because they are not
             // technically executed code, but rather declarations that may be used.
-            if (isset(Tokens::$ooScopeTokens[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === \T_FUNCTION || $tokens[$i]['code'] === T_CLOSURE) {
+            if (isset(Tokens::$ooScopeTokens[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === \T_FUNCTION || $tokens[$i]['code'] === \T_CLOSURE) {
                 if (isset($tokens[$i]['scope_closer']) === \false) {
                     // Parse error/Live coding.
                     return;

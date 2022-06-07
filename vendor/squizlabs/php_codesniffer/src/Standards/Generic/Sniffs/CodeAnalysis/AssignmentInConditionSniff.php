@@ -42,8 +42,8 @@ class AssignmentInConditionSniff implements Sniff
         $this->assignmentTokens = Tokens::$assignmentTokens;
         unset($this->assignmentTokens[\T_DOUBLE_ARROW]);
         $starters = Tokens::$booleanOperators;
-        $starters[T_SEMICOLON] = T_SEMICOLON;
-        $starters[T_OPEN_PARENTHESIS] = T_OPEN_PARENTHESIS;
+        $starters[\T_SEMICOLON] = \T_SEMICOLON;
+        $starters[\T_OPEN_PARENTHESIS] = \T_OPEN_PARENTHESIS;
         $this->conditionStartTokens = $starters;
         return [\T_IF, \T_ELSEIF, \T_FOR, \T_SWITCH, \T_CASE, \T_WHILE, \T_MATCH];
     }
@@ -66,12 +66,12 @@ class AssignmentInConditionSniff implements Sniff
             if (isset($token['parenthesis_opener'], $token['parenthesis_closer']) === \false) {
                 return;
             }
-            $semicolon = $phpcsFile->findNext(T_SEMICOLON, $token['parenthesis_opener'] + 1, $token['parenthesis_closer']);
+            $semicolon = $phpcsFile->findNext(\T_SEMICOLON, $token['parenthesis_opener'] + 1, $token['parenthesis_closer']);
             if ($semicolon === \false) {
                 return;
             }
             $opener = $semicolon;
-            $semicolon = $phpcsFile->findNext(T_SEMICOLON, $opener + 1, $token['parenthesis_closer']);
+            $semicolon = $phpcsFile->findNext(\T_SEMICOLON, $opener + 1, $token['parenthesis_closer']);
             if ($semicolon === \false) {
                 return;
             }
@@ -111,12 +111,12 @@ class AssignmentInConditionSniff implements Sniff
                     continue;
                 }
                 // If this is a variable or array, we've seen all we need to see.
-                if ($tokens[$i]['code'] === \T_VARIABLE || $tokens[$i]['code'] === T_CLOSE_SQUARE_BRACKET) {
+                if ($tokens[$i]['code'] === \T_VARIABLE || $tokens[$i]['code'] === \T_CLOSE_SQUARE_BRACKET) {
                     $hasVariable = \true;
                     break;
                 }
                 // If this is a function call or something, we are OK.
-                if ($tokens[$i]['code'] === T_CLOSE_PARENTHESIS) {
+                if ($tokens[$i]['code'] === \T_CLOSE_PARENTHESIS) {
                     break;
                 }
             }

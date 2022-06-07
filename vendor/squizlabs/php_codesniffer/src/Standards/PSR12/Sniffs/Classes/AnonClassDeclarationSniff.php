@@ -35,7 +35,7 @@ class AnonClassDeclarationSniff extends ClassDeclarationSniff
      */
     public function register()
     {
-        return [T_ANON_CLASS];
+        return [\T_ANON_CLASS];
     }
     //end register()
     /**
@@ -135,7 +135,7 @@ class AnonClassDeclarationSniff extends ClassDeclarationSniff
         }
         $spaceBeforeClose = 0;
         $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $closeBracket - 1, $openBracket, \true);
-        if ($tokens[$prev]['code'] === \T_END_HEREDOC || $tokens[$prev]['code'] === T_END_NOWDOC) {
+        if ($tokens[$prev]['code'] === \T_END_HEREDOC || $tokens[$prev]['code'] === \T_END_NOWDOC) {
             // Need a newline after these tokens, so ignore this rule.
             return;
         }
@@ -154,7 +154,7 @@ class AnonClassDeclarationSniff extends ClassDeclarationSniff
                     $phpcsFile->fixer->beginChangeset();
                     $closingContent = ')';
                     $next = $phpcsFile->findNext(\T_WHITESPACE, $closeBracket + 1, null, \true);
-                    if ($tokens[$next]['code'] === T_SEMICOLON) {
+                    if ($tokens[$next]['code'] === \T_SEMICOLON) {
                         $closingContent .= ';';
                         for ($i = $closeBracket + 1; $i <= $next; $i++) {
                             $phpcsFile->fixer->replaceToken($i, '');

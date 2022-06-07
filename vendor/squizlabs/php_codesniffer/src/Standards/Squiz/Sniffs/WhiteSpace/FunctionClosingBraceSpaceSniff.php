@@ -26,7 +26,7 @@ class FunctionClosingBraceSpaceSniff implements Sniff
      */
     public function register()
     {
-        return [\T_FUNCTION, T_CLOSURE];
+        return [\T_FUNCTION, \T_CLOSURE];
     }
     //end register()
     /**
@@ -65,7 +65,7 @@ class FunctionClosingBraceSpaceSniff implements Sniff
             return;
         }
         $nestedFunction = \false;
-        if ($phpcsFile->hasCondition($stackPtr, [\T_FUNCTION, T_CLOSURE]) === \true || isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
+        if ($phpcsFile->hasCondition($stackPtr, [\T_FUNCTION, \T_CLOSURE]) === \true || isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
             $nestedFunction = \true;
         }
         $braceLine = $tokens[$closeBrace]['line'];

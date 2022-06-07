@@ -26,7 +26,7 @@ class MissingColonSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_CURLY_BRACKET];
+        return [\T_OPEN_CURLY_BRACKET];
     }
     //end register()
     /**
@@ -48,7 +48,7 @@ class MissingColonSniff implements Sniff
         $lastLine = $tokens[$stackPtr]['line'];
         $end = $tokens[$stackPtr]['bracket_closer'];
         // Do not check nested style definitions as, for example, in @media style rules.
-        $nested = $phpcsFile->findNext(T_OPEN_CURLY_BRACKET, $stackPtr + 1, $end);
+        $nested = $phpcsFile->findNext(\T_OPEN_CURLY_BRACKET, $stackPtr + 1, $end);
         if ($nested !== \false) {
             return;
         }
@@ -69,7 +69,7 @@ class MissingColonSniff implements Sniff
             if ($tokens[$i]['code'] === \T_STRING) {
                 $foundString = $i;
             } else {
-                if ($tokens[$i]['code'] === T_COLON) {
+                if ($tokens[$i]['code'] === \T_COLON) {
                     $foundColon = $i;
                 }
             }

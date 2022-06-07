@@ -27,7 +27,7 @@ class SemicolonSpacingSniff implements Sniff
      */
     public function register()
     {
-        return [T_STYLE];
+        return [\T_STYLE];
     }
     //end register()
     /**
@@ -42,17 +42,17 @@ class SemicolonSpacingSniff implements Sniff
     public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $nextStatement = $phpcsFile->findNext([T_STYLE, T_CLOSE_CURLY_BRACKET], $stackPtr + 1);
+        $nextStatement = $phpcsFile->findNext([\T_STYLE, \T_CLOSE_CURLY_BRACKET], $stackPtr + 1);
         if ($nextStatement === \false) {
             return;
         }
         $ignore = Tokens::$emptyTokens;
-        if ($tokens[$nextStatement]['code'] === T_STYLE) {
+        if ($tokens[$nextStatement]['code'] === \T_STYLE) {
             // Allow for star-prefix hack.
-            $ignore[] = T_MULTIPLY;
+            $ignore[] = \T_MULTIPLY;
         }
         $endOfThisStatement = $phpcsFile->findPrevious($ignore, $nextStatement - 1, null, \true);
-        if ($tokens[$endOfThisStatement]['code'] !== T_SEMICOLON) {
+        if ($tokens[$endOfThisStatement]['code'] !== \T_SEMICOLON) {
             $error = 'Style definitions must end with a semicolon';
             $phpcsFile->addError($error, $endOfThisStatement, 'NotAtEnd');
             return;

@@ -38,7 +38,7 @@ class Comment
         $char = $numChars - \strlen(\ltrim($string, '/*'));
         $openTag = \substr($string, 0, $char);
         $string = \ltrim($string, '/*');
-        $tokens[$stackPtr] = ['content' => $openTag, 'code' => T_DOC_COMMENT_OPEN_TAG, 'type' => 'T_DOC_COMMENT_OPEN_TAG', 'comment_tags' => []];
+        $tokens[$stackPtr] = ['content' => $openTag, 'code' => \T_DOC_COMMENT_OPEN_TAG, 'type' => 'T_DOC_COMMENT_OPEN_TAG', 'comment_tags' => []];
         $openPtr = $stackPtr;
         $stackPtr++;
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
@@ -50,7 +50,7 @@ class Comment
             of our comment line processing. The token will be added to the
             stack just before we return it.
         */
-        $closeTag = ['content' => \substr($string, \strlen(\rtrim($string, '/*'))), 'code' => T_DOC_COMMENT_CLOSE_TAG, 'type' => 'T_DOC_COMMENT_CLOSE_TAG', 'comment_opener' => $openPtr];
+        $closeTag = ['content' => \substr($string, \strlen(\rtrim($string, '/*'))), 'code' => \T_DOC_COMMENT_CLOSE_TAG, 'type' => 'T_DOC_COMMENT_CLOSE_TAG', 'comment_opener' => $openPtr];
         if ($closeTag['content'] === \false) {
             $closeTag['content'] = '';
         }
@@ -86,7 +86,7 @@ class Comment
             if ($lineNum > 0 && $string[$char] === '*') {
                 // This is a function or class doc block line.
                 $char++;
-                $tokens[$stackPtr] = ['content' => '*', 'code' => T_DOC_COMMENT_STAR, 'type' => 'T_DOC_COMMENT_STAR'];
+                $tokens[$stackPtr] = ['content' => '*', 'code' => \T_DOC_COMMENT_STAR, 'type' => 'T_DOC_COMMENT_STAR'];
                 $stackPtr++;
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo "\t\tCreate comment token: T_DOC_COMMENT_STAR => *" . \PHP_EOL;
@@ -101,7 +101,7 @@ class Comment
                     $type = $lineToken['type'];
                     echo "\t\tCreate comment token: {$type} => {$content}" . \PHP_EOL;
                 }
-                if ($lineToken['code'] === T_DOC_COMMENT_TAG) {
+                if ($lineToken['code'] === \T_DOC_COMMENT_TAG) {
                     $tokens[$openPtr]['comment_tags'][] = $stackPtr;
                 }
                 $stackPtr++;
@@ -149,7 +149,7 @@ class Comment
             if (isset($matches[0]) === \true && \substr(\strtolower($matches[0]), 0, 7) !== '@phpcs:') {
                 $tagName = $matches[0];
                 $start += \strlen($tagName);
-                $tokens[] = ['content' => $tagName, 'code' => T_DOC_COMMENT_TAG, 'type' => 'T_DOC_COMMENT_TAG'];
+                $tokens[] = ['content' => $tagName, 'code' => \T_DOC_COMMENT_TAG, 'type' => 'T_DOC_COMMENT_TAG'];
                 // Then there will be some whitespace.
                 $space = $this->collectWhitespace($string, $start, $end);
                 if ($space !== null) {
@@ -165,10 +165,10 @@ class Comment
             $eol = $end;
         }
         if ($eol > $start) {
-            $tokens[] = ['content' => \substr($string, $start, $eol - $start), 'code' => T_DOC_COMMENT_STRING, 'type' => 'T_DOC_COMMENT_STRING'];
+            $tokens[] = ['content' => \substr($string, $start, $eol - $start), 'code' => \T_DOC_COMMENT_STRING, 'type' => 'T_DOC_COMMENT_STRING'];
         }
         if ($eol !== $end) {
-            $tokens[] = ['content' => \substr($string, $eol, \strlen($eolChar)), 'code' => T_DOC_COMMENT_WHITESPACE, 'type' => 'T_DOC_COMMENT_WHITESPACE'];
+            $tokens[] = ['content' => \substr($string, $eol, \strlen($eolChar)), 'code' => \T_DOC_COMMENT_WHITESPACE, 'type' => 'T_DOC_COMMENT_WHITESPACE'];
         }
         return $tokens;
     }
@@ -194,7 +194,7 @@ class Comment
         if ($space === '') {
             return null;
         }
-        $token = ['content' => $space, 'code' => T_DOC_COMMENT_WHITESPACE, 'type' => 'T_DOC_COMMENT_WHITESPACE'];
+        $token = ['content' => $space, 'code' => \T_DOC_COMMENT_WHITESPACE, 'type' => 'T_DOC_COMMENT_WHITESPACE'];
         return $token;
     }
     //end collectWhitespace()

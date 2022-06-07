@@ -27,7 +27,7 @@ class EmptyStyleDefinitionSniff implements Sniff
      */
     public function register()
     {
-        return [T_STYLE];
+        return [\T_STYLE];
     }
     //end register()
     /**
@@ -43,9 +43,9 @@ class EmptyStyleDefinitionSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $ignore = Tokens::$emptyTokens;
-        $ignore[] = T_COLON;
+        $ignore[] = \T_COLON;
         $next = $phpcsFile->findNext($ignore, $stackPtr + 1, null, \true);
-        if ($next === \false || $tokens[$next]['code'] === T_SEMICOLON || $tokens[$next]['line'] !== $tokens[$stackPtr]['line']) {
+        if ($next === \false || $tokens[$next]['code'] === \T_SEMICOLON || $tokens[$next]['line'] !== $tokens[$stackPtr]['line']) {
             $error = 'Style definition is empty';
             $phpcsFile->addError($error, $stackPtr, 'Found');
         }

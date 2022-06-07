@@ -27,7 +27,7 @@ class ClassDefinitionOpeningBraceSpaceSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_CURLY_BRACKET];
+        return [\T_OPEN_CURLY_BRACKET];
     }
     //end register()
     /**
@@ -102,7 +102,7 @@ class ClassDefinitionOpeningBraceSpaceSniff implements Sniff
                 return;
             }
             // Check for nested class definitions.
-            $found = $phpcsFile->findNext(T_OPEN_CURLY_BRACKET, $stackPtr + 1, $tokens[$stackPtr]['bracket_closer']);
+            $found = $phpcsFile->findNext(\T_OPEN_CURLY_BRACKET, $stackPtr + 1, $tokens[$stackPtr]['bracket_closer']);
             if ($found === \false) {
                 // Not nested.
                 return;

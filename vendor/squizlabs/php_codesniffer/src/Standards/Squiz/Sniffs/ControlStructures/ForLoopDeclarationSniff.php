@@ -62,7 +62,7 @@ class ForLoopDeclarationSniff implements Sniff
         $this->requiredSpacesAfterOpen = (int) $this->requiredSpacesAfterOpen;
         $this->requiredSpacesBeforeClose = (int) $this->requiredSpacesBeforeClose;
         $tokens = $phpcsFile->getTokens();
-        $openingBracket = $phpcsFile->findNext(T_OPEN_PARENTHESIS, $stackPtr);
+        $openingBracket = $phpcsFile->findNext(\T_OPEN_PARENTHESIS, $stackPtr);
         if ($openingBracket === \false) {
             $error = 'Possible parse error: no opening parenthesis for FOR keyword';
             $phpcsFile->addWarning($error, $stackPtr, 'NoOpenBracket');
@@ -186,7 +186,7 @@ class ForLoopDeclarationSniff implements Sniff
             $targetNestinglevel += \count($tokens[$openingBracket]['conditions']);
         }
         do {
-            $semicolon = $phpcsFile->findNext(T_SEMICOLON, $semicolon + 1, $closingBracket);
+            $semicolon = $phpcsFile->findNext(\T_SEMICOLON, $semicolon + 1, $closingBracket);
             if ($semicolon === \false) {
                 break;
             }
@@ -222,7 +222,7 @@ class ForLoopDeclarationSniff implements Sniff
             // If it *is* empty, leave it up to the `SpacingBeforeClose` logic.
             $nextNonWhiteSpace = $phpcsFile->findNext(\T_WHITESPACE, $semicolon + 1, $closingBracket + 1, \true);
             if ($semicolonCount !== 2 || $nextNonWhiteSpace !== $closingBracket) {
-                if ($tokens[$semicolon + 1]['code'] !== \T_WHITESPACE && $tokens[$semicolon + 1]['code'] !== T_SEMICOLON) {
+                if ($tokens[$semicolon + 1]['code'] !== \T_WHITESPACE && $tokens[$semicolon + 1]['code'] !== \T_SEMICOLON) {
                     $error = 'Expected 1 space after %s semicolon of FOR loop; 0 found';
                     $errorCode = 'NoSpaceAfter' . $humanReadableCode;
                     $fix = $phpcsFile->addFixableError($error, $semicolon, $errorCode, $data);
@@ -230,7 +230,7 @@ class ForLoopDeclarationSniff implements Sniff
                         $phpcsFile->fixer->addContent($semicolon, ' ');
                     }
                 } else {
-                    if ($tokens[$semicolon + 1]['code'] === \T_WHITESPACE && $tokens[$nextNonWhiteSpace]['code'] !== T_SEMICOLON) {
+                    if ($tokens[$semicolon + 1]['code'] === \T_WHITESPACE && $tokens[$nextNonWhiteSpace]['code'] !== \T_SEMICOLON) {
                         $spaces = $tokens[$semicolon + 1]['length'];
                         if ($tokens[$semicolon]['line'] !== $tokens[$nextNonWhiteSpace]['line']) {
                             $spaces = 'newline';

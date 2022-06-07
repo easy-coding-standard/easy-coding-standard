@@ -50,7 +50,7 @@ class JoinStringsSniff implements Sniff
             return;
         }
         $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prev - 1, null, \true);
-        if ($tokens[$prev]['code'] === T_CLOSE_SQUARE_BRACKET) {
+        if ($tokens[$prev]['code'] === \T_CLOSE_SQUARE_BRACKET) {
             $opener = $tokens[$prev]['bracket_opener'];
             if ($tokens[$opener - 1]['code'] !== \T_STRING) {
                 // This means the array is declared inline, like x = [a,b,c].join()

@@ -27,7 +27,7 @@ class SemicolonSpacingSniff implements Sniff
      */
     public function register()
     {
-        return [T_SEMICOLON];
+        return [\T_SEMICOLON];
     }
     //end register()
     /**
@@ -60,7 +60,7 @@ class SemicolonSpacingSniff implements Sniff
                 }
             }
         }
-        if ($tokens[$nonSpace]['code'] === T_SEMICOLON || $forCondition === \true && $nonSpace === $tokens[$owner]['parenthesis_opener'] || isset($tokens[$nonSpace]['scope_opener']) === \true && $tokens[$nonSpace]['scope_opener'] === $nonSpace) {
+        if ($tokens[$nonSpace]['code'] === \T_SEMICOLON || $forCondition === \true && $nonSpace === $tokens[$owner]['parenthesis_opener'] || isset($tokens[$nonSpace]['scope_opener']) === \true && $tokens[$nonSpace]['scope_opener'] === $nonSpace) {
             // Empty statement.
             return;
         }

@@ -20,7 +20,7 @@ class ArrayBracketSpacingSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_SQUARE_BRACKET, T_CLOSE_SQUARE_BRACKET];
+        return [\T_OPEN_SQUARE_BRACKET, \T_CLOSE_SQUARE_BRACKET];
     }
     //end register()
     /**
@@ -35,7 +35,7 @@ class ArrayBracketSpacingSniff implements Sniff
     public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        if ($tokens[$stackPtr]['code'] === T_OPEN_SQUARE_BRACKET && isset($tokens[$stackPtr]['bracket_closer']) === \false || $tokens[$stackPtr]['code'] === T_CLOSE_SQUARE_BRACKET && isset($tokens[$stackPtr]['bracket_opener']) === \false) {
+        if ($tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET && isset($tokens[$stackPtr]['bracket_closer']) === \false || $tokens[$stackPtr]['code'] === \T_CLOSE_SQUARE_BRACKET && isset($tokens[$stackPtr]['bracket_opener']) === \false) {
             // Bow out for parse error/during live coding.
             return;
         }
@@ -53,7 +53,7 @@ class ArrayBracketSpacingSniff implements Sniff
             }
         }
         // Open square brackets can't ever have spaces after them.
-        if ($tokens[$stackPtr]['code'] === T_OPEN_SQUARE_BRACKET) {
+        if ($tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET) {
             $nextType = $tokens[$stackPtr + 1]['code'];
             if ($nextType === \T_WHITESPACE) {
                 $nonSpace = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 2, null, \true);

@@ -59,7 +59,7 @@ class ForbiddenStylesSniff implements Sniff
                 $this->forbiddenStyleNames[$i] = '/' . $name . '/i';
             }
         }
-        return [T_STYLE];
+        return [\T_STYLE];
     }
     //end register()
     /**

@@ -27,7 +27,7 @@ class BlockCommentSniff implements Sniff
      */
     public function register()
     {
-        return [\T_COMMENT, T_DOC_COMMENT_OPEN_TAG];
+        return [\T_COMMENT, \T_DOC_COMMENT_OPEN_TAG];
     }
     //end register()
     /**
@@ -56,7 +56,7 @@ class BlockCommentSniff implements Sniff
         }
         // If this is a function/class/interface doc block comment, skip it.
         // We are only interested in inline doc block comments.
-        if ($tokens[$stackPtr]['code'] === T_DOC_COMMENT_OPEN_TAG) {
+        if ($tokens[$stackPtr]['code'] === \T_DOC_COMMENT_OPEN_TAG) {
             $nextToken = $stackPtr;
             do {
                 $nextToken = $phpcsFile->findNext(Tokens::$emptyTokens, $nextToken + 1, null, \true);
@@ -107,7 +107,7 @@ class BlockCommentSniff implements Sniff
             $lastLine = $tokens[$nextComment]['line'];
             $commentLines[] = $nextComment;
             $commentString .= $tokens[$nextComment]['content'];
-            if ($tokens[$nextComment]['code'] === T_DOC_COMMENT_CLOSE_TAG || \substr($tokens[$nextComment]['content'], -2) === '*/') {
+            if ($tokens[$nextComment]['code'] === \T_DOC_COMMENT_CLOSE_TAG || \substr($tokens[$nextComment]['content'], -2) === '*/') {
                 break;
             }
         }

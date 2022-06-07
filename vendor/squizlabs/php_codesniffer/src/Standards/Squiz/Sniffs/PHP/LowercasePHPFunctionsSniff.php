@@ -69,10 +69,10 @@ class LowercasePHPFunctionsSniff implements Sniff
             return;
         }
         $ignore = Tokens::$emptyTokens;
-        $ignore[] = T_BITWISE_AND;
+        $ignore[] = \T_BITWISE_AND;
         $prev = $phpcsFile->findPrevious($ignore, $stackPtr - 1, null, \true);
         $prevPrev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prev - 1, null, \true);
-        if ($tokens[$next]['code'] !== T_OPEN_PARENTHESIS) {
+        if ($tokens[$next]['code'] !== \T_OPEN_PARENTHESIS) {
             // Is this a use statement importing a PHP native function ?
             if ($tokens[$next]['code'] !== \T_NS_SEPARATOR && $tokens[$prev]['code'] === \T_STRING && $tokens[$prev]['content'] === 'function' && $prevPrev !== \false && $tokens[$prevPrev]['code'] === \T_USE) {
                 $error = 'Use statements for PHP native functions must be lowercase; expected "%s" but found "%s"';

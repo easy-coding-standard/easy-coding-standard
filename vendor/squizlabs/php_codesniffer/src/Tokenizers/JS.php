@@ -24,7 +24,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      *
      * @var array
      */
-    public $scopeOpeners = [\T_IF => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_TRY => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_CATCH => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_ELSE => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_FOR => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_CLASS => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_FUNCTION => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_WHILE => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_DO => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_SWITCH => ['start' => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET], 'end' => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_CASE => ['start' => [T_COLON => T_COLON], 'end' => [\T_BREAK => \T_BREAK, \T_RETURN => \T_RETURN, \T_CONTINUE => \T_CONTINUE, \T_THROW => \T_THROW], 'strict' => \true, 'shared' => \true, 'with' => [\T_DEFAULT => \T_DEFAULT, \T_CASE => \T_CASE, \T_SWITCH => \T_SWITCH]], \T_DEFAULT => ['start' => [T_COLON => T_COLON], 'end' => [\T_BREAK => \T_BREAK, \T_RETURN => \T_RETURN, \T_CONTINUE => \T_CONTINUE, \T_THROW => \T_THROW], 'strict' => \true, 'shared' => \true, 'with' => [\T_CASE => \T_CASE, \T_SWITCH => \T_SWITCH]]];
+    public $scopeOpeners = [\T_IF => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_TRY => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_CATCH => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_ELSE => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_FOR => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_CLASS => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_FUNCTION => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_WHILE => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \false, 'shared' => \false, 'with' => []], \T_DO => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_SWITCH => ['start' => [\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET], 'end' => [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET], 'strict' => \true, 'shared' => \false, 'with' => []], \T_CASE => ['start' => [\T_COLON => \T_COLON], 'end' => [\T_BREAK => \T_BREAK, \T_RETURN => \T_RETURN, \T_CONTINUE => \T_CONTINUE, \T_THROW => \T_THROW], 'strict' => \true, 'shared' => \true, 'with' => [\T_DEFAULT => \T_DEFAULT, \T_CASE => \T_CASE, \T_SWITCH => \T_SWITCH]], \T_DEFAULT => ['start' => [\T_COLON => \T_COLON], 'end' => [\T_BREAK => \T_BREAK, \T_RETURN => \T_RETURN, \T_CONTINUE => \T_CONTINUE, \T_THROW => \T_THROW], 'strict' => \true, 'shared' => \true, 'with' => [\T_CASE => \T_CASE, \T_SWITCH => \T_SWITCH]]];
     /**
      * A list of tokens that end the scope.
      *
@@ -34,7 +34,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      *
      * @var array
      */
-    public $endScopeTokens = [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET, \T_BREAK => \T_BREAK];
+    public $endScopeTokens = [\T_CLOSE_CURLY_BRACKET => \T_CLOSE_CURLY_BRACKET, \T_BREAK => \T_BREAK];
     /**
      * A list of special JS tokens and their types.
      *
@@ -211,7 +211,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
             if ($buffer === $char && $char === '/' && $chars[$i + 1] !== '*') {
                 $regex = $this->getRegexToken($i, $string, $chars, $tokens);
                 if ($regex !== null) {
-                    $tokens[] = ['code' => T_REGULAR_EXPRESSION, 'type' => 'T_REGULAR_EXPRESSION', 'content' => $regex['content']];
+                    $tokens[] = ['code' => \T_REGULAR_EXPRESSION, 'type' => 'T_REGULAR_EXPRESSION', 'content' => $regex['content']];
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         $content = Util\Common::prepareForOutput($regex['content']);
                         echo "\t=> Added token T_REGULAR_EXPRESSION ({$content})" . \PHP_EOL;
@@ -547,7 +547,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                     if (isset(Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === \true) {
                         continue;
                     }
-                    if ($tokens[$i]['code'] !== T_PROTOTYPE && $tokens[$i]['code'] !== \T_LNUMBER && $tokens[$i]['code'] !== \T_DNUMBER) {
+                    if ($tokens[$i]['code'] !== \T_PROTOTYPE && $tokens[$i]['code'] !== \T_LNUMBER && $tokens[$i]['code'] !== \T_DNUMBER) {
                         $tokens[$i]['code'] = \T_STRING;
                         $tokens[$i]['type'] = 'T_STRING';
                     }
@@ -576,7 +576,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      */
     public function getRegexToken($char, $string, $chars, $tokens)
     {
-        $beforeTokens = [T_EQUAL => \true, \T_IS_NOT_EQUAL => \true, \T_IS_IDENTICAL => \true, \T_IS_NOT_IDENTICAL => \true, T_OPEN_PARENTHESIS => \true, T_OPEN_SQUARE_BRACKET => \true, \T_RETURN => \true, \T_BOOLEAN_OR => \true, \T_BOOLEAN_AND => \true, T_BOOLEAN_NOT => \true, T_BITWISE_OR => \true, T_BITWISE_AND => \true, T_COMMA => \true, T_COLON => \true, T_TYPEOF => \true, T_INLINE_THEN => \true, T_INLINE_ELSE => \true];
+        $beforeTokens = [\T_EQUAL => \true, \T_IS_NOT_EQUAL => \true, \T_IS_IDENTICAL => \true, \T_IS_NOT_IDENTICAL => \true, \T_OPEN_PARENTHESIS => \true, \T_OPEN_SQUARE_BRACKET => \true, \T_RETURN => \true, \T_BOOLEAN_OR => \true, \T_BOOLEAN_AND => \true, \T_BOOLEAN_NOT => \true, \T_BITWISE_OR => \true, \T_BITWISE_AND => \true, \T_COMMA => \true, \T_COLON => \true, \T_TYPEOF => \true, \T_INLINE_THEN => \true, \T_INLINE_ELSE => \true];
         $afterTokens = [',' => \true, ')' => \true, ']' => \true, ';' => \true, ' ' => \true, '.' => \true, ':' => \true, $this->eolChar => \true];
         // Find the last non-whitespace token that was added
         // to the tokens array.
@@ -686,8 +686,8 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         break;
                     }
                 }
-                if ($this->tokens[$x]['code'] === T_OPEN_PARENTHESIS) {
-                    $this->tokens[$i]['code'] = T_CLOSURE;
+                if ($this->tokens[$x]['code'] === \T_OPEN_PARENTHESIS) {
+                    $this->tokens[$i]['code'] = \T_CLOSURE;
                     $this->tokens[$i]['type'] = 'T_CLOSURE';
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         $line = $this->tokens[$i]['line'];
@@ -698,7 +698,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         if (isset($this->tokens[$x]['conditions'][$i]) === \false) {
                             continue;
                         }
-                        $this->tokens[$x]['conditions'][$i] = T_CLOSURE;
+                        $this->tokens[$x]['conditions'][$i] = \T_CLOSURE;
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
                             $type = $this->tokens[$x]['type'];
                             echo \str_repeat("\t", \count($classStack));
@@ -709,7 +709,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                 //end if
                 continue;
             } else {
-                if ($this->tokens[$i]['code'] === T_OPEN_CURLY_BRACKET && isset($this->tokens[$i]['scope_condition']) === \false && isset($this->tokens[$i]['bracket_closer']) === \true) {
+                if ($this->tokens[$i]['code'] === \T_OPEN_CURLY_BRACKET && isset($this->tokens[$i]['scope_condition']) === \false && isset($this->tokens[$i]['bracket_closer']) === \true) {
                     $condition = $this->tokens[$i]['conditions'];
                     $condition = \end($condition);
                     if ($condition === \T_CLASS) {
@@ -721,7 +721,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                                 break;
                             }
                         }
-                        if ($this->tokens[$parenCloser]['code'] === T_CLOSE_PARENTHESIS) {
+                        if ($this->tokens[$parenCloser]['code'] === \T_CLOSE_PARENTHESIS) {
                             $parenOpener = $this->tokens[$parenCloser]['parenthesis_opener'];
                             for ($name = $parenOpener - 1; $name > 0; $name--) {
                                 if (isset(Util\Tokens::$emptyTokens[$this->tokens[$name]['code']]) === \false) {
@@ -766,9 +766,9 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                     //end if
                     $classStack[] = $i;
                     $closer = $this->tokens[$i]['bracket_closer'];
-                    $this->tokens[$i]['code'] = T_OBJECT;
+                    $this->tokens[$i]['code'] = \T_OBJECT;
                     $this->tokens[$i]['type'] = 'T_OBJECT';
-                    $this->tokens[$closer]['code'] = T_CLOSE_OBJECT;
+                    $this->tokens[$closer]['code'] = \T_CLOSE_OBJECT;
                     $this->tokens[$closer]['type'] = 'T_CLOSE_OBJECT';
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         echo \str_repeat("\t", \count($classStack));
@@ -777,7 +777,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         echo "\t* token {$closer} converted from T_CLOSE_CURLY_BRACKET to T_CLOSE_OBJECT *" . \PHP_EOL;
                     }
                     for ($x = $i + 1; $x < $closer; $x++) {
-                        $this->tokens[$x]['conditions'][$i] = T_OBJECT;
+                        $this->tokens[$x]['conditions'][$i] = \T_OBJECT;
                         \ksort($this->tokens[$x]['conditions'], \SORT_NUMERIC);
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
                             $type = $this->tokens[$x]['type'];
@@ -786,10 +786,10 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         }
                     }
                 } else {
-                    if ($this->tokens[$i]['code'] === T_CLOSE_OBJECT) {
+                    if ($this->tokens[$i]['code'] === \T_CLOSE_OBJECT) {
                         $opener = \array_pop($classStack);
                     } else {
-                        if ($this->tokens[$i]['code'] === T_COLON) {
+                        if ($this->tokens[$i]['code'] === \T_COLON) {
                             // If it is a scope opener, it belongs to a
                             // DEFAULT or CASE statement.
                             if (isset($this->tokens[$i]['scope_condition']) === \true) {
@@ -797,8 +797,8 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                             }
                             // Make sure this is not part of an inline IF statement.
                             for ($x = $i - 1; $x >= 0; $x--) {
-                                if ($this->tokens[$x]['code'] === T_INLINE_THEN) {
-                                    $this->tokens[$i]['code'] = T_INLINE_ELSE;
+                                if ($this->tokens[$x]['code'] === \T_INLINE_THEN) {
+                                    $this->tokens[$i]['code'] = \T_INLINE_ELSE;
                                     $this->tokens[$i]['type'] = 'T_INLINE_ELSE';
                                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                                         echo \str_repeat("\t", \count($classStack));
@@ -821,14 +821,14 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                                 continue;
                             }
                             if (empty($classStack) === \false) {
-                                $this->tokens[$label]['code'] = T_PROPERTY;
+                                $this->tokens[$label]['code'] = \T_PROPERTY;
                                 $this->tokens[$label]['type'] = 'T_PROPERTY';
                                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                                     echo \str_repeat("\t", \count($classStack));
                                     echo "\t* token {$label} converted from T_STRING to T_PROPERTY *" . \PHP_EOL;
                                 }
                             } else {
-                                $this->tokens[$label]['code'] = T_LABEL;
+                                $this->tokens[$label]['code'] = \T_LABEL;
                                 $this->tokens[$label]['type'] = 'T_LABEL';
                                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                                     echo \str_repeat("\t", \count($classStack));

@@ -48,10 +48,10 @@ class UseDeclarationSniff implements Sniff
             }
         }
         // Only one USE declaration allowed per statement.
-        $next = $phpcsFile->findNext([T_COMMA, T_SEMICOLON, T_OPEN_USE_GROUP, \T_CLOSE_TAG], $stackPtr + 1);
-        if ($next !== \false && $tokens[$next]['code'] !== T_SEMICOLON && $tokens[$next]['code'] !== \T_CLOSE_TAG) {
+        $next = $phpcsFile->findNext([\T_COMMA, \T_SEMICOLON, \T_OPEN_USE_GROUP, \T_CLOSE_TAG], $stackPtr + 1);
+        if ($next !== \false && $tokens[$next]['code'] !== \T_SEMICOLON && $tokens[$next]['code'] !== \T_CLOSE_TAG) {
             $error = 'There must be one USE keyword per declaration';
-            if ($tokens[$next]['code'] === T_COMMA) {
+            if ($tokens[$next]['code'] === \T_COMMA) {
                 $fix = $phpcsFile->addFixableError($error, $stackPtr, 'MultipleDeclarations');
                 if ($fix === \true) {
                     switch ($tokens[$stackPtr + 2]['content']) {
@@ -70,7 +70,7 @@ class UseDeclarationSniff implements Sniff
                     $phpcsFile->fixer->replaceToken($next, ';' . $phpcsFile->eolChar . $baseUse);
                 }
             } else {
-                $closingCurly = $phpcsFile->findNext(T_CLOSE_USE_GROUP, $next + 1);
+                $closingCurly = $phpcsFile->findNext(\T_CLOSE_USE_GROUP, $next + 1);
                 if ($closingCurly === \false) {
                     // Parse error or live coding. Not auto-fixable.
                     $phpcsFile->addError($error, $stackPtr, 'MultipleDeclarations');
@@ -109,7 +109,7 @@ class UseDeclarationSniff implements Sniff
                             } else {
                                 $phpcsFile->fixer->addContentBefore($next, $baseUse);
                             }
-                            $next = $phpcsFile->findNext(T_COMMA, $next + 1, $closingCurly);
+                            $next = $phpcsFile->findNext(\T_COMMA, $next + 1, $closingCurly);
                             if ($next !== \false) {
                                 $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, $closingCurly, \true);
                                 if ($nextNonEmpty !== \false && $tokens[$nextNonEmpty]['line'] === $tokens[$next]['line']) {
@@ -131,7 +131,7 @@ class UseDeclarationSniff implements Sniff
                         } while ($next !== \false);
                         // Remove closing curly,semi-colon and any whitespace between last child and closing curly.
                         $next = $phpcsFile->findNext(Tokens::$emptyTokens, $closingCurly + 1, null, \true);
-                        if ($next === \false || $tokens[$next]['code'] !== T_SEMICOLON) {
+                        if ($next === \false || $tokens[$next]['code'] !== \T_SEMICOLON) {
                             // Parse error, forgotten semi-colon.
                             $next = $closingCurly;
                         }
@@ -167,13 +167,13 @@ class UseDeclarationSniff implements Sniff
         if ($nextUse !== \false) {
             return;
         }
-        $end = $phpcsFile->findNext([T_SEMICOLON, T_CLOSE_USE_GROUP, \T_CLOSE_TAG], $stackPtr + 1);
+        $end = $phpcsFile->findNext([\T_SEMICOLON, \T_CLOSE_USE_GROUP, \T_CLOSE_TAG], $stackPtr + 1);
         if ($end === \false) {
             return;
         }
-        if ($tokens[$end]['code'] === T_CLOSE_USE_GROUP) {
+        if ($tokens[$end]['code'] === \T_CLOSE_USE_GROUP) {
             $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, null, \true);
-            if ($tokens[$nextNonEmpty]['code'] === T_SEMICOLON) {
+            if ($tokens[$nextNonEmpty]['code'] === \T_SEMICOLON) {
                 $end = $nextNonEmpty;
             }
         }
@@ -238,7 +238,7 @@ class UseDeclarationSniff implements Sniff
         $tokens = $phpcsFile->getTokens();
         // Ignore USE keywords inside closures and during live coding.
         $next = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
-        if ($next === \false || $tokens[$next]['code'] === T_OPEN_PARENTHESIS) {
+        if ($next === \false || $tokens[$next]['code'] === \T_OPEN_PARENTHESIS) {
             return \true;
         }
         // Ignore USE keywords for traits.

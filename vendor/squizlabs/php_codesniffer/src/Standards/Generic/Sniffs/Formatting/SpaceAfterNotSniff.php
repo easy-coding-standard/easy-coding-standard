@@ -39,7 +39,7 @@ class SpaceAfterNotSniff implements Sniff
      */
     public function register()
     {
-        return [T_BOOLEAN_NOT];
+        return [\T_BOOLEAN_NOT];
     }
     //end register()
     /**

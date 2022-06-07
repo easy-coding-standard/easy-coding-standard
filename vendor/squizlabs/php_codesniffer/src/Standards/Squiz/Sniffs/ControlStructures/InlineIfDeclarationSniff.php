@@ -20,7 +20,7 @@ class InlineIfDeclarationSniff implements Sniff
      */
     public function register()
     {
-        return [T_INLINE_THEN];
+        return [\T_INLINE_THEN];
     }
     //end register()
     /**
@@ -45,8 +45,8 @@ class InlineIfDeclarationSniff implements Sniff
         // Find the beginning of the statement. If we don't find a
         // semicolon (end of statement) or comma (end of array value)
         // then assume the content before the closing parenthesis is the end.
-        $else = $phpcsFile->findNext(T_INLINE_ELSE, $stackPtr + 1);
-        $statementEnd = $phpcsFile->findNext([T_SEMICOLON, T_COMMA], $else + 1, $closeBracket);
+        $else = $phpcsFile->findNext(\T_INLINE_ELSE, $stackPtr + 1);
+        $statementEnd = $phpcsFile->findNext([\T_SEMICOLON, \T_COMMA], $else + 1, $closeBracket);
         if ($statementEnd === \false) {
             $statementEnd = $phpcsFile->findPrevious(\T_WHITESPACE, $closeBracket - 1, null, \true);
         }
@@ -59,7 +59,7 @@ class InlineIfDeclarationSniff implements Sniff
         // Make sure there are spaces around the question mark.
         $contentBefore = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
         $contentAfter = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
-        if ($tokens[$contentBefore]['code'] !== T_CLOSE_PARENTHESIS) {
+        if ($tokens[$contentBefore]['code'] !== \T_CLOSE_PARENTHESIS) {
             $error = 'Inline shorthand IF statement requires brackets around comparison';
             $phpcsFile->addError($error, $stackPtr, 'NoBrackets');
         }
@@ -81,7 +81,7 @@ class InlineIfDeclarationSniff implements Sniff
         // In this case, we want no spaces between the two operators so ?: looks like
         // an operator itself.
         $next = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
-        if ($tokens[$next]['code'] === T_INLINE_ELSE) {
+        if ($tokens[$next]['code'] === \T_INLINE_ELSE) {
             $inlineElse = $next;
             if ($inlineElse !== $stackPtr + 1) {
                 $error = 'Inline shorthand IF statement without THEN statement requires 0 spaces between THEN and ELSE';
@@ -105,7 +105,7 @@ class InlineIfDeclarationSniff implements Sniff
                 }
             }
             // Make sure the ELSE has the correct spacing.
-            $inlineElse = $phpcsFile->findNext(T_INLINE_ELSE, $stackPtr + 1, $statementEnd, \false);
+            $inlineElse = $phpcsFile->findNext(\T_INLINE_ELSE, $stackPtr + 1, $statementEnd, \false);
             $contentBefore = $phpcsFile->findPrevious(\T_WHITESPACE, $inlineElse - 1, null, \true);
             $spaceBefore = $tokens[$inlineElse]['column'] - ($tokens[$contentBefore]['column'] + $tokens[$contentBefore]['length']);
             if ($spaceBefore !== 1) {

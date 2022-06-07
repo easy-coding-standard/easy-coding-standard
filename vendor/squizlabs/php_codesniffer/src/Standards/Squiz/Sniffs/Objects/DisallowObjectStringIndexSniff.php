@@ -26,7 +26,7 @@ class DisallowObjectStringIndexSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_SQUARE_BRACKET];
+        return [\T_OPEN_SQUARE_BRACKET];
     }
     //end register()
     /**
@@ -48,7 +48,7 @@ class DisallowObjectStringIndexSniff implements Sniff
         }
         // Make sure it is the only thing in the square brackets.
         $next = $phpcsFile->findNext(\T_WHITESPACE, $index + 1, null, \true);
-        if ($tokens[$next]['code'] !== T_CLOSE_SQUARE_BRACKET) {
+        if ($tokens[$next]['code'] !== \T_CLOSE_SQUARE_BRACKET) {
             return;
         }
         // Allow indexes that have dots in them because we can't write

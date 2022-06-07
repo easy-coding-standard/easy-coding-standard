@@ -61,9 +61,9 @@ class OperatorSpacingSniff implements Sniff
         // Trying to assign a negative value; eg. ($var = -1).
         $this->nonOperandTokens += Tokens::$assignmentTokens;
         // Returning/printing a negative value; eg. (return -1).
-        $this->nonOperandTokens += [\T_RETURN => \T_RETURN, \T_ECHO => \T_ECHO, \T_EXIT => \T_EXIT, \T_PRINT => \T_PRINT, \T_YIELD => \T_YIELD, T_FN_ARROW => T_FN_ARROW];
+        $this->nonOperandTokens += [\T_RETURN => \T_RETURN, \T_ECHO => \T_ECHO, \T_EXIT => \T_EXIT, \T_PRINT => \T_PRINT, \T_YIELD => \T_YIELD, \T_FN_ARROW => \T_FN_ARROW];
         // Trying to use a negative value; eg. myFunction($var, -2).
-        $this->nonOperandTokens += [\T_CASE => \T_CASE, T_COLON => T_COLON, T_COMMA => T_COMMA, T_INLINE_ELSE => T_INLINE_ELSE, T_INLINE_THEN => T_INLINE_THEN, T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET, T_OPEN_PARENTHESIS => T_OPEN_PARENTHESIS, T_OPEN_SHORT_ARRAY => T_OPEN_SHORT_ARRAY, T_OPEN_SQUARE_BRACKET => T_OPEN_SQUARE_BRACKET, T_STRING_CONCAT => T_STRING_CONCAT];
+        $this->nonOperandTokens += [\T_CASE => \T_CASE, \T_COLON => \T_COLON, \T_COMMA => \T_COMMA, \T_INLINE_ELSE => \T_INLINE_ELSE, \T_INLINE_THEN => \T_INLINE_THEN, \T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET, \T_OPEN_PARENTHESIS => \T_OPEN_PARENTHESIS, \T_OPEN_SHORT_ARRAY => \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET, \T_STRING_CONCAT => \T_STRING_CONCAT];
         // Casting a negative value; eg. (array) -$a.
         $this->nonOperandTokens += Tokens::$castTokens;
         /*
@@ -72,8 +72,8 @@ class OperatorSpacingSniff implements Sniff
         $targets = Tokens::$comparisonTokens;
         $targets += Tokens::$operators;
         $targets += Tokens::$assignmentTokens;
-        $targets[] = T_INLINE_THEN;
-        $targets[] = T_INLINE_ELSE;
+        $targets[] = \T_INLINE_THEN;
+        $targets[] = \T_INLINE_ELSE;
         $targets[] = \T_INSTANCEOF;
         return $targets;
     }
@@ -93,7 +93,7 @@ class OperatorSpacingSniff implements Sniff
         if ($this->isOperator($phpcsFile, $stackPtr) === \false) {
             return;
         }
-        if ($tokens[$stackPtr]['code'] === T_BITWISE_AND) {
+        if ($tokens[$stackPtr]['code'] === \T_BITWISE_AND) {
             // Check there is one space before the & operator.
             if ($tokens[$stackPtr - 1]['code'] !== \T_WHITESPACE) {
                 $error = 'Expected 1 space before "&" operator; 0 found';
@@ -153,7 +153,7 @@ class OperatorSpacingSniff implements Sniff
         }
         //end if
         $operator = $tokens[$stackPtr]['content'];
-        if ($tokens[$stackPtr - 1]['code'] !== \T_WHITESPACE && ($tokens[$stackPtr - 1]['code'] === T_INLINE_THEN && $tokens[$stackPtr]['code'] === T_INLINE_ELSE) === \false) {
+        if ($tokens[$stackPtr - 1]['code'] !== \T_WHITESPACE && ($tokens[$stackPtr - 1]['code'] === \T_INLINE_THEN && $tokens[$stackPtr]['code'] === \T_INLINE_ELSE) === \false) {
             $error = "Expected 1 space before \"{$operator}\"; 0 found";
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'NoSpaceBefore');
             if ($fix === \true) {
@@ -198,7 +198,7 @@ class OperatorSpacingSniff implements Sniff
         }
         if ($tokens[$stackPtr + 1]['code'] !== \T_WHITESPACE) {
             // Skip short ternary such as: "$foo = $bar ?: true;".
-            if ($tokens[$stackPtr]['code'] === T_INLINE_THEN && $tokens[$stackPtr + 1]['code'] === T_INLINE_ELSE) {
+            if ($tokens[$stackPtr]['code'] === \T_INLINE_THEN && $tokens[$stackPtr + 1]['code'] === \T_INLINE_ELSE) {
                 return;
             }
             $error = "Expected 1 space after \"{$operator}\"; 0 found";
@@ -248,32 +248,32 @@ class OperatorSpacingSniff implements Sniff
         $tokens = $phpcsFile->getTokens();
         // Skip default values in function declarations.
         // Skip declare statements.
-        if ($tokens[$stackPtr]['code'] === T_EQUAL || $tokens[$stackPtr]['code'] === T_MINUS) {
+        if ($tokens[$stackPtr]['code'] === \T_EQUAL || $tokens[$stackPtr]['code'] === \T_MINUS) {
             if (isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
                 $parenthesis = \array_keys($tokens[$stackPtr]['nested_parenthesis']);
                 $bracket = \array_pop($parenthesis);
                 if (isset($tokens[$bracket]['parenthesis_owner']) === \true) {
                     $function = $tokens[$bracket]['parenthesis_owner'];
-                    if ($tokens[$function]['code'] === \T_FUNCTION || $tokens[$function]['code'] === T_CLOSURE || $tokens[$function]['code'] === \T_FN || $tokens[$function]['code'] === \T_DECLARE) {
+                    if ($tokens[$function]['code'] === \T_FUNCTION || $tokens[$function]['code'] === \T_CLOSURE || $tokens[$function]['code'] === \T_FN || $tokens[$function]['code'] === \T_DECLARE) {
                         return \false;
                     }
                 }
             }
         }
-        if ($tokens[$stackPtr]['code'] === T_EQUAL) {
+        if ($tokens[$stackPtr]['code'] === \T_EQUAL) {
             // Skip for '=&' case.
-            if (isset($tokens[$stackPtr + 1]) === \true && $tokens[$stackPtr + 1]['code'] === T_BITWISE_AND) {
+            if (isset($tokens[$stackPtr + 1]) === \true && $tokens[$stackPtr + 1]['code'] === \T_BITWISE_AND) {
                 return \false;
             }
         }
-        if ($tokens[$stackPtr]['code'] === T_BITWISE_AND) {
+        if ($tokens[$stackPtr]['code'] === \T_BITWISE_AND) {
             // If it's not a reference, then we expect one space either side of the
             // bitwise operator.
             if ($phpcsFile->isReference($stackPtr) === \true) {
                 return \false;
             }
         }
-        if ($tokens[$stackPtr]['code'] === T_MINUS || $tokens[$stackPtr]['code'] === T_PLUS) {
+        if ($tokens[$stackPtr]['code'] === \T_MINUS || $tokens[$stackPtr]['code'] === \T_PLUS) {
             // Check minus spacing, but make sure we aren't just assigning
             // a minus value or returning one.
             $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);

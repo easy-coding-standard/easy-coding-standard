@@ -60,7 +60,7 @@ class CyclomaticComplexitySniff implements Sniff
         $start = $tokens[$stackPtr]['scope_opener'];
         $end = $tokens[$stackPtr]['scope_closer'];
         // Predicate nodes for PHP.
-        $find = [\T_CASE => \true, \T_DEFAULT => \true, \T_CATCH => \true, \T_IF => \true, \T_FOR => \true, \T_FOREACH => \true, \T_WHILE => \true, \T_ELSEIF => \true, T_INLINE_THEN => \true, \T_COALESCE => \true, \T_COALESCE_EQUAL => \true, T_MATCH_ARROW => \true];
+        $find = [\T_CASE => \true, \T_DEFAULT => \true, \T_CATCH => \true, \T_IF => \true, \T_FOR => \true, \T_FOREACH => \true, \T_WHILE => \true, \T_ELSEIF => \true, \T_INLINE_THEN => \true, \T_COALESCE => \true, \T_COALESCE_EQUAL => \true, \T_MATCH_ARROW => \true];
         $complexity = 1;
         // Iterate from start to end and count predicate nodes.
         for ($i = $start + 1; $i < $end; $i++) {

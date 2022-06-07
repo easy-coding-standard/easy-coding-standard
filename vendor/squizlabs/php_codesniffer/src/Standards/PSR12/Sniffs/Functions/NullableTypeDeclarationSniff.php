@@ -18,7 +18,7 @@ class NullableTypeDeclarationSniff implements Sniff
      *
      * @var array
      */
-    private $validTokens = [\T_STRING => \true, \T_NS_SEPARATOR => \true, \T_CALLABLE => \true, T_SELF => \true, T_PARENT => \true, \T_STATIC => \true];
+    private $validTokens = [\T_STRING => \true, \T_NS_SEPARATOR => \true, \T_CALLABLE => \true, \T_SELF => \true, \T_PARENT => \true, \T_STATIC => \true];
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -26,7 +26,7 @@ class NullableTypeDeclarationSniff implements Sniff
      */
     public function register()
     {
-        return [T_NULLABLE];
+        return [\T_NULLABLE];
     }
     //end register()
     /**

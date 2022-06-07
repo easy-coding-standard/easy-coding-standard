@@ -26,7 +26,7 @@ class FirebugConsoleSniff implements Sniff
      */
     public function register()
     {
-        return [\T_STRING, T_PROPERTY, T_LABEL, T_OBJECT];
+        return [\T_STRING, \T_PROPERTY, \T_LABEL, \T_OBJECT];
     }
     //end register()
     /**

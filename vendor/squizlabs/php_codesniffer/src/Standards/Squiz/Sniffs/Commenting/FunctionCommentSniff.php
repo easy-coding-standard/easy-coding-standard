@@ -61,7 +61,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
         $isSpecialMethod = \in_array($methodName, $this->specialMethods, \true);
         if ($return !== null) {
             $content = $tokens[$return + 2]['content'];
-            if (empty($content) === \true || $tokens[$return + 2]['code'] !== T_DOC_COMMENT_STRING) {
+            if (empty($content) === \true || $tokens[$return + 2]['code'] !== \T_DOC_COMMENT_STRING) {
                 $error = 'Return type missing for @return tag in function comment';
                 $phpcsFile->addError($error, $return, 'MissingReturnType');
             } else {
@@ -100,7 +100,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
                     if (isset($tokens[$stackPtr]['scope_closer']) === \true) {
                         $endToken = $tokens[$stackPtr]['scope_closer'];
                         for ($returnToken = $stackPtr; $returnToken < $endToken; $returnToken++) {
-                            if ($tokens[$returnToken]['code'] === T_CLOSURE || $tokens[$returnToken]['code'] === T_ANON_CLASS) {
+                            if ($tokens[$returnToken]['code'] === \T_CLOSURE || $tokens[$returnToken]['code'] === \T_ANON_CLASS) {
                                 $returnToken = $tokens[$returnToken]['scope_closer'];
                                 continue;
                             }
@@ -112,7 +112,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
                             // If the function is not returning anything, just
                             // exiting, then there is no problem.
                             $semicolon = $phpcsFile->findNext(\T_WHITESPACE, $returnToken + 1, null, \true);
-                            if ($tokens[$semicolon]['code'] !== T_SEMICOLON) {
+                            if ($tokens[$semicolon]['code'] !== \T_SEMICOLON) {
                                 $error = 'Function return type is void, but function contains return statement';
                                 $phpcsFile->addError($error, $return, 'InvalidReturnVoid');
                             }
@@ -126,7 +126,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
                         if (isset($tokens[$stackPtr]['scope_closer']) === \true) {
                             $endToken = $tokens[$stackPtr]['scope_closer'];
                             for ($returnToken = $stackPtr; $returnToken < $endToken; $returnToken++) {
-                                if ($tokens[$returnToken]['code'] === T_CLOSURE || $tokens[$returnToken]['code'] === T_ANON_CLASS) {
+                                if ($tokens[$returnToken]['code'] === \T_CLOSURE || $tokens[$returnToken]['code'] === \T_ANON_CLASS) {
                                     $returnToken = $tokens[$returnToken]['scope_closer'];
                                     continue;
                                 }
@@ -139,7 +139,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
                                 $phpcsFile->addError($error, $return, 'InvalidNoReturn');
                             } else {
                                 $semicolon = $phpcsFile->findNext(\T_WHITESPACE, $returnToken + 1, null, \true);
-                                if ($tokens[$semicolon]['code'] === T_SEMICOLON) {
+                                if ($tokens[$semicolon]['code'] === \T_SEMICOLON) {
                                     $error = 'Function return type is not void, but function is returning void here';
                                     $phpcsFile->addError($error, $returnToken, 'InvalidReturnNotVoid');
                                 }
@@ -185,7 +185,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
             }
             $exception = null;
             $comment = null;
-            if ($tokens[$tag + 2]['code'] === T_DOC_COMMENT_STRING) {
+            if ($tokens[$tag + 2]['code'] === \T_DOC_COMMENT_STRING) {
                 $matches = [];
                 \preg_match('/([^\\s]+)(?:\\s+(.*))?/', $tokens[$tag + 2]['content'], $matches);
                 $exception = $matches[1];
@@ -208,7 +208,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
                         $end = $tokens[$commentStart]['comment_closer'];
                     }
                     for ($i = $tag + 3; $i < $end; $i++) {
-                        if ($tokens[$i]['code'] === T_DOC_COMMENT_STRING) {
+                        if ($tokens[$i]['code'] === \T_DOC_COMMENT_STRING) {
                             $comment .= ' ' . $tokens[$i]['content'];
                         }
                     }
@@ -267,7 +267,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
             $varSpace = 0;
             $comment = '';
             $commentLines = [];
-            if ($tokens[$tag + 2]['code'] === T_DOC_COMMENT_STRING) {
+            if ($tokens[$tag + 2]['code'] === \T_DOC_COMMENT_STRING) {
                 $matches = [];
                 \preg_match('/([^$&.]+)(?:((?:\\.\\.\\.)?(?:\\$|&)[^\\s]+)(?:(\\s+)(.*))?)?/', $tokens[$tag + 2]['content'], $matches);
                 if (empty($matches) === \false) {
@@ -296,9 +296,9 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
                             $end = $tokens[$commentStart]['comment_closer'];
                         }
                         for ($i = $tag + 3; $i < $end; $i++) {
-                            if ($tokens[$i]['code'] === T_DOC_COMMENT_STRING) {
+                            if ($tokens[$i]['code'] === \T_DOC_COMMENT_STRING) {
                                 $indent = 0;
-                                if ($tokens[$i - 1]['code'] === T_DOC_COMMENT_WHITESPACE) {
+                                if ($tokens[$i - 1]['code'] === \T_DOC_COMMENT_WHITESPACE) {
                                     $indent = $tokens[$i - 1]['length'];
                                 }
                                 $comment .= ' ' . $tokens[$i]['content'];
@@ -618,7 +618,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
     protected function checkInheritdoc(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
-        $allowedTokens = [T_DOC_COMMENT_OPEN_TAG, T_DOC_COMMENT_WHITESPACE, T_DOC_COMMENT_STAR];
+        $allowedTokens = [\T_DOC_COMMENT_OPEN_TAG, \T_DOC_COMMENT_WHITESPACE, \T_DOC_COMMENT_STAR];
         for ($i = $commentStart; $i <= $tokens[$commentStart]['comment_closer']; $i++) {
             if (\in_array($tokens[$i]['code'], $allowedTokens) === \false) {
                 $trimmedContent = \strtolower(\trim($tokens[$i]['content']));

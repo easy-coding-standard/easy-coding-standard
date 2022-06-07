@@ -181,7 +181,7 @@ class CommentedOutCodeSniff implements Sniff
                 --$numTokens;
             }
         }
-        $emptyTokens = [\T_WHITESPACE => \true, \T_STRING => \true, T_STRING_CONCAT => \true, \T_ENCAPSED_AND_WHITESPACE => \true, T_NONE => \true, \T_COMMENT => \true];
+        $emptyTokens = [\T_WHITESPACE => \true, \T_STRING => \true, \T_STRING_CONCAT => \true, \T_ENCAPSED_AND_WHITESPACE => \true, \T_NONE => \true, \T_COMMENT => \true];
         $emptyTokens += Tokens::$phpcsCommentTokens;
         $numComment = 0;
         $numPossible = 0;
@@ -192,7 +192,7 @@ class CommentedOutCodeSniff implements Sniff
                 // Looks like comment.
                 $numComment++;
             } else {
-                if (isset(Tokens::$comparisonTokens[$stringTokens[$i]['code']]) === \true || isset(Tokens::$arithmeticTokens[$stringTokens[$i]['code']]) === \true || $stringTokens[$i]['code'] === T_GOTO_LABEL) {
+                if (isset(Tokens::$comparisonTokens[$stringTokens[$i]['code']]) === \true || isset(Tokens::$arithmeticTokens[$stringTokens[$i]['code']]) === \true || $stringTokens[$i]['code'] === \T_GOTO_LABEL) {
                     // Commented out HTML/XML and other docs contain a lot of these
                     // characters, so it is best to not use them directly.
                     $numPossible++;

@@ -98,7 +98,7 @@ class ClassDeclarationSniff extends PEARClassDeclarationSniff
         }
         $className = null;
         $checkSpacing = \true;
-        if ($tokens[$stackPtr]['code'] !== T_ANON_CLASS) {
+        if ($tokens[$stackPtr]['code'] !== \T_ANON_CLASS) {
             $className = $phpcsFile->findNext(\T_STRING, $stackPtr);
         } else {
             // Ignore the spacing check if this is a simple anon class.
@@ -149,7 +149,7 @@ class ClassDeclarationSniff extends PEARClassDeclarationSniff
         // Check positions of the extends and implements keywords.
         $compareToken = $stackPtr;
         $compareType = 'name';
-        if ($tokens[$stackPtr]['code'] === T_ANON_CLASS) {
+        if ($tokens[$stackPtr]['code'] === \T_ANON_CLASS) {
             if (isset($tokens[$stackPtr]['parenthesis_opener']) === \true) {
                 $compareToken = $tokens[$stackPtr]['parenthesis_closer'];
                 $compareType = 'closing parenthesis';
@@ -318,7 +318,7 @@ class ClassDeclarationSniff extends PEARClassDeclarationSniff
             } else {
                 if ($tokens[$className - 1]['code'] !== \T_NS_SEPARATOR || $tokens[$className - 2]['code'] !== \T_STRING) {
                     // Not part of a longer fully qualified class name.
-                    if ($tokens[$className - 1]['code'] === T_COMMA || $tokens[$className - 1]['code'] === \T_NS_SEPARATOR && $tokens[$className - 2]['code'] === T_COMMA) {
+                    if ($tokens[$className - 1]['code'] === \T_COMMA || $tokens[$className - 1]['code'] === \T_NS_SEPARATOR && $tokens[$className - 2]['code'] === \T_COMMA) {
                         $error = 'Expected 1 space before "%s"; 0 found';
                         $data = [$tokens[$className]['content']];
                         $fix = $phpcsFile->addFixableError($error, $nextComma + 1, 'NoSpaceBeforeName', $data);
@@ -357,7 +357,7 @@ class ClassDeclarationSniff extends PEARClassDeclarationSniff
                 }
             }
             //end if
-            if ($checkingImplements === \true && $tokens[$className + 1]['code'] !== \T_NS_SEPARATOR && $tokens[$className + 1]['code'] !== T_COMMA) {
+            if ($checkingImplements === \true && $tokens[$className + 1]['code'] !== \T_NS_SEPARATOR && $tokens[$className + 1]['code'] !== \T_COMMA) {
                 if ($n !== $classCount - 1) {
                     // This is not the last class name, and the comma
                     // is not where we expect it to be.
@@ -370,7 +370,7 @@ class ClassDeclarationSniff extends PEARClassDeclarationSniff
                         }
                     }
                 }
-                $nextComma = $phpcsFile->findNext(T_COMMA, $className);
+                $nextComma = $phpcsFile->findNext(\T_COMMA, $className);
             } else {
                 $nextComma = $className + 1;
             }
@@ -410,14 +410,14 @@ class ClassDeclarationSniff extends PEARClassDeclarationSniff
             }
         }
         //end if
-        if ($tokens[$stackPtr]['code'] !== T_ANON_CLASS) {
+        if ($tokens[$stackPtr]['code'] !== \T_ANON_CLASS) {
             // Check the closing brace is on it's own line, but allow
             // for comments like "//end class".
             $ignoreTokens = Tokens::$phpcsCommentTokens;
             $ignoreTokens[] = \T_WHITESPACE;
             $ignoreTokens[] = \T_COMMENT;
-            $ignoreTokens[] = T_SEMICOLON;
-            $ignoreTokens[] = T_COMMA;
+            $ignoreTokens[] = \T_SEMICOLON;
+            $ignoreTokens[] = \T_COMMA;
             $nextContent = $phpcsFile->findNext($ignoreTokens, $closeBrace + 1, null, \true);
             if ($tokens[$nextContent]['content'] !== $phpcsFile->eolChar && $tokens[$nextContent]['line'] === $tokens[$closeBrace]['line']) {
                 $type = \strtolower($tokens[$stackPtr]['content']);

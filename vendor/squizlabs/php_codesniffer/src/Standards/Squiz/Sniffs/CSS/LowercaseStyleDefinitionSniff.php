@@ -26,7 +26,7 @@ class LowercaseStyleDefinitionSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_CURLY_BRACKET];
+        return [\T_OPEN_CURLY_BRACKET];
     }
     //end register()
     /**
@@ -46,21 +46,21 @@ class LowercaseStyleDefinitionSniff implements Sniff
         $inStyle = null;
         for ($i = $start; $i <= $end; $i++) {
             // Skip nested definitions as they are checked individually.
-            if ($tokens[$i]['code'] === T_OPEN_CURLY_BRACKET) {
+            if ($tokens[$i]['code'] === \T_OPEN_CURLY_BRACKET) {
                 $i = $tokens[$i]['bracket_closer'];
                 continue;
             }
-            if ($tokens[$i]['code'] === T_STYLE) {
+            if ($tokens[$i]['code'] === \T_STYLE) {
                 $inStyle = $tokens[$i]['content'];
             }
-            if ($tokens[$i]['code'] === T_SEMICOLON) {
+            if ($tokens[$i]['code'] === \T_SEMICOLON) {
                 $inStyle = null;
             }
             if ($inStyle === 'progid') {
                 // Special case for IE filters.
                 continue;
             }
-            if ($tokens[$i]['code'] === T_STYLE || $inStyle !== null && $tokens[$i]['code'] === \T_STRING) {
+            if ($tokens[$i]['code'] === \T_STYLE || $inStyle !== null && $tokens[$i]['code'] === \T_STRING) {
                 $expected = \strtolower($tokens[$i]['content']);
                 if ($expected !== $tokens[$i]['content']) {
                     $error = 'Style definitions must be lowercase; expected %s but found %s';

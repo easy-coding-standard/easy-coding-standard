@@ -40,7 +40,7 @@ class EvalObjectFactorySniff implements Sniff
             We need to find all strings that will be in the eval
             to determine if the "new" keyword is being used.
         */
-        $openBracket = $phpcsFile->findNext(T_OPEN_PARENTHESIS, $stackPtr + 1);
+        $openBracket = $phpcsFile->findNext(\T_OPEN_PARENTHESIS, $stackPtr + 1);
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
         $strings = [];
         $vars = [];
@@ -77,7 +77,7 @@ class EvalObjectFactorySniff implements Sniff
             //end while
             if ($prev !== \false) {
                 // Find all strings on the line.
-                $lineEnd = $phpcsFile->findNext(T_SEMICOLON, $prev + 1);
+                $lineEnd = $phpcsFile->findNext(\T_SEMICOLON, $prev + 1);
                 for ($i = $prev + 1; $i < $lineEnd; $i++) {
                     if (isset(Tokens::$stringTokens[$tokens[$i]['code']]) === \true) {
                         $strings[$i] = $tokens[$i]['content'];

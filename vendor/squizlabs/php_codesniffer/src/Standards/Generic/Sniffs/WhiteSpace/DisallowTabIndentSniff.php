@@ -55,7 +55,7 @@ class DisallowTabIndentSniff implements Sniff
             }
         }
         $tokens = $phpcsFile->getTokens();
-        $checkTokens = [\T_WHITESPACE => \true, \T_INLINE_HTML => \true, T_DOC_COMMENT_WHITESPACE => \true, T_DOC_COMMENT_STRING => \true, \T_COMMENT => \true];
+        $checkTokens = [\T_WHITESPACE => \true, \T_INLINE_HTML => \true, \T_DOC_COMMENT_WHITESPACE => \true, \T_DOC_COMMENT_STRING => \true, \T_COMMENT => \true];
         for ($i = 0; $i < $phpcsFile->numTokens; $i++) {
             if (isset($checkTokens[$tokens[$i]['code']]) === \false) {
                 continue;
@@ -78,7 +78,7 @@ class DisallowTabIndentSniff implements Sniff
                     $indentation = $matches[1];
                 }
             }
-            if (($tokens[$i]['code'] === T_DOC_COMMENT_WHITESPACE || $tokens[$i]['code'] === \T_COMMENT) && $indentation === ' ') {
+            if (($tokens[$i]['code'] === \T_DOC_COMMENT_WHITESPACE || $tokens[$i]['code'] === \T_COMMENT) && $indentation === ' ') {
                 // Ignore all non-indented comments, especially for recording metrics.
                 continue;
             }

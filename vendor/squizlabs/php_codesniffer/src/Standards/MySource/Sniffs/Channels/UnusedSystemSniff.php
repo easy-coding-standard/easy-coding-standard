@@ -100,7 +100,7 @@ class UnusedSystemSniff implements Sniff
                     }
                     break;
                 case \T_IMPLEMENTS:
-                    $endImplements = $phpcsFile->findNext([\T_EXTENDS, T_OPEN_CURLY_BRACKET], $i + 1);
+                    $endImplements = $phpcsFile->findNext([\T_EXTENDS, \T_OPEN_CURLY_BRACKET], $i + 1);
                     for ($x = $i + 1; $x < $endImplements; $x++) {
                         if ($tokens[$x]['code'] === \T_STRING) {
                             $className = \strtolower($tokens[$x]['content']);

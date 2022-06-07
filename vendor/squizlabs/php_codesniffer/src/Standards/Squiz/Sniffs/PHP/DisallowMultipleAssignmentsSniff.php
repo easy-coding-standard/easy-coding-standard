@@ -21,7 +21,7 @@ class DisallowMultipleAssignmentsSniff implements Sniff
      */
     public function register()
     {
-        return [T_EQUAL];
+        return [\T_EQUAL];
     }
     //end register()
     /**
@@ -37,7 +37,7 @@ class DisallowMultipleAssignmentsSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         // Ignore default value assignments in function definitions.
-        $function = $phpcsFile->findPrevious([\T_FUNCTION, T_CLOSURE, \T_FN], $stackPtr - 1, null, \false, null, \true);
+        $function = $phpcsFile->findPrevious([\T_FUNCTION, \T_CLOSURE, \T_FN], $stackPtr - 1, null, \false, null, \true);
         if ($function !== \false) {
             $opener = $tokens[$function]['parenthesis_opener'];
             $closer = $tokens[$function]['parenthesis_closer'];
@@ -71,7 +71,7 @@ class DisallowMultipleAssignmentsSniff implements Sniff
             or in the statement. If not, throw an error.
         */
         for ($varToken = $stackPtr - 1; $varToken >= 0; $varToken--) {
-            if (\in_array($tokens[$varToken]['code'], [T_SEMICOLON, T_OPEN_CURLY_BRACKET], \true) === \true) {
+            if (\in_array($tokens[$varToken]['code'], [\T_SEMICOLON, \T_OPEN_CURLY_BRACKET], \true) === \true) {
                 // We've reached the next statement, so we
                 // didn't find a variable.
                 return;
@@ -101,25 +101,25 @@ class DisallowMultipleAssignmentsSniff implements Sniff
         $allowed[\T_NS_SEPARATOR] = \T_NS_SEPARATOR;
         $allowed[\T_DOUBLE_COLON] = \T_DOUBLE_COLON;
         $allowed[\T_OBJECT_OPERATOR] = \T_OBJECT_OPERATOR;
-        $allowed[T_ASPERAND] = T_ASPERAND;
-        $allowed[T_DOLLAR] = T_DOLLAR;
-        $allowed[T_SELF] = T_SELF;
-        $allowed[T_PARENT] = T_PARENT;
+        $allowed[\T_ASPERAND] = \T_ASPERAND;
+        $allowed[\T_DOLLAR] = \T_DOLLAR;
+        $allowed[\T_SELF] = \T_SELF;
+        $allowed[\T_PARENT] = \T_PARENT;
         $allowed[\T_STATIC] = \T_STATIC;
         $varToken = $phpcsFile->findPrevious($allowed, $varToken - 1, null, \true);
-        if ($varToken < $start && $tokens[$varToken]['code'] !== T_OPEN_PARENTHESIS && $tokens[$varToken]['code'] !== T_OPEN_SQUARE_BRACKET) {
+        if ($varToken < $start && $tokens[$varToken]['code'] !== \T_OPEN_PARENTHESIS && $tokens[$varToken]['code'] !== \T_OPEN_SQUARE_BRACKET) {
             $varToken = $start;
         }
         // Ignore the first part of FOR loops as we are allowed to
         // assign variables there even though the variable is not the
         // first thing on the line.
-        if ($tokens[$varToken]['code'] === T_OPEN_PARENTHESIS && isset($tokens[$varToken]['parenthesis_owner']) === \true) {
+        if ($tokens[$varToken]['code'] === \T_OPEN_PARENTHESIS && isset($tokens[$varToken]['parenthesis_owner']) === \true) {
             $owner = $tokens[$varToken]['parenthesis_owner'];
             if ($tokens[$owner]['code'] === \T_FOR) {
                 return;
             }
         }
-        if ($tokens[$varToken]['code'] === \T_VARIABLE || $tokens[$varToken]['code'] === \T_OPEN_TAG || $tokens[$varToken]['code'] === T_GOTO_LABEL || $tokens[$varToken]['code'] === T_INLINE_THEN || $tokens[$varToken]['code'] === T_INLINE_ELSE || $tokens[$varToken]['code'] === T_SEMICOLON || $tokens[$varToken]['code'] === T_CLOSE_PARENTHESIS || isset($allowed[$tokens[$varToken]['code']]) === \true) {
+        if ($tokens[$varToken]['code'] === \T_VARIABLE || $tokens[$varToken]['code'] === \T_OPEN_TAG || $tokens[$varToken]['code'] === \T_GOTO_LABEL || $tokens[$varToken]['code'] === \T_INLINE_THEN || $tokens[$varToken]['code'] === \T_INLINE_ELSE || $tokens[$varToken]['code'] === \T_SEMICOLON || $tokens[$varToken]['code'] === \T_CLOSE_PARENTHESIS || isset($allowed[$tokens[$varToken]['code']]) === \true) {
             return;
         }
         $error = 'Assignments must be the first block of code on a line';

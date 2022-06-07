@@ -63,7 +63,7 @@ class ForLoopWithTestFunctionCallSniff implements Sniff
         $position = 0;
         for (; $next <= $end; ++$next) {
             $code = $tokens[$next]['code'];
-            if ($code === T_SEMICOLON) {
+            if ($code === \T_SEMICOLON) {
                 ++$position;
             }
             if ($position < 1) {
@@ -80,7 +80,7 @@ class ForLoopWithTestFunctionCallSniff implements Sniff
             // Find next non empty token, if it is a open curly brace we have a
             // function call.
             $index = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, null, \true);
-            if ($tokens[$index]['code'] === T_OPEN_PARENTHESIS) {
+            if ($tokens[$index]['code'] === \T_OPEN_PARENTHESIS) {
                 $error = 'Avoid function calls in a FOR loop test part';
                 $phpcsFile->addWarning($error, $stackPtr, 'NotAllowed');
                 break;

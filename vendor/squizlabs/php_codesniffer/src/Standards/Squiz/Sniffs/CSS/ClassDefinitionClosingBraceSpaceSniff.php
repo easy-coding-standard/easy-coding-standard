@@ -27,7 +27,7 @@ class ClassDefinitionClosingBraceSpaceSniff implements Sniff
      */
     public function register()
     {
-        return [T_CLOSE_CURLY_BRACKET];
+        return [\T_CLOSE_CURLY_BRACKET];
     }
     //end register()
     /**
@@ -94,7 +94,7 @@ class ClassDefinitionClosingBraceSpaceSniff implements Sniff
         // Ignore nested style definitions from here on. The spacing before the closing brace
         // (a single blank line) will be enforced by the above check, which ensures there is a
         // blank line after the last nested class.
-        $found = $phpcsFile->findPrevious(T_CLOSE_CURLY_BRACKET, $stackPtr - 1, $tokens[$stackPtr]['bracket_opener']);
+        $found = $phpcsFile->findPrevious(\T_CLOSE_CURLY_BRACKET, $stackPtr - 1, $tokens[$stackPtr]['bracket_opener']);
         if ($found !== \false) {
             return;
         }

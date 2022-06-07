@@ -34,7 +34,7 @@ class ShorthandSizeSniff implements Sniff
      */
     public function register()
     {
-        return [T_STYLE];
+        return [\T_STYLE];
     }
     //end register()
     /**
@@ -54,7 +54,7 @@ class ShorthandSizeSniff implements Sniff
         if (isset($this->excludeStyles[$style]) === \true) {
             return;
         }
-        $end = $phpcsFile->findNext(T_SEMICOLON, $stackPtr + 1);
+        $end = $phpcsFile->findNext(\T_SEMICOLON, $stackPtr + 1);
         if ($end === \false) {
             // Live coding or parse error.
             return;
@@ -130,7 +130,7 @@ class ShorthandSizeSniff implements Sniff
             if (\substr($origContent, -10) === '!important') {
                 $expected .= ' !important';
             }
-            $next = $phpcsFile->findNext(T_COLON, $stackPtr + 1);
+            $next = $phpcsFile->findNext(\T_COLON, $stackPtr + 1);
             $phpcsFile->fixer->addContent($next, ' ' . $expected);
             for ($next++; $next < $end; $next++) {
                 $phpcsFile->fixer->replaceToken($next, '');

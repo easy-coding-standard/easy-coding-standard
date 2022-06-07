@@ -24,7 +24,7 @@ class EmptyPHPStatementSniff implements Sniff
      */
     public function register()
     {
-        return [T_SEMICOLON, \T_CLOSE_TAG];
+        return [\T_SEMICOLON, \T_CLOSE_TAG];
     }
     //end register()
     /**
@@ -46,15 +46,15 @@ class EmptyPHPStatementSniff implements Sniff
                 if ($prevNonEmpty === \false) {
                     return;
                 }
-                if ($tokens[$prevNonEmpty]['code'] !== T_SEMICOLON && $tokens[$prevNonEmpty]['code'] !== \T_OPEN_TAG && $tokens[$prevNonEmpty]['code'] !== \T_OPEN_TAG_WITH_ECHO) {
+                if ($tokens[$prevNonEmpty]['code'] !== \T_SEMICOLON && $tokens[$prevNonEmpty]['code'] !== \T_OPEN_TAG && $tokens[$prevNonEmpty]['code'] !== \T_OPEN_TAG_WITH_ECHO) {
                     if (isset($tokens[$prevNonEmpty]['scope_condition']) === \false) {
                         return;
                     }
-                    if ($tokens[$prevNonEmpty]['scope_opener'] !== $prevNonEmpty && $tokens[$prevNonEmpty]['code'] !== T_CLOSE_CURLY_BRACKET) {
+                    if ($tokens[$prevNonEmpty]['scope_opener'] !== $prevNonEmpty && $tokens[$prevNonEmpty]['code'] !== \T_CLOSE_CURLY_BRACKET) {
                         return;
                     }
                     $scopeOwner = $tokens[$tokens[$prevNonEmpty]['scope_condition']]['code'];
-                    if ($scopeOwner === T_CLOSURE || $scopeOwner === T_ANON_CLASS || $scopeOwner === \T_MATCH) {
+                    if ($scopeOwner === \T_CLOSURE || $scopeOwner === \T_ANON_CLASS || $scopeOwner === \T_MATCH) {
                         return;
                     }
                     // Else, it's something like `if (foo) {};` and the semi-colon is not needed.
@@ -80,7 +80,7 @@ class EmptyPHPStatementSniff implements Sniff
                         }
                     }
                     for ($i = $stackPtr; $i > $prevNonEmpty; $i--) {
-                        if ($tokens[$i]['code'] !== T_SEMICOLON && $tokens[$i]['code'] !== \T_WHITESPACE) {
+                        if ($tokens[$i]['code'] !== \T_SEMICOLON && $tokens[$i]['code'] !== \T_WHITESPACE) {
                             break;
                         }
                         $phpcsFile->fixer->replaceToken($i, '');

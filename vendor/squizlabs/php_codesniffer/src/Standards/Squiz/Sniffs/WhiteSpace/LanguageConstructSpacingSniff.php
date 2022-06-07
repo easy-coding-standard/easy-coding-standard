@@ -40,7 +40,7 @@ class LanguageConstructSpacingSniff implements Sniff
             // Skip if there is no next token.
             return;
         }
-        if ($tokens[$stackPtr + 1]['code'] === T_SEMICOLON) {
+        if ($tokens[$stackPtr + 1]['code'] === \T_SEMICOLON) {
             // No content for this language construct.
             return;
         }
@@ -55,7 +55,7 @@ class LanguageConstructSpacingSniff implements Sniff
                 }
             }
         } else {
-            if ($tokens[$stackPtr + 1]['code'] !== T_OPEN_PARENTHESIS) {
+            if ($tokens[$stackPtr + 1]['code'] !== \T_OPEN_PARENTHESIS) {
                 $error = 'Language constructs must be followed by a single space; expected "%s" but found "%s"';
                 $data = [$tokens[$stackPtr]['content'] . ' ' . $tokens[$stackPtr + 1]['content'], $tokens[$stackPtr]['content'] . $tokens[$stackPtr + 1]['content']];
                 $fix = $phpcsFile->addFixableError($error, $stackPtr, 'Incorrect', $data);

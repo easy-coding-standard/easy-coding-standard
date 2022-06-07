@@ -27,7 +27,7 @@ class EmptyClassDefinitionSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_CURLY_BRACKET];
+        return [\T_OPEN_CURLY_BRACKET];
     }
     //end register()
     /**
@@ -43,7 +43,7 @@ class EmptyClassDefinitionSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $next = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
-        if ($next === \false || $tokens[$next]['code'] === T_CLOSE_CURLY_BRACKET) {
+        if ($next === \false || $tokens[$next]['code'] === \T_CLOSE_CURLY_BRACKET) {
             $error = 'Class definition is empty';
             $phpcsFile->addError($error, $stackPtr, 'Found');
         }

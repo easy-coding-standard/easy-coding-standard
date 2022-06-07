@@ -19,7 +19,7 @@ class StaticThisUsageSniff extends AbstractScopeSniff
      */
     public function __construct()
     {
-        parent::__construct([\T_CLASS, \T_TRAIT, T_ANON_CLASS], [\T_FUNCTION]);
+        parent::__construct([\T_CLASS, \T_TRAIT, \T_ANON_CLASS], [\T_FUNCTION]);
     }
     //end __construct()
     /**
@@ -73,11 +73,11 @@ class StaticThisUsageSniff extends AbstractScopeSniff
     {
         $tokens = $phpcsFile->getTokens();
         do {
-            $next = $phpcsFile->findNext([\T_VARIABLE, T_ANON_CLASS], $next + 1, $end);
+            $next = $phpcsFile->findNext([\T_VARIABLE, \T_ANON_CLASS], $next + 1, $end);
             if ($next === \false) {
                 continue;
             }
-            if ($tokens[$next]['code'] === T_ANON_CLASS) {
+            if ($tokens[$next]['code'] === \T_ANON_CLASS) {
                 $this->checkThisUsage($phpcsFile, $next, $tokens[$next]['scope_opener']);
                 $next = $tokens[$next]['scope_closer'];
                 continue;

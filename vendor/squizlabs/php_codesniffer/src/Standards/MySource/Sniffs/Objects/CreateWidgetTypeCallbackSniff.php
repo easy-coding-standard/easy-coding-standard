@@ -27,7 +27,7 @@ class CreateWidgetTypeCallbackSniff implements Sniff
      */
     public function register()
     {
-        return [T_OBJECT];
+        return [\T_OBJECT];
     }
     //end register()
     /**
@@ -47,12 +47,12 @@ class CreateWidgetTypeCallbackSniff implements Sniff
             return;
         }
         // Search for a create method.
-        $create = $phpcsFile->findNext(T_PROPERTY, $stackPtr, $tokens[$stackPtr]['bracket_closer'], null, 'create');
+        $create = $phpcsFile->findNext(\T_PROPERTY, $stackPtr, $tokens[$stackPtr]['bracket_closer'], null, 'create');
         if ($create === \false) {
             return;
         }
-        $function = $phpcsFile->findNext([\T_WHITESPACE, T_COLON], $create + 1, null, \true);
-        if ($tokens[$function]['code'] !== \T_FUNCTION && $tokens[$function]['code'] !== T_CLOSURE) {
+        $function = $phpcsFile->findNext([\T_WHITESPACE, \T_COLON], $create + 1, null, \true);
+        if ($tokens[$function]['code'] !== \T_FUNCTION && $tokens[$function]['code'] !== \T_CLOSURE) {
             return;
         }
         $start = $tokens[$function]['scope_opener'] + 1;
@@ -82,14 +82,14 @@ class CreateWidgetTypeCallbackSniff implements Sniff
                     continue;
                 }
             } else {
-                if (($tokens[$i]['code'] === \T_FUNCTION || $tokens[$i]['code'] === T_CLOSURE) && isset($tokens[$i]['scope_closer']) === \true) {
+                if (($tokens[$i]['code'] === \T_FUNCTION || $tokens[$i]['code'] === \T_CLOSURE) && isset($tokens[$i]['scope_closer']) === \true) {
                     $nestedFunction = $tokens[$i]['scope_closer'];
                     continue;
                 }
             }
             if ($nestedFunction === null && $tokens[$i]['code'] === \T_RETURN) {
                 // Make sure return statements are not returning anything.
-                if ($tokens[$i + 1]['code'] !== T_SEMICOLON) {
+                if ($tokens[$i + 1]['code'] !== \T_SEMICOLON) {
                     $error = 'The create() method of a widget type must not return a value';
                     $phpcsFile->addError($error, $i, 'ReturnValue');
                 }
@@ -101,7 +101,7 @@ class CreateWidgetTypeCallbackSniff implements Sniff
             }
             // If this is the form "callback.call(" then it is a call
             // to the callback function.
-            if ($tokens[$i + 1]['code'] !== \T_OBJECT_OPERATOR || $tokens[$i + 2]['content'] !== 'call' || $tokens[$i + 3]['code'] !== T_OPEN_PARENTHESIS) {
+            if ($tokens[$i + 1]['code'] !== \T_OBJECT_OPERATOR || $tokens[$i + 2]['content'] !== 'call' || $tokens[$i + 3]['code'] !== \T_OPEN_PARENTHESIS) {
                 // One last chance; this might be the callback function
                 // being passed to another function, like this
                 // "this.init(something, callback, something)".
@@ -147,7 +147,7 @@ class CreateWidgetTypeCallbackSniff implements Sniff
                     continue;
                 }
                 // Skip closing braces like END IF because it is not executable code.
-                if ($tokens[$next]['code'] === T_CLOSE_CURLY_BRACKET) {
+                if ($tokens[$next]['code'] === \T_CLOSE_CURLY_BRACKET) {
                     continue;
                 }
                 // We don't care about anything on the current line, like a

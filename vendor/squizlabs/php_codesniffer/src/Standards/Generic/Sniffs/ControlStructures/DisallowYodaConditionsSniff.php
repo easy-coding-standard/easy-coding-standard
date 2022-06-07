@@ -38,11 +38,11 @@ class DisallowYodaConditionsSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $previousIndex = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
-        $relevantTokens = [T_CLOSE_SHORT_ARRAY, T_CLOSE_PARENTHESIS, T_TRUE, T_FALSE, T_NULL, \T_LNUMBER, \T_DNUMBER, \T_CONSTANT_ENCAPSED_STRING];
+        $relevantTokens = [\T_CLOSE_SHORT_ARRAY, \T_CLOSE_PARENTHESIS, \T_TRUE, \T_FALSE, \T_NULL, \T_LNUMBER, \T_DNUMBER, \T_CONSTANT_ENCAPSED_STRING];
         if ($previousIndex === \false || \in_array($tokens[$previousIndex]['code'], $relevantTokens, \true) === \false) {
             return;
         }
-        if ($tokens[$previousIndex]['code'] === T_CLOSE_SHORT_ARRAY) {
+        if ($tokens[$previousIndex]['code'] === \T_CLOSE_SHORT_ARRAY) {
             $previousIndex = $tokens[$previousIndex]['bracket_opener'];
             if ($this->isArrayStatic($phpcsFile, $previousIndex) === \false) {
                 return;
@@ -55,11 +55,11 @@ class DisallowYodaConditionsSniff implements Sniff
         if (\in_array($tokens[$prevIndex]['code'], Tokens::$arithmeticTokens, \true) === \true) {
             return;
         }
-        if ($tokens[$prevIndex]['code'] === T_STRING_CONCAT) {
+        if ($tokens[$prevIndex]['code'] === \T_STRING_CONCAT) {
             return;
         }
         // Is it a parenthesis.
-        if ($tokens[$previousIndex]['code'] === T_CLOSE_PARENTHESIS) {
+        if ($tokens[$previousIndex]['code'] === \T_CLOSE_PARENTHESIS) {
             // Check what exists inside the parenthesis.
             $closeParenthesisIndex = $phpcsFile->findPrevious(Tokens::$emptyTokens, $tokens[$previousIndex]['parenthesis_opener'] - 1, null, \true);
             if ($closeParenthesisIndex === \false || $tokens[$closeParenthesisIndex]['code'] !== \T_ARRAY) {
@@ -101,7 +101,7 @@ class DisallowYodaConditionsSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $arrayEnd = null;
-        if ($tokens[$arrayToken]['code'] === T_OPEN_SHORT_ARRAY) {
+        if ($tokens[$arrayToken]['code'] === \T_OPEN_SHORT_ARRAY) {
             $start = $arrayToken;
             $end = $tokens[$arrayToken]['bracket_closer'];
         } else {
@@ -122,7 +122,7 @@ class DisallowYodaConditionsSniff implements Sniff
         $staticTokens += Tokens::$booleanOperators;
         $staticTokens += Tokens::$castTokens;
         $staticTokens += Tokens::$bracketTokens;
-        $staticTokens += [\T_DOUBLE_ARROW => \T_DOUBLE_ARROW, T_COMMA => T_COMMA, T_TRUE => T_TRUE, T_FALSE => T_FALSE];
+        $staticTokens += [\T_DOUBLE_ARROW => \T_DOUBLE_ARROW, \T_COMMA => \T_COMMA, \T_TRUE => \T_TRUE, \T_FALSE => \T_FALSE];
         for ($i = $start + 1; $i < $end; $i++) {
             if (isset($tokens[$i]['scope_closer']) === \true) {
                 $i = $tokens[$i]['scope_closer'];

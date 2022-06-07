@@ -54,7 +54,7 @@ final class StandardizeHereNowDocKeywordFixer extends AbstractSymplifyFixer impl
      */
     public function isCandidate(Tokens $tokens) : bool
     {
-        return $tokens->isAnyTokenKindsFound([\T_START_HEREDOC, T_START_NOWDOC]);
+        return $tokens->isAnyTokenKindsFound([\T_START_HEREDOC, \T_START_NOWDOC]);
     }
     /**
      * @param Tokens<Token> $tokens

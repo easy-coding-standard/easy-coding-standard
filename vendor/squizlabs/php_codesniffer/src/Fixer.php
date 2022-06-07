@@ -653,7 +653,7 @@ class Fixer
                 continue;
             }
             $length = 0;
-            if ($tokens[$i]['code'] === \T_WHITESPACE || $tokens[$i]['code'] === T_DOC_COMMENT_WHITESPACE) {
+            if ($tokens[$i]['code'] === \T_WHITESPACE || $tokens[$i]['code'] === \T_DOC_COMMENT_WHITESPACE) {
                 $length = $tokens[$i]['length'];
                 $padding = $length + $change;
                 if ($padding > 0) {

@@ -43,7 +43,7 @@ class FunctionCommentThrowTagSniff implements Sniff
         $find = Tokens::$methodPrefixes;
         $find[] = \T_WHITESPACE;
         $commentEnd = $phpcsFile->findPrevious($find, $stackPtr - 1, null, \true);
-        if ($tokens[$commentEnd]['code'] !== T_DOC_COMMENT_CLOSE_TAG) {
+        if ($tokens[$commentEnd]['code'] !== \T_DOC_COMMENT_CLOSE_TAG) {
             // Function doesn't have a doc comment or is using the wrong type of comment.
             return;
         }
@@ -54,7 +54,7 @@ class FunctionCommentThrowTagSniff implements Sniff
         $foundThrows = \false;
         $unknownCount = 0;
         do {
-            $currPos = $phpcsFile->findNext([\T_THROW, T_ANON_CLASS, T_CLOSURE], $currPos + 1, $stackPtrEnd);
+            $currPos = $phpcsFile->findNext([\T_THROW, \T_ANON_CLASS, \T_CLOSURE], $currPos + 1, $stackPtrEnd);
             if ($currPos === \false) {
                 break;
             }
@@ -124,7 +124,7 @@ class FunctionCommentThrowTagSniff implements Sniff
             if ($tokens[$tag]['content'] !== '@throws') {
                 continue;
             }
-            if ($tokens[$tag + 2]['code'] === T_DOC_COMMENT_STRING) {
+            if ($tokens[$tag + 2]['code'] === \T_DOC_COMMENT_STRING) {
                 $exception = $tokens[$tag + 2]['content'];
                 $space = \strpos($exception, ' ');
                 if ($space !== \false) {

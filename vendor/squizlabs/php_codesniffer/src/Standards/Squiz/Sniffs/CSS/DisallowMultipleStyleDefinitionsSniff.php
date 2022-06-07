@@ -26,7 +26,7 @@ class DisallowMultipleStyleDefinitionsSniff implements Sniff
      */
     public function register()
     {
-        return [T_STYLE];
+        return [\T_STYLE];
     }
     //end register()
     /**
@@ -41,7 +41,7 @@ class DisallowMultipleStyleDefinitionsSniff implements Sniff
     public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $next = $phpcsFile->findNext(T_STYLE, $stackPtr + 1);
+        $next = $phpcsFile->findNext(\T_STYLE, $stackPtr + 1);
         if ($next === \false) {
             return;
         }

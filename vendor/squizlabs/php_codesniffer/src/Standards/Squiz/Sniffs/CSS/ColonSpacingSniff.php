@@ -27,7 +27,7 @@ class ColonSpacingSniff implements Sniff
      */
     public function register()
     {
-        return [T_COLON];
+        return [\T_COLON];
     }
     //end register()
     /**
@@ -43,7 +43,7 @@ class ColonSpacingSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
-        if ($tokens[$prev]['code'] !== T_STYLE) {
+        if ($tokens[$prev]['code'] !== \T_STYLE) {
             // The colon is not part of a style definition.
             return;
         }
@@ -59,7 +59,7 @@ class ColonSpacingSniff implements Sniff
             }
         }
         $next = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
-        if ($tokens[$next]['code'] === T_SEMICOLON || $tokens[$next]['code'] === T_STYLE) {
+        if ($tokens[$next]['code'] === \T_SEMICOLON || $tokens[$next]['code'] === \T_STYLE) {
             // Empty style definition, ignore it.
             return;
         }

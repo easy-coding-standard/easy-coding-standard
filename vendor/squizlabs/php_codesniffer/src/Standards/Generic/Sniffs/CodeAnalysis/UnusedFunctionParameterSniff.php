@@ -34,7 +34,7 @@ class UnusedFunctionParameterSniff implements Sniff
      */
     public function register()
     {
-        return [\T_FUNCTION, T_CLOSURE, \T_FN];
+        return [\T_FUNCTION, \T_CLOSURE, \T_FN];
     }
     //end register()
     /**
@@ -92,7 +92,7 @@ class UnusedFunctionParameterSniff implements Sniff
             ++$end;
         }
         $foundContent = \false;
-        $validTokens = [T_HEREDOC => T_HEREDOC, T_NOWDOC => T_NOWDOC, \T_END_HEREDOC => \T_END_HEREDOC, T_END_NOWDOC => T_END_NOWDOC, T_DOUBLE_QUOTED_STRING => T_DOUBLE_QUOTED_STRING];
+        $validTokens = [\T_HEREDOC => \T_HEREDOC, \T_NOWDOC => \T_NOWDOC, \T_END_HEREDOC => \T_END_HEREDOC, \T_END_NOWDOC => \T_END_NOWDOC, \T_DOUBLE_QUOTED_STRING => \T_DOUBLE_QUOTED_STRING];
         $validTokens += Tokens::$emptyTokens;
         for (; $next <= $end; ++$next) {
             $token = $tokens[$next];
@@ -113,11 +113,11 @@ class UnusedFunctionParameterSniff implements Sniff
                         return;
                     }
                     // There is a return.
-                    if ($tokens[$tmp]['code'] === T_SEMICOLON && $implements !== \false) {
+                    if ($tokens[$tmp]['code'] === \T_SEMICOLON && $implements !== \false) {
                         return;
                     }
                     $tmp = $phpcsFile->findNext(Tokens::$emptyTokens, $tmp + 1, null, \true);
-                    if ($tmp !== \false && $tokens[$tmp]['code'] === T_SEMICOLON && $implements !== \false) {
+                    if ($tmp !== \false && $tokens[$tmp]['code'] === \T_SEMICOLON && $implements !== \false) {
                         // There is a return <token>.
                         return;
                     }
@@ -129,9 +129,9 @@ class UnusedFunctionParameterSniff implements Sniff
             if ($code === \T_VARIABLE && isset($params[$token['content']]) === \true) {
                 unset($params[$token['content']]);
             } else {
-                if ($code === T_DOLLAR) {
+                if ($code === \T_DOLLAR) {
                     $nextToken = $phpcsFile->findNext(\T_WHITESPACE, $next + 1, null, \true);
-                    if ($tokens[$nextToken]['code'] === T_OPEN_CURLY_BRACKET) {
+                    if ($tokens[$nextToken]['code'] === \T_OPEN_CURLY_BRACKET) {
                         $nextToken = $phpcsFile->findNext(\T_WHITESPACE, $nextToken + 1, null, \true);
                         if ($tokens[$nextToken]['code'] === \T_STRING) {
                             $varContent = '$' . $tokens[$nextToken]['content'];
@@ -141,7 +141,7 @@ class UnusedFunctionParameterSniff implements Sniff
                         }
                     }
                 } else {
-                    if ($code === T_DOUBLE_QUOTED_STRING || $code === \T_START_HEREDOC || $code === T_START_NOWDOC) {
+                    if ($code === \T_DOUBLE_QUOTED_STRING || $code === \T_START_HEREDOC || $code === \T_START_NOWDOC) {
                         // Tokenize strings that can contain variables.
                         // Make sure the string is re-joined if it occurs over multiple lines.
                         $content = $token['content'];

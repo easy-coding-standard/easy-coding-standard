@@ -67,7 +67,7 @@ class UseDeclarationSniff implements Sniff
                         continue;
                     }
                     if (isset(Tokens::$commentTokens[$tokens[$i]['code']]) === \true) {
-                        if ($tokens[$i]['code'] === T_DOC_COMMENT_CLOSE_TAG) {
+                        if ($tokens[$i]['code'] === \T_DOC_COMMENT_CLOSE_TAG) {
                             // Skip past the comment.
                             $i = $tokens[$i]['comment_opener'];
                         }
@@ -99,7 +99,7 @@ class UseDeclarationSniff implements Sniff
                                     $phpcsFile->fixer->replaceToken($i, '');
                                 }
                                 if (isset(Tokens::$commentTokens[$tokens[$i]['code']]) === \true) {
-                                    if ($tokens[$i]['code'] === T_DOC_COMMENT_CLOSE_TAG) {
+                                    if ($tokens[$i]['code'] === \T_DOC_COMMENT_CLOSE_TAG) {
                                         // Skip past the comment.
                                         $i = $tokens[$i]['comment_opener'];
                                     }
@@ -158,7 +158,7 @@ class UseDeclarationSniff implements Sniff
                 $end = $tokens[$useToken]['scope_closer'];
             } else {
                 $this->processUseStatement($phpcsFile, $useToken);
-                $end = $phpcsFile->findNext(T_SEMICOLON, $useToken + 1);
+                $end = $phpcsFile->findNext(\T_SEMICOLON, $useToken + 1);
                 if ($end === \false) {
                     // Syntax error.
                     return;
@@ -335,7 +335,7 @@ class UseDeclarationSniff implements Sniff
         }
         //end if
         for ($i = $stackPtr + 1; $i < $opener; $i++) {
-            if ($tokens[$i]['code'] !== T_COMMA) {
+            if ($tokens[$i]['code'] !== \T_COMMA) {
                 continue;
             }
             if ($tokens[$i - 1]['code'] === \T_WHITESPACE) {
@@ -535,7 +535,7 @@ class UseDeclarationSniff implements Sniff
                 //end if
             }
             //end if
-            if ($tokens[$i]['code'] === T_SEMICOLON) {
+            if ($tokens[$i]['code'] === \T_SEMICOLON) {
                 if ($tokens[$i - 1]['code'] === \T_WHITESPACE) {
                     $error = 'Expected no space before semicolon in trait import statement; %s found';
                     $data = [$tokens[$i - 1]['length']];
@@ -635,8 +635,8 @@ class UseDeclarationSniff implements Sniff
             }
         }
         //end if
-        $next = $phpcsFile->findNext([T_COMMA, T_SEMICOLON], $stackPtr + 1);
-        if ($next !== \false && $tokens[$next]['code'] === T_COMMA) {
+        $next = $phpcsFile->findNext([\T_COMMA, \T_SEMICOLON], $stackPtr + 1);
+        if ($next !== \false && $tokens[$next]['code'] === \T_COMMA) {
             $error = 'Each imported trait must have its own "use" import statement';
             $fix = $phpcsFile->addFixableError($error, $next, 'MultipleImport');
             if ($fix === \true) {

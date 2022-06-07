@@ -42,8 +42,8 @@ class FunctionCallSignatureSniff extends PEARFunctionCallSignatureSniff
             return \true;
         }
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
-        $end = $phpcsFile->findEndOfStatement($openBracket + 1, [T_COLON]);
-        while ($tokens[$end]['code'] === T_COMMA) {
+        $end = $phpcsFile->findEndOfStatement($openBracket + 1, [\T_COLON]);
+        while ($tokens[$end]['code'] === \T_COMMA) {
             // If the next bit of code is not on the same line, this is a
             // multi-line function call.
             $next = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, $closeBracket, \true);
@@ -53,7 +53,7 @@ class FunctionCallSignatureSniff extends PEARFunctionCallSignatureSniff
             if ($tokens[$next]['line'] !== $tokens[$end]['line']) {
                 return \true;
             }
-            $end = $phpcsFile->findEndOfStatement($next, [T_COLON]);
+            $end = $phpcsFile->findEndOfStatement($next, [\T_COLON]);
         }
         // We've reached the last argument, so see if the next content
         // (should be the close bracket) is also on the same line.

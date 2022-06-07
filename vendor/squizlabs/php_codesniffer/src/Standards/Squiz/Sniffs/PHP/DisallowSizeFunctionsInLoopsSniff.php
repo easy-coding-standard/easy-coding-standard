@@ -52,8 +52,8 @@ class DisallowSizeFunctionsInLoopsSniff implements Sniff
         $closeBracket = $tokens[$stackPtr]['parenthesis_closer'];
         if ($tokens[$stackPtr]['code'] === \T_FOR) {
             // We only want to check the condition in FOR loops.
-            $start = $phpcsFile->findNext(T_SEMICOLON, $openBracket + 1);
-            $end = $phpcsFile->findPrevious(T_SEMICOLON, $closeBracket - 1);
+            $start = $phpcsFile->findNext(\T_SEMICOLON, $openBracket + 1);
+            $end = $phpcsFile->findPrevious(\T_SEMICOLON, $closeBracket - 1);
         } else {
             $start = $openBracket;
             $end = $closeBracket;

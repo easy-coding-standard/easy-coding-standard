@@ -26,7 +26,7 @@ class AssignThisSniff implements Sniff
      */
     public function register()
     {
-        return [T_THIS];
+        return [\T_THIS];
     }
     //end register()
     /**
@@ -44,14 +44,14 @@ class AssignThisSniff implements Sniff
         // Ignore this.something and other uses of "this" that are not
         // direct assignments.
         $next = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
-        if ($tokens[$next]['code'] !== T_SEMICOLON) {
+        if ($tokens[$next]['code'] !== \T_SEMICOLON) {
             if ($tokens[$next]['line'] === $tokens[$stackPtr]['line']) {
                 return;
             }
         }
         // Something must be assigned to "this".
         $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
-        if ($tokens[$prev]['code'] !== T_EQUAL) {
+        if ($tokens[$prev]['code'] !== \T_EQUAL) {
             return;
         }
         // A variable needs to be assigned to "this".

@@ -39,7 +39,7 @@ class ValidVariableNameSniff extends AbstractVariableSniff
             if ($tokens[$var]['code'] === \T_STRING) {
                 // Either a var name or a function call, so check for bracket.
                 $bracket = $phpcsFile->findNext([\T_WHITESPACE], $var + 1, null, \true);
-                if ($tokens[$bracket]['code'] !== T_OPEN_PARENTHESIS) {
+                if ($tokens[$bracket]['code'] !== \T_OPEN_PARENTHESIS) {
                     $objVarName = $tokens[$var]['content'];
                     // There is no way for us to know if the var is public or private,
                     // so we have to ignore a leading underscore if there is one and just

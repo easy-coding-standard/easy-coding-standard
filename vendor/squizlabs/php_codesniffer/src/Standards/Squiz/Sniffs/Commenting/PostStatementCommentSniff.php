@@ -58,13 +58,13 @@ class PostStatementCommentSniff implements Sniff
         if ($lastContent === \false || $tokens[$lastContent]['line'] !== $commentLine || $tokens[$stackPtr]['column'] === 1) {
             return;
         }
-        if ($tokens[$lastContent]['code'] === T_CLOSE_CURLY_BRACKET) {
+        if ($tokens[$lastContent]['code'] === \T_CLOSE_CURLY_BRACKET) {
             return;
         }
         // Special case for JS files and PHP closures.
-        if ($tokens[$lastContent]['code'] === T_COMMA || $tokens[$lastContent]['code'] === T_SEMICOLON) {
+        if ($tokens[$lastContent]['code'] === \T_COMMA || $tokens[$lastContent]['code'] === \T_SEMICOLON) {
             $lastContent = $phpcsFile->findPrevious(\T_WHITESPACE, $lastContent - 1, null, \true);
-            if ($lastContent === \false || $tokens[$lastContent]['code'] === T_CLOSE_CURLY_BRACKET) {
+            if ($lastContent === \false || $tokens[$lastContent]['code'] === \T_CLOSE_CURLY_BRACKET) {
                 return;
             }
         }

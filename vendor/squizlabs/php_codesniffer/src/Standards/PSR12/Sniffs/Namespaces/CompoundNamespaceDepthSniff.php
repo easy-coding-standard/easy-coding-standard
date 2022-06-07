@@ -26,7 +26,7 @@ class CompoundNamespaceDepthSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_USE_GROUP];
+        return [\T_OPEN_USE_GROUP];
     }
     //end register()
     /**
@@ -42,7 +42,7 @@ class CompoundNamespaceDepthSniff implements Sniff
     {
         $this->maxDepth = (int) $this->maxDepth;
         $tokens = $phpcsFile->getTokens();
-        $end = $phpcsFile->findNext(T_CLOSE_USE_GROUP, $stackPtr + 1);
+        $end = $phpcsFile->findNext(\T_CLOSE_USE_GROUP, $stackPtr + 1);
         if ($end === \false) {
             return;
         }
@@ -52,7 +52,7 @@ class CompoundNamespaceDepthSniff implements Sniff
                 $depth++;
                 continue;
             }
-            if ($i === $end || $tokens[$i]['code'] === T_COMMA) {
+            if ($i === $end || $tokens[$i]['code'] === \T_COMMA) {
                 // End of a namespace.
                 if ($depth > $this->maxDepth) {
                     $error = 'Compound namespaces cannot have a depth more than %s';

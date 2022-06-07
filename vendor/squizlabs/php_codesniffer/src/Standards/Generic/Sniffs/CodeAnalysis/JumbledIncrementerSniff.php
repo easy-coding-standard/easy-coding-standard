@@ -103,7 +103,7 @@ class JumbledIncrementerSniff implements Sniff
         $semicolons = 0;
         for ($next = $start; $next <= $end; ++$next) {
             $code = $tokens[$next]['code'];
-            if ($code === T_SEMICOLON) {
+            if ($code === \T_SEMICOLON) {
                 ++$semicolons;
             } else {
                 if ($semicolons === 2 && $code === \T_VARIABLE) {

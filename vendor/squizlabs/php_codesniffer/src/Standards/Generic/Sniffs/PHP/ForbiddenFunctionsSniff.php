@@ -118,7 +118,7 @@ class ForbiddenFunctionsSniff implements Sniff
             // Not a call to a PHP function.
             return;
         }
-        if ($tokens[$stackPtr]['code'] === \T_STRING && $tokens[$nextToken]['code'] !== T_OPEN_PARENTHESIS) {
+        if ($tokens[$stackPtr]['code'] === \T_STRING && $tokens[$nextToken]['code'] !== \T_OPEN_PARENTHESIS) {
             // Not a call to a PHP function.
             return;
         }

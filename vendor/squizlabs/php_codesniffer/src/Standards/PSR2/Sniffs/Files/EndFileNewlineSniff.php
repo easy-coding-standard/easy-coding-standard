@@ -56,8 +56,8 @@ class EndFileNewlineSniff implements Sniff
         }
         // Go looking for the last non-empty line.
         $lastLine = $tokens[$lastToken]['line'];
-        if ($tokens[$lastToken]['code'] === \T_WHITESPACE || $tokens[$lastToken]['code'] === T_DOC_COMMENT_WHITESPACE) {
-            $lastCode = $phpcsFile->findPrevious([\T_WHITESPACE, T_DOC_COMMENT_WHITESPACE], $lastToken - 1, null, \true);
+        if ($tokens[$lastToken]['code'] === \T_WHITESPACE || $tokens[$lastToken]['code'] === \T_DOC_COMMENT_WHITESPACE) {
+            $lastCode = $phpcsFile->findPrevious([\T_WHITESPACE, \T_DOC_COMMENT_WHITESPACE], $lastToken - 1, null, \true);
         } else {
             $lastCode = $lastToken;
         }

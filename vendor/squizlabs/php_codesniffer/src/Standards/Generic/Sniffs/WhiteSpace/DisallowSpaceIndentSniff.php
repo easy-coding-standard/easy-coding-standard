@@ -58,7 +58,7 @@ class DisallowSpaceIndentSniff implements Sniff
                 $tabsReplaced = \true;
             }
         }
-        $checkTokens = [\T_WHITESPACE => \true, \T_INLINE_HTML => \true, T_DOC_COMMENT_WHITESPACE => \true, \T_COMMENT => \true];
+        $checkTokens = [\T_WHITESPACE => \true, \T_INLINE_HTML => \true, \T_DOC_COMMENT_WHITESPACE => \true, \T_COMMENT => \true];
         $eolLen = \strlen($phpcsFile->eolChar);
         $tokens = $phpcsFile->getTokens();
         for ($i = 0; $i < $phpcsFile->numTokens; $i++) {
@@ -117,7 +117,7 @@ class DisallowSpaceIndentSniff implements Sniff
                 }
                 continue;
             }
-            if (($tokens[$i]['code'] === T_DOC_COMMENT_WHITESPACE || $tokens[$i]['code'] === \T_COMMENT) && $content === ' ') {
+            if (($tokens[$i]['code'] === \T_DOC_COMMENT_WHITESPACE || $tokens[$i]['code'] === \T_COMMENT) && $content === ' ') {
                 // Ignore all non-indented comments, especially for recording metrics.
                 continue;
             }

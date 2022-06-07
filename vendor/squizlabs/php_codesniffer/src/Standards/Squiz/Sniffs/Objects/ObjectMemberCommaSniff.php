@@ -27,7 +27,7 @@ class ObjectMemberCommaSniff implements Sniff
      */
     public function register()
     {
-        return [T_CLOSE_OBJECT];
+        return [\T_CLOSE_OBJECT];
     }
     //end register()
     /**
@@ -43,7 +43,7 @@ class ObjectMemberCommaSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
-        if ($tokens[$prev]['code'] === T_COMMA) {
+        if ($tokens[$prev]['code'] === \T_COMMA) {
             $error = 'Last member of object must not be followed by a comma';
             $fix = $phpcsFile->addFixableError($error, $prev, 'Found');
             if ($fix === \true) {

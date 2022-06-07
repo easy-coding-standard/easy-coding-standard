@@ -36,7 +36,7 @@ class BrowserSpecificStylesSniff implements Sniff
      */
     public function register()
     {
-        return [T_STYLE];
+        return [\T_STYLE];
     }
     //end register()
     /**

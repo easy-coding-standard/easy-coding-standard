@@ -73,7 +73,7 @@ class GetRequestDataSniff implements Sniff
         $globalName = \strtolower(\substr($varName, 2));
         $usedVar = '';
         $openBracket = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
-        if ($tokens[$openBracket]['code'] === T_OPEN_SQUARE_BRACKET) {
+        if ($tokens[$openBracket]['code'] === \T_OPEN_SQUARE_BRACKET) {
             $closeBracket = $tokens[$openBracket]['bracket_closer'];
             $usedVar = $phpcsFile->getTokensAsString($openBracket + 1, $closeBracket - $openBracket - 1);
         }

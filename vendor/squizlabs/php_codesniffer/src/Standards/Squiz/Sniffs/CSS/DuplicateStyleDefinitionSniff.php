@@ -26,7 +26,7 @@ class DuplicateStyleDefinitionSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_CURLY_BRACKET];
+        return [\T_OPEN_CURLY_BRACKET];
     }
     //end register()
     /**
@@ -50,12 +50,12 @@ class DuplicateStyleDefinitionSniff implements Sniff
         $next = $stackPtr;
         $end = $tokens[$stackPtr]['bracket_closer'];
         do {
-            $next = $phpcsFile->findNext([T_STYLE, T_OPEN_CURLY_BRACKET], $next + 1, $end);
+            $next = $phpcsFile->findNext([\T_STYLE, \T_OPEN_CURLY_BRACKET], $next + 1, $end);
             if ($next === \false) {
                 // Class definition is empty.
                 break;
             }
-            if ($tokens[$next]['code'] === T_OPEN_CURLY_BRACKET) {
+            if ($tokens[$next]['code'] === \T_OPEN_CURLY_BRACKET) {
                 $next = $tokens[$next]['bracket_closer'];
                 continue;
             }

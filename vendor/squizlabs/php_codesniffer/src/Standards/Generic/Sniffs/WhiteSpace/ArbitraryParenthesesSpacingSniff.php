@@ -45,16 +45,16 @@ class ArbitraryParenthesesSpacingSniff implements Sniff
     {
         $this->ignoreTokens = Tokens::$functionNameTokens;
         $this->ignoreTokens[\T_VARIABLE] = \T_VARIABLE;
-        $this->ignoreTokens[T_CLOSE_PARENTHESIS] = T_CLOSE_PARENTHESIS;
-        $this->ignoreTokens[T_CLOSE_CURLY_BRACKET] = T_CLOSE_CURLY_BRACKET;
-        $this->ignoreTokens[T_CLOSE_SQUARE_BRACKET] = T_CLOSE_SQUARE_BRACKET;
-        $this->ignoreTokens[T_CLOSE_SHORT_ARRAY] = T_CLOSE_SHORT_ARRAY;
+        $this->ignoreTokens[\T_CLOSE_PARENTHESIS] = \T_CLOSE_PARENTHESIS;
+        $this->ignoreTokens[\T_CLOSE_CURLY_BRACKET] = \T_CLOSE_CURLY_BRACKET;
+        $this->ignoreTokens[\T_CLOSE_SQUARE_BRACKET] = \T_CLOSE_SQUARE_BRACKET;
+        $this->ignoreTokens[\T_CLOSE_SHORT_ARRAY] = \T_CLOSE_SHORT_ARRAY;
         $this->ignoreTokens[\T_USE] = \T_USE;
         $this->ignoreTokens[\T_THROW] = \T_THROW;
         $this->ignoreTokens[\T_YIELD] = \T_YIELD;
         $this->ignoreTokens[\T_YIELD_FROM] = \T_YIELD_FROM;
         $this->ignoreTokens[\T_CLONE] = \T_CLONE;
-        return [T_OPEN_PARENTHESIS, T_CLOSE_PARENTHESIS];
+        return [\T_OPEN_PARENTHESIS, \T_CLOSE_PARENTHESIS];
     }
     //end register()
     /**
@@ -75,7 +75,7 @@ class ArbitraryParenthesesSpacingSniff implements Sniff
         }
         // More checking for the type of parenthesis we *don't* want to handle.
         $opener = $stackPtr;
-        if ($tokens[$stackPtr]['code'] === T_CLOSE_PARENTHESIS) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSE_PARENTHESIS) {
             if (isset($tokens[$stackPtr]['parenthesis_opener']) === \false) {
                 // Parse error.
                 return;
@@ -88,7 +88,7 @@ class ArbitraryParenthesesSpacingSniff implements Sniff
             return;
         }
         // Check for empty parentheses.
-        if ($tokens[$stackPtr]['code'] === T_OPEN_PARENTHESIS && isset($tokens[$stackPtr]['parenthesis_closer']) === \true) {
+        if ($tokens[$stackPtr]['code'] === \T_OPEN_PARENTHESIS && isset($tokens[$stackPtr]['parenthesis_closer']) === \true) {
             $nextNonEmpty = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
             if ($nextNonEmpty === $tokens[$stackPtr]['parenthesis_closer']) {
                 $phpcsFile->addWarning('Empty set of arbitrary parentheses found.', $stackPtr, 'FoundEmpty');
@@ -97,7 +97,7 @@ class ArbitraryParenthesesSpacingSniff implements Sniff
         }
         // Check the spacing on the inside of the parentheses.
         $this->spacing = (int) $this->spacing;
-        if ($tokens[$stackPtr]['code'] === T_OPEN_PARENTHESIS && isset($tokens[$stackPtr + 1], $tokens[$stackPtr + 2]) === \true) {
+        if ($tokens[$stackPtr]['code'] === \T_OPEN_PARENTHESIS && isset($tokens[$stackPtr + 1], $tokens[$stackPtr + 2]) === \true) {
             $nextToken = $tokens[$stackPtr + 1];
             if ($nextToken['code'] !== \T_WHITESPACE) {
                 $inside = 0;
@@ -142,7 +142,7 @@ class ArbitraryParenthesesSpacingSniff implements Sniff
             //end if
         }
         //end if
-        if ($tokens[$stackPtr]['code'] === T_CLOSE_PARENTHESIS && isset($tokens[$stackPtr - 1], $tokens[$stackPtr - 2]) === \true) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSE_PARENTHESIS && isset($tokens[$stackPtr - 1], $tokens[$stackPtr - 2]) === \true) {
             $prevToken = $tokens[$stackPtr - 1];
             if ($prevToken['code'] !== \T_WHITESPACE) {
                 $inside = 0;

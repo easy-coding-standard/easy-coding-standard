@@ -35,7 +35,7 @@ class FunctionDeclarationSniff implements Sniff
      */
     public function register()
     {
-        return [\T_FUNCTION, T_CLOSURE];
+        return [\T_FUNCTION, \T_CLOSURE];
     }
     //end register()
     /**
@@ -105,7 +105,7 @@ class FunctionDeclarationSniff implements Sniff
             }
             // Must be no space before semicolon in abstract/interface methods.
             if ($phpcsFile->getMethodProperties($stackPtr)['has_body'] === \false) {
-                $end = $phpcsFile->findNext(T_SEMICOLON, $closeBracket);
+                $end = $phpcsFile->findNext(\T_SEMICOLON, $closeBracket);
                 if ($tokens[$end - 1]['content'] === $phpcsFile->eolChar) {
                     $spaces = 'newline';
                 } else {
@@ -127,7 +127,7 @@ class FunctionDeclarationSniff implements Sniff
         }
         //end if
         // Must be one space before and after USE keyword for closures.
-        if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSURE) {
             $use = $phpcsFile->findNext(\T_USE, $closeBracket + 1, $tokens[$stackPtr]['scope_opener']);
             if ($use !== \false) {
                 if ($tokens[$use + 1]['code'] !== \T_WHITESPACE) {
@@ -203,12 +203,12 @@ class FunctionDeclarationSniff implements Sniff
             return \true;
         }
         // Closures may use the USE keyword and so be multi-line in this way.
-        if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSURE) {
             $use = $phpcsFile->findNext(\T_USE, $closeBracket + 1, $tokens[$stackPtr]['scope_opener']);
             if ($use !== \false) {
                 // If the opening and closing parenthesis of the use statement
                 // are also on the same line, this is a single line declaration.
-                $open = $phpcsFile->findNext(T_OPEN_PARENTHESIS, $use + 1);
+                $open = $phpcsFile->findNext(\T_OPEN_PARENTHESIS, $use + 1);
                 $close = $tokens[$open]['parenthesis_closer'];
                 if ($tokens[$open]['line'] !== $tokens[$close]['line']) {
                     return \true;
@@ -233,7 +233,7 @@ class FunctionDeclarationSniff implements Sniff
      */
     public function processSingleLineDeclaration($phpcsFile, $stackPtr, $tokens)
     {
-        if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSURE) {
             $sniff = new OpeningFunctionBraceKernighanRitchieSniff();
         } else {
             $sniff = new OpeningFunctionBraceBsdAllmanSniff();
@@ -257,10 +257,10 @@ class FunctionDeclarationSniff implements Sniff
     {
         $this->processArgumentList($phpcsFile, $stackPtr, $this->indent);
         $closeBracket = $tokens[$stackPtr]['parenthesis_closer'];
-        if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSURE) {
             $use = $phpcsFile->findNext(\T_USE, $closeBracket + 1, $tokens[$stackPtr]['scope_opener']);
             if ($use !== \false) {
-                $open = $phpcsFile->findNext(T_OPEN_PARENTHESIS, $use + 1);
+                $open = $phpcsFile->findNext(\T_OPEN_PARENTHESIS, $use + 1);
                 $closeBracket = $tokens[$open]['parenthesis_closer'];
             }
         }
@@ -364,10 +364,10 @@ class FunctionDeclarationSniff implements Sniff
         // If this is a closure and is using a USE statement, the closing
         // parenthesis we need to look at from now on is the closing parenthesis
         // of the USE statement.
-        if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSURE) {
             $use = $phpcsFile->findNext(\T_USE, $closeBracket + 1, $tokens[$stackPtr]['scope_opener']);
             if ($use !== \false) {
-                $open = $phpcsFile->findNext(T_OPEN_PARENTHESIS, $use + 1);
+                $open = $phpcsFile->findNext(\T_OPEN_PARENTHESIS, $use + 1);
                 $closeBracket = $tokens[$open]['parenthesis_closer'];
                 $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $closeBracket - 1, null, \true);
                 if ($tokens[$closeBracket]['line'] !== $tokens[$tokens[$closeBracket]['parenthesis_opener']]['line'] && $tokens[$prev]['line'] === $tokens[$closeBracket]['line']) {
@@ -407,7 +407,7 @@ class FunctionDeclarationSniff implements Sniff
                     if ($tokens[$i]['code'] === \T_WHITESPACE) {
                         $foundIndent = $tokens[$i]['length'];
                     } else {
-                        if ($tokens[$i]['code'] === T_DOC_COMMENT_WHITESPACE) {
+                        if ($tokens[$i]['code'] === \T_DOC_COMMENT_WHITESPACE) {
                             $foundIndent = $tokens[$i]['length'];
                             ++$expectedIndent;
                         }
@@ -429,9 +429,9 @@ class FunctionDeclarationSniff implements Sniff
                 $lastLine = $tokens[$i]['line'];
             }
             //end if
-            if ($tokens[$i]['code'] === \T_ARRAY || $tokens[$i]['code'] === T_OPEN_SHORT_ARRAY) {
+            if ($tokens[$i]['code'] === \T_ARRAY || $tokens[$i]['code'] === \T_OPEN_SHORT_ARRAY) {
                 // Skip arrays as they have their own indentation rules.
-                if ($tokens[$i]['code'] === T_OPEN_SHORT_ARRAY) {
+                if ($tokens[$i]['code'] === \T_OPEN_SHORT_ARRAY) {
                     $i = $tokens[$i]['bracket_closer'];
                 } else {
                     $i = $tokens[$i]['parenthesis_closer'];

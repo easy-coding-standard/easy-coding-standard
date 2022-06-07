@@ -48,17 +48,17 @@ class ScopeKeywordSpacingSniff implements Sniff
                 // Late static binding, e.g., static:: OR new static() usage or live coding.
                 return;
             }
-            if ($prevToken !== \false && $tokens[$prevToken]['code'] === T_TYPE_UNION) {
+            if ($prevToken !== \false && $tokens[$prevToken]['code'] === \T_TYPE_UNION) {
                 // Not a scope keyword, but a union return type.
                 return;
             }
-            if ($prevToken !== \false && $tokens[$prevToken]['code'] === T_NULLABLE) {
+            if ($prevToken !== \false && $tokens[$prevToken]['code'] === \T_NULLABLE) {
                 // Not a scope keyword, but a return type.
                 return;
             }
-            if ($prevToken !== \false && $tokens[$prevToken]['code'] === T_COLON) {
+            if ($prevToken !== \false && $tokens[$prevToken]['code'] === \T_COLON) {
                 $prevPrevToken = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prevToken - 1, null, \true);
-                if ($prevPrevToken !== \false && $tokens[$prevPrevToken]['code'] === T_CLOSE_PARENTHESIS) {
+                if ($prevPrevToken !== \false && $tokens[$prevPrevToken]['code'] === \T_CLOSE_PARENTHESIS) {
                     // Not a scope keyword, but a return type.
                     return;
                 }
@@ -80,7 +80,7 @@ class ScopeKeywordSpacingSniff implements Sniff
             }
         }
         if ($nextToken !== \false && $tokens[$nextToken]['code'] === \T_VARIABLE && $isInFunctionDeclaration === \false) {
-            $endOfStatement = $phpcsFile->findNext(T_SEMICOLON, $nextToken + 1);
+            $endOfStatement = $phpcsFile->findNext(\T_SEMICOLON, $nextToken + 1);
             if ($endOfStatement === \false) {
                 // Live coding.
                 return;

@@ -43,7 +43,7 @@ class SelfMemberReferenceSniff extends AbstractScopeSniff
         $conditions = $tokens[$stackPtr]['conditions'];
         $conditions = \array_reverse($conditions, \true);
         foreach ($conditions as $conditionToken => $tokenCode) {
-            if ($tokenCode === \T_CLASS || $tokenCode === T_ANON_CLASS || $tokenCode === T_CLOSURE) {
+            if ($tokenCode === \T_CLASS || $tokenCode === \T_ANON_CLASS || $tokenCode === \T_CLOSURE) {
                 break;
             }
         }
@@ -55,7 +55,7 @@ class SelfMemberReferenceSniff extends AbstractScopeSniff
             // Parse error.
             return;
         }
-        if ($tokens[$calledClassName]['code'] === T_SELF) {
+        if ($tokens[$calledClassName]['code'] === \T_SELF) {
             if ($tokens[$calledClassName]['content'] !== 'self') {
                 $error = 'Must use "self::" for local static member reference; found "%s::"';
                 $data = [$tokens[$calledClassName]['content']];
@@ -190,7 +190,7 @@ class SelfMemberReferenceSniff extends AbstractScopeSniff
         $namespace = '\\';
         $namespaceDeclaration = $phpcsFile->findPrevious(\T_NAMESPACE, $stackPtr);
         if ($namespaceDeclaration !== \false) {
-            $endOfNamespaceDeclaration = $phpcsFile->findNext([T_SEMICOLON, T_OPEN_CURLY_BRACKET], $namespaceDeclaration);
+            $endOfNamespaceDeclaration = $phpcsFile->findNext([\T_SEMICOLON, \T_OPEN_CURLY_BRACKET], $namespaceDeclaration);
             $namespace = $this->getDeclarationNameWithNamespace($phpcsFile->getTokens(), $endOfNamespaceDeclaration - 1);
         }
         return $namespace;

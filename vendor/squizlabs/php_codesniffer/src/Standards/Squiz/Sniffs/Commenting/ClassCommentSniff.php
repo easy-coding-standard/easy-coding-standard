@@ -54,13 +54,13 @@ class ClassCommentSniff implements Sniff
             if ($previousContent === null) {
                 $previousContent = $commentEnd;
             }
-            if ($tokens[$commentEnd]['code'] === T_ATTRIBUTE_END && isset($tokens[$commentEnd]['attribute_opener']) === \true) {
+            if ($tokens[$commentEnd]['code'] === \T_ATTRIBUTE_END && isset($tokens[$commentEnd]['attribute_opener']) === \true) {
                 $commentEnd = $tokens[$commentEnd]['attribute_opener'];
                 continue;
             }
             break;
         }
-        if ($tokens[$commentEnd]['code'] !== T_DOC_COMMENT_CLOSE_TAG && $tokens[$commentEnd]['code'] !== \T_COMMENT) {
+        if ($tokens[$commentEnd]['code'] !== \T_DOC_COMMENT_CLOSE_TAG && $tokens[$commentEnd]['code'] !== \T_COMMENT) {
             $class = $phpcsFile->getDeclarationName($stackPtr);
             $phpcsFile->addError('Missing doc comment for class %s', $stackPtr, 'Missing', [$class]);
             $phpcsFile->recordMetric($stackPtr, 'Class has doc comment', 'no');

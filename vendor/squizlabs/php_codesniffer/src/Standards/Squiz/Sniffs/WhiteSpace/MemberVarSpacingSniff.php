@@ -45,7 +45,7 @@ class MemberVarSpacingSniff extends AbstractVariableSniff
         if ($startOfStatement === \false) {
             return;
         }
-        $endOfStatement = $phpcsFile->findNext(T_SEMICOLON, $stackPtr + 1, null, \false, null, \true);
+        $endOfStatement = $phpcsFile->findNext(\T_SEMICOLON, $stackPtr + 1, null, \false, null, \true);
         $ignore = $validPrefixes;
         $ignore[\T_WHITESPACE] = \T_WHITESPACE;
         $start = $startOfStatement;
@@ -53,7 +53,7 @@ class MemberVarSpacingSniff extends AbstractVariableSniff
             if (isset($ignore[$tokens[$prev]['code']]) === \true) {
                 continue;
             }
-            if ($tokens[$prev]['code'] === T_ATTRIBUTE_END && isset($tokens[$prev]['attribute_opener']) === \true) {
+            if ($tokens[$prev]['code'] === \T_ATTRIBUTE_END && isset($tokens[$prev]['attribute_opener']) === \true) {
                 $prev = $tokens[$prev]['attribute_opener'];
                 $start = $prev;
                 continue;
@@ -116,7 +116,7 @@ class MemberVarSpacingSniff extends AbstractVariableSniff
                 $first = $start;
             }
         } else {
-            if ($tokens[$start]['code'] === T_DOC_COMMENT_CLOSE_TAG) {
+            if ($tokens[$start]['code'] === \T_DOC_COMMENT_CLOSE_TAG) {
                 $first = $tokens[$start]['comment_opener'];
             } else {
                 $first = $phpcsFile->findPrevious(Tokens::$emptyTokens, $start - 1, null, \true);
@@ -125,10 +125,10 @@ class MemberVarSpacingSniff extends AbstractVariableSniff
         }
         // Determine if this is the first member var.
         $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $first - 1, null, \true);
-        if ($tokens[$prev]['code'] === T_CLOSE_CURLY_BRACKET && isset($tokens[$prev]['scope_condition']) === \true && $tokens[$tokens[$prev]['scope_condition']]['code'] === \T_FUNCTION) {
+        if ($tokens[$prev]['code'] === \T_CLOSE_CURLY_BRACKET && isset($tokens[$prev]['scope_condition']) === \true && $tokens[$tokens[$prev]['scope_condition']]['code'] === \T_FUNCTION) {
             return;
         }
-        if ($tokens[$prev]['code'] === T_OPEN_CURLY_BRACKET && isset(Tokens::$ooScopeTokens[$tokens[$tokens[$prev]['scope_condition']]['code']]) === \true) {
+        if ($tokens[$prev]['code'] === \T_OPEN_CURLY_BRACKET && isset(Tokens::$ooScopeTokens[$tokens[$tokens[$prev]['scope_condition']]['code']]) === \true) {
             $errorMsg = 'Expected %s blank line(s) before first member var; %s found';
             $errorCode = 'FirstIncorrect';
             $spacing = (int) $this->spacingBeforeFirst;

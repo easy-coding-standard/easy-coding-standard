@@ -60,7 +60,7 @@ class FunctionCommentSniff implements Sniff
             if (isset($ignore[$tokens[$commentEnd]['code']]) === \true) {
                 continue;
             }
-            if ($tokens[$commentEnd]['code'] === T_ATTRIBUTE_END && isset($tokens[$commentEnd]['attribute_opener']) === \true) {
+            if ($tokens[$commentEnd]['code'] === \T_ATTRIBUTE_END && isset($tokens[$commentEnd]['attribute_opener']) === \true) {
                 $commentEnd = $tokens[$commentEnd]['attribute_opener'];
                 continue;
             }
@@ -76,7 +76,7 @@ class FunctionCommentSniff implements Sniff
                 $commentEnd = $prev;
             }
         }
-        if ($tokens[$commentEnd]['code'] !== T_DOC_COMMENT_CLOSE_TAG && $tokens[$commentEnd]['code'] !== \T_COMMENT) {
+        if ($tokens[$commentEnd]['code'] !== \T_DOC_COMMENT_CLOSE_TAG && $tokens[$commentEnd]['code'] !== \T_COMMENT) {
             $function = $phpcsFile->getDeclarationName($stackPtr);
             $phpcsFile->addError('Missing doc comment for function %s()', $stackPtr, 'Missing', [$function]);
             $phpcsFile->recordMetric($stackPtr, 'Function has doc comment', 'no');
@@ -104,7 +104,7 @@ class FunctionCommentSniff implements Sniff
         foreach ($tokens[$commentStart]['comment_tags'] as $tag) {
             if ($tokens[$tag]['content'] === '@see') {
                 // Make sure the tag isn't empty.
-                $string = $phpcsFile->findNext(T_DOC_COMMENT_STRING, $tag, $commentEnd);
+                $string = $phpcsFile->findNext(\T_DOC_COMMENT_STRING, $tag, $commentEnd);
                 if ($string === \false || $tokens[$string]['line'] !== $tokens[$tag]['line']) {
                     $error = 'Content missing for @see tag in function comment';
                     $phpcsFile->addError($error, $tag, 'EmptySees');
@@ -145,7 +145,7 @@ class FunctionCommentSniff implements Sniff
         }
         if ($return !== null) {
             $content = $tokens[$return + 2]['content'];
-            if (empty($content) === \true || $tokens[$return + 2]['code'] !== T_DOC_COMMENT_STRING) {
+            if (empty($content) === \true || $tokens[$return + 2]['code'] !== \T_DOC_COMMENT_STRING) {
                 $error = 'Return type missing for @return tag in function comment';
                 $phpcsFile->addError($error, $return, 'MissingReturnType');
             }
@@ -177,7 +177,7 @@ class FunctionCommentSniff implements Sniff
                 continue;
             }
             $exception = null;
-            if ($tokens[$tag + 2]['code'] === T_DOC_COMMENT_STRING) {
+            if ($tokens[$tag + 2]['code'] === \T_DOC_COMMENT_STRING) {
                 $matches = [];
                 \preg_match('/([^\\s]+)(?:\\s+(.*))?/', $tokens[$tag + 2]['content'], $matches);
                 $exception = $matches[1];
@@ -217,7 +217,7 @@ class FunctionCommentSniff implements Sniff
             $comment = '';
             $commentEnd = 0;
             $commentTokens = [];
-            if ($tokens[$tag + 2]['code'] === T_DOC_COMMENT_STRING) {
+            if ($tokens[$tag + 2]['code'] === \T_DOC_COMMENT_STRING) {
                 $matches = [];
                 \preg_match('/((?:(?![$.]|&(?=\\$)).)*)(?:((?:\\.\\.\\.)?(?:\\$|&)[^\\s]+)(?:(\\s+)(.*))?)?/', $tokens[$tag + 2]['content'], $matches);
                 if (empty($matches) === \false) {
@@ -245,7 +245,7 @@ class FunctionCommentSniff implements Sniff
                             $end = $tokens[$commentStart]['comment_closer'];
                         }
                         for ($i = $tag + 3; $i < $end; $i++) {
-                            if ($tokens[$i]['code'] === T_DOC_COMMENT_STRING) {
+                            if ($tokens[$i]['code'] === \T_DOC_COMMENT_STRING) {
                                 $comment .= ' ' . $tokens[$i]['content'];
                                 $commentEnd = $i;
                                 $commentTokens[] = $i;
@@ -297,7 +297,7 @@ class FunctionCommentSniff implements Sniff
                         $content .= $param['var'];
                         $content .= \str_repeat(' ', $param['var_space']);
                         $wrapLength = $tokens[$commentToken]['length'] - $param['type_space'] - $param['var_space'] - \strlen($param['type']) - \strlen($param['var']);
-                        $star = $phpcsFile->findPrevious(T_DOC_COMMENT_STAR, $param['tag']);
+                        $star = $phpcsFile->findPrevious(\T_DOC_COMMENT_STAR, $param['tag']);
                         $spaceLength = \strlen($content) + $tokens[$commentToken - 1]['length'] + $tokens[$commentToken - 2]['length'];
                         $padding = \str_repeat(' ', $tokens[$star]['column'] - 1);
                         $padding .= '* ';
@@ -351,7 +351,7 @@ class FunctionCommentSniff implements Sniff
                     $content .= $param['var'];
                     $content .= \str_repeat(' ', $spaces);
                     $wrapLength = $tokens[$commentToken]['length'] - $param['type_space'] - $param['var_space'] - \strlen($param['type']) - \strlen($param['var']);
-                    $star = $phpcsFile->findPrevious(T_DOC_COMMENT_STAR, $param['tag']);
+                    $star = $phpcsFile->findPrevious(\T_DOC_COMMENT_STAR, $param['tag']);
                     $spaceLength = \strlen($content) + $tokens[$commentToken - 1]['length'] + $tokens[$commentToken - 2]['length'];
                     $padding = \str_repeat(' ', $tokens[$star]['column'] - 1);
                     $padding .= '* ';
@@ -369,14 +369,14 @@ class FunctionCommentSniff implements Sniff
             if ($param['tag'] !== $param['comment_end']) {
                 $wrapLength = $tokens[$param['tag'] + 2]['length'] - $param['type_space'] - $param['var_space'] - \strlen($param['type']) - \strlen($param['var']);
                 $startColumn = $tokens[$param['tag'] + 2]['column'] + $tokens[$param['tag'] + 2]['length'] - $wrapLength;
-                $star = $phpcsFile->findPrevious(T_DOC_COMMENT_STAR, $param['tag']);
+                $star = $phpcsFile->findPrevious(\T_DOC_COMMENT_STAR, $param['tag']);
                 $expected = $startColumn - $tokens[$star]['column'] - 1;
                 foreach ($param['comment_tokens'] as $commentToken) {
                     if ($tokens[$commentToken]['column'] === $startColumn) {
                         continue;
                     }
                     $found = 0;
-                    if ($tokens[$commentToken - 1]['code'] === T_DOC_COMMENT_WHITESPACE) {
+                    if ($tokens[$commentToken - 1]['code'] === \T_DOC_COMMENT_WHITESPACE) {
                         $found = $tokens[$commentToken - 1]['length'];
                     }
                     $error = 'Parameter comment not aligned correctly; expected %s spaces but found %s';
@@ -389,7 +389,7 @@ class FunctionCommentSniff implements Sniff
                     $fix = $phpcsFile->addFixableError($error, $commentToken, $code, $data);
                     if ($fix === \true) {
                         $padding = \str_repeat(' ', $expected);
-                        if ($tokens[$commentToken - 1]['code'] === T_DOC_COMMENT_WHITESPACE) {
+                        if ($tokens[$commentToken - 1]['code'] === \T_DOC_COMMENT_WHITESPACE) {
                             $phpcsFile->fixer->replaceToken($commentToken - 1, $padding);
                         } else {
                             $phpcsFile->fixer->addContentBefore($commentToken, $padding);

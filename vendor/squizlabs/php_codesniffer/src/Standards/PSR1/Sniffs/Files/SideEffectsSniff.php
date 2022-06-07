@@ -73,9 +73,9 @@ class SideEffectsSniff implements Sniff
         $firstEffect = null;
         for ($i = $start; $i <= $end; $i++) {
             // Respect phpcs:disable comments.
-            if ($checkAnnotations === \true && $tokens[$i]['code'] === T_PHPCS_DISABLE && (empty($tokens[$i]['sniffCodes']) === \true || isset($tokens[$i]['sniffCodes']['PSR1']) === \true || isset($tokens[$i]['sniffCodes']['PSR1.Files']) === \true || isset($tokens[$i]['sniffCodes']['PSR1.Files.SideEffects']) === \true)) {
+            if ($checkAnnotations === \true && $tokens[$i]['code'] === \T_PHPCS_DISABLE && (empty($tokens[$i]['sniffCodes']) === \true || isset($tokens[$i]['sniffCodes']['PSR1']) === \true || isset($tokens[$i]['sniffCodes']['PSR1.Files']) === \true || isset($tokens[$i]['sniffCodes']['PSR1.Files.SideEffects']) === \true)) {
                 do {
-                    $i = $phpcsFile->findNext(T_PHPCS_ENABLE, $i + 1);
+                    $i = $phpcsFile->findNext(\T_PHPCS_ENABLE, $i + 1);
                 } while ($i !== \false && empty($tokens[$i]['sniffCodes']) === \false && isset($tokens[$i]['sniffCodes']['PSR1']) === \false && isset($tokens[$i]['sniffCodes']['PSR1.Files']) === \false && isset($tokens[$i]['sniffCodes']['PSR1.Files.SideEffects']) === \false);
                 if ($i === \false) {
                     // The entire rest of the file is disabled,
@@ -106,12 +106,12 @@ class SideEffectsSniff implements Sniff
                     $i = $tokens[$i]['scope_closer'];
                     if ($tokens[$i]['code'] === \T_ENDDECLARE) {
                         $semicolon = $phpcsFile->findNext(Tokens::$emptyTokens, $i + 1, null, \true);
-                        if ($semicolon !== \false && $tokens[$semicolon]['code'] === T_SEMICOLON) {
+                        if ($semicolon !== \false && $tokens[$semicolon]['code'] === \T_SEMICOLON) {
                             $i = $semicolon;
                         }
                     }
                 } else {
-                    $semicolon = $phpcsFile->findNext(T_SEMICOLON, $i + 1);
+                    $semicolon = $phpcsFile->findNext(\T_SEMICOLON, $i + 1);
                     if ($semicolon !== \false) {
                         $i = $semicolon;
                     }
@@ -123,7 +123,7 @@ class SideEffectsSniff implements Sniff
                 continue;
             }
             // Ignore anon classes.
-            if ($tokens[$i]['code'] === T_ANON_CLASS) {
+            if ($tokens[$i]['code'] === \T_ANON_CLASS) {
                 $i = $tokens[$i]['scope_closer'];
                 continue;
             }
@@ -146,7 +146,7 @@ class SideEffectsSniff implements Sniff
                         if ($firstSymbol === null) {
                             $firstSymbol = $i;
                         }
-                        $semicolon = $phpcsFile->findNext(T_SEMICOLON, $i + 1);
+                        $semicolon = $phpcsFile->findNext(\T_SEMICOLON, $i + 1);
                         if ($semicolon !== \false) {
                             $i = $semicolon;
                         }
@@ -160,7 +160,7 @@ class SideEffectsSniff implements Sniff
             // doesn't need to use a full conditional block.
             if ($tokens[$i]['code'] === \T_STRING && \strtolower($tokens[$i]['content']) === 'defined') {
                 $openBracket = $phpcsFile->findNext(Tokens::$emptyTokens, $i + 1, null, \true);
-                if ($openBracket !== \false && $tokens[$openBracket]['code'] === T_OPEN_PARENTHESIS && isset($tokens[$openBracket]['parenthesis_closer']) === \true) {
+                if ($openBracket !== \false && $tokens[$openBracket]['code'] === \T_OPEN_PARENTHESIS && isset($tokens[$openBracket]['parenthesis_closer']) === \true) {
                     $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $i - 1, null, \true);
                     if ($tokens[$prev]['code'] !== \T_OBJECT_OPERATOR && $tokens[$prev]['code'] !== \T_NULLSAFE_OBJECT_OPERATOR && $tokens[$prev]['code'] !== \T_DOUBLE_COLON && $tokens[$prev]['code'] !== \T_FUNCTION) {
                         $i = $tokens[$openBracket]['parenthesis_closer'];

@@ -42,7 +42,7 @@ class UnnecessaryStringConcatSniff implements Sniff
      */
     public function register()
     {
-        return [T_STRING_CONCAT, T_PLUS];
+        return [\T_STRING_CONCAT, \T_PLUS];
     }
     //end register()
     /**
@@ -58,7 +58,7 @@ class UnnecessaryStringConcatSniff implements Sniff
     {
         // Work out which type of file this is for.
         $tokens = $phpcsFile->getTokens();
-        if ($tokens[$stackPtr]['code'] === T_STRING_CONCAT) {
+        if ($tokens[$stackPtr]['code'] === \T_STRING_CONCAT) {
             if ($phpcsFile->tokenizerType === 'JS') {
                 return;
             }

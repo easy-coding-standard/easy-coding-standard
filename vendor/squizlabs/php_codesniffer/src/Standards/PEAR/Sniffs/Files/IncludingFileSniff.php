@@ -39,7 +39,7 @@ class IncludingFileSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $nextToken = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
-        if ($tokens[$nextToken]['code'] === T_OPEN_PARENTHESIS) {
+        if ($tokens[$nextToken]['code'] === \T_OPEN_PARENTHESIS) {
             $error = '"%s" is a statement not a function; no parentheses are required';
             $data = [$tokens[$stackPtr]['content']];
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'BracketsNotRequired', $data);

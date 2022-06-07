@@ -33,7 +33,7 @@ class OpeningFunctionBraceBsdAllmanSniff implements Sniff
      */
     public function register()
     {
-        return [\T_FUNCTION, T_CLOSURE];
+        return [\T_FUNCTION, \T_CLOSURE];
     }
     //end register()
     /**
@@ -51,15 +51,15 @@ class OpeningFunctionBraceBsdAllmanSniff implements Sniff
         if (isset($tokens[$stackPtr]['scope_opener']) === \false) {
             return;
         }
-        if ($tokens[$stackPtr]['code'] === \T_FUNCTION && (bool) $this->checkFunctions === \false || $tokens[$stackPtr]['code'] === T_CLOSURE && (bool) $this->checkClosures === \false) {
+        if ($tokens[$stackPtr]['code'] === \T_FUNCTION && (bool) $this->checkFunctions === \false || $tokens[$stackPtr]['code'] === \T_CLOSURE && (bool) $this->checkClosures === \false) {
             return;
         }
         $openingBrace = $tokens[$stackPtr]['scope_opener'];
         $closeBracket = $tokens[$stackPtr]['parenthesis_closer'];
-        if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSURE) {
             $use = $phpcsFile->findNext(\T_USE, $closeBracket + 1, $tokens[$stackPtr]['scope_opener']);
             if ($use !== \false) {
-                $openBracket = $phpcsFile->findNext(T_OPEN_PARENTHESIS, $use + 1);
+                $openBracket = $phpcsFile->findNext(\T_OPEN_PARENTHESIS, $use + 1);
                 $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
             }
         }
@@ -69,7 +69,7 @@ class OpeningFunctionBraceBsdAllmanSniff implements Sniff
         $braceLine = $tokens[$openingBrace]['line'];
         $lineDifference = $braceLine - $functionLine;
         $metricType = 'Function';
-        if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSURE) {
             $metricType = 'Closure';
         }
         if ($lineDifference === 0) {

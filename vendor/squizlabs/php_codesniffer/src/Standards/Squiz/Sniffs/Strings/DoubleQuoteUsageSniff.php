@@ -20,7 +20,7 @@ class DoubleQuoteUsageSniff implements Sniff
      */
     public function register()
     {
-        return [\T_CONSTANT_ENCAPSED_STRING, T_DOUBLE_QUOTED_STRING];
+        return [\T_CONSTANT_ENCAPSED_STRING, \T_DOUBLE_QUOTED_STRING];
     }
     //end register()
     /**
@@ -61,7 +61,7 @@ class DoubleQuoteUsageSniff implements Sniff
             return $skipTo;
         }
         // The use of variables in double quoted strings is not allowed.
-        if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING) {
+        if ($tokens[$stackPtr]['code'] === \T_DOUBLE_QUOTED_STRING) {
             $stringTokens = \token_get_all('<?php ' . $workingString);
             foreach ($stringTokens as $token) {
                 if (\is_array($token) === \true && $token[0] === \T_VARIABLE) {

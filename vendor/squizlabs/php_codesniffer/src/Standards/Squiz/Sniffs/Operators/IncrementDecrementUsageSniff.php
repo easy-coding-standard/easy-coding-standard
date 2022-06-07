@@ -21,7 +21,7 @@ class IncrementDecrementUsageSniff implements Sniff
      */
     public function register()
     {
-        return [T_EQUAL, \T_PLUS_EQUAL, \T_MINUS_EQUAL, \T_INC, \T_DEC];
+        return [\T_EQUAL, \T_PLUS_EQUAL, \T_MINUS_EQUAL, \T_INC, \T_DEC];
     }
     //end register()
     /**
@@ -76,7 +76,7 @@ class IncrementDecrementUsageSniff implements Sniff
             return;
         }
         // Check if this is in a string concat.
-        if ($tokens[$next]['code'] === T_STRING_CONCAT || $tokens[$prev]['code'] === T_STRING_CONCAT) {
+        if ($tokens[$next]['code'] === \T_STRING_CONCAT || $tokens[$prev]['code'] === \T_STRING_CONCAT) {
             $error = 'Increment and decrement operators must be bracketed when used in string concatenation';
             $phpcsFile->addError($error, $stackPtr, 'NoBrackets');
         }
@@ -99,21 +99,21 @@ class IncrementDecrementUsageSniff implements Sniff
         if ($tokens[$assignedVar]['code'] !== \T_VARIABLE) {
             return;
         }
-        $statementEnd = $phpcsFile->findNext([T_SEMICOLON, T_CLOSE_PARENTHESIS, T_CLOSE_SQUARE_BRACKET, T_CLOSE_CURLY_BRACKET], $stackPtr);
+        $statementEnd = $phpcsFile->findNext([\T_SEMICOLON, \T_CLOSE_PARENTHESIS, \T_CLOSE_SQUARE_BRACKET, \T_CLOSE_CURLY_BRACKET], $stackPtr);
         // If there is anything other than variables, numbers, spaces or operators we need to return.
-        $noiseTokens = $phpcsFile->findNext([\T_LNUMBER, \T_VARIABLE, \T_WHITESPACE, T_PLUS, T_MINUS, T_OPEN_PARENTHESIS], $stackPtr + 1, $statementEnd, \true);
+        $noiseTokens = $phpcsFile->findNext([\T_LNUMBER, \T_VARIABLE, \T_WHITESPACE, \T_PLUS, \T_MINUS, \T_OPEN_PARENTHESIS], $stackPtr + 1, $statementEnd, \true);
         if ($noiseTokens !== \false) {
             return;
         }
         // If we are already using += or -=, we need to ignore
         // the statement if a variable is being used.
-        if ($tokens[$stackPtr]['code'] !== T_EQUAL) {
+        if ($tokens[$stackPtr]['code'] !== \T_EQUAL) {
             $nextVar = $phpcsFile->findNext(\T_VARIABLE, $stackPtr + 1, $statementEnd);
             if ($nextVar !== \false) {
                 return;
             }
         }
-        if ($tokens[$stackPtr]['code'] === T_EQUAL) {
+        if ($tokens[$stackPtr]['code'] === \T_EQUAL) {
             $nextVar = $stackPtr + 1;
             $previousVariable = $stackPtr + 1;
             $variableCount = 0;
@@ -143,8 +143,8 @@ class IncrementDecrementUsageSniff implements Sniff
         }
         $nextNumber = $previousNumber;
         if ($tokens[$nextNumber]['content'] === '1') {
-            if ($tokens[$stackPtr]['code'] === T_EQUAL) {
-                $opToken = $phpcsFile->findNext([T_PLUS, T_MINUS], $nextVar + 1, $statementEnd);
+            if ($tokens[$stackPtr]['code'] === \T_EQUAL) {
+                $opToken = $phpcsFile->findNext([\T_PLUS, \T_MINUS], $nextVar + 1, $statementEnd);
                 if ($opToken === \false) {
                     // Operator was before the variable, like:
                     // $var = 1 + $var;
@@ -157,8 +157,8 @@ class IncrementDecrementUsageSniff implements Sniff
             }
             // If we are adding or subtracting negative value, the operator
             // needs to be reversed.
-            if ($tokens[$stackPtr]['code'] !== T_EQUAL) {
-                $negative = $phpcsFile->findPrevious(T_MINUS, $nextNumber - 1, $stackPtr);
+            if ($tokens[$stackPtr]['code'] !== \T_EQUAL) {
+                $negative = $phpcsFile->findPrevious(\T_MINUS, $nextNumber - 1, $stackPtr);
                 if ($negative !== \false) {
                     if ($operator === '+') {
                         $operator = '-';

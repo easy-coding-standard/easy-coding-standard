@@ -32,7 +32,7 @@ class FunctionCommentSniff extends SquizFunctionCommentSniff
         $find = Tokens::$methodPrefixes;
         $find[] = \T_WHITESPACE;
         $commentEnd = $phpcsFile->findPrevious($find, $stackPtr - 1, null, \true);
-        if ($tokens[$commentEnd]['code'] !== T_DOC_COMMENT_CLOSE_TAG) {
+        if ($tokens[$commentEnd]['code'] !== \T_DOC_COMMENT_CLOSE_TAG) {
             return;
         }
         $commentStart = $tokens[$commentEnd]['comment_opener'];
@@ -47,7 +47,7 @@ class FunctionCommentSniff extends SquizFunctionCommentSniff
                 }
                 $hasApiTag = \true;
                 // There needs to be a blank line before the @api tag.
-                $prev = $phpcsFile->findPrevious([T_DOC_COMMENT_STRING, T_DOC_COMMENT_TAG], $tag - 1);
+                $prev = $phpcsFile->findPrevious([\T_DOC_COMMENT_STRING, \T_DOC_COMMENT_TAG], $tag - 1);
                 if ($tokens[$prev]['line'] !== $tokens[$tag]['line'] - 2) {
                     $error = 'There must be one blank line before the @api tag in a function comment';
                     $phpcsFile->addError($error, $tag, 'ApiSpacing');
@@ -55,7 +55,7 @@ class FunctionCommentSniff extends SquizFunctionCommentSniff
             } else {
                 if (\substr($tokens[$tag]['content'], 0, 5) === '@api-') {
                     $hasApiTag = \true;
-                    $prev = $phpcsFile->findPrevious([T_DOC_COMMENT_STRING, T_DOC_COMMENT_TAG], $tag - 1);
+                    $prev = $phpcsFile->findPrevious([\T_DOC_COMMENT_STRING, \T_DOC_COMMENT_TAG], $tag - 1);
                     if ($tokens[$prev]['line'] !== $tokens[$tag]['line'] - 1) {
                         $error = 'There must be no blank line before the @%s tag in a function comment';
                         $data = [$tokens[$tag]['content']];

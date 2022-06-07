@@ -26,7 +26,7 @@ class PropertyLabelSpacingSniff implements Sniff
      */
     public function register()
     {
-        return [T_PROPERTY, T_LABEL];
+        return [\T_PROPERTY, \T_LABEL];
     }
     //end register()
     /**
@@ -41,7 +41,7 @@ class PropertyLabelSpacingSniff implements Sniff
     public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $colon = $phpcsFile->findNext(T_COLON, $stackPtr + 1);
+        $colon = $phpcsFile->findNext(\T_COLON, $stackPtr + 1);
         if ($colon !== $stackPtr + 1) {
             $error = 'There must be no space before the colon in a property/label declaration';
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'Before');

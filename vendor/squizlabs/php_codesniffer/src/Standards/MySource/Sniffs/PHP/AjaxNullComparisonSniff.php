@@ -39,8 +39,8 @@ class AjaxNullComparisonSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         // Make sure it is an API function. We know this by the doc comment.
-        $commentEnd = $phpcsFile->findPrevious(T_DOC_COMMENT_CLOSE_TAG, $stackPtr);
-        $commentStart = $phpcsFile->findPrevious(T_DOC_COMMENT_OPEN_TAG, $commentEnd - 1);
+        $commentEnd = $phpcsFile->findPrevious(\T_DOC_COMMENT_CLOSE_TAG, $stackPtr);
+        $commentStart = $phpcsFile->findPrevious(\T_DOC_COMMENT_OPEN_TAG, $commentEnd - 1);
         // If function doesn't contain any doc comments - skip it.
         if ($commentEnd === \false || $commentStart === \false) {
             return;
@@ -73,7 +73,7 @@ class AjaxNullComparisonSniff implements Sniff
                 continue;
             }
             $nullValue = $phpcsFile->findNext(\T_WHITESPACE, $operator + 1, null, \true);
-            if ($tokens[$nullValue]['code'] !== T_NULL) {
+            if ($tokens[$nullValue]['code'] !== \T_NULL) {
                 continue;
             }
             $error = 'Values submitted via Ajax requests should not be compared directly to NULL; use empty() instead';

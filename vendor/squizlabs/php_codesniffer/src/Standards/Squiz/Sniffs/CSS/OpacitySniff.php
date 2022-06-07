@@ -27,7 +27,7 @@ class OpacitySniff implements Sniff
      */
     public function register()
     {
-        return [T_STYLE];
+        return [\T_STYLE];
     }
     //end register()
     /**
@@ -46,7 +46,7 @@ class OpacitySniff implements Sniff
             return;
         }
         $ignore = Tokens::$emptyTokens;
-        $ignore[] = T_COLON;
+        $ignore[] = \T_COLON;
         $next = $phpcsFile->findNext($ignore, $stackPtr + 1, null, \true);
         if ($next === \false || $tokens[$next]['code'] !== \T_DNUMBER && $tokens[$next]['code'] !== \T_LNUMBER) {
             return;

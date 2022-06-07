@@ -40,13 +40,13 @@ class InnerFunctionsSniff implements Sniff
             // Not a nested function.
             return;
         }
-        $class = $phpcsFile->getCondition($stackPtr, T_ANON_CLASS, \false);
+        $class = $phpcsFile->getCondition($stackPtr, \T_ANON_CLASS, \false);
         if ($class !== \false && $class > $function) {
             // Ignore methods in anon classes.
             return;
         }
         $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
-        if ($tokens[$prev]['code'] === T_EQUAL) {
+        if ($tokens[$prev]['code'] === \T_EQUAL) {
             // Ignore closures.
             return;
         }

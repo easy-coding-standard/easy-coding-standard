@@ -49,7 +49,7 @@ class ClosingTagSniff implements Sniff
                 $phpcsFile->fixer->beginChangeset();
                 $phpcsFile->fixer->replaceToken($last, $phpcsFile->eolChar);
                 $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $last - 1, null, \true);
-                if ($tokens[$prev]['code'] !== T_SEMICOLON && $tokens[$prev]['code'] !== T_CLOSE_CURLY_BRACKET && $tokens[$prev]['code'] !== \T_OPEN_TAG) {
+                if ($tokens[$prev]['code'] !== \T_SEMICOLON && $tokens[$prev]['code'] !== \T_CLOSE_CURLY_BRACKET && $tokens[$prev]['code'] !== \T_OPEN_TAG) {
                     $phpcsFile->fixer->addContent($prev, ';');
                 }
                 $phpcsFile->fixer->endChangeset();

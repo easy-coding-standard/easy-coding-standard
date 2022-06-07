@@ -56,7 +56,7 @@ class IndentationSniff implements Sniff
                 // Don't check the indent of comments.
                 continue;
             }
-            if ($tokens[$i]['code'] === T_OPEN_CURLY_BRACKET) {
+            if ($tokens[$i]['code'] === \T_OPEN_CURLY_BRACKET) {
                 $indentLevel++;
                 if (isset($tokens[$i]['bracket_closer']) === \false) {
                     // Syntax error or live coding.
@@ -64,18 +64,18 @@ class IndentationSniff implements Sniff
                     return;
                 }
                 // Check for nested class definitions.
-                $found = $phpcsFile->findNext(T_OPEN_CURLY_BRACKET, $i + 1, $tokens[$i]['bracket_closer']);
+                $found = $phpcsFile->findNext(\T_OPEN_CURLY_BRACKET, $i + 1, $tokens[$i]['bracket_closer']);
                 if ($found !== \false) {
                     $nestingLevel = $indentLevel;
                 }
             }
-            if ($tokens[$i]['code'] === T_CLOSE_CURLY_BRACKET && $tokens[$i]['line'] !== $tokens[$i - 1]['line'] || $tokens[$i + 1]['code'] === T_CLOSE_CURLY_BRACKET && $tokens[$i]['line'] === $tokens[$i + 1]['line']) {
+            if ($tokens[$i]['code'] === \T_CLOSE_CURLY_BRACKET && $tokens[$i]['line'] !== $tokens[$i - 1]['line'] || $tokens[$i + 1]['code'] === \T_CLOSE_CURLY_BRACKET && $tokens[$i]['line'] === $tokens[$i + 1]['line']) {
                 $indentLevel--;
                 if ($indentLevel === 0) {
                     $nestingLevel = 0;
                 }
             }
-            if ($tokens[$i]['column'] !== 1 || $tokens[$i]['code'] === T_OPEN_CURLY_BRACKET || $tokens[$i]['code'] === T_CLOSE_CURLY_BRACKET) {
+            if ($tokens[$i]['column'] !== 1 || $tokens[$i]['code'] === \T_OPEN_CURLY_BRACKET || $tokens[$i]['code'] === \T_CLOSE_CURLY_BRACKET) {
                 continue;
             }
             // We started a new line, so check indent.

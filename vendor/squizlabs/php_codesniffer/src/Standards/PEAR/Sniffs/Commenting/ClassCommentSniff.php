@@ -43,13 +43,13 @@ class ClassCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commentin
             if (isset($find[$tokens[$commentEnd]['code']]) === \true) {
                 continue;
             }
-            if ($tokens[$commentEnd]['code'] === T_ATTRIBUTE_END && isset($tokens[$commentEnd]['attribute_opener']) === \true) {
+            if ($tokens[$commentEnd]['code'] === \T_ATTRIBUTE_END && isset($tokens[$commentEnd]['attribute_opener']) === \true) {
                 $commentEnd = $tokens[$commentEnd]['attribute_opener'];
                 continue;
             }
             break;
         }
-        if ($tokens[$commentEnd]['code'] !== T_DOC_COMMENT_CLOSE_TAG && $tokens[$commentEnd]['code'] !== \T_COMMENT) {
+        if ($tokens[$commentEnd]['code'] !== \T_DOC_COMMENT_CLOSE_TAG && $tokens[$commentEnd]['code'] !== \T_COMMENT) {
             $errorData[] = $phpcsFile->getDeclarationName($stackPtr);
             $phpcsFile->addError('Missing doc comment for %s %s', $stackPtr, 'Missing', $errorData);
             $phpcsFile->recordMetric($stackPtr, 'Class has doc comment', 'no');
@@ -76,7 +76,7 @@ class ClassCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commentin
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
-            if ($tokens[$tag + 2]['code'] !== T_DOC_COMMENT_STRING) {
+            if ($tokens[$tag + 2]['code'] !== \T_DOC_COMMENT_STRING) {
                 // No content.
                 continue;
             }

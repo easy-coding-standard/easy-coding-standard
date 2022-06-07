@@ -20,7 +20,7 @@ class DisallowMultipleStatementsSniff implements Sniff
      */
     public function register()
     {
-        return [T_SEMICOLON];
+        return [\T_SEMICOLON];
     }
     //end register()
     /**
@@ -38,15 +38,15 @@ class DisallowMultipleStatementsSniff implements Sniff
         $fixable = \true;
         $prev = $stackPtr;
         do {
-            $prev = $phpcsFile->findPrevious([T_SEMICOLON, \T_OPEN_TAG, \T_OPEN_TAG_WITH_ECHO, T_PHPCS_IGNORE], $prev - 1);
+            $prev = $phpcsFile->findPrevious([\T_SEMICOLON, \T_OPEN_TAG, \T_OPEN_TAG_WITH_ECHO, \T_PHPCS_IGNORE], $prev - 1);
             if ($prev === \false || $tokens[$prev]['code'] === \T_OPEN_TAG || $tokens[$prev]['code'] === \T_OPEN_TAG_WITH_ECHO) {
                 $phpcsFile->recordMetric($stackPtr, 'Multiple statements on same line', 'no');
                 return;
             }
-            if ($tokens[$prev]['code'] === T_PHPCS_IGNORE) {
+            if ($tokens[$prev]['code'] === \T_PHPCS_IGNORE) {
                 $fixable = \false;
             }
-        } while ($tokens[$prev]['code'] === T_PHPCS_IGNORE);
+        } while ($tokens[$prev]['code'] === \T_PHPCS_IGNORE);
         // Ignore multiple statements in a FOR condition.
         foreach ([$stackPtr, $prev] as $checkToken) {
             if (isset($tokens[$checkToken]['nested_parenthesis']) === \true) {

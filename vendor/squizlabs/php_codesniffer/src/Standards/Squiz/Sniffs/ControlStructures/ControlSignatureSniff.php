@@ -53,7 +53,7 @@ class ControlSignatureSniff implements Sniff
             return;
         }
         $isAlternative = \false;
-        if (isset($tokens[$stackPtr]['scope_opener']) === \true && $tokens[$tokens[$stackPtr]['scope_opener']]['code'] === T_COLON) {
+        if (isset($tokens[$stackPtr]['scope_opener']) === \true && $tokens[$tokens[$stackPtr]['scope_opener']]['code'] === \T_COLON) {
             $isAlternative = \true;
         }
         // Single space after the keyword.
@@ -183,7 +183,7 @@ class ControlSignatureSniff implements Sniff
                 // Zero spaces after parenthesis closer, but only if followed by a semicolon.
                 $closer = $tokens[$stackPtr]['parenthesis_closer'];
                 $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $closer + 1, null, \true);
-                if ($nextNonEmpty !== \false && $tokens[$nextNonEmpty]['code'] === T_SEMICOLON) {
+                if ($nextNonEmpty !== \false && $tokens[$nextNonEmpty]['code'] === \T_SEMICOLON) {
                     $found = 0;
                     if ($tokens[$closer + 1]['code'] === \T_WHITESPACE) {
                         if (\strpos($tokens[$closer + 1]['content'], $phpcsFile->eolChar) !== \false) {
@@ -210,18 +210,18 @@ class ControlSignatureSniff implements Sniff
                 return;
             }
             $closer = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
-            if ($closer === \false || $tokens[$closer]['code'] !== T_CLOSE_CURLY_BRACKET || $tokens[$tokens[$closer]['scope_condition']]['code'] !== \T_DO) {
+            if ($closer === \false || $tokens[$closer]['code'] !== \T_CLOSE_CURLY_BRACKET || $tokens[$tokens[$closer]['scope_condition']]['code'] !== \T_DO) {
                 return;
             }
         } else {
             if ($tokens[$stackPtr]['code'] === \T_ELSE || $tokens[$stackPtr]['code'] === \T_ELSEIF || $tokens[$stackPtr]['code'] === \T_CATCH || $tokens[$stackPtr]['code'] === \T_FINALLY) {
-                if (isset($tokens[$stackPtr]['scope_opener']) === \true && $tokens[$tokens[$stackPtr]['scope_opener']]['code'] === T_COLON) {
+                if (isset($tokens[$stackPtr]['scope_opener']) === \true && $tokens[$tokens[$stackPtr]['scope_opener']]['code'] === \T_COLON) {
                     // Special case for alternate syntax, where this token is actually
                     // the closer for the previous block, so there is no spacing to check.
                     return;
                 }
                 $closer = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
-                if ($closer === \false || $tokens[$closer]['code'] !== T_CLOSE_CURLY_BRACKET) {
+                if ($closer === \false || $tokens[$closer]['code'] !== \T_CLOSE_CURLY_BRACKET) {
                     return;
                 }
             } else {

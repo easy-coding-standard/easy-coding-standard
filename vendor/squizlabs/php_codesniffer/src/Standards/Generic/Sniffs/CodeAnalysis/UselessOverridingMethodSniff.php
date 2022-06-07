@@ -74,7 +74,7 @@ class UselessOverridingMethodSniff implements Sniff
             break;
         }
         // Any token except 'parent' indicates correct code.
-        if ($tokens[$next]['code'] !== T_PARENT) {
+        if ($tokens[$next]['code'] !== \T_PARENT) {
             return;
         }
         // Find next non empty token index, should be double colon.
@@ -92,7 +92,7 @@ class UselessOverridingMethodSniff implements Sniff
         // Find next non empty token index, should be the open parenthesis.
         $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, null, \true);
         // Skip for invalid code.
-        if ($next === \false || $tokens[$next]['code'] !== T_OPEN_PARENTHESIS) {
+        if ($next === \false || $tokens[$next]['code'] !== \T_OPEN_PARENTHESIS) {
             return;
         }
         $parameters = [''];
@@ -100,13 +100,13 @@ class UselessOverridingMethodSniff implements Sniff
         $count = \count($tokens);
         for (++$next; $next < $count; ++$next) {
             $code = $tokens[$next]['code'];
-            if ($code === T_OPEN_PARENTHESIS) {
+            if ($code === \T_OPEN_PARENTHESIS) {
                 ++$parenthesisCount;
             } else {
-                if ($code === T_CLOSE_PARENTHESIS) {
+                if ($code === \T_CLOSE_PARENTHESIS) {
                     --$parenthesisCount;
                 } else {
-                    if ($parenthesisCount === 1 && $code === T_COMMA) {
+                    if ($parenthesisCount === 1 && $code === \T_COMMA) {
                         $parameters[] = '';
                     } else {
                         if (isset(Tokens::$emptyTokens[$code]) === \false) {
@@ -121,7 +121,7 @@ class UselessOverridingMethodSniff implements Sniff
         }
         //end for
         $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, null, \true);
-        if ($next === \false || $tokens[$next]['code'] !== T_SEMICOLON) {
+        if ($next === \false || $tokens[$next]['code'] !== \T_SEMICOLON) {
             return;
         }
         // Check rest of the scope.

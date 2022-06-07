@@ -77,7 +77,7 @@ class SwitchDeclarationSniff implements Sniff
             }
             $opener = $tokens[$nextCase]['scope_opener'];
             $nextCloser = $tokens[$nextCase]['scope_closer'];
-            if ($tokens[$opener]['code'] === T_COLON) {
+            if ($tokens[$opener]['code'] === \T_COLON) {
                 if ($tokens[$opener - 1]['code'] === \T_WHITESPACE) {
                     $error = 'There must be no space before the colon in a ' . \strtoupper($type) . ' statement';
                     $fix = $phpcsFile->addFixableError($error, $nextCase, 'SpaceBeforeColon' . \strtoupper($type));
@@ -215,7 +215,7 @@ class SwitchDeclarationSniff implements Sniff
         if ($lastToken === \false) {
             return \false;
         }
-        if ($tokens[$lastToken]['code'] === T_CLOSE_CURLY_BRACKET) {
+        if ($tokens[$lastToken]['code'] === \T_CLOSE_CURLY_BRACKET) {
             // We found a closing curly bracket and want to check if its block
             // belongs to a SWITCH, IF, ELSEIF or ELSE, TRY, CATCH OR FINALLY clause.
             // If yes, we continue searching for a terminating statement within that
@@ -234,7 +234,7 @@ class SwitchDeclarationSniff implements Sniff
                     return \false;
                 }
                 // SWITCH, IF, ELSEIF, CATCH clauses possess a condition we have to account for.
-                if ($tokens[$prevToken]['code'] === T_CLOSE_PARENTHESIS) {
+                if ($tokens[$prevToken]['code'] === \T_CLOSE_PARENTHESIS) {
                     $prevToken = $tokens[$prevToken]['parenthesis_owner'];
                 }
                 if ($tokens[$prevToken]['code'] === \T_IF) {
@@ -326,10 +326,10 @@ class SwitchDeclarationSniff implements Sniff
                     }
                 }
                 //end if
-            } while ($currentCloser !== \false && $tokens[$currentCloser]['code'] === T_CLOSE_CURLY_BRACKET);
+            } while ($currentCloser !== \false && $tokens[$currentCloser]['code'] === \T_CLOSE_CURLY_BRACKET);
             return \true;
         } else {
-            if ($tokens[$lastToken]['code'] === T_SEMICOLON) {
+            if ($tokens[$lastToken]['code'] === \T_SEMICOLON) {
                 // We found the last statement of the CASE. Now we want to
                 // check whether it is a terminating one.
                 $terminators = [\T_RETURN => \T_RETURN, \T_BREAK => \T_BREAK, \T_CONTINUE => \T_CONTINUE, \T_THROW => \T_THROW, \T_EXIT => \T_EXIT];

@@ -21,7 +21,7 @@ class ArrayDeclarationSniff implements Sniff
      */
     public function register()
     {
-        return [\T_ARRAY, T_OPEN_SHORT_ARRAY];
+        return [\T_ARRAY, \T_OPEN_SHORT_ARRAY];
     }
     //end register()
     /**
@@ -128,11 +128,11 @@ class ArrayDeclarationSniff implements Sniff
         $commas = [];
         for ($i = $arrayStart + 1; $i < $arrayEnd; $i++) {
             // Skip bracketed statements, like function calls.
-            if ($tokens[$i]['code'] === T_OPEN_PARENTHESIS) {
+            if ($tokens[$i]['code'] === \T_OPEN_PARENTHESIS) {
                 $i = $tokens[$i]['parenthesis_closer'];
                 continue;
             }
-            if ($tokens[$i]['code'] === T_COMMA) {
+            if ($tokens[$i]['code'] === \T_COMMA) {
                 // Before counting this comma, make sure we are not
                 // at the end of the array.
                 $next = $phpcsFile->findNext(\T_WHITESPACE, $i + 1, $arrayEnd, \true);
@@ -311,11 +311,11 @@ class ArrayDeclarationSniff implements Sniff
         // Find all the double arrows that reside in this scope.
         for ($nextToken = $stackPtr + 1; $nextToken < $arrayEnd; $nextToken++) {
             // Skip bracketed statements, like function calls.
-            if ($tokens[$nextToken]['code'] === T_OPEN_PARENTHESIS && (isset($tokens[$nextToken]['parenthesis_owner']) === \false || $tokens[$nextToken]['parenthesis_owner'] !== $stackPtr)) {
+            if ($tokens[$nextToken]['code'] === \T_OPEN_PARENTHESIS && (isset($tokens[$nextToken]['parenthesis_owner']) === \false || $tokens[$nextToken]['parenthesis_owner'] !== $stackPtr)) {
                 $nextToken = $tokens[$nextToken]['parenthesis_closer'];
                 continue;
             }
-            if ($tokens[$nextToken]['code'] === \T_ARRAY || $tokens[$nextToken]['code'] === T_OPEN_SHORT_ARRAY || $tokens[$nextToken]['code'] === T_CLOSURE || $tokens[$nextToken]['code'] === \T_FN) {
+            if ($tokens[$nextToken]['code'] === \T_ARRAY || $tokens[$nextToken]['code'] === \T_OPEN_SHORT_ARRAY || $tokens[$nextToken]['code'] === \T_CLOSURE || $tokens[$nextToken]['code'] === \T_FN) {
                 // Let subsequent calls of this test handle nested arrays.
                 if ($tokens[$lastToken]['code'] !== \T_DOUBLE_ARROW) {
                     $indices[] = ['value' => $nextToken];
@@ -324,7 +324,7 @@ class ArrayDeclarationSniff implements Sniff
                 if ($tokens[$nextToken]['code'] === \T_ARRAY) {
                     $nextToken = $tokens[$tokens[$nextToken]['parenthesis_opener']]['parenthesis_closer'];
                 } else {
-                    if ($tokens[$nextToken]['code'] === T_OPEN_SHORT_ARRAY) {
+                    if ($tokens[$nextToken]['code'] === \T_OPEN_SHORT_ARRAY) {
                         $nextToken = $tokens[$nextToken]['bracket_closer'];
                     } else {
                         // T_CLOSURE.
@@ -332,7 +332,7 @@ class ArrayDeclarationSniff implements Sniff
                     }
                 }
                 $nextToken = $phpcsFile->findNext(\T_WHITESPACE, $nextToken + 1, null, \true);
-                if ($tokens[$nextToken]['code'] !== T_COMMA) {
+                if ($tokens[$nextToken]['code'] !== \T_COMMA) {
                     $nextToken--;
                 } else {
                     $lastToken = $nextToken;
@@ -340,11 +340,11 @@ class ArrayDeclarationSniff implements Sniff
                 continue;
             }
             //end if
-            if ($tokens[$nextToken]['code'] !== \T_DOUBLE_ARROW && $tokens[$nextToken]['code'] !== T_COMMA) {
+            if ($tokens[$nextToken]['code'] !== \T_DOUBLE_ARROW && $tokens[$nextToken]['code'] !== \T_COMMA) {
                 continue;
             }
             $currentEntry = [];
-            if ($tokens[$nextToken]['code'] === T_COMMA) {
+            if ($tokens[$nextToken]['code'] === \T_COMMA) {
                 $stackPtrCount = 0;
                 if (isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
                     $stackPtrCount = \count($tokens[$stackPtr]['nested_parenthesis']);
@@ -363,7 +363,7 @@ class ArrayDeclarationSniff implements Sniff
                     // in a function call.
                     continue;
                 }
-                if ($keyUsed === \true && $tokens[$lastToken]['code'] === T_COMMA) {
+                if ($keyUsed === \true && $tokens[$lastToken]['code'] === \T_COMMA) {
                     $error = 'No key specified for array entry; first entry specifies key';
                     $phpcsFile->addError($error, $nextToken, 'NoKeySpecified');
                     return;
@@ -371,7 +371,7 @@ class ArrayDeclarationSniff implements Sniff
                 if ($keyUsed === \false) {
                     if ($tokens[$nextToken - 1]['code'] === \T_WHITESPACE) {
                         $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $nextToken - 1, null, \true);
-                        if ($tokens[$prev]['code'] !== \T_END_HEREDOC && $tokens[$prev]['code'] !== T_END_NOWDOC || $tokens[$nextToken - 1]['line'] === $tokens[$nextToken]['line']) {
+                        if ($tokens[$prev]['code'] !== \T_END_HEREDOC && $tokens[$prev]['code'] !== \T_END_NOWDOC || $tokens[$nextToken - 1]['line'] === $tokens[$nextToken]['line']) {
                             if ($tokens[$nextToken - 1]['content'] === $phpcsFile->eolChar) {
                                 $spaceLength = 'newline';
                             } else {
@@ -441,10 +441,10 @@ class ArrayDeclarationSniff implements Sniff
         if (empty($indices) === \true) {
             $singleValue = \true;
         } else {
-            if (\count($indices) === 1 && $tokens[$lastToken]['code'] === T_COMMA) {
+            if (\count($indices) === 1 && $tokens[$lastToken]['code'] === \T_COMMA) {
                 // There may be another array value without a comma.
                 $exclude = Tokens::$emptyTokens;
-                $exclude[] = T_COMMA;
+                $exclude[] = \T_COMMA;
                 $nextContent = $phpcsFile->findNext($exclude, $indices[0]['value'] + 1, $arrayEnd, \true);
                 if ($nextContent === \false) {
                     $singleValue = \true;
@@ -503,7 +503,7 @@ class ArrayDeclarationSniff implements Sniff
             $count = \count($indices);
             $lastIndex = $indices[$count - 1]['value'];
             $trailingContent = $phpcsFile->findPrevious(Tokens::$emptyTokens, $arrayEnd - 1, $lastIndex, \true);
-            if ($tokens[$trailingContent]['code'] !== T_COMMA) {
+            if ($tokens[$trailingContent]['code'] !== \T_COMMA) {
                 $phpcsFile->recordMetric($stackPtr, 'Array end comma', 'no');
                 $error = 'Comma required after last value in array declaration';
                 $fix = $phpcsFile->addFixableError($error, $trailingContent, 'NoCommaAfterLast');
@@ -521,9 +521,9 @@ class ArrayDeclarationSniff implements Sniff
                     continue;
                 }
                 $valuePointer = $value['value'];
-                $ignoreTokens = [\T_WHITESPACE => \T_WHITESPACE, T_COMMA => T_COMMA];
+                $ignoreTokens = [\T_WHITESPACE => \T_WHITESPACE, \T_COMMA => \T_COMMA];
                 $ignoreTokens += Tokens::$castTokens;
-                if ($tokens[$valuePointer]['code'] === T_CLOSURE || $tokens[$valuePointer]['code'] === \T_FN) {
+                if ($tokens[$valuePointer]['code'] === \T_CLOSURE || $tokens[$valuePointer]['code'] === \T_FN) {
                     $ignoreTokens += [\T_STATIC => \T_STATIC];
                 }
                 $previous = $phpcsFile->findPrevious($ignoreTokens, $valuePointer - 1, $arrayStart + 1, \true);
@@ -607,7 +607,7 @@ class ArrayDeclarationSniff implements Sniff
             }
             $indexPointer = $index['index'];
             $indexLine = $tokens[$indexPointer]['line'];
-            $previous = $phpcsFile->findPrevious([\T_WHITESPACE, T_COMMA], $indexPointer - 1, $arrayStart + 1, \true);
+            $previous = $phpcsFile->findPrevious([\T_WHITESPACE, \T_COMMA], $indexPointer - 1, $arrayStart + 1, \true);
             if ($previous === \false) {
                 $previous = $stackPtr;
             }
@@ -692,19 +692,19 @@ class ArrayDeclarationSniff implements Sniff
             if ($end === \false) {
                 $valueEnd = $valueStart;
             } else {
-                if ($tokens[$end]['code'] === T_COMMA) {
+                if ($tokens[$end]['code'] === \T_COMMA) {
                     $valueEnd = $phpcsFile->findPrevious(Tokens::$emptyTokens, $end - 1, $valueStart, \true);
                     $nextComma = $end;
                 } else {
                     $valueEnd = $end;
                     $next = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, $arrayEnd, \true);
-                    if ($next !== \false && $tokens[$next]['code'] === T_COMMA) {
+                    if ($next !== \false && $tokens[$next]['code'] === \T_COMMA) {
                         $nextComma = $next;
                     }
                 }
             }
             $valueLine = $tokens[$valueEnd]['line'];
-            if ($tokens[$valueEnd]['code'] === \T_END_HEREDOC || $tokens[$valueEnd]['code'] === T_END_NOWDOC) {
+            if ($tokens[$valueEnd]['code'] === \T_END_HEREDOC || $tokens[$valueEnd]['code'] === \T_END_NOWDOC) {
                 $valueLine++;
             }
             if ($nextComma === \false || $tokens[$nextComma]['line'] !== $valueLine) {
@@ -730,7 +730,7 @@ class ArrayDeclarationSniff implements Sniff
             if ($nextComma !== \false && $tokens[$nextComma - 1]['code'] === \T_WHITESPACE) {
                 // Here/nowdoc closing tags must have the comma on the next line.
                 $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $nextComma - 1, null, \true);
-                if ($tokens[$prev]['code'] !== \T_END_HEREDOC && $tokens[$prev]['code'] !== T_END_NOWDOC) {
+                if ($tokens[$prev]['code'] !== \T_END_HEREDOC && $tokens[$prev]['code'] !== \T_END_NOWDOC) {
                     $content = $tokens[$nextComma - 2]['content'];
                     $spaceLength = $tokens[$nextComma - 1]['length'];
                     $error = 'Expected 0 spaces between "%s" and comma; %s found';

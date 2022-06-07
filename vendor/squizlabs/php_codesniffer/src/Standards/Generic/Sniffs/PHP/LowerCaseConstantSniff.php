@@ -26,7 +26,7 @@ class LowerCaseConstantSniff implements Sniff
      */
     public function register()
     {
-        return [T_TRUE, T_FALSE, T_NULL];
+        return [\T_TRUE, \T_FALSE, \T_NULL];
     }
     //end register()
     /**

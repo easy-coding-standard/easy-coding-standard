@@ -26,7 +26,7 @@ class ColourDefinitionSniff implements Sniff
      */
     public function register()
     {
-        return [T_COLOUR];
+        return [\T_COLOUR];
     }
     //end register()
     /**

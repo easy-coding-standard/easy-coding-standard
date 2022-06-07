@@ -26,18 +26,18 @@ class VariableCommentSniff extends AbstractVariableSniff
     public function processMemberVar(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $ignore = [\T_PUBLIC => \T_PUBLIC, \T_PRIVATE => \T_PRIVATE, \T_PROTECTED => \T_PROTECTED, \T_VAR => \T_VAR, \T_STATIC => \T_STATIC, \T_WHITESPACE => \T_WHITESPACE, \T_STRING => \T_STRING, \T_NS_SEPARATOR => \T_NS_SEPARATOR, T_NULLABLE => T_NULLABLE];
+        $ignore = [\T_PUBLIC => \T_PUBLIC, \T_PRIVATE => \T_PRIVATE, \T_PROTECTED => \T_PROTECTED, \T_VAR => \T_VAR, \T_STATIC => \T_STATIC, \T_WHITESPACE => \T_WHITESPACE, \T_STRING => \T_STRING, \T_NS_SEPARATOR => \T_NS_SEPARATOR, \T_NULLABLE => \T_NULLABLE];
         for ($commentEnd = $stackPtr - 1; $commentEnd >= 0; $commentEnd--) {
             if (isset($ignore[$tokens[$commentEnd]['code']]) === \true) {
                 continue;
             }
-            if ($tokens[$commentEnd]['code'] === T_ATTRIBUTE_END && isset($tokens[$commentEnd]['attribute_opener']) === \true) {
+            if ($tokens[$commentEnd]['code'] === \T_ATTRIBUTE_END && isset($tokens[$commentEnd]['attribute_opener']) === \true) {
                 $commentEnd = $tokens[$commentEnd]['attribute_opener'];
                 continue;
             }
             break;
         }
-        if ($commentEnd === \false || $tokens[$commentEnd]['code'] !== T_DOC_COMMENT_CLOSE_TAG && $tokens[$commentEnd]['code'] !== \T_COMMENT) {
+        if ($commentEnd === \false || $tokens[$commentEnd]['code'] !== \T_DOC_COMMENT_CLOSE_TAG && $tokens[$commentEnd]['code'] !== \T_COMMENT) {
             $phpcsFile->addError('Missing member variable doc comment', $stackPtr, 'Missing');
             return;
         }
@@ -58,7 +58,7 @@ class VariableCommentSniff extends AbstractVariableSniff
             } else {
                 if ($tokens[$tag]['content'] === '@see') {
                     // Make sure the tag isn't empty.
-                    $string = $phpcsFile->findNext(T_DOC_COMMENT_STRING, $tag, $commentEnd);
+                    $string = $phpcsFile->findNext(\T_DOC_COMMENT_STRING, $tag, $commentEnd);
                     if ($string === \false || $tokens[$string]['line'] !== $tokens[$tag]['line']) {
                         $error = 'Content missing for @see tag in member variable comment';
                         $phpcsFile->addError($error, $tag, 'EmptySees');
@@ -84,7 +84,7 @@ class VariableCommentSniff extends AbstractVariableSniff
             $phpcsFile->addError($error, $foundVar, 'VarOrder');
         }
         // Make sure the tag isn't empty and has the correct padding.
-        $string = $phpcsFile->findNext(T_DOC_COMMENT_STRING, $foundVar, $commentEnd);
+        $string = $phpcsFile->findNext(\T_DOC_COMMENT_STRING, $foundVar, $commentEnd);
         if ($string === \false || $tokens[$string]['line'] !== $tokens[$foundVar]['line']) {
             $error = 'Content missing for @var tag in member variable comment';
             $phpcsFile->addError($error, $foundVar, 'EmptyVar');

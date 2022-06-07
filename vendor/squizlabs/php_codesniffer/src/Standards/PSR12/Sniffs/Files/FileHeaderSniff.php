@@ -134,7 +134,7 @@ class FileHeaderSniff implements Sniff
         unset($commentOpeners[\T_TRY]);
         do {
             switch ($tokens[$next]['code']) {
-                case T_DOC_COMMENT_OPEN_TAG:
+                case \T_DOC_COMMENT_OPEN_TAG:
                     if ($foundDocblock === \true) {
                         // Found a second docblock, so start of code.
                         break 2;
@@ -158,7 +158,7 @@ class FileHeaderSniff implements Sniff
                         // Check for an @var annotation.
                         $annotation = \false;
                         for ($i = $next; $i < $end; $i++) {
-                            if ($tokens[$i]['code'] === T_DOC_COMMENT_TAG && \strtolower($tokens[$i]['content']) === '@var') {
+                            if ($tokens[$i]['code'] === \T_DOC_COMMENT_TAG && \strtolower($tokens[$i]['content']) === '@var') {
                                 $annotation = \true;
                                 break;
                             }

@@ -21,7 +21,7 @@ class FunctionCallArgumentSpacingSniff implements Sniff
      */
     public function register()
     {
-        return [\T_STRING, \T_ISSET, \T_UNSET, T_SELF, \T_STATIC, \T_VARIABLE, T_CLOSE_CURLY_BRACKET, T_CLOSE_PARENTHESIS];
+        return [\T_STRING, \T_ISSET, \T_UNSET, \T_SELF, \T_STATIC, \T_VARIABLE, \T_CLOSE_CURLY_BRACKET, \T_CLOSE_PARENTHESIS];
     }
     //end register()
     /**
@@ -43,19 +43,19 @@ class FunctionCallArgumentSpacingSniff implements Sniff
         // function or method *call*.
         $functionName = $stackPtr;
         $ignoreTokens = Tokens::$emptyTokens;
-        $ignoreTokens[] = T_BITWISE_AND;
+        $ignoreTokens[] = \T_BITWISE_AND;
         $functionKeyword = $phpcsFile->findPrevious($ignoreTokens, $stackPtr - 1, null, \true);
         if ($tokens[$functionKeyword]['code'] === \T_FUNCTION || $tokens[$functionKeyword]['code'] === \T_CLASS) {
             return;
         }
-        if ($tokens[$stackPtr]['code'] === T_CLOSE_CURLY_BRACKET && isset($tokens[$stackPtr]['scope_condition']) === \true) {
+        if ($tokens[$stackPtr]['code'] === \T_CLOSE_CURLY_BRACKET && isset($tokens[$stackPtr]['scope_condition']) === \true) {
             // Not a function call.
             return;
         }
         // If the next non-whitespace token after the function or method call
         // is not an opening parenthesis then it can't really be a *call*.
         $openBracket = $phpcsFile->findNext(Tokens::$emptyTokens, $functionName + 1, null, \true);
-        if ($tokens[$openBracket]['code'] !== T_OPEN_PARENTHESIS) {
+        if ($tokens[$openBracket]['code'] !== \T_OPEN_PARENTHESIS) {
             return;
         }
         if (isset($tokens[$openBracket]['parenthesis_closer']) === \false) {
@@ -80,14 +80,14 @@ class FunctionCallArgumentSpacingSniff implements Sniff
         $tokens = $phpcsFile->getTokens();
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
         $nextSeparator = $openBracket;
-        $find = [T_COMMA, T_CLOSURE, T_ANON_CLASS, T_OPEN_SHORT_ARRAY];
+        $find = [\T_COMMA, \T_CLOSURE, \T_ANON_CLASS, \T_OPEN_SHORT_ARRAY];
         while (($nextSeparator = $phpcsFile->findNext($find, $nextSeparator + 1, $closeBracket)) !== \false) {
-            if ($tokens[$nextSeparator]['code'] === T_CLOSURE || $tokens[$nextSeparator]['code'] === T_ANON_CLASS) {
+            if ($tokens[$nextSeparator]['code'] === \T_CLOSURE || $tokens[$nextSeparator]['code'] === \T_ANON_CLASS) {
                 // Skip closures.
                 $nextSeparator = $tokens[$nextSeparator]['scope_closer'];
                 continue;
             } else {
-                if ($tokens[$nextSeparator]['code'] === T_OPEN_SHORT_ARRAY) {
+                if ($tokens[$nextSeparator]['code'] === \T_OPEN_SHORT_ARRAY) {
                     // Skips arrays using short notation.
                     $nextSeparator = $tokens[$nextSeparator]['bracket_closer'];
                     continue;
@@ -100,7 +100,7 @@ class FunctionCallArgumentSpacingSniff implements Sniff
             if ($lastBracket !== $closeBracket) {
                 continue;
             }
-            if ($tokens[$nextSeparator]['code'] === T_COMMA) {
+            if ($tokens[$nextSeparator]['code'] === \T_COMMA) {
                 if ($tokens[$nextSeparator - 1]['code'] === \T_WHITESPACE) {
                     $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $nextSeparator - 2, null, \true);
                     if (isset(Tokens::$heredocTokens[$tokens[$prev]['code']]) === \false) {

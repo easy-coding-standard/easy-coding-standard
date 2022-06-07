@@ -27,7 +27,7 @@ class InlineCommentSniff implements Sniff
      */
     public function register()
     {
-        return [\T_COMMENT, T_DOC_COMMENT_OPEN_TAG];
+        return [\T_COMMENT, \T_DOC_COMMENT_OPEN_TAG];
     }
     //end register()
     /**
@@ -45,7 +45,7 @@ class InlineCommentSniff implements Sniff
         // If this is a function/class/interface doc block comment, skip it.
         // We are only interested in inline doc block comments, which are
         // not allowed.
-        if ($tokens[$stackPtr]['code'] === T_DOC_COMMENT_OPEN_TAG) {
+        if ($tokens[$stackPtr]['code'] === \T_DOC_COMMENT_OPEN_TAG) {
             $nextToken = $stackPtr;
             do {
                 $nextToken = $phpcsFile->findNext(Tokens::$emptyTokens, $nextToken + 1, null, \true);
@@ -55,7 +55,7 @@ class InlineCommentSniff implements Sniff
                 }
                 break;
             } while (\true);
-            $ignore = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION, T_CLOSURE, \T_PUBLIC, \T_PRIVATE, \T_PROTECTED, \T_FINAL, \T_STATIC, \T_ABSTRACT, \T_CONST, T_PROPERTY, \T_INCLUDE, \T_INCLUDE_ONCE, \T_REQUIRE, \T_REQUIRE_ONCE];
+            $ignore = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION, \T_CLOSURE, \T_PUBLIC, \T_PRIVATE, \T_PROTECTED, \T_FINAL, \T_STATIC, \T_ABSTRACT, \T_CONST, \T_PROPERTY, \T_INCLUDE, \T_INCLUDE_ONCE, \T_REQUIRE, \T_REQUIRE_ONCE];
             if (\in_array($tokens[$nextToken]['code'], $ignore, \true) === \true) {
                 return;
             }
@@ -63,11 +63,11 @@ class InlineCommentSniff implements Sniff
                 // We allow block comments if a function or object
                 // is being assigned to a variable.
                 $ignore = Tokens::$emptyTokens;
-                $ignore[] = T_EQUAL;
+                $ignore[] = \T_EQUAL;
                 $ignore[] = \T_STRING;
                 $ignore[] = \T_OBJECT_OPERATOR;
                 $nextToken = $phpcsFile->findNext($ignore, $nextToken + 1, null, \true);
-                if ($tokens[$nextToken]['code'] === \T_FUNCTION || $tokens[$nextToken]['code'] === T_CLOSURE || $tokens[$nextToken]['code'] === T_OBJECT || $tokens[$nextToken]['code'] === T_PROTOTYPE) {
+                if ($tokens[$nextToken]['code'] === \T_FUNCTION || $tokens[$nextToken]['code'] === \T_CLOSURE || $tokens[$nextToken]['code'] === \T_OBJECT || $tokens[$nextToken]['code'] === \T_PROTOTYPE) {
                     return;
                 }
             }
@@ -93,13 +93,13 @@ class InlineCommentSniff implements Sniff
         // comment is a closing curly brace.
         $previousContent = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
         if ($tokens[$previousContent]['line'] === $tokens[$stackPtr]['line']) {
-            if ($tokens[$previousContent]['code'] === T_CLOSE_CURLY_BRACKET) {
+            if ($tokens[$previousContent]['code'] === \T_CLOSE_CURLY_BRACKET) {
                 return;
             }
             // Special case for JS files.
-            if ($tokens[$previousContent]['code'] === T_COMMA || $tokens[$previousContent]['code'] === T_SEMICOLON) {
+            if ($tokens[$previousContent]['code'] === \T_COMMA || $tokens[$previousContent]['code'] === \T_SEMICOLON) {
                 $lastContent = $phpcsFile->findPrevious(\T_WHITESPACE, $previousContent - 1, null, \true);
-                if ($tokens[$lastContent]['code'] === T_CLOSE_CURLY_BRACKET) {
+                if ($tokens[$lastContent]['code'] === \T_CLOSE_CURLY_BRACKET) {
                     return;
                 }
             }
@@ -211,7 +211,7 @@ class InlineCommentSniff implements Sniff
                 // Ignore if the comment is the last non-whitespace token in a file.
                 return $lastCommentToken + 1;
             }
-            if ($tokens[$next]['code'] === T_DOC_COMMENT_OPEN_TAG) {
+            if ($tokens[$next]['code'] === \T_DOC_COMMENT_OPEN_TAG) {
                 // If this inline comment is followed by a docblock,
                 // ignore spacing as docblock/function etc spacing rules
                 // are likely to conflict with our rules.
@@ -222,7 +222,7 @@ class InlineCommentSniff implements Sniff
                 $conditions = $tokens[$stackPtr]['conditions'];
                 $type = \end($conditions);
                 $conditionPtr = \key($conditions);
-                if (($type === \T_FUNCTION || $type === T_CLOSURE) && $tokens[$conditionPtr]['scope_closer'] === $next) {
+                if (($type === \T_FUNCTION || $type === \T_CLOSURE) && $tokens[$conditionPtr]['scope_closer'] === $next) {
                     $errorCode = 'SpacingAfterAtFunctionEnd';
                 }
             }

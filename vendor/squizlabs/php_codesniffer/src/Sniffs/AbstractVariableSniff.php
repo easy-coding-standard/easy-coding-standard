@@ -33,7 +33,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
     public function __construct()
     {
         $scopes = Tokens::$ooScopeTokens;
-        $listen = [\T_VARIABLE, T_DOUBLE_QUOTED_STRING, T_HEREDOC];
+        $listen = [\T_VARIABLE, \T_DOUBLE_QUOTED_STRING, \T_HEREDOC];
         parent::__construct($scopes, $listen, \true);
     }
     //end __construct()
@@ -53,7 +53,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
     protected final function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
-        if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING || $tokens[$stackPtr]['code'] === T_HEREDOC) {
+        if ($tokens[$stackPtr]['code'] === \T_DOUBLE_QUOTED_STRING || $tokens[$stackPtr]['code'] === \T_HEREDOC) {
             // Check to see if this string has a variable in it.
             $pattern = '|(?<!\\\\)(?:\\\\{2})*\\${?[a-zA-Z0-9_]+}?|';
             if (\preg_match($pattern, $tokens[$stackPtr]['content']) !== 0) {
@@ -70,7 +70,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
             if (isset(Tokens::$ooScopeTokens[$code]) === \true) {
                 break;
             }
-            if ($code === \T_FUNCTION || $code === T_CLOSURE) {
+            if ($code === \T_FUNCTION || $code === \T_CLOSURE) {
                 $inFunction = \true;
             }
         }
@@ -94,7 +94,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
                     continue;
                 }
                 $owner = $tokens[$opener]['parenthesis_owner'];
-                if ($tokens[$owner]['code'] === \T_FUNCTION || $tokens[$owner]['code'] === T_CLOSURE) {
+                if ($tokens[$owner]['code'] === \T_FUNCTION || $tokens[$owner]['code'] === \T_CLOSURE) {
                     $inFunction = \true;
                     break;
                 }
@@ -127,7 +127,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
         if ($tokens[$stackPtr]['code'] === \T_VARIABLE) {
             return $this->processVariable($phpcsFile, $stackPtr);
         } else {
-            if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING || $tokens[$stackPtr]['code'] === T_HEREDOC) {
+            if ($tokens[$stackPtr]['code'] === \T_DOUBLE_QUOTED_STRING || $tokens[$stackPtr]['code'] === \T_HEREDOC) {
                 // Check to see if this string has a variable in it.
                 $pattern = '|(?<!\\\\)(?:\\\\{2})*\\${?[a-zA-Z0-9_]+}?|';
                 if (\preg_match($pattern, $tokens[$stackPtr]['content']) !== 0) {

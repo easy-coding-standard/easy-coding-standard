@@ -29,7 +29,7 @@ final class NewlineAnalyzer
             return \true;
         }
         // is a function
-        return $previousPreviousToken->isGivenKind([\T_RETURN, \T_DOUBLE_COLON, T_OPEN_CURLY_BRACKET]);
+        return $previousPreviousToken->isGivenKind([\T_RETURN, \T_DOUBLE_COLON, \T_OPEN_CURLY_BRACKET]);
     }
     public function isNewlineToken(Token $currentToken) : bool
     {

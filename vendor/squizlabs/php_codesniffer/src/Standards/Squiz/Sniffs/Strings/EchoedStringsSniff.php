@@ -38,14 +38,14 @@ class EchoedStringsSniff implements Sniff
         $tokens = $phpcsFile->getTokens();
         $firstContent = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
         // If the first non-whitespace token is not an opening parenthesis, then we are not concerned.
-        if ($tokens[$firstContent]['code'] !== T_OPEN_PARENTHESIS) {
+        if ($tokens[$firstContent]['code'] !== \T_OPEN_PARENTHESIS) {
             $phpcsFile->recordMetric($stackPtr, 'Brackets around echoed strings', 'no');
             return;
         }
-        $end = $phpcsFile->findNext([T_SEMICOLON, \T_CLOSE_TAG], $stackPtr, null, \false);
+        $end = $phpcsFile->findNext([\T_SEMICOLON, \T_CLOSE_TAG], $stackPtr, null, \false);
         // If the token before the semi-colon is not a closing parenthesis, then we are not concerned.
         $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $end - 1, null, \true);
-        if ($tokens[$prev]['code'] !== T_CLOSE_PARENTHESIS) {
+        if ($tokens[$prev]['code'] !== \T_CLOSE_PARENTHESIS) {
             $phpcsFile->recordMetric($stackPtr, 'Brackets around echoed strings', 'no');
             return;
         }

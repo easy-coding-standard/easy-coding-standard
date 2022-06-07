@@ -140,7 +140,7 @@ class ClassDeclarationSniff extends PSR2ClassDeclarationSniff
         }
         //end if
         if ($difference !== -1 && $difference !== 1) {
-            if ($tokens[$nextContent]['code'] === T_DOC_COMMENT_OPEN_TAG) {
+            if ($tokens[$nextContent]['code'] === \T_DOC_COMMENT_OPEN_TAG) {
                 $next = $phpcsFile->findNext(\T_WHITESPACE, $tokens[$nextContent]['comment_closer'] + 1, null, \true);
                 if ($next !== \false && $tokens[$next]['code'] === \T_FUNCTION) {
                     return;

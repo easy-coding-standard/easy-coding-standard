@@ -38,7 +38,7 @@ class SuperfluousWhitespaceSniff implements Sniff
      */
     public function register()
     {
-        return [\T_OPEN_TAG, \T_OPEN_TAG_WITH_ECHO, \T_CLOSE_TAG, \T_WHITESPACE, \T_COMMENT, T_DOC_COMMENT_WHITESPACE, T_CLOSURE];
+        return [\T_OPEN_TAG, \T_OPEN_TAG_WITH_ECHO, \T_CLOSE_TAG, \T_WHITESPACE, \T_COMMENT, \T_DOC_COMMENT_WHITESPACE, \T_CLOSURE];
     }
     //end register()
     /**
@@ -178,11 +178,11 @@ class SuperfluousWhitespaceSniff implements Sniff
                 /*
                     Check for multiple blank lines in a function.
                 */
-                if ($phpcsFile->hasCondition($stackPtr, [\T_FUNCTION, T_CLOSURE]) === \true && $tokens[$stackPtr - 1]['line'] < $tokens[$stackPtr]['line'] && $tokens[$stackPtr - 2]['line'] === $tokens[$stackPtr - 1]['line']) {
+                if ($phpcsFile->hasCondition($stackPtr, [\T_FUNCTION, \T_CLOSURE]) === \true && $tokens[$stackPtr - 1]['line'] < $tokens[$stackPtr]['line'] && $tokens[$stackPtr - 2]['line'] === $tokens[$stackPtr - 1]['line']) {
                     // Properties and functions in nested classes have their own rules for spacing.
                     $conditions = $tokens[$stackPtr]['conditions'];
                     $deepestScope = \end($conditions);
-                    if ($deepestScope === T_ANON_CLASS) {
+                    if ($deepestScope === \T_ANON_CLASS) {
                         return;
                     }
                     // This is an empty line and the line before this one is not

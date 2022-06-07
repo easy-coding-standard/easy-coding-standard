@@ -82,7 +82,7 @@ class ClassDeclarationSniff implements Sniff
         if ($tokens[$curlyBrace + 1]['content'] !== $phpcsFile->eolChar) {
             $error = 'Opening %s brace must be on a line by itself';
             $nextNonWhitespace = $phpcsFile->findNext(\T_WHITESPACE, $curlyBrace + 1, null, \true);
-            if ($tokens[$nextNonWhitespace]['code'] === T_PHPCS_IGNORE) {
+            if ($tokens[$nextNonWhitespace]['code'] === \T_PHPCS_IGNORE) {
                 // Don't auto-fix if the next thing is a PHPCS ignore annotation.
                 $phpcsFile->addError($error, $curlyBrace, 'OpenBraceNotAlone', $errorData);
             } else {

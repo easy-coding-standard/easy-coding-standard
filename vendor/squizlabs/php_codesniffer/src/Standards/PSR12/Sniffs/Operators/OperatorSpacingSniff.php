@@ -26,9 +26,9 @@ class OperatorSpacingSniff extends SquizOperatorSpacingSniff
         $targets += Tokens::$operators;
         $targets += Tokens::$assignmentTokens;
         $targets += Tokens::$booleanOperators;
-        $targets[] = T_INLINE_THEN;
-        $targets[] = T_INLINE_ELSE;
-        $targets[] = T_STRING_CONCAT;
+        $targets[] = \T_INLINE_THEN;
+        $targets[] = \T_INLINE_ELSE;
+        $targets[] = \T_STRING_CONCAT;
         $targets[] = \T_INSTANCEOF;
         return $targets;
     }
@@ -52,7 +52,7 @@ class OperatorSpacingSniff extends SquizOperatorSpacingSniff
         $checkBefore = \true;
         $checkAfter = \true;
         // Skip short ternary.
-        if ($tokens[$stackPtr]['code'] === T_INLINE_ELSE && $tokens[$stackPtr - 1]['code'] === T_INLINE_THEN) {
+        if ($tokens[$stackPtr]['code'] === \T_INLINE_ELSE && $tokens[$stackPtr - 1]['code'] === \T_INLINE_THEN) {
             $checkBefore = \false;
         }
         // Skip operator with comment on previous line.
@@ -61,7 +61,7 @@ class OperatorSpacingSniff extends SquizOperatorSpacingSniff
         }
         if (isset($tokens[$stackPtr + 1]) === \true) {
             // Skip short ternary.
-            if ($tokens[$stackPtr]['code'] === T_INLINE_THEN && $tokens[$stackPtr + 1]['code'] === T_INLINE_ELSE) {
+            if ($tokens[$stackPtr]['code'] === \T_INLINE_THEN && $tokens[$stackPtr + 1]['code'] === \T_INLINE_ELSE) {
                 $checkAfter = \false;
             }
         } else {

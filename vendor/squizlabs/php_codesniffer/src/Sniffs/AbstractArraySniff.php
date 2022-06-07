@@ -20,7 +20,7 @@ abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public final function register()
     {
-        return [\T_ARRAY, T_OPEN_SHORT_ARRAY];
+        return [\T_ARRAY, \T_OPEN_SHORT_ARRAY];
     }
     //end register()
     /**
@@ -49,7 +49,7 @@ abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $arrayEnd = $tokens[$stackPtr]['bracket_closer'];
         }
         $lastContent = $phpcsFile->findPrevious(Tokens::$emptyTokens, $arrayEnd - 1, null, \true);
-        if ($tokens[$lastContent]['code'] === T_COMMA) {
+        if ($tokens[$lastContent]['code'] === \T_COMMA) {
             // Last array item ends with a comma.
             $phpcsFile->recordMetric($stackPtr, 'Array end comma', 'yes');
         } else {
@@ -100,7 +100,7 @@ abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     }
                 }
             }
-            if ($tokens[$ptr]['code'] === T_COMMA || $tokens[$ptr]['code'] === \T_DOUBLE_ARROW) {
+            if ($tokens[$ptr]['code'] === \T_COMMA || $tokens[$ptr]['code'] === \T_DOUBLE_ARROW) {
                 return $ptr;
             }
             ++$ptr;

@@ -49,7 +49,7 @@ class DeclareStatementSniff implements Sniff
                 }
             } else {
                 $phpcsFile->addError($error, $parenthesis, 'SpaceFoundAfterDeclare');
-                $parenthesis = $phpcsFile->findNext(T_OPEN_PARENTHESIS, $parenthesis + 1);
+                $parenthesis = $phpcsFile->findNext(\T_OPEN_PARENTHESIS, $parenthesis + 1);
             }
         }
         // There should be no space between open parenthesis and the directive.
@@ -88,7 +88,7 @@ class DeclareStatementSniff implements Sniff
                     }
                 } else {
                     $phpcsFile->addError($error, $equals, 'SpaceFoundAfterDirective');
-                    $equals = $phpcsFile->findNext(T_EQUAL, $equals + 1);
+                    $equals = $phpcsFile->findNext(\T_EQUAL, $equals + 1);
                 }
             }
         }
@@ -120,7 +120,7 @@ class DeclareStatementSniff implements Sniff
                     }
                 } else {
                     $phpcsFile->addError($error, $parenthesis, 'SpaceFoundAfterDirectiveValue');
-                    $parenthesis = $phpcsFile->findNext(T_CLOSE_PARENTHESIS, $parenthesis + 1);
+                    $parenthesis = $phpcsFile->findNext(\T_CLOSE_PARENTHESIS, $parenthesis + 1);
                 }
             }
         }
