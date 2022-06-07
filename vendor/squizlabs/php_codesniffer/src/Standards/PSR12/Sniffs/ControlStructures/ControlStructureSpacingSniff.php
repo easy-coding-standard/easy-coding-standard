@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures\ControlStructureSpacingSniff as PSR2Spacing;
 use PHP_CodeSniffer\Util\Tokens;
-class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ControlStructureSpacingSniff implements Sniff
 {
     /**
      * The number of spaces code should be indented.
@@ -40,7 +40,7 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === \false || isset($tokens[$stackPtr]['parenthesis_closer']) === \false) {
@@ -50,7 +50,7 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $parenCloser = $tokens[$stackPtr]['parenthesis_closer'];
         if ($tokens[$parenOpener]['line'] === $tokens[$parenCloser]['line']) {
             // Conditions are all on the same line, so follow PSR2.
-            $sniff = new \PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures\ControlStructureSpacingSniff();
+            $sniff = new PSR2Spacing();
             return $sniff->process($phpcsFile, $stackPtr);
         }
         $next = $phpcsFile->findNext(\T_WHITESPACE, $parenOpener + 1, $parenCloser, \true);
@@ -70,14 +70,14 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $first = $phpcsFile->findFirstOnLine(\T_WHITESPACE, $stackPtr, \true);
         $requiredIndent = $tokens[$first]['column'] + $this->indent - 1;
         for ($i = $parenOpener; $i < $parenCloser; $i++) {
-            if ($tokens[$i]['column'] !== 1 || $tokens[$i + 1]['line'] > $tokens[$i]['line'] || isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$i]['code']]) === \true) {
+            if ($tokens[$i]['column'] !== 1 || $tokens[$i + 1]['line'] > $tokens[$i]['line'] || isset(Tokens::$commentTokens[$tokens[$i]['code']]) === \true) {
                 continue;
             }
             if ($i + 1 === $parenCloser) {
                 break;
             }
             // Leave indentation inside multi-line strings.
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$textStringTokens[$tokens[$i]['code']]) === \true || isset(\PHP_CodeSniffer\Util\Tokens::$heredocTokens[$tokens[$i]['code']]) === \true) {
+            if (isset(Tokens::$textStringTokens[$tokens[$i]['code']]) === \true || isset(Tokens::$heredocTokens[$tokens[$i]['code']]) === \true) {
                 continue;
             }
             if ($tokens[$i]['code'] !== \T_WHITESPACE) {

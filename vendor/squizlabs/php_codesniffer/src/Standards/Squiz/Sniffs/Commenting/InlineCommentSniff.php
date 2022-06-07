@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class InlineCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class InlineCommentSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,7 +39,7 @@ class InlineCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // If this is a function/class/interface doc block comment, skip it.
@@ -48,7 +48,7 @@ class InlineCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if ($tokens[$stackPtr]['code'] === T_DOC_COMMENT_OPEN_TAG) {
             $nextToken = $stackPtr;
             do {
-                $nextToken = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $nextToken + 1, null, \true);
+                $nextToken = $phpcsFile->findNext(Tokens::$emptyTokens, $nextToken + 1, null, \true);
                 if ($tokens[$nextToken]['code'] === \T_ATTRIBUTE) {
                     $nextToken = $tokens[$nextToken]['attribute_closer'];
                     continue;
@@ -62,7 +62,7 @@ class InlineCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if ($phpcsFile->tokenizerType === 'JS') {
                 // We allow block comments if a function or object
                 // is being assigned to a variable.
-                $ignore = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+                $ignore = Tokens::$emptyTokens;
                 $ignore[] = T_EQUAL;
                 $ignore[] = \T_STRING;
                 $ignore[] = \T_OBJECT_OPERATOR;
@@ -71,7 +71,7 @@ class InlineCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     return;
                 }
             }
-            $prevToken = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+            $prevToken = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
             if ($tokens[$prevToken]['code'] === \T_OPEN_TAG) {
                 return;
             }

@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class DocCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DocCommentSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -38,7 +38,7 @@ class DocCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['comment_closer']) === \false || $tokens[$tokens[$stackPtr]['comment_closer']]['content'] === '' && $tokens[$stackPtr]['comment_closer'] === $phpcsFile->numTokens - 1) {

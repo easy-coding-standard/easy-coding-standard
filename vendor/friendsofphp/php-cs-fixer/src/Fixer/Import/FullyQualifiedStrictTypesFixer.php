@@ -26,14 +26,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author VeeWee <toonverwerft@gmail.com>
  */
-final class FullyQualifiedStrictTypesFixer extends \PhpCsFixer\AbstractFixer
+final class FullyQualifiedStrictTypesFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Transforms imported FQCN parameters and return types in function arguments to short version.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Transforms imported FQCN parameters and return types in function arguments to short version.', [new CodeSample('<?php
 
 use Foo\\Bar;
 
@@ -43,7 +43,7 @@ class SomeClass
     {
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 
 use Foo\\Bar;
 use Foo\\Bar\\Baz;
@@ -69,18 +69,18 @@ class SomeClass
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_FUNCTION);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
-        $namespaceUsesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $namespacesAnalyzer = new NamespacesAnalyzer();
+        $namespaceUsesAnalyzer = new NamespaceUsesAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         foreach ($namespacesAnalyzer->getDeclarations($tokens) as $namespace) {
             $namespaceName = \strtolower($namespace->getFullName());
             $uses = [];
@@ -97,7 +97,7 @@ class SomeClass
     /**
      * @param array<string, string> $uses
      */
-    private function fixFunction(\PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionsAnalyzer, \PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $uses, string $namespaceName) : void
+    private function fixFunction(FunctionsAnalyzer $functionsAnalyzer, Tokens $tokens, int $index, array $uses, string $namespaceName) : void
     {
         $arguments = $functionsAnalyzer->getFunctionArguments($tokens, $index);
         foreach ($arguments as $argument) {
@@ -113,13 +113,13 @@ class SomeClass
     /**
      * @param array<string, string> $uses
      */
-    private function replaceByShortType(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis $type, array $uses, string $namespaceName) : void
+    private function replaceByShortType(Tokens $tokens, TypeAnalysis $type, array $uses, string $namespaceName) : void
     {
         if ($type->isReservedType()) {
             return;
         }
         $typeStartIndex = $type->getStartIndex();
-        if ($tokens[$typeStartIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE)) {
+        if ($tokens[$typeStartIndex]->isGivenKind(CT::T_NULLABLE_TYPE)) {
             $typeStartIndex = $tokens->getNextMeaningfulToken($typeStartIndex);
         }
         $namespaceNameLength = \strlen($namespaceName);
@@ -149,13 +149,13 @@ class SomeClass
             }
         }
     }
-    private function getTypes(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex) : iterable
+    private function getTypes(Tokens $tokens, int $index, int $endIndex) : iterable
     {
         $index = $typeStartIndex = $typeEndIndex = $tokens->getNextMeaningfulToken($index - 1);
         $type = $tokens[$index]->getContent();
         while (\true) {
             $index = $tokens->getNextMeaningfulToken($index);
-            if ($tokens[$index]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION])) {
+            if ($tokens[$index]->isGivenKind([CT::T_TYPE_ALTERNATION, CT::T_TYPE_INTERSECTION])) {
                 (yield $type => [$typeStartIndex, $typeEndIndex]);
                 $index = $typeStartIndex = $typeEndIndex = $tokens->getNextMeaningfulToken($index);
                 $type = $tokens[$index]->getContent();
@@ -177,9 +177,9 @@ class SomeClass
         $tokens = [];
         $parts = \explode('\\', $input);
         foreach ($parts as $index => $part) {
-            $tokens[] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $part]);
+            $tokens[] = new Token([\T_STRING, $part]);
             if ($index !== \count($parts) - 1) {
-                $tokens[] = new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']);
+                $tokens[] = new Token([\T_NS_SEPARATOR, '\\']);
             }
         }
         return $tokens;

@@ -31,7 +31,7 @@ final class RuleSets
     {
         if (null === self::$setDefinitions) {
             self::$setDefinitions = [];
-            foreach (\ECSPrefix20220607\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Sets') as $file) {
+            foreach (Finder::create()->files()->in(__DIR__ . '/Sets') as $file) {
                 $class = 'PhpCsFixer\\RuleSet\\Sets\\' . $file->getBasename('.php');
                 $set = new $class();
                 self::$setDefinitions[$set->getName()] = $set;

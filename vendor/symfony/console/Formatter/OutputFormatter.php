@@ -17,7 +17,7 @@ use ECSPrefix20220607\Symfony\Component\Console\Exception\InvalidArgumentExcepti
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-class OutputFormatter implements \ECSPrefix20220607\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface
+class OutputFormatter implements WrappableOutputFormatterInterface
 {
     /**
      * @var bool
@@ -53,8 +53,8 @@ class OutputFormatter implements \ECSPrefix20220607\Symfony\Component\Console\Fo
         if (\substr_compare($text, '\\', -\strlen('\\')) === 0) {
             $len = \strlen($text);
             $text = \rtrim($text, '\\');
-            $text = \str_replace("\0", '', $text);
-            $text .= \str_repeat("\0", $len - \strlen($text));
+            $text = \str_replace("\x00", '', $text);
+            $text .= \str_repeat("\x00", $len - \strlen($text));
         }
         return $text;
     }
@@ -66,14 +66,14 @@ class OutputFormatter implements \ECSPrefix20220607\Symfony\Component\Console\Fo
     public function __construct(bool $decorated = \false, array $styles = [])
     {
         $this->decorated = $decorated;
-        $this->setStyle('error', new \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyle('white', 'red'));
-        $this->setStyle('info', new \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyle('green'));
-        $this->setStyle('comment', new \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyle('yellow'));
-        $this->setStyle('question', new \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyle('black', 'cyan'));
+        $this->setStyle('error', new OutputFormatterStyle('white', 'red'));
+        $this->setStyle('info', new OutputFormatterStyle('green'));
+        $this->setStyle('comment', new OutputFormatterStyle('yellow'));
+        $this->setStyle('question', new OutputFormatterStyle('black', 'cyan'));
         foreach ($styles as $name => $style) {
             $this->setStyle($name, $style);
         }
-        $this->styleStack = new \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyleStack();
+        $this->styleStack = new OutputFormatterStyleStack();
     }
     /**
      * {@inheritdoc}
@@ -92,7 +92,7 @@ class OutputFormatter implements \ECSPrefix20220607\Symfony\Component\Console\Fo
     /**
      * {@inheritdoc}
      */
-    public function setStyle(string $name, \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
+    public function setStyle(string $name, OutputFormatterStyleInterface $style)
     {
         $this->styles[\strtolower($name)] = $style;
     }
@@ -106,10 +106,10 @@ class OutputFormatter implements \ECSPrefix20220607\Symfony\Component\Console\Fo
     /**
      * {@inheritdoc}
      */
-    public function getStyle(string $name) : \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+    public function getStyle(string $name) : OutputFormatterStyleInterface
     {
         if (!$this->hasStyle($name)) {
-            throw new \ECSPrefix20220607\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Undefined style: "%s".', $name));
+            throw new InvalidArgumentException(\sprintf('Undefined style: "%s".', $name));
         }
         return $this->styles[\strtolower($name)];
     }
@@ -161,16 +161,16 @@ class OutputFormatter implements \ECSPrefix20220607\Symfony\Component\Console\Fo
             }
         }
         $output .= $this->applyCurrentStyle(\substr($message, $offset), $output, $width, $currentLineLength);
-        return \strtr($output, ["\0" => '\\', '\\<' => '<', '\\>' => '>']);
+        return \strtr($output, ["\x00" => '\\', '\\<' => '<', '\\>' => '>']);
     }
-    public function getStyleStack() : \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyleStack
+    public function getStyleStack() : OutputFormatterStyleStack
     {
         return $this->styleStack;
     }
     /**
      * Tries to create new style instance from string.
      */
-    private function createStyleFromString(string $string) : ?\ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+    private function createStyleFromString(string $string) : ?OutputFormatterStyleInterface
     {
         if (isset($this->styles[$string])) {
             return $this->styles[$string];
@@ -178,7 +178,7 @@ class OutputFormatter implements \ECSPrefix20220607\Symfony\Component\Console\Fo
         if (!\preg_match_all('/([^=]+)=([^;]+)(;|$)/', $string, $matches, \PREG_SET_ORDER)) {
             return null;
         }
-        $style = new \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyle();
+        $style = new OutputFormatterStyle();
         foreach ($matches as $match) {
             \array_shift($match);
             $match[0] = \strtolower($match[0]);

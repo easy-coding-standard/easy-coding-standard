@@ -36,19 +36,19 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Gregor Harlan <gharlan@web.de>
  */
-final class GlobalNamespaceImportFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class GlobalNamespaceImportFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Imports or fully qualifies global classes/functions/constants.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Imports or fully qualifies global classes/functions/constants.', [new CodeSample('<?php
 
 namespace Foo;
 
 $d = new \\DateTimeImmutable();
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 
 namespace Foo;
 
@@ -57,7 +57,7 @@ if (\\count($x)) {
     $d = new \\DateTimeImmutable();
     $p = \\M_PI;
 }
-', ['import_classes' => \true, 'import_constants' => \true, 'import_functions' => \true]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['import_classes' => \true, 'import_constants' => \true, 'import_functions' => \true]), new CodeSample('<?php
 
 namespace Foo;
 
@@ -85,20 +85,20 @@ if (count($x)) {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_NS_SEPARATOR, \T_USE]) && $tokens->isTokenKindFound(\T_NAMESPACE) && 1 === $tokens->countTokenKind(\T_NAMESPACE) && $tokens->isMonolithicPhp();
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $namespaceAnalyses = (new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens);
+        $namespaceAnalyses = (new NamespacesAnalyzer())->getDeclarations($tokens);
         if (1 !== \count($namespaceAnalyses) || $namespaceAnalyses[0]->isGlobalNamespace()) {
             return;
         }
-        $useDeclarations = (new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
+        $useDeclarations = (new NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
         $newImports = [];
         if (\true === $this->configuration['import_constants']) {
             $newImports['const'] = $this->importConstants($tokens, $useDeclarations);
@@ -120,16 +120,16 @@ if (count($x)) {
             $this->insertImports($tokens, $newImports, $useDeclarations);
         }
     }
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('import_constants', 'Whether to import, not import or ignore global constants.'))->setDefault(null)->setAllowedValues([\true, \false, null])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('import_functions', 'Whether to import, not import or ignore global functions.'))->setDefault(null)->setAllowedValues([\true, \false, null])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('import_classes', 'Whether to import, not import or ignore global classes.'))->setDefault(\true)->setAllowedValues([\true, \false, null])->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('import_constants', 'Whether to import, not import or ignore global constants.'))->setDefault(null)->setAllowedValues([\true, \false, null])->getOption(), (new FixerOptionBuilder('import_functions', 'Whether to import, not import or ignore global functions.'))->setDefault(null)->setAllowedValues([\true, \false, null])->getOption(), (new FixerOptionBuilder('import_classes', 'Whether to import, not import or ignore global classes.'))->setDefault(\true)->setAllowedValues([\true, \false, null])->getOption()]);
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      */
-    private function importConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
+    private function importConstants(Tokens $tokens, array $useDeclarations) : array
     {
-        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
+        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isConstant();
         }, \true);
         // find namespaced const declarations (`const FOO = 1`)
@@ -138,7 +138,7 @@ if (count($x)) {
             $token = $tokens[$index];
             if ($token->isClassy()) {
                 $index = $tokens->getNextTokenOfKind($index, ['{']);
-                $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
                 continue;
             }
             if (!$token->isGivenKind(\T_CONST)) {
@@ -147,7 +147,7 @@ if (count($x)) {
             $index = $tokens->getNextMeaningfulToken($index);
             $other[$tokens[$index]->getContent()] = \true;
         }
-        $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $analyzer = new TokensAnalyzer($tokens);
         $indices = [];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
@@ -171,7 +171,7 @@ if (count($x)) {
                 continue;
             }
             $prevIndex = $tokens->getPrevMeaningfulToken($nsSeparatorIndex);
-            if ($tokens[$prevIndex]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR, \T_STRING])) {
+            if ($tokens[$prevIndex]->isGivenKind([CT::T_NAMESPACE_OPERATOR, \T_STRING])) {
                 continue;
             }
             $indices[] = $index;
@@ -181,9 +181,9 @@ if (count($x)) {
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      */
-    private function importFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
+    private function importFunctions(Tokens $tokens, array $useDeclarations) : array
     {
-        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
+        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isFunction();
         }, \false);
         // find function declarations
@@ -191,7 +191,7 @@ if (count($x)) {
         foreach ($this->findFunctionDeclarations($tokens, 0, $tokens->count() - 1) as $name) {
             $other[\strtolower($name)] = \true;
         }
-        $analyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $analyzer = new FunctionsAnalyzer();
         $indices = [];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
@@ -219,9 +219,9 @@ if (count($x)) {
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      */
-    private function importClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : array
+    private function importClasses(Tokens $tokens, array $useDeclarations) : array
     {
-        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
+        [$global, $other] = $this->filterUseDeclarations($useDeclarations, static function (NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isClass();
         }, \false);
         /** @var DocBlock[] $docBlocks */
@@ -231,7 +231,7 @@ if (count($x)) {
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {
             $token = $tokens[$index];
             if ($token->isGivenKind(\T_DOC_COMMENT)) {
-                $docBlocks[$index] = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
+                $docBlocks[$index] = new DocBlock($token->getContent());
                 $this->traverseDocBlockTypes($docBlocks[$index], static function (string $type) use($global, &$other) : void {
                     if (\strpos($type, '\\') !== \false) {
                         return;
@@ -250,7 +250,7 @@ if (count($x)) {
                 $other[\strtolower($tokens[$index]->getContent())] = \true;
             }
         }
-        $analyzer = new \PhpCsFixer\Tokenizer\Analyzer\ClassyAnalyzer();
+        $analyzer = new ClassyAnalyzer();
         $indices = [];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
@@ -271,7 +271,7 @@ if (count($x)) {
                 }
                 continue;
             }
-            if ($tokens[$tokens->getPrevMeaningfulToken($nsSeparatorIndex)]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR, \T_STRING])) {
+            if ($tokens[$tokens->getPrevMeaningfulToken($nsSeparatorIndex)]->isGivenKind([CT::T_NAMESPACE_OPERATOR, \T_STRING])) {
                 continue;
             }
             $indices[] = $index;
@@ -294,7 +294,7 @@ if (count($x)) {
                 return $name;
             });
             if ($changed) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $docBlock->getContent()]);
+                $tokens[$index] = new Token([\T_DOC_COMMENT, $docBlock->getContent()]);
             }
         }
         return $imports + $this->prepareImports($tokens, $indices, $global, $other, \false);
@@ -306,7 +306,7 @@ if (count($x)) {
      *
      * @return array array keys contain the names that must be imported
      */
-    private function prepareImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices, array $global, array $other, bool $caseSensitive) : array
+    private function prepareImports(Tokens $tokens, array $indices, array $global, array $other, bool $caseSensitive) : array
     {
         $imports = [];
         foreach ($indices as $index) {
@@ -318,7 +318,7 @@ if (count($x)) {
             if (!isset($global[$checkName])) {
                 $imports[$checkName] = $name;
             } elseif (\is_string($global[$checkName])) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $global[$checkName]]);
+                $tokens[$index] = new Token([\T_STRING, $global[$checkName]]);
             }
             $tokens->clearAt($tokens->getPrevMeaningfulToken($index));
         }
@@ -327,31 +327,31 @@ if (count($x)) {
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      */
-    private function insertImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $imports, array $useDeclarations) : void
+    private function insertImports(Tokens $tokens, array $imports, array $useDeclarations) : void
     {
         if (\count($useDeclarations) > 0) {
             $useDeclaration = \end($useDeclarations);
             $index = $useDeclaration->getEndIndex() + 1;
         } else {
-            $namespace = (new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens)[0];
+            $namespace = (new NamespacesAnalyzer())->getDeclarations($tokens)[0];
             $index = $namespace->getEndIndex() + 1;
         }
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         if (!$tokens[$index]->isWhitespace() || \strpos($tokens[$index]->getContent(), "\n") === \false) {
-            $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnding]));
+            $tokens->insertAt($index, new Token([\T_WHITESPACE, $lineEnding]));
         }
         foreach ($imports as $type => $typeImports) {
             foreach ($typeImports as $name) {
-                $items = [new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnding]), new \PhpCsFixer\Tokenizer\Token([\T_USE, 'use']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
+                $items = [new Token([\T_WHITESPACE, $lineEnding]), new Token([\T_USE, 'use']), new Token([\T_WHITESPACE, ' '])];
                 if ('const' === $type) {
-                    $items[] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT, 'const']);
-                    $items[] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+                    $items[] = new Token([CT::T_CONST_IMPORT, 'const']);
+                    $items[] = new Token([\T_WHITESPACE, ' ']);
                 } elseif ('function' === $type) {
-                    $items[] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT, 'function']);
-                    $items[] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+                    $items[] = new Token([CT::T_FUNCTION_IMPORT, 'function']);
+                    $items[] = new Token([\T_WHITESPACE, ' ']);
                 }
-                $items[] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $name]);
-                $items[] = new \PhpCsFixer\Tokenizer\Token(';');
+                $items[] = new Token([\T_STRING, $name]);
+                $items[] = new Token(';');
                 $tokens->insertAt($index, $items);
             }
         }
@@ -359,18 +359,18 @@ if (count($x)) {
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      */
-    private function fullyQualifyConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : void
+    private function fullyQualifyConstants(Tokens $tokens, array $useDeclarations) : void
     {
-        if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT)) {
+        if (!$tokens->isTokenKindFound(CT::T_CONST_IMPORT)) {
             return;
         }
-        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
+        [$global] = $this->filterUseDeclarations($useDeclarations, static function (NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isConstant() && !$declaration->isAliased();
         }, \true);
         if (!$global) {
             return;
         }
-        $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $analyzer = new TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind(\T_STRING)) {
@@ -385,24 +385,24 @@ if (count($x)) {
             if (!$analyzer->isConstantInvocation($index)) {
                 continue;
             }
-            $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']));
+            $tokens->insertAt($index, new Token([\T_NS_SEPARATOR, '\\']));
         }
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      */
-    private function fullyQualifyFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : void
+    private function fullyQualifyFunctions(Tokens $tokens, array $useDeclarations) : void
     {
-        if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
+        if (!$tokens->isTokenKindFound(CT::T_FUNCTION_IMPORT)) {
             return;
         }
-        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
+        [$global] = $this->filterUseDeclarations($useDeclarations, static function (NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isFunction() && !$declaration->isAliased();
         }, \false);
         if (!$global) {
             return;
         }
-        $analyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $analyzer = new FunctionsAnalyzer();
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind(\T_STRING)) {
@@ -417,28 +417,28 @@ if (count($x)) {
             if (!$analyzer->isGlobalFunctionCall($tokens, $index)) {
                 continue;
             }
-            $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']));
+            $tokens->insertAt($index, new Token([\T_NS_SEPARATOR, '\\']));
         }
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      */
-    private function fullyQualifyClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations) : void
+    private function fullyQualifyClasses(Tokens $tokens, array $useDeclarations) : void
     {
         if (!$tokens->isTokenKindFound(\T_USE)) {
             return;
         }
-        [$global] = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) : bool {
+        [$global] = $this->filterUseDeclarations($useDeclarations, static function (NamespaceUseAnalysis $declaration) : bool {
             return $declaration->isClass() && !$declaration->isAliased();
         }, \false);
         if (!$global) {
             return;
         }
-        $analyzer = new \PhpCsFixer\Tokenizer\Analyzer\ClassyAnalyzer();
+        $analyzer = new ClassyAnalyzer();
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
             if ($token->isGivenKind(\T_DOC_COMMENT)) {
-                $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
+                $doc = new DocBlock($token->getContent());
                 $changed = $this->traverseDocBlockTypes($doc, static function (string $type) use($global) : string {
                     if (!isset($global[\strtolower($type)])) {
                         return $type;
@@ -446,7 +446,7 @@ if (count($x)) {
                     return '\\' . $type;
                 });
                 if ($changed) {
-                    $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
+                    $tokens[$index] = new Token([\T_DOC_COMMENT, $doc->getContent()]);
                 }
                 continue;
             }
@@ -462,7 +462,7 @@ if (count($x)) {
             if (!$analyzer->isClassyInvocation($tokens, $index)) {
                 continue;
             }
-            $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']));
+            $tokens->insertAt($index, new Token([\T_NS_SEPARATOR, '\\']));
         }
     }
     /**
@@ -488,13 +488,13 @@ if (count($x)) {
         }
         return [$global, $other];
     }
-    private function findFunctionDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : iterable
+    private function findFunctionDeclarations(Tokens $tokens, int $start, int $end) : iterable
     {
         for ($index = $start; $index <= $end; ++$index) {
             $token = $tokens[$index];
             if ($token->isClassy()) {
                 $classStart = $tokens->getNextTokenOfKind($index, ['{']);
-                $classEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $classStart);
+                $classEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $classStart);
                 for ($index = $classStart; $index <= $classEnd; ++$index) {
                     if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
                         continue;
@@ -504,7 +504,7 @@ if (count($x)) {
                         $index = $methodStart;
                         continue;
                     }
-                    $methodEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $methodStart);
+                    $methodEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $methodStart);
                     foreach ($this->findFunctionDeclarations($tokens, $methodStart, $methodEnd) as $function) {
                         (yield $function);
                     }
@@ -516,7 +516,7 @@ if (count($x)) {
                 continue;
             }
             $index = $tokens->getNextMeaningfulToken($index);
-            if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_RETURN_REF)) {
+            if ($tokens[$index]->isGivenKind(CT::T_RETURN_REF)) {
                 $index = $tokens->getNextMeaningfulToken($index);
             }
             if ($tokens[$index]->isGivenKind(\T_STRING)) {
@@ -524,9 +524,9 @@ if (count($x)) {
             }
         }
     }
-    private function traverseDocBlockTypes(\PhpCsFixer\DocBlock\DocBlock $doc, callable $callback) : bool
+    private function traverseDocBlockTypes(DocBlock $doc, callable $callback) : bool
     {
-        $annotations = $doc->getAnnotationsOfType(\PhpCsFixer\DocBlock\Annotation::getTagsWithTypes());
+        $annotations = $doc->getAnnotationsOfType(Annotation::getTagsWithTypes());
         if (0 === \count($annotations)) {
             return \false;
         }
@@ -535,7 +535,7 @@ if (count($x)) {
             $types = $new = $annotation->getTypes();
             foreach ($types as $i => $fullType) {
                 $newFullType = $fullType;
-                \PhpCsFixer\Preg::matchAll('/[\\\\\\w]+/', $fullType, $matches, \PREG_OFFSET_CAPTURE);
+                Preg::matchAll('/[\\\\\\w]+/', $fullType, $matches, \PREG_OFFSET_CAPTURE);
                 foreach (\array_reverse($matches[0]) as [$type, $offset]) {
                     $newType = $callback($type);
                     if (null !== $newType && $type !== $newType) {

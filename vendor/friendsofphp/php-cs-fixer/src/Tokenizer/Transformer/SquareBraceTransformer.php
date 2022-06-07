@@ -27,7 +27,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class SquareBraceTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -50,7 +50,7 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if ($this->isArrayDestructing($tokens, $index)) {
             $this->transformIntoDestructuringSquareBrace($tokens, $index);
@@ -65,25 +65,25 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE, \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE];
+        return [CT::T_ARRAY_SQUARE_BRACE_OPEN, CT::T_ARRAY_SQUARE_BRACE_CLOSE, CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE];
     }
-    private function transformIntoArraySquareBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function transformIntoArraySquareBrace(Tokens $tokens, int $index) : void
     {
-        $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, '[']);
-        $tokens[$endIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE, ']']);
+        $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
+        $tokens[$index] = new Token([CT::T_ARRAY_SQUARE_BRACE_OPEN, '[']);
+        $tokens[$endIndex] = new Token([CT::T_ARRAY_SQUARE_BRACE_CLOSE, ']']);
     }
-    private function transformIntoDestructuringSquareBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function transformIntoDestructuringSquareBrace(Tokens $tokens, int $index) : void
     {
-        $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, '[']);
-        $tokens[$endIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE, ']']);
+        $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
+        $tokens[$index] = new Token([CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, '[']);
+        $tokens[$endIndex] = new Token([CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE, ']']);
         $previousMeaningfulIndex = $index;
         $index = $tokens->getNextMeaningfulToken($index);
         while ($index < $endIndex) {
-            if ($tokens[$index]->equals('[') && $tokens[$previousMeaningfulIndex]->equalsAny([[\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN], ','])) {
-                $tokens[$tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index)] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE, ']']);
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, '[']);
+            if ($tokens[$index]->equals('[') && $tokens[$previousMeaningfulIndex]->equalsAny([[CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN], ','])) {
+                $tokens[$tokens->findBlockEnd(Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index)] = new Token([CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE, ']']);
+                $tokens[$index] = new Token([CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, '[']);
             }
             $previousMeaningfulIndex = $index;
             $index = $tokens->getNextMeaningfulToken($index);
@@ -92,12 +92,12 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
     /**
      * Check if token under given index is short array opening.
      */
-    private function isShortArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function isShortArray(Tokens $tokens, int $index) : bool
     {
         if (!$tokens[$index]->equals('[')) {
             return \false;
         }
-        static $disallowedPrevTokens = [')', ']', '}', '"', [\T_CONSTANT_ENCAPSED_STRING], [\T_STRING], [\T_STRING_VARNAME], [\T_VARIABLE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE]];
+        static $disallowedPrevTokens = [')', ']', '}', '"', [\T_CONSTANT_ENCAPSED_STRING], [\T_STRING], [\T_STRING_VARNAME], [\T_VARIABLE], [CT::T_ARRAY_SQUARE_BRACE_CLOSE], [CT::T_DYNAMIC_PROP_BRACE_CLOSE], [CT::T_DYNAMIC_VAR_BRACE_CLOSE], [CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE]];
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
         if ($prevToken->equalsAny($disallowedPrevTokens)) {
             return \false;
@@ -108,12 +108,12 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
         }
         return !$this->isArrayDestructing($tokens, $index);
     }
-    private function isArrayDestructing(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function isArrayDestructing(Tokens $tokens, int $index) : bool
     {
         if (!$tokens[$index]->equals('[')) {
             return \false;
         }
-        static $disallowedPrevTokens = [')', ']', '"', [\T_CONSTANT_ENCAPSED_STRING], [\T_STRING], [\T_STRING_VARNAME], [\T_VARIABLE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE]];
+        static $disallowedPrevTokens = [')', ']', '"', [\T_CONSTANT_ENCAPSED_STRING], [\T_STRING], [\T_STRING_VARNAME], [\T_VARIABLE], [CT::T_ARRAY_SQUARE_BRACE_CLOSE], [CT::T_DYNAMIC_PROP_BRACE_CLOSE], [CT::T_DYNAMIC_VAR_BRACE_CLOSE], [CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE]];
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         $prevToken = $tokens[$prevIndex];
         if ($prevToken->equalsAny($disallowedPrevTokens)) {
@@ -132,7 +132,7 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
                 return \true;
             }
         }
-        $type = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
+        $type = Tokens::detectBlockType($tokens[$index]);
         $end = $tokens->findBlockEnd($type['type'], $index);
         $nextToken = $tokens[$tokens->getNextMeaningfulToken($end)];
         return $nextToken->equals('=');

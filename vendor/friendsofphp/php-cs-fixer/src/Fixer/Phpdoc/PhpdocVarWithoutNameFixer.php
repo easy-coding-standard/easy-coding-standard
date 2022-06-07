@@ -25,14 +25,14 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Dave van der Brugge <dmvdbrugge@gmail.com>
  */
-final class PhpdocVarWithoutNameFixer extends \PhpCsFixer\AbstractFixer
+final class PhpdocVarWithoutNameFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('`@var` and `@type` annotations of classy properties should not contain the name.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('`@var` and `@type` annotations of classy properties should not contain the name.', [new CodeSample('<?php
 final class Foo
 {
     /**
@@ -60,14 +60,14 @@ final class Foo
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT) && $tokens->isAnyTokenKindsFound([\T_CLASS, \T_TRAIT]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -85,12 +85,12 @@ final class Foo
             $propertyModifierKinds = [\T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_VAR];
             if (\defined('T_READONLY')) {
                 // @TODO: drop condition when PHP 8.1+ is required
-                $propertyModifierKinds[] = T_READONLY;
+                $propertyModifierKinds[] = \T_READONLY;
             }
             if (!$tokens[$nextIndex]->isGivenKind($propertyModifierKinds)) {
                 continue;
             }
-            $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
+            $doc = new DocBlock($token->getContent());
             $firstLevelLines = $this->getFirstLevelLines($doc);
             $annotations = $doc->getAnnotationsOfType(['type', 'var']);
             foreach ($annotations as $annotation) {
@@ -98,13 +98,13 @@ final class Foo
                     $this->fixLine($firstLevelLines[$annotation->getStart()]);
                 }
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
+            $tokens[$index] = new Token([\T_DOC_COMMENT, $doc->getContent()]);
         }
     }
-    private function fixLine(\PhpCsFixer\DocBlock\Line $line) : void
+    private function fixLine(Line $line) : void
     {
         $content = $line->getContent();
-        \PhpCsFixer\Preg::matchAll('/ \\$[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*/', $content, $matches);
+        Preg::matchAll('/ \\$[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*/', $content, $matches);
         if (isset($matches[0][0])) {
             $line->setContent(\str_replace($matches[0][0], '', $content));
         }
@@ -112,19 +112,19 @@ final class Foo
     /**
      * @return Line[]
      */
-    private function getFirstLevelLines(\PhpCsFixer\DocBlock\DocBlock $docBlock) : array
+    private function getFirstLevelLines(DocBlock $docBlock) : array
     {
         $nested = 0;
         $lines = $docBlock->getLines();
         foreach ($lines as $index => $line) {
             $content = $line->getContent();
-            if (\PhpCsFixer\Preg::match('/\\s*\\*\\s*}$/', $content)) {
+            if (Preg::match('/\\s*\\*\\s*}$/', $content)) {
                 --$nested;
             }
             if ($nested > 0) {
                 unset($lines[$index]);
             }
-            if (\PhpCsFixer\Preg::match('/\\s\\{$/', $content)) {
+            if (Preg::match('/\\s\\{$/', $content)) {
                 ++$nested;
             }
         }

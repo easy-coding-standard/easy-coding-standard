@@ -27,6 +27,6 @@ trait StaticClass
      */
     public static function __callStatic(string $name, array $args)
     {
-        \ECSPrefix20220607\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
+        Utils\ObjectHelpers::strictStaticCall(static::class, $name);
     }
 }

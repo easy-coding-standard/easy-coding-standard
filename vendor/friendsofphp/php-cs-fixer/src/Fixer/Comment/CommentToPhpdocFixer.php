@@ -29,7 +29,7 @@ use PhpCsFixer\Utils;
 /**
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class CommentToPhpdocFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * @var string[]
@@ -38,7 +38,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
@@ -63,9 +63,9 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Comments with annotation should be docblock when used on structural elements.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php /* header */ \$x = true; /* @var bool \$isFoo */ \$isFoo = true;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n// @todo do something later\n\$foo = 1;\n\n// @var int \$a\n\$a = foo();\n", ['ignored_tags' => ['todo']])], null, 'Risky as new docblocks might mean more, e.g. a Doctrine entity might have a new column in database.');
+        return new FixerDefinition('Comments with annotation should be docblock when used on structural elements.', [new CodeSample("<?php /* header */ \$x = true; /* @var bool \$isFoo */ \$isFoo = true;\n"), new CodeSample("<?php\n// @todo do something later\n\$foo = 1;\n\n// @var int \$a\n\$a = foo();\n", ['ignored_tags' => ['todo']])], null, 'Risky as new docblocks might mean more, e.g. a Doctrine entity might have a new column in database.');
     }
     /**
      * {@inheritdoc}
@@ -80,16 +80,16 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('ignored_tags', 'List of ignored tags'))->setAllowedTypes(['array'])->setDefault([])->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('ignored_tags', 'List of ignored tags'))->setAllowedTypes(['array'])->setDefault([])->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $commentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\CommentsAnalyzer();
+        $commentsAnalyzer = new CommentsAnalyzer();
         for ($index = 0, $limit = \count($tokens); $index < $limit; ++$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind(\T_COMMENT)) {
@@ -111,13 +111,13 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * @param int[] $indices
      */
-    private function isCommentCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices) : bool
+    private function isCommentCandidate(Tokens $tokens, array $indices) : bool
     {
         return \array_reduce($indices, function (bool $carry, int $index) use($tokens) : bool {
             if ($carry) {
                 return \true;
             }
-            if (1 !== \PhpCsFixer\Preg::match('~(?:#|//|/\\*+|\\R(?:\\s*\\*)?)\\s*\\@([a-zA-Z0-9_\\\\-]+)(?=\\s|\\(|$)~', $tokens[$index]->getContent(), $matches)) {
+            if (1 !== Preg::match('~(?:#|//|/\\*+|\\R(?:\\s*\\*)?)\\s*\\@([a-zA-Z0-9_\\\\-]+)(?=\\s|\\(|$)~', $tokens[$index]->getContent(), $matches)) {
                 return \false;
             }
             return !\in_array(\strtolower($matches[1]), $this->ignoredTags, \true);
@@ -126,7 +126,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * @param int[] $indices
      */
-    private function fixComment(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices) : void
+    private function fixComment(Tokens $tokens, array $indices) : void
     {
         if (1 === \count($indices)) {
             $this->fixCommentSingleLine($tokens, \reset($indices));
@@ -134,7 +134,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
             $this->fixCommentMultiLine($tokens, $indices);
         }
     }
-    private function fixCommentSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixCommentSingleLine(Tokens $tokens, int $index) : void
     {
         $message = $this->getMessage($tokens[$index]->getContent());
         if ('' !== \trim(\substr($message, 0, 1))) {
@@ -143,15 +143,15 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
         if ('' !== \trim(\substr($message, -1))) {
             $message .= ' ';
         }
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, '/**' . $message . '*/']);
+        $tokens[$index] = new Token([\T_DOC_COMMENT, '/**' . $message . '*/']);
     }
     /**
      * @param int[] $indices
      */
-    private function fixCommentMultiLine(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices) : void
+    private function fixCommentMultiLine(Tokens $tokens, array $indices) : void
     {
         $startIndex = \reset($indices);
-        $indent = \PhpCsFixer\Utils::calculateTrailingWhitespaceIndent($tokens[$startIndex - 1]);
+        $indent = Utils::calculateTrailingWhitespaceIndent($tokens[$startIndex - 1]);
         $newContent = '/**' . $this->whitespacesConfig->getLineEnding();
         $count = \max($indices);
         for ($index = $startIndex; $index <= $count; ++$index) {
@@ -171,7 +171,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
             $tokens->clearAt($index);
         }
         $newContent .= $indent . ' */';
-        $tokens->insertAt($startIndex, new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $newContent]));
+        $tokens->insertAt($startIndex, new Token([\T_DOC_COMMENT, $newContent]));
     }
     private function getMessage(string $content) : string
     {

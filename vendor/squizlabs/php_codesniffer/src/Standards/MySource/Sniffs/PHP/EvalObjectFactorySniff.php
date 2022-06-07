@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\PHP;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-class EvalObjectFactorySniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class EvalObjectFactorySniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class EvalObjectFactorySniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         /*
@@ -45,7 +45,7 @@ class EvalObjectFactorySniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $strings = [];
         $vars = [];
         for ($i = $openBracket + 1; $i < $closeBracket; $i++) {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$stringTokens[$tokens[$i]['code']]) === \true) {
+            if (isset(Tokens::$stringTokens[$tokens[$i]['code']]) === \true) {
                 $strings[$i] = $tokens[$i]['content'];
             } else {
                 if ($tokens[$i]['code'] === \T_VARIABLE) {
@@ -79,7 +79,7 @@ class EvalObjectFactorySniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 // Find all strings on the line.
                 $lineEnd = $phpcsFile->findNext(T_SEMICOLON, $prev + 1);
                 for ($i = $prev + 1; $i < $lineEnd; $i++) {
-                    if (isset(\PHP_CodeSniffer\Util\Tokens::$stringTokens[$tokens[$i]['code']]) === \true) {
+                    if (isset(Tokens::$stringTokens[$tokens[$i]['code']]) === \true) {
                         $strings[$i] = $tokens[$i]['content'];
                     }
                 }

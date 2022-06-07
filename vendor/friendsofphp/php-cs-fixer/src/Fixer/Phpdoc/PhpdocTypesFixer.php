@@ -26,7 +26,7 @@ use PhpCsFixer\Preg;
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class PhpdocTypesFixer extends AbstractPhpdocTypesFixer implements ConfigurableFixerInterface
 {
     /**
      * Available types, grouped.
@@ -54,15 +54,15 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('The correct case must be used for standard PHP types in PHPDoc.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('The correct case must be used for standard PHP types in PHPDoc.', [new CodeSample('<?php
 /**
  * @param STRING|String[] $bar
  *
  * @return inT[]
  */
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 /**
  * @param BOOL $foo
  *
@@ -93,16 +93,16 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
      */
     protected function normalize(string $type) : string
     {
-        return \PhpCsFixer\Preg::replaceCallback($this->patternToFix, function (array $matches) : string {
+        return Preg::replaceCallback($this->patternToFix, function (array $matches) : string {
             return \strtolower($matches[0]);
         }, $type);
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
         $possibleGroups = \array_keys(self::POSSIBLE_TYPES);
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('groups', 'Type groups to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($possibleGroups)])->setDefault($possibleGroups)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('groups', 'Type groups to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset($possibleGroups)])->setDefault($possibleGroups)->getOption()]);
     }
 }

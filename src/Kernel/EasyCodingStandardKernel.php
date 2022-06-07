@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Kernel;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Kernel;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface;
 use ECSPrefix20220607\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-use Symplify\CodingStandard\ValueObject\CodingStandardConfig;
-use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
-use Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig;
+use ECSPrefix20220607\Symplify\CodingStandard\ValueObject\CodingStandardConfig;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig;
 use ECSPrefix20220607\Symplify\EasyParallel\ValueObject\EasyParallelConfig;
 use ECSPrefix20220607\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 use ECSPrefix20220607\Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
 use ECSPrefix20220607\Symplify\Skipper\ValueObject\SkipperConfig;
 use ECSPrefix20220607\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class EasyCodingStandardKernel extends \ECSPrefix20220607\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+final class EasyCodingStandardKernel extends AbstractSymplifyKernel
 {
     /**
      * @param string[] $configFiles
@@ -29,11 +29,11 @@ final class EasyCodingStandardKernel extends \ECSPrefix20220607\Symplify\Symplif
     {
         $configFiles[] = __DIR__ . '/../../config/config.php';
         $compilerPasses = $this->createCompilerPasses();
-        $configFiles[] = \ECSPrefix20220607\Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig::FILE_PATH;
-        $configFiles[] = \ECSPrefix20220607\Symplify\Skipper\ValueObject\SkipperConfig::FILE_PATH;
-        $configFiles[] = \Symplify\CodingStandard\ValueObject\CodingStandardConfig::FILE_PATH;
-        $configFiles[] = \Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig::FILE_PATH;
-        $configFiles[] = \ECSPrefix20220607\Symplify\EasyParallel\ValueObject\EasyParallelConfig::FILE_PATH;
+        $configFiles[] = ConsoleColorDiffConfig::FILE_PATH;
+        $configFiles[] = SkipperConfig::FILE_PATH;
+        $configFiles[] = CodingStandardConfig::FILE_PATH;
+        $configFiles[] = EasyCodingStandardConfig::FILE_PATH;
+        $configFiles[] = EasyParallelConfig::FILE_PATH;
         return $this->create($configFiles, $compilerPasses, []);
     }
     /**
@@ -43,13 +43,13 @@ final class EasyCodingStandardKernel extends \ECSPrefix20220607\Symplify\Symplif
     {
         return [
             // cleanup
-            new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass(),
-            new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass(),
-            new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass(),
+            new RemoveExcludedCheckersCompilerPass(),
+            new RemoveMutualCheckersCompilerPass(),
+            new ConflictingCheckersCompilerPass(),
             // autowire
-            new \ECSPrefix20220607\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass([\PhpCsFixer\Fixer\FixerInterface::class, \PHP_CodeSniffer\Sniffs\Sniff::class, \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface::class]),
-            new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass(),
-            new \ECSPrefix20220607\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass(),
+            new AutowireInterfacesCompilerPass([FixerInterface::class, Sniff::class, OutputFormatterInterface::class]),
+            new FixerWhitespaceConfigCompilerPass(),
+            new AutowireArrayParameterCompilerPass(),
         ];
     }
 }

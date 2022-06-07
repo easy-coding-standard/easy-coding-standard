@@ -19,7 +19,7 @@ namespace ECSPrefix20220607\React\Socket;
  * $promise = $connector->connect('localhost:80');
  * ```
  */
-class FixedUriConnector implements \ECSPrefix20220607\React\Socket\ConnectorInterface
+class FixedUriConnector implements ConnectorInterface
 {
     private $uri;
     private $connector;
@@ -27,7 +27,7 @@ class FixedUriConnector implements \ECSPrefix20220607\React\Socket\ConnectorInte
      * @param string $uri
      * @param ConnectorInterface $connector
      */
-    public function __construct($uri, \ECSPrefix20220607\React\Socket\ConnectorInterface $connector)
+    public function __construct($uri, ConnectorInterface $connector)
     {
         $this->uri = $uri;
         $this->connector = $connector;

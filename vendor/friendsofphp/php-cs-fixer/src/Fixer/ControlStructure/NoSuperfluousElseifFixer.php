@@ -19,21 +19,21 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
+final class NoSuperfluousElseifFixer extends AbstractNoUselessElseFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_ELSE, \T_ELSEIF]);
     }
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces superfluous `elseif` with `if`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif (\$a) {\n    return 1;\n} elseif (\$b) {\n    return 2;\n}\n")]);
+        return new FixerDefinition('Replaces superfluous `elseif` with `if`.', [new CodeSample("<?php\nif (\$a) {\n    return 1;\n} elseif (\$b) {\n    return 2;\n}\n")]);
     }
     /**
      * {@inheritdoc}
@@ -48,7 +48,7 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if ($this->isElseif($tokens, $index) && $this->isSuperfluousElse($tokens, $index)) {
@@ -56,21 +56,21 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
             }
         }
     }
-    private function isElseif(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function isElseif(Tokens $tokens, int $index) : bool
     {
         return $tokens[$index]->isGivenKind(\T_ELSEIF) || $tokens[$index]->isGivenKind(\T_ELSE) && $tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(\T_IF);
     }
-    private function convertElseifToIf(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function convertElseifToIf(Tokens $tokens, int $index) : void
     {
         if ($tokens[$index]->isGivenKind(\T_ELSE)) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index);
         } else {
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_IF, 'if']);
+            $tokens[$index] = new Token([\T_IF, 'if']);
         }
         $whitespace = '';
         for ($previous = $index - 1; $previous > 0; --$previous) {
             $token = $tokens[$previous];
-            if ($token->isWhitespace() && \PhpCsFixer\Preg::match('/(\\R\\N*)$/', $token->getContent(), $matches)) {
+            if ($token->isWhitespace() && Preg::match('/(\\R\\N*)$/', $token->getContent(), $matches)) {
                 $whitespace = $matches[1];
                 break;
             }
@@ -80,9 +80,9 @@ final class NoSuperfluousElseifFixer extends \PhpCsFixer\AbstractNoUselessElseFi
         }
         $previousToken = $tokens[$index - 1];
         if (!$previousToken->isWhitespace()) {
-            $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $whitespace]));
-        } elseif (!\PhpCsFixer\Preg::match('/\\R/', $previousToken->getContent())) {
-            $tokens[$index - 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $whitespace]);
+            $tokens->insertAt($index, new Token([\T_WHITESPACE, $whitespace]));
+        } elseif (!Preg::match('/\\R/', $previousToken->getContent())) {
+            $tokens[$index - 1] = new Token([\T_WHITESPACE, $whitespace]);
         }
     }
 }

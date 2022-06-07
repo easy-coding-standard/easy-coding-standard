@@ -26,7 +26,7 @@ use ECSPrefix20220607\Symfony\Component\DependencyInjection\Reference;
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class AnalyzeServiceReferencesPass extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class AnalyzeServiceReferencesPass extends AbstractRecursivePass
 {
     private $graph;
     private $currentDefinition = null;
@@ -70,7 +70,7 @@ class AnalyzeServiceReferencesPass extends \ECSPrefix20220607\Symfony\Component\
     /**
      * Processes a ContainerBuilder object to populate the service reference graph.
      */
-    public function process(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(ContainerBuilder $container)
     {
         $this->container = $container;
         $this->graph = $container->getCompiler()->getServiceReferenceGraph();
@@ -98,22 +98,22 @@ class AnalyzeServiceReferencesPass extends \ECSPrefix20220607\Symfony\Component\
     {
         $lazy = $this->lazy;
         $inExpression = $this->inExpression();
-        if ($value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
-            $this->lazy = !$this->byFactory || !$value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+        if ($value instanceof ArgumentInterface) {
+            $this->lazy = !$this->byFactory || !$value instanceof IteratorArgument;
             parent::processValue($value->getValues());
             $this->lazy = $lazy;
             return $value;
         }
-        if ($value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Reference) {
+        if ($value instanceof Reference) {
             $targetId = $this->getDefinitionId((string) $value);
             $targetDefinition = null !== $targetId ? $this->container->getDefinition($targetId) : null;
-            $this->graph->connect($this->currentId, $this->currentDefinition, $targetId, $targetDefinition, $value, $this->lazy || $this->hasProxyDumper && $targetDefinition && $targetDefinition->isLazy(), \ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $value->getInvalidBehavior(), $this->byConstructor);
+            $this->graph->connect($this->currentId, $this->currentDefinition, $targetId, $targetDefinition, $value, $this->lazy || $this->hasProxyDumper && $targetDefinition && $targetDefinition->isLazy(), ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $value->getInvalidBehavior(), $this->byConstructor);
             if ($inExpression) {
                 $this->graph->connect('.internal.reference_in_expression', null, $targetId, $targetDefinition, $value, $this->lazy || $targetDefinition && $targetDefinition->isLazy(), \true);
             }
             return $value;
         }
-        if (!$value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition) {
+        if (!$value instanceof Definition) {
             return parent::processValue($value, $isRoot);
         }
         if ($isRoot) {

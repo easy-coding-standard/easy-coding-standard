@@ -17,10 +17,10 @@ use PhpCsFixer\RuleSet\AbstractMigrationSetDescription;
 /**
  * @internal
  */
-final class PHPUnit84MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractMigrationSetDescription
+final class PHPUnit84MigrationRiskySet extends AbstractMigrationSetDescription
 {
     public function getRules() : array
     {
-        return ['@PHPUnit60Migration:risky' => \true, '@PHPUnit75Migration:risky' => \true, 'php_unit_expectation' => ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_8_4]];
+        return ['@PHPUnit60Migration:risky' => \true, '@PHPUnit75Migration:risky' => \true, 'php_unit_expectation' => ['target' => PhpUnitTargetVersion::VERSION_8_4]];
     }
 }

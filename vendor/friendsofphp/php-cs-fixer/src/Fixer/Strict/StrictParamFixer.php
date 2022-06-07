@@ -23,19 +23,19 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
+final class StrictParamFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Functions should be used with `$strict` param set to `true`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = array_keys(\$b);\n\$a = array_search(\$b, \$c);\n\$a = base64_decode(\$b);\n\$a = in_array(\$b, \$c);\n\$a = mb_detect_encoding(\$b, \$c);\n")], 'The functions "array_keys", "array_search", "base64_decode", "in_array" and "mb_detect_encoding" should be used with $strict param.', 'Risky when the fixed function is overridden or if the code relies on non-strict usage.');
+        return new FixerDefinition('Functions should be used with `$strict` param set to `true`.', [new CodeSample("<?php\n\$a = array_keys(\$b);\n\$a = array_search(\$b, \$c);\n\$a = base64_decode(\$b);\n\$a = in_array(\$b, \$c);\n\$a = mb_detect_encoding(\$b, \$c);\n")], 'The functions "array_keys", "array_search", "base64_decode", "in_array" and "mb_detect_encoding" should be used with $strict param.', 'Risky when the fixed function is overridden or if the code relies on non-strict usage.');
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -58,13 +58,13 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         static $map = null;
         if (null === $map) {
-            $trueToken = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'true']);
-            $map = ['array_keys' => [null, null, $trueToken], 'array_search' => [null, null, $trueToken], 'base64_decode' => [null, $trueToken], 'in_array' => [null, null, $trueToken], 'mb_detect_encoding' => [null, [new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'mb_detect_order']), new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token(')')], $trueToken]];
+            $trueToken = new Token([\T_STRING, 'true']);
+            $map = ['array_keys' => [null, null, $trueToken], 'array_search' => [null, null, $trueToken], 'base64_decode' => [null, $trueToken], 'in_array' => [null, null, $trueToken], 'mb_detect_encoding' => [null, [new Token([\T_STRING, 'mb_detect_order']), new Token('('), new Token(')')], $trueToken]];
         }
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             $token = $tokens[$index];
@@ -78,10 +78,10 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex, array $functionParams) : void
+    private function fixFunction(Tokens $tokens, int $functionIndex, array $functionParams) : void
     {
         $startBraceIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
-        $endBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startBraceIndex);
+        $endBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startBraceIndex);
         $paramsQuantity = 0;
         $expectParam = \true;
         for ($index = $startBraceIndex + 1; $index < $endBraceIndex; ++$index) {
@@ -91,11 +91,11 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
                 $expectParam = \false;
             }
             if ($token->equals('(')) {
-                $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
                 continue;
             }
-            if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
-                $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
+            if ($token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
                 continue;
             }
             if ($token->equals(',')) {
@@ -113,8 +113,8 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
             if (!$functionParams[$i]) {
                 return;
             }
-            $tokensToInsert[] = new \PhpCsFixer\Tokenizer\Token(',');
-            $tokensToInsert[] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+            $tokensToInsert[] = new Token(',');
+            $tokensToInsert[] = new Token([\T_WHITESPACE, ' ']);
             if (!\is_array($functionParams[$i])) {
                 $tokensToInsert[] = clone $functionParams[$i];
                 continue;
@@ -126,7 +126,7 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
         $beforeEndBraceIndex = $tokens->getPrevMeaningfulToken($endBraceIndex);
         if ($tokens[$beforeEndBraceIndex]->equals(',')) {
             \array_shift($tokensToInsert);
-            $tokensToInsert[] = new \PhpCsFixer\Tokenizer\Token(',');
+            $tokensToInsert[] = new Token(',');
         }
         $tokens->insertAt($beforeEndBraceIndex + 1, $tokensToInsert);
     }

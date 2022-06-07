@@ -25,26 +25,26 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 /**
  * Adds braces to Doctrine annotations when missing.
  */
-final class DoctrineAnnotationBracesFixer extends \PhpCsFixer\AbstractDoctrineAnnotationFixer
+final class DoctrineAnnotationBracesFixer extends AbstractDoctrineAnnotationFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Doctrine annotations without arguments must use the configured syntax.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @Foo()\n */\nclass Bar {}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @Foo\n */\nclass Bar {}\n", ['syntax' => 'with_braces'])]);
+        return new FixerDefinition('Doctrine annotations without arguments must use the configured syntax.', [new CodeSample("<?php\n/**\n * @Foo()\n */\nclass Bar {}\n"), new CodeSample("<?php\n/**\n * @Foo\n */\nclass Bar {}\n", ['syntax' => 'with_braces'])]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver(\array_merge(parent::createConfigurationDefinition()->getOptions(), [(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('syntax', 'Whether to add or remove braces.'))->setAllowedValues(['with_braces', 'without_braces'])->setDefault('without_braces')->getOption()]));
+        return new FixerConfigurationResolver(\array_merge(parent::createConfigurationDefinition()->getOptions(), [(new FixerOptionBuilder('syntax', 'Whether to add or remove braces.'))->setAllowedValues(['with_braces', 'without_braces'])->setDefault('without_braces')->getOption()]));
     }
     /**
      * {@inheritdoc}
      */
-    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens) : void
+    protected function fixAnnotations(Tokens $doctrineAnnotationTokens) : void
     {
         if ('without_braces' === $this->configuration['syntax']) {
             $this->removesBracesFromAnnotations($doctrineAnnotationTokens);
@@ -52,38 +52,38 @@ final class DoctrineAnnotationBracesFixer extends \PhpCsFixer\AbstractDoctrineAn
             $this->addBracesToAnnotations($doctrineAnnotationTokens);
         }
     }
-    private function addBracesToAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens) : void
+    private function addBracesToAnnotations(Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
-            if (!$tokens[$index]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            if (!$tokens[$index]->isType(DocLexer::T_AT)) {
                 continue;
             }
             $braceIndex = $tokens->getNextMeaningfulToken($index + 1);
-            if (null !== $braceIndex && $tokens[$braceIndex]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+            if (null !== $braceIndex && $tokens[$braceIndex]->isType(DocLexer::T_OPEN_PARENTHESIS)) {
                 continue;
             }
-            $tokens->insertAt($index + 2, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, '('));
-            $tokens->insertAt($index + 3, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, ')'));
+            $tokens->insertAt($index + 2, new Token(DocLexer::T_OPEN_PARENTHESIS, '('));
+            $tokens->insertAt($index + 3, new Token(DocLexer::T_CLOSE_PARENTHESIS, ')'));
         }
     }
-    private function removesBracesFromAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens) : void
+    private function removesBracesFromAnnotations(Tokens $tokens) : void
     {
         for ($index = 0, $max = \count($tokens); $index < $max; ++$index) {
-            if (!$tokens[$index]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            if (!$tokens[$index]->isType(DocLexer::T_AT)) {
                 continue;
             }
             $openBraceIndex = $tokens->getNextMeaningfulToken($index + 1);
             if (null === $openBraceIndex) {
                 continue;
             }
-            if (!$tokens[$openBraceIndex]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+            if (!$tokens[$openBraceIndex]->isType(DocLexer::T_OPEN_PARENTHESIS)) {
                 continue;
             }
             $closeBraceIndex = $tokens->getNextMeaningfulToken($openBraceIndex);
             if (null === $closeBraceIndex) {
                 continue;
             }
-            if (!$tokens[$closeBraceIndex]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS)) {
+            if (!$tokens[$closeBraceIndex]->isType(DocLexer::T_CLOSE_PARENTHESIS)) {
                 continue;
             }
             for ($currentIndex = $index + 2; $currentIndex <= $closeBraceIndex; ++$currentIndex) {

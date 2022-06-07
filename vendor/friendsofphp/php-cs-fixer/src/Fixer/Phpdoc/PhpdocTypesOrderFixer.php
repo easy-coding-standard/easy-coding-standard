@@ -26,30 +26,30 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class PhpdocTypesOrderFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class PhpdocTypesOrderFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Sorts PHPDoc types.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Sorts PHPDoc types.', [new CodeSample('<?php
 /**
  * @param string|null $bar
  */
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 /**
  * @param null|string $bar
  */
-', ['null_adjustment' => 'always_last']), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['null_adjustment' => 'always_last']), new CodeSample('<?php
 /**
  * @param null|string|int|\\Foo $bar
  */
-', ['sort_algorithm' => 'alpha']), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['sort_algorithm' => 'alpha']), new CodeSample('<?php
 /**
  * @param null|string|int|\\Foo $bar
  */
-', ['sort_algorithm' => 'alpha', 'null_adjustment' => 'always_last']), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['sort_algorithm' => 'alpha', 'null_adjustment' => 'always_last']), new CodeSample('<?php
 /**
  * @param null|string|int|\\Foo $bar
  */
@@ -68,25 +68,25 @@ final class PhpdocTypesOrderFixer extends \PhpCsFixer\AbstractFixer implements \
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'The sorting algorithm to apply.'))->setAllowedValues(['alpha', 'none'])->setDefault('alpha')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('null_adjustment', 'Forces the position of `null` (overrides `sort_algorithm`).'))->setAllowedValues(['always_first', 'always_last', 'none'])->setDefault('always_first')->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('sort_algorithm', 'The sorting algorithm to apply.'))->setAllowedValues(['alpha', 'none'])->setDefault('alpha')->getOption(), (new FixerOptionBuilder('null_adjustment', 'Forces the position of `null` (overrides `sort_algorithm`).'))->setAllowedValues(['always_first', 'always_last', 'none'])->setDefault('always_first')->getOption()]);
     }
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-            $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
-            $annotations = $doc->getAnnotationsOfType(\PhpCsFixer\DocBlock\Annotation::getTagsWithTypes());
+            $doc = new DocBlock($token->getContent());
+            $annotations = $doc->getAnnotationsOfType(Annotation::getTagsWithTypes());
             if (0 === \count($annotations)) {
                 continue;
             }
@@ -95,25 +95,25 @@ final class PhpdocTypesOrderFixer extends \PhpCsFixer\AbstractFixer implements \
                 $annotation->setTypes($this->sortTypes($annotation->getTypeExpression()));
                 // fix @method parameters types
                 $line = $doc->getLine($annotation->getStart());
-                $line->setContent(\PhpCsFixer\Preg::replaceCallback('/(@method\\s+.+?\\s+\\w+\\()(.*)\\)/', function (array $matches) {
-                    $sorted = \PhpCsFixer\Preg::replaceCallback('/([^\\s,]+)([\\s]+\\$[^\\s,]+)/', function (array $matches) : string {
+                $line->setContent(Preg::replaceCallback('/(@method\\s+.+?\\s+\\w+\\()(.*)\\)/', function (array $matches) {
+                    $sorted = Preg::replaceCallback('/([^\\s,]+)([\\s]+\\$[^\\s,]+)/', function (array $matches) : string {
                         return $this->sortJoinedTypes($matches[1]) . $matches[2];
                     }, $matches[2]);
                     return $matches[1] . $sorted . ')';
                 }, $line->getContent()));
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
+            $tokens[$index] = new Token([\T_DOC_COMMENT, $doc->getContent()]);
         }
     }
     /**
      * @return string[]
      */
-    private function sortTypes(\PhpCsFixer\DocBlock\TypeExpression $typeExpression) : array
+    private function sortTypes(TypeExpression $typeExpression) : array
     {
         $normalizeType = static function (string $type) : string {
-            return \PhpCsFixer\Preg::replace('/^\\??\\\\?/', '', $type);
+            return Preg::replace('/^\\??\\\\?/', '', $type);
         };
-        $typeExpression->sortTypes(function (\PhpCsFixer\DocBlock\TypeExpression $a, \PhpCsFixer\DocBlock\TypeExpression $b) use($normalizeType) : int {
+        $typeExpression->sortTypes(function (TypeExpression $a, TypeExpression $b) use($normalizeType) : int {
             $a = $normalizeType($a->toString());
             $b = $normalizeType($b->toString());
             $lowerCaseA = \strtolower($a);
@@ -135,7 +135,7 @@ final class PhpdocTypesOrderFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     private function sortJoinedTypes(string $types) : string
     {
-        $typeExpression = new \PhpCsFixer\DocBlock\TypeExpression($types, null, []);
+        $typeExpression = new TypeExpression($types, null, []);
         return \implode('|', $this->sortTypes($typeExpression));
     }
 }

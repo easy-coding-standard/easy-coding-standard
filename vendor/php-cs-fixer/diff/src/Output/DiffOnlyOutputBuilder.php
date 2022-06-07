@@ -35,11 +35,11 @@ final class DiffOnlyOutputBuilder implements \PhpCsFixer\Diff\Output\DiffOutputB
             }
         }
         foreach ($diff as $diffEntry) {
-            if ($diffEntry[1] === \PhpCsFixer\Diff\Differ::ADDED) {
+            if ($diffEntry[1] === Differ::ADDED) {
                 \fwrite($buffer, '+' . $diffEntry[0]);
-            } elseif ($diffEntry[1] === \PhpCsFixer\Diff\Differ::REMOVED) {
+            } elseif ($diffEntry[1] === Differ::REMOVED) {
                 \fwrite($buffer, '-' . $diffEntry[0]);
-            } elseif ($diffEntry[1] === \PhpCsFixer\Diff\Differ::DIFF_LINE_END_WARNING) {
+            } elseif ($diffEntry[1] === Differ::DIFF_LINE_END_WARNING) {
                 \fwrite($buffer, ' ' . $diffEntry[0]);
                 continue;
                 // Warnings should not be tested for line break, it will always be there

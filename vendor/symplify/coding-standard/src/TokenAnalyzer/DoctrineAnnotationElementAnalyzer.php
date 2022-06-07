@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenAnalyzer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer;
 
 use ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token;
@@ -17,10 +17,10 @@ final class DoctrineAnnotationElementAnalyzer
      *
      * @param Tokens<Token> $doctrineAnnotationTokens
      */
-    public function isOpeningBracketFollowedByAnnotation(\PhpCsFixer\Doctrine\Annotation\Token $token, \PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens, int $braceIndex) : bool
+    public function isOpeningBracketFollowedByAnnotation(Token $token, Tokens $doctrineAnnotationTokens, int $braceIndex) : bool
     {
         // should be "("
-        $isNextOpenParenthesis = $token->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS);
+        $isNextOpenParenthesis = $token->isType(DocLexer::T_OPEN_PARENTHESIS);
         if (!$isNextOpenParenthesis) {
             return \false;
         }
@@ -31,6 +31,6 @@ final class DoctrineAnnotationElementAnalyzer
         /** @var Token $nextToken */
         $nextToken = $doctrineAnnotationTokens[$nextTokenIndex];
         // next token must be nested annotation, we don't care otherwise
-        return $nextToken->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_AT);
+        return $nextToken->isType(DocLexer::T_AT);
     }
 }

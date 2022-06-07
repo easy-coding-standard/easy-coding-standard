@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\SniffRunner\DataCollector;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\DataCollector;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
-use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 final class SniffMetadataCollector
 {
     /**
@@ -34,7 +34,7 @@ final class SniffMetadataCollector
         $this->appliedSniffs = [];
         $this->codingStandardErrors = [];
     }
-    public function addCodingStandardError(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError $codingStandardError) : void
+    public function addCodingStandardError(CodingStandardError $codingStandardError) : void
     {
         $this->codingStandardErrors[] = $codingStandardError;
     }

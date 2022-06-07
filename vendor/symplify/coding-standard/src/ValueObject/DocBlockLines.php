@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\ValueObject;
+namespace ECSPrefix20220607\Symplify\CodingStandard\ValueObject;
 
 final class DocBlockLines
 {

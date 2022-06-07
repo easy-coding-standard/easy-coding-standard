@@ -39,5 +39,5 @@ interface ConfigurableFixerInterface extends \PhpCsFixer\Fixer\FixerInterface
     /**
      * Defines the available configuration options of the fixer.
      */
-    public function getConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
+    public function getConfigurationDefinition() : FixerConfigurationResolverInterface;
 }

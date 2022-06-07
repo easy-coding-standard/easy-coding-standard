@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\PHP;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class DisallowShortOpenTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DisallowShortOpenTagSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -38,7 +38,7 @@ class DisallowShortOpenTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $token = $tokens[$stackPtr];
@@ -59,7 +59,7 @@ class DisallowShortOpenTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $phpcsFile->recordMetric($stackPtr, 'PHP short open tag used', 'no');
         }
         if ($token['code'] === \T_OPEN_TAG_WITH_ECHO) {
-            $nextVar = $tokens[$phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true)];
+            $nextVar = $tokens[$phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true)];
             $error = 'Short PHP opening tag used with echo; expected "<?php echo %s ..." but found "%s %s ..."';
             $data = [$nextVar['content'], $token['content'], $nextVar['content']];
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'EchoFound', $data);

@@ -19,7 +19,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class PhpUnitTestCaseIndicator
 {
-    public function isPhpUnitClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    public function isPhpUnitClass(Tokens $tokens, int $index) : bool
     {
         if (!$tokens[$index]->isGivenKind(\T_CLASS)) {
             throw new \LogicException(\sprintf('No "T_CLASS" at given index %d, got "%s".', $index, $tokens[$index]->getName()));
@@ -32,7 +32,7 @@ final class PhpUnitTestCaseIndicator
         if (!$tokens[$extendsIndex]->isGivenKind(\T_EXTENDS)) {
             return \false;
         }
-        if (0 !== \PhpCsFixer\Preg::match('/(?:Test|TestCase)$/', $tokens[$index]->getContent())) {
+        if (0 !== Preg::match('/(?:Test|TestCase)$/', $tokens[$index]->getContent())) {
             return \true;
         }
         while (null !== ($index = $tokens->getNextMeaningfulToken($index))) {
@@ -44,7 +44,7 @@ final class PhpUnitTestCaseIndicator
                 continue;
                 // not part of extends nor part of implements; so continue
             }
-            if (0 !== \PhpCsFixer\Preg::match('/(?:Test|TestCase)(?:Interface)?$/', $tokens[$index]->getContent())) {
+            if (0 !== Preg::match('/(?:Test|TestCase)(?:Interface)?$/', $tokens[$index]->getContent())) {
                 return \true;
             }
         }
@@ -53,7 +53,7 @@ final class PhpUnitTestCaseIndicator
     /**
      * @return \Generator array of [int start, int end] indices from sooner to later classes
      */
-    public function findPhpUnitClasses(\PhpCsFixer\Tokenizer\Tokens $tokens) : \Generator
+    public function findPhpUnitClasses(Tokens $tokens) : \Generator
     {
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_CLASS) || !$this->isPhpUnitClass($tokens, $index)) {
@@ -63,7 +63,7 @@ final class PhpUnitTestCaseIndicator
             if (null === $startIndex) {
                 return;
             }
-            $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $startIndex);
+            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $startIndex);
             (yield [$startIndex, $endIndex]);
         }
     }

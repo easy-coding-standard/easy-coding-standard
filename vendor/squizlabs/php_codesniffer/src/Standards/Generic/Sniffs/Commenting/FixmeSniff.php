@@ -13,7 +13,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class FixmeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FixmeSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -28,7 +28,7 @@ class FixmeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return \array_diff(\PHP_CodeSniffer\Util\Tokens::$commentTokens, \PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens);
+        return \array_diff(Tokens::$commentTokens, Tokens::$phpcsCommentTokens);
     }
     //end register()
     /**
@@ -40,7 +40,7 @@ class FixmeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $content = $tokens[$stackPtr]['content'];

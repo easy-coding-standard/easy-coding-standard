@@ -5,7 +5,7 @@ namespace ECSPrefix20220607;
 
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer;
-use Symplify\EasyCodingStandard\Config\ECSConfig;
-return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
-    $ecsConfig->rules([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer::class, \PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer::class]);
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+return static function (ECSConfig $ecsConfig) : void {
+    $ecsConfig->rules([PhpUnitTestAnnotationFixer::class, PhpUnitSetUpTearDownVisibilityFixer::class]);
 };

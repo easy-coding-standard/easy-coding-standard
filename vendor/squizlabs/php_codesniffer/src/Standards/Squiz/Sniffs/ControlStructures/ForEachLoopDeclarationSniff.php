@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class ForEachLoopDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ForEachLoopDeclarationSniff implements Sniff
 {
     /**
      * How many spaces should follow the opening bracket.
@@ -44,7 +44,7 @@ class ForEachLoopDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $this->requiredSpacesAfterOpen = (int) $this->requiredSpacesAfterOpen;
         $this->requiredSpacesBeforeClose = (int) $this->requiredSpacesBeforeClose;

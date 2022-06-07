@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays;
 
 use PHP_CodeSniffer\Sniffs\AbstractArraySniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ArrayIndentSniff extends \PHP_CodeSniffer\Sniffs\AbstractArraySniff
+class ArrayIndentSniff extends AbstractArraySniff
 {
     /**
      * The number of spaces each array key should be indented.
@@ -53,7 +53,7 @@ class ArrayIndentSniff extends \PHP_CodeSniffer\Sniffs\AbstractArraySniff
     {
         $tokens = $phpcsFile->getTokens();
         // Determine how far indented the entire array declaration should be.
-        $ignore = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $ignore = Tokens::$emptyTokens;
         $ignore[] = \T_DOUBLE_ARROW;
         $ignore[] = T_COMMA;
         $prev = $phpcsFile->findPrevious($ignore, $stackPtr - 1, null, \true);
@@ -88,7 +88,7 @@ class ArrayIndentSniff extends \PHP_CodeSniffer\Sniffs\AbstractArraySniff
             } else {
                 $start = $index['value_start'];
             }
-            $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $start - 1, null, \true);
+            $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $start - 1, null, \true);
             if ($tokens[$prev]['line'] === $tokens[$start]['line']) {
                 // This index isn't the only content on the line
                 // so we can't check indent rules.

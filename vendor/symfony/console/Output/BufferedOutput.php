@@ -13,7 +13,7 @@ namespace ECSPrefix20220607\Symfony\Component\Console\Output;
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class BufferedOutput extends \ECSPrefix20220607\Symfony\Component\Console\Output\Output
+class BufferedOutput extends Output
 {
     /**
      * @var string

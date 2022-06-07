@@ -66,17 +66,17 @@ abstract class AbstractScopeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     {
         if (empty($scopeTokens) === \true) {
             $error = 'The scope tokens list cannot be empty';
-            throw new \PHP_CodeSniffer\Exceptions\RuntimeException($error);
+            throw new RuntimeException($error);
         }
         if (empty($tokens) === \true) {
             $error = 'The tokens list cannot be empty';
-            throw new \PHP_CodeSniffer\Exceptions\RuntimeException($error);
+            throw new RuntimeException($error);
         }
         $invalidScopeTokens = \array_intersect($scopeTokens, $tokens);
         if (empty($invalidScopeTokens) === \false) {
             $invalid = \implode(', ', $invalidScopeTokens);
             $error = "Scope tokens [{$invalid}] can't be in the tokens array";
-            throw new \PHP_CodeSniffer\Exceptions\RuntimeException($error);
+            throw new RuntimeException($error);
         }
         $this->listenOutside = $listenOutside;
         $this->scopeTokens = \array_flip($scopeTokens);
@@ -111,7 +111,7 @@ abstract class AbstractScopeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *                  the rest of the file.
      * @see    processTokenWithinScope()
      */
-    public final function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public final function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $foundScope = \false;
@@ -147,7 +147,7 @@ abstract class AbstractScopeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected abstract function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope);
+    protected abstract function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope);
     /**
      * Processes a token that is found outside the scope that this test is
      * listening to.
@@ -161,6 +161,6 @@ abstract class AbstractScopeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *                  pointer is reached. Return (count($tokens) + 1) to skip
      *                  the rest of the file.
      */
-    protected abstract function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
+    protected abstract function processTokenOutsideScope(File $phpcsFile, $stackPtr);
 }
 //end class

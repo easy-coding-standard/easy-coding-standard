@@ -28,7 +28,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @author Ivan Boprzenkov <ivan.borzenkov@gmail.com>
  */
-final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class NonPrintableCharacterFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @var array<string, string[]>
@@ -56,9 +56,9 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Remove Zero-width space (ZWSP), Non-breaking space (NBSP) and other invisible unicode symbols.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n"), new \PhpCsFixer\FixerDefinition\CodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n", ['use_escape_sequences_in_strings' => \false])], null, 'Risky when strings contain intended invisible characters.');
+        return new FixerDefinition('Remove Zero-width space (ZWSP), Non-breaking space (NBSP) and other invisible unicode symbols.', [new CodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n"), new CodeSample('<?php echo "' . \pack('H*', 'e2808b') . 'Hello' . \pack('H*', 'e28087') . 'World' . \pack('H*', 'c2a0') . "!\";\n", ['use_escape_sequences_in_strings' => \false])], null, 'Risky when strings contain intended invisible characters.');
     }
     /**
      * {@inheritdoc}
@@ -70,21 +70,21 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound(self::$tokens);
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use_escape_sequences_in_strings', 'Whether characters should be replaced with escape sequences in strings.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('use_escape_sequences_in_strings', 'Whether characters should be replaced with escape sequences in strings.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $replacements = [];
         $escapeSequences = [];
@@ -95,7 +95,7 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
         foreach ($tokens as $index => $token) {
             $content = $token->getContent();
             if ($this->configuration['use_escape_sequences_in_strings'] && $token->isGivenKind([\T_CONSTANT_ENCAPSED_STRING, \T_ENCAPSED_AND_WHITESPACE])) {
-                if (!\PhpCsFixer\Preg::match('/' . \implode('|', \array_keys($escapeSequences)) . '/', $content)) {
+                if (!Preg::match('/' . \implode('|', \array_keys($escapeSequences)) . '/', $content)) {
                     continue;
                 }
                 $previousToken = $tokens[$index - 1];
@@ -104,7 +104,7 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
                 if ($previousToken->isGivenKind(\T_START_HEREDOC)) {
                     $previousTokenContent = $previousToken->getContent();
                     if (\strpos($previousTokenContent, '\'') !== \false) {
-                        $tokens[$index - 1] = new \PhpCsFixer\Tokenizer\Token([\T_START_HEREDOC, \str_replace('\'', '', $previousTokenContent)]);
+                        $tokens[$index - 1] = new Token([\T_START_HEREDOC, \str_replace('\'', '', $previousTokenContent)]);
                         $stringTypeChanged = \true;
                     }
                 } elseif (\strncmp($content, "'", \strlen("'")) === 0) {
@@ -115,14 +115,14 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
                     $content = \str_replace("\\'", "'", $content);
                 }
                 if ($stringTypeChanged) {
-                    $content = \PhpCsFixer\Preg::replace('/(\\\\{1,2})/', '\\\\\\\\', $content);
+                    $content = Preg::replace('/(\\\\{1,2})/', '\\\\\\\\', $content);
                     $content = \str_replace('$', '\\$', $content);
                 }
                 if ($swapQuotes) {
                     $content = \str_replace('"', '\\"', $content);
-                    $content = \PhpCsFixer\Preg::replace('/^\'(.*)\'$/s', '"$1"', $content);
+                    $content = Preg::replace('/^\'(.*)\'$/s', '"$1"', $content);
                 }
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), \strtr($content, $escapeSequences)]);
+                $tokens[$index] = new Token([$token->getId(), \strtr($content, $escapeSequences)]);
                 continue;
             }
             if ($token->isGivenKind(self::$tokens)) {
@@ -135,7 +135,7 @@ final class NonPrintableCharacterFixer extends \PhpCsFixer\AbstractFixer impleme
                 if ($token->isGivenKind([\T_COMMENT, \T_DOC_COMMENT]) && \strncmp($newContent, '/*', \strlen('/*')) === 0 && \strpos($newContent, '*/') !== \strlen($newContent) - 2) {
                     continue;
                 }
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $newContent]);
+                $tokens[$index] = new Token([$token->getId(), $newContent]);
             }
         }
     }

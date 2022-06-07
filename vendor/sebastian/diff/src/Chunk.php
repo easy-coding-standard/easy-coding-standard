@@ -70,8 +70,8 @@ final class Chunk
     public function setLines(array $lines) : void
     {
         foreach ($lines as $line) {
-            if (!$line instanceof \ECSPrefix20220607\SebastianBergmann\Diff\Line) {
-                throw new \ECSPrefix20220607\SebastianBergmann\Diff\InvalidArgumentException();
+            if (!$line instanceof Line) {
+                throw new InvalidArgumentException();
             }
         }
         $this->lines = $lines;

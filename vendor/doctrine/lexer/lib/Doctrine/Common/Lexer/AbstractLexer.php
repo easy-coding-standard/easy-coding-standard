@@ -128,7 +128,7 @@ abstract class AbstractLexer
      */
     public function getInputUntilPosition($position)
     {
-        return \substr($this->input, 0, $position);
+        return substr($this->input, 0, $position);
     }
     /**
      * Checks whether a given token matches the current lookahead.
@@ -150,7 +150,7 @@ abstract class AbstractLexer
      */
     public function isNextTokenAny(array $types)
     {
-        return $this->lookahead !== null && \in_array($this->lookahead['type'], $types, \true);
+        return $this->lookahead !== null && in_array($this->lookahead['type'], $types, \true);
     }
     /**
      * Moves to the next token in the input string.
@@ -224,10 +224,10 @@ abstract class AbstractLexer
     protected function scan($input)
     {
         if (!isset($this->regex)) {
-            $this->regex = \sprintf('/(%s)|%s/%s', \implode(')|(', $this->getCatchablePatterns()), \implode('|', $this->getNonCatchablePatterns()), $this->getModifiers());
+            $this->regex = sprintf('/(%s)|%s/%s', implode(')|(', $this->getCatchablePatterns()), implode('|', $this->getNonCatchablePatterns()), $this->getModifiers());
         }
-        $flags = \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_OFFSET_CAPTURE;
-        $matches = \preg_split($this->regex, $input, -1, $flags);
+        $flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_OFFSET_CAPTURE;
+        $matches = preg_split($this->regex, $input, -1, $flags);
         if ($matches === \false) {
             // Work around https://bugs.php.net/78122
             $matches = [[$input, 0]];
@@ -248,7 +248,7 @@ abstract class AbstractLexer
     public function getLiteral($token)
     {
         $className = static::class;
-        $reflClass = new \ReflectionClass($className);
+        $reflClass = new ReflectionClass($className);
         $constants = $reflClass->getConstants();
         foreach ($constants as $name => $value) {
             if ($value === $token) {

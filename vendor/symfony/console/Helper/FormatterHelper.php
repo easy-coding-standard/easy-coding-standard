@@ -16,7 +16,7 @@ use ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatter;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FormatterHelper extends \ECSPrefix20220607\Symfony\Component\Console\Helper\Helper
+class FormatterHelper extends Helper
 {
     /**
      * Formats a message within a section.
@@ -37,7 +37,7 @@ class FormatterHelper extends \ECSPrefix20220607\Symfony\Component\Console\Helpe
         $len = 0;
         $lines = [];
         foreach ($messages as $message) {
-            $message = \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatter::escape($message);
+            $message = OutputFormatter::escape($message);
             $lines[] = \sprintf($large ? '  %s  ' : ' %s ', $message);
             $len = \max(self::width($message) + ($large ? 4 : 2), $len);
         }

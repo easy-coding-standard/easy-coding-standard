@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
 use ECSPrefix20220607\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
-final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
+final class InlineVariableDocBlockMalformWorker implements MalformWorkerInterface
 {
     /**
      * @var string
@@ -28,26 +28,26 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
     /**
      * @param Tokens<Token> $tokens
      */
-    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
+    public function work(string $docContent, Tokens $tokens, int $position) : string
     {
         if (!$this->isVariableComment($tokens, $position)) {
             return $docContent;
         }
         // more than 2 newlines - keep it
-        if (\substr_count($docContent, \ECSPrefix20220607\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar()) > 2) {
+        if (\substr_count($docContent, StaticEolConfiguration::getEolChar()) > 2) {
             return $docContent;
         }
         // asterisk start
-        $docContent = \ECSPrefix20220607\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
+        $docContent = Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
         // inline
-        $docContent = \ECSPrefix20220607\Nette\Utils\Strings::replace($docContent, self::SPACE_REGEX, ' ');
+        $docContent = Strings::replace($docContent, self::SPACE_REGEX, ' ');
         // remove asterisk leftover
-        return \ECSPrefix20220607\Nette\Utils\Strings::replace($docContent, self::ASTERISK_LEFTOVERS_REGEX, '$1');
+        return Strings::replace($docContent, self::ASTERISK_LEFTOVERS_REGEX, '$1');
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    private function isVariableComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
+    private function isVariableComment(Tokens $tokens, int $position) : bool
     {
         $nextPosition = $tokens->getNextMeaningfulToken($position);
         if ($nextPosition === null) {

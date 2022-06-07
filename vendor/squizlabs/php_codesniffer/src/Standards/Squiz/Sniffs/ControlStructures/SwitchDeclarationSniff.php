@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class SwitchDeclarationSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -45,7 +45,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // We can't process SWITCH statements unless we know where they start and end.
@@ -202,7 +202,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                                 $i = $tokens[$i]['scope_opener'];
                                 continue;
                             }
-                            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === \false) {
+                            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === \false) {
                                 $foundContent = \true;
                                 break;
                             }

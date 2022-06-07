@@ -16,7 +16,7 @@ use ECSPrefix20220607\Symfony\Component\Config\Definition\Exception\InvalidDefin
  *
  * @author David Jeanmonod <david.jeanmonod@gmail.com>
  */
-abstract class NumericNodeDefinition extends \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
+abstract class NumericNodeDefinition extends ScalarNodeDefinition
 {
     protected $min;
     protected $max;
@@ -60,6 +60,6 @@ abstract class NumericNodeDefinition extends \ECSPrefix20220607\Symfony\Componen
      */
     public function cannotBeEmpty()
     {
-        throw new \ECSPrefix20220607\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException('->cannotBeEmpty() is not applicable to NumericNodeDefinition.');
+        throw new InvalidDefinitionException('->cannotBeEmpty() is not applicable to NumericNodeDefinition.');
     }
 }

@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class NullableTypeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class NullableTypeTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -43,22 +43,22 @@ final class NullableTypeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransf
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->equals('?')) {
             return;
         }
         static $types;
         if (null === $types) {
-            $types = ['(', ',', [\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON], [\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC], [\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED], [\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE], [\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE], [\T_PRIVATE], [\T_PROTECTED], [\T_PUBLIC], [\T_VAR], [\T_STATIC]];
+            $types = ['(', ',', [CT::T_TYPE_COLON], [CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC], [CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED], [CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE], [CT::T_ATTRIBUTE_CLOSE], [\T_PRIVATE], [\T_PROTECTED], [\T_PUBLIC], [\T_VAR], [\T_STATIC]];
             if (\defined('T_READONLY')) {
                 // @TODO: drop condition when PHP 8.1+ is required
-                $types[] = [T_READONLY];
+                $types[] = [\T_READONLY];
             }
         }
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if ($tokens[$prevIndex]->equalsAny($types)) {
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, '?']);
+            $tokens[$index] = new Token([CT::T_NULLABLE_TYPE, '?']);
         }
     }
     /**
@@ -66,6 +66,6 @@ final class NullableTypeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransf
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE];
+        return [CT::T_NULLABLE_TYPE];
     }
 }

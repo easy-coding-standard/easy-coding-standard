@@ -14,7 +14,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-class JavaScriptLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class JavaScriptLintSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -42,14 +42,14 @@ class JavaScriptLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return void
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If Javascript Lint ran into trouble.
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
-        $jslPath = \PHP_CodeSniffer\Config::getExecutablePath('jsl');
+        $jslPath = Config::getExecutablePath('jsl');
         if ($jslPath === null) {
             return;
         }
         $fileName = $phpcsFile->getFilename();
-        $cmd = '"' . \PHP_CodeSniffer\Util\Common::escapeshellcmd($jslPath) . '" -nologo -nofilelisting -nocontext -nosummary -output-format __LINE__:__ERROR__ -process ' . \escapeshellarg($fileName);
+        $cmd = '"' . Common::escapeshellcmd($jslPath) . '" -nologo -nofilelisting -nocontext -nosummary -output-format __LINE__:__ERROR__ -process ' . \escapeshellarg($fileName);
         $msg = \exec($cmd, $output, $retval);
         // Variable $exitCode is the last line of $output if no error occurs, on
         // error it is numeric. Try to handle various error conditions and
@@ -58,7 +58,7 @@ class JavaScriptLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if (\is_array($output) === \true) {
                 $msg = \join('\\n', $output);
             }
-            throw new \PHP_CodeSniffer\Exceptions\RuntimeException("Failed invoking JavaScript Lint, retval was [{$retval}], output was [{$msg}]");
+            throw new RuntimeException("Failed invoking JavaScript Lint, retval was [{$retval}], output was [{$msg}]");
         }
         if (\is_array($output) === \true) {
             foreach ($output as $finding) {

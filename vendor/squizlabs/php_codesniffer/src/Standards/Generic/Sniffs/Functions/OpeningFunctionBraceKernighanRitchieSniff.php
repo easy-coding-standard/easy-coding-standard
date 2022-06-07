@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Functions;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class OpeningFunctionBraceKernighanRitchieSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class OpeningFunctionBraceKernighanRitchieSniff implements Sniff
 {
     /**
      * Should this sniff check function braces?
@@ -45,7 +45,7 @@ class OpeningFunctionBraceKernighanRitchieSniff implements \PHP_CodeSniffer\Snif
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_opener']) === \false) {
@@ -64,7 +64,7 @@ class OpeningFunctionBraceKernighanRitchieSniff implements \PHP_CodeSniffer\Snif
             }
         }
         // Find the end of the function declaration.
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $openingBrace - 1, $closeBracket, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $openingBrace - 1, $closeBracket, \true);
         $functionLine = $tokens[$prev]['line'];
         $braceLine = $tokens[$openingBrace]['line'];
         $lineDifference = $braceLine - $functionLine;
@@ -77,7 +77,7 @@ class OpeningFunctionBraceKernighanRitchieSniff implements \PHP_CodeSniffer\Snif
             $error = 'Opening brace should be on the same line as the declaration';
             $fix = $phpcsFile->addFixableError($error, $openingBrace, 'BraceOnNewLine');
             if ($fix === \true) {
-                $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $openingBrace - 1, $closeBracket, \true);
+                $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $openingBrace - 1, $closeBracket, \true);
                 $phpcsFile->fixer->beginChangeset();
                 $phpcsFile->fixer->addContent($prev, ' {');
                 $phpcsFile->fixer->replaceToken($openingBrace, '');
@@ -98,7 +98,7 @@ class OpeningFunctionBraceKernighanRitchieSniff implements \PHP_CodeSniffer\Snif
             $phpcsFile->recordMetric($stackPtr, "{$metricType} opening brace placement", 'same line');
         }
         //end if
-        $ignore = \PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens;
+        $ignore = Tokens::$phpcsCommentTokens;
         $ignore[] = \T_WHITESPACE;
         $next = $phpcsFile->findNext($ignore, $openingBrace + 1, null, \true);
         if ($tokens[$next]['line'] === $tokens[$openingBrace]['line']) {

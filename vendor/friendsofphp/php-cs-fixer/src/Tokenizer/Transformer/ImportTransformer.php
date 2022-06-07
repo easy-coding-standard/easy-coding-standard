@@ -27,7 +27,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class ImportTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class ImportTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -47,25 +47,25 @@ final class ImportTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->isGivenKind([\T_CONST, \T_FUNCTION])) {
             return;
         }
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
         if (!$prevToken->isGivenKind(\T_USE)) {
-            $nextToken = $tokens[$tokens->getNextTokenOfKind($index, ['=', '(', [\PhpCsFixer\Tokenizer\CT::T_RETURN_REF], [\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE]])];
-            if (!$nextToken->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE)) {
+            $nextToken = $tokens[$tokens->getNextTokenOfKind($index, ['=', '(', [CT::T_RETURN_REF], [CT::T_GROUP_IMPORT_BRACE_CLOSE]])];
+            if (!$nextToken->isGivenKind(CT::T_GROUP_IMPORT_BRACE_CLOSE)) {
                 return;
             }
         }
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->isGivenKind(\T_FUNCTION) ? \PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT : \PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT, $token->getContent()]);
+        $tokens[$index] = new Token([$token->isGivenKind(\T_FUNCTION) ? CT::T_FUNCTION_IMPORT : CT::T_CONST_IMPORT, $token->getContent()]);
     }
     /**
      * {@inheritdoc}
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT, \PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT];
+        return [CT::T_CONST_IMPORT, CT::T_FUNCTION_IMPORT];
     }
 }

@@ -27,7 +27,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  * @author Gregor Harlan <gharlan@web.de>
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class IncrementStyleFixer extends \PhpCsFixer\Fixer\AbstractIncrementOperatorFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class IncrementStyleFixer extends AbstractIncrementOperatorFixer implements ConfigurableFixerInterface
 {
     /**
      * @internal
@@ -40,9 +40,9 @@ final class IncrementStyleFixer extends \PhpCsFixer\Fixer\AbstractIncrementOpera
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Pre- or post-increment and decrement operators should be used if possible.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a++;\n\$b--;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n++\$a;\n--\$b;\n", ['style' => self::STYLE_POST])]);
+        return new FixerDefinition('Pre- or post-increment and decrement operators should be used if possible.', [new CodeSample("<?php\n\$a++;\n\$b--;\n"), new CodeSample("<?php\n++\$a;\n--\$b;\n", ['style' => self::STYLE_POST])]);
     }
     /**
      * {@inheritdoc}
@@ -56,23 +56,23 @@ final class IncrementStyleFixer extends \PhpCsFixer\Fixer\AbstractIncrementOpera
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_INC, \T_DEC]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('style', 'Whether to use pre- or post-increment and decrement operators.'))->setAllowedValues([self::STYLE_PRE, self::STYLE_POST])->setDefault(self::STYLE_PRE)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('style', 'Whether to use pre- or post-increment and decrement operators.'))->setAllowedValues([self::STYLE_PRE, self::STYLE_POST])->setDefault(self::STYLE_PRE)->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind([\T_INC, \T_DEC])) {
@@ -103,12 +103,12 @@ final class IncrementStyleFixer extends \PhpCsFixer\Fixer\AbstractIncrementOpera
             }
         }
     }
-    private function findEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
+    private function findEnd(Tokens $tokens, int $index) : int
     {
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         $nextToken = $tokens[$nextIndex];
-        while ($nextToken->equalsAny(['$', '(', '[', [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {
-            $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($nextToken);
+        while ($nextToken->equalsAny(['$', '(', '[', [CT::T_DYNAMIC_PROP_BRACE_OPEN], [CT::T_DYNAMIC_VAR_BRACE_OPEN], [CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {
+            $blockType = Tokens::detectBlockType($nextToken);
             if (null !== $blockType) {
                 $nextIndex = $tokens->findBlockEnd($blockType['type'], $nextIndex);
             }

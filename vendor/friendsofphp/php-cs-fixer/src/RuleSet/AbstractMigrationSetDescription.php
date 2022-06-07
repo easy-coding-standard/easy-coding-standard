@@ -21,10 +21,10 @@ abstract class AbstractMigrationSetDescription extends \PhpCsFixer\RuleSet\Abstr
     public function getDescription() : string
     {
         $name = $this->getName();
-        if (0 !== \PhpCsFixer\Preg::match('#^@PHPUnit([\\d]{2})Migration.*$#', $name, $matches)) {
+        if (0 !== Preg::match('#^@PHPUnit([\\d]{2})Migration.*$#', $name, $matches)) {
             return \sprintf('Rules to improve tests code for PHPUnit %d.%d compatibility.', $matches[1][0], $matches[1][1]);
         }
-        if (0 !== \PhpCsFixer\Preg::match('#^@PHP([\\d]{2})Migration.*$#', $name, $matches)) {
+        if (0 !== Preg::match('#^@PHP([\\d]{2})Migration.*$#', $name, $matches)) {
             return \sprintf('Rules to improve code for PHP %d.%d compatibility.', $matches[1][0], $matches[1][1]);
         }
         throw new \RuntimeException(\sprintf('Cannot generate description for "%s" "%s".', static::class, $name));

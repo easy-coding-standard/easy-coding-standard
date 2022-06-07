@@ -17,7 +17,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
+class SelfMemberReferenceSniff extends AbstractScopeSniff
 {
     /**
      * Constructs a Squiz_Sniffs_Classes_SelfMemberReferenceSniff.
@@ -36,7 +36,7 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
      *
      * @return void
      */
-    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a double colon which needs to be examined.
@@ -50,7 +50,7 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
         if ($conditionToken !== $currScope) {
             return;
         }
-        $calledClassName = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        $calledClassName = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
         if ($calledClassName === \false) {
             // Parse error.
             return;
@@ -69,7 +69,7 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
             if ($tokens[$calledClassName]['code'] === \T_STRING) {
                 // If the class is called with a namespace prefix, build fully qualified
                 // namespace calls for both current scope class and requested class.
-                $prevNonEmpty = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $calledClassName - 1, null, \true);
+                $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, $calledClassName - 1, null, \true);
                 if ($prevNonEmpty !== \false && $tokens[$prevNonEmpty]['code'] === \T_NS_SEPARATOR) {
                     $declarationName = $this->getDeclarationNameWithNamespace($tokens, $calledClassName);
                     $declarationName = \ltrim($declarationName, '\\');
@@ -91,8 +91,8 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
                     if ($fix === \true) {
                         $phpcsFile->fixer->beginChangeset();
                         $currentPointer = $stackPtr - 1;
-                        while ($tokens[$currentPointer]['code'] === \T_NS_SEPARATOR || $tokens[$currentPointer]['code'] === \T_STRING || isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$currentPointer]['code']]) === \true) {
-                            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$currentPointer]['code']]) === \true) {
+                        while ($tokens[$currentPointer]['code'] === \T_NS_SEPARATOR || $tokens[$currentPointer]['code'] === \T_STRING || isset(Tokens::$emptyTokens[$tokens[$currentPointer]['code']]) === \true) {
+                            if (isset(Tokens::$emptyTokens[$tokens[$currentPointer]['code']]) === \true) {
                                 --$currentPointer;
                                 continue;
                             }
@@ -148,7 +148,7 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
     }
     //end processTokenOutsideScope()
@@ -164,8 +164,8 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
     {
         $nameParts = [];
         $currentPointer = $stackPtr;
-        while ($tokens[$currentPointer]['code'] === \T_NS_SEPARATOR || $tokens[$currentPointer]['code'] === \T_STRING || isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$currentPointer]['code']]) === \true) {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$currentPointer]['code']]) === \true) {
+        while ($tokens[$currentPointer]['code'] === \T_NS_SEPARATOR || $tokens[$currentPointer]['code'] === \T_STRING || isset(Tokens::$emptyTokens[$tokens[$currentPointer]['code']]) === \true) {
+            if (isset(Tokens::$emptyTokens[$tokens[$currentPointer]['code']]) === \true) {
                 --$currentPointer;
                 continue;
             }
@@ -185,7 +185,7 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
      *
      * @return string
      */
-    protected function getNamespaceOfScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function getNamespaceOfScope(File $phpcsFile, $stackPtr)
     {
         $namespace = '\\';
         $namespaceDeclaration = $phpcsFile->findPrevious(\T_NAMESPACE, $stackPtr);

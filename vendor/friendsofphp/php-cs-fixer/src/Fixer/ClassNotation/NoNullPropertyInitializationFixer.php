@@ -20,18 +20,18 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author ntzm
  */
-final class NoNullPropertyInitializationFixer extends \PhpCsFixer\AbstractFixer
+final class NoNullPropertyInitializationFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Properties MUST not be explicitly initialized with `null` except when they have a type declaration (PHP 7.4).', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Properties MUST not be explicitly initialized with `null` except when they have a type declaration (PHP 7.4).', [new CodeSample('<?php
 class Foo {
     public $foo = null;
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 class Foo {
     public static $foo = null;
 }
@@ -40,14 +40,14 @@ class Foo {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_CLASS, \T_TRAIT]) && $tokens->isAnyTokenKindsFound([\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_VAR, \T_STATIC]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $inClass = [];
         $classLevel = 0;

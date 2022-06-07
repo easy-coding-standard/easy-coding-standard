@@ -18,6 +18,6 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptions
  *
  * @internal
  */
-final class InvalidOptionsForEnvException extends \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+final class InvalidOptionsForEnvException extends InvalidOptionsException
 {
 }

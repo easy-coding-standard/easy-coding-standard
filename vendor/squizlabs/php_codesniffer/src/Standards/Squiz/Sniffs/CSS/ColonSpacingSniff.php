@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ColonSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ColonSpacingSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,10 +39,10 @@ class ColonSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
         if ($tokens[$prev]['code'] !== T_STYLE) {
             // The colon is not part of a style definition.
             return;

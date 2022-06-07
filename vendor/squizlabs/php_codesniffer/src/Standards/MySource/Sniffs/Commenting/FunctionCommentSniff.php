@@ -14,7 +14,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\Commenting;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\FunctionCommentSniff as SquizFunctionCommentSniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PHP_CodeSniffer\Files\File;
-class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\FunctionCommentSniff
+class FunctionCommentSniff extends SquizFunctionCommentSniff
 {
     /**
      * Processes this test, when one of its tokens is encountered.
@@ -25,11 +25,11 @@ class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\Squiz\Sniffs\Comme
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         parent::process($phpcsFile, $stackPtr);
         $tokens = $phpcsFile->getTokens();
-        $find = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;
+        $find = Tokens::$methodPrefixes;
         $find[] = \T_WHITESPACE;
         $commentEnd = $phpcsFile->findPrevious($find, $stackPtr - 1, null, \true);
         if ($tokens[$commentEnd]['code'] !== T_DOC_COMMENT_CLOSE_TAG) {

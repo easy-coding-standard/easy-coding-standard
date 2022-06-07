@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FileCommentSniff implements Sniff
 {
     /**
      * Tags in correct order and related info.
@@ -39,7 +39,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Find the next non whitespace token.
@@ -212,7 +212,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 continue;
             }
             $content = $tokens[$tag + 2]['content'];
-            if (\PHP_CodeSniffer\Util\Common::isUnderscoreName($content) !== \true) {
+            if (Common::isUnderscoreName($content) !== \true) {
                 $newContent = \str_replace(' ', '_', $content);
                 $nameBits = \explode('_', $newContent);
                 $firstBit = \array_shift($nameBits);
@@ -248,7 +248,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 continue;
             }
             $content = $tokens[$tag + 2]['content'];
-            if (\PHP_CodeSniffer\Util\Common::isUnderscoreName($content) === \true) {
+            if (Common::isUnderscoreName($content) === \true) {
                 continue;
             }
             $newContent = \str_replace(' ', '_', $content);
@@ -294,7 +294,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 continue;
             }
             $content = $tokens[$tag + 2]['content'];
-            if (\PHP_CodeSniffer\Util\Common::isUnderscoreName($content) === \true) {
+            if (Common::isUnderscoreName($content) === \true) {
                 continue;
             }
             $newContent = \str_replace(' ', '_', $content);

@@ -161,7 +161,7 @@ use ECSPrefix20220607\Evenement\EventEmitterInterface;
  *
  * @see EventEmitterInterface
  */
-interface ReadableStreamInterface extends \ECSPrefix20220607\Evenement\EventEmitterInterface
+interface ReadableStreamInterface extends EventEmitterInterface
 {
     /**
      * Checks whether this stream is in a readable state (not closed already).
@@ -318,7 +318,7 @@ interface ReadableStreamInterface extends \ECSPrefix20220607\Evenement\EventEmit
      * @param array $options
      * @return WritableStreamInterface $dest stream as-is
      */
-    public function pipe(\ECSPrefix20220607\React\Stream\WritableStreamInterface $dest, array $options = array());
+    public function pipe(WritableStreamInterface $dest, array $options = array());
     /**
      * Closes the stream (forcefully).
      *

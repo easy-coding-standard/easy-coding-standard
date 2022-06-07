@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Util\Common;
 use PHP_CodeSniffer\Util\Tokens;
-class ValidFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
+class ValidFunctionNameSniff extends AbstractScopeSniff
 {
     /**
      * A list of all PHP magic methods.
@@ -32,7 +32,7 @@ class ValidFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      */
     public function __construct()
     {
-        parent::__construct(\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens, [\T_FUNCTION], \true);
+        parent::__construct(Tokens::$ooScopeTokens, [\T_FUNCTION], \true);
     }
     //end __construct()
     /**
@@ -45,7 +45,7 @@ class ValidFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
@@ -109,7 +109,7 @@ class ValidFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
             $phpcsFile->addError($error, $stackPtr, 'PublicUnderscore', $data);
         }
         $testMethodName = \ltrim($methodName, '_');
-        if (\PHP_CodeSniffer\Util\Common::isCamelCaps($testMethodName, \false, \true, \false) === \false) {
+        if (Common::isCamelCaps($testMethodName, \false, \true, \false) === \false) {
             if ($scopeSpecified === \true) {
                 $error = '%s method name "%s" is not in camel caps format';
                 $data = [\ucfirst($scope), $errorData[0]];
@@ -130,7 +130,7 @@ class ValidFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
         $functionName = $phpcsFile->getDeclarationName($stackPtr);
         if ($functionName === null) {
@@ -184,7 +184,7 @@ class ValidFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
         $newPackagePart = $packagePart;
         $newCamelCapsPart = $camelCapsPart;
         // Every function must have a camel caps part, so check that first.
-        if (\PHP_CodeSniffer\Util\Common::isCamelCaps($camelCapsPart, \false, \true, \false) === \false) {
+        if (Common::isCamelCaps($camelCapsPart, \false, \true, \false) === \false) {
             $validName = \false;
             $newCamelCapsPart = \strtolower($camelCapsPart[0]) . \substr($camelCapsPart, 1);
         }

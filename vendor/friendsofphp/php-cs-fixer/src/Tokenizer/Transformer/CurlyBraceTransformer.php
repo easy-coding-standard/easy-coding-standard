@@ -31,7 +31,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class CurlyBraceTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -43,7 +43,7 @@ final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfor
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         $this->transformIntoCurlyCloseBrace($tokens, $token, $index);
         $this->transformIntoDollarCloseBrace($tokens, $token, $index);
@@ -57,14 +57,14 @@ final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfor
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_CURLY_CLOSE, \PhpCsFixer\Tokenizer\CT::T_DOLLAR_CLOSE_CURLY_BRACES, \PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_OPEN, \PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE, \PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN, \PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN, \PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE, \PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_OPEN, \PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE];
+        return [CT::T_CURLY_CLOSE, CT::T_DOLLAR_CLOSE_CURLY_BRACES, CT::T_DYNAMIC_PROP_BRACE_OPEN, CT::T_DYNAMIC_PROP_BRACE_CLOSE, CT::T_DYNAMIC_VAR_BRACE_OPEN, CT::T_DYNAMIC_VAR_BRACE_CLOSE, CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN, CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE, CT::T_GROUP_IMPORT_BRACE_OPEN, CT::T_GROUP_IMPORT_BRACE_CLOSE];
     }
     /**
      * Transform closing `}` for T_CURLY_OPEN into CT::T_CURLY_CLOSE.
      *
      * This should be done at very beginning of curly braces transformations.
      */
-    private function transformIntoCurlyCloseBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    private function transformIntoCurlyCloseBrace(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->isGivenKind(\T_CURLY_OPEN)) {
             return;
@@ -80,16 +80,16 @@ final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfor
                 --$level;
             }
         } while (0 < $level);
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CURLY_CLOSE, '}']);
+        $tokens[$index] = new Token([CT::T_CURLY_CLOSE, '}']);
     }
-    private function transformIntoDollarCloseBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    private function transformIntoDollarCloseBrace(Tokens $tokens, Token $token, int $index) : void
     {
         if ($token->isGivenKind(\T_DOLLAR_OPEN_CURLY_BRACES)) {
             $nextIndex = $tokens->getNextTokenOfKind($index, ['}']);
-            $tokens[$nextIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DOLLAR_CLOSE_CURLY_BRACES, '}']);
+            $tokens[$nextIndex] = new Token([CT::T_DOLLAR_CLOSE_CURLY_BRACES, '}']);
         }
     }
-    private function transformIntoDynamicPropBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    private function transformIntoDynamicPropBraces(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->isObjectOperator()) {
             return;
@@ -99,10 +99,10 @@ final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfor
         }
         $openIndex = $index + 1;
         $closeIndex = $this->naivelyFindCurlyBlockEnd($tokens, $openIndex);
-        $tokens[$openIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_OPEN, '{']);
-        $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE, '}']);
+        $tokens[$openIndex] = new Token([CT::T_DYNAMIC_PROP_BRACE_OPEN, '{']);
+        $tokens[$closeIndex] = new Token([CT::T_DYNAMIC_PROP_BRACE_CLOSE, '}']);
     }
-    private function transformIntoDynamicVarBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    private function transformIntoDynamicVarBraces(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->equals('$')) {
             return;
@@ -116,29 +116,29 @@ final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfor
             return;
         }
         $closeIndex = $this->naivelyFindCurlyBlockEnd($tokens, $openIndex);
-        $tokens[$openIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN, '{']);
-        $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE, '}']);
+        $tokens[$openIndex] = new Token([CT::T_DYNAMIC_VAR_BRACE_OPEN, '{']);
+        $tokens[$closeIndex] = new Token([CT::T_DYNAMIC_VAR_BRACE_CLOSE, '}']);
     }
-    private function transformIntoCurlyIndexBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    private function transformIntoCurlyIndexBraces(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->equals('{')) {
             return;
         }
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
-        if (!$tokens[$prevIndex]->equalsAny([[\T_STRING], [\T_VARIABLE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE], ']', ')'])) {
+        if (!$tokens[$prevIndex]->equalsAny([[\T_STRING], [\T_VARIABLE], [CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE], ']', ')'])) {
             return;
         }
         if ($tokens[$prevIndex]->isGivenKind(\T_STRING) && !$tokens[$tokens->getPrevMeaningfulToken($prevIndex)]->isObjectOperator()) {
             return;
         }
-        if ($tokens[$prevIndex]->equals(')') && !$tokens[$tokens->getPrevMeaningfulToken($tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $prevIndex))]->isGivenKind(\T_ARRAY)) {
+        if ($tokens[$prevIndex]->equals(')') && !$tokens[$tokens->getPrevMeaningfulToken($tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $prevIndex))]->isGivenKind(\T_ARRAY)) {
             return;
         }
         $closeIndex = $this->naivelyFindCurlyBlockEnd($tokens, $index);
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN, '{']);
-        $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE, '}']);
+        $tokens[$index] = new Token([CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN, '{']);
+        $tokens[$closeIndex] = new Token([CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE, '}']);
     }
-    private function transformIntoGroupUseBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    private function transformIntoGroupUseBraces(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->equals('{')) {
             return;
@@ -148,15 +148,15 @@ final class CurlyBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfor
             return;
         }
         $closeIndex = $this->naivelyFindCurlyBlockEnd($tokens, $index);
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_OPEN, '{']);
-        $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE, '}']);
+        $tokens[$index] = new Token([CT::T_GROUP_IMPORT_BRACE_OPEN, '{']);
+        $tokens[$closeIndex] = new Token([CT::T_GROUP_IMPORT_BRACE_CLOSE, '}']);
     }
     /**
      * We do not want to rely on `$tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index)` here,
      * as it relies on block types that are assuming that `}` tokens are already transformed to Custom Tokens that are allowing to distinguish different block types.
      * As we are just about to transform `{` and `}` into Custom Tokens by this transformer, thus we need to compare those tokens manually by content without using `Tokens::findBlockEnd`.
      */
-    private function naivelyFindCurlyBlockEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex) : int
+    private function naivelyFindCurlyBlockEnd(Tokens $tokens, int $startIndex) : int
     {
         if (!$tokens->offsetExists($startIndex)) {
             throw new \OutOfBoundsException(\sprintf('Unavailable index: "%s".', $startIndex));

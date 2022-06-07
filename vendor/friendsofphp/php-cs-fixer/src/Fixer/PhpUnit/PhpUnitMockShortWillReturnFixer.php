@@ -24,15 +24,15 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @author Michał Adamski <michal.adamski@gmail.com>
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class PhpUnitMockShortWillReturnFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
+final class PhpUnitMockShortWillReturnFixer extends AbstractPhpUnitFixer
 {
     private const RETURN_METHODS_MAP = ['returnargument' => 'willReturnArgument', 'returncallback' => 'willReturnCallback', 'returnself' => 'willReturnSelf', 'returnvalue' => 'willReturn', 'returnvaluemap' => 'willReturnMap'];
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Usage of PHPUnit\'s mock e.g. `->will($this->returnValue(..))` must be replaced by its shorter equivalent such as `->willReturn(...)`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Usage of PHPUnit\'s mock e.g. `->will($this->returnValue(..))` must be replaced by its shorter equivalent such as `->willReturn(...)`.', [new CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
 {
     public function testSomeTest()
@@ -57,9 +57,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    protected function applyPhpUnitClassFix(Tokens $tokens, int $startIndex, int $endIndex) : void
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             if (!$tokens[$index]->isObjectOperator()) {
                 continue;
@@ -85,11 +85,11 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             if (!$tokens[$openingBraceIndex]->equals('(')) {
                 continue;
             }
-            if ($tokens[$tokens->getNextMeaningfulToken($openingBraceIndex)]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_FIRST_CLASS_CALLABLE)) {
+            if ($tokens[$tokens->getNextMeaningfulToken($openingBraceIndex)]->isGivenKind(CT::T_FIRST_CLASS_CALLABLE)) {
                 continue;
             }
-            $closingBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openingBraceIndex);
-            $tokens[$functionToReplaceIndex] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, self::RETURN_METHODS_MAP[\strtolower($tokens[$functionToRemoveIndex]->getContent())]]);
+            $closingBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openingBraceIndex);
+            $tokens[$functionToReplaceIndex] = new Token([\T_STRING, self::RETURN_METHODS_MAP[\strtolower($tokens[$functionToRemoveIndex]->getContent())]]);
             $tokens->clearTokenAndMergeSurroundingWhitespace($classReferenceIndex);
             $tokens->clearTokenAndMergeSurroundingWhitespace($objectOperatorIndex);
             $tokens->clearTokenAndMergeSurroundingWhitespace($functionToRemoveIndex);

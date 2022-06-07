@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
-use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper;
-use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver;
 final class TokensNewliner
 {
     /**
@@ -32,7 +32,7 @@ final class TokensNewliner
      * @var \Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver
      */
     private $indentResolver;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthCloserTransformer $lineLengthCloserTransformer, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthOpenerTransformer $lineLengthOpenerTransformer, \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver $indentResolver)
+    public function __construct(LineLengthCloserTransformer $lineLengthCloserTransformer, TokenSkipper $tokenSkipper, LineLengthOpenerTransformer $lineLengthOpenerTransformer, WhitespacesFixerConfig $whitespacesFixerConfig, IndentResolver $indentResolver)
     {
         $this->lineLengthCloserTransformer = $lineLengthCloserTransformer;
         $this->tokenSkipper = $tokenSkipper;
@@ -43,7 +43,7 @@ final class TokensNewliner
     /**
      * @param Tokens<Token> $tokens
      */
-    public function breakMultipleItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $kind) : void
+    public function breakMultipleItems(BlockInfo $blockInfo, Tokens $tokens, int $kind) : void
     {
         if (!$this->containsTokensComma($tokens, $blockInfo)) {
             return;
@@ -53,7 +53,7 @@ final class TokensNewliner
     /**
      * @param Tokens<Token> $tokens
      */
-    public function breakItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $kind) : void
+    public function breakItems(BlockInfo $blockInfo, Tokens $tokens, int $kind) : void
     {
         // from bottom top, to prevent skipping ids
         //  e.g when token is added in the middle, the end index does now point to earlier element!
@@ -85,11 +85,11 @@ final class TokensNewliner
      *
      * @param Tokens<Token> $tokens
      */
-    private function isLastItem(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
+    private function isLastItem(Tokens $tokens, int $position) : bool
     {
         $nextPosition = $position + 1;
         if (!isset($tokens[$nextPosition])) {
-            throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($nextPosition);
+            throw new TokenNotFoundException($nextPosition);
         }
         $tokenContent = $tokens[$nextPosition]->getContent();
         return \strpos($tokenContent, $this->whitespacesFixerConfig->getLineEnding()) !== \false;
@@ -97,7 +97,7 @@ final class TokensNewliner
     /**
      * @param Tokens<Token> $tokens
      */
-    private function isFollowedByComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $i) : bool
+    private function isFollowedByComment(Tokens $tokens, int $i) : bool
     {
         $nextToken = $tokens[$i + 1];
         $nextNextToken = $tokens[$i + 2];
@@ -113,7 +113,7 @@ final class TokensNewliner
     /**
      * @param Tokens<Token> $tokens
      */
-    private function containsTokensComma(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
+    private function containsTokensComma(Tokens $tokens, BlockInfo $blockInfo) : bool
     {
         // must be at least 2 items
         $start = $blockInfo->getStart();

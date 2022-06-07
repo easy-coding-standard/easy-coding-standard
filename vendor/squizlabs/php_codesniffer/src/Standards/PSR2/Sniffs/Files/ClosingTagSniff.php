@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR2\Sniffs\Files;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ClosingTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ClosingTagSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class ClosingTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Make sure this file only contains PHP code.
@@ -54,7 +54,7 @@ class ClosingTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if ($fix === \true) {
                 $phpcsFile->fixer->beginChangeset();
                 $phpcsFile->fixer->replaceToken($last, $phpcsFile->eolChar);
-                $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $last - 1, null, \true);
+                $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $last - 1, null, \true);
                 if ($tokens[$prev]['code'] !== T_SEMICOLON && $tokens[$prev]['code'] !== T_CLOSE_CURLY_BRACKET && $tokens[$prev]['code'] !== \T_OPEN_TAG) {
                     $phpcsFile->fixer->addContent($prev, ';');
                 }

@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class FunctionDeclarationArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FunctionDeclarationArgumentSpacingSniff implements Sniff
 {
     /**
      * How many spaces should surround the equals signs.
@@ -51,7 +51,7 @@ class FunctionDeclarationArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === \false || isset($tokens[$stackPtr]['parenthesis_closer']) === \false || $tokens[$stackPtr]['parenthesis_opener'] === null || $tokens[$stackPtr]['parenthesis_closer'] === null) {
@@ -221,7 +221,7 @@ class FunctionDeclarationArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs
                 // Don't check spacing after the comma if it is the last content on the line.
                 $checkComma = \true;
                 if ($multiLine === \true) {
-                    $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $commaToken + 1, $closeBracket, \true);
+                    $next = $phpcsFile->findNext(Tokens::$emptyTokens, $commaToken + 1, $closeBracket, \true);
                     if ($tokens[$next]['line'] !== $tokens[$commaToken]['line']) {
                         $checkComma = \false;
                     }

@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ControlSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ControlSignatureSniff implements Sniff
 {
     /**
      * How many spaces should precede the colon if using alternative syntax.
@@ -45,10 +45,10 @@ class ControlSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($nextNonEmpty === \false) {
             return;
         }
@@ -153,7 +153,7 @@ class ControlSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     continue;
                 }
                 // Skip all empty tokens on the same line as the opener.
-                if ($tokens[$next]['line'] === $tokens[$opener]['line'] && (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \true || $code === \T_CLOSE_TAG)) {
+                if ($tokens[$next]['line'] === $tokens[$opener]['line'] && (isset(Tokens::$emptyTokens[$code]) === \true || $code === \T_CLOSE_TAG)) {
                     continue;
                 }
                 // We found the first bit of a code, or a comment on the
@@ -182,7 +182,7 @@ class ControlSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if ($tokens[$stackPtr]['code'] === \T_WHILE) {
                 // Zero spaces after parenthesis closer, but only if followed by a semicolon.
                 $closer = $tokens[$stackPtr]['parenthesis_closer'];
-                $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $closer + 1, null, \true);
+                $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $closer + 1, null, \true);
                 if ($nextNonEmpty !== \false && $tokens[$nextNonEmpty]['code'] === T_SEMICOLON) {
                     $found = 0;
                     if ($tokens[$closer + 1]['code'] === \T_WHITESPACE) {
@@ -209,7 +209,7 @@ class ControlSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if (isset($tokens[$stackPtr]['scope_closer']) !== \false) {
                 return;
             }
-            $closer = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+            $closer = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
             if ($closer === \false || $tokens[$closer]['code'] !== T_CLOSE_CURLY_BRACKET || $tokens[$tokens[$closer]['scope_condition']]['code'] !== \T_DO) {
                 return;
             }
@@ -220,7 +220,7 @@ class ControlSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     // the closer for the previous block, so there is no spacing to check.
                     return;
                 }
-                $closer = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+                $closer = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
                 if ($closer === \false || $tokens[$closer]['code'] !== T_CLOSE_CURLY_BRACKET) {
                     return;
                 }
@@ -245,7 +245,7 @@ class ControlSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if ($found !== 1) {
             $error = 'Expected 1 space after closing brace; %s found';
             $data = [$found];
-            if ($phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$commentTokens, $closer + 1, $stackPtr) !== \false) {
+            if ($phpcsFile->findNext(Tokens::$commentTokens, $closer + 1, $stackPtr) !== \false) {
                 // Comment found between closing brace and keyword, don't auto-fix.
                 $phpcsFile->addError($error, $closer, 'SpaceAfterCloseBrace', $data);
                 return;

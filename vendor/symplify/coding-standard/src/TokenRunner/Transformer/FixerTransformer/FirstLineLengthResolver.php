@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory;
 use ECSPrefix20220607\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class FirstLineLengthResolver
 {
@@ -16,14 +16,14 @@ final class FirstLineLengthResolver
      * @var \Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory
      */
     private $lineLengthAndPositionFactory;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory $lineLengthAndPositionFactory)
+    public function __construct(LineLengthAndPositionFactory $lineLengthAndPositionFactory)
     {
         $this->lineLengthAndPositionFactory = $lineLengthAndPositionFactory;
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    public function resolveFromTokensAndStartPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : int
+    public function resolveFromTokensAndStartPosition(Tokens $tokens, BlockInfo $blockInfo) : int
     {
         // compute from here to start of line
         $currentPosition = $blockInfo->getStart();
@@ -36,7 +36,7 @@ final class FirstLineLengthResolver
         // includes indent in the beginning
         $lineLength += \strlen($currentToken->getContent());
         // minus end of lines, do not count line feeds as characters
-        $endOfLineCount = \substr_count($currentToken->getContent(), \ECSPrefix20220607\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar());
+        $endOfLineCount = \substr_count($currentToken->getContent(), StaticEolConfiguration::getEolChar());
         $lineLength -= $endOfLineCount;
         // compute from here to end of line
         $currentPosition = $blockInfo->getStart() + 1;
@@ -62,14 +62,14 @@ final class FirstLineLengthResolver
     /**
      * @param Tokens<Token> $tokens
      */
-    private function isEndOFArgumentsLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
+    private function isEndOFArgumentsLine(Tokens $tokens, int $position) : bool
     {
         if (!isset($tokens[$position])) {
-            throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
+            throw new TokenNotFoundException($position);
         }
-        if (\strncmp($tokens[$position]->getContent(), \ECSPrefix20220607\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar(), \strlen(\ECSPrefix20220607\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) === 0) {
+        if (\strncmp($tokens[$position]->getContent(), StaticEolConfiguration::getEolChar(), \strlen(StaticEolConfiguration::getEolChar())) === 0) {
             return \true;
         }
-        return $tokens[$position]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA);
+        return $tokens[$position]->isGivenKind(CT::T_USE_LAMBDA);
     }
 }

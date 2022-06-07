@@ -25,7 +25,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class IndentationTypeFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
 {
     /**
      * @var string
@@ -34,9 +34,9 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Code MUST use configured indentation type.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nif (true) {\n\techo 'Hello!';\n}\n")]);
+        return new FixerDefinition('Code MUST use configured indentation type.', [new CodeSample("<?php\n\nif (true) {\n\techo 'Hello!';\n}\n")]);
     }
     /**
      * {@inheritdoc}
@@ -51,14 +51,14 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_COMMENT, \T_DOC_COMMENT, \T_WHITESPACE]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $this->indent = $this->whitespacesConfig->getIndent();
         foreach ($tokens as $index => $token) {
@@ -72,21 +72,21 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
             }
         }
     }
-    private function fixIndentInComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : \PhpCsFixer\Tokenizer\Token
+    private function fixIndentInComment(Tokens $tokens, int $index) : Token
     {
-        $content = \PhpCsFixer\Preg::replace('/^(?:(?<! ) {1,3})?\\t/m', '\\1    ', $tokens[$index]->getContent(), -1, $count);
+        $content = Preg::replace('/^(?:(?<! ) {1,3})?\\t/m', '\\1    ', $tokens[$index]->getContent(), -1, $count);
         // Also check for more tabs.
         while (0 !== $count) {
-            $content = \PhpCsFixer\Preg::replace('/^(\\ +)?\\t/m', '\\1    ', $content, -1, $count);
+            $content = Preg::replace('/^(\\ +)?\\t/m', '\\1    ', $content, -1, $count);
         }
         $indent = $this->indent;
         // change indent to expected one
-        $content = \PhpCsFixer\Preg::replaceCallback('/^(?:    )+/m', function (array $matches) use($indent) : string {
+        $content = Preg::replaceCallback('/^(?:    )+/m', function (array $matches) use($indent) : string {
             return $this->getExpectedIndent($matches[0], $indent);
         }, $content);
-        return new \PhpCsFixer\Tokenizer\Token([$tokens[$index]->getId(), $content]);
+        return new Token([$tokens[$index]->getId(), $content]);
     }
-    private function fixIndentToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : \PhpCsFixer\Tokenizer\Token
+    private function fixIndentToken(Tokens $tokens, int $index) : Token
     {
         $content = $tokens[$index]->getContent();
         $previousTokenHasTrailingLinebreak = \false;
@@ -96,12 +96,12 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
             $previousTokenHasTrailingLinebreak = \true;
         }
         $indent = $this->indent;
-        $newContent = \PhpCsFixer\Preg::replaceCallback(
+        $newContent = Preg::replaceCallback(
             '/(\\R)(\\h+)/',
             // find indent
             function (array $matches) use($indent) : string {
                 // normalize mixed indent
-                $content = \PhpCsFixer\Preg::replace('/(?:(?<! ) {1,3})?\\t/', '    ', $matches[2]);
+                $content = Preg::replace('/(?:(?<! ) {1,3})?\\t/', '    ', $matches[2]);
                 // change indent to expected one
                 return $matches[1] . $this->getExpectedIndent($content, $indent);
             },
@@ -110,7 +110,7 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
         if ($previousTokenHasTrailingLinebreak) {
             $newContent = \substr($newContent, 1);
         }
-        return new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $newContent]);
+        return new Token([\T_WHITESPACE, $newContent]);
     }
     /**
      * @return string mixed

@@ -30,7 +30,7 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Options;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class FinalInternalClassFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
@@ -40,15 +40,15 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
         parent::configure($configuration);
         $intersect = \array_intersect_assoc($this->configuration['annotation_include'], $this->configuration['annotation_exclude']);
         if (\count($intersect) > 0) {
-            throw new \PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException($this->getName(), \sprintf('Annotation cannot be used in both the include and exclude list, got duplicates: "%s".', \implode('", "', \array_keys($intersect))));
+            throw new InvalidFixerConfigurationException($this->getName(), \sprintf('Annotation cannot be used in both the include and exclude list, got duplicates: "%s".', \implode('", "', \array_keys($intersect))));
         }
     }
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Internal classes should be `final`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @internal\n */\nclass Sample\n{\n}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @CUSTOM\n */\nclass A{}\n\n/**\n * @CUSTOM\n * @not-fix\n */\nclass B{}\n", ['annotation_include' => ['@Custom'], 'annotation_exclude' => ['@not-fix']])], null, 'Changing classes to `final` might cause code execution to break.');
+        return new FixerDefinition('Internal classes should be `final`.', [new CodeSample("<?php\n/**\n * @internal\n */\nclass Sample\n{\n}\n"), new CodeSample("<?php\n/**\n * @CUSTOM\n */\nclass A{}\n\n/**\n * @CUSTOM\n * @not-fix\n */\nclass B{}\n", ['annotation_include' => ['@Custom'], 'annotation_exclude' => ['@not-fix']])], null, 'Changing classes to `final` might cause code execution to break.');
     }
     /**
      * {@inheritdoc}
@@ -63,7 +63,7 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_CLASS);
     }
@@ -77,21 +77,21 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_CLASS) || $tokensAnalyzer->isAnonymousClass($index) || !$this->isClassCandidate($tokens, $index)) {
                 continue;
             }
             // make class final
-            $tokens->insertAt($index, [new \PhpCsFixer\Tokenizer\Token([\T_FINAL, 'final']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]);
+            $tokens->insertAt($index, [new Token([\T_FINAL, 'final']), new Token([\T_WHITESPACE, ' '])]);
         }
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
         $annotationsAsserts = [static function (array $values) : bool {
             foreach ($values as $value) {
@@ -101,7 +101,7 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
             }
             return \true;
         }];
-        $annotationsNormalizer = static function (\ECSPrefix20220607\Symfony\Component\OptionsResolver\Options $options, array $value) : array {
+        $annotationsNormalizer = static function (Options $options, array $value) : array {
             $newValue = [];
             foreach ($value as $key) {
                 if ('@' === $key[0]) {
@@ -111,12 +111,12 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
             }
             return $newValue;
         };
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('annotation_include', 'Class level annotations tags that must be set in order to fix the class. (case insensitive)'))->setAllowedTypes(['array'])->setAllowedValues($annotationsAsserts)->setDefault(['@internal'])->setNormalizer($annotationsNormalizer)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('annotation_exclude', 'Class level annotations tags that must be omitted to fix the class, even if all of the white list ones are used as well. (case insensitive)'))->setAllowedTypes(['array'])->setAllowedValues($annotationsAsserts)->setDefault(['@final', '@Entity', 'ECSPrefix20220607\\@ORM\\Entity', 'ECSPrefix20220607\\@ORM\\Mapping\\Entity', 'ECSPrefix20220607\\@Mapping\\Entity', '@Document', 'ECSPrefix20220607\\@ODM\\Document'])->setNormalizer($annotationsNormalizer)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('consider_absent_docblock_as_internal_class', 'Should classes without any DocBlock be fixed to final?'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('annotation_include', 'Class level annotations tags that must be set in order to fix the class. (case insensitive)'))->setAllowedTypes(['array'])->setAllowedValues($annotationsAsserts)->setDefault(['@internal'])->setNormalizer($annotationsNormalizer)->getOption(), (new FixerOptionBuilder('annotation_exclude', 'Class level annotations tags that must be omitted to fix the class, even if all of the white list ones are used as well. (case insensitive)'))->setAllowedTypes(['array'])->setAllowedValues($annotationsAsserts)->setDefault(['@final', '@Entity', 'ECSPrefix20220607\\@ORM\\Entity', 'ECSPrefix20220607\\@ORM\\Mapping\\Entity', 'ECSPrefix20220607\\@Mapping\\Entity', '@Document', 'ECSPrefix20220607\\@ODM\\Document'])->setNormalizer($annotationsNormalizer)->getOption(), (new FixerOptionBuilder('consider_absent_docblock_as_internal_class', 'Should classes without any DocBlock be fixed to final?'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
     /**
      * @param int $index T_CLASS index
      */
-    private function isClassCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function isClassCandidate(Tokens $tokens, int $index) : bool
     {
         if ($tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind([\T_ABSTRACT, \T_FINAL])) {
             return \false;
@@ -126,10 +126,10 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
         if (!$docToken->isGivenKind(\T_DOC_COMMENT)) {
             return $this->configuration['consider_absent_docblock_as_internal_class'];
         }
-        $doc = new \PhpCsFixer\DocBlock\DocBlock($docToken->getContent());
+        $doc = new DocBlock($docToken->getContent());
         $tags = [];
         foreach ($doc->getAnnotations() as $annotation) {
-            if (1 !== \PhpCsFixer\Preg::match('/@\\S+(?=\\s|$)/', $annotation->getContent(), $matches)) {
+            if (1 !== Preg::match('/@\\S+(?=\\s|$)/', $annotation->getContent(), $matches)) {
                 continue;
             }
             $tag = \strtolower(\substr(\array_shift($matches), 1));

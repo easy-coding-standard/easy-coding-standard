@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class LowerCaseTypeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class LowerCaseTypeSniff implements Sniff
 {
     /**
      * Native types supported by PHP.
@@ -28,7 +28,7 @@ class LowerCaseTypeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        $tokens = \PHP_CodeSniffer\Util\Tokens::$castTokens;
+        $tokens = Tokens::$castTokens;
         $tokens[] = \T_FUNCTION;
         $tokens[] = T_CLOSURE;
         $tokens[] = \T_VARIABLE;
@@ -44,10 +44,10 @@ class LowerCaseTypeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        if (isset(\PHP_CodeSniffer\Util\Tokens::$castTokens[$tokens[$stackPtr]['code']]) === \true) {
+        if (isset(Tokens::$castTokens[$tokens[$stackPtr]['code']]) === \true) {
             // A cast token.
             $this->processType($phpcsFile, $stackPtr, $tokens[$stackPtr]['content'], 'PHP type casts must be lowercase; expected "%s" but found "%s"', 'TypeCastFound');
             return;
@@ -58,7 +58,7 @@ class LowerCaseTypeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if ($tokens[$stackPtr]['code'] === \T_VARIABLE) {
             try {
                 $props = $phpcsFile->getMemberProperties($stackPtr);
-            } catch (\PHP_CodeSniffer\Exceptions\RuntimeException $e) {
+            } catch (RuntimeException $e) {
                 // Not an OO property.
                 return;
             }
@@ -131,7 +131,7 @@ class LowerCaseTypeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    protected function processUnionType(\PHP_CodeSniffer\Files\File $phpcsFile, $typeDeclStart, $typeDeclEnd, $error, $errorCode)
+    protected function processUnionType(File $phpcsFile, $typeDeclStart, $typeDeclEnd, $error, $errorCode)
     {
         $tokens = $phpcsFile->getTokens();
         $current = $typeDeclStart;
@@ -148,7 +148,7 @@ class LowerCaseTypeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 continue;
             }
             // Type consisting of a single token.
-            $startOfType = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $current, $endOfType, \true);
+            $startOfType = $phpcsFile->findNext(Tokens::$emptyTokens, $current, $endOfType, \true);
             if ($startOfType === \false) {
                 // Parse error.
                 return;
@@ -172,7 +172,7 @@ class LowerCaseTypeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    protected function processType(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $type, $error, $errorCode)
+    protected function processType(File $phpcsFile, $stackPtr, $type, $error, $errorCode)
     {
         $typeLower = \strtolower($type);
         if ($typeLower === $type) {

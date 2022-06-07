@@ -27,7 +27,7 @@ class DummyFile extends \PHP_CodeSniffer\Files\File
      *
      * @return void
      */
-    public function __construct($content, \PHP_CodeSniffer\Ruleset $ruleset, \PHP_CodeSniffer\Config $config)
+    public function __construct($content, Ruleset $ruleset, Config $config)
     {
         $this->setContent($content);
         // See if a filename was defined in the content.

@@ -20,7 +20,7 @@ namespace ECSPrefix20220607\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class ClassExistenceResource implements \ECSPrefix20220607\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class ClassExistenceResource implements SelfCheckingResourceInterface
 {
     /**
      * @var string

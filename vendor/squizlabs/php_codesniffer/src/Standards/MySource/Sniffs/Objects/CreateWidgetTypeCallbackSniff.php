@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\Objects;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-class CreateWidgetTypeCallbackSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class CreateWidgetTypeCallbackSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,7 +39,7 @@ class CreateWidgetTypeCallbackSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $className = $phpcsFile->findPrevious(\T_STRING, $stackPtr - 1);
@@ -120,7 +120,7 @@ class CreateWidgetTypeCallbackSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $nestedParens = $tokens[$i]['nested_parenthesis'];
                 $endBracket = \end($nestedParens);
                 $bracket = \key($nestedParens);
-                $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $bracket - 1, null, \true);
+                $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $bracket - 1, null, \true);
                 if ($tokens[$prev]['code'] !== \T_STRING) {
                     // This is not a function passing the callback.
                     continue;
@@ -143,7 +143,7 @@ class CreateWidgetTypeCallbackSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
             for ($next = $endBracket; $next <= $end; $next++) {
                 // Skip whitespace so we find the next content after the call.
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$next]['code']]) === \true) {
+                if (isset(Tokens::$emptyTokens[$tokens[$next]['code']]) === \true) {
                     continue;
                 }
                 // Skip closing braces like END IF because it is not executable code.

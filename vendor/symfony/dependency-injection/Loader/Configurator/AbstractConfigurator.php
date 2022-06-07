@@ -62,35 +62,35 @@ abstract class AbstractConfigurator
         if (self::$valuePreProcessor) {
             $value = (self::$valuePreProcessor)($value, $allowServices);
         }
-        if ($value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator) {
-            $reference = new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Reference($value->id, $value->invalidBehavior);
-            return $value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\ClosureReferenceConfigurator ? new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument($reference) : $reference;
+        if ($value instanceof ReferenceConfigurator) {
+            $reference = new Reference($value->id, $value->invalidBehavior);
+            return $value instanceof ClosureReferenceConfigurator ? new ServiceClosureArgument($reference) : $reference;
         }
-        if ($value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator) {
+        if ($value instanceof InlineServiceConfigurator) {
             $def = $value->definition;
             $value->definition = null;
             return $def;
         }
-        if ($value instanceof \ECSPrefix20220607\Symfony\Component\Config\Loader\ParamConfigurator) {
+        if ($value instanceof ParamConfigurator) {
             return (string) $value;
         }
         if ($value instanceof self) {
-            throw new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"%s()" can be used only at the root of service configuration files.', $value::FACTORY));
+            throw new InvalidArgumentException(\sprintf('"%s()" can be used only at the root of service configuration files.', $value::FACTORY));
         }
         switch (\true) {
             case null === $value:
             case \is_scalar($value):
                 return $value;
-            case $value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\ArgumentInterface:
-            case $value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition:
-            case $value instanceof \ECSPrefix20220607\Symfony\Component\ExpressionLanguage\Expression:
-            case $value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Parameter:
-            case $value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\AbstractArgument:
-            case $value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Reference:
+            case $value instanceof ArgumentInterface:
+            case $value instanceof Definition:
+            case $value instanceof Expression:
+            case $value instanceof Parameter:
+            case $value instanceof AbstractArgument:
+            case $value instanceof Reference:
                 if ($allowServices) {
                     return $value;
                 }
         }
-        throw new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Cannot use values of type "%s" in service configuration files.', \get_debug_type($value)));
+        throw new InvalidArgumentException(\sprintf('Cannot use values of type "%s" in service configuration files.', \get_debug_type($value)));
     }
 }

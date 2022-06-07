@@ -87,7 +87,7 @@ final class Token
             $classTokens = [\T_CLASS, \T_TRAIT, \T_INTERFACE];
             if (\defined('T_ENUM')) {
                 // @TODO: drop condition when PHP 8.1+ is required
-                $classTokens[] = T_ENUM;
+                $classTokens[] = \T_ENUM;
             }
         }
         return $classTokens;
@@ -121,10 +121,10 @@ final class Token
         if (\defined('T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG')) {
             // @TODO: drop condition with new MAJOR release 4.0
             if ('&' === $other) {
-                return '&' === $this->content && (null === $this->id || $this->isGivenKind([T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG, T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG]));
+                return '&' === $this->content && (null === $this->id || $this->isGivenKind([\T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG, \T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG]));
             }
             if (null === $this->id && '&' === $this->content) {
-                return $other instanceof self && '&' === $other->content && (null === $other->id || $other->isGivenKind([T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG, T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG]));
+                return $other instanceof self && '&' === $other->content && (null === $other->id || $other->isGivenKind([\T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG, \T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG]));
             }
         }
         if ($other instanceof self) {
@@ -354,10 +354,10 @@ final class Token
      *
      * @param null|string $whitespaces whitespace characters, default is " \t\n\r\0\x0B"
      */
-    public function isWhitespace(?string $whitespaces = " \t\n\r\0\v") : bool
+    public function isWhitespace(?string $whitespaces = " \t\n\r\x00\v") : bool
     {
         if (null === $whitespaces) {
-            $whitespaces = " \t\n\r\0\v";
+            $whitespaces = " \t\n\r\x00\v";
         }
         if ($this->isArray && !$this->isGivenKind(\T_WHITESPACE)) {
             return \false;

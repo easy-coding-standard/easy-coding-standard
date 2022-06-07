@@ -25,7 +25,7 @@ use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class FunctionToConstantFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @var array<string, Token[]>
@@ -38,7 +38,7 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     public function __construct()
     {
         if (null === self::$availableFunctions) {
-            self::$availableFunctions = ['get_called_class' => [new \PhpCsFixer\Tokenizer\Token([\T_STATIC, 'static']), new \PhpCsFixer\Tokenizer\Token([\T_DOUBLE_COLON, '::']), new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CLASS_CONSTANT, 'class'])], 'get_class' => [new \PhpCsFixer\Tokenizer\Token([\T_CLASS_C, '__CLASS__'])], 'get_class_this' => [new \PhpCsFixer\Tokenizer\Token([\T_STATIC, 'static']), new \PhpCsFixer\Tokenizer\Token([\T_DOUBLE_COLON, '::']), new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CLASS_CONSTANT, 'class'])], 'php_sapi_name' => [new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'PHP_SAPI'])], 'phpversion' => [new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'PHP_VERSION'])], 'pi' => [new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'M_PI'])]];
+            self::$availableFunctions = ['get_called_class' => [new Token([\T_STATIC, 'static']), new Token([\T_DOUBLE_COLON, '::']), new Token([CT::T_CLASS_CONSTANT, 'class'])], 'get_class' => [new Token([\T_CLASS_C, '__CLASS__'])], 'get_class_this' => [new Token([\T_STATIC, 'static']), new Token([\T_DOUBLE_COLON, '::']), new Token([CT::T_CLASS_CONSTANT, 'class'])], 'php_sapi_name' => [new Token([\T_STRING, 'PHP_SAPI'])], 'phpversion' => [new Token([\T_STRING, 'PHP_VERSION'])], 'pi' => [new Token([\T_STRING, 'M_PI'])]];
         }
         parent::__construct();
     }
@@ -56,9 +56,9 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace core functions calls returning constants with the constants.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\necho phpversion();\necho pi();\necho php_sapi_name();\nclass Foo\n{\n    public function Bar()\n    {\n        echo get_class();\n        echo get_called_class();\n    }\n}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\necho phpversion();\necho pi();\nclass Foo\n{\n    public function Bar()\n    {\n        echo get_class();\n        get_class(\$this);\n        echo get_called_class();\n    }\n}\n", ['functions' => ['get_called_class', 'get_class_this', 'phpversion']])], null, 'Risky when any of the configured functions to replace are overridden.');
+        return new FixerDefinition('Replace core functions calls returning constants with the constants.', [new CodeSample("<?php\necho phpversion();\necho pi();\necho php_sapi_name();\nclass Foo\n{\n    public function Bar()\n    {\n        echo get_class();\n        echo get_called_class();\n    }\n}\n"), new CodeSample("<?php\necho phpversion();\necho pi();\nclass Foo\n{\n    public function Bar()\n    {\n        echo get_class();\n        get_class(\$this);\n        echo get_called_class();\n    }\n}\n", ['functions' => ['get_called_class', 'get_class_this', 'phpversion']])], null, 'Risky when any of the configured functions to replace are overridden.');
     }
     /**
      * {@inheritdoc}
@@ -73,7 +73,7 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -87,9 +87,9 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $functionAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionAnalyzer = new FunctionsAnalyzer();
         for ($index = $tokens->count() - 4; $index > 0; --$index) {
             $candidate = $this->getReplaceCandidate($tokens, $functionAnalyzer, $index);
             if (null === $candidate) {
@@ -109,15 +109,15 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
         $functionNames = \array_keys(self::$availableFunctions);
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('functions', 'List of function names to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($functionNames)])->setDefault(['get_called_class', 'get_class', 'get_class_this', 'php_sapi_name', 'phpversion', 'pi'])->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('functions', 'List of function names to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset($functionNames)])->setDefault(['get_called_class', 'get_class', 'get_class_this', 'php_sapi_name', 'phpversion', 'pi'])->getOption()]);
     }
     /**
      * @param Token[] $replacements
      */
-    private function fixFunctionCallToConstant(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $braceOpenIndex, int $braceCloseIndex, array $replacements) : void
+    private function fixFunctionCallToConstant(Tokens $tokens, int $index, int $braceOpenIndex, int $braceCloseIndex, array $replacements) : void
     {
         for ($i = $braceCloseIndex; $i >= $braceOpenIndex; --$i) {
             if ($tokens[$i]->isGivenKind([\T_WHITESPACE, \T_COMMENT, \T_DOC_COMMENT])) {
@@ -135,7 +135,7 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
         $tokens->clearAt($index);
         $tokens->insertAt($index, $replacements);
     }
-    private function getReplaceCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionAnalyzer, int $index) : ?array
+    private function getReplaceCandidate(Tokens $tokens, FunctionsAnalyzer $functionAnalyzer, int $index) : ?array
     {
         if (!$tokens[$index]->isGivenKind(\T_STRING)) {
             return null;
@@ -161,7 +161,7 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
         }
         return $this->getReplacementTokenClones($lowerContent, $braceOpenIndex, $braceCloseIndex);
     }
-    private function fixGetClassCall(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionAnalyzer, int $index) : ?array
+    private function fixGetClassCall(Tokens $tokens, FunctionsAnalyzer $functionAnalyzer, int $index) : ?array
     {
         if (!isset($this->functionsFixMap['get_class']) && !isset($this->functionsFixMap['get_class_this'])) {
             return null;
@@ -170,7 +170,7 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
             return null;
         }
         $braceOpenIndex = $tokens->getNextMeaningfulToken($index);
-        $braceCloseIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $braceOpenIndex);
+        $braceCloseIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $braceOpenIndex);
         if ($braceCloseIndex === $tokens->getNextMeaningfulToken($braceOpenIndex)) {
             // no arguments passed
             if (isset($this->functionsFixMap['get_class'])) {

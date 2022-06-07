@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Symplify\\CodingStandard\\": "src"
+            "ECSPrefix20220607\\Symplify\\CodingStandard\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Symplify\\CodingStandard\\Tests\\": "tests"
+            "ECSPrefix20220607\\Symplify\\CodingStandard\\Tests\\": "tests"
         }
     },
     "extra": {

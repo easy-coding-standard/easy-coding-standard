@@ -15,6 +15,6 @@ namespace ECSPrefix20220607\Symfony\Component\Console\Exception;
  *
  * @author Pierre du Plessis <pdples@gmail.com>
  */
-class NamespaceNotFoundException extends \ECSPrefix20220607\Symfony\Component\Console\Exception\CommandNotFoundException
+class NamespaceNotFoundException extends CommandNotFoundException
 {
 }

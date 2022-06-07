@@ -18,7 +18,7 @@ final class ConsoleDiffer
      * @var \Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
-    public function __construct(\ECSPrefix20220607\SebastianBergmann\Diff\Differ $differ, \ECSPrefix20220607\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
+    public function __construct(Differ $differ, ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
     {
         $this->differ = $differ;
         $this->colorConsoleDiffFormatter = $colorConsoleDiffFormatter;

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\Fixer\Commenting;
+namespace ECSPrefix20220607\Symplify\CodingStandard\Fixer\Commenting;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -9,14 +9,14 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
-use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\InlineVarMalformWorker;
-use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\MissingParamNameMalformWorker;
-use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\ParamNameTypoMalformWorker;
-use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousReturnNameMalformWorker;
-use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousVarNameMalformWorker;
-use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SwitchedTypeAndNameMalformWorker;
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\InlineVarMalformWorker;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\MissingParamNameMalformWorker;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\ParamNameTypoMalformWorker;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousReturnNameMalformWorker;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousVarNameMalformWorker;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SwitchedTypeAndNameMalformWorker;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -30,7 +30,7 @@ use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer\ParamReturnAndVarTagMalformsFixerTest
  */
-final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer implements DocumentedRuleInterface
 {
     /**
      * @var string
@@ -52,14 +52,14 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
     {
         $this->malformWorkers = $malformWorkers;
     }
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
+        return new FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         if (!$tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_COMMENT])) {
             return \false;
@@ -79,7 +79,7 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
     /**
      * @param Tokens<Token> $tokens
      */
-    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    public function fix(SplFileInfo $fileInfo, Tokens $tokens) : void
     {
         $reversedTokens = $this->reverseTokens($tokens);
         foreach ($reversedTokens as $index => $token) {
@@ -87,7 +87,7 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
                 continue;
             }
             $docContent = $token->getContent();
-            if (!\ECSPrefix20220607\Nette\Utils\Strings::match($docContent, self::TYPE_ANNOTATION_REGEX)) {
+            if (!Strings::match($docContent, self::TYPE_ANNOTATION_REGEX)) {
                 continue;
             }
             $originalDocContent = $docContent;
@@ -97,7 +97,7 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
             if ($docContent === $originalDocContent) {
                 continue;
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $docContent]);
+            $tokens[$index] = new Token([\T_DOC_COMMENT, $docContent]);
         }
     }
     /**
@@ -109,9 +109,9 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
     {
         return -37;
     }
-    public function getRuleDefinition() : \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : RuleDefinition
     {
-        return new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(self::ERROR_MESSAGE, [new CodeSample(<<<'CODE_SAMPLE'
 /**
  * @param string
  */

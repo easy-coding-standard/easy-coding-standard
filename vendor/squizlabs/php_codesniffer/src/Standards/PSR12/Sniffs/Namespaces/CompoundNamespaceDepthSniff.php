@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\Namespaces;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class CompoundNamespaceDepthSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class CompoundNamespaceDepthSniff implements Sniff
 {
     /**
      * The max depth for compound namespaces.
@@ -38,7 +38,7 @@ class CompoundNamespaceDepthSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $this->maxDepth = (int) $this->maxDepth;
         $tokens = $phpcsFile->getTokens();

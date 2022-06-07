@@ -22,14 +22,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class LowercaseStaticReferenceFixer extends \PhpCsFixer\AbstractFixer
+final class LowercaseStaticReferenceFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Class static references `self`, `static` and `parent` MUST be in lower case.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Class static references `self`, `static` and `parent` MUST be in lower case.', [new CodeSample('<?php
 class Foo extends Bar
 {
     public function baz1()
@@ -47,7 +47,7 @@ class Foo extends Bar
         return true;
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 class Foo extends Bar
 {
     public function baz(?self $x) : SELF
@@ -57,11 +57,11 @@ class Foo extends Bar
 }
 ')]);
     }
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_STATIC, \T_STRING]);
     }
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->equalsAny([[\T_STRING, 'self'], [\T_STATIC, 'static'], [\T_STRING, 'parent']], \false)) {
@@ -77,13 +77,13 @@ class Foo extends Bar
                 continue;
             }
             $nextIndex = $tokens->getNextMeaningfulToken($index);
-            if ($tokens[$nextIndex]->isGivenKind([\T_FUNCTION, \T_NS_SEPARATOR, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE])) {
+            if ($tokens[$nextIndex]->isGivenKind([\T_FUNCTION, \T_NS_SEPARATOR, \T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_STRING, CT::T_NULLABLE_TYPE])) {
                 continue;
             }
             if ('static' === $newContent && $tokens[$nextIndex]->isGivenKind(\T_VARIABLE)) {
                 continue;
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $newContent]);
+            $tokens[$index] = new Token([$token->getId(), $newContent]);
         }
     }
 }

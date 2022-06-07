@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\ValueObject\Error;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error;
 
-use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
 use ECSPrefix20220607\Symplify\EasyParallel\Contract\SerializableInterface;
-final class SystemError implements \ECSPrefix20220607\Symplify\EasyParallel\Contract\SerializableInterface
+final class SystemError implements SerializableInterface
 {
     /**
      * @var int
@@ -38,7 +38,7 @@ final class SystemError implements \ECSPrefix20220607\Symplify\EasyParallel\Cont
      */
     public function jsonSerialize() : array
     {
-        return [\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE => $this->line, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE => $this->message, \Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH => $this->relativeFilePath];
+        return [Name::LINE => $this->line, Name::MESSAGE => $this->message, Name::RELATIVE_FILE_PATH => $this->relativeFilePath];
     }
     /**
      * @param array{line: int, message: string, relative_file_path: string} $json
@@ -46,6 +46,6 @@ final class SystemError implements \ECSPrefix20220607\Symplify\EasyParallel\Cont
      */
     public static function decode(array $json) : \ECSPrefix20220607\Symplify\EasyParallel\Contract\SerializableInterface
     {
-        return new self($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::LINE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::MESSAGE], $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Name::RELATIVE_FILE_PATH]);
+        return new self($json[Name::LINE], $json[Name::MESSAGE], $json[Name::RELATIVE_FILE_PATH]);
     }
 }

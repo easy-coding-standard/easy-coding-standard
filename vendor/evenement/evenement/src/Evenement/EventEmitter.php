@@ -11,7 +11,7 @@ declare (strict_types=1);
  */
 namespace ECSPrefix20220607\Evenement;
 
-class EventEmitter implements \ECSPrefix20220607\Evenement\EventEmitterInterface
+class EventEmitter implements EventEmitterInterface
 {
     use EventEmitterTrait;
 }

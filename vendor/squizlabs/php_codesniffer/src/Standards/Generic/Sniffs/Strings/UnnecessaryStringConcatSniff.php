@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Strings;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class UnnecessaryStringConcatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class UnnecessaryStringConcatSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -54,7 +54,7 @@ class UnnecessaryStringConcatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         // Work out which type of file this is for.
         $tokens = $phpcsFile->getTokens();
@@ -72,7 +72,7 @@ class UnnecessaryStringConcatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if ($prev === \false || $next === \false) {
             return;
         }
-        if (isset(\PHP_CodeSniffer\Util\Tokens::$stringTokens[$tokens[$prev]['code']]) === \true && isset(\PHP_CodeSniffer\Util\Tokens::$stringTokens[$tokens[$next]['code']]) === \true) {
+        if (isset(Tokens::$stringTokens[$tokens[$prev]['code']]) === \true && isset(Tokens::$stringTokens[$tokens[$next]['code']]) === \true) {
             if ($tokens[$prev]['content'][0] === $tokens[$next]['content'][0]) {
                 // Before we throw an error for PHP, allow strings to be
                 // combined if they would have < and ? next to each other because

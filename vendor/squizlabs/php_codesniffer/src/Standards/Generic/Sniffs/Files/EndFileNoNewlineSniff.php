@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class EndFileNoNewlineSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class EndFileNoNewlineSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -38,7 +38,7 @@ class EndFileNoNewlineSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         // Skip to the end of the file.
         $tokens = $phpcsFile->getTokens();

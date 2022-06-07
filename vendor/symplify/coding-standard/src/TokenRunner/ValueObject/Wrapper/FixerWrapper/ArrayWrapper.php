@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\ValueObject\Wrapper\FixerWrapper;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\Wrapper\FixerWrapper;
 
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 final class ArrayWrapper
 {
     /**
      * @var int[]
      */
-    private const ARRAY_OPEN_TOKENS = [\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN];
+    private const ARRAY_OPEN_TOKENS = [\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN];
     /**
      * @var Tokens<Token>
      */
@@ -29,7 +29,7 @@ final class ArrayWrapper
     /**
      * @param Tokens<Token> $tokens
      */
-    public function __construct(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper)
+    public function __construct(Tokens $tokens, BlockInfo $blockInfo, TokenSkipper $tokenSkipper)
     {
         $this->tokens = $tokens;
         $this->blockInfo = $blockInfo;

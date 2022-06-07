@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class DisallowShortArraySyntaxSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DisallowShortArraySyntaxSniff implements Sniff
 {
     /**
      * Registers the tokens that this sniff wants to listen for.
@@ -32,7 +32,7 @@ class DisallowShortArraySyntaxSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $phpcsFile->recordMetric($stackPtr, 'Short array syntax used', 'yes');
         $error = 'Short array syntax is not allowed';

@@ -19,7 +19,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-final class SelfStaticAccessorFixer extends \PhpCsFixer\AbstractFixer
+final class SelfStaticAccessorFixer extends AbstractFixer
 {
     /**
      * @var TokensAnalyzer
@@ -28,9 +28,9 @@ final class SelfStaticAccessorFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Inside a `final` class or anonymous class `self` should be preferred to `static`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Inside a `final` class or anonymous class `self` should be preferred to `static`.', [new CodeSample('<?php
 final class Sample
 {
     private static $A = 1;
@@ -45,7 +45,7 @@ final class Sample
         return \'test\';
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 final class Foo
 {
     public function bar()
@@ -53,7 +53,7 @@ final class Foo
         return new static();
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 final class Foo
 {
     public function isBar()
@@ -61,7 +61,7 @@ final class Foo
         return $foo instanceof static;
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 $a = new class() {
     public function getBar()
     {
@@ -73,7 +73,7 @@ $a = new class() {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_CLASS, \T_STATIC]) && $tokens->isAnyTokenKindsFound([\T_DOUBLE_COLON, \T_NEW, \T_INSTANCEOF]);
     }
@@ -89,9 +89,9 @@ $a = new class() {
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $this->tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $this->tokensAnalyzer = new TokensAnalyzer($tokens);
         $classIndex = $tokens->getNextTokenOfKind(0, [[\T_CLASS]]);
         while (null !== $classIndex) {
             if ($this->tokensAnalyzer->isAnonymousClass($classIndex) || $tokens[$tokens->getPrevMeaningfulToken($classIndex)]->isGivenKind(\T_FINAL)) {
@@ -100,7 +100,7 @@ $a = new class() {
             $classIndex = $tokens->getNextTokenOfKind($classIndex, [[\T_CLASS]]);
         }
     }
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
+    private function fixClass(Tokens $tokens, int $index) : int
     {
         $index = $tokens->getNextTokenOfKind($index, ['{']);
         $classOpenCount = 1;
@@ -136,7 +136,7 @@ $a = new class() {
             if ($tokens[$index]->isGivenKind([\T_NEW, \T_INSTANCEOF])) {
                 $index = $tokens->getNextMeaningfulToken($index);
                 if ($tokens[$index]->isGivenKind(\T_STATIC)) {
-                    $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'self']);
+                    $tokens[$index] = new Token([\T_STRING, 'self']);
                 }
                 continue;
             }
@@ -148,7 +148,7 @@ $a = new class() {
             if (!$tokens[$index]->isGivenKind(\T_DOUBLE_COLON)) {
                 continue;
             }
-            $tokens[$staticIndex] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'self']);
+            $tokens[$staticIndex] = new Token([\T_STRING, 'self']);
         }
         return $index;
     }

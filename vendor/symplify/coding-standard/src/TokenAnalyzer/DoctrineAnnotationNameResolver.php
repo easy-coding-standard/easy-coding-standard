@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenAnalyzer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer;
 
 use ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token;
@@ -13,7 +13,7 @@ final class DoctrineAnnotationNameResolver
      * @param Tokens<Token> $tokens
      * @param NamespaceUseAnalysis[] $namespaceUseAnalyses
      */
-    public function resolveName(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index, array $namespaceUseAnalyses) : ?string
+    public function resolveName(Tokens $tokens, int $index, array $namespaceUseAnalyses) : ?string
     {
         $openParenthesisPosition = $this->getNextOpenParenthesisFromTokens($tokens, $index);
         if ($openParenthesisPosition === null) {
@@ -38,7 +38,7 @@ final class DoctrineAnnotationNameResolver
     /**
      * @param Tokens<Token> $tokens
      */
-    private function getNextOpenParenthesisFromTokens(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, int $index) : ?int
+    private function getNextOpenParenthesisFromTokens(Tokens $tokens, int $index) : ?int
     {
         $openParenthesisPosition = $tokens->getNextMeaningfulToken($index);
         if ($openParenthesisPosition === null) {
@@ -46,7 +46,7 @@ final class DoctrineAnnotationNameResolver
         }
         /** @var Token $nextOpenParenthesis */
         $nextOpenParenthesis = $tokens[$openParenthesisPosition];
-        if ($nextOpenParenthesis->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+        if ($nextOpenParenthesis->isType(DocLexer::T_OPEN_PARENTHESIS)) {
             return $openParenthesisPosition;
         }
         return $this->getNextOpenParenthesisFromTokens($tokens, $openParenthesisPosition);

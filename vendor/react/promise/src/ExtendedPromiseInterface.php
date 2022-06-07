@@ -2,7 +2,7 @@
 
 namespace ECSPrefix20220607\React\Promise;
 
-interface ExtendedPromiseInterface extends \ECSPrefix20220607\React\Promise\PromiseInterface
+interface ExtendedPromiseInterface extends PromiseInterface
 {
     /**
      * Consumes the promise's ultimate value if the promise fulfills, or handles the

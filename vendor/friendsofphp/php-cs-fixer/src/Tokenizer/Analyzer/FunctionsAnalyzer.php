@@ -30,7 +30,7 @@ final class FunctionsAnalyzer
     /**
      * Important: risky because of the limited (file) scope of the tool.
      */
-    public function isGlobalFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    public function isGlobalFunctionCall(Tokens $tokens, int $index) : bool
     {
         if (!$tokens[$index]->isGivenKind(\T_STRING)) {
             return \false;
@@ -45,7 +45,7 @@ final class FunctionsAnalyzer
             $previousIsNamespaceSeparator = \true;
             $prevIndex = $tokens->getPrevMeaningfulToken($prevIndex);
         }
-        $possibleKind = \array_merge([\T_DOUBLE_COLON, \T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR, \T_NEW, \PhpCsFixer\Tokenizer\CT::T_RETURN_REF, \T_STRING], \PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds());
+        $possibleKind = \array_merge([\T_DOUBLE_COLON, \T_FUNCTION, CT::T_NAMESPACE_OPERATOR, \T_NEW, CT::T_RETURN_REF, \T_STRING], Token::getObjectOperatorKinds());
         // @TODO: drop condition when PHP 8.0+ is required
         if (\defined('T_ATTRIBUTE')) {
             $possibleKind[] = \T_ATTRIBUTE;
@@ -56,7 +56,7 @@ final class FunctionsAnalyzer
         if ($previousIsNamespaceSeparator) {
             return \true;
         }
-        if ($tokens[$tokens->getNextMeaningfulToken($nextIndex)]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_FIRST_CLASS_CALLABLE)) {
+        if ($tokens[$tokens->getNextMeaningfulToken($nextIndex)]->isGivenKind(CT::T_FIRST_CLASS_CALLABLE)) {
             return \false;
         }
         if ($tokens->isChanged() || $tokens->getCodeHash() !== $this->functionsAnalysis['tokens']) {
@@ -110,10 +110,10 @@ final class FunctionsAnalyzer
     /**
      * @return ArgumentAnalysis[]
      */
-    public function getFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex) : array
+    public function getFunctionArguments(Tokens $tokens, int $functionIndex) : array
     {
         $argumentsStart = $tokens->getNextTokenOfKind($functionIndex, ['(']);
-        $argumentsEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $argumentsStart);
+        $argumentsEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $argumentsStart);
         $argumentAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $arguments = [];
         foreach ($argumentAnalyzer->getArguments($tokens, $argumentsStart, $argumentsEnd) as $start => $end) {
@@ -122,12 +122,12 @@ final class FunctionsAnalyzer
         }
         return $arguments;
     }
-    public function getFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $methodIndex) : ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis
+    public function getFunctionReturnType(Tokens $tokens, int $methodIndex) : ?TypeAnalysis
     {
         $argumentsStart = $tokens->getNextTokenOfKind($methodIndex, ['(']);
-        $argumentsEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $argumentsStart);
+        $argumentsEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $argumentsStart);
         $typeColonIndex = $tokens->getNextMeaningfulToken($argumentsEnd);
-        if (!$tokens[$typeColonIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON)) {
+        if (!$tokens[$typeColonIndex]->isGivenKind(CT::T_TYPE_COLON)) {
             return null;
         }
         $type = '';
@@ -141,9 +141,9 @@ final class FunctionsAnalyzer
             $type .= $tokens[$i]->getContent();
             $typeEndIndex = $i;
         }
-        return new \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis($type, $typeStartIndex, $typeEndIndex);
+        return new TypeAnalysis($type, $typeStartIndex, $typeEndIndex);
     }
-    public function isTheSameClassCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    public function isTheSameClassCall(Tokens $tokens, int $index) : bool
     {
         if (!$tokens->offsetExists($index)) {
             return \false;
@@ -161,7 +161,7 @@ final class FunctionsAnalyzer
         }
         return $tokens[$referenceIndex]->equalsAny([[\T_VARIABLE, '$this'], [\T_STRING, 'self'], [\T_STATIC, 'static']], \false);
     }
-    private function buildFunctionsAnalysis(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    private function buildFunctionsAnalysis(Tokens $tokens) : void
     {
         $this->functionsAnalysis = ['tokens' => $tokens->getCodeHash(), 'imports' => [], 'declarations' => []];
         // find declarations
@@ -169,21 +169,21 @@ final class FunctionsAnalyzer
             $end = \count($tokens);
             for ($i = 0; $i < $end; ++$i) {
                 // skip classy, we are looking for functions not methods
-                if ($tokens[$i]->isGivenKind(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds())) {
+                if ($tokens[$i]->isGivenKind(Token::getClassyTokenKinds())) {
                     $i = $tokens->getNextTokenOfKind($i, ['(', '{']);
                     if ($tokens[$i]->equals('(')) {
                         // anonymous class
-                        $i = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $i);
+                        $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $i);
                         $i = $tokens->getNextTokenOfKind($i, ['{']);
                     }
-                    $i = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
+                    $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
                     continue;
                 }
                 if (!$tokens[$i]->isGivenKind(\T_FUNCTION)) {
                     continue;
                 }
                 $i = $tokens->getNextMeaningfulToken($i);
-                if ($tokens[$i]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_RETURN_REF)) {
+                if ($tokens[$i]->isGivenKind(CT::T_RETURN_REF)) {
                     $i = $tokens->getNextMeaningfulToken($i);
                 }
                 if (!$tokens[$i]->isGivenKind(\T_STRING)) {
@@ -194,7 +194,7 @@ final class FunctionsAnalyzer
         }
         // find imported functions
         $namespaceUsesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
-        if ($tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
+        if ($tokens->isTokenKindFound(CT::T_FUNCTION_IMPORT)) {
             $declarations = $namespaceUsesAnalyzer->getDeclarationsFromTokens($tokens);
             foreach ($declarations as $declaration) {
                 if ($declaration->isFunction()) {

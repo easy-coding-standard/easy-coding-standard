@@ -16,12 +16,12 @@ namespace ECSPrefix20220607\Symfony\Component\Console\Output;
  *
  * @author Dariusz Górecki <darek.krk@gmail.com>
  */
-interface ConsoleOutputInterface extends \ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface
+interface ConsoleOutputInterface extends OutputInterface
 {
     /**
      * Gets the OutputInterface for errors.
      */
-    public function getErrorOutput() : \ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
-    public function setErrorOutput(\ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface $error);
-    public function section() : \ECSPrefix20220607\Symfony\Component\Console\Output\ConsoleSectionOutput;
+    public function getErrorOutput() : OutputInterface;
+    public function setErrorOutput(OutputInterface $error);
+    public function section() : ConsoleSectionOutput;
 }

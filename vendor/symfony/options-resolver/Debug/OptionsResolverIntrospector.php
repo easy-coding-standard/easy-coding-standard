@@ -21,15 +21,15 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\OptionsResolver;
 class OptionsResolverIntrospector
 {
     private $get;
-    public function __construct(\ECSPrefix20220607\Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver)
+    public function __construct(OptionsResolver $optionsResolver)
     {
         $this->get = \Closure::bind(function ($property, $option, $message) {
             /** @var OptionsResolver $this */
             if (!$this->isDefined($option)) {
-                throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException(\sprintf('The option "%s" does not exist.', $option));
+                throw new UndefinedOptionsException(\sprintf('The option "%s" does not exist.', $option));
             }
             if (!\array_key_exists($option, $this->{$property})) {
-                throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\NoConfigurationException($message);
+                throw new NoConfigurationException($message);
             }
             return $this->{$property}[$option];
         }, $optionsResolver, $optionsResolver);

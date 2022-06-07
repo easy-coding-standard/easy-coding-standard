@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\Fixer\Annotation;
+namespace ECSPrefix20220607\Symplify\CodingStandard\Fixer\Annotation;
 
 use ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token as DoctrineAnnotationToken;
@@ -13,15 +13,15 @@ use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
-use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationElementAnalyzer;
-use Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationNameResolver;
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationElementAnalyzer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationNameResolver;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use ECSPrefix20220607\Webmozart\Assert\Assert;
-final class DoctrineAnnotationNestedBracketsFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class DoctrineAnnotationNestedBracketsFixer extends AbstractSymplifyFixer implements ConfigurableRuleInterface, DocumentedRuleInterface
 {
     /**
      * @var string
@@ -47,19 +47,19 @@ final class DoctrineAnnotationNestedBracketsFixer extends \Symplify\CodingStanda
      * @var \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer
      */
     private $namespaceUsesAnalyzer;
-    public function __construct(\Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationElementAnalyzer $doctrineAnnotationElementAnalyzer, \Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationNameResolver $doctrineAnnotationNameResolver, \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer $namespaceUsesAnalyzer)
+    public function __construct(DoctrineAnnotationElementAnalyzer $doctrineAnnotationElementAnalyzer, DoctrineAnnotationNameResolver $doctrineAnnotationNameResolver, NamespaceUsesAnalyzer $namespaceUsesAnalyzer)
     {
         $this->doctrineAnnotationElementAnalyzer = $doctrineAnnotationElementAnalyzer;
         $this->doctrineAnnotationNameResolver = $doctrineAnnotationNameResolver;
         $this->namespaceUsesAnalyzer = $namespaceUsesAnalyzer;
     }
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
+        return new FixerDefinition(self::ERROR_MESSAGE, []);
     }
-    public function getRuleDefinition() : \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : RuleDefinition
     {
-        return new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(self::ERROR_MESSAGE, [new ConfiguredCodeSample(<<<'CODE_SAMPLE'
 /**
 * @MainAnnotation(
 *     @NestedAnnotation(),
@@ -83,21 +83,21 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $annotationsClasses = $configuration[self::ANNOTATION_CLASSES] ?? [];
-        \ECSPrefix20220607\Webmozart\Assert\Assert::isArray($annotationsClasses);
-        \ECSPrefix20220607\Webmozart\Assert\Assert::allString($annotationsClasses);
+        Assert::isArray($annotationsClasses);
+        Assert::allString($annotationsClasses);
         $this->annotationClasses = $annotationsClasses;
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    public function fix(SplFileInfo $fileInfo, Tokens $tokens) : void
     {
         $useDeclarations = $this->namespaceUsesAnalyzer->getDeclarationsFromTokens($tokens);
         // fetch indexes one time, this is safe as we never add or remove a token during fixing
@@ -105,19 +105,19 @@ CODE_SAMPLE
         $docCommentTokens = $tokens->findGivenKind(\T_DOC_COMMENT);
         foreach ($docCommentTokens as $index => $docCommentToken) {
             /** @var DoctrineAnnotationTokens<DoctrineAnnotationToken> $doctrineAnnotationTokens */
-            $doctrineAnnotationTokens = \PhpCsFixer\Doctrine\Annotation\Tokens::createFromDocComment($docCommentToken, []);
+            $doctrineAnnotationTokens = DoctrineAnnotationTokens::createFromDocComment($docCommentToken, []);
             $this->fixAnnotations($doctrineAnnotationTokens, $useDeclarations);
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doctrineAnnotationTokens->getCode()]);
+            $tokens[$index] = new Token([\T_DOC_COMMENT, $doctrineAnnotationTokens->getCode()]);
         }
     }
     /**
      * @param DoctrineAnnotationTokens<DoctrineAnnotationToken> $doctrineAnnotationTokens
      * @param NamespaceUseAnalysis[] $useDeclarations
      */
-    private function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens, array $useDeclarations) : void
+    private function fixAnnotations(DoctrineAnnotationTokens $doctrineAnnotationTokens, array $useDeclarations) : void
     {
         foreach ($doctrineAnnotationTokens as $index => $token) {
-            if (!$token->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            if (!$token->isType(DocLexer::T_AT)) {
                 continue;
             }
             $annotationName = $this->doctrineAnnotationNameResolver->resolveName($doctrineAnnotationTokens, $index, $useDeclarations);
@@ -141,9 +141,9 @@ CODE_SAMPLE
                 continue;
             }
             // add closing brace
-            $doctrineAnnotationTokens->insertAt($closingBraceIndex, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES, '}'));
+            $doctrineAnnotationTokens->insertAt($closingBraceIndex, new DoctrineAnnotationToken(DocLexer::T_OPEN_CURLY_BRACES, '}'));
             // add opening brace
-            $doctrineAnnotationTokens->insertAt($braceIndex + 1, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES, '{'));
+            $doctrineAnnotationTokens->insertAt($braceIndex + 1, new DoctrineAnnotationToken(DocLexer::T_OPEN_CURLY_BRACES, '{'));
         }
     }
 }

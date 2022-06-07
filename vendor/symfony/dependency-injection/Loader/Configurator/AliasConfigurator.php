@@ -14,12 +14,12 @@ use ECSPrefix20220607\Symfony\Component\DependencyInjection\Alias;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class AliasConfigurator extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class AliasConfigurator extends AbstractServiceConfigurator
 {
     use Traits\DeprecateTrait;
     use Traits\PublicTrait;
     public const FACTORY = 'alias';
-    public function __construct(\ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20220607\Symfony\Component\DependencyInjection\Alias $alias)
+    public function __construct(ServicesConfigurator $parent, Alias $alias)
     {
         $this->parent = $parent;
         $this->definition = $alias;

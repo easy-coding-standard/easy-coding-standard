@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\PHP;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
-class ReturnFunctionValueSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ReturnFunctionValueSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -32,7 +32,7 @@ class ReturnFunctionValueSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $functionName = $phpcsFile->findNext(\T_STRING, $stackPtr + 1, null, \false, null, \true);

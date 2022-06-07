@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class OneObjectStructurePerFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class OneObjectStructurePerFileSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -32,7 +32,7 @@ class OneObjectStructurePerFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $nextClass = $phpcsFile->findNext($this->register(), $stackPtr + 1);
         if ($nextClass !== \false) {

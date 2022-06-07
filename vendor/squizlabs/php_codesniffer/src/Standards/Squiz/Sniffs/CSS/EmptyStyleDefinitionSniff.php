@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class EmptyStyleDefinitionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class EmptyStyleDefinitionSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,10 +39,10 @@ class EmptyStyleDefinitionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $ignore = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $ignore = Tokens::$emptyTokens;
         $ignore[] = T_COLON;
         $next = $phpcsFile->findNext($ignore, $stackPtr + 1, null, \true);
         if ($next === \false || $tokens[$next]['code'] === T_SEMICOLON || $tokens[$next]['line'] !== $tokens[$stackPtr]['line']) {

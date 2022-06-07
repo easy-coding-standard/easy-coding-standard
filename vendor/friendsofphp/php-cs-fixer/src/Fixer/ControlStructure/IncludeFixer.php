@@ -24,14 +24,14 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class IncludeFixer extends \PhpCsFixer\AbstractFixer
+final class IncludeFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Include/Require and file path should be divided with a single space. File path should not be placed under brackets.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Include/Require and file path should be divided with a single space. File path should not be placed under brackets.', [new CodeSample('<?php
 require ("sample1.php");
 require_once  "sample2.php";
 include       "sample3.php";
@@ -41,20 +41,20 @@ include_once("sample4.php");
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_REQUIRE, \T_REQUIRE_ONCE, \T_INCLUDE, \T_INCLUDE_ONCE]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $this->clearIncludies($tokens, $this->findIncludies($tokens));
     }
-    private function clearIncludies(\PhpCsFixer\Tokenizer\Tokens $tokens, array $includies) : void
+    private function clearIncludies(Tokens $tokens, array $includies) : void
     {
-        $blocksAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\BlocksAnalyzer();
+        $blocksAnalyzer = new BlocksAnalyzer();
         foreach ($includies as $includy) {
             if ($includy['end'] && !$tokens[$includy['end']]->isGivenKind(\T_CLOSE_TAG)) {
                 $afterEndIndex = $tokens->getNextNonWhitespace($includy['end']);
@@ -77,13 +77,13 @@ include_once("sample4.php");
             }
             $nextIndex = $tokens->getNonEmptySibling($includy['begin'], 1);
             if ($tokens[$nextIndex]->isWhitespace()) {
-                $tokens[$nextIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+                $tokens[$nextIndex] = new Token([\T_WHITESPACE, ' ']);
             } elseif (null !== $braces || $tokens[$nextIndex]->isGivenKind([\T_VARIABLE, \T_CONSTANT_ENCAPSED_STRING, \T_COMMENT])) {
-                $tokens->insertAt($includy['begin'] + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+                $tokens->insertAt($includy['begin'] + 1, new Token([\T_WHITESPACE, ' ']));
             }
         }
     }
-    private function findIncludies(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
+    private function findIncludies(Tokens $tokens) : array
     {
         static $includyTokenKinds = [\T_REQUIRE, \T_REQUIRE_ONCE, \T_INCLUDE, \T_INCLUDE_ONCE];
         $includies = [];
@@ -92,7 +92,7 @@ include_once("sample4.php");
                 $includy = ['begin' => $index, 'braces' => null, 'end' => $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]])];
                 $braceOpenIndex = $tokens->getNextMeaningfulToken($index);
                 if ($tokens[$braceOpenIndex]->equals('(')) {
-                    $braceCloseIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $braceOpenIndex);
+                    $braceCloseIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $braceOpenIndex);
                     $includy['braces'] = ['open' => $braceOpenIndex, 'close' => $braceCloseIndex];
                 }
                 $includies[$index] = $includy;
@@ -101,7 +101,7 @@ include_once("sample4.php");
         \krsort($includies);
         return $includies;
     }
-    private function removeWhitespaceAroundIfPossible(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function removeWhitespaceAroundIfPossible(Tokens $tokens, int $index) : void
     {
         $nextIndex = $tokens->getNextNonWhitespace($index);
         if (null === $nextIndex || !$tokens[$nextIndex]->isComment()) {

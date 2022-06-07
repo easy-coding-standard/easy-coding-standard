@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ForLoopDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ForLoopDeclarationSniff implements Sniff
 {
     /**
      * How many spaces should follow the opening bracket.
@@ -57,7 +57,7 @@ class ForLoopDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $this->requiredSpacesAfterOpen = (int) $this->requiredSpacesAfterOpen;
         $this->requiredSpacesBeforeClose = (int) $this->requiredSpacesBeforeClose;
@@ -120,7 +120,7 @@ class ForLoopDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         //end if
         $prevNonWhiteSpace = $phpcsFile->findPrevious(\T_WHITESPACE, $closingBracket - 1, $openingBracket, \true);
         $beforeClosefixable = \true;
-        if ($tokens[$prevNonWhiteSpace]['line'] !== $tokens[$closingBracket]['line'] && isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$prevNonWhiteSpace]['code']]) === \true) {
+        if ($tokens[$prevNonWhiteSpace]['line'] !== $tokens[$closingBracket]['line'] && isset(Tokens::$emptyTokens[$tokens[$prevNonWhiteSpace]['code']]) === \true) {
             $beforeClosefixable = \false;
         }
         if ($this->requiredSpacesBeforeClose === 0 && $tokens[$closingBracket - 1]['code'] === \T_WHITESPACE && ($this->ignoreNewlines === \false || $tokens[$prevNonWhiteSpace]['line'] === $tokens[$closingBracket]['line'])) {

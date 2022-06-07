@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\CSS;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
-class BrowserSpecificStylesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class BrowserSpecificStylesSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -48,7 +48,7 @@ class BrowserSpecificStylesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         // Ignore files with browser-specific suffixes.
         $filename = $phpcsFile->getFilename();

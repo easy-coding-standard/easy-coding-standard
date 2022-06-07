@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Objects;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class DisallowObjectStringIndexSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DisallowObjectStringIndexSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -38,7 +38,7 @@ class DisallowObjectStringIndexSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Check if the next non whitespace token is a string.

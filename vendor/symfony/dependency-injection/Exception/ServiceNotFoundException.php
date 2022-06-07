@@ -16,7 +16,7 @@ use ECSPrefix20220607\Psr\Container\NotFoundExceptionInterface;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ServiceNotFoundException extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException implements \ECSPrefix20220607\Psr\Container\NotFoundExceptionInterface
+class ServiceNotFoundException extends InvalidArgumentException implements NotFoundExceptionInterface
 {
     /**
      * @var string

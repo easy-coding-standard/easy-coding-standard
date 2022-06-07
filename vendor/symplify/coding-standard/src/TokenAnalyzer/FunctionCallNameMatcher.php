@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenAnalyzer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -13,11 +13,11 @@ final class FunctionCallNameMatcher
      *
      * @param Tokens<Token> $tokens
      */
-    public function matchName(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : ?int
+    public function matchName(Tokens $tokens, int $position) : ?int
     {
         try {
-            $blockStart = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $position);
-        } catch (\Throwable $exception) {
+            $blockStart = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $position);
+        } catch (Throwable $exception) {
             // not a block start
             return null;
         }

@@ -15,7 +15,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class MultipleStatementAlignmentSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -52,7 +52,7 @@ class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        $tokens = \PHP_CodeSniffer\Util\Tokens::$assignmentTokens;
+        $tokens = Tokens::$assignmentTokens;
         unset($tokens[\T_DOUBLE_ARROW]);
         return $tokens;
     }
@@ -66,7 +66,7 @@ class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $lastAssign = $this->checkAlignment($phpcsFile, $stackPtr);
         return $lastAssign + 1;
@@ -112,9 +112,9 @@ class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if ($end === null) {
             $end = $phpcsFile->numTokens;
         }
-        $find = \PHP_CodeSniffer\Util\Tokens::$assignmentTokens;
+        $find = Tokens::$assignmentTokens;
         unset($find[\T_DOUBLE_ARROW]);
-        $scopes = \PHP_CodeSniffer\Util\Tokens::$scopeOpeners;
+        $scopes = Tokens::$scopeOpeners;
         unset($scopes[T_CLOSURE]);
         unset($scopes[T_ANON_CLASS]);
         unset($scopes[T_OBJECT]);
@@ -144,7 +144,7 @@ class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
             if (isset($find[$tokens[$assign]['code']]) === \false) {
                 // A blank line indicates that the assignment block has ended.
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$assign]['code']]) === \false && $tokens[$assign]['line'] - $tokens[$lastCode]['line'] > 1 && $tokens[$assign]['level'] === $tokens[$stackPtr]['level'] && $arrayEnd === null) {
+                if (isset(Tokens::$emptyTokens[$tokens[$assign]['code']]) === \false && $tokens[$assign]['line'] - $tokens[$lastCode]['line'] > 1 && $tokens[$assign]['level'] === $tokens[$stackPtr]['level'] && $arrayEnd === null) {
                     break;
                 }
                 if ($tokens[$assign]['code'] === \T_CLOSE_TAG) {
@@ -157,7 +157,7 @@ class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 if ($tokens[$assign]['code'] === \T_ARRAY && isset($tokens[$assign]['parenthesis_opener']) === \true && isset($tokens[$tokens[$assign]['parenthesis_opener']]['parenthesis_closer']) === \true) {
                     $arrayEnd = $tokens[$tokens[$assign]['parenthesis_opener']]['parenthesis_closer'];
                 }
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$assign]['code']]) === \false) {
+                if (isset(Tokens::$emptyTokens[$tokens[$assign]['code']]) === \false) {
                     $lastCode = $assign;
                     if ($tokens[$assign]['code'] === T_SEMICOLON) {
                         if ($tokens[$assign]['conditions'] === $tokens[$stackPtr]['conditions']) {
@@ -224,7 +224,7 @@ class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 }
             }
             //end if
-            $var = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $assign - 1, null, \true);
+            $var = $phpcsFile->findPrevious(Tokens::$emptyTokens, $assign - 1, null, \true);
             // Make sure we wouldn't break our max padding length if we
             // aligned with this statement, or they wouldn't break the max
             // padding length if they aligned with us.

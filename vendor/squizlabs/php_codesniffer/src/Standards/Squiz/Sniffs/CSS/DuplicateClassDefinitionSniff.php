@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class DuplicateClassDefinitionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DuplicateClassDefinitionSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,7 +39,7 @@ class DuplicateClassDefinitionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Find the content of each class definition name.
@@ -56,7 +56,7 @@ class DuplicateClassDefinitionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         while ($next !== \false) {
             $prev = $phpcsFile->findPrevious($find, $next - 1);
             // Check if an inner block was closed.
-            $beforePrev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prev - 1, null, \true);
+            $beforePrev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prev - 1, null, \true);
             if ($beforePrev !== \false && $tokens[$beforePrev]['code'] === T_CLOSE_CURLY_BRACKET) {
                 $scope = 'main';
             }

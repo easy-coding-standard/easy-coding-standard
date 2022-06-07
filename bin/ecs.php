@@ -7,14 +7,14 @@ namespace ECSPrefix20220607;
 use PHP_CodeSniffer\Util\Tokens;
 use ECSPrefix20220607\Symfony\Component\Console\Command\Command;
 use ECSPrefix20220607\Symfony\Component\Console\Input\ArgvInput;
-use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
-use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
 use ECSPrefix20220607\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 // performance boost
 \gc_disable();
-\define('__ECS_RUNNING__', \true);
+\define('ECSPrefix20220607\\__ECS_RUNNING__', \true);
 # 1. autoload
-$autoloadIncluder = new \ECSPrefix20220607\AutoloadIncluder();
+$autoloadIncluder = new AutoloadIncluder();
 if (\file_exists(__DIR__ . '/../preload.php')) {
     require_once __DIR__ . '/../preload.php';
 }
@@ -54,7 +54,7 @@ final class AutoloadIncluder
     public function includeDependencyOrRepositoryVendorAutoloadIfExists() : void
     {
         // ECS' vendor is already loaded
-        if (\class_exists('\\Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel')) {
+        if (\class_exists('ECSPrefix20220607\\Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel')) {
             return;
         }
         $devVendorAutoload = __DIR__ . '/../vendor/autoload.php';
@@ -87,7 +87,7 @@ final class AutoloadIncluder
         if (\defined('T_MATCH') === \false) {
             \define('T_MATCH', 5000);
         }
-        new \PHP_CodeSniffer\Util\Tokens();
+        new Tokens();
     }
     public function loadIfNotLoadedYet(string $file) : void
     {
@@ -105,20 +105,16 @@ final class AutoloadIncluder
         require_once $file;
     }
 }
-/**
- * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
- */
-\class_alias('ECSPrefix20220607\\AutoloadIncluder', 'AutoloadIncluder', \false);
 try {
-    $input = new \ECSPrefix20220607\Symfony\Component\Console\Input\ArgvInput();
-    $ecsContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory();
+    $input = new ArgvInput();
+    $ecsContainerFactory = new EasyCodingStandardContainerFactory();
     $container = $ecsContainerFactory->createFromFromInput($input);
 } catch (\Throwable $throwable) {
-    $symfonyStyleFactory = new \ECSPrefix20220607\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+    $symfonyStyleFactory = new SymfonyStyleFactory();
     $symfonyStyle = $symfonyStyleFactory->create();
     $symfonyStyle->error($throwable->getMessage());
     $symfonyStyle->writeln($throwable->getTraceAsString());
-    exit(\ECSPrefix20220607\Symfony\Component\Console\Command\Command::FAILURE);
+    exit(Command::FAILURE);
 }
-$application = $container->get(\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication::class);
+$application = $container->get(EasyCodingStandardConsoleApplication::class);
 exit($application->run());

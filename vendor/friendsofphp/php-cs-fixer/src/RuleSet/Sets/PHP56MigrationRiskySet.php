@@ -16,7 +16,7 @@ use PhpCsFixer\RuleSet\AbstractMigrationSetDescription;
 /**
  * @internal
  */
-final class PHP56MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractMigrationSetDescription
+final class PHP56MigrationRiskySet extends AbstractMigrationSetDescription
 {
     public function getRules() : array
     {

@@ -24,7 +24,7 @@ final class ControlCaseStructuresAnalyzer
     /**
      * @param int[] $types Token types of interest of which analyzes must be returned
      */
-    public static function findControlStructures(\PhpCsFixer\Tokenizer\Tokens $tokens, array $types) : \Generator
+    public static function findControlStructures(Tokens $tokens, array $types) : \Generator
     {
         if (\count($types) < 1) {
             return;
@@ -50,15 +50,15 @@ final class ControlCaseStructuresAnalyzer
                 $isTypeOfInterest = \in_array($stack[$depth]['kind'], $types, \true);
                 if ($token->isGivenKind(\T_SWITCH)) {
                     $index = $tokens->getNextMeaningfulToken($index);
-                    $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                    $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
                     $stack[$depth]['open'] = $tokens->getNextMeaningfulToken($index);
                     $stack[$depth]['alternative_syntax'] = $tokens[$stack[$depth]['open']]->equals(':');
                 } elseif (\defined('T_MATCH') && $token->isGivenKind(\T_MATCH)) {
                     // @TODO: drop condition when PHP 8.0+ is required
                     $index = $tokens->getNextMeaningfulToken($index);
-                    $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                    $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
                     $stack[$depth]['open'] = $tokens->getNextMeaningfulToken($index);
-                } elseif (\defined('T_ENUM') && $token->isGivenKind(T_ENUM)) {
+                } elseif (\defined('T_ENUM') && $token->isGivenKind(\T_ENUM)) {
                     $stack[$depth]['open'] = $tokens->getNextTokenOfKind($index, ['{']);
                 }
                 continue;
@@ -133,34 +133,34 @@ final class ControlCaseStructuresAnalyzer
             }
         }
     }
-    private static function buildControlCaseStructureAnalysis(array $analysis) : \PhpCsFixer\Tokenizer\Analyzer\Analysis\AbstractControlCaseStructuresAnalysis
+    private static function buildControlCaseStructureAnalysis(array $analysis) : AbstractControlCaseStructuresAnalysis
     {
-        $default = null === $analysis['default'] ? null : new \PhpCsFixer\Tokenizer\Analyzer\Analysis\DefaultAnalysis($analysis['default']['index'], $analysis['default']['open']);
+        $default = null === $analysis['default'] ? null : new DefaultAnalysis($analysis['default']['index'], $analysis['default']['open']);
         $cases = [];
         foreach ($analysis['cases'] as $case) {
-            $cases[$case['index']] = new \PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis($case['index'], $case['open']);
+            $cases[$case['index']] = new CaseAnalysis($case['index'], $case['open']);
         }
         \sort($cases);
         if (\T_SWITCH === $analysis['kind']) {
-            return new \PhpCsFixer\Tokenizer\Analyzer\Analysis\SwitchAnalysis($analysis['index'], $analysis['open'], $analysis['end'], $cases, $default);
+            return new SwitchAnalysis($analysis['index'], $analysis['open'], $analysis['end'], $cases, $default);
         }
-        if (\defined('T_ENUM') && T_ENUM === $analysis['kind']) {
-            return new \PhpCsFixer\Tokenizer\Analyzer\Analysis\EnumAnalysis($analysis['index'], $analysis['open'], $analysis['end'], $cases);
+        if (\defined('T_ENUM') && \T_ENUM === $analysis['kind']) {
+            return new EnumAnalysis($analysis['index'], $analysis['open'], $analysis['end'], $cases);
         }
         if (\defined('T_MATCH') && \T_MATCH === $analysis['kind']) {
             // @TODO: drop condition when PHP 8.0+ is required
-            return new \PhpCsFixer\Tokenizer\Analyzer\Analysis\MatchAnalysis($analysis['index'], $analysis['open'], $analysis['end'], $default);
+            return new MatchAnalysis($analysis['index'], $analysis['open'], $analysis['end'], $default);
         }
         throw new \InvalidArgumentException(\sprintf('Unexpected type "%d".', $analysis['kind']));
     }
-    private static function findCaseOpen(\PhpCsFixer\Tokenizer\Tokens $tokens, int $kind, int $index) : int
+    private static function findCaseOpen(Tokens $tokens, int $kind, int $index) : int
     {
         if (\T_SWITCH === $kind) {
             $ternariesCount = 0;
             do {
                 if ($tokens[$index]->equalsAny(['(', '{'])) {
                     // skip constructs
-                    $type = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
+                    $type = Tokens::detectBlockType($tokens[$index]);
                     $index = $tokens->findBlockEnd($type['type'], $index);
                     continue;
                 }
@@ -177,12 +177,12 @@ final class ControlCaseStructuresAnalyzer
             } while (++$index);
             return $index;
         }
-        if (\defined('T_ENUM') && T_ENUM === $kind) {
+        if (\defined('T_ENUM') && \T_ENUM === $kind) {
             return $tokens->getNextTokenOfKind($index, ['=', ';']);
         }
         throw new \InvalidArgumentException(\sprintf('Unexpected case for type "%d".', $kind));
     }
-    private static function findDefaultOpen(\PhpCsFixer\Tokenizer\Tokens $tokens, int $kind, int $index) : int
+    private static function findDefaultOpen(Tokens $tokens, int $kind, int $index) : int
     {
         if (\T_SWITCH === $kind) {
             return $tokens->getNextTokenOfKind($index, [':', ';']);
@@ -202,7 +202,7 @@ final class ControlCaseStructuresAnalyzer
         }
         if (\defined('T_ENUM')) {
             // @TODO: drop condition when PHP 8.1+ is required
-            $supportedTypes[] = T_ENUM;
+            $supportedTypes[] = \T_ENUM;
         }
         return $supportedTypes;
     }

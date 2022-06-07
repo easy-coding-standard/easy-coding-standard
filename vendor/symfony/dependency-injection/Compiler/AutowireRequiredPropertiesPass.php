@@ -20,7 +20,7 @@ use ECSPrefix20220607\Symfony\Contracts\Service\Attribute\Required;
  * @author Sebastien Morel (Plopix) <morel.seb@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class AutowireRequiredPropertiesPass extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class AutowireRequiredPropertiesPass extends AbstractRecursivePass
 {
     /**
      * {@inheritdoc}
@@ -30,7 +30,7 @@ class AutowireRequiredPropertiesPass extends \ECSPrefix20220607\Symfony\Componen
     protected function processValue($value, bool $isRoot = \false)
     {
         $value = parent::processValue($value, $isRoot);
-        if (!$value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
+        if (!$value instanceof Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
             return $value;
         }
         if (!($reflectionClass = $this->container->getReflectionClass($value->getClass(), \false))) {
@@ -41,14 +41,14 @@ class AutowireRequiredPropertiesPass extends \ECSPrefix20220607\Symfony\Componen
             if (!($type = \method_exists($reflectionProperty, 'getType') ? $reflectionProperty->getType() : null) instanceof \ReflectionNamedType) {
                 continue;
             }
-            if (!(\method_exists($reflectionProperty, 'getAttributes') ? $reflectionProperty->getAttributes(\ECSPrefix20220607\Symfony\Contracts\Service\Attribute\Required::class) : []) && (\false === ($doc = $reflectionProperty->getDocComment()) || \false === \stripos($doc, '@required') || !\preg_match('#(?:^/\\*\\*|\\n\\s*+\\*)\\s*+@required(?:\\s|\\*/$)#i', $doc))) {
+            if (!(\method_exists($reflectionProperty, 'getAttributes') ? $reflectionProperty->getAttributes(Required::class) : []) && (\false === ($doc = $reflectionProperty->getDocComment()) || \false === \stripos($doc, '@required') || !\preg_match('#(?:^/\\*\\*|\\n\\s*+\\*)\\s*+@required(?:\\s|\\*/$)#i', $doc))) {
                 continue;
             }
             if (\array_key_exists($name = $reflectionProperty->getName(), $properties)) {
                 continue;
             }
             $type = $type->getName();
-            $value->setProperty($name, new \ECSPrefix20220607\Symfony\Component\DependencyInjection\TypedReference($type, $type, \ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name));
+            $value->setProperty($name, new TypedReference($type, $type, ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name));
         }
         return $value;
     }

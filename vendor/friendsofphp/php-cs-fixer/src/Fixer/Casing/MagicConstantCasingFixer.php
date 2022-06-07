@@ -22,32 +22,32 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author ntzm
  */
-final class MagicConstantCasingFixer extends \PhpCsFixer\AbstractFixer
+final class MagicConstantCasingFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Magic constants should be referred to using the correct casing.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\necho __dir__;\n")]);
+        return new FixerDefinition('Magic constants should be referred to using the correct casing.', [new CodeSample("<?php\necho __dir__;\n")]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound($this->getMagicConstantTokens());
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $magicConstants = $this->getMagicConstants();
         $magicConstantTokens = $this->getMagicConstantTokens();
         foreach ($tokens as $index => $token) {
             if ($token->isGivenKind($magicConstantTokens)) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $magicConstants[$token->getId()]]);
+                $tokens[$index] = new Token([$token->getId(), $magicConstants[$token->getId()]]);
             }
         }
     }
@@ -58,7 +58,7 @@ final class MagicConstantCasingFixer extends \PhpCsFixer\AbstractFixer
     {
         static $magicConstants = null;
         if (null === $magicConstants) {
-            $magicConstants = [\T_LINE => '__LINE__', \T_FILE => '__FILE__', \T_DIR => '__DIR__', \T_FUNC_C => '__FUNCTION__', \T_CLASS_C => '__CLASS__', \T_METHOD_C => '__METHOD__', \T_NS_C => '__NAMESPACE__', \PhpCsFixer\Tokenizer\CT::T_CLASS_CONSTANT => 'class', \T_TRAIT_C => '__TRAIT__'];
+            $magicConstants = [\T_LINE => '__LINE__', \T_FILE => '__FILE__', \T_DIR => '__DIR__', \T_FUNC_C => '__FUNCTION__', \T_CLASS_C => '__CLASS__', \T_METHOD_C => '__METHOD__', \T_NS_C => '__NAMESPACE__', CT::T_CLASS_CONSTANT => 'class', \T_TRAIT_C => '__TRAIT__'];
         }
         return $magicConstants;
     }

@@ -15,12 +15,12 @@ namespace ECSPrefix20220607;
 const ITERATIONS = 100000;
 use ECSPrefix20220607\Evenement\EventEmitter;
 require __DIR__ . '/../vendor/autoload.php';
-$emitter = new \ECSPrefix20220607\Evenement\EventEmitter();
-for ($i = 0; $i < \ITERATIONS; $i++) {
+$emitter = new EventEmitter();
+for ($i = 0; $i < \ECSPrefix20220607\ITERATIONS; $i++) {
     $emitter->once('event', function ($a, $b, $c) {
     });
 }
 $start = \microtime(\true);
 $emitter->emit('event', [1, 2, 3]);
 $time = \microtime(\true) - $start;
-echo 'Emitting one event to ', \number_format(\ITERATIONS), ' once listeners took: ', \number_format($time, 2), 's', \PHP_EOL;
+echo 'Emitting one event to ', \number_format(\ECSPrefix20220607\ITERATIONS), ' once listeners took: ', \number_format($time, 2), 's', \PHP_EOL;

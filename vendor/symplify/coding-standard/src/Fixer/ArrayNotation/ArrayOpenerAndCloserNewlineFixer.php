@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\Fixer\ArrayNotation;
+namespace ECSPrefix20220607\Symplify\CodingStandard\Fixer\ArrayNotation;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
@@ -9,18 +9,18 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
 use SplFileInfo;
-use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer;
-use Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds;
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer\ArrayOpenerAndCloserNewlineFixerTest
  */
-final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class ArrayOpenerAndCloserNewlineFixer extends AbstractSymplifyFixer implements DocumentedRuleInterface
 {
     /**
      * @var string
@@ -38,15 +38,15 @@ final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fi
      * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer
      */
     private $arrayAnalyzer;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder $arrayBlockInfoFinder, \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer $arrayAnalyzer)
+    public function __construct(ArrayBlockInfoFinder $arrayBlockInfoFinder, WhitespacesFixerConfig $whitespacesFixerConfig, ArrayAnalyzer $arrayAnalyzer)
     {
         $this->arrayBlockInfoFinder = $arrayBlockInfoFinder;
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
         $this->arrayAnalyzer = $arrayAnalyzer;
     }
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
+        return new FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * Must run before
@@ -57,9 +57,9 @@ final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fi
     {
         return 34;
     }
-    public function getRuleDefinition() : \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : RuleDefinition
     {
-        return new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(self::ERROR_MESSAGE, [new CodeSample(<<<'CODE_SAMPLE'
 $items = [1 => 'Hey'];
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -72,9 +72,9 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
-        if (!$tokens->isAnyTokenKindsFound(\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds::ARRAY_OPEN_TOKENS)) {
+        if (!$tokens->isAnyTokenKindsFound(TokenKinds::ARRAY_OPEN_TOKENS)) {
             return \false;
         }
         return $tokens->isTokenKindFound(\T_DOUBLE_ARROW);
@@ -82,7 +82,7 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    public function fix(SplFileInfo $fileInfo, Tokens $tokens) : void
     {
         $blockInfos = $this->arrayBlockInfoFinder->findArrayOpenerBlockInfos($tokens);
         foreach ($blockInfos as $blockInfo) {
@@ -92,7 +92,7 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    private function fixArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : void
+    private function fixArrayOpener(Tokens $tokens, BlockInfo $blockInfo) : void
     {
         if ($this->isNextTokenAlsoArrayOpener($tokens, $blockInfo->getStart())) {
             return;
@@ -112,22 +112,22 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    private function isNextTokenAlsoArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function isNextTokenAlsoArrayOpener(Tokens $tokens, int $index) : bool
     {
         $nextToken = $this->getNextMeaningfulToken($tokens, $index);
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (!$nextToken instanceof Token) {
             return \false;
         }
-        return $nextToken->isGivenKind(\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds::ARRAY_OPEN_TOKENS);
+        return $nextToken->isGivenKind(TokenKinds::ARRAY_OPEN_TOKENS);
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    private function handleArrayCloser(\PhpCsFixer\Tokenizer\Tokens $tokens, int $arrayCloserPosition) : void
+    private function handleArrayCloser(Tokens $tokens, int $arrayCloserPosition) : void
     {
         $preArrayCloserPosition = $arrayCloserPosition - 1;
         $previousCloserToken = $tokens[$preArrayCloserPosition] ?? null;
-        if (!$previousCloserToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (!$previousCloserToken instanceof Token) {
             return;
         }
         // already whitespace
@@ -139,11 +139,11 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    private function handleArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, int $arrayOpenerPosition) : void
+    private function handleArrayOpener(Tokens $tokens, int $arrayOpenerPosition) : void
     {
         $postArrayOpenerPosition = $arrayOpenerPosition + 1;
         $nextToken = $tokens[$postArrayOpenerPosition] ?? null;
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (!$nextToken instanceof Token) {
             return;
         }
         // already is whitespace

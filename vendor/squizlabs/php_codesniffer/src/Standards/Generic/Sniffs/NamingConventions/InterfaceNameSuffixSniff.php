@@ -10,7 +10,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class InterfaceNameSuffixSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class InterfaceNameSuffixSniff implements Sniff
 {
     /**
      * Registers the tokens that this sniff wants to listen for.
@@ -31,7 +31,7 @@ class InterfaceNameSuffixSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $interfaceName = $phpcsFile->getDeclarationName($stackPtr);
         if ($interfaceName === null) {

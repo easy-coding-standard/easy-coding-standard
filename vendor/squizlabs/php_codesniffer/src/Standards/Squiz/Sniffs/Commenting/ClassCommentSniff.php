@@ -20,7 +20,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ClassCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ClassCommentSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -41,10 +41,10 @@ class ClassCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $find = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;
+        $find = Tokens::$methodPrefixes;
         $find[\T_WHITESPACE] = \T_WHITESPACE;
         $previousContent = null;
         for ($commentEnd = $stackPtr - 1; $commentEnd >= 0; $commentEnd--) {

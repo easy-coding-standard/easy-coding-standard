@@ -22,29 +22,29 @@ use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class ClassReferenceNameCasingFixer extends \PhpCsFixer\AbstractFixer
+final class ClassReferenceNameCasingFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('When referencing an internal class it must be written using the correct casing.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nthrow new \\exception();\n")]);
+        return new FixerDefinition('When referencing an internal class it must be written using the correct casing.', [new CodeSample("<?php\nthrow new \\exception();\n")]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
-        $namespaceUsesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
+        $namespacesAnalyzer = new NamespacesAnalyzer();
+        $namespaceUsesAnalyzer = new NamespaceUsesAnalyzer();
         $classNames = $this->getClassNames();
         foreach ($namespacesAnalyzer->getDeclarations($tokens) as $namespace) {
             $uses = [];
@@ -55,18 +55,18 @@ final class ClassReferenceNameCasingFixer extends \PhpCsFixer\AbstractFixer
                 $currentContent = $tokens[$reference]->getContent();
                 $lowerCurrentContent = \strtolower($currentContent);
                 if (isset($classNames[$lowerCurrentContent]) && $currentContent !== $classNames[$lowerCurrentContent] && !isset($uses[$lowerCurrentContent])) {
-                    $tokens[$reference] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $classNames[$lowerCurrentContent]]);
+                    $tokens[$reference] = new Token([\T_STRING, $classNames[$lowerCurrentContent]]);
                 }
             }
         }
     }
-    private function getClassReference(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace) : \Generator
+    private function getClassReference(Tokens $tokens, NamespaceAnalysis $namespace) : \Generator
     {
         static $notBeforeKinds;
         static $blockKinds;
         if (null === $notBeforeKinds) {
             $notBeforeKinds = [
-                \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT,
+                CT::T_USE_TRAIT,
                 \T_AS,
                 \T_CASE,
                 // PHP 8.1 trait enum-case
@@ -81,12 +81,12 @@ final class ClassReferenceNameCasingFixer extends \PhpCsFixer\AbstractFixer
             ];
             if (\defined('T_ENUM')) {
                 // @TODO: drop condition when PHP 8.1+ is required
-                $notBeforeKinds[] = T_ENUM;
+                $notBeforeKinds[] = \T_ENUM;
             }
         }
         if (null === $blockKinds) {
             $blockKinds = ['before' => [','], 'after' => [',']];
-            foreach (\PhpCsFixer\Tokenizer\Tokens::getBlockEdgeDefinitions() as $definition) {
+            foreach (Tokens::getBlockEdgeDefinitions() as $definition) {
                 $blockKinds['before'][] = $definition['start'];
                 $blockKinds['after'][] = $definition['end'];
             }

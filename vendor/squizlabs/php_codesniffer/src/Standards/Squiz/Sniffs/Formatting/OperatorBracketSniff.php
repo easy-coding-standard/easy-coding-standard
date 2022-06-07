@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Formatting;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class OperatorBracketSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -27,7 +27,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return \PHP_CodeSniffer\Util\Tokens::$operators;
+        return Tokens::$operators;
     }
     //end register()
     /**
@@ -39,7 +39,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($phpcsFile->tokenizerType === 'JS' && $tokens[$stackPtr]['code'] === T_PLUS) {
@@ -56,7 +56,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // the minus sign being used to assign a negative number to a variable.
         if ($tokens[$stackPtr]['code'] === T_MINUS) {
             // Check to see if we are trying to return -n.
-            $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+            $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
             if ($tokens[$prev]['code'] === \T_RETURN) {
                 return;
             }
@@ -64,10 +64,10 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if ($tokens[$number]['code'] === \T_LNUMBER || $tokens[$number]['code'] === \T_DNUMBER) {
                 $previous = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
                 if ($previous !== \false) {
-                    $isAssignment = isset(\PHP_CodeSniffer\Util\Tokens::$assignmentTokens[$tokens[$previous]['code']]);
-                    $isEquality = isset(\PHP_CodeSniffer\Util\Tokens::$equalityTokens[$tokens[$previous]['code']]);
-                    $isComparison = isset(\PHP_CodeSniffer\Util\Tokens::$comparisonTokens[$tokens[$previous]['code']]);
-                    $isUnary = isset(\PHP_CodeSniffer\Util\Tokens::$operators[$tokens[$previous]['code']]);
+                    $isAssignment = isset(Tokens::$assignmentTokens[$tokens[$previous]['code']]);
+                    $isEquality = isset(Tokens::$equalityTokens[$tokens[$previous]['code']]);
+                    $isComparison = isset(Tokens::$comparisonTokens[$tokens[$previous]['code']]);
+                    $isUnary = isset(Tokens::$operators[$tokens[$previous]['code']]);
                     if ($isAssignment === \true || $isEquality === \true || $isComparison === \true || $isUnary === \true) {
                         // This is a negative assignment or comparison.
                         // We need to check that the minus and the number are
@@ -102,7 +102,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         // Tokens that are allowed inside a bracketed operation.
         $allowed = [\T_VARIABLE, \T_LNUMBER, \T_DNUMBER, \T_STRING, \T_WHITESPACE, \T_NS_SEPARATOR, T_THIS, T_SELF, \T_STATIC, \T_OBJECT_OPERATOR, \T_NULLSAFE_OBJECT_OPERATOR, \T_DOUBLE_COLON, T_OPEN_SQUARE_BRACKET, T_CLOSE_SQUARE_BRACKET, T_MODULUS, T_NONE, T_BITWISE_NOT];
-        $allowed += \PHP_CodeSniffer\Util\Tokens::$operators;
+        $allowed += Tokens::$operators;
         $lastBracket = \false;
         if (isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
             $parenthesis = \array_reverse($tokens[$stackPtr]['nested_parenthesis'], \true);
@@ -145,7 +145,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     }
                 }
                 //end if
-                if (\in_array($prevCode, \PHP_CodeSniffer\Util\Tokens::$scopeOpeners, \true) === \true) {
+                if (\in_array($prevCode, Tokens::$scopeOpeners, \true) === \true) {
                     // This operation is inside a control structure like FOREACH
                     // or IF, but has no bracket of it's own.
                     // The only control structures allowed to do this are SWITCH and MATCH.
@@ -191,7 +191,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
         }
         //end if
-        $lastAssignment = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$assignmentTokens, $stackPtr, null, \false, null, \true);
+        $lastAssignment = $phpcsFile->findPrevious(Tokens::$assignmentTokens, $stackPtr, null, \false, null, \true);
         if ($lastAssignment !== \false && $lastAssignment > $lastBracket) {
             $this->addMissingBracketsError($phpcsFile, $stackPtr);
         }
@@ -217,7 +217,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if ($phpcsFile->tokenizerType === 'JS' && $tokens[$before]['code'] === T_PLUS) {
                 break;
             }
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$before]['code']]) === \true || isset(\PHP_CodeSniffer\Util\Tokens::$operators[$tokens[$before]['code']]) === \true || isset(\PHP_CodeSniffer\Util\Tokens::$castTokens[$tokens[$before]['code']]) === \true || isset($allowed[$tokens[$before]['code']]) === \true) {
+            if (isset(Tokens::$emptyTokens[$tokens[$before]['code']]) === \true || isset(Tokens::$operators[$tokens[$before]['code']]) === \true || isset(Tokens::$castTokens[$tokens[$before]['code']]) === \true || isset($allowed[$tokens[$before]['code']]) === \true) {
                 continue;
             }
             if ($tokens[$before]['code'] === T_CLOSE_PARENTHESIS) {
@@ -235,7 +235,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             break;
         }
         //end for
-        $before = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $before + 1, null, \true);
+        $before = $phpcsFile->findNext(Tokens::$emptyTokens, $before + 1, null, \true);
         // A few extra tokens are allowed to be on the right side of the expression.
         $allowed[T_EQUAL] = \true;
         $allowed[\T_NEW] = \true;
@@ -246,7 +246,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if ($phpcsFile->tokenizerType === 'JS' && $tokens[$after]['code'] === T_PLUS) {
                 break;
             }
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$after]['code']]) === \true || isset(\PHP_CodeSniffer\Util\Tokens::$operators[$tokens[$after]['code']]) === \true || isset(\PHP_CodeSniffer\Util\Tokens::$castTokens[$tokens[$after]['code']]) === \true || isset($allowed[$tokens[$after]['code']]) === \true) {
+            if (isset(Tokens::$emptyTokens[$tokens[$after]['code']]) === \true || isset(Tokens::$operators[$tokens[$after]['code']]) === \true || isset(Tokens::$castTokens[$tokens[$after]['code']]) === \true || isset($allowed[$tokens[$after]['code']]) === \true) {
                 continue;
             }
             if ($tokens[$after]['code'] === T_OPEN_PARENTHESIS) {
@@ -264,7 +264,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             break;
         }
         //end for
-        $after = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $after - 1, null, \true);
+        $after = $phpcsFile->findPrevious(Tokens::$emptyTokens, $after - 1, null, \true);
         $error = 'Operation must be bracketed';
         if ($before === $after || $before === $stackPtr || $after === $stackPtr) {
             $phpcsFile->addError($error, $stackPtr, 'MissingBrackets');

@@ -145,7 +145,7 @@ final class Annotation
     {
         $type = \preg_quote($this->getTypesContent(), '/');
         $regex = "/@{$this->tag->getName()}\\s+({$type}\\s*)?(&\\s*)?(\\.{3}\\s*)?(?<variable>\\\$.+?)(?:[\\s*]|\$)/";
-        if (\PhpCsFixer\Preg::match($regex, $this->lines[0]->getContent(), $matches)) {
+        if (Preg::match($regex, $this->lines[0]->getContent(), $matches)) {
             return $matches['variable'];
         }
         return null;
@@ -170,7 +170,7 @@ final class Annotation
     public function setTypes(array $types) : void
     {
         $pattern = '/' . \preg_quote($this->getTypesContent(), '/') . '/';
-        $this->lines[0]->setContent(\PhpCsFixer\Preg::replace($pattern, \implode($this->getTypeExpression()->getTypesGlue(), $types), $this->lines[0]->getContent(), 1));
+        $this->lines[0]->setContent(Preg::replace($pattern, \implode($this->getTypeExpression()->getTypesGlue(), $types), $this->lines[0]->getContent(), 1));
         $this->clearCache();
     }
     /**
@@ -197,11 +197,11 @@ final class Annotation
                 $line->remove();
             } elseif ($line->isTheStart()) {
                 // Multi line doc block, but start is on the same line as the first annotation, keep only the start
-                $content = \PhpCsFixer\Preg::replace('#(\\s*/\\*\\*).*#', '$1', $line->getContent());
+                $content = Preg::replace('#(\\s*/\\*\\*).*#', '$1', $line->getContent());
                 $line->setContent($content);
             } elseif ($line->isTheEnd()) {
                 // Multi line doc block, but end is on the same line as the last annotation, keep only the end
-                $content = \PhpCsFixer\Preg::replace('#(\\s*)\\S.*(\\*/.*)#', '$1$2', $line->getContent());
+                $content = Preg::replace('#(\\s*)\\S.*(\\*/.*)#', '$1$2', $line->getContent());
                 $line->setContent($content);
             } else {
                 // Multi line doc block, neither start nor end on this line, can be removed safely
@@ -233,7 +233,7 @@ final class Annotation
             if (!$this->supportTypes()) {
                 throw new \RuntimeException('This tag does not support types.');
             }
-            $matchingResult = \PhpCsFixer\Preg::match('{^(?:\\s*\\*|/\\*\\*)\\s*@' . $name . '\\s+' . \PhpCsFixer\DocBlock\TypeExpression::REGEX_TYPES . '(?:(?:[*\\h\\v]|\\&[\\.\\$]).*)?\\r?$}isx', $this->lines[0]->getContent(), $matches);
+            $matchingResult = Preg::match('{^(?:\\s*\\*|/\\*\\*)\\s*@' . $name . '\\s+' . \PhpCsFixer\DocBlock\TypeExpression::REGEX_TYPES . '(?:(?:[*\\h\\v]|\\&[\\.\\$]).*)?\\r?$}isx', $this->lines[0]->getContent(), $matches);
             $this->typesContent = 1 === $matchingResult ? $matches['types'] : '';
         }
         return $this->typesContent;

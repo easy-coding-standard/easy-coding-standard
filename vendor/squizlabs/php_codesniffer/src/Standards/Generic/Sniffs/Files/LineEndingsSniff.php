@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class LineEndingsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class LineEndingsSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -44,7 +44,7 @@ class LineEndingsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $found = $phpcsFile->eolChar;
         $found = \str_replace("\n", '\\n', $found);

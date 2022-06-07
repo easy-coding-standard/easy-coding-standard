@@ -11,7 +11,7 @@ use ECSPrefix20220607\Symplify\Skipper\Skipper\OnlySkipper;
 use ECSPrefix20220607\Symplify\Skipper\Skipper\SkipSkipper;
 use ECSPrefix20220607\Symplify\Skipper\ValueObject\Option;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
-final class ClassSkipVoter implements \ECSPrefix20220607\Symplify\Skipper\Contract\SkipVoterInterface
+final class ClassSkipVoter implements SkipVoterInterface
 {
     /**
      * @var \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
@@ -33,7 +33,7 @@ final class ClassSkipVoter implements \ECSPrefix20220607\Symplify\Skipper\Contra
      * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver
      */
     private $skippedClassResolver;
-    public function __construct(\ECSPrefix20220607\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker, \ECSPrefix20220607\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20220607\Symplify\Skipper\Skipper\SkipSkipper $skipSkipper, \ECSPrefix20220607\Symplify\Skipper\Skipper\OnlySkipper $onlySkipper, \ECSPrefix20220607\Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver $skippedClassResolver)
+    public function __construct(ClassLikeExistenceChecker $classLikeExistenceChecker, ParameterProvider $parameterProvider, SkipSkipper $skipSkipper, OnlySkipper $onlySkipper, SkippedClassResolver $skippedClassResolver)
     {
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
         $this->parameterProvider = $parameterProvider;
@@ -54,9 +54,9 @@ final class ClassSkipVoter implements \ECSPrefix20220607\Symplify\Skipper\Contra
     /**
      * @param string|object $element
      */
-    public function shouldSkip($element, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, SmartFileInfo $smartFileInfo) : bool
     {
-        $only = $this->parameterProvider->provideArrayParameter(\ECSPrefix20220607\Symplify\Skipper\ValueObject\Option::ONLY);
+        $only = $this->parameterProvider->provideArrayParameter(Option::ONLY);
         $doesMatchOnly = $this->onlySkipper->doesMatchOnly($element, $smartFileInfo, $only);
         if (\is_bool($doesMatchOnly)) {
             return $doesMatchOnly;

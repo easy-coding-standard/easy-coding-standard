@@ -7,6 +7,6 @@ use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
 /**
  * @api
  */
-final class CodeSample extends \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+final class CodeSample extends AbstractCodeSample
 {
 }

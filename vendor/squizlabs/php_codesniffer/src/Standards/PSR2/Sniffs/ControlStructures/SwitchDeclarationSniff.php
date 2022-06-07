@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class SwitchDeclarationSniff implements Sniff
 {
     /**
      * The number of spaces code should be indented.
@@ -39,7 +39,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // We can't process SWITCH statements unless we know where they start and end.
@@ -86,7 +86,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     }
                 }
                 for ($next = $opener + 1; $next < $nextCloser; $next++) {
-                    if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$next]['code']]) === \false || isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$next]['code']]) === \true && $tokens[$next]['line'] !== $tokens[$opener]['line']) {
+                    if (isset(Tokens::$emptyTokens[$tokens[$next]['code']]) === \false || isset(Tokens::$commentTokens[$tokens[$next]['code']]) === \true && $tokens[$next]['line'] !== $tokens[$opener]['line']) {
                         break;
                     }
                 }
@@ -162,7 +162,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $nextCode = $this->findNextCase($phpcsFile, $opener + 1, $nextCloser);
                 if ($nextCode !== \false) {
                     $prevCode = $phpcsFile->findPrevious(\T_WHITESPACE, $nextCode - 1, $nextCase, \true);
-                    if (isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$prevCode]['code']]) === \false && $this->findNestedTerminator($phpcsFile, $opener + 1, $nextCode) === \false) {
+                    if (isset(Tokens::$commentTokens[$tokens[$prevCode]['code']]) === \false && $this->findNestedTerminator($phpcsFile, $opener + 1, $nextCode) === \false) {
                         $error = 'There must be a comment when fall-through is intentional in a non-empty case body';
                         $phpcsFile->addError($error, $nextCase, 'TerminatingComment');
                     }
@@ -229,7 +229,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             do {
                 $scopeOpener = $tokens[$currentCloser]['scope_opener'];
                 $scopeCloser = $tokens[$currentCloser]['scope_closer'];
-                $prevToken = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $scopeOpener - 1, $stackPtr, \true);
+                $prevToken = $phpcsFile->findPrevious(Tokens::$emptyTokens, $scopeOpener - 1, $stackPtr, \true);
                 if ($prevToken === \false) {
                     return \false;
                 }
@@ -252,7 +252,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                         if ($hasTerminator === \false) {
                             return \false;
                         }
-                        $currentCloser = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prevToken - 1, $stackPtr, \true);
+                        $currentCloser = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prevToken - 1, $stackPtr, \true);
                         if ($tokens[$prevToken]['code'] === \T_ELSE) {
                             $hasElseBlock = \true;
                         }
@@ -265,7 +265,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                                 return $hasTerminator;
                             }
                             // Otherwise, we continue with the previous TRY or CATCH clause.
-                            $currentCloser = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prevToken - 1, $stackPtr, \true);
+                            $currentCloser = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prevToken - 1, $stackPtr, \true);
                         } else {
                             if ($tokens[$prevToken]['code'] === \T_TRY) {
                                 // If we've seen CATCH blocks without terminator statement and
@@ -284,7 +284,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                                     if ($hasTerminator === \false) {
                                         $hasCatchWithoutTerminator = \true;
                                     }
-                                    $currentCloser = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prevToken - 1, $stackPtr, \true);
+                                    $currentCloser = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prevToken - 1, $stackPtr, \true);
                                 } else {
                                     if ($tokens[$prevToken]['code'] === \T_SWITCH) {
                                         $hasDefaultBlock = \false;
@@ -296,7 +296,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                                                 $hasDefaultBlock = \true;
                                             }
                                             $opener = $tokens[$nextCase]['scope_opener'];
-                                            $nextCode = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $opener + 1, $endOfSwitch, \true);
+                                            $nextCode = $phpcsFile->findNext(Tokens::$emptyTokens, $opener + 1, $endOfSwitch, \true);
                                             if ($tokens[$nextCode]['code'] === \T_CASE || $tokens[$nextCode]['code'] === \T_DEFAULT) {
                                                 // This case statement has no content, so skip it.
                                                 continue;

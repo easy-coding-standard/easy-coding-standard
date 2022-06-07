@@ -10,6 +10,6 @@
  */
 namespace ECSPrefix20220607\Symfony\Component\String\Exception;
 
-class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20220607\Symfony\Component\String\Exception\ExceptionInterface
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
 }

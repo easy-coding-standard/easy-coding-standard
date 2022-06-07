@@ -48,11 +48,11 @@ class PassConfig
     private $removingPasses;
     public function __construct()
     {
-        $this->mergePass = new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass();
-        $this->beforeOptimizationPasses = [100 => [new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveClassPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\RegisterAutoconfigureAttributesPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AttributeAutoconfigurationPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveInstanceofConditionalsPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\RegisterEnvVarProcessorsPass()], -1000 => [new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ExtensionCompilerPass()]];
-        $this->optimizationPasses = [[new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AutoAliasServicePass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ValidateEnvPlaceholdersPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveDecoratorStackPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveChildDefinitionsPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\RegisterServiceSubscribersPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveParameterPlaceHoldersPass(\false, \false), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveFactoryClassPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveNamedArgumentsPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AutowireRequiredMethodsPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AutowireRequiredPropertiesPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveBindingsPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\DecoratorServicePass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CheckDefinitionValidityPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AutowirePass(\false), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveTaggedIteratorArgumentPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveServiceSubscribersPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveReferencesToAliasesPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveInvalidReferencesPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass(\true), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CheckCircularReferencesPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CheckReferenceValidityPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CheckArgumentsValidityPass(\false)]];
-        $this->removingPasses = [[new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\RemovePrivateAliasesPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ReplaceAliasByActualDefinitionPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\RemoveAbstractDefinitionsPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\RemoveUnusedDefinitionsPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CheckExceptionOnInvalidReferenceBehaviorPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\InlineServiceDefinitionsPass(new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass()), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\DefinitionErrorExceptionPass()]];
-        $this->afterRemovingPasses = [[new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveHotPathPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ResolveNoPreloadPass(), new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AliasDeprecatedPublicServicesPass()]];
+        $this->mergePass = new MergeExtensionConfigurationPass();
+        $this->beforeOptimizationPasses = [100 => [new ResolveClassPass(), new RegisterAutoconfigureAttributesPass(), new AttributeAutoconfigurationPass(), new ResolveInstanceofConditionalsPass(), new RegisterEnvVarProcessorsPass()], -1000 => [new ExtensionCompilerPass()]];
+        $this->optimizationPasses = [[new AutoAliasServicePass(), new ValidateEnvPlaceholdersPass(), new ResolveDecoratorStackPass(), new ResolveChildDefinitionsPass(), new RegisterServiceSubscribersPass(), new ResolveParameterPlaceHoldersPass(\false, \false), new ResolveFactoryClassPass(), new ResolveNamedArgumentsPass(), new AutowireRequiredMethodsPass(), new AutowireRequiredPropertiesPass(), new ResolveBindingsPass(), new ServiceLocatorTagPass(), new DecoratorServicePass(), new CheckDefinitionValidityPass(), new AutowirePass(\false), new ServiceLocatorTagPass(), new ResolveTaggedIteratorArgumentPass(), new ResolveServiceSubscribersPass(), new ResolveReferencesToAliasesPass(), new ResolveInvalidReferencesPass(), new AnalyzeServiceReferencesPass(\true), new CheckCircularReferencesPass(), new CheckReferenceValidityPass(), new CheckArgumentsValidityPass(\false)]];
+        $this->removingPasses = [[new RemovePrivateAliasesPass(), new ReplaceAliasByActualDefinitionPass(), new RemoveAbstractDefinitionsPass(), new RemoveUnusedDefinitionsPass(), new AnalyzeServiceReferencesPass(), new CheckExceptionOnInvalidReferenceBehaviorPass(), new InlineServiceDefinitionsPass(new AnalyzeServiceReferencesPass()), new AnalyzeServiceReferencesPass(), new DefinitionErrorExceptionPass()]];
+        $this->afterRemovingPasses = [[new ResolveHotPathPass(), new ResolveNoPreloadPass(), new AliasDeprecatedPublicServicesPass()]];
     }
     /**
      * Returns all passes in order to be processed.
@@ -68,11 +68,11 @@ class PassConfig
      *
      * @throws InvalidArgumentException when a pass type doesn't exist
      */
-    public function addPass(\ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = self::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
+    public function addPass(CompilerPassInterface $pass, string $type = self::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
         $property = $type . 'Passes';
         if (!isset($this->{$property})) {
-            throw new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid type "%s".', $type));
+            throw new InvalidArgumentException(\sprintf('Invalid type "%s".', $type));
         }
         $passes =& $this->{$property};
         if (!isset($passes[$priority])) {
@@ -128,11 +128,11 @@ class PassConfig
     /**
      * Gets the Merge pass.
      */
-    public function getMergePass() : \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+    public function getMergePass() : CompilerPassInterface
     {
         return $this->mergePass;
     }
-    public function setMergePass(\ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass)
+    public function setMergePass(CompilerPassInterface $pass)
     {
         $this->mergePass = $pass;
     }

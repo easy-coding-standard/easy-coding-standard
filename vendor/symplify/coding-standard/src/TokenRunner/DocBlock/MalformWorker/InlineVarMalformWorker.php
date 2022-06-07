@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-final class InlineVarMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+final class InlineVarMalformWorker implements MalformWorkerInterface
 {
     /**
      * @var string
@@ -17,13 +17,13 @@ final class InlineVarMalformWorker implements \Symplify\CodingStandard\TokenRunn
     /**
      * @param Tokens<Token> $tokens
      */
-    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
+    public function work(string $docContent, Tokens $tokens, int $position) : string
     {
         /** @var Token $token */
         $token = $tokens[$position];
         if (!$token->isGivenKind(\T_COMMENT)) {
             return $docContent;
         }
-        return \ECSPrefix20220607\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
+        return Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
     }
 }

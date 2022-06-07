@@ -20,14 +20,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Javier Spagnoletti <phansys@gmail.com>
  */
-final class NotOperatorWithSuccessorSpaceFixer extends \PhpCsFixer\AbstractFixer
+final class NotOperatorWithSuccessorSpaceFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Logical NOT operators (`!`) should have one trailing whitespace.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Logical NOT operators (`!`) should have one trailing whitespace.', [new CodeSample('<?php
 
 if (!$bar) {
     echo "Help!";
@@ -46,14 +46,14 @@ if (!$bar) {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('!');
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];

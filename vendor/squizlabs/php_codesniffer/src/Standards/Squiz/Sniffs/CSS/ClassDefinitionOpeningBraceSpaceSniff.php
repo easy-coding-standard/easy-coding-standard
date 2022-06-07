@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ClassDefinitionOpeningBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ClassDefinitionOpeningBraceSpaceSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,7 +39,7 @@ class ClassDefinitionOpeningBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\S
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $prevNonWhitespace = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
@@ -80,7 +80,7 @@ class ClassDefinitionOpeningBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\S
             //end if
         }
         //end if
-        $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($nextNonEmpty === \false) {
             return;
         }

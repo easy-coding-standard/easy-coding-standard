@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Parallel\Application;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\Application;
 
 use ECSPrefix20220607\Clue\React\NDJson\Decoder;
 use ECSPrefix20220607\Clue\React\NDJson\Encoder;
@@ -11,12 +11,12 @@ use ECSPrefix20220607\React\Socket\ConnectionInterface;
 use ECSPrefix20220607\React\Socket\TcpServer;
 use ECSPrefix20220607\Symfony\Component\Console\Command\Command;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
-use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Command\CheckCommand;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\Action;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\Content;
@@ -51,7 +51,7 @@ final class ParallelFileProcessor
      * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\ECSPrefix20220607\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory $workerCommandLineFactory, \ECSPrefix20220607\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(WorkerCommandLineFactory $workerCommandLineFactory, ParameterProvider $parameterProvider)
     {
         $this->workerCommandLineFactory = $workerCommandLineFactory;
         $this->parameterProvider = $parameterProvider;
@@ -60,27 +60,27 @@ final class ParallelFileProcessor
      * @param callable(int $stepCount): void $postFileCallback Used for progress bar jump
      * @return array{coding_standard_errors: CodingStandardError[], file_diffs: FileDiff[], system_errors: SystemError[]|string[], system_errors_count: int}
      */
-    public function check(\ECSPrefix20220607\Symplify\EasyParallel\ValueObject\Schedule $schedule, string $mainScript, callable $postFileCallback, ?string $projectConfigFile, \ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input) : array
+    public function check(Schedule $schedule, string $mainScript, callable $postFileCallback, ?string $projectConfigFile, InputInterface $input) : array
     {
         $jobs = \array_reverse($schedule->getJobs());
-        $streamSelectLoop = new \ECSPrefix20220607\React\EventLoop\StreamSelectLoop();
+        $streamSelectLoop = new StreamSelectLoop();
         // basic properties setup
         $numberOfProcesses = $schedule->getNumberOfProcesses();
         // initial counters
         $codingStandardErrors = [];
         $fileDiffs = [];
         $systemErrors = [];
-        $tcpServer = new \ECSPrefix20220607\React\Socket\TcpServer('127.0.0.1:0', $streamSelectLoop);
-        $this->processPool = new \ECSPrefix20220607\Symplify\EasyParallel\ValueObject\ProcessPool($tcpServer);
-        $tcpServer->on(\ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactEvent::CONNECTION, function (\ECSPrefix20220607\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
-            $inDecoder = new \ECSPrefix20220607\Clue\React\NDJson\Decoder($connection, \true, 512, 0, 4 * 1024 * 1024);
-            $outEncoder = new \ECSPrefix20220607\Clue\React\NDJson\Encoder($connection);
-            $inDecoder->on(\ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactEvent::DATA, function (array $data) use(&$jobs, $inDecoder, $outEncoder) : void {
-                $action = $data[\ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand::ACTION];
-                if ($action !== \ECSPrefix20220607\Symplify\EasyParallel\Enum\Action::HELLO) {
+        $tcpServer = new TcpServer('127.0.0.1:0', $streamSelectLoop);
+        $this->processPool = new ProcessPool($tcpServer);
+        $tcpServer->on(ReactEvent::CONNECTION, function (ConnectionInterface $connection) use(&$jobs) : void {
+            $inDecoder = new Decoder($connection, \true, 512, 0, 4 * 1024 * 1024);
+            $outEncoder = new Encoder($connection);
+            $inDecoder->on(ReactEvent::DATA, function (array $data) use(&$jobs, $inDecoder, $outEncoder) : void {
+                $action = $data[ReactCommand::ACTION];
+                if ($action !== Action::HELLO) {
                     return;
                 }
-                $processIdentifier = $data[\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_IDENTIFIER];
+                $processIdentifier = $data[Option::PARALLEL_IDENTIFIER];
                 $parallelProcess = $this->processPool->getProcess($processIdentifier);
                 $parallelProcess->bindConnection($inDecoder, $outEncoder);
                 if ($jobs === []) {
@@ -88,7 +88,7 @@ final class ParallelFileProcessor
                     return;
                 }
                 $job = \array_pop($jobs);
-                $parallelProcess->request([\ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand::ACTION => \ECSPrefix20220607\Symplify\EasyParallel\Enum\Action::MAIN, \ECSPrefix20220607\Symplify\EasyParallel\Enum\Content::FILES => $job]);
+                $parallelProcess->request([ReactCommand::ACTION => Action::MAIN, Content::FILES => $job]);
             });
         });
         /** @var string $serverAddress */
@@ -97,43 +97,43 @@ final class ParallelFileProcessor
         $serverPort = \parse_url($serverAddress, \PHP_URL_PORT);
         $systemErrorsCount = 0;
         $reachedSystemErrorsCountLimit = \false;
-        $handleErrorCallable = function (\Throwable $throwable) use(&$systemErrors, &$systemErrorsCount, &$reachedSystemErrorsCountLimit) : void {
-            $systemErrors[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($throwable->getLine(), $throwable->getMessage(), $throwable->getFile());
+        $handleErrorCallable = function (Throwable $throwable) use(&$systemErrors, &$systemErrorsCount, &$reachedSystemErrorsCountLimit) : void {
+            $systemErrors[] = new SystemError($throwable->getLine(), $throwable->getMessage(), $throwable->getFile());
             ++$systemErrorsCount;
             $reachedSystemErrorsCountLimit = \true;
             $this->processPool->quitAll();
         };
-        $timeoutInSeconds = $this->parameterProvider->provideIntParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_TIMEOUT_IN_SECONDS);
+        $timeoutInSeconds = $this->parameterProvider->provideIntParameter(Option::PARALLEL_TIMEOUT_IN_SECONDS);
         for ($i = 0; $i < $numberOfProcesses; ++$i) {
             // nothing else to process, stop now
             if ($jobs === []) {
                 break;
             }
-            $processIdentifier = \ECSPrefix20220607\Nette\Utils\Random::generate();
-            $workerCommandLine = $this->workerCommandLineFactory->create($mainScript, \Symplify\EasyCodingStandard\Console\Command\CheckCommand::class, 'worker', \Symplify\EasyCodingStandard\ValueObject\Option::PATHS, $projectConfigFile, $input, $processIdentifier, $serverPort);
-            $parallelProcess = new \ECSPrefix20220607\Symplify\EasyParallel\ValueObject\ParallelProcess($workerCommandLine, $streamSelectLoop, $timeoutInSeconds);
+            $processIdentifier = Random::generate();
+            $workerCommandLine = $this->workerCommandLineFactory->create($mainScript, CheckCommand::class, 'worker', Option::PATHS, $projectConfigFile, $input, $processIdentifier, $serverPort);
+            $parallelProcess = new ParallelProcess($workerCommandLine, $streamSelectLoop, $timeoutInSeconds);
             $parallelProcess->start(
                 // 1. callable on data
                 function (array $json) use($parallelProcess, &$systemErrors, &$fileDiffs, &$codingStandardErrors, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier) : void {
                     // decode arrays to objects
-                    foreach ($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS] as $jsonError) {
+                    foreach ($json[Bridge::SYSTEM_ERRORS] as $jsonError) {
                         if (\is_string($jsonError)) {
                             $systemErrors[] = 'System error: ' . $jsonError;
                             continue;
                         }
-                        $systemErrors[] = \Symplify\EasyCodingStandard\ValueObject\Error\SystemError::decode($jsonError);
+                        $systemErrors[] = SystemError::decode($jsonError);
                     }
-                    foreach ($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS] as $jsonError) {
-                        $fileDiffs[] = \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff::decode($jsonError);
+                    foreach ($json[Bridge::FILE_DIFFS] as $jsonError) {
+                        $fileDiffs[] = FileDiff::decode($jsonError);
                     }
-                    foreach ($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::CODING_STANDARD_ERRORS] as $jsonError) {
-                        $codingStandardErrors[] = \Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError::decode($jsonError);
+                    foreach ($json[Bridge::CODING_STANDARD_ERRORS] as $jsonError) {
+                        $codingStandardErrors[] = CodingStandardError::decode($jsonError);
                     }
                     // @todo why there is a null check?
                     if ($postFileCallback !== null) {
-                        $postFileCallback($json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILES_COUNT]);
+                        $postFileCallback($json[Bridge::FILES_COUNT]);
                     }
-                    $systemErrorsCount += $json[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS_COUNT];
+                    $systemErrorsCount += $json[Bridge::SYSTEM_ERRORS_COUNT];
                     if ($systemErrorsCount >= self::SYSTEM_ERROR_LIMIT) {
                         $reachedInternalErrorsCountLimit = \true;
                         $this->processPool->quitAll();
@@ -143,14 +143,14 @@ final class ParallelFileProcessor
                         return;
                     }
                     $job = \array_pop($jobs);
-                    $parallelProcess->request([\ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand::ACTION => \ECSPrefix20220607\Symplify\EasyParallel\Enum\Action::MAIN, \ECSPrefix20220607\Symplify\EasyParallel\Enum\Content::FILES => $job]);
+                    $parallelProcess->request([ReactCommand::ACTION => Action::MAIN, Content::FILES => $job]);
                 },
                 // 2. callable on error
                 $handleErrorCallable,
                 // 3. callable on exit
                 function ($exitCode, string $stdErr) use(&$systemErrors, $processIdentifier) : void {
                     $this->processPool->tryQuitProcess($processIdentifier);
-                    if ($exitCode === \ECSPrefix20220607\Symfony\Component\Console\Command\Command::SUCCESS) {
+                    if ($exitCode === Command::SUCCESS) {
                         return;
                     }
                     if ($exitCode === null) {
@@ -165,6 +165,6 @@ final class ParallelFileProcessor
         if ($reachedSystemErrorsCountLimit) {
             $systemErrors[] = \sprintf('Reached system errors count limit of %d, exiting...', self::SYSTEM_ERROR_LIMIT);
         }
-        return [\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::CODING_STANDARD_ERRORS => $codingStandardErrors, \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS => $fileDiffs, \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS => $systemErrors, \Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS_COUNT => \count($systemErrors)];
+        return [Bridge::CODING_STANDARD_ERRORS => $codingStandardErrors, Bridge::FILE_DIFFS => $fileDiffs, Bridge::SYSTEM_ERRORS => $systemErrors, Bridge::SYSTEM_ERRORS_COUNT => \count($systemErrors)];
     }
 }

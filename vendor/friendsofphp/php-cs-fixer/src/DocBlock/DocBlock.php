@@ -44,9 +44,9 @@ final class DocBlock
      * @var NamespaceUseAnalysis[]
      */
     private $namespaceUses;
-    public function __construct(string $content, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace = null, array $namespaceUses = [])
+    public function __construct(string $content, ?NamespaceAnalysis $namespace = null, array $namespaceUses = [])
     {
-        foreach (\PhpCsFixer\Preg::split('/([^\\n\\r]+\\R*)/', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE) as $line) {
+        foreach (Preg::split('/([^\\n\\r]+\\R*)/', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE) as $line) {
             $this->lines[] = new \PhpCsFixer\DocBlock\Line($line);
         }
         $this->namespace = $namespace;

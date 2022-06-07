@@ -119,11 +119,11 @@ class Ruleset
         $sniffs = [];
         $standardPaths = [];
         foreach ($config->standards as $standard) {
-            $installed = \PHP_CodeSniffer\Util\Standards::getInstalledStandardPath($standard);
+            $installed = Util\Standards::getInstalledStandardPath($standard);
             if ($installed === null) {
-                $standard = \PHP_CodeSniffer\Util\Common::realpath($standard);
-                if (\is_dir($standard) === \true && \is_file(\PHP_CodeSniffer\Util\Common::realpath($standard . \DIRECTORY_SEPARATOR . 'ruleset.xml')) === \true) {
-                    $standard = \PHP_CodeSniffer\Util\Common::realpath($standard . \DIRECTORY_SEPARATOR . 'ruleset.xml');
+                $standard = Util\Common::realpath($standard);
+                if (\is_dir($standard) === \true && \is_file(Util\Common::realpath($standard . \DIRECTORY_SEPARATOR . 'ruleset.xml')) === \true) {
+                    $standard = Util\Common::realpath($standard . \DIRECTORY_SEPARATOR . 'ruleset.xml');
                 }
             } else {
                 $standard = $installed;
@@ -146,13 +146,13 @@ class Ruleset
                 }
                 \PHP_CodeSniffer\Autoload::addSearchPath(\dirname($standard), $namespace);
             }
-            if (\defined('PHP_CODESNIFFER_IN_TESTS') === \true && empty($restrictions) === \false) {
+            if (\defined('ECSPrefix20220607\\PHP_CODESNIFFER_IN_TESTS') === \true && empty($restrictions) === \false) {
                 // In unit tests, only register the sniffs that the test wants and not the entire standard.
                 try {
                     foreach ($restrictions as $restriction) {
                         $sniffs = \array_merge($sniffs, $this->expandRulesetReference($restriction, \dirname($standard)));
                     }
-                } catch (\PHP_CodeSniffer\Exceptions\RuntimeException $e) {
+                } catch (RuntimeException $e) {
                     // Sniff reference could not be expanded, which probably means this
                     // is an installed standard. Let the unit test system take care of
                     // setting the correct sniff for testing.
@@ -193,7 +193,7 @@ class Ruleset
             echo "DONE ({$numSniffs} sniffs registered)" . \PHP_EOL;
         }
         if ($numSniffs === 0) {
-            throw new \PHP_CodeSniffer\Exceptions\RuntimeException('No sniffs were registered');
+            throw new RuntimeException('No sniffs were registered');
         }
     }
     //end __construct()
@@ -265,10 +265,10 @@ class Ruleset
      */
     public function processRuleset($rulesetPath, $depth = 0)
     {
-        $rulesetPath = \PHP_CodeSniffer\Util\Common::realpath($rulesetPath);
+        $rulesetPath = Util\Common::realpath($rulesetPath);
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo \str_repeat("\t", $depth);
-            echo 'Processing ruleset ' . \PHP_CodeSniffer\Util\Common::stripBasepath($rulesetPath, $this->config->basepath) . \PHP_EOL;
+            echo 'Processing ruleset ' . Util\Common::stripBasepath($rulesetPath, $this->config->basepath) . \PHP_EOL;
         }
         \libxml_use_internal_errors(\true);
         $ruleset = \simplexml_load_string(\file_get_contents($rulesetPath));
@@ -279,7 +279,7 @@ class Ruleset
                 $errorMsg .= '- On line ' . $error->line . ', column ' . $error->column . ': ' . $error->message;
             }
             \libxml_clear_errors();
-            throw new \PHP_CodeSniffer\Exceptions\RuntimeException($errorMsg);
+            throw new RuntimeException($errorMsg);
         }
         \libxml_use_internal_errors(\false);
         $ownSniffs = [];
@@ -292,7 +292,7 @@ class Ruleset
         if (\is_dir($sniffDir) === \true) {
             if (PHP_CODESNIFFER_VERBOSITY > 1) {
                 echo \str_repeat("\t", $depth);
-                echo "\tAdding sniff files from " . \PHP_CodeSniffer\Util\Common::stripBasepath($sniffDir, $this->config->basepath) . ' directory' . \PHP_EOL;
+                echo "\tAdding sniff files from " . Util\Common::stripBasepath($sniffDir, $this->config->basepath) . ' directory' . \PHP_EOL;
             }
             $ownSniffs = $this->expandSniffDirectory($sniffDir, $depth);
         }
@@ -303,12 +303,12 @@ class Ruleset
             }
             $autoloadPath = (string) $autoload;
             // Try relative autoload paths first.
-            $relativePath = \PHP_CodeSniffer\Util\Common::realPath(\dirname($rulesetPath) . \DIRECTORY_SEPARATOR . $autoloadPath);
+            $relativePath = Util\Common::realPath(\dirname($rulesetPath) . \DIRECTORY_SEPARATOR . $autoloadPath);
             if ($relativePath !== \false && \is_file($relativePath) === \true) {
                 $autoloadPath = $relativePath;
             } else {
                 if (\is_file($autoloadPath) === \false) {
-                    throw new \PHP_CodeSniffer\Exceptions\RuntimeException('The specified autoload file "' . $autoload . '" does not exist');
+                    throw new RuntimeException('The specified autoload file "' . $autoload . '" does not exist');
                 }
             }
             include_once $autoloadPath;
@@ -468,7 +468,7 @@ class Ruleset
             // Change the directory so all relative paths are worked
             // out based on the location of the ruleset instead of
             // the location of the user.
-            $inPhar = \PHP_CodeSniffer\Util\Common::isPharFile($rulesetDir);
+            $inPhar = Util\Common::isPharFile($rulesetDir);
             if ($inPhar === \false) {
                 $currentDir = \getcwd();
                 \chdir($rulesetDir);
@@ -507,7 +507,7 @@ class Ruleset
             if (\in_array($sniff, $excludedSniffs, \true) === \true) {
                 continue;
             } else {
-                $files[] = \PHP_CodeSniffer\Util\Common::realpath($sniff);
+                $files[] = Util\Common::realpath($sniff);
             }
         }
         return $files;
@@ -553,7 +553,7 @@ class Ruleset
             }
             if (PHP_CODESNIFFER_VERBOSITY > 1) {
                 echo \str_repeat("\t", $depth);
-                echo "\t\t=> " . \PHP_CodeSniffer\Util\Common::stripBasepath($path, $this->config->basepath) . \PHP_EOL;
+                echo "\t\t=> " . Util\Common::stripBasepath($path, $this->config->basepath) . \PHP_EOL;
             }
             $sniffs[] = $path;
         }
@@ -589,24 +589,24 @@ class Ruleset
         // to absolute paths. If this fails, let the reference run through
         // the normal checks and have it fail as normal.
         if (\substr($ref, 0, 1) === '.') {
-            $realpath = \PHP_CodeSniffer\Util\Common::realpath($rulesetDir . '/' . $ref);
+            $realpath = Util\Common::realpath($rulesetDir . '/' . $ref);
             if ($realpath !== \false) {
                 $ref = $realpath;
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo \str_repeat("\t", $depth);
-                    echo "\t\t=> " . \PHP_CodeSniffer\Util\Common::stripBasepath($ref, $this->config->basepath) . \PHP_EOL;
+                    echo "\t\t=> " . Util\Common::stripBasepath($ref, $this->config->basepath) . \PHP_EOL;
                 }
             }
         }
         // As sniffs can't begin with a tilde, assume references in
         // this format are relative to the user's home directory.
         if (\substr($ref, 0, 2) === '~/') {
-            $realpath = \PHP_CodeSniffer\Util\Common::realpath($ref);
+            $realpath = Util\Common::realpath($ref);
             if ($realpath !== \false) {
                 $ref = $realpath;
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo \str_repeat("\t", $depth);
-                    echo "\t\t=> " . \PHP_CodeSniffer\Util\Common::stripBasepath($ref, $this->config->basepath) . \PHP_EOL;
+                    echo "\t\t=> " . Util\Common::stripBasepath($ref, $this->config->basepath) . \PHP_EOL;
                 }
             }
         }
@@ -618,8 +618,8 @@ class Ruleset
             }
         } else {
             // See if this is a whole standard being referenced.
-            $path = \PHP_CodeSniffer\Util\Standards::getInstalledStandardPath($ref);
-            if ($path !== null && \PHP_CodeSniffer\Util\Common::isPharFile($path) === \true && \strpos($path, 'ruleset.xml') === \false) {
+            $path = Util\Standards::getInstalledStandardPath($ref);
+            if ($path !== null && Util\Common::isPharFile($path) === \true && \strpos($path, 'ruleset.xml') === \false) {
                 // If the ruleset exists inside the phar file, use it.
                 if (\file_exists($path . \DIRECTORY_SEPARATOR . 'ruleset.xml') === \true) {
                     $path .= \DIRECTORY_SEPARATOR . 'ruleset.xml';
@@ -631,7 +631,7 @@ class Ruleset
                 $ref = $path;
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo \str_repeat("\t", $depth);
-                    echo "\t\t=> " . \PHP_CodeSniffer\Util\Common::stripBasepath($ref, $this->config->basepath) . \PHP_EOL;
+                    echo "\t\t=> " . Util\Common::stripBasepath($ref, $this->config->basepath) . \PHP_EOL;
                 }
             } else {
                 if (\is_dir($ref) === \false) {
@@ -657,14 +657,14 @@ class Ruleset
                         }
                     }
                     $newRef = \false;
-                    $stdPath = \PHP_CodeSniffer\Util\Standards::getInstalledStandardPath($stdName);
+                    $stdPath = Util\Standards::getInstalledStandardPath($stdName);
                     if ($stdPath !== null && $path !== '') {
-                        if (\PHP_CodeSniffer\Util\Common::isPharFile($stdPath) === \true && \strpos($stdPath, 'ruleset.xml') === \false) {
+                        if (Util\Common::isPharFile($stdPath) === \true && \strpos($stdPath, 'ruleset.xml') === \false) {
                             // Phar files can only return the directory,
                             // since ruleset can be omitted if building one standard.
-                            $newRef = \PHP_CodeSniffer\Util\Common::realpath($stdPath . $path);
+                            $newRef = Util\Common::realpath($stdPath . $path);
                         } else {
-                            $newRef = \PHP_CodeSniffer\Util\Common::realpath(\dirname($stdPath) . $path);
+                            $newRef = Util\Common::realpath(\dirname($stdPath) . $path);
                         }
                     }
                     if ($newRef === \false) {
@@ -677,7 +677,7 @@ class Ruleset
                             if (\strtolower(\basename($dir)) !== \strtolower($stdName)) {
                                 continue;
                             }
-                            $newRef = \PHP_CodeSniffer\Util\Common::realpath($dir . $path);
+                            $newRef = Util\Common::realpath($dir . $path);
                             if ($newRef !== \false) {
                                 $ref = $newRef;
                             }
@@ -687,7 +687,7 @@ class Ruleset
                     }
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         echo \str_repeat("\t", $depth);
-                        echo "\t\t=> " . \PHP_CodeSniffer\Util\Common::stripBasepath($ref, $this->config->basepath) . \PHP_EOL;
+                        echo "\t\t=> " . Util\Common::stripBasepath($ref, $this->config->basepath) . \PHP_EOL;
                     }
                 }
             }
@@ -715,7 +715,7 @@ class Ruleset
         } else {
             if (\is_file($ref) === \false) {
                 $error = "Referenced sniff \"{$ref}\" does not exist";
-                throw new \PHP_CodeSniffer\Exceptions\RuntimeException($error);
+                throw new RuntimeException($error);
             }
             if (\substr($ref, -9) === 'Sniff.php') {
                 // A single sniff.
@@ -787,7 +787,7 @@ class Ruleset
                 }
                 $type = \strtolower((string) $rule->type);
                 if ($type !== 'error' && $type !== 'warning') {
-                    throw new \PHP_CodeSniffer\Exceptions\RuntimeException("Message type \"{$type}\" is invalid; must be \"error\" or \"warning\"");
+                    throw new RuntimeException("Message type \"{$type}\" is invalid; must be \"error\" or \"warning\"");
                 }
                 $this->ruleset[$code]['type'] = $type;
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
@@ -985,7 +985,7 @@ class Ruleset
                 continue;
             }
             $className = \PHP_CodeSniffer\Autoload::loadFile($file);
-            $compareName = \PHP_CodeSniffer\Util\Common::cleanSniffClass($className);
+            $compareName = Util\Common::cleanSniffClass($className);
             // If they have specified a list of sniffs to restrict to, check
             // to see if this sniff is allowed.
             if (empty($restrictions) === \false && isset($restrictions[$compareName]) === \false) {
@@ -1023,7 +1023,7 @@ class Ruleset
         foreach ($this->sniffs as $sniffClass => $sniffObject) {
             $this->sniffs[$sniffClass] = null;
             $this->sniffs[$sniffClass] = new $sniffClass();
-            $sniffCode = \PHP_CodeSniffer\Util\Common::getSniffCode($sniffClass);
+            $sniffCode = Util\Common::getSniffCode($sniffClass);
             $this->sniffCodes[$sniffCode] = $sniffClass;
             // Set custom properties.
             if (isset($this->ruleset[$sniffCode]['properties']) === \true) {
@@ -1043,7 +1043,7 @@ class Ruleset
             $tokens = $this->sniffs[$sniffClass]->register();
             if (\is_array($tokens) === \false) {
                 $msg = "Sniff {$sniffClass} register() method must return an array";
-                throw new \PHP_CodeSniffer\Exceptions\RuntimeException($msg);
+                throw new RuntimeException($msg);
             }
             $ignorePatterns = [];
             $patterns = $this->getIgnorePatterns($sniffCode);

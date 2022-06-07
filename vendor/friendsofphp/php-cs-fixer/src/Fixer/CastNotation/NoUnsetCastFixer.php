@@ -18,19 +18,19 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
+final class NoUnsetCastFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Variables must be set `null` instead of using `(unset)` casting.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = (unset) \$b;\n")]);
+        return new FixerDefinition('Variables must be set `null` instead of using `(unset)` casting.', [new CodeSample("<?php\n\$a = (unset) \$b;\n")]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_UNSET_CAST);
     }
@@ -46,7 +46,7 @@ final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; $index > 0; --$index) {
             if ($tokens[$index]->isGivenKind(\T_UNSET_CAST)) {
@@ -54,7 +54,7 @@ final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    private function fixUnsetCast(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixUnsetCast(Tokens $tokens, int $index) : void
     {
         $assignmentIndex = $tokens->getPrevMeaningfulToken($index);
         if (null === $assignmentIndex || !$tokens[$assignmentIndex]->equals('=')) {
@@ -73,9 +73,9 @@ final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
         $tokens->clearTokenAndMergeSurroundingWhitespace($varIndex);
         ++$assignmentIndex;
         if (!$nextIsWhiteSpace) {
-            $tokens->insertAt($assignmentIndex, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+            $tokens->insertAt($assignmentIndex, new Token([\T_WHITESPACE, ' ']));
         }
         ++$assignmentIndex;
-        $tokens->insertAt($assignmentIndex, new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'null']));
+        $tokens->insertAt($assignmentIndex, new Token([\T_STRING, 'null']));
     }
 }

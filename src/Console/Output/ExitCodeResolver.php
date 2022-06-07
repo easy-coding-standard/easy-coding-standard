@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Console\Output;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Output;
 
 use ECSPrefix20220607\Symfony\Component\Console\Command\Command;
-use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 final class ExitCodeResolver
 {
-    public function resolve(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
+    public function resolve(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration) : int
     {
         if ($errorAndDiffResult->getErrorCount() === 0 && $errorAndDiffResult->getFileDiffsCount() === 0) {
-            return \ECSPrefix20220607\Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
         if ($configuration->isFixer()) {
-            return $errorAndDiffResult->getErrorCount() === 0 ? \ECSPrefix20220607\Symfony\Component\Console\Command\Command::SUCCESS : \ECSPrefix20220607\Symfony\Component\Console\Command\Command::FAILURE;
+            return $errorAndDiffResult->getErrorCount() === 0 ? Command::SUCCESS : Command::FAILURE;
         }
-        return $errorAndDiffResult->getErrorCount() !== 0 || $errorAndDiffResult->getFileDiffsCount() !== 0 ? \ECSPrefix20220607\Symfony\Component\Console\Command\Command::FAILURE : \ECSPrefix20220607\Symfony\Component\Console\Command\Command::SUCCESS;
+        return $errorAndDiffResult->getErrorCount() !== 0 || $errorAndDiffResult->getFileDiffsCount() !== 0 ? Command::FAILURE : Command::SUCCESS;
     }
 }

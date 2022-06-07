@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff;
@@ -13,18 +13,18 @@ use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
-use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
-use Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException;
-final class ConflictingCheckersCompilerPass implements \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException;
+final class ConflictingCheckersCompilerPass implements CompilerPassInterface
 {
     /**
      * These groups do the opposite of each other, e.g. Yoda vs NoYoda.
      *
      * @var string[][]
      */
-    private const CONFLICTING_CHECKER_GROUPS = [[\Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer::class, \Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer::class], ['ECSPrefix20220607\\SlevomatCodingStandard\\Sniffs\\ControlStructures\\DisallowYodaComparisonSniff', \PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer::class], [\PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], [\PhpCsFixer\Fixer\Casing\ConstantCaseFixer::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], ['ECSPrefix20220607\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer::class], ['ECSPrefix20220607\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class], [\PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff::class, \PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer::class]];
-    public function process(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    private const CONFLICTING_CHECKER_GROUPS = [[StandaloneLineConstructorParamFixer::class, StandaloneLinePromotedPropertyFixer::class], ['ECSPrefix20220607\\SlevomatCodingStandard\\Sniffs\\ControlStructures\\DisallowYodaComparisonSniff', YodaStyleFixer::class], [LowerCaseConstantSniff::class, UpperCaseConstantSniff::class], [ConstantCaseFixer::class, UpperCaseConstantSniff::class], ['ECSPrefix20220607\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', DeclareEqualNormalizeFixer::class], ['ECSPrefix20220607\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', BlankLineAfterOpeningTagFixer::class], [FileHeaderSniff::class, NoBlankLinesAfterPhpdocFixer::class]];
+    public function process(ContainerBuilder $containerBuilder) : void
     {
         $checkers = $containerBuilder->getServiceIds();
         if ($checkers === []) {
@@ -34,7 +34,7 @@ final class ConflictingCheckersCompilerPass implements \ECSPrefix20220607\Symfon
             if (!$this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
                 continue;
             }
-            throw new \Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException(\sprintf('Checkers "%s" mutually exclude each other. Use only one of them or exclude the unwanted one in "$ecsConfig->skip(...)" in your config.', \implode('" and "', $viceVersaMatchingCheckerGroup)));
+            throw new ConflictingCheckersLoadedException(\sprintf('Checkers "%s" mutually exclude each other. Use only one of them or exclude the unwanted one in "$ecsConfig->skip(...)" in your config.', \implode('" and "', $viceVersaMatchingCheckerGroup)));
         }
     }
     /**

@@ -28,7 +28,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @author Ceeram <ceeram@cakephp.org>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpdocToCommentFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class PhpdocToCommentFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @var string[]
@@ -37,7 +37,7 @@ final class PhpdocToCommentFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -59,16 +59,16 @@ final class PhpdocToCommentFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Docblocks should only be used on structural elements.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Docblocks should only be used on structural elements.', [new CodeSample('<?php
 $first = true;// needed because by default first docblock is never fixed.
 
 /** This should be a comment */
 foreach($connections as $key => $sqlite) {
     $sqlite->open($path);
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 $first = true;// needed because by default first docblock is never fixed.
 
 /** This should be a comment */
@@ -95,16 +95,16 @@ foreach($connections as $key => $sqlite) {
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('ignored_tags', 'List of ignored tags (matched case insensitively)'))->setAllowedTypes(['array'])->setDefault([])->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('ignored_tags', 'List of ignored tags (matched case insensitively)'))->setAllowedTypes(['array'])->setDefault([])->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $commentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\CommentsAnalyzer();
+        $commentsAnalyzer = new CommentsAnalyzer();
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
@@ -115,14 +115,14 @@ foreach($connections as $key => $sqlite) {
             if ($commentsAnalyzer->isBeforeStructuralElement($tokens, $index)) {
                 continue;
             }
-            if (0 < \PhpCsFixer\Preg::matchAll('~\\@([a-zA-Z0-9_\\\\-]+)\\b~', $token->getContent(), $matches)) {
+            if (0 < Preg::matchAll('~\\@([a-zA-Z0-9_\\\\-]+)\\b~', $token->getContent(), $matches)) {
                 foreach ($matches[1] as $match) {
                     if (\in_array(\strtolower($match), $this->ignoredTags, \true)) {
                         continue 2;
                     }
                 }
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_COMMENT, '/*' . \ltrim($token->getContent(), '/*')]);
+            $tokens[$index] = new Token([\T_COMMENT, '/*' . \ltrim($token->getContent(), '/*')]);
         }
     }
 }

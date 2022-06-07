@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
+class PropertyDeclarationSniff extends AbstractVariableSniff
 {
     /**
      * Processes the function tokens within the class.
@@ -22,7 +22,7 @@ class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableS
      *
      * @return void
      */
-    protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processMemberVar(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['content'][1] === '_') {
@@ -33,7 +33,7 @@ class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableS
         // Detect multiple properties defined at the same time. Throw an error
         // for this, but also only process the first property in the list so we don't
         // repeat errors.
-        $find = \PHP_CodeSniffer\Util\Tokens::$scopeModifiers;
+        $find = Tokens::$scopeModifiers;
         $find[] = \T_VARIABLE;
         $find[] = \T_VAR;
         $find[] = T_SEMICOLON;
@@ -78,7 +78,7 @@ class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableS
                         $found = $tokens[$typeToken + 1]['length'];
                     }
                     $data = [$found];
-                    $nextNonWs = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $typeToken + 1, null, \true);
+                    $nextNonWs = $phpcsFile->findNext(Tokens::$emptyTokens, $typeToken + 1, null, \true);
                     if ($nextNonWs !== $next) {
                         $phpcsFile->addError($error, $typeToken, 'SpacingAfterType', $data);
                     } else {
@@ -107,7 +107,7 @@ class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableS
             $phpcsFile->addError($error, $stackPtr, 'ScopeMissing', $data);
         }
         if ($propertyInfo['scope_specified'] === \true && $propertyInfo['is_static'] === \true) {
-            $scopePtr = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$scopeModifiers, $stackPtr - 1);
+            $scopePtr = $phpcsFile->findPrevious(Tokens::$scopeModifiers, $stackPtr - 1);
             $staticPtr = $phpcsFile->findPrevious(\T_STATIC, $stackPtr - 1);
             if ($scopePtr < $staticPtr) {
                 return;
@@ -138,7 +138,7 @@ class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableS
      *
      * @return void
      */
-    protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processVariable(File $phpcsFile, $stackPtr)
     {
         /*
             We don't care about normal variables.
@@ -153,7 +153,7 @@ class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableS
      *
      * @return void
      */
-    protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processVariableInString(File $phpcsFile, $stackPtr)
     {
         /*
             We don't care about normal variables.

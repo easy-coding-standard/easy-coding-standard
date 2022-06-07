@@ -45,7 +45,7 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
                 if (null === $value) {
                     $message .= ' To disable the ' . (\strncmp($name, '@', \strlen('@')) === 0 ? 'set' : 'rule') . ', use "FALSE" instead of "NULL".';
                 }
-                throw new \PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException($name, $message);
+                throw new InvalidFixerConfigurationException($name, $message);
             }
         }
         $this->resolveSet($set);

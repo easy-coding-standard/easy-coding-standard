@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class EmbeddedPhpSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class EmbeddedPhpSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class EmbeddedPhpSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // If the close php tag is on the same line as the opening
@@ -293,7 +293,7 @@ class EmbeddedPhpSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $phpcsFile->fixer->replaceToken($stackPtr + 1, '');
             }
         }
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $closeTag - 1, $stackPtr, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $closeTag - 1, $stackPtr, \true);
         if ($prev !== $stackPtr) {
             if ((isset($tokens[$prev]['scope_opener']) === \false || $tokens[$prev]['scope_opener'] !== $prev) && (isset($tokens[$prev]['scope_closer']) === \false || $tokens[$prev]['scope_closer'] !== $prev) && $tokens[$prev]['code'] !== T_SEMICOLON) {
                 $error = 'Inline PHP statement must end with a semicolon';
@@ -322,7 +322,7 @@ class EmbeddedPhpSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if ($tokens[$closeTag - 1]['code'] === \T_WHITESPACE) {
             $trailingSpace = $tokens[$closeTag - 1]['length'];
         } else {
-            if (($tokens[$closeTag - 1]['code'] === \T_COMMENT || isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$closeTag - 1]['code']]) === \true) && \substr($tokens[$closeTag - 1]['content'], -1) === ' ') {
+            if (($tokens[$closeTag - 1]['code'] === \T_COMMENT || isset(Tokens::$phpcsCommentTokens[$tokens[$closeTag - 1]['code']]) === \true) && \substr($tokens[$closeTag - 1]['content'], -1) === ' ') {
                 $trailingSpace = \strlen($tokens[$closeTag - 1]['content']) - \strlen(\rtrim($tokens[$closeTag - 1]['content']));
             }
         }
@@ -334,7 +334,7 @@ class EmbeddedPhpSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 if ($trailingSpace === 0) {
                     $phpcsFile->fixer->addContentBefore($closeTag, ' ');
                 } else {
-                    if ($tokens[$closeTag - 1]['code'] === \T_COMMENT || isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$closeTag - 1]['code']]) === \true) {
+                    if ($tokens[$closeTag - 1]['code'] === \T_COMMENT || isset(Tokens::$phpcsCommentTokens[$tokens[$closeTag - 1]['code']]) === \true) {
                         $phpcsFile->fixer->replaceToken($closeTag - 1, \rtrim($tokens[$closeTag - 1]['content']) . ' ');
                     } else {
                         $phpcsFile->fixer->replaceToken($closeTag - 1, ' ');

@@ -23,7 +23,7 @@ class Standards
     {
         $ds = \DIRECTORY_SEPARATOR;
         $installedPaths = [\dirname(\dirname(__DIR__)) . $ds . 'src' . $ds . 'Standards'];
-        $configPaths = \PHP_CodeSniffer\Config::getConfigData('installed_paths');
+        $configPaths = Config::getConfigData('installed_paths');
         if ($configPaths !== null) {
             $installedPaths = \array_merge($installedPaths, \explode(',', $configPaths));
         }

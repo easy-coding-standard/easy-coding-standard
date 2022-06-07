@@ -32,12 +32,12 @@ class ClassCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commentin
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $type = \strtolower($tokens[$stackPtr]['content']);
         $errorData = [$type];
-        $find = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;
+        $find = Tokens::$methodPrefixes;
         $find[\T_WHITESPACE] = \T_WHITESPACE;
         for ($commentEnd = $stackPtr - 1; $commentEnd >= 0; $commentEnd--) {
             if (isset($find[$tokens[$commentEnd]['code']]) === \true) {

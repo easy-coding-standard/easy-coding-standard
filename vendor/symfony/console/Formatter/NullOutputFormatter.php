@@ -13,7 +13,7 @@ namespace ECSPrefix20220607\Symfony\Component\Console\Formatter;
 /**
  * @author Tien Xuan Vo <tien.xuan.vo@gmail.com>
  */
-final class NullOutputFormatter implements \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterInterface
+final class NullOutputFormatter implements OutputFormatterInterface
 {
     private $style;
     /**
@@ -26,10 +26,10 @@ final class NullOutputFormatter implements \ECSPrefix20220607\Symfony\Component\
     /**
      * {@inheritdoc}
      */
-    public function getStyle(string $name) : \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+    public function getStyle(string $name) : OutputFormatterStyleInterface
     {
         // to comply with the interface we must return a OutputFormatterStyleInterface
-        return $this->style ?? ($this->style = new \ECSPrefix20220607\Symfony\Component\Console\Formatter\NullOutputFormatterStyle());
+        return $this->style ?? ($this->style = new NullOutputFormatterStyle());
     }
     /**
      * {@inheritdoc}
@@ -55,7 +55,7 @@ final class NullOutputFormatter implements \ECSPrefix20220607\Symfony\Component\
     /**
      * {@inheritdoc}
      */
-    public function setStyle(string $name, \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style) : void
+    public function setStyle(string $name, OutputFormatterStyleInterface $style) : void
     {
         // do nothing
     }

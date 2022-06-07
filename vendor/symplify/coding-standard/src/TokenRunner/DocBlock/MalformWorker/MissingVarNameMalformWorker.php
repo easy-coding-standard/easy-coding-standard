@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+final class MissingVarNameMalformWorker implements MalformWorkerInterface
 {
     /**
      * @var string
@@ -17,30 +17,30 @@ final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\Toke
     /**
      * @param Tokens<Token> $tokens
      */
-    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
+    public function work(string $docContent, Tokens $tokens, int $position) : string
     {
-        if (!\ECSPrefix20220607\Nette\Utils\Strings::match($docContent, self::VAR_WITHOUT_NAME_REGEX)) {
+        if (!Strings::match($docContent, self::VAR_WITHOUT_NAME_REGEX)) {
             return $docContent;
         }
         $nextVariableToken = $this->getNextVariableToken($tokens, $position);
-        if (!$nextVariableToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (!$nextVariableToken instanceof Token) {
             return $docContent;
         }
-        return \ECSPrefix20220607\Nette\Utils\Strings::replace($docContent, self::VAR_WITHOUT_NAME_REGEX, function (array $match) use($nextVariableToken) : string {
+        return Strings::replace($docContent, self::VAR_WITHOUT_NAME_REGEX, function (array $match) use($nextVariableToken) : string {
             return $match['open'] . $match['type'] . ' ' . $nextVariableToken->getContent() . $match['close'];
         });
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    private function getNextVariableToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : ?\PhpCsFixer\Tokenizer\Token
+    private function getNextVariableToken(Tokens $tokens, int $position) : ?Token
     {
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($position);
         if ($nextMeaningfulTokenPosition === null) {
             return null;
         }
         $nextToken = $tokens[$nextMeaningfulTokenPosition] ?? null;
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (!$nextToken instanceof Token) {
             return null;
         }
         if (!$nextToken->isGivenKind(\T_VARIABLE)) {

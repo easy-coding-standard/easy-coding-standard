@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-class ValidClassNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ValidClassNameSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class ValidClassNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_opener']) === \false) {
@@ -54,7 +54,7 @@ class ValidClassNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $name = \trim($phpcsFile->getTokensAsString($nameStart, $nameEnd - $nameStart));
         }
         // Check for PascalCase format.
-        $valid = \PHP_CodeSniffer\Util\Common::isCamelCaps($name, \true, \true, \false);
+        $valid = Common::isCamelCaps($name, \true, \true, \false);
         if ($valid === \false) {
             $type = \ucfirst($tokens[$stackPtr]['content']);
             $error = '%s name "%s" is not in PascalCase format';

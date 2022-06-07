@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer;
-use Symplify\CodingStandard\TokenRunner\Enum\LineKind;
-use Symplify\CodingStandard\TokenRunner\TokenFinder;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Enum\LineKind;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\TokenFinder;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 final class LineLengthCloserTransformer
 {
     /**
@@ -20,7 +20,7 @@ final class LineLengthCloserTransformer
      * @var \Symplify\CodingStandard\TokenRunner\TokenFinder
      */
     private $tokenFinder;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer $callAnalyzer, \Symplify\CodingStandard\TokenRunner\TokenFinder $tokenFinder)
+    public function __construct(CallAnalyzer $callAnalyzer, TokenFinder $tokenFinder)
     {
         $this->callAnalyzer = $callAnalyzer;
         $this->tokenFinder = $tokenFinder;
@@ -28,7 +28,7 @@ final class LineLengthCloserTransformer
     /**
      * @param Tokens<Token> $tokens
      */
-    public function insertNewlineBeforeClosingIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, int $kind, string $newlineIndentWhitespace, string $closingBracketNewlineIndentWhitespace) : void
+    public function insertNewlineBeforeClosingIfNeeded(Tokens $tokens, BlockInfo $blockInfo, int $kind, string $newlineIndentWhitespace, string $closingBracketNewlineIndentWhitespace) : void
     {
         $isMethodCall = $this->callAnalyzer->isMethodCall($tokens, $blockInfo->getStart());
         $endIndex = $blockInfo->getEnd();
@@ -41,23 +41,23 @@ final class LineLengthCloserTransformer
         }
         $tokens->ensureWhitespaceAtIndex($endIndex - 1, 1, $closingBracketNewlineIndentWhitespace);
     }
-    private function shouldAddNewlineEarlier(\PhpCsFixer\Tokenizer\Token $previousToken, \PhpCsFixer\Tokenizer\Token $previousPreviousToken, bool $isMethodCall, int $kind) : bool
+    private function shouldAddNewlineEarlier(Token $previousToken, Token $previousPreviousToken, bool $isMethodCall, int $kind) : bool
     {
         if ($isMethodCall) {
             return \false;
         }
-        if ($kind !== \Symplify\CodingStandard\TokenRunner\Enum\LineKind::CALLS) {
+        if ($kind !== LineKind::CALLS) {
             return \false;
         }
-        if (!$previousToken->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
+        if (!$previousToken->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
             return \false;
         }
         if ($this->isEmptyArray($previousPreviousToken)) {
             return \false;
         }
-        return !$previousPreviousToken->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]);
+        return !$previousPreviousToken->isGivenKind([CT::T_ARRAY_SQUARE_BRACE_CLOSE, CT::T_ARRAY_SQUARE_BRACE_OPEN]);
     }
-    private function isEmptyArray(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isEmptyArray(Token $token) : bool
     {
         if (!$token->isArray()) {
             return \false;

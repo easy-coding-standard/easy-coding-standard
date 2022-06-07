@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\Fixer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\Fixer;
 
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
-abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
+abstract class AbstractSymplifyFixer implements FixerInterface
 {
     public function getPriority() : int
     {
@@ -21,7 +21,7 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
     {
         return \false;
     }
-    public function supports(\SplFileInfo $file) : bool
+    public function supports(SplFileInfo $file) : bool
     {
         return \true;
     }
@@ -29,7 +29,7 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
      * @param Tokens<Token> $tokens
      * @return Token[]
      */
-    protected function reverseTokens(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
+    protected function reverseTokens(Tokens $tokens) : array
     {
         $reversedTokens = \array_reverse($tokens->toArray(), \true);
         // remove null values
@@ -38,7 +38,7 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
     /**
      * @param Tokens<Token> $tokens
      */
-    protected function getNextMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?\PhpCsFixer\Tokenizer\Token
+    protected function getNextMeaningfulToken(Tokens $tokens, int $index) : ?Token
     {
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($index);
         if ($nextMeaningfulTokenPosition === null) {
@@ -49,7 +49,7 @@ abstract class AbstractSymplifyFixer implements \PhpCsFixer\Fixer\FixerInterface
     /**
      * @param Tokens<Token> $tokens
      */
-    protected function getPreviousToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?\PhpCsFixer\Tokenizer\Token
+    protected function getPreviousToken(Tokens $tokens, int $index) : ?Token
     {
         $previousIndex = $index - 1;
         if (!isset($tokens[$previousIndex])) {

@@ -22,7 +22,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class WhitespacyCommentTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class WhitespacyCommentTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -34,7 +34,7 @@ final class WhitespacyCommentTransformer extends \PhpCsFixer\Tokenizer\AbstractT
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->isComment()) {
             return;
@@ -46,11 +46,11 @@ final class WhitespacyCommentTransformer extends \PhpCsFixer\Tokenizer\AbstractT
             return;
         }
         $whitespaces = \substr($content, \strlen($trimmedContent));
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $trimmedContent]);
+        $tokens[$index] = new Token([$token->getId(), $trimmedContent]);
         if (isset($tokens[$index + 1]) && $tokens[$index + 1]->isWhitespace()) {
-            $tokens[$index + 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $whitespaces . $tokens[$index + 1]->getContent()]);
+            $tokens[$index + 1] = new Token([\T_WHITESPACE, $whitespaces . $tokens[$index + 1]->getContent()]);
         } else {
-            $tokens->insertAt($index + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $whitespaces]));
+            $tokens->insertAt($index + 1, new Token([\T_WHITESPACE, $whitespaces]));
         }
     }
     /**

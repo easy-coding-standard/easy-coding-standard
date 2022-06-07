@@ -28,7 +28,7 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -45,10 +45,10 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
      *
      * @return null|int[] returns $functionName, $openParenthesis, $closeParenthesis packed into array
      */
-    protected function find(string $functionNameToSearch, \PhpCsFixer\Tokenizer\Tokens $tokens, int $start = 0, ?int $end = null) : ?array
+    protected function find(string $functionNameToSearch, Tokens $tokens, int $start = 0, ?int $end = null) : ?array
     {
         if (null === $this->functionsAnalyzer) {
-            $this->functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+            $this->functionsAnalyzer = new FunctionsAnalyzer();
         }
         // make interface consistent with findSequence
         $end = $end ?? $tokens->count();
@@ -64,6 +64,6 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
         if (!$this->functionsAnalyzer->isGlobalFunctionCall($tokens, $functionName)) {
             return $this->find($functionNameToSearch, $tokens, $openParenthesis, $end);
         }
-        return [$functionName, $openParenthesis, $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis)];
+        return [$functionName, $openParenthesis, $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis)];
     }
 }

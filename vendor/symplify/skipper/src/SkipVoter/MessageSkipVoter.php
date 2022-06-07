@@ -7,7 +7,7 @@ use ECSPrefix20220607\Symplify\Skipper\Contract\SkipVoterInterface;
 use ECSPrefix20220607\Symplify\Skipper\Matcher\FileInfoMatcher;
 use ECSPrefix20220607\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
-final class MessageSkipVoter implements \ECSPrefix20220607\Symplify\Skipper\Contract\SkipVoterInterface
+final class MessageSkipVoter implements SkipVoterInterface
 {
     /**
      * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver
@@ -17,7 +17,7 @@ final class MessageSkipVoter implements \ECSPrefix20220607\Symplify\Skipper\Cont
      * @var \Symplify\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\ECSPrefix20220607\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver, \ECSPrefix20220607\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(SkippedMessagesResolver $skippedMessagesResolver, FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedMessagesResolver = $skippedMessagesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
@@ -35,7 +35,7 @@ final class MessageSkipVoter implements \ECSPrefix20220607\Symplify\Skipper\Cont
     /**
      * @param string|object $element
      */
-    public function shouldSkip($element, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, SmartFileInfo $smartFileInfo) : bool
     {
         if (\is_object($element)) {
             return \false;

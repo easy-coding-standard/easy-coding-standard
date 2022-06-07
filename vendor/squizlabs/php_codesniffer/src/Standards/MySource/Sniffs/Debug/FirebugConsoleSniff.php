@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\Debug;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
-class FirebugConsoleSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FirebugConsoleSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -38,7 +38,7 @@ class FirebugConsoleSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (\strtolower($tokens[$stackPtr]['content']) === 'console') {

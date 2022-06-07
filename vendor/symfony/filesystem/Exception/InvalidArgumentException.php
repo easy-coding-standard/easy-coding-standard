@@ -13,6 +13,6 @@ namespace ECSPrefix20220607\Symfony\Component\Filesystem\Exception;
 /**
  * @author Christian Flothmann <christian.flothmann@sensiolabs.de>
  */
-class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20220607\Symfony\Component\Filesystem\Exception\ExceptionInterface
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
 }

@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer;
-use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 final class LineLengthOpenerTransformer
 {
     /**
      * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer
      */
     private $callAnalyzer;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer $callAnalyzer)
+    public function __construct(CallAnalyzer $callAnalyzer)
     {
         $this->callAnalyzer = $callAnalyzer;
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    public function insertNewlineAfterOpeningIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, int $blockStartIndex, string $newlineIndentWhitespace) : void
+    public function insertNewlineAfterOpeningIfNeeded(Tokens $tokens, int $blockStartIndex, string $newlineIndentWhitespace) : void
     {
         if (!isset($tokens[$blockStartIndex + 1])) {
-            throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($blockStartIndex + 1);
+            throw new TokenNotFoundException($blockStartIndex + 1);
         }
         /** @var Token $nextToken */
         $nextToken = $tokens[$blockStartIndex + 1];
@@ -33,7 +33,7 @@ final class LineLengthOpenerTransformer
             return;
         }
         // special case, if the function is followed by array - method([...])
-        if ($nextToken->isGivenKind([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]) && !$this->callAnalyzer->isMethodCall($tokens, $blockStartIndex)) {
+        if ($nextToken->isGivenKind([\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN]) && !$this->callAnalyzer->isMethodCall($tokens, $blockStartIndex)) {
             $tokens->ensureWhitespaceAtIndex($blockStartIndex + 1, 1, $newlineIndentWhitespace);
             return;
         }

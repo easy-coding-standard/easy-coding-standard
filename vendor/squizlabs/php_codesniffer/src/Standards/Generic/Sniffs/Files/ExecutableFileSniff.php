@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class ExecutableFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ExecutableFileSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -32,7 +32,7 @@ class ExecutableFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $filename = $phpcsFile->getFilename();
         if ($filename !== 'STDIN') {

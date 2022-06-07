@@ -12,14 +12,14 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class MethodScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
+class MethodScopeSniff extends AbstractScopeSniff
 {
     /**
      * Constructs a Squiz_Sniffs_Scope_MethodScopeSniff.
      */
     public function __construct()
     {
-        parent::__construct(\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens, [\T_FUNCTION]);
+        parent::__construct(Tokens::$ooScopeTokens, [\T_FUNCTION]);
     }
     //end __construct()
     /**
@@ -31,7 +31,7 @@ class MethodScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
@@ -51,7 +51,7 @@ class MethodScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
             if ($tokens[$i]['line'] < $tokens[$stackPtr]['line']) {
                 break;
             } else {
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$scopeModifiers[$tokens[$i]['code']]) === \true) {
+                if (isset(Tokens::$scopeModifiers[$tokens[$i]['code']]) === \true) {
                     $modifier = $i;
                     break;
                 }
@@ -74,7 +74,7 @@ class MethodScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
     }
     //end processTokenOutsideScope()

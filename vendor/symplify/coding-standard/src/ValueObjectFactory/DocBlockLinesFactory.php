@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\ValueObjectFactory;
+namespace ECSPrefix20220607\Symplify\CodingStandard\ValueObjectFactory;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
-use Symplify\CodingStandard\ValueObject\DocBlockLines;
+use ECSPrefix20220607\Symplify\CodingStandard\ValueObject\DocBlockLines;
 final class DocBlockLinesFactory
 {
     /**
@@ -17,26 +17,26 @@ final class DocBlockLinesFactory
      * @var string
      */
     private const END_OF_DOC_BLOCK_REGEX = '/(\\*\\/)$/';
-    public function createFromDocBlock(string $docBlock) : \Symplify\CodingStandard\ValueObject\DocBlockLines
+    public function createFromDocBlock(string $docBlock) : DocBlockLines
     {
         // Remove the prefix '/**'
-        $docBlock = \ECSPrefix20220607\Nette\Utils\Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
+        $docBlock = Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
         // Remove the suffix '*/'
-        $docBlock = \ECSPrefix20220607\Nette\Utils\Strings::replace($docBlock, self::END_OF_DOC_BLOCK_REGEX);
+        $docBlock = Strings::replace($docBlock, self::END_OF_DOC_BLOCK_REGEX);
         // Remove extra whitespace at the end
         $docBlock = \rtrim($docBlock);
         $docBlockLines = $this->splitToLines($docBlock);
         $docBlockLines = \array_map(function (string $line) : string {
-            $noWhitespace = \ECSPrefix20220607\Nette\Utils\Strings::trim($line, \ECSPrefix20220607\Nette\Utils\Strings::TRIM_CHARACTERS);
+            $noWhitespace = Strings::trim($line, Strings::TRIM_CHARACTERS);
             // Remove asterisks on the left side, plus additional whitespace
-            return \ltrim($noWhitespace, \ECSPrefix20220607\Nette\Utils\Strings::TRIM_CHARACTERS . '*');
+            return \ltrim($noWhitespace, Strings::TRIM_CHARACTERS . '*');
         }, $docBlockLines);
         return $this->createFromLines($docBlockLines);
     }
     /**
      * @param string[] $docBlockLines
      */
-    private function createFromLines(array $docBlockLines) : \Symplify\CodingStandard\ValueObject\DocBlockLines
+    private function createFromLines(array $docBlockLines) : DocBlockLines
     {
         $descriptionLines = [];
         $otherLines = [];
@@ -52,7 +52,7 @@ final class DocBlockLinesFactory
                 $otherLines[] = $docBlockLine;
             }
         }
-        return new \Symplify\CodingStandard\ValueObject\DocBlockLines($descriptionLines, $otherLines);
+        return new DocBlockLines($descriptionLines, $otherLines);
     }
     /**
      * @return string[]

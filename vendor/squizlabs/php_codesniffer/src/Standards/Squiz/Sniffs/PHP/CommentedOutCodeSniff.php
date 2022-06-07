@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class CommentedOutCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class CommentedOutCodeSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -47,7 +47,7 @@ class CommentedOutCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return int|void Integer stack pointer to skip forward or void to continue
      *                  normal file processing.
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Ignore comments at the end of code blocks.
@@ -62,13 +62,13 @@ class CommentedOutCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         $lastCommentBlockToken = $stackPtr;
         for ($i = $stackPtr; $i < $phpcsFile->numTokens; $i++) {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === \false) {
+            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === \false) {
                 break;
             }
             if ($tokens[$i]['code'] === \T_WHITESPACE) {
                 continue;
             }
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$i]['code']]) === \true) {
+            if (isset(Tokens::$phpcsCommentTokens[$tokens[$i]['code']]) === \true) {
                 $lastLineSeen = $tokens[$i]['line'];
                 continue;
             }
@@ -143,7 +143,7 @@ class CommentedOutCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $tokenizerClass = \get_class($phpcsFile->tokenizer);
             $tokenizer = new $tokenizerClass($content, $phpcsFile->config, $phpcsFile->eolChar);
             $stringTokens = $tokenizer->getTokens();
-        } catch (\PHP_CodeSniffer\Exceptions\TokenizerException $e) {
+        } catch (TokenizerException $e) {
             // We couldn't check the comment, so ignore it.
             \ini_set('error_reporting', $oldErrors);
             return $lastCommentBlockToken + 1;
@@ -173,7 +173,7 @@ class CommentedOutCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // Second last token is always whitespace or a comment, depending
         // on the code inside the comment.
         if ($phpcsFile->tokenizerType === 'PHP') {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$stringTokens[$numTokens - 1]['code']]) === \false) {
+            if (isset(Tokens::$emptyTokens[$stringTokens[$numTokens - 1]['code']]) === \false) {
                 return $lastCommentBlockToken + 1;
             }
             if ($stringTokens[$numTokens - 1]['code'] === \T_WHITESPACE) {
@@ -182,7 +182,7 @@ class CommentedOutCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
         }
         $emptyTokens = [\T_WHITESPACE => \true, \T_STRING => \true, T_STRING_CONCAT => \true, \T_ENCAPSED_AND_WHITESPACE => \true, T_NONE => \true, \T_COMMENT => \true];
-        $emptyTokens += \PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens;
+        $emptyTokens += Tokens::$phpcsCommentTokens;
         $numComment = 0;
         $numPossible = 0;
         $numCode = 0;
@@ -192,7 +192,7 @@ class CommentedOutCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 // Looks like comment.
                 $numComment++;
             } else {
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$comparisonTokens[$stringTokens[$i]['code']]) === \true || isset(\PHP_CodeSniffer\Util\Tokens::$arithmeticTokens[$stringTokens[$i]['code']]) === \true || $stringTokens[$i]['code'] === T_GOTO_LABEL) {
+                if (isset(Tokens::$comparisonTokens[$stringTokens[$i]['code']]) === \true || isset(Tokens::$arithmeticTokens[$stringTokens[$i]['code']]) === \true || $stringTokens[$i]['code'] === T_GOTO_LABEL) {
                     // Commented out HTML/XML and other docs contain a lot of these
                     // characters, so it is best to not use them directly.
                     $numPossible++;

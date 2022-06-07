@@ -69,6 +69,6 @@ interface Sniff
      *                  pointer is reached. Return (count($tokens) + 1) to skip
      *                  the rest of the file.
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
+    public function process(File $phpcsFile, $stackPtr);
 }
 //end interface

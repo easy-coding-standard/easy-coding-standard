@@ -23,14 +23,14 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @author Marc Aubé
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
+final class NoSpacesInsideParenthesisFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There MUST NOT be a space after the opening parenthesis. There MUST NOT be a space before the closing parenthesis.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif ( \$a ) {\n    foo( );\n}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction foo( \$bar, \$baz )\n{\n}\n")]);
+        return new FixerDefinition('There MUST NOT be a space after the opening parenthesis. There MUST NOT be a space before the closing parenthesis.', [new CodeSample("<?php\nif ( \$a ) {\n    foo( );\n}\n"), new CodeSample("<?php\nfunction foo( \$bar, \$baz )\n{\n}\n")]);
     }
     /**
      * {@inheritdoc}
@@ -45,14 +45,14 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('(');
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->equals('(')) {
@@ -63,7 +63,7 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
             if (null !== $prevIndex && $tokens[$prevIndex]->isGivenKind(\T_ARRAY)) {
                 continue;
             }
-            $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
             // remove space after opening `(`
             if (!$tokens[$tokens->getNextNonWhitespace($index)]->isComment()) {
                 $this->removeSpaceAroundToken($tokens, $index + 1);
@@ -77,7 +77,7 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
     /**
      * Remove spaces from token at a given index.
      */
-    private function removeSpaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function removeSpaceAroundToken(Tokens $tokens, int $index) : void
     {
         $token = $tokens[$index];
         if ($token->isWhitespace() && \strpos($token->getContent(), "\n") === \false) {

@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class FunctionDuplicateArgumentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FunctionDuplicateArgumentSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -32,7 +32,7 @@ class FunctionDuplicateArgumentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $openBracket = $tokens[$stackPtr]['parenthesis_opener'];

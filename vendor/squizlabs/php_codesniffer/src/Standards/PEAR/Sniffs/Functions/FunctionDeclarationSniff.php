@@ -14,7 +14,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\OpeningFunctionBraceBsdAllmanSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\OpeningFunctionBraceKernighanRitchieSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FunctionDeclarationSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -47,7 +47,7 @@ class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === \false || isset($tokens[$stackPtr]['parenthesis_closer']) === \false || $tokens[$stackPtr]['parenthesis_opener'] === null || $tokens[$stackPtr]['parenthesis_closer'] === null) {
@@ -234,9 +234,9 @@ class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     public function processSingleLineDeclaration($phpcsFile, $stackPtr, $tokens)
     {
         if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
-            $sniff = new \PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\OpeningFunctionBraceKernighanRitchieSniff();
+            $sniff = new OpeningFunctionBraceKernighanRitchieSniff();
         } else {
-            $sniff = new \PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\OpeningFunctionBraceBsdAllmanSniff();
+            $sniff = new OpeningFunctionBraceBsdAllmanSniff();
         }
         $sniff->checkClosures = \true;
         $sniff->process($phpcsFile, $stackPtr);
@@ -273,7 +273,7 @@ class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $error = 'The closing parenthesis and the opening brace of a multi-line function declaration must be on the same line';
             $fix = $phpcsFile->addFixableError($error, $opener, 'NewlineBeforeOpenBrace');
             if ($fix === \true) {
-                $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $opener - 1, $closeBracket, \true);
+                $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $opener - 1, $closeBracket, \true);
                 $phpcsFile->fixer->beginChangeset();
                 $phpcsFile->fixer->addContent($prev, ' {');
                 // If the opener is on a line by itself, removing it will create

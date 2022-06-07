@@ -16,24 +16,24 @@ use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-class ContainerParametersResourceChecker implements \ECSPrefix20220607\Symfony\Component\Config\ResourceCheckerInterface
+class ContainerParametersResourceChecker implements ResourceCheckerInterface
 {
     private $container;
-    public function __construct(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
     /**
      * {@inheritdoc}
      */
-    public function supports(\ECSPrefix20220607\Symfony\Component\Config\Resource\ResourceInterface $metadata) : bool
+    public function supports(ResourceInterface $metadata) : bool
     {
-        return $metadata instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
+        return $metadata instanceof ContainerParametersResource;
     }
     /**
      * {@inheritdoc}
      */
-    public function isFresh(\ECSPrefix20220607\Symfony\Component\Config\Resource\ResourceInterface $resource, int $timestamp) : bool
+    public function isFresh(ResourceInterface $resource, int $timestamp) : bool
     {
         foreach ($resource->getParameters() as $key => $value) {
             if (!$this->container->hasParameter($key) || $this->container->getParameter($key) !== $value) {

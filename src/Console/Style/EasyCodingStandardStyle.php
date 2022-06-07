@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Console\Style;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style;
 
 use ECSPrefix20220607\Symfony\Component\Console\Helper\ProgressBar;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20220607\Symfony\Component\Console\Terminal;
-use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use ECSPrefix20220607\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use ECSPrefix20220607\Symplify\PackageBuilder\Reflection\PrivatesCaller;
-final class EasyCodingStandardStyle extends \ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle
+final class EasyCodingStandardStyle extends SymfonyStyle
 {
     /**
      * To fit in Linux/Windows terminal windows to prevent overflow.
@@ -23,7 +23,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20220607\Symfony\Component
      * @var \Symfony\Component\Console\Terminal
      */
     private $terminal;
-    public function __construct(\ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20220607\Symfony\Component\Console\Terminal $terminal)
+    public function __construct(InputInterface $input, OutputInterface $output, Terminal $terminal)
     {
         $this->terminal = $terminal;
         parent::__construct($input, $output);
@@ -46,9 +46,9 @@ final class EasyCodingStandardStyle extends \ECSPrefix20220607\Symfony\Component
     }
     public function enableDebugProgressBar() : void
     {
-        $privatesAccessor = new \ECSPrefix20220607\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
-        $progressBar = $privatesAccessor->getPrivatePropertyOfClass($this, 'progressBar', \ECSPrefix20220607\Symfony\Component\Console\Helper\ProgressBar::class);
-        $privatesCaller = new \ECSPrefix20220607\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $privatesAccessor = new PrivatesAccessor();
+        $progressBar = $privatesAccessor->getPrivatePropertyOfClass($this, 'progressBar', ProgressBar::class);
+        $privatesCaller = new PrivatesCaller();
         $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', ['debug']);
     }
     private function separator() : void
@@ -56,7 +56,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20220607\Symfony\Component
         $separator = \str_repeat('-', $this->getTerminalWidth());
         $this->writeln(' ' . $separator);
     }
-    private function createMessageFromFileError(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError $codingStandardError) : string
+    private function createMessageFromFileError(CodingStandardError $codingStandardError) : string
     {
         $message = \sprintf('%s%s Reported by: "%s"', $codingStandardError->getMessage(), \PHP_EOL . \PHP_EOL, $codingStandardError->getCheckerClass());
         $message = $this->clearCrLfFromMessage($message);

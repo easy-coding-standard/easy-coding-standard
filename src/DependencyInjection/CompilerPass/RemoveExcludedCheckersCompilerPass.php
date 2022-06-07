@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symplify\EasyCodingStandard\ValueObject\Option;
-final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
+final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
 {
-    public function process(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function process(ContainerBuilder $containerBuilder) : void
     {
         $excludedCheckers = $this->getExcludedCheckersFromParameterBag($containerBuilder->getParameterBag());
         $definitions = $containerBuilder->getDefinitions();
@@ -23,14 +23,14 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20220607\Sym
     /**
      * @return array<int, class-string>
      */
-    private function getExcludedCheckersFromParameterBag(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag) : array
+    private function getExcludedCheckersFromParameterBag(ParameterBagInterface $parameterBag) : array
     {
         // parts of "skip" parameter
-        if (!$parameterBag->has(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP)) {
+        if (!$parameterBag->has(Option::SKIP)) {
             return [];
         }
         $excludedCheckers = [];
-        $skip = (array) $parameterBag->get(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP);
+        $skip = (array) $parameterBag->get(Option::SKIP);
         foreach ($skip as $key => $value) {
             $excludedChecker = $this->matchFullClassSkip($key, $value);
             if ($excludedChecker === null) {

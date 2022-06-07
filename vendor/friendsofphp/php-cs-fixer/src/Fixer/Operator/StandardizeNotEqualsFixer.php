@@ -21,14 +21,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class StandardizeNotEqualsFixer extends \PhpCsFixer\AbstractFixer
+final class StandardizeNotEqualsFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace all `<>` with `!=`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = \$b <> \$c;\n")]);
+        return new FixerDefinition('Replace all `<>` with `!=`.', [new CodeSample("<?php\n\$a = \$b <> \$c;\n")]);
     }
     /**
      * {@inheritdoc}
@@ -42,18 +42,18 @@ final class StandardizeNotEqualsFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_IS_NOT_EQUAL);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if ($token->isGivenKind(\T_IS_NOT_EQUAL)) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_IS_NOT_EQUAL, '!=']);
+                $tokens[$index] = new Token([\T_IS_NOT_EQUAL, '!=']);
             }
         }
     }

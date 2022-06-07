@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-class CSSLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class CSSLintSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -40,14 +40,14 @@ class CSSLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
-        $csslintPath = \PHP_CodeSniffer\Config::getExecutablePath('csslint');
+        $csslintPath = Config::getExecutablePath('csslint');
         if ($csslintPath === null) {
             return;
         }
         $fileName = $phpcsFile->getFilename();
-        $cmd = \PHP_CodeSniffer\Util\Common::escapeshellcmd($csslintPath) . ' ' . \escapeshellarg($fileName) . ' 2>&1';
+        $cmd = Common::escapeshellcmd($csslintPath) . ' ' . \escapeshellarg($fileName) . ' 2>&1';
         \exec($cmd, $output, $retval);
         if (\is_array($output) === \false) {
             return;

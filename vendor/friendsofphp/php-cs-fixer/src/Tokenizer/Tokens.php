@@ -870,7 +870,7 @@ class Tokens extends \SplFixedArray
             return \false;
         }
         if (1 === $this->countTokenKind(\T_INLINE_HTML)) {
-            return 1 === \PhpCsFixer\Preg::match('/^#!.+$/', $this[0]->getContent());
+            return 1 === Preg::match('/^#!.+$/', $this[0]->getContent());
         }
         return 1 === $this->countTokenKind(\T_OPEN_TAG) + $this->countTokenKind(\T_OPEN_TAG_WITH_ECHO);
     }
@@ -926,7 +926,7 @@ class Tokens extends \SplFixedArray
             $tokenToCheck = $this[$whitespaceIndex];
             // if the token candidate to remove is preceded by single line comment we do not consider the new line after this comment as part of T_WHITESPACE
             if (isset($this[$whitespaceIndex - 1]) && $this[$whitespaceIndex - 1]->isComment() && \strncmp($this[$whitespaceIndex - 1]->getContent(), '/*', \strlen('/*')) !== 0) {
-                [, $newContent, $whitespacesToCheck] = \PhpCsFixer\Preg::split('/^(\\R)/', $this[$whitespaceIndex]->getContent(), -1, \PREG_SPLIT_DELIM_CAPTURE);
+                [, $newContent, $whitespacesToCheck] = Preg::split('/^(\\R)/', $this[$whitespaceIndex]->getContent(), -1, \PREG_SPLIT_DELIM_CAPTURE);
                 if ('' === $whitespacesToCheck) {
                     return;
                 }

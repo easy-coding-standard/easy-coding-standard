@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class UpperCaseConstantNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class UpperCaseConstantNameSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,12 +33,12 @@ class UpperCaseConstantNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === \T_CONST) {
             // This is a class constant.
-            $constant = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+            $constant = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
             if ($constant === \false) {
                 return;
             }
@@ -69,7 +69,7 @@ class UpperCaseConstantNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         // If the next non-whitespace token after this token
         // is not an opening parenthesis then it is not a function call.
-        $openBracket = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $openBracket = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($openBracket === \false) {
             return;
         }

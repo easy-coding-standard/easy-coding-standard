@@ -1,6 +1,6 @@
 <?php
 
-
+namespace ECSPrefix20220607;
 
 /*
  * This file is part of the Symfony package.
@@ -17,13 +17,13 @@ if (\PHP_VERSION_ID >= 80100) {
 if (\defined('MYSQLI_REFRESH_SLAVE') && !\defined('MYSQLI_REFRESH_REPLICA')) {
     \define('MYSQLI_REFRESH_REPLICA', 64);
 }
-if (!\function_exists('ECSPrefix20220607\\array_is_list')) {
+if (!\function_exists('array_is_list')) {
     function array_is_list(array $array) : bool
     {
-        return \ECSPrefix20220607\Symfony\Polyfill\Php81\Php81::array_is_list($array);
+        return p\Php81::array_is_list($array);
     }
 }
-if (!\function_exists('ECSPrefix20220607\\enum_exists')) {
+if (!\function_exists('enum_exists')) {
     function enum_exists(string $enum, bool $autoload = \true) : bool
     {
         return $autoload && \class_exists($enum) && \false;

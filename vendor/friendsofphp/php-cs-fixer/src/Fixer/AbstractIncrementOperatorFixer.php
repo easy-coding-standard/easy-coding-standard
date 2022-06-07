@@ -14,14 +14,14 @@ namespace PhpCsFixer\Fixer;
 
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Tokenizer\Tokens;
-abstract class AbstractIncrementOperatorFixer extends \PhpCsFixer\AbstractFixer
+abstract class AbstractIncrementOperatorFixer extends AbstractFixer
 {
-    protected final function findStart(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
+    protected final function findStart(Tokens $tokens, int $index) : int
     {
         do {
             $index = $tokens->getPrevMeaningfulToken($index);
             $token = $tokens[$index];
-            $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($token);
+            $blockType = Tokens::detectBlockType($token);
             if (null !== $blockType && !$blockType['isStart']) {
                 $index = $tokens->findBlockStart($blockType['type'], $index);
                 $token = $tokens[$index];

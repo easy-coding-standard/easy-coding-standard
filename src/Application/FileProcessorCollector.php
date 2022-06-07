@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Application;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Application;
 
-use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 final class FileProcessorCollector
 {
     /**
@@ -15,7 +15,7 @@ final class FileProcessorCollector
     /**
      * orders matters, so Fixer can cleanup after Sniffer
      */
-    public function __construct(\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor $sniffFileProcessor, \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor $fixerFileProcessor)
+    public function __construct(SniffFileProcessor $sniffFileProcessor, FixerFileProcessor $fixerFileProcessor)
     {
         $this->fileProcessors[] = $sniffFileProcessor;
         $this->fileProcessors[] = $fixerFileProcessor;

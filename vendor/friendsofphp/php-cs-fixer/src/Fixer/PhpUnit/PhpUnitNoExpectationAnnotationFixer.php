@@ -31,7 +31,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpUnitNoExpectationAnnotationFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class PhpUnitNoExpectationAnnotationFixer extends AbstractPhpUnitFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * @var bool
@@ -48,9 +48,9 @@ final class PhpUnitNoExpectationAnnotationFixer extends \PhpCsFixer\Fixer\Abstra
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Usages of `@expectedException*` annotations MUST be replaced by `->setExpectedException*` methods.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Usages of `@expectedException*` annotations MUST be replaced by `->setExpectedException*` methods.', [new CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
 {
     /**
@@ -63,7 +63,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         aaa();
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
 {
     /**
@@ -105,16 +105,16 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_2, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_4_3, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use_class_const', 'Use ::class notation.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_2, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_4_3, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption(), (new FixerOptionBuilder('use_class_const', 'Use ::class notation.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    protected function applyPhpUnitClassFix(Tokens $tokens, int $startIndex, int $endIndex) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             if (!$tokens[$i]->isGivenKind(\T_FUNCTION) || $tokensAnalyzer->isLambda($i)) {
                 continue;
@@ -132,7 +132,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             if (!$tokens[$docBlockIndex]->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-            $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
+            $doc = new DocBlock($tokens[$docBlockIndex]->getContent());
             $annotations = [];
             foreach ($doc->getAnnotationsOfType(['expectedException', 'expectedExceptionCode', 'expectedExceptionMessage', 'expectedExceptionMessageRegExp']) as $annotation) {
                 $tag = $annotation->getTag()->getName();
@@ -146,32 +146,32 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             if (!$this->fixMessageRegExp && isset($annotations['expectedExceptionMessageRegExp'])) {
                 continue;
             }
-            $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $docBlockIndex);
+            $originalIndent = WhitespacesAnalyzer::detectIndent($tokens, $docBlockIndex);
             $paramList = $this->annotationsToParamList($annotations);
             $newMethodsCode = '<?php $this->' . (isset($annotations['expectedExceptionMessageRegExp']) ? 'setExpectedExceptionRegExp' : 'setExpectedException') . '(' . \implode(', ', $paramList) . ');';
-            $newMethods = \PhpCsFixer\Tokenizer\Tokens::fromCode($newMethodsCode);
-            $newMethods[0] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $this->whitespacesConfig->getLineEnding() . $originalIndent . $this->whitespacesConfig->getIndent()]);
+            $newMethods = Tokens::fromCode($newMethodsCode);
+            $newMethods[0] = new Token([\T_WHITESPACE, $this->whitespacesConfig->getLineEnding() . $originalIndent . $this->whitespacesConfig->getIndent()]);
             // apply changes
             $docContent = $doc->getContent();
             if ('' === $docContent) {
                 $docContent = '/** */';
             }
-            $tokens[$docBlockIndex] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $docContent]);
+            $tokens[$docBlockIndex] = new Token([\T_DOC_COMMENT, $docContent]);
             $tokens->insertAt($braceIndex + 1, $newMethods);
             $whitespaceIndex = $braceIndex + $newMethods->getSize() + 1;
-            $tokens[$whitespaceIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $this->whitespacesConfig->getLineEnding() . $tokens[$whitespaceIndex]->getContent()]);
+            $tokens[$whitespaceIndex] = new Token([\T_WHITESPACE, $this->whitespacesConfig->getLineEnding() . $tokens[$whitespaceIndex]->getContent()]);
             $i = $docBlockIndex;
         }
     }
-    private function extractContentFromAnnotation(\PhpCsFixer\DocBlock\Annotation $annotation) : string
+    private function extractContentFromAnnotation(Annotation $annotation) : string
     {
         $tag = $annotation->getTag()->getName();
-        if (1 !== \PhpCsFixer\Preg::match('/@' . $tag . '\\s+(.+)$/s', $annotation->getContent(), $matches)) {
+        if (1 !== Preg::match('/@' . $tag . '\\s+(.+)$/s', $annotation->getContent(), $matches)) {
             return '';
         }
-        $content = \PhpCsFixer\Preg::replace('/\\*+\\/$/', '', $matches[1]);
-        if (\PhpCsFixer\Preg::match('/\\R/u', $content)) {
-            $content = \PhpCsFixer\Preg::replace('/\\s*\\R+\\s*\\*\\s*/u', ' ', $content);
+        $content = Preg::replace('/\\*+\\/$/', '', $matches[1]);
+        if (Preg::match('/\\R/u', $content)) {
+            $content = Preg::replace('/\\s*\\R+\\s*\\*\\s*/u', ' ', $content);
         }
         return \rtrim($content);
     }

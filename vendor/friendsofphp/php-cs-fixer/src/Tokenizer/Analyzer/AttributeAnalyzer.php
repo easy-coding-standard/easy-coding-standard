@@ -19,11 +19,11 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class AttributeAnalyzer
 {
-    private const TOKEN_KINDS_NOT_ALLOWED_IN_ATTRIBUTE = [';', '{', [\T_ATTRIBUTE], [\T_FUNCTION], [\T_OPEN_TAG], [\T_OPEN_TAG_WITH_ECHO], [\T_PRIVATE], [\T_PROTECTED], [\T_PUBLIC], [\T_RETURN], [\T_VARIABLE], [\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE]];
+    private const TOKEN_KINDS_NOT_ALLOWED_IN_ATTRIBUTE = [';', '{', [\T_ATTRIBUTE], [\T_FUNCTION], [\T_OPEN_TAG], [\T_OPEN_TAG_WITH_ECHO], [\T_PRIVATE], [\T_PROTECTED], [\T_PUBLIC], [\T_RETURN], [\T_VARIABLE], [CT::T_ATTRIBUTE_CLOSE]];
     /**
      * Check if given index is an attribute declaration.
      */
-    public static function isAttribute(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    public static function isAttribute(Tokens $tokens, int $index) : bool
     {
         if (!\defined('T_ATTRIBUTE') || !$tokens[$index]->isGivenKind(\T_STRING) || !$tokens->isAnyTokenKindsFound([\T_ATTRIBUTE])) {
             return \false;

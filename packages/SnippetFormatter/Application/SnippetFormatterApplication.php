@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\SnippetFormatter\Application;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Application;
 
 use PhpCsFixer\Differ\DifferInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Command\Command;
 use ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
-use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
-use Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter;
-use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
-use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
-use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20220607\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;
@@ -47,7 +47,7 @@ final class SnippetFormatterApplication
      * @var \Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
-    public function __construct(\Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter $snippetReporter, \Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter $snippetFormatter, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter, \PhpCsFixer\Differ\DifferInterface $differ, \ECSPrefix20220607\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
+    public function __construct(SnippetReporter $snippetReporter, SnippetFormatter $snippetFormatter, SmartFileSystem $smartFileSystem, SymfonyStyle $symfonyStyle, ProcessedFileReporter $processedFileReporter, DifferInterface $differ, ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
     {
         $this->snippetReporter = $snippetReporter;
         $this->snippetFormatter = $snippetFormatter;
@@ -62,20 +62,20 @@ final class SnippetFormatterApplication
      * @param SnippetPattern::* $snippetPattern
      * @param SnippetKind::* $kind
      */
-    public function processFileInfosWithSnippetPattern(\Symplify\EasyCodingStandard\ValueObject\Configuration $configuration, array $fileInfos, string $snippetPattern, string $kind) : int
+    public function processFileInfosWithSnippetPattern(Configuration $configuration, array $fileInfos, string $snippetPattern, string $kind) : int
     {
         $sources = $configuration->getSources();
         $fileCount = \count($fileInfos);
         if ($fileCount === 0) {
             $this->snippetReporter->reportNoFilesFound($sources);
-            return \ECSPrefix20220607\Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
         $this->symfonyStyle->progressStart($fileCount);
         $errorsAndDiffs = [];
         foreach ($fileInfos as $fileInfo) {
             $fileDiff = $this->processFileInfoWithPattern($fileInfo, $snippetPattern, $kind, $configuration);
-            if ($fileDiff instanceof \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff) {
-                $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS][] = $fileDiff;
+            if ($fileDiff instanceof FileDiff) {
+                $errorsAndDiffs[Bridge::FILE_DIFFS][] = $fileDiff;
             }
             $this->symfonyStyle->progressAdvance();
         }
@@ -85,7 +85,7 @@ final class SnippetFormatterApplication
      * @param SnippetPattern::* $snippetPattern
      * @param SnippetKind::* $kind
      */
-    private function processFileInfoWithPattern(\ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, string $snippetPattern, string $kind, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : ?\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
+    private function processFileInfoWithPattern(SmartFileInfo $phpFileInfo, string $snippetPattern, string $kind, Configuration $configuration) : ?FileDiff
     {
         $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern, $kind, $configuration);
         $originalContent = $phpFileInfo->getContents();
@@ -99,7 +99,7 @@ final class SnippetFormatterApplication
         $this->smartFileSystem->dumpFile($phpFileInfo->getPathname(), $fixedContent);
         $diff = $this->differ->diff($originalContent, $fixedContent);
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
-        return new \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff(
+        return new FileDiff(
             $phpFileInfo->getRelativeFilePathFromCwd(),
             $diff,
             $consoleFormattedDiff,

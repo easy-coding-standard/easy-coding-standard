@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class LowercaseFunctionKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class LowercaseFunctionKeywordsSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -21,7 +21,7 @@ class LowercaseFunctionKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        $tokens = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;
+        $tokens = Tokens::$methodPrefixes;
         $tokens[] = \T_FUNCTION;
         $tokens[] = T_CLOSURE;
         $tokens[] = \T_FN;
@@ -37,7 +37,7 @@ class LowercaseFunctionKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $content = $tokens[$stackPtr]['content'];

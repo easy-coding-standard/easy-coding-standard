@@ -10,7 +10,7 @@
 namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures;
 
 use PHP_CodeSniffer\Sniffs\AbstractPatternSniff;
-class ControlSignatureSniff extends \PHP_CodeSniffer\Sniffs\AbstractPatternSniff
+class ControlSignatureSniff extends AbstractPatternSniff
 {
     /**
      * If true, comments will be ignored if they are found in the code.

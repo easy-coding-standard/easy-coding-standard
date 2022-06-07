@@ -17,7 +17,7 @@ use ECSPrefix20220607\Symfony\Component\Finder\Finder as BaseFinder;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-class Finder extends \ECSPrefix20220607\Symfony\Component\Finder\Finder
+class Finder extends BaseFinder
 {
     public function __construct()
     {

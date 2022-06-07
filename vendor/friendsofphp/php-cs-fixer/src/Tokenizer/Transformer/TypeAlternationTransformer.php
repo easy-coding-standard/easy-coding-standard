@@ -24,7 +24,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class TypeAlternationTransformer extends \PhpCsFixer\Tokenizer\AbstractTypeTransformer
+final class TypeAlternationTransformer extends AbstractTypeTransformer
 {
     /**
      * {@inheritdoc}
@@ -44,7 +44,7 @@ final class TypeAlternationTransformer extends \PhpCsFixer\Tokenizer\AbstractTyp
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         $this->doProcess($tokens, $index, '|');
     }
@@ -53,10 +53,10 @@ final class TypeAlternationTransformer extends \PhpCsFixer\Tokenizer\AbstractTyp
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION];
+        return [CT::T_TYPE_ALTERNATION];
     }
-    protected function replaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    protected function replaceToken(Tokens $tokens, int $index) : void
     {
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, '|']);
+        $tokens[$index] = new Token([CT::T_TYPE_ALTERNATION, '|']);
     }
 }

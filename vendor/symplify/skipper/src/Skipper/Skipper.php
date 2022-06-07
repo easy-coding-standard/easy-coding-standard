@@ -31,17 +31,17 @@ final class Skipper
      */
     public function shouldSkipElement($element) : bool
     {
-        $fileInfo = new \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
+        $fileInfo = new SmartFileInfo(__FILE__);
         return $this->shouldSkipElementAndFileInfo($element, $fileInfo);
     }
-    public function shouldSkipFileInfo(\ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkipFileInfo(SmartFileInfo $smartFileInfo) : bool
     {
         return $this->shouldSkipElementAndFileInfo(self::FILE_ELEMENT, $smartFileInfo);
     }
     /**
      * @param string|object $element
      */
-    public function shouldSkipElementAndFileInfo($element, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkipElementAndFileInfo($element, SmartFileInfo $smartFileInfo) : bool
     {
         foreach ($this->skipVoters as $skipVoter) {
             if ($skipVoter->match($element)) {

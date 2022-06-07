@@ -13,11 +13,11 @@ namespace ECSPrefix20220607\Symfony\Contracts\Service\Test;
 use ECSPrefix20220607\PHPUnit\Framework\TestCase;
 use ECSPrefix20220607\Psr\Container\ContainerInterface;
 use ECSPrefix20220607\Symfony\Contracts\Service\ServiceLocatorTrait;
-abstract class ServiceLocatorTest extends \ECSPrefix20220607\PHPUnit\Framework\TestCase
+abstract class ServiceLocatorTest extends TestCase
 {
-    protected function getServiceLocator(array $factories) : \ECSPrefix20220607\Psr\Container\ContainerInterface
+    protected function getServiceLocator(array $factories) : ContainerInterface
     {
-        return new class($factories) implements \ECSPrefix20220607\Psr\Container\ContainerInterface
+        return new class($factories) implements ContainerInterface
         {
             use ServiceLocatorTrait;
         };

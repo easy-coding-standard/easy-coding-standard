@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class ClassConstantTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class ClassConstantTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -35,7 +35,7 @@ final class ClassConstantTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->equalsAny([[\T_CLASS, 'class'], [\T_STRING, 'class']], \false)) {
             return;
@@ -43,7 +43,7 @@ final class ClassConstantTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         $prevToken = $tokens[$prevIndex];
         if ($prevToken->isGivenKind(\T_DOUBLE_COLON)) {
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CLASS_CONSTANT, $token->getContent()]);
+            $tokens[$index] = new Token([CT::T_CLASS_CONSTANT, $token->getContent()]);
         }
     }
     /**
@@ -51,6 +51,6 @@ final class ClassConstantTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_CLASS_CONSTANT];
+        return [CT::T_CLASS_CONSTANT];
     }
 }

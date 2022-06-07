@@ -20,36 +20,36 @@ use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class OctalNotationFixer extends \PhpCsFixer\AbstractFixer
+final class OctalNotationFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Literal octal must be in `0o` notation.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php \$foo = 0123;\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(80100))]);
+        return new FixerDefinition('Literal octal must be in `0o` notation.', [new VersionSpecificCodeSample("<?php \$foo = 0123;\n", new VersionSpecification(80100))]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID >= 80100 && $tokens->isTokenKindFound(\T_LNUMBER);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_LNUMBER)) {
                 continue;
             }
             $content = $token->getContent();
-            if (1 !== \PhpCsFixer\Preg::match('#^0\\d+$#', $content)) {
+            if (1 !== Preg::match('#^0\\d+$#', $content)) {
                 continue;
             }
-            $tokens[$index] = 1 === \PhpCsFixer\Preg::match('#^0+$#', $content) ? new \PhpCsFixer\Tokenizer\Token([\T_LNUMBER, '0']) : new \PhpCsFixer\Tokenizer\Token([\T_LNUMBER, '0o' . \substr($content, 1)]);
+            $tokens[$index] = 1 === Preg::match('#^0+$#', $content) ? new Token([\T_LNUMBER, '0']) : new Token([\T_LNUMBER, '0o' . \substr($content, 1)]);
         }
     }
 }

@@ -22,14 +22,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-final class PhpdocTrimFixer extends \PhpCsFixer\AbstractFixer
+final class PhpdocTrimFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPDoc should start and end with content, excluding the very first and last line of the docblocks.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('PHPDoc should start and end with content, excluding the very first and last line of the docblocks.', [new CodeSample('<?php
 /**
  *
  * Foo must be final class.
@@ -52,14 +52,14 @@ final class Foo {}
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -70,7 +70,7 @@ final class Foo {}
             // we need re-parse the docblock after fixing the start before
             // fixing the end in order for the lines to be correctly indexed
             $content = $this->fixEnd($content);
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $content]);
+            $tokens[$index] = new Token([\T_DOC_COMMENT, $content]);
         }
     }
     /**
@@ -78,7 +78,7 @@ final class Foo {}
      */
     private function fixStart(string $content) : string
     {
-        return \PhpCsFixer\Preg::replace('~
+        return Preg::replace('~
                 (^/\\*\\*)            # DocComment begin
                 (?:
                     \\R\\h*(?:\\*\\h*)? # lines without useful content
@@ -92,7 +92,7 @@ final class Foo {}
      */
     private function fixEnd(string $content) : string
     {
-        return \PhpCsFixer\Preg::replace('~
+        return Preg::replace('~
                 (\\R\\h*(?:\\*\\h*)?\\S.*?) # last line with useful content
                 (?:
                     (?<!/\\*\\*)         # not preceded by a DocComment start

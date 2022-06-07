@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ControlStructureSpacingSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,7 +39,7 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === \true && isset($tokens[$stackPtr]['parenthesis_closer']) === \true) {
@@ -91,7 +91,7 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 continue;
             }
             // Skip all empty tokens on the same line as the opener.
-            if ($tokens[$firstContent]['line'] === $tokens[$scopeOpener]['line'] && (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \true || $code === \T_CLOSE_TAG)) {
+            if ($tokens[$firstContent]['line'] === $tokens[$scopeOpener]['line'] && (isset(Tokens::$emptyTokens[$code]) === \true || $code === \T_CLOSE_TAG)) {
                 continue;
             }
             break;
@@ -121,7 +121,7 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         //end if
         if ($firstContent !== $scopeCloser) {
             $lastContent = $phpcsFile->findPrevious(\T_WHITESPACE, $scopeCloser - 1, null, \true);
-            $lastNonEmptyContent = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $scopeCloser - 1, null, \true);
+            $lastNonEmptyContent = $phpcsFile->findPrevious(Tokens::$emptyTokens, $scopeCloser - 1, null, \true);
             $checkToken = $lastContent;
             if (isset($tokens[$lastNonEmptyContent]['scope_condition']) === \true) {
                 $checkToken = $tokens[$lastNonEmptyContent]['scope_condition'];
@@ -159,16 +159,16 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         //end if
         if ($tokens[$stackPtr]['code'] === \T_MATCH) {
             // Move the scope closer to the semicolon/comma.
-            $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $scopeCloser + 1, null, \true);
+            $next = $phpcsFile->findNext(Tokens::$emptyTokens, $scopeCloser + 1, null, \true);
             if ($next !== \false && ($tokens[$next]['code'] === T_SEMICOLON || $tokens[$next]['code'] === T_COMMA)) {
                 $scopeCloser = $next;
             }
         }
         $trailingContent = $phpcsFile->findNext(\T_WHITESPACE, $scopeCloser + 1, null, \true);
-        if ($tokens[$trailingContent]['code'] === \T_COMMENT || isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$trailingContent]['code']]) === \true) {
+        if ($tokens[$trailingContent]['code'] === \T_COMMENT || isset(Tokens::$phpcsCommentTokens[$tokens[$trailingContent]['code']]) === \true) {
             // Special exception for code where the comment about
             // an ELSE or ELSEIF is written between the control structures.
-            $nextCode = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $scopeCloser + 1, null, \true);
+            $nextCode = $phpcsFile->findNext(Tokens::$emptyTokens, $scopeCloser + 1, null, \true);
             if ($tokens[$nextCode]['code'] === \T_ELSE || $tokens[$nextCode]['code'] === \T_ELSEIF || $tokens[$trailingContent]['line'] === $tokens[$scopeCloser]['line']) {
                 $trailingContent = $nextCode;
             }
@@ -219,7 +219,7 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $fix = $phpcsFile->addFixableError($error, $scopeCloser, 'NoLineAfterClose');
                 if ($fix === \true) {
                     $trailingContent = $phpcsFile->findNext(\T_WHITESPACE, $scopeCloser + 1, null, \true);
-                    if (($tokens[$trailingContent]['code'] === \T_COMMENT || isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$trailingContent]['code']]) === \true) && $tokens[$trailingContent]['line'] === $tokens[$scopeCloser]['line']) {
+                    if (($tokens[$trailingContent]['code'] === \T_COMMENT || isset(Tokens::$phpcsCommentTokens[$tokens[$trailingContent]['code']]) === \true) && $tokens[$trailingContent]['line'] === $tokens[$scopeCloser]['line']) {
                         $phpcsFile->fixer->addNewline($trailingContent);
                     } else {
                         $phpcsFile->fixer->addNewline($scopeCloser);

@@ -86,7 +86,7 @@ final class AnnotationRegistry
      */
     public static function registerAutoloadNamespaces(array $namespaces) : void
     {
-        self::$autoloadNamespaces = \array_merge(self::$autoloadNamespaces, $namespaces);
+        self::$autoloadNamespaces = array_merge(self::$autoloadNamespaces, $namespaces);
     }
     /**
      * Registers an autoloading callable for annotations, much like spl_autoload_register().
@@ -111,7 +111,7 @@ final class AnnotationRegistry
      */
     public static function registerUniqueLoader(callable $callable) : void
     {
-        if (\in_array($callable, self::$loaders, \true)) {
+        if (in_array($callable, self::$loaders, \true)) {
             return;
         }
         self::registerLoader($callable);
@@ -121,27 +121,27 @@ final class AnnotationRegistry
      */
     public static function loadAnnotationClass(string $class) : bool
     {
-        if (\class_exists($class, \false)) {
+        if (class_exists($class, \false)) {
             return \true;
         }
-        if (\array_key_exists($class, self::$failedToAutoload)) {
+        if (array_key_exists($class, self::$failedToAutoload)) {
             return \false;
         }
         foreach (self::$autoloadNamespaces as $namespace => $dirs) {
-            if (\strpos($class, $namespace) !== 0) {
+            if (strpos($class, $namespace) !== 0) {
                 continue;
             }
-            $file = \str_replace('\\', \DIRECTORY_SEPARATOR, $class) . '.php';
+            $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
             if ($dirs === null) {
-                $path = \stream_resolve_include_path($file);
+                $path = stream_resolve_include_path($file);
                 if ($path) {
                     require $path;
                     return \true;
                 }
             } else {
                 foreach ((array) $dirs as $dir) {
-                    if (\is_file($dir . \DIRECTORY_SEPARATOR . $file)) {
-                        require $dir . \DIRECTORY_SEPARATOR . $file;
+                    if (is_file($dir . DIRECTORY_SEPARATOR . $file)) {
+                        require $dir . DIRECTORY_SEPARATOR . $file;
                         return \true;
                     }
                 }
@@ -152,7 +152,7 @@ final class AnnotationRegistry
                 return \true;
             }
         }
-        if (self::$loaders === [] && self::$autoloadNamespaces === [] && self::$registerFileUsed === \false && \class_exists($class)) {
+        if (self::$loaders === [] && self::$autoloadNamespaces === [] && self::$registerFileUsed === \false && class_exists($class)) {
             return \true;
         }
         self::$failedToAutoload[$class] = null;

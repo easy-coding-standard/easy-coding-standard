@@ -20,7 +20,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class NameQualifiedTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class NameQualifiedTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ final class NameQualifiedTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if ($token->isGivenKind([\T_NAME_QUALIFIED, \T_NAME_FULLY_QUALIFIED])) {
             $this->transformQualified($tokens, $token, $index);
@@ -55,28 +55,28 @@ final class NameQualifiedTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
     {
         return [];
     }
-    private function transformQualified(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    private function transformQualified(Tokens $tokens, Token $token, int $index) : void
     {
         $parts = \explode('\\', $token->getContent());
         $newTokens = [];
         if ('' === $parts[0]) {
-            $newTokens[] = new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']);
+            $newTokens[] = new Token([\T_NS_SEPARATOR, '\\']);
             \array_shift($parts);
         }
         foreach ($parts as $part) {
-            $newTokens[] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $part]);
-            $newTokens[] = new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']);
+            $newTokens[] = new Token([\T_STRING, $part]);
+            $newTokens[] = new Token([\T_NS_SEPARATOR, '\\']);
         }
         \array_pop($newTokens);
         $tokens->overrideRange($index, $index, $newTokens);
     }
-    private function transformRelative(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    private function transformRelative(Tokens $tokens, Token $token, int $index) : void
     {
         $parts = \explode('\\', $token->getContent());
-        $newTokens = [new \PhpCsFixer\Tokenizer\Token([\T_NAMESPACE, \array_shift($parts)]), new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\'])];
+        $newTokens = [new Token([\T_NAMESPACE, \array_shift($parts)]), new Token([\T_NS_SEPARATOR, '\\'])];
         foreach ($parts as $part) {
-            $newTokens[] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $part]);
-            $newTokens[] = new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']);
+            $newTokens[] = new Token([\T_STRING, $part]);
+            $newTokens[] = new Token([\T_NS_SEPARATOR, '\\']);
         }
         \array_pop($newTokens);
         $tokens->overrideRange($index, $index, $newTokens);

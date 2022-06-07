@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class EchoedStringsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class EchoedStringsSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class EchoedStringsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $firstContent = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
@@ -55,7 +55,7 @@ class EchoedStringsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
         $phpcsFile->recordMetric($stackPtr, 'Brackets around echoed strings', 'yes');
-        if ($phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$operators, $stackPtr, $end, \false) === \false) {
+        if ($phpcsFile->findNext(Tokens::$operators, $stackPtr, $end, \false) === \false) {
             // There are no arithmetic operators in this.
             $error = 'Echoed strings should not be bracketed';
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'HasBracket');

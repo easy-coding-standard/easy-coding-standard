@@ -15,7 +15,7 @@ namespace ECSPrefix20220607\Symfony\Component\Config\Definition;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-interface PrototypeNodeInterface extends \ECSPrefix20220607\Symfony\Component\Config\Definition\NodeInterface
+interface PrototypeNodeInterface extends NodeInterface
 {
     /**
      * Sets the name of the node.

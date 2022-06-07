@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\ValueObject\Error;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error;
 
-use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 final class ErrorAndDiffResult
 {
     /**
@@ -68,7 +68,7 @@ final class ErrorAndDiffResult
      */
     private function sortByFileAndLine(array $errorMessages) : array
     {
-        \usort($errorMessages, static function (\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError $firstCodingStandardError, \Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError $secondCodingStandardError) : int {
+        \usort($errorMessages, static function (CodingStandardError $firstCodingStandardError, CodingStandardError $secondCodingStandardError) : int {
             return [$firstCodingStandardError->getRelativeFilePath(), $firstCodingStandardError->getLine()] <=> [$secondCodingStandardError->getRelativeFilePath(), $secondCodingStandardError->getLine()];
         });
         return $errorMessages;
@@ -79,7 +79,7 @@ final class ErrorAndDiffResult
      */
     private function sortByFilePath(array $fileDiffs) : array
     {
-        \uasort($fileDiffs, static function (\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $firstFileDiff, \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $secondFileDiff) : int {
+        \uasort($fileDiffs, static function (FileDiff $firstFileDiff, FileDiff $secondFileDiff) : int {
             return $firstFileDiff->getRelativeFilePath() <=> $secondFileDiff->getRelativeFilePath();
         });
         return $fileDiffs;

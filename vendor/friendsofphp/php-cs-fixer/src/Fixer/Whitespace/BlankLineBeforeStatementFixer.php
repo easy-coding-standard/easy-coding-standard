@@ -29,7 +29,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  * @author Andreas Möller <am@localheinz.com>
  */
-final class BlankLineBeforeStatementFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class BlankLineBeforeStatementFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * @var mixed[]
@@ -54,14 +54,14 @@ final class BlankLineBeforeStatementFixer extends \PhpCsFixer\AbstractFixer impl
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('An empty line feed must precede any configured statement.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('An empty line feed must precede any configured statement.', [new CodeSample('<?php
 function A() {
     echo 1;
     return 1;
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 switch ($foo) {
     case 42:
         $bar->process();
@@ -69,26 +69,26 @@ switch ($foo) {
     case 44:
         break;
 }
-', ['statements' => ['break']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['break']]), new CodeSample('<?php
 foreach ($foo as $bar) {
     if ($bar->isTired()) {
         $bar->sleep();
         continue;
     }
 }
-', ['statements' => ['continue']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['continue']]), new CodeSample('<?php
 $i = 0;
 do {
     echo $i;
 } while ($i > 0);
-', ['statements' => ['do']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['do']]), new CodeSample('<?php
 if ($foo === false) {
     exit(0);
 } else {
     $bar = 9000;
     exit(1);
 }
-', ['statements' => ['exit']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['exit']]), new CodeSample('<?php
 a:
 
 if ($foo === false) {
@@ -97,36 +97,36 @@ if ($foo === false) {
     $bar = 9000;
     goto b;
 }
-', ['statements' => ['goto']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['goto']]), new CodeSample('<?php
 $a = 9000;
 if (true) {
     $foo = $bar;
 }
-', ['statements' => ['if']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['if']]), new CodeSample('<?php
 
 if (true) {
     $foo = $bar;
     return;
 }
-', ['statements' => ['return']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['return']]), new CodeSample('<?php
 $a = 9000;
 switch ($a) {
     case 42:
         break;
 }
-', ['statements' => ['switch']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['switch']]), new CodeSample('<?php
 if (null === $a) {
     $foo->bar();
     throw new \\UnexpectedValueException("A cannot be null.");
 }
-', ['statements' => ['throw']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['throw']]), new CodeSample('<?php
 $a = 9000;
 try {
     $foo->bar();
 } catch (\\Exception $exception) {
     $a = -1;
 }
-', ['statements' => ['try']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['statements' => ['try']]), new CodeSample('<?php
 
 if (true) {
     $foo = $bar;
@@ -146,16 +146,16 @@ if (true) {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound($this->fixTokenMap);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $analyzer = new TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind($this->fixTokenMap)) {
@@ -174,11 +174,11 @@ if (true) {
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('statements', 'List of statements which must be preceded by an empty line.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(self::$tokenMap))])->setDefault(['break', 'continue', 'declare', 'return', 'throw', 'try'])->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('statements', 'List of statements which must be preceded by an empty line.'))->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset(\array_keys(self::$tokenMap))])->setDefault(['break', 'continue', 'declare', 'return', 'throw', 'try'])->getOption()]);
     }
-    private function shouldAddBlankLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $prevNonWhitespace) : bool
+    private function shouldAddBlankLine(Tokens $tokens, int $prevNonWhitespace) : bool
     {
         $prevNonWhitespaceToken = $tokens[$prevNonWhitespace];
         if ($prevNonWhitespaceToken->isComment()) {
@@ -194,7 +194,7 @@ if (true) {
         }
         return $prevNonWhitespaceToken->equalsAny([';', '}']);
     }
-    private function insertBlankLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function insertBlankLine(Tokens $tokens, int $index) : void
     {
         $prevIndex = $index - 1;
         $prevToken = $tokens[$prevIndex];
@@ -202,12 +202,12 @@ if (true) {
         if ($prevToken->isWhitespace()) {
             $newlinesCount = \substr_count($prevToken->getContent(), "\n");
             if (0 === $newlinesCount) {
-                $tokens[$prevIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, \rtrim($prevToken->getContent(), " \t") . $lineEnding . $lineEnding]);
+                $tokens[$prevIndex] = new Token([\T_WHITESPACE, \rtrim($prevToken->getContent(), " \t") . $lineEnding . $lineEnding]);
             } elseif (1 === $newlinesCount) {
-                $tokens[$prevIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnding . $prevToken->getContent()]);
+                $tokens[$prevIndex] = new Token([\T_WHITESPACE, $lineEnding . $prevToken->getContent()]);
             }
         } else {
-            $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnding . $lineEnding]));
+            $tokens->insertAt($index, new Token([\T_WHITESPACE, $lineEnding . $lineEnding]));
         }
     }
 }

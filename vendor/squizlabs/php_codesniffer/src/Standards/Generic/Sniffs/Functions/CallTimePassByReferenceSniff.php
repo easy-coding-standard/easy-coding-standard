@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Functions;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class CallTimePassByReferenceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class CallTimePassByReferenceSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,10 +33,10 @@ class CallTimePassByReferenceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $findTokens = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $findTokens = Tokens::$emptyTokens;
         $findTokens[] = T_BITWISE_AND;
         $prev = $phpcsFile->findPrevious($findTokens, $stackPtr - 1, null, \true);
         // Skip tokens that are the names of functions or classes
@@ -50,7 +50,7 @@ class CallTimePassByReferenceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // If the next non-whitespace token after the function or method call
         // is not an opening parenthesis then it cant really be a *call*.
         $functionName = $stackPtr;
-        $openBracket = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $functionName + 1, null, \true);
+        $openBracket = $phpcsFile->findNext(Tokens::$emptyTokens, $functionName + 1, null, \true);
         if ($tokens[$openBracket]['code'] !== T_OPEN_PARENTHESIS) {
             return;
         }
@@ -75,7 +75,7 @@ class CallTimePassByReferenceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if ($lastBracket !== $closeBracket) {
                 continue;
             }
-            $tokenBefore = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $nextSeparator - 1, null, \true);
+            $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, $nextSeparator - 1, null, \true);
             if ($tokens[$tokenBefore]['code'] === T_BITWISE_AND) {
                 if ($phpcsFile->isReference($tokenBefore) === \false) {
                     continue;
@@ -83,8 +83,8 @@ class CallTimePassByReferenceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 // We also want to ignore references used in assignment
                 // operations passed as function arguments, but isReference()
                 // sees them as valid references (which they are).
-                $tokenBefore = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $tokenBefore - 1, null, \true);
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$assignmentTokens[$tokens[$tokenBefore]['code']]) === \true) {
+                $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, $tokenBefore - 1, null, \true);
+                if (isset(Tokens::$assignmentTokens[$tokens[$tokenBefore]['code']]) === \true) {
                     continue;
                 }
                 // T_BITWISE_AND represents a pass-by-reference.

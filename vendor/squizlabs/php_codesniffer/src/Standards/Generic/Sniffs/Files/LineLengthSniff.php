@@ -16,7 +16,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Files;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class LineLengthSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class LineLengthSniff implements Sniff
 {
     /**
      * The limit that the length of a line should not exceed.
@@ -60,7 +60,7 @@ class LineLengthSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         for ($i = 1; $i < $phpcsFile->numTokens; $i++) {
@@ -94,18 +94,18 @@ class LineLengthSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $stackPtr--;
         }
         $onlyComment = \false;
-        if (isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$stackPtr]['code']]) === \true) {
-            $prevNonWhiteSpace = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        if (isset(Tokens::$commentTokens[$tokens[$stackPtr]['code']]) === \true) {
+            $prevNonWhiteSpace = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
             if ($tokens[$stackPtr]['line'] !== $tokens[$prevNonWhiteSpace]['line']) {
                 $onlyComment = \true;
             }
         }
-        if ($onlyComment === \true && isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$stackPtr]['code']]) === \true) {
+        if ($onlyComment === \true && isset(Tokens::$phpcsCommentTokens[$tokens[$stackPtr]['code']]) === \true) {
             // Ignore PHPCS annotation comments that are on a line by themselves.
             return;
         }
         $lineLength = $tokens[$stackPtr]['column'] + $tokens[$stackPtr]['length'] - 1;
-        if ($this->ignoreComments === \true && isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$stackPtr]['code']]) === \true) {
+        if ($this->ignoreComments === \true && isset(Tokens::$commentTokens[$tokens[$stackPtr]['code']]) === \true) {
             // Trailing comments are being ignored in line length calculations.
             if ($onlyComment === \true) {
                 // The comment is the only thing on the line, so no need to check length.

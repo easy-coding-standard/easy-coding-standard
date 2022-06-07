@@ -20,14 +20,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-final class NoSinglelineWhitespaceBeforeSemicolonsFixer extends \PhpCsFixer\AbstractFixer
+final class NoSinglelineWhitespaceBeforeSemicolonsFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Single-line whitespace before closing semicolon are prohibited.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$this->foo() ;\n")]);
+        return new FixerDefinition('Single-line whitespace before closing semicolon are prohibited.', [new CodeSample("<?php \$this->foo() ;\n")]);
     }
     /**
      * {@inheritdoc}
@@ -41,14 +41,14 @@ final class NoSinglelineWhitespaceBeforeSemicolonsFixer extends \PhpCsFixer\Abst
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(';');
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->equals(';') || !$tokens[$index - 1]->isWhitespace(" \t")) {

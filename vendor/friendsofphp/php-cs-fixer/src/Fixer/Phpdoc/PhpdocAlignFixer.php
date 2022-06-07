@@ -34,7 +34,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class PhpdocAlignFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * @internal
@@ -72,11 +72,11 @@ final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
         $indent = '(?P<indent>(?:\\ {2}|\\t)*)';
         // e.g. @param <hint> <$var>
         if ([] !== $tagsWithNameToAlign) {
-            $types[] = '(?P<tag>' . \implode('|', $tagsWithNameToAlign) . ')\\s+(?P<hint>(?:' . \PhpCsFixer\DocBlock\TypeExpression::REGEX_TYPES . ')?)\\s+(?P<var>(?:&|\\.{3})?\\$\\S+)';
+            $types[] = '(?P<tag>' . \implode('|', $tagsWithNameToAlign) . ')\\s+(?P<hint>(?:' . TypeExpression::REGEX_TYPES . ')?)\\s+(?P<var>(?:&|\\.{3})?\\$\\S+)';
         }
         // e.g. @return <hint>
         if ([] !== $tagsWithoutNameToAlign) {
-            $types[] = '(?P<tag2>' . \implode('|', $tagsWithoutNameToAlign) . ')\\s+(?P<hint2>(?:' . \PhpCsFixer\DocBlock\TypeExpression::REGEX_TYPES . ')?)';
+            $types[] = '(?P<tag2>' . \implode('|', $tagsWithoutNameToAlign) . ')\\s+(?P<hint2>(?:' . TypeExpression::REGEX_TYPES . ')?)';
         }
         // e.g. @method <hint> <signature>
         if ([] !== $tagsWithMethodSignatureToAlign) {
@@ -91,7 +91,7 @@ final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
         $code = <<<'EOF'
 <?php
@@ -107,7 +107,7 @@ namespace ECSPrefix20220607;
  */
 
 EOF;
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('All items of the given phpdoc tags must be either left-aligned or (by default) aligned vertically.', [new \PhpCsFixer\FixerDefinition\CodeSample($code), new \PhpCsFixer\FixerDefinition\CodeSample($code, ['align' => self::ALIGN_VERTICAL]), new \PhpCsFixer\FixerDefinition\CodeSample($code, ['align' => self::ALIGN_LEFT])]);
+        return new FixerDefinition('All items of the given phpdoc tags must be either left-aligned or (by default) aligned vertically.', [new CodeSample($code), new CodeSample($code, ['align' => self::ALIGN_VERTICAL]), new CodeSample($code, ['align' => self::ALIGN_LEFT])]);
     }
     /**
      * {@inheritdoc}
@@ -128,40 +128,40 @@ EOF;
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
             $content = $token->getContent();
-            $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
+            $docBlock = new DocBlock($content);
             $this->fixDocBlock($docBlock);
             $newContent = $docBlock->getContent();
             if ($newContent !== $content) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $newContent]);
+                $tokens[$index] = new Token([\T_DOC_COMMENT, $newContent]);
             }
         }
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        $tags = new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('tags', 'The tags that should be aligned.');
-        $tags->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(self::ALIGNABLE_TAGS)])->setDefault(['method', 'param', 'property', 'return', 'throws', 'type', 'var']);
-        $align = new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('align', 'Align comments');
+        $tags = new FixerOptionBuilder('tags', 'The tags that should be aligned.');
+        $tags->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset(self::ALIGNABLE_TAGS)])->setDefault(['method', 'param', 'property', 'return', 'throws', 'type', 'var']);
+        $align = new FixerOptionBuilder('align', 'Align comments');
         $align->setAllowedTypes(['string'])->setAllowedValues([self::ALIGN_LEFT, self::ALIGN_VERTICAL])->setDefault(self::ALIGN_VERTICAL);
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([$tags->getOption(), $align->getOption()]);
+        return new FixerConfigurationResolver([$tags->getOption(), $align->getOption()]);
     }
-    private function fixDocBlock(\PhpCsFixer\DocBlock\DocBlock $docBlock) : void
+    private function fixDocBlock(DocBlock $docBlock) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         for ($i = 0, $l = \count($docBlock->getLines()); $i < $l; ++$i) {
@@ -228,7 +228,7 @@ EOF;
      */
     private function getMatches(string $line, bool $matchCommentOnly = \false) : ?array
     {
-        if (\PhpCsFixer\Preg::match($this->regex, $line, $matches)) {
+        if (Preg::match($this->regex, $line, $matches)) {
             if (!empty($matches['tag2'])) {
                 $matches['tag'] = $matches['tag2'];
                 $matches['hint'] = $matches['hint2'];
@@ -244,7 +244,7 @@ EOF;
             }
             return $matches;
         }
-        if ($matchCommentOnly && \PhpCsFixer\Preg::match($this->regexCommentLine, $line, $matches)) {
+        if ($matchCommentOnly && Preg::match($this->regexCommentLine, $line, $matches)) {
             $matches['tag'] = null;
             $matches['var'] = '';
             $matches['hint'] = '';

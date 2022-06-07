@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenAnalyzer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer;
 
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
@@ -16,20 +16,20 @@ final class DocblockRelatedParamNamesResolver
      * @var \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer
      */
     private $functionsAnalyzer;
-    public function __construct(\PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionsAnalyzer)
+    public function __construct(FunctionsAnalyzer $functionsAnalyzer)
     {
         $this->functionsAnalyzer = $functionsAnalyzer;
-        $this->functionTokens[] = new \PhpCsFixer\Tokenizer\Token([\T_FUNCTION, 'function']);
+        $this->functionTokens[] = new Token([\T_FUNCTION, 'function']);
         // only in PHP 7.4+
         if ($this->doesFnTokenExist()) {
-            $this->functionTokens[] = new \PhpCsFixer\Tokenizer\Token([\T_FN, 'fn']);
+            $this->functionTokens[] = new Token([\T_FN, 'fn']);
         }
     }
     /**
      * @return string[]
      * @param Tokens<Token> $tokens
      */
-    public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, int $docTokenPosition) : array
+    public function resolve(Tokens $tokens, int $docTokenPosition) : array
     {
         $functionTokenPosition = $tokens->getNextTokenOfKind($docTokenPosition, $this->functionTokens);
         if ($functionTokenPosition === null) {

@@ -27,7 +27,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  *
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class ClassKeywordRemoveFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\DeprecatedFixerInterface
+final class ClassKeywordRemoveFixer extends AbstractFixer implements DeprecatedFixerInterface
 {
     /**
      * @var string[]
@@ -36,9 +36,9 @@ final class ClassKeywordRemoveFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts `::class` keywords to FQCN strings.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Converts `::class` keywords to FQCN strings.', [new CodeSample('<?php
 
 use Foo\\Bar\\Baz;
 
@@ -64,16 +64,16 @@ $className = Baz::class;
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
-        return $tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_CLASS_CONSTANT);
+        return $tokens->isTokenKindFound(CT::T_CLASS_CONSTANT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
+        $namespacesAnalyzer = new NamespacesAnalyzer();
         $previousNamespaceScopeEndIndex = 0;
         foreach ($namespacesAnalyzer->getDeclarations($tokens) as $declaration) {
             $this->replaceClassKeywordsSection($tokens, '', $previousNamespaceScopeEndIndex, $declaration->getStartIndex());
@@ -82,9 +82,9 @@ $className = Baz::class;
         }
         $this->replaceClassKeywordsSection($tokens, '', $previousNamespaceScopeEndIndex, $tokens->count() - 1);
     }
-    private function storeImports(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    private function storeImports(Tokens $tokens, int $startIndex, int $endIndex) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         $this->imports = [];
         /** @var int $index */
         foreach ($tokensAnalyzer->getImportUseIndexes() as $index) {
@@ -93,14 +93,14 @@ $className = Baz::class;
             }
             $import = '';
             while ($index = $tokens->getNextMeaningfulToken($index)) {
-                if ($tokens[$index]->equalsAny([';', [\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_OPEN]]) || $tokens[$index]->isGivenKind(\T_AS)) {
+                if ($tokens[$index]->equalsAny([';', [CT::T_GROUP_IMPORT_BRACE_OPEN]]) || $tokens[$index]->isGivenKind(\T_AS)) {
                     break;
                 }
                 $import .= $tokens[$index]->getContent();
             }
             // Imports group (PHP 7 spec)
-            if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_OPEN)) {
-                $groupEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_GROUP_IMPORT_BRACE, $index);
+            if ($tokens[$index]->isGivenKind(CT::T_GROUP_IMPORT_BRACE_OPEN)) {
+                $groupEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_GROUP_IMPORT_BRACE, $index);
                 $groupImports = \array_map(static function (string $import) : string {
                     return \trim($import);
                 }, \explode(',', $tokens->generatePartialCode($index + 1, $groupEndIndex - 1)));
@@ -123,18 +123,18 @@ $className = Baz::class;
             }
         }
     }
-    private function replaceClassKeywordsSection(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespace, int $startIndex, int $endIndex) : void
+    private function replaceClassKeywordsSection(Tokens $tokens, string $namespace, int $startIndex, int $endIndex) : void
     {
         if ($endIndex - $startIndex < 3) {
             return;
         }
         $this->storeImports($tokens, $startIndex, $endIndex);
-        $ctClassTokens = $tokens->findGivenKind(\PhpCsFixer\Tokenizer\CT::T_CLASS_CONSTANT, $startIndex, $endIndex);
+        $ctClassTokens = $tokens->findGivenKind(CT::T_CLASS_CONSTANT, $startIndex, $endIndex);
         foreach (\array_reverse(\array_keys($ctClassTokens)) as $classIndex) {
             $this->replaceClassKeyword($tokens, $namespace, $classIndex);
         }
     }
-    private function replaceClassKeyword(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespacePrefix, int $classIndex) : void
+    private function replaceClassKeyword(Tokens $tokens, string $namespacePrefix, int $classIndex) : void
     {
         $classEndIndex = $tokens->getPrevMeaningfulToken($classIndex);
         $classEndIndex = $tokens->getPrevMeaningfulToken($classEndIndex);
@@ -175,7 +175,7 @@ $className = Baz::class;
                 $tokens->clearAt($i);
             }
         }
-        $tokens->insertAt($classBeginIndex, new \PhpCsFixer\Tokenizer\Token([\T_CONSTANT_ENCAPSED_STRING, "'" . $this->makeClassFQN($namespacePrefix, $classImport, $classString) . "'"]));
+        $tokens->insertAt($classBeginIndex, new Token([\T_CONSTANT_ENCAPSED_STRING, "'" . $this->makeClassFQN($namespacePrefix, $classImport, $classString) . "'"]));
     }
     /**
      * @param false|string $classImport

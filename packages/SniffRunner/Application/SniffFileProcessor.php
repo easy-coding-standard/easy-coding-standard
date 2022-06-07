@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\SniffRunner\Application;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
-use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use Symplify\EasyCodingStandard\Error\FileDiffFactory;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
-use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
-use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Error\FileDiffFactory;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20220607\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
  */
-final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface
+final class SniffFileProcessor implements FileProcessorInterface
 {
     /**
      * @var Sniff[]
@@ -63,7 +63,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     /**
      * @param Sniff[] $sniffs
      */
-    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\SniffRunner\File\FileFactory $fileFactory, \PhpCsFixer\Differ\DifferInterface $differ, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, \ECSPrefix20220607\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, array $sniffs)
+    public function __construct(Fixer $fixer, FileFactory $fileFactory, DifferInterface $differ, SniffMetadataCollector $sniffMetadataCollector, SmartFileSystem $smartFileSystem, FileDiffFactory $fileDiffFactory, PrivatesAccessor $privatesAccessor, array $sniffs)
     {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
@@ -77,7 +77,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
             $this->addSniff($sniff);
         }
     }
-    public function addSniff(\PHP_CodeSniffer\Sniffs\Sniff $sniff) : void
+    public function addSniff(Sniff $sniff) : void
     {
         $this->sniffs[] = $sniff;
         $tokens = $sniff->register();
@@ -95,7 +95,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     /**
      * @return array{file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[]}
      */
-    public function processFile(\ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
+    public function processFile(SmartFileInfo $smartFileInfo, Configuration $configuration) : array
     {
         $this->sniffMetadataCollector->reset();
         $errorsAndDiffs = [];
@@ -104,14 +104,14 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
         // add coding standard errors
         $codingStandardErrors = $this->sniffMetadataCollector->getCodingStandardErrors();
         if ($codingStandardErrors !== []) {
-            $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::CODING_STANDARD_ERRORS] = $codingStandardErrors;
+            $errorsAndDiffs[Bridge::CODING_STANDARD_ERRORS] = $codingStandardErrors;
         }
         // add diff
         if ($smartFileInfo->getContents() !== $this->fixer->getContents()) {
             $diff = $this->differ->diff($smartFileInfo->getContents(), $this->fixer->getContents());
             $appliedCheckers = $this->sniffMetadataCollector->getAppliedSniffs();
             $fileDiff = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($smartFileInfo, $diff, $appliedCheckers);
-            $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::FILE_DIFFS][] = $fileDiff;
+            $errorsAndDiffs[Bridge::FILE_DIFFS][] = $fileDiff;
         }
         if ($configuration->isFixer()) {
             $this->smartFileSystem->dumpFile($file->getFilename(), $this->fixer->getContents());
@@ -121,7 +121,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     /**
      * For tests or printing contenet
      */
-    public function processFileToString(\ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function processFileToString(SmartFileInfo $smartFileInfo) : string
     {
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
         $this->fixFile($file, $this->fixer, $smartFileInfo, $this->tokenListeners);
@@ -129,13 +129,13 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
     }
     private function addCompatibilityLayer() : void
     {
-        if (!\defined('PHP_CODESNIFFER_VERBOSITY')) {
+        if (!\defined('ECSPrefix20220607\\PHP_CODESNIFFER_VERBOSITY')) {
             // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
             if (!\defined('T_MATCH')) {
                 \define('T_MATCH', 5000);
             }
-            \define('PHP_CODESNIFFER_VERBOSITY', 0);
-            new \PHP_CodeSniffer\Util\Tokens();
+            \define('ECSPrefix20220607\\PHP_CODESNIFFER_VERBOSITY', 0);
+            new Tokens();
         }
     }
     /**
@@ -145,7 +145,7 @@ final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\
      *
      * @param array<int|string, Sniff[]> $tokenListeners
      */
-    private function fixFile(\Symplify\EasyCodingStandard\SniffRunner\ValueObject\File $file, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $tokenListeners) : void
+    private function fixFile(File $file, Fixer $fixer, SmartFileInfo $smartFileInfo, array $tokenListeners) : void
     {
         $previousContent = $smartFileInfo->getContents();
         $this->fixer->loops = 0;

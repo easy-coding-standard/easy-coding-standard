@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\PHPUnit;
 
 use PHPUnit\Framework\TestCase;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface;
-use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
-use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use Symplify\EasyCodingStandard\ValueObject\Configuration;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix20220607\Symplify\EasyTesting\StaticFixtureSplitter;
 use ECSPrefix20220607\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
@@ -21,7 +21,7 @@ $scoperAutoloadFilePath = __DIR__ . '/../../../vendor/scoper-autoload.php';
 if (\file_exists($scoperAutoloadFilePath)) {
     require_once $scoperAutoloadFilePath;
 }
-abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase implements \Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface
+abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareInterface
 {
     /**
      * @var string[]
@@ -41,19 +41,19 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
         $this->autoloadCodeSniffer();
         $configs = $this->getValidatedConfigs();
         $container = $this->bootContainerWithConfigs($configs);
-        $this->fixerFileProcessor = $container->get(\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::class);
-        $this->sniffFileProcessor = $container->get(\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor::class);
+        $this->fixerFileProcessor = $container->get(FixerFileProcessor::class);
+        $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
     }
-    protected function doTestFileInfo(\ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    protected function doTestFileInfo(SmartFileInfo $fileInfo) : void
     {
-        $staticFixtureSplitter = new \ECSPrefix20220607\Symplify\EasyTesting\StaticFixtureSplitter();
+        $staticFixtureSplitter = new StaticFixtureSplitter();
         $inputFileInfoAndExpectedFileInfo = $staticFixtureSplitter->splitFileInfoToLocalInputAndExpectedFileInfos($fileInfo);
         $this->doTestWrongToFixedFile($inputFileInfoAndExpectedFileInfo->getInputFileInfo(), $inputFileInfoAndExpectedFileInfo->getExpectedFileInfoRealPath(), $fileInfo);
     }
     /**
      * File should stay the same and contain 0 errors
      */
-    protected function doTestCorrectFileInfo(\ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    protected function doTestCorrectFileInfo(SmartFileInfo $fileInfo) : void
     {
         $this->ensureSomeCheckersAreRegistered();
         if ($this->fixerFileProcessor->getCheckers() !== []) {
@@ -67,17 +67,17 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
             $this->assertStringEqualsWithFileLocation($fileInfo->getRealPath(), $processedFileContent, $fileInfo);
         }
     }
-    protected function doTestFileInfoWithErrorCountOf(\ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $wrongFileInfo, int $expectedErrorCount) : void
+    protected function doTestFileInfoWithErrorCountOf(SmartFileInfo $wrongFileInfo, int $expectedErrorCount) : void
     {
         $this->ensureSomeCheckersAreRegistered();
-        $configuration = new \Symplify\EasyCodingStandard\ValueObject\Configuration();
+        $configuration = new Configuration();
         $errorsAndFileDiffs = $this->sniffFileProcessor->processFile($wrongFileInfo, $configuration);
-        $errors = $errorsAndFileDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::CODING_STANDARD_ERRORS] ?? [];
+        $errors = $errorsAndFileDiffs[Bridge::CODING_STANDARD_ERRORS] ?? [];
         $message = \sprintf('There should be %d errors in "%s" file, but none found.', $expectedErrorCount, $wrongFileInfo->getRealPath());
         $errorCount = \count($errors);
         $this->assertSame($expectedErrorCount, $errorCount, $message);
     }
-    private function doTestWrongToFixedFile(\ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $wrongFileInfo, string $fixedFile, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    private function doTestWrongToFixedFile(SmartFileInfo $wrongFileInfo, string $fixedFile, SmartFileInfo $fixtureFileInfo) : void
     {
         $this->ensureSomeCheckersAreRegistered();
         if ($this->fixerFileProcessor->getCheckers() !== []) {
@@ -86,7 +86,7 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
         } elseif ($this->sniffFileProcessor->getCheckers() !== []) {
             $processedFileContent = $this->sniffFileProcessor->processFileToString($wrongFileInfo);
         } else {
-            throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
+            throw new ShouldNotHappenException();
         }
         $this->assertStringEqualsWithFileLocation($fixedFile, $processedFileContent, $fixtureFileInfo);
     }
@@ -106,9 +106,9 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
         if ($totalCheckersLoaded > 0) {
             return;
         }
-        throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException('No checkers were found. Registers them in your config.');
+        throw new ShouldNotHappenException('No checkers were found. Registers them in your config.');
     }
-    private function assertStringEqualsWithFileLocation(string $file, string $processedFileContent, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    private function assertStringEqualsWithFileLocation(string $file, string $processedFileContent, SmartFileInfo $fixtureFileInfo) : void
     {
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
         $this->assertStringEqualsFile($file, $processedFileContent, $relativeFilePathFromCwd);
@@ -119,18 +119,18 @@ abstract class AbstractCheckerTestCase extends \PHPUnit\Framework\TestCase imple
     private function getValidatedConfigs() : array
     {
         $config = $this->provideConfig();
-        $fileSystemGuard = new \ECSPrefix20220607\Symplify\SmartFileSystem\FileSystemGuard();
+        $fileSystemGuard = new FileSystemGuard();
         $fileSystemGuard->ensureFileExists($config, static::class);
         return [$config];
     }
     /**
      * @param string[] $configs
      */
-    private function bootContainerWithConfigs(array $configs) : \ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface
+    private function bootContainerWithConfigs(array $configs) : ContainerInterface
     {
-        \ECSPrefix20220607\Webmozart\Assert\Assert::allString($configs);
-        \ECSPrefix20220607\Webmozart\Assert\Assert::allFile($configs);
-        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel();
+        Assert::allString($configs);
+        Assert::allFile($configs);
+        $easyCodingStandardKernel = new EasyCodingStandardKernel();
         return $easyCodingStandardKernel->createFromConfigs($configs);
     }
 }

@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
-class MemberVarScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
+class MemberVarScopeSniff extends AbstractVariableSniff
 {
     /**
      * Processes the function tokens within the class.
@@ -21,7 +21,7 @@ class MemberVarScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      *
      * @return void
      */
-    protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processMemberVar(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $properties = $phpcsFile->getMemberProperties($stackPtr);
@@ -41,7 +41,7 @@ class MemberVarScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      *
      * @return void
      */
-    protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processVariable(File $phpcsFile, $stackPtr)
     {
         /*
             We don't care about normal variables.
@@ -56,7 +56,7 @@ class MemberVarScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      *
      * @return void
      */
-    protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processVariableInString(File $phpcsFile, $stackPtr)
     {
         /*
             We don't care about normal variables.

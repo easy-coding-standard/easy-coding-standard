@@ -21,14 +21,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-final class SimplifiedNullReturnFixer extends \PhpCsFixer\AbstractFixer
+final class SimplifiedNullReturnFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('A return statement wishing to return `void` should not return `null`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php return null;\n"), new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
+        return new FixerDefinition('A return statement wishing to return `void` should not return `null`.', [new CodeSample("<?php return null;\n"), new CodeSample(<<<'EOT'
 <?php
 
 namespace ECSPrefix20220607;
@@ -65,14 +65,14 @@ EOT
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_RETURN);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_RETURN)) {
@@ -86,7 +86,7 @@ EOT
     /**
      * Clear the return statement located at a given index.
      */
-    private function clear(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function clear(Tokens $tokens, int $index) : void
     {
         while (!$tokens[++$index]->equals(';')) {
             if ($this->shouldClearToken($tokens, $index)) {
@@ -97,7 +97,7 @@ EOT
     /**
      * Does the return statement located at a given index need fixing?
      */
-    private function needFixing(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function needFixing(Tokens $tokens, int $index) : bool
     {
         if ($this->isStrictOrNullableReturnTypeFunction($tokens, $index)) {
             return \false;
@@ -116,7 +116,7 @@ EOT
      *
      * @param int $returnIndex Current return token index
      */
-    private function isStrictOrNullableReturnTypeFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $returnIndex) : bool
+    private function isStrictOrNullableReturnTypeFunction(Tokens $tokens, int $returnIndex) : bool
     {
         $functionIndex = $returnIndex;
         do {
@@ -125,11 +125,11 @@ EOT
                 return \false;
             }
             $openingCurlyBraceIndex = $tokens->getNextTokenOfKind($functionIndex, ['{']);
-            $closingCurlyBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $openingCurlyBraceIndex);
+            $closingCurlyBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $openingCurlyBraceIndex);
         } while ($closingCurlyBraceIndex < $returnIndex);
         $possibleVoidIndex = $tokens->getPrevMeaningfulToken($openingCurlyBraceIndex);
         $isStrictReturnType = $tokens[$possibleVoidIndex]->isGivenKind(\T_STRING) && 'void' !== $tokens[$possibleVoidIndex]->getContent();
-        $nullableTypeIndex = $tokens->getNextTokenOfKind($functionIndex, [[\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE]]);
+        $nullableTypeIndex = $tokens->getNextTokenOfKind($functionIndex, [[CT::T_NULLABLE_TYPE]]);
         $isNullableReturnType = null !== $nullableTypeIndex && $nullableTypeIndex < $openingCurlyBraceIndex;
         return $isStrictReturnType || $isNullableReturnType;
     }
@@ -139,7 +139,7 @@ EOT
      * If the token is a comment, or is whitespace that is immediately before a
      * comment, then we'll leave it alone.
      */
-    private function shouldClearToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function shouldClearToken(Tokens $tokens, int $index) : bool
     {
         $token = $tokens[$index];
         return !$token->isComment() && !($token->isWhitespace() && $tokens[$index + 1]->isComment());

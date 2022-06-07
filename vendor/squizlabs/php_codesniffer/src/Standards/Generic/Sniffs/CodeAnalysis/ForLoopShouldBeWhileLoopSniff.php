@@ -25,7 +25,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ForLoopShouldBeWhileLoopSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ForLoopShouldBeWhileLoopSniff implements Sniff
 {
     /**
      * Registers the tokens that this sniff wants to listen for.
@@ -46,7 +46,7 @@ class ForLoopShouldBeWhileLoopSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $token = $tokens[$stackPtr];
@@ -63,7 +63,7 @@ class ForLoopShouldBeWhileLoopSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if ($code === T_SEMICOLON) {
                 ++$index;
             } else {
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \false) {
+                if (isset(Tokens::$emptyTokens[$code]) === \false) {
                     ++$parts[$index];
                 }
             }

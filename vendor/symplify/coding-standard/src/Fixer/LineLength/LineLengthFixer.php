@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\Fixer\LineLength;
+namespace ECSPrefix20220607\Symplify\CodingStandard\Fixer\LineLength;
 
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
@@ -11,14 +11,14 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
-use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
-use Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher;
-use Symplify\CodingStandard\TokenAnalyzer\HeredocAnalyzer;
-use Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
-use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
-use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\HeredocAnalyzer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use ECSPrefix20220607\Symplify\PackageBuilder\ValueObject\MethodName;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
@@ -29,7 +29,7 @@ use ECSPrefix20220607\Symplify\SymplifyKernel\Exception\ShouldNotHappenException
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\LineLengthFixerTest
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\ConfiguredLineLengthFixerTest
  */
-final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface, \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class LineLengthFixer extends AbstractSymplifyFixer implements ConfigurableRuleInterface, ConfigurableFixerInterface, DocumentedRuleInterface
 {
     /**
      * @api
@@ -90,7 +90,7 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
      * @var \Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer|null
      */
     private $standaloneLineConstructorParamFixer;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer $lineLengthTransformer, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher $functionCallNameMatcher, \Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver $methodNameResolver, \Symplify\CodingStandard\TokenAnalyzer\HeredocAnalyzer $heredocAnalyzer, ?\Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer $standaloneLineConstructorParamFixer = null)
+    public function __construct(LineLengthTransformer $lineLengthTransformer, BlockFinder $blockFinder, FunctionCallNameMatcher $functionCallNameMatcher, MethodNameResolver $methodNameResolver, HeredocAnalyzer $heredocAnalyzer, ?StandaloneLineConstructorParamFixer $standaloneLineConstructorParamFixer = null)
     {
         $this->lineLengthTransformer = $lineLengthTransformer;
         $this->blockFinder = $blockFinder;
@@ -99,26 +99,26 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
         $this->heredocAnalyzer = $heredocAnalyzer;
         $this->standaloneLineConstructorParamFixer = $standaloneLineConstructorParamFixer;
     }
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
+        return new FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([
             // "["
             \T_ARRAY,
             // "array"()
-            \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN,
+            CT::T_ARRAY_SQUARE_BRACE_OPEN,
             '(',
             ')',
             // "function"
             \T_FUNCTION,
             // "use" (...)
-            \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA,
+            CT::T_USE_LAMBDA,
             // "new"
             \T_NEW,
             // "#["
@@ -128,7 +128,7 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
     /**
      * @param Tokens<Token> $tokens
      */
-    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    public function fix(SplFileInfo $fileInfo, Tokens $tokens) : void
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -139,12 +139,12 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
                 continue;
             }
             // opener
-            if ($token->isGivenKind([\T_ATTRIBUTE, \T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_NEW])) {
+            if ($token->isGivenKind([\T_ATTRIBUTE, \T_FUNCTION, CT::T_USE_LAMBDA, \T_NEW])) {
                 $this->processFunctionOrArray($tokens, $position);
                 continue;
             }
             // closer
-            if (!$token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
+            if (!$token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
                 continue;
             }
             if (!$token->isArray()) {
@@ -153,9 +153,9 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
             $this->processFunctionOrArray($tokens, $position);
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : RuleDefinition
     {
-        return new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(self::ERROR_MESSAGE, [new ConfiguredCodeSample(<<<'CODE_SAMPLE'
 function some($veryLong, $superLong, $oneMoreTime)
 {
 }
@@ -197,21 +197,21 @@ CODE_SAMPLE
         $this->breakLongLines = $configuration[self::BREAK_LONG_LINES] ?? \true;
         $this->inlineShortLines = $configuration[self::INLINE_SHORT_LINES] ?? \true;
     }
-    public function getConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    public function getConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        throw new \ECSPrefix20220607\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        throw new ShouldNotHappenException();
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    private function processMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : void
+    private function processMethodCall(Tokens $tokens, int $position) : void
     {
         $methodNamePosition = $this->functionCallNameMatcher->matchName($tokens, $position);
         if ($methodNamePosition === null) {
             return;
         }
         $blockInfo = $this->blockFinder->findInTokensByPositionAndContent($tokens, $methodNamePosition, '(');
-        if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
+        if (!$blockInfo instanceof BlockInfo) {
             return;
         }
         // has comments => dangerous to change: https://github.com/symplify/symplify/issues/973
@@ -224,14 +224,14 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    private function processFunctionOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : void
+    private function processFunctionOrArray(Tokens $tokens, int $position) : void
     {
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
-        if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
+        if (!$blockInfo instanceof BlockInfo) {
             return;
         }
         // @todo is __construct() class method and is newline parma enabled? → skip it
-        if ($this->standaloneLineConstructorParamFixer && $this->methodNameResolver->isMethodName($tokens, $position, \ECSPrefix20220607\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR)) {
+        if ($this->standaloneLineConstructorParamFixer && $this->methodNameResolver->isMethodName($tokens, $position, MethodName::CONSTRUCTOR)) {
             return;
         }
         if ($this->shouldSkip($tokens, $blockInfo)) {
@@ -242,7 +242,7 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    private function shouldSkip(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
+    private function shouldSkip(Tokens $tokens, BlockInfo $blockInfo) : bool
     {
         // no items inside => skip
         if ($blockInfo->getEnd() - $blockInfo->getStart() <= 1) {

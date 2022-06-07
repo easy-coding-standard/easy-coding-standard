@@ -22,21 +22,21 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class BacktickToShellExecFixer extends \PhpCsFixer\AbstractFixer
+final class BacktickToShellExecFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('`');
     }
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts backtick operators to `shell_exec` calls.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
+        return new FixerDefinition('Converts backtick operators to `shell_exec` calls.', [new CodeSample(<<<'EOT'
 <?php
 
 namespace ECSPrefix20220607;
@@ -59,7 +59,7 @@ EOT
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $backtickStarted = \false;
         $backtickTokens = [];
@@ -84,7 +84,7 @@ EOT
      *
      * @param array<int, Token> $backtickTokens
      */
-    private function fixBackticks(\PhpCsFixer\Tokenizer\Tokens $tokens, array $backtickTokens) : void
+    private function fixBackticks(Tokens $tokens, array $backtickTokens) : void
     {
         // Track indices for final override
         \ksort($backtickTokens);
@@ -97,9 +97,9 @@ EOT
         // Double-quoted strings are parsed differently if they contain
         // variables or not, so we need to build the new token array accordingly
         $count = \count($backtickTokens);
-        $newTokens = [new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'shell_exec']), new \PhpCsFixer\Tokenizer\Token('(')];
+        $newTokens = [new Token([\T_STRING, 'shell_exec']), new Token('(')];
         if (1 !== $count) {
-            $newTokens[] = new \PhpCsFixer\Tokenizer\Token('"');
+            $newTokens[] = new Token('"');
         }
         foreach ($backtickTokens as $token) {
             if (!$token->isGivenKind(\T_ENCAPSED_AND_WHITESPACE)) {
@@ -108,7 +108,7 @@ EOT
             }
             $content = $token->getContent();
             // Escaping special chars depends on the context: too tricky
-            if (\PhpCsFixer\Preg::match('/[`"\']/u', $content)) {
+            if (Preg::match('/[`"\']/u', $content)) {
                 return;
             }
             $kind = \T_ENCAPSED_AND_WHITESPACE;
@@ -116,12 +116,12 @@ EOT
                 $content = '"' . $content . '"';
                 $kind = \T_CONSTANT_ENCAPSED_STRING;
             }
-            $newTokens[] = new \PhpCsFixer\Tokenizer\Token([$kind, $content]);
+            $newTokens[] = new Token([$kind, $content]);
         }
         if (1 !== $count) {
-            $newTokens[] = new \PhpCsFixer\Tokenizer\Token('"');
+            $newTokens[] = new Token('"');
         }
-        $newTokens[] = new \PhpCsFixer\Tokenizer\Token(')');
+        $newTokens[] = new Token(')');
         $tokens->overrideRange($openingBacktickIndex, $closingBacktickIndex, $newTokens);
     }
 }

@@ -19,14 +19,14 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class NativeFunctionCasingFixer extends \PhpCsFixer\AbstractFixer
+final class NativeFunctionCasingFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Function defined by PHP should be called using the correct casing.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nSTRLEN(\$str);\n")]);
+        return new FixerDefinition('Function defined by PHP should be called using the correct casing.', [new CodeSample("<?php\nSTRLEN(\$str);\n")]);
     }
     /**
      * {@inheritdoc}
@@ -40,16 +40,16 @@ final class NativeFunctionCasingFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         static $nativeFunctionNames = null;
         if (null === $nativeFunctionNames) {
             $nativeFunctionNames = $this->getNativeFunctionNames();
@@ -64,7 +64,7 @@ final class NativeFunctionCasingFixer extends \PhpCsFixer\AbstractFixer
             if (!\array_key_exists($lower, $nativeFunctionNames)) {
                 continue;
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $nativeFunctionNames[$lower]]);
+            $tokens[$index] = new Token([\T_STRING, $nativeFunctionNames[$lower]]);
         }
     }
     /**

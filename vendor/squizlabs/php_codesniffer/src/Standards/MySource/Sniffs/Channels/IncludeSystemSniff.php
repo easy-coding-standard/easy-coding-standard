@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\Channels;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-class IncludeSystemSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
+class IncludeSystemSniff extends AbstractScopeSniff
 {
     /**
      * A list of classes that don't need to be included.
@@ -37,7 +37,7 @@ class IncludeSystemSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine the name of the class that the static function
@@ -162,7 +162,7 @@ class IncludeSystemSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === \T_EXTENDS) {
@@ -238,7 +238,7 @@ class IncludeSystemSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return string
      */
-    protected function getIncludedClassFromToken(\PHP_CodeSniffer\Files\File $phpcsFile, array $tokens, $stackPtr)
+    protected function getIncludedClassFromToken(File $phpcsFile, array $tokens, $stackPtr)
     {
         if (\strtolower($tokens[$stackPtr]['content']) === 'includesystem') {
             $systemName = $phpcsFile->findNext(\T_CONSTANT_ENCAPSED_STRING, $stackPtr + 1);
@@ -250,7 +250,7 @@ class IncludeSystemSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
                 $typeName = \trim($tokens[$typeName]['content'], " '");
                 return \strtolower($typeName) . 'assettype';
             } else {
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$includeTokens[$tokens[$stackPtr]['code']]) === \true) {
+                if (isset(Tokens::$includeTokens[$tokens[$stackPtr]['code']]) === \true) {
                     $filePath = $phpcsFile->findNext(\T_CONSTANT_ENCAPSED_STRING, $stackPtr + 1);
                     $filePath = $tokens[$filePath]['content'];
                     $filePath = \trim($filePath, " '");

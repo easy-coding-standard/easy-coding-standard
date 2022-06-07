@@ -15,7 +15,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
-class ConstructorNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
+class ConstructorNameSniff extends AbstractScopeSniff
 {
     /**
      * The name of the class we are currently checking.
@@ -47,7 +47,7 @@ class ConstructorNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
@@ -107,7 +107,7 @@ class ConstructorNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
     }
     //end processTokenOutsideScope()
@@ -119,7 +119,7 @@ class ConstructorNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function loadFunctionNamesInScope(\PHP_CodeSniffer\Files\File $phpcsFile, $currScope)
+    protected function loadFunctionNamesInScope(File $phpcsFile, $currScope)
     {
         $this->functionList = [];
         $tokens = $phpcsFile->getTokens();

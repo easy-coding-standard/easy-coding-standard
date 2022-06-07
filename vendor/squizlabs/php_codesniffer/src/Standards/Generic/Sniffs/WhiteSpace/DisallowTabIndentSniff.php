@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class DisallowTabIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DisallowTabIndentSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -44,7 +44,7 @@ class DisallowTabIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         if ($this->tabWidth === null) {
             if (isset($phpcsFile->config->tabWidth) === \false || $phpcsFile->config->tabWidth === 0) {

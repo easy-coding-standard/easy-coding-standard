@@ -28,7 +28,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpUnitExpectationFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class PhpUnitExpectationFixer extends AbstractPhpUnitFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * @var array<string, string>
@@ -52,9 +52,9 @@ final class PhpUnitExpectationFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFix
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Usages of `->setExpectedException*` methods MUST be replaced by `->expectException*` methods.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Usages of `->setExpectedException*` methods MUST be replaced by `->expectException*` methods.', [new CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
 {
     public function testFoo()
@@ -69,7 +69,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         bar();
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
 {
     public function testFoo()
@@ -84,7 +84,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         bar();
     }
 }
-', ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_8_4]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_8_4]), new CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
 {
     public function testFoo()
@@ -99,7 +99,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         bar();
     }
 }
-', ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6]), new CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
 {
     public function testFoo()
@@ -135,22 +135,22 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_2, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_8_4, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_2, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_8_4, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    protected function applyPhpUnitClassFix(Tokens $tokens, int $startIndex, int $endIndex) : void
     {
-        foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperator) {
+        foreach (Token::getObjectOperatorKinds() as $objectOperator) {
             $this->applyPhpUnitClassFixWithObjectOperator($tokens, $startIndex, $endIndex, $objectOperator);
         }
     }
-    private function applyPhpUnitClassFixWithObjectOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, int $objectOperator) : void
+    private function applyPhpUnitClassFixWithObjectOperator(Tokens $tokens, int $startIndex, int $endIndex, int $objectOperator) : void
     {
-        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
+        $argumentsAnalyzer = new ArgumentsAnalyzer();
         $oldMethodSequence = [[\T_VARIABLE, '$this'], [$objectOperator], [\T_STRING]];
         for ($index = $startIndex; $startIndex < $endIndex; ++$index) {
             $match = $tokens->findSequence($oldMethodSequence, $index);
@@ -162,7 +162,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
                 continue;
             }
             $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
-            $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+            $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
             $commaIndex = $tokens->getPrevMeaningfulToken($closeIndex);
             if ($tokens[$commaIndex]->equals(',')) {
                 $tokens->removeTrailingWhitespace($commaIndex);
@@ -171,7 +171,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $arguments = $argumentsAnalyzer->getArguments($tokens, $openIndex, $closeIndex);
             $argumentsCnt = \count($arguments);
             $argumentsReplacements = ['expectException', $this->methodMap[$tokens[$index]->getContent()], 'expectExceptionCode'];
-            $indent = $this->whitespacesConfig->getLineEnding() . \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $thisIndex);
+            $indent = $this->whitespacesConfig->getLineEnding() . WhitespacesAnalyzer::detectIndent($tokens, $thisIndex);
             $isMultilineWhitespace = \false;
             for ($cnt = $argumentsCnt - 1; $cnt >= 1; --$cnt) {
                 $argStart = \array_keys($arguments)[$cnt];
@@ -189,11 +189,11 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
                     }
                 }
                 $isMultilineWhitespace = $isMultilineWhitespace || $tokens[$argStart]->isWhitespace() && !$tokens[$argStart]->isWhitespace(" \t");
-                $tokensOverrideArgStart = [new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $indent]), new \PhpCsFixer\Tokenizer\Token([\T_VARIABLE, '$this']), new \PhpCsFixer\Tokenizer\Token([\T_OBJECT_OPERATOR, '->']), new \PhpCsFixer\Tokenizer\Token([\T_STRING, $argumentsReplacements[$cnt]]), new \PhpCsFixer\Tokenizer\Token('(')];
-                $tokensOverrideArgBefore = [new \PhpCsFixer\Tokenizer\Token(')'), new \PhpCsFixer\Tokenizer\Token(';')];
+                $tokensOverrideArgStart = [new Token([\T_WHITESPACE, $indent]), new Token([\T_VARIABLE, '$this']), new Token([\T_OBJECT_OPERATOR, '->']), new Token([\T_STRING, $argumentsReplacements[$cnt]]), new Token('(')];
+                $tokensOverrideArgBefore = [new Token(')'), new Token(';')];
                 if ($isMultilineWhitespace) {
-                    $tokensOverrideArgStart[] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $indent . $this->whitespacesConfig->getIndent()]);
-                    \array_unshift($tokensOverrideArgBefore, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $indent]));
+                    $tokensOverrideArgStart[] = new Token([\T_WHITESPACE, $indent . $this->whitespacesConfig->getIndent()]);
+                    \array_unshift($tokensOverrideArgBefore, new Token([\T_WHITESPACE, $indent]));
                 }
                 if ($tokens[$argStart]->isWhitespace()) {
                     $tokens->overrideRange($argStart, $argStart, $tokensOverrideArgStart);
@@ -206,7 +206,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             if ('expectExceptionMessageRegExp' === $tokens[$index]->getContent()) {
                 $methodName = $this->methodMap[$tokens[$index]->getContent()];
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $methodName]);
+            $tokens[$index] = new Token([\T_STRING, $methodName]);
         }
     }
 }

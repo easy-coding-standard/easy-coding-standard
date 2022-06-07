@@ -15,6 +15,6 @@ namespace ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\ExceptionInterface
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
 }

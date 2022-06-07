@@ -24,7 +24,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class UselessOverridingMethodSniff implements Sniff
 {
     /**
      * Registers the tokens that this sniff wants to listen for.
@@ -45,7 +45,7 @@ class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $token = $tokens[$stackPtr];
@@ -64,7 +64,7 @@ class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $end = --$token['scope_closer'];
         for (; $next <= $end; ++$next) {
             $code = $tokens[$next]['code'];
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \true) {
+            if (isset(Tokens::$emptyTokens[$code]) === \true) {
                 continue;
             } else {
                 if ($code === \T_RETURN) {
@@ -78,19 +78,19 @@ class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
         // Find next non empty token index, should be double colon.
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, null, \true);
         // Skip for invalid code.
         if ($next === \false || $tokens[$next]['code'] !== \T_DOUBLE_COLON) {
             return;
         }
         // Find next non empty token index, should be the function name.
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, null, \true);
         // Skip for invalid code or other method.
         if ($next === \false || $tokens[$next]['content'] !== $methodName) {
             return;
         }
         // Find next non empty token index, should be the open parenthesis.
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, null, \true);
         // Skip for invalid code.
         if ($next === \false || $tokens[$next]['code'] !== T_OPEN_PARENTHESIS) {
             return;
@@ -109,7 +109,7 @@ class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     if ($parenthesisCount === 1 && $code === T_COMMA) {
                         $parameters[] = '';
                     } else {
-                        if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \false) {
+                        if (isset(Tokens::$emptyTokens[$code]) === \false) {
                             $parameters[\count($parameters) - 1] .= $tokens[$next]['content'];
                         }
                     }
@@ -120,7 +120,7 @@ class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
         }
         //end for
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, null, \true);
         if ($next === \false || $tokens[$next]['code'] !== T_SEMICOLON) {
             return;
         }
@@ -128,7 +128,7 @@ class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         for (++$next; $next <= $end; ++$next) {
             $code = $tokens[$next]['code'];
             // Skip for any other content.
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \false) {
+            if (isset(Tokens::$emptyTokens[$code]) === \false) {
                 return;
             }
         }

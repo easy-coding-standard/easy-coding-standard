@@ -18,7 +18,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class WhitespacesAnalyzer
 {
-    public static function detectIndent(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : string
+    public static function detectIndent(Tokens $tokens, int $index) : string
     {
         while (\true) {
             $whitespaceIndex = $tokens->getPrevTokenOfKind($index, [[\T_WHITESPACE]]);

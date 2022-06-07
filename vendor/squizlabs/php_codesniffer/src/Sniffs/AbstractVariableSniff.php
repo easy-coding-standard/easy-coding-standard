@@ -32,7 +32,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      */
     public function __construct()
     {
-        $scopes = \PHP_CodeSniffer\Util\Tokens::$ooScopeTokens;
+        $scopes = Tokens::$ooScopeTokens;
         $listen = [\T_VARIABLE, T_DOUBLE_QUOTED_STRING, T_HEREDOC];
         parent::__construct($scopes, $listen, \true);
     }
@@ -50,7 +50,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected final function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected final function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING || $tokens[$stackPtr]['code'] === T_HEREDOC) {
@@ -67,7 +67,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
         $conditions = \array_reverse($tokens[$stackPtr]['conditions'], \true);
         $inFunction = \false;
         foreach ($conditions as $scope => $code) {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens[$code]) === \true) {
+            if (isset(Tokens::$ooScopeTokens[$code]) === \true) {
                 break;
             }
             if ($code === \T_FUNCTION || $code === T_CLOSURE) {
@@ -86,7 +86,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
             foreach ($tokens[$stackPtr]['nested_parenthesis'] as $opener => $closer) {
                 if (isset($tokens[$opener]['parenthesis_owner']) === \false) {
                     // Check if this is a USE statement for a closure.
-                    $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $opener - 1, null, \true);
+                    $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $opener - 1, null, \true);
                     if ($tokens[$prev]['code'] === \T_USE) {
                         $inFunction = \true;
                         break;
@@ -120,7 +120,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected final function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected final function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // These variables are not member vars.
@@ -149,7 +149,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected abstract function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
+    protected abstract function processMemberVar(File $phpcsFile, $stackPtr);
     /**
      * Called to process normal member vars.
      *
@@ -162,7 +162,7 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected abstract function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
+    protected abstract function processVariable(File $phpcsFile, $stackPtr);
     /**
      * Called to process variables found in double quoted strings or heredocs.
      *
@@ -179,6 +179,6 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    protected abstract function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
+    protected abstract function processVariableInString(File $phpcsFile, $stackPtr);
 }
 //end class

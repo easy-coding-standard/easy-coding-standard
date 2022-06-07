@@ -30,7 +30,7 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptions
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class NativeConstantInvocationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class NativeConstantInvocationFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @var array<string, true>
@@ -43,16 +43,16 @@ final class NativeConstantInvocationFixer extends \PhpCsFixer\AbstractFixer impl
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Add leading `\\` before constant invocation of internal constant to speed up resolving. Constant name match is case-sensitive, except for `null`, `false` and `true`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);\n"), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Add leading `\\` before constant invocation of internal constant to speed up resolving. Constant name match is case-sensitive, except for `null`, `false` and `true`.', [new CodeSample("<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);\n"), new CodeSample('<?php
 namespace space1 {
     echo PHP_VERSION;
 }
 namespace {
     echo M_PI;
 }
-', ['scope' => 'namespaced']), new \PhpCsFixer\FixerDefinition\CodeSample("<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);\n", ['include' => ['MY_CUSTOM_PI']]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);\n", ['fix_built_in' => \false, 'include' => ['MY_CUSTOM_PI']]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);\n", ['exclude' => ['M_PI']])], null, 'Risky when any of the constants are namespaced or overridden.');
+', ['scope' => 'namespaced']), new CodeSample("<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);\n", ['include' => ['MY_CUSTOM_PI']]), new CodeSample("<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);\n", ['fix_built_in' => \false, 'include' => ['MY_CUSTOM_PI']]), new CodeSample("<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);\n", ['exclude' => ['M_PI']])], null, 'Risky when any of the constants are namespaced or overridden.');
     }
     /**
      * {@inheritdoc}
@@ -66,7 +66,7 @@ namespace {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -116,13 +116,13 @@ namespace {
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         if ('all' === $this->configuration['scope']) {
             $this->fixConstantInvocations($tokens, 0, \count($tokens) - 1);
             return;
         }
-        $namespaces = (new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens);
+        $namespaces = (new NamespacesAnalyzer())->getDeclarations($tokens);
         // 'scope' is 'namespaced' here
         /** @var NamespaceAnalysis $namespace */
         foreach (\array_reverse($namespaces) as $namespace) {
@@ -135,28 +135,28 @@ namespace {
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
         $constantChecker = static function (array $value) : bool {
             foreach ($value as $constantName) {
                 if (!\is_string($constantName) || '' === \trim($constantName) || \trim($constantName) !== $constantName) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \get_debug_type($constantName)));
+                    throw new InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \get_debug_type($constantName)));
                 }
             }
             return \true;
         };
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('fix_built_in', 'Whether to fix constants returned by `get_defined_constants`. User constants are not accounted in this list and must be specified in the include one.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('include', 'List of additional constants to fix.'))->setAllowedTypes(['array'])->setAllowedValues([$constantChecker])->setDefault([])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('exclude', 'List of constants to ignore.'))->setAllowedTypes(['array'])->setAllowedValues([$constantChecker])->setDefault(['null', 'false', 'true'])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('scope', 'Only fix constant invocations that are made within a namespace or fix all.'))->setAllowedValues(['all', 'namespaced'])->setDefault('all')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('strict', 'Whether leading `\\` of constant invocation not meant to have it should be removed.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('fix_built_in', 'Whether to fix constants returned by `get_defined_constants`. User constants are not accounted in this list and must be specified in the include one.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new FixerOptionBuilder('include', 'List of additional constants to fix.'))->setAllowedTypes(['array'])->setAllowedValues([$constantChecker])->setDefault([])->getOption(), (new FixerOptionBuilder('exclude', 'List of constants to ignore.'))->setAllowedTypes(['array'])->setAllowedValues([$constantChecker])->setDefault(['null', 'false', 'true'])->getOption(), (new FixerOptionBuilder('scope', 'Only fix constant invocations that are made within a namespace or fix all.'))->setAllowedValues(['all', 'namespaced'])->setDefault('all')->getOption(), (new FixerOptionBuilder('strict', 'Whether leading `\\` of constant invocation not meant to have it should be removed.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-    private function fixConstantInvocations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    private function fixConstantInvocations(Tokens $tokens, int $startIndex, int $endIndex) : void
     {
-        $useDeclarations = (new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
+        $useDeclarations = (new NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
         $useConstantDeclarations = [];
         foreach ($useDeclarations as $use) {
             if ($use->isConstant()) {
                 $useConstantDeclarations[$use->getShortName()] = \true;
             }
         }
-        $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokenAnalyzer = new TokensAnalyzer($tokens);
         for ($index = $endIndex; $index > $startIndex; --$index) {
             $token = $tokens[$index];
             // test if we are at a constant call
@@ -188,7 +188,7 @@ namespace {
             if ($tokens[$prevIndex]->isGivenKind(\T_NS_SEPARATOR)) {
                 continue;
             }
-            $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']));
+            $tokens->insertAt($index, new Token([\T_NS_SEPARATOR, '\\']));
         }
     }
 }

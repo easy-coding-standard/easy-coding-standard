@@ -18,10 +18,10 @@ use PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer;
 use PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
-use Symplify\EasyCodingStandard\Config\ECSConfig;
-return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
-    $ecsConfig->rules([\PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer::class, \PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer::class, \PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer::class, \PhpCsFixer\Fixer\LanguageConstruct\ExplicitIndirectVariableFixer::class, \PhpCsFixer\Fixer\Operator\NewWithBracesFixer::class, \PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer::class, \PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer::class, \PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff::class, \PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer::class, \PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer::class, \PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer::class]);
-    $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer::class, ['elements' => ['const', 'property']]);
-    $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer::class, ['single_line' => \true]);
-    $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer::class, ['equal' => \false, 'identical' => \false, 'less_and_greater' => \false]);
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+return static function (ECSConfig $ecsConfig) : void {
+    $ecsConfig->rules([PhpUnitMethodCasingFixer::class, FunctionToConstantFixer::class, ExplicitStringVariableFixer::class, ExplicitIndirectVariableFixer::class, NewWithBracesFixer::class, StandardizeIncrementFixer::class, SelfAccessorFixer::class, MagicConstantCasingFixer::class, AssignmentInConditionSniff::class, NoUselessElseFixer::class, SingleQuoteFixer::class, OrderedClassElementsFixer::class]);
+    $ecsConfig->ruleWithConfiguration(SingleClassElementPerStatementFixer::class, ['elements' => ['const', 'property']]);
+    $ecsConfig->ruleWithConfiguration(ClassDefinitionFixer::class, ['single_line' => \true]);
+    $ecsConfig->ruleWithConfiguration(YodaStyleFixer::class, ['equal' => \false, 'identical' => \false, 'less_and_greater' => \false]);
 };

@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Operators;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class IncrementDecrementUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class IncrementDecrementUsageSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class IncrementDecrementUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === \T_INC || $tokens[$stackPtr]['code'] === \T_DEC) {
@@ -62,16 +62,16 @@ class IncrementDecrementUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         } else {
             $start = $stackPtr + 2;
         }
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $start, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $start, null, \true);
         if ($next === \false) {
             return;
         }
-        if (isset(\PHP_CodeSniffer\Util\Tokens::$arithmeticTokens[$tokens[$next]['code']]) === \true) {
+        if (isset(Tokens::$arithmeticTokens[$tokens[$next]['code']]) === \true) {
             $error = 'Increment and decrement operators cannot be used in an arithmetic operation';
             $phpcsFile->addError($error, $stackPtr, 'NotAllowed');
             return;
         }
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $start - 3, null, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $start - 3, null, \true);
         if ($prev === \false) {
             return;
         }

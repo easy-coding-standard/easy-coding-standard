@@ -5,7 +5,7 @@ namespace ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject;
 
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
-abstract class AbstractCodeSample implements \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
+abstract class AbstractCodeSample implements CodeSampleInterface
 {
     /**
      * @var non-empty-string
@@ -20,14 +20,14 @@ abstract class AbstractCodeSample implements \ECSPrefix20220607\Symplify\RuleDoc
         $badCode = \trim($badCode);
         $goodCode = \trim($goodCode);
         if ($badCode === '') {
-            throw new \ECSPrefix20220607\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException('Bad sample good code cannot be empty');
+            throw new ShouldNotHappenException('Bad sample good code cannot be empty');
         }
         if ($goodCode === '') {
-            throw new \ECSPrefix20220607\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException('Good sample good code cannot be empty');
+            throw new ShouldNotHappenException('Good sample good code cannot be empty');
         }
         if ($goodCode === $badCode) {
             $errorMessage = \sprintf('Good and bad code cannot be identical: "%s"', $goodCode);
-            throw new \ECSPrefix20220607\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($errorMessage);
+            throw new ShouldNotHappenException($errorMessage);
         }
         $this->goodCode = $goodCode;
         $this->badCode = $badCode;

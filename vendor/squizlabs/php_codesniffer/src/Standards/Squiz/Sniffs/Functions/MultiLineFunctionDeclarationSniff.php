@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions;
 
 use PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions\FunctionDeclarationSniff as PEARFunctionDeclarationSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions\FunctionDeclarationSniff
+class MultiLineFunctionDeclarationSniff extends PEARFunctionDeclarationSniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -48,7 +48,7 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
         foreach ($bracketsToCheck as $stackPtr => $openBracket) {
             // If the first argument is on a new line, this is a multi-line
             // function declaration, even if there is only one argument.
-            $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $openBracket + 1, null, \true);
+            $next = $phpcsFile->findNext(Tokens::$emptyTokens, $openBracket + 1, null, \true);
             if ($tokens[$next]['line'] !== $tokens[$stackPtr]['line']) {
                 return \true;
             }
@@ -57,7 +57,7 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
             while ($tokens[$end]['code'] === T_COMMA) {
                 // If the next bit of code is not on the same line, this is a
                 // multi-line function declaration.
-                $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, $closeBracket, \true);
+                $next = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, $closeBracket, \true);
                 if ($next === \false) {
                     continue 2;
                 }
@@ -68,7 +68,7 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
             }
             // We've reached the last argument, so see if the next content
             // (should be the close bracket) is also on the same line.
-            $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, $closeBracket, \true);
+            $next = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, $closeBracket, \true);
             if ($next !== \false && $tokens[$next]['line'] !== $tokens[$end]['line']) {
                 return \true;
             }
@@ -100,7 +100,7 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
         $prevNonWhiteSpace = $phpcsFile->findPrevious(\T_WHITESPACE, $closingBracket - 1, $openingBracket, \true);
         if ($tokens[$prevNonWhiteSpace]['line'] !== $tokens[$closingBracket]['line']) {
             $error = 'There must not be a newline before the closing parenthesis of a single-line function declaration';
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$prevNonWhiteSpace]['code']]) === \true) {
+            if (isset(Tokens::$emptyTokens[$tokens[$prevNonWhiteSpace]['code']]) === \true) {
                 $phpcsFile->addError($error, $closingBracket, 'CloseBracketNewLine');
             } else {
                 $fix = $phpcsFile->addFixableError($error, $closingBracket, 'CloseBracketNewLine');
@@ -169,7 +169,7 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
         // The open bracket should be the last thing on the line.
         if ($tokens[$openBracket]['line'] !== $tokens[$closeBracket]['line']) {
-            $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $openBracket + 1, null, \true);
+            $next = $phpcsFile->findNext(Tokens::$emptyTokens, $openBracket + 1, null, \true);
             if ($tokens[$next]['line'] === $tokens[$openBracket]['line']) {
                 $error = 'The first parameter of a multi-line ' . $type . ' declaration must be on the line after the opening bracket';
                 $fix = $phpcsFile->addFixableError($error, $next, $errorPrefix . 'FirstParamSpacing');
@@ -208,7 +208,7 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
             if ($tokens[$i]['code'] !== T_COMMA) {
                 continue;
             }
-            $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $i + 1, null, \true);
+            $next = $phpcsFile->findNext(Tokens::$emptyTokens, $i + 1, null, \true);
             if ($tokens[$next]['line'] === $tokens[$i]['line']) {
                 $error = 'Multi-line ' . $type . ' declarations must define one parameter per line';
                 $fix = $phpcsFile->addFixableError($error, $next, $errorPrefix . 'OneParamPerLine');

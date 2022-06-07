@@ -86,7 +86,7 @@ final class Transformers
     private function findBuiltInTransformers() : iterable
     {
         /** @var SplFileInfo $file */
-        foreach (\ECSPrefix20220607\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Transformer') as $file) {
+        foreach (Finder::create()->files()->in(__DIR__ . '/Transformer') as $file) {
             $relativeNamespace = $file->getRelativePath();
             $class = __NAMESPACE__ . '\\Transformer\\' . ($relativeNamespace ? $relativeNamespace . '\\' : '') . $file->getBasename('.php');
             (yield new $class());

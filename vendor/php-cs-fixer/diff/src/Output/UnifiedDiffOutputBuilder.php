@@ -67,7 +67,7 @@ final class UnifiedDiffOutputBuilder extends \PhpCsFixer\Diff\Output\AbstractChu
         if (0 === $diff[$upperLimit - 1][1]) {
             $lc = \substr($diff[$upperLimit - 1][0], -1);
             if ("\n" !== $lc) {
-                \array_splice($diff, $upperLimit, 0, [["\n\\ No newline at end of file\n", \PhpCsFixer\Diff\Differ::NO_LINE_END_EOF_WARNING]]);
+                \array_splice($diff, $upperLimit, 0, [["\n\\ No newline at end of file\n", Differ::NO_LINE_END_EOF_WARNING]]);
             }
         } else {
             // search back for the last `+` and `-` line,
@@ -78,7 +78,7 @@ final class UnifiedDiffOutputBuilder extends \PhpCsFixer\Diff\Output\AbstractChu
                     unset($toFind[$diff[$i][1]]);
                     $lc = \substr($diff[$i][0], -1);
                     if ("\n" !== $lc) {
-                        \array_splice($diff, $i + 1, 0, [["\n\\ No newline at end of file\n", \PhpCsFixer\Diff\Differ::NO_LINE_END_EOF_WARNING]]);
+                        \array_splice($diff, $i + 1, 0, [["\n\\ No newline at end of file\n", Differ::NO_LINE_END_EOF_WARNING]]);
                     }
                     if (!\count($toFind)) {
                         break;
@@ -123,16 +123,16 @@ final class UnifiedDiffOutputBuilder extends \PhpCsFixer\Diff\Output\AbstractChu
                 continue;
             }
             $sameCount = 0;
-            if ($entry[1] === \PhpCsFixer\Diff\Differ::NO_LINE_END_EOF_WARNING) {
+            if ($entry[1] === Differ::NO_LINE_END_EOF_WARNING) {
                 continue;
             }
             if (\false === $hunkCapture) {
                 $hunkCapture = $i;
             }
-            if (\PhpCsFixer\Diff\Differ::ADDED === $entry[1]) {
+            if (Differ::ADDED === $entry[1]) {
                 ++$toRange;
             }
-            if (\PhpCsFixer\Diff\Differ::REMOVED === $entry[1]) {
+            if (Differ::REMOVED === $entry[1]) {
                 ++$fromRange;
             }
         }
@@ -165,13 +165,13 @@ final class UnifiedDiffOutputBuilder extends \PhpCsFixer\Diff\Output\AbstractChu
             \fwrite($output, "@@ @@\n");
         }
         for ($i = $diffStartIndex; $i < $diffEndIndex; ++$i) {
-            if ($diff[$i][1] === \PhpCsFixer\Diff\Differ::ADDED) {
+            if ($diff[$i][1] === Differ::ADDED) {
                 \fwrite($output, '+' . $diff[$i][0]);
-            } elseif ($diff[$i][1] === \PhpCsFixer\Diff\Differ::REMOVED) {
+            } elseif ($diff[$i][1] === Differ::REMOVED) {
                 \fwrite($output, '-' . $diff[$i][0]);
-            } elseif ($diff[$i][1] === \PhpCsFixer\Diff\Differ::OLD) {
+            } elseif ($diff[$i][1] === Differ::OLD) {
                 \fwrite($output, ' ' . $diff[$i][0]);
-            } elseif ($diff[$i][1] === \PhpCsFixer\Diff\Differ::NO_LINE_END_EOF_WARNING) {
+            } elseif ($diff[$i][1] === Differ::NO_LINE_END_EOF_WARNING) {
                 \fwrite($output, "\n");
                 // $diff[$i][0]
             } else {

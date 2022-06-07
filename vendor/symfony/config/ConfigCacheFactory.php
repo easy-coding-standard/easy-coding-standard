@@ -19,7 +19,7 @@ namespace ECSPrefix20220607\Symfony\Component\Config;
  *
  * @author Matthias Pigulla <mp@webfactory.de>
  */
-class ConfigCacheFactory implements \ECSPrefix20220607\Symfony\Component\Config\ConfigCacheFactoryInterface
+class ConfigCacheFactory implements ConfigCacheFactoryInterface
 {
     /**
      * @var bool
@@ -35,9 +35,9 @@ class ConfigCacheFactory implements \ECSPrefix20220607\Symfony\Component\Config\
     /**
      * {@inheritdoc}
      */
-    public function cache(string $file, callable $callback) : \ECSPrefix20220607\Symfony\Component\Config\ConfigCacheInterface
+    public function cache(string $file, callable $callback) : ConfigCacheInterface
     {
-        $cache = new \ECSPrefix20220607\Symfony\Component\Config\ConfigCache($file, $this->debug);
+        $cache = new ConfigCache($file, $this->debug);
         if (!$cache->isFresh()) {
             $callback($cache);
         }

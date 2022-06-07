@@ -14,4 +14,4 @@ interface HtmlStringable
      */
     function __toString() : string;
 }
-\interface_exists(\ECSPrefix20220607\Nette\Utils\IHtmlString::class);
+\interface_exists(Utils\IHtmlString::class);

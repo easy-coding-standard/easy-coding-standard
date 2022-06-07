@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\Formatting;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class MultiLineAssignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class MultiLineAssignmentSniff implements Sniff
 {
     /**
      * The number of spaces code should be indented.
@@ -38,7 +38,7 @@ class MultiLineAssignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Equal sign can't be the last thing on the line.

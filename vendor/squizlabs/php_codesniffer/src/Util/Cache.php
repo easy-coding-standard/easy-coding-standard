@@ -34,7 +34,7 @@ class Cache
      *
      * @return void
      */
-    public static function load(\PHP_CodeSniffer\Ruleset $ruleset, \PHP_CodeSniffer\Config $config)
+    public static function load(Ruleset $ruleset, Config $config)
     {
         // Look at every loaded sniff class so far and use their file contents
         // to generate a hash for the code used during the run.
@@ -44,7 +44,7 @@ class Cache
             echo \PHP_EOL . "\tGenerating loaded file list for code hash" . \PHP_EOL;
         }
         $codeHashFiles = [];
-        $classes = \array_keys(\PHP_CodeSniffer\Autoload::getLoadedClasses());
+        $classes = \array_keys(Autoload::getLoadedClasses());
         \sort($classes);
         $installDir = \dirname(__DIR__);
         $installDirLen = \strlen($installDir);
@@ -120,7 +120,7 @@ class Cache
         // in the cache file name.
         $rulesetHash = \md5(\var_export($ruleset->ignorePatterns, \true) . \var_export($ruleset->includePatterns, \true));
         $phpExtensionsHash = \md5(\var_export(\get_loaded_extensions(), \true));
-        $configData = ['phpVersion' => \PHP_VERSION_ID, 'phpExtensions' => $phpExtensionsHash, 'tabWidth' => $config->tabWidth, 'encoding' => $config->encoding, 'recordErrors' => $config->recordErrors, 'annotations' => $config->annotations, 'configData' => \PHP_CodeSniffer\Config::getAllConfigData(), 'codeHash' => $codeHash, 'rulesetHash' => $rulesetHash];
+        $configData = ['phpVersion' => \PHP_VERSION_ID, 'phpExtensions' => $phpExtensionsHash, 'tabWidth' => $config->tabWidth, 'encoding' => $config->encoding, 'recordErrors' => $config->recordErrors, 'annotations' => $config->annotations, 'configData' => Config::getAllConfigData(), 'codeHash' => $codeHash, 'rulesetHash' => $rulesetHash];
         $configString = \var_export($configData, \true);
         $cacheHash = \substr(\sha1($configString), 0, 12);
         if (PHP_CODESNIFFER_VERBOSITY > 1) {

@@ -15,7 +15,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class SuperfluousWhitespaceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class SuperfluousWhitespaceSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -50,7 +50,7 @@ class SuperfluousWhitespaceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === \T_OPEN_TAG) {

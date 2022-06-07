@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class DisallowMultipleAssignmentsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DisallowMultipleAssignmentsSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class DisallowMultipleAssignmentsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Ignore default value assignments in function definitions.
@@ -59,7 +59,7 @@ class DisallowMultipleAssignmentsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $conditions = $tokens[$stackPtr]['conditions'];
             \end($conditions);
             $deepestScope = \key($conditions);
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens[$tokens[$deepestScope]['code']]) === \true) {
+            if (isset(Tokens::$ooScopeTokens[$tokens[$deepestScope]['code']]) === \true) {
                 return;
             }
         }
@@ -96,7 +96,7 @@ class DisallowMultipleAssignmentsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
         $start = $phpcsFile->findStartOfStatement($varToken);
-        $allowed = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $allowed = Tokens::$emptyTokens;
         $allowed[\T_STRING] = \T_STRING;
         $allowed[\T_NS_SEPARATOR] = \T_NS_SEPARATOR;
         $allowed[\T_DOUBLE_COLON] = \T_DOUBLE_COLON;

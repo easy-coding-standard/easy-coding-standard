@@ -23,7 +23,7 @@ use ECSPrefix20220607\Symfony\Component\Finder\Glob;
  *
  * @implements \IteratorAggregate<string, \SplFileInfo>
  */
-class GlobResource implements \IteratorAggregate, \ECSPrefix20220607\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class GlobResource implements \IteratorAggregate, SelfCheckingResourceInterface
 {
     /**
      * @var string
@@ -80,7 +80,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20220607\Symfony\Com
     }
     public function __toString() : string
     {
-        return 'glob.' . $this->prefix . (int) $this->recursive . $this->pattern . (int) $this->forExclusion . \implode("\0", $this->excludedPrefixes);
+        return 'glob.' . $this->prefix . (int) $this->recursive . $this->pattern . (int) $this->forExclusion . \implode("\x00", $this->excludedPrefixes);
     }
     /**
      * {@inheritdoc}
@@ -161,7 +161,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20220607\Symfony\Com
             }
             return;
         }
-        if (!\class_exists(\ECSPrefix20220607\Symfony\Component\Finder\Finder::class)) {
+        if (!\class_exists(Finder::class)) {
             throw new \LogicException(\sprintf('Extended glob pattern "%s" cannot be used as the Finder component is not installed.', $this->pattern));
         }
         if (\is_file($prefix = $this->prefix)) {
@@ -170,8 +170,8 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20220607\Symfony\Com
         } else {
             $pattern = $this->pattern;
         }
-        $finder = new \ECSPrefix20220607\Symfony\Component\Finder\Finder();
-        $regex = \ECSPrefix20220607\Symfony\Component\Finder\Glob::toRegex($pattern);
+        $finder = new Finder();
+        $regex = Glob::toRegex($pattern);
         if ($this->recursive) {
             $regex = \substr_replace($regex, '(/|$)', -2, 1);
         }

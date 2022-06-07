@@ -16,13 +16,13 @@ use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author marie <marie@users.noreply.github.com>
  */
-final class ConsoleSignalEvent extends \ECSPrefix20220607\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleSignalEvent extends ConsoleEvent
 {
     /**
      * @var int
      */
     private $handlingSignal;
-    public function __construct(\ECSPrefix20220607\Symfony\Component\Console\Command\Command $command, \ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface $output, int $handlingSignal)
+    public function __construct(Command $command, InputInterface $input, OutputInterface $output, int $handlingSignal)
     {
         parent::__construct($command, $input, $output);
         $this->handlingSignal = $handlingSignal;

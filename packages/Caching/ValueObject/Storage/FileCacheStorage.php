@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
 
 use ECSPrefix20220607\Nette\Utils\Random;
-use Symplify\EasyCodingStandard\Caching\Exception\CachingException;
-use Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths;
-use Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\Exception\CachingException;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Inspired by
@@ -22,7 +22,7 @@ final class FileCacheStorage
      * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(string $directory, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(string $directory, SmartFileSystem $smartFileSystem)
     {
         $this->directory = $directory;
         $this->smartFileSystem = $smartFileSystem;
@@ -38,7 +38,7 @@ final class FileCacheStorage
             return null;
         }
         $cacheItem = (require $filePath);
-        if (!$cacheItem instanceof \Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem) {
+        if (!$cacheItem instanceof CacheItem) {
             return null;
         }
         if (!$cacheItem->isVariableKeyValid($variableKey)) {
@@ -54,13 +54,13 @@ final class FileCacheStorage
         $cacheFilePaths = $this->getCacheFilePaths($key);
         $this->smartFileSystem->mkdir($cacheFilePaths->getFirstDirectory());
         $this->smartFileSystem->mkdir($cacheFilePaths->getSecondDirectory());
-        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, \ECSPrefix20220607\Nette\Utils\Random::generate());
+        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, Random::generate());
         $errorBefore = \error_get_last();
-        $exported = @\var_export(new \Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem($variableKey, $data), \true);
+        $exported = @\var_export(new CacheItem($variableKey, $data), \true);
         $errorAfter = \error_get_last();
         if ($errorAfter !== null && $errorBefore !== $errorAfter) {
             $errorMessage = \sprintf('Error occurred while saving item "%s" ("%s") to cache: "%s"', $key, $variableKey, $errorAfter['message']);
-            throw new \Symplify\EasyCodingStandard\Caching\Exception\CachingException($errorMessage);
+            throw new CachingException($errorMessage);
         }
         $variableFileContent = \sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", $exported);
         $this->smartFileSystem->dumpFile($tmpPath, $variableFileContent);
@@ -76,12 +76,12 @@ final class FileCacheStorage
     {
         $this->smartFileSystem->remove($this->directory);
     }
-    private function getCacheFilePaths(string $key) : \Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths
+    private function getCacheFilePaths(string $key) : CacheFilePaths
     {
         $keyHash = \sha1($key);
         $firstDirectory = \sprintf('%s/%s', $this->directory, \substr($keyHash, 0, 2));
         $secondDirectory = \sprintf('%s/%s', $firstDirectory, \substr($keyHash, 2, 2));
         $filePath = \sprintf('%s/%s.php', $secondDirectory, $keyHash);
-        return new \Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths($firstDirectory, $secondDirectory, $filePath);
+        return new CacheFilePaths($firstDirectory, $secondDirectory, $filePath);
     }
 }

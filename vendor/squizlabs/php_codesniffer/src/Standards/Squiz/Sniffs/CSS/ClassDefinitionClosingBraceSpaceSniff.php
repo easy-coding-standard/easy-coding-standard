@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ClassDefinitionClosingBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ClassDefinitionClosingBraceSpaceSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,7 +39,7 @@ class ClassDefinitionClosingBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\S
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $next = $stackPtr;
@@ -48,7 +48,7 @@ class ClassDefinitionClosingBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\S
             if ($next === \false) {
                 return;
             }
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$next]['code']]) === \true && $tokens[$next]['line'] === $tokens[$stackPtr]['line']) {
+            if (isset(Tokens::$emptyTokens[$tokens[$next]['code']]) === \true && $tokens[$next]['line'] === $tokens[$stackPtr]['line']) {
                 // Trailing comment.
                 continue;
             }
@@ -98,7 +98,7 @@ class ClassDefinitionClosingBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\S
         if ($found !== \false) {
             return;
         }
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
         if ($prev === \false) {
             return;
         }

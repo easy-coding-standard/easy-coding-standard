@@ -25,14 +25,14 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Mark Nielsen
  */
-final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
+final class VoidReturnFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Add `void` return type to functions with missing or empty return statements, but priority is given to `@return` annotations. Requires PHP >= 7.1.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction foo(\$a) {};\n")], null, 'Modifies the signature of functions.');
+        return new FixerDefinition('Add `void` return type to functions with missing or empty return statements, but priority is given to `@return` annotations. Requires PHP >= 7.1.', [new CodeSample("<?php\nfunction foo(\$a) {};\n")], null, 'Modifies the signature of functions.');
     }
     /**
      * {@inheritdoc}
@@ -47,7 +47,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_FUNCTION);
     }
@@ -61,7 +61,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         // These cause syntax errors.
         static $excludedFunctions = [[\T_STRING, '__clone'], [\T_STRING, '__construct'], [\T_STRING, '__debugInfo'], [\T_STRING, '__destruct'], [\T_STRING, '__isset'], [\T_STRING, '__serialize'], [\T_STRING, '__set_state'], [\T_STRING, '__sleep'], [\T_STRING, '__toString']];
@@ -87,7 +87,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
             if ($this->hasReturnAnnotation($tokens, $index)) {
                 continue;
             }
-            $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $startIndex);
+            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $startIndex);
             if ($this->hasVoidReturn($tokens, $startIndex, $endIndex)) {
                 $this->fixFunctionDefinition($tokens, $startIndex);
             }
@@ -98,7 +98,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      *
      * @param int $index The index of the function token
      */
-    private function hasReturnAnnotation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function hasReturnAnnotation(Tokens $tokens, int $index) : bool
     {
         foreach ($this->findReturnAnnotations($tokens, $index) as $return) {
             if (['void'] !== $return->getTypes()) {
@@ -112,7 +112,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      *
      * @param int $index The index of the function token
      */
-    private function hasVoidReturnAnnotation(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function hasVoidReturnAnnotation(Tokens $tokens, int $index) : bool
     {
         foreach ($this->findReturnAnnotations($tokens, $index) as $return) {
             if (['void'] === $return->getTypes()) {
@@ -126,11 +126,11 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      *
      * @param int $index The index of the end of the function definition line, EG at { or ;
      */
-    private function hasReturnTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function hasReturnTypeHint(Tokens $tokens, int $index) : bool
     {
         $endFuncIndex = $tokens->getPrevTokenOfKind($index, [')']);
         $nextIndex = $tokens->getNextMeaningfulToken($endFuncIndex);
-        return $tokens[$nextIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON);
+        return $tokens[$nextIndex]->isGivenKind(CT::T_TYPE_COLON);
     }
     /**
      * Determine whether the function has a void return.
@@ -138,13 +138,13 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      * @param int $startIndex Start of function body
      * @param int $endIndex   End of function body
      */
-    private function hasVoidReturn(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : bool
+    private function hasVoidReturn(Tokens $tokens, int $startIndex, int $endIndex) : bool
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         for ($i = $startIndex; $i < $endIndex; ++$i) {
             if ($tokens[$i]->isGivenKind(\T_CLASS) && $tokensAnalyzer->isAnonymousClass($i) || $tokens[$i]->isGivenKind(\T_FUNCTION) && $tokensAnalyzer->isLambda($i)) {
                 $i = $tokens->getNextTokenOfKind($i, ['{']);
-                $i = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
+                $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
                 continue;
             }
             if ($tokens[$i]->isGivenKind([\T_YIELD, \T_YIELD_FROM])) {
@@ -164,10 +164,10 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int $index The index of the end of the function definition line, EG at { or ;
      */
-    private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixFunctionDefinition(Tokens $tokens, int $index) : void
     {
         $endFuncIndex = $tokens->getPrevTokenOfKind($index, [')']);
-        $tokens->insertAt($endFuncIndex + 1, [new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON, ':']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'void'])]);
+        $tokens->insertAt($endFuncIndex + 1, [new Token([CT::T_TYPE_COLON, ':']), new Token([\T_WHITESPACE, ' ']), new Token([\T_STRING, 'void'])]);
     }
     /**
      * Find all the return annotations in the function's PHPDoc comment.
@@ -176,7 +176,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      *
      * @return Annotation[]
      */
-    private function findReturnAnnotations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : array
+    private function findReturnAnnotations(Tokens $tokens, int $index) : array
     {
         do {
             $index = $tokens->getPrevNonWhitespace($index);
@@ -184,7 +184,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
         if (!$tokens[$index]->isGivenKind(\T_DOC_COMMENT)) {
             return [];
         }
-        $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$index]->getContent());
+        $doc = new DocBlock($tokens[$index]->getContent());
         return $doc->getAnnotationsOfType('return');
     }
 }

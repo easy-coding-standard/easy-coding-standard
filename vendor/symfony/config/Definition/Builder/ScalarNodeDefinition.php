@@ -16,13 +16,13 @@ use ECSPrefix20220607\Symfony\Component\Config\Definition\ScalarNode;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ScalarNodeDefinition extends \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition
+class ScalarNodeDefinition extends VariableNodeDefinition
 {
     /**
      * Instantiate a Node.
      */
     protected function instantiateNode() : \ECSPrefix20220607\Symfony\Component\Config\Definition\VariableNode
     {
-        return new \ECSPrefix20220607\Symfony\Component\Config\Definition\ScalarNode($this->name, $this->parent, $this->pathSeparator);
+        return new ScalarNode($this->name, $this->parent, $this->pathSeparator);
     }
 }

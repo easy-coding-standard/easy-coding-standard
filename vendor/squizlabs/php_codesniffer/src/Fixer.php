@@ -100,7 +100,7 @@ class Fixer
      *
      * @return void
      */
-    public function startFile(\PHP_CodeSniffer\Files\File $phpcsFile)
+    public function startFile(File $phpcsFile)
     {
         $this->currentFile = $phpcsFile;
         $this->numFixes = 0;
@@ -237,10 +237,10 @@ class Fixer
             if (isset($line[0]) === \true) {
                 switch ($line[0]) {
                     case '-':
-                        $diff[] = "\33[31m{$line}\33[0m";
+                        $diff[] = "\x1b[31m{$line}\x1b[0m";
                         break;
                     case '+':
-                        $diff[] = "\33[32m{$line}\33[0m";
+                        $diff[] = "\x1b[32m{$line}\x1b[0m";
                         break;
                     default:
                         $diff[] = $line;
@@ -432,11 +432,11 @@ class Fixer
             $tokens = $this->currentFile->getTokens();
             $type = $tokens[$stackPtr]['type'];
             $tokenLine = $tokens[$stackPtr]['line'];
-            $oldContent = \PHP_CodeSniffer\Util\Common::prepareForOutput($this->tokens[$stackPtr]);
-            $newContent = \PHP_CodeSniffer\Util\Common::prepareForOutput($content);
+            $oldContent = Common::prepareForOutput($this->tokens[$stackPtr]);
+            $newContent = Common::prepareForOutput($content);
             if (\trim($this->tokens[$stackPtr]) === '' && isset($this->tokens[$stackPtr + 1]) === \true) {
                 // Add some context for whitespace only changes.
-                $append = \PHP_CodeSniffer\Util\Common::prepareForOutput($this->tokens[$stackPtr + 1]);
+                $append = Common::prepareForOutput($this->tokens[$stackPtr + 1]);
                 $oldContent .= $append;
                 $newContent .= $append;
             }
@@ -524,11 +524,11 @@ class Fixer
             $tokens = $this->currentFile->getTokens();
             $type = $tokens[$stackPtr]['type'];
             $tokenLine = $tokens[$stackPtr]['line'];
-            $oldContent = \PHP_CodeSniffer\Util\Common::prepareForOutput($this->tokens[$stackPtr]);
-            $newContent = \PHP_CodeSniffer\Util\Common::prepareForOutput($this->fixedTokens[$stackPtr]);
+            $oldContent = Common::prepareForOutput($this->tokens[$stackPtr]);
+            $newContent = Common::prepareForOutput($this->fixedTokens[$stackPtr]);
             if (\trim($this->tokens[$stackPtr]) === '' && isset($tokens[$stackPtr + 1]) === \true) {
                 // Add some context for whitespace only changes.
-                $append = \PHP_CodeSniffer\Util\Common::prepareForOutput($this->tokens[$stackPtr + 1]);
+                $append = Common::prepareForOutput($this->tokens[$stackPtr + 1]);
                 $oldContent .= $append;
                 $newContent .= $append;
             }

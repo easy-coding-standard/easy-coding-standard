@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Functions;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class FunctionCallArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FunctionCallArgumentSpacingSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class FunctionCallArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Skip tokens that are the names of functions or classes
@@ -42,7 +42,7 @@ class FunctionCallArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // "myFunction" is T_STRING but we should skip because it is not a
         // function or method *call*.
         $functionName = $stackPtr;
-        $ignoreTokens = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $ignoreTokens = Tokens::$emptyTokens;
         $ignoreTokens[] = T_BITWISE_AND;
         $functionKeyword = $phpcsFile->findPrevious($ignoreTokens, $stackPtr - 1, null, \true);
         if ($tokens[$functionKeyword]['code'] === \T_FUNCTION || $tokens[$functionKeyword]['code'] === \T_CLASS) {
@@ -54,7 +54,7 @@ class FunctionCallArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         // If the next non-whitespace token after the function or method call
         // is not an opening parenthesis then it can't really be a *call*.
-        $openBracket = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $functionName + 1, null, \true);
+        $openBracket = $phpcsFile->findNext(Tokens::$emptyTokens, $functionName + 1, null, \true);
         if ($tokens[$openBracket]['code'] !== T_OPEN_PARENTHESIS) {
             return;
         }
@@ -75,7 +75,7 @@ class FunctionCallArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function checkSpacing(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $openBracket)
+    public function checkSpacing(File $phpcsFile, $stackPtr, $openBracket)
     {
         $tokens = $phpcsFile->getTokens();
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
@@ -102,8 +102,8 @@ class FunctionCallArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
             if ($tokens[$nextSeparator]['code'] === T_COMMA) {
                 if ($tokens[$nextSeparator - 1]['code'] === \T_WHITESPACE) {
-                    $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $nextSeparator - 2, null, \true);
-                    if (isset(\PHP_CodeSniffer\Util\Tokens::$heredocTokens[$tokens[$prev]['code']]) === \false) {
+                    $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $nextSeparator - 2, null, \true);
+                    if (isset(Tokens::$heredocTokens[$tokens[$prev]['code']]) === \false) {
                         $error = 'Space found before comma in argument list';
                         $fix = $phpcsFile->addFixableError($error, $nextSeparator, 'SpaceBeforeComma');
                         if ($fix === \true) {
@@ -129,7 +129,7 @@ class FunctionCallArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 } else {
                     // If there is a newline in the space, then they must be formatting
                     // each argument on a newline, which is valid, so ignore it.
-                    $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $nextSeparator + 1, null, \true);
+                    $next = $phpcsFile->findNext(Tokens::$emptyTokens, $nextSeparator + 1, null, \true);
                     if ($tokens[$next]['line'] === $tokens[$nextSeparator]['line']) {
                         $space = $tokens[$nextSeparator + 1]['length'];
                         if ($space > 1) {

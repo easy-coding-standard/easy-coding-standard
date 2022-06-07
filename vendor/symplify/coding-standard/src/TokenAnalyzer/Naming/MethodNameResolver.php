@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenAnalyzer\Naming;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\Naming;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -12,7 +12,7 @@ final class MethodNameResolver
      * @param Tokens<Token> $tokens
      * @param MethodName::* $desiredMethodName
      */
-    public function isMethodName(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position, string $desiredMethodName) : bool
+    public function isMethodName(Tokens $tokens, int $position, string $desiredMethodName) : bool
     {
         $methodName = $this->getMethodName($tokens, $position);
         if (!\is_string($methodName)) {
@@ -23,7 +23,7 @@ final class MethodNameResolver
     /**
      * @param Tokens<Token> $tokens
      */
-    public function getMethodName(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : ?string
+    public function getMethodName(Tokens $tokens, int $position) : ?string
     {
         /** @var Token $currentToken */
         $currentToken = $tokens[$position];
@@ -31,7 +31,7 @@ final class MethodNameResolver
             return null;
         }
         $nextToken = $this->getNextMeaningfulToken($tokens, $position);
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (!$nextToken instanceof Token) {
             return null;
         }
         return $nextToken->getContent();
@@ -39,7 +39,7 @@ final class MethodNameResolver
     /**
      * @param Tokens<Token> $tokens
      */
-    private function getNextMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?\PhpCsFixer\Tokenizer\Token
+    private function getNextMeaningfulToken(Tokens $tokens, int $index) : ?Token
     {
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($index);
         if ($nextMeaningfulTokenPosition === null) {

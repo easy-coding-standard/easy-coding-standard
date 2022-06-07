@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class LowercasePHPFunctionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class LowercasePHPFunctionsSniff implements Sniff
 {
     /**
      * String -> int hash map of all php built in function names
@@ -48,7 +48,7 @@ class LowercasePHPFunctionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $content = $tokens[$stackPtr]['content'];
@@ -63,15 +63,15 @@ class LowercasePHPFunctionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
         // Make sure this is a function call or a use statement.
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($next === \false) {
             // Not a function call.
             return;
         }
-        $ignore = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $ignore = Tokens::$emptyTokens;
         $ignore[] = T_BITWISE_AND;
         $prev = $phpcsFile->findPrevious($ignore, $stackPtr - 1, null, \true);
-        $prevPrev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prev - 1, null, \true);
+        $prevPrev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prev - 1, null, \true);
         if ($tokens[$next]['code'] !== T_OPEN_PARENTHESIS) {
             // Is this a use statement importing a PHP native function ?
             if ($tokens[$next]['code'] !== \T_NS_SEPARATOR && $tokens[$prev]['code'] === \T_STRING && $tokens[$prev]['content'] === 'function' && $prevPrev !== \false && $tokens[$prevPrev]['code'] === \T_USE) {

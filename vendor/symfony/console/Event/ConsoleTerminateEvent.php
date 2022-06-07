@@ -18,13 +18,13 @@ use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Francesco Levorato <git@flevour.net>
  */
-final class ConsoleTerminateEvent extends \ECSPrefix20220607\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleTerminateEvent extends ConsoleEvent
 {
     /**
      * @var int
      */
     private $exitCode;
-    public function __construct(\ECSPrefix20220607\Symfony\Component\Console\Command\Command $command, \ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface $output, int $exitCode)
+    public function __construct(Command $command, InputInterface $input, OutputInterface $output, int $exitCode)
     {
         parent::__construct($command, $input, $output);
         $this->setExitCode($exitCode);

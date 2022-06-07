@@ -24,14 +24,14 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class FullOpeningTagFixer extends \PhpCsFixer\AbstractFixer
+final class FullOpeningTagFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHP code must use the long `<?php` tags or short-echo `<?=` tags and not other tag variations.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?
+        return new FixerDefinition('PHP code must use the long `<?php` tags or short-echo `<?=` tags and not other tag variations.', [new CodeSample('<?
 
 echo "Hello!";
 ')]);
@@ -47,18 +47,18 @@ echo "Hello!";
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $content = $tokens->generateCode();
         // replace all <? with <?php to replace all short open tags even without short_open_tag option enabled
-        $newContent = \PhpCsFixer\Preg::replace('/<\\?(?:phP|pHp|pHP|Php|PhP|PHp|PHP)?(\\s|$)/', '<?php$1', $content, -1, $count);
+        $newContent = Preg::replace('/<\\?(?:phP|pHp|pHP|Php|PhP|PHp|PHP)?(\\s|$)/', '<?php$1', $content, -1, $count);
         if (!$count) {
             return;
         }
@@ -67,7 +67,7 @@ echo "Hello!";
          * with
          * > echo '<?php ';
          */
-        $newTokens = \PhpCsFixer\Tokenizer\Tokens::fromCode($newContent);
+        $newTokens = Tokens::fromCode($newContent);
         $tokensOldContentLength = 0;
         foreach ($newTokens as $index => $token) {
             if ($token->isGivenKind(\T_OPEN_TAG)) {
@@ -97,7 +97,7 @@ echo "Hello!";
                         }
                     }
                 }
-                $newTokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $tokenContent]);
+                $newTokens[$index] = new Token([$token->getId(), $tokenContent]);
                 $token = $newTokens[$index];
             }
             $tokensOldContentLength += \strlen($token->getContent());

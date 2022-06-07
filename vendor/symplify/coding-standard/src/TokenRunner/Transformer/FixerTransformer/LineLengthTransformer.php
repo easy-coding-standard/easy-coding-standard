@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Enum\LineKind;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Enum\LineKind;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 final class LineLengthTransformer
 {
     /**
@@ -26,7 +26,7 @@ final class LineLengthTransformer
      * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner
      */
     private $tokensNewliner;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthResolver $lineLengthResolver, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensInliner $tokensInliner, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\FirstLineLengthResolver $firstLineLengthResolver, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner $tokensNewliner)
+    public function __construct(LineLengthResolver $lineLengthResolver, TokensInliner $tokensInliner, FirstLineLengthResolver $firstLineLengthResolver, TokensNewliner $tokensNewliner)
     {
         $this->lineLengthResolver = $lineLengthResolver;
         $this->tokensInliner = $tokensInliner;
@@ -36,14 +36,14 @@ final class LineLengthTransformer
     /**
      * @param Tokens<Token> $tokens
      */
-    public function fixStartPositionToEndPosition(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, int $lineLength, bool $breakLongLines, bool $inlineShortLine) : void
+    public function fixStartPositionToEndPosition(BlockInfo $blockInfo, Tokens $tokens, int $lineLength, bool $breakLongLines, bool $inlineShortLine) : void
     {
         if ($this->hasPromotedProperty($tokens, $blockInfo)) {
             return;
         }
         $firstLineLength = $this->firstLineLengthResolver->resolveFromTokensAndStartPosition($tokens, $blockInfo);
         if ($firstLineLength > $lineLength && $breakLongLines) {
-            $this->tokensNewliner->breakItems($blockInfo, $tokens, \Symplify\CodingStandard\TokenRunner\Enum\LineKind::CALLS);
+            $this->tokensNewliner->breakItems($blockInfo, $tokens, LineKind::CALLS);
             return;
         }
         $fullLineLength = $this->lineLengthResolver->getLengthFromStartEnd($tokens, $blockInfo);
@@ -58,9 +58,9 @@ final class LineLengthTransformer
     /**
      * @param Tokens<Token> $tokens
      */
-    private function hasPromotedProperty(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
+    private function hasPromotedProperty(Tokens $tokens, BlockInfo $blockInfo) : bool
     {
-        $resultByKind = $tokens->findGivenKind([\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE], $blockInfo->getStart(), $blockInfo->getEnd());
+        $resultByKind = $tokens->findGivenKind([CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE], $blockInfo->getStart(), $blockInfo->getEnd());
         return (bool) \array_filter($resultByKind);
     }
 }

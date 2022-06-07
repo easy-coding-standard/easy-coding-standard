@@ -10,6 +10,6 @@
  */
 namespace ECSPrefix20220607\Symfony\Component\String\Exception;
 
-class RuntimeException extends \RuntimeException implements \ECSPrefix20220607\Symfony\Component\String\Exception\ExceptionInterface
+class RuntimeException extends \RuntimeException implements ExceptionInterface
 {
 }

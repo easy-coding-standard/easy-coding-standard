@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class GitMergeConflictSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class GitMergeConflictSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -38,7 +38,7 @@ class GitMergeConflictSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $error = 'Merge conflict boundary found; type: %s';

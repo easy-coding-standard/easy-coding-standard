@@ -20,19 +20,19 @@ use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
+final class ArrayPushFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts simple usages of `array_push($x, $y);` to `$x[] = $y;`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\narray_push(\$x, \$y);\n")], null, 'Risky when the function `array_push` is overridden.');
+        return new FixerDefinition('Converts simple usages of `array_push($x, $y);` to `$x[] = $y;`.', [new CodeSample("<?php\narray_push(\$x, \$y);\n")], null, 'Risky when the function `array_push` is overridden.');
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING) && $tokens->count() > 7;
     }
@@ -43,9 +43,9 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
     {
         return \true;
     }
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         for ($index = $tokens->count() - 7; $index > 0; --$index) {
             if (!$tokens[$index]->equals([\T_STRING, 'array_push'], \false)) {
                 continue;
@@ -67,12 +67,12 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
             }
             // figure out where the arguments list opens
             $openBraceIndex = $tokens->getNextMeaningfulToken($callIndex);
-            $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$openBraceIndex]);
-            if (null === $blockType || \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE !== $blockType['type']) {
+            $blockType = Tokens::detectBlockType($tokens[$openBraceIndex]);
+            if (null === $blockType || Tokens::BLOCK_TYPE_PARENTHESIS_BRACE !== $blockType['type']) {
                 continue;
             }
             // figure out where the arguments list closes
-            $closeBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openBraceIndex);
+            $closeBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openBraceIndex);
             // meaningful after `)` must be `;`, `? >` or nothing
             $afterCloseBraceIndex = $tokens->getNextMeaningfulToken($closeBraceIndex);
             if (null !== $afterCloseBraceIndex && !$tokens[$afterCloseBraceIndex]->equalsAny([';', [\T_CLOSE_TAG]])) {
@@ -97,7 +97,7 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
             // candidate is valid, replace tokens
             $tokens->clearTokenAndMergeSurroundingWhitespace($closeBraceIndex);
             $tokens->clearTokenAndMergeSurroundingWhitespace($firstArgumentStop);
-            $tokens->insertAt($firstArgumentStop, [new \PhpCsFixer\Tokenizer\Token('['), new \PhpCsFixer\Tokenizer\Token(']'), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token('=')]);
+            $tokens->insertAt($firstArgumentStop, [new Token('['), new Token(']'), new Token([\T_WHITESPACE, ' ']), new Token('=')]);
             $tokens->clearTokenAndMergeSurroundingWhitespace($openBraceIndex);
             $tokens->clearTokenAndMergeSurroundingWhitespace($callIndex);
             if (null !== $namespaceSeparatorIndex) {
@@ -105,12 +105,12 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
             }
         }
     }
-    private function getFirstArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
+    private function getFirstArgumentEnd(Tokens $tokens, int $index) : int
     {
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         $nextToken = $tokens[$nextIndex];
-        while ($nextToken->equalsAny(['$', '[', '(', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN], [\PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {
-            $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($nextToken);
+        while ($nextToken->equalsAny(['$', '[', '(', [CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN], [CT::T_DYNAMIC_PROP_BRACE_OPEN], [CT::T_DYNAMIC_VAR_BRACE_OPEN], [CT::T_NAMESPACE_OPERATOR], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {
+            $blockType = Tokens::detectBlockType($nextToken);
             if (null !== $blockType) {
                 $nextIndex = $tokens->findBlockEnd($blockType['type'], $nextIndex);
             }
@@ -129,18 +129,18 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int $endIndex boundary, i.e. tokens index of `)`
      */
-    private function getSecondArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $endIndex) : ?int
+    private function getSecondArgumentEnd(Tokens $tokens, int $index, int $endIndex) : ?int
     {
         if ($tokens[$index]->isGivenKind(\T_ELLIPSIS)) {
             return null;
         }
         $index = $tokens->getNextMeaningfulToken($index);
         for (; $index <= $endIndex; ++$index) {
-            $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
+            $blockType = Tokens::detectBlockType($tokens[$index]);
             while (null !== $blockType && $blockType['isStart']) {
                 $index = $tokens->findBlockEnd($blockType['type'], $index);
                 $index = $tokens->getNextMeaningfulToken($index);
-                $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
+                $blockType = Tokens::detectBlockType($tokens[$index]);
             }
             if ($tokens[$index]->equals(',') || $tokens[$index]->isGivenKind([\T_YIELD, \T_YIELD_FROM, \T_LOGICAL_AND, \T_LOGICAL_OR, \T_LOGICAL_XOR])) {
                 return null;

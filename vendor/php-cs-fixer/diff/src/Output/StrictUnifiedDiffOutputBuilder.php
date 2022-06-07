@@ -55,22 +55,22 @@ final class StrictUnifiedDiffOutputBuilder implements \PhpCsFixer\Diff\Output\Di
     {
         $options = \array_merge(self::$default, $options);
         if (!\is_bool($options['collapseRanges'])) {
-            throw new \PhpCsFixer\Diff\ConfigurationException('collapseRanges', 'a bool', $options['collapseRanges']);
+            throw new ConfigurationException('collapseRanges', 'a bool', $options['collapseRanges']);
         }
         if (!\is_int($options['contextLines']) || $options['contextLines'] < 0) {
-            throw new \PhpCsFixer\Diff\ConfigurationException('contextLines', 'an int >= 0', $options['contextLines']);
+            throw new ConfigurationException('contextLines', 'an int >= 0', $options['contextLines']);
         }
         if (!\is_int($options['commonLineThreshold']) || $options['commonLineThreshold'] <= 0) {
-            throw new \PhpCsFixer\Diff\ConfigurationException('commonLineThreshold', 'an int > 0', $options['commonLineThreshold']);
+            throw new ConfigurationException('commonLineThreshold', 'an int > 0', $options['commonLineThreshold']);
         }
         foreach (['fromFile', 'toFile'] as $option) {
             if (!\is_string($options[$option])) {
-                throw new \PhpCsFixer\Diff\ConfigurationException($option, 'a string', $options[$option]);
+                throw new ConfigurationException($option, 'a string', $options[$option]);
             }
         }
         foreach (['fromFileDate', 'toFileDate'] as $option) {
             if (null !== $options[$option] && !\is_string($options[$option])) {
-                throw new \PhpCsFixer\Diff\ConfigurationException($option, 'a string or <null>', $options[$option]);
+                throw new ConfigurationException($option, 'a string or <null>', $options[$option]);
             }
         }
         $this->header = \sprintf("--- %s%s\n+++ %s%s\n", $options['fromFile'], null === $options['fromFileDate'] ? '' : "\t" . $options['fromFileDate'], $options['toFile'], null === $options['toFileDate'] ? '' : "\t" . $options['toFileDate']);
@@ -105,7 +105,7 @@ final class StrictUnifiedDiffOutputBuilder implements \PhpCsFixer\Diff\Output\Di
         if (0 === $diff[$upperLimit - 1][1]) {
             $lc = \substr($diff[$upperLimit - 1][0], -1);
             if ("\n" !== $lc) {
-                \array_splice($diff, $upperLimit, 0, [["\n\\ No newline at end of file\n", \PhpCsFixer\Diff\Differ::NO_LINE_END_EOF_WARNING]]);
+                \array_splice($diff, $upperLimit, 0, [["\n\\ No newline at end of file\n", Differ::NO_LINE_END_EOF_WARNING]]);
             }
         } else {
             // search back for the last `+` and `-` line,
@@ -116,7 +116,7 @@ final class StrictUnifiedDiffOutputBuilder implements \PhpCsFixer\Diff\Output\Di
                     unset($toFind[$diff[$i][1]]);
                     $lc = \substr($diff[$i][0], -1);
                     if ("\n" !== $lc) {
-                        \array_splice($diff, $i + 1, 0, [["\n\\ No newline at end of file\n", \PhpCsFixer\Diff\Differ::NO_LINE_END_EOF_WARNING]]);
+                        \array_splice($diff, $i + 1, 0, [["\n\\ No newline at end of file\n", Differ::NO_LINE_END_EOF_WARNING]]);
                     }
                     if (!\count($toFind)) {
                         break;
@@ -161,18 +161,18 @@ final class StrictUnifiedDiffOutputBuilder implements \PhpCsFixer\Diff\Output\Di
                 continue;
             }
             $sameCount = 0;
-            if ($entry[1] === \PhpCsFixer\Diff\Differ::NO_LINE_END_EOF_WARNING) {
+            if ($entry[1] === Differ::NO_LINE_END_EOF_WARNING) {
                 continue;
             }
             $this->changed = \true;
             if (\false === $hunkCapture) {
                 $hunkCapture = $i;
             }
-            if (\PhpCsFixer\Diff\Differ::ADDED === $entry[1]) {
+            if (Differ::ADDED === $entry[1]) {
                 // added
                 ++$toRange;
             }
-            if (\PhpCsFixer\Diff\Differ::REMOVED === $entry[1]) {
+            if (Differ::REMOVED === $entry[1]) {
                 // removed
                 ++$fromRange;
             }
@@ -202,15 +202,15 @@ final class StrictUnifiedDiffOutputBuilder implements \PhpCsFixer\Diff\Output\Di
         }
         \fwrite($output, " @@\n");
         for ($i = $diffStartIndex; $i < $diffEndIndex; ++$i) {
-            if ($diff[$i][1] === \PhpCsFixer\Diff\Differ::ADDED) {
+            if ($diff[$i][1] === Differ::ADDED) {
                 $this->changed = \true;
                 \fwrite($output, '+' . $diff[$i][0]);
-            } elseif ($diff[$i][1] === \PhpCsFixer\Diff\Differ::REMOVED) {
+            } elseif ($diff[$i][1] === Differ::REMOVED) {
                 $this->changed = \true;
                 \fwrite($output, '-' . $diff[$i][0]);
-            } elseif ($diff[$i][1] === \PhpCsFixer\Diff\Differ::OLD) {
+            } elseif ($diff[$i][1] === Differ::OLD) {
                 \fwrite($output, ' ' . $diff[$i][0]);
-            } elseif ($diff[$i][1] === \PhpCsFixer\Diff\Differ::NO_LINE_END_EOF_WARNING) {
+            } elseif ($diff[$i][1] === Differ::NO_LINE_END_EOF_WARNING) {
                 $this->changed = \true;
                 \fwrite($output, $diff[$i][0]);
             }

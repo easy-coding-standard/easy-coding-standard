@@ -14,7 +14,7 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-class JSHintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class JSHintSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -42,17 +42,17 @@ class JSHintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return void
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If jshint.js could not be run
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
-        $rhinoPath = \PHP_CodeSniffer\Config::getExecutablePath('rhino');
-        $jshintPath = \PHP_CodeSniffer\Config::getExecutablePath('jshint');
+        $rhinoPath = Config::getExecutablePath('rhino');
+        $jshintPath = Config::getExecutablePath('jshint');
         if ($rhinoPath === null && $jshintPath === null) {
             return;
         }
         $fileName = $phpcsFile->getFilename();
-        $jshintPath = \PHP_CodeSniffer\Util\Common::escapeshellcmd($jshintPath);
+        $jshintPath = Common::escapeshellcmd($jshintPath);
         if ($rhinoPath !== null) {
-            $rhinoPath = \PHP_CodeSniffer\Util\Common::escapeshellcmd($rhinoPath);
+            $rhinoPath = Common::escapeshellcmd($rhinoPath);
             $cmd = "{$rhinoPath} \"{$jshintPath}\" " . \escapeshellarg($fileName);
             \exec($cmd, $output, $retval);
             $regex = '`^(?P<error>.+)\\(.+:(?P<line>[0-9]+).*:[0-9]+\\)$`';

@@ -43,7 +43,7 @@ final class Utils
      *
      * What we're doing here is grabbing everything after the final newline.
      */
-    public static function calculateTrailingWhitespaceIndent(\PhpCsFixer\Tokenizer\Token $token) : string
+    public static function calculateTrailingWhitespaceIndent(Token $token) : string
     {
         if (!$token->isWhitespace()) {
             throw new \InvalidArgumentException(\sprintf('The given token must be whitespace, got "%s".', $token->getName()));
@@ -92,7 +92,7 @@ final class Utils
     {
         // Schwartzian transform is used to improve the efficiency and avoid
         // `usort(): Array was modified by the user comparison function` warning for mocked objects.
-        return self::stableSort($fixers, static function (\PhpCsFixer\Fixer\FixerInterface $fixer) : int {
+        return self::stableSort($fixers, static function (FixerInterface $fixer) : int {
             return $fixer->getPriority();
         }, static function (int $a, int $b) : int {
             return $b <=> $a;

@@ -13,7 +13,7 @@ namespace ECSPrefix20220607\Composer\Semver\Constraint;
 /**
  * Defines a constraint.
  */
-class Constraint implements \ECSPrefix20220607\Composer\Semver\Constraint\ConstraintInterface
+class Constraint implements ConstraintInterface
 {
     /* operator integer values */
     const OP_EQ = 0;
@@ -97,7 +97,7 @@ class Constraint implements \ECSPrefix20220607\Composer\Semver\Constraint\Constr
      *
      * @return bool
      */
-    public function matches(\ECSPrefix20220607\Composer\Semver\Constraint\ConstraintInterface $provider)
+    public function matches(ConstraintInterface $provider)
     {
         if ($provider instanceof self) {
             return $this->matchSpecific($provider);
@@ -250,7 +250,7 @@ class Constraint implements \ECSPrefix20220607\Composer\Semver\Constraint\Constr
      *
      * @return bool
      */
-    public function matchSpecific(\ECSPrefix20220607\Composer\Semver\Constraint\Constraint $provider, $compareBranches = \false)
+    public function matchSpecific(Constraint $provider, $compareBranches = \false)
     {
         $noEqualOp = \str_replace('=', '', self::$transOpInt[$this->operator]);
         $providerNoEqualOp = \str_replace('=', '', self::$transOpInt[$provider->operator]);
@@ -320,34 +320,34 @@ class Constraint implements \ECSPrefix20220607\Composer\Semver\Constraint\Constr
         }
         // Branches
         if (\strpos($this->version, 'dev-') === 0) {
-            $this->lowerBound = \ECSPrefix20220607\Composer\Semver\Constraint\Bound::zero();
-            $this->upperBound = \ECSPrefix20220607\Composer\Semver\Constraint\Bound::positiveInfinity();
+            $this->lowerBound = Bound::zero();
+            $this->upperBound = Bound::positiveInfinity();
             return;
         }
         switch ($this->operator) {
             case self::OP_EQ:
-                $this->lowerBound = new \ECSPrefix20220607\Composer\Semver\Constraint\Bound($this->version, \true);
-                $this->upperBound = new \ECSPrefix20220607\Composer\Semver\Constraint\Bound($this->version, \true);
+                $this->lowerBound = new Bound($this->version, \true);
+                $this->upperBound = new Bound($this->version, \true);
                 break;
             case self::OP_LT:
-                $this->lowerBound = \ECSPrefix20220607\Composer\Semver\Constraint\Bound::zero();
-                $this->upperBound = new \ECSPrefix20220607\Composer\Semver\Constraint\Bound($this->version, \false);
+                $this->lowerBound = Bound::zero();
+                $this->upperBound = new Bound($this->version, \false);
                 break;
             case self::OP_LE:
-                $this->lowerBound = \ECSPrefix20220607\Composer\Semver\Constraint\Bound::zero();
-                $this->upperBound = new \ECSPrefix20220607\Composer\Semver\Constraint\Bound($this->version, \true);
+                $this->lowerBound = Bound::zero();
+                $this->upperBound = new Bound($this->version, \true);
                 break;
             case self::OP_GT:
-                $this->lowerBound = new \ECSPrefix20220607\Composer\Semver\Constraint\Bound($this->version, \false);
-                $this->upperBound = \ECSPrefix20220607\Composer\Semver\Constraint\Bound::positiveInfinity();
+                $this->lowerBound = new Bound($this->version, \false);
+                $this->upperBound = Bound::positiveInfinity();
                 break;
             case self::OP_GE:
-                $this->lowerBound = new \ECSPrefix20220607\Composer\Semver\Constraint\Bound($this->version, \true);
-                $this->upperBound = \ECSPrefix20220607\Composer\Semver\Constraint\Bound::positiveInfinity();
+                $this->lowerBound = new Bound($this->version, \true);
+                $this->upperBound = Bound::positiveInfinity();
                 break;
             case self::OP_NE:
-                $this->lowerBound = \ECSPrefix20220607\Composer\Semver\Constraint\Bound::zero();
-                $this->upperBound = \ECSPrefix20220607\Composer\Semver\Constraint\Bound::positiveInfinity();
+                $this->lowerBound = Bound::zero();
+                $this->upperBound = Bound::positiveInfinity();
                 break;
         }
     }

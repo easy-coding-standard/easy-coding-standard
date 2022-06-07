@@ -33,7 +33,7 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptions
  * @author Darius Matulionis <darius@matulionis.lt>
  * @author Adriano Pilger <adriano.pilger@gmail.com>
  */
-final class OrderedImportsFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class OrderedImportsFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * @internal
@@ -74,14 +74,14 @@ final class OrderedImportsFixer extends \PhpCsFixer\AbstractFixer implements \Ph
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Ordering `use` statements.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nuse function AAC;\nuse const AAB;\nuse AAA;\n"), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Ordering `use` statements.', [new CodeSample("<?php\nuse function AAC;\nuse const AAB;\nuse AAA;\n"), new CodeSample('<?php
 use Acme\\Bar;
 use Bar1;
 use Acme;
 use Bar;
-', ['sort_algorithm' => self::SORT_LENGTH]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['sort_algorithm' => self::SORT_LENGTH]), new CodeSample('<?php
 use const AAAA;
 use const BBB;
 
@@ -91,7 +91,7 @@ use Acme;
 
 use function CCC\\AA;
 use function DDD;
-', ['sort_algorithm' => self::SORT_LENGTH, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['sort_algorithm' => self::SORT_LENGTH, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]]), new CodeSample('<?php
 use const BBB;
 use const AAAA;
 
@@ -101,7 +101,7 @@ use Bar;
 
 use function DDD;
 use function CCC\\AA;
-', ['sort_algorithm' => self::SORT_ALPHA, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['sort_algorithm' => self::SORT_ALPHA, 'imports_order' => [self::IMPORT_TYPE_CONST, self::IMPORT_TYPE_CLASS, self::IMPORT_TYPE_FUNCTION]]), new CodeSample('<?php
 use const BBB;
 use const AAAA;
 
@@ -125,16 +125,16 @@ use Bar;
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_USE);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         $namespacesImports = $tokensAnalyzer->getImportUseIndexes(\true);
         if (0 === \count($namespacesImports)) {
             return;
@@ -151,7 +151,7 @@ use Bar;
         }
         // Now insert the new tokens, starting from the end
         foreach ($usesOrder as $index => $use) {
-            $declarationTokens = \PhpCsFixer\Tokenizer\Tokens::fromCode(\sprintf('<?php use %s%s;', self::IMPORT_TYPE_CLASS === $use['importType'] ? '' : ' ' . $use['importType'] . ' ', $use['namespace']));
+            $declarationTokens = Tokens::fromCode(\sprintf('<?php use %s%s;', self::IMPORT_TYPE_CLASS === $use['importType'] ? '' : ' ' . $use['importType'] . ' ', $use['namespace']));
             $declarationTokens->clearRange(0, 2);
             // clear `<?php use `
             $declarationTokens->clearAt(\count($declarationTokens) - 1);
@@ -162,10 +162,10 @@ use Bar;
                 // a group import must start with `use` and cannot be part of comma separated import list
                 $prev = $tokens->getPrevMeaningfulToken($index);
                 if ($tokens[$prev]->equals(',')) {
-                    $tokens[$prev] = new \PhpCsFixer\Tokenizer\Token(';');
-                    $tokens->insertAt($prev + 1, new \PhpCsFixer\Tokenizer\Token([\T_USE, 'use']));
+                    $tokens[$prev] = new Token(';');
+                    $tokens->insertAt($prev + 1, new Token([\T_USE, 'use']));
                     if (!$tokens[$prev + 2]->isWhitespace()) {
-                        $tokens->insertAt($prev + 2, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+                        $tokens->insertAt($prev + 2, new Token([\T_WHITESPACE, ' ']));
                     }
                 }
             }
@@ -174,18 +174,18 @@ use Bar;
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
         $supportedSortTypes = self::SUPPORTED_SORT_TYPES;
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'whether the statements should be sorted alphabetically or by length, or not sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_ALPHA)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('imports_order', 'Defines the order of import types.'))->setAllowedTypes(['array', 'null'])->setAllowedValues([static function (?array $value) use($supportedSortTypes) : bool {
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('sort_algorithm', 'whether the statements should be sorted alphabetically or by length, or not sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_ALPHA)->getOption(), (new FixerOptionBuilder('imports_order', 'Defines the order of import types.'))->setAllowedTypes(['array', 'null'])->setAllowedValues([static function (?array $value) use($supportedSortTypes) : bool {
             if (null !== $value) {
                 $missing = \array_diff($supportedSortTypes, $value);
                 if (\count($missing) > 0) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Missing sort %s "%s".', 1 === \count($missing) ? 'type' : 'types', \implode('", "', $missing)));
+                    throw new InvalidOptionsException(\sprintf('Missing sort %s "%s".', 1 === \count($missing) ? 'type' : 'types', \implode('", "', $missing)));
                 }
                 $unknown = \array_diff($value, $supportedSortTypes);
                 if (\count($unknown) > 0) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown sort %s "%s".', 1 === \count($unknown) ? 'type' : 'types', \implode('", "', $unknown)));
+                    throw new InvalidOptionsException(\sprintf('Unknown sort %s "%s".', 1 === \count($unknown) ? 'type' : 'types', \implode('", "', $unknown)));
                 }
             }
             return \true;
@@ -229,12 +229,12 @@ use Bar;
     }
     private function prepareNamespace(string $namespace) : string
     {
-        return \trim(\PhpCsFixer\Preg::replace('%/\\*(.*)\\*/%s', '', $namespace));
+        return \trim(Preg::replace('%/\\*(.*)\\*/%s', '', $namespace));
     }
     /**
      * @param int[] $uses
      */
-    private function getNewOrder(array $uses, \PhpCsFixer\Tokenizer\Tokens $tokens) : array
+    private function getNewOrder(array $uses, Tokens $tokens) : array
     {
         $indices = [];
         $originalIndices = [];
@@ -244,11 +244,11 @@ use Bar;
             $startIndex = $tokens->getTokenNotOfKindsSibling($index + 1, 1, [\T_WHITESPACE]);
             $endIndex = $tokens->getNextTokenOfKind($startIndex, [';', [\T_CLOSE_TAG]]);
             $previous = $tokens->getPrevMeaningfulToken($endIndex);
-            $group = $tokens[$previous]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE);
-            if ($tokens[$startIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT)) {
+            $group = $tokens[$previous]->isGivenKind(CT::T_GROUP_IMPORT_BRACE_CLOSE);
+            if ($tokens[$startIndex]->isGivenKind(CT::T_CONST_IMPORT)) {
                 $type = self::IMPORT_TYPE_CONST;
                 $index = $tokens->getNextNonWhitespace($startIndex);
-            } elseif ($tokens[$startIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
+            } elseif ($tokens[$startIndex]->isGivenKind(CT::T_FUNCTION_IMPORT)) {
                 $type = self::IMPORT_TYPE_FUNCTION;
                 $index = $tokens->getNextNonWhitespace($startIndex);
             } else {
@@ -265,7 +265,7 @@ use Bar;
                         $namespaceTokensCount = \count($namespaceTokens) - 1;
                         $namespace = '';
                         for ($k = 0; $k < $namespaceTokensCount; ++$k) {
-                            if ($namespaceTokens[$k]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_OPEN)) {
+                            if ($namespaceTokens[$k]->isGivenKind(CT::T_GROUP_IMPORT_BRACE_OPEN)) {
                                 $namespace .= '{';
                                 break;
                             }
@@ -281,7 +281,7 @@ use Bar;
                             $comment = '';
                             $namespacePart = '';
                             for ($k2 = $k1;; ++$k2) {
-                                if ($namespaceTokens[$k2]->equalsAny([',', [\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE]])) {
+                                if ($namespaceTokens[$k2]->equalsAny([',', [CT::T_GROUP_IMPORT_BRACE_CLOSE]])) {
                                     break;
                                 }
                                 if ($namespaceTokens[$k2]->isComment()) {
@@ -312,12 +312,12 @@ use Bar;
                         \sort($parts);
                         // check if the order needs to be updated, otherwise don't touch as we might change valid CS (to other valid CS).
                         if ($sortedParts === $parts) {
-                            $namespace = \PhpCsFixer\Tokenizer\Tokens::fromArray($namespaceTokens)->generateCode();
+                            $namespace = Tokens::fromArray($namespaceTokens)->generateCode();
                         } else {
                             $namespace .= $firstIndent . \implode($separator, $parts) . ($hasGroupTrailingComma ? ',' : '') . $lastIndent . '}';
                         }
                     } else {
-                        $namespace = \PhpCsFixer\Tokenizer\Tokens::fromArray($namespaceTokens)->generateCode();
+                        $namespace = Tokens::fromArray($namespaceTokens)->generateCode();
                     }
                     $indices[$startIndex] = ['namespace' => $namespace, 'startIndex' => $startIndex, 'endIndex' => $index - 1, 'importType' => $type, 'group' => $group];
                     $originalIndices[] = $startIndex;

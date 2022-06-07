@@ -24,13 +24,13 @@ use PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer;
 use PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer;
 use PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
-use Symplify\CodingStandard\Fixer\Spacing\NewlineServiceDefinitionConfigFixer;
-use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
-use Symplify\EasyCodingStandard\Config\ECSConfig;
-return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
-    $ecsConfig->rules([\Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer::class, \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class, \Symplify\CodingStandard\Fixer\Spacing\NewlineServiceDefinitionConfigFixer::class, \PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer::class, \PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer::class, \PhpCsFixer\Fixer\CastNotation\CastSpacesFixer::class, \PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::class, \PhpCsFixer\Fixer\ClassNotation\SingleTraitInsertPerStatementFixer::class, \PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer::class, \PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer::class, \PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer::class, \PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer::class, \PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer::class, \PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer::class, \PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer::class, \PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer::class, \PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer::class, \PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer::class, \PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer::class, \PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff::class]);
-    $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer::class, ['elements' => ['const' => 'one', 'property' => 'one', 'method' => 'one']]);
-    $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\Operator\ConcatSpaceFixer::class, ['spacing' => 'one']);
-    $ecsConfig->ruleWithConfiguration(\PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff::class, ['ignoreBlankLines' => \false]);
-    $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer::class, ['operators' => ['=>' => 'single_space', '=' => 'single_space']]);
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\NewlineServiceDefinitionConfigFixer;
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+return static function (ECSConfig $ecsConfig) : void {
+    $ecsConfig->rules([StandaloneLinePromotedPropertyFixer::class, BlankLineAfterOpeningTagFixer::class, NewlineServiceDefinitionConfigFixer::class, MethodChainingIndentationFixer::class, NotOperatorWithSuccessorSpaceFixer::class, CastSpacesFixer::class, ClassAttributesSeparationFixer::class, SingleTraitInsertPerStatementFixer::class, FunctionTypehintSpaceFixer::class, NoBlankLinesAfterClassOpeningFixer::class, NoSinglelineWhitespaceBeforeSemicolonsFixer::class, PhpdocSingleLineVarSpacingFixer::class, NoLeadingNamespaceWhitespaceFixer::class, NoSpacesAroundOffsetFixer::class, NoWhitespaceInBlankLineFixer::class, ReturnTypeDeclarationFixer::class, SpaceAfterSemicolonFixer::class, TernaryOperatorSpacesFixer::class, MethodArgumentSpaceFixer::class, LanguageConstructSpacingSniff::class]);
+    $ecsConfig->ruleWithConfiguration(ClassAttributesSeparationFixer::class, ['elements' => ['const' => 'one', 'property' => 'one', 'method' => 'one']]);
+    $ecsConfig->ruleWithConfiguration(ConcatSpaceFixer::class, ['spacing' => 'one']);
+    $ecsConfig->ruleWithConfiguration(SuperfluousWhitespaceSniff::class, ['ignoreBlankLines' => \false]);
+    $ecsConfig->ruleWithConfiguration(BinaryOperatorSpacesFixer::class, ['operators' => ['=>' => 'single_space', '=' => 'single_space']]);
 };

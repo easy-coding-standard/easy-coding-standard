@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Console\Output;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Output;
 
 use ECSPrefix20220607\Nette\Utils\Json;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
-use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Console\Output\JsonOutputFormatterTest
  */
-final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
+final class JsonOutputFormatter implements OutputFormatterInterface
 {
     /**
      * @var string
@@ -29,12 +29,12 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
      * @var \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver
      */
     private $exitCodeResolver;
-    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver $exitCodeResolver)
+    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle, ExitCodeResolver $exitCodeResolver)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->exitCodeResolver = $exitCodeResolver;
     }
-    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
+    public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration) : int
     {
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
@@ -44,7 +44,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
     {
         return self::NAME;
     }
-    public function createJsonContent(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : string
+    public function createJsonContent(ErrorAndDiffResult $errorAndDiffResult) : string
     {
         $errorsArrayJson = $this->createBaseErrorsJson($errorAndDiffResult);
         $codingStandardErrors = $errorAndDiffResult->getErrors();
@@ -55,12 +55,12 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         foreach ($fileDiffs as $fileDiff) {
             $errorsArrayJson[self::FILES][$fileDiff->getRelativeFilePath()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
         }
-        return \ECSPrefix20220607\Nette\Utils\Json::encode($errorsArrayJson, \ECSPrefix20220607\Nette\Utils\Json::PRETTY);
+        return Json::encode($errorsArrayJson, Json::PRETTY);
     }
     /**
      * @return array{totals: array{errors: int, diffs: int}, files: string[]}
      */
-    private function createBaseErrorsJson(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult) : array
+    private function createBaseErrorsJson(ErrorAndDiffResult $errorAndDiffResult) : array
     {
         return ['totals' => ['errors' => $errorAndDiffResult->getErrorCount(), 'diffs' => $errorAndDiffResult->getFileDiffsCount()], self::FILES => []];
     }

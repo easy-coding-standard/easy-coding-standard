@@ -21,7 +21,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class NamedArgumentTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class NamedArgumentTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -41,7 +41,7 @@ final class NamedArgumentTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$tokens[$index]->equals(':')) {
             return;
@@ -57,14 +57,14 @@ final class NamedArgumentTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
         if (!$tokens[$preStringIndex]->equalsAny([',', '('])) {
             return;
         }
-        $tokens[$stringIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_NAMED_ARGUMENT_NAME, $tokens[$stringIndex]->getContent()]);
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_NAMED_ARGUMENT_COLON, ':']);
+        $tokens[$stringIndex] = new Token([CT::T_NAMED_ARGUMENT_NAME, $tokens[$stringIndex]->getContent()]);
+        $tokens[$index] = new Token([CT::T_NAMED_ARGUMENT_COLON, ':']);
     }
     /**
      * {@inheritdoc}
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_NAMED_ARGUMENT_COLON, \PhpCsFixer\Tokenizer\CT::T_NAMED_ARGUMENT_NAME];
+        return [CT::T_NAMED_ARGUMENT_COLON, CT::T_NAMED_ARGUMENT_NAME];
     }
 }

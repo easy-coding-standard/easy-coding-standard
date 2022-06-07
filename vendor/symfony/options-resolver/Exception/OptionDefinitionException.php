@@ -15,6 +15,6 @@ namespace ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class OptionDefinitionException extends \LogicException implements \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\ExceptionInterface
+class OptionDefinitionException extends \LogicException implements ExceptionInterface
 {
 }

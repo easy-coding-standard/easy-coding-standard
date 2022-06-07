@@ -15,7 +15,7 @@ final class OptionConfigurator
 {
     private $name;
     private $resolver;
-    public function __construct(string $name, \ECSPrefix20220607\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
+    public function __construct(string $name, OptionsResolver $resolver)
     {
         $this->name = $name;
         $this->resolver = $resolver;

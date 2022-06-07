@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-abstract class AbstractLinesBeforeNamespaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+abstract class AbstractLinesBeforeNamespaceFixer extends \PhpCsFixer\AbstractFixer implements WhitespacesAwareFixerInterface
 {
     /**
      * Make sure # of line breaks prefixing namespace is within given range.
@@ -31,7 +31,7 @@ abstract class AbstractLinesBeforeNamespaceFixer extends \PhpCsFixer\AbstractFix
      * @param int $expectedMin min. # of line breaks
      * @param int $expectedMax max. # of line breaks
      */
-    protected function fixLinesBeforeNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $expectedMin, int $expectedMax) : void
+    protected function fixLinesBeforeNamespace(Tokens $tokens, int $index, int $expectedMin, int $expectedMax) : void
     {
         // Let's determine the total numbers of new lines before the namespace
         // and the opening token
@@ -69,7 +69,7 @@ abstract class AbstractLinesBeforeNamespaceFixer extends \PhpCsFixer\AbstractFix
             }
             // Remove new lines in opening token
             if ($newlineInOpening) {
-                $tokens[$openingTokenIndex] = new \PhpCsFixer\Tokenizer\Token([\T_OPEN_TAG, \rtrim($openingToken->getContent()) . ' ']);
+                $tokens[$openingTokenIndex] = new Token([\T_OPEN_TAG, \rtrim($openingToken->getContent()) . ' ']);
             }
             return;
         }
@@ -79,7 +79,7 @@ abstract class AbstractLinesBeforeNamespaceFixer extends \PhpCsFixer\AbstractFix
             // Use the configured line ending for the PHP opening tag
             $content = \rtrim($openingToken->getContent());
             $newContent = $content . $lineEnding;
-            $tokens[$openingTokenIndex] = new \PhpCsFixer\Tokenizer\Token([\T_OPEN_TAG, $newContent]);
+            $tokens[$openingTokenIndex] = new Token([\T_OPEN_TAG, $newContent]);
             --$newlinesForWhitespaceToken;
         }
         if (0 === $newlinesForWhitespaceToken) {
@@ -92,10 +92,10 @@ abstract class AbstractLinesBeforeNamespaceFixer extends \PhpCsFixer\AbstractFix
         }
         if ($previous->isWhitespace()) {
             // Fix the previous whitespace token
-            $tokens[$previousIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, \str_repeat($lineEnding, $newlinesForWhitespaceToken) . \substr($previous->getContent(), \strrpos($previous->getContent(), "\n") + 1)]);
+            $tokens[$previousIndex] = new Token([\T_WHITESPACE, \str_repeat($lineEnding, $newlinesForWhitespaceToken) . \substr($previous->getContent(), \strrpos($previous->getContent(), "\n") + 1)]);
         } else {
             // Add a new whitespace token
-            $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, \str_repeat($lineEnding, $newlinesForWhitespaceToken)]));
+            $tokens->insertAt($index, new Token([\T_WHITESPACE, \str_repeat($lineEnding, $newlinesForWhitespaceToken)]));
         }
     }
 }

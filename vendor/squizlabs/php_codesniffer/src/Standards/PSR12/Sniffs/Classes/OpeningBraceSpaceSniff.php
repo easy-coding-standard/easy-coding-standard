@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class OpeningBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class OpeningBraceSpaceSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -21,7 +21,7 @@ class OpeningBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return \PHP_CodeSniffer\Util\Tokens::$ooScopeTokens;
+        return Tokens::$ooScopeTokens;
     }
     //end register()
     /**
@@ -33,7 +33,7 @@ class OpeningBraceSpaceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_opener']) === \false) {

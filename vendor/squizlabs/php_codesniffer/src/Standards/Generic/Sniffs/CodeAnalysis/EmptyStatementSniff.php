@@ -26,7 +26,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class EmptyStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class EmptyStatementSniff implements Sniff
 {
     /**
      * Registers the tokens that this sniff wants to listen for.
@@ -47,7 +47,7 @@ class EmptyStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $token = $tokens[$stackPtr];
@@ -55,7 +55,7 @@ class EmptyStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if (isset($token['scope_opener']) === \false) {
             return;
         }
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $token['scope_opener'] + 1, $token['scope_closer'] - 1, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $token['scope_opener'] + 1, $token['scope_closer'] - 1, \true);
         if ($next !== \false) {
             return;
         }

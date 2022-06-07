@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ComposerJsonAwareCodeSample extends \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+final class ComposerJsonAwareCodeSample extends AbstractCodeSample
 {
     /**
      * @var string

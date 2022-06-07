@@ -28,7 +28,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Egidijus Girčys <e.gircys@gmail.com>
  */
-final class MultilineWhitespaceBeforeSemicolonsFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class MultilineWhitespaceBeforeSemicolonsFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * @internal
@@ -41,14 +41,14 @@ final class MultilineWhitespaceBeforeSemicolonsFixer extends \PhpCsFixer\Abstrac
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Forbid multi-line whitespace before the closing semicolon or move the semicolon to the new line for chained calls.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Forbid multi-line whitespace before the closing semicolon or move the semicolon to the new line for chained calls.', [new CodeSample('<?php
 function foo () {
     return 1 + 2
         ;
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
                         $this->method1()
                             ->method2()
                             ->method(3);
@@ -68,21 +68,21 @@ function foo () {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(';');
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('strategy', 'Forbid multi-line whitespace or move the semicolon to the new line for chained calls.'))->setAllowedValues([self::STRATEGY_NO_MULTI_LINE, self::STRATEGY_NEW_LINE_FOR_CHAINED_CALLS])->setDefault(self::STRATEGY_NO_MULTI_LINE)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('strategy', 'Forbid multi-line whitespace or move the semicolon to the new line for chained calls.'))->setAllowedValues([self::STRATEGY_NO_MULTI_LINE, self::STRATEGY_NEW_LINE_FOR_CHAINED_CALLS])->setDefault(self::STRATEGY_NO_MULTI_LINE)->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         if (self::STRATEGY_NEW_LINE_FOR_CHAINED_CALLS === $this->configuration['strategy']) {
             $this->applyChainedCallsFix($tokens);
@@ -92,7 +92,7 @@ function foo () {
             $this->applyNoMultiLineFix($tokens);
         }
     }
-    private function applyNoMultiLineFix(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    private function applyNoMultiLineFix(Tokens $tokens) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         foreach ($tokens as $index => $token) {
@@ -112,7 +112,7 @@ function foo () {
             }
         }
     }
-    private function applyChainedCallsFix(\PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    private function applyChainedCallsFix(Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; $index >= 0; --$index) {
             // continue if token is not a semicolon
@@ -131,15 +131,15 @@ function foo () {
             // line ending string of the last method call
             $lineEnding = $this->whitespacesConfig->getLineEnding();
             // appended new line to the last method call
-            $newline = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnding . $indent]);
+            $newline = new Token([\T_WHITESPACE, $lineEnding . $indent]);
             // insert the new line with indented semicolon
-            $tokens->insertAt($index, [$newline, new \PhpCsFixer\Tokenizer\Token(';')]);
+            $tokens->insertAt($index, [$newline, new Token(';')]);
         }
     }
     /**
      * Find the index for the new line. Return the given index when there's no new line.
      */
-    private function getNewLineIndex(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens) : int
+    private function getNewLineIndex(int $index, Tokens $tokens) : int
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         for ($index, $count = \count($tokens); $index < $count; ++$index) {
@@ -158,7 +158,7 @@ function foo () {
      *          ->anotherCall();
      * ..
      */
-    private function findWhitespaceBeforeFirstCall(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens) : ?string
+    private function findWhitespaceBeforeFirstCall(int $index, Tokens $tokens) : ?string
     {
         // semicolon followed by a closing bracket?
         if (!$tokens[$index]->equals(')')) {
@@ -207,7 +207,7 @@ function foo () {
         }
         return null;
     }
-    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?string
+    private function getIndentAt(Tokens $tokens, int $index) : ?string
     {
         $content = '';
         $lineEnding = $this->whitespacesConfig->getLineEnding();
@@ -224,7 +224,7 @@ function foo () {
         if ($tokens[$index]->isGivenKind(\T_OPEN_TAG)) {
             $content = $tokens[$index]->getContent() . $content;
         }
-        if (1 === \PhpCsFixer\Preg::match('/\\R{1}(\\h*)$/', $content, $matches)) {
+        if (1 === Preg::match('/\\R{1}(\\h*)$/', $content, $matches)) {
             return $matches[1];
         }
         return null;

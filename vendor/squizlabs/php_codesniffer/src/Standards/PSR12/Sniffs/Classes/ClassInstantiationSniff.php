@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ClassInstantiationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ClassInstantiationSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,12 +33,12 @@ class ClassInstantiationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Find the class name.
         $allowed = [\T_STRING => \T_STRING, \T_NS_SEPARATOR => \T_NS_SEPARATOR, T_SELF => T_SELF, \T_STATIC => \T_STATIC, \T_VARIABLE => \T_VARIABLE, T_DOLLAR => T_DOLLAR, \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR, \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR, \T_DOUBLE_COLON => \T_DOUBLE_COLON];
-        $allowed += \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $allowed += Tokens::$emptyTokens;
         $classNameEnd = null;
         for ($i = $stackPtr + 1; $i < $phpcsFile->numTokens; $i++) {
             if (isset($allowed[$tokens[$i]['code']]) === \true) {
@@ -75,7 +75,7 @@ class ClassInstantiationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $error = 'Parentheses must be used when instantiating a new class';
         $fix = $phpcsFile->addFixableError($error, $stackPtr, 'MissingParentheses');
         if ($fix === \true) {
-            $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $classNameEnd - 1, null, \true);
+            $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $classNameEnd - 1, null, \true);
             $phpcsFile->fixer->addContent($prev, '()');
         }
     }

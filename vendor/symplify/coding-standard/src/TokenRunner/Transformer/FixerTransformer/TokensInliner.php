@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 final class TokensInliner
 {
     /**
      * @var \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper
      */
     private $tokenSkipper;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper)
+    public function __construct(TokenSkipper $tokenSkipper)
     {
         $this->tokenSkipper = $tokenSkipper;
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    public function inlineItems(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : void
+    public function inlineItems(Tokens $tokens, BlockInfo $blockInfo) : void
     {
         // replace line feeds with " "
         for ($i = $blockInfo->getStart() + 1; $i < $blockInfo->getEnd(); ++$i) {
@@ -43,10 +43,10 @@ final class TokensInliner
                 $tokens->clearAt($i);
                 continue;
             }
-            $tokens[$i] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+            $tokens[$i] = new Token([\T_WHITESPACE, ' ']);
         }
     }
-    private function isBlockStartOrEnd(\PhpCsFixer\Tokenizer\Token $previousToken, \PhpCsFixer\Tokenizer\Token $nextToken) : bool
+    private function isBlockStartOrEnd(Token $previousToken, Token $nextToken) : bool
     {
         if (\in_array($previousToken->getContent(), ['(', '['], \true)) {
             return \true;

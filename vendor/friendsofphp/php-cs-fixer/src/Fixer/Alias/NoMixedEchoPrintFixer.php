@@ -26,7 +26,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
-final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class NoMixedEchoPrintFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @var string
@@ -53,9 +53,9 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Either language construct `print` or `echo` should be used.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php print 'example';\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php echo('example');\n", ['use' => 'print'])]);
+        return new FixerDefinition('Either language construct `print` or `echo` should be used.', [new CodeSample("<?php print 'example';\n"), new CodeSample("<?php echo('example');\n", ['use' => 'print'])]);
     }
     /**
      * {@inheritdoc}
@@ -69,14 +69,14 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound($this->candidateTokenType);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $callBack = $this->callBack;
         foreach ($tokens as $index => $token) {
@@ -88,18 +88,18 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use', 'The desired language construct.'))->setAllowedValues(['print', 'echo'])->setDefault('echo')->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('use', 'The desired language construct.'))->setAllowedValues(['print', 'echo'])->setDefault('echo')->getOption()]);
     }
-    private function fixEchoToPrint(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixEchoToPrint(Tokens $tokens, int $index) : void
     {
         $nextTokenIndex = $tokens->getNextMeaningfulToken($index);
         $endTokenIndex = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
         $canBeConverted = \true;
         for ($i = $nextTokenIndex; $i < $endTokenIndex; ++$i) {
-            if ($tokens[$i]->equalsAny(['(', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]])) {
-                $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$i]);
+            if ($tokens[$i]->equalsAny(['(', [CT::T_ARRAY_SQUARE_BRACE_OPEN]])) {
+                $blockType = Tokens::detectBlockType($tokens[$i]);
                 $i = $tokens->findBlockEnd($blockType['type'], $i);
             }
             if ($tokens[$i]->equals(',')) {
@@ -110,14 +110,14 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
         if (\false === $canBeConverted) {
             return;
         }
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_PRINT, 'print']);
+        $tokens[$index] = new Token([\T_PRINT, 'print']);
     }
-    private function fixPrintToEcho(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixPrintToEcho(Tokens $tokens, int $index) : void
     {
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
         if (!$prevToken->equalsAny([';', '{', '}', ')', [\T_OPEN_TAG], [\T_ELSE]])) {
             return;
         }
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_ECHO, 'echo']);
+        $tokens[$index] = new Token([\T_ECHO, 'echo']);
     }
 }

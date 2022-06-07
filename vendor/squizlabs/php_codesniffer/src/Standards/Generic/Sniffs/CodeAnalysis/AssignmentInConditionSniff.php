@@ -16,7 +16,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class AssignmentInConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class AssignmentInConditionSniff implements Sniff
 {
     /**
      * Assignment tokens to trigger on.
@@ -39,9 +39,9 @@ class AssignmentInConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        $this->assignmentTokens = \PHP_CodeSniffer\Util\Tokens::$assignmentTokens;
+        $this->assignmentTokens = Tokens::$assignmentTokens;
         unset($this->assignmentTokens[\T_DOUBLE_ARROW]);
-        $starters = \PHP_CodeSniffer\Util\Tokens::$booleanOperators;
+        $starters = Tokens::$booleanOperators;
         $starters[T_SEMICOLON] = T_SEMICOLON;
         $starters[T_OPEN_PARENTHESIS] = T_OPEN_PARENTHESIS;
         $this->conditionStartTokens = $starters;
@@ -57,7 +57,7 @@ class AssignmentInConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $token = $tokens[$stackPtr];
@@ -107,7 +107,7 @@ class AssignmentInConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $conditionStart = $altConditionStart;
             }
             for ($i = $hasAssignment; $i > $conditionStart; $i--) {
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === \true) {
+                if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === \true) {
                     continue;
                 }
                 // If this is a variable or array, we've seen all we need to see.

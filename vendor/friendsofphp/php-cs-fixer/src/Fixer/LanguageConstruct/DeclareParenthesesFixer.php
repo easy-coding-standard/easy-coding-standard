@@ -17,17 +17,17 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
-final class DeclareParenthesesFixer extends \PhpCsFixer\AbstractFixer
+final class DeclareParenthesesFixer extends AbstractFixer
 {
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There must not be spaces around `declare` statement parentheses.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php declare ( strict_types=1 );\n")]);
+        return new FixerDefinition('There must not be spaces around `declare` statement parentheses.', [new CodeSample("<?php declare ( strict_types=1 );\n")]);
     }
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DECLARE);
     }
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             $token = $tokens[$index];
@@ -37,7 +37,7 @@ final class DeclareParenthesesFixer extends \PhpCsFixer\AbstractFixer
             $tokens->removeTrailingWhitespace($index);
             $startParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(']);
             $tokens->removeTrailingWhitespace($startParenthesisIndex);
-            $endParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
+            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
             $tokens->removeLeadingWhitespace($endParenthesisIndex);
         }
     }

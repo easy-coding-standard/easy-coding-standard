@@ -19,7 +19,7 @@ use ECSPrefix20220607\Symfony\Component\Config\Definition\Exception\InvalidConfi
  *
  * @author Jeremy Mikola <jmikola@gmail.com>
  */
-class VariableNode extends \ECSPrefix20220607\Symfony\Component\Config\Definition\BaseNode implements \ECSPrefix20220607\Symfony\Component\Config\Definition\PrototypeNodeInterface
+class VariableNode extends BaseNode implements PrototypeNodeInterface
 {
     protected $defaultValueSet = \false;
     protected $defaultValue;
@@ -81,7 +81,7 @@ class VariableNode extends \ECSPrefix20220607\Symfony\Component\Config\Definitio
         // deny environment variables only when using custom validators
         // this avoids ever passing an empty value to final validation closures
         if (!$this->allowEmptyValue && $this->isHandlingPlaceholder() && $this->finalValidationClosures) {
-            $e = new \ECSPrefix20220607\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" cannot contain an environment variable when empty values are not allowed by definition and are validated.', $this->getPath()));
+            $e = new InvalidConfigurationException(\sprintf('The path "%s" cannot contain an environment variable when empty values are not allowed by definition and are validated.', $this->getPath()));
             if ($hint = $this->getInfo()) {
                 $e->addHint($hint);
             }
@@ -89,7 +89,7 @@ class VariableNode extends \ECSPrefix20220607\Symfony\Component\Config\Definitio
             throw $e;
         }
         if (!$this->allowEmptyValue && $this->isValueEmpty($value)) {
-            $ex = new \ECSPrefix20220607\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" cannot contain an empty value, but got %s.', $this->getPath(), \json_encode($value)));
+            $ex = new InvalidConfigurationException(\sprintf('The path "%s" cannot contain an empty value, but got %s.', $this->getPath(), \json_encode($value)));
             if ($hint = $this->getInfo()) {
                 $ex->addHint($hint);
             }

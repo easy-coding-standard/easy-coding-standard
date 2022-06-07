@@ -25,7 +25,7 @@ use ECSPrefix20220607\Symfony\Component\DependencyInjection\TypedReference;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ResolveInvalidReferencesPass implements \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class ResolveInvalidReferencesPass implements CompilerPassInterface
 {
     private $container;
     private $signalingException;
@@ -36,10 +36,10 @@ class ResolveInvalidReferencesPass implements \ECSPrefix20220607\Symfony\Compone
     /**
      * Process the ContainerBuilder to resolve invalid references.
      */
-    public function process(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(ContainerBuilder $container)
     {
         $this->container = $container;
-        $this->signalingException = new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\RuntimeException('Invalid reference.');
+        $this->signalingException = new RuntimeException('Invalid reference.');
         try {
             foreach ($container->getDefinitions() as $this->currentId => $definition) {
                 $this->processValue($definition);
@@ -57,11 +57,11 @@ class ResolveInvalidReferencesPass implements \ECSPrefix20220607\Symfony\Compone
      */
     private function processValue($value, int $rootLevel = 0, int $level = 0)
     {
-        if ($value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
+        if ($value instanceof ServiceClosureArgument) {
             $value->setValues($this->processValue($value->getValues(), 1, 1));
-        } elseif ($value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
+        } elseif ($value instanceof ArgumentInterface) {
             $value->setValues($this->processValue($value->getValues(), $rootLevel, 1 + $level));
-        } elseif ($value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition) {
+        } elseif ($value instanceof Definition) {
             if ($value->isSynthetic() || $value->isAbstract()) {
                 return $value;
             }
@@ -78,7 +78,7 @@ class ResolveInvalidReferencesPass implements \ECSPrefix20220607\Symfony\Compone
                     if ($v !== ($processedValue = $this->processValue($v, $rootLevel, 1 + $level))) {
                         $value[$k] = $processedValue;
                     }
-                } catch (\ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
+                } catch (RuntimeException $e) {
                     if ($rootLevel < $level || $rootLevel && !$level) {
                         unset($value[$k]);
                     } elseif ($rootLevel) {
@@ -92,26 +92,26 @@ class ResolveInvalidReferencesPass implements \ECSPrefix20220607\Symfony\Compone
             if (\false !== $i) {
                 $value = \array_values($value);
             }
-        } elseif ($value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Reference) {
+        } elseif ($value instanceof Reference) {
             if ($this->container->has($id = (string) $value)) {
                 return $value;
             }
             $currentDefinition = $this->container->getDefinition($this->currentId);
             // resolve decorated service behavior depending on decorator service
-            if ($currentDefinition->innerServiceId === $id && \ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $currentDefinition->decorationOnInvalid) {
+            if ($currentDefinition->innerServiceId === $id && ContainerInterface::NULL_ON_INVALID_REFERENCE === $currentDefinition->decorationOnInvalid) {
                 return null;
             }
             $invalidBehavior = $value->getInvalidBehavior();
-            if (\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior && $value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\TypedReference && !$this->container->has($id)) {
-                $e = new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $this->currentId);
+            if (ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior && $value instanceof TypedReference && !$this->container->has($id)) {
+                $e = new ServiceNotFoundException($id, $this->currentId);
                 // since the error message varies by $id and $this->currentId, so should the id of the dummy errored definition
                 $this->container->register($id = \sprintf('.errored.%s.%s', $this->currentId, $id), $value->getType())->addError($e->getMessage());
-                return new \ECSPrefix20220607\Symfony\Component\DependencyInjection\TypedReference($id, $value->getType(), $value->getInvalidBehavior());
+                return new TypedReference($id, $value->getType(), $value->getInvalidBehavior());
             }
             // resolve invalid behavior
-            if (\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $invalidBehavior) {
+            if (ContainerInterface::NULL_ON_INVALID_REFERENCE === $invalidBehavior) {
                 $value = null;
-            } elseif (\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $invalidBehavior) {
+            } elseif (ContainerInterface::IGNORE_ON_INVALID_REFERENCE === $invalidBehavior) {
                 if (0 < $level || $rootLevel) {
                     throw $this->signalingException;
                 }

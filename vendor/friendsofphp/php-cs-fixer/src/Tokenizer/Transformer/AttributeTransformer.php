@@ -21,7 +21,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class AttributeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class AttributeTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -41,7 +41,7 @@ final class AttributeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$tokens[$index]->isGivenKind(\T_ATTRIBUTE)) {
             return;
@@ -55,13 +55,13 @@ final class AttributeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
                 --$level;
             }
         } while (0 < $level);
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE, ']']);
+        $tokens[$index] = new Token([CT::T_ATTRIBUTE_CLOSE, ']']);
     }
     /**
      * {@inheritdoc}
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE];
+        return [CT::T_ATTRIBUTE_CLOSE];
     }
 }

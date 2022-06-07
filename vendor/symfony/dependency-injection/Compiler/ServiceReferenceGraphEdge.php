@@ -40,7 +40,7 @@ class ServiceReferenceGraphEdge
     /**
      * @param mixed $value
      */
-    public function __construct(\ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode, \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode, $value = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
+    public function __construct(ServiceReferenceGraphNode $sourceNode, ServiceReferenceGraphNode $destNode, $value = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
     {
         $this->sourceNode = $sourceNode;
         $this->destNode = $destNode;
@@ -60,14 +60,14 @@ class ServiceReferenceGraphEdge
     /**
      * Returns the source node.
      */
-    public function getSourceNode() : \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+    public function getSourceNode() : ServiceReferenceGraphNode
     {
         return $this->sourceNode;
     }
     /**
      * Returns the destination node.
      */
-    public function getDestNode() : \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+    public function getDestNode() : ServiceReferenceGraphNode
     {
         return $this->destNode;
     }

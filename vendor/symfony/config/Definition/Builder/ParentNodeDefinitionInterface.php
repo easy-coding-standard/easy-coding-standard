@@ -15,12 +15,12 @@ namespace ECSPrefix20220607\Symfony\Component\Config\Definition\Builder;
  *
  * @author Victor Berchet <victor@suumit.com>
  */
-interface ParentNodeDefinitionInterface extends \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\BuilderAwareInterface
+interface ParentNodeDefinitionInterface extends BuilderAwareInterface
 {
     /**
      * Returns a builder to add children nodes.
      */
-    public function children() : \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\NodeBuilder;
+    public function children() : NodeBuilder;
     /**
      * Appends a node definition.
      *
@@ -36,7 +36,7 @@ interface ParentNodeDefinitionInterface extends \ECSPrefix20220607\Symfony\Compo
      *
      * @return $this
      */
-    public function append(\ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\NodeDefinition $node);
+    public function append(NodeDefinition $node);
     /**
      * Gets the child node definitions.
      *

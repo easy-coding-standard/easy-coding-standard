@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Exception\Configuration;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\Configuration;
 
 use Exception;
-final class WhitespaceConfigurationException extends \Exception
+final class WhitespaceConfigurationException extends Exception
 {
 }

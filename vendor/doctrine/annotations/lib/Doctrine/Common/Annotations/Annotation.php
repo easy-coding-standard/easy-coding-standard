@@ -33,7 +33,7 @@ class Annotation
      */
     public function __get($name)
     {
-        throw new \BadMethodCallException(\sprintf("Unknown property '%s' on annotation '%s'.", $name, static::class));
+        throw new BadMethodCallException(sprintf("Unknown property '%s' on annotation '%s'.", $name, static::class));
     }
     /**
      * Error handler for unknown property mutator in Annotation class.
@@ -45,6 +45,6 @@ class Annotation
      */
     public function __set($name, $value)
     {
-        throw new \BadMethodCallException(\sprintf("Unknown property '%s' on annotation '%s'.", $name, static::class));
+        throw new BadMethodCallException(sprintf("Unknown property '%s' on annotation '%s'.", $name, static::class));
     }
 }

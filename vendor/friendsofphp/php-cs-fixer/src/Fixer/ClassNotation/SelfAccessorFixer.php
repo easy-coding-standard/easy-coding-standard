@@ -25,14 +25,14 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Gregor Harlan <gharlan@web.de>
  */
-final class SelfAccessorFixer extends \PhpCsFixer\AbstractFixer
+final class SelfAccessorFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Inside class or interface element `self` should be preferred to the class name itself.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Inside class or interface element `self` should be preferred to the class name itself.', [new CodeSample('<?php
 class Sample
 {
     const BAZ = 1;
@@ -48,7 +48,7 @@ class Sample
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_CLASS, \T_INTERFACE]);
     }
@@ -62,17 +62,17 @@ class Sample
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
-        foreach ((new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens) as $namespace) {
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
+        foreach ((new NamespacesAnalyzer())->getDeclarations($tokens) as $namespace) {
             for ($index = $namespace->getScopeStartIndex(); $index < $namespace->getScopeEndIndex(); ++$index) {
                 if (!$tokens[$index]->isGivenKind([\T_CLASS, \T_INTERFACE]) || $tokensAnalyzer->isAnonymousClass($index)) {
                     continue;
                 }
                 $nameIndex = $tokens->getNextTokenOfKind($index, [[\T_STRING]]);
                 $startIndex = $tokens->getNextTokenOfKind($nameIndex, ['{']);
-                $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $startIndex);
+                $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $startIndex);
                 $name = $tokens[$nameIndex]->getContent();
                 $this->replaceNameOccurrences($tokens, $namespace->getFullName(), $name, $startIndex, $endIndex);
                 $index = $endIndex;
@@ -82,9 +82,9 @@ class Sample
     /**
      * Replace occurrences of the name of the classy element by "self" (if possible).
      */
-    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, string $namespace, string $name, int $startIndex, int $endIndex) : void
+    private function replaceNameOccurrences(Tokens $tokens, string $namespace, string $name, int $startIndex, int $endIndex) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         $insideMethodSignatureUntil = null;
         for ($i = $startIndex; $i < $endIndex; ++$i) {
             if ($i === $insideMethodSignatureUntil) {
@@ -94,7 +94,7 @@ class Sample
             // skip anonymous classes
             if ($token->isGivenKind(\T_CLASS) && $tokensAnalyzer->isAnonymousClass($i)) {
                 $i = $tokens->getNextTokenOfKind($i, ['{']);
-                $i = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
+                $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
                 continue;
             }
             if ($token->isGivenKind(\T_FUNCTION)) {
@@ -121,18 +121,18 @@ class Sample
             if ($prevToken->isGivenKind(\T_STRING) || $prevToken->isObjectOperator()) {
                 continue;
             }
-            if ($prevToken->isGivenKind([\T_INSTANCEOF, \T_NEW]) || $nextToken->isGivenKind(\T_PAAMAYIM_NEKUDOTAYIM) || null !== $insideMethodSignatureUntil && $i < $insideMethodSignatureUntil && $prevToken->equalsAny(['(', ',', [\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON], [\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE]])) {
+            if ($prevToken->isGivenKind([\T_INSTANCEOF, \T_NEW]) || $nextToken->isGivenKind(\T_PAAMAYIM_NEKUDOTAYIM) || null !== $insideMethodSignatureUntil && $i < $insideMethodSignatureUntil && $prevToken->equalsAny(['(', ',', [CT::T_TYPE_COLON], [CT::T_NULLABLE_TYPE]])) {
                 for ($j = $classStartIndex; $j < $i; ++$j) {
                     $tokens->clearTokenAndMergeSurroundingWhitespace($j);
                 }
-                $tokens[$i] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'self']);
+                $tokens[$i] = new Token([\T_STRING, 'self']);
             }
         }
     }
-    private function getClassStart(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $namespace) : ?int
+    private function getClassStart(Tokens $tokens, int $index, string $namespace) : ?int
     {
         $namespace = ('' !== $namespace ? '\\' . $namespace : '') . '\\';
-        foreach (\array_reverse(\PhpCsFixer\Preg::split('/(\\\\)/', $namespace, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE)) as $piece) {
+        foreach (\array_reverse(Preg::split('/(\\\\)/', $namespace, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE)) as $piece) {
             $index = $tokens->getPrevMeaningfulToken($index);
             if ('\\' === $piece) {
                 if (!$tokens[$index]->isGivenKind(\T_NS_SEPARATOR)) {

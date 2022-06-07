@@ -96,7 +96,7 @@ class Reporter
                 $filename = \realpath($type);
                 if ($filename === \false) {
                     $error = "ERROR: Custom report \"{$type}\" not found" . \PHP_EOL;
-                    throw new \PHP_CodeSniffer\Exceptions\DeepExitException($error, 3);
+                    throw new DeepExitException($error, 3);
                 }
                 $reportClassName = \PHP_CodeSniffer\Autoload::loadFile($filename);
             } else {
@@ -126,11 +126,11 @@ class Reporter
             //end if
             if ($reportClassName === '') {
                 $error = "ERROR: Class file for report \"{$type}\" not found" . \PHP_EOL;
-                throw new \PHP_CodeSniffer\Exceptions\DeepExitException($error, 3);
+                throw new DeepExitException($error, 3);
             }
             $reportClass = new $reportClassName();
-            if ($reportClass instanceof \PHP_CodeSniffer\Reports\Report === \false) {
-                throw new \PHP_CodeSniffer\Exceptions\RuntimeException('Class "' . $reportClassName . '" must implement the "PHP_CodeSniffer\\Report" interface.');
+            if ($reportClass instanceof Report === \false) {
+                throw new RuntimeException('Class "' . $reportClassName . '" must implement the "PHP_CodeSniffer\\Report" interface.');
             }
             $this->reports[$type] = ['output' => $output, 'class' => $reportClass];
             if ($output === null) {
@@ -224,7 +224,7 @@ class Reporter
      *
      * @return void
      */
-    public function cacheFileReport(\PHP_CodeSniffer\Files\File $phpcsFile)
+    public function cacheFileReport(File $phpcsFile)
     {
         if (isset($this->config->reports) === \false) {
             // This happens during unit testing, or any time someone just wants
@@ -280,9 +280,9 @@ class Reporter
      *
      * @return array
      */
-    public function prepareFileReport(\PHP_CodeSniffer\Files\File $phpcsFile)
+    public function prepareFileReport(File $phpcsFile)
     {
-        $report = ['filename' => \PHP_CodeSniffer\Util\Common::stripBasepath($phpcsFile->getFilename(), $this->config->basepath), 'errors' => $phpcsFile->getErrorCount(), 'warnings' => $phpcsFile->getWarningCount(), 'fixable' => $phpcsFile->getFixableCount(), 'messages' => []];
+        $report = ['filename' => Common::stripBasepath($phpcsFile->getFilename(), $this->config->basepath), 'errors' => $phpcsFile->getErrorCount(), 'warnings' => $phpcsFile->getWarningCount(), 'fixable' => $phpcsFile->getFixableCount(), 'messages' => []];
         if ($report['errors'] === 0 && $report['warnings'] === 0) {
             // Prefect score!
             return $report;

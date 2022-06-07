@@ -22,7 +22,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class MbStrFunctionsFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
+final class MbStrFunctionsFixer extends AbstractFunctionReferenceFixer
 {
     /**
      * @var array the list of the string-related function names and their mb_ equivalent
@@ -42,9 +42,9 @@ final class MbStrFunctionsFixer extends \PhpCsFixer\AbstractFunctionReferenceFix
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace non multibyte-safe functions with corresponding mb function.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Replace non multibyte-safe functions with corresponding mb function.', [new CodeSample('<?php
 $a = strlen($a);
 $a = strpos($a, $b);
 $a = strrpos($a, $b);
@@ -62,9 +62,9 @@ $a = substr_count($a, $b);
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
+        $argumentsAnalyzer = new ArgumentsAnalyzer();
         foreach ($this->functions as $functionIdentity => $functionReplacement) {
             $currIndex = 0;
             do {
@@ -81,7 +81,7 @@ $a = substr_count($a, $b);
                 }
                 // analysing cursor shift, so nested calls could be processed
                 $currIndex = $openParenthesis;
-                $tokens[$functionName] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $functionReplacement['alternativeName']]);
+                $tokens[$functionName] = new Token([\T_STRING, $functionReplacement['alternativeName']]);
             } while (null !== $currIndex);
         }
     }

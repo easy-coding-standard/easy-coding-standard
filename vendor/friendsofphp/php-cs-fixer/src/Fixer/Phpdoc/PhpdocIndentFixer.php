@@ -24,14 +24,14 @@ use PhpCsFixer\Utils;
  * @author Ceeram <ceeram@cakephp.org>
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-final class PhpdocIndentFixer extends \PhpCsFixer\AbstractFixer
+final class PhpdocIndentFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Docblocks should have the same indentation as the documented subject.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Docblocks should have the same indentation as the documented subject.', [new CodeSample('<?php
 class DocBlocks
 {
 /**
@@ -54,14 +54,14 @@ class DocBlocks
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -79,21 +79,21 @@ class DocBlocks
                 continue;
             }
             if ($tokens[$nextIndex - 1]->isWhitespace()) {
-                $indent = \PhpCsFixer\Utils::calculateTrailingWhitespaceIndent($tokens[$nextIndex - 1]);
+                $indent = Utils::calculateTrailingWhitespaceIndent($tokens[$nextIndex - 1]);
             } else {
                 $indent = '';
             }
             $newPrevContent = $this->fixWhitespaceBeforeDocblock($prevToken->getContent(), $indent);
             if ('' !== $newPrevContent) {
                 if ($prevToken->isArray()) {
-                    $tokens[$prevIndex] = new \PhpCsFixer\Tokenizer\Token([$prevToken->getId(), $newPrevContent]);
+                    $tokens[$prevIndex] = new Token([$prevToken->getId(), $newPrevContent]);
                 } else {
-                    $tokens[$prevIndex] = new \PhpCsFixer\Tokenizer\Token($newPrevContent);
+                    $tokens[$prevIndex] = new Token($newPrevContent);
                 }
             } else {
                 $tokens->clearAt($prevIndex);
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $this->fixDocBlock($token->getContent(), $indent)]);
+            $tokens[$index] = new Token([\T_DOC_COMMENT, $this->fixDocBlock($token->getContent(), $indent)]);
         }
     }
     /**
@@ -106,7 +106,7 @@ class DocBlocks
      */
     private function fixDocBlock(string $content, string $indent) : string
     {
-        return \ltrim(\PhpCsFixer\Preg::replace('/^\\h*\\*/m', $indent . ' *', $content));
+        return \ltrim(Preg::replace('/^\\h*\\*/m', $indent . ' *', $content));
     }
     /**
      * @param string $content Whitespace before Docblock

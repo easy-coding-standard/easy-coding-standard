@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\Channels;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-class DisallowSelfActionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DisallowSelfActionsSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class DisallowSelfActionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // We are not interested in abstract classes.
@@ -56,7 +56,7 @@ class DisallowSelfActionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 if ($tokens[$i]['code'] === \T_FUNCTION) {
                     // Cache the function information.
                     $funcName = $phpcsFile->findNext(\T_STRING, $i + 1);
-                    $funcScope = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$scopeModifiers, $i - 1);
+                    $funcScope = $phpcsFile->findPrevious(Tokens::$scopeModifiers, $i - 1);
                     $foundFunctions[$tokens[$funcName]['content']] = \strtolower($tokens[$funcScope]['content']);
                 }
                 continue;

@@ -12,14 +12,14 @@ namespace PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class MethodDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
+class MethodDeclarationSniff extends AbstractScopeSniff
 {
     /**
      * Constructs a Squiz_Sniffs_Scope_MethodScopeSniff.
      */
     public function __construct()
     {
-        parent::__construct(\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens, [\T_FUNCTION]);
+        parent::__construct(Tokens::$ooScopeTokens, [\T_FUNCTION]);
     }
     //end __construct()
     /**
@@ -31,7 +31,7 @@ class MethodDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
@@ -55,10 +55,10 @@ class MethodDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
         $static = 0;
         $abstract = 0;
         $final = 0;
-        $find = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes + \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $find = Tokens::$methodPrefixes + Tokens::$emptyTokens;
         $prev = $phpcsFile->findPrevious($find, $stackPtr - 1, null, \true);
         $prefix = $stackPtr;
-        while (($prefix = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$methodPrefixes, $prefix - 1, $prev)) !== \false) {
+        while (($prefix = $phpcsFile->findPrevious(Tokens::$methodPrefixes, $prefix - 1, $prev)) !== \false) {
             switch ($tokens[$prefix]['code']) {
                 case \T_STATIC:
                     $static = $prefix;
@@ -134,7 +134,7 @@ class MethodDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
     }
     //end processTokenOutsideScope()

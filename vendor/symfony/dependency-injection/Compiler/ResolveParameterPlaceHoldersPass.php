@@ -18,7 +18,7 @@ use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\ParameterN
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ResolveParameterPlaceHoldersPass extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass
 {
     private $bag;
     /**
@@ -39,7 +39,7 @@ class ResolveParameterPlaceHoldersPass extends \ECSPrefix20220607\Symfony\Compon
      *
      * @throws ParameterNotFoundException
      */
-    public function process(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(ContainerBuilder $container)
     {
         $this->bag = $container->getParameterBag();
         try {
@@ -50,7 +50,7 @@ class ResolveParameterPlaceHoldersPass extends \ECSPrefix20220607\Symfony\Compon
                 $aliases[$this->bag->resolveValue($name)] = $target;
             }
             $container->setAliases($aliases);
-        } catch (\ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException $e) {
+        } catch (ParameterNotFoundException $e) {
             $e->setSourceId($this->currentId);
             throw $e;
         }
@@ -66,7 +66,7 @@ class ResolveParameterPlaceHoldersPass extends \ECSPrefix20220607\Symfony\Compon
         if (\is_string($value)) {
             try {
                 $v = $this->bag->resolveValue($value);
-            } catch (\ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException $e) {
+            } catch (ParameterNotFoundException $e) {
                 if ($this->throwOnResolveException) {
                     throw $e;
                 }
@@ -75,7 +75,7 @@ class ResolveParameterPlaceHoldersPass extends \ECSPrefix20220607\Symfony\Compon
             }
             return $this->resolveArrays || !$v || !\is_array($v) ? $v : $value;
         }
-        if ($value instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition) {
+        if ($value instanceof Definition) {
             $value->setBindings($this->processValue($value->getBindings()));
             $changes = $value->getChanges();
             if (isset($changes['class'])) {

@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\Files;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class DeclareStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DeclareStatementSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class DeclareStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         // Allow a byte-order mark.
         $tokens = $phpcsFile->getTokens();
@@ -208,7 +208,7 @@ class DeclareStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 }
             }
             // The open curly bracket must be the last code on the line.
-            $token = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $curlyBracket + 1, null, \true);
+            $token = $phpcsFile->findNext(Tokens::$emptyTokens, $curlyBracket + 1, null, \true);
             if ($tokens[$curlyBracket]['line'] === $tokens[$token]['line']) {
                 $error = 'The open curly bracket of a declare statement must be the last code on the line';
                 $fix = $phpcsFile->addFixableError($error, $token, 'CodeFoundAfterCurlyBracket');

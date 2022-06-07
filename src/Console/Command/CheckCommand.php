@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Console\Command;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Command;
 
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\MemoryLimitter;
-use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
-final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
+use ECSPrefix20220607\Symplify\EasyCodingStandard\MemoryLimitter;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
+final class CheckCommand extends AbstractCheckCommand
 {
     /**
      * @var \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter
@@ -17,7 +17,7 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
      * @var \Symplify\EasyCodingStandard\MemoryLimitter
      */
     private $memoryLimitter;
-    public function __construct(\Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter, \Symplify\EasyCodingStandard\MemoryLimitter $memoryLimitter)
+    public function __construct(ProcessedFileReporter $processedFileReporter, MemoryLimitter $memoryLimitter)
     {
         $this->processedFileReporter = $processedFileReporter;
         $this->memoryLimitter = $memoryLimitter;
@@ -29,7 +29,7 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
         $this->setDescription('Check coding standard in one or more directories.');
         parent::configure();
     }
-    protected function execute(\ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             $this->loadedCheckersGuard->report();

@@ -14,7 +14,7 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-class SyntaxSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class SyntaxSniff implements Sniff
 {
     /**
      * The path to the PHP version we are checking with.
@@ -41,13 +41,13 @@ class SyntaxSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         if ($this->phpPath === null) {
-            $this->phpPath = \PHP_CodeSniffer\Config::getExecutablePath('php');
+            $this->phpPath = Config::getExecutablePath('php');
         }
         $fileName = \escapeshellarg($phpcsFile->getFilename());
-        $cmd = \PHP_CodeSniffer\Util\Common::escapeshellcmd($this->phpPath) . " -l -d display_errors=1 -d error_prepend_string='' {$fileName} 2>&1";
+        $cmd = Common::escapeshellcmd($this->phpPath) . " -l -d display_errors=1 -d error_prepend_string='' {$fileName} 2>&1";
         $output = \shell_exec($cmd);
         $matches = [];
         if (\preg_match('/^.*error:(.*) in .* on line ([0-9]+)/m', \trim($output), $matches) === 1) {

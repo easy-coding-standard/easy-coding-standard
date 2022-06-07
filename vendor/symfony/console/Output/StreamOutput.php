@@ -25,7 +25,7 @@ use ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterInterfa
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class StreamOutput extends \ECSPrefix20220607\Symfony\Component\Console\Output\Output
+class StreamOutput extends Output
 {
     private $stream;
     /**
@@ -36,10 +36,10 @@ class StreamOutput extends \ECSPrefix20220607\Symfony\Component\Console\Output\O
      *
      * @throws InvalidArgumentException When first argument is not a real stream
      */
-    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \ECSPrefix20220607\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, OutputFormatterInterface $formatter = null)
     {
         if (!\is_resource($stream) || 'stream' !== \get_resource_type($stream)) {
-            throw new \ECSPrefix20220607\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
+            throw new InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
         }
         $this->stream = $stream;
         if (null === $decorated) {

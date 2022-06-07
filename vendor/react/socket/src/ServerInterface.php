@@ -45,7 +45,7 @@ use ECSPrefix20220607\Evenement\EventEmitterInterface;
  *
  * @see ConnectionInterface
  */
-interface ServerInterface extends \ECSPrefix20220607\Evenement\EventEmitterInterface
+interface ServerInterface extends EventEmitterInterface
 {
     /**
      * Returns the full address (URI) this server is currently listening on

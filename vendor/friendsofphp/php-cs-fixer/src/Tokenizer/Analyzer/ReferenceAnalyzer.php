@@ -21,9 +21,9 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class ReferenceAnalyzer
 {
-    public function isReference(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    public function isReference(Tokens $tokens, int $index) : bool
     {
-        if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_RETURN_REF)) {
+        if ($tokens[$index]->isGivenKind(CT::T_RETURN_REF)) {
             return \true;
         }
         if (!$tokens[$index]->equals('&')) {
@@ -31,12 +31,12 @@ final class ReferenceAnalyzer
         }
         /** @var int $index */
         $index = $tokens->getPrevMeaningfulToken($index);
-        if ($tokens[$index]->equalsAny(['=', [\T_AS], [\T_CALLABLE], [\T_DOUBLE_ARROW], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT]])) {
+        if ($tokens[$index]->equalsAny(['=', [\T_AS], [\T_CALLABLE], [\T_DOUBLE_ARROW], [CT::T_ARRAY_TYPEHINT]])) {
             return \true;
         }
         if ($tokens[$index]->isGivenKind(\T_STRING)) {
             $index = $tokens->getPrevMeaningfulToken($index);
         }
-        return $tokens[$index]->equalsAny(['(', ',', [\T_NS_SEPARATOR], [\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE]]);
+        return $tokens[$index]->equalsAny(['(', ',', [\T_NS_SEPARATOR], [CT::T_NULLABLE_TYPE]]);
     }
 }

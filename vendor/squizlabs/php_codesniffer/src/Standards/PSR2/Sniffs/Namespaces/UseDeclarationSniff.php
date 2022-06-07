@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class UseDeclarationSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         if ($this->shouldIgnoreUse($phpcsFile, $stackPtr) === \true) {
             return;
@@ -89,7 +89,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                         }
                         // Convert grouped use statements into full use statements.
                         do {
-                            $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, $closingCurly, \true);
+                            $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, $closingCurly, \true);
                             if ($next === \false) {
                                 // Group use statement with trailing comma after last item.
                                 break;
@@ -104,14 +104,14 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                             }
                             if ($tokens[$next]['content'] === 'const' || $tokens[$next]['content'] === 'function') {
                                 $phpcsFile->fixer->addContentBefore($next, 'use ');
-                                $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, $closingCurly, \true);
+                                $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, $closingCurly, \true);
                                 $phpcsFile->fixer->addContentBefore($next, \str_replace('use ', '', $baseUse));
                             } else {
                                 $phpcsFile->fixer->addContentBefore($next, $baseUse);
                             }
                             $next = $phpcsFile->findNext(T_COMMA, $next + 1, $closingCurly);
                             if ($next !== \false) {
-                                $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, $closingCurly, \true);
+                                $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, $closingCurly, \true);
                                 if ($nextNonEmpty !== \false && $tokens[$nextNonEmpty]['line'] === $tokens[$next]['line']) {
                                     $prevNonWhitespace = $phpcsFile->findPrevious(\T_WHITESPACE, $nextNonEmpty - 1, $next, \true);
                                     if ($prevNonWhitespace === $next) {
@@ -130,7 +130,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                             }
                         } while ($next !== \false);
                         // Remove closing curly,semi-colon and any whitespace between last child and closing curly.
-                        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $closingCurly + 1, null, \true);
+                        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $closingCurly + 1, null, \true);
                         if ($next === \false || $tokens[$next]['code'] !== T_SEMICOLON) {
                             // Parse error, forgotten semi-colon.
                             $next = $closingCurly;
@@ -172,7 +172,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
         if ($tokens[$end]['code'] === T_CLOSE_USE_GROUP) {
-            $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, null, \true);
+            $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, null, \true);
             if ($tokens[$nextNonEmpty]['code'] === T_SEMICOLON) {
                 $end = $nextNonEmpty;
             }
@@ -180,7 +180,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // Find either the start of the next line or the beginning of the next statement,
         // whichever comes first.
         for ($end = ++$end; $end < $phpcsFile->numTokens; $end++) {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$end]['code']]) === \false) {
+            if (isset(Tokens::$emptyTokens[$tokens[$end]['code']]) === \false) {
                 break;
             }
             if ($tokens[$end]['column'] === 1) {
@@ -189,7 +189,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
         }
         --$end;
-        if (($tokens[$end]['code'] === \T_COMMENT || isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$end]['code']]) === \true) && \substr($tokens[$end]['content'], 0, 2) === '/*' && \substr($tokens[$end]['content'], -2) !== '*/') {
+        if (($tokens[$end]['code'] === \T_COMMENT || isset(Tokens::$phpcsCommentTokens[$tokens[$end]['code']]) === \true) && \substr($tokens[$end]['content'], 0, 2) === '/*' && \substr($tokens[$end]['content'], -2) !== '*/') {
             // Multi-line block comments are not allowed as trailing comment after a use statement.
             --$end;
         }
@@ -237,7 +237,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     {
         $tokens = $phpcsFile->getTokens();
         // Ignore USE keywords inside closures and during live coding.
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($next === \false || $tokens[$next]['code'] === T_OPEN_PARENTHESIS) {
             return \true;
         }

@@ -15,20 +15,20 @@ namespace ECSPrefix20220607\Symfony\Component\Config\Definition\Builder;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class NodeBuilder implements \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\NodeParentInterface
+class NodeBuilder implements NodeParentInterface
 {
     protected $parent;
     protected $nodeMapping;
     public function __construct()
     {
-        $this->nodeMapping = ['variable' => \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition::class, 'scalar' => \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition::class, 'boolean' => \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\BooleanNodeDefinition::class, 'integer' => \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\IntegerNodeDefinition::class, 'float' => \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\FloatNodeDefinition::class, 'array' => \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition::class, 'enum' => \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\EnumNodeDefinition::class];
+        $this->nodeMapping = ['variable' => VariableNodeDefinition::class, 'scalar' => ScalarNodeDefinition::class, 'boolean' => BooleanNodeDefinition::class, 'integer' => IntegerNodeDefinition::class, 'float' => FloatNodeDefinition::class, 'array' => ArrayNodeDefinition::class, 'enum' => EnumNodeDefinition::class];
     }
     /**
      * Set the parent node.
      *
      * @return $this
      */
-    public function setParent(\ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface $parent = null)
+    public function setParent(ParentNodeDefinitionInterface $parent = null)
     {
         $this->parent = $parent;
         return $this;
@@ -36,49 +36,49 @@ class NodeBuilder implements \ECSPrefix20220607\Symfony\Component\Config\Definit
     /**
      * Creates a child array node.
      */
-    public function arrayNode(string $name) : \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
+    public function arrayNode(string $name) : ArrayNodeDefinition
     {
         return $this->node($name, 'array');
     }
     /**
      * Creates a child scalar node.
      */
-    public function scalarNode(string $name) : \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
+    public function scalarNode(string $name) : ScalarNodeDefinition
     {
         return $this->node($name, 'scalar');
     }
     /**
      * Creates a child Boolean node.
      */
-    public function booleanNode(string $name) : \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\BooleanNodeDefinition
+    public function booleanNode(string $name) : BooleanNodeDefinition
     {
         return $this->node($name, 'boolean');
     }
     /**
      * Creates a child integer node.
      */
-    public function integerNode(string $name) : \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\IntegerNodeDefinition
+    public function integerNode(string $name) : IntegerNodeDefinition
     {
         return $this->node($name, 'integer');
     }
     /**
      * Creates a child float node.
      */
-    public function floatNode(string $name) : \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\FloatNodeDefinition
+    public function floatNode(string $name) : FloatNodeDefinition
     {
         return $this->node($name, 'float');
     }
     /**
      * Creates a child EnumNode.
      */
-    public function enumNode(string $name) : \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\EnumNodeDefinition
+    public function enumNode(string $name) : EnumNodeDefinition
     {
         return $this->node($name, 'enum');
     }
     /**
      * Creates a child variable node.
      */
-    public function variableNode(string $name) : \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition
+    public function variableNode(string $name) : VariableNodeDefinition
     {
         return $this->node($name, 'variable');
     }
@@ -97,7 +97,7 @@ class NodeBuilder implements \ECSPrefix20220607\Symfony\Component\Config\Definit
      * @throws \RuntimeException When the node type is not registered
      * @throws \RuntimeException When the node class is not found
      */
-    public function node(?string $name, string $type) : \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\NodeDefinition
+    public function node(?string $name, string $type) : NodeDefinition
     {
         $class = $this->getNodeClass($type);
         $node = new $class($name);
@@ -119,9 +119,9 @@ class NodeBuilder implements \ECSPrefix20220607\Symfony\Component\Config\Definit
      *
      * @return $this
      */
-    public function append(\ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
+    public function append(NodeDefinition $node)
     {
-        if ($node instanceof \ECSPrefix20220607\Symfony\Component\Config\Definition\Builder\BuilderAwareInterface) {
+        if ($node instanceof BuilderAwareInterface) {
             $builder = clone $this;
             $builder->setParent(null);
             $node->setBuilder($builder);

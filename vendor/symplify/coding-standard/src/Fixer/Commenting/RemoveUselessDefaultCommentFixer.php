@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\Fixer\Commenting;
+namespace ECSPrefix20220607\Symplify\CodingStandard\Fixer\Commenting;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
-use Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner;
-use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use ECSPrefix20220607\Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner;
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\RemoveUselessDefaultCommentFixer\RemoveUselessDefaultCommentFixerTest
  */
-final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class RemoveUselessDefaultCommentFixer extends AbstractSymplifyFixer implements DocumentedRuleInterface
 {
     /**
      * @var string
@@ -26,25 +26,25 @@ final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fi
      * @var \Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner
      */
     private $uselessDocBlockCleaner;
-    public function __construct(\Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner $uselessDocBlockCleaner)
+    public function __construct(UselessDocBlockCleaner $uselessDocBlockCleaner)
     {
         $this->uselessDocBlockCleaner = $uselessDocBlockCleaner;
     }
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
+        return new FixerDefinition(self::ERROR_MESSAGE, []);
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_COMMENT]);
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    public function fix(SplFileInfo $fileInfo, Tokens $tokens) : void
     {
         $reversedTokens = $this->reverseTokens($tokens);
         foreach ($reversedTokens as $index => $token) {
@@ -59,9 +59,9 @@ final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fi
             $tokens->clearAt($index);
         }
     }
-    public function getRuleDefinition() : \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : RuleDefinition
     {
-        return new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(self::ERROR_MESSAGE, [new CodeSample(<<<'CODE_SAMPLE'
 /**
  * class SomeClass
  */

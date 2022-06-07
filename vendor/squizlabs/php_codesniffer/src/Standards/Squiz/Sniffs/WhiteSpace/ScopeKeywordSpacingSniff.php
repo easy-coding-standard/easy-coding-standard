@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ScopeKeywordSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ScopeKeywordSpacingSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -21,7 +21,7 @@ class ScopeKeywordSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        $register = \PHP_CodeSniffer\Util\Tokens::$scopeModifiers;
+        $register = Tokens::$scopeModifiers;
         $register[] = \T_STATIC;
         return $register;
     }
@@ -35,14 +35,14 @@ class ScopeKeywordSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr + 1]) === \false) {
             return;
         }
-        $prevToken = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
-        $nextToken = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $prevToken = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        $nextToken = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($tokens[$stackPtr]['code'] === \T_STATIC) {
             if ($nextToken === \false || $tokens[$nextToken]['code'] === \T_DOUBLE_COLON || $tokens[$prevToken]['code'] === \T_NEW) {
                 // Late static binding, e.g., static:: OR new static() usage or live coding.
@@ -57,7 +57,7 @@ class ScopeKeywordSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 return;
             }
             if ($prevToken !== \false && $tokens[$prevToken]['code'] === T_COLON) {
-                $prevPrevToken = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prevToken - 1, null, \true);
+                $prevPrevToken = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prevToken - 1, null, \true);
                 if ($prevPrevToken !== \false && $tokens[$prevPrevToken]['code'] === T_CLOSE_PARENTHESIS) {
                     // Not a scope keyword, but a return type.
                     return;

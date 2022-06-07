@@ -16,6 +16,6 @@ namespace ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class AccessException extends \LogicException implements \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\ExceptionInterface
+class AccessException extends \LogicException implements ExceptionInterface
 {
 }

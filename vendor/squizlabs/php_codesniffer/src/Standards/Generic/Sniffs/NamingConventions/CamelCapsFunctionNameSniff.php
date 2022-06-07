@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Util\Common;
 use PHP_CodeSniffer\Util\Tokens;
-class CamelCapsFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
+class CamelCapsFunctionNameSniff extends AbstractScopeSniff
 {
     /**
      * A list of all PHP magic methods.
@@ -46,7 +46,7 @@ class CamelCapsFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSn
      */
     public function __construct()
     {
-        parent::__construct(\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens, [\T_FUNCTION], \true);
+        parent::__construct(Tokens::$ooScopeTokens, [\T_FUNCTION], \true);
     }
     //end __construct()
     /**
@@ -59,7 +59,7 @@ class CamelCapsFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSn
      *
      * @return void
      */
-    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
@@ -101,7 +101,7 @@ class CamelCapsFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSn
         // Ignore first underscore in methods prefixed with "_".
         $methodName = \ltrim($methodName, '_');
         $methodProps = $phpcsFile->getMethodProperties($stackPtr);
-        if (\PHP_CodeSniffer\Util\Common::isCamelCaps($methodName, \false, \true, $this->strict) === \false) {
+        if (Common::isCamelCaps($methodName, \false, \true, $this->strict) === \false) {
             if ($methodProps['scope_specified'] === \true) {
                 $error = '%s method name "%s" is not in camel caps format';
                 $data = [\ucfirst($methodProps['scope']), $errorData[0]];
@@ -126,7 +126,7 @@ class CamelCapsFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSn
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
         $functionName = $phpcsFile->getDeclarationName($stackPtr);
         if ($functionName === null) {
@@ -145,7 +145,7 @@ class CamelCapsFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSn
         }
         // Ignore first underscore in functions prefixed with "_".
         $functionName = \ltrim($functionName, '_');
-        if (\PHP_CodeSniffer\Util\Common::isCamelCaps($functionName, \false, \true, $this->strict) === \false) {
+        if (Common::isCamelCaps($functionName, \false, \true, $this->strict) === \false) {
             $error = 'Function name "%s" is not in camel caps format';
             $phpcsFile->addError($error, $stackPtr, 'NotCamelCaps', $errorData);
             $phpcsFile->recordMetric($stackPtr, 'CamelCase function name', 'no');

@@ -20,7 +20,7 @@ use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class PhpdocToPropertyTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDeclarationFixer
+final class PhpdocToPropertyTypeFixer extends AbstractPhpdocToTypeDeclarationFixer
 {
     /**
      * @var array<string, true>
@@ -29,28 +29,28 @@ final class PhpdocToPropertyTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDe
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('EXPERIMENTAL: Takes `@var` annotation of non-mixed types and adjusts accordingly the property signature. Requires PHP >= 7.4.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+        return new FixerDefinition('EXPERIMENTAL: Takes `@var` annotation of non-mixed types and adjusts accordingly the property signature. Requires PHP >= 7.4.', [new VersionSpecificCodeSample('<?php
 class Foo {
     /** @var int */
     private $foo;
     /** @var \\Traversable */
     private $bar;
 }
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70400)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+', new VersionSpecification(70400)), new VersionSpecificCodeSample('<?php
 class Foo {
     /** @var int */
     private $foo;
     /** @var \\Traversable */
     private $bar;
 }
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70400), ['scalar_types' => \false])], null, 'This rule is EXPERIMENTAL and [1] is not covered with backward compatibility promise. [2] `@var` annotation is mandatory for the fixer to make changes, signatures of properties without it (no docblock) will not be fixed. [3] Manual actions might be required for newly typed properties that are read before initialization.');
+', new VersionSpecification(70400), ['scalar_types' => \false])], null, 'This rule is EXPERIMENTAL and [1] is not covered with backward compatibility promise. [2] `@var` annotation is mandatory for the fixer to make changes, signatures of properties without it (no docblock) will not be fixed. [3] Manual actions might be required for newly typed properties that are read before initialization.');
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -71,7 +71,7 @@ class Foo {
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
             if ($tokens[$index]->isGivenKind([\T_CLASS, \T_TRAIT])) {
@@ -79,15 +79,15 @@ class Foo {
             }
         }
     }
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixClass(Tokens $tokens, int $index) : void
     {
         $index = $tokens->getNextTokenOfKind($index, ['{']);
-        $classEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+        $classEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         for (; $index < $classEndIndex; ++$index) {
             if ($tokens[$index]->isGivenKind(\T_FUNCTION)) {
                 $index = $tokens->getNextTokenOfKind($index, ['{', ';']);
                 if ($tokens[$index]->equals('{')) {
-                    $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                    $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
                 }
                 continue;
             }
@@ -107,7 +107,7 @@ class Foo {
             if (\in_array($propertyType, ['callable', 'never', 'void'], \true)) {
                 continue;
             }
-            $newTokens = \array_merge($this->createTypeDeclarationTokens($propertyType, $isNullable), [new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]);
+            $newTokens = \array_merge($this->createTypeDeclarationTokens($propertyType, $isNullable), [new Token([\T_WHITESPACE, ' '])]);
             $tokens->insertAt(\current($propertyIndices), $newTokens);
             $index = \max($propertyIndices) + \count($newTokens) + 1;
             $classEndIndex += \count($newTokens);
@@ -116,7 +116,7 @@ class Foo {
     /**
      * @return array<string, int>
      */
-    private function findNextUntypedPropertiesDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : array
+    private function findNextUntypedPropertiesDeclaration(Tokens $tokens, int $index) : array
     {
         do {
             $index = $tokens->getNextMeaningfulToken($index);

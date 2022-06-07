@@ -72,7 +72,7 @@ use InvalidArgumentException;
  * @see DuplexStreamInterface::close()
  * @see WritableStreamInterface::pipe()
  */
-final class ThroughStream extends \ECSPrefix20220607\Evenement\EventEmitter implements \ECSPrefix20220607\React\Stream\DuplexStreamInterface
+final class ThroughStream extends EventEmitter implements DuplexStreamInterface
 {
     private $readable = \true;
     private $writable = \true;
@@ -83,7 +83,7 @@ final class ThroughStream extends \ECSPrefix20220607\Evenement\EventEmitter impl
     public function __construct($callback = null)
     {
         if ($callback !== null && !\is_callable($callback)) {
-            throw new \InvalidArgumentException('Invalid transformation callback given');
+            throw new InvalidArgumentException('Invalid transformation callback given');
         }
         $this->callback = $callback;
     }
@@ -99,9 +99,9 @@ final class ThroughStream extends \ECSPrefix20220607\Evenement\EventEmitter impl
         }
         $this->paused = \false;
     }
-    public function pipe(\ECSPrefix20220607\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(WritableStreamInterface $dest, array $options = array())
     {
-        return \ECSPrefix20220607\React\Stream\Util::pipe($this, $dest, $options);
+        return Util::pipe($this, $dest, $options);
     }
     public function isReadable()
     {

@@ -26,12 +26,12 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class EscapeImplicitBackslashesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class EscapeImplicitBackslashesFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
         $codeSample = <<<'EOF'
 <?php
@@ -46,12 +46,12 @@ HEREDOC
 ;
 
 EOF;
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Escape implicit backslashes in strings and heredocs to ease the understanding of which are special chars interpreted by PHP and which not.', [new \PhpCsFixer\FixerDefinition\CodeSample($codeSample), new \PhpCsFixer\FixerDefinition\CodeSample($codeSample, ['single_quoted' => \true]), new \PhpCsFixer\FixerDefinition\CodeSample($codeSample, ['double_quoted' => \false]), new \PhpCsFixer\FixerDefinition\CodeSample($codeSample, ['heredoc_syntax' => \false])], 'In PHP double-quoted strings and heredocs some chars like `n`, `$` or `u` have special meanings if preceded by a backslash ' . '(and some are special only if followed by other special chars), while a backslash preceding other chars are interpreted like a plain ' . 'backslash. The precise list of those special chars is hard to remember and to identify quickly: this fixer escapes backslashes ' . "that do not start a special interpretation with the char after them.\n" . 'It is possible to fix also single-quoted strings: in this case there is no special chars apart from single-quote and backslash ' . 'itself, so the fixer simply ensure that all backslashes are escaped. Both single and double backslashes are allowed in single-quoted ' . 'strings, so the purpose in this context is mainly to have a uniformed way to have them written all over the codebase.');
+        return new FixerDefinition('Escape implicit backslashes in strings and heredocs to ease the understanding of which are special chars interpreted by PHP and which not.', [new CodeSample($codeSample), new CodeSample($codeSample, ['single_quoted' => \true]), new CodeSample($codeSample, ['double_quoted' => \false]), new CodeSample($codeSample, ['heredoc_syntax' => \false])], 'In PHP double-quoted strings and heredocs some chars like `n`, `$` or `u` have special meanings if preceded by a backslash ' . '(and some are special only if followed by other special chars), while a backslash preceding other chars are interpreted like a plain ' . 'backslash. The precise list of those special chars is hard to remember and to identify quickly: this fixer escapes backslashes ' . "that do not start a special interpretation with the char after them.\n" . 'It is possible to fix also single-quoted strings: in this case there is no special chars apart from single-quote and backslash ' . 'itself, so the fixer simply ensure that all backslashes are escaped. Both single and double backslashes are allowed in single-quoted ' . 'strings, so the purpose in this context is mainly to have a uniformed way to have them written all over the codebase.');
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_ENCAPSED_AND_WHITESPACE, \T_CONSTANT_ENCAPSED_STRING]);
     }
@@ -68,7 +68,7 @@ EOF;
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         static $singleQuotedRegex = '/(?<!\\\\)\\\\((?:\\\\\\\\)*)(?![\\\'\\\\])/';
         static $doubleQuotedRegex = '/(?<!\\\\)\\\\((?:\\\\\\\\)*)(?![efnrtv$"\\\\0-7]|x[0-9A-Fa-f]|u{)/';
@@ -99,17 +99,17 @@ EOF;
             } elseif ($isDoubleQuotedString) {
                 $regex = $doubleQuotedRegex;
             }
-            $newContent = \PhpCsFixer\Preg::replace($regex, '\\\\\\\\$1', $content);
+            $newContent = Preg::replace($regex, '\\\\\\\\$1', $content);
             if ($newContent !== $content) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $newContent]);
+                $tokens[$index] = new Token([$token->getId(), $newContent]);
             }
         }
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_quoted', 'Whether to fix single-quoted strings.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('double_quoted', 'Whether to fix double-quoted strings.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('heredoc_syntax', 'Whether to fix heredoc syntax.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('single_quoted', 'Whether to fix single-quoted strings.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new FixerOptionBuilder('double_quoted', 'Whether to fix double-quoted strings.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new FixerOptionBuilder('heredoc_syntax', 'Whether to fix heredoc syntax.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
 }

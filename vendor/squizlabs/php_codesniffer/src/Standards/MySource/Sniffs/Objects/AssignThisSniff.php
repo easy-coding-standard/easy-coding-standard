@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\Objects;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
-class AssignThisSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class AssignThisSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -38,7 +38,7 @@ class AssignThisSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Ignore this.something and other uses of "this" that are not

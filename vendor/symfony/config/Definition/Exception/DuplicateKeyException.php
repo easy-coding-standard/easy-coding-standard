@@ -16,6 +16,6 @@ namespace ECSPrefix20220607\Symfony\Component\Config\Definition\Exception;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class DuplicateKeyException extends \ECSPrefix20220607\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+class DuplicateKeyException extends InvalidConfigurationException
 {
 }

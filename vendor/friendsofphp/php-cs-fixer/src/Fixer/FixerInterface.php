@@ -29,7 +29,7 @@ interface FixerInterface
      * need a fixing, but when this method returns false then the Tokens collection
      * need no fixing for sure.
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool;
+    public function isCandidate(Tokens $tokens) : bool;
     /**
      * Check if fixer is risky or not.
      *
@@ -42,11 +42,11 @@ interface FixerInterface
      * @param \SplFileInfo $file   A \SplFileInfo instance
      * @param Tokens       $tokens Tokens collection
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void;
+    public function fix(\SplFileInfo $file, Tokens $tokens) : void;
     /**
      * Returns the definition of the fixer.
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+    public function getDefinition() : FixerDefinitionInterface;
     /**
      * Returns the name of the fixer.
      *

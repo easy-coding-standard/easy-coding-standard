@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\ControlStructures;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class MultiLineConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class MultiLineConditionSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -45,7 +45,7 @@ class MultiLineConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === \false) {
@@ -98,10 +98,10 @@ class MultiLineConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     if ($fix === \true) {
                         // Account for a comment at the end of the line.
                         $next = $phpcsFile->findNext(\T_WHITESPACE, $closeBracket + 1, null, \true);
-                        if ($tokens[$next]['code'] !== \T_COMMENT && isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$next]['code']]) === \false) {
+                        if ($tokens[$next]['code'] !== \T_COMMENT && isset(Tokens::$phpcsCommentTokens[$tokens[$next]['code']]) === \false) {
                             $phpcsFile->fixer->addNewlineBefore($closeBracket);
                         } else {
-                            $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
+                            $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, null, \true);
                             $phpcsFile->fixer->beginChangeset();
                             $phpcsFile->fixer->replaceToken($closeBracket, '');
                             $phpcsFile->fixer->addContentBefore($next, ')');
@@ -126,7 +126,7 @@ class MultiLineConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     $expectedIndent = $statementIndent + $this->indent;
                 }
                 //end if
-                if ($tokens[$i]['code'] === \T_COMMENT || isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$i]['code']]) === \true) {
+                if ($tokens[$i]['code'] === \T_COMMENT || isset(Tokens::$phpcsCommentTokens[$tokens[$i]['code']]) === \true) {
                     $prevLine = $tokens[$i]['line'];
                     continue;
                 }
@@ -149,12 +149,12 @@ class MultiLineConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                         }
                     }
                 }
-                $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $i, null, \true);
+                $next = $phpcsFile->findNext(Tokens::$emptyTokens, $i, null, \true);
                 if ($next !== $closeBracket && $tokens[$next]['line'] === $tokens[$i]['line']) {
-                    if (isset(\PHP_CodeSniffer\Util\Tokens::$booleanOperators[$tokens[$next]['code']]) === \false) {
-                        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $i - 1, $openBracket, \true);
+                    if (isset(Tokens::$booleanOperators[$tokens[$next]['code']]) === \false) {
+                        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $i - 1, $openBracket, \true);
                         $fixable = \true;
-                        if (isset(\PHP_CodeSniffer\Util\Tokens::$booleanOperators[$tokens[$prev]['code']]) === \false && $phpcsFile->findNext(\T_WHITESPACE, $prev + 1, $next, \true) !== \false) {
+                        if (isset(Tokens::$booleanOperators[$tokens[$prev]['code']]) === \false && $phpcsFile->findNext(\T_WHITESPACE, $prev + 1, $next, \true) !== \false) {
                             // Condition spread over multi-lines interspersed with comments.
                             $fixable = \false;
                         }
@@ -164,7 +164,7 @@ class MultiLineConditionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                         } else {
                             $fix = $phpcsFile->addFixableError($error, $next, 'StartWithBoolean');
                             if ($fix === \true) {
-                                if (isset(\PHP_CodeSniffer\Util\Tokens::$booleanOperators[$tokens[$prev]['code']]) === \true) {
+                                if (isset(Tokens::$booleanOperators[$tokens[$prev]['code']]) === \true) {
                                     $phpcsFile->fixer->beginChangeset();
                                     $phpcsFile->fixer->replaceToken($prev, '');
                                     $phpcsFile->fixer->addContentBefore($next, $tokens[$prev]['content'] . ' ');

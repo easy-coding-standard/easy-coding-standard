@@ -16,7 +16,7 @@ namespace ECSPrefix20220607\Symfony\Component\Config\Definition\Exception;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class InvalidConfigurationException extends \ECSPrefix20220607\Symfony\Component\Config\Definition\Exception\Exception
+class InvalidConfigurationException extends Exception
 {
     /**
      * @var string|null

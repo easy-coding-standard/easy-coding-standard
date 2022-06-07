@@ -10,7 +10,7 @@
 namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff as GenericScopeIndentSniff;
-class ScopeIndentSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff
+class ScopeIndentSniff extends GenericScopeIndentSniff
 {
     /**
      * Any scope openers that should not cause an indent.

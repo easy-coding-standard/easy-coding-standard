@@ -24,14 +24,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-final class PhpdocSummaryFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class PhpdocSummaryFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPDoc summary should end in either a full stop, exclamation mark, or question mark.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('PHPDoc summary should end in either a full stop, exclamation mark, or question mark.', [new CodeSample('<?php
 /**
  * Foo function is great
  */
@@ -51,27 +51,27 @@ function foo () {}
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-            $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
-            $end = (new \PhpCsFixer\DocBlock\ShortDescription($doc))->getEnd();
+            $doc = new DocBlock($token->getContent());
+            $end = (new ShortDescription($doc))->getEnd();
             if (null !== $end) {
                 $line = $doc->getLine($end);
                 $content = \rtrim($line->getContent());
                 if (!$this->isCorrectlyFormatted($content)) {
                     $line->setContent($content . '.' . $this->whitespacesConfig->getLineEnding());
-                    $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
+                    $tokens[$index] = new Token([\T_DOC_COMMENT, $doc->getContent()]);
                 }
             }
         }

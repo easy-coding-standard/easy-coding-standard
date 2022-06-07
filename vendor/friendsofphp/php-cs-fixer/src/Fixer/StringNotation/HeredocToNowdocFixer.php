@@ -22,14 +22,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Gregor Harlan <gharlan@web.de>
  */
-final class HeredocToNowdocFixer extends \PhpCsFixer\AbstractFixer
+final class HeredocToNowdocFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Convert `heredoc` to `nowdoc` where possible.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOF'
+        return new FixerDefinition('Convert `heredoc` to `nowdoc` where possible.', [new CodeSample(<<<'EOF'
 <?php
 
 namespace ECSPrefix20220607;
@@ -54,14 +54,14 @@ EOF
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_START_HEREDOC);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_START_HEREDOC) || \strpos($token->getContent(), "'") !== \false) {
@@ -76,19 +76,19 @@ EOF
             }
             $content = $tokens[$index + 1]->getContent();
             // regex: odd number of backslashes, not followed by dollar
-            if (\PhpCsFixer\Preg::match('/(?<!\\\\)(?:\\\\{2})*\\\\(?![$\\\\])/', $content)) {
+            if (Preg::match('/(?<!\\\\)(?:\\\\{2})*\\\\(?![$\\\\])/', $content)) {
                 continue;
             }
             $tokens[$index] = $this->convertToNowdoc($token);
             $content = \str_replace(['\\\\', '\\$'], ['\\', '$'], $content);
-            $tokens[$index + 1] = new \PhpCsFixer\Tokenizer\Token([$tokens[$index + 1]->getId(), $content]);
+            $tokens[$index + 1] = new Token([$tokens[$index + 1]->getId(), $content]);
         }
     }
     /**
      * Transforms the heredoc start token to nowdoc notation.
      */
-    private function convertToNowdoc(\PhpCsFixer\Tokenizer\Token $token) : \PhpCsFixer\Tokenizer\Token
+    private function convertToNowdoc(Token $token) : Token
     {
-        return new \PhpCsFixer\Tokenizer\Token([$token->getId(), \PhpCsFixer\Preg::replace('/^([Bb]?<<<)(\\h*)"?([^\\s"]+)"?/', '$1$2\'$3\'', $token->getContent())]);
+        return new Token([$token->getId(), Preg::replace('/^([Bb]?<<<)(\\h*)"?([^\\s"]+)"?/', '$1$2\'$3\'', $token->getContent())]);
     }
 }

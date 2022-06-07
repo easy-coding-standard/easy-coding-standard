@@ -26,7 +26,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpUnitMockFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class PhpUnitMockFixer extends AbstractPhpUnitFixer implements ConfigurableFixerInterface
 {
     /**
      * @var bool
@@ -35,9 +35,9 @@ final class PhpUnitMockFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer impl
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Usages of `->getMock` and `->getMockWithoutInvokingTheOriginalConstructor` methods MUST be replaced by `->createMock` or `->createPartialMock` methods.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Usages of `->getMock` and `->getMockWithoutInvokingTheOriginalConstructor` methods MUST be replaced by `->createMock` or `->createPartialMock` methods.', [new CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
 {
     public function testFoo()
@@ -48,7 +48,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         $mock1 = $this->getMock("Baz", ["aaa"], ["argument"]); // version with more than 2 params is not supported
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
 {
     public function testFoo()
@@ -77,24 +77,24 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    protected function applyPhpUnitClassFix(Tokens $tokens, int $startIndex, int $endIndex) : void
     {
-        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
+        $argumentsAnalyzer = new ArgumentsAnalyzer();
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             if (!$tokens[$index]->isObjectOperator()) {
                 continue;
             }
             $index = $tokens->getNextMeaningfulToken($index);
             if ($tokens[$index]->equals([\T_STRING, 'getMockWithoutInvokingTheOriginalConstructor'], \false)) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'createMock']);
+                $tokens[$index] = new Token([\T_STRING, 'createMock']);
             } elseif ($tokens[$index]->equals([\T_STRING, 'getMock'], \false)) {
                 $openingParenthesis = $tokens->getNextMeaningfulToken($index);
-                $closingParenthesis = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openingParenthesis);
+                $closingParenthesis = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openingParenthesis);
                 $argumentsCount = $argumentsAnalyzer->countArguments($tokens, $openingParenthesis, $closingParenthesis);
                 if (1 === $argumentsCount) {
-                    $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'createMock']);
+                    $tokens[$index] = new Token([\T_STRING, 'createMock']);
                 } elseif (2 === $argumentsCount && \true === $this->fixCreatePartialMock) {
-                    $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'createPartialMock']);
+                    $tokens[$index] = new Token([\T_STRING, 'createPartialMock']);
                 }
             }
         }
@@ -102,8 +102,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_4, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_5, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_4, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_5, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
     }
 }

@@ -18,14 +18,14 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Tokens;
-final class NoEmptyPhpdocFixer extends \PhpCsFixer\AbstractFixer
+final class NoEmptyPhpdocFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should not be empty PHPDoc blocks.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php /**  */\n")]);
+        return new FixerDefinition('There should not be empty PHPDoc blocks.', [new CodeSample("<?php /**  */\n")]);
     }
     /**
      * {@inheritdoc}
@@ -40,20 +40,20 @@ final class NoEmptyPhpdocFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-            if (\PhpCsFixer\Preg::match('#^/\\*\\*[\\s\\*]*\\*/$#', $token->getContent())) {
+            if (Preg::match('#^/\\*\\*[\\s\\*]*\\*/$#', $token->getContent())) {
                 $tokens->clearTokenAndMergeSurroundingWhitespace($index);
             }
         }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Testing\Exception;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\Exception;
 
 use Exception;
-final class ShouldNotHappenException extends \Exception
+final class ShouldNotHappenException extends Exception
 {
 }

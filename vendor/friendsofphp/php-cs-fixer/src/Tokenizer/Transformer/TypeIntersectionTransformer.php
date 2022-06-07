@@ -22,7 +22,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class TypeIntersectionTransformer extends \PhpCsFixer\Tokenizer\AbstractTypeTransformer
+final class TypeIntersectionTransformer extends AbstractTypeTransformer
 {
     /**
      * {@inheritdoc}
@@ -42,19 +42,19 @@ final class TypeIntersectionTransformer extends \PhpCsFixer\Tokenizer\AbstractTy
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
-        $this->doProcess($tokens, $index, [T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG, '&']);
+        $this->doProcess($tokens, $index, [\T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG, '&']);
     }
     /**
      * {@inheritdoc}
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION];
+        return [CT::T_TYPE_INTERSECTION];
     }
-    protected function replaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    protected function replaceToken(Tokens $tokens, int $index) : void
     {
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION, '&']);
+        $tokens[$index] = new Token([CT::T_TYPE_INTERSECTION, '&']);
     }
 }

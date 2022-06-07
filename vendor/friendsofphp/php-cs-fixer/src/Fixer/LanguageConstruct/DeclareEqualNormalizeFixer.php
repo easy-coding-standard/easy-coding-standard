@@ -25,7 +25,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class DeclareEqualNormalizeFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @var string
@@ -42,9 +42,9 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Equal sign in declare statement should be surrounded by spaces or not following configuration.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\ndeclare(ticks =  1);\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\ndeclare(ticks=1);\n", ['space' => 'single'])]);
+        return new FixerDefinition('Equal sign in declare statement should be surrounded by spaces or not following configuration.', [new CodeSample("<?php\ndeclare(ticks =  1);\n"), new CodeSample("<?php\ndeclare(ticks=1);\n", ['space' => 'single'])]);
     }
     /**
      * {@inheritdoc}
@@ -58,14 +58,14 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DECLARE);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $callback = $this->callback;
         for ($index = 0, $count = $tokens->count(); $index < $count - 6; ++$index) {
@@ -73,7 +73,7 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
                 continue;
             }
             $openParenthesisIndex = $tokens->getNextMeaningfulToken($index);
-            $closeParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisIndex);
+            $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisIndex);
             for ($i = $closeParenthesisIndex; $i > $openParenthesisIndex; --$i) {
                 if ($tokens[$i]->equals('=')) {
                     $this->{$callback}($tokens, $i);
@@ -84,34 +84,34 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('space', 'Spacing to apply around the equal sign.'))->setAllowedValues(['single', 'none'])->setDefault('none')->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('space', 'Spacing to apply around the equal sign.'))->setAllowedValues(['single', 'none'])->setDefault('none')->getOption()]);
     }
     /**
      * @param int $index of `=` token
      */
-    private function ensureWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function ensureWhitespaceAroundToken(Tokens $tokens, int $index) : void
     {
         if ($tokens[$index + 1]->isWhitespace()) {
             if (' ' !== $tokens[$index + 1]->getContent()) {
-                $tokens[$index + 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+                $tokens[$index + 1] = new Token([\T_WHITESPACE, ' ']);
             }
         } else {
-            $tokens->insertAt($index + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+            $tokens->insertAt($index + 1, new Token([\T_WHITESPACE, ' ']));
         }
         if ($tokens[$index - 1]->isWhitespace()) {
             if (' ' !== $tokens[$index - 1]->getContent() && !$tokens[$tokens->getPrevNonWhitespace($index - 1)]->isComment()) {
-                $tokens[$index - 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+                $tokens[$index - 1] = new Token([\T_WHITESPACE, ' ']);
             }
         } else {
-            $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+            $tokens->insertAt($index, new Token([\T_WHITESPACE, ' ']));
         }
     }
     /**
      * @param int $index of `=` token
      */
-    private function removeWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function removeWhitespaceAroundToken(Tokens $tokens, int $index) : void
     {
         if (!$tokens[$tokens->getPrevNonWhitespace($index)]->isComment()) {
             $tokens->removeLeadingWhitespace($index);

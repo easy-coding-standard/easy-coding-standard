@@ -28,5 +28,5 @@ interface InstantiatorInterface
      *
      * @return object
      */
-    public function instantiateProxy(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface $container, \ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition $definition, string $id, callable $realInstantiator);
+    public function instantiateProxy(ContainerInterface $container, Definition $definition, string $id, callable $realInstantiator);
 }

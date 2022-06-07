@@ -21,7 +21,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class FinalPublicMethodForAbstractClassFixer extends \PhpCsFixer\AbstractFixer
+final class FinalPublicMethodForAbstractClassFixer extends AbstractFixer
 {
     /**
      * @var mixed[]
@@ -30,9 +30,9 @@ final class FinalPublicMethodForAbstractClassFixer extends \PhpCsFixer\AbstractF
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('All `public` methods of `abstract` classes should be `final`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('All `public` methods of `abstract` classes should be `final`.', [new CodeSample('<?php
 
 abstract class AbstractMachine
 {
@@ -44,7 +44,7 @@ abstract class AbstractMachine
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_CLASS, \T_ABSTRACT, \T_PUBLIC, \T_FUNCTION]);
     }
@@ -58,7 +58,7 @@ abstract class AbstractMachine
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
         while ($classIndex = \array_pop($classes)) {
@@ -67,16 +67,16 @@ abstract class AbstractMachine
                 continue;
             }
             $classOpen = $tokens->getNextTokenOfKind($classIndex, ['{']);
-            $classClose = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpen);
+            $classClose = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpen);
             $this->fixClass($tokens, $classOpen, $classClose);
         }
     }
-    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classOpenIndex, int $classCloseIndex) : void
+    private function fixClass(Tokens $tokens, int $classOpenIndex, int $classCloseIndex) : void
     {
         for ($index = $classCloseIndex - 1; $index > $classOpenIndex; --$index) {
             // skip method contents
             if ($tokens[$index]->equals('}')) {
-                $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
                 continue;
             }
             // skip non public methods
@@ -111,7 +111,7 @@ abstract class AbstractMachine
                 $index = $prevIndex;
                 continue;
             }
-            $tokens->insertAt($index, [new \PhpCsFixer\Tokenizer\Token([\T_FINAL, 'final']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]);
+            $tokens->insertAt($index, [new Token([\T_FINAL, 'final']), new Token([\T_WHITESPACE, ' '])]);
         }
     }
 }

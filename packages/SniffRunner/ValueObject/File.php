@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject;
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File as BaseFile;
@@ -11,23 +11,23 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PHP_CodeSniffer\Util\Common;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
-use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use ECSPrefix20220607\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject\FileTest
  */
-final class File extends \PHP_CodeSniffer\Files\File
+final class File extends BaseFile
 {
     /**
      * Explicit list for classes that use only warnings. ECS only knows only errors, so this one promotes them to error.
      *
      * @var array<class-string<Sniff>>
      */
-    private const REPORT_WARNINGS_SNIFFS = ['\\PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\CodeAnalysis\\AssignmentInConditionSniff', \PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff::class, \PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff::class];
+    private const REPORT_WARNINGS_SNIFFS = ['\\PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\CodeAnalysis\\AssignmentInConditionSniff', PropertyDeclarationSniff::class, MethodDeclarationSniff::class, CommentedOutCodeSniff::class];
     /**
      * @var string
      */
@@ -60,7 +60,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(string $path, string $content, \PHP_CodeSniffer\Fixer $fixer, \ECSPrefix20220607\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector $sniffMetadataCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(string $path, string $content, Fixer $fixer, Skipper $skipper, SniffMetadataCollector $sniffMetadataCollector, EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $this->skipper = $skipper;
         $this->sniffMetadataCollector = $sniffMetadataCollector;
@@ -69,13 +69,13 @@ final class File extends \PHP_CodeSniffer\Files\File
         $this->content = $content;
         // this property cannot be promoted as defined in constructor
         $this->fixer = $fixer;
-        $this->eolChar = \PHP_CodeSniffer\Util\Common::detectLineEndings($content);
+        $this->eolChar = Common::detectLineEndings($content);
         // compat
-        if (!\defined('PHP_CODESNIFFER_CBF')) {
-            \define('PHP_CODESNIFFER_CBF', \false);
+        if (!\defined('ECSPrefix20220607\\PHP_CODESNIFFER_CBF')) {
+            \define('ECSPrefix20220607\\PHP_CODESNIFFER_CBF', \false);
         }
         // parent required
-        $this->config = new \PHP_CodeSniffer\Config([], \false);
+        $this->config = new Config([], \false);
         $this->config->tabWidth = 4;
         $this->config->annotations = \false;
         $this->config->encoding = 'UTF-8';
@@ -89,8 +89,8 @@ final class File extends \PHP_CodeSniffer\Files\File
         $this->parse();
         $this->fixer->startFile($this);
         $currentFileInfo = $this->fileInfo;
-        if (!$currentFileInfo instanceof \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo) {
-            throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
+        if (!$currentFileInfo instanceof SmartFileInfo) {
+            throw new ShouldNotHappenException();
         }
         foreach ($this->tokens as $stackPtr => $token) {
             if (!isset($this->tokenListeners[$token['code']])) {
@@ -134,7 +134,7 @@ final class File extends \PHP_CodeSniffer\Files\File
     public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
     {
         if ($this->activeSniffClass === null) {
-            throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
+            throw new ShouldNotHappenException();
         }
         if (!$this->isSniffClassWarningAllowed($this->activeSniffClass)) {
             return \false;
@@ -144,7 +144,7 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * @param array<int|string, Sniff[]> $tokenListeners
      */
-    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function processWithTokenListenersAndFileInfo(array $tokenListeners, SmartFileInfo $fileInfo) : void
     {
         $this->tokenListeners = $tokenListeners;
         $this->fileInfo = $fileInfo;
@@ -167,7 +167,7 @@ final class File extends \PHP_CodeSniffer\Files\File
         }
         $message = $data !== [] ? \vsprintf($message, $data) : $message;
         $checkerClass = $this->resolveFullyQualifiedCode($sniffClassOrCode);
-        $codingStandardError = new \Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError($line, $message, $checkerClass, $this->getFilename());
+        $codingStandardError = new CodingStandardError($line, $message, $checkerClass, $this->getFilename());
         $this->sniffMetadataCollector->addCodingStandardError($codingStandardError);
         if ($isFixable) {
             return $isFixable;
@@ -175,7 +175,7 @@ final class File extends \PHP_CodeSniffer\Files\File
         // do not add non-fixable errors twice
         return $this->fixer->loops === 0;
     }
-    private function reportActiveSniffClass(\PHP_CodeSniffer\Sniffs\Sniff $sniff) : void
+    private function reportActiveSniffClass(Sniff $sniff) : void
     {
         // used in other places later
         $this->activeSniffClass = \get_class($sniff);
@@ -202,7 +202,7 @@ final class File extends \PHP_CodeSniffer\Files\File
     {
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
         if ($this->fileInfo === null) {
-            throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException();
+            throw new ShouldNotHappenException();
         }
         if ($this->skipper->shouldSkipElementAndFileInfo($fullyQualifiedCode, $this->fileInfo)) {
             return \true;

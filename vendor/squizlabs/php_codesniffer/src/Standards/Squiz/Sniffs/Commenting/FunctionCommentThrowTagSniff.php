@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class FunctionCommentThrowTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FunctionCommentThrowTagSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,14 +33,14 @@ class FunctionCommentThrowTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_closer']) === \false) {
             // Abstract or incomplete.
             return;
         }
-        $find = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;
+        $find = Tokens::$methodPrefixes;
         $find[] = \T_WHITESPACE;
         $commentEnd = $phpcsFile->findPrevious($find, $stackPtr - 1, null, \true);
         if ($tokens[$commentEnd]['code'] !== T_DOC_COMMENT_CLOSE_TAG) {

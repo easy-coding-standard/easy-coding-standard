@@ -18,19 +18,19 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Tokens;
-final class NoUnneededImportAliasFixer extends \PhpCsFixer\AbstractFixer
+final class NoUnneededImportAliasFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Imports should not be aliased as the same name.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nuse A\\B\\Foo as Foo;\n")]);
+        return new FixerDefinition('Imports should not be aliased as the same name.', [new CodeSample("<?php\nuse A\\B\\Foo as Foo;\n")]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_USE, \T_AS]);
     }
@@ -46,7 +46,7 @@ final class NoUnneededImportAliasFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; 0 <= $index; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_AS)) {
@@ -66,10 +66,10 @@ final class NoUnneededImportAliasFixer extends \PhpCsFixer\AbstractFixer
             do {
                 $importIndex = $tokens->getPrevMeaningfulToken($importIndex);
             } while ($tokens[$importIndex]->isGivenKind([\T_NS_SEPARATOR, \T_STRING, \T_AS]) || $tokens[$importIndex]->equals(','));
-            if ($tokens[$importIndex]->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT, \PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT])) {
+            if ($tokens[$importIndex]->isGivenKind([CT::T_FUNCTION_IMPORT, CT::T_CONST_IMPORT])) {
                 $importIndex = $tokens->getPrevMeaningfulToken($importIndex);
             }
-            if (!$tokens[$importIndex]->isGivenKind([\T_USE, \PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_OPEN])) {
+            if (!$tokens[$importIndex]->isGivenKind([\T_USE, CT::T_GROUP_IMPORT_BRACE_OPEN])) {
                 continue;
             }
             $tokens->clearTokenAndMergeSurroundingWhitespace($aliasIndex);

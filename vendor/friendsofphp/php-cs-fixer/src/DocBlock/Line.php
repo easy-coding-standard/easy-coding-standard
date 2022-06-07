@@ -53,7 +53,7 @@ final class Line
      */
     public function containsUsefulContent() : bool
     {
-        return 0 !== \PhpCsFixer\Preg::match('/\\*\\s*\\S+/', $this->content) && '' !== \trim(\str_replace(['/', '*'], ' ', $this->content));
+        return 0 !== Preg::match('/\\*\\s*\\S+/', $this->content) && '' !== \trim(\str_replace(['/', '*'], ' ', $this->content));
     }
     /**
      * Does the line contain a tag?
@@ -62,7 +62,7 @@ final class Line
      */
     public function containsATag() : bool
     {
-        return 0 !== \PhpCsFixer\Preg::match('/\\*\\s*@/', $this->content);
+        return 0 !== Preg::match('/\\*\\s*@/', $this->content);
     }
     /**
      * Is the line the start of a docblock?
@@ -105,7 +105,7 @@ final class Line
      */
     public function addBlank() : void
     {
-        $matched = \PhpCsFixer\Preg::match('/^(\\h*\\*)[^\\r\\n]*(\\r?\\n)$/', $this->content, $matches);
+        $matched = Preg::match('/^(\\h*\\*)[^\\r\\n]*(\\r?\\n)$/', $this->content, $matches);
         if (1 !== $matched) {
             return;
         }

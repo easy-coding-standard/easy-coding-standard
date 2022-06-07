@@ -22,16 +22,16 @@ abstract class AbstractFopenFlagFixer extends \PhpCsFixer\AbstractFunctionRefere
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_STRING, \T_CONSTANT_ENCAPSED_STRING]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
+        $argumentsAnalyzer = new ArgumentsAnalyzer();
         $index = 0;
         $end = $tokens->count() - 1;
         while (\true) {
@@ -53,7 +53,7 @@ abstract class AbstractFopenFlagFixer extends \PhpCsFixer\AbstractFunctionRefere
             $this->fixFopenFlagToken($tokens, $argumentStartIndex, $arguments[$argumentStartIndex]);
         }
     }
-    protected abstract function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex) : void;
+    protected abstract function fixFopenFlagToken(Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex) : void;
     protected function isValidModeString(string $mode) : bool
     {
         $modeLength = \strlen($mode);

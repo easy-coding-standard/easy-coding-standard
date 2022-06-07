@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class SpaceAfterCastSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class SpaceAfterCastSniff implements Sniff
 {
     /**
      * The number of spaces desired after a cast token.
@@ -33,7 +33,7 @@ class SpaceAfterCastSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return \PHP_CodeSniffer\Util\Tokens::$castTokens;
+        return Tokens::$castTokens;
     }
     //end register()
     /**
@@ -45,7 +45,7 @@ class SpaceAfterCastSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $this->spacing = (int) $this->spacing;
@@ -53,7 +53,7 @@ class SpaceAfterCastSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             // You can't replace a space after this type of binary casting.
             return;
         }
-        $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($nextNonEmpty === \false) {
             return;
         }

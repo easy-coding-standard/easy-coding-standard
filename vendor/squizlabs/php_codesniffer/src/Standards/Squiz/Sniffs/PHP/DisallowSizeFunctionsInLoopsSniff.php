@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class DisallowSizeFunctionsInLoopsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DisallowSizeFunctionsInLoopsSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -44,7 +44,7 @@ class DisallowSizeFunctionsInLoopsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $tokenizer = $phpcsFile->tokenizerType;

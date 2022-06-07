@@ -27,7 +27,7 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptions
 /**
  * @author Vladimir Reznichenko <kalessil@gmail.com>
  */
-final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class RandomApiMigrationFixer extends AbstractFunctionReferenceFixer implements ConfigurableFixerInterface
 {
     /**
      * @var mixed[]
@@ -46,16 +46,16 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces `rand`, `srand`, `getrandmax` functions calls with their `mt_*` analogs or `random_int`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n", ['replacements' => ['getrandmax' => 'mt_getrandmax']]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = rand(\$b, \$c);\n", ['replacements' => ['rand' => 'random_int']])], null, 'Risky when the configured functions are overridden. Or when relying on the seed based generating of the numbers.');
+        return new FixerDefinition('Replaces `rand`, `srand`, `getrandmax` functions calls with their `mt_*` analogs or `random_int`.', [new CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n"), new CodeSample("<?php\n\$a = getrandmax();\n\$a = rand(\$b, \$c);\n\$a = srand();\n", ['replacements' => ['getrandmax' => 'mt_getrandmax']]), new CodeSample("<?php \$a = rand(\$b, \$c);\n", ['replacements' => ['rand' => 'random_int']])], null, 'Risky when the configured functions are overridden. Or when relying on the seed based generating of the numbers.');
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
+        $argumentsAnalyzer = new ArgumentsAnalyzer();
         foreach ($this->configuration['replacements'] as $functionIdentity => $functionReplacement) {
             if ($functionIdentity === $functionReplacement['alternativeName']) {
                 continue;
@@ -75,9 +75,9 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
                 }
                 // analysing cursor shift, so nested calls could be processed
                 $currIndex = $openParenthesis;
-                $tokens[$functionName] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $functionReplacement['alternativeName']]);
+                $tokens[$functionName] = new Token([\T_STRING, $functionReplacement['alternativeName']]);
                 if (0 === $count && 'random_int' === $functionReplacement['alternativeName']) {
-                    $tokens->insertAt($currIndex + 1, [new \PhpCsFixer\Tokenizer\Token([\T_LNUMBER, '0']), new \PhpCsFixer\Tokenizer\Token(','), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'getrandmax']), new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token(')')]);
+                    $tokens->insertAt($currIndex + 1, [new Token([\T_LNUMBER, '0']), new Token(','), new Token([\T_WHITESPACE, ' ']), new Token([\T_STRING, 'getrandmax']), new Token('('), new Token(')')]);
                     $currIndex += 6;
                 }
             } while (null !== $currIndex);
@@ -86,15 +86,15 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('replacements', 'Mapping between replaced functions with the new ones.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('replacements', 'Mapping between replaced functions with the new ones.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
             foreach ($value as $functionName => $replacement) {
                 if (!\array_key_exists($functionName, self::$argumentCounts)) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Function "%s" is not handled by the fixer.', $functionName));
+                    throw new InvalidOptionsException(\sprintf('Function "%s" is not handled by the fixer.', $functionName));
                 }
                 if (!\is_string($replacement)) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Replacement for function "%s" must be a string, "%s" given.', $functionName, \get_debug_type($replacement)));
+                    throw new InvalidOptionsException(\sprintf('Replacement for function "%s" must be a string, "%s" given.', $functionName, \get_debug_type($replacement)));
                 }
             }
             return \true;

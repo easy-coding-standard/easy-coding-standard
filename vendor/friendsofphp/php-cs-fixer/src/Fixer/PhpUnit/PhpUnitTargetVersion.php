@@ -46,6 +46,6 @@ final class PhpUnitTargetVersion
         if (self::VERSION_NEWEST === $candidate) {
             return \true;
         }
-        return \ECSPrefix20220607\Composer\Semver\Comparator::greaterThanOrEqualTo($candidate, $target);
+        return Comparator::greaterThanOrEqualTo($candidate, $target);
     }
 }

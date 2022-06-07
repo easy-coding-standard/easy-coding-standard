@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class LowercaseClassKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class LowercaseClassKeywordsSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -21,7 +21,7 @@ class LowercaseClassKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        $targets = \PHP_CodeSniffer\Util\Tokens::$ooScopeTokens;
+        $targets = Tokens::$ooScopeTokens;
         $targets[] = \T_EXTENDS;
         $targets[] = \T_IMPLEMENTS;
         $targets[] = \T_ABSTRACT;
@@ -40,7 +40,7 @@ class LowercaseClassKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $content = $tokens[$stackPtr]['content'];

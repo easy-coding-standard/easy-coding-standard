@@ -15,7 +15,7 @@ namespace ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader;
  *
  * @author Sebastien Lavoie <seb@wemakecustom.com>
  */
-class DirectoryLoader extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\FileLoader
+class DirectoryLoader extends FileLoader
 {
     /**
      * {@inheritdoc}

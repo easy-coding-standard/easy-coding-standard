@@ -14,7 +14,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\PHP;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
-class AjaxNullComparisonSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class AjaxNullComparisonSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -35,7 +35,7 @@ class AjaxNullComparisonSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Make sure it is an API function. We know this by the doc comment.

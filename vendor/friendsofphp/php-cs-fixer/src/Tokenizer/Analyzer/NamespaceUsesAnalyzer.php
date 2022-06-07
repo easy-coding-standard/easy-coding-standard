@@ -25,16 +25,16 @@ final class NamespaceUsesAnalyzer
     /**
      * @return NamespaceUseAnalysis[]
      */
-    public function getDeclarationsFromTokens(\PhpCsFixer\Tokenizer\Tokens $tokens) : array
+    public function getDeclarationsFromTokens(Tokens $tokens) : array
     {
-        $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokenAnalyzer = new TokensAnalyzer($tokens);
         $useIndices = $tokenAnalyzer->getImportUseIndexes();
         return $this->getDeclarations($tokens, $useIndices);
     }
     /**
      * @return NamespaceUseAnalysis[]
      */
-    public function getDeclarationsInNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace) : array
+    public function getDeclarationsInNamespace(Tokens $tokens, NamespaceAnalysis $namespace) : array
     {
         $namespaceUses = [];
         foreach ($this->getDeclarationsFromTokens($tokens) as $namespaceUse) {
@@ -47,7 +47,7 @@ final class NamespaceUsesAnalyzer
     /**
      * @return NamespaceUseAnalysis[]
      */
-    private function getDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useIndices) : array
+    private function getDeclarations(Tokens $tokens, array $useIndices) : array
     {
         $uses = [];
         foreach ($useIndices as $index) {
@@ -59,22 +59,22 @@ final class NamespaceUsesAnalyzer
         }
         return $uses;
     }
-    private function parseDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis
+    private function parseDeclaration(Tokens $tokens, int $startIndex, int $endIndex) : ?NamespaceUseAnalysis
     {
         $fullName = $shortName = '';
         $aliased = \false;
-        $type = \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis::TYPE_CLASS;
+        $type = NamespaceUseAnalysis::TYPE_CLASS;
         for ($i = $startIndex; $i <= $endIndex; ++$i) {
             $token = $tokens[$i];
-            if ($token->equals(',') || $token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_GROUP_IMPORT_BRACE_CLOSE)) {
+            if ($token->equals(',') || $token->isGivenKind(CT::T_GROUP_IMPORT_BRACE_CLOSE)) {
                 // do not touch group use declarations until the logic of this is added (for example: `use some\a\{ClassD};`)
                 // ignore multiple use statements that should be split into few separate statements (for example: `use BarB, BarC as C;`)
                 return null;
             }
-            if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
-                $type = \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis::TYPE_FUNCTION;
-            } elseif ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT)) {
-                $type = \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis::TYPE_CONSTANT;
+            if ($token->isGivenKind(CT::T_FUNCTION_IMPORT)) {
+                $type = NamespaceUseAnalysis::TYPE_FUNCTION;
+            } elseif ($token->isGivenKind(CT::T_CONST_IMPORT)) {
+                $type = NamespaceUseAnalysis::TYPE_CONSTANT;
             }
             if ($token->isWhitespace() || $token->isComment() || $token->isGivenKind(\T_USE)) {
                 continue;
@@ -90,6 +90,6 @@ final class NamespaceUsesAnalyzer
                 $aliased = \true;
             }
         }
-        return new \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis(\trim($fullName), $shortName, $aliased, $startIndex, $endIndex, $type);
+        return new NamespaceUseAnalysis(\trim($fullName), $shortName, $aliased, $startIndex, $endIndex, $type);
     }
 }

@@ -14,16 +14,16 @@ final class InputFileInfoAndExpectedFileInfo
      * @var \Symplify\SmartFileSystem\SmartFileInfo
      */
     private $expectedFileInfo;
-    public function __construct(\ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo)
+    public function __construct(SmartFileInfo $inputFileInfo, SmartFileInfo $expectedFileInfo)
     {
         $this->inputFileInfo = $inputFileInfo;
         $this->expectedFileInfo = $expectedFileInfo;
     }
-    public function getInputFileInfo() : \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo
+    public function getInputFileInfo() : SmartFileInfo
     {
         return $this->inputFileInfo;
     }
-    public function getExpectedFileInfo() : \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo
+    public function getExpectedFileInfo() : SmartFileInfo
     {
         return $this->expectedFileInfo;
     }

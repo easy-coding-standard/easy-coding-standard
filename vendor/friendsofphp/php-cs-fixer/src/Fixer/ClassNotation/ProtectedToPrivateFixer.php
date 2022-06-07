@@ -23,14 +23,14 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class ProtectedToPrivateFixer extends \PhpCsFixer\AbstractFixer
+final class ProtectedToPrivateFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts `protected` variables and methods to `private` where possible.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Converts `protected` variables and methods to `private` where possible.', [new CodeSample('<?php
 final class Sample
 {
     protected $a;
@@ -54,9 +54,9 @@ final class Sample
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
-        if (\defined('T_ENUM') && $tokens->isAllTokenKindsFound([T_ENUM, \T_PROTECTED])) {
+        if (\defined('T_ENUM') && $tokens->isAllTokenKindsFound([\T_ENUM, \T_PROTECTED])) {
             // @TODO: drop condition when PHP 8.1+ is required
             return \true;
         }
@@ -65,13 +65,13 @@ final class Sample
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
-        $modifierKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_NS_SEPARATOR, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \T_STATIC, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION];
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
+        $modifierKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_NS_SEPARATOR, \T_STRING, CT::T_NULLABLE_TYPE, CT::T_ARRAY_TYPEHINT, \T_STATIC, CT::T_TYPE_ALTERNATION, CT::T_TYPE_INTERSECTION];
         if (\defined('T_READONLY')) {
             // @TODO: drop condition when PHP 8.1+ is required
-            $modifierKinds[] = T_READONLY;
+            $modifierKinds[] = \T_READONLY;
         }
         $classesCandidate = [];
         $classElementTypes = ['method' => \true, 'property' => \true, 'const' => \true];
@@ -106,12 +106,12 @@ final class Sample
                 // Final constants cannot be private
             }
             $element['protected_index'] = $isProtected;
-            $tokens[$element['protected_index']] = new \PhpCsFixer\Tokenizer\Token([\T_PRIVATE, 'private']);
+            $tokens[$element['protected_index']] = new Token([\T_PRIVATE, 'private']);
         }
     }
-    private function isClassCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, int $classIndex) : bool
+    private function isClassCandidate(Tokens $tokens, int $classIndex) : bool
     {
-        if (\defined('T_ENUM') && $tokens[$classIndex]->isGivenKind(T_ENUM)) {
+        if (\defined('T_ENUM') && $tokens[$classIndex]->isGivenKind(\T_ENUM)) {
             // @TODO: drop condition when PHP 8.1+ is required
             return \true;
         }
@@ -126,13 +126,13 @@ final class Sample
         if ($tokens[$classExtendsIndex]->isGivenKind(\T_EXTENDS)) {
             return \false;
         }
-        if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
+        if (!$tokens->isTokenKindFound(CT::T_USE_TRAIT)) {
             return \true;
             // cheap test
         }
         $classOpenIndex = $tokens->getNextTokenOfKind($classNameIndex, ['{']);
-        $classCloseIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpenIndex);
-        $useIndex = $tokens->getNextTokenOfKind($classOpenIndex, [[\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT]]);
+        $classCloseIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpenIndex);
+        $useIndex = $tokens->getNextTokenOfKind($classOpenIndex, [[CT::T_USE_TRAIT]]);
         return null === $useIndex || $useIndex > $classCloseIndex;
     }
 }

@@ -21,14 +21,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Haralan Dobrev <hkdobrev@gmail.com>
  */
-final class LogicalOperatorsFixer extends \PhpCsFixer\AbstractFixer
+final class LogicalOperatorsFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Use `&&` and `||` logical operators instead of `and` and `or`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Use `&&` and `||` logical operators instead of `and` and `or`.', [new CodeSample('<?php
 
 if ($a == "foo" and ($b == "bar" or $c == "baz")) {
 }
@@ -37,7 +37,7 @@ if ($a == "foo" and ($b == "bar" or $c == "baz")) {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_LOGICAL_AND, \T_LOGICAL_OR]);
     }
@@ -51,13 +51,13 @@ if ($a == "foo" and ($b == "bar" or $c == "baz")) {
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if ($token->isGivenKind(\T_LOGICAL_AND)) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_BOOLEAN_AND, '&&']);
+                $tokens[$index] = new Token([\T_BOOLEAN_AND, '&&']);
             } elseif ($token->isGivenKind(\T_LOGICAL_OR)) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_BOOLEAN_OR, '||']);
+                $tokens[$index] = new Token([\T_BOOLEAN_OR, '||']);
             }
         }
     }

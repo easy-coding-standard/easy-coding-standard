@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\DependencyInjection;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection;
 
 use ECSPrefix20220607\Symfony\Component\Config\Resource\FileResource;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
@@ -14,7 +14,7 @@ final class DeprecationReporter
      * @var array<string, string>
      */
     private const DEPRECATED_SETS_BY_FILE_PATHS = ['config/set/symfony.php' => 'SYMFONY', 'config/set/symfony-risky.php' => 'SYMFONY_RISKY', 'config/set/php-cs-fixer.php' => 'PHP_CS_FIXER', 'config/set/php-cs-fixer-risky.php' => 'PHP_CS_FIXER_RISKY'];
-    public function reportDeprecatedSets(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input) : void
+    public function reportDeprecatedSets(ContainerBuilder $containerBuilder, InputInterface $input) : void
     {
         // report only once on main command run, not on parallel workers
         if ($input->getFirstArgument() !== 'check') {
@@ -29,9 +29,9 @@ final class DeprecationReporter
     /**
      * @param string[] $setNames
      */
-    private function reportFoundSets(array $setNames, \ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface $container) : void
+    private function reportFoundSets(array $setNames, ContainerInterface $container) : void
     {
-        $symfonyStyle = $container->get(\ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle::class);
+        $symfonyStyle = $container->get(SymfonyStyle::class);
         foreach ($setNames as $setName) {
             $deprecatedMessage = \sprintf('The "%s" set from ECS is outdated and deprecated. Switch to standardized "PSR_12" or include rules manually.', $setName);
             $symfonyStyle->warning($deprecatedMessage);
@@ -42,11 +42,11 @@ final class DeprecationReporter
     /**
      * @return string[]
      */
-    private function findDeprecatedSets(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : array
+    private function findDeprecatedSets(ContainerBuilder $containerBuilder) : array
     {
         $deprecatedSets = [];
         foreach ($containerBuilder->getResources() as $resource) {
-            if (!$resource instanceof \ECSPrefix20220607\Symfony\Component\Config\Resource\FileResource) {
+            if (!$resource instanceof FileResource) {
                 continue;
             }
             foreach (self::DEPRECATED_SETS_BY_FILE_PATHS as $setFilePath => $setName) {

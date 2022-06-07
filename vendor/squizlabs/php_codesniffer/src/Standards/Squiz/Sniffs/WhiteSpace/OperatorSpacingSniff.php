@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class OperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class OperatorSpacingSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -53,25 +53,25 @@ class OperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             used as an operator.
         */
         // Trying to operate on a negative value; eg. ($var * -1).
-        $this->nonOperandTokens = \PHP_CodeSniffer\Util\Tokens::$operators;
+        $this->nonOperandTokens = Tokens::$operators;
         // Trying to compare a negative value; eg. ($var === -1).
-        $this->nonOperandTokens += \PHP_CodeSniffer\Util\Tokens::$comparisonTokens;
+        $this->nonOperandTokens += Tokens::$comparisonTokens;
         // Trying to compare a negative value; eg. ($var || -1 === $b).
-        $this->nonOperandTokens += \PHP_CodeSniffer\Util\Tokens::$booleanOperators;
+        $this->nonOperandTokens += Tokens::$booleanOperators;
         // Trying to assign a negative value; eg. ($var = -1).
-        $this->nonOperandTokens += \PHP_CodeSniffer\Util\Tokens::$assignmentTokens;
+        $this->nonOperandTokens += Tokens::$assignmentTokens;
         // Returning/printing a negative value; eg. (return -1).
         $this->nonOperandTokens += [\T_RETURN => \T_RETURN, \T_ECHO => \T_ECHO, \T_EXIT => \T_EXIT, \T_PRINT => \T_PRINT, \T_YIELD => \T_YIELD, T_FN_ARROW => T_FN_ARROW];
         // Trying to use a negative value; eg. myFunction($var, -2).
         $this->nonOperandTokens += [\T_CASE => \T_CASE, T_COLON => T_COLON, T_COMMA => T_COMMA, T_INLINE_ELSE => T_INLINE_ELSE, T_INLINE_THEN => T_INLINE_THEN, T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET, T_OPEN_PARENTHESIS => T_OPEN_PARENTHESIS, T_OPEN_SHORT_ARRAY => T_OPEN_SHORT_ARRAY, T_OPEN_SQUARE_BRACKET => T_OPEN_SQUARE_BRACKET, T_STRING_CONCAT => T_STRING_CONCAT];
         // Casting a negative value; eg. (array) -$a.
-        $this->nonOperandTokens += \PHP_CodeSniffer\Util\Tokens::$castTokens;
+        $this->nonOperandTokens += Tokens::$castTokens;
         /*
             These are the tokens the sniff is looking for.
         */
-        $targets = \PHP_CodeSniffer\Util\Tokens::$comparisonTokens;
-        $targets += \PHP_CodeSniffer\Util\Tokens::$operators;
-        $targets += \PHP_CodeSniffer\Util\Tokens::$assignmentTokens;
+        $targets = Tokens::$comparisonTokens;
+        $targets += Tokens::$operators;
+        $targets += Tokens::$assignmentTokens;
         $targets[] = T_INLINE_THEN;
         $targets[] = T_INLINE_ELSE;
         $targets[] = \T_INSTANCEOF;
@@ -87,7 +87,7 @@ class OperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($this->isOperator($phpcsFile, $stackPtr) === \false) {
@@ -161,7 +161,7 @@ class OperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
             $phpcsFile->recordMetric($stackPtr, 'Space before operator', 0);
         } else {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$assignmentTokens[$tokens[$stackPtr]['code']]) === \false || $this->ignoreSpacingBeforeAssignments === \false) {
+            if (isset(Tokens::$assignmentTokens[$tokens[$stackPtr]['code']]) === \false || $this->ignoreSpacingBeforeAssignments === \false) {
                 // Throw an error for assignments only if enabled using the sniff property
                 // because other standards allow multiple spaces to align assignments.
                 if ($tokens[$stackPtr - 2]['line'] !== $tokens[$stackPtr]['line']) {
@@ -218,7 +218,7 @@ class OperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $error = 'Expected 1 space after "%s"; %s found';
                 $data = [$operator, $found];
                 $nextNonWhitespace = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
-                if ($nextNonWhitespace !== \false && isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$nextNonWhitespace]['code']]) === \true && $found === 'newline') {
+                if ($nextNonWhitespace !== \false && isset(Tokens::$commentTokens[$tokens[$nextNonWhitespace]['code']]) === \true && $found === 'newline') {
                     // Don't auto-fix when it's a comment or PHPCS annotation on a new line as
                     // it causes fixer conflicts and can cause the meaning of annotations to change.
                     $phpcsFile->addError($error, $stackPtr, 'SpacingAfter', $data);
@@ -243,7 +243,7 @@ class OperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return boolean
      */
-    protected function isOperator(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function isOperator(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Skip default values in function declarations.
@@ -276,7 +276,7 @@ class OperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if ($tokens[$stackPtr]['code'] === T_MINUS || $tokens[$stackPtr]['code'] === T_PLUS) {
             // Check minus spacing, but make sure we aren't just assigning
             // a minus value or returning one.
-            $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+            $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
             if (isset($this->nonOperandTokens[$tokens[$prev]['code']]) === \true) {
                 return \false;
             }

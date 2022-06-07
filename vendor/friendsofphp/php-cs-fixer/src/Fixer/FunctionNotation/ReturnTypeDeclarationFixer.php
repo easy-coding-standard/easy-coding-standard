@@ -26,14 +26,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class ReturnTypeDeclarationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class ReturnTypeDeclarationFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should be one or no space before colon, and one space after it in return type declarations, according to configuration.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction foo(int \$a):string {};\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction foo(int \$a):string {};\n", ['space_before' => 'none']), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction foo(int \$a):string {};\n", ['space_before' => 'one'])], 'Rule is applied only in a PHP 7+ environment.');
+        return new FixerDefinition('There should be one or no space before colon, and one space after it in return type declarations, according to configuration.', [new CodeSample("<?php\nfunction foo(int \$a):string {};\n"), new CodeSample("<?php\nfunction foo(int \$a):string {};\n", ['space_before' => 'none']), new CodeSample("<?php\nfunction foo(int \$a):string {};\n", ['space_before' => 'one'])], 'Rule is applied only in a PHP 7+ environment.');
     }
     /**
      * {@inheritdoc}
@@ -47,18 +47,18 @@ final class ReturnTypeDeclarationFixer extends \PhpCsFixer\AbstractFixer impleme
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
-        return $tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON);
+        return $tokens->isTokenKindFound(CT::T_TYPE_COLON);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $oneSpaceBefore = 'one' === $this->configuration['space_before'];
         for ($index = 0, $limit = $tokens->count(); $index < $limit; ++$index) {
-            if (!$tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON)) {
+            if (!$tokens[$index]->isGivenKind(CT::T_TYPE_COLON)) {
                 continue;
             }
             $previousIndex = $index - 1;
@@ -66,7 +66,7 @@ final class ReturnTypeDeclarationFixer extends \PhpCsFixer\AbstractFixer impleme
             if ($previousToken->isWhitespace()) {
                 if (!$tokens[$tokens->getPrevNonWhitespace($index - 1)]->isComment()) {
                     if ($oneSpaceBefore) {
-                        $tokens[$previousIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+                        $tokens[$previousIndex] = new Token([\T_WHITESPACE, ' ']);
                     } else {
                         $tokens->clearAt($previousIndex);
                     }
@@ -88,8 +88,8 @@ final class ReturnTypeDeclarationFixer extends \PhpCsFixer\AbstractFixer impleme
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('space_before', 'Spacing to apply before colon.'))->setAllowedValues(['one', 'none'])->setDefault('none')->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('space_before', 'Spacing to apply before colon.'))->setAllowedValues(['one', 'none'])->setDefault('none')->getOption()]);
     }
 }

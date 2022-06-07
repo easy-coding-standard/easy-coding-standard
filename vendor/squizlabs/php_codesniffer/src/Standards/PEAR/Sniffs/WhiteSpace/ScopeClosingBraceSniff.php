@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ScopeClosingBraceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ScopeClosingBraceSniff implements Sniff
 {
     /**
      * The number of spaces code should be indented.
@@ -27,7 +27,7 @@ class ScopeClosingBraceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return \PHP_CodeSniffer\Util\Tokens::$scopeOpeners;
+        return Tokens::$scopeOpeners;
     }
     //end register()
     /**
@@ -39,7 +39,7 @@ class ScopeClosingBraceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // If this is an inline condition (ie. there is no scope opener), then

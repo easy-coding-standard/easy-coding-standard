@@ -31,8 +31,8 @@ trait BindTrait
     {
         $valueOrRef = static::processValue($valueOrRef, \true);
         $bindings = $this->definition->getBindings();
-        $type = $this instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator ? \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\BoundArgument::DEFAULTS_BINDING : ($this instanceof \ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator ? \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\BoundArgument::INSTANCEOF_BINDING : \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\BoundArgument::SERVICE_BINDING);
-        $bindings[$nameOrFqcn] = new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\BoundArgument($valueOrRef, \true, $type, $this->path ?? null);
+        $type = $this instanceof DefaultsConfigurator ? BoundArgument::DEFAULTS_BINDING : ($this instanceof InstanceofConfigurator ? BoundArgument::INSTANCEOF_BINDING : BoundArgument::SERVICE_BINDING);
+        $bindings[$nameOrFqcn] = new BoundArgument($valueOrRef, \true, $type, $this->path ?? null);
         $this->definition->setBindings($bindings);
         return $this;
     }

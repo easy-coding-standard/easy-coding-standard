@@ -19,14 +19,14 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class SingleLineCommentSpacingFixer extends \PhpCsFixer\AbstractFixer
+final class SingleLineCommentSpacingFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Single-line comments must have proper spacing.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Single-line comments must have proper spacing.', [new CodeSample('<?php
 //comment 1
 #comment 2
 /*comment 3*/
@@ -44,14 +44,14 @@ final class SingleLineCommentSpacingFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; 0 <= $index; --$index) {
             $token = $tokens[$index];
@@ -86,14 +86,14 @@ final class SingleLineCommentSpacingFixer extends \PhpCsFixer\AbstractFixer
                 $newContent = $this->fixCommentLeadingSpace($content, '#');
             }
             if ($newContent !== $content) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_COMMENT, $newContent]);
+                $tokens[$index] = new Token([\T_COMMENT, $newContent]);
             }
         }
     }
     // fix space between comment open and leading text
     private function fixCommentLeadingSpace(string $content, string $prefix) : string
     {
-        if (0 !== \PhpCsFixer\Preg::match(\sprintf('@^%s\\h+.*$@', \preg_quote($prefix, '@')), $content)) {
+        if (0 !== Preg::match(\sprintf('@^%s\\h+.*$@', \preg_quote($prefix, '@')), $content)) {
             return $content;
         }
         $position = \strlen($prefix);

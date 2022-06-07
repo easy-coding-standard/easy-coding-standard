@@ -32,7 +32,7 @@ abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === \T_ARRAY) {
@@ -48,7 +48,7 @@ abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $arrayStart = $stackPtr;
             $arrayEnd = $tokens[$stackPtr]['bracket_closer'];
         }
-        $lastContent = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $arrayEnd - 1, null, \true);
+        $lastContent = $phpcsFile->findPrevious(Tokens::$emptyTokens, $arrayEnd - 1, null, \true);
         if ($tokens[$lastContent]['code'] === T_COMMA) {
             // Last array item ends with a comma.
             $phpcsFile->recordMetric($stackPtr, 'Array end comma', 'yes');
@@ -57,11 +57,11 @@ abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         $indices = [];
         $current = $arrayStart;
-        while (($next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $current + 1, $arrayEnd, \true)) !== \false) {
+        while (($next = $phpcsFile->findNext(Tokens::$emptyTokens, $current + 1, $arrayEnd, \true)) !== \false) {
             $end = $this->getNext($phpcsFile, $next, $arrayEnd);
             if ($tokens[$end]['code'] === \T_DOUBLE_ARROW) {
                 $indexEnd = $phpcsFile->findPrevious(\T_WHITESPACE, $end - 1, null, \true);
-                $valueStart = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, null, \true);
+                $valueStart = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, null, \true);
                 $indices[] = ['index_start' => $next, 'index_end' => $indexEnd, 'arrow' => $end, 'value_start' => $valueStart];
             } else {
                 $valueStart = $next;
@@ -85,7 +85,7 @@ abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    private function getNext(\PHP_CodeSniffer\Files\File $phpcsFile, $ptr, $arrayEnd)
+    private function getNext(File $phpcsFile, $ptr, $arrayEnd)
     {
         $tokens = $phpcsFile->getTokens();
         while ($ptr < $arrayEnd) {

@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ControlStructureSpacingSniff implements Sniff
 {
     /**
      * How many spaces should follow the opening bracket.
@@ -45,7 +45,7 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $this->requiredSpacesAfterOpen = (int) $this->requiredSpacesAfterOpen;
         $this->requiredSpacesBeforeClose = (int) $this->requiredSpacesBeforeClose;
@@ -56,7 +56,7 @@ class ControlStructureSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $parenOpener = $tokens[$stackPtr]['parenthesis_opener'];
         $parenCloser = $tokens[$stackPtr]['parenthesis_closer'];
         $nextContent = $phpcsFile->findNext(\T_WHITESPACE, $parenOpener + 1, null, \true);
-        if (\in_array($tokens[$nextContent]['code'], \PHP_CodeSniffer\Util\Tokens::$commentTokens, \true) === \false) {
+        if (\in_array($tokens[$nextContent]['code'], Tokens::$commentTokens, \true) === \false) {
             $spaceAfterOpen = 0;
             if ($tokens[$parenOpener + 1]['code'] === \T_WHITESPACE) {
                 if (\strpos($tokens[$parenOpener + 1]['content'], $phpcsFile->eolChar) !== \false) {

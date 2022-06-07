@@ -24,7 +24,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class PhpdocToReturnTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDeclarationFixer
+final class PhpdocToReturnTypeFixer extends AbstractPhpdocToTypeDeclarationFixer
 {
     /**
      * @var array<int, array<int, int|string>>
@@ -37,9 +37,9 @@ final class PhpdocToReturnTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDecl
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('EXPERIMENTAL: Takes `@return` annotation of non-mixed types and adjusts accordingly the function signature. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('EXPERIMENTAL: Takes `@return` annotation of non-mixed types and adjusts accordingly the function signature. Requires PHP >= 7.0.', [new CodeSample('<?php
 
 /** @return \\My\\Bar */
 function f1()
@@ -48,18 +48,18 @@ function f1()
 /** @return void */
 function f2()
 {}
-'), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+'), new VersionSpecificCodeSample('<?php
 
 /** @return object */
 function my_foo()
 {}
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70200)), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', new VersionSpecification(70200)), new CodeSample('<?php
 
 /** @return Foo */
 function foo() {}
 /** @return string */
 function bar() {}
-', ['scalar_types' => \false]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+', ['scalar_types' => \false]), new VersionSpecificCodeSample('<?php
 final class Foo {
     /**
      * @return static
@@ -68,12 +68,12 @@ final class Foo {
         return new static($prototype);
     }
 }
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(80000))], null, 'This rule is EXPERIMENTAL and [1] is not covered with backward compatibility promise. [2] `@return` annotation is mandatory for the fixer to make changes, signatures of methods without it (no docblock, inheritdocs) will not be fixed. [3] Manual actions are required if inherited signatures are not properly documented.');
+', new VersionSpecification(80000))], null, 'This rule is EXPERIMENTAL and [1] is not covered with backward compatibility promise. [2] `@return` annotation is mandatory for the fixer to make changes, signatures of methods without it (no docblock, inheritdocs) will not be fixed. [3] Manual actions are required if inherited signatures are not properly documented.');
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_FUNCTION, \T_FN]);
     }
@@ -94,7 +94,7 @@ final class Foo {
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         if (\PHP_VERSION_ID >= 80000) {
             unset($this->skippedTypes['mixed']);
@@ -128,7 +128,7 @@ final class Foo {
                 continue;
             }
             $endFuncIndex = $tokens->getPrevTokenOfKind($startIndex, [')']);
-            $tokens->insertAt($endFuncIndex + 1, \array_merge([new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON, ':']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])], $this->createTypeDeclarationTokens($returnType, $isNullable)));
+            $tokens->insertAt($endFuncIndex + 1, \array_merge([new Token([CT::T_TYPE_COLON, ':']), new Token([\T_WHITESPACE, ' '])], $this->createTypeDeclarationTokens($returnType, $isNullable)));
         }
     }
     /**
@@ -136,10 +136,10 @@ final class Foo {
      *
      * @param int $index The index of the end of the function definition line, EG at { or ;
      */
-    private function hasReturnTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function hasReturnTypeHint(Tokens $tokens, int $index) : bool
     {
         $endFuncIndex = $tokens->getPrevTokenOfKind($index, [')']);
         $nextIndex = $tokens->getNextMeaningfulToken($endFuncIndex);
-        return $tokens[$nextIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON);
+        return $tokens[$nextIndex]->isGivenKind(CT::T_TYPE_COLON);
     }
 }

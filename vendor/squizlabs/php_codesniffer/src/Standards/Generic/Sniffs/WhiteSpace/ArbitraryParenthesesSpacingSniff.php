@@ -15,7 +15,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ArbitraryParenthesesSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ArbitraryParenthesesSpacingSniff implements Sniff
 {
     /**
      * The number of spaces desired on the inside of the parentheses.
@@ -43,7 +43,7 @@ class ArbitraryParenthesesSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        $this->ignoreTokens = \PHP_CodeSniffer\Util\Tokens::$functionNameTokens;
+        $this->ignoreTokens = Tokens::$functionNameTokens;
         $this->ignoreTokens[\T_VARIABLE] = \T_VARIABLE;
         $this->ignoreTokens[T_CLOSE_PARENTHESIS] = T_CLOSE_PARENTHESIS;
         $this->ignoreTokens[T_CLOSE_CURLY_BRACKET] = T_CLOSE_CURLY_BRACKET;
@@ -66,7 +66,7 @@ class ArbitraryParenthesesSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['parenthesis_owner']) === \true) {
@@ -82,7 +82,7 @@ class ArbitraryParenthesesSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
             $opener = $tokens[$stackPtr]['parenthesis_opener'];
         }
-        $preOpener = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $opener - 1, null, \true);
+        $preOpener = $phpcsFile->findPrevious(Tokens::$emptyTokens, $opener - 1, null, \true);
         if ($preOpener !== \false && isset($this->ignoreTokens[$tokens[$preOpener]['code']]) === \true && isset($tokens[$preOpener]['scope_condition']) === \false) {
             // Function or language construct call.
             return;

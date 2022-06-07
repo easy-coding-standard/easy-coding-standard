@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Caching\ValueObject;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject;
 
 /**
  * Inspired by

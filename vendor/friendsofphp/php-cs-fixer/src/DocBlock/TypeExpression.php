@@ -128,7 +128,7 @@ final class TypeExpression
     /**
      * @param NamespaceUseAnalysis[] $namespaceUses
      */
-    public function __construct(string $value, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace, array $namespaceUses)
+    public function __construct(string $value, ?NamespaceAnalysis $namespace, array $namespaceUses)
     {
         $this->value = $value;
         $this->namespace = $namespace;
@@ -162,7 +162,7 @@ final class TypeExpression
             $this->value = \substr_replace($this->value, $inner->toString(), $startIndex, $initialValueLength);
         }
         if ($this->isUnionType) {
-            $this->innerTypeExpressions = \PhpCsFixer\Utils::stableSort($this->innerTypeExpressions, static function (array $type) : self {
+            $this->innerTypeExpressions = Utils::stableSort($this->innerTypeExpressions, static function (array $type) : self {
                 return $type['expression'];
             }, $compareCallback);
             $this->value = \implode($this->getTypesGlue(), $this->getTypes());
@@ -182,9 +182,9 @@ final class TypeExpression
             }
             if (isset($aliases[$type])) {
                 $type = $aliases[$type];
-            } elseif (1 === \PhpCsFixer\Preg::match('/\\[\\]$/', $type)) {
+            } elseif (1 === Preg::match('/\\[\\]$/', $type)) {
                 $type = 'array';
-            } elseif (1 === \PhpCsFixer\Preg::match('/^(.+?)</', $type, $matches)) {
+            } elseif (1 === Preg::match('/^(.+?)</', $type, $matches)) {
                 $type = $matches[1];
             }
             if (null === $mainType || $type === $mainType) {
@@ -210,7 +210,7 @@ final class TypeExpression
     private function parse() : void
     {
         $value = $this->value;
-        \PhpCsFixer\Preg::match('{^' . self::REGEX_TYPES . '$}x', $value, $matches);
+        Preg::match('{^' . self::REGEX_TYPES . '$}x', $value, $matches);
         if ([] === $matches) {
             return;
         }
@@ -220,14 +220,14 @@ final class TypeExpression
             $this->isUnionType = \true;
             while (\true) {
                 $innerType = $matches['type'];
-                $newValue = \PhpCsFixer\Preg::replace('/^' . \preg_quote($innerType, '/') . '(\\h*[|&]\\h*)?/', '', $value);
+                $newValue = Preg::replace('/^' . \preg_quote($innerType, '/') . '(\\h*[|&]\\h*)?/', '', $value);
                 $this->innerTypeExpressions[] = ['start_index' => $index, 'expression' => $this->inner($innerType)];
                 if ('' === $newValue) {
                     return;
                 }
                 $index += \strlen($value) - \strlen($newValue);
                 $value = $newValue;
-                \PhpCsFixer\Preg::match('{^' . self::REGEX_TYPES . '$}x', $value, $matches);
+                Preg::match('{^' . self::REGEX_TYPES . '$}x', $value, $matches);
             }
         }
         if ('' !== ($matches['generic'] ?? '')) {
@@ -249,9 +249,9 @@ final class TypeExpression
     private function parseCommaSeparatedInnerTypes(int $startIndex, string $value) : void
     {
         while ('' !== $value) {
-            \PhpCsFixer\Preg::match('{^' . self::REGEX_TYPES . '\\h*(?:,|$)}x', $value, $matches);
+            Preg::match('{^' . self::REGEX_TYPES . '\\h*(?:,|$)}x', $value, $matches);
             $this->innerTypeExpressions[] = ['start_index' => $startIndex, 'expression' => $this->inner($matches['types'])];
-            $newValue = \PhpCsFixer\Preg::replace('/^' . \preg_quote($matches['types'], '/') . '(\\h*\\,\\h*)?/', '', $value);
+            $newValue = Preg::replace('/^' . \preg_quote($matches['types'], '/') . '(\\h*\\,\\h*)?/', '', $value);
             $startIndex += \strlen($value) - \strlen($newValue);
             $value = $newValue;
         }
@@ -259,9 +259,9 @@ final class TypeExpression
     private function parseObjectLikeArrayKeys(int $startIndex, string $value) : void
     {
         while ('' !== $value) {
-            \PhpCsFixer\Preg::match('{(?<_start>^.+?:\\h*)' . self::REGEX_TYPES . '\\h*(?:,|$)}x', $value, $matches);
+            Preg::match('{(?<_start>^.+?:\\h*)' . self::REGEX_TYPES . '\\h*(?:,|$)}x', $value, $matches);
             $this->innerTypeExpressions[] = ['start_index' => $startIndex + \strlen($matches['_start']), 'expression' => $this->inner($matches['types'])];
-            $newValue = \PhpCsFixer\Preg::replace('/^.+?:\\h*' . \preg_quote($matches['types'], '/') . '(\\h*\\,\\h*)?/', '', $value);
+            $newValue = Preg::replace('/^.+?:\\h*' . \preg_quote($matches['types'], '/') . '(\\h*\\,\\h*)?/', '', $value);
             $startIndex += \strlen($value) - \strlen($newValue);
             $value = $newValue;
         }
@@ -287,10 +287,10 @@ final class TypeExpression
         if (\in_array($type, ['array', 'bool', 'callable', 'float', 'int', 'iterable', 'mixed', 'never', 'null', 'object', 'resource', 'string', 'void'], \true)) {
             return $type;
         }
-        if (1 === \PhpCsFixer\Preg::match('/\\[\\]$/', $type)) {
+        if (1 === Preg::match('/\\[\\]$/', $type)) {
             return 'array';
         }
-        if (1 === \PhpCsFixer\Preg::match('/^(.+?)</', $type, $matches)) {
+        if (1 === Preg::match('/^(.+?)</', $type, $matches)) {
             return $matches[1];
         }
         if (\strncmp($type, '\\', \strlen('\\')) === 0) {

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenAnalyzer;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 final class HeredocAnalyzer
 {
     /**
      * @param Tokens<Token> $tokens
      */
-    public function isHerenowDoc(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo) : bool
+    public function isHerenowDoc(Tokens $tokens, BlockInfo $blockInfo) : bool
     {
         // heredoc/nowdoc => skip
         $nextToken = $this->getNextMeaningfulToken($tokens, $blockInfo->getStart());
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (!$nextToken instanceof Token) {
             return \false;
         }
         return \strpos($nextToken->getContent(), '<<<') !== \false;
@@ -23,7 +23,7 @@ final class HeredocAnalyzer
     /**
      * @param Tokens<Token> $tokens
      */
-    private function getNextMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?\PhpCsFixer\Tokenizer\Token
+    private function getNextMeaningfulToken(Tokens $tokens, int $index) : ?Token
     {
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($index);
         if ($nextMeaningfulTokenPosition === null) {

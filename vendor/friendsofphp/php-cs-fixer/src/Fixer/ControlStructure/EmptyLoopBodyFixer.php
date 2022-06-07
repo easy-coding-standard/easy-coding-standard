@@ -23,7 +23,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-final class EmptyLoopBodyFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class EmptyLoopBodyFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     private const STYLE_BRACES = 'braces';
     private const STYLE_SEMICOLON = 'semicolon';
@@ -31,9 +31,9 @@ final class EmptyLoopBodyFixer extends \PhpCsFixer\AbstractFixer implements \Php
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Empty loop-body must be in configured style.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php while(foo()){}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php while(foo());\n", ['style' => 'braces'])]);
+        return new FixerDefinition('Empty loop-body must be in configured style.', [new CodeSample("<?php while(foo()){}\n"), new CodeSample("<?php while(foo());\n", ['style' => 'braces'])]);
     }
     /**
      * {@inheritdoc}
@@ -48,17 +48,17 @@ final class EmptyLoopBodyFixer extends \PhpCsFixer\AbstractFixer implements \Php
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound(self::TOKEN_LOOP_KINDS);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         if (self::STYLE_BRACES === $this->configuration['style']) {
-            $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+            $analyzer = new TokensAnalyzer($tokens);
             $fixLoop = static function (int $index, int $endIndex) use($tokens, $analyzer) : void {
                 if ($tokens[$index]->isGivenKind(\T_WHILE) && $analyzer->isWhilePartOfDoWhile($index)) {
                     return;
@@ -67,8 +67,8 @@ final class EmptyLoopBodyFixer extends \PhpCsFixer\AbstractFixer implements \Php
                 if (!$tokens[$semiColonIndex]->equals(';')) {
                     return;
                 }
-                $tokens[$semiColonIndex] = new \PhpCsFixer\Tokenizer\Token('{');
-                $tokens->insertAt($semiColonIndex + 1, new \PhpCsFixer\Tokenizer\Token('}'));
+                $tokens[$semiColonIndex] = new Token('{');
+                $tokens->insertAt($semiColonIndex + 1, new Token('}'));
             };
         } else {
             $fixLoop = static function (int $index, int $endIndex) use($tokens) : void {
@@ -80,7 +80,7 @@ final class EmptyLoopBodyFixer extends \PhpCsFixer\AbstractFixer implements \Php
                 if (!$tokens[$braceCloseIndex]->equals('}')) {
                     return;
                 }
-                $tokens[$braceOpenIndex] = new \PhpCsFixer\Tokenizer\Token(';');
+                $tokens[$braceOpenIndex] = new Token(';');
                 $tokens->clearTokenAndMergeSurroundingWhitespace($braceCloseIndex);
             };
         }
@@ -88,7 +88,7 @@ final class EmptyLoopBodyFixer extends \PhpCsFixer\AbstractFixer implements \Php
             if ($tokens[$index]->isGivenKind(self::TOKEN_LOOP_KINDS)) {
                 $endIndex = $tokens->getNextTokenOfKind($index, ['(']);
                 // proceed to open '('
-                $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endIndex);
+                $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endIndex);
                 // proceed to close ')'
                 $fixLoop($index, $endIndex);
                 // fix loop if needs fixing
@@ -98,8 +98,8 @@ final class EmptyLoopBodyFixer extends \PhpCsFixer\AbstractFixer implements \Php
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('style', 'Style of empty loop-bodies.'))->setAllowedTypes(['string'])->setAllowedValues([self::STYLE_BRACES, self::STYLE_SEMICOLON])->setDefault(self::STYLE_SEMICOLON)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('style', 'Style of empty loop-bodies.'))->setAllowedTypes(['string'])->setAllowedValues([self::STYLE_BRACES, self::STYLE_SEMICOLON])->setDefault(self::STYLE_SEMICOLON)->getOption()]);
     }
 }

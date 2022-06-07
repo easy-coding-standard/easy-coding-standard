@@ -5,7 +5,7 @@ namespace ECSPrefix20220607\Symplify\PackageBuilder\DependencyInjection\Compiler
 
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class AutowireInterfacesCompilerPass implements \ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class AutowireInterfacesCompilerPass implements CompilerPassInterface
 {
     /**
      * @var string[]
@@ -18,7 +18,7 @@ final class AutowireInterfacesCompilerPass implements \ECSPrefix20220607\Symfony
     {
         $this->typesToAutowire = $typesToAutowire;
     }
-    public function process(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function process(ContainerBuilder $containerBuilder) : void
     {
         $definitions = $containerBuilder->getDefinitions();
         foreach ($definitions as $definition) {

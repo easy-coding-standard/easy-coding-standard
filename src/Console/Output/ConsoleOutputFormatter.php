@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Console\Output;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Output;
 
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
-use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
-use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
+final class ConsoleOutputFormatter implements OutputFormatterInterface
 {
     /**
      * @var string
@@ -23,12 +23,12 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
      * @var \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver
      */
     private $exitCodeResolver;
-    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver $exitCodeResolver)
+    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle, ExitCodeResolver $exitCodeResolver)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->exitCodeResolver = $exitCodeResolver;
     }
-    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : int
+    public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration) : int
     {
         $this->reportFileDiffs($errorAndDiffResult->getFileDiffs());
         $this->easyCodingStandardStyle->newLine(1);
@@ -71,7 +71,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
             $this->easyCodingStandardStyle->listing($fileDiff->getAppliedCheckers());
         }
     }
-    private function printAfterFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
+    private function printAfterFixerStatus(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration) : void
     {
         if ($configuration->shouldShowErrorTable()) {
             $this->easyCodingStandardStyle->printErrors($errorAndDiffResult->getErrors());
@@ -83,7 +83,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         }
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getCodingStandardErrorCount(), $errorAndDiffResult->getFileDiffsCount(), $configuration);
     }
-    private function printNoFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
+    private function printNoFixerStatus(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration) : void
     {
         if ($configuration->shouldShowErrorTable()) {
             $errors = $errorAndDiffResult->getErrors();
@@ -95,7 +95,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         $systemErrors = $errorAndDiffResult->getSystemErrors();
         foreach ($systemErrors as $systemError) {
             $this->easyCodingStandardStyle->newLine();
-            if ($systemError instanceof \Symplify\EasyCodingStandard\ValueObject\Error\SystemError) {
+            if ($systemError instanceof SystemError) {
                 $this->easyCodingStandardStyle->error($systemError->getMessage() . ' in ' . $systemError->getFileWithLine());
             } else {
                 $this->easyCodingStandardStyle->error($systemError);
@@ -103,7 +103,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         }
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getCodingStandardErrorCount(), $errorAndDiffResult->getFileDiffsCount(), $configuration);
     }
-    private function printErrorMessageFromErrorCounts(int $codingStandardErrorCount, int $fileDiffsCount, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
+    private function printErrorMessageFromErrorCounts(int $codingStandardErrorCount, int $fileDiffsCount, Configuration $configuration) : void
     {
         if ($codingStandardErrorCount !== 0) {
             $errorMessage = \sprintf('Found %d error%s that need%s to be fixed manually.', $codingStandardErrorCount, $codingStandardErrorCount === 1 ? '' : 's', $codingStandardErrorCount === 1 ? 's' : '');

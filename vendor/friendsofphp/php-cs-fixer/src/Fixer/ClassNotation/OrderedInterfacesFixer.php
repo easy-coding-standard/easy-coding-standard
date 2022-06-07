@@ -25,7 +25,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dave van der Brugge <dmvdbrugge@gmail.com>
  */
-final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class OrderedInterfacesFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /** @internal */
     public const OPTION_DIRECTION = 'direction';
@@ -54,14 +54,14 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Orders the interfaces in an `implements` or `interface extends` clause.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nfinal class ExampleA implements Gamma, Alpha, Beta {}\n\ninterface ExampleB extends Gamma, Alpha, Beta {}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nfinal class ExampleA implements Gamma, Alpha, Beta {}\n\ninterface ExampleB extends Gamma, Alpha, Beta {}\n", [self::OPTION_DIRECTION => self::DIRECTION_DESCEND]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nfinal class ExampleA implements MuchLonger, Short, Longer {}\n\ninterface ExampleB extends MuchLonger, Short, Longer {}\n", [self::OPTION_ORDER => self::ORDER_LENGTH]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\nfinal class ExampleA implements MuchLonger, Short, Longer {}\n\ninterface ExampleB extends MuchLonger, Short, Longer {}\n", [self::OPTION_ORDER => self::ORDER_LENGTH, self::OPTION_DIRECTION => self::DIRECTION_DESCEND])], null, "Risky for `implements` when specifying both an interface and its parent interface, because PHP doesn't break on `parent, child` but does on `child, parent`.");
+        return new FixerDefinition('Orders the interfaces in an `implements` or `interface extends` clause.', [new CodeSample("<?php\n\nfinal class ExampleA implements Gamma, Alpha, Beta {}\n\ninterface ExampleB extends Gamma, Alpha, Beta {}\n"), new CodeSample("<?php\n\nfinal class ExampleA implements Gamma, Alpha, Beta {}\n\ninterface ExampleB extends Gamma, Alpha, Beta {}\n", [self::OPTION_DIRECTION => self::DIRECTION_DESCEND]), new CodeSample("<?php\n\nfinal class ExampleA implements MuchLonger, Short, Longer {}\n\ninterface ExampleB extends MuchLonger, Short, Longer {}\n", [self::OPTION_ORDER => self::ORDER_LENGTH]), new CodeSample("<?php\n\nfinal class ExampleA implements MuchLonger, Short, Longer {}\n\ninterface ExampleB extends MuchLonger, Short, Longer {}\n", [self::OPTION_ORDER => self::ORDER_LENGTH, self::OPTION_DIRECTION => self::DIRECTION_DESCEND])], null, "Risky for `implements` when specifying both an interface and its parent interface, because PHP doesn't break on `parent, child` but does on `child, parent`.");
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_IMPLEMENTS) || $tokens->isAllTokenKindsFound([\T_INTERFACE, \T_EXTENDS]);
     }
@@ -75,7 +75,7 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_IMPLEMENTS)) {
@@ -96,7 +96,7 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
                 continue;
             }
             foreach ($interfaces as $interfaceIndex => $interface) {
-                $interfaceTokens = \PhpCsFixer\Tokenizer\Tokens::fromArray($interface, \false);
+                $interfaceTokens = Tokens::fromArray($interface, \false);
                 $normalized = '';
                 $actualInterfaceIndex = $interfaceTokens->getNextMeaningfulToken(-1);
                 while ($interfaceTokens->offsetExists($actualInterfaceIndex)) {
@@ -128,7 +128,7 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
             }
             $newTokens = \array_shift($interfaces)['tokens'];
             foreach ($interfaces as $interface) {
-                \array_push($newTokens, new \PhpCsFixer\Tokenizer\Token(','), ...$interface['tokens']);
+                \array_push($newTokens, new Token(','), ...$interface['tokens']);
             }
             $tokens->overrideRange($implementsStart, $implementsEnd, $newTokens);
         }
@@ -136,11 +136,11 @@ final class OrderedInterfacesFixer extends \PhpCsFixer\AbstractFixer implements 
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder(self::OPTION_ORDER, 'How the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_ORDER_OPTIONS)->setDefault(self::ORDER_ALPHA)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder(self::OPTION_DIRECTION, 'Which direction the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_DIRECTION_OPTIONS)->setDefault(self::DIRECTION_ASCEND)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder(self::OPTION_ORDER, 'How the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_ORDER_OPTIONS)->setDefault(self::ORDER_ALPHA)->getOption(), (new FixerOptionBuilder(self::OPTION_DIRECTION, 'Which direction the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_DIRECTION_OPTIONS)->setDefault(self::DIRECTION_ASCEND)->getOption()]);
     }
-    private function getInterfaces(\PhpCsFixer\Tokenizer\Tokens $tokens, int $implementsStart, int $implementsEnd) : array
+    private function getInterfaces(Tokens $tokens, int $implementsStart, int $implementsEnd) : array
     {
         $interfaces = [];
         $interfaceIndex = 0;

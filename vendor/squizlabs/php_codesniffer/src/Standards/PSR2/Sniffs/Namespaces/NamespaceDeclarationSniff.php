@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class NamespaceDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class NamespaceDeclarationSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,10 +33,10 @@ class NamespaceDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($tokens[$nextNonEmpty]['code'] === \T_NS_SEPARATOR) {
             // Namespace keyword as operator. Not a declaration.
             return;

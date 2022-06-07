@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Operators;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ComparisonOperatorUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ComparisonOperatorUsageSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -51,12 +51,12 @@ class ComparisonOperatorUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $tokenizer = $phpcsFile->tokenizerType;
         if ($tokens[$stackPtr]['code'] === T_INLINE_THEN) {
-            $end = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+            $end = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
             if ($tokens[$end]['code'] !== T_CLOSE_PARENTHESIS) {
                 // This inline IF statement does not have its condition
                 // bracketed, so we need to guess where it starts.
@@ -99,7 +99,7 @@ class ComparisonOperatorUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     //end if
                 }
                 //end for
-                $start = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $i + 1, null, \true);
+                $start = $phpcsFile->findNext(Tokens::$emptyTokens, $i + 1, null, \true);
             } else {
                 if (isset($tokens[$end]['parenthesis_opener']) === \false) {
                     return;
@@ -144,7 +144,7 @@ class ComparisonOperatorUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     $foundOps++;
                 }
             }
-            if ($type === T_OPEN_PARENTHESIS && isset($tokens[$i]['parenthesis_closer']) === \true && isset(\PHP_CodeSniffer\Util\Tokens::$functionNameTokens[$tokens[$lastNonEmpty]['code']]) === \true) {
+            if ($type === T_OPEN_PARENTHESIS && isset($tokens[$i]['parenthesis_closer']) === \true && isset(Tokens::$functionNameTokens[$tokens[$lastNonEmpty]['code']]) === \true) {
                 $i = $tokens[$i]['parenthesis_closer'];
                 $lastNonEmpty = $i;
                 continue;
@@ -169,7 +169,7 @@ class ComparisonOperatorUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     $foundOps++;
                 }
             }
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$type]) === \false) {
+            if (isset(Tokens::$emptyTokens[$type]) === \false) {
                 $lastNonEmpty = $i;
             }
         }

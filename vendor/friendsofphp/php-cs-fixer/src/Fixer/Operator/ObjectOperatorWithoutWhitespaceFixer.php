@@ -22,26 +22,26 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class ObjectOperatorWithoutWhitespaceFixer extends \PhpCsFixer\AbstractFixer
+final class ObjectOperatorWithoutWhitespaceFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should not be space before or after object operators `->` and `?->`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a  ->  b;\n")]);
+        return new FixerDefinition('There should not be space before or after object operators `->` and `?->`.', [new CodeSample("<?php \$a  ->  b;\n")]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
-        return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds());
+        return $tokens->isAnyTokenKindsFound(Token::getObjectOperatorKinds());
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         // [Structure] there should not be space before or after "->" or "?->"
         foreach ($tokens as $index => $token) {

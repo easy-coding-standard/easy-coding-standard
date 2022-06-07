@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-class ESLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ESLintSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -47,9 +47,9 @@ class ESLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return void
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If jshint.js could not be run
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
-        $eslintPath = \PHP_CodeSniffer\Config::getExecutablePath('eslint');
+        $eslintPath = Config::getExecutablePath('eslint');
         if ($eslintPath === null) {
             return;
         }
@@ -66,7 +66,7 @@ class ESLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if (empty($configFile) === \false) {
             $eslintOptions[] = '--config ' . \escapeshellarg($configFile);
         }
-        $cmd = \PHP_CodeSniffer\Util\Common::escapeshellcmd(\escapeshellarg($eslintPath) . ' ' . \implode(' ', $eslintOptions) . ' ' . \escapeshellarg($filename));
+        $cmd = Common::escapeshellcmd(\escapeshellarg($eslintPath) . ' ' . \implode(' ', $eslintOptions) . ' ' . \escapeshellarg($filename));
         // Execute!
         \exec($cmd, $stdout, $code);
         if ($code <= 0) {

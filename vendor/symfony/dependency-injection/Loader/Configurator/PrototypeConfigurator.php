@@ -15,7 +15,7 @@ use ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class PrototypeConfigurator extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class PrototypeConfigurator extends AbstractServiceConfigurator
 {
     use Traits\AbstractTrait;
     use Traits\ArgumentTrait;
@@ -46,9 +46,9 @@ class PrototypeConfigurator extends \ECSPrefix20220607\Symfony\Component\Depende
      * @var bool
      */
     private $allowParent;
-    public function __construct(\ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition $defaults, string $namespace, string $resource, bool $allowParent)
+    public function __construct(ServicesConfigurator $parent, PhpFileLoader $loader, Definition $defaults, string $namespace, string $resource, bool $allowParent)
     {
-        $definition = new \ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition();
+        $definition = new Definition();
         if (!$defaults->isPublic() || !$defaults->isPrivate()) {
             $definition->setPublic($defaults->isPublic());
         }

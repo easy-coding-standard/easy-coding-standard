@@ -26,12 +26,12 @@ final class UnifiedDiffer implements \PhpCsFixer\Differ\DifferInterface
             $options = ['fromFile' => 'Original', 'toFile' => 'New'];
         } else {
             $filePath = $file->getRealPath();
-            if (1 === \PhpCsFixer\Preg::match('/\\s/', $filePath)) {
+            if (1 === Preg::match('/\\s/', $filePath)) {
                 $filePath = '"' . $filePath . '"';
             }
             $options = ['fromFile' => $filePath, 'toFile' => $filePath];
         }
-        $differ = new \PhpCsFixer\Diff\Differ(new \PhpCsFixer\Diff\Output\StrictUnifiedDiffOutputBuilder($options));
+        $differ = new Differ(new StrictUnifiedDiffOutputBuilder($options));
         return $differ->diff($old, $new);
     }
 }

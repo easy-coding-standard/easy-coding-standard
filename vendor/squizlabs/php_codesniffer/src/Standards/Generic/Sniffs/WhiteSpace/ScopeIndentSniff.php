@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ScopeIndentSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -91,7 +91,7 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        if (\defined('PHP_CODESNIFFER_IN_TESTS') === \true) {
+        if (\defined('ECSPrefix20220607\\PHP_CODESNIFFER_IN_TESTS') === \true) {
             $this->debug = \false;
         }
         return [\T_OPEN_TAG];
@@ -106,9 +106,9 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
-        $debug = \PHP_CodeSniffer\Config::getConfigData('scope_indent_debug');
+        $debug = Config::getConfigData('scope_indent_debug');
         if ($debug !== null) {
             $this->debug = (bool) $debug;
         }
@@ -655,7 +655,7 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 }
             }
             //end if
-            if ($checkToken !== null && isset(\PHP_CodeSniffer\Util\Tokens::$scopeOpeners[$tokens[$checkToken]['code']]) === \true && \in_array($tokens[$checkToken]['code'], $this->nonIndentingScopes, \true) === \false && isset($tokens[$checkToken]['scope_opener']) === \true) {
+            if ($checkToken !== null && isset(Tokens::$scopeOpeners[$tokens[$checkToken]['code']]) === \true && \in_array($tokens[$checkToken]['code'], $this->nonIndentingScopes, \true) === \false && isset($tokens[$checkToken]['scope_opener']) === \true) {
                 $exact = \true;
                 if ($disableExactEnd > $checkToken) {
                     if ($tokens[$checkToken]['conditions'] === $tokens[$disableExactEnd]['conditions']) {
@@ -696,8 +696,8 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             //end if
             // Method prefix indentation has to be exact or else it will break
             // the rest of the function declaration, and potentially future ones.
-            if ($checkToken !== null && isset(\PHP_CodeSniffer\Util\Tokens::$methodPrefixes[$tokens[$checkToken]['code']]) === \true && $tokens[$checkToken + 1]['code'] !== \T_DOUBLE_COLON) {
-                $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $checkToken + 1, null, \true);
+            if ($checkToken !== null && isset(Tokens::$methodPrefixes[$tokens[$checkToken]['code']]) === \true && $tokens[$checkToken + 1]['code'] !== \T_DOUBLE_COLON) {
+                $next = $phpcsFile->findNext(Tokens::$emptyTokens, $checkToken + 1, null, \true);
                 if ($next === \false || $tokens[$next]['code'] !== T_CLOSURE && $tokens[$next]['code'] !== \T_VARIABLE && $tokens[$next]['code'] !== \T_FN) {
                     $isMethodPrefix = \true;
                     if (isset($tokens[$checkToken]['nested_parenthesis']) === \true) {
@@ -853,7 +853,7 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     echo "Here/nowdoc found on line {$line}" . \PHP_EOL;
                 }
                 $i = $phpcsFile->findNext([\T_END_HEREDOC, T_END_NOWDOC], $i + 1);
-                $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $i + 1, null, \true);
+                $next = $phpcsFile->findNext(Tokens::$emptyTokens, $i + 1, null, \true);
                 if ($tokens[$next]['code'] === T_COMMA) {
                     $i = $next;
                 }
@@ -1011,7 +1011,7 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     $i = $closer;
                     continue;
                 }
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$scopeOpeners[$condition]) === \true && \in_array($condition, $this->nonIndentingScopes, \true) === \false) {
+                if (isset(Tokens::$scopeOpeners[$condition]) === \true && \in_array($condition, $this->nonIndentingScopes, \true) === \false) {
                     if ($this->debug === \true) {
                         $line = $tokens[$i]['line'];
                         $type = $tokens[$tokens[$i]['scope_condition']]['type'];
@@ -1116,7 +1116,7 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     if ($this->debug === \true) {
                         echo "\t* using parenthesis *" . \PHP_EOL;
                     }
-                    $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $parens - 1, null, \true);
+                    $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $parens - 1, null, \true);
                     $object = 0;
                     $condition = 0;
                 } else {
@@ -1217,7 +1217,7 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return bool
      */
-    protected function adjustIndent(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $length, $change)
+    protected function adjustIndent(File $phpcsFile, $stackPtr, $length, $change)
     {
         $tokens = $phpcsFile->getTokens();
         // We don't adjust indents outside of PHP.

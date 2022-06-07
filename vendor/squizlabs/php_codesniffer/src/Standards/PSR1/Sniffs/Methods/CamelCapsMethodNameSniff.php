@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff as GenericCamelCapsFunctionNameSniff;
 use PHP_CodeSniffer\Util\Common;
-class CamelCapsMethodNameSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff
+class CamelCapsMethodNameSniff extends GenericCamelCapsFunctionNameSniff
 {
     /**
      * Processes the tokens within the scope.
@@ -24,7 +24,7 @@ class CamelCapsMethodNameSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs
      *
      * @return void
      */
-    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
@@ -47,7 +47,7 @@ class CamelCapsMethodNameSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs
             }
         }
         $testName = \ltrim($methodName, '_');
-        if ($testName !== '' && \PHP_CodeSniffer\Util\Common::isCamelCaps($testName, \false, \true, \false) === \false) {
+        if ($testName !== '' && Common::isCamelCaps($testName, \false, \true, \false) === \false) {
             $error = 'Method name "%s" is not in camel caps format';
             $className = $phpcsFile->getDeclarationName($currScope);
             if (isset($className) === \false) {
@@ -70,7 +70,7 @@ class CamelCapsMethodNameSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
     }
     //end processTokenOutsideScope()

@@ -20,19 +20,19 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-final class SingleBlankLineBeforeNamespaceFixer extends \PhpCsFixer\AbstractLinesBeforeNamespaceFixer
+final class SingleBlankLineBeforeNamespaceFixer extends AbstractLinesBeforeNamespaceFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should be exactly one blank line before a namespace declaration.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php  namespace A {}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\n\nnamespace A{}\n")]);
+        return new FixerDefinition('There should be exactly one blank line before a namespace declaration.', [new CodeSample("<?php  namespace A {}\n"), new CodeSample("<?php\n\n\nnamespace A{}\n")]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_NAMESPACE);
     }
@@ -46,7 +46,7 @@ final class SingleBlankLineBeforeNamespaceFixer extends \PhpCsFixer\AbstractLine
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];

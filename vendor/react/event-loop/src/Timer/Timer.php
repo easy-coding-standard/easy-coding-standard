@@ -11,7 +11,7 @@ use ECSPrefix20220607\React\EventLoop\TimerInterface;
  * @see TimerInterface
  * @internal
  */
-final class Timer implements \ECSPrefix20220607\React\EventLoop\TimerInterface
+final class Timer implements TimerInterface
 {
     const MIN_INTERVAL = 1.0E-6;
     private $interval;

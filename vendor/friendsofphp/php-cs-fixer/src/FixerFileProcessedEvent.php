@@ -20,7 +20,7 @@ use ECSPrefix20220607\Symfony\Contracts\EventDispatcher\Event;
  *
  * @internal
  */
-final class FixerFileProcessedEvent extends \ECSPrefix20220607\Symfony\Contracts\EventDispatcher\Event
+final class FixerFileProcessedEvent extends Event
 {
     /**
      * Event name.

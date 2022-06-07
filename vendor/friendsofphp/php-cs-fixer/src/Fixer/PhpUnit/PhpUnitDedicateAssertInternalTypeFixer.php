@@ -26,7 +26,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class PhpUnitDedicateAssertInternalTypeFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class PhpUnitDedicateAssertInternalTypeFixer extends AbstractPhpUnitFixer implements ConfigurableFixerInterface
 {
     /**
      * @var mixed[]
@@ -35,9 +35,9 @@ final class PhpUnitDedicateAssertInternalTypeFixer extends \PhpCsFixer\Fixer\Abs
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPUnit assertions like `assertIsArray` should be used over `assertInternalType`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('PHPUnit assertions like `assertIsArray` should be used over `assertInternalType`.', [new CodeSample('<?php
 final class MyTest extends \\PHPUnit\\Framework\\TestCase
 {
     public function testMe()
@@ -46,7 +46,7 @@ final class MyTest extends \\PHPUnit\\Framework\\TestCase
         $this->assertInternalType("boolean", $var);
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 final class MyTest extends \\PHPUnit\\Framework\\TestCase
 {
     public function testMe()
@@ -76,23 +76,23 @@ final class MyTest extends \\PHPUnit\\Framework\\TestCase
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_7_5, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_7_5, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    protected function applyPhpUnitClassFix(Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         $anonymousClassIndices = [];
-        $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokenAnalyzer = new TokensAnalyzer($tokens);
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_CLASS) || !$tokenAnalyzer->isAnonymousClass($index)) {
                 continue;
             }
             $openingBraceIndex = $tokens->getNextTokenOfKind($index, ['{']);
-            $closingBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $openingBraceIndex);
+            $closingBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $openingBraceIndex);
             $anonymousClassIndices[$closingBraceIndex] = $openingBraceIndex;
         }
         for ($index = $endIndex - 1; $index > $startIndex; --$index) {
@@ -130,7 +130,7 @@ final class MyTest extends \\PHPUnit\\Framework\\TestCase
                 $newAssertion = \str_replace('Null', 'NotNull', $newAssertion);
             }
             $nextMeaningfulTokenIndex = $tokens->getNextMeaningfulToken($commaTokenIndex);
-            $tokens->overrideRange($index, $nextMeaningfulTokenIndex - 1, [new \PhpCsFixer\Tokenizer\Token([\T_STRING, $newAssertion]), new \PhpCsFixer\Tokenizer\Token('(')]);
+            $tokens->overrideRange($index, $nextMeaningfulTokenIndex - 1, [new Token([\T_STRING, $newAssertion]), new Token('(')]);
         }
     }
 }

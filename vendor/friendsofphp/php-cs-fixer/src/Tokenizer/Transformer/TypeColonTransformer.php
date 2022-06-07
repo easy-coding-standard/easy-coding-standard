@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class TypeColonTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class TypeColonTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -44,7 +44,7 @@ final class TypeColonTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->equals(':')) {
             return;
@@ -53,7 +53,7 @@ final class TypeColonTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
         if (!$tokens[$endIndex]->equals(')')) {
             return;
         }
-        $startIndex = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endIndex);
+        $startIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endIndex);
         $prevIndex = $tokens->getPrevMeaningfulToken($startIndex);
         $prevToken = $tokens[$prevIndex];
         // if this could be a function name we need to take one more step
@@ -61,8 +61,8 @@ final class TypeColonTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
             $prevIndex = $tokens->getPrevMeaningfulToken($prevIndex);
             $prevToken = $tokens[$prevIndex];
         }
-        if ($prevToken->isGivenKind([\T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_RETURN_REF, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_FN])) {
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON, ':']);
+        if ($prevToken->isGivenKind([\T_FUNCTION, CT::T_RETURN_REF, CT::T_USE_LAMBDA, \T_FN])) {
+            $tokens[$index] = new Token([CT::T_TYPE_COLON, ':']);
         }
     }
     /**
@@ -70,6 +70,6 @@ final class TypeColonTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON];
+        return [CT::T_TYPE_COLON];
     }
 }

@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\ControlStructures;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class InlineControlStructureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class InlineControlStructureSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -45,7 +45,7 @@ class InlineControlStructureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_opener']) === \true) {
@@ -62,7 +62,7 @@ class InlineControlStructureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if ($tokens[$stackPtr]['code'] === \T_WHILE || $tokens[$stackPtr]['code'] === \T_FOR) {
             // This could be from a DO WHILE, which doesn't have an opening brace or a while/for without body.
             if (isset($tokens[$stackPtr]['parenthesis_closer']) === \true) {
-                $afterParensCloser = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $tokens[$stackPtr]['parenthesis_closer'] + 1, null, \true);
+                $afterParensCloser = $phpcsFile->findNext(Tokens::$emptyTokens, $tokens[$stackPtr]['parenthesis_closer'] + 1, null, \true);
                 if ($afterParensCloser === \false) {
                     // Live coding.
                     return;
@@ -104,7 +104,7 @@ class InlineControlStructureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === \true) {
             $start = $tokens[$stackPtr]['parenthesis_closer'];
         }
-        $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $start + 1, null, \true);
+        $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $start + 1, null, \true);
         if ($nextNonEmpty === \false) {
             // Live coding or parse error.
             return;
@@ -161,7 +161,7 @@ class InlineControlStructureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $type = $tokens[$end]['code'];
                 $end = $tokens[$end]['scope_closer'];
                 if ($type === \T_DO || $type === \T_IF || $type === \T_ELSEIF || $type === \T_TRY || $type === \T_CATCH || $type === \T_FINALLY) {
-                    $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, null, \true);
+                    $next = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, null, \true);
                     if ($next === \false) {
                         break;
                     }
@@ -181,7 +181,7 @@ class InlineControlStructureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 } else {
                     if ($type === T_CLOSURE) {
                         // There should be a semicolon after the closing brace.
-                        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, null, \true);
+                        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, null, \true);
                         if ($next !== \false && $tokens[$next]['code'] === T_SEMICOLON) {
                             $end = $next;
                         }
@@ -206,7 +206,7 @@ class InlineControlStructureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         if ($end === $phpcsFile->numTokens) {
             $end = $lastNonEmpty;
         }
-        $nextContent = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, null, \true);
+        $nextContent = $phpcsFile->findNext(Tokens::$emptyTokens, $end + 1, null, \true);
         if ($nextContent === \false || $tokens[$nextContent]['line'] !== $tokens[$end]['line']) {
             // Looks for completely empty statements.
             $next = $phpcsFile->findNext(\T_WHITESPACE, $closer + 1, $end + 1, \true);
@@ -222,7 +222,7 @@ class InlineControlStructureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                         break;
                     }
                 }
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$endLine]['code']]) === \false && ($tokens[$endLine]['code'] !== \T_WHITESPACE || isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$endLine - 1]['code']]) === \false)) {
+                if (isset(Tokens::$commentTokens[$tokens[$endLine]['code']]) === \false && ($tokens[$endLine]['code'] !== \T_WHITESPACE || isset(Tokens::$commentTokens[$tokens[$endLine - 1]['code']]) === \false)) {
                     $endLine = $end;
                 }
             }

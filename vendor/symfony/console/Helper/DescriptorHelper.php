@@ -22,7 +22,7 @@ use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class DescriptorHelper extends \ECSPrefix20220607\Symfony\Component\Console\Helper\Helper
+class DescriptorHelper extends Helper
 {
     /**
      * @var DescriptorInterface[]
@@ -30,7 +30,7 @@ class DescriptorHelper extends \ECSPrefix20220607\Symfony\Component\Console\Help
     private $descriptors = [];
     public function __construct()
     {
-        $this->register('txt', new \ECSPrefix20220607\Symfony\Component\Console\Descriptor\TextDescriptor())->register('xml', new \ECSPrefix20220607\Symfony\Component\Console\Descriptor\XmlDescriptor())->register('json', new \ECSPrefix20220607\Symfony\Component\Console\Descriptor\JsonDescriptor())->register('md', new \ECSPrefix20220607\Symfony\Component\Console\Descriptor\MarkdownDescriptor());
+        $this->register('txt', new TextDescriptor())->register('xml', new XmlDescriptor())->register('json', new JsonDescriptor())->register('md', new MarkdownDescriptor());
     }
     /**
      * Describes an object if supported.
@@ -41,11 +41,11 @@ class DescriptorHelper extends \ECSPrefix20220607\Symfony\Component\Console\Help
      *
      * @throws InvalidArgumentException when the given format is not supported
      */
-    public function describe(\ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface $output, ?object $object, array $options = [])
+    public function describe(OutputInterface $output, ?object $object, array $options = [])
     {
         $options = \array_merge(['raw_text' => \false, 'format' => 'txt'], $options);
         if (!isset($this->descriptors[$options['format']])) {
-            throw new \ECSPrefix20220607\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Unsupported format "%s".', $options['format']));
+            throw new InvalidArgumentException(\sprintf('Unsupported format "%s".', $options['format']));
         }
         $descriptor = $this->descriptors[$options['format']];
         $descriptor->describe($output, $object, $options);
@@ -55,7 +55,7 @@ class DescriptorHelper extends \ECSPrefix20220607\Symfony\Component\Console\Help
      *
      * @return $this
      */
-    public function register(string $format, \ECSPrefix20220607\Symfony\Component\Console\Descriptor\DescriptorInterface $descriptor)
+    public function register(string $format, DescriptorInterface $descriptor)
     {
         $this->descriptors[$format] = $descriptor;
         return $this;

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Application;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Application;
 
 use ParseError;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\FileSystem\FileFilter;
-use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\FileSystem\FileFilter;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Finder\SourceFinder;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\EasyParallel\CpuCoreCountProvider;
 use ECSPrefix20220607\Symplify\EasyParallel\FileSystem\FilePathNormalizer;
 use ECSPrefix20220607\Symplify\EasyParallel\ScheduleFactory;
@@ -78,7 +78,7 @@ final class EasyCodingStandardApplication
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, \ECSPrefix20220607\Symplify\EasyParallel\ScheduleFactory $scheduleFactory, \Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor $parallelFileProcessor, \ECSPrefix20220607\Symplify\EasyParallel\CpuCoreCountProvider $cpuCoreCountProvider, \ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \ECSPrefix20220607\Symplify\EasyParallel\FileSystem\FilePathNormalizer $filePathNormalizer, \ECSPrefix20220607\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20220607\Symplify\PackageBuilder\Yaml\ParametersMerger $parametersMerger)
+    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle, SourceFinder $sourceFinder, ChangedFilesDetector $changedFilesDetector, FileFilter $fileFilter, SingleFileProcessor $singleFileProcessor, ScheduleFactory $scheduleFactory, ParallelFileProcessor $parallelFileProcessor, CpuCoreCountProvider $cpuCoreCountProvider, SymfonyStyle $symfonyStyle, FilePathNormalizer $filePathNormalizer, ParameterProvider $parameterProvider, ParametersMerger $parametersMerger)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -96,7 +96,7 @@ final class EasyCodingStandardApplication
     /**
      * @return array{coding_standard_errors?: CodingStandardError[], file_diffs?: FileDiff[], system_errors?: SystemError[]|string[], system_errors_count?: int}
      */
-    public function run(\Symplify\EasyCodingStandard\ValueObject\Configuration $configuration, \ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input) : array
+    public function run(Configuration $configuration, InputInterface $input) : array
     {
         // 1. find files in sources
         $fileInfos = $this->sourceFinder->find($configuration->getSources());
@@ -114,7 +114,7 @@ final class EasyCodingStandardApplication
         if ($configuration->isParallel()) {
             // must be a string, otherwise the serialization returns empty arrays
             $filePaths = $this->filePathNormalizer->resolveFilePathsFromFileInfos($fileInfos);
-            $schedule = $this->scheduleFactory->create($this->cpuCoreCountProvider->provide(), $this->parameterProvider->provideIntParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_JOB_SIZE), $this->parameterProvider->provideIntParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_MAX_NUMBER_OF_PROCESSES), $filePaths);
+            $schedule = $this->scheduleFactory->create($this->cpuCoreCountProvider->provide(), $this->parameterProvider->provideIntParameter(Option::PARALLEL_JOB_SIZE), $this->parameterProvider->provideIntParameter(Option::PARALLEL_MAX_NUMBER_OF_PROCESSES), $filePaths);
             // for progress bar
             $isProgressBarStarted = \false;
             $postFileCallback = function (int $stepCount) use(&$isProgressBarStarted, $filePaths, $configuration) : void {
@@ -131,7 +131,7 @@ final class EasyCodingStandardApplication
             };
             $mainScript = $this->resolveCalledEcsBinary();
             if ($mainScript === null) {
-                throw new \Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException('[parallel] Main script was not found');
+                throw new ShouldNotHappenException('[parallel] Main script was not found');
             }
             // mimics see https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92#diff-387b8f04e0db7a06678eb52ce0c0d0aff73e0d7d8fc5df834d0a5fbec198e5daR139
             return $this->parallelFileProcessor->check($schedule, $mainScript, $postFileCallback, $configuration->getConfig(), $input);
@@ -143,7 +143,7 @@ final class EasyCodingStandardApplication
      * @param SmartFileInfo[] $fileInfos
      * @return array{coding_standard_errors: CodingStandardError[], file_diffs: FileDiff[], system_errors: SystemError[], system_errors_count: int}
      */
-    private function processFoundFiles(array $fileInfos, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : array
+    private function processFoundFiles(array $fileInfos, Configuration $configuration) : array
     {
         $fileInfoCount = \count($fileInfos);
         // 3. start progress bar
@@ -158,9 +158,9 @@ final class EasyCodingStandardApplication
                 if ($currentErrorsAndDiffs !== []) {
                     $errorsAndDiffs = $this->parametersMerger->merge($errorsAndDiffs, $currentErrorsAndDiffs);
                 }
-            } catch (\ParseError $parseError) {
+            } catch (ParseError $parseError) {
                 $this->changedFilesDetector->invalidateFileInfo($fileInfo);
-                $errorsAndDiffs[\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge::SYSTEM_ERRORS][] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($parseError->getLine(), $parseError->getMessage(), $fileInfo->getRelativeFilePathFromCwd());
+                $errorsAndDiffs[Bridge::SYSTEM_ERRORS][] = new SystemError($parseError->getLine(), $parseError->getMessage(), $fileInfo->getRelativeFilePathFromCwd());
             }
             if ($configuration->shouldShowProgressBar()) {
                 $this->easyCodingStandardStyle->progressAdvance();
@@ -168,7 +168,7 @@ final class EasyCodingStandardApplication
         }
         return $errorsAndDiffs;
     }
-    private function outputProgressBarAndDebugInfo(int $fileInfoCount, \Symplify\EasyCodingStandard\ValueObject\Configuration $configuration) : void
+    private function outputProgressBarAndDebugInfo(int $fileInfoCount, Configuration $configuration) : void
     {
         if (!$configuration->shouldShowProgressBar()) {
             return;

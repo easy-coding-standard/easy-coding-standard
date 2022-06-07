@@ -29,7 +29,7 @@ final class WarningsDetector
      * @var string[]
      */
     private $warnings = [];
-    public function __construct(\PhpCsFixer\ToolInfoInterface $toolInfo)
+    public function __construct(ToolInfoInterface $toolInfo)
     {
         $this->toolInfo = $toolInfo;
     }
@@ -45,8 +45,8 @@ final class WarningsDetector
     {
         if ($this->toolInfo->isInstalledByComposer()) {
             $details = $this->toolInfo->getComposerInstallationDetails();
-            if (\PhpCsFixer\ToolInfo::COMPOSER_LEGACY_PACKAGE_NAME === $details['name']) {
-                $this->warnings[] = \sprintf('You are running PHP CS Fixer installed with old vendor `%s`. Please update to `%s`.', \PhpCsFixer\ToolInfo::COMPOSER_LEGACY_PACKAGE_NAME, \PhpCsFixer\ToolInfo::COMPOSER_PACKAGE_NAME);
+            if (ToolInfo::COMPOSER_LEGACY_PACKAGE_NAME === $details['name']) {
+                $this->warnings[] = \sprintf('You are running PHP CS Fixer installed with old vendor `%s`. Please update to `%s`.', ToolInfo::COMPOSER_LEGACY_PACKAGE_NAME, ToolInfo::COMPOSER_PACKAGE_NAME);
             }
         }
     }

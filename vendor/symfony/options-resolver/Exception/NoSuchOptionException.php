@@ -20,6 +20,6 @@ namespace ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception;
  *
  * @author Tobias Schultze <http://tobion.de>
  */
-class NoSuchOptionException extends \OutOfBoundsException implements \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\ExceptionInterface
+class NoSuchOptionException extends \OutOfBoundsException implements ExceptionInterface
 {
 }

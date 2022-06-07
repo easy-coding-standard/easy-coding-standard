@@ -1,8 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Exception;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Exception;
 
-final class DeprecatedException extends \Exception
+use Exception;
+final class DeprecatedException extends Exception
 {
 }

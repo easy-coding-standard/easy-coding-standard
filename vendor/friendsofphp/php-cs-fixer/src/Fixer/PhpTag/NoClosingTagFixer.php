@@ -23,26 +23,26 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class NoClosingTagFixer extends \PhpCsFixer\AbstractFixer
+final class NoClosingTagFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('The closing `?>` tag MUST be omitted from files containing only PHP.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nclass Sample\n{\n}\n?>\n")]);
+        return new FixerDefinition('The closing `?>` tag MUST be omitted from files containing only PHP.', [new CodeSample("<?php\nclass Sample\n{\n}\n?>\n")]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_CLOSE_TAG);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         if (\count($tokens) < 2 || !$tokens->isMonolithicPhp() || !$tokens->isTokenKindFound(\T_CLOSE_TAG)) {
             return;
@@ -55,7 +55,7 @@ final class NoClosingTagFixer extends \PhpCsFixer\AbstractFixer
         $tokens->clearAt($index);
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->equalsAny([';', '}', [\T_OPEN_TAG]])) {
-            $tokens->insertAt($prevIndex + 1, new \PhpCsFixer\Tokenizer\Token(';'));
+            $tokens->insertAt($prevIndex + 1, new Token(';'));
         }
     }
 }

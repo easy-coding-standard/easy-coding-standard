@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class SubversionPropertiesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class SubversionPropertiesSniff implements Sniff
 {
     /**
      * The Subversion properties that should be set.
@@ -43,7 +43,7 @@ class SubversionPropertiesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $path = $phpcsFile->getFilename();
         $properties = $this->getProperties($path);
@@ -100,7 +100,7 @@ class SubversionPropertiesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $handle = \fopen($path, 'r');
                 if ($handle === \false) {
                     $error = 'Error opening file; could not get Subversion properties';
-                    throw new \PHP_CodeSniffer\Exceptions\RuntimeException($error);
+                    throw new RuntimeException($error);
                 }
                 while (\feof($handle) === \false) {
                     // Read a key length line. Might be END, though.

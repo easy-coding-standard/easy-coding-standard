@@ -6,7 +6,7 @@ namespace ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ConfiguredCodeSample extends \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample implements \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
+final class ConfiguredCodeSample extends AbstractCodeSample implements CodeSampleInterface
 {
     /**
      * @var mixed[]
@@ -19,7 +19,7 @@ final class ConfiguredCodeSample extends \ECSPrefix20220607\Symplify\RuleDocGene
     {
         if ($configuration === []) {
             $message = \sprintf('Configuration cannot be empty. Look for "%s"', $badCode);
-            throw new \ECSPrefix20220607\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($message);
+            throw new ShouldNotHappenException($message);
         }
         $this->configuration = $configuration;
         parent::__construct($badCode, $goodCode);

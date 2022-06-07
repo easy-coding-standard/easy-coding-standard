@@ -15,7 +15,7 @@ namespace ECSPrefix20220607\Symfony\Component\Config\Loader;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class GlobFileLoader extends \ECSPrefix20220607\Symfony\Component\Config\Loader\FileLoader
+class GlobFileLoader extends FileLoader
 {
     /**
      * {@inheritdoc}

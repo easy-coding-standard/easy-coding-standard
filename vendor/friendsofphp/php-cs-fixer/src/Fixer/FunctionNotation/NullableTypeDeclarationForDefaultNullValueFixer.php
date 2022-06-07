@@ -28,19 +28,19 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author HypeMC
  */
-final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class NullableTypeDeclarationForDefaultNullValueFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Adds or removes `?` before type declarations for parameters with a default `null` value.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(string \$str = null)\n{}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(?string \$str = null)\n{}\n", ['use_nullable_type_declaration' => \false])], 'Rule is applied only in a PHP 7.1+ environment.');
+        return new FixerDefinition('Adds or removes `?` before type declarations for parameters with a default `null` value.', [new CodeSample("<?php\nfunction sample(string \$str = null)\n{}\n"), new CodeSample("<?php\nfunction sample(?string \$str = null)\n{}\n", ['use_nullable_type_declaration' => \false])], 'Rule is applied only in a PHP 7.1+ environment.');
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_VARIABLE) && $tokens->isAnyTokenKindsFound([\T_FUNCTION, \T_FN]);
     }
@@ -56,16 +56,16 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use_nullable_type_declaration', 'Whether to add or remove `?` before type declarations for parameters with a default `null` value.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('use_nullable_type_declaration', 'Whether to add or remove `?` before type declarations for parameters with a default `null` value.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         $tokenKinds = [\T_FUNCTION, \T_FN];
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
@@ -79,12 +79,12 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
     /**
      * @param ArgumentAnalysis[] $arguments
      */
-    private function fixFunctionParameters(\PhpCsFixer\Tokenizer\Tokens $tokens, array $arguments) : void
+    private function fixFunctionParameters(Tokens $tokens, array $arguments) : void
     {
-        $constructorPropertyModifiers = [\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE];
+        $constructorPropertyModifiers = [CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE];
         if (\defined('T_READONLY')) {
             // @TODO: drop condition when PHP 8.1+ is required
-            $constructorPropertyModifiers[] = T_READONLY;
+            $constructorPropertyModifiers[] = \T_READONLY;
         }
         foreach (\array_reverse($arguments) as $argumentInfo) {
             if (!$argumentInfo->hasTypeAnalysis() || \strpos($argumentInfo->getTypeAnalysis()->getName(), '|') !== \false || !$argumentInfo->hasDefault() || 'null' !== \strtolower($argumentInfo->getDefault())) {
@@ -99,7 +99,7 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\
             }
             if (\true === $this->configuration['use_nullable_type_declaration']) {
                 if (!$argumentTypeInfo->isNullable() && 'mixed' !== $argumentTypeInfo->getName()) {
-                    $tokens->insertAt($argumentTypeInfo->getStartIndex(), new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, '?']));
+                    $tokens->insertAt($argumentTypeInfo->getStartIndex(), new Token([CT::T_NULLABLE_TYPE, '?']));
                 }
             } else {
                 if ($argumentTypeInfo->isNullable()) {

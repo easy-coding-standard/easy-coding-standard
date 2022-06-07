@@ -24,14 +24,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Vladimir Boliev <voff.web@gmail.com>
  */
-final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class MethodChainingIndentationFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Method chaining MUST be properly indented. Method chaining with different levels of indentation is not supported.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$user->setEmail('voff.web@gmail.com')\n         ->setPassword('233434');\n")]);
+        return new FixerDefinition('Method chaining MUST be properly indented. Method chaining with different levels of indentation is not supported.', [new CodeSample("<?php\n\$user->setEmail('voff.web@gmail.com')\n         ->setPassword('233434');\n")]);
     }
     /**
      * {@inheritdoc}
@@ -46,14 +46,14 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
-        return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds());
+        return $tokens->isAnyTokenKindsFound(Token::getObjectOperatorKinds());
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         for ($index = 1, $count = \count($tokens); $index < $count; ++$index) {
@@ -61,7 +61,7 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
                 continue;
             }
             if ($this->canBeMovedToNextLine($index, $tokens)) {
-                $newline = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnding]);
+                $newline = new Token([\T_WHITESPACE, $lineEnding]);
                 if ($tokens[$index - 1]->isWhitespace()) {
                     $tokens[$index - 1] = $newline;
                 } else {
@@ -75,20 +75,20 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
             }
             $expectedIndent = $this->getExpectedIndentAt($tokens, $index);
             if ($currentIndent !== $expectedIndent) {
-                $tokens[$index - 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnding . $expectedIndent]);
+                $tokens[$index - 1] = new Token([\T_WHITESPACE, $lineEnding . $expectedIndent]);
             }
         }
     }
     /**
      * @param int $index index of the first token on the line to indent
      */
-    private function getExpectedIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : string
+    private function getExpectedIndentAt(Tokens $tokens, int $index) : string
     {
         $index = $tokens->getPrevMeaningfulToken($index);
         $indent = $this->whitespacesConfig->getIndent();
         for ($i = $index; $i >= 0; --$i) {
             if ($tokens[$i]->equals(')')) {
-                $i = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $i);
+                $i = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $i);
             }
             $currentIndent = $this->getIndentAt($tokens, $i);
             if (null === $currentIndent) {
@@ -104,7 +104,7 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
     /**
      * @param int $index position of the object operator token ("->" or "?->")
      */
-    private function canBeMovedToNextLine(int $index, \PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    private function canBeMovedToNextLine(int $index, Tokens $tokens) : bool
     {
         $prevMeaningful = $tokens->getPrevMeaningfulToken($index);
         $hasCommentBefore = \false;
@@ -113,7 +113,7 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
                 $hasCommentBefore = \true;
                 continue;
             }
-            if ($tokens[$i]->isWhitespace() && 1 === \PhpCsFixer\Preg::match('/\\R/', $tokens[$i]->getContent())) {
+            if ($tokens[$i]->isWhitespace() && 1 === Preg::match('/\\R/', $tokens[$i]->getContent())) {
                 return $hasCommentBefore;
             }
         }
@@ -122,14 +122,14 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
     /**
      * @param int $index index of the indentation token
      */
-    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : ?string
+    private function getIndentAt(Tokens $tokens, int $index) : ?string
     {
-        if (1 === \PhpCsFixer\Preg::match('/\\R{1}(\\h*)$/', $this->getIndentContentAt($tokens, $index), $matches)) {
+        if (1 === Preg::match('/\\R{1}(\\h*)$/', $this->getIndentContentAt($tokens, $index), $matches)) {
             return $matches[1];
         }
         return null;
     }
-    private function getIndentContentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : string
+    private function getIndentContentAt(Tokens $tokens, int $index) : string
     {
         if (!$tokens[$index]->isGivenKind([\T_WHITESPACE, \T_INLINE_HTML])) {
             return '';
@@ -138,7 +138,7 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
         if ($tokens[$index]->isWhitespace() && $tokens[$index - 1]->isGivenKind(\T_OPEN_TAG)) {
             $content = $tokens[$index - 1]->getContent() . $content;
         }
-        if (\PhpCsFixer\Preg::match('/\\R/', $content)) {
+        if (Preg::match('/\\R/', $content)) {
             return $content;
         }
         return '';
@@ -147,14 +147,14 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
      * @param int $start index of first meaningful token on previous line
      * @param int $end   index of last token on previous line
      */
-    private function currentLineRequiresExtraIndentLevel(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : bool
+    private function currentLineRequiresExtraIndentLevel(Tokens $tokens, int $start, int $end) : bool
     {
         if ($tokens[$start + 1]->isObjectOperator()) {
             return \false;
         }
-        if ($tokens[$end]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_BRACE_CLASS_INSTANTIATION_CLOSE)) {
+        if ($tokens[$end]->isGivenKind(CT::T_BRACE_CLASS_INSTANTIATION_CLOSE)) {
             return \true;
         }
-        return !$tokens[$end]->equals(')') || $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $end) >= $start;
+        return !$tokens[$end]->equals(')') || $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $end) >= $start;
     }
 }

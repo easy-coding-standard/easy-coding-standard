@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\PSR2\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class EndFileNewlineSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class EndFileNewlineSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -32,7 +32,7 @@ class EndFileNewlineSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         if ($phpcsFile->findNext(\T_INLINE_HTML, $stackPtr + 1) !== \false) {
             return $phpcsFile->numTokens + 1;

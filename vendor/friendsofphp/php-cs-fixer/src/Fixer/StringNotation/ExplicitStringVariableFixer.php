@@ -22,14 +22,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class ExplicitStringVariableFixer extends \PhpCsFixer\AbstractFixer
+final class ExplicitStringVariableFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts implicit variables into explicit ones in double-quoted strings or heredoc syntax.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
+        return new FixerDefinition('Converts implicit variables into explicit ones in double-quoted strings or heredoc syntax.', [new CodeSample(<<<'EOT'
 <?php
 
 namespace ECSPrefix20220607;
@@ -54,14 +54,14 @@ EOT
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_VARIABLE);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $backtickStarted = \false;
         for ($index = \count($tokens) - 1; $index > 0; --$index) {
@@ -83,7 +83,7 @@ EOT
             $squareBracketCount = 0;
             while (!$this->isStringPartToken($tokens[$nextIndex])) {
                 if ($tokens[$nextIndex]->isGivenKind(\T_CURLY_OPEN)) {
-                    $nextIndex = $tokens->getNextTokenOfKind($nextIndex, [[\PhpCsFixer\Tokenizer\CT::T_CURLY_CLOSE]]);
+                    $nextIndex = $tokens->getNextTokenOfKind($nextIndex, [[CT::T_CURLY_CLOSE]]);
                 } elseif ($tokens[$nextIndex]->isGivenKind(\T_VARIABLE) && 1 !== $squareBracketCount) {
                     $distinctVariableIndex = $nextIndex;
                     $variableTokens[$distinctVariableIndex] = ['tokens' => [$nextIndex => $tokens[$nextIndex]], 'firstVariableTokenIndex' => $nextIndex, 'lastVariableTokenIndex' => $nextIndex];
@@ -101,19 +101,19 @@ EOT
                 if (1 === \count($distinctVariableSet['tokens'])) {
                     $singleVariableIndex = \key($distinctVariableSet['tokens']);
                     $singleVariableToken = \current($distinctVariableSet['tokens']);
-                    $tokens->overrideRange($singleVariableIndex, $singleVariableIndex, [new \PhpCsFixer\Tokenizer\Token([\T_DOLLAR_OPEN_CURLY_BRACES, '${']), new \PhpCsFixer\Tokenizer\Token([\T_STRING_VARNAME, \substr($singleVariableToken->getContent(), 1)]), new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DOLLAR_CLOSE_CURLY_BRACES, '}'])]);
+                    $tokens->overrideRange($singleVariableIndex, $singleVariableIndex, [new Token([\T_DOLLAR_OPEN_CURLY_BRACES, '${']), new Token([\T_STRING_VARNAME, \substr($singleVariableToken->getContent(), 1)]), new Token([CT::T_DOLLAR_CLOSE_CURLY_BRACES, '}'])]);
                 } else {
                     foreach ($distinctVariableSet['tokens'] as $variablePartIndex => $variablePartToken) {
                         if ($variablePartToken->isGivenKind(\T_NUM_STRING)) {
-                            $tokens[$variablePartIndex] = new \PhpCsFixer\Tokenizer\Token([\T_LNUMBER, $variablePartToken->getContent()]);
+                            $tokens[$variablePartIndex] = new Token([\T_LNUMBER, $variablePartToken->getContent()]);
                             continue;
                         }
                         if ($variablePartToken->isGivenKind(\T_STRING) && $tokens[$variablePartIndex + 1]->equals(']')) {
-                            $tokens[$variablePartIndex] = new \PhpCsFixer\Tokenizer\Token([\T_CONSTANT_ENCAPSED_STRING, "'" . $variablePartToken->getContent() . "'"]);
+                            $tokens[$variablePartIndex] = new Token([\T_CONSTANT_ENCAPSED_STRING, "'" . $variablePartToken->getContent() . "'"]);
                         }
                     }
-                    $tokens->insertAt($distinctVariableSet['lastVariableTokenIndex'] + 1, new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_CURLY_CLOSE, '}']));
-                    $tokens->insertAt($distinctVariableSet['firstVariableTokenIndex'], new \PhpCsFixer\Tokenizer\Token([\T_CURLY_OPEN, '{']));
+                    $tokens->insertAt($distinctVariableSet['lastVariableTokenIndex'] + 1, new Token([CT::T_CURLY_CLOSE, '}']));
+                    $tokens->insertAt($distinctVariableSet['firstVariableTokenIndex'], new Token([\T_CURLY_OPEN, '{']));
                 }
             }
         }
@@ -123,7 +123,7 @@ EOT
      *
      * @param Token $token The token to check
      */
-    private function isStringPartToken(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isStringPartToken(Token $token) : bool
     {
         return $token->isGivenKind(\T_ENCAPSED_AND_WHITESPACE) || $token->isGivenKind(\T_START_HEREDOC) || '"' === $token->getContent() || 'b"' === \strtolower($token->getContent());
     }

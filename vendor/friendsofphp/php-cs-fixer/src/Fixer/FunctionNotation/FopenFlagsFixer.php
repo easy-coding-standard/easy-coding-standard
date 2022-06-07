@@ -22,23 +22,23 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class FopenFlagsFixer extends \PhpCsFixer\AbstractFopenFlagFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class FopenFlagsFixer extends AbstractFopenFlagFixer implements ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('The flags in `fopen` calls must omit `t`, and `b` must be omitted or included consistently.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = fopen(\$foo, 'rwt');\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = fopen(\$foo, 'rwt');\n", ['b_mode' => \false])], null, 'Risky when the function `fopen` is overridden.');
+        return new FixerDefinition('The flags in `fopen` calls must omit `t`, and `b` must be omitted or included consistently.', [new CodeSample("<?php\n\$a = fopen(\$foo, 'rwt');\n"), new CodeSample("<?php\n\$a = fopen(\$foo, 'rwt');\n", ['b_mode' => \false])], null, 'Risky when the function `fopen` is overridden.');
     }
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('b_mode', 'The `b` flag must be used (`true`) or omitted (`false`).'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('b_mode', 'The `b` flag must be used (`true`) or omitted (`false`).'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-    protected function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex) : void
+    protected function fixFopenFlagToken(Tokens $tokens, int $argumentStartIndex, int $argumentEndIndex) : void
     {
         $argumentFlagIndex = null;
         for ($i = $argumentStartIndex; $i <= $argumentEndIndex; ++$i) {
@@ -80,7 +80,7 @@ final class FopenFlagsFixer extends \PhpCsFixer\AbstractFopenFlagFixer implement
         }
         $newContent = $binPrefix . $contentQuote . $mode . $contentQuote;
         if ($content !== $newContent) {
-            $tokens[$argumentFlagIndex] = new \PhpCsFixer\Tokenizer\Token([\T_CONSTANT_ENCAPSED_STRING, $newContent]);
+            $tokens[$argumentFlagIndex] = new Token([\T_CONSTANT_ENCAPSED_STRING, $newContent]);
         }
     }
 }

@@ -30,7 +30,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  *
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class FunctionDeclarationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class FunctionDeclarationFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @internal
@@ -48,16 +48,16 @@ final class FunctionDeclarationFixer extends \PhpCsFixer\AbstractFixer implement
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_FUNCTION, \T_FN]);
     }
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Spaces should be properly placed in a function declaration.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Spaces should be properly placed in a function declaration.', [new CodeSample('<?php
 
 class Foo
 {
@@ -71,11 +71,11 @@ function  foo  ($bar, $baz)
 {
     return false;
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 $f = function () {};
-', ['closure_function_spacing' => self::SPACING_NONE]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
+', ['closure_function_spacing' => self::SPACING_NONE]), new VersionSpecificCodeSample('<?php
 $f = fn () => null;
-', new \PhpCsFixer\FixerDefinition\VersionSpecification(70400), ['closure_function_spacing' => self::SPACING_NONE])]);
+', new VersionSpecification(70400), ['closure_function_spacing' => self::SPACING_NONE])]);
     }
     /**
      * {@inheritdoc}
@@ -90,9 +90,9 @@ $f = fn () => null;
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
             if (!$token->isGivenKind([\T_FUNCTION, \T_FN])) {
@@ -102,7 +102,7 @@ $f = fn () => null;
             if (!$tokens[$startParenthesisIndex]->equals('(')) {
                 continue;
             }
-            $endParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
+            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
             if (\false === $this->configuration['trailing_comma_single_line'] && !$tokens->isPartialCodeMultiline($index, $endParenthesisIndex)) {
                 $commaIndex = $tokens->getPrevMeaningfulToken($endParenthesisIndex);
                 if ($tokens[$commaIndex]->equals(',')) {
@@ -119,11 +119,11 @@ $f = fn () => null;
             }
             $afterParenthesisIndex = $tokens->getNextNonWhitespace($endParenthesisIndex);
             $afterParenthesisToken = $tokens[$afterParenthesisIndex];
-            if ($afterParenthesisToken->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA)) {
+            if ($afterParenthesisToken->isGivenKind(CT::T_USE_LAMBDA)) {
                 // fix whitespace after CT:T_USE_LAMBDA (we might add a token, so do this before determining start and end parenthesis)
                 $tokens->ensureWhitespaceAtIndex($afterParenthesisIndex + 1, 0, ' ');
                 $useStartParenthesisIndex = $tokens->getNextTokenOfKind($afterParenthesisIndex, ['(']);
-                $useEndParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $useStartParenthesisIndex);
+                $useEndParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $useStartParenthesisIndex);
                 if (\false === $this->configuration['trailing_comma_single_line'] && !$tokens->isPartialCodeMultiline($index, $useEndParenthesisIndex)) {
                     $commaIndex = $tokens->getPrevMeaningfulToken($useEndParenthesisIndex);
                     if ($tokens[$commaIndex]->equals(',')) {
@@ -167,11 +167,11 @@ $f = fn () => null;
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('closure_function_spacing', 'Spacing to use before open parenthesis for closures.'))->setDefault(self::SPACING_ONE)->setAllowedValues(self::SUPPORTED_SPACINGS)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('trailing_comma_single_line', 'Whether trailing commas are allowed in single line signatures.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('closure_function_spacing', 'Spacing to use before open parenthesis for closures.'))->setDefault(self::SPACING_ONE)->setAllowedValues(self::SUPPORTED_SPACINGS)->getOption(), (new FixerOptionBuilder('trailing_comma_single_line', 'Whether trailing commas are allowed in single line signatures.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
-    private function fixParenthesisInnerEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, int $start, int $end) : void
+    private function fixParenthesisInnerEdge(Tokens $tokens, int $start, int $end) : void
     {
         do {
             --$end;

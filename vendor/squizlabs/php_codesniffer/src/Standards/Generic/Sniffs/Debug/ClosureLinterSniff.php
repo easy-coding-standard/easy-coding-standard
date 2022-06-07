@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-class ClosureLinterSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ClosureLinterSniff implements Sniff
 {
     /**
      * A list of error codes that should show errors.
@@ -55,14 +55,14 @@ class ClosureLinterSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return void
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If jslint.js could not be run
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
-        $lintPath = \PHP_CodeSniffer\Config::getExecutablePath('gjslint');
+        $lintPath = Config::getExecutablePath('gjslint');
         if ($lintPath === null) {
             return;
         }
         $fileName = $phpcsFile->getFilename();
-        $lintPath = \PHP_CodeSniffer\Util\Common::escapeshellcmd($lintPath);
+        $lintPath = Common::escapeshellcmd($lintPath);
         $cmd = $lintPath . ' --nosummary --notime --unix_mode ' . \escapeshellarg($fileName);
         \exec($cmd, $output, $retval);
         if (\is_array($output) === \false) {

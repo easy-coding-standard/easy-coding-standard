@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\Files;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ImportStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ImportStatementSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,20 +33,20 @@ class ImportStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Make sure this is not a closure USE group.
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($tokens[$next]['code'] === T_OPEN_PARENTHESIS) {
             return;
         }
-        if ($phpcsFile->hasCondition($stackPtr, \PHP_CodeSniffer\Util\Tokens::$ooScopeTokens) === \true) {
+        if ($phpcsFile->hasCondition($stackPtr, Tokens::$ooScopeTokens) === \true) {
             // This rule only applies to import statements.
             return;
         }
         if ($tokens[$next]['code'] === \T_STRING && (\strtolower($tokens[$next]['content']) === 'function' || \strtolower($tokens[$next]['content']) === 'const')) {
-            $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
+            $next = $phpcsFile->findNext(Tokens::$emptyTokens, $next + 1, null, \true);
         }
         if ($tokens[$next]['code'] !== \T_NS_SEPARATOR) {
             return;

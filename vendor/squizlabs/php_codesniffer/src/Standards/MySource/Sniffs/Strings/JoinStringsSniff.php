@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\MySource\Sniffs\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-class JoinStringsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class JoinStringsSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,17 +39,17 @@ class JoinStringsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['content'] !== 'join') {
             return;
         }
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
         if ($tokens[$prev]['code'] !== \T_OBJECT_OPERATOR) {
             return;
         }
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prev - 1, null, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prev - 1, null, \true);
         if ($tokens[$prev]['code'] === T_CLOSE_SQUARE_BRACKET) {
             $opener = $tokens[$prev]['bracket_opener'];
             if ($tokens[$opener - 1]['code'] !== \T_STRING) {

@@ -22,19 +22,19 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
+final class DateTimeImmutableFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Class `DateTimeImmutable` should be used instead of `DateTime`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nnew DateTime();\n")], null, 'Risky when the code relies on modifying `DateTime` objects or if any of the `date_create*` functions are overridden.');
+        return new FixerDefinition('Class `DateTimeImmutable` should be used instead of `DateTime`.', [new CodeSample("<?php\nnew DateTime();\n")], null, 'Risky when the code relies on modifying `DateTime` objects or if any of the `date_create*` functions are overridden.');
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -48,9 +48,9 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         $functionMap = ['date_create' => 'date_create_immutable', 'date_create_from_format' => 'date_create_immutable_from_format'];
         $isInNamespace = \false;
         $isImported = \false;
@@ -88,11 +88,11 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
                 continue;
             }
             if (isset($functionMap[$lowercaseContent]) && $functionsAnalyzer->isGlobalFunctionCall($tokens, $index)) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $functionMap[$lowercaseContent]]);
+                $tokens[$index] = new Token([\T_STRING, $functionMap[$lowercaseContent]]);
             }
         }
     }
-    private function fixClassUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, bool $isInNamespace, bool $isImported) : void
+    private function fixClassUsage(Tokens $tokens, int $index, bool $isInNamespace, bool $isImported) : void
     {
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$nextIndex]->isGivenKind(\T_DOUBLE_COLON)) {
@@ -118,9 +118,9 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
             $isUsedAlone = \true;
         }
         if ($isUsedWithLeadingBackslash || $isUsedAlone && ($isInNamespace && $isImported || !$isInNamespace)) {
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, \DateTimeImmutable::class]);
+            $tokens[$index] = new Token([\T_STRING, \DateTimeImmutable::class]);
             if ($isInNamespace && $isUsedAlone) {
-                $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']));
+                $tokens->insertAt($index, new Token([\T_NS_SEPARATOR, '\\']));
             }
         }
     }

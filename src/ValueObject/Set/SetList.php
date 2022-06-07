@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\ValueObject\Set;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Set;
 
 final class SetList
 {

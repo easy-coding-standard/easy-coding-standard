@@ -7,5 +7,5 @@ use ECSPrefix20220607\Symfony\Component\Config\Loader\LoaderInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
 interface LoaderFactoryInterface
 {
-    public function create(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $currentWorkingDirectory) : \ECSPrefix20220607\Symfony\Component\Config\Loader\LoaderInterface;
+    public function create(ContainerBuilder $containerBuilder, string $currentWorkingDirectory) : LoaderInterface;
 }

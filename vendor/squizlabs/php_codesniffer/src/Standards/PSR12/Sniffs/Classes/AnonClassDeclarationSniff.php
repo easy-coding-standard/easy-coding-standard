@@ -14,7 +14,7 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\FunctionCallArgumentSpaci
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\MultiLineFunctionDeclarationSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class AnonClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff
+class AnonClassDeclarationSniff extends ClassDeclarationSniff
 {
     /**
      * The PSR2 MultiLineFunctionDeclarations sniff.
@@ -47,14 +47,14 @@ class AnonClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\C
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_opener']) === \false) {
             return;
         }
-        $this->multiLineSniff = new \PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\MultiLineFunctionDeclarationSniff();
-        $this->functionCallSniff = new \PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\FunctionCallArgumentSpacingSniff();
+        $this->multiLineSniff = new MultiLineFunctionDeclarationSniff();
+        $this->functionCallSniff = new FunctionCallArgumentSpacingSniff();
         $this->processOpen($phpcsFile, $stackPtr);
         $this->processClose($phpcsFile, $stackPtr);
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === \true) {
@@ -118,7 +118,7 @@ class AnonClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\C
      *
      * @return void
      */
-    public function processSingleLineArgumentList(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function processSingleLineArgumentList(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $openBracket = $tokens[$stackPtr]['parenthesis_opener'];
@@ -163,7 +163,7 @@ class AnonClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\C
                     // We want to jump over any whitespace or inline comment and
                     // move the closing parenthesis after any other token.
                     $prev = $closeBracket - 1;
-                    while (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$prev]['code']]) === \true) {
+                    while (isset(Tokens::$emptyTokens[$tokens[$prev]['code']]) === \true) {
                         if ($tokens[$prev]['code'] === \T_COMMENT && \strpos($tokens[$prev]['content'], '*/') !== \false) {
                             break;
                         }
@@ -194,7 +194,7 @@ class AnonClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\C
      *
      * @return void
      */
-    public function processMultiLineArgumentList(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function processMultiLineArgumentList(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $openBracket = $tokens[$stackPtr]['parenthesis_opener'];

@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class FunctionSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FunctionSpacingSniff implements Sniff
 {
     /**
      * The number of blank lines between functions.
@@ -57,10 +57,10 @@ class FunctionSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $previousNonEmpty = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        $previousNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
         if ($previousNonEmpty !== \false && $tokens[$previousNonEmpty]['code'] === \T_OPEN_TAG && $tokens[$previousNonEmpty]['line'] !== 1) {
             // Ignore functions at the start of an embedded PHP block.
             return;
@@ -92,7 +92,7 @@ class FunctionSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         $isFirst = \false;
         $isLast = \false;
-        $ignore = [\T_WHITESPACE => \T_WHITESPACE] + \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;
+        $ignore = [\T_WHITESPACE => \T_WHITESPACE] + Tokens::$methodPrefixes;
         $prev = $phpcsFile->findPrevious($ignore, $stackPtr - 1, null, \true);
         while ($tokens[$prev]['code'] === T_ATTRIBUTE_END) {
             // Skip past function attributes.
@@ -106,7 +106,7 @@ class FunctionSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $isFirst = \true;
         }
         $next = $phpcsFile->findNext($ignore, $closer + 1, null, \true);
-        if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$next]['code']]) === \true && $tokens[$next]['line'] === $tokens[$closer]['line']) {
+        if (isset(Tokens::$emptyTokens[$tokens[$next]['code']]) === \true && $tokens[$next]['line'] === $tokens[$closer]['line']) {
             // Skip past "end" comments.
             $next = $phpcsFile->findNext($ignore, $next + 1, null, \true);
         }
@@ -194,7 +194,7 @@ class FunctionSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         } else {
             $currentLine = $tokens[$stackPtr]['line'];
             $prevContent = $phpcsFile->findPrevious(\T_WHITESPACE, $prevLineToken, null, \true);
-            if ($tokens[$prevContent]['code'] === \T_COMMENT || isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$prevContent]['code']]) === \true) {
+            if ($tokens[$prevContent]['code'] === \T_COMMENT || isset(Tokens::$phpcsCommentTokens[$tokens[$prevContent]['code']]) === \true) {
                 // Ignore comments as they can have different spacing rules, and this
                 // isn't a proper function comment anyway.
                 return;

@@ -10,7 +10,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class TraitNameSuffixSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class TraitNameSuffixSniff implements Sniff
 {
     /**
      * Registers the tokens that this sniff wants to listen for.
@@ -31,7 +31,7 @@ class TraitNameSuffixSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $traitName = $phpcsFile->getDeclarationName($stackPtr);
         if ($traitName === null) {

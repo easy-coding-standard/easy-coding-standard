@@ -15,7 +15,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class EmptyPHPStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class EmptyPHPStatementSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -36,13 +36,13 @@ class EmptyPHPStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         switch ($tokens[$stackPtr]['type']) {
             // Detect `something();;`.
             case 'T_SEMICOLON':
-                $prevNonEmpty = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+                $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
                 if ($prevNonEmpty === \false) {
                     return;
                 }

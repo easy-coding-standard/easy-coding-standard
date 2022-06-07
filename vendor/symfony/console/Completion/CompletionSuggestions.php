@@ -28,7 +28,7 @@ final class CompletionSuggestions
      */
     public function suggestValue($value)
     {
-        $this->valueSuggestions[] = !$value instanceof \ECSPrefix20220607\Symfony\Component\Console\Completion\Suggestion ? new \ECSPrefix20220607\Symfony\Component\Console\Completion\Suggestion($value) : $value;
+        $this->valueSuggestions[] = !$value instanceof Suggestion ? new Suggestion($value) : $value;
         return $this;
     }
     /**
@@ -50,7 +50,7 @@ final class CompletionSuggestions
      *
      * @return $this
      */
-    public function suggestOption(\ECSPrefix20220607\Symfony\Component\Console\Input\InputOption $option)
+    public function suggestOption(InputOption $option)
     {
         $this->optionSuggestions[] = $option;
         return $this;

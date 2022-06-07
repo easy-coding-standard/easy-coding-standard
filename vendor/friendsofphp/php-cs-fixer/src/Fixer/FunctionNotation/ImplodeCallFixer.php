@@ -23,14 +23,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class ImplodeCallFixer extends \PhpCsFixer\AbstractFixer
+final class ImplodeCallFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Function `implode` must be called with 2 arguments in the documented order.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nimplode(\$pieces, '');\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nimplode(\$pieces);\n")], null, 'Risky when the function `implode` is overridden.');
+        return new FixerDefinition('Function `implode` must be called with 2 arguments in the documented order.', [new CodeSample("<?php\nimplode(\$pieces, '');\n"), new CodeSample("<?php\nimplode(\$pieces);\n")], null, 'Risky when the function `implode` is overridden.');
     }
     /**
      * {@inheritdoc}
@@ -42,7 +42,7 @@ final class ImplodeCallFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -59,9 +59,9 @@ final class ImplodeCallFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         for ($index = \count($tokens) - 1; $index > 0; --$index) {
             if (!$tokens[$index]->equals([\T_STRING, 'implode'], \false)) {
                 continue;
@@ -72,7 +72,7 @@ final class ImplodeCallFixer extends \PhpCsFixer\AbstractFixer
             $argumentsIndices = $this->getArgumentIndices($tokens, $index);
             if (1 === \count($argumentsIndices)) {
                 $firstArgumentIndex = \key($argumentsIndices);
-                $tokens->insertAt($firstArgumentIndex, [new \PhpCsFixer\Tokenizer\Token([\T_CONSTANT_ENCAPSED_STRING, "''"]), new \PhpCsFixer\Tokenizer\Token(','), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]);
+                $tokens->insertAt($firstArgumentIndex, [new Token([\T_CONSTANT_ENCAPSED_STRING, "''"]), new Token(','), new Token([\T_WHITESPACE, ' '])]);
                 continue;
             }
             if (2 === \count($argumentsIndices)) {
@@ -103,11 +103,11 @@ final class ImplodeCallFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @return array<int, int> In the format: startIndex => endIndex
      */
-    private function getArgumentIndices(\PhpCsFixer\Tokenizer\Tokens $tokens, int $functionNameIndex) : array
+    private function getArgumentIndices(Tokens $tokens, int $functionNameIndex) : array
     {
-        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
+        $argumentsAnalyzer = new ArgumentsAnalyzer();
         $openParenthesis = $tokens->getNextTokenOfKind($functionNameIndex, ['(']);
-        $closeParenthesis = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis);
+        $closeParenthesis = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis);
         $indices = [];
         foreach ($argumentsAnalyzer->getArguments($tokens, $openParenthesis, $closeParenthesis) as $startIndexCandidate => $endIndex) {
             $indices[$tokens->getNextMeaningfulToken($startIndexCandidate - 1)] = $tokens->getPrevMeaningfulToken($endIndex + 1);

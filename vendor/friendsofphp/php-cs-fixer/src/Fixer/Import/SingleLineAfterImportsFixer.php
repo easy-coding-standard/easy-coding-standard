@@ -27,21 +27,21 @@ use PhpCsFixer\Utils;
  * @author Ceeram <ceeram@cakephp.org>
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-final class SingleLineAfterImportsFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class SingleLineAfterImportsFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_USE);
     }
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Each namespace use MUST go on its own line and there MUST be one blank line after the use statements block.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Each namespace use MUST go on its own line and there MUST be one blank line after the use statements block.', [new CodeSample('<?php
 namespace Foo;
 
 use Bar;
@@ -49,7 +49,7 @@ use Baz;
 final class Example
 {
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 namespace Foo;
 
 use Bar;
@@ -73,10 +73,10 @@ final class Example
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $ending = $this->whitespacesConfig->getLineEnding();
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         $added = 0;
         foreach ($tokensAnalyzer->getImportUseIndexes() as $index) {
             $index += $added;
@@ -85,7 +85,7 @@ final class Example
             if ($tokens[$index - 1]->isWhitespace(" \t") && $tokens[$index - 2]->isGivenKind(\T_COMMENT)) {
                 $indent = $tokens[$index - 1]->getContent();
             } elseif ($tokens[$index - 1]->isWhitespace()) {
-                $indent = \PhpCsFixer\Utils::calculateTrailingWhitespaceIndent($tokens[$index - 1]);
+                $indent = Utils::calculateTrailingWhitespaceIndent($tokens[$index - 1]);
             }
             $semicolonIndex = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
             // Handle insert index for inline T_COMMENT with whitespace after semicolon
@@ -94,11 +94,11 @@ final class Example
                 if ($tokens[$insertIndex - 1]->isWhitespace()) {
                     --$insertIndex;
                 }
-                $tokens->insertAt($insertIndex, new \PhpCsFixer\Tokenizer\Token(';'));
+                $tokens->insertAt($insertIndex, new Token(';'));
                 ++$added;
             }
             if ($semicolonIndex === \count($tokens) - 1) {
-                $tokens->insertAt($insertIndex + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $ending . $ending . $indent]));
+                $tokens->insertAt($insertIndex + 1, new Token([\T_WHITESPACE, $ending . $ending . $indent]));
                 ++$added;
             } else {
                 $newline = $ending;
@@ -122,13 +122,13 @@ final class Example
                     $nextMeaningfulAfterUseIndex = $tokens->getNextMeaningfulToken($insertIndex);
                     if (null !== $nextMeaningfulAfterUseIndex && $tokens[$nextMeaningfulAfterUseIndex]->isGivenKind(\T_USE)) {
                         if (\substr_count($nextToken->getContent(), "\n") < 1) {
-                            $tokens[$insertIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $newline . $indent . \ltrim($nextToken->getContent())]);
+                            $tokens[$insertIndex] = new Token([\T_WHITESPACE, $newline . $indent . \ltrim($nextToken->getContent())]);
                         }
                     } else {
-                        $tokens[$insertIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $newline . $indent . \ltrim($nextToken->getContent())]);
+                        $tokens[$insertIndex] = new Token([\T_WHITESPACE, $newline . $indent . \ltrim($nextToken->getContent())]);
                     }
                 } else {
-                    $tokens->insertAt($insertIndex, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $newline . $indent]));
+                    $tokens->insertAt($insertIndex, new Token([\T_WHITESPACE, $newline . $indent]));
                     ++$added;
                 }
             }

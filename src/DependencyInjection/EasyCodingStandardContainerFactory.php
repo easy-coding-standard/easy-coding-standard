@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\DependencyInjection;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection;
 
 use ECSPrefix20220607\Nette\Utils\FileSystem;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface;
-use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\Exception\DeprecatedException;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\DeprecatedException;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 final class EasyCodingStandardContainerFactory
 {
-    public function createFromFromInput(\ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input) : \ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface
+    public function createFromFromInput(InputInterface $input) : ContainerInterface
     {
-        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel();
+        $easyCodingStandardKernel = new EasyCodingStandardKernel();
         $inputConfigFiles = [];
         $rootECSConfig = \getcwd() . \DIRECTORY_SEPARATOR . 'ecs.php';
         if ($input->hasParameterOption(['--config', '-c'])) {
@@ -28,13 +28,13 @@ final class EasyCodingStandardContainerFactory
         }
         /** @var ContainerBuilder $container */
         $container = $easyCodingStandardKernel->createFromConfigs($inputConfigFiles);
-        $deprecationReporter = new \Symplify\EasyCodingStandard\DependencyInjection\DeprecationReporter();
+        $deprecationReporter = new DeprecationReporter();
         $deprecationReporter->reportDeprecatedSets($container, $input);
         $this->reportOldContainerConfiguratorConfig($inputConfigFiles);
         if ($inputConfigFiles !== []) {
             // for cache invalidation on config change
             /** @var ChangedFilesDetector $changedFilesDetector */
-            $changedFilesDetector = $container->get(\Symplify\EasyCodingStandard\Caching\ChangedFilesDetector::class);
+            $changedFilesDetector = $container->get(ChangedFilesDetector::class);
             $changedFilesDetector->setUsedConfigs($inputConfigFiles);
         }
         return $container;
@@ -46,12 +46,12 @@ final class EasyCodingStandardContainerFactory
     {
         foreach ($inputConfigFiles as $inputConfigFile) {
             // warning about old syntax before ECSConfig
-            $fileContents = \ECSPrefix20220607\Nette\Utils\FileSystem::read($inputConfigFile);
+            $fileContents = FileSystem::read($inputConfigFile);
             if (\strpos($fileContents, 'ContainerConfigurator $containerConfigurator') === \false) {
                 continue;
             }
             $warningMessage = \sprintf('Your "%s" config is using old "ContainerConfigurator".%sUpgrade to "ECSConfig" that allows better autocomplete and future standard. See https://tomasvotruba.com/blog/new-in-ecs-simpler-config/', $inputConfigFile, \PHP_EOL);
-            throw new \Symplify\EasyCodingStandard\Exception\DeprecatedException($warningMessage);
+            throw new DeprecatedException($warningMessage);
         }
     }
 }

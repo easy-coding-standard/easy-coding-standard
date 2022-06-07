@@ -16,7 +16,7 @@ use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
 /**
  * @internal
  */
-final class PSR12Set extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
+final class PSR12Set extends AbstractRuleSetDescription
 {
     public function getRules() : array
     {

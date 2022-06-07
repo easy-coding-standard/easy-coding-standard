@@ -16,7 +16,7 @@ class ImageException extends \Exception
 /**
  * The exception that indicates invalid image file.
  */
-class UnknownImageFileException extends \ECSPrefix20220607\Nette\Utils\ImageException
+class UnknownImageFileException extends ImageException
 {
 }
 /**

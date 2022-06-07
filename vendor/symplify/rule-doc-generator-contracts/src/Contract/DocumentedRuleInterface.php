@@ -9,5 +9,5 @@ use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 interface DocumentedRuleInterface
 {
-    public function getRuleDefinition() : \ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+    public function getRuleDefinition() : RuleDefinition;
 }

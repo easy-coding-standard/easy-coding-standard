@@ -23,14 +23,14 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class ElseifFixer extends \PhpCsFixer\AbstractFixer
+final class ElseifFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('The keyword `elseif` should be used instead of `else if` so that all control keywords look like single words.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif (\$a) {\n} else if (\$b) {\n}\n")]);
+        return new FixerDefinition('The keyword `elseif` should be used instead of `else if` so that all control keywords look like single words.', [new CodeSample("<?php\nif (\$a) {\n} else if (\$b) {\n}\n")]);
     }
     /**
      * {@inheritdoc}
@@ -45,7 +45,7 @@ final class ElseifFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_IF, \T_ELSE]);
     }
@@ -54,7 +54,7 @@ final class ElseifFixer extends \PhpCsFixer\AbstractFixer
      *
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_ELSE)) {
@@ -66,7 +66,7 @@ final class ElseifFixer extends \PhpCsFixer\AbstractFixer
                 continue;
             }
             // if next meaningful token is T_IF, but uses an alternative syntax - this is not the case for fixing neither
-            $conditionEndBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextMeaningfulToken($ifTokenIndex));
+            $conditionEndBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextMeaningfulToken($ifTokenIndex));
             $afterConditionIndex = $tokens->getNextMeaningfulToken($conditionEndBraceIndex);
             if ($tokens[$afterConditionIndex]->equals(':')) {
                 continue;
@@ -75,7 +75,7 @@ final class ElseifFixer extends \PhpCsFixer\AbstractFixer
             // 1. clear whitespaces between T_ELSE and T_IF
             $tokens->clearAt($index + 1);
             // 2. change token from T_ELSE into T_ELSEIF
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_ELSEIF, 'elseif']);
+            $tokens[$index] = new Token([\T_ELSEIF, 'elseif']);
             // 3. clear succeeding T_IF
             $tokens->clearAt($ifTokenIndex);
             $beforeIfTokenIndex = $tokens->getPrevNonWhitespace($ifTokenIndex);

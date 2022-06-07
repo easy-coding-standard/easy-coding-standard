@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\PHP;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class DisallowRequestSuperglobalSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DisallowRequestSuperglobalSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -31,7 +31,7 @@ class DisallowRequestSuperglobalSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $varName = $tokens[$stackPtr]['content'];

@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes\ClassDeclarationSniff as PEARClassDeclarationSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes\ClassDeclarationSniff
+class ClassDeclarationSniff extends PEARClassDeclarationSniff
 {
     /**
      * The number of spaces code should be indented.
@@ -29,7 +29,7 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Class
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         // We want all the errors from the PEAR standard, plus some of our own.
         parent::process($phpcsFile, $stackPtr);
@@ -51,7 +51,7 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Class
      *
      * @return void
      */
-    public function processOpen(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function processOpen(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $stackPtrType = \strtolower($tokens[$stackPtr]['content']);
@@ -220,7 +220,7 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Class
         $implements = $phpcsFile->findNext($keywordTokenType, $stackPtr + 1, $openingBrace);
         $multiLineImplements = \false;
         if ($implements !== \false) {
-            $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $openingBrace - 1, $implements, \true);
+            $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $openingBrace - 1, $implements, \true);
             if ($tokens[$prev]['line'] !== $tokens[$implements]['line']) {
                 $multiLineImplements = \true;
             }
@@ -388,7 +388,7 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Class
      *
      * @return void
      */
-    public function processClose(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function processClose(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Check that the closing brace comes right after the code body.
@@ -413,7 +413,7 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Class
         if ($tokens[$stackPtr]['code'] !== T_ANON_CLASS) {
             // Check the closing brace is on it's own line, but allow
             // for comments like "//end class".
-            $ignoreTokens = \PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens;
+            $ignoreTokens = Tokens::$phpcsCommentTokens;
             $ignoreTokens[] = \T_WHITESPACE;
             $ignoreTokens[] = \T_COMMENT;
             $ignoreTokens[] = T_SEMICOLON;

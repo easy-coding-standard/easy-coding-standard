@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\FixerRunner\ValueObject;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\ValueObject;
 
 final class Spacing
 {

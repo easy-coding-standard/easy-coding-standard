@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\ValueObject;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject;
 
 use PhpCsFixer\Tokenizer\CT;
 final class TokenKinds
@@ -9,5 +9,5 @@ final class TokenKinds
     /**
      * @var int[]
      */
-    public const ARRAY_OPEN_TOKENS = [\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN];
+    public const ARRAY_OPEN_TOKENS = [\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN];
 }

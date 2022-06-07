@@ -21,21 +21,21 @@ use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class DateTimeCreateFromFormatCallFixer extends \PhpCsFixer\AbstractFixer
+final class DateTimeCreateFromFormatCallFixer extends AbstractFixer
 {
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('The first argument of `DateTime::createFromFormat` method must start with `!`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \\DateTime::createFromFormat('Y-m-d', '2022-02-11');\n")], "Consider this code:\n    `DateTime::createFromFormat('Y-m-d', '2022-02-11')`.\n    What value will be returned? '2022-01-11 00:00:00.0'? No, actual return value has 'H:i:s' section like '2022-02-11 16:55:37.0'.\n    Change 'Y-m-d' to '!Y-m-d', return value will be '2022-01-11 00:00:00.0'.\n    So, adding `!` to format string will make return value more intuitive.");
+        return new FixerDefinition('The first argument of `DateTime::createFromFormat` method must start with `!`.', [new CodeSample("<?php \\DateTime::createFromFormat('Y-m-d', '2022-02-11');\n")], "Consider this code:\n    `DateTime::createFromFormat('Y-m-d', '2022-02-11')`.\n    What value will be returned? '2022-01-11 00:00:00.0'? No, actual return value has 'H:i:s' section like '2022-02-11 16:55:37.0'.\n    Change 'Y-m-d' to '!Y-m-d', return value will be '2022-01-11 00:00:00.0'.\n    So, adding `!` to format string will make return value more intuitive.");
     }
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOUBLE_COLON);
     }
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
-        $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
-        $namespaceUsesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
+        $argumentsAnalyzer = new ArgumentsAnalyzer();
+        $namespacesAnalyzer = new NamespacesAnalyzer();
+        $namespaceUsesAnalyzer = new NamespaceUsesAnalyzer();
         foreach ($namespacesAnalyzer->getDeclarations($tokens) as $namespace) {
             $scopeStartIndex = $namespace->getScopeStartIndex();
             $useDeclarations = $namespaceUsesAnalyzer->getDeclarationsInNamespace($tokens, $namespace);
@@ -69,7 +69,7 @@ final class DateTimeCreateFromFormatCallFixer extends \PhpCsFixer\AbstractFixer
                     }
                 }
                 $openIndex = $tokens->getNextTokenOfKind($functionNameIndex, ['(']);
-                $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+                $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
                 $argumentIndex = $this->getFirstArgumentTokenIndex($tokens, $argumentsAnalyzer->getArguments($tokens, $openIndex, $closeIndex));
                 if (null === $argumentIndex) {
                     continue;
@@ -79,11 +79,11 @@ final class DateTimeCreateFromFormatCallFixer extends \PhpCsFixer\AbstractFixer
                     continue;
                 }
                 $tokens->clearAt($argumentIndex);
-                $tokens->insertAt($argumentIndex, new \PhpCsFixer\Tokenizer\Token([\T_CONSTANT_ENCAPSED_STRING, \substr_replace($format, '!', 1, 0)]));
+                $tokens->insertAt($argumentIndex, new Token([\T_CONSTANT_ENCAPSED_STRING, \substr_replace($format, '!', 1, 0)]));
             }
         }
     }
-    private function getFirstArgumentTokenIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, array $arguments) : ?int
+    private function getFirstArgumentTokenIndex(Tokens $tokens, array $arguments) : ?int
     {
         if (2 !== \count($arguments)) {
             return null;

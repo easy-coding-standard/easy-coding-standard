@@ -15,7 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Util\Common;
-class CodeAnalyzerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class CodeAnalyzerSniff implements Sniff
 {
     /**
      * Returns the token types that this sniff is interested in.
@@ -37,9 +37,9 @@ class CodeAnalyzerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return int
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If ZendCodeAnalyzer could not be run.
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
-        $analyzerPath = \PHP_CodeSniffer\Config::getExecutablePath('zend_ca');
+        $analyzerPath = Config::getExecutablePath('zend_ca');
         if ($analyzerPath === null) {
             return;
         }
@@ -47,7 +47,7 @@ class CodeAnalyzerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // In the command, 2>&1 is important because the code analyzer sends its
         // findings to stderr. $output normally contains only stdout, so using 2>&1
         // will pipe even stderr to stdout.
-        $cmd = \PHP_CodeSniffer\Util\Common::escapeshellcmd($analyzerPath) . ' ' . \escapeshellarg($fileName) . ' 2>&1';
+        $cmd = Common::escapeshellcmd($analyzerPath) . ' ' . \escapeshellarg($fileName) . ' 2>&1';
         // There is the possibility to pass "--ide" as an option to the analyzer.
         // This would result in an output format which would be easier to parse.
         // The problem here is that no cleartext error messages are returned; only
@@ -60,7 +60,7 @@ class CodeAnalyzerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if (\is_array($output) === \true) {
                 $msg = \join('\\n', $output);
             }
-            throw new \PHP_CodeSniffer\Exceptions\RuntimeException("Failed invoking ZendCodeAnalyzer, exitcode was [{$exitCode}], retval was [{$retval}], output was [{$msg}]");
+            throw new RuntimeException("Failed invoking ZendCodeAnalyzer, exitcode was [{$exitCode}], retval was [{$retval}], output was [{$msg}]");
         }
         if (\is_array($output) === \true) {
             foreach ($output as $finding) {

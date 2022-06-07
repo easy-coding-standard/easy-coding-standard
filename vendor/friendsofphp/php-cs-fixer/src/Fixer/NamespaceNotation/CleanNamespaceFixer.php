@@ -18,30 +18,30 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Tokens;
-final class CleanNamespaceFixer extends \PhpCsFixer\AbstractLinesBeforeNamespaceFixer
+final class CleanNamespaceFixer extends AbstractLinesBeforeNamespaceFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
         $samples = [];
         foreach (['namespace Foo \\ Bar;', 'echo foo /* comment */ \\ bar();'] as $sample) {
-            $samples[] = new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\n" . $sample . "\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(null, 80000 - 1));
+            $samples[] = new VersionSpecificCodeSample("<?php\n" . $sample . "\n", new VersionSpecification(null, 80000 - 1));
         }
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Namespace must not contain spacing, comments or PHPDoc.', $samples);
+        return new FixerDefinition('Namespace must not contain spacing, comments or PHPDoc.', $samples);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return \PHP_VERSION_ID < 80000 && $tokens->isTokenKindFound(\T_NS_SEPARATOR);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $count = $tokens->count();
         for ($index = 0; $index < $count; ++$index) {
@@ -54,7 +54,7 @@ final class CleanNamespaceFixer extends \PhpCsFixer\AbstractLinesBeforeNamespace
     /**
      * @param int $index start of namespace
      */
-    private function fixNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
+    private function fixNamespace(Tokens $tokens, int $index) : int
     {
         $tillIndex = $index;
         // go to the end of the namespace

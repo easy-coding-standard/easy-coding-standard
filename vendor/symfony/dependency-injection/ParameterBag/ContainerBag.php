@@ -14,10 +14,10 @@ use ECSPrefix20220607\Symfony\Component\DependencyInjection\Container;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ContainerBag extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag implements \ECSPrefix20220607\Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface
+class ContainerBag extends FrozenParameterBag implements ContainerBagInterface
 {
     private $container;
-    public function __construct(\ECSPrefix20220607\Symfony\Component\DependencyInjection\Container $container)
+    public function __construct(Container $container)
     {
         $this->container = $container;
     }

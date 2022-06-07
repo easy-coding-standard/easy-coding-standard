@@ -20,14 +20,14 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpdocNoAccessFixer extends \PhpCsFixer\AbstractProxyFixer
+final class PhpdocNoAccessFixer extends AbstractProxyFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('`@access` annotations should be omitted from PHPDoc.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('`@access` annotations should be omitted from PHPDoc.', [new CodeSample('<?php
 class Foo
 {
     /**

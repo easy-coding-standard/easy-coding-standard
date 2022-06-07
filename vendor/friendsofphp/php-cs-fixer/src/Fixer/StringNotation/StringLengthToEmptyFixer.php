@@ -19,14 +19,14 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class StringLengthToEmptyFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
+final class StringLengthToEmptyFixer extends AbstractFunctionReferenceFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('String tests for empty must be done against `\'\'`, not with `strlen`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = 0 === strlen(\$b) || \\STRLEN(\$c) < 1;\n")], null, 'Risky when `strlen` is overridden, when called using a `stringable` object, also no longer triggers warning when called using non-string(able).');
+        return new FixerDefinition('String tests for empty must be done against `\'\'`, not with `strlen`.', [new CodeSample("<?php \$a = 0 === strlen(\$b) || \\STRLEN(\$c) < 1;\n")], null, 'Risky when `strlen` is overridden, when called using a `stringable` object, also no longer triggers warning when called using non-string(able).');
     }
     /**
      * {@inheritdoc}
@@ -41,9 +41,9 @@ final class StringLengthToEmptyFixer extends \PhpCsFixer\AbstractFunctionReferen
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
+        $argumentsAnalyzer = new ArgumentsAnalyzer();
         foreach ($this->findStrLengthCalls($tokens) as $candidate) {
             [$functionNameIndex, $openParenthesisIndex, $closeParenthesisIndex] = $candidate;
             $arguments = $argumentsAnalyzer->getArguments($tokens, $openParenthesisIndex, $closeParenthesisIndex);
@@ -113,8 +113,8 @@ final class StringLengthToEmptyFixer extends \PhpCsFixer\AbstractFunctionReferen
                 $operandContent = '!==';
             }
             // apply fixing
-            $tokens[$operandIndex] = new \PhpCsFixer\Tokenizer\Token([\T_CONSTANT_ENCAPSED_STRING, "''"]);
-            $tokens[$operatorIndex] = new \PhpCsFixer\Tokenizer\Token([$replacement, $operandContent]);
+            $tokens[$operandIndex] = new Token([\T_CONSTANT_ENCAPSED_STRING, "''"]);
+            $tokens[$operatorIndex] = new Token([$replacement, $operandContent]);
             if (!$keepParentheses) {
                 $tokens->clearTokenAndMergeSurroundingWhitespace($closeParenthesisIndex);
                 $tokens->clearTokenAndMergeSurroundingWhitespace($openParenthesisIndex);
@@ -125,7 +125,7 @@ final class StringLengthToEmptyFixer extends \PhpCsFixer\AbstractFunctionReferen
             }
         }
     }
-    private function getReplacementYoda(\PhpCsFixer\Tokenizer\Token $operator, \PhpCsFixer\Tokenizer\Token $operand) : ?int
+    private function getReplacementYoda(Token $operator, Token $operand) : ?int
     {
         /* Yoda 0
         
@@ -162,7 +162,7 @@ final class StringLengthToEmptyFixer extends \PhpCsFixer\AbstractFunctionReferen
         }
         return null;
     }
-    private function getReplacementNotYoda(\PhpCsFixer\Tokenizer\Token $operator, \PhpCsFixer\Tokenizer\Token $operand) : ?int
+    private function getReplacementNotYoda(Token $operator, Token $operand) : ?int
     {
         /* Not Yoda 0
         
@@ -199,7 +199,7 @@ final class StringLengthToEmptyFixer extends \PhpCsFixer\AbstractFunctionReferen
         }
         return null;
     }
-    private function isOperandOfInterest(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isOperandOfInterest(Token $token) : bool
     {
         if (!$token->isGivenKind(\T_LNUMBER)) {
             return \false;
@@ -207,16 +207,16 @@ final class StringLengthToEmptyFixer extends \PhpCsFixer\AbstractFunctionReferen
         $content = $token->getContent();
         return '0' === $content || '1' === $content;
     }
-    private function isOperatorOfInterest(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isOperatorOfInterest(Token $token) : bool
     {
         return $token->isGivenKind([\T_IS_IDENTICAL, \T_IS_NOT_IDENTICAL, \T_IS_SMALLER_OR_EQUAL, \T_IS_GREATER_OR_EQUAL]) || $token->equals('<') || $token->equals('>');
     }
-    private function isOfHigherPrecedence(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isOfHigherPrecedence(Token $token) : bool
     {
         static $operatorsPerContent = ['!', '%', '*', '+', '-', '.', '/', '~', '?'];
         return $token->isGivenKind([\T_INSTANCEOF, \T_POW, \T_SL, \T_SR]) || $token->equalsAny($operatorsPerContent);
     }
-    private function keepParentheses(\PhpCsFixer\Tokenizer\Tokens $tokens, int $openParenthesisIndex, int $closeParenthesisIndex) : bool
+    private function keepParentheses(Tokens $tokens, int $openParenthesisIndex, int $closeParenthesisIndex) : bool
     {
         $i = $tokens->getNextMeaningfulToken($openParenthesisIndex);
         if ($tokens[$i]->isCast()) {
@@ -228,7 +228,7 @@ final class StringLengthToEmptyFixer extends \PhpCsFixer\AbstractFunctionReferen
                 continue;
             }
             /** @var null|array{isStart: bool, type: int} $blockType */
-            $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($token);
+            $blockType = Tokens::detectBlockType($token);
             if (null !== $blockType && $blockType['isStart']) {
                 $i = $tokens->findBlockEnd($blockType['type'], $i);
                 continue;
@@ -237,7 +237,7 @@ final class StringLengthToEmptyFixer extends \PhpCsFixer\AbstractFunctionReferen
         }
         return \false;
     }
-    private function findStrLengthCalls(\PhpCsFixer\Tokenizer\Tokens $tokens) : \Generator
+    private function findStrLengthCalls(Tokens $tokens) : \Generator
     {
         $candidates = [];
         $count = \count($tokens);

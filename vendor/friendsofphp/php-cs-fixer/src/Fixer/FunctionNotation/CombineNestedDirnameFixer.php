@@ -22,19 +22,19 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Gregor Harlan
  */
-final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
+final class CombineNestedDirnameFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace multiple nested calls of `dirname` by only one call with second `$level` parameter. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\ndirname(dirname(dirname(\$path)));\n")], null, 'Risky when the function `dirname` is overridden.');
+        return new FixerDefinition('Replace multiple nested calls of `dirname` by only one call with second `$level` parameter. Requires PHP >= 7.0.', [new CodeSample("<?php\ndirname(dirname(dirname(\$path)));\n")], null, 'Risky when the function `dirname` is overridden.');
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -58,7 +58,7 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             $dirnameInfo = $this->getDirnameInfo($tokens, $index);
@@ -93,12 +93,12 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
      *
      * @return array|bool `false` when it is not a (supported) `dirname` call, an array with info about the dirname call otherwise
      */
-    private function getDirnameInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, ?int $firstArgumentEndIndex = null)
+    private function getDirnameInfo(Tokens $tokens, int $index, ?int $firstArgumentEndIndex = null)
     {
         if (!$tokens[$index]->equals([\T_STRING, 'dirname'], \false)) {
             return \false;
         }
-        if (!(new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->isGlobalFunctionCall($tokens, $index)) {
+        if (!(new FunctionsAnalyzer())->isGlobalFunctionCall($tokens, $index)) {
             return \false;
         }
         $info = ['indexes' => []];
@@ -118,7 +118,7 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
                 return \false;
             }
             while (!$tokens[$next]->equalsAny([',', ')'])) {
-                $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$next]);
+                $blockType = Tokens::detectBlockType($tokens[$next]);
                 if (null !== $blockType) {
                     $next = $tokens->findBlockEnd($blockType['type'], $next);
                 }
@@ -152,7 +152,7 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
         $info['end'] = $next;
         return $info;
     }
-    private function combineDirnames(\PhpCsFixer\Tokenizer\Tokens $tokens, array $dirnameInfoArray) : void
+    private function combineDirnames(Tokens $tokens, array $dirnameInfoArray) : void
     {
         $outerDirnameInfo = \array_pop($dirnameInfoArray);
         $levels = $outerDirnameInfo['levels'];
@@ -163,14 +163,14 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
                 $tokens->clearTokenAndMergeSurroundingWhitespace($index);
             }
         }
-        $levelsToken = new \PhpCsFixer\Tokenizer\Token([\T_LNUMBER, (string) $levels]);
+        $levelsToken = new Token([\T_LNUMBER, (string) $levels]);
         if (isset($outerDirnameInfo['secondArgument'])) {
             $tokens[$outerDirnameInfo['secondArgument']] = $levelsToken;
         } else {
             $prev = $tokens->getPrevMeaningfulToken($outerDirnameInfo['end']);
             $items = [];
             if (!$tokens[$prev]->equals(',')) {
-                $items = [new \PhpCsFixer\Tokenizer\Token(','), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
+                $items = [new Token(','), new Token([\T_WHITESPACE, ' '])];
             }
             $items[] = $levelsToken;
             $tokens->insertAt($outerDirnameInfo['end'], $items);

@@ -31,18 +31,18 @@ final class Timers
     {
         return $this->time ?: $this->updateTime();
     }
-    public function add(\ECSPrefix20220607\React\EventLoop\TimerInterface $timer)
+    public function add(TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         $this->timers[$id] = $timer;
         $this->schedule[$id] = $timer->getInterval() + $this->updateTime();
         $this->sorted = \false;
     }
-    public function contains(\ECSPrefix20220607\React\EventLoop\TimerInterface $timer)
+    public function contains(TimerInterface $timer)
     {
         return isset($this->timers[\spl_object_hash($timer)]);
     }
-    public function cancel(\ECSPrefix20220607\React\EventLoop\TimerInterface $timer)
+    public function cancel(TimerInterface $timer)
     {
         $id = \spl_object_hash($timer);
         unset($this->timers[$id], $this->schedule[$id]);

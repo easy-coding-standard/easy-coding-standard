@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class NonExecutableCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class NonExecutableCodeSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,12 +33,12 @@ class NonExecutableCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // If this token is preceded with an "or", it only relates to one line
         // and should be ignored. For example: fopen() or die().
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
         if ($tokens[$prev]['code'] === \T_LOGICAL_OR || $tokens[$prev]['code'] === \T_BOOLEAN_OR) {
             return;
         }
@@ -48,7 +48,7 @@ class NonExecutableCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $i = $tokens[$i]['parenthesis_opener'];
                 continue;
             } else {
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === \true) {
+                if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === \true) {
                     continue;
                 }
             }
@@ -85,7 +85,7 @@ class NonExecutableCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 if ($next !== \false) {
                     $lastLine = $tokens[$end]['line'];
                     for ($i = $stackPtr + 1; $i < $next; $i++) {
-                        if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === \true) {
+                        if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === \true) {
                             continue;
                         }
                         $line = $tokens[$i]['line'];
@@ -108,7 +108,7 @@ class NonExecutableCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // This token may be part of an inline condition.
         // If we find a closing parenthesis that belongs to a condition
         // we should ignore this token.
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
         if (isset($tokens[$prev]['parenthesis_owner']) === \true) {
             $owner = $tokens[$prev]['parenthesis_owner'];
             $ignore = [\T_IF => \true, \T_ELSE => \true, \T_ELSEIF => \true];
@@ -184,12 +184,12 @@ class NonExecutableCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         $lastLine = $tokens[$start]['line'];
         for ($i = $start + 1; $i < $end; $i++) {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === \true || isset(\PHP_CodeSniffer\Util\Tokens::$bracketTokens[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === T_SEMICOLON) {
+            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === \true || isset(Tokens::$bracketTokens[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === T_SEMICOLON) {
                 continue;
             }
             // Skip whole functions and classes/interfaces because they are not
             // technically executed code, but rather declarations that may be used.
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === \T_FUNCTION || $tokens[$i]['code'] === T_CLOSURE) {
+            if (isset(Tokens::$ooScopeTokens[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === \T_FUNCTION || $tokens[$i]['code'] === T_CLOSURE) {
                 if (isset($tokens[$i]['scope_closer']) === \false) {
                     // Parse error/Live coding.
                     return;

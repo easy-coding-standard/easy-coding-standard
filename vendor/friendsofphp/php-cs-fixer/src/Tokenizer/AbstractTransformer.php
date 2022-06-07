@@ -27,7 +27,7 @@ abstract class AbstractTransformer implements \PhpCsFixer\Tokenizer\TransformerI
     {
         $nameParts = \explode('\\', static::class);
         $name = \substr(\end($nameParts), 0, -\strlen('Transformer'));
-        return \PhpCsFixer\Utils::camelCaseToUnderscore($name);
+        return Utils::camelCaseToUnderscore($name);
     }
     /**
      * {@inheritdoc}

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Console\Command;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Command;
 
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputArgument;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputOption;
 use ECSPrefix20220607\Symfony\Contracts\Service\Attribute\Required;
-use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;
-use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-abstract class AbstractCheckCommand extends \ECSPrefix20220607\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+abstract class AbstractCheckCommand extends AbstractSymplifyCommand
 {
     /**
      * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
@@ -34,7 +34,7 @@ abstract class AbstractCheckCommand extends \ECSPrefix20220607\Symplify\PackageB
     /**
      * @required
      */
-    public function autowireAbstractCheckCommand(\Symplify\EasyCodingStandard\Configuration\ConfigurationFactory $configurationFactory, \Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication $easyCodingStandardApplication, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard $loadedCheckersGuard) : void
+    public function autowireAbstractCheckCommand(ConfigurationFactory $configurationFactory, EasyCodingStandardApplication $easyCodingStandardApplication, EasyCodingStandardStyle $easyCodingStandardStyle, LoadedCheckersGuard $loadedCheckersGuard) : void
     {
         $this->configurationFactory = $configurationFactory;
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
@@ -44,18 +44,18 @@ abstract class AbstractCheckCommand extends \ECSPrefix20220607\Symplify\PackageB
     protected function configure() : void
     {
         $this->addArgument(
-            \Symplify\EasyCodingStandard\ValueObject\Option::PATHS,
+            Option::PATHS,
             // optional is on purpose here, since path from ecs.php can se ubsed
-            \ECSPrefix20220607\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \ECSPrefix20220607\Symfony\Component\Console\Input\InputArgument::IS_ARRAY,
+            InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
             'The path(s) to be checked.'
         );
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::FIX, null, null, 'Fix found violations.');
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::CLEAR_CACHE, null, null, 'Clear cache for already checked files.');
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_PROGRESS_BAR, null, \ECSPrefix20220607\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide progress bar. Useful e.g. for nicer CI output.');
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::NO_ERROR_TABLE, null, \ECSPrefix20220607\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide error table. Useful e.g. for fast check of error count.');
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT, null, \ECSPrefix20220607\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Select output format', \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME);
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::MEMORY_LIMIT, null, \ECSPrefix20220607\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for check');
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_PORT, null, \ECSPrefix20220607\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED);
-        $this->addOption(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL_IDENTIFIER, null, \ECSPrefix20220607\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED);
+        $this->addOption(Option::FIX, null, null, 'Fix found violations.');
+        $this->addOption(Option::CLEAR_CACHE, null, null, 'Clear cache for already checked files.');
+        $this->addOption(Option::NO_PROGRESS_BAR, null, InputOption::VALUE_NONE, 'Hide progress bar. Useful e.g. for nicer CI output.');
+        $this->addOption(Option::NO_ERROR_TABLE, null, InputOption::VALUE_NONE, 'Hide error table. Useful e.g. for fast check of error count.');
+        $this->addOption(Option::OUTPUT_FORMAT, null, InputOption::VALUE_REQUIRED, 'Select output format', ConsoleOutputFormatter::NAME);
+        $this->addOption(Option::MEMORY_LIMIT, null, InputOption::VALUE_REQUIRED, 'Memory limit for check');
+        $this->addOption(Option::PARALLEL_PORT, null, InputOption::VALUE_REQUIRED);
+        $this->addOption(Option::PARALLEL_IDENTIFIER, null, InputOption::VALUE_REQUIRED);
     }
 }

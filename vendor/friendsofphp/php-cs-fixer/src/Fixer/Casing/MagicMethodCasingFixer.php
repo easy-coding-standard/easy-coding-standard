@@ -18,7 +18,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class MagicMethodCasingFixer extends \PhpCsFixer\AbstractFixer
+final class MagicMethodCasingFixer extends AbstractFixer
 {
     /**
      * @var array<string,string>
@@ -27,30 +27,30 @@ final class MagicMethodCasingFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Magic method definitions and calls must be using the correct casing.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Magic method definitions and calls must be using the correct casing.', [new CodeSample('<?php
 class Foo
 {
     public function __Sleep()
     {
     }
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 $foo->__INVOKE(1);
 ')]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
-        return $tokens->isTokenKindFound(\T_STRING) && $tokens->isAnyTokenKindsFound(\array_merge([\T_FUNCTION, \T_DOUBLE_COLON], \PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds()));
+        return $tokens->isTokenKindFound(\T_STRING) && $tokens->isAnyTokenKindsFound(\array_merge([\T_FUNCTION, \T_DOUBLE_COLON], Token::getObjectOperatorKinds()));
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $inClass = 0;
         $tokenCount = \count($tokens);
@@ -105,7 +105,7 @@ $foo->__INVOKE(1);
             }
         }
     }
-    private function isFunctionSignature(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function isFunctionSignature(Tokens $tokens, int $index) : bool
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isGivenKind(\T_FUNCTION)) {
@@ -114,7 +114,7 @@ $foo->__INVOKE(1);
         }
         return $tokens[$tokens->getNextMeaningfulToken($index)]->equals('(');
     }
-    private function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function isMethodCall(Tokens $tokens, int $index) : bool
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isObjectOperator()) {
@@ -123,7 +123,7 @@ $foo->__INVOKE(1);
         }
         return $tokens[$tokens->getNextMeaningfulToken($index)]->equals('(');
     }
-    private function isStaticMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function isStaticMethodCall(Tokens $tokens, int $index) : bool
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isGivenKind(\T_DOUBLE_COLON)) {
@@ -143,8 +143,8 @@ $foo->__INVOKE(1);
     {
         return self::$magicNames[$name];
     }
-    private function setTokenToCorrectCasing(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $nameInCorrectCasing) : void
+    private function setTokenToCorrectCasing(Tokens $tokens, int $index, string $nameInCorrectCasing) : void
     {
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $nameInCorrectCasing]);
+        $tokens[$index] = new Token([\T_STRING, $nameInCorrectCasing]);
     }
 }

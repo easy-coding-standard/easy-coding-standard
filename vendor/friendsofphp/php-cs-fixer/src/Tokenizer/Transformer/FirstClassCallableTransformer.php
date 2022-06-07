@@ -19,7 +19,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @internal
  */
-final class FirstClassCallableTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class FirstClassCallableTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -31,10 +31,10 @@ final class FirstClassCallableTransformer extends \PhpCsFixer\Tokenizer\Abstract
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if ($token->isGivenKind(\T_ELLIPSIS) && $tokens[$tokens->getPrevMeaningfulToken($index)]->equals('(') && $tokens[$tokens->getNextMeaningfulToken($index)]->equals(')')) {
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_FIRST_CLASS_CALLABLE, '...']);
+            $tokens[$index] = new Token([CT::T_FIRST_CLASS_CALLABLE, '...']);
         }
     }
     /**
@@ -42,6 +42,6 @@ final class FirstClassCallableTransformer extends \PhpCsFixer\Tokenizer\Abstract
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_FIRST_CLASS_CALLABLE];
+        return [CT::T_FIRST_CLASS_CALLABLE];
     }
 }

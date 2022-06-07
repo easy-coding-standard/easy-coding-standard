@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ConcatenationSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ConcatenationSpacingSniff implements Sniff
 {
     /**
      * The number of spaces before and after a string concat.
@@ -45,7 +45,7 @@ class ConcatenationSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr + 2]) === \false) {
@@ -53,7 +53,7 @@ class ConcatenationSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
         $ignoreBefore = \false;
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
         if ($tokens[$prev]['code'] === \T_END_HEREDOC || $tokens[$prev]['code'] === T_END_NOWDOC) {
             // Spacing before must be preserved due to the here/nowdoc closing tag.
             $ignoreBefore = \true;

@@ -22,7 +22,7 @@ use PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis;
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\AbstractFixer
+final class NativeFunctionTypeDeclarationCasingFixer extends AbstractFixer
 {
     /**
      * https://secure.php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration.
@@ -62,26 +62,26 @@ final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\Abstrac
         if (\PHP_VERSION_ID >= 80100) {
             $this->hints = \array_merge($this->hints, ['never' => \true]);
         }
-        $this->functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $this->functionsAnalyzer = new FunctionsAnalyzer();
     }
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Native type hints for functions should use the correct case.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nclass Bar {\n    public function Foo(CALLABLE \$bar)\n    {\n        return 1;\n    }\n}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction Foo(INT \$a): Bool\n{\n    return true;\n}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction Foo(Iterable \$a): VOID\n{\n    echo 'Hello world';\n}\n"), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction Foo(Object \$a)\n{\n    return 'hi!';\n}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70200))]);
+        return new FixerDefinition('Native type hints for functions should use the correct case.', [new CodeSample("<?php\nclass Bar {\n    public function Foo(CALLABLE \$bar)\n    {\n        return 1;\n    }\n}\n"), new CodeSample("<?php\nfunction Foo(INT \$a): Bool\n{\n    return true;\n}\n"), new CodeSample("<?php\nfunction Foo(Iterable \$a): VOID\n{\n    echo 'Hello world';\n}\n"), new VersionSpecificCodeSample("<?php\nfunction Foo(Object \$a)\n{\n    return 'hi!';\n}\n", new VersionSpecification(70200))]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAllTokenKindsFound([\T_FUNCTION, \T_STRING]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             if ($tokens[$index]->isGivenKind(\T_FUNCTION)) {
@@ -90,17 +90,17 @@ final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\Abstrac
             }
         }
     }
-    private function fixFunctionArgumentTypes(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixFunctionArgumentTypes(Tokens $tokens, int $index) : void
     {
         foreach ($this->functionsAnalyzer->getFunctionArguments($tokens, $index) as $argument) {
             $this->fixArgumentType($tokens, $argument->getTypeAnalysis());
         }
     }
-    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixFunctionReturnType(Tokens $tokens, int $index) : void
     {
         $this->fixArgumentType($tokens, $this->functionsAnalyzer->getFunctionReturnType($tokens, $index));
     }
-    private function fixArgumentType(\PhpCsFixer\Tokenizer\Tokens $tokens, ?\PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis $type = null) : void
+    private function fixArgumentType(Tokens $tokens, ?TypeAnalysis $type = null) : void
     {
         if (null === $type) {
             return;
@@ -113,7 +113,7 @@ final class NativeFunctionTypeDeclarationCasingFixer extends \PhpCsFixer\Abstrac
             if (!isset($this->hints[$lowerCasedName])) {
                 continue;
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$tokens[$index]->getId(), $lowerCasedName]);
+            $tokens[$index] = new Token([$tokens[$index]->getId(), $lowerCasedName]);
         }
     }
 }

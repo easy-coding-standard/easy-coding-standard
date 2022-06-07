@@ -19,6 +19,6 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Debug\OptionsResolverInt
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-class NoConfigurationException extends \RuntimeException implements \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\ExceptionInterface
+class NoConfigurationException extends \RuntimeException implements ExceptionInterface
 {
 }

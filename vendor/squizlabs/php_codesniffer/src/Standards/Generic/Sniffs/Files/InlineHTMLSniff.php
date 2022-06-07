@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class InlineHTMLSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class InlineHTMLSniff implements Sniff
 {
     /**
      * List of supported BOM definitions.
@@ -40,7 +40,7 @@ class InlineHTMLSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int|null
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         // Allow a byte-order mark.
         $tokens = $phpcsFile->getTokens();

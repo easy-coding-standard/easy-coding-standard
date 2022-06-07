@@ -16,7 +16,7 @@ use ECSPrefix20220607\Symfony\Component\Config\Exception\LoaderLoadException;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Loader implements \ECSPrefix20220607\Symfony\Component\Config\Loader\LoaderInterface
+abstract class Loader implements LoaderInterface
 {
     protected $resolver;
     protected $env;
@@ -27,14 +27,14 @@ abstract class Loader implements \ECSPrefix20220607\Symfony\Component\Config\Loa
     /**
      * {@inheritdoc}
      */
-    public function getResolver() : \ECSPrefix20220607\Symfony\Component\Config\Loader\LoaderResolverInterface
+    public function getResolver() : LoaderResolverInterface
     {
         return $this->resolver;
     }
     /**
      * {@inheritdoc}
      */
-    public function setResolver(\ECSPrefix20220607\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver)
+    public function setResolver(LoaderResolverInterface $resolver)
     {
         $this->resolver = $resolver;
     }
@@ -54,14 +54,14 @@ abstract class Loader implements \ECSPrefix20220607\Symfony\Component\Config\Loa
      * @throws LoaderLoadException If no loader is found
      * @param mixed $resource
      */
-    public function resolve($resource, string $type = null) : \ECSPrefix20220607\Symfony\Component\Config\Loader\LoaderInterface
+    public function resolve($resource, string $type = null) : LoaderInterface
     {
         if ($this->supports($resource, $type)) {
             return $this;
         }
         $loader = null === $this->resolver ? \false : $this->resolver->resolve($resource, $type);
         if (\false === $loader) {
-            throw new \ECSPrefix20220607\Symfony\Component\Config\Exception\LoaderLoadException($resource, null, 0, null, $type);
+            throw new LoaderLoadException($resource, null, 0, null, $type);
         }
         return $loader;
     }

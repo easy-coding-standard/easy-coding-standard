@@ -23,12 +23,12 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Alexander M. Turek <me@derrabus.de>
  */
-final class ModernizeStrposFixer extends \PhpCsFixer\AbstractFixer
+final class ModernizeStrposFixer extends AbstractFixer
 {
     private const REPLACEMENTS = [['operator' => [\T_IS_IDENTICAL, '==='], 'operand' => [\T_LNUMBER, '0'], 'replacement' => [\T_STRING, 'str_starts_with'], 'negate' => \false], ['operator' => [\T_IS_NOT_IDENTICAL, '!=='], 'operand' => [\T_LNUMBER, '0'], 'replacement' => [\T_STRING, 'str_starts_with'], 'negate' => \true], ['operator' => [\T_IS_NOT_IDENTICAL, '!=='], 'operand' => [\T_STRING, 'false'], 'replacement' => [\T_STRING, 'str_contains'], 'negate' => \false], ['operator' => [\T_IS_IDENTICAL, '==='], 'operand' => [\T_STRING, 'false'], 'replacement' => [\T_STRING, 'str_contains'], 'negate' => \true]];
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace `strpos()` calls with `str_starts_with()` or `str_contains()` if possible.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Replace `strpos()` calls with `str_starts_with()` or `str_contains()` if possible.', [new CodeSample('<?php
 if (strpos($haystack, $needle) === 0) {}
 if (strpos($haystack, $needle) !== 0) {}
 if (strpos($haystack, $needle) !== false) {}
@@ -44,7 +44,7 @@ if (strpos($haystack, $needle) === false) {}
     {
         return 37;
     }
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING) && $tokens->isAnyTokenKindsFound([\T_IS_IDENTICAL, \T_IS_NOT_IDENTICAL]);
     }
@@ -52,10 +52,10 @@ if (strpos($haystack, $needle) === false) {}
     {
         return \true;
     }
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
-        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
+        $argumentsAnalyzer = new ArgumentsAnalyzer();
         for ($index = \count($tokens) - 1; $index > 0; --$index) {
             // find candidate function call
             if (!$tokens[$index]->equals([\T_STRING, 'strpos'], \false) || !$functionsAnalyzer->isGlobalFunctionCall($tokens, $index)) {
@@ -63,7 +63,7 @@ if (strpos($haystack, $needle) === false) {}
             }
             // assert called with 2 arguments
             $openIndex = $tokens->getNextMeaningfulToken($index);
-            $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+            $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
             $arguments = $argumentsAnalyzer->getArguments($tokens, $openIndex, $closeIndex);
             if (2 !== \count($arguments)) {
                 continue;
@@ -80,7 +80,7 @@ if (strpos($haystack, $needle) === false) {}
             }
         }
     }
-    private function fixCall(\PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex, array $operatorIndices) : void
+    private function fixCall(Tokens $tokens, int $functionIndex, array $operatorIndices) : void
     {
         foreach (self::REPLACEMENTS as $replacement) {
             if (!$tokens[$operatorIndices['operator_index']]->equals($replacement['operator'])) {
@@ -98,14 +98,14 @@ if (strpos($haystack, $needle) === false) {}
                 if ($tokens[$prevFunctionIndex]->isGivenKind(\T_NS_SEPARATOR)) {
                     $negateInsertIndex = $prevFunctionIndex;
                 }
-                $tokens->insertAt($negateInsertIndex, new \PhpCsFixer\Tokenizer\Token('!'));
+                $tokens->insertAt($negateInsertIndex, new Token('!'));
                 ++$functionIndex;
             }
-            $tokens->insertAt($functionIndex, new \PhpCsFixer\Tokenizer\Token($replacement['replacement']));
+            $tokens->insertAt($functionIndex, new Token($replacement['replacement']));
             break;
         }
     }
-    private function getCompareTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, int $offsetIndex, int $direction) : ?array
+    private function getCompareTokens(Tokens $tokens, int $offsetIndex, int $direction) : ?array
     {
         $operatorIndex = $tokens->getMeaningfulTokenSibling($offsetIndex, $direction);
         if (null === $operatorIndex) {
@@ -128,7 +128,7 @@ if (strpos($haystack, $needle) === false) {}
         }
         return ['operator_index' => $operatorIndex, 'operand_index' => $operandIndex];
     }
-    private function isOfHigherPrecedence(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isOfHigherPrecedence(Token $token) : bool
     {
         static $operatorsKinds = [
             \T_DEC,

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Caching;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Caching;
 
-use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 final class Cache
 {
     /**
      * @var \Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage
      */
     private $fileCacheStorage;
-    public function __construct(\Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage $fileCacheStorage)
+    public function __construct(FileCacheStorage $fileCacheStorage)
     {
         $this->fileCacheStorage = $fileCacheStorage;
     }

@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\Functions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class NullableTypeDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class NullableTypeDeclarationSniff implements Sniff
 {
     /**
      * An array of valid tokens after `T_NULLABLE` occurrences.
@@ -38,7 +38,7 @@ class NullableTypeDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $nextNonEmptyPtr = $phpcsFile->findNext([\T_WHITESPACE], $stackPtr + 1, null, \true);
         if ($nextNonEmptyPtr === \false) {

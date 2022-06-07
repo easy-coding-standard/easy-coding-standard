@@ -14,7 +14,7 @@ use function substr;
 /**
  * Simple lexer for docblock annotations.
  */
-final class DocLexer extends \ECSPrefix20220607\Doctrine\Common\Lexer\AbstractLexer
+final class DocLexer extends AbstractLexer
 {
     public const T_NONE = 1;
     public const T_INTEGER = 2;
@@ -45,7 +45,7 @@ final class DocLexer extends \ECSPrefix20220607\Doctrine\Common\Lexer\AbstractLe
      */
     public function nextTokenIsAdjacent() : bool
     {
-        return $this->token === null || $this->lookahead !== null && $this->lookahead['position'] - $this->token['position'] === \strlen($this->token['value']);
+        return $this->token === null || $this->lookahead !== null && $this->lookahead['position'] - $this->token['position'] === strlen($this->token['value']);
     }
     /**
      * {@inheritdoc}
@@ -68,22 +68,22 @@ final class DocLexer extends \ECSPrefix20220607\Doctrine\Common\Lexer\AbstractLe
     {
         $type = self::T_NONE;
         if ($value[0] === '"') {
-            $value = \str_replace('""', '"', \substr($value, 1, \strlen($value) - 2));
+            $value = str_replace('""', '"', substr($value, 1, strlen($value) - 2));
             return self::T_STRING;
         }
         if (isset($this->noCase[$value])) {
             return $this->noCase[$value];
         }
-        if ($value[0] === '_' || $value[0] === '\\' || \ctype_alpha($value[0])) {
+        if ($value[0] === '_' || $value[0] === '\\' || ctype_alpha($value[0])) {
             return self::T_IDENTIFIER;
         }
-        $lowerValue = \strtolower($value);
+        $lowerValue = strtolower($value);
         if (isset($this->withCase[$lowerValue])) {
             return $this->withCase[$lowerValue];
         }
         // Checking numeric value
-        if (\is_numeric($value)) {
-            return \strpos($value, '.') !== \false || \stripos($value, 'e') !== \false ? self::T_FLOAT : self::T_INTEGER;
+        if (is_numeric($value)) {
+            return strpos($value, '.') !== \false || stripos($value, 'e') !== \false ? self::T_FLOAT : self::T_INTEGER;
         }
         return $type;
     }

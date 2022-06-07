@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractScopeSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
+class StaticThisUsageSniff extends AbstractScopeSniff
 {
     /**
      * Constructs the test with the tokens it wishes to listen for.
@@ -32,7 +32,7 @@ class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    public function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
+    public function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
@@ -46,7 +46,7 @@ class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
         if (isset($tokens[$stackPtr]['scope_closer']) === \false) {
             return;
         }
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($next === \false || $tokens[$next]['code'] !== \T_STRING) {
             // Not a function declaration, or incomplete.
             return;
@@ -69,7 +69,7 @@ class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    private function checkThisUsage(\PHP_CodeSniffer\Files\File $phpcsFile, $next, $end)
+    private function checkThisUsage(File $phpcsFile, $next, $end)
     {
         $tokens = $phpcsFile->getTokens();
         do {
@@ -100,7 +100,7 @@ class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
     }
     //end processTokenOutsideScope()

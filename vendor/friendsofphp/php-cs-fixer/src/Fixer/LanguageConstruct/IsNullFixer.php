@@ -22,14 +22,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Vladimir Reznichenko <kalessil@gmail.com>
  */
-final class IsNullFixer extends \PhpCsFixer\AbstractFixer
+final class IsNullFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces `is_null($var)` expression with `null === $var`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = is_null(\$b);\n")], null, 'Risky when the function `is_null` is overridden.');
+        return new FixerDefinition('Replaces `is_null($var)` expression with `null === $var`.', [new CodeSample("<?php\n\$a = is_null(\$b);\n")], null, 'Risky when the function `is_null` is overridden.');
     }
     /**
      * {@inheritdoc}
@@ -43,7 +43,7 @@ final class IsNullFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -57,10 +57,10 @@ final class IsNullFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         static $sequenceNeeded = [[\T_STRING, 'is_null'], '('];
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         $currIndex = 0;
         while (\true) {
             // recalculate "end" because we might have added tokens in previous iteration
@@ -96,7 +96,7 @@ final class IsNullFixer extends \PhpCsFixer\AbstractFixer
                 $tokens->clearAt($prevTokenIndex);
             }
             // before getting rind of `()` around a parameter, ensure it's not assignment/ternary invariant
-            $referenceEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $matches[1]);
+            $referenceEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $matches[1]);
             $isContainingDangerousConstructs = \false;
             for ($paramTokenIndex = $matches[1]; $paramTokenIndex <= $referenceEnd; ++$paramTokenIndex) {
                 if (\in_array($tokens[$paramTokenIndex]->getContent(), ['?', '?:', '=', '??'], \true)) {
@@ -124,10 +124,10 @@ final class IsNullFixer extends \PhpCsFixer\AbstractFixer
                 $tokens->clearAt($matches[1]);
             }
             // sequence which we'll use as a replacement
-            $replacement = [new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'null']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token($isInvertedNullCheck ? [\T_IS_NOT_IDENTICAL, '!=='] : [\T_IS_IDENTICAL, '===']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
+            $replacement = [new Token([\T_STRING, 'null']), new Token([\T_WHITESPACE, ' ']), new Token($isInvertedNullCheck ? [\T_IS_NOT_IDENTICAL, '!=='] : [\T_IS_IDENTICAL, '===']), new Token([\T_WHITESPACE, ' '])];
             if ($wrapIntoParentheses) {
-                \array_unshift($replacement, new \PhpCsFixer\Tokenizer\Token('('));
-                $tokens->insertAt($referenceEnd + 1, new \PhpCsFixer\Tokenizer\Token(')'));
+                \array_unshift($replacement, new Token('('));
+                $tokens->insertAt($referenceEnd + 1, new Token(')'));
             }
             $tokens->overrideRange($isNullIndex, $isNullIndex, $replacement);
             // nested is_null calls support

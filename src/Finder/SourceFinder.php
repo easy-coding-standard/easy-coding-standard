@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Finder;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Finder;
 
 use ECSPrefix20220607\Symfony\Component\Finder\Finder;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use ECSPrefix20220607\Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
@@ -21,10 +21,10 @@ final class SourceFinder
      * @var \Symplify\SmartFileSystem\Finder\FinderSanitizer
      */
     private $finderSanitizer;
-    public function __construct(\ECSPrefix20220607\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \ECSPrefix20220607\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(FinderSanitizer $finderSanitizer, ParameterProvider $parameterProvider)
     {
         $this->finderSanitizer = $finderSanitizer;
-        $this->fileExtensions = $parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS);
+        $this->fileExtensions = $parameterProvider->provideArrayParameter(Option::FILE_EXTENSIONS);
     }
     /**
      * @param string[] $source
@@ -35,7 +35,7 @@ final class SourceFinder
         $fileInfos = [];
         foreach ($source as $singleSource) {
             if (\is_file($singleSource)) {
-                $fileInfos[] = new \ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo($singleSource);
+                $fileInfos[] = new SmartFileInfo($singleSource);
             } else {
                 $filesInDirectory = $this->processDirectory($singleSource);
                 $fileInfos = \array_merge($fileInfos, $filesInDirectory);
@@ -50,7 +50,7 @@ final class SourceFinder
     private function processDirectory(string $directory) : array
     {
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
-        $finder = \ECSPrefix20220607\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
+        $finder = Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
         return $this->finderSanitizer->sanitize($finder);
     }
     /**

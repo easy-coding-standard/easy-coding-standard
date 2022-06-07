@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class FunctionCallSignatureSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -51,7 +51,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        $tokens = \PHP_CodeSniffer\Util\Tokens::$functionNameTokens;
+        $tokens = Tokens::$functionNameTokens;
         $tokens[] = \T_VARIABLE;
         $tokens[] = T_CLOSE_CURLY_BRACKET;
         $tokens[] = T_CLOSE_SQUARE_BRACKET;
@@ -68,7 +68,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $this->requiredSpacesAfterOpen = (int) $this->requiredSpacesAfterOpen;
         $this->requiredSpacesBeforeClose = (int) $this->requiredSpacesBeforeClose;
@@ -78,7 +78,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
         // Find the next non-empty token.
-        $openBracket = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $openBracket = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($tokens[$openBracket]['code'] !== T_OPEN_PARENTHESIS) {
             // Not a function call.
             return;
@@ -88,7 +88,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
         // Find the previous non-empty token.
-        $search = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $search = Tokens::$emptyTokens;
         $search[] = T_BITWISE_AND;
         $previous = $phpcsFile->findPrevious($search, $stackPtr - 1, null, \true);
         if ($tokens[$previous]['code'] === \T_FUNCTION) {
@@ -113,7 +113,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         $next = $phpcsFile->findNext(\T_WHITESPACE, $closeBracket + 1, null, \true);
         if ($tokens[$next]['code'] === T_SEMICOLON) {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$closeBracket + 1]['code']]) === \true) {
+            if (isset(Tokens::$emptyTokens[$tokens[$closeBracket + 1]['code']]) === \true) {
                 $error = 'Space after closing parenthesis of function call prohibited';
                 $fix = $phpcsFile->addFixableError($error, $closeBracket, 'SpaceAfterCloseBracket');
                 if ($fix === \true) {
@@ -149,7 +149,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return bool
      */
-    public function isMultiLineCall(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $openBracket, $tokens)
+    public function isMultiLineCall(File $phpcsFile, $stackPtr, $openBracket, $tokens)
     {
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
         if ($tokens[$openBracket]['line'] !== $tokens[$closeBracket]['line']) {
@@ -171,7 +171,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function processSingleLineCall(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $openBracket, $tokens)
+    public function processSingleLineCall(File $phpcsFile, $stackPtr, $openBracket, $tokens)
     {
         $closer = $tokens[$openBracket]['parenthesis_closer'];
         if ($openBracket === $closer - 1) {
@@ -251,7 +251,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                         // We want to jump over any whitespace or inline comment and
                         // move the closing parenthesis after any other token.
                         $prev = $closer - 1;
-                        while (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$prev]['code']]) === \true) {
+                        while (isset(Tokens::$emptyTokens[$tokens[$prev]['code']]) === \true) {
                             if ($tokens[$prev]['code'] === \T_COMMENT && \strpos($tokens[$prev]['content'], '*/') !== \false) {
                                 break;
                             }
@@ -287,7 +287,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function processMultiLineCall(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $openBracket, $tokens)
+    public function processMultiLineCall(File $phpcsFile, $stackPtr, $openBracket, $tokens)
     {
         // We need to work out how far indented the function
         // call itself is, so we can work out how far to
@@ -297,7 +297,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             // We are in a multi-line string, so find the start and use
             // the indent from there.
             $prev = $phpcsFile->findPrevious(\T_CONSTANT_ENCAPSED_STRING, $first - 2, null, \true);
-            $first = $phpcsFile->findFirstOnLine(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prev, \true);
+            $first = $phpcsFile->findFirstOnLine(Tokens::$emptyTokens, $prev, \true);
             if ($first === \false) {
                 $first = $prev + 1;
             }
@@ -336,7 +336,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 }
             }
         }
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $openBracket + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, $openBracket + 1, null, \true);
         if ($tokens[$next]['line'] === $tokens[$openBracket]['line']) {
             $error = 'Opening parenthesis of a multi-line function call must be the last content on the line';
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'ContentAfterOpenBracket');
@@ -377,7 +377,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
         }
         //end if
-        $i = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $openBracket + 1, null, \true);
+        $i = $phpcsFile->findNext(Tokens::$emptyTokens, $openBracket + 1, null, \true);
         if ($tokens[$i - 1]['code'] === \T_WHITESPACE && $tokens[$i - 1]['line'] === $tokens[$i]['line']) {
             // Make sure we check the indent.
             $i--;
@@ -391,11 +391,11 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             if ($tokens[$i]['line'] !== $lastLine) {
                 $lastLine = $tokens[$i]['line'];
                 // Ignore heredoc indentation.
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$heredocTokens[$tokens[$i]['code']]) === \true) {
+                if (isset(Tokens::$heredocTokens[$tokens[$i]['code']]) === \true) {
                     continue;
                 }
                 // Ignore multi-line string indentation.
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$stringTokens[$tokens[$i]['code']]) === \true && $tokens[$i]['code'] === $tokens[$i - 1]['code']) {
+                if (isset(Tokens::$stringTokens[$tokens[$i]['code']]) === \true && $tokens[$i]['code'] === $tokens[$i - 1]['code']) {
                     continue;
                 }
                 // Ignore inline HTML.
@@ -487,7 +487,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             // If we are within an argument we should be ignoring commas
             // as these are not signalling the end of an argument.
             if ($inArg === \false && $tokens[$i]['code'] === T_COMMA) {
-                $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $i + 1, $closeBracket, \true);
+                $next = $phpcsFile->findNext(Tokens::$emptyTokens, $i + 1, $closeBracket, \true);
                 if ($next === \false) {
                     continue;
                 }

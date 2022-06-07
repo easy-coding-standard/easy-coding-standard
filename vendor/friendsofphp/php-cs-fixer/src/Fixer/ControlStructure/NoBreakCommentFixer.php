@@ -30,14 +30,14 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Options;
 /**
  * Fixer for rule defined in PSR2 ¶5.2.
  */
-final class NoBreakCommentFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class NoBreakCommentFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There must be a comment when fall-through is intentional in a non-empty case body.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('There must be a comment when fall-through is intentional in a non-empty case body.', [new CodeSample('<?php
 switch ($foo) {
     case 1:
         foo();
@@ -48,7 +48,7 @@ switch ($foo) {
     case 3:
         baz();
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 switch ($foo) {
     case 1:
         foo();
@@ -60,7 +60,7 @@ switch ($foo) {
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_SWITCH);
     }
@@ -76,21 +76,21 @@ switch ($foo) {
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('comment_text', 'The text to use in the added comment and to detect it.'))->setAllowedTypes(['string'])->setAllowedValues([static function (string $value) : bool {
-            if (\PhpCsFixer\Preg::match('/\\R/', $value)) {
-                throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException('The comment text must not contain new lines.');
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('comment_text', 'The text to use in the added comment and to detect it.'))->setAllowedTypes(['string'])->setAllowedValues([static function (string $value) : bool {
+            if (Preg::match('/\\R/', $value)) {
+                throw new InvalidOptionsException('The comment text must not contain new lines.');
             }
             return \true;
-        }])->setNormalizer(static function (\ECSPrefix20220607\Symfony\Component\OptionsResolver\Options $options, string $value) : string {
+        }])->setNormalizer(static function (Options $options, string $value) : string {
             return \rtrim($value);
         })->setDefault('no break')->getOption()]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = \count($tokens) - 1; $index >= 0; --$index) {
             if ($tokens[$index]->isGivenKind(\T_DEFAULT)) {
@@ -104,7 +104,7 @@ switch ($foo) {
             $this->fixCase($tokens, $tokens->getNextTokenOfKind($index, [':', ';']));
         }
     }
-    private function fixCase(\PhpCsFixer\Tokenizer\Tokens $tokens, int $casePosition) : void
+    private function fixCase(Tokens $tokens, int $casePosition) : void
     {
         $empty = \true;
         $fallThrough = \true;
@@ -146,7 +146,7 @@ switch ($foo) {
                         $this->insertCommentAt($tokens, $i);
                     } else {
                         $text = $this->configuration['comment_text'];
-                        $tokens[$commentPosition] = new \PhpCsFixer\Tokenizer\Token([$tokens[$commentPosition]->getId(), \str_ireplace($text, $text, $tokens[$commentPosition]->getContent())]);
+                        $tokens[$commentPosition] = new Token([$tokens[$commentPosition]->getId(), \str_ireplace($text, $text, $tokens[$commentPosition]->getContent())]);
                         $this->ensureNewLineAt($tokens, $commentPosition);
                     }
                 } elseif (null !== $commentPosition) {
@@ -159,67 +159,67 @@ switch ($foo) {
             }
         }
     }
-    private function isNoBreakComment(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isNoBreakComment(Token $token) : bool
     {
         if (!$token->isComment()) {
             return \false;
         }
         $text = \preg_quote($this->configuration['comment_text'], '~');
-        return 1 === \PhpCsFixer\Preg::match("~^((//|#)\\s*{$text}\\s*)|(/\\*\\*?\\s*{$text}(\\s+.*)*\\*/)\$~i", $token->getContent());
+        return 1 === Preg::match("~^((//|#)\\s*{$text}\\s*)|(/\\*\\*?\\s*{$text}(\\s+.*)*\\*/)\$~i", $token->getContent());
     }
-    private function insertCommentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $casePosition) : void
+    private function insertCommentAt(Tokens $tokens, int $casePosition) : void
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         $newlinePosition = $this->ensureNewLineAt($tokens, $casePosition);
         $newlineToken = $tokens[$newlinePosition];
         $nbNewlines = \substr_count($newlineToken->getContent(), $lineEnding);
-        if ($newlineToken->isGivenKind(\T_OPEN_TAG) && \PhpCsFixer\Preg::match('/\\R/', $newlineToken->getContent())) {
+        if ($newlineToken->isGivenKind(\T_OPEN_TAG) && Preg::match('/\\R/', $newlineToken->getContent())) {
             ++$nbNewlines;
-        } elseif ($tokens[$newlinePosition - 1]->isGivenKind(\T_OPEN_TAG) && \PhpCsFixer\Preg::match('/\\R/', $tokens[$newlinePosition - 1]->getContent())) {
+        } elseif ($tokens[$newlinePosition - 1]->isGivenKind(\T_OPEN_TAG) && Preg::match('/\\R/', $tokens[$newlinePosition - 1]->getContent())) {
             ++$nbNewlines;
-            if (!\PhpCsFixer\Preg::match('/\\R/', $newlineToken->getContent())) {
-                $tokens[$newlinePosition] = new \PhpCsFixer\Tokenizer\Token([$newlineToken->getId(), $lineEnding . $newlineToken->getContent()]);
+            if (!Preg::match('/\\R/', $newlineToken->getContent())) {
+                $tokens[$newlinePosition] = new Token([$newlineToken->getId(), $lineEnding . $newlineToken->getContent()]);
             }
         }
         if ($nbNewlines > 1) {
-            \PhpCsFixer\Preg::match('/^(.*?)(\\R\\h*)$/s', $newlineToken->getContent(), $matches);
-            $indent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $newlinePosition - 1);
-            $tokens[$newlinePosition] = new \PhpCsFixer\Tokenizer\Token([$newlineToken->getId(), $matches[1] . $lineEnding . $indent]);
-            $tokens->insertAt(++$newlinePosition, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $matches[2]]));
+            Preg::match('/^(.*?)(\\R\\h*)$/s', $newlineToken->getContent(), $matches);
+            $indent = WhitespacesAnalyzer::detectIndent($tokens, $newlinePosition - 1);
+            $tokens[$newlinePosition] = new Token([$newlineToken->getId(), $matches[1] . $lineEnding . $indent]);
+            $tokens->insertAt(++$newlinePosition, new Token([\T_WHITESPACE, $matches[2]]));
         }
-        $tokens->insertAt($newlinePosition, new \PhpCsFixer\Tokenizer\Token([\T_COMMENT, '// ' . $this->configuration['comment_text']]));
+        $tokens->insertAt($newlinePosition, new Token([\T_COMMENT, '// ' . $this->configuration['comment_text']]));
         $this->ensureNewLineAt($tokens, $newlinePosition);
     }
     /**
      * @return int The newline token position
      */
-    private function ensureNewLineAt(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : int
+    private function ensureNewLineAt(Tokens $tokens, int $position) : int
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
-        $content = $lineEnding . \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $position);
+        $content = $lineEnding . WhitespacesAnalyzer::detectIndent($tokens, $position);
         $whitespaceToken = $tokens[$position - 1];
         if (!$whitespaceToken->isGivenKind(\T_WHITESPACE)) {
             if ($whitespaceToken->isGivenKind(\T_OPEN_TAG)) {
-                $content = \PhpCsFixer\Preg::replace('/\\R/', '', $content);
-                if (!\PhpCsFixer\Preg::match('/\\R/', $whitespaceToken->getContent())) {
-                    $tokens[$position - 1] = new \PhpCsFixer\Tokenizer\Token([\T_OPEN_TAG, \PhpCsFixer\Preg::replace('/\\s+$/', $lineEnding, $whitespaceToken->getContent())]);
+                $content = Preg::replace('/\\R/', '', $content);
+                if (!Preg::match('/\\R/', $whitespaceToken->getContent())) {
+                    $tokens[$position - 1] = new Token([\T_OPEN_TAG, Preg::replace('/\\s+$/', $lineEnding, $whitespaceToken->getContent())]);
                 }
             }
             if ('' !== $content) {
-                $tokens->insertAt($position, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $content]));
+                $tokens->insertAt($position, new Token([\T_WHITESPACE, $content]));
                 return $position;
             }
             return $position - 1;
         }
-        if ($tokens[$position - 2]->isGivenKind(\T_OPEN_TAG) && \PhpCsFixer\Preg::match('/\\R/', $tokens[$position - 2]->getContent())) {
-            $content = \PhpCsFixer\Preg::replace('/^\\R/', '', $content);
+        if ($tokens[$position - 2]->isGivenKind(\T_OPEN_TAG) && Preg::match('/\\R/', $tokens[$position - 2]->getContent())) {
+            $content = Preg::replace('/^\\R/', '', $content);
         }
-        if (!\PhpCsFixer\Preg::match('/\\R/', $whitespaceToken->getContent())) {
-            $tokens[$position - 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $content]);
+        if (!Preg::match('/\\R/', $whitespaceToken->getContent())) {
+            $tokens[$position - 1] = new Token([\T_WHITESPACE, $content]);
         }
         return $position - 1;
     }
-    private function removeComment(\PhpCsFixer\Tokenizer\Tokens $tokens, int $commentPosition) : void
+    private function removeComment(Tokens $tokens, int $commentPosition) : void
     {
         if ($tokens[$tokens->getPrevNonWhitespace($commentPosition)]->isGivenKind(\T_OPEN_TAG)) {
             $whitespacePosition = $commentPosition + 1;
@@ -230,29 +230,29 @@ switch ($foo) {
         }
         $whitespaceToken = $tokens[$whitespacePosition];
         if ($whitespaceToken->isGivenKind(\T_WHITESPACE)) {
-            $content = \PhpCsFixer\Preg::replace($regex, '', $whitespaceToken->getContent());
+            $content = Preg::replace($regex, '', $whitespaceToken->getContent());
             $tokens->ensureWhitespaceAtIndex($whitespacePosition, 0, $content);
         }
         $tokens->clearTokenAndMergeSurroundingWhitespace($commentPosition);
     }
-    private function getStructureEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : int
+    private function getStructureEnd(Tokens $tokens, int $position) : int
     {
         $initialToken = $tokens[$position];
         if ($initialToken->isGivenKind([\T_FOR, \T_FOREACH, \T_WHILE, \T_IF, \T_ELSEIF, \T_SWITCH, \T_FUNCTION])) {
-            $position = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($position, ['(']));
+            $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($position, ['(']));
         } elseif ($initialToken->isGivenKind(\T_CLASS)) {
             $openParenthesisPosition = $tokens->getNextMeaningfulToken($position);
             if ('(' === $tokens[$openParenthesisPosition]->getContent()) {
-                $position = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisPosition);
+                $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisPosition);
             }
         }
         $position = $tokens->getNextMeaningfulToken($position);
         if ('{' !== $tokens[$position]->getContent()) {
             return $tokens->getNextTokenOfKind($position, [';']);
         }
-        $position = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $position);
+        $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $position);
         if ($initialToken->isGivenKind(\T_DO)) {
-            $position = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($position, ['(']));
+            $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($position, ['(']));
             return $tokens->getNextTokenOfKind($position, [';']);
         }
         return $position;

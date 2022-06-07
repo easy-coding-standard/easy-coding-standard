@@ -15,7 +15,7 @@ namespace ECSPrefix20220607\Symfony\Component\Console\Question;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ConfirmationQuestion extends \ECSPrefix20220607\Symfony\Component\Console\Question\Question
+class ConfirmationQuestion extends Question
 {
     /**
      * @var string

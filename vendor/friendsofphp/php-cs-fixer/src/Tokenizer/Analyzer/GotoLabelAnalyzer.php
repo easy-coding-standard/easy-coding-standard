@@ -18,7 +18,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class GotoLabelAnalyzer
 {
-    public function belongsToGoToLabel(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    public function belongsToGoToLabel(Tokens $tokens, int $index) : bool
     {
         if (!$tokens[$index]->equals(':')) {
             return \false;

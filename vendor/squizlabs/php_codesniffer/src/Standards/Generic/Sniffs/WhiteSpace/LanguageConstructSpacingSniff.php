@@ -13,7 +13,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
 use PHP_CodeSniffer\Util\Tokens;
-class LanguageConstructSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class LanguageConstructSpacingSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -34,7 +34,7 @@ class LanguageConstructSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $nextToken = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
@@ -48,7 +48,7 @@ class LanguageConstructSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         $content = $tokens[$stackPtr]['content'];
         if ($tokens[$stackPtr]['code'] === \T_NAMESPACE) {
-            $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+            $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
             if ($nextNonEmpty !== \false && $tokens[$nextNonEmpty]['code'] === \T_NS_SEPARATOR) {
                 // Namespace keyword used as operator, not as the language construct.
                 return;
@@ -69,7 +69,7 @@ class LanguageConstructSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 } while ($tokens[$i]['code'] === \T_YIELD_FROM);
             }
             $error = 'Language constructs must be followed by a single space; expected 1 space between YIELD FROM found "%s"';
-            $data = [\PHP_CodeSniffer\Util\Common::prepareForOutput($found)];
+            $data = [Common::prepareForOutput($found)];
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'IncorrectYieldFrom', $data);
             if ($fix === \true) {
                 \preg_match('/yield/i', $found, $yield);
@@ -92,7 +92,7 @@ class LanguageConstructSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $content = $tokens[$stackPtr + 1]['content'];
             if ($content !== ' ') {
                 $error = 'Language constructs must be followed by a single space; expected 1 space but found "%s"';
-                $data = [\PHP_CodeSniffer\Util\Common::prepareForOutput($content)];
+                $data = [Common::prepareForOutput($content)];
                 $fix = $phpcsFile->addFixableError($error, $stackPtr, 'IncorrectSingle', $data);
                 if ($fix === \true) {
                     $phpcsFile->fixer->replaceToken($stackPtr + 1, ' ');

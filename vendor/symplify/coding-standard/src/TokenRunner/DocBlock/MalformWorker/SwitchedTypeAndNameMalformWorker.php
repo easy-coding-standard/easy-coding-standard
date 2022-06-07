@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-final class SwitchedTypeAndNameMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+final class SwitchedTypeAndNameMalformWorker implements MalformWorkerInterface
 {
     /**
      * @var string
@@ -18,13 +18,13 @@ final class SwitchedTypeAndNameMalformWorker implements \Symplify\CodingStandard
     /**
      * @param Tokens<Token> $tokens
      */
-    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
+    public function work(string $docContent, Tokens $tokens, int $position) : string
     {
-        $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
+        $docBlock = new DocBlock($docContent);
         $lines = $docBlock->getLines();
         foreach ($lines as $line) {
             // $value is first, instead of type is first
-            $match = \ECSPrefix20220607\Nette\Utils\Strings::match($line->getContent(), self::NAME_THEN_TYPE_REGEX);
+            $match = Strings::match($line->getContent(), self::NAME_THEN_TYPE_REGEX);
             if ($match === null) {
                 continue;
             }
@@ -38,7 +38,7 @@ final class SwitchedTypeAndNameMalformWorker implements \Symplify\CodingStandard
             if (\in_array($match['type'], ['The', 'Set'], \true)) {
                 continue;
             }
-            $newLine = \ECSPrefix20220607\Nette\Utils\Strings::replace($line->getContent(), self::NAME_THEN_TYPE_REGEX, '@$1$2$5$4$3');
+            $newLine = Strings::replace($line->getContent(), self::NAME_THEN_TYPE_REGEX, '@$1$2$5$4$3');
             $line->setContent($newLine);
         }
         return $docBlock->getContent();

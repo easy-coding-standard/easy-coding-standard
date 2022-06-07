@@ -29,7 +29,7 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptions
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class PhpUnitTestCaseStaticMethodCallsFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class PhpUnitTestCaseStaticMethodCallsFixer extends AbstractPhpUnitFixer implements ConfigurableFixerInterface
 {
     /**
      * @internal
@@ -294,7 +294,7 @@ final class PhpUnitTestCaseStaticMethodCallsFixer extends \PhpCsFixer\Fixer\Abst
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
         $codeSample = '<?php
 final class MyTest extends \\PHPUnit_Framework_TestCase
@@ -307,7 +307,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
 }
 ';
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Calls to `PHPUnit\\Framework\\TestCase` static methods must all be of the same type, either `$this->`, `self::` or `static::`.', [new \PhpCsFixer\FixerDefinition\CodeSample($codeSample), new \PhpCsFixer\FixerDefinition\CodeSample($codeSample, ['call_type' => self::CALL_TYPE_THIS])], null, 'Risky when PHPUnit methods are overridden or not accessible, or when project has PHPUnit incompatibilities.');
+        return new FixerDefinition('Calls to `PHPUnit\\Framework\\TestCase` static methods must all be of the same type, either `$this->`, `self::` or `static::`.', [new CodeSample($codeSample), new CodeSample($codeSample, ['call_type' => self::CALL_TYPE_THIS])], null, 'Risky when PHPUnit methods are overridden or not accessible, or when project has PHPUnit incompatibilities.');
     }
     /**
      * {@inheritdoc}
@@ -328,16 +328,16 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
         $thisFixer = $this;
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('call_type', 'The call type to use for referring to PHPUnit methods.'))->setAllowedTypes(['string'])->setAllowedValues(\array_keys($this->allowedValues))->setDefault('static')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('methods', 'Dictionary of `method` => `call_type` values that differ from the default strategy.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) use($thisFixer) : bool {
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('call_type', 'The call type to use for referring to PHPUnit methods.'))->setAllowedTypes(['string'])->setAllowedValues(\array_keys($this->allowedValues))->setDefault('static')->getOption(), (new FixerOptionBuilder('methods', 'Dictionary of `method` => `call_type` values that differ from the default strategy.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $option) use($thisFixer) : bool {
             foreach ($option as $method => $value) {
                 if (!isset($thisFixer->staticMethods[$method])) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected "methods" key, expected any of "%s", got "%s".', \implode('", "', \array_keys($thisFixer->staticMethods)), \gettype($method) . '#' . $method));
+                    throw new InvalidOptionsException(\sprintf('Unexpected "methods" key, expected any of "%s", got "%s".', \implode('", "', \array_keys($thisFixer->staticMethods)), \gettype($method) . '#' . $method));
                 }
                 if (!isset($thisFixer->allowedValues[$value])) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unexpected value for method "%s", expected any of "%s", got "%s".', $method, \implode('", "', \array_keys($thisFixer->allowedValues)), \is_object($value) ? \get_class($value) : (null === $value ? 'null' : \gettype($value) . '#' . $value)));
+                    throw new InvalidOptionsException(\sprintf('Unexpected value for method "%s", expected any of "%s", got "%s".', $method, \implode('", "', \array_keys($thisFixer->allowedValues)), \is_object($value) ? \get_class($value) : (null === $value ? 'null' : \gettype($value) . '#' . $value)));
                 }
             }
             return \true;
@@ -346,9 +346,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    protected function applyPhpUnitClassFix(Tokens $tokens, int $startIndex, int $endIndex) : void
     {
-        $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $analyzer = new TokensAnalyzer($tokens);
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             // skip anonymous classes
             if ($tokens[$index]->isGivenKind(\T_CLASS)) {
@@ -379,7 +379,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
                 $index = $nextIndex;
                 continue;
             }
-            if ($tokens[$tokens->getNextMeaningfulToken($nextIndex)]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_FIRST_CLASS_CALLABLE)) {
+            if ($tokens[$tokens->getNextMeaningfulToken($nextIndex)]->isGivenKind(CT::T_FIRST_CLASS_CALLABLE)) {
                 continue;
             }
             $methodName = $tokens[$index]->getContent();
@@ -391,18 +391,18 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             if (!$this->needsConversion($tokens, $index, $referenceIndex, $callType)) {
                 continue;
             }
-            $tokens[$operatorIndex] = new \PhpCsFixer\Tokenizer\Token($this->conversionMap[$callType][0]);
-            $tokens[$referenceIndex] = new \PhpCsFixer\Tokenizer\Token($this->conversionMap[$callType][1]);
+            $tokens[$operatorIndex] = new Token($this->conversionMap[$callType][0]);
+            $tokens[$referenceIndex] = new Token($this->conversionMap[$callType][1]);
         }
     }
-    private function needsConversion(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, int $referenceIndex, string $callType) : bool
+    private function needsConversion(Tokens $tokens, int $index, int $referenceIndex, string $callType) : bool
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         return $functionsAnalyzer->isTheSameClassCall($tokens, $index) && !$tokens[$referenceIndex]->equals($this->conversionMap[$callType][1], \false);
     }
-    private function findEndOfNextBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
+    private function findEndOfNextBlock(Tokens $tokens, int $index) : int
     {
         $nextIndex = $tokens->getNextTokenOfKind($index, [';', '{']);
-        return $tokens[$nextIndex]->equals('{') ? $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $nextIndex) : $nextIndex;
+        return $tokens[$nextIndex]->equals('{') ? $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $nextIndex) : $nextIndex;
     }
 }

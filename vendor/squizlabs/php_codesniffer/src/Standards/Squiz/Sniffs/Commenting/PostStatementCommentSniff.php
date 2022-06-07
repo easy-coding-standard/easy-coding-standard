@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class PostStatementCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class PostStatementCommentSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -47,7 +47,7 @@ class PostStatementCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (\substr($tokens[$stackPtr]['content'], 0, 2) !== '//') {

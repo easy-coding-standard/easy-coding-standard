@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\ControlStructures;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class BooleanOperatorPlacementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class BooleanOperatorPlacementSniff implements Sniff
 {
     /**
      * Used to restrict the placement of the boolean operator.
@@ -40,7 +40,7 @@ class BooleanOperatorPlacementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === \false || isset($tokens[$stackPtr]['parenthesis_closer']) === \false) {

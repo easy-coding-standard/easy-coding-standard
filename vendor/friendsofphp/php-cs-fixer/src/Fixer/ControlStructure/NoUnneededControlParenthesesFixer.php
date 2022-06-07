@@ -29,7 +29,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  * @author Gregor Harlan <gharlan@web.de>
  */
-final class NoUnneededControlParenthesesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class NoUnneededControlParenthesesFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @var mixed[]
@@ -38,7 +38,7 @@ final class NoUnneededControlParenthesesFixer extends \PhpCsFixer\AbstractFixer 
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         $types = [];
         foreach (self::$loops as $loop) {
@@ -50,9 +50,9 @@ final class NoUnneededControlParenthesesFixer extends \PhpCsFixer\AbstractFixer 
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Removes unneeded parentheses around control statements.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Removes unneeded parentheses around control statements.', [new CodeSample('<?php
 while ($x) { while ($y) { break (2); } }
 clone($a);
 while ($y) { continue (2); }
@@ -61,7 +61,7 @@ print("foo");
 return (1 + 2);
 switch ($a) { case($x); }
 yield(2);
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 while ($x) { while ($y) { break (2); } }
 clone($a);
 while ($y) { continue (2); }
@@ -84,12 +84,12 @@ yield(2);
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         // Checks if specific statements are set and uses them in this case.
         $loops = \array_intersect_key(self::$loops, \array_flip($this->configuration['statements']));
         foreach ($tokens as $index => $token) {
-            if (!$token->equalsAny(['(', [\PhpCsFixer\Tokenizer\CT::T_BRACE_CLASS_INSTANTIATION_OPEN]])) {
+            if (!$token->equalsAny(['(', [CT::T_BRACE_CLASS_INSTANTIATION_OPEN]])) {
                 continue;
             }
             $blockStartIndex = $index;
@@ -99,7 +99,7 @@ yield(2);
                 if (!$prevToken->isGivenKind($loop['lookupTokens'])) {
                     continue;
                 }
-                $blockEndIndex = $tokens->findBlockEnd($token->equals('(') ? \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE : \PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_BRACE_CLASS_INSTANTIATION, $blockStartIndex);
+                $blockEndIndex = $tokens->findBlockEnd($token->equals('(') ? Tokens::BLOCK_TYPE_PARENTHESIS_BRACE : Tokens::BLOCK_TYPE_BRACE_CLASS_INSTANTIATION, $blockStartIndex);
                 $blockEndNextIndex = $tokens->getNextMeaningfulToken($blockEndIndex);
                 if (!$tokens[$blockEndNextIndex]->equalsAny($loop['neededSuccessors'])) {
                     continue;
@@ -115,7 +115,7 @@ yield(2);
                     $tokens->clearTokenAndMergeSurroundingWhitespace($blockStartIndex);
                 } else {
                     // Adds a space to prevent broken code like `return2`.
-                    $tokens[$blockStartIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+                    $tokens[$blockStartIndex] = new Token([\T_WHITESPACE, ' ']);
                 }
                 $tokens->clearTokenAndMergeSurroundingWhitespace($blockEndIndex);
             }
@@ -124,8 +124,8 @@ yield(2);
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('statements', 'List of control statements to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(self::$loops))])->setDefault(['break', 'clone', 'continue', 'echo_print', 'return', 'switch_case', 'yield'])->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('statements', 'List of control statements to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset(\array_keys(self::$loops))])->setDefault(['break', 'clone', 'continue', 'echo_print', 'return', 'switch_case', 'yield'])->getOption()]);
     }
 }

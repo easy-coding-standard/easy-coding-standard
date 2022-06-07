@@ -22,7 +22,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Jan Gantzert <jan@familie-gantzert.de>
  */
-final class PhpdocToParamTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDeclarationFixer
+final class PhpdocToParamTypeFixer extends AbstractPhpdocToTypeDeclarationFixer
 {
     /**
      * @var array{int, string}[]
@@ -35,9 +35,9 @@ final class PhpdocToParamTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDecla
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('EXPERIMENTAL: Takes `@param` annotations of non-mixed types and adjusts accordingly the function signature. Requires PHP >= 7.0.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('EXPERIMENTAL: Takes `@param` annotations of non-mixed types and adjusts accordingly the function signature. Requires PHP >= 7.0.', [new CodeSample('<?php
 
 /**
  * @param string $foo
@@ -45,7 +45,7 @@ final class PhpdocToParamTypeFixer extends \PhpCsFixer\AbstractPhpdocToTypeDecla
  */
 function f($foo, $bar)
 {}
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 
 /** @param Foo $foo */
 function foo($foo) {}
@@ -56,7 +56,7 @@ function bar($foo) {}
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_FUNCTION);
     }
@@ -77,7 +77,7 @@ function bar($foo) {}
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
@@ -112,13 +112,13 @@ function bar($foo) {}
                 if (!$this->isValidSyntax(\sprintf('<?php function f(%s $x) {}', $paramType))) {
                     continue;
                 }
-                $tokens->insertAt($variableIndex, \array_merge($this->createTypeDeclarationTokens($paramType, $isNullable), [new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]));
+                $tokens->insertAt($variableIndex, \array_merge($this->createTypeDeclarationTokens($paramType, $isNullable), [new Token([\T_WHITESPACE, ' '])]));
             }
         }
     }
-    private function findCorrectVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, \PhpCsFixer\DocBlock\Annotation $paramTypeAnnotation) : ?int
+    private function findCorrectVariable(Tokens $tokens, int $startIndex, Annotation $paramTypeAnnotation) : ?int
     {
-        $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
+        $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
         for ($index = $startIndex + 1; $index < $endIndex; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_VARIABLE)) {
                 continue;
@@ -135,7 +135,7 @@ function bar($foo) {}
      *
      * @param int $index The index of the end of the function definition line, EG at { or ;
      */
-    private function hasParamTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function hasParamTypeHint(Tokens $tokens, int $index) : bool
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         return !$tokens[$prevIndex]->equalsAny([',', '(']);

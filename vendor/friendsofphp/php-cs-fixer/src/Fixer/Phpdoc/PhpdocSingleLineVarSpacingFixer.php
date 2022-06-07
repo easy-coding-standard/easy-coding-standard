@@ -22,14 +22,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * Fixer for part of rule defined in PSR5 ¶7.22.
  */
-final class PhpdocSingleLineVarSpacingFixer extends \PhpCsFixer\AbstractFixer
+final class PhpdocSingleLineVarSpacingFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Single line `@var` PHPDoc should have proper spacing.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php /**@var   MyClass   \$a   */\n\$a = test();\n")]);
+        return new FixerDefinition('Single line `@var` PHPDoc should have proper spacing.', [new CodeSample("<?php /**@var   MyClass   \$a   */\n\$a = test();\n")]);
     }
     /**
      * {@inheritdoc}
@@ -44,14 +44,14 @@ final class PhpdocSingleLineVarSpacingFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isAnyTokenKindsFound([\T_COMMENT, \T_DOC_COMMENT]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         /** @var Token $token */
         foreach ($tokens as $index => $token) {
@@ -61,13 +61,13 @@ final class PhpdocSingleLineVarSpacingFixer extends \PhpCsFixer\AbstractFixer
             $content = $token->getContent();
             $fixedContent = $this->fixTokenContent($content);
             if ($content !== $fixedContent) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $fixedContent]);
+                $tokens[$index] = new Token([\T_DOC_COMMENT, $fixedContent]);
             }
         }
     }
     private function fixTokenContent(string $content) : string
     {
-        return \PhpCsFixer\Preg::replaceCallback('#^/\\*\\*\\h*@var\\h+(\\S+)\\h*(\\$\\S+)?\\h*([^\\n]*)\\*/$#', static function (array $matches) {
+        return Preg::replaceCallback('#^/\\*\\*\\h*@var\\h+(\\S+)\\h*(\\$\\S+)?\\h*([^\\n]*)\\*/$#', static function (array $matches) {
             $content = '/** @var';
             for ($i = 1, $m = \count($matches); $i < $m; ++$i) {
                 if ('' !== $matches[$i]) {

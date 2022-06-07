@@ -26,10 +26,10 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
      * @return void
      * @throws \PHP_CodeSniffer\Exceptions\TokenizerException If the file appears to be minified.
      */
-    public function __construct($content, \PHP_CodeSniffer\Config $config, $eolChar = '\\n')
+    public function __construct($content, Config $config, $eolChar = '\\n')
     {
         if ($this->isMinifiedContent($content, $eolChar) === \true) {
-            throw new \PHP_CodeSniffer\Exceptions\TokenizerException('File appears to be minified and cannot be processed');
+            throw new TokenizerException('File appears to be minified and cannot be processed');
         }
         parent::__construct($content, $config, $eolChar);
     }
@@ -76,7 +76,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
             $token['content'] = \str_replace('^PHPCS_CSS_T_CLOSE_TAG^', '?>', $token['content']);
             if (PHP_CODESNIFFER_VERBOSITY > 1) {
                 $type = $token['type'];
-                $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($token['content']);
+                $content = Util\Common::prepareForOutput($token['content']);
                 echo "\tProcess token {$stackPtr}: {$type} => {$content}" . \PHP_EOL;
             }
             if ($token['code'] === T_BITWISE_XOR && $tokens[$stackPtr + 1]['content'] === 'PHPCS_CSS_T_OPEN_TAG') {
@@ -93,7 +93,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                 }
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo "\t\t=> Found embedded PHP code: ";
-                    $cleanContent = \PHP_CodeSniffer\Util\Common::prepareForOutput($content);
+                    $cleanContent = Util\Common::prepareForOutput($content);
                     echo $cleanContent . \PHP_EOL;
                 }
                 $finalTokens[$newStackPtr] = ['type' => 'T_EMBEDDED_PHP', 'code' => T_EMBEDDED_PHP, 'content' => $content];
@@ -192,7 +192,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
             $token = $finalTokens[$stackPtr];
             if (PHP_CODESNIFFER_VERBOSITY > 1) {
                 $type = $token['type'];
-                $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($token['content']);
+                $content = Util\Common::prepareForOutput($token['content']);
                 echo "\tProcess token {$stackPtr}: {$type} => {$content}" . \PHP_EOL;
             }
             switch ($token['code']) {
@@ -239,8 +239,8 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                             $newContent = $finalTokens[$stackPtr - 1]['content'] . '-' . $finalTokens[$stackPtr + 1]['content'];
                             if (PHP_CODESNIFFER_VERBOSITY > 1) {
                                 echo "\t\t* token is a string joiner; ignoring this and previous token" . \PHP_EOL;
-                                $old = \PHP_CodeSniffer\Util\Common::prepareForOutput($finalTokens[$stackPtr + 1]['content']);
-                                $new = \PHP_CodeSniffer\Util\Common::prepareForOutput($newContent);
+                                $old = Util\Common::prepareForOutput($finalTokens[$stackPtr + 1]['content']);
+                                $new = Util\Common::prepareForOutput($newContent);
                                 echo "\t\t=> token " . ($stackPtr + 1) . " content changed from \"{$old}\" to \"{$new}\"" . \PHP_EOL;
                             }
                             $finalTokens[$stackPtr + 1]['content'] = $newContent;
@@ -256,7 +256,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                             // They can also be used to provide negative numbers.
                             if (PHP_CODESNIFFER_VERBOSITY > 1) {
                                 echo "\t\t* token is part of a negative number; adding content to next token and ignoring *" . \PHP_EOL;
-                                $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($finalTokens[$stackPtr + 1]['content']);
+                                $content = Util\Common::prepareForOutput($finalTokens[$stackPtr + 1]['content']);
                                 echo "\t\t=> token " . ($stackPtr + 1) . " content changed from \"{$content}\" to \"-{$content}\"" . \PHP_EOL;
                             }
                             $finalTokens[$stackPtr + 1]['content'] = '-' . $finalTokens[$stackPtr + 1]['content'];
@@ -271,7 +271,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                         break;
                     }
                     for ($x = $stackPtr - 1; $x >= 0; $x--) {
-                        if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$finalTokens[$x]['code']]) === \false) {
+                        if (isset(Util\Tokens::$emptyTokens[$finalTokens[$x]['code']]) === \false) {
                             break;
                         }
                     }
@@ -286,7 +286,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                     if (\strtolower($token['content']) === 'url') {
                         // Find the next content.
                         for ($x = $stackPtr + 1; $x < $numTokens; $x++) {
-                            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$finalTokens[$x]['code']]) === \false) {
+                            if (isset(Util\Tokens::$emptyTokens[$finalTokens[$x]['code']]) === \false) {
                                 break;
                             }
                         }
@@ -296,7 +296,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                         }
                         // Make sure the content isn't empty.
                         for ($y = $x + 1; $y < $numTokens; $y++) {
-                            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$finalTokens[$y]['code']]) === \false) {
+                            if (isset(Util\Tokens::$emptyTokens[$finalTokens[$y]['code']]) === \false) {
                                 break;
                             }
                         }
@@ -306,7 +306,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
                             for ($i = $stackPtr + 1; $i <= $y; $i++) {
                                 $type = $finalTokens[$i]['type'];
-                                $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($finalTokens[$i]['content']);
+                                $content = Util\Common::prepareForOutput($finalTokens[$i]['content']);
                                 echo "\tProcess token {$i}: {$type} => {$content}" . \PHP_EOL;
                             }
                             echo "\t\t* token starts a URL *" . \PHP_EOL;
@@ -319,7 +319,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                             }
                             $newContent .= $finalTokens[$i]['content'];
                             if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                                $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($finalTokens[$i]['content']);
+                                $content = Util\Common::prepareForOutput($finalTokens[$i]['content']);
                                 echo "\t\t=> token {$i} added to URL string and ignored: {$content}" . \PHP_EOL;
                             }
                             unset($finalTokens[$i]);
@@ -334,7 +334,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                         if ($newContent !== '') {
                             $finalTokens[$x + 1]['content'] .= $newContent;
                             if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                                $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($finalTokens[$x + 1]['content']);
+                                $content = Util\Common::prepareForOutput($finalTokens[$x + 1]['content']);
                                 echo "\t\t=> token content changed to: {$content}" . \PHP_EOL;
                             }
                         }
@@ -344,8 +344,8 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
                                 $newContent = $finalTokens[$stackPtr - 1]['content'] . $finalTokens[$stackPtr]['content'] . $finalTokens[$stackPtr + 1]['content'];
                                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                                     echo "\t\t* token is a string joiner; ignoring this and previous token" . \PHP_EOL;
-                                    $old = \PHP_CodeSniffer\Util\Common::prepareForOutput($finalTokens[$stackPtr + 1]['content']);
-                                    $new = \PHP_CodeSniffer\Util\Common::prepareForOutput($newContent);
+                                    $old = Util\Common::prepareForOutput($finalTokens[$stackPtr + 1]['content']);
+                                    $new = Util\Common::prepareForOutput($newContent);
                                     echo "\t\t=> token " . ($stackPtr + 1) . " content changed from \"{$old}\" to \"{$new}\"" . \PHP_EOL;
                                 }
                                 $finalTokens[$stackPtr + 1]['content'] = $newContent;

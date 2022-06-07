@@ -13,7 +13,7 @@ namespace ECSPrefix20220607\Composer\Semver\Constraint;
 /**
  * Blackhole of constraints, nothing escapes it
  */
-class MatchNoneConstraint implements \ECSPrefix20220607\Composer\Semver\Constraint\ConstraintInterface
+class MatchNoneConstraint implements ConstraintInterface
 {
     /** @var string|null */
     protected $prettyString;
@@ -22,7 +22,7 @@ class MatchNoneConstraint implements \ECSPrefix20220607\Composer\Semver\Constrai
      *
      * @return bool
      */
-    public function matches(\ECSPrefix20220607\Composer\Semver\Constraint\ConstraintInterface $provider)
+    public function matches(ConstraintInterface $provider)
     {
         return \false;
     }
@@ -62,13 +62,13 @@ class MatchNoneConstraint implements \ECSPrefix20220607\Composer\Semver\Constrai
      */
     public function getUpperBound()
     {
-        return new \ECSPrefix20220607\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
+        return new Bound('0.0.0.0-dev', \false);
     }
     /**
      * {@inheritDoc}
      */
     public function getLowerBound()
     {
-        return new \ECSPrefix20220607\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
+        return new Bound('0.0.0.0-dev', \false);
     }
 }

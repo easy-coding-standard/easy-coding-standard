@@ -29,7 +29,7 @@ final class Tokens extends \SplFixedArray
      *
      * @throws \InvalidArgumentException
      */
-    public static function createFromDocComment(\PhpCsFixer\Tokenizer\Token $input, array $ignoredTags = []) : self
+    public static function createFromDocComment(PhpToken $input, array $ignoredTags = []) : self
     {
         if (!$input->isGivenKind(\T_DOC_COMMENT)) {
             throw new \InvalidArgumentException('Input must be a T_DOC_COMMENT token.');
@@ -40,33 +40,33 @@ final class Tokens extends \SplFixedArray
         $currentPosition = 0;
         $token = null;
         while (\false !== ($nextAtPosition = \strpos($content, '@', $currentPosition))) {
-            if (0 !== $nextAtPosition && !\PhpCsFixer\Preg::match('/\\s/', $content[$nextAtPosition - 1])) {
+            if (0 !== $nextAtPosition && !Preg::match('/\\s/', $content[$nextAtPosition - 1])) {
                 $currentPosition = $nextAtPosition + 1;
                 continue;
             }
-            $lexer = new \ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer();
+            $lexer = new DocLexer();
             $lexer->setInput(\substr($content, $nextAtPosition));
             $scannedTokens = [];
             $index = 0;
             $nbScannedTokensToUse = 0;
             $nbScopes = 0;
             while (null !== ($token = $lexer->peek())) {
-                if (0 === $index && \ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_AT !== $token['type']) {
+                if (0 === $index && DocLexer::T_AT !== $token['type']) {
                     break;
                 }
                 if (1 === $index) {
-                    if (\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_IDENTIFIER !== $token['type'] || \in_array($token['value'], $ignoredTags, \true)) {
+                    if (DocLexer::T_IDENTIFIER !== $token['type'] || \in_array($token['value'], $ignoredTags, \true)) {
                         break;
                     }
                     $nbScannedTokensToUse = 2;
                 }
-                if ($index >= 2 && 0 === $nbScopes && !\in_array($token['type'], [\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_NONE, \ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS], \true)) {
+                if ($index >= 2 && 0 === $nbScopes && !\in_array($token['type'], [DocLexer::T_NONE, DocLexer::T_OPEN_PARENTHESIS], \true)) {
                     break;
                 }
                 $scannedTokens[] = $token;
-                if (\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS === $token['type']) {
+                if (DocLexer::T_OPEN_PARENTHESIS === $token['type']) {
                     ++$nbScopes;
-                } elseif (\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS === $token['type']) {
+                } elseif (DocLexer::T_CLOSE_PARENTHESIS === $token['type']) {
                     if (0 === --$nbScopes) {
                         $nbScannedTokensToUse = \count($scannedTokens);
                         break;
@@ -80,16 +80,16 @@ final class Tokens extends \SplFixedArray
             if (0 !== $nbScannedTokensToUse) {
                 $ignoredTextLength = $nextAtPosition - $ignoredTextPosition;
                 if (0 !== $ignoredTextLength) {
-                    $tokens[] = new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_NONE, \substr($content, $ignoredTextPosition, $ignoredTextLength));
+                    $tokens[] = new \PhpCsFixer\Doctrine\Annotation\Token(DocLexer::T_NONE, \substr($content, $ignoredTextPosition, $ignoredTextLength));
                 }
                 $lastTokenEndIndex = 0;
                 foreach (\array_slice($scannedTokens, 0, $nbScannedTokensToUse) as $token) {
-                    if (\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_STRING === $token['type']) {
+                    if (DocLexer::T_STRING === $token['type']) {
                         $token['value'] = '"' . \str_replace('"', '""', $token['value']) . '"';
                     }
                     $missingTextLength = $token['position'] - $lastTokenEndIndex;
                     if ($missingTextLength > 0) {
-                        $tokens[] = new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_NONE, \substr($content, $nextAtPosition + $lastTokenEndIndex, $missingTextLength));
+                        $tokens[] = new \PhpCsFixer\Doctrine\Annotation\Token(DocLexer::T_NONE, \substr($content, $nextAtPosition + $lastTokenEndIndex, $missingTextLength));
                     }
                     $tokens[] = new \PhpCsFixer\Doctrine\Annotation\Token($token['type'], $token['value']);
                     $lastTokenEndIndex = $token['position'] + \strlen($token['value']);
@@ -100,7 +100,7 @@ final class Tokens extends \SplFixedArray
             }
         }
         if ($ignoredTextPosition < \strlen($content)) {
-            $tokens[] = new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_NONE, \substr($content, $ignoredTextPosition));
+            $tokens[] = new \PhpCsFixer\Doctrine\Annotation\Token(DocLexer::T_NONE, \substr($content, $ignoredTextPosition));
         }
         return self::fromArray($tokens);
     }
@@ -146,18 +146,18 @@ final class Tokens extends \SplFixedArray
     {
         $currentIndex = null;
         if (isset($this[$index + 2])) {
-            if ($this[$index + 2]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+            if ($this[$index + 2]->isType(DocLexer::T_OPEN_PARENTHESIS)) {
                 $currentIndex = $index + 2;
-            } elseif (isset($this[$index + 3]) && $this[$index + 2]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_NONE) && $this[$index + 3]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS) && \PhpCsFixer\Preg::match('/^(\\R\\s*\\*\\s*)*\\s*$/', $this[$index + 2]->getContent())) {
+            } elseif (isset($this[$index + 3]) && $this[$index + 2]->isType(DocLexer::T_NONE) && $this[$index + 3]->isType(DocLexer::T_OPEN_PARENTHESIS) && Preg::match('/^(\\R\\s*\\*\\s*)*\\s*$/', $this[$index + 2]->getContent())) {
                 $currentIndex = $index + 3;
             }
         }
         if (null !== $currentIndex) {
             $level = 0;
             for ($max = \count($this); $currentIndex < $max; ++$currentIndex) {
-                if ($this[$currentIndex]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+                if ($this[$currentIndex]->isType(DocLexer::T_OPEN_PARENTHESIS)) {
                     ++$level;
-                } elseif ($this[$currentIndex]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS)) {
+                } elseif ($this[$currentIndex]->isType(DocLexer::T_CLOSE_PARENTHESIS)) {
                     --$level;
                 }
                 if (0 === $level) {
@@ -230,7 +230,7 @@ final class Tokens extends \SplFixedArray
             if (!$this->offsetExists($index)) {
                 break;
             }
-            if (!$this[$index]->isType(\ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+            if (!$this[$index]->isType(DocLexer::T_NONE)) {
                 return $index;
             }
         }

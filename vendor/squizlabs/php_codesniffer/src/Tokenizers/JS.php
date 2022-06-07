@@ -65,10 +65,10 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      * @return void
      * @throws \PHP_CodeSniffer\Exceptions\TokenizerException If the file appears to be minified.
      */
-    public function __construct($content, \PHP_CodeSniffer\Config $config, $eolChar = '\\n')
+    public function __construct($content, Config $config, $eolChar = '\\n')
     {
         if ($this->isMinifiedContent($content, $eolChar) === \true) {
-            throw new \PHP_CodeSniffer\Exceptions\TokenizerException('File appears to be minified and cannot be processed');
+            throw new TokenizerException('File appears to be minified and cannot be processed');
         }
         parent::__construct($content, $config, $eolChar);
     }
@@ -108,8 +108,8 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
         for ($i = 0; $i < $numChars; $i++) {
             $char = $chars[$i];
             if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($char);
-                $bufferContent = \PHP_CodeSniffer\Util\Common::prepareForOutput($buffer);
+                $content = Util\Common::prepareForOutput($char);
+                $bufferContent = Util\Common::prepareForOutput($buffer);
                 if ($inString !== '') {
                     echo "\t";
                 }
@@ -125,7 +125,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                 if (\trim($char) !== '' && \trim($buffer) === '') {
                     $tokens[] = ['code' => \T_WHITESPACE, 'type' => 'T_WHITESPACE', 'content' => \str_replace("\n", $this->eolChar, $buffer)];
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($buffer);
+                        $content = Util\Common::prepareForOutput($buffer);
                         echo "\t=> Added token T_WHITESPACE ({$content})" . \PHP_EOL;
                     }
                     $buffer = '';
@@ -135,7 +135,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                 if ($inString === '' && $inComment === '' && \trim($char) === '' && \trim($buffer) !== '') {
                     $tokens[] = ['code' => \T_STRING, 'type' => 'T_STRING', 'content' => \str_replace("\n", $this->eolChar, $buffer)];
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($buffer);
+                        $content = Util\Common::prepareForOutput($buffer);
                         echo "\t=> Added token T_STRING ({$content})" . \PHP_EOL;
                     }
                     $buffer = '';
@@ -160,7 +160,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         $tokens[] = ['code' => \T_CONSTANT_ENCAPSED_STRING, 'type' => 'T_CONSTANT_ENCAPSED_STRING', 'content' => \str_replace("\n", $this->eolChar, $buffer) . $char];
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
                             echo "\t\t* found end of string *" . \PHP_EOL;
-                            $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($buffer . $char);
+                            $content = Util\Common::prepareForOutput($buffer . $char);
                             echo "\t=> Added token T_CONSTANT_ENCAPSED_STRING ({$content})" . \PHP_EOL;
                         }
                         $buffer = '';
@@ -213,7 +213,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                 if ($regex !== null) {
                     $tokens[] = ['code' => T_REGULAR_EXPRESSION, 'type' => 'T_REGULAR_EXPRESSION', 'content' => $regex['content']];
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($regex['content']);
+                        $content = Util\Common::prepareForOutput($regex['content']);
                         echo "\t=> Added token T_REGULAR_EXPRESSION ({$content})" . \PHP_EOL;
                     }
                     $i = $regex['end'];
@@ -244,7 +244,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         }
                         $charBuffer .= $chars[$i + $x];
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                            $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($charBuffer);
+                            $content = Util\Common::prepareForOutput($charBuffer);
                             echo "\t\t=> Looking ahead {$x} chars => {$content}" . \PHP_EOL;
                         }
                         if (isset($this->tokenValues[\strtolower($charBuffer)]) === \true) {
@@ -283,7 +283,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                     }
                     $tokens[] = ['code' => \constant($value), 'type' => $value, 'content' => $buffer];
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($buffer);
+                        $content = Util\Common::prepareForOutput($buffer);
                         echo "\t=> Added token {$value} ({$content})" . \PHP_EOL;
                     }
                     $cleanBuffer = \true;
@@ -298,7 +298,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                     if ($newContent !== '') {
                         $tokens[] = ['code' => \T_STRING, 'type' => 'T_STRING', 'content' => $newContent];
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                            $content = \PHP_CodeSniffer\Util\Common::prepareForOutput(\substr($buffer, 0, -1));
+                            $content = Util\Common::prepareForOutput(\substr($buffer, 0, -1));
                             echo "\t=> Added token T_STRING ({$content})" . \PHP_EOL;
                         }
                     }
@@ -316,7 +316,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         }
                         $charBuffer .= $chars[$i + $x];
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                            $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($charBuffer);
+                            $content = Util\Common::prepareForOutput($charBuffer);
                             echo "\t\t=> Looking ahead {$x} chars => {$content}" . \PHP_EOL;
                         }
                         if (isset($this->tokenValues[\strtolower($charBuffer)]) === \true) {
@@ -336,7 +336,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         $tokens[] = ['code' => \constant($value), 'type' => $value, 'content' => $char];
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
                             echo "\t\t* look ahead found nothing *" . \PHP_EOL;
-                            $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($char);
+                            $content = Util\Common::prepareForOutput($char);
                             echo "\t=> Added token {$value} ({$content})" . \PHP_EOL;
                         }
                         $cleanBuffer = \true;
@@ -356,7 +356,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                     $lastContent = $lastToken['content'];
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         $value = $this->tokenValues[\strtolower($lastContent)];
-                        $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($lastContent);
+                        $content = Util\Common::prepareForOutput($lastContent);
                         echo "\t=> Removed token {$value} ({$content})" . \PHP_EOL;
                     }
                     $lastChars = \str_split($lastContent);
@@ -366,7 +366,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         $value = $this->tokenValues[\strtolower($lastChar)];
                         $tokens[] = ['code' => \constant($value), 'type' => $value, 'content' => $lastChar];
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                            $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($lastChar);
+                            $content = Util\Common::prepareForOutput($lastChar);
                             echo "\t=> Added token {$value} ({$content})" . \PHP_EOL;
                         }
                     }
@@ -398,7 +398,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                     if ($inComment === '' && $cleanBuffer === \false) {
                         $tokens[] = ['code' => \T_STRING, 'type' => 'T_STRING', 'content' => \str_replace("\n", $this->eolChar, $buffer)];
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                            $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($buffer);
+                            $content = Util\Common::prepareForOutput($buffer);
                             echo "\t=> Added token T_STRING ({$content})" . \PHP_EOL;
                         }
                         $buffer = '';
@@ -418,14 +418,14 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                 // which means there was probably a syntax error somewhere.
                 $tokens[] = ['code' => \T_STRING, 'type' => 'T_STRING', 'content' => \str_replace("\n", $this->eolChar, $buffer)];
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                    $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($buffer);
+                    $content = Util\Common::prepareForOutput($buffer);
                     echo "\t=> Added token T_STRING ({$content})" . \PHP_EOL;
                 }
             } else {
                 // Buffer contains whitespace from the end of the file.
                 $tokens[] = ['code' => \T_WHITESPACE, 'type' => 'T_WHITESPACE', 'content' => \str_replace("\n", $this->eolChar, $buffer)];
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                    $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($buffer);
+                    $content = Util\Common::prepareForOutput($buffer);
                     echo "\t=> Added token T_WHITESPACE ({$content})" . \PHP_EOL;
                 }
             }
@@ -544,7 +544,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
             // Convert the token after an object operator into a string, in most cases.
             if ($token['code'] === \T_OBJECT_OPERATOR) {
                 for ($i = $stackPtr + 1; $i < $numTokens; $i++) {
-                    if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === \true) {
+                    if (isset(Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === \true) {
                         continue;
                     }
                     if ($tokens[$i]['code'] !== T_PROTOTYPE && $tokens[$i]['code'] !== \T_LNUMBER && $tokens[$i]['code'] !== \T_DNUMBER) {
@@ -582,7 +582,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
         // to the tokens array.
         $numTokens = \count($tokens);
         for ($prev = $numTokens - 1; $prev >= 0; $prev--) {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$prev]['code']]) === \false) {
+            if (isset(Util\Tokens::$emptyTokens[$tokens[$prev]['code']]) === \false) {
                 break;
             }
         }
@@ -675,14 +675,14 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
         for ($i = 0; $i < $numTokens; $i++) {
             if (PHP_CODESNIFFER_VERBOSITY > 1) {
                 $type = $this->tokens[$i]['type'];
-                $content = \PHP_CodeSniffer\Util\Common::prepareForOutput($this->tokens[$i]['content']);
+                $content = Util\Common::prepareForOutput($this->tokens[$i]['content']);
                 echo \str_repeat("\t", \count($classStack));
                 echo "\tProcess token {$i}: {$type} => {$content}" . \PHP_EOL;
             }
             // Looking for functions that are actually closures.
             if ($this->tokens[$i]['code'] === \T_FUNCTION && isset($this->tokens[$i]['scope_opener']) === \true) {
                 for ($x = $i + 1; $x < $numTokens; $x++) {
-                    if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$this->tokens[$x]['code']]) === \false) {
+                    if (isset(Util\Tokens::$emptyTokens[$this->tokens[$x]['code']]) === \false) {
                         break;
                     }
                 }
@@ -717,14 +717,14 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                         // non-empty tokens need to be a set of parenthesis, and then a string
                         // (the method name).
                         for ($parenCloser = $i - 1; $parenCloser > 0; $parenCloser--) {
-                            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$this->tokens[$parenCloser]['code']]) === \false) {
+                            if (isset(Util\Tokens::$emptyTokens[$this->tokens[$parenCloser]['code']]) === \false) {
                                 break;
                             }
                         }
                         if ($this->tokens[$parenCloser]['code'] === T_CLOSE_PARENTHESIS) {
                             $parenOpener = $this->tokens[$parenCloser]['parenthesis_opener'];
                             for ($name = $parenOpener - 1; $name > 0; $name--) {
-                                if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$this->tokens[$name]['code']]) === \false) {
+                                if (isset(Util\Tokens::$emptyTokens[$this->tokens[$name]['code']]) === \false) {
                                     break;
                                 }
                             }
@@ -813,7 +813,7 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
                             }
                             // The string to the left of the colon is either a property or label.
                             for ($label = $i - 1; $label >= 0; $label--) {
-                                if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$this->tokens[$label]['code']]) === \false) {
+                                if (isset(Util\Tokens::$emptyTokens[$this->tokens[$label]['code']]) === \false) {
                                     break;
                                 }
                             }

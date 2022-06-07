@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
+namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-final class SuperfluousVarNameMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
+use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+final class SuperfluousVarNameMalformWorker implements MalformWorkerInterface
 {
     /**
      * @var string
@@ -23,24 +23,24 @@ final class SuperfluousVarNameMalformWorker implements \Symplify\CodingStandard\
     /**
      * @param Tokens<Token> $tokens
      */
-    public function work(string $docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
+    public function work(string $docContent, Tokens $tokens, int $position) : string
     {
         if ($this->shouldSkip($tokens, $position)) {
             return $docContent;
         }
-        $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
+        $docBlock = new DocBlock($docContent);
         $lines = $docBlock->getLines();
         foreach ($lines as $line) {
-            $match = \ECSPrefix20220607\Nette\Utils\Strings::match($line->getContent(), self::VAR_VARIABLE_NAME_REGEX);
+            $match = Strings::match($line->getContent(), self::VAR_VARIABLE_NAME_REGEX);
             if ($match === null) {
                 continue;
             }
-            $newLineContent = \ECSPrefix20220607\Nette\Utils\Strings::replace($line->getContent(), self::VAR_VARIABLE_NAME_REGEX, function (array $match) : string {
+            $newLineContent = Strings::replace($line->getContent(), self::VAR_VARIABLE_NAME_REGEX, function (array $match) : string {
                 $replacement = $match['tag'];
                 if ($match['type'] !== []) {
                     $replacement .= $match['type'];
                 }
-                if (\ECSPrefix20220607\Nette\Utils\Strings::match($match['propertyName'], self::THIS_VARIABLE_REGEX)) {
+                if (Strings::match($match['propertyName'], self::THIS_VARIABLE_REGEX)) {
                     return $match['tag'] . ' self';
                 }
                 return $replacement;
@@ -54,7 +54,7 @@ final class SuperfluousVarNameMalformWorker implements \Symplify\CodingStandard\
      *
      * @param Tokens<Token> $tokens
      */
-    private function shouldSkip(\PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : bool
+    private function shouldSkip(Tokens $tokens, int $position) : bool
     {
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($position);
         // nothing to change

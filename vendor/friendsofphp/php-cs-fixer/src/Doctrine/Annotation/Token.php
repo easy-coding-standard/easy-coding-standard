@@ -32,7 +32,7 @@ final class Token
      * @param int    $type    The type
      * @param string $content The content
      */
-    public function __construct(int $type = \ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer::T_NONE, string $content = '')
+    public function __construct(int $type = DocLexer::T_NONE, string $content = '')
     {
         $this->type = $type;
         $this->content = $content;

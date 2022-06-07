@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class LogicalOperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class LogicalOperatorSpacingSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -27,7 +27,7 @@ class LogicalOperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return \PHP_CodeSniffer\Util\Tokens::$booleanOperators;
+        return Tokens::$booleanOperators;
     }
     //end register()
     /**
@@ -39,7 +39,7 @@ class LogicalOperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Check there is one space before the operator.

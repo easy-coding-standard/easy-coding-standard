@@ -24,14 +24,14 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-final class PhpdocSeparationFixer extends \PhpCsFixer\AbstractFixer
+final class PhpdocSeparationFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Annotations in PHPDoc should be grouped together so that annotations of the same type immediately follow each other, and annotations of a different type are separated by a single blank line.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Annotations in PHPDoc should be grouped together so that annotations of the same type immediately follow each other, and annotations of a different type are separated by a single blank line.', [new CodeSample('<?php
 /**
  * Description.
  * @param string $foo
@@ -57,29 +57,29 @@ function fnc($foo, $bar) {}
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-            $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
+            $doc = new DocBlock($token->getContent());
             $this->fixDescription($doc);
             $this->fixAnnotations($doc);
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
+            $tokens[$index] = new Token([\T_DOC_COMMENT, $doc->getContent()]);
         }
     }
     /**
      * Make sure the description is separated from the annotations.
      */
-    private function fixDescription(\PhpCsFixer\DocBlock\DocBlock $doc) : void
+    private function fixDescription(DocBlock $doc) : void
     {
         foreach ($doc->getLines() as $index => $line) {
             if ($line->containsATag()) {
@@ -97,7 +97,7 @@ function fnc($foo, $bar) {}
     /**
      * Make sure the annotations are correctly separated.
      */
-    private function fixAnnotations(\PhpCsFixer\DocBlock\DocBlock $doc) : void
+    private function fixAnnotations(DocBlock $doc) : void
     {
         foreach ($doc->getAnnotations() as $index => $annotation) {
             $next = $doc->getAnnotation($index + 1);
@@ -105,7 +105,7 @@ function fnc($foo, $bar) {}
                 break;
             }
             if (\true === $next->getTag()->valid()) {
-                if (\PhpCsFixer\DocBlock\TagComparator::shouldBeTogether($annotation->getTag(), $next->getTag())) {
+                if (TagComparator::shouldBeTogether($annotation->getTag(), $next->getTag())) {
                     $this->ensureAreTogether($doc, $annotation, $next);
                 } else {
                     $this->ensureAreSeparate($doc, $annotation, $next);
@@ -116,7 +116,7 @@ function fnc($foo, $bar) {}
     /**
      * Force the given annotations to immediately follow each other.
      */
-    private function ensureAreTogether(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second) : void
+    private function ensureAreTogether(DocBlock $doc, Annotation $first, Annotation $second) : void
     {
         $pos = $first->getEnd();
         $final = $second->getStart();
@@ -127,7 +127,7 @@ function fnc($foo, $bar) {}
     /**
      * Force the given annotations to have one empty line between each other.
      */
-    private function ensureAreSeparate(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second) : void
+    private function ensureAreSeparate(DocBlock $doc, Annotation $first, Annotation $second) : void
     {
         $pos = $first->getEnd();
         $final = $second->getStart() - 1;

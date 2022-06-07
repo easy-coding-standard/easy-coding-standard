@@ -27,7 +27,7 @@ final class FullDiffer implements \PhpCsFixer\Differ\DifferInterface
     private $differ;
     public function __construct()
     {
-        $this->differ = new \PhpCsFixer\Diff\Differ(new \PhpCsFixer\Diff\Output\StrictUnifiedDiffOutputBuilder(['collapseRanges' => \false, 'commonLineThreshold' => 100, 'contextLines' => 100, 'fromFile' => 'Original', 'toFile' => 'New']));
+        $this->differ = new Differ(new StrictUnifiedDiffOutputBuilder(['collapseRanges' => \false, 'commonLineThreshold' => 100, 'contextLines' => 100, 'fromFile' => 'Original', 'toFile' => 'New']));
     }
     /**
      * {@inheritdoc}

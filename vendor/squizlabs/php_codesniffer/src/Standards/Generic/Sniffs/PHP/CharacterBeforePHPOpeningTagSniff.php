@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\Generic\Sniffs\PHP;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class CharacterBeforePHPOpeningTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class CharacterBeforePHPOpeningTagSniff implements Sniff
 {
     /**
      * List of supported BOM definitions.
@@ -40,7 +40,7 @@ class CharacterBeforePHPOpeningTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $expected = 0;
         if ($stackPtr > 0) {

@@ -17,6 +17,6 @@ namespace ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class MissingOptionsException extends \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
+class MissingOptionsException extends InvalidArgumentException
 {
 }

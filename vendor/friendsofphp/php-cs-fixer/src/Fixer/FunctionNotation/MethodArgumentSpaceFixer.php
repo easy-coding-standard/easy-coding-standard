@@ -33,30 +33,30 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Options;
  *
  * @author Kuanhung Chen <ericj.tw@gmail.com>
  */
-final class MethodArgumentSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class MethodArgumentSpaceFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('In method arguments and method call, there MUST NOT be a space before each comma and there MUST be one space after each comma. Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(\$a=10,\$b=20,\$c=30) {}\nsample(1,  2);\n", null), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(\$a=10,\$b=20,\$c=30) {}\nsample(1,  2);\n", ['keep_multiple_spaces_after_comma' => \false]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(\$a=10,\$b=20,\$c=30) {}\nsample(1,  2);\n", ['keep_multiple_spaces_after_comma' => \true]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(\$a=10,\n    \$b=20,\$c=30) {}\nsample(1,\n    2);\n", ['on_multiline' => 'ensure_fully_multiline']), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(\n    \$a=10,\n    \$b=20,\n    \$c=30\n) {}\nsample(\n    1,\n    2\n);\n", ['on_multiline' => 'ensure_single_line']), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(\$a=10,\n    \$b=20,\$c=30) {}\nsample(1,  \n    2);\nsample('foo',    'foobarbaz', 'baz');\nsample('foobar', 'bar',       'baz');\n", ['on_multiline' => 'ensure_fully_multiline', 'keep_multiple_spaces_after_comma' => \true]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction sample(\$a=10,\n    \$b=20,\$c=30) {}\nsample(1,  \n    2);\nsample('foo',    'foobarbaz', 'baz');\nsample('foobar', 'bar',       'baz');\n", ['on_multiline' => 'ensure_fully_multiline', 'keep_multiple_spaces_after_comma' => \false]), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'SAMPLE'
+        return new FixerDefinition('In method arguments and method call, there MUST NOT be a space before each comma and there MUST be one space after each comma. Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.', [new CodeSample("<?php\nfunction sample(\$a=10,\$b=20,\$c=30) {}\nsample(1,  2);\n", null), new CodeSample("<?php\nfunction sample(\$a=10,\$b=20,\$c=30) {}\nsample(1,  2);\n", ['keep_multiple_spaces_after_comma' => \false]), new CodeSample("<?php\nfunction sample(\$a=10,\$b=20,\$c=30) {}\nsample(1,  2);\n", ['keep_multiple_spaces_after_comma' => \true]), new CodeSample("<?php\nfunction sample(\$a=10,\n    \$b=20,\$c=30) {}\nsample(1,\n    2);\n", ['on_multiline' => 'ensure_fully_multiline']), new CodeSample("<?php\nfunction sample(\n    \$a=10,\n    \$b=20,\n    \$c=30\n) {}\nsample(\n    1,\n    2\n);\n", ['on_multiline' => 'ensure_single_line']), new CodeSample("<?php\nfunction sample(\$a=10,\n    \$b=20,\$c=30) {}\nsample(1,  \n    2);\nsample('foo',    'foobarbaz', 'baz');\nsample('foobar', 'bar',       'baz');\n", ['on_multiline' => 'ensure_fully_multiline', 'keep_multiple_spaces_after_comma' => \true]), new CodeSample("<?php\nfunction sample(\$a=10,\n    \$b=20,\$c=30) {}\nsample(1,  \n    2);\nsample('foo',    'foobarbaz', 'baz');\nsample('foobar', 'bar',       'baz');\n", ['on_multiline' => 'ensure_fully_multiline', 'keep_multiple_spaces_after_comma' => \false]), new VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
 namespace ECSPrefix20220607;
 
-\ECSPrefix20220607\sample(<<<EOD
+sample(<<<EOD
 foo
 EOD
 , 'bar');
 
 SAMPLE
-, new \PhpCsFixer\FixerDefinition\VersionSpecification(70300), ['after_heredoc' => \true])]);
+, new VersionSpecification(70300), ['after_heredoc' => \true])]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound('(');
     }
@@ -80,9 +80,9 @@ SAMPLE
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $expectedTokens = [\T_LIST, \T_FUNCTION, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, \T_FN, \T_CLASS];
+        $expectedTokens = [\T_LIST, \T_FUNCTION, CT::T_USE_LAMBDA, \T_FN, \T_CLASS];
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
             $token = $tokens[$index];
             if (!$token->equals('(')) {
@@ -101,9 +101,9 @@ SAMPLE
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('keep_multiple_spaces_after_comma', 'Whether keep multiple spaces after comma.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('on_multiline', 'Defines how to handle function arguments lists that contain newlines.'))->setAllowedValues(['ignore', 'ensure_single_line', 'ensure_fully_multiline'])->setDefault('ensure_fully_multiline')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('after_heredoc', 'Whether the whitespace between heredoc end and comma should be removed.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (\ECSPrefix20220607\Symfony\Component\OptionsResolver\Options $options, $value) {
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('keep_multiple_spaces_after_comma', 'Whether keep multiple spaces after comma.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new FixerOptionBuilder('on_multiline', 'Defines how to handle function arguments lists that contain newlines.'))->setAllowedValues(['ignore', 'ensure_single_line', 'ensure_fully_multiline'])->setDefault('ensure_fully_multiline')->getOption(), (new FixerOptionBuilder('after_heredoc', 'Whether the whitespace between heredoc end and comma should be removed.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (Options $options, $value) {
             return $value;
         })->getOption()]);
     }
@@ -115,14 +115,14 @@ SAMPLE
      *
      * @return bool whether the function is multiline
      */
-    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startFunctionIndex) : bool
+    private function fixFunction(Tokens $tokens, int $startFunctionIndex) : bool
     {
         $isMultiline = \false;
-        $endFunctionIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startFunctionIndex);
+        $endFunctionIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startFunctionIndex);
         $firstWhitespaceIndex = $this->findWhitespaceIndexAfterParenthesis($tokens, $startFunctionIndex, $endFunctionIndex);
         $lastWhitespaceIndex = $this->findWhitespaceIndexAfterParenthesis($tokens, $endFunctionIndex, $startFunctionIndex);
         foreach ([$firstWhitespaceIndex, $lastWhitespaceIndex] as $index) {
-            if (null === $index || !\PhpCsFixer\Preg::match('/\\R/', $tokens[$index]->getContent())) {
+            if (null === $index || !Preg::match('/\\R/', $tokens[$index]->getContent())) {
                 continue;
             }
             if ('ensure_single_line' !== $this->configuration['on_multiline']) {
@@ -137,15 +137,15 @@ SAMPLE
         for ($index = $endFunctionIndex - 1; $index > $startFunctionIndex; --$index) {
             $token = $tokens[$index];
             if ($token->equals(')')) {
-                $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
                 continue;
             }
-            if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
-                $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
+            if ($token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
+                $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
                 continue;
             }
             if ($token->equals('}')) {
-                $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
                 continue;
             }
             if ($token->equals(',')) {
@@ -158,7 +158,7 @@ SAMPLE
         }
         return $isMultiline;
     }
-    private function findWhitespaceIndexAfterParenthesis(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startParenthesisIndex, int $endParenthesisIndex) : ?int
+    private function findWhitespaceIndexAfterParenthesis(Tokens $tokens, int $startParenthesisIndex, int $endParenthesisIndex) : ?int
     {
         $direction = $endParenthesisIndex > $startParenthesisIndex ? 1 : -1;
         $startIndex = $startParenthesisIndex + $direction;
@@ -177,17 +177,17 @@ SAMPLE
     /**
      * @return bool Whether newlines were removed from the whitespace token
      */
-    private function ensureSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function ensureSingleLine(Tokens $tokens, int $index) : bool
     {
         $previousToken = $tokens[$index - 1];
         if ($previousToken->isComment() && \strncmp($previousToken->getContent(), '/*', \strlen('/*')) !== 0) {
             return \false;
         }
-        $content = \PhpCsFixer\Preg::replace('/\\R\\h*/', '', $tokens[$index]->getContent());
+        $content = Preg::replace('/\\R\\h*/', '', $tokens[$index]->getContent());
         $tokens->ensureWhitespaceAtIndex($index, 0, $content);
         return \true;
     }
-    private function ensureFunctionFullyMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startFunctionIndex) : void
+    private function ensureFunctionFullyMultiline(Tokens $tokens, int $startFunctionIndex) : void
     {
         // find out what the indentation is
         $searchIndex = $startFunctionIndex;
@@ -203,7 +203,7 @@ SAMPLE
             $existingIndentation = \false === $lastLineIndex ? $existingIndentation : \substr($existingIndentation, $lastLineIndex + 1);
         }
         $indentation = $existingIndentation . $this->whitespacesConfig->getIndent();
-        $endFunctionIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startFunctionIndex);
+        $endFunctionIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startFunctionIndex);
         $wasWhitespaceBeforeEndFunctionAddedAsNewToken = $tokens->ensureWhitespaceAtIndex($tokens[$endFunctionIndex - 1]->isWhitespace() ? $endFunctionIndex - 1 : $endFunctionIndex, 0, $this->whitespacesConfig->getLineEnding() . $existingIndentation);
         if ($wasWhitespaceBeforeEndFunctionAddedAsNewToken) {
             ++$endFunctionIndex;
@@ -212,16 +212,16 @@ SAMPLE
             $token = $tokens[$index];
             // skip nested method calls and arrays
             if ($token->equals(')')) {
-                $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
                 continue;
             }
             // skip nested arrays
-            if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
-                $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
+            if ($token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
+                $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
                 continue;
             }
             if ($token->equals('}')) {
-                $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
                 continue;
             }
             if ($token->equals(',') && !$tokens[$tokens->getNextMeaningfulToken($index)]->equals(')')) {
@@ -237,7 +237,7 @@ SAMPLE
      * @param string $indentation the indentation that should be used
      * @param bool   $override    whether to override the existing character or not
      */
-    private function fixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, string $indentation, bool $override = \true) : void
+    private function fixNewline(Tokens $tokens, int $index, string $indentation, bool $override = \true) : void
     {
         if ($tokens[$index + 1]->isComment()) {
             return;
@@ -258,7 +258,7 @@ SAMPLE
     /**
      * Method to insert space after comma and remove space before comma.
      */
-    private function fixSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixSpace(Tokens $tokens, int $index) : void
     {
         // remove space before comma if exist
         if ($tokens[$index - 1]->isWhitespace()) {
@@ -275,16 +275,16 @@ SAMPLE
         if ($nextToken->isWhitespace()) {
             $newContent = $nextToken->getContent();
             if ('ensure_single_line' === $this->configuration['on_multiline']) {
-                $newContent = \PhpCsFixer\Preg::replace('/\\R/', '', $newContent);
+                $newContent = Preg::replace('/\\R/', '', $newContent);
             }
-            if ((\false === $this->configuration['keep_multiple_spaces_after_comma'] || \PhpCsFixer\Preg::match('/\\R/', $newContent)) && !$this->isCommentLastLineToken($tokens, $index + 2)) {
+            if ((\false === $this->configuration['keep_multiple_spaces_after_comma'] || Preg::match('/\\R/', $newContent)) && !$this->isCommentLastLineToken($tokens, $index + 2)) {
                 $newContent = \ltrim($newContent, " \t");
             }
-            $tokens[$nextIndex] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, '' === $newContent ? ' ' : $newContent]);
+            $tokens[$nextIndex] = new Token([\T_WHITESPACE, '' === $newContent ? ' ' : $newContent]);
             return;
         }
         if (!$this->isCommentLastLineToken($tokens, $index + 1)) {
-            $tokens->insertAt($index + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+            $tokens->insertAt($index + 1, new Token([\T_WHITESPACE, ' ']));
         }
     }
     /**
@@ -293,7 +293,7 @@ SAMPLE
      * @param Tokens $tokens tokens to handle
      * @param int    $index  index of token
      */
-    private function isCommentLastLineToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function isCommentLastLineToken(Tokens $tokens, int $index) : bool
     {
         if (!$tokens[$index]->isComment() || !$tokens[$index + 1]->isWhitespace()) {
             return \false;
@@ -304,7 +304,7 @@ SAMPLE
     /**
      * Checks if token is new line.
      */
-    private function isNewline(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isNewline(Token $token) : bool
     {
         return $token->isWhitespace() && \strpos($token->getContent(), "\n") !== \false;
     }

@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpdocAnnotationWithoutDotFixer extends \PhpCsFixer\AbstractFixer
+final class PhpdocAnnotationWithoutDotFixer extends AbstractFixer
 {
     /**
      * @var string[]
@@ -32,9 +32,9 @@ final class PhpdocAnnotationWithoutDotFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPDoc annotation descriptions should not be a sentence.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('PHPDoc annotation descriptions should not be a sentence.', [new CodeSample('<?php
 /**
  * @param string $bar Some string.
  */
@@ -54,20 +54,20 @@ function foo ($bar) {}
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-            $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
+            $doc = new DocBlock($token->getContent());
             $annotations = $doc->getAnnotations();
             if (0 === \count($annotations)) {
                 continue;
@@ -85,19 +85,19 @@ function foo ($bar) {}
                     }
                 }
                 $content = $annotation->getContent();
-                if (1 !== \PhpCsFixer\Preg::match('/[.。]\\h*$/u', $content) || 0 !== \PhpCsFixer\Preg::match('/[.。](?!\\h*$)/u', $content, $matches)) {
+                if (1 !== Preg::match('/[.。]\\h*$/u', $content) || 0 !== Preg::match('/[.。](?!\\h*$)/u', $content, $matches)) {
                     continue;
                 }
                 $endLine = $doc->getLine($annotation->getEnd());
-                $endLine->setContent(\PhpCsFixer\Preg::replace('/(?<![.。])[.。]\\h*(\\H+)$/u', '\\1', $endLine->getContent()));
+                $endLine->setContent(Preg::replace('/(?<![.。])[.。]\\h*(\\H+)$/u', '\\1', $endLine->getContent()));
                 $startLine = $doc->getLine($annotation->getStart());
                 $optionalTypeRegEx = $annotation->supportTypes() ? \sprintf('(?:%s\\s+(?:\\$\\w+\\s+)?)?', \preg_quote(\implode('|', $annotation->getTypes()), '/')) : '';
-                $content = \PhpCsFixer\Preg::replaceCallback('/^(\\s*\\*\\s*@\\w+\\s+' . $optionalTypeRegEx . ')(\\p{Lu}?(?=\\p{Ll}|\\p{Zs}))(.*)$/', static function (array $matches) : string {
+                $content = Preg::replaceCallback('/^(\\s*\\*\\s*@\\w+\\s+' . $optionalTypeRegEx . ')(\\p{Lu}?(?=\\p{Ll}|\\p{Zs}))(.*)$/', static function (array $matches) : string {
                     return $matches[1] . \mb_strtolower($matches[2]) . $matches[3];
                 }, $startLine->getContent(), 1);
                 $startLine->setContent($content);
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
+            $tokens[$index] = new Token([\T_DOC_COMMENT, $doc->getContent()]);
         }
     }
 }

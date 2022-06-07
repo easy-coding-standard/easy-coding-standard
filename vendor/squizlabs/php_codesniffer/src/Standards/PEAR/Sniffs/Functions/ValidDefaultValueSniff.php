@@ -11,7 +11,7 @@ namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class ValidDefaultValueSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class ValidDefaultValueSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -32,7 +32,7 @@ class ValidDefaultValueSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         // Flag for when we have found a default in our arg list.
         // If there is a value without a default after this, it is an error.

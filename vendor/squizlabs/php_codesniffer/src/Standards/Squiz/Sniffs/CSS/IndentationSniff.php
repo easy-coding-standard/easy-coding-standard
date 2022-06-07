@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class IndentationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class IndentationSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -45,14 +45,14 @@ class IndentationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $numTokens = \count($tokens) - 2;
         $indentLevel = 0;
         $nestingLevel = 0;
         for ($i = 1; $i < $numTokens; $i++) {
-            if ($tokens[$i]['code'] === \T_COMMENT || isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$i]['code']]) === \true) {
+            if ($tokens[$i]['code'] === \T_COMMENT || isset(Tokens::$phpcsCommentTokens[$tokens[$i]['code']]) === \true) {
                 // Don't check the indent of comments.
                 continue;
             }

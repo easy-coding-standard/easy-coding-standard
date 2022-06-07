@@ -20,5 +20,5 @@ interface ContainerAwareInterface
     /**
      * Sets the container.
      */
-    public function setContainer(\ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface $container = null);
+    public function setContainer(ContainerInterface $container = null);
 }

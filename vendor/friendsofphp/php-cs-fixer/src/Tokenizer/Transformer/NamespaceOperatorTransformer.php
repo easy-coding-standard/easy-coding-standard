@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class NamespaceOperatorTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class NamespaceOperatorTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -35,14 +35,14 @@ final class NamespaceOperatorTransformer extends \PhpCsFixer\Tokenizer\AbstractT
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if (!$token->isGivenKind(\T_NAMESPACE)) {
             return;
         }
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$nextIndex]->isGivenKind(\T_NS_SEPARATOR)) {
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR, $token->getContent()]);
+            $tokens[$index] = new Token([CT::T_NAMESPACE_OPERATOR, $token->getContent()]);
         }
     }
     /**
@@ -50,6 +50,6 @@ final class NamespaceOperatorTransformer extends \PhpCsFixer\Tokenizer\AbstractT
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR];
+        return [CT::T_NAMESPACE_OPERATOR];
     }
 }

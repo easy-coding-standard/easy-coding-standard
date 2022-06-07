@@ -24,7 +24,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @internal
  */
-abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @var mixed[]
@@ -33,38 +33,38 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         // fetch indices one time, this is safe as we never add or remove a token during fixing
-        $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $analyzer = new TokensAnalyzer($tokens);
         $this->classyElements = $analyzer->getClassyElements();
         /** @var Token $docCommentToken */
         foreach ($tokens->findGivenKind(\T_DOC_COMMENT) as $index => $docCommentToken) {
             if (!$this->nextElementAcceptsDoctrineAnnotations($tokens, $index)) {
                 continue;
             }
-            $doctrineAnnotationTokens = \PhpCsFixer\Doctrine\Annotation\Tokens::createFromDocComment($docCommentToken, $this->configuration['ignored_tags']);
+            $doctrineAnnotationTokens = DoctrineAnnotationTokens::createFromDocComment($docCommentToken, $this->configuration['ignored_tags']);
             $this->fixAnnotations($doctrineAnnotationTokens);
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doctrineAnnotationTokens->getCode()]);
+            $tokens[$index] = new Token([\T_DOC_COMMENT, $doctrineAnnotationTokens->getCode()]);
         }
     }
     /**
      * Fixes Doctrine annotations from the given PHPDoc style comment.
      */
-    protected abstract function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens) : void;
+    protected abstract function fixAnnotations(DoctrineAnnotationTokens $doctrineAnnotationTokens) : void;
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('ignored_tags', 'List of tags that must not be treated as Doctrine Annotations.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $values) : bool {
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('ignored_tags', 'List of tags that must not be treated as Doctrine Annotations.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $values) : bool {
             foreach ($values as $value) {
                 if (!\is_string($value)) {
                     return \false;
@@ -175,7 +175,7 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
             'override',
         ])->getOption()]);
     }
-    private function nextElementAcceptsDoctrineAnnotations(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : bool
+    private function nextElementAcceptsDoctrineAnnotations(Tokens $tokens, int $index) : bool
     {
         do {
             $index = $tokens->getNextMeaningfulToken($index);
@@ -186,10 +186,10 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
         if ($tokens[$index]->isGivenKind(\T_CLASS)) {
             return \true;
         }
-        $modifierKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_NS_SEPARATOR, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE];
+        $modifierKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_NS_SEPARATOR, \T_STRING, CT::T_NULLABLE_TYPE];
         if (\defined('T_READONLY')) {
             // @TODO: drop condition when PHP 8.1+ is required
-            $modifierKinds[] = T_READONLY;
+            $modifierKinds[] = \T_READONLY;
         }
         while ($tokens[$index]->isGivenKind($modifierKinds)) {
             $index = $tokens->getNextMeaningfulToken($index);

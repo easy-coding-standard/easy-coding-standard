@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\Operators;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\OperatorSpacingSniff as SquizOperatorSpacingSniff;
 use PHP_CodeSniffer\Util\Tokens;
-class OperatorSpacingSniff extends \PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\OperatorSpacingSniff
+class OperatorSpacingSniff extends SquizOperatorSpacingSniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -22,10 +22,10 @@ class OperatorSpacingSniff extends \PHP_CodeSniffer\Standards\Squiz\Sniffs\White
     public function register()
     {
         parent::register();
-        $targets = \PHP_CodeSniffer\Util\Tokens::$comparisonTokens;
-        $targets += \PHP_CodeSniffer\Util\Tokens::$operators;
-        $targets += \PHP_CodeSniffer\Util\Tokens::$assignmentTokens;
-        $targets += \PHP_CodeSniffer\Util\Tokens::$booleanOperators;
+        $targets = Tokens::$comparisonTokens;
+        $targets += Tokens::$operators;
+        $targets += Tokens::$assignmentTokens;
+        $targets += Tokens::$booleanOperators;
         $targets[] = T_INLINE_THEN;
         $targets[] = T_INLINE_ELSE;
         $targets[] = T_STRING_CONCAT;
@@ -42,7 +42,7 @@ class OperatorSpacingSniff extends \PHP_CodeSniffer\Standards\Squiz\Sniffs\White
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($this->isOperator($phpcsFile, $stackPtr) === \false) {

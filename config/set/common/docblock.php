@@ -14,9 +14,9 @@ use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimConsecutiveBlankLineSeparationFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer;
-use Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
-use Symplify\EasyCodingStandard\Config\ECSConfig;
-return static function (\Symplify\EasyCodingStandard\Config\ECSConfig $ecsConfig) : void {
-    $ecsConfig->rules([\PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer::class, \PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer::class, \PhpCsFixer\Fixer\Phpdoc\PhpdocTrimConsecutiveBlankLineSeparationFixer::class, \PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer::class, \PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer::class, \PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer::class, \PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer::class, \PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer::class, \PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer::class, \PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer::class, \Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer::class]);
-    $ecsConfig->ruleWithConfiguration(\PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer::class, ['remove_inheritdoc' => \true, 'allow_mixed' => \true]);
+use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+return static function (ECSConfig $ecsConfig) : void {
+    $ecsConfig->rules([PhpdocLineSpanFixer::class, NoTrailingWhitespaceInCommentFixer::class, PhpdocTrimConsecutiveBlankLineSeparationFixer::class, PhpdocTrimFixer::class, NoEmptyPhpdocFixer::class, PhpdocNoEmptyReturnFixer::class, PhpdocIndentFixer::class, PhpdocTypesFixer::class, PhpdocReturnSelfReferenceFixer::class, PhpdocVarWithoutNameFixer::class, RemoveUselessDefaultCommentFixer::class]);
+    $ecsConfig->ruleWithConfiguration(NoSuperfluousPhpdocTagsFixer::class, ['remove_inheritdoc' => \true, 'allow_mixed' => \true]);
 };

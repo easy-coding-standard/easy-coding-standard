@@ -27,7 +27,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Gregor Harlan <gharlan@web.de>
  */
-final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class OrderedClassElementsFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /** @internal */
     public const SORT_ALPHA = 'alpha';
@@ -85,16 +85,16 @@ final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implemen
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
-        return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
+        return $tokens->isAnyTokenKindsFound(Token::getClassyTokenKinds());
     }
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Orders the elements of classes/interfaces/traits/enums.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Orders the elements of classes/interfaces/traits/enums.', [new CodeSample('<?php
 final class Example
 {
     use BarTrait;
@@ -124,13 +124,13 @@ final class Example
     protected static function protStatFunc() {}
     public function __destruct() {}
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 class Example
 {
     public function A(){}
     private function B(){}
 }
-', ['order' => ['method_private', 'method_public']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['order' => ['method_private', 'method_public']]), new CodeSample('<?php
 class Example
 {
     public function D(){}
@@ -153,7 +153,7 @@ class Example
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($i = 1, $count = $tokens->count(); $i < $count; ++$i) {
             if (!$tokens[$i]->isClassy()) {
@@ -175,16 +175,16 @@ class Example
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('order', 'List of strings defining order of elements.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(\array_merge(self::$typeHierarchy, self::$specialTypes)))])->setDefault(['use_trait', 'case', 'constant_public', 'constant_protected', 'constant_private', 'property_public', 'property_protected', 'property_private', 'construct', 'destruct', 'magic', 'phpunit', 'method_public', 'method_protected', 'method_private'])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'How multiple occurrences of same type statements should be sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_NONE)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('order', 'List of strings defining order of elements.'))->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset(\array_keys(\array_merge(self::$typeHierarchy, self::$specialTypes)))])->setDefault(['use_trait', 'case', 'constant_public', 'constant_protected', 'constant_private', 'property_public', 'property_protected', 'property_private', 'construct', 'destruct', 'magic', 'phpunit', 'method_public', 'method_protected', 'method_private'])->getOption(), (new FixerOptionBuilder('sort_algorithm', 'How multiple occurrences of same type statements should be sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_NONE)->getOption()]);
     }
     /**
      * @return array[]
      */
-    private function getElements(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex) : array
+    private function getElements(Tokens $tokens, int $startIndex) : array
     {
-        static $elementTokenKinds = [\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \T_CASE, \T_CONST, \T_VARIABLE, \T_FUNCTION];
+        static $elementTokenKinds = [CT::T_USE_TRAIT, \T_CASE, \T_CONST, \T_VARIABLE, \T_FUNCTION];
         ++$startIndex;
         $elements = [];
         while (\true) {
@@ -203,7 +203,7 @@ class Example
                     $element['static'] = \true;
                     continue;
                 }
-                if (\defined('T_READONLY') && $token->isGivenKind(T_READONLY)) {
+                if (\defined('T_READONLY') && $token->isGivenKind(\T_READONLY)) {
                     // @TODO: drop condition when PHP 8.1+ is required
                     $element['readonly'] = \true;
                 }
@@ -236,10 +236,10 @@ class Example
     /**
      * @return array|string type or array of type and name
      */
-    private function detectElementType(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index)
+    private function detectElementType(Tokens $tokens, int $index)
     {
         $token = $tokens[$index];
-        if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
+        if ($token->isGivenKind(CT::T_USE_TRAIT)) {
             return 'use_trait';
         }
         if ($token->isGivenKind(\T_CASE)) {
@@ -263,11 +263,11 @@ class Example
         }
         return \strncmp($nameToken->getContent(), '__', \strlen('__')) === 0 ? 'magic' : 'method';
     }
-    private function findElementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
+    private function findElementEnd(Tokens $tokens, int $index) : int
     {
         $index = $tokens->getNextTokenOfKind($index, ['{', ';']);
         if ($tokens[$index]->equals('{')) {
-            $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         }
         for (++$index; $tokens[$index]->isWhitespace(" \t") || $tokens[$index]->isComment(); ++$index) {
         }
@@ -328,7 +328,7 @@ class Example
     /**
      * @param array[] $elements
      */
-    private function sortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex, array $elements) : void
+    private function sortTokens(Tokens $tokens, int $startIndex, int $endIndex, array $elements) : void
     {
         $replaceTokens = [];
         foreach ($elements as $element) {

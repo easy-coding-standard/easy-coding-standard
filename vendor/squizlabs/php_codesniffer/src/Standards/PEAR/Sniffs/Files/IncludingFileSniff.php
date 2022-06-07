@@ -14,7 +14,7 @@ namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\Files;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class IncludingFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class IncludingFileSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -35,10 +35,10 @@ class IncludingFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $nextToken = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);
+        $nextToken = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, \true);
         if ($tokens[$nextToken]['code'] === T_OPEN_PARENTHESIS) {
             $error = '"%s" is a statement not a function; no parentheses are required';
             $data = [$tokens[$stackPtr]['content']];
@@ -72,8 +72,8 @@ class IncludingFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         // Check to see if they are assigning the return value of this
         // including call. If they are then they are probably checking it, so
         // it's conditional.
-        $previous = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
-        if (isset(\PHP_CodeSniffer\Util\Tokens::$assignmentTokens[$tokens[$previous]['code']]) === \true) {
+        $previous = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        if (isset(Tokens::$assignmentTokens[$tokens[$previous]['code']]) === \true) {
             // The have assigned the return value to it, so its conditional.
             $inCondition = \true;
         }

@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Config;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Config;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use ECSPrefix20220607\Webmozart\Assert\Assert;
 use ECSPrefix20220607\Webmozart\Assert\InvalidArgumentException;
 /**
  * @api
  */
-final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator
+final class ECSConfig extends ContainerConfigurator
 {
     /**
      * @param string[] $paths
      */
     public function paths(array $paths) : void
     {
-        \ECSPrefix20220607\Webmozart\Assert\Assert::allString($paths);
+        Assert::allString($paths);
         $parameters = $this->parameters();
-        $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, $paths);
+        $parameters->set(Option::PATHS, $paths);
     }
     /**
      * @param mixed[] $skips
@@ -31,15 +31,15 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
     public function skip(array $skips) : void
     {
         $parameters = $this->parameters();
-        $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP, $skips);
+        $parameters->set(Option::SKIP, $skips);
     }
     /**
      * @param string[] $sets
      */
     public function sets(array $sets) : void
     {
-        \ECSPrefix20220607\Webmozart\Assert\Assert::allString($sets);
-        \ECSPrefix20220607\Webmozart\Assert\Assert::allFileExists($sets);
+        Assert::allString($sets);
+        Assert::allFileExists($sets);
         foreach ($sets as $set) {
             $this->import($set);
         }
@@ -72,13 +72,13 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
         $this->isCheckerClass($checkerClass);
         $services = $this->services();
         $service = $services->set($checkerClass);
-        if (\is_a($checkerClass, \PhpCsFixer\Fixer\FixerInterface::class, \true)) {
-            \ECSPrefix20220607\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PhpCsFixer\Fixer\ConfigurableFixerInterface::class, \ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface::class]);
+        if (\is_a($checkerClass, FixerInterface::class, \true)) {
+            Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
             $service->call('configure', [$configuration]);
         }
-        if (\is_a($checkerClass, \PHP_CodeSniffer\Sniffs\Sniff::class, \true)) {
+        if (\is_a($checkerClass, Sniff::class, \true)) {
             foreach ($configuration as $propertyName => $value) {
-                \ECSPrefix20220607\Webmozart\Assert\Assert::propertyExists($checkerClass, $propertyName);
+                Assert::propertyExists($checkerClass, $propertyName);
                 $service->property($propertyName, $value);
             }
         }
@@ -89,25 +89,25 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
     public function indentation(string $indentation) : void
     {
         $parameters = $this->parameters();
-        $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::INDENTATION, $indentation);
+        $parameters->set(Option::INDENTATION, $indentation);
     }
     public function lineEnding(string $lineEnding) : void
     {
         $parameters = $this->parameters();
-        $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::LINE_ENDING, $lineEnding);
+        $parameters->set(Option::LINE_ENDING, $lineEnding);
     }
     public function parallel() : void
     {
         $parameters = $this->parameters();
-        $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::PARALLEL, \true);
+        $parameters->set(Option::PARALLEL, \true);
     }
     /**
      * @param class-string $checkerClass
      */
     private function isCheckerClass(string $checkerClass) : void
     {
-        \ECSPrefix20220607\Webmozart\Assert\Assert::classExists($checkerClass);
-        \ECSPrefix20220607\Webmozart\Assert\Assert::isAnyOf($checkerClass, [\PHP_CodeSniffer\Sniffs\Sniff::class, \PhpCsFixer\Fixer\FixerInterface::class]);
+        Assert::classExists($checkerClass);
+        Assert::isAnyOf($checkerClass, [Sniff::class, FixerInterface::class]);
     }
     /**
      * @param string[] $checkerClasses
@@ -124,6 +124,6 @@ final class ECSConfig extends \Symfony\Component\DependencyInjection\Loader\Conf
         }
         $duplicatedCheckerClasses = \array_flip($duplicatedCheckerClassToCount);
         $errorMessage = \sprintf('There are duplicated classes in $rectorConfig->rules(): "%s". Make them unique to avoid unexpected behavior.', \implode('", "', $duplicatedCheckerClasses));
-        throw new \ECSPrefix20220607\Webmozart\Assert\InvalidArgumentException($errorMessage);
+        throw new InvalidArgumentException($errorMessage);
     }
 }

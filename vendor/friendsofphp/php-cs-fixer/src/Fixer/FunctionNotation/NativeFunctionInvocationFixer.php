@@ -29,7 +29,7 @@ use ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptions
 /**
  * @author Andreas Möller <am@localheinz.com>
  */
-final class NativeFunctionInvocationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class NativeFunctionInvocationFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @internal
@@ -62,9 +62,9 @@ final class NativeFunctionInvocationFixer extends \PhpCsFixer\AbstractFixer impl
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Add leading `\\` before function invocation to speed up resolving.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Add leading `\\` before function invocation to speed up resolving.', [new CodeSample('<?php
 
 function baz($options)
 {
@@ -74,7 +74,7 @@ function baz($options)
 
     return json_encode($options);
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 
 function baz($options)
 {
@@ -84,30 +84,30 @@ function baz($options)
 
     return json_encode($options);
 }
-', ['exclude' => ['json_encode']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['exclude' => ['json_encode']]), new CodeSample('<?php
 namespace space1 {
     echo count([1]);
 }
 namespace {
     echo count([1]);
 }
-', ['scope' => 'all']), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['scope' => 'all']), new CodeSample('<?php
 namespace space1 {
     echo count([1]);
 }
 namespace {
     echo count([1]);
 }
-', ['scope' => 'namespaced']), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['scope' => 'namespaced']), new CodeSample('<?php
 myGlobalFunction();
 count();
-', ['include' => ['myGlobalFunction']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['include' => ['myGlobalFunction']]), new CodeSample('<?php
 myGlobalFunction();
 count();
-', ['include' => ['@all']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['include' => ['@all']]), new CodeSample('<?php
 myGlobalFunction();
 count();
-', ['include' => ['@internal']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+', ['include' => ['@internal']]), new CodeSample('<?php
 $a .= str_repeat($a, 4);
 $c = get_class($d);
 ', ['include' => ['@compiler_optimized']])], null, 'Risky when any of the functions are overridden.');
@@ -125,7 +125,7 @@ $c = get_class($d);
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -139,13 +139,13 @@ $c = get_class($d);
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         if ('all' === $this->configuration['scope']) {
             $this->fixFunctionCalls($tokens, $this->functionFilter, 0, \count($tokens) - 1, \false);
             return;
         }
-        $namespaces = (new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens);
+        $namespaces = (new NamespacesAnalyzer())->getDeclarations($tokens);
         // 'scope' is 'namespaced' here
         /** @var NamespaceAnalysis $namespace */
         foreach (\array_reverse($namespaces) as $namespace) {
@@ -155,31 +155,31 @@ $c = get_class($d);
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('exclude', 'List of functions to ignore.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('exclude', 'List of functions to ignore.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
             foreach ($value as $functionName) {
                 if (!\is_string($functionName) || '' === \trim($functionName) || \trim($functionName) !== $functionName) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \get_debug_type($functionName)));
+                    throw new InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \get_debug_type($functionName)));
                 }
             }
             return \true;
-        }])->setDefault([])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('include', 'List of function names or sets to fix. Defined sets are `@internal` (all native functions), `@all` (all global functions) and `@compiler_optimized` (functions that are specially optimized by Zend).'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
+        }])->setDefault([])->getOption(), (new FixerOptionBuilder('include', 'List of function names or sets to fix. Defined sets are `@internal` (all native functions), `@all` (all global functions) and `@compiler_optimized` (functions that are specially optimized by Zend).'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $value) : bool {
             foreach ($value as $functionName) {
                 if (!\is_string($functionName) || '' === \trim($functionName) || \trim($functionName) !== $functionName) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \get_debug_type($functionName)));
+                    throw new InvalidOptionsException(\sprintf('Each element must be a non-empty, trimmed string, got "%s" instead.', \get_debug_type($functionName)));
                 }
                 $sets = [self::SET_ALL, self::SET_INTERNAL, self::SET_COMPILER_OPTIMIZED];
                 if (\strncmp($functionName, '@', \strlen('@')) === 0 && !\in_array($functionName, $sets, \true)) {
-                    throw new \ECSPrefix20220607\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Unknown set "%s", known sets are "%s".', $functionName, \implode('", "', $sets)));
+                    throw new InvalidOptionsException(\sprintf('Unknown set "%s", known sets are "%s".', $functionName, \implode('", "', $sets)));
                 }
             }
             return \true;
-        }])->setDefault([self::SET_COMPILER_OPTIMIZED])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('scope', 'Only fix function calls that are made within a namespace or fix all.'))->setAllowedValues(['all', 'namespaced'])->setDefault('all')->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('strict', 'Whether leading `\\` of function call not meant to have it should be removed.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+        }])->setDefault([self::SET_COMPILER_OPTIMIZED])->getOption(), (new FixerOptionBuilder('scope', 'Only fix function calls that are made within a namespace or fix all.'))->setAllowedValues(['all', 'namespaced'])->setDefault('all')->getOption(), (new FixerOptionBuilder('strict', 'Whether leading `\\` of function call not meant to have it should be removed.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-    private function fixFunctionCalls(\PhpCsFixer\Tokenizer\Tokens $tokens, callable $functionFilter, int $start, int $end, bool $tryToRemove) : void
+    private function fixFunctionCalls(Tokens $tokens, callable $functionFilter, int $start, int $end, bool $tryToRemove) : void
     {
-        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $functionsAnalyzer = new FunctionsAnalyzer();
         $tokensToInsert = [];
         for ($index = $start; $index < $end; ++$index) {
             if (!$functionsAnalyzer->isGlobalFunctionCall($tokens, $index)) {
@@ -199,7 +199,7 @@ $c = get_class($d);
                 continue;
                 // do not bother if previous token is already namespace separator
             }
-            $tokensToInsert[$index] = new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\']);
+            $tokensToInsert[$index] = new Token([\T_NS_SEPARATOR, '\\']);
         }
         $tokens->insertSlices($tokensToInsert);
     }

@@ -23,7 +23,7 @@ final class PhpParser
      *
      * @return array<string, class-string> A list with use statements in the form (Alias => FQN).
      */
-    public function parseClass(\ReflectionClass $class)
+    public function parseClass(ReflectionClass $class)
     {
         return $this->parseUseStatements($class);
     }
@@ -36,7 +36,7 @@ final class PhpParser
      */
     public function parseUseStatements($reflection) : array
     {
-        if (\method_exists($reflection, 'getUseStatements')) {
+        if (method_exists($reflection, 'getUseStatements')) {
             return $reflection->getUseStatements();
         }
         $filename = $reflection->getFileName();
@@ -47,9 +47,9 @@ final class PhpParser
         if ($content === null) {
             return [];
         }
-        $namespace = \preg_quote($reflection->getNamespaceName());
-        $content = \preg_replace('/^.*?(\\bnamespace\\s+' . $namespace . '\\s*[;{].*)$/s', '\\1', $content);
-        $tokenizer = new \ECSPrefix20220607\Doctrine\Common\Annotations\TokenParser('<?php ' . $content);
+        $namespace = preg_quote($reflection->getNamespaceName());
+        $content = preg_replace('/^.*?(\\bnamespace\\s+' . $namespace . '\\s*[;{].*)$/s', '\\1', $content);
+        $tokenizer = new TokenParser('<?php ' . $content);
         return $tokenizer->parseUseStatements($reflection->getNamespaceName());
     }
     /**
@@ -62,12 +62,12 @@ final class PhpParser
      */
     private function getFileContent($filename, $lineNumber)
     {
-        if (!\is_file($filename)) {
+        if (!is_file($filename)) {
             return null;
         }
         $content = '';
         $lineCnt = 0;
-        $file = new \SplFileObject($filename);
+        $file = new SplFileObject($filename);
         while (!$file->eof()) {
             if ($lineCnt++ === $lineNumber) {
                 break;

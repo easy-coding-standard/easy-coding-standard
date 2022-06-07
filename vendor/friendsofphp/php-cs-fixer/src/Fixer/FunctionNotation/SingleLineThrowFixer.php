@@ -22,7 +22,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
+final class SingleLineThrowFixer extends AbstractFixer
 {
     private const REMOVE_WHITESPACE_AFTER_TOKENS = ['['];
     private const REMOVE_WHITESPACE_AROUND_TOKENS = ['(', [\T_DOUBLE_COLON]];
@@ -30,14 +30,14 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Throwing exception must be done in single line.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nthrow new Exception(\n    'Error.',\n    500\n);\n")]);
+        return new FixerDefinition('Throwing exception must be done in single line.', [new CodeSample("<?php\nthrow new Exception(\n    'Error.',\n    500\n);\n")]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound(\T_THROW);
     }
@@ -53,7 +53,7 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_THROW)) {
@@ -61,9 +61,9 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
             }
             $endCandidateIndex = $tokens->getNextMeaningfulToken($index);
             while (!$tokens[$endCandidateIndex]->equalsAny([')', ']', ',', ';'])) {
-                $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$endCandidateIndex]);
+                $blockType = Tokens::detectBlockType($tokens[$endCandidateIndex]);
                 if (null !== $blockType) {
-                    if (\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE === $blockType['type']) {
+                    if (Tokens::BLOCK_TYPE_CURLY_BRACE === $blockType['type']) {
                         break;
                     }
                     $endCandidateIndex = $tokens->findBlockEnd($blockType['type'], $endCandidateIndex);
@@ -73,7 +73,7 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
             $this->trimNewLines($tokens, $index, $tokens->getPrevMeaningfulToken($endCandidateIndex));
         }
     }
-    private function trimNewLines(\PhpCsFixer\Tokenizer\Tokens $tokens, int $startIndex, int $endIndex) : void
+    private function trimNewLines(Tokens $tokens, int $startIndex, int $endIndex) : void
     {
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             $content = $tokens[$index]->getContent();
@@ -84,16 +84,16 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
                 } elseif (\strncmp($content, '#', \strlen('#')) === 0) {
                     $content = '/*' . \substr($content, 1) . ' */';
                     $tokens->clearAt($index + 1);
-                } elseif (0 !== \PhpCsFixer\Preg::match('/\\R/', $content)) {
-                    $content = \PhpCsFixer\Preg::replace('/\\R/', ' ', $content);
+                } elseif (0 !== Preg::match('/\\R/', $content)) {
+                    $content = Preg::replace('/\\R/', ' ', $content);
                 }
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_COMMENT, $content]);
+                $tokens[$index] = new Token([\T_COMMENT, $content]);
                 continue;
             }
             if (!$tokens[$index]->isGivenKind(\T_WHITESPACE)) {
                 continue;
             }
-            if (0 === \PhpCsFixer\Preg::match('/\\R/', $content)) {
+            if (0 === Preg::match('/\\R/', $content)) {
                 continue;
             }
             $prevIndex = $tokens->getNonEmptySibling($index, -1);
@@ -106,10 +106,10 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
                 $tokens->clearAt($index);
                 continue;
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+            $tokens[$index] = new Token([\T_WHITESPACE, ' ']);
         }
     }
-    private function isPreviousTokenToClear(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isPreviousTokenToClear(Token $token) : bool
     {
         static $tokens = null;
         if (null === $tokens) {
@@ -117,7 +117,7 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
         }
         return $token->equalsAny($tokens) || $token->isObjectOperator();
     }
-    private function isNextTokenToClear(\PhpCsFixer\Tokenizer\Token $token) : bool
+    private function isNextTokenToClear(Token $token) : bool
     {
         static $tokens = null;
         if (null === $tokens) {

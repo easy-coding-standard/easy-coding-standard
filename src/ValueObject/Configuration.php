@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\ValueObject;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject;
 
-use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 final class Configuration
 {
     /**
@@ -29,7 +29,7 @@ final class Configuration
     /**
      * @var string
      */
-    private $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME;
+    private $outputFormat = ConsoleOutputFormatter::NAME;
     /**
      * @var bool
      */
@@ -56,7 +56,7 @@ final class Configuration
      * @param string|null $parallelIdentifier
      * @param string|null $memoryLimit
      */
-    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, bool $isParallel = \false, ?string $config = null, $parallelPort = null, $parallelIdentifier = null, $memoryLimit = null)
+    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = ConsoleOutputFormatter::NAME, bool $isParallel = \false, ?string $config = null, $parallelPort = null, $parallelIdentifier = null, $memoryLimit = null)
     {
         $this->isFixer = $isFixer;
         $this->shouldClearCache = $shouldClearCache;

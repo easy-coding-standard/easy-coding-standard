@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class DocCommentAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DocCommentAlignmentSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,11 +39,11 @@ class DocCommentAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // We are only interested in function/class/interface doc block comments.
-        $ignore = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $ignore = Tokens::$emptyTokens;
         if ($phpcsFile->tokenizerType === 'JS') {
             $ignore[] = T_EQUAL;
             $ignore[] = \T_STRING;
@@ -53,7 +53,7 @@ class DocCommentAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $ignore = [\T_CLASS => \true, \T_INTERFACE => \true, \T_FUNCTION => \true, \T_PUBLIC => \true, \T_PRIVATE => \true, \T_PROTECTED => \true, \T_STATIC => \true, \T_ABSTRACT => \true, T_PROPERTY => \true, T_OBJECT => \true, T_PROTOTYPE => \true, \T_VAR => \true];
         if ($nextToken === \false || isset($ignore[$tokens[$nextToken]['code']]) === \false) {
             // Could be a file comment.
-            $prevToken = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+            $prevToken = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);
             if ($tokens[$prevToken]['code'] !== \T_OPEN_TAG) {
                 return;
             }

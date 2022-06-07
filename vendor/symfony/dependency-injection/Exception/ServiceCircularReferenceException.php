@@ -15,7 +15,7 @@ namespace ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ServiceCircularReferenceException extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\RuntimeException
+class ServiceCircularReferenceException extends RuntimeException
 {
     /**
      * @var string

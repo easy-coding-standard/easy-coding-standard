@@ -25,14 +25,14 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class NoUnneededFinalMethodFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class NoUnneededFinalMethodFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Removes `final` from methods where possible.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Removes `final` from methods where possible.', [new CodeSample('<?php
 final class Foo
 {
     final public function foo1() {}
@@ -44,7 +44,7 @@ class Bar
 {
     final private function bar1() {}
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 final class Foo
 {
     final private function baz() {}
@@ -59,12 +59,12 @@ class Bar
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         if (!$tokens->isAllTokenKindsFound([\T_FINAL, \T_FUNCTION])) {
             return \false;
         }
-        if (\defined('T_ENUM') && $tokens->isTokenKindFound(T_ENUM)) {
+        if (\defined('T_ENUM') && $tokens->isTokenKindFound(\T_ENUM)) {
             // @TODO: drop condition when PHP 8.1+ is required
             return \true;
         }
@@ -77,7 +77,7 @@ class Bar
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         foreach ($this->getMethods($tokens) as $element) {
             $index = $element['method_final_index'];
@@ -94,13 +94,13 @@ class Bar
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('private_methods', 'Private methods of non-`final` classes must not be declared `final`.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('private_methods', 'Private methods of non-`final` classes must not be declared `final`.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-    private function getMethods(\PhpCsFixer\Tokenizer\Tokens $tokens) : \Generator
+    private function getMethods(Tokens $tokens) : \Generator
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         $modifierKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_STATIC];
         $enums = [];
         $classesAreFinal = [];
@@ -117,7 +117,7 @@ class Bar
             }
             $classIndex = $element['classIndex'];
             if (!\array_key_exists($classIndex, $enums)) {
-                $enums[$classIndex] = \defined('T_ENUM') && $tokens[$classIndex]->isGivenKind(T_ENUM);
+                $enums[$classIndex] = \defined('T_ENUM') && $tokens[$classIndex]->isGivenKind(\T_ENUM);
                 // @TODO: drop condition when PHP 8.1+ is required
             }
             $element['method_final_index'] = null;
@@ -146,7 +146,7 @@ class Bar
             (yield $element);
         }
     }
-    private function clearFinal(\PhpCsFixer\Tokenizer\Tokens $tokens, ?int $index) : void
+    private function clearFinal(Tokens $tokens, ?int $index) : void
     {
         if (null === $index) {
             return;

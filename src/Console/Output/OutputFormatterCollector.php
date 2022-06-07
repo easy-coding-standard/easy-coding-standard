@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Console\Output;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Output;
 
-use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
-use Symplify\EasyCodingStandard\Exception\Configuration\OutputFormatterNotFoundException;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\Configuration\OutputFormatterNotFoundException;
 final class OutputFormatterCollector
 {
     /**
@@ -20,13 +20,13 @@ final class OutputFormatterCollector
             $this->outputFormatters[$outputFormatter->getName()] = $outputFormatter;
         }
     }
-    public function getByName(string $name) : \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
+    public function getByName(string $name) : OutputFormatterInterface
     {
         if (isset($this->outputFormatters[$name])) {
             return $this->outputFormatters[$name];
         }
         $outputFormatterKeys = \array_keys($this->outputFormatters);
         $errorMessage = \sprintf('Output formatter "%s" not found. Use one of: "%s".', $name, \implode('", "', $outputFormatterKeys));
-        throw new \Symplify\EasyCodingStandard\Exception\Configuration\OutputFormatterNotFoundException($errorMessage);
+        throw new OutputFormatterNotFoundException($errorMessage);
     }
 }

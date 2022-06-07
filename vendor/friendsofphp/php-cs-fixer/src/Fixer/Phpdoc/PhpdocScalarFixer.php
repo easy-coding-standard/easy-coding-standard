@@ -24,7 +24,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-final class PhpdocScalarFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class PhpdocScalarFixer extends AbstractPhpdocTypesFixer implements ConfigurableFixerInterface
 {
     /**
      * The types to fix.
@@ -34,9 +34,9 @@ final class PhpdocScalarFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer imple
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Scalar types should always be written in the same form. `int` not `integer`, `bool` not `boolean`, `float` not `real` or `double`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition('Scalar types should always be written in the same form. `int` not `integer`, `bool` not `boolean`, `float` not `real` or `double`.', [new CodeSample('<?php
 /**
  * @param integer $a
  * @param boolean $b
@@ -48,7 +48,7 @@ function sample($a, $b, $c)
 {
     return sample2($a, $b, $c);
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'), new CodeSample('<?php
 /**
  * @param integer $a
  * @param boolean $b
@@ -82,10 +82,10 @@ function sample($a, $b, $c)
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
         $types = \array_keys(self::$types);
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('types', 'A list of types to fix.'))->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($types)])->setDefault($types)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('types', 'A list of types to fix.'))->setAllowedValues([new AllowedValueSubset($types)])->setDefault($types)->getOption()]);
     }
     /**
      * {@inheritdoc}

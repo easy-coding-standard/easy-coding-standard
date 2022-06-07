@@ -23,46 +23,46 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
-final class NoTrailingCommaInSinglelineArrayFixer extends \PhpCsFixer\AbstractFixer
+final class NoTrailingCommaInSinglelineArrayFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHP single-line arrays should not have trailing comma.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = array('sample',  );\n")]);
+        return new FixerDefinition('PHP single-line arrays should not have trailing comma.', [new CodeSample("<?php\n\$a = array('sample',  );\n")]);
     }
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
-        return $tokens->isAnyTokenKindsFound([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]);
+        return $tokens->isAnyTokenKindsFound([\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN]);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         for ($index = 0, $c = $tokens->count(); $index < $c; ++$index) {
             if ($tokensAnalyzer->isArray($index)) {
                 $this->fixArray($tokens, $index);
             }
         }
     }
-    private function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixArray(Tokens $tokens, int $index) : void
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
         if ($tokensAnalyzer->isArrayMultiLine($index)) {
             return;
         }
         $startIndex = $index;
         if ($tokens[$startIndex]->isGivenKind(\T_ARRAY)) {
             $startIndex = $tokens->getNextTokenOfKind($startIndex, ['(']);
-            $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
+            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
         } else {
-            $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $startIndex);
+            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $startIndex);
         }
         $beforeEndIndex = $tokens->getPrevMeaningfulToken($endIndex);
         $beforeEndToken = $tokens[$beforeEndIndex];

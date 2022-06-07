@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class SemicolonSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class SemicolonSpacingSniff implements Sniff
 {
     /**
      * A list of tokenizers this sniff supports.
@@ -39,14 +39,14 @@ class SemicolonSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $nextStatement = $phpcsFile->findNext([T_STYLE, T_CLOSE_CURLY_BRACKET], $stackPtr + 1);
         if ($nextStatement === \false) {
             return;
         }
-        $ignore = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;
+        $ignore = Tokens::$emptyTokens;
         if ($tokens[$nextStatement]['code'] === T_STYLE) {
             // Allow for star-prefix hack.
             $ignore[] = T_MULTIPLY;
@@ -61,7 +61,7 @@ class SemicolonSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
         // There is a semi-colon, so now find the last token in the statement.
-        $prevNonEmpty = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $endOfThisStatement - 1, null, \true);
+        $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, $endOfThisStatement - 1, null, \true);
         $found = $tokens[$endOfThisStatement - 1]['length'];
         if ($tokens[$prevNonEmpty]['line'] !== $tokens[$endOfThisStatement]['line']) {
             $found = 'newline';

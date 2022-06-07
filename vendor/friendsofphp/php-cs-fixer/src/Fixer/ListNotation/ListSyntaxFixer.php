@@ -24,7 +24,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-final class ListSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class ListSyntaxFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * @var null|int
@@ -40,14 +40,14 @@ final class ListSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
     public function configure(array $configuration) : void
     {
         parent::configure($configuration);
-        $this->candidateTokenKind = 'long' === $this->configuration['syntax'] ? \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN : \T_LIST;
+        $this->candidateTokenKind = 'long' === $this->configuration['syntax'] ? CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN : \T_LIST;
     }
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('List (`array` destructuring) assignment should be declared using the configured syntax. Requires PHP >= 7.1.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nlist(\$sample) = \$array;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n[\$sample] = \$array;\n", ['syntax' => 'long'])]);
+        return new FixerDefinition('List (`array` destructuring) assignment should be declared using the configured syntax. Requires PHP >= 7.1.', [new CodeSample("<?php\nlist(\$sample) = \$array;\n"), new CodeSample("<?php\n[\$sample] = \$array;\n", ['syntax' => 'long'])]);
     }
     /**
      * {@inheritdoc}
@@ -61,14 +61,14 @@ final class ListSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return $tokens->isTokenKindFound($this->candidateTokenKind);
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             if ($tokens[$index]->isGivenKind($this->candidateTokenKind)) {
@@ -83,27 +83,27 @@ final class ListSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsF
     /**
      * {@inheritdoc}
      */
-    protected function createConfigurationDefinition() : \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
+    protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('syntax', 'Whether to use the `long` or `short` `list` syntax.'))->setAllowedValues(['long', 'short'])->setDefault('short')->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('syntax', 'Whether to use the `long` or `short` `list` syntax.'))->setAllowedValues(['long', 'short'])->setDefault('short')->getOption()]);
     }
-    private function fixToLongSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixToLongSyntax(Tokens $tokens, int $index) : void
     {
-        static $typesOfInterest = [[\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE], '['];
+        static $typesOfInterest = [[CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE], '['];
         $closeIndex = $tokens->getNextTokenOfKind($index, $typesOfInterest);
-        if (!$tokens[$closeIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE)) {
+        if (!$tokens[$closeIndex]->isGivenKind(CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE)) {
             return;
         }
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token('(');
-        $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token(')');
-        $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_LIST, 'list']));
+        $tokens[$index] = new Token('(');
+        $tokens[$closeIndex] = new Token(')');
+        $tokens->insertAt($index, new Token([\T_LIST, 'list']));
     }
-    private function fixToShortSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void
+    private function fixToShortSyntax(Tokens $tokens, int $index) : void
     {
         $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
-        $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
-        $tokens[$openIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, '[']);
-        $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE, ']']);
+        $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+        $tokens[$openIndex] = new Token([CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, '[']);
+        $tokens[$closeIndex] = new Token([CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE, ']']);
         $tokens->clearTokenAndMergeSurroundingWhitespace($index);
     }
 }

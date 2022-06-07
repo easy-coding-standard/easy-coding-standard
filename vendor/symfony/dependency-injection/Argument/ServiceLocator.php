@@ -16,7 +16,7 @@ use ECSPrefix20220607\Symfony\Component\DependencyInjection\ServiceLocator as Ba
  *
  * @internal
  */
-class ServiceLocator extends \ECSPrefix20220607\Symfony\Component\DependencyInjection\ServiceLocator
+class ServiceLocator extends BaseServiceLocator
 {
     /**
      * @var \Closure

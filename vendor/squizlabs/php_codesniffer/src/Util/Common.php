@@ -234,16 +234,16 @@ class Common
             }
         } else {
             if (\in_array("\r", $exclude, \true) === \false) {
-                $content = \str_replace("\r", "\33[30;1m\\r\33[0m", $content);
+                $content = \str_replace("\r", "\x1b[30;1m\\r\x1b[0m", $content);
             }
             if (\in_array("\n", $exclude, \true) === \false) {
-                $content = \str_replace("\n", "\33[30;1m\\n\33[0m", $content);
+                $content = \str_replace("\n", "\x1b[30;1m\\n\x1b[0m", $content);
             }
             if (\in_array("\t", $exclude, \true) === \false) {
-                $content = \str_replace("\t", "\33[30;1m\\t\33[0m", $content);
+                $content = \str_replace("\t", "\x1b[30;1m\\t\x1b[0m", $content);
             }
             if (\in_array(' ', $exclude, \true) === \false) {
-                $content = \str_replace(' ', "\33[30;1m·\33[0m", $content);
+                $content = \str_replace(' ', "\x1b[30;1m·\x1b[0m", $content);
             }
         }
         //end if

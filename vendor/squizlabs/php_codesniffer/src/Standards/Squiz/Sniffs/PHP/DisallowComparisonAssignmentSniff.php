@@ -12,7 +12,7 @@ namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class DisallowComparisonAssignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+class DisallowComparisonAssignmentSniff implements Sniff
 {
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -33,7 +33,7 @@ class DisallowComparisonAssignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // Ignore default value assignments in function definitions.
@@ -60,12 +60,12 @@ class DisallowComparisonAssignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
         $endStatement = $phpcsFile->findEndOfStatement($stackPtr);
         for ($i = $stackPtr + 1; $i < $endStatement; $i++) {
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$comparisonTokens[$tokens[$i]['code']]) === \true && $tokens[$i]['code'] !== \T_COALESCE || $tokens[$i]['code'] === T_INLINE_THEN) {
+            if (isset(Tokens::$comparisonTokens[$tokens[$i]['code']]) === \true && $tokens[$i]['code'] !== \T_COALESCE || $tokens[$i]['code'] === T_INLINE_THEN) {
                 $error = 'The value of a comparison must not be assigned to a variable';
                 $phpcsFile->addError($error, $stackPtr, 'AssignedComparison');
                 break;
             }
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$booleanOperators[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === T_BOOLEAN_NOT) {
+            if (isset(Tokens::$booleanOperators[$tokens[$i]['code']]) === \true || $tokens[$i]['code'] === T_BOOLEAN_NOT) {
                 $error = 'The value of a boolean operation must not be assigned to a variable';
                 $phpcsFile->addError($error, $stackPtr, 'AssignedBool');
                 break;

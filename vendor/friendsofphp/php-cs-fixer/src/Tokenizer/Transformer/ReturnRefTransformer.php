@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class ReturnRefTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class ReturnRefTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -35,10 +35,10 @@ final class ReturnRefTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
     /**
      * {@inheritdoc}
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index) : void
+    public function process(Tokens $tokens, Token $token, int $index) : void
     {
         if ($token->equals('&') && $tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind([\T_FUNCTION, \T_FN])) {
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_RETURN_REF, '&']);
+            $tokens[$index] = new Token([CT::T_RETURN_REF, '&']);
         }
     }
     /**
@@ -46,6 +46,6 @@ final class ReturnRefTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
      */
     public function getCustomTokens() : array
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_RETURN_REF];
+        return [CT::T_RETURN_REF];
     }
 }

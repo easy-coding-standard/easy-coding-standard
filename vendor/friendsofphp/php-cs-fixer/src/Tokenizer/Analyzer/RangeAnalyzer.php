@@ -26,7 +26,7 @@ final class RangeAnalyzer
     /**
      * Meaningful compare of tokens within ranges.
      */
-    public static function rangeEqualsRange(\PhpCsFixer\Tokenizer\Tokens $tokens, array $range1, array $range2) : bool
+    public static function rangeEqualsRange(Tokens $tokens, array $range1, array $range2) : bool
     {
         $leftStart = $range1['start'];
         $leftEnd = $range1['end'];
@@ -46,8 +46,8 @@ final class RangeAnalyzer
             $rightStart = $tokens->getNextMeaningfulToken($rightStart);
             $rightEnd = $tokens->getPrevMeaningfulToken($rightEnd);
         }
-        $arrayOpenTypes = ['[', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN]];
-        $arrayCloseTypes = [']', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE]];
+        $arrayOpenTypes = ['[', [CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN]];
+        $arrayCloseTypes = [']', [CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE]];
         while (\true) {
             $leftToken = $tokens[$leftStart];
             $rightToken = $tokens[$rightStart];

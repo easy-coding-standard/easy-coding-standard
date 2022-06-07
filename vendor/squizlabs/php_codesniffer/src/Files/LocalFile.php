@@ -24,10 +24,10 @@ class LocalFile extends \PHP_CodeSniffer\Files\File
      *
      * @return void
      */
-    public function __construct($path, \PHP_CodeSniffer\Ruleset $ruleset, \PHP_CodeSniffer\Config $config)
+    public function __construct($path, Ruleset $ruleset, Config $config)
     {
         $this->path = \trim($path);
-        if (\PHP_CodeSniffer\Util\Common::isReadable($this->path) === \false) {
+        if (Common::isReadable($this->path) === \false) {
             parent::__construct($this->path, $ruleset, $config);
             $error = 'Error opening file; file no longer exists or you do not have access to read the file';
             $this->addMessage(\true, $error, 1, 1, 'Internal.LocalFile', [], 5, \false);
@@ -80,7 +80,7 @@ class LocalFile extends \PHP_CodeSniffer\Files\File
         }
         $hash = \md5_file($this->path);
         $hash .= \fileperms($this->path);
-        $cache = \PHP_CodeSniffer\Util\Cache::get($this->path);
+        $cache = Cache::get($this->path);
         if ($cache !== \false && $cache['hash'] === $hash) {
             // We can't filter metrics, so just load all of them.
             $this->metrics = $cache['metrics'];
@@ -108,7 +108,7 @@ class LocalFile extends \PHP_CodeSniffer\Files\File
         }
         parent::process();
         $cache = ['hash' => $hash, 'errors' => $this->errors, 'warnings' => $this->warnings, 'metrics' => $this->metrics, 'errorCount' => $this->errorCount, 'warningCount' => $this->warningCount, 'fixableCount' => $this->fixableCount, 'numTokens' => $this->numTokens];
-        \PHP_CodeSniffer\Util\Cache::set($this->path, $cache);
+        Cache::set($this->path, $cache);
         // During caching, we don't filter out errors in any way, so
         // we need to do that manually now by replaying them.
         if ($this->configCache['recordErrors'] === \true) {

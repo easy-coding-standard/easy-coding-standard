@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\EasyCodingStandard\Console\Command;
+namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Command;
 
 use ECSPrefix20220607\Clue\React\NDJson\Decoder;
 use ECSPrefix20220607\Clue\React\NDJson\Encoder;
@@ -10,8 +10,8 @@ use ECSPrefix20220607\React\Socket\ConnectionInterface;
 use ECSPrefix20220607\React\Socket\TcpConnector;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\MemoryLimitter;
-use Symplify\EasyCodingStandard\Parallel\WorkerRunner;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\MemoryLimitter;
+use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\WorkerRunner;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\Action;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand;
 /**
@@ -21,7 +21,7 @@ use ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand;
  * ↓↓↓
  * https://github.com/phpstan/phpstan-src/commit/b84acd2e3eadf66189a64fdbc6dd18ff76323f67#diff-7f625777f1ce5384046df08abffd6c911cfbb1cfc8fcb2bdeaf78f337689e3e2
  */
-final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
+final class WorkerCommand extends AbstractCheckCommand
 {
     /**
      * @var \Symplify\EasyCodingStandard\Parallel\WorkerRunner
@@ -31,7 +31,7 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
      * @var \Symplify\EasyCodingStandard\MemoryLimitter
      */
     private $memoryLimitter;
-    public function __construct(\Symplify\EasyCodingStandard\Parallel\WorkerRunner $workerRunner, \Symplify\EasyCodingStandard\MemoryLimitter $memoryLimitter)
+    public function __construct(WorkerRunner $workerRunner, MemoryLimitter $memoryLimitter)
     {
         $this->workerRunner = $workerRunner;
         $this->memoryLimitter = $memoryLimitter;
@@ -43,19 +43,19 @@ final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\A
         $this->setDescription('(Internal) Support for parallel process');
         parent::configure();
     }
-    protected function execute(\ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $configuration = $this->configurationFactory->createFromInput($input);
         $this->memoryLimitter->adjust($configuration);
-        $streamSelectLoop = new \ECSPrefix20220607\React\EventLoop\StreamSelectLoop();
+        $streamSelectLoop = new StreamSelectLoop();
         $parallelIdentifier = $configuration->getParallelIdentifier();
-        $tcpConnector = new \ECSPrefix20220607\React\Socket\TcpConnector($streamSelectLoop);
+        $tcpConnector = new TcpConnector($streamSelectLoop);
         $promise = $tcpConnector->connect('127.0.0.1:' . $configuration->getParallelPort());
-        $promise->then(function (\ECSPrefix20220607\React\Socket\ConnectionInterface $connection) use($parallelIdentifier, $configuration) : void {
-            $inDecoder = new \ECSPrefix20220607\Clue\React\NDJson\Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
-            $outEncoder = new \ECSPrefix20220607\Clue\React\NDJson\Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
+        $promise->then(function (ConnectionInterface $connection) use($parallelIdentifier, $configuration) : void {
+            $inDecoder = new Decoder($connection, \true, 512, \JSON_INVALID_UTF8_IGNORE);
+            $outEncoder = new Encoder($connection, \JSON_INVALID_UTF8_IGNORE);
             // handshake?
-            $outEncoder->write([\ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand::ACTION => \ECSPrefix20220607\Symplify\EasyParallel\Enum\Action::HELLO, \ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand::IDENTIFIER => $parallelIdentifier]);
+            $outEncoder->write([ReactCommand::ACTION => Action::HELLO, ReactCommand::IDENTIFIER => $parallelIdentifier]);
             $this->workerRunner->run($outEncoder, $inDecoder, $configuration);
         });
         $streamSelectLoop->run();

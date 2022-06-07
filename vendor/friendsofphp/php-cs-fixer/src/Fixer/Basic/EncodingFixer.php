@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class EncodingFixer extends \PhpCsFixer\AbstractFixer
+final class EncodingFixer extends AbstractFixer
 {
     /**
      * @var string
@@ -37,9 +37,9 @@ final class EncodingFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      */
-    public function getDefinition() : \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
+    public function getDefinition() : FixerDefinitionInterface
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHP code MUST use only UTF-8 without BOM (remove BOM).', [new \PhpCsFixer\FixerDefinition\CodeSample($this->BOM . '<?php
+        return new FixerDefinition('PHP code MUST use only UTF-8 without BOM (remove BOM).', [new CodeSample($this->BOM . '<?php
 
 echo "Hello!";
 ')]);
@@ -55,14 +55,14 @@ echo "Hello!";
     /**
      * {@inheritdoc}
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens) : bool
+    public function isCandidate(Tokens $tokens) : bool
     {
         return \true;
     }
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens) : void
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
         $content = $tokens[0]->getContent();
         if (0 === \strncmp($content, $this->BOM, 3)) {
@@ -70,7 +70,7 @@ echo "Hello!";
             if ('' === $newContent) {
                 $tokens->clearAt(0);
             } else {
-                $tokens[0] = new \PhpCsFixer\Tokenizer\Token([$tokens[0]->getId(), $newContent]);
+                $tokens[0] = new Token([$tokens[0]->getId(), $newContent]);
             }
         }
     }
