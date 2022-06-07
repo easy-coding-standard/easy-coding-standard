@@ -87,6 +87,9 @@ final class AutoloadIncluder
         if (\defined('T_MATCH') === \false) {
             \define('T_MATCH', 5000);
         }
+        if (!\defined('ECSPrefix20220607\\T_ANON_CLASS')) {
+            \define('ECSPrefix20220607\\T_ANON_CLASS', 6000);
+        }
         new Tokens();
     }
     public function loadIfNotLoadedYet(string $file) : void
