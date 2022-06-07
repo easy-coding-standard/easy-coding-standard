@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer;
+namespace Symplify\CodingStandard\TokenAnalyzer;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Enum\LineKind;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
+use Symplify\CodingStandard\TokenRunner\Enum\LineKind;
+use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner;
+use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 final class ParamNewliner
 {
     /**

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer;
+namespace Symplify\CodingStandard\TokenAnalyzer;
 
 use ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token;

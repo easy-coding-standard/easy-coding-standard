@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Application;
+namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\FileSystem\FileFilter;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Finder\SourceFinder;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\FileSystem\FileFilter;
+use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\EasyParallel\CpuCoreCountProvider;
 use ECSPrefix20220607\Symplify\EasyParallel\FileSystem\FilePathNormalizer;
 use ECSPrefix20220607\Symplify\EasyParallel\ScheduleFactory;
@@ -78,7 +78,7 @@ final class EasyCodingStandardApplication
      * @var \Symplify\PackageBuilder\Yaml\ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle, SourceFinder $sourceFinder, ChangedFilesDetector $changedFilesDetector, FileFilter $fileFilter, SingleFileProcessor $singleFileProcessor, ScheduleFactory $scheduleFactory, ParallelFileProcessor $parallelFileProcessor, CpuCoreCountProvider $cpuCoreCountProvider, SymfonyStyle $symfonyStyle, FilePathNormalizer $filePathNormalizer, ParameterProvider $parameterProvider, ParametersMerger $parametersMerger)
+    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle, SourceFinder $sourceFinder, ChangedFilesDetector $changedFilesDetector, FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, ScheduleFactory $scheduleFactory, ParallelFileProcessor $parallelFileProcessor, CpuCoreCountProvider $cpuCoreCountProvider, SymfonyStyle $symfonyStyle, FilePathNormalizer $filePathNormalizer, ParameterProvider $parameterProvider, ParametersMerger $parametersMerger)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;

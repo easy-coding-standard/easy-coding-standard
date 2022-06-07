@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Enum;
+namespace Symplify\CodingStandard\TokenRunner\Enum;
 
 /**
  * @enum

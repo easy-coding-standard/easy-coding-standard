@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
+namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver;
+use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper;
+use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
+use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver;
 final class TokensNewliner
 {
     /**
@@ -32,7 +32,7 @@ final class TokensNewliner
      * @var \Symplify\CodingStandard\TokenRunner\Whitespace\IndentResolver
      */
     private $indentResolver;
-    public function __construct(LineLengthCloserTransformer $lineLengthCloserTransformer, TokenSkipper $tokenSkipper, LineLengthOpenerTransformer $lineLengthOpenerTransformer, WhitespacesFixerConfig $whitespacesFixerConfig, IndentResolver $indentResolver)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthCloserTransformer $lineLengthCloserTransformer, TokenSkipper $tokenSkipper, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthOpenerTransformer $lineLengthOpenerTransformer, WhitespacesFixerConfig $whitespacesFixerConfig, IndentResolver $indentResolver)
     {
         $this->lineLengthCloserTransformer = $lineLengthCloserTransformer;
         $this->tokenSkipper = $tokenSkipper;

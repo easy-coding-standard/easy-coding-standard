@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject;
+namespace Symplify\CodingStandard\TokenRunner\ValueObject;
 
 final class LineLengthAndPosition
 {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\ValueObject;
+namespace Symplify\EasyCodingStandard\SnippetFormatter\ValueObject;
 
 final class SnippetPattern
 {

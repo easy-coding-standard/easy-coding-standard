@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\Fixer\LineLength;
+namespace Symplify\CodingStandard\Fixer\LineLength;
 
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
@@ -11,14 +11,14 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\HeredocAnalyzer;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
+use Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher;
+use Symplify\CodingStandard\TokenAnalyzer\HeredocAnalyzer;
+use Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
+use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
+use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer;
+use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use ECSPrefix20220607\Symplify\PackageBuilder\ValueObject\MethodName;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;

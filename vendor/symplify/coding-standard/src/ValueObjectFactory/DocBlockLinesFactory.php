@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\ValueObjectFactory;
+namespace Symplify\CodingStandard\ValueObjectFactory;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
-use ECSPrefix20220607\Symplify\CodingStandard\ValueObject\DocBlockLines;
+use Symplify\CodingStandard\ValueObject\DocBlockLines;
 final class DocBlockLinesFactory
 {
     /**

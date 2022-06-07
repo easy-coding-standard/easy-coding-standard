@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObjectFactory;
+namespace Symplify\CodingStandard\TokenRunner\ValueObjectFactory;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition;
+use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
+use Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition;
 use ECSPrefix20220607\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class LineLengthAndPositionFactory
 {

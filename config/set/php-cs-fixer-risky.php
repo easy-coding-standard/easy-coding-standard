@@ -33,7 +33,7 @@ use PhpCsFixer\Fixer\PhpUnit\PhpUnitTestCaseStaticMethodCallsFixer;
 use PhpCsFixer\Fixer\Strict\StrictComparisonFixer;
 use PhpCsFixer\Fixer\Strict\StrictParamFixer;
 use PhpCsFixer\Fixer\StringNotation\StringLineEndingFixer;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $ecsConfig) : void {
     $ecsConfig->rules([CommentToPhpdocFixer::class, DirConstantFixer::class, EregToPregFixer::class, ErrorSuppressionFixer::class, FinalInternalClassFixer::class, FopenFlagOrderFixer::class, ImplodeCallFixer::class, IsNullFixer::class, LogicalOperatorsFixer::class, ModernizeTypesCastingFixer::class, NoHomoglyphNamesFixer::class, NoUnneededFinalMethodFixer::class, NoUnreachableDefaultArgumentValueFixer::class, NoUnsetOnPropertyFixer::class, NonPrintableCharacterFixer::class, PhpUnitConstructFixer::class, PhpUnitMockShortWillReturnFixer::class, PhpUnitSetUpTearDownVisibilityFixer::class, PhpUnitTestAnnotationFixer::class, PhpUnitTestCaseStaticMethodCallsFixer::class, SelfAccessorFixer::class, SetTypeToCastFixer::class, StrictComparisonFixer::class, StrictParamFixer::class, StringLineEndingFixer::class]);
     $ecsConfig->ruleWithConfiguration(FopenFlagsFixer::class, ['b_mode' => \false]);

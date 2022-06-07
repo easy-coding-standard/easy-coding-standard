@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject;
+namespace Symplify\EasyCodingStandard\Parallel\ValueObject;
 
 /**
  * Helpers constant for passing constant names around

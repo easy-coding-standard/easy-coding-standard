@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\File;
+namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Fixer;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use ECSPrefix20220607\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 /**

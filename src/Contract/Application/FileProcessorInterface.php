@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Application;
+namespace Symplify\EasyCodingStandard\Contract\Application;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 interface FileProcessorInterface
 {

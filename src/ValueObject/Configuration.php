@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject;
+namespace Symplify\EasyCodingStandard\ValueObject;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
+use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 final class Configuration
 {
     /**

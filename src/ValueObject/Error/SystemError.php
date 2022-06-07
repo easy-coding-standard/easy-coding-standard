@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error;
+namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
 use ECSPrefix20220607\Symplify\EasyParallel\Contract\SerializableInterface;
 final class SystemError implements SerializableInterface
 {

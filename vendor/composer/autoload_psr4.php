@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symplify\\EasyCodingStandard\\' => array($baseDir . '/src', $baseDir . '/packages'),
+    'Symplify\\CodingStandard\\' => array($vendorDir . '/symplify/coding-standard/src'),
     'PhpCsFixer\\' => array($vendorDir . '/friendsofphp/php-cs-fixer/src'),
     'ECSPrefix20220607\\Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'ECSPrefix20220607\\Symplify\\SymplifyKernel\\' => array($vendorDir . '/symplify/symplify-kernel/src'),
@@ -15,9 +17,7 @@ return array(
     'ECSPrefix20220607\\Symplify\\PackageBuilder\\' => array($vendorDir . '/symplify/package-builder/src'),
     'ECSPrefix20220607\\Symplify\\EasyTesting\\' => array($vendorDir . '/symplify/easy-testing/src'),
     'ECSPrefix20220607\\Symplify\\EasyParallel\\' => array($vendorDir . '/symplify/easy-parallel/src'),
-    'ECSPrefix20220607\\Symplify\\EasyCodingStandard\\' => array($baseDir . '/src', $baseDir . '/packages'),
     'ECSPrefix20220607\\Symplify\\ComposerJsonManipulator\\' => array($vendorDir . '/symplify/composer-json-manipulator/src'),
-    'ECSPrefix20220607\\Symplify\\CodingStandard\\' => array($vendorDir . '/symplify/coding-standard/src'),
     'ECSPrefix20220607\\Symplify\\AutowireArrayParameter\\' => array($vendorDir . '/symplify/autowire-array-parameter/src'),
     'ECSPrefix20220607\\Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
     'ECSPrefix20220607\\Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),

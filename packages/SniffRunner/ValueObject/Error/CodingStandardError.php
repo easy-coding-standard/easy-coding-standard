@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error;
+namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
 use ECSPrefix20220607\Symplify\EasyParallel\Contract\SerializableInterface;
 final class CodingStandardError implements SerializableInterface
 {

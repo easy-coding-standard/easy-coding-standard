@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Output;
+namespace Symplify\EasyCodingStandard\Console\Output;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\Configuration\OutputFormatterNotFoundException;
+use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use Symplify\EasyCodingStandard\Exception\Configuration\OutputFormatterNotFoundException;
 final class OutputFormatterCollector
 {
     /**

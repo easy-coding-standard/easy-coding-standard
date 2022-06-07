@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Application;
+namespace Symplify\EasyCodingStandard\SnippetFormatter\Application;
 
 use PhpCsFixer\Differ\DifferInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Command\Command;
 use ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
+use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
+use Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20220607\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;

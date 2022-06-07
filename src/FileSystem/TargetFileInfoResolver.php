@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\FileSystem;
+namespace Symplify\EasyCodingStandard\FileSystem;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
+use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 final class TargetFileInfoResolver
 {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Caching;
+namespace Symplify\EasyCodingStandard\Caching;
 
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20220607\Webmozart\Assert\Assert;
@@ -26,7 +26,7 @@ final class ChangedFilesDetector
      * @var \Symplify\EasyCodingStandard\Caching\Cache
      */
     private $cache;
-    public function __construct(FileHashComputer $fileHashComputer, Cache $cache)
+    public function __construct(\Symplify\EasyCodingStandard\Caching\FileHashComputer $fileHashComputer, \Symplify\EasyCodingStandard\Caching\Cache $cache)
     {
         $this->fileHashComputer = $fileHashComputer;
         $this->cache = $cache;

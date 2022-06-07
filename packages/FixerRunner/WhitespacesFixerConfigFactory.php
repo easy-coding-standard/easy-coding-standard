@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner;
+namespace Symplify\EasyCodingStandard\FixerRunner;
 
 use PhpCsFixer\WhitespacesFixerConfig;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing;
+use Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException;
+use Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing;
 use ECSPrefix20220607\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class WhitespacesFixerConfigFactory
 {

@@ -18,7 +18,7 @@ use PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer;
 use PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $ecsConfig) : void {
     $ecsConfig->rules([PhpUnitMethodCasingFixer::class, FunctionToConstantFixer::class, ExplicitStringVariableFixer::class, ExplicitIndirectVariableFixer::class, NewWithBracesFixer::class, StandardizeIncrementFixer::class, SelfAccessorFixer::class, MagicConstantCasingFixer::class, AssignmentInConditionSniff::class, NoUselessElseFixer::class, SingleQuoteFixer::class, OrderedClassElementsFixer::class]);
     $ecsConfig->ruleWithConfiguration(SingleClassElementPerStatementFixer::class, ['elements' => ['const', 'property']]);

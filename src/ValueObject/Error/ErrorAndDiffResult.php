@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error;
+namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 final class ErrorAndDiffResult
 {
     /**
@@ -79,7 +79,7 @@ final class ErrorAndDiffResult
      */
     private function sortByFilePath(array $fileDiffs) : array
     {
-        \uasort($fileDiffs, static function (FileDiff $firstFileDiff, FileDiff $secondFileDiff) : int {
+        \uasort($fileDiffs, static function (\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $firstFileDiff, \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $secondFileDiff) : int {
             return $firstFileDiff->getRelativeFilePath() <=> $secondFileDiff->getRelativeFilePath();
         });
         return $fileDiffs;

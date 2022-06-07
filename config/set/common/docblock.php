@@ -14,8 +14,8 @@ use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimConsecutiveBlankLineSeparationFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $ecsConfig) : void {
     $ecsConfig->rules([PhpdocLineSpanFixer::class, NoTrailingWhitespaceInCommentFixer::class, PhpdocTrimConsecutiveBlankLineSeparationFixer::class, PhpdocTrimFixer::class, NoEmptyPhpdocFixer::class, PhpdocNoEmptyReturnFixer::class, PhpdocIndentFixer::class, PhpdocTypesFixer::class, PhpdocReturnSelfReferenceFixer::class, PhpdocVarWithoutNameFixer::class, RemoveUselessDefaultCommentFixer::class]);
     $ecsConfig->ruleWithConfiguration(NoSuperfluousPhpdocTagsFixer::class, ['remove_inheritdoc' => \true, 'allow_mixed' => \true]);

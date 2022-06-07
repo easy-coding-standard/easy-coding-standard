@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Finder;
+namespace Symplify\EasyCodingStandard\Finder;
 
 use ECSPrefix20220607\Symfony\Component\Finder\Finder;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use ECSPrefix20220607\Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;

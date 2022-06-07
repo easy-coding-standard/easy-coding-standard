@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject;
+namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject;
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File as BaseFile;
@@ -11,10 +11,10 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PHP_CodeSniffer\Util\Common;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use ECSPrefix20220607\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 /**

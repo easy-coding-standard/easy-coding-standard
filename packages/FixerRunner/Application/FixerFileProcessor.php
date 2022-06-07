@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\Application;
+namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer;
@@ -13,16 +13,16 @@ use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Error\FileDiffFactory;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
+use Symplify\EasyCodingStandard\Error\FileDiffFactory;
+use Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver;
+use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
+use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20220607\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;

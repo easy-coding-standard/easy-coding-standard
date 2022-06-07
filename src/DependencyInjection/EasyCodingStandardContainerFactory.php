@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection;
+namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use ECSPrefix20220607\Nette\Utils\FileSystem;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\DeprecatedException;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
+use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\Exception\DeprecatedException;
+use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 final class EasyCodingStandardContainerFactory
 {
     public function createFromFromInput(InputInterface $input) : ContainerInterface
@@ -28,7 +28,7 @@ final class EasyCodingStandardContainerFactory
         }
         /** @var ContainerBuilder $container */
         $container = $easyCodingStandardKernel->createFromConfigs($inputConfigFiles);
-        $deprecationReporter = new DeprecationReporter();
+        $deprecationReporter = new \Symplify\EasyCodingStandard\DependencyInjection\DeprecationReporter();
         $deprecationReporter->reportDeprecatedSets($container, $input);
         $this->reportOldContainerConfiguratorConfig($inputConfigFiles);
         if ($inputConfigFiles !== []) {

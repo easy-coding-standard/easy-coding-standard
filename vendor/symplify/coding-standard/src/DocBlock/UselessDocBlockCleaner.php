@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\DocBlock;
+namespace Symplify\CodingStandard\DocBlock;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;

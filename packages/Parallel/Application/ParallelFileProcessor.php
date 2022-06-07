@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\Application;
+namespace Symplify\EasyCodingStandard\Parallel\Application;
 
 use ECSPrefix20220607\Clue\React\NDJson\Decoder;
 use ECSPrefix20220607\Clue\React\NDJson\Encoder;
@@ -11,12 +11,12 @@ use ECSPrefix20220607\React\Socket\ConnectionInterface;
 use ECSPrefix20220607\React\Socket\TcpServer;
 use ECSPrefix20220607\Symfony\Component\Console\Command\Command;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Command\CheckCommand;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\Action;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\Content;

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Application;
+namespace Symplify\EasyCodingStandard\Application;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 final class FileProcessorCollector
 {
     /**

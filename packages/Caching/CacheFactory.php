@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Caching;
+namespace Symplify\EasyCodingStandard\Caching;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;
 final class CacheFactory
@@ -22,7 +22,7 @@ final class CacheFactory
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function create() : Cache
+    public function create() : \Symplify\EasyCodingStandard\Caching\Cache
     {
         $cacheDirectory = $this->parameterProvider->provideStringParameter(Option::CACHE_DIRECTORY);
         // ensure cache directory exists
@@ -30,6 +30,6 @@ final class CacheFactory
             $this->smartFileSystem->mkdir($cacheDirectory);
         }
         $fileCacheStorage = new FileCacheStorage($cacheDirectory, $this->smartFileSystem);
-        return new Cache($fileCacheStorage);
+        return new \Symplify\EasyCodingStandard\Caching\Cache($fileCacheStorage);
     }
 }

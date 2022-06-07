@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Guard;
+namespace Symplify\EasyCodingStandard\Guard;
 
 use ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Application\FileProcessorCollector;
+use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
 final class LoadedCheckersGuard
 {
     /**

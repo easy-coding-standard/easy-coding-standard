@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\Application;
+namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Error\FileDiffFactory;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
+use Symplify\EasyCodingStandard\Error\FileDiffFactory;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
+use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20220607\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;

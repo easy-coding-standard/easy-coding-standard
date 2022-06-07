@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
+namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Enum\LineKind;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use Symplify\CodingStandard\TokenRunner\Enum\LineKind;
+use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 final class LineLengthTransformer
 {
     /**
@@ -26,7 +26,7 @@ final class LineLengthTransformer
      * @var \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner
      */
     private $tokensNewliner;
-    public function __construct(LineLengthResolver $lineLengthResolver, TokensInliner $tokensInliner, FirstLineLengthResolver $firstLineLengthResolver, TokensNewliner $tokensNewliner)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthResolver $lineLengthResolver, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensInliner $tokensInliner, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\FirstLineLengthResolver $firstLineLengthResolver, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner $tokensNewliner)
     {
         $this->lineLengthResolver = $lineLengthResolver;
         $this->tokensInliner = $tokensInliner;

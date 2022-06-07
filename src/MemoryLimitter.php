@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard;
+namespace Symplify\EasyCodingStandard;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\Configuration\InitializationException;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\Exception\Configuration\InitializationException;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
 /**
  * @inspiration https://github.com/phpstan/phpstan-src/commit/ccc046ca473dcdb5ce9225cc05d7808f2e327f40
  */

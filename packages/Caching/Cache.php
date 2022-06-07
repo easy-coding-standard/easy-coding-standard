@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Caching;
+namespace Symplify\EasyCodingStandard\Caching;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
+use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 final class Cache
 {
     /**

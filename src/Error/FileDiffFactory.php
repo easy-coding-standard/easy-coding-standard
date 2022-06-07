@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Error;
+namespace Symplify\EasyCodingStandard\Error;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20220607\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiffFactory

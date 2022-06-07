@@ -10,10 +10,10 @@ use PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer;
 use PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer;
 use PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer;
 use PhpCsFixer\Fixer\Whitespace\ArrayIndentationFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
+use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
+use Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $ecsConfig) : void {
     $ecsConfig->rules([NoWhitespaceBeforeCommaInArrayFixer::class, ArrayOpenerAndCloserNewlineFixer::class, ArrayIndentationFixer::class, TrimArraySpacesFixer::class, WhitespaceAfterCommaInArrayFixer::class, ArrayListItemNewlineFixer::class, StandaloneLineInMultilineArrayFixer::class, NoTrailingCommaInSinglelineArrayFixer::class]);
     // commas

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
+namespace Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
 
 use ECSPrefix20220607\Nette\Utils\Random;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\Exception\CachingException;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem;
+use Symplify\EasyCodingStandard\Caching\Exception\CachingException;
+use Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths;
+use Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Inspired by

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Application\Version;
+namespace Symplify\EasyCodingStandard\Application\Version;
 
 use DateTime;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\VersionException;
+use Symplify\EasyCodingStandard\Exception\VersionException;
 /**
  * Inspired by https://github.com/composer/composer/blob/master/src/Composer/Composer.php See
  * https://github.com/composer/composer/blob/6587715d0f8cae0cd39073b3bc5f018d0e6b84fe/src/Composer/Compiler.php#L208
@@ -14,11 +14,11 @@ final class StaticVersionResolver
     /**
      * @var string
      */
-    public const PACKAGE_VERSION = '5641af2cafea1809f3c69f30e054a4fae0d6b96c';
+    public const PACKAGE_VERSION = 'b49e37f7a98df483346f254480eed85e8c951fd7';
     /**
      * @var string
      */
-    public const RELEASE_DATE = '2022-06-07 11:37:29';
+    public const RELEASE_DATE = '2022-06-07 11:40:36';
     /**
      * @var int
      */

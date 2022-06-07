@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\PHPUnit;
+namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
 use PHPUnit\Framework\TestCase;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
+use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix20220607\Symplify\EasyTesting\StaticFixtureSplitter;
 use ECSPrefix20220607\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;

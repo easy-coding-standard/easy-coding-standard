@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel;
+namespace Symplify\EasyCodingStandard\Parallel;
 
 use ECSPrefix20220607\Clue\React\NDJson\Decoder;
 use ECSPrefix20220607\Clue\React\NDJson\Encoder;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Application\SingleFileProcessor;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
+use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\Action;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\Content;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand;

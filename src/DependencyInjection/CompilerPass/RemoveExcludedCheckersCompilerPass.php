@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
+namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $containerBuilder) : void

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Configuration;
+namespace Symplify\EasyCodingStandard\Configuration;
 
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
+use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix20220607\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class ConfigurationFactory
 {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
+namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff;
@@ -13,9 +13,9 @@ use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException;
+use Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
+use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
+use Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException;
 final class ConflictingCheckersCompilerPass implements CompilerPassInterface
 {
     /**

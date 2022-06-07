@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Command;
+namespace Symplify\EasyCodingStandard\Console\Command;
 
 use ECSPrefix20220607\Clue\React\NDJson\Decoder;
 use ECSPrefix20220607\Clue\React\NDJson\Encoder;
@@ -10,8 +10,8 @@ use ECSPrefix20220607\React\Socket\ConnectionInterface;
 use ECSPrefix20220607\React\Socket\TcpConnector;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\MemoryLimitter;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Parallel\WorkerRunner;
+use Symplify\EasyCodingStandard\MemoryLimitter;
+use Symplify\EasyCodingStandard\Parallel\WorkerRunner;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\Action;
 use ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand;
 /**
@@ -21,7 +21,7 @@ use ECSPrefix20220607\Symplify\EasyParallel\Enum\ReactCommand;
  * ↓↓↓
  * https://github.com/phpstan/phpstan-src/commit/b84acd2e3eadf66189a64fdbc6dd18ff76323f67#diff-7f625777f1ce5384046df08abffd6c911cfbb1cfc8fcb2bdeaf78f337689e3e2
  */
-final class WorkerCommand extends AbstractCheckCommand
+final class WorkerCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
      * @var \Symplify\EasyCodingStandard\Parallel\WorkerRunner

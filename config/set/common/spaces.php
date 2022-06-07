@@ -24,9 +24,9 @@ use PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer;
 use PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer;
 use PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\NewlineServiceDefinitionConfigFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\CodingStandard\Fixer\Spacing\NewlineServiceDefinitionConfigFixer;
+use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $ecsConfig) : void {
     $ecsConfig->rules([StandaloneLinePromotedPropertyFixer::class, BlankLineAfterOpeningTagFixer::class, NewlineServiceDefinitionConfigFixer::class, MethodChainingIndentationFixer::class, NotOperatorWithSuccessorSpaceFixer::class, CastSpacesFixer::class, ClassAttributesSeparationFixer::class, SingleTraitInsertPerStatementFixer::class, FunctionTypehintSpaceFixer::class, NoBlankLinesAfterClassOpeningFixer::class, NoSinglelineWhitespaceBeforeSemicolonsFixer::class, PhpdocSingleLineVarSpacingFixer::class, NoLeadingNamespaceWhitespaceFixer::class, NoSpacesAroundOffsetFixer::class, NoWhitespaceInBlankLineFixer::class, ReturnTypeDeclarationFixer::class, SpaceAfterSemicolonFixer::class, TernaryOperatorSpacesFixer::class, MethodArgumentSpaceFixer::class, LanguageConstructSpacingSniff::class]);
     $ecsConfig->ruleWithConfiguration(ClassAttributesSeparationFixer::class, ['elements' => ['const' => 'one', 'property' => 'one', 'method' => 'one']]);

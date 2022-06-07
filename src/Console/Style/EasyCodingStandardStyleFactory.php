@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Style;
+namespace Symplify\EasyCodingStandard\Console\Style;
 
 use ECSPrefix20220607\Symfony\Component\Console\Application;
 use ECSPrefix20220607\Symfony\Component\Console\Input\ArgvInput;
@@ -25,7 +25,7 @@ final class EasyCodingStandardStyleFactory
         $this->terminal = $terminal;
         $this->privatesCaller = new PrivatesCaller();
     }
-    public function create() : EasyCodingStandardStyle
+    public function create() : \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
     {
         $argvInput = new ArgvInput();
         $consoleOutput = new ConsoleOutput();
@@ -39,6 +39,6 @@ final class EasyCodingStandardStyleFactory
         if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_QUIET);
         }
-        return new EasyCodingStandardStyle($argvInput, $consoleOutput, $this->terminal);
+        return new \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle($argvInput, $consoleOutput, $this->terminal);
     }
 }

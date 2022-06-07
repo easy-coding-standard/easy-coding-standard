@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer;
+namespace Symplify\CodingStandard\TokenAnalyzer;
 
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
@@ -16,7 +16,7 @@ final class ChainMethodCallAnalyzer
      * @var \Symplify\CodingStandard\TokenAnalyzer\NewlineAnalyzer
      */
     private $newlineAnalyzer;
-    public function __construct(NewlineAnalyzer $newlineAnalyzer)
+    public function __construct(\Symplify\CodingStandard\TokenAnalyzer\NewlineAnalyzer $newlineAnalyzer)
     {
         $this->newlineAnalyzer = $newlineAnalyzer;
     }

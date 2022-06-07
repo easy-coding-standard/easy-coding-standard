@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Formatter;
+namespace Symplify\EasyCodingStandard\SnippetFormatter\Formatter;
 
 use ECSPrefix20220607\Nette\Utils\Strings;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;

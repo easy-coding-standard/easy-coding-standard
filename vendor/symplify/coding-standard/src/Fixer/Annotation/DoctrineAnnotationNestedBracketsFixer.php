@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\Fixer\Annotation;
+namespace Symplify\CodingStandard\Fixer\Annotation;
 
 use ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token as DoctrineAnnotationToken;
@@ -13,9 +13,9 @@ use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
-use ECSPrefix20220607\Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationElementAnalyzer;
-use ECSPrefix20220607\Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationNameResolver;
+use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationElementAnalyzer;
+use Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationNameResolver;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix20220607\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;

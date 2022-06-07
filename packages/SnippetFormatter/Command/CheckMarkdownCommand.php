@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Command;
+namespace Symplify\EasyCodingStandard\SnippetFormatter\Command;
 
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
+use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
+use Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
 use ECSPrefix20220607\Symplify\PackageBuilder\Console\Command\CommandNaming;
 final class CheckMarkdownCommand extends AbstractCheckCommand
 {

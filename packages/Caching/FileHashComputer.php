@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Caching;
+namespace Symplify\EasyCodingStandard\Caching;
 
 use ECSPrefix20220607\Symfony\Component\Config\FileLocator;
 use ECSPrefix20220607\Symfony\Component\Config\Loader\LoaderInterface;
 use ECSPrefix20220607\Symfony\Component\Config\Loader\LoaderResolver;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
+use Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
 use ECSPrefix20220607\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
 use ECSPrefix20220607\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**

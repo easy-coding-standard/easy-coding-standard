@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\Application;
+namespace Symplify\EasyCodingStandard\Application;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
+use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix20220607\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleFileProcessor
@@ -23,7 +23,7 @@ final class SingleFileProcessor
      * @var \Symplify\EasyCodingStandard\Application\FileProcessorCollector
      */
     private $fileProcessorCollector;
-    public function __construct(Skipper $skipper, ChangedFilesDetector $changedFilesDetector, FileProcessorCollector $fileProcessorCollector)
+    public function __construct(Skipper $skipper, ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
     {
         $this->skipper = $skipper;
         $this->changedFilesDetector = $changedFilesDetector;

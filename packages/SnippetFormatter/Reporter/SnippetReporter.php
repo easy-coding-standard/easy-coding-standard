@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Reporter;
+namespace Symplify\EasyCodingStandard\SnippetFormatter\Reporter;
 
 use ECSPrefix20220607\Symfony\Component\Console\Style\SymfonyStyle;
 final class SnippetReporter

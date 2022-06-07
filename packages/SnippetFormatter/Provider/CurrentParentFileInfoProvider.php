@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\SnippetFormatter\Provider;
+namespace Symplify\EasyCodingStandard\SnippetFormatter\Provider;
 
 use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
 final class CurrentParentFileInfoProvider

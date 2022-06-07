@@ -7,12 +7,12 @@ namespace ECSPrefix20220607;
 use PHP_CodeSniffer\Util\Tokens;
 use ECSPrefix20220607\Symfony\Component\Console\Command\Command;
 use ECSPrefix20220607\Symfony\Component\Console\Input\ArgvInput;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
-use ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
+use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
+use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
 use ECSPrefix20220607\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 // performance boost
 \gc_disable();
-\define('ECSPrefix20220607\\__ECS_RUNNING__', \true);
+\define('__ECS_RUNNING__', \true);
 # 1. autoload
 $autoloadIncluder = new AutoloadIncluder();
 if (\file_exists(__DIR__ . '/../preload.php')) {
@@ -54,7 +54,7 @@ final class AutoloadIncluder
     public function includeDependencyOrRepositoryVendorAutoloadIfExists() : void
     {
         // ECS' vendor is already loaded
-        if (\class_exists('ECSPrefix20220607\\Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel')) {
+        if (\class_exists('\\Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel')) {
             return;
         }
         $devVendorAutoload = __DIR__ . '/../vendor/autoload.php';

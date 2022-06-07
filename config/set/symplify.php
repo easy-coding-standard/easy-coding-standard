@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace ECSPrefix20220607;
 
-use ECSPrefix20220607\Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $ecsConfig) : void {
     // A. monorepo
     $ecsConfig->import(__DIR__ . '/../../../coding-standard/config/symplify.php', null, 'not_found');

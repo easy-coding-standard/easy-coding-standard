@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\EasyCodingStandard\DependencyInjection;
+namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use ECSPrefix20220607\Symfony\Component\Config\Resource\FileResource;
 use ECSPrefix20220607\Symfony\Component\Console\Input\InputInterface;

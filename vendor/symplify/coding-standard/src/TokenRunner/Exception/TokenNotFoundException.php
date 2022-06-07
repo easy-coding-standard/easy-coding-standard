@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\CodingStandard\TokenRunner\Exception;
+namespace Symplify\CodingStandard\TokenRunner\Exception;
 
 use Exception;
 final class TokenNotFoundException extends Exception
