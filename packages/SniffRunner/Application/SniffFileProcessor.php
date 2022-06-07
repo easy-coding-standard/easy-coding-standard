@@ -134,9 +134,6 @@ final class SniffFileProcessor implements FileProcessorInterface
             if (!\defined('T_MATCH')) {
                 \define('T_MATCH', 5000);
             }
-            if (!\defined('ECSPrefix20220607\\T_ANON_CLASS')) {
-                \define('ECSPrefix20220607\\T_ANON_CLASS', 6000);
-            }
             \define('ECSPrefix20220607\\PHP_CODESNIFFER_VERBOSITY', 0);
             new Tokens();
         }
