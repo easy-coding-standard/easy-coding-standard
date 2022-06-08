@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220607\React\Promise;
+namespace ECSPrefix20220608\React\Promise;
 
 class Deferred implements PromisorInterface
 {

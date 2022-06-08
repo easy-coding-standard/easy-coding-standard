@@ -7,8 +7,8 @@ use PHP_CodeSniffer\Fixer;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
-use ECSPrefix20220607\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220608\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20220608\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\File\FileFactoryTest
  */

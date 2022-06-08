@@ -16,9 +16,9 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardErro
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20220607\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20220608\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix20220608\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220608\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
  */
@@ -129,12 +129,12 @@ final class SniffFileProcessor implements FileProcessorInterface
     }
     private function addCompatibilityLayer() : void
     {
-        if (!\defined('ECSPrefix20220607\\PHP_CODESNIFFER_VERBOSITY')) {
+        if (!\defined('ECSPrefix20220608\\PHP_CODESNIFFER_VERBOSITY')) {
             // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
             if (!\defined('T_MATCH')) {
                 \define('T_MATCH', 5000);
             }
-            \define('ECSPrefix20220607\\PHP_CODESNIFFER_VERBOSITY', 0);
+            \define('ECSPrefix20220608\\PHP_CODESNIFFER_VERBOSITY', 0);
             new Tokens();
         }
     }

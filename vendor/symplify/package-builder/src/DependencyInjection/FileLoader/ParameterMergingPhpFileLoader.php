@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\PackageBuilder\DependencyInjection\FileLoader;
+namespace ECSPrefix20220608\Symplify\PackageBuilder\DependencyInjection\FileLoader;
 
-use ECSPrefix20220607\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use ECSPrefix20220607\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20220608\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix20220608\Symplify\PackageBuilder\Yaml\ParametersMerger;
 /**
  * @api
  *

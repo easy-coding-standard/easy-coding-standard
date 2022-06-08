@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220607\Symfony\Contracts\Service;
+namespace ECSPrefix20220608\Symfony\Contracts\Service;
 
-use ECSPrefix20220607\Psr\Container\ContainerInterface;
-use ECSPrefix20220607\Symfony\Contracts\Service\Attribute\SubscribedService;
+use ECSPrefix20220608\Psr\Container\ContainerInterface;
+use ECSPrefix20220608\Symfony\Contracts\Service\Attribute\SubscribedService;
 /**
  * Implementation of ServiceSubscriberInterface that determines subscribed services from
  * method return types. Service ids are available as "ClassName::methodName".

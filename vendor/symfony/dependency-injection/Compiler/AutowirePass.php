@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220608\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220607\Symfony\Component\Config\Resource\ClassExistenceResource;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Attribute\Target;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\AutowiringFailedException;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix20220608\Symfony\Component\Config\Resource\ClassExistenceResource;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Attribute\Target;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\AutowiringFailedException;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * Inspects existing service definitions and wires the autowired ones using the type hints of their classes.
  *

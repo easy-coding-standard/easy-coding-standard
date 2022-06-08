@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20220607\React\Stream;
+namespace ECSPrefix20220608\React\Stream;
 
-use ECSPrefix20220607\Evenement\EventEmitter;
-use ECSPrefix20220607\React\EventLoop\Loop;
-use ECSPrefix20220607\React\EventLoop\LoopInterface;
+use ECSPrefix20220608\Evenement\EventEmitter;
+use ECSPrefix20220608\React\EventLoop\Loop;
+use ECSPrefix20220608\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 final class DuplexResourceStream extends EventEmitter implements DuplexStreamInterface
 {

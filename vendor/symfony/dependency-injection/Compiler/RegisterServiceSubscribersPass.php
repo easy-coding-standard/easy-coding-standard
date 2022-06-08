@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220608\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220607\Psr\Container\ContainerInterface as PsrContainerInterface;
-use ECSPrefix20220607\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\TypedReference;
-use ECSPrefix20220607\Symfony\Component\HttpFoundation\Session\SessionInterface;
-use ECSPrefix20220607\Symfony\Contracts\Service\ServiceProviderInterface;
-use ECSPrefix20220607\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix20220608\Psr\Container\ContainerInterface as PsrContainerInterface;
+use ECSPrefix20220608\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix20220608\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use ECSPrefix20220608\Symfony\Contracts\Service\ServiceProviderInterface;
+use ECSPrefix20220608\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * Compiler pass to register tagged services that require a service locator.
  *

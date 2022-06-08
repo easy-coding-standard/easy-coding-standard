@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\Skipper\SkipVoter;
+namespace ECSPrefix20220608\Symplify\Skipper\SkipVoter;
 
-use ECSPrefix20220607\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20220607\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20220607\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
-use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220608\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20220608\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20220608\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
+use ECSPrefix20220608\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Matching class and code, e.g. App\Category\ArraySniff.SomeCode
  */

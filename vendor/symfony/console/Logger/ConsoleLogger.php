@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220607\Symfony\Component\Console\Logger;
+namespace ECSPrefix20220608\Symfony\Component\Console\Logger;
 
-use ECSPrefix20220607\Psr\Log\AbstractLogger;
-use ECSPrefix20220607\Psr\Log\InvalidArgumentException;
-use ECSPrefix20220607\Psr\Log\LogLevel;
-use ECSPrefix20220607\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20220607\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220608\Psr\Log\AbstractLogger;
+use ECSPrefix20220608\Psr\Log\InvalidArgumentException;
+use ECSPrefix20220608\Psr\Log\LogLevel;
+use ECSPrefix20220608\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20220608\Symfony\Component\Console\Output\OutputInterface;
 /**
  * PSR-3 compliant console logger.
  *

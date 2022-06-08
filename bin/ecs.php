@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607;
+namespace ECSPrefix20220608;
 
 // decoupled in own "*.php" file, so ECS, Rector and PHPStan works out of the box here
 use PHP_CodeSniffer\Util\Tokens;
-use ECSPrefix20220607\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220607\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix20220608\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220608\Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
-use ECSPrefix20220607\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix20220608\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 // performance boost
 \gc_disable();
 \define('__ECS_RUNNING__', \true);

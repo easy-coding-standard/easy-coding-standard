@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220607\Composer\Semver;
+namespace ECSPrefix20220608\Composer\Semver;
 
-use ECSPrefix20220607\Composer\Semver\Constraint\Constraint;
+use ECSPrefix20220608\Composer\Semver\Constraint\Constraint;
 class Comparator
 {
     /**

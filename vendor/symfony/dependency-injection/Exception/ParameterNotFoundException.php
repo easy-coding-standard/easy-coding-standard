@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception;
 
-use ECSPrefix20220607\Psr\Container\NotFoundExceptionInterface;
+use ECSPrefix20220608\Psr\Container\NotFoundExceptionInterface;
 /**
  * This exception is thrown when a non-existent parameter is used.
  *

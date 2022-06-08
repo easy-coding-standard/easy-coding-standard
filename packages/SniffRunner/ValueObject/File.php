@@ -15,8 +15,8 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use ECSPrefix20220607\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220608\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20220608\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject\FileTest
  */
@@ -71,8 +71,8 @@ final class File extends BaseFile
         $this->fixer = $fixer;
         $this->eolChar = Common::detectLineEndings($content);
         // compat
-        if (!\defined('ECSPrefix20220607\\PHP_CODESNIFFER_CBF')) {
-            \define('ECSPrefix20220607\\PHP_CODESNIFFER_CBF', \false);
+        if (!\defined('ECSPrefix20220608\\PHP_CODESNIFFER_CBF')) {
+            \define('ECSPrefix20220608\\PHP_CODESNIFFER_CBF', \false);
         }
         // parent required
         $this->config = new Config([], \false);

@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220607\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220608\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\ExpressionLanguage;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Parameter;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\ServiceLocator;
-use ECSPrefix20220607\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\ExpressionLanguage;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Parameter;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\ServiceLocator;
+use ECSPrefix20220608\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * Checks whether injected parameters are compatible with type declarations.
  *

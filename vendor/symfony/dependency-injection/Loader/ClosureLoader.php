@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220607\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix20220608\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix20220607\Symfony\Component\Config\Loader\Loader;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220608\Symfony\Component\Config\Loader\Loader;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * ClosureLoader loads service definitions from a PHP closure.
  *

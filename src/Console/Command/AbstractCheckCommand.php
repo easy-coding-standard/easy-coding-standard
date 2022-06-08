@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20220607\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20220607\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20220607\Symfony\Contracts\Service\Attribute\Required;
+use ECSPrefix20220608\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20220608\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20220608\Symfony\Contracts\Service\Attribute\Required;
 use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20220607\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use ECSPrefix20220608\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 abstract class AbstractCheckCommand extends AbstractSymplifyCommand
 {
     /**

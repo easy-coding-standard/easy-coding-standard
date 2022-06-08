@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220607\Symfony\Component\DependencyInjection\ParameterBag;
+namespace ECSPrefix20220608\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use ECSPrefix20220607\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 /**
  * Holds parameters.
  *

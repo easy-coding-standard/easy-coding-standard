@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220607\Nette\Utils;
+namespace ECSPrefix20220608\Nette\Utils;
 
 /**
  * The exception that is thrown when an image error occurs.

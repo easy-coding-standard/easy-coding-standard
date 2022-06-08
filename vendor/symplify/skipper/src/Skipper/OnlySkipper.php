@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220607\Symplify\Skipper\Skipper;
+namespace ECSPrefix20220608\Symplify\Skipper\Skipper;
 
-use ECSPrefix20220607\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix20220607\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220608\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20220608\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\Skipper\Tests\Skipper\Only\OnlySkipperTest
  */

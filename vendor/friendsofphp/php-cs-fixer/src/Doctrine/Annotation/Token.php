@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Doctrine\Annotation;
 
-use ECSPrefix20220607\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20220608\Doctrine\Common\Annotations\DocLexer;
 /**
  * A Doctrine annotation token.
  *
