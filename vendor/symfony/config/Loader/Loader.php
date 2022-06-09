@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220608\Symfony\Component\Config\Loader;
+namespace ECSPrefix20220609\Symfony\Component\Config\Loader;
 
-use ECSPrefix20220608\Symfony\Component\Config\Exception\LoaderLoadException;
+use ECSPrefix20220609\Symfony\Component\Config\Exception\LoaderLoadException;
 /**
  * Loader is the abstract class used by all built-in loaders.
  *

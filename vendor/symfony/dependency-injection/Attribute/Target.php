@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220608\Symfony\Component\DependencyInjection\Attribute;
+namespace ECSPrefix20220609\Symfony\Component\DependencyInjection\Attribute;
 
-use ECSPrefix20220608\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20220609\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * An attribute to tell how a dependency is used and hint named autowiring aliases.
  *

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220608\Symplify\EasyParallel;
+namespace ECSPrefix20220609\Symplify\EasyParallel;
 
-use ECSPrefix20220608\Nette\Utils\Strings;
+use ECSPrefix20220609\Nette\Utils\Strings;
 /**
  * From https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92
  */

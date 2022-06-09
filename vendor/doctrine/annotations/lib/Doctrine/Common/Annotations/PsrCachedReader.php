@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220608\Doctrine\Common\Annotations;
+namespace ECSPrefix20220609\Doctrine\Common\Annotations;
 
-use ECSPrefix20220608\Psr\Cache\CacheItemPoolInterface;
+use ECSPrefix20220609\Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;

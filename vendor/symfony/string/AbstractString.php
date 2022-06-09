@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220608\Symfony\Component\String;
+namespace ECSPrefix20220609\Symfony\Component\String;
 
-use ECSPrefix20220608\Symfony\Component\String\Exception\ExceptionInterface;
-use ECSPrefix20220608\Symfony\Component\String\Exception\InvalidArgumentException;
-use ECSPrefix20220608\Symfony\Component\String\Exception\RuntimeException;
+use ECSPrefix20220609\Symfony\Component\String\Exception\ExceptionInterface;
+use ECSPrefix20220609\Symfony\Component\String\Exception\InvalidArgumentException;
+use ECSPrefix20220609\Symfony\Component\String\Exception\RuntimeException;
 /**
  * Represents a string of abstract characters.
  *

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220608\Symplify\ComposerJsonManipulator\ValueObject;
+namespace ECSPrefix20220609\Symplify\ComposerJsonManipulator\ValueObject;
 
-use ECSPrefix20220608\Nette\Utils\Arrays;
-use ECSPrefix20220608\Nette\Utils\Strings;
-use ECSPrefix20220608\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
-use ECSPrefix20220608\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220608\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20220609\Nette\Utils\Arrays;
+use ECSPrefix20220609\Nette\Utils\Strings;
+use ECSPrefix20220609\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
+use ECSPrefix20220609\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220609\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @api
  * @see \Symplify\ComposerJsonManipulator\Tests\ValueObject\ComposerJsonTest

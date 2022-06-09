@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220608\Symplify\Skipper\Skipper;
+namespace ECSPrefix20220609\Symplify\Skipper\Skipper;
 
-use ECSPrefix20220608\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20220608\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220609\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20220609\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @api
  * @see \Symplify\Skipper\Tests\Skipper\Skipper\SkipperTest

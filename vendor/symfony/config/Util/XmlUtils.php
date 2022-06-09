@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220608\Symfony\Component\Config\Util;
+namespace ECSPrefix20220609\Symfony\Component\Config\Util;
 
-use ECSPrefix20220608\Symfony\Component\Config\Util\Exception\InvalidXmlException;
-use ECSPrefix20220608\Symfony\Component\Config\Util\Exception\XmlParsingException;
+use ECSPrefix20220609\Symfony\Component\Config\Util\Exception\InvalidXmlException;
+use ECSPrefix20220609\Symfony\Component\Config\Util\Exception\XmlParsingException;
 /**
  * XMLUtils is a bunch of utility methods to XML operations.
  *

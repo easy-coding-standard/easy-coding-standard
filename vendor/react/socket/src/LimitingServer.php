@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220608\React\Socket;
+namespace ECSPrefix20220609\React\Socket;
 
-use ECSPrefix20220608\Evenement\EventEmitter;
+use ECSPrefix20220609\Evenement\EventEmitter;
 use Exception;
 use OverflowException;
 /**

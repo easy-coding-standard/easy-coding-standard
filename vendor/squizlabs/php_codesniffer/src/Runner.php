@@ -50,8 +50,8 @@ class Runner
         try {
             \PHP_CodeSniffer\Util\Timing::startTiming();
             \PHP_CodeSniffer\Runner::checkRequirements();
-            if (\defined('ECSPrefix20220608\\PHP_CODESNIFFER_CBF') === \false) {
-                \define('ECSPrefix20220608\\PHP_CODESNIFFER_CBF', \false);
+            if (\defined('ECSPrefix20220609\\PHP_CODESNIFFER_CBF') === \false) {
+                \define('ECSPrefix20220609\\PHP_CODESNIFFER_CBF', \false);
             }
             // Creating the Config object populates it with all required settings
             // based on the CLI arguments provided to the script and any config
@@ -132,8 +132,8 @@ class Runner
      */
     public function runPHPCBF()
     {
-        if (\defined('ECSPrefix20220608\\PHP_CODESNIFFER_CBF') === \false) {
-            \define('ECSPrefix20220608\\PHP_CODESNIFFER_CBF', \true);
+        if (\defined('ECSPrefix20220609\\PHP_CODESNIFFER_CBF') === \false) {
+            \define('ECSPrefix20220609\\PHP_CODESNIFFER_CBF', \true);
         }
         try {
             \PHP_CodeSniffer\Util\Timing::startTiming();
@@ -240,8 +240,8 @@ class Runner
      */
     public function init()
     {
-        if (\defined('ECSPrefix20220608\\PHP_CODESNIFFER_CBF') === \false) {
-            \define('ECSPrefix20220608\\PHP_CODESNIFFER_CBF', \false);
+        if (\defined('ECSPrefix20220609\\PHP_CODESNIFFER_CBF') === \false) {
+            \define('ECSPrefix20220609\\PHP_CODESNIFFER_CBF', \false);
         }
         // Ensure this option is enabled or else line endings will not always
         // be detected properly for files created on a Mac with the /r line ending.
@@ -263,8 +263,8 @@ class Runner
         }
         // Saves passing the Config object into other objects that only need
         // the verbosity flag for debug output.
-        if (\defined('ECSPrefix20220608\\PHP_CODESNIFFER_VERBOSITY') === \false) {
-            \define('ECSPrefix20220608\\PHP_CODESNIFFER_VERBOSITY', $this->config->verbosity);
+        if (\defined('ECSPrefix20220609\\PHP_CODESNIFFER_VERBOSITY') === \false) {
+            \define('ECSPrefix20220609\\PHP_CODESNIFFER_VERBOSITY', $this->config->verbosity);
         }
         // Create this class so it is autoloaded and sets up a bunch
         // of PHP_CodeSniffer-specific token type constants.

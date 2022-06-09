@@ -5,9 +5,9 @@ namespace Symplify\EasyCodingStandard\Kernel;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use ECSPrefix20220608\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20220608\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220608\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use ECSPrefix20220609\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20220609\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220609\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\CodingStandard\ValueObject\CodingStandardConfig;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
@@ -15,17 +15,17 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespace
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig;
-use ECSPrefix20220608\Symplify\EasyParallel\ValueObject\EasyParallelConfig;
-use ECSPrefix20220608\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
-use ECSPrefix20220608\Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
-use ECSPrefix20220608\Symplify\Skipper\ValueObject\SkipperConfig;
-use ECSPrefix20220608\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+use ECSPrefix20220609\Symplify\EasyParallel\ValueObject\EasyParallelConfig;
+use ECSPrefix20220609\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
+use ECSPrefix20220609\Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
+use ECSPrefix20220609\Symplify\Skipper\ValueObject\SkipperConfig;
+use ECSPrefix20220609\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class EasyCodingStandardKernel extends AbstractSymplifyKernel
 {
     /**
      * @param string[] $configFiles
      */
-    public function createFromConfigs(array $configFiles) : \ECSPrefix20220608\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFiles) : \ECSPrefix20220609\Psr\Container\ContainerInterface
     {
         $configFiles[] = __DIR__ . '/../../config/config.php';
         $compilerPasses = $this->createCompilerPasses();

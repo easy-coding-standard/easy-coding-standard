@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220608\React\Dns\Query;
+namespace ECSPrefix20220609\React\Dns\Query;
 
-use ECSPrefix20220608\React\Promise\Promise;
+use ECSPrefix20220609\React\Promise\Promise;
 /**
  * Cooperatively resolves hosts via the given base executor to ensure same query is not run concurrently
  *

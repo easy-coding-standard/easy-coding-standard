@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
-use ECSPrefix20220608\Symfony\Component\Config\FileLocator;
-use ECSPrefix20220608\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix20220608\Symfony\Component\Config\Loader\LoaderResolver;
-use ECSPrefix20220608\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220608\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
+use ECSPrefix20220609\Symfony\Component\Config\FileLocator;
+use ECSPrefix20220609\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix20220609\Symfony\Component\Config\Loader\LoaderResolver;
+use ECSPrefix20220609\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220609\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
-use ECSPrefix20220608\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
-use ECSPrefix20220608\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20220609\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
+use ECSPrefix20220609\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\FileHashComputer\FileHashComputerTest
  */

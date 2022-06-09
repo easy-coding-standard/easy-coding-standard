@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220608\React\EventLoop\Timer;
+namespace ECSPrefix20220609\React\EventLoop\Timer;
 
-use ECSPrefix20220608\React\EventLoop\TimerInterface;
+use ECSPrefix20220609\React\EventLoop\TimerInterface;
 /**
  * A scheduler implementation that can hold multiple timer instances
  *

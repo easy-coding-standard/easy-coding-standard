@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220608\Symplify\PackageBuilder\Strings;
+namespace ECSPrefix20220609\Symplify\PackageBuilder\Strings;
 
-use ECSPrefix20220608\Nette\Utils\Strings;
+use ECSPrefix20220609\Nette\Utils\Strings;
 /**
  * @api
  * @see \Symplify\PackageBuilder\Tests\Strings\StringFormatConverterTest

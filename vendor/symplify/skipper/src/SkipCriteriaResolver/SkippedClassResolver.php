@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220608\Symplify\Skipper\SkipCriteriaResolver;
+namespace ECSPrefix20220609\Symplify\Skipper\SkipCriteriaResolver;
 
-use ECSPrefix20220608\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20220608\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use ECSPrefix20220608\Symplify\Skipper\ValueObject\Option;
+use ECSPrefix20220609\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220609\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use ECSPrefix20220609\Symplify\Skipper\ValueObject\Option;
 final class SkippedClassResolver
 {
     /**

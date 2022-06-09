@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220608\Symfony\Component\Config\Definition;
+namespace ECSPrefix20220609\Symfony\Component\Config\Definition;
 
-use ECSPrefix20220608\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix20220608\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use ECSPrefix20220608\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
+use ECSPrefix20220609\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix20220609\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use ECSPrefix20220609\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * Represents an Array node in the config tree.
  *
