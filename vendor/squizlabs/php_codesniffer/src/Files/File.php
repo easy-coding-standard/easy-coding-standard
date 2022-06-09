@@ -289,7 +289,7 @@ class File
             return;
         }
         $this->fixer->startFile($this);
-        if (PHP_CODESNIFFER_VERBOSITY > 2) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 2) {
             echo "\t*** START TOKEN PROCESSING ***" . \PHP_EOL;
         }
         $foundCode = \false;
@@ -360,7 +360,7 @@ class File
                 //end if
             }
             //end if
-            if (PHP_CODESNIFFER_VERBOSITY > 2) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 2) {
                 $type = $token['type'];
                 $content = Util\Common::prepareForOutput($token['content']);
                 echo "\t\tProcess token {$stackPtr}: {$type} => {$content}" . \PHP_EOL;
@@ -426,7 +426,7 @@ class File
                 }
                 //end if
                 $this->activeListener = $class;
-                if (PHP_CODESNIFFER_VERBOSITY > 2) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 2) {
                     $startTime = \microtime(\true);
                     echo "\t\t\tProcessing " . $this->activeListener . '... ';
                 }
@@ -434,7 +434,7 @@ class File
                 if ($ignoreTo !== null) {
                     $listenerIgnoreTo[$this->activeListener] = $ignoreTo;
                 }
-                if (PHP_CODESNIFFER_VERBOSITY > 2) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 2) {
                     $timeTaken = \microtime(\true) - $startTime;
                     if (isset($this->listenerTimes[$this->activeListener]) === \false) {
                         $this->listenerTimes[$this->activeListener] = 0;
@@ -461,7 +461,7 @@ class File
                 $this->addWarning($error, null, 'Internal.NoCodeFound');
             }
         }
-        if (PHP_CODESNIFFER_VERBOSITY > 2) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 2) {
             echo "\t*** END TOKEN PROCESSING ***" . \PHP_EOL;
             echo "\t*** START SNIFF PROCESSING REPORT ***" . \PHP_EOL;
             \asort($this->listenerTimes, \SORT_NUMERIC);
@@ -492,9 +492,9 @@ class File
         } catch (TokenizerException $e) {
             $this->ignored = \true;
             $this->addWarning($e->getMessage(), null, 'Internal.Tokenizer.Exception');
-            if (PHP_CODESNIFFER_VERBOSITY > 0) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                 echo "[{$this->tokenizerType} => tokenizer error]... ";
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo \PHP_EOL;
                 }
             }
@@ -514,14 +514,14 @@ class File
             $error = 'File has mixed line endings; this may cause incorrect results';
             $this->addWarningOnLine($error, 1, 'Internal.LineEndings.Mixed');
         }
-        if (PHP_CODESNIFFER_VERBOSITY > 0) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 0) {
             if ($this->numTokens === 0) {
                 $numLines = 0;
             } else {
                 $numLines = $this->tokens[$this->numTokens - 1]['line'];
             }
             echo "[{$this->tokenizerType} => {$this->numTokens} tokens in {$numLines} lines]... ";
-            if (PHP_CODESNIFFER_VERBOSITY > 1) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                 echo \PHP_EOL;
             }
         }
@@ -882,7 +882,7 @@ class File
             $messages[$line][$column] = [];
         }
         $messages[$line][$column][] = ['message' => $message, 'source' => $sniffCode, 'listener' => $this->activeListener, 'severity' => $severity, 'fixable' => $fixable];
-        if (PHP_CODESNIFFER_VERBOSITY > 1 && $this->fixer->enabled === \true && $fixable === \true) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 1 && $this->fixer->enabled === \true && $fixable === \true) {
             @\ob_end_clean();
             echo "\tE: [Line {$line}] {$message} ({$sniffCode})" . \PHP_EOL;
             \ob_start();

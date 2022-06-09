@@ -200,7 +200,7 @@ class Reporter
             $generatedReport = \preg_replace('`\\033\\[[0-9;]+m`', '', $generatedReport);
         }
         if ($reportFile !== null) {
-            if (PHP_CODESNIFFER_VERBOSITY > 0) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                 echo $generatedReport;
             }
             \file_put_contents($reportFile, $generatedReport . \PHP_EOL);
@@ -258,13 +258,13 @@ class Reporter
             //end if
         }
         //end foreach
-        if ($errorsShown === \true || PHP_CODESNIFFER_CBF === \true) {
+        if ($errorsShown === \true || \PHP_CODESNIFFER_CBF === \true) {
             $this->totalFiles++;
             $this->totalErrors += $reportData['errors'];
             $this->totalWarnings += $reportData['warnings'];
             // When PHPCBF is running, we need to use the fixable error values
             // after the report has run and fixed what it can.
-            if (PHP_CODESNIFFER_CBF === \true) {
+            if (\PHP_CODESNIFFER_CBF === \true) {
                 $this->totalFixable += $phpcsFile->getFixableCount();
                 $this->totalFixed += $phpcsFile->getFixedCount();
             } else {

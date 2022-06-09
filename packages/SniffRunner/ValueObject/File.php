@@ -71,8 +71,8 @@ final class File extends BaseFile
         $this->fixer = $fixer;
         $this->eolChar = Common::detectLineEndings($content);
         // compat
-        if (!\defined('ECSPrefix20220609\\PHP_CODESNIFFER_CBF')) {
-            \define('ECSPrefix20220609\\PHP_CODESNIFFER_CBF', \false);
+        if (!\defined('PHP_CODESNIFFER_CBF')) {
+            \define('PHP_CODESNIFFER_CBF', \false);
         }
         // parent required
         $this->config = new Config([], \false);

@@ -95,7 +95,7 @@ class LocalFile extends \PHP_CodeSniffer\Files\File
                 $this->warningCount = $cache['warningCount'];
                 $this->fixableCount = $cache['fixableCount'];
             }
-            if (PHP_CODESNIFFER_VERBOSITY > 0 || PHP_CODESNIFFER_CBF === \true && empty($this->config->files) === \false) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 0 || \PHP_CODESNIFFER_CBF === \true && empty($this->config->files) === \false) {
                 echo "[loaded from cache]... ";
             }
             $this->numTokens = $cache['numTokens'];
@@ -103,7 +103,7 @@ class LocalFile extends \PHP_CodeSniffer\Files\File
             return;
         }
         //end if
-        if (PHP_CODESNIFFER_VERBOSITY > 1) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 1) {
             echo \PHP_EOL;
         }
         parent::process();

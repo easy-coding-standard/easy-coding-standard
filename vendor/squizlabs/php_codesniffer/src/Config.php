@@ -808,7 +808,7 @@ class Config
                                         }
                                         self::$overriddenDefaults['stdinPath'] = \true;
                                     } else {
-                                        if (PHP_CODESNIFFER_CBF === \false && \substr($arg, 0, 12) === 'report-file=') {
+                                        if (\PHP_CODESNIFFER_CBF === \false && \substr($arg, 0, 12) === 'report-file=') {
                                             if (isset(self::$overriddenDefaults['reportFile']) === \true) {
                                                 break;
                                             }
@@ -1002,7 +1002,7 @@ class Config
                                                                                             $this->ignored = $ignored;
                                                                                             self::$overriddenDefaults['ignored'] = \true;
                                                                                         } else {
-                                                                                            if (\substr($arg, 0, 10) === 'generator=' && PHP_CODESNIFFER_CBF === \false) {
+                                                                                            if (\substr($arg, 0, 10) === 'generator=' && \PHP_CODESNIFFER_CBF === \false) {
                                                                                                 if (isset(self::$overriddenDefaults['generator']) === \true) {
                                                                                                     break;
                                                                                                 }
@@ -1132,7 +1132,7 @@ class Config
     public function printUsage()
     {
         echo \PHP_EOL;
-        if (PHP_CODESNIFFER_CBF === \true) {
+        if (\PHP_CODESNIFFER_CBF === \true) {
             $this->printPHPCBFUsage();
         } else {
             $this->printPHPCSUsage();
@@ -1150,7 +1150,7 @@ class Config
      */
     public function printShortUsage($return = \false)
     {
-        if (PHP_CODESNIFFER_CBF === \true) {
+        if (\PHP_CODESNIFFER_CBF === \true) {
             $usage = 'Run "phpcbf --help" for usage information';
         } else {
             $usage = 'Run "phpcs --help" for usage information';

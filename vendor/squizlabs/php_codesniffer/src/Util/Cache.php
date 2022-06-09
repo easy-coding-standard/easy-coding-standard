@@ -40,7 +40,7 @@ class Cache
         // to generate a hash for the code used during the run.
         // At this point, the loaded class list contains the core PHPCS code
         // and all sniffs that have been loaded as part of the run.
-        if (PHP_CODESNIFFER_VERBOSITY > 1) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 1) {
             echo \PHP_EOL . "\tGenerating loaded file list for code hash" . \PHP_EOL;
         }
         $codeHashFiles = [];
@@ -56,11 +56,11 @@ class Cache
                     // We are only interested in sniffs here.
                     continue;
                 }
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo "\t\t=> external file: {$file}" . \PHP_EOL;
                 }
             } else {
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo "\t\t=> internal sniff: {$file}" . \PHP_EOL;
                 }
             }
@@ -72,11 +72,11 @@ class Cache
         \sort($rulesets);
         foreach ($rulesets as $file) {
             if (\substr($file, 0, $standardDirLen) !== $standardDir) {
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo "\t\t=> external ruleset: {$file}" . \PHP_EOL;
                 }
             } else {
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo "\t\t=> internal ruleset: {$file}" . \PHP_EOL;
                 }
             }
@@ -104,7 +104,7 @@ class Cache
         });
         $iterator = new \RecursiveIteratorIterator($filter);
         foreach ($iterator as $file) {
-            if (PHP_CODESNIFFER_VERBOSITY > 1) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                 echo "\t\t=> core file: {$file}" . \PHP_EOL;
             }
             $codeHashFiles[] = $file->getPathname();
@@ -123,7 +123,7 @@ class Cache
         $configData = ['phpVersion' => \PHP_VERSION_ID, 'phpExtensions' => $phpExtensionsHash, 'tabWidth' => $config->tabWidth, 'encoding' => $config->encoding, 'recordErrors' => $config->recordErrors, 'annotations' => $config->annotations, 'configData' => Config::getAllConfigData(), 'codeHash' => $codeHash, 'rulesetHash' => $rulesetHash];
         $configString = \var_export($configData, \true);
         $cacheHash = \substr(\sha1($configString), 0, 12);
-        if (PHP_CODESNIFFER_VERBOSITY > 1) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\tGenerating cache key data" . \PHP_EOL;
             foreach ($configData as $key => $value) {
                 if (\is_array($value) === \true) {
@@ -147,7 +147,7 @@ class Cache
             // Determine the common paths for all files being checked.
             // We can use this to locate an existing cache file, or to
             // determine where to create a new one.
-            if (PHP_CODESNIFFER_VERBOSITY > 1) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                 echo "\tChecking possible cache file paths" . \PHP_EOL;
             }
             $paths = [];
@@ -188,7 +188,7 @@ class Cache
                     // an existing file.
                     $cacheFile = $testFile;
                 }
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo "\t\t=> {$testFile}" . \PHP_EOL;
                     echo "\t\t\t * based on shared location: {$file} *" . \PHP_EOL;
                 }
@@ -205,7 +205,7 @@ class Cache
         }
         //end if
         self::$path = $cacheFile;
-        if (PHP_CODESNIFFER_VERBOSITY > 1) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t=> Using cache file: " . self::$path . \PHP_EOL;
         }
         if (\file_exists(self::$path) === \true) {
@@ -213,12 +213,12 @@ class Cache
             // Verify the contents of the cache file.
             if (self::$cache['config'] !== $configData) {
                 self::$cache = [];
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo "\t* cache was invalid and has been cleared *" . \PHP_EOL;
                 }
             }
         } else {
-            if (PHP_CODESNIFFER_VERBOSITY > 1) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                 echo "\t* cache file does not exist *" . \PHP_EOL;
             }
         }

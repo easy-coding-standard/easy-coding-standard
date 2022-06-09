@@ -87,6 +87,9 @@ final class AutoloadIncluder
         if (\defined('T_MATCH') === \false) {
             \define('T_MATCH', 5000);
         }
+        // for PHP_CodeSniffer
+        \define('PHP_CODESNIFFER_CBF', \false);
+        \define('PHP_CODESNIFFER_VERBOSITY', 0);
         new Tokens();
     }
     public function loadIfNotLoadedYet(string $file) : void

@@ -50,8 +50,8 @@ class Runner
         try {
             \PHP_CodeSniffer\Util\Timing::startTiming();
             \PHP_CodeSniffer\Runner::checkRequirements();
-            if (\defined('ECSPrefix20220609\\PHP_CODESNIFFER_CBF') === \false) {
-                \define('ECSPrefix20220609\\PHP_CODESNIFFER_CBF', \false);
+            if (\defined('PHP_CODESNIFFER_CBF') === \false) {
+                \define('PHP_CODESNIFFER_CBF', \false);
             }
             // Creating the Config object populates it with all required settings
             // based on the CLI arguments provided to the script and any config
@@ -132,8 +132,8 @@ class Runner
      */
     public function runPHPCBF()
     {
-        if (\defined('ECSPrefix20220609\\PHP_CODESNIFFER_CBF') === \false) {
-            \define('ECSPrefix20220609\\PHP_CODESNIFFER_CBF', \true);
+        if (\defined('PHP_CODESNIFFER_CBF') === \false) {
+            \define('PHP_CODESNIFFER_CBF', \true);
         }
         try {
             \PHP_CodeSniffer\Util\Timing::startTiming();
@@ -240,8 +240,8 @@ class Runner
      */
     public function init()
     {
-        if (\defined('ECSPrefix20220609\\PHP_CODESNIFFER_CBF') === \false) {
-            \define('ECSPrefix20220609\\PHP_CODESNIFFER_CBF', \false);
+        if (\defined('PHP_CODESNIFFER_CBF') === \false) {
+            \define('PHP_CODESNIFFER_CBF', \false);
         }
         // Ensure this option is enabled or else line endings will not always
         // be detected properly for files created on a Mac with the /r line ending.
@@ -263,8 +263,8 @@ class Runner
         }
         // Saves passing the Config object into other objects that only need
         // the verbosity flag for debug output.
-        if (\defined('ECSPrefix20220609\\PHP_CODESNIFFER_VERBOSITY') === \false) {
-            \define('ECSPrefix20220609\\PHP_CODESNIFFER_VERBOSITY', $this->config->verbosity);
+        if (\defined('PHP_CODESNIFFER_VERBOSITY') === \false) {
+            \define('PHP_CODESNIFFER_VERBOSITY', $this->config->verbosity);
         }
         // Create this class so it is autoloaded and sets up a bunch
         // of PHP_CodeSniffer-specific token type constants.
@@ -317,20 +317,20 @@ class Runner
                 $error .= $this->config->printShortUsage(\true);
                 throw new DeepExitException($error, 3);
             }
-            if (PHP_CODESNIFFER_VERBOSITY > 0) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                 echo 'Creating file list... ';
             }
             $todo = new FileList($this->config, $this->ruleset);
-            if (PHP_CODESNIFFER_VERBOSITY > 0) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                 $numFiles = \count($todo);
                 echo "DONE ({$numFiles} files in queue)" . \PHP_EOL;
             }
             if ($this->config->cache === \true) {
-                if (PHP_CODESNIFFER_VERBOSITY > 0) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                     echo 'Loading cache... ';
                 }
                 Cache::load($this->ruleset, $this->config);
-                if (PHP_CODESNIFFER_VERBOSITY > 0) {
+                if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                     $size = Cache::getSize();
                     echo "DONE ({$size} files in cache)" . \PHP_EOL;
                 }
@@ -341,7 +341,7 @@ class Runner
         \set_error_handler([$this, 'handleErrors']);
         // If verbosity is too high, turn off parallelism so the
         // debug output is clean.
-        if (PHP_CODESNIFFER_VERBOSITY > 1) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 1) {
             $this->config->parallel = 1;
         }
         // If the PCNTL extension isn't installed, we can't fork.
@@ -357,14 +357,14 @@ class Runner
                 if ($file->ignored === \false) {
                     $currDir = \dirname($path);
                     if ($lastDir !== $currDir) {
-                        if (PHP_CODESNIFFER_VERBOSITY > 0) {
+                        if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                             echo 'Changing into directory ' . Common::stripBasepath($currDir, $this->config->basepath) . \PHP_EOL;
                         }
                         $lastDir = $currDir;
                     }
                     $this->processFile($file);
                 } else {
-                    if (PHP_CODESNIFFER_VERBOSITY > 0) {
+                    if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                         echo 'Skipping ' . \basename($file->path) . \PHP_EOL;
                     }
                 }
@@ -416,7 +416,7 @@ class Runner
                             }
                             $currDir = \dirname($path);
                             if ($lastDir !== $currDir) {
-                                if (PHP_CODESNIFFER_VERBOSITY > 0) {
+                                if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                                     echo 'Changing into directory ' . Common::stripBasepath($currDir, $this->config->basepath) . \PHP_EOL;
                                 }
                                 $lastDir = $currDir;
@@ -458,7 +458,7 @@ class Runner
         }
         //end if
         \restore_error_handler();
-        if (PHP_CODESNIFFER_VERBOSITY === 0 && $this->config->interactive === \false && $this->config->showProgress === \true) {
+        if (\PHP_CODESNIFFER_VERBOSITY === 0 && $this->config->interactive === \false && $this->config->showProgress === \true) {
             echo \PHP_EOL . \PHP_EOL;
         }
         if ($this->config->cache === \true) {
@@ -516,16 +516,16 @@ class Runner
      */
     public function processFile($file)
     {
-        if (PHP_CODESNIFFER_VERBOSITY > 0) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 0) {
             $startTime = \microtime(\true);
             echo 'Processing ' . \basename($file->path) . ' ';
-            if (PHP_CODESNIFFER_VERBOSITY > 1) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 1) {
                 echo \PHP_EOL;
             }
         }
         try {
             $file->process();
-            if (PHP_CODESNIFFER_VERBOSITY > 0) {
+            if (\PHP_CODESNIFFER_VERBOSITY > 0) {
                 $timeTaken = (\microtime(\true) - $startTime) * 1000;
                 if ($timeTaken < 1000) {
                     $timeTaken = \round($timeTaken);
@@ -534,7 +534,7 @@ class Runner
                     $timeTaken = \round($timeTaken / 1000, 2);
                     echo "DONE in {$timeTaken} secs";
                 }
-                if (PHP_CODESNIFFER_CBF === \true) {
+                if (\PHP_CODESNIFFER_CBF === \true) {
                     $errors = $file->getFixableCount();
                     echo " ({$errors} fixable violations)" . \PHP_EOL;
                 } else {
@@ -661,7 +661,7 @@ class Runner
      */
     public function printProgress(File $file, $numFiles, $numProcessed)
     {
-        if (PHP_CODESNIFFER_VERBOSITY > 0 || $this->config->showProgress === \false) {
+        if (\PHP_CODESNIFFER_VERBOSITY > 0 || $this->config->showProgress === \false) {
             return;
         }
         // Show progress information.
@@ -672,7 +672,7 @@ class Runner
             $warnings = $file->getWarningCount();
             $fixable = $file->getFixableCount();
             $fixed = $file->getFixedCount();
-            if (PHP_CODESNIFFER_CBF === \true) {
+            if (\PHP_CODESNIFFER_CBF === \true) {
                 // Files with fixed errors or warnings are F (green).
                 // Files with unfixable errors or warnings are E (red).
                 // Files with no errors or warnings are . (black).
