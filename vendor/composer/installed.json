@@ -2927,7 +2927,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "2f9f7c4ab1ea2be8afd3ca8e78d24dbdcc3792ef"
+                "reference": "c770de0cee9e7e325e42eea2ba1c20160fb80d24"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -2963,7 +2963,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 }
             },
             "installation-source": "dist",
@@ -2994,7 +2994,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "305c43fd5ec04bd705ab7eca5e786ac1b7345ea1"
+                "reference": "41cf93bbe862af3cb38cac390e9a56f785ff6ec7"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.8",
@@ -3039,7 +3039,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 },
                 "enable-patching": true,
                 "patches": {
@@ -3076,7 +3076,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "51c6dde74abdc074a6da04f92d27b3ee128db0f1"
+                "reference": "76c9aa40ae6854e3c131a8de178dce754416ae46"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3115,7 +3115,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 }
             },
             "installation-source": "dist",
@@ -3146,7 +3146,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "e6ca7507ee9a7f98ec6c08c5512a3c466adfd59f"
+                "reference": "471a52a5d24ba15ed944570f09cb9dca0749c2bd"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
@@ -3185,7 +3185,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 }
             },
             "installation-source": "dist",
@@ -3216,7 +3216,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "8a02c97f0a21b30aa9fbf21809671a7b50876886"
+                "reference": "9ea79a9f555b2e5303e65332b7cffff90ef8304d"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3257,7 +3257,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 }
             },
             "installation-source": "dist",
@@ -3288,7 +3288,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "722a49002dc3e1bdcdf1dbd99b5a484cb2bcd459"
+                "reference": "8a9d9c97aeabc3de8be8b0dc4417050df1c8a9b9"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3328,7 +3328,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 }
             },
             "installation-source": "dist",
@@ -3359,7 +3359,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/rule-doc-generator-contracts",
-                "reference": "409bcf8e80393dd49b94b5212c84aa6eb526d765"
+                "reference": "d125616ddb71c7d290fb3391897a64a01de2b1de"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3391,7 +3391,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 }
             },
             "installation-source": "dist",
@@ -3417,7 +3417,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "d36f66cda79bf1de844840aa3fc00b664650c8c0"
+                "reference": "26752bca9f0a99681512f39843b32087958b049a"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3456,7 +3456,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 }
             },
             "installation-source": "dist",
@@ -3487,7 +3487,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "995506914d8ef2eb7ad8edbec103abb9ec9b0f8e"
+                "reference": "038621d0d74fb93a1ff8d4bab2da1d69eba109b7"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3525,7 +3525,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 }
             },
             "installation-source": "dist",
@@ -3556,7 +3556,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "13f7d540ceb9908746934485145a3cf5a2445c55"
+                "reference": "b3b13e031049840a762f59053c1fe0bfa3124be2"
             },
             "require": {
                 "php": ">=8.0",
@@ -3593,7 +3593,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.3-dev"
+                    "dev-main": "10.4-dev"
                 }
             },
             "installation-source": "dist",
