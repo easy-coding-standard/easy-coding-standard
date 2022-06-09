@@ -417,6 +417,8 @@ class Command
      * @throws InvalidArgumentException If option mode is invalid or incompatible
      *
      * @return $this
+     * @param string|mixed[] $shortcut
+     * @param mixed $default
      */
     public function addOption(string $name, $shortcut = null, int $mode = null, string $description = '', $default = null)
     {
