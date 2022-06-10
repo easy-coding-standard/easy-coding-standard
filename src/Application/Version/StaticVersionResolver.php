@@ -14,11 +14,11 @@ final class StaticVersionResolver
     /**
      * @var string
      */
-    public const PACKAGE_VERSION = '10.3.1';
+    public const PACKAGE_VERSION = 'b10745002d372cb9f0f36e5b5dc3264f0713946c';
     /**
      * @var string
      */
-    public const RELEASE_DATE = '2022-06-10 16:38:10';
+    public const RELEASE_DATE = '2022-06-10 16:38:15';
     /**
      * @var int
      */
