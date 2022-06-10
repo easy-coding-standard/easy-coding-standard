@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220609\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220610\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\TypedReference;
-use ECSPrefix20220609\Symfony\Contracts\Service\Attribute\Required;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix20220610\Symfony\Contracts\Service\Attribute\Required;
 /**
  * Looks for definitions with autowiring enabled and registers their corresponding "@required" properties.
  *

@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220609\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220610\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\Attribute\Target;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\Attribute\Target;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * @author Guilhem Niot <guilhem.niot@gmail.com>
  */

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220609\Symplify\PackageBuilder\Console\Input;
+namespace ECSPrefix20220610\Symplify\PackageBuilder\Console\Input;
 
-use ECSPrefix20220609\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix20220610\Symfony\Component\Console\Input\ArgvInput;
 /**
  * @api
  */

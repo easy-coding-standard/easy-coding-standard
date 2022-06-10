@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenAnalyzer;
 
-use ECSPrefix20220609\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20220610\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token;
 use PhpCsFixer\Doctrine\Annotation\Tokens;
 /**

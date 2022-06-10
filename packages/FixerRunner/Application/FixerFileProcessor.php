@@ -23,9 +23,9 @@ use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20220609\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20220609\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220609\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20220610\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20220610\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220610\Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\FixerFileProcessorTest

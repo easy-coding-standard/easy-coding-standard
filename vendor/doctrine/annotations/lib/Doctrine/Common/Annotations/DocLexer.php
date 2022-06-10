@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220609\Doctrine\Common\Annotations;
+namespace ECSPrefix20220610\Doctrine\Common\Annotations;
 
-use ECSPrefix20220609\Doctrine\Common\Lexer\AbstractLexer;
+use ECSPrefix20220610\Doctrine\Common\Lexer\AbstractLexer;
 use function ctype_alpha;
 use function is_numeric;
 use function str_replace;

@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20220609\React\Dns\Query;
+namespace ECSPrefix20220610\React\Dns\Query;
 
-use ECSPrefix20220609\React\Promise\CancellablePromiseInterface;
-use ECSPrefix20220609\React\Promise\Deferred;
-use ECSPrefix20220609\React\Promise\PromiseInterface;
+use ECSPrefix20220610\React\Promise\CancellablePromiseInterface;
+use ECSPrefix20220610\React\Promise\Deferred;
+use ECSPrefix20220610\React\Promise\PromiseInterface;
 final class RetryExecutor implements ExecutorInterface
 {
     private $executor;
@@ -21,7 +21,7 @@ final class RetryExecutor implements ExecutorInterface
     public function tryQuery(Query $query, $retries)
     {
         $deferred = new Deferred(function () use(&$promise) {
-            if ($promise instanceof CancellablePromiseInterface || !\interface_exists('ECSPrefix20220609\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+            if ($promise instanceof CancellablePromiseInterface || !\interface_exists('ECSPrefix20220610\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
                 $promise->cancel();
             }
         });

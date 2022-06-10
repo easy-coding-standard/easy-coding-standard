@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
-use ECSPrefix20220609\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220609\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20220610\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220610\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
@@ -18,12 +18,12 @@ use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20220609\Symplify\EasyParallel\CpuCoreCountProvider;
-use ECSPrefix20220609\Symplify\EasyParallel\FileSystem\FilePathNormalizer;
-use ECSPrefix20220609\Symplify\EasyParallel\ScheduleFactory;
-use ECSPrefix20220609\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20220609\Symplify\PackageBuilder\Yaml\ParametersMerger;
-use ECSPrefix20220609\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220610\Symplify\EasyParallel\CpuCoreCountProvider;
+use ECSPrefix20220610\Symplify\EasyParallel\FileSystem\FilePathNormalizer;
+use ECSPrefix20220610\Symplify\EasyParallel\ScheduleFactory;
+use ECSPrefix20220610\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220610\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix20220610\Symplify\SmartFileSystem\SmartFileInfo;
 final class EasyCodingStandardApplication
 {
     /**

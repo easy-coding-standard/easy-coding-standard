@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220609;
+namespace ECSPrefix20220610;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl\GitMergeConflictSniff;
 use Symplify\EasyCodingStandard\Config\ECSConfig;

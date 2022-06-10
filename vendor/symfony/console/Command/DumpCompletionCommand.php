@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220609\Symfony\Component\Console\Command;
+namespace ECSPrefix20220610\Symfony\Component\Console\Command;
 
-use ECSPrefix20220609\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix20220609\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix20220609\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20220609\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220609\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20220609\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20220609\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220609\Symfony\Component\Process\Process;
+use ECSPrefix20220610\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix20220610\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix20220610\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20220610\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220610\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20220610\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20220610\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220610\Symfony\Component\Process\Process;
 /**
  * Dumps the completion script for the current shell.
  *

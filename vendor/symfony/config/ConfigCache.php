@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220609\Symfony\Component\Config;
+namespace ECSPrefix20220610\Symfony\Component\Config;
 
-use ECSPrefix20220609\Symfony\Component\Config\Resource\SelfCheckingResourceChecker;
+use ECSPrefix20220610\Symfony\Component\Config\Resource\SelfCheckingResourceChecker;
 /**
  * ConfigCache caches arbitrary content in files on disk.
  *

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220609\Symplify\Skipper\SkipVoter;
+namespace ECSPrefix20220610\Symplify\Skipper\SkipVoter;
 
-use ECSPrefix20220609\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20220609\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use ECSPrefix20220609\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix20220609\Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver;
-use ECSPrefix20220609\Symplify\Skipper\Skipper\OnlySkipper;
-use ECSPrefix20220609\Symplify\Skipper\Skipper\SkipSkipper;
-use ECSPrefix20220609\Symplify\Skipper\ValueObject\Option;
-use ECSPrefix20220609\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220610\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220610\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use ECSPrefix20220610\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20220610\Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver;
+use ECSPrefix20220610\Symplify\Skipper\Skipper\OnlySkipper;
+use ECSPrefix20220610\Symplify\Skipper\Skipper\SkipSkipper;
+use ECSPrefix20220610\Symplify\Skipper\ValueObject\Option;
+use ECSPrefix20220610\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassSkipVoter implements SkipVoterInterface
 {
     /**

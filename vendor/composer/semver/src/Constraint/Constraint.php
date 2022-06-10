@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220609\Composer\Semver\Constraint;
+namespace ECSPrefix20220610\Composer\Semver\Constraint;
 
 /**
  * Defines a constraint.

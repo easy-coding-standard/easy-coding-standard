@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220609\React\Stream;
+namespace ECSPrefix20220610\React\Stream;
 
-use ECSPrefix20220609\Evenement\EventEmitterInterface;
+use ECSPrefix20220610\Evenement\EventEmitterInterface;
 /**
  * The `WritableStreamInterface` is responsible for providing an interface for
  * write-only streams and the writable side of duplex streams.

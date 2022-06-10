@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
-use ECSPrefix20220609\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220610\Symplify\SmartFileSystem\SmartFileInfo;
 final class TargetFileInfoResolver
 {
     /**

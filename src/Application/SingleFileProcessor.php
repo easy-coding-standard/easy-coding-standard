@@ -7,8 +7,8 @@ use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20220609\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20220609\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220610\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20220610\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleFileProcessor
 {
     /**

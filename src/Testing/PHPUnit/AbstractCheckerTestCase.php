@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
 use PHPUnit\Framework\TestCase;
-use ECSPrefix20220609\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220610\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -12,10 +12,10 @@ use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use ECSPrefix20220609\Symplify\EasyTesting\StaticFixtureSplitter;
-use ECSPrefix20220609\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix20220609\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220609\Webmozart\Assert\Assert;
+use ECSPrefix20220610\Symplify\EasyTesting\StaticFixtureSplitter;
+use ECSPrefix20220610\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix20220610\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220610\Webmozart\Assert\Assert;
 // needed for scoped version to load unprefixed classes; does not have any effect inside the class
 $scoperAutoloadFilePath = __DIR__ . '/../../../vendor/scoper-autoload.php';
 if (\file_exists($scoperAutoloadFilePath)) {

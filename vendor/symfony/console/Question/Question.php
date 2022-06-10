@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220609\Symfony\Component\Console\Question;
+namespace ECSPrefix20220610\Symfony\Component\Console\Question;
 
-use ECSPrefix20220609\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20220609\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix20220610\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20220610\Symfony\Component\Console\Exception\LogicException;
 /**
  * Represents a Question.
  *
