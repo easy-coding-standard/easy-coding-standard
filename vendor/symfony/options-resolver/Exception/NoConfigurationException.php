@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220610\Symfony\Component\OptionsResolver\Exception;
+namespace ECSPrefix20220611\Symfony\Component\OptionsResolver\Exception;
 
-use ECSPrefix20220610\Symfony\Component\OptionsResolver\Debug\OptionsResolverIntrospector;
+use ECSPrefix20220611\Symfony\Component\OptionsResolver\Debug\OptionsResolverIntrospector;
 /**
  * Thrown when trying to introspect an option definition property
  * for which no value was configured inside the OptionsResolver instance.

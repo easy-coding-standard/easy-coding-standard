@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220610;
+namespace ECSPrefix20220611;
 
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
-use ECSPrefix20220610\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix20220611\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use ECSPrefix20220610\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix20220611\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 return static function (ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire();

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220610\Symfony\Component\Config\Loader;
+namespace ECSPrefix20220611\Symfony\Component\Config\Loader;
 
 /**
  * GlobFileLoader loads files from a glob pattern.

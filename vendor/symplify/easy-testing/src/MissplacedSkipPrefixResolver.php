@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220610\Symplify\EasyTesting;
+namespace ECSPrefix20220611\Symplify\EasyTesting;
 
-use ECSPrefix20220610\Nette\Utils\Strings;
-use ECSPrefix20220610\Symplify\EasyTesting\ValueObject\IncorrectAndMissingSkips;
-use ECSPrefix20220610\Symplify\EasyTesting\ValueObject\Prefix;
-use ECSPrefix20220610\Symplify\EasyTesting\ValueObject\SplitLine;
-use ECSPrefix20220610\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220611\Nette\Utils\Strings;
+use ECSPrefix20220611\Symplify\EasyTesting\ValueObject\IncorrectAndMissingSkips;
+use ECSPrefix20220611\Symplify\EasyTesting\ValueObject\Prefix;
+use ECSPrefix20220611\Symplify\EasyTesting\ValueObject\SplitLine;
+use ECSPrefix20220611\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyTesting\Tests\MissingSkipPrefixResolver\MissingSkipPrefixResolverTest
  */

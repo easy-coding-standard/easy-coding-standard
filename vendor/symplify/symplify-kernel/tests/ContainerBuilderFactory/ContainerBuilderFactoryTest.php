@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220610\Symplify\SymplifyKernel\Tests\ContainerBuilderFactory;
+namespace ECSPrefix20220611\Symplify\SymplifyKernel\Tests\ContainerBuilderFactory;
 
-use ECSPrefix20220610\PHPUnit\Framework\TestCase;
-use ECSPrefix20220610\Symplify\SmartFileSystem\SmartFileSystem;
-use ECSPrefix20220610\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory;
-use ECSPrefix20220610\Symplify\SymplifyKernel\ContainerBuilderFactory;
+use ECSPrefix20220611\PHPUnit\Framework\TestCase;
+use ECSPrefix20220611\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20220611\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory;
+use ECSPrefix20220611\Symplify\SymplifyKernel\ContainerBuilderFactory;
 final class ContainerBuilderFactoryTest extends TestCase
 {
     public function test() : void

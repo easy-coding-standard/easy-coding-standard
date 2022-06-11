@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220610\Symfony\Component\Console\CI;
+namespace ECSPrefix20220611\Symfony\Component\Console\CI;
 
-use ECSPrefix20220610\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220611\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Utility class for Github actions.
  *

@@ -13,9 +13,9 @@ use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenAnalyzer\ChainMethodCallAnalyzer;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20220610\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20220610\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20220610\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220611\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20220611\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20220611\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\MethodChainingNewlineFixer\MethodChainingNewlineFixerTest
  */

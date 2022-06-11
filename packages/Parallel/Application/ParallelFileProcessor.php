@@ -3,29 +3,29 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\Application;
 
-use ECSPrefix20220610\Clue\React\NDJson\Decoder;
-use ECSPrefix20220610\Clue\React\NDJson\Encoder;
-use ECSPrefix20220610\Nette\Utils\Random;
-use ECSPrefix20220610\React\EventLoop\StreamSelectLoop;
-use ECSPrefix20220610\React\Socket\ConnectionInterface;
-use ECSPrefix20220610\React\Socket\TcpServer;
-use ECSPrefix20220610\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220610\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220611\Clue\React\NDJson\Decoder;
+use ECSPrefix20220611\Clue\React\NDJson\Encoder;
+use ECSPrefix20220611\Nette\Utils\Random;
+use ECSPrefix20220611\React\EventLoop\StreamSelectLoop;
+use ECSPrefix20220611\React\Socket\ConnectionInterface;
+use ECSPrefix20220611\React\Socket\TcpServer;
+use ECSPrefix20220611\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220611\Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20220610\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory;
-use ECSPrefix20220610\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix20220610\Symplify\EasyParallel\Enum\Content;
-use ECSPrefix20220610\Symplify\EasyParallel\Enum\ReactCommand;
-use ECSPrefix20220610\Symplify\EasyParallel\Enum\ReactEvent;
-use ECSPrefix20220610\Symplify\EasyParallel\ValueObject\ParallelProcess;
-use ECSPrefix20220610\Symplify\EasyParallel\ValueObject\ProcessPool;
-use ECSPrefix20220610\Symplify\EasyParallel\ValueObject\Schedule;
-use ECSPrefix20220610\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220611\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory;
+use ECSPrefix20220611\Symplify\EasyParallel\Enum\Action;
+use ECSPrefix20220611\Symplify\EasyParallel\Enum\Content;
+use ECSPrefix20220611\Symplify\EasyParallel\Enum\ReactCommand;
+use ECSPrefix20220611\Symplify\EasyParallel\Enum\ReactEvent;
+use ECSPrefix20220611\Symplify\EasyParallel\ValueObject\ParallelProcess;
+use ECSPrefix20220611\Symplify\EasyParallel\ValueObject\ProcessPool;
+use ECSPrefix20220611\Symplify\EasyParallel\ValueObject\Schedule;
+use ECSPrefix20220611\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Throwable;
 /**
  * Inspired from @see

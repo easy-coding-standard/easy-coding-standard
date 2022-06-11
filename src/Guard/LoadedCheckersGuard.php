@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Guard;
 
-use ECSPrefix20220610\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20220611\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
 final class LoadedCheckersGuard
 {

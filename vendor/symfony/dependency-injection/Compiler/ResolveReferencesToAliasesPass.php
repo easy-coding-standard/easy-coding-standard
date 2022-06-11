@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220610\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220611\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220610\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220610\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use ECSPrefix20220610\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20220611\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220611\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix20220611\Symfony\Component\DependencyInjection\Reference;
 /**
  * Replaces all references to aliases with references to the actual service.
  *

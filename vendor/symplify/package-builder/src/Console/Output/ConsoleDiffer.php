@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220610\Symplify\PackageBuilder\Console\Output;
+namespace ECSPrefix20220611\Symplify\PackageBuilder\Console\Output;
 
-use ECSPrefix20220610\SebastianBergmann\Diff\Differ;
-use ECSPrefix20220610\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
+use ECSPrefix20220611\SebastianBergmann\Diff\Differ;
+use ECSPrefix20220611\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
 /**
  * @api
  */

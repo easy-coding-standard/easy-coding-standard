@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20220610\Doctrine\Common\Annotations;
+namespace ECSPrefix20220611\Doctrine\Common\Annotations;
 
-use ECSPrefix20220610\Doctrine\Common\Annotations\Annotation\Attribute;
-use ECSPrefix20220610\Doctrine\Common\Annotations\Annotation\Attributes;
-use ECSPrefix20220610\Doctrine\Common\Annotations\Annotation\Enum;
-use ECSPrefix20220610\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
-use ECSPrefix20220610\Doctrine\Common\Annotations\Annotation\Target;
+use ECSPrefix20220611\Doctrine\Common\Annotations\Annotation\Attribute;
+use ECSPrefix20220611\Doctrine\Common\Annotations\Annotation\Attributes;
+use ECSPrefix20220611\Doctrine\Common\Annotations\Annotation\Enum;
+use ECSPrefix20220611\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
+use ECSPrefix20220611\Doctrine\Common\Annotations\Annotation\Target;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionProperty;

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use ECSPrefix20220610\Nette\Utils\Json;
+use ECSPrefix20220611\Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;

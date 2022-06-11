@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220610\Psr\Cache;
+namespace ECSPrefix20220611\Psr\Cache;
 
 /**
  * CacheItemPoolInterface generates CacheItemInterface objects.

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220610\React\Dns\Query;
+namespace ECSPrefix20220611\React\Dns\Query;
 
-use ECSPrefix20220610\React\Promise\Promise;
+use ECSPrefix20220611\React\Promise\Promise;
 /**
  * Send DNS queries over a UDP or TCP/IP stream transport.
  *

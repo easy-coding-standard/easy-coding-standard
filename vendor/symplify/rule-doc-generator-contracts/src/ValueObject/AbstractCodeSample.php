@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220610\Symplify\RuleDocGenerator\ValueObject;
+namespace ECSPrefix20220611\Symplify\RuleDocGenerator\ValueObject;
 
-use ECSPrefix20220610\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use ECSPrefix20220610\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
+use ECSPrefix20220611\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use ECSPrefix20220611\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
 abstract class AbstractCodeSample implements CodeSampleInterface
 {
     /**

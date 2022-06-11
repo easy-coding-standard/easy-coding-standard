@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Doctrine\Annotation;
 
-use ECSPrefix20220610\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20220611\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token as PhpToken;
 /**
