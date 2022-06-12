@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220611\Composer\Semver;
+namespace ECSPrefix20220612\Composer\Semver;
 
-use ECSPrefix20220611\Composer\Semver\Constraint\Constraint;
-use ECSPrefix20220611\Composer\Semver\Constraint\ConstraintInterface;
+use ECSPrefix20220612\Composer\Semver\Constraint\Constraint;
+use ECSPrefix20220612\Composer\Semver\Constraint\ConstraintInterface;
 /**
  * Helper class to evaluate constraint by compiling and reusing the code to evaluate
  */

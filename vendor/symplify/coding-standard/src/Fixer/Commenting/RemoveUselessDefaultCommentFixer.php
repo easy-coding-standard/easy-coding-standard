@@ -10,9 +10,9 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use ECSPrefix20220611\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20220611\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20220611\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220612\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20220612\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20220612\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\RemoveUselessDefaultCommentFixer\RemoveUselessDefaultCommentFixerTest
  */

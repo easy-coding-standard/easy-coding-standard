@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220611\Symplify\Skipper\SkipCriteriaResolver;
+namespace ECSPrefix20220612\Symplify\Skipper\SkipCriteriaResolver;
 
-use ECSPrefix20220611\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20220611\Symplify\Skipper\ValueObject\Option;
-use ECSPrefix20220611\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+use ECSPrefix20220612\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20220612\Symplify\Skipper\ValueObject\Option;
+use ECSPrefix20220612\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
 /**
  * @see \Symplify\Skipper\Tests\SkipCriteriaResolver\SkippedPathsResolver\SkippedPathsResolverTest
  */

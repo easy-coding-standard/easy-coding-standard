@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220611\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20220612\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20220611\Symfony\Component\Config\Definition\FloatNode;
+use ECSPrefix20220612\Symfony\Component\Config\Definition\FloatNode;
 /**
  * This class provides a fluent interface for defining a float node.
  *
@@ -21,7 +21,7 @@ class FloatNodeDefinition extends NumericNodeDefinition
     /**
      * Instantiates a Node.
      */
-    protected function instantiateNode() : \ECSPrefix20220611\Symfony\Component\Config\Definition\ScalarNode
+    protected function instantiateNode() : \ECSPrefix20220612\Symfony\Component\Config\Definition\ScalarNode
     {
         return new FloatNode($this->name, $this->parent, $this->min, $this->max, $this->pathSeparator);
     }

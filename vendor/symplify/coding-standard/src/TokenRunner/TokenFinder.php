@@ -5,7 +5,7 @@ namespace Symplify\CodingStandard\TokenRunner;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220611\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20220612\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class TokenFinder
 {
     /**

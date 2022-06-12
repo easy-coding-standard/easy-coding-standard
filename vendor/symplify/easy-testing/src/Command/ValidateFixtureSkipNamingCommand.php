@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220611\Symplify\EasyTesting\Command;
+namespace ECSPrefix20220612\Symplify\EasyTesting\Command;
 
-use ECSPrefix20220611\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20220611\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220611\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20220611\Symplify\EasyTesting\Finder\FixtureFinder;
-use ECSPrefix20220611\Symplify\EasyTesting\MissplacedSkipPrefixResolver;
-use ECSPrefix20220611\Symplify\EasyTesting\ValueObject\Option;
-use ECSPrefix20220611\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use ECSPrefix20220612\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20220612\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20220612\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20220612\Symplify\EasyTesting\Finder\FixtureFinder;
+use ECSPrefix20220612\Symplify\EasyTesting\MissplacedSkipPrefixResolver;
+use ECSPrefix20220612\Symplify\EasyTesting\ValueObject\Option;
+use ECSPrefix20220612\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 final class ValidateFixtureSkipNamingCommand extends AbstractSymplifyCommand
 {
     /**

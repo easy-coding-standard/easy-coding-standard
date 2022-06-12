@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220611\Symplify\AutowireArrayParameter\Skipper;
+namespace ECSPrefix20220612\Symplify\AutowireArrayParameter\Skipper;
 
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220611\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220612\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
 final class ParameterSkipper
 {
     /**
@@ -15,7 +15,7 @@ final class ParameterSkipper
      *
      * @var string[]
      */
-    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20220611\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20220611\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20220611\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20220611\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20220611\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20220611\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20220611\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20220611\\Sonata\\Twig\\Extension\\TemplateExtension'];
+    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20220612\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20220612\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20220612\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20220612\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20220612\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20220612\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20220612\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20220612\\Sonata\\Twig\\Extension\\TemplateExtension'];
     /**
      * @var string[]
      */

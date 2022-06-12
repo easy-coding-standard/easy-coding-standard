@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220611\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20220612\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20220611\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20220612\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */

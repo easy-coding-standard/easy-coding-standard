@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220611\Symplify\RuleDocGenerator\Contract;
+namespace ECSPrefix20220612\Symplify\RuleDocGenerator\Contract;
 
-use ECSPrefix20220611\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220612\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @api
  */

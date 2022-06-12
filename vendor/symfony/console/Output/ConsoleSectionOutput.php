@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220611\Symfony\Component\Console\Output;
+namespace ECSPrefix20220612\Symfony\Component\Console\Output;
 
-use ECSPrefix20220611\Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use ECSPrefix20220611\Symfony\Component\Console\Helper\Helper;
-use ECSPrefix20220611\Symfony\Component\Console\Terminal;
+use ECSPrefix20220612\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20220612\Symfony\Component\Console\Helper\Helper;
+use ECSPrefix20220612\Symfony\Component\Console\Terminal;
 /**
  * @author Pierre du Plessis <pdples@gmail.com>
  * @author Gabriel Ostrolucký <gabriel.ostrolucky@gmail.com>

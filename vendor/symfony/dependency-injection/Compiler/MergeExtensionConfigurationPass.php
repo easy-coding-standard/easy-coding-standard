@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220611\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220612\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220611\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\Extension\Extension;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use ECSPrefix20220611\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use ECSPrefix20220612\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\Extension\Extension;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix20220612\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 /**
  * Merges extension configs into the container builder.
  *

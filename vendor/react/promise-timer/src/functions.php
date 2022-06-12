@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20220611\React\Promise\Timer;
+namespace ECSPrefix20220612\React\Promise\Timer;
 
-use ECSPrefix20220611\React\EventLoop\Loop;
-use ECSPrefix20220611\React\EventLoop\LoopInterface;
-use ECSPrefix20220611\React\Promise\CancellablePromiseInterface;
-use ECSPrefix20220611\React\Promise\Promise;
-use ECSPrefix20220611\React\Promise\PromiseInterface;
+use ECSPrefix20220612\React\EventLoop\Loop;
+use ECSPrefix20220612\React\EventLoop\LoopInterface;
+use ECSPrefix20220612\React\Promise\CancellablePromiseInterface;
+use ECSPrefix20220612\React\Promise\Promise;
+use ECSPrefix20220612\React\Promise\PromiseInterface;
 /**
  * Cancel operations that take *too long*.
  *
@@ -143,7 +143,7 @@ function timeout(PromiseInterface $promise, $time, LoopInterface $loop = null)
     // cancelling this promise will only try to cancel the input promise,
     // thus leaving responsibility to the input promise.
     $canceller = null;
-    if ($promise instanceof CancellablePromiseInterface || !\interface_exists('ECSPrefix20220611\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+    if ($promise instanceof CancellablePromiseInterface || !\interface_exists('ECSPrefix20220612\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
         // pass promise by reference to clean reference after cancellation handler
         // has been invoked once in order to avoid garbage references in call stack.
         $canceller = function () use(&$promise) {
@@ -178,7 +178,7 @@ function timeout(PromiseInterface $promise, $time, LoopInterface $loop = null)
             $reject(new TimeoutException($time, 'Timed out after ' . $time . ' seconds'));
             // try to invoke cancellation handler of input promise and then clean
             // reference in order to avoid garbage references in call stack.
-            if ($promise instanceof CancellablePromiseInterface || !\interface_exists('ECSPrefix20220611\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+            if ($promise instanceof CancellablePromiseInterface || !\interface_exists('ECSPrefix20220612\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
                 $promise->cancel();
             }
             $promise = null;
