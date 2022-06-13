@@ -11,18 +11,6 @@ final class SetList
      */
     public const PSR_12 = __DIR__ . '/../../../config/set/psr12.php';
     /**
-     * @deprecated This set is outdated and will be removed in the future. Use PSR-12 or directly https://github.com/FriendsOfPHP/PHP-CS-Fixer/tree/master/src/RuleSet/Sets
-     * @var string
-     * @api
-     */
-    public const PHP_CS_FIXER = __DIR__ . '/../../../config/set/php-cs-fixer.php';
-    /**
-     * @deprecated This set is outdated and will be removed in the future. Use PSR-12 or directly https://github.com/FriendsOfPHP/PHP-CS-Fixer/tree/master/src/RuleSet/Sets
-     * @var string
-     * @api
-     */
-    public const PHP_CS_FIXER_RISKY = __DIR__ . '/../../../config/set/php-cs-fixer-risky.php';
-    /**
      * @var string
      * @api
      */
@@ -77,18 +65,6 @@ final class SetList
      * @api
      */
     public const STRICT = __DIR__ . '/../../../config/set/common/strict.php';
-    /**
-     * @deprecated This set is outdated and will be removed in the future. Use PSR-12 or directly https://github.com/FriendsOfPHP/PHP-CS-Fixer/tree/master/src/RuleSet/Sets
-     * @var string
-     * @api
-     */
-    public const SYMFONY = __DIR__ . '/../../../config/set/symfony.php';
-    /**
-     * @deprecated This set is outdated and will be removed in the future. Use PSR-12 or directly https://github.com/FriendsOfPHP/PHP-CS-Fixer/tree/master/src/RuleSet/Sets
-     * @var string
-     * @api
-     */
-    public const SYMFONY_RISKY = __DIR__ . '/../../../config/set/symfony-risky.php';
     /**
      * @var string
      * @api

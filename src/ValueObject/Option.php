@@ -31,11 +31,6 @@ final class Option
      */
     public const SKIP = 'skip';
     /**
-     * @deprecated Use $containerConfigurator->import(...) instead
-     * @var string
-     */
-    public const SETS = 'sets';
-    /**
      * @api
      * Alias for SOURCE
      * @var string

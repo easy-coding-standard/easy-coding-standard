@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcd1ea64b3ab05708963cb5cd258babf1
+class ComposerStaticInitc47316abab76a16101c778e557287527
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -923,7 +923,6 @@ class ComposerStaticInitcd1ea64b3ab05708963cb5cd258babf1
         'ECSPrefix202206\\Symplify\\PackageBuilder\\Composer\\VendorDirProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Composer/VendorDirProvider.php',
         'ECSPrefix202206\\Symplify\\PackageBuilder\\Configuration\\StaticEolConfiguration' => __DIR__ . '/..' . '/symplify/package-builder/src/Configuration/StaticEolConfiguration.php',
         'ECSPrefix202206\\Symplify\\PackageBuilder\\Console\\Command\\AbstractSymplifyCommand' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Command/AbstractSymplifyCommand.php',
-        'ECSPrefix202206\\Symplify\\PackageBuilder\\Console\\Command\\CommandNaming' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Command/CommandNaming.php',
         'ECSPrefix202206\\Symplify\\PackageBuilder\\Console\\Formatter\\ColorConsoleDiffFormatter' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Formatter/ColorConsoleDiffFormatter.php',
         'ECSPrefix202206\\Symplify\\PackageBuilder\\Console\\Input\\StaticInputDetector' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Input/StaticInputDetector.php',
         'ECSPrefix202206\\Symplify\\PackageBuilder\\Console\\Output\\ConsoleDiffer' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Output/ConsoleDiffer.php',
@@ -1535,7 +1534,6 @@ class ComposerStaticInitcd1ea64b3ab05708963cb5cd258babf1
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\FixerWhitespaceConfigCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/FixerWhitespaceConfigCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveExcludedCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveExcludedCheckersCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveMutualCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveMutualCheckersCompilerPass.php',
-        'Symplify\\EasyCodingStandard\\DependencyInjection\\DeprecationReporter' => __DIR__ . '/../..' . '/src/DependencyInjection/DeprecationReporter.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\EasyCodingStandardContainerFactory' => __DIR__ . '/../..' . '/src/DependencyInjection/EasyCodingStandardContainerFactory.php',
         'Symplify\\EasyCodingStandard\\Error\\FileDiffFactory' => __DIR__ . '/../..' . '/src/Error/FileDiffFactory.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\ConflictingCheckersLoadedException' => __DIR__ . '/../..' . '/src/Exception/Configuration/ConflictingCheckersLoadedException.php',
@@ -1544,7 +1542,6 @@ class ComposerStaticInitcd1ea64b3ab05708963cb5cd258babf1
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\OutputFormatterNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/OutputFormatterNotFoundException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\SourceNotFoundException' => __DIR__ . '/../..' . '/src/Exception/Configuration/SourceNotFoundException.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\WhitespaceConfigurationException' => __DIR__ . '/../..' . '/src/Exception/Configuration/WhitespaceConfigurationException.php',
-        'Symplify\\EasyCodingStandard\\Exception\\DeprecatedException' => __DIR__ . '/../..' . '/src/Exception/DeprecatedException.php',
         'Symplify\\EasyCodingStandard\\Exception\\VersionException' => __DIR__ . '/../..' . '/src/Exception/VersionException.php',
         'Symplify\\EasyCodingStandard\\FileSystem\\FileFilter' => __DIR__ . '/../..' . '/src/FileSystem/FileFilter.php',
         'Symplify\\EasyCodingStandard\\FileSystem\\TargetFileInfoResolver' => __DIR__ . '/../..' . '/src/FileSystem/TargetFileInfoResolver.php',
@@ -1592,9 +1589,9 @@ class ComposerStaticInitcd1ea64b3ab05708963cb5cd258babf1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcd1ea64b3ab05708963cb5cd258babf1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcd1ea64b3ab05708963cb5cd258babf1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitcd1ea64b3ab05708963cb5cd258babf1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc47316abab76a16101c778e557287527::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc47316abab76a16101c778e557287527::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc47316abab76a16101c778e557287527::$classMap;
 
         }, null, ClassLoader::class);
     }
