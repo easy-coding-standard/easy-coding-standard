@@ -27,7 +27,7 @@ use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20220613\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix202206\Symfony\Component\OptionsResolver\Options;
 /**
  * Fixer for rules defined in PSR2 ¶4.4, ¶4.6.
  *
@@ -43,7 +43,7 @@ final class MethodArgumentSpaceFixer extends AbstractFixer implements Configurab
         return new FixerDefinition('In method arguments and method call, there MUST NOT be a space before each comma and there MUST be one space after each comma. Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.', [new CodeSample("<?php\nfunction sample(\$a=10,\$b=20,\$c=30) {}\nsample(1,  2);\n", null), new CodeSample("<?php\nfunction sample(\$a=10,\$b=20,\$c=30) {}\nsample(1,  2);\n", ['keep_multiple_spaces_after_comma' => \false]), new CodeSample("<?php\nfunction sample(\$a=10,\$b=20,\$c=30) {}\nsample(1,  2);\n", ['keep_multiple_spaces_after_comma' => \true]), new CodeSample("<?php\nfunction sample(\$a=10,\n    \$b=20,\$c=30) {}\nsample(1,\n    2);\n", ['on_multiline' => 'ensure_fully_multiline']), new CodeSample("<?php\nfunction sample(\n    \$a=10,\n    \$b=20,\n    \$c=30\n) {}\nsample(\n    1,\n    2\n);\n", ['on_multiline' => 'ensure_single_line']), new CodeSample("<?php\nfunction sample(\$a=10,\n    \$b=20,\$c=30) {}\nsample(1,  \n    2);\nsample('foo',    'foobarbaz', 'baz');\nsample('foobar', 'bar',       'baz');\n", ['on_multiline' => 'ensure_fully_multiline', 'keep_multiple_spaces_after_comma' => \true]), new CodeSample("<?php\nfunction sample(\$a=10,\n    \$b=20,\$c=30) {}\nsample(1,  \n    2);\nsample('foo',    'foobarbaz', 'baz');\nsample('foobar', 'bar',       'baz');\n", ['on_multiline' => 'ensure_fully_multiline', 'keep_multiple_spaces_after_comma' => \false]), new VersionSpecificCodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix20220613;
+namespace ECSPrefix202206;
 
 sample(<<<EOD
 foo

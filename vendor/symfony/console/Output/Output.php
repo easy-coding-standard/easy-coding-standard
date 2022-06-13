@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220613\Symfony\Component\Console\Output;
+namespace ECSPrefix202206\Symfony\Component\Console\Output;
 
-use ECSPrefix20220613\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix20220613\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix202206\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix202206\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * Base class for output classes.
  *

@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use ECSPrefix20220613\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202206\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileFilter
 {
     /**

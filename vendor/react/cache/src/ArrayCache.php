@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20220613\React\Cache;
+namespace ECSPrefix202206\React\Cache;
 
-use ECSPrefix20220613\React\Promise;
-use ECSPrefix20220613\React\Promise\PromiseInterface;
+use ECSPrefix202206\React\Promise;
+use ECSPrefix202206\React\Promise\PromiseInterface;
 class ArrayCache implements CacheInterface
 {
     private $limit;

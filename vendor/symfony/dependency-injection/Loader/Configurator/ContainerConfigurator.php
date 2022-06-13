@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220613\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix202206\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20220613\Symfony\Component\Config\Loader\ParamConfigurator;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use ECSPrefix20220613\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix202206\Symfony\Component\Config\Loader\ParamConfigurator;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix202206\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
@@ -105,7 +105,7 @@ class ContainerConfigurator extends AbstractConfigurator
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-\class_alias('ECSPrefix20220613\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', 'Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', \false);
+\class_alias('ECSPrefix202206\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', 'Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', \false);
 /**
  * Creates a parameter.
  */

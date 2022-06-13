@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220613\Symplify\RuleDocGenerator\Contract;
+namespace ECSPrefix202206\Symplify\RuleDocGenerator\Contract;
 
-use ECSPrefix20220613\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202206\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 interface RuleCodeSamplePrinterInterface
 {
     public function isMatch(string $class) : bool;

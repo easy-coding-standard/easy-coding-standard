@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220613\React\Promise;
+namespace ECSPrefix202206\React\Promise;
 
 /**
  * @deprecated 2.8.0 External usage of FulfilledPromise is deprecated, use `resolve()` instead.

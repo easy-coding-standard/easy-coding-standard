@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220613\Symfony\Component\Console\Event;
+namespace ECSPrefix202206\Symfony\Component\Console\Event;
 
-use ECSPrefix20220613\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220613\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220613\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202206\Symfony\Component\Console\Command\Command;
+use ECSPrefix202206\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202206\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Allows to handle throwables thrown while running a command.
  *

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220613\Symfony\Component\Filesystem;
+namespace ECSPrefix202206\Symfony\Component\Filesystem;
 
-use ECSPrefix20220613\Symfony\Component\Filesystem\Exception\FileNotFoundException;
-use ECSPrefix20220613\Symfony\Component\Filesystem\Exception\InvalidArgumentException;
-use ECSPrefix20220613\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix202206\Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use ECSPrefix202206\Symfony\Component\Filesystem\Exception\InvalidArgumentException;
+use ECSPrefix202206\Symfony\Component\Filesystem\Exception\IOException;
 /**
  * Provides basic utility to manipulate the file system.
  *

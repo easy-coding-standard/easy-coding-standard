@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220613\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix202206\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20220613\Symfony\Component\Config\Loader\ParamConfigurator;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Parameter;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20220613\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix202206\Symfony\Component\Config\Loader\ParamConfigurator;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Parameter;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202206\Symfony\Component\ExpressionLanguage\Expression;
 abstract class AbstractConfigurator
 {
     public const FACTORY = 'unknown';

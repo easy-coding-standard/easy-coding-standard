@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\ValueObjectFactory;
 
-use ECSPrefix20220613\Nette\Utils\Strings;
+use ECSPrefix202206\Nette\Utils\Strings;
 use Symplify\CodingStandard\ValueObject\DocBlockLines;
 final class DocBlockLinesFactory
 {

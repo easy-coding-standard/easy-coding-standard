@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix20220613\Nette\Utils;
+namespace ECSPrefix202206\Nette\Utils;
 
-use ECSPrefix20220613\Nette;
-use ECSPrefix20220613\Nette\HtmlStringable;
+use ECSPrefix202206\Nette;
+use ECSPrefix202206\Nette\HtmlStringable;
 use function is_array, is_float, is_object, is_string;
 /**
  * HTML helper.

@@ -1,23 +1,23 @@
 <?php
 
-namespace ECSPrefix20220613\React\Dns\Resolver;
+namespace ECSPrefix202206\React\Dns\Resolver;
 
-use ECSPrefix20220613\React\Cache\ArrayCache;
-use ECSPrefix20220613\React\Cache\CacheInterface;
-use ECSPrefix20220613\React\Dns\Config\Config;
-use ECSPrefix20220613\React\Dns\Config\HostsFile;
-use ECSPrefix20220613\React\Dns\Query\CachingExecutor;
-use ECSPrefix20220613\React\Dns\Query\CoopExecutor;
-use ECSPrefix20220613\React\Dns\Query\ExecutorInterface;
-use ECSPrefix20220613\React\Dns\Query\FallbackExecutor;
-use ECSPrefix20220613\React\Dns\Query\HostsFileExecutor;
-use ECSPrefix20220613\React\Dns\Query\RetryExecutor;
-use ECSPrefix20220613\React\Dns\Query\SelectiveTransportExecutor;
-use ECSPrefix20220613\React\Dns\Query\TcpTransportExecutor;
-use ECSPrefix20220613\React\Dns\Query\TimeoutExecutor;
-use ECSPrefix20220613\React\Dns\Query\UdpTransportExecutor;
-use ECSPrefix20220613\React\EventLoop\Loop;
-use ECSPrefix20220613\React\EventLoop\LoopInterface;
+use ECSPrefix202206\React\Cache\ArrayCache;
+use ECSPrefix202206\React\Cache\CacheInterface;
+use ECSPrefix202206\React\Dns\Config\Config;
+use ECSPrefix202206\React\Dns\Config\HostsFile;
+use ECSPrefix202206\React\Dns\Query\CachingExecutor;
+use ECSPrefix202206\React\Dns\Query\CoopExecutor;
+use ECSPrefix202206\React\Dns\Query\ExecutorInterface;
+use ECSPrefix202206\React\Dns\Query\FallbackExecutor;
+use ECSPrefix202206\React\Dns\Query\HostsFileExecutor;
+use ECSPrefix202206\React\Dns\Query\RetryExecutor;
+use ECSPrefix202206\React\Dns\Query\SelectiveTransportExecutor;
+use ECSPrefix202206\React\Dns\Query\TcpTransportExecutor;
+use ECSPrefix202206\React\Dns\Query\TimeoutExecutor;
+use ECSPrefix202206\React\Dns\Query\UdpTransportExecutor;
+use ECSPrefix202206\React\EventLoop\Loop;
+use ECSPrefix202206\React\EventLoop\LoopInterface;
 final class Factory
 {
     /**

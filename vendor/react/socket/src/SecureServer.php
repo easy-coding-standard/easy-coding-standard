@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20220613\React\Socket;
+namespace ECSPrefix202206\React\Socket;
 
-use ECSPrefix20220613\Evenement\EventEmitter;
-use ECSPrefix20220613\React\EventLoop\Loop;
-use ECSPrefix20220613\React\EventLoop\LoopInterface;
+use ECSPrefix202206\Evenement\EventEmitter;
+use ECSPrefix202206\React\EventLoop\Loop;
+use ECSPrefix202206\React\EventLoop\LoopInterface;
 use BadMethodCallException;
 use UnexpectedValueException;
 /**

@@ -147,7 +147,7 @@ abstract class Tokenizer
         $lineNumber = 1;
         $eolLen = \strlen($this->eolChar);
         $ignoring = null;
-        $inTests = \defined('ECSPrefix20220613\\PHP_CODESNIFFER_IN_TESTS');
+        $inTests = \defined('ECSPrefix202206\\PHP_CODESNIFFER_IN_TESTS');
         $checkEncoding = \false;
         if (\function_exists('iconv_strlen') === \true) {
             $checkEncoding = \true;

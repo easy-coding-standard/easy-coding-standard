@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220613\Symplify\Skipper\SkipCriteriaResolver;
+namespace ECSPrefix202206\Symplify\Skipper\SkipCriteriaResolver;
 
-use ECSPrefix20220613\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix20220613\Symplify\Skipper\ValueObject\Option;
+use ECSPrefix202206\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix202206\Symplify\Skipper\ValueObject\Option;
 final class SkippedClassAndCodesResolver
 {
     /**

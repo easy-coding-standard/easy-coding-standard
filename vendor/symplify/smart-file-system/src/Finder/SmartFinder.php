@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220613\Symplify\SmartFileSystem\Finder;
+namespace ECSPrefix202206\Symplify\SmartFileSystem\Finder;
 
-use ECSPrefix20220613\Symfony\Component\Finder\Finder;
-use ECSPrefix20220613\Symplify\SmartFileSystem\FileSystemFilter;
-use ECSPrefix20220613\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202206\Symfony\Component\Finder\Finder;
+use ECSPrefix202206\Symplify\SmartFileSystem\FileSystemFilter;
+use ECSPrefix202206\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @api
  * @see \Symplify\SmartFileSystem\Tests\Finder\SmartFinder\SmartFinderTest

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220613\Symplify\SmartFileSystem\Json;
+namespace ECSPrefix202206\Symplify\SmartFileSystem\Json;
 
-use ECSPrefix20220613\Nette\Utils\Arrays;
-use ECSPrefix20220613\Nette\Utils\Json;
-use ECSPrefix20220613\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix20220613\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix202206\Nette\Utils\Arrays;
+use ECSPrefix202206\Nette\Utils\Json;
+use ECSPrefix202206\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix202206\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @api
  * @see \Symplify\SmartFileSystem\Tests\Json\JsonFileSystem\JsonFileSystemTest

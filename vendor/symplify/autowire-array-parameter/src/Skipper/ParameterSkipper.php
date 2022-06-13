@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220613\Symplify\AutowireArrayParameter\Skipper;
+namespace ECSPrefix202206\Symplify\AutowireArrayParameter\Skipper;
 
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220613\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202206\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
 final class ParameterSkipper
 {
     /**
@@ -15,7 +15,7 @@ final class ParameterSkipper
      *
      * @var string[]
      */
-    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20220613\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20220613\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20220613\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20220613\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20220613\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20220613\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20220613\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20220613\\Sonata\\Twig\\Extension\\TemplateExtension'];
+    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix202206\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix202206\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix202206\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix202206\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix202206\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix202206\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix202206\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix202206\\Sonata\\Twig\\Extension\\TemplateExtension'];
     /**
      * @var string[]
      */

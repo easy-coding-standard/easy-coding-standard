@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220613\Symplify\SymplifyKernel\DependencyInjection;
+namespace ECSPrefix202206\Symplify\SymplifyKernel\DependencyInjection;
 
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Mimics @see \Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass without dependency on
  * symfony/http-kernel

@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220613\Symfony\Component\Console\Completion;
+namespace ECSPrefix202206\Symfony\Component\Console\Completion;
 
-use ECSPrefix20220613\Symfony\Component\Console\Exception\RuntimeException;
-use ECSPrefix20220613\Symfony\Component\Console\Input\ArgvInput;
-use ECSPrefix20220613\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20220613\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202206\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix202206\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix202206\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202206\Symfony\Component\Console\Input\InputOption;
 /**
  * An input specialized for shell completion.
  *

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220613;
+namespace ECSPrefix202206;
 
 use PHP_CodeSniffer\Fixer;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\WhitespacesFixerConfig;
-use ECSPrefix20220613\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20220613\Symfony\Component\Console\Terminal;
+use ECSPrefix202206\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202206\Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
@@ -18,14 +18,14 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20220613\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use ECSPrefix20220613\Symplify\PackageBuilder\Yaml\ParametersMerger;
-use ECSPrefix20220613\Symplify\SmartFileSystem\FileSystemFilter;
-use ECSPrefix20220613\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix20220613\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use ECSPrefix20220613\Symplify\SmartFileSystem\Finder\SmartFinder;
-use ECSPrefix20220613\Symplify\SmartFileSystem\SmartFileSystem;
-use function ECSPrefix20220613\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use ECSPrefix202206\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix202206\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix202206\Symplify\SmartFileSystem\FileSystemFilter;
+use ECSPrefix202206\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix202206\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ECSPrefix202206\Symplify\SmartFileSystem\Finder\SmartFinder;
+use ECSPrefix202206\Symplify\SmartFileSystem\SmartFileSystem;
+use function ECSPrefix202206\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (ECSConfig $ecsConfig) : void {
     $parameters = $ecsConfig->parameters();
     $ecsConfig->indentation(Option::INDENTATION_SPACES);

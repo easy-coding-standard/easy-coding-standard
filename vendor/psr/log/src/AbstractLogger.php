@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220613\Psr\Log;
+namespace ECSPrefix202206\Psr\Log;
 
 /**
  * This is a simple Logger implementation that other Loggers can inherit from.

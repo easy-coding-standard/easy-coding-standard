@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
-use ECSPrefix20220613\Composer\XdebugHandler\XdebugHandler;
-use ECSPrefix20220613\Symfony\Component\Console\Application;
-use ECSPrefix20220613\Symfony\Component\Console\Command\Command;
-use ECSPrefix20220613\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20220613\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220613\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20220613\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202206\Composer\XdebugHandler\XdebugHandler;
+use ECSPrefix202206\Symfony\Component\Console\Application;
+use ECSPrefix202206\Symfony\Component\Console\Command\Command;
+use ECSPrefix202206\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202206\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202206\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202206\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix20220613\Symplify\PackageBuilder\Console\Command\CommandNaming;
+use ECSPrefix202206\Symplify\PackageBuilder\Console\Command\CommandNaming;
 final class EasyCodingStandardConsoleApplication extends Application
 {
     /**
@@ -31,7 +31,7 @@ final class EasyCodingStandardConsoleApplication extends Application
     {
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
-        if (!$isXdebugAllowed && !\defined('ECSPrefix20220613\\PHPUNIT_COMPOSER_INSTALL')) {
+        if (!$isXdebugAllowed && !\defined('ECSPrefix202206\\PHPUNIT_COMPOSER_INSTALL')) {
             $xdebugHandler = new XdebugHandler('ecs');
             $xdebugHandler->check();
             unset($xdebugHandler);

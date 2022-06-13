@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220613\Symfony\Component\Console\Helper;
+namespace ECSPrefix202206\Symfony\Component\Console\Helper;
 
-use ECSPrefix20220613\Symfony\Component\Console\Descriptor\DescriptorInterface;
-use ECSPrefix20220613\Symfony\Component\Console\Descriptor\JsonDescriptor;
-use ECSPrefix20220613\Symfony\Component\Console\Descriptor\MarkdownDescriptor;
-use ECSPrefix20220613\Symfony\Component\Console\Descriptor\TextDescriptor;
-use ECSPrefix20220613\Symfony\Component\Console\Descriptor\XmlDescriptor;
-use ECSPrefix20220613\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20220613\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202206\Symfony\Component\Console\Descriptor\DescriptorInterface;
+use ECSPrefix202206\Symfony\Component\Console\Descriptor\JsonDescriptor;
+use ECSPrefix202206\Symfony\Component\Console\Descriptor\MarkdownDescriptor;
+use ECSPrefix202206\Symfony\Component\Console\Descriptor\TextDescriptor;
+use ECSPrefix202206\Symfony\Component\Console\Descriptor\XmlDescriptor;
+use ECSPrefix202206\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202206\Symfony\Component\Console\Output\OutputInterface;
 /**
  * This class adds helper method to describe objects in various formats.
  *

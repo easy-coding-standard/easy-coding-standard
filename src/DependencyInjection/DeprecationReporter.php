@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix20220613\Symfony\Component\Config\Resource\FileResource;
-use ECSPrefix20220613\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20220613\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20220613\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202206\Symfony\Component\Config\Resource\FileResource;
+use ECSPrefix202206\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202206\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202206\Symfony\Component\DependencyInjection\ContainerInterface;
 final class DeprecationReporter
 {
     /**

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220613\Symplify\Skipper\ValueObject;
+namespace ECSPrefix202206\Symplify\Skipper\ValueObject;
 
 /**
  * @api
