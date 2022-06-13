@@ -5,10 +5,10 @@ namespace ECSPrefix202206;
 
 use PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer;
 use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (ContainerConfigurator $containerConfigurator) : void {
-    $containerConfigurator->import(__DIR__ . '/config.php');
-    $services = $containerConfigurator->services();
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+return static function (ECSConfig $ecsConfig) : void {
+    $ecsConfig->import(__DIR__ . '/config.php');
+    $services = $ecsConfig->services();
     $services->defaults()->public()->autowire();
     $services->set(FinalInternalClassFixer::class);
     $services->load('Symplify\\CodingStandard\\Fixer\\', __DIR__ . '/../src/Fixer')->exclude([__DIR__ . '/../src/Fixer/Annotation', __DIR__ . '/../src/Fixer/Spacing/StandaloneLineConstructorParamFixer.php']);
