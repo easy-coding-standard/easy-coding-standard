@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220612\Symfony\Component\Console\Helper;
+namespace ECSPrefix20220613\Symfony\Component\Console\Helper;
 
-use ECSPrefix20220612\Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use ECSPrefix20220612\Symfony\Component\String\UnicodeString;
+use ECSPrefix20220613\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20220613\Symfony\Component\String\UnicodeString;
 /**
  * Helper is the base class for all helper classes.
  *

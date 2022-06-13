@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220612\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20220613\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20220612\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix20220612\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20220612\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20220612\Symfony\Component\DependencyInjection\Exception\ExceptionInterface;
-use ECSPrefix20220612\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20220612\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix20220613\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix20220613\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20220613\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20220613\Symfony\Component\DependencyInjection\Exception\ExceptionInterface;
+use ECSPrefix20220613\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20220613\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 /**
  * This replaces all ChildDefinition instances with their equivalent fully
  * merged Definition instance.

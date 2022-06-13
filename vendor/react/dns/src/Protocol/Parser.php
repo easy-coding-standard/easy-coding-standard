@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20220612\React\Dns\Protocol;
+namespace ECSPrefix20220613\React\Dns\Protocol;
 
-use ECSPrefix20220612\React\Dns\Model\Message;
-use ECSPrefix20220612\React\Dns\Model\Record;
-use ECSPrefix20220612\React\Dns\Query\Query;
+use ECSPrefix20220613\React\Dns\Model\Message;
+use ECSPrefix20220613\React\Dns\Model\Record;
+use ECSPrefix20220613\React\Dns\Query\Query;
 use InvalidArgumentException;
 /**
  * DNS protocol parser

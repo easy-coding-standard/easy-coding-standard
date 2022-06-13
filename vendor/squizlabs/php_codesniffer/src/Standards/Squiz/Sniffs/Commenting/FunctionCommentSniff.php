@@ -212,6 +212,7 @@ class FunctionCommentSniff extends PEARFunctionCommentSniff
                             $comment .= ' ' . $tokens[$i]['content'];
                         }
                     }
+                    $comment = \trim($comment);
                     // Starts with a capital letter and ends with a fullstop.
                     $firstChar = $comment[0];
                     if (\strtoupper($firstChar) !== $firstChar) {

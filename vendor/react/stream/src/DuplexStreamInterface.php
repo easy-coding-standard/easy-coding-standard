@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220612\React\Stream;
+namespace ECSPrefix20220613\React\Stream;
 
 /**
  * The `DuplexStreamInterface` is responsible for providing an interface for

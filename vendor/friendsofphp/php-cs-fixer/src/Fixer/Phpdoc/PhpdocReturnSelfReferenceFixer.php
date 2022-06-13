@@ -24,8 +24,8 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix20220612\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix20220612\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix20220613\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20220613\Symfony\Component\OptionsResolver\Options;
 final class PhpdocReturnSelfReferenceFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**

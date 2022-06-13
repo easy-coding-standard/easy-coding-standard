@@ -66,7 +66,7 @@ class SideEffectsSniff implements Sniff
      */
     private function searchForConflict($phpcsFile, $start, $end, $tokens)
     {
-        $symbols = [\T_CLASS => \T_CLASS, \T_INTERFACE => \T_INTERFACE, \T_TRAIT => \T_TRAIT, \T_FUNCTION => \T_FUNCTION];
+        $symbols = [\T_CLASS => \T_CLASS, \T_INTERFACE => \T_INTERFACE, \T_TRAIT => \T_TRAIT, \T_ENUM => \T_ENUM, \T_FUNCTION => \T_FUNCTION];
         $conditions = [\T_IF => \T_IF, \T_ELSE => \T_ELSE, \T_ELSEIF => \T_ELSEIF];
         $checkAnnotations = $phpcsFile->config->annotations;
         $firstSymbol = null;

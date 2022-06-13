@@ -20,7 +20,7 @@ class ClosingDeclarationCommentSniff implements Sniff
      */
     public function register()
     {
-        return [\T_FUNCTION, \T_CLASS, \T_INTERFACE];
+        return [\T_FUNCTION, \T_CLASS, \T_INTERFACE, \T_ENUM];
     }
     //end register()
     /**
@@ -57,7 +57,11 @@ class ClosingDeclarationCommentSniff implements Sniff
             if ($tokens[$stackPtr]['code'] === \T_CLASS) {
                 $comment = '//end class';
             } else {
-                $comment = '//end interface';
+                if ($tokens[$stackPtr]['code'] === \T_INTERFACE) {
+                    $comment = '//end interface';
+                } else {
+                    $comment = '//end enum';
+                }
             }
         }
         //end if

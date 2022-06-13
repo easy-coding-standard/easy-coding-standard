@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20220612\React\Dns\Query;
+namespace ECSPrefix20220613\React\Dns\Query;
 
-use ECSPrefix20220612\React\Promise\Promise;
+use ECSPrefix20220613\React\Promise\Promise;
 final class FallbackExecutor implements ExecutorInterface
 {
     private $executor;

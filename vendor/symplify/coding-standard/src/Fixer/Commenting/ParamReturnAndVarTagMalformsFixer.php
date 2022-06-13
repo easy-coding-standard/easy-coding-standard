@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Commenting;
 
-use ECSPrefix20220612\Nette\Utils\Strings;
+use ECSPrefix20220613\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -17,9 +17,9 @@ use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\ParamNameTypoMalf
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousReturnNameMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousVarNameMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SwitchedTypeAndNameMalformWorker;
-use ECSPrefix20220612\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20220612\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20220612\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220613\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20220613\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20220613\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see ParamNameTypoMalformWorker
  * @see InlineVarMalformWorker

@@ -20,7 +20,7 @@ class ClosingBraceSniff implements Sniff
      */
     public function register()
     {
-        return [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION];
+        return [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM, \T_FUNCTION];
     }
     //end register()
     /**

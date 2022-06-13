@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20220612\Composer\Semver;
+namespace ECSPrefix20220613\Composer\Semver;
 
-use ECSPrefix20220612\Composer\Semver\Constraint\ConstraintInterface;
-use ECSPrefix20220612\Composer\Semver\Constraint\MatchAllConstraint;
-use ECSPrefix20220612\Composer\Semver\Constraint\MultiConstraint;
-use ECSPrefix20220612\Composer\Semver\Constraint\Constraint;
+use ECSPrefix20220613\Composer\Semver\Constraint\ConstraintInterface;
+use ECSPrefix20220613\Composer\Semver\Constraint\MatchAllConstraint;
+use ECSPrefix20220613\Composer\Semver\Constraint\MultiConstraint;
+use ECSPrefix20220613\Composer\Semver\Constraint\Constraint;
 /**
  * Version parser.
  *

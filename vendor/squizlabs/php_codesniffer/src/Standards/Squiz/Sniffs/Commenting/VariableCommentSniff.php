@@ -26,7 +26,7 @@ class VariableCommentSniff extends AbstractVariableSniff
     public function processMemberVar(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $ignore = [\T_PUBLIC => \T_PUBLIC, \T_PRIVATE => \T_PRIVATE, \T_PROTECTED => \T_PROTECTED, \T_VAR => \T_VAR, \T_STATIC => \T_STATIC, \T_WHITESPACE => \T_WHITESPACE, \T_STRING => \T_STRING, \T_NS_SEPARATOR => \T_NS_SEPARATOR, \T_NULLABLE => \T_NULLABLE];
+        $ignore = [\T_PUBLIC => \T_PUBLIC, \T_PRIVATE => \T_PRIVATE, \T_PROTECTED => \T_PROTECTED, \T_VAR => \T_VAR, \T_STATIC => \T_STATIC, \T_READONLY => \T_READONLY, \T_WHITESPACE => \T_WHITESPACE, \T_STRING => \T_STRING, \T_NS_SEPARATOR => \T_NS_SEPARATOR, \T_NULLABLE => \T_NULLABLE];
         for ($commentEnd = $stackPtr - 1; $commentEnd >= 0; $commentEnd--) {
             if (isset($ignore[$tokens[$commentEnd]['code']]) === \true) {
                 continue;

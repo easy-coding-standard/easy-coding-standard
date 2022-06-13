@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20220612\React\EventLoop;
+namespace ECSPrefix20220613\React\EventLoop;
 
-use ECSPrefix20220612\React\EventLoop\Tick\FutureTickQueue;
-use ECSPrefix20220612\React\EventLoop\Timer\Timer;
+use ECSPrefix20220613\React\EventLoop\Tick\FutureTickQueue;
+use ECSPrefix20220613\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-uv` based event loop.
@@ -150,8 +150,8 @@ final class ExtUvLoop implements LoopInterface
         $this->signals->add($signal, $listener);
         if (!isset($this->signalEvents[$signal])) {
             $signals = $this->signals;
-            $this->signalEvents[$signal] = \ECSPrefix20220612\uv_signal_init($this->uv);
-            \ECSPrefix20220612\uv_signal_start($this->signalEvents[$signal], function () use($signals, $signal) {
+            $this->signalEvents[$signal] = \ECSPrefix20220613\uv_signal_init($this->uv);
+            \ECSPrefix20220613\uv_signal_start($this->signalEvents[$signal], function () use($signals, $signal) {
                 $signals->call($signal);
             }, $signal);
         }
@@ -197,7 +197,7 @@ final class ExtUvLoop implements LoopInterface
     private function addStream($stream)
     {
         if (!isset($this->streamEvents[(int) $stream])) {
-            $this->streamEvents[(int) $stream] = \ECSPrefix20220612\uv_poll_init_socket($this->uv, $stream);
+            $this->streamEvents[(int) $stream] = \ECSPrefix20220613\uv_poll_init_socket($this->uv, $stream);
         }
         if ($this->streamEvents[(int) $stream] !== \false) {
             $this->pollStream($stream);

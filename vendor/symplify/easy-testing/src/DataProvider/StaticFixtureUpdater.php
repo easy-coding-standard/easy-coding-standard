@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220612\Symplify\EasyTesting\DataProvider;
+namespace ECSPrefix20220613\Symplify\EasyTesting\DataProvider;
 
-use ECSPrefix20220612\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20220612\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20220613\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220613\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @api
  */

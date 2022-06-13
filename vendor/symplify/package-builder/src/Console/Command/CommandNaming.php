@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220612\Symplify\PackageBuilder\Console\Command;
+namespace ECSPrefix20220613\Symplify\PackageBuilder\Console\Command;
 
-use ECSPrefix20220612\Nette\Utils\Strings;
-use ECSPrefix20220612\Symfony\Component\Console\Command\Command;
+use ECSPrefix20220613\Nette\Utils\Strings;
+use ECSPrefix20220613\Symfony\Component\Console\Command\Command;
 /**
  * @api
  * @see \Symplify\PackageBuilder\Tests\Console\Command\CommandNamingTest

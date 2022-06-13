@@ -10,9 +10,9 @@ use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use ECSPrefix20220612\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20220612\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20220612\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20220613\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20220613\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20220613\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Inspired at https://github.com/aidantwoods/PHP-CS-Fixer/tree/feature/DeclareStrictTypesFixer-split
  *

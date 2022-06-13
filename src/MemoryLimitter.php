@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard;
 
-use ECSPrefix20220612\Nette\Utils\Strings;
+use ECSPrefix20220613\Nette\Utils\Strings;
 use Symplify\EasyCodingStandard\Exception\Configuration\InitializationException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 /**

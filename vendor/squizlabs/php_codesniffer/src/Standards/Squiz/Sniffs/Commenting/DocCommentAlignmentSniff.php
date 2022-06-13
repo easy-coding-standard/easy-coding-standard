@@ -50,7 +50,7 @@ class DocCommentAlignmentSniff implements Sniff
             $ignore[] = \T_OBJECT_OPERATOR;
         }
         $nextToken = $phpcsFile->findNext($ignore, $stackPtr + 1, null, \true);
-        $ignore = [\T_CLASS => \true, \T_INTERFACE => \true, \T_FUNCTION => \true, \T_PUBLIC => \true, \T_PRIVATE => \true, \T_PROTECTED => \true, \T_STATIC => \true, \T_ABSTRACT => \true, \T_PROPERTY => \true, \T_OBJECT => \true, \T_PROTOTYPE => \true, \T_VAR => \true];
+        $ignore = [\T_CLASS => \true, \T_INTERFACE => \true, \T_ENUM => \true, \T_ENUM_CASE => \true, \T_FUNCTION => \true, \T_PUBLIC => \true, \T_PRIVATE => \true, \T_PROTECTED => \true, \T_STATIC => \true, \T_ABSTRACT => \true, \T_PROPERTY => \true, \T_OBJECT => \true, \T_PROTOTYPE => \true, \T_VAR => \true, \T_READONLY => \true];
         if ($nextToken === \false || isset($ignore[$tokens[$nextToken]['code']]) === \false) {
             // Could be a file comment.
             $prevToken = $phpcsFile->findPrevious(Tokens::$emptyTokens, $stackPtr - 1, null, \true);

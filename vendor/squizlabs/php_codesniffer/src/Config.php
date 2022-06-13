@@ -78,7 +78,7 @@ class Config
      *
      * @var string
      */
-    const VERSION = '3.6.2';
+    const VERSION = '3.7.0';
     /**
      * Package stability; either stable, beta or alpha.
      *
@@ -257,7 +257,7 @@ class Config
      */
     public function __construct(array $cliArgs = [], $dieOnUnknownArg = \true)
     {
-        if (\defined('ECSPrefix20220612\\PHP_CODESNIFFER_IN_TESTS') === \true) {
+        if (\defined('ECSPrefix20220613\\PHP_CODESNIFFER_IN_TESTS') === \true) {
             // Let everything through during testing so that we can
             // make use of PHPUnit command line arguments as well.
             $this->dieOnUnknownArg = \false;
@@ -288,7 +288,7 @@ class Config
             } while ($currentDir !== '.' && $currentDir !== $lastDir && Common::isReadable($currentDir) === \true);
         }
         //end if
-        if (\defined('STDIN') === \false || \strtoupper(\substr(\PHP_OS, 0, 3)) === 'WIN') {
+        if (\defined('STDIN') === \false || \stripos(\PHP_OS, 'WIN') === 0) {
             return;
         }
         $handle = \fopen('php://stdin', 'r');
@@ -455,7 +455,7 @@ class Config
         if ($colors !== null) {
             $this->colors = (bool) $colors;
         }
-        if (\defined('ECSPrefix20220612\\PHP_CODESNIFFER_IN_TESTS') === \false) {
+        if (\defined('ECSPrefix20220613\\PHP_CODESNIFFER_IN_TESTS') === \false) {
             $cache = self::getConfigData('cache');
             if ($cache !== null) {
                 $this->cache = (bool) $cache;
@@ -608,7 +608,7 @@ class Config
                 if (isset(self::$overriddenDefaults['cache']) === \true) {
                     break;
                 }
-                if (\defined('ECSPrefix20220612\\PHP_CODESNIFFER_IN_TESTS') === \false) {
+                if (\defined('ECSPrefix20220613\\PHP_CODESNIFFER_IN_TESTS') === \false) {
                     $this->cache = \true;
                     self::$overriddenDefaults['cache'] = \true;
                 }
@@ -723,7 +723,7 @@ class Config
                         $this->exclude = $sniffs;
                         self::$overriddenDefaults['exclude'] = \true;
                     } else {
-                        if (\defined('ECSPrefix20220612\\PHP_CODESNIFFER_IN_TESTS') === \false && \substr($arg, 0, 6) === 'cache=') {
+                        if (\defined('ECSPrefix20220613\\PHP_CODESNIFFER_IN_TESTS') === \false && \substr($arg, 0, 6) === 'cache=') {
                             if (isset(self::$overriddenDefaults['cache']) === \true && $this->cache === \false || isset(self::$overriddenDefaults['cacheFile']) === \true) {
                                 break;
                             }
@@ -1330,7 +1330,7 @@ class Config
         if (\array_key_exists($name, self::$executablePaths) === \true) {
             return self::$executablePaths[$name];
         }
-        if (\strtoupper(\substr(\PHP_OS, 0, 3)) === 'WIN') {
+        if (\stripos(\PHP_OS, 'WIN') === 0) {
             $cmd = 'where ' . \escapeshellarg($name) . ' 2> nul';
         } else {
             $cmd = 'which ' . \escapeshellarg($name) . ' 2> /dev/null';
@@ -1395,7 +1395,7 @@ class Config
         if ($temp === \false) {
             $output = '<' . '?php' . "\n" . ' $phpCodeSnifferConfig = ';
             $output .= \var_export($phpCodeSnifferConfig, \true);
-            $output .= "\n?" . '>';
+            $output .= ";\n?" . '>';
             if (\file_put_contents($configFile, $output) === \false) {
                 $error = 'ERROR: Config file ' . $configFile . ' could not be written' . \PHP_EOL . \PHP_EOL;
                 throw new DeepExitException($error, 3);

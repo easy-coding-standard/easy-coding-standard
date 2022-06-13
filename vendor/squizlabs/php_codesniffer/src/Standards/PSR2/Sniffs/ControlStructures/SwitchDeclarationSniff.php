@@ -211,7 +211,7 @@ class SwitchDeclarationSniff implements Sniff
     private function findNestedTerminator($phpcsFile, $stackPtr, $end)
     {
         $tokens = $phpcsFile->getTokens();
-        $lastToken = $phpcsFile->findPrevious(\T_WHITESPACE, $end - 1, $stackPtr, \true);
+        $lastToken = $phpcsFile->findPrevious(Tokens::$emptyTokens, $end - 1, $stackPtr, \true);
         if ($lastToken === \false) {
             return \false;
         }

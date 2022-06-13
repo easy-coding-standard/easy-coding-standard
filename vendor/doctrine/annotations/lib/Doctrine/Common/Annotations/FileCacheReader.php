@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220612\Doctrine\Common\Annotations;
+namespace ECSPrefix20220613\Doctrine\Common\Annotations;
 
 use InvalidArgumentException;
 use ReflectionClass;

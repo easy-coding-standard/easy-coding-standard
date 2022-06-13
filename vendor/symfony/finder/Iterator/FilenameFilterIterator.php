@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20220612\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20220613\Symfony\Component\Finder\Iterator;
 
-use ECSPrefix20220612\Symfony\Component\Finder\Glob;
+use ECSPrefix20220613\Symfony\Component\Finder\Glob;
 /**
  * FilenameFilterIterator filters files by patterns (a regexp, a glob, or a string).
  *

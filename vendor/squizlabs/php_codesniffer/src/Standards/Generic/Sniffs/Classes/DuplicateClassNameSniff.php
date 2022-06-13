@@ -42,7 +42,7 @@ class DuplicateClassNameSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $namespace = '';
-        $findTokens = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_NAMESPACE, \T_CLOSE_TAG];
+        $findTokens = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM, \T_NAMESPACE, \T_CLOSE_TAG];
         $stackPtr = $phpcsFile->findNext($findTokens, $stackPtr + 1);
         while ($stackPtr !== \false) {
             if ($tokens[$stackPtr]['code'] === \T_CLOSE_TAG) {

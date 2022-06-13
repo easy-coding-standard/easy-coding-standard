@@ -66,7 +66,7 @@ class BlockCommentSniff implements Sniff
                 }
                 break;
             } while (\true);
-            $ignore = [\T_CLASS => \true, \T_INTERFACE => \true, \T_TRAIT => \true, \T_FUNCTION => \true, \T_PUBLIC => \true, \T_PRIVATE => \true, \T_FINAL => \true, \T_PROTECTED => \true, \T_STATIC => \true, \T_ABSTRACT => \true, \T_CONST => \true, \T_VAR => \true];
+            $ignore = [\T_CLASS => \true, \T_INTERFACE => \true, \T_TRAIT => \true, \T_ENUM => \true, \T_FUNCTION => \true, \T_PUBLIC => \true, \T_PRIVATE => \true, \T_FINAL => \true, \T_PROTECTED => \true, \T_STATIC => \true, \T_ABSTRACT => \true, \T_CONST => \true, \T_VAR => \true, \T_READONLY => \true];
             if (isset($ignore[$tokens[$nextToken]['code']]) === \true) {
                 return;
             }

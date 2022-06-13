@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20220612\React\EventLoop;
+namespace ECSPrefix20220613\React\EventLoop;
 
 /**
  * [Deprecated] The `Factory` class exists as a convenient way to pick the best available event loop implementation.
@@ -48,7 +48,7 @@ final class Factory
             // only use ext-uv on PHP 7
             return new ExtUvLoop();
         }
-        if (\class_exists('ECSPrefix20220612\\libev\\EventLoop', \false)) {
+        if (\class_exists('ECSPrefix20220613\\libev\\EventLoop', \false)) {
             return new ExtLibevLoop();
         }
         if (\class_exists('EvLoop', \false)) {

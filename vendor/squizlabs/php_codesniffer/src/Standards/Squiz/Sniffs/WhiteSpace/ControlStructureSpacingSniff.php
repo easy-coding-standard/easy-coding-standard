@@ -97,7 +97,7 @@ class ControlStructureSpacingSniff implements Sniff
             break;
         }
         // We ignore spacing for some structures that tend to have their own rules.
-        $ignore = [\T_FUNCTION => \true, \T_CLASS => \true, \T_INTERFACE => \true, \T_TRAIT => \true, \T_DOC_COMMENT_OPEN_TAG => \true];
+        $ignore = [\T_FUNCTION => \true, \T_CLASS => \true, \T_INTERFACE => \true, \T_TRAIT => \true, \T_ENUM => \true, \T_DOC_COMMENT_OPEN_TAG => \true];
         if (isset($ignore[$tokens[$firstContent]['code']]) === \false && $tokens[$firstContent]['line'] >= $tokens[$scopeOpener]['line'] + 2) {
             $gap = $tokens[$firstContent]['line'] - $tokens[$scopeOpener]['line'] - 1;
             $phpcsFile->recordMetric($stackPtr, 'Blank lines at start of control structure', $gap);

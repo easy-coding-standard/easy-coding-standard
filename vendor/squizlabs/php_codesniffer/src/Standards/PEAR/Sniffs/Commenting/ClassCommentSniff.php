@@ -20,7 +20,7 @@ class ClassCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commentin
      */
     public function register()
     {
-        return [\T_CLASS, \T_INTERFACE, \T_TRAIT];
+        return [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM];
     }
     //end register()
     /**

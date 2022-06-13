@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220612\Symplify\EasyTesting\PHPUnit\Behavior;
+namespace ECSPrefix20220613\Symplify\EasyTesting\PHPUnit\Behavior;
 
-use ECSPrefix20220612\Symfony\Component\Finder\Finder;
-use ECSPrefix20220612\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
-use ECSPrefix20220612\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use ECSPrefix20220612\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20220613\Symfony\Component\Finder\Finder;
+use ECSPrefix20220613\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
+use ECSPrefix20220613\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ECSPrefix20220613\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Use only in "\PHPUnit\Framework\TestCase"
  *

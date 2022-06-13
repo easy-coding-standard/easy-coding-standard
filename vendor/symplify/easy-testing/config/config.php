@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20220612;
+namespace ECSPrefix20220613;
 
-use ECSPrefix20220612\Symfony\Component\Console\Application;
-use ECSPrefix20220612\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix20220612\Symplify\EasyTesting\Command\ValidateFixtureSkipNamingCommand;
-use function ECSPrefix20220612\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use ECSPrefix20220613\Symfony\Component\Console\Application;
+use ECSPrefix20220613\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix20220613\Symplify\EasyTesting\Command\ValidateFixtureSkipNamingCommand;
+use function ECSPrefix20220613\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire();
-    $services->load('ECSPrefix20220612\Symplify\EasyTesting\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/DataProvider', __DIR__ . '/../src/Kernel', __DIR__ . '/../src/ValueObject']);
+    $services->load('ECSPrefix20220613\Symplify\EasyTesting\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/DataProvider', __DIR__ . '/../src/Kernel', __DIR__ . '/../src/ValueObject']);
     // console
     $services->set(Application::class)->call('add', [service(ValidateFixtureSkipNamingCommand::class)]);
 };

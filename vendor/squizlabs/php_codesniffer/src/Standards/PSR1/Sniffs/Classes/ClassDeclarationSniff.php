@@ -20,7 +20,7 @@ class ClassDeclarationSniff implements Sniff
      */
     public function register()
     {
-        return [\T_CLASS, \T_INTERFACE, \T_TRAIT];
+        return [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM];
     }
     //end register()
     /**
@@ -39,7 +39,7 @@ class ClassDeclarationSniff implements Sniff
             return;
         }
         $errorData = [\strtolower($tokens[$stackPtr]['content'])];
-        $nextClass = $phpcsFile->findNext([\T_CLASS, \T_INTERFACE, \T_TRAIT], $tokens[$stackPtr]['scope_closer'] + 1);
+        $nextClass = $phpcsFile->findNext([\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM], $tokens[$stackPtr]['scope_closer'] + 1);
         if ($nextClass !== \false) {
             $error = 'Each %s must be in a file by itself';
             $phpcsFile->addError($error, $nextClass, 'MultipleClasses', $errorData);
@@ -47,7 +47,7 @@ class ClassDeclarationSniff implements Sniff
         } else {
             $phpcsFile->recordMetric($stackPtr, 'One class per file', 'yes');
         }
-        $namespace = $phpcsFile->findNext([\T_NAMESPACE, \T_CLASS, \T_INTERFACE, \T_TRAIT], 0);
+        $namespace = $phpcsFile->findNext([\T_NAMESPACE, \T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM], 0);
         if ($tokens[$namespace]['code'] !== \T_NAMESPACE) {
             $error = 'Each %s must be in a namespace of at least one level (a top-level vendor name)';
             $phpcsFile->addError($error, $stackPtr, 'MissingNamespace', $errorData);
