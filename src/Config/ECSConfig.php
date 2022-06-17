@@ -34,6 +34,14 @@ final class ECSConfig extends ContainerConfigurator
         $parameters->set(Option::SKIP, $skips);
     }
     /**
+     * @param mixed[] $onlys
+     */
+    public function only(array $onlys) : void
+    {
+        $parameters = $this->parameters();
+        $parameters->set(Option::ONLY, $onlys);
+    }
+    /**
      * @param string[] $sets
      */
     public function sets(array $sets) : void
@@ -96,10 +104,32 @@ final class ECSConfig extends ContainerConfigurator
         $parameters = $this->parameters();
         $parameters->set(Option::LINE_ENDING, $lineEnding);
     }
-    public function parallel() : void
+    public function cacheDirectory(string $cacheDirectory) : void
+    {
+        $parameters = $this->parameters();
+        $parameters->set(Option::CACHE_DIRECTORY, $cacheDirectory);
+    }
+    public function cacheNamespace(string $cacheNamespace) : void
+    {
+        $parameters = $this->parameters();
+        $parameters->set(Option::CACHE_NAMESPACE, $cacheNamespace);
+    }
+    /**
+     * @param string[] $fileExtensions
+     */
+    public function fileExtensions(array $fileExtensions) : void
+    {
+        Assert::allString($fileExtensions);
+        $parameters = $this->parameters();
+        $parameters->set(Option::FILE_EXTENSIONS, $fileExtensions);
+    }
+    public function parallel(int $seconds = 120, int $maxNumberOfProcess = 16, int $jobSize = 20) : void
     {
         $parameters = $this->parameters();
         $parameters->set(Option::PARALLEL, \true);
+        $parameters->set(Option::PARALLEL_TIMEOUT_IN_SECONDS, $seconds);
+        $parameters->set(Option::PARALLEL_MAX_NUMBER_OF_PROCESSES, $maxNumberOfProcess);
+        $parameters->set(Option::PARALLEL_JOB_SIZE, $jobSize);
     }
     /**
      * @param class-string $checkerClass
