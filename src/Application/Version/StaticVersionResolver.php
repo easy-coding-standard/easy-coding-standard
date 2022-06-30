@@ -14,7 +14,7 @@ final class StaticVersionResolver
     /**
      * @var string
      */
-    public const PACKAGE_VERSION = '23b8af7af8984cdf8855431ddb20799e1a9acf4d';
+    public const PACKAGE_VERSION = '0cb1a1889b0f63fea0c1640b796ab1af462deefb';
     /**
      * @var int
      */
