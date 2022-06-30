@@ -12,9 +12,15 @@ use Symplify\EasyCodingStandard\Exception\VersionException;
 final class StaticVersionResolver
 {
     /**
+     * @api
      * @var string
      */
-    public const PACKAGE_VERSION = '0cb1a1889b0f63fea0c1640b796ab1af462deefb';
+    public const PACKAGE_VERSION = '648fbec8836ff594754fc694b3a3ddbb0a6d5f10';
+    /**
+     * @api
+     * @var string
+     */
+    public const RELEASE_DATE = '2022-06-30 16:08:06';
     /**
      * @var int
      */
