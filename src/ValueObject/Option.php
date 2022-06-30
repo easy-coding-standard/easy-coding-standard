@@ -38,12 +38,7 @@ final class Option
      * @deprecated Use @see \Symplify\EasyCodingStandard\Config\ECSConfig::paths()
      * @var string
      */
-    public const PATHS = self::SOURCE;
-    /**
-     * @deprecated Use @see \Symplify\EasyCodingStandard\Config\ECSConfig::paths()
-     * @var string
-     */
-    public const SOURCE = 'source';
+    public const PATHS = 'paths';
     /**
      * @api
      * @deprecated Use @see \Symplify\EasyCodingStandard\Config\ECSConfig::only()
