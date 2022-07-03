@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202206\Psr\Container;
+namespace ECSPrefix202207\Psr\Container;
 
 /**
  * No entry was found in the container.

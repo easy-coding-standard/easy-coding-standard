@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\Console\Command;
+namespace ECSPrefix202207\Symfony\Component\Console\Command;
 
-use ECSPrefix202206\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix202206\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix202206\Symfony\Component\Console\Completion\Output\BashCompletionOutput;
-use ECSPrefix202206\Symfony\Component\Console\Completion\Output\CompletionOutputInterface;
-use ECSPrefix202206\Symfony\Component\Console\Exception\CommandNotFoundException;
-use ECSPrefix202206\Symfony\Component\Console\Exception\ExceptionInterface;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix202206\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202207\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix202207\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix202207\Symfony\Component\Console\Completion\Output\BashCompletionOutput;
+use ECSPrefix202207\Symfony\Component\Console\Completion\Output\CompletionOutputInterface;
+use ECSPrefix202207\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix202207\Symfony\Component\Console\Exception\ExceptionInterface;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202207\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Responsible for providing the values to the shell completion.
  *

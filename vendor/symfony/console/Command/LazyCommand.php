@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\Console\Command;
+namespace ECSPrefix202207\Symfony\Component\Console\Command;
 
-use ECSPrefix202206\Symfony\Component\Console\Application;
-use ECSPrefix202206\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix202206\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix202206\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202206\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202207\Symfony\Component\Console\Application;
+use ECSPrefix202207\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix202207\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix202207\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202207\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */

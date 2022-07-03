@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\Config\Loader;
+namespace ECSPrefix202207\Symfony\Component\Config\Loader;
 
-use ECSPrefix202206\Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceException;
-use ECSPrefix202206\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
-use ECSPrefix202206\Symfony\Component\Config\Exception\LoaderLoadException;
-use ECSPrefix202206\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix202206\Symfony\Component\Config\Resource\FileExistenceResource;
-use ECSPrefix202206\Symfony\Component\Config\Resource\GlobResource;
+use ECSPrefix202207\Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceException;
+use ECSPrefix202207\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+use ECSPrefix202207\Symfony\Component\Config\Exception\LoaderLoadException;
+use ECSPrefix202207\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix202207\Symfony\Component\Config\Resource\FileExistenceResource;
+use ECSPrefix202207\Symfony\Component\Config\Resource\GlobResource;
 /**
  * FileLoader is the abstract class used by all built-in loaders that are file based.
  *

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix202206\Doctrine\Common\Annotations;
+namespace ECSPrefix202207\Doctrine\Common\Annotations;
 
-use ECSPrefix202206\Doctrine\Common\Cache\Cache;
+use ECSPrefix202207\Doctrine\Common\Cache\Cache;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;

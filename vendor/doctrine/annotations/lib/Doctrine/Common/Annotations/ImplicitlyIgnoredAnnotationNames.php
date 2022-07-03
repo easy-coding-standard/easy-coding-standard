@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202206\Doctrine\Common\Annotations;
+namespace ECSPrefix202207\Doctrine\Common\Annotations;
 
 /**
  *  A list of annotations that are implicitly ignored during the parsing process.
@@ -68,6 +68,7 @@ final class ImplicitlyIgnoredAnnotationNames
         // PHPStan, Psalm
         'extends' => \true,
         'implements' => \true,
+        'readonly' => \true,
         'template' => \true,
         'use' => \true,
         // Psalm

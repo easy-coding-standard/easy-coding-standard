@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\Config;
+namespace ECSPrefix202207\Symfony\Component\Config;
 
-use ECSPrefix202206\Symfony\Component\Config\Resource\ResourceInterface;
-use ECSPrefix202206\Symfony\Component\Filesystem\Exception\IOException;
-use ECSPrefix202206\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix202207\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix202207\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix202207\Symfony\Component\Filesystem\Filesystem;
 /**
  * ResourceCheckerConfigCache uses instances of ResourceCheckerInterface
  * to check whether cached data is still fresh.

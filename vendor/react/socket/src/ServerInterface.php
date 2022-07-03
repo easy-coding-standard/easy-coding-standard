@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix202206\React\Socket;
+namespace ECSPrefix202207\React\Socket;
 
-use ECSPrefix202206\Evenement\EventEmitterInterface;
+use ECSPrefix202207\Evenement\EventEmitterInterface;
 /**
  * The `ServerInterface` is responsible for providing an interface for accepting
  * incoming streaming connections, such as a normal TCP/IP connection.

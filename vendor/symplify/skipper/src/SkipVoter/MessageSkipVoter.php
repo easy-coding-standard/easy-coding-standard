@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202206\Symplify\Skipper\SkipVoter;
+namespace ECSPrefix202207\Symplify\Skipper\SkipVoter;
 
-use ECSPrefix202206\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix202206\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix202206\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
-use ECSPrefix202206\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202207\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix202207\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix202207\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
+use ECSPrefix202207\Symplify\SmartFileSystem\SmartFileInfo;
 final class MessageSkipVoter implements SkipVoterInterface
 {
     /**

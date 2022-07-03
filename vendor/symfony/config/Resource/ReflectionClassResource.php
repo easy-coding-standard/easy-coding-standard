@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\Config\Resource;
+namespace ECSPrefix202207\Symfony\Component\Config\Resource;
 
-use ECSPrefix202206\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix202206\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
-use ECSPrefix202206\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix202207\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix202207\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use ECSPrefix202207\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *

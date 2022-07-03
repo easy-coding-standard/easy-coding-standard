@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix202207\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix202206\Symfony\Component\Console\Application;
-use ECSPrefix202206\Symfony\Component\Console\Command\Command;
-use ECSPrefix202206\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix202206\Symfony\Component\Console\Helper\Helper;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202207\Symfony\Component\Console\Application;
+use ECSPrefix202207\Symfony\Component\Console\Command\Command;
+use ECSPrefix202207\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix202207\Symfony\Component\Console\Helper\Helper;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputOption;
 /**
  * Text descriptor.
  *

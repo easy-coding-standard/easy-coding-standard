@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202206\React\Dns\Query;
+namespace ECSPrefix202207\React\Dns\Query;
 
 interface ExecutorInterface
 {

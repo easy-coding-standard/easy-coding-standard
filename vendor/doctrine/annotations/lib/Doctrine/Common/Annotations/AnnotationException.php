@@ -1,8 +1,9 @@
 <?php
 
-namespace ECSPrefix202206\Doctrine\Common\Annotations;
+namespace ECSPrefix202207\Doctrine\Common\Annotations;
 
 use Exception;
+use Throwable;
 use function get_class;
 use function gettype;
 use function implode;
@@ -43,9 +44,9 @@ class AnnotationException extends Exception
      *
      * @return AnnotationException
      */
-    public static function creationError($message)
+    public static function creationError($message, ?Throwable $previous = null)
     {
-        return new self('[Creation Error] ' . $message);
+        return new self('[Creation Error] ' . $message, 0, $previous);
     }
     /**
      * Creates a new AnnotationException describing a type error.

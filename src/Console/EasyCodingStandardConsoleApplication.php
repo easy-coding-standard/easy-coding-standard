@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
-use ECSPrefix202206\Composer\XdebugHandler\XdebugHandler;
-use ECSPrefix202206\Symfony\Component\Console\Application;
-use ECSPrefix202206\Symfony\Component\Console\Command\Command;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202206\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix202206\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202207\Composer\XdebugHandler\XdebugHandler;
+use ECSPrefix202207\Symfony\Component\Console\Application;
+use ECSPrefix202207\Symfony\Component\Console\Command\Command;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202207\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202207\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -29,7 +29,7 @@ final class EasyCodingStandardConsoleApplication extends Application
     {
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
-        if (!$isXdebugAllowed && !\defined('ECSPrefix202206\\PHPUNIT_COMPOSER_INSTALL')) {
+        if (!$isXdebugAllowed && !\defined('ECSPrefix202207\\PHPUNIT_COMPOSER_INSTALL')) {
             $xdebugHandler = new XdebugHandler('ecs');
             $xdebugHandler->check();
             unset($xdebugHandler);

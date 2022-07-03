@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202207\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202206\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Exception\EnvParameterException;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Loader\FileLoader;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Exception\EnvParameterException;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Loader\FileLoader;
 /**
  * This pass validates each definition individually only taking the information
  * into account which is contained in the definition itself.

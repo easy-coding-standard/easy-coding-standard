@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
-use ECSPrefix202206\Nette\Utils\Strings;
+use ECSPrefix202207\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -13,11 +13,11 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\ValueObjectFactory\DocBlockLinesFactory;
-use ECSPrefix202206\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix202206\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix202206\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use ECSPrefix202206\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use ECSPrefix202206\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix202207\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix202207\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202207\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\DocBlockLineLengthFixer\DocBlockLineLengthFixerTest
  */

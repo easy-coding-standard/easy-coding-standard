@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\Config\Definition\Exception;
+namespace ECSPrefix202207\Symfony\Component\Config\Definition\Exception;
 
 /**
  * This exception is thrown whenever the key of an array is not unique. This can

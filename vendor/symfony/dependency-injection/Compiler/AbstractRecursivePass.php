@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202207\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\ExpressionLanguage;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202206\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\ExpressionLanguage;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202207\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */

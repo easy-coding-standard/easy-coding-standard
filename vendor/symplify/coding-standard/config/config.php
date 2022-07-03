@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202206;
+namespace ECSPrefix202207;
 
 use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
-use ECSPrefix202206\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix202207\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 return static function (ECSConfig $ecsConfig) : void {
     $services = $ecsConfig->services();
     $services->defaults()->public()->autowire();

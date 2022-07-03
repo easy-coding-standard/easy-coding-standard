@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202206\Psr\Log;
+namespace ECSPrefix202207\Psr\Log;
 
 /**
  * This Logger can be used to avoid conditional log calls.

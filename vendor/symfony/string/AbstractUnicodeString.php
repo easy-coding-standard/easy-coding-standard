@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\String;
+namespace ECSPrefix202207\Symfony\Component\String;
 
-use ECSPrefix202206\Symfony\Component\String\Exception\ExceptionInterface;
-use ECSPrefix202206\Symfony\Component\String\Exception\InvalidArgumentException;
-use ECSPrefix202206\Symfony\Component\String\Exception\RuntimeException;
+use ECSPrefix202207\Symfony\Component\String\Exception\ExceptionInterface;
+use ECSPrefix202207\Symfony\Component\String\Exception\InvalidArgumentException;
+use ECSPrefix202207\Symfony\Component\String\Exception\RuntimeException;
 /**
  * Represents a string of abstract Unicode characters.
  *
@@ -327,7 +327,7 @@ abstract class AbstractUnicodeString extends AbstractString
     public function snake()
     {
         $str = $this->camel()->title();
-        $str->string = \mb_strtolower(\preg_replace(['/(\\p{Lu}+)(\\p{Lu}\\p{Ll})/u', '/([\\p{Ll}0-9])(\\p{Lu})/u'], 'ECSPrefix202206\\1_\\2', $str->string), 'UTF-8');
+        $str->string = \mb_strtolower(\preg_replace(['/(\\p{Lu}+)(\\p{Lu}\\p{Ll})/u', '/([\\p{Ll}0-9])(\\p{Lu})/u'], 'ECSPrefix202207\\1_\\2', $str->string), 'UTF-8');
         return $str;
     }
     /**

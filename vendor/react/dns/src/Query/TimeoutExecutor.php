@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix202206\React\Dns\Query;
+namespace ECSPrefix202207\React\Dns\Query;
 
-use ECSPrefix202206\React\EventLoop\Loop;
-use ECSPrefix202206\React\EventLoop\LoopInterface;
-use ECSPrefix202206\React\Promise\Timer;
+use ECSPrefix202207\React\EventLoop\Loop;
+use ECSPrefix202207\React\EventLoop\LoopInterface;
+use ECSPrefix202207\React\Promise\Timer;
 final class TimeoutExecutor implements ExecutorInterface
 {
     private $executor;

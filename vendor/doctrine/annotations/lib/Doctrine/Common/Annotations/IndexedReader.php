@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202206\Doctrine\Common\Annotations;
+namespace ECSPrefix202207\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use ReflectionMethod;
@@ -32,9 +32,9 @@ class IndexedReader implements Reader
     /**
      * {@inheritDoc}
      */
-    public function getClassAnnotation(ReflectionClass $class, $annotation)
+    public function getClassAnnotation(ReflectionClass $class, $annotationName)
     {
-        return $this->delegate->getClassAnnotation($class, $annotation);
+        return $this->delegate->getClassAnnotation($class, $annotationName);
     }
     /**
      * {@inheritDoc}
@@ -50,9 +50,9 @@ class IndexedReader implements Reader
     /**
      * {@inheritDoc}
      */
-    public function getMethodAnnotation(ReflectionMethod $method, $annotation)
+    public function getMethodAnnotation(ReflectionMethod $method, $annotationName)
     {
-        return $this->delegate->getMethodAnnotation($method, $annotation);
+        return $this->delegate->getMethodAnnotation($method, $annotationName);
     }
     /**
      * {@inheritDoc}
@@ -68,9 +68,9 @@ class IndexedReader implements Reader
     /**
      * {@inheritDoc}
      */
-    public function getPropertyAnnotation(ReflectionProperty $property, $annotation)
+    public function getPropertyAnnotation(ReflectionProperty $property, $annotationName)
     {
-        return $this->delegate->getPropertyAnnotation($property, $annotation);
+        return $this->delegate->getPropertyAnnotation($property, $annotationName);
     }
     /**
      * Proxies all methods to the delegate.

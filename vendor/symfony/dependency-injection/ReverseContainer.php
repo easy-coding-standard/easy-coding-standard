@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\DependencyInjection;
+namespace ECSPrefix202207\Symfony\Component\DependencyInjection;
 
-use ECSPrefix202206\Psr\Container\ContainerInterface;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix202207\Psr\Container\ContainerInterface;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 /**
  * Turns public and "container.reversible" services back to their ids.
  *

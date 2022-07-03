@@ -6,7 +6,7 @@ namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix202206\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix202207\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class LineLengthResolver
 {
     /**

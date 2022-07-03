@@ -1,14 +1,13 @@
 {
     "name": "doctrine\/annotations",
-    "type": "library",
     "description": "Docblock Annotations Parser",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "annotations",
         "docblock",
         "parser"
     ],
-    "homepage": "https:\/\/www.doctrine-project.org\/projects\/annotations.html",
-    "license": "MIT",
     "authors": [
         {
             "name": "Guilherme Blanco",
@@ -31,6 +30,7 @@
             "email": "schmittjoh@gmail.com"
         }
     ],
+    "homepage": "https:\/\/www.doctrine-project.org\/projects\/annotations.html",
     "require": {
         "php": "^7.1 || ^8.0",
         "ext-tokenizer": "*",
@@ -40,26 +40,30 @@
     "require-dev": {
         "doctrine\/cache": "^1.11 || ^2.0",
         "doctrine\/coding-standard": "^6.0 || ^8.1",
-        "phpstan\/phpstan": "^0.12.20",
+        "phpstan\/phpstan": "^1.4.10 || ^1.8.0",
         "phpunit\/phpunit": "^7.5 || ^8.0 || ^9.1.5",
-        "symfony\/cache": "^4.4 || ^5.2"
-    },
-    "config": {
-        "sort-packages": true
+        "symfony\/cache": "^4.4 || ^5.2",
+        "vimeo\/psalm": "^4.10"
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix202206\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
+            "ECSPrefix202207\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix202206\\Doctrine\\Performance\\Common\\Annotations\\": "tests\/Doctrine\/Performance\/Common\/Annotations",
-            "ECSPrefix202206\\Doctrine\\Tests\\Common\\Annotations\\": "tests\/Doctrine\/Tests\/Common\/Annotations"
+            "ECSPrefix202207\\Doctrine\\Performance\\Common\\Annotations\\": "tests\/Doctrine\/Performance\/Common\/Annotations",
+            "ECSPrefix202207\\Doctrine\\Tests\\Common\\Annotations\\": "tests\/Doctrine\/Tests\/Common\/Annotations"
         },
         "files": [
             "tests\/Doctrine\/Tests\/Common\/Annotations\/Fixtures\/functions.php",
             "tests\/Doctrine\/Tests\/Common\/Annotations\/Fixtures\/SingleClassLOC1000.php"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
     }
 }

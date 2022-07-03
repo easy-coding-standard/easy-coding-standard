@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202206\Nette\Utils;
+namespace ECSPrefix202207\Nette\Utils;
 
-use ECSPrefix202206\Nette;
+use ECSPrefix202207\Nette;
 use function is_array, is_int, is_object, count;
 /**
  * Array tools library.

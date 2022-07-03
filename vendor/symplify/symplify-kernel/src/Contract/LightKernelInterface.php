@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202206\Symplify\SymplifyKernel\Contract;
+namespace ECSPrefix202207\Symplify\SymplifyKernel\Contract;
 
-use ECSPrefix202206\Psr\Container\ContainerInterface;
+use ECSPrefix202207\Psr\Container\ContainerInterface;
 /**
  * @api
  */

@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202206\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix202207\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix202206\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
-use ECSPrefix202206\Symfony\Component\Config\Exception\LoaderLoadException;
-use ECSPrefix202206\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix202206\Symfony\Component\Config\Loader\FileLoader as BaseFileLoader;
-use ECSPrefix202206\Symfony\Component\Config\Loader\Loader;
-use ECSPrefix202206\Symfony\Component\Config\Resource\GlobResource;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Attribute\When;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Compiler\RegisterAutoconfigureAttributesPass;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202206\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202207\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+use ECSPrefix202207\Symfony\Component\Config\Exception\LoaderLoadException;
+use ECSPrefix202207\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix202207\Symfony\Component\Config\Loader\FileLoader as BaseFileLoader;
+use ECSPrefix202207\Symfony\Component\Config\Loader\Loader;
+use ECSPrefix202207\Symfony\Component\Config\Resource\GlobResource;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Attribute\When;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Compiler\RegisterAutoconfigureAttributesPass;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202207\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * FileLoader is the abstract class used by all built-in loaders that are file based.
  *
