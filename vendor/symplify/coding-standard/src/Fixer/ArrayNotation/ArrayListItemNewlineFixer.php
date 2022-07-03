@@ -103,6 +103,10 @@ CODE_SAMPLE
             if (\strpos($nextToken->getContent(), "\n") !== \false) {
                 return;
             }
+            $lookaheadPosition = $tokens->getNonWhitespaceSibling($position, 1, " \t\r\x00\v");
+            if ($lookaheadPosition !== null && $tokens[$lookaheadPosition]->isGivenKind(\T_COMMENT)) {
+                return;
+            }
             $tokens->ensureWhitespaceAtIndex($nextTokenPosition, 0, $this->whitespacesFixerConfig->getLineEnding());
         });
     }
