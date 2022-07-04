@@ -77,14 +77,6 @@ final class SniffFileProcessor implements FileProcessorInterface
             $this->addSniff($sniff);
         }
     }
-    public function addSniff(Sniff $sniff) : void
-    {
-        $this->sniffs[] = $sniff;
-        $tokens = $sniff->register();
-        foreach ($tokens as $token) {
-            $this->tokenListeners[$token][] = $sniff;
-        }
-    }
     /**
      * @return Sniff[]
      */
@@ -126,6 +118,14 @@ final class SniffFileProcessor implements FileProcessorInterface
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
         $this->fixFile($file, $this->fixer, $smartFileInfo, $this->tokenListeners);
         return $this->fixer->getContents();
+    }
+    private function addSniff(Sniff $sniff) : void
+    {
+        $this->sniffs[] = $sniff;
+        $tokens = $sniff->register();
+        foreach ($tokens as $token) {
+            $this->tokenListeners[$token][] = $sniff;
+        }
     }
     private function addCompatibilityLayer() : void
     {
