@@ -22,6 +22,9 @@ final class CacheFactory
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
     }
+    /**
+     * @api
+     */
     public function create() : \Symplify\EasyCodingStandard\Caching\Cache
     {
         $cacheDirectory = $this->parameterProvider->provideStringParameter(Option::CACHE_DIRECTORY);

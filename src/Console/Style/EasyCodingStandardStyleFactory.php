@@ -25,6 +25,9 @@ final class EasyCodingStandardStyleFactory
         $this->terminal = $terminal;
         $this->privatesCaller = new PrivatesCaller();
     }
+    /**
+     * @api
+     */
     public function create() : \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
     {
         $argvInput = new ArgvInput();

@@ -21,6 +21,9 @@ final class WhitespacesFixerConfigFactory
     {
         $this->parameterProvider = $parameterProvider;
     }
+    /**
+     * @api
+     */
     public function create() : WhitespacesFixerConfig
     {
         $lineEnding = $this->parameterProvider->provideParameter('line_ending');
