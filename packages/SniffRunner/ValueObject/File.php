@@ -18,6 +18,7 @@ use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use ECSPrefix202207\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix202207\Symplify\SmartFileSystem\SmartFileInfo;
 /**
+ * @api
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject\FileTest
  */
 final class File extends BaseFile
