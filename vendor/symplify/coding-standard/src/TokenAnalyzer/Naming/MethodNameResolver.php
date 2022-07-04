@@ -6,6 +6,9 @@ namespace Symplify\CodingStandard\TokenAnalyzer\Naming;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use ECSPrefix202207\Symplify\PackageBuilder\ValueObject\MethodName;
+/**
+ * @api
+ */
 final class MethodNameResolver
 {
     /**
