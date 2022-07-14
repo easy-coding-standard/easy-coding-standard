@@ -15,6 +15,7 @@ final class Cache
         $this->fileCacheStorage = $fileCacheStorage;
     }
     /**
+     * @api
      * @return mixed
      */
     public function load(string $key, string $variableKey)
@@ -22,9 +23,9 @@ final class Cache
         return $this->fileCacheStorage->load($key, $variableKey);
     }
     /**
-     * @param mixed $data
+     * @api
      */
-    public function save(string $key, string $variableKey, $data) : void
+    public function save(string $key, string $variableKey, string $data) : void
     {
         $this->fileCacheStorage->save($key, $variableKey, $data);
     }

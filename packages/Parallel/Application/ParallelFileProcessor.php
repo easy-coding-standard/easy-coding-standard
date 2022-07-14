@@ -57,6 +57,8 @@ final class ParallelFileProcessor
         $this->parameterProvider = $parameterProvider;
     }
     /**
+     * @api
+     *
      * @param callable(int $stepCount): void $postFileCallback Used for progress bar jump
      * @return array{coding_standard_errors: CodingStandardError[], file_diffs: FileDiff[], system_errors: SystemError[]|string[], system_errors_count: int}
      */

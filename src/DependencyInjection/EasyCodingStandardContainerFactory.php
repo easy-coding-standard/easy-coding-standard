@@ -3,20 +3,20 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix202207\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202207\Symfony\Component\Console\Input\ArgvInput;
 use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 final class EasyCodingStandardContainerFactory
 {
-    public function createFromFromInput(InputInterface $input) : ContainerInterface
+    public function createFromFromInput(ArgvInput $argvInput) : ContainerInterface
     {
         $easyCodingStandardKernel = new EasyCodingStandardKernel();
         $inputConfigFiles = [];
         $rootECSConfig = \getcwd() . \DIRECTORY_SEPARATOR . 'ecs.php';
-        if ($input->hasParameterOption(['--config', '-c'])) {
-            $commandLineConfigFile = $input->getParameterOption(['--config', '-c']);
+        if ($argvInput->hasParameterOption(['--config', '-c'])) {
+            $commandLineConfigFile = $argvInput->getParameterOption(['--config', '-c']);
             if (\is_string($commandLineConfigFile) && \file_exists($commandLineConfigFile)) {
                 // must be realpath, so container builder knows the location
                 $inputConfigFiles[] = (string) \realpath($commandLineConfigFile);

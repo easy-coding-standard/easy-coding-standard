@@ -46,10 +46,7 @@ final class FileCacheStorage
         }
         return $cacheItem->getData();
     }
-    /**
-     * @param mixed $data
-     */
-    public function save(string $key, string $variableKey, $data) : void
+    public function save(string $key, string $variableKey, string $data) : void
     {
         $cacheFilePaths = $this->getCacheFilePaths($key);
         $this->smartFileSystem->mkdir($cacheFilePaths->getFirstDirectory());
