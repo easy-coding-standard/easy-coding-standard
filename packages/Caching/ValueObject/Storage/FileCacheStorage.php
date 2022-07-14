@@ -27,10 +27,7 @@ final class FileCacheStorage
         $this->directory = $directory;
         $this->smartFileSystem = $smartFileSystem;
     }
-    /**
-     * @return mixed
-     */
-    public function load(string $key, string $variableKey)
+    public function load(string $key, string $variableKey) : ?string
     {
         $cacheFilePaths = $this->getCacheFilePaths($key);
         $filePath = $cacheFilePaths->getFilePath();
