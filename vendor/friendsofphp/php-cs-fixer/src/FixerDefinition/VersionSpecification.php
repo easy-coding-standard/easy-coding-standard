@@ -18,11 +18,11 @@ namespace PhpCsFixer\FixerDefinition;
 final class VersionSpecification implements \PhpCsFixer\FixerDefinition\VersionSpecificationInterface
 {
     /**
-     * @var null|int
+     * @var int|null
      */
     private $minimum;
     /**
-     * @var null|int
+     * @var int|null
      */
     private $maximum;
     /**

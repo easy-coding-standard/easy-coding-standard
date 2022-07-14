@@ -59,6 +59,8 @@ if ($baz == true) {
         return $tokens->isAnyTokenKindsFound(self::CONTROL_CONTINUATION_TOKENS);
     }
     /**
+     * {@inheritdoc}
+     *
      * Must run after ControlStructureBracesFixer.
      */
     public function getPriority() : int

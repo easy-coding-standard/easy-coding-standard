@@ -68,12 +68,10 @@ final class ControlCaseStructuresAnalyzer
             }
             if ($token->equals('{')) {
                 ++$stack[$depth]['brace_count'];
-                // @phpstan-ignore-line
                 continue;
             }
             if ($token->equals('}')) {
                 --$stack[$depth]['brace_count'];
-                // @phpstan-ignore-line
                 if (0 === $stack[$depth]['brace_count']) {
                     if ($stack[$depth]['alternative_syntax']) {
                         continue;

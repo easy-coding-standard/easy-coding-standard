@@ -101,11 +101,11 @@ class Foo {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-            $content = $initialContent = $token->getContent();
             $documentedElement = $this->findDocumentedElement($tokens, $index);
             if (null === $documentedElement) {
                 continue;
             }
+            $content = $initialContent = $token->getContent();
             if (\true === $this->configuration['remove_inheritdoc']) {
                 $content = $this->removeSuperfluousInheritDoc($content);
             }
@@ -143,6 +143,13 @@ class Foo {
         }
         $element = ['modifiers' => [], 'types' => []];
         $index = $tokens->getNextMeaningfulToken($docCommentIndex);
+        // @TODO: drop condition when PHP 8.0+ is required
+        if (null !== $index && \defined('T_ATTRIBUTE') && $tokens[$index]->isGivenKind(\T_ATTRIBUTE)) {
+            do {
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ATTRIBUTE, $index);
+                $index = $tokens->getNextMeaningfulToken($index);
+            } while (null !== $index && $tokens[$index]->isGivenKind(\T_ATTRIBUTE));
+        }
         while (\true) {
             if (null === $index) {
                 break;
@@ -253,10 +260,7 @@ class Foo {
     private function getReturnTypeInfo(Tokens $tokens, int $closingParenthesisIndex) : array
     {
         $colonIndex = $tokens->getNextMeaningfulToken($closingParenthesisIndex);
-        if ($tokens[$colonIndex]->isGivenKind(CT::T_TYPE_COLON)) {
-            return $this->parseTypeHint($tokens, $tokens->getNextMeaningfulToken($colonIndex));
-        }
-        return ['types' => [], 'allows_null' => \true];
+        return $tokens[$colonIndex]->isGivenKind(CT::T_TYPE_COLON) ? $this->parseTypeHint($tokens, $tokens->getNextMeaningfulToken($colonIndex)) : ['types' => [], 'allows_null' => \true];
     }
     /**
      * @param int $index The index of the first token of the type hint
@@ -264,13 +268,21 @@ class Foo {
     private function parseTypeHint(Tokens $tokens, int $index) : array
     {
         $allowsNull = \false;
-        if ($tokens[$index]->isGivenKind(CT::T_NULLABLE_TYPE)) {
-            $allowsNull = \true;
-            $index = $tokens->getNextMeaningfulToken($index);
-        }
         $types = [];
         while (\true) {
             $type = '';
+            if (\defined('T_READONLY') && $tokens[$index]->isGivenKind(\T_READONLY)) {
+                // @TODO: simplify condition when PHP 8.1+ is required
+                $index = $tokens->getNextMeaningfulToken($index);
+            }
+            if ($tokens[$index]->isGivenKind([CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE])) {
+                $index = $tokens->getNextMeaningfulToken($index);
+                continue;
+            }
+            if ($tokens[$index]->isGivenKind(CT::T_NULLABLE_TYPE)) {
+                $allowsNull = \true;
+                $index = $tokens->getNextMeaningfulToken($index);
+            }
             while ($tokens[$index]->isGivenKind([\T_NS_SEPARATOR, \T_STATIC, \T_STRING, CT::T_ARRAY_TYPEHINT, \T_CALLABLE])) {
                 $type .= $tokens[$index]->getContent();
                 $index = $tokens->getNextMeaningfulToken($index);

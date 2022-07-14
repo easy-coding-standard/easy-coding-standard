@@ -22,7 +22,7 @@ final class SwitchAnalysis extends \PhpCsFixer\Tokenizer\Analyzer\Analysis\Abstr
      */
     private $cases;
     /**
-     * @var null|DefaultAnalysis
+     * @var \PhpCsFixer\Tokenizer\Analyzer\Analysis\DefaultAnalysis|null
      */
     private $defaultAnalysis;
     /**

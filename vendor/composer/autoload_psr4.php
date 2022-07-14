@@ -10,6 +10,7 @@ return array(
     'Symplify\\CodingStandard\\' => array($vendorDir . '/symplify/coding-standard/src'),
     'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
+    'Symfony\\Polyfill\\Intl\\Normalizer\\' => array($vendorDir . '/symfony/polyfill-intl-normalizer'),
     'PhpCsFixer\\' => array($vendorDir . '/friendsofphp/php-cs-fixer/src'),
     'ECSPrefix202207\\Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'ECSPrefix202207\\Symplify\\SymplifyKernel\\' => array($vendorDir . '/symplify/symplify-kernel/src'),

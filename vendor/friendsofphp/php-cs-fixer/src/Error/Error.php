@@ -42,7 +42,7 @@ final class Error
      */
     private $filePath;
     /**
-     * @var null|\Throwable
+     * @var \Throwable|null
      */
     private $source;
     /**
@@ -50,7 +50,7 @@ final class Error
      */
     private $appliedFixers;
     /**
-     * @var null|string
+     * @var string|null
      */
     private $diff;
     public function __construct(int $type, string $filePath, ?\Throwable $source = null, array $appliedFixers = [], ?string $diff = null)

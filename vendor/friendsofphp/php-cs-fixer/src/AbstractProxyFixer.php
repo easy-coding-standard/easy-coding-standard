@@ -25,7 +25,7 @@ abstract class AbstractProxyFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @var array<string, FixerInterface>
      */
-    protected $proxyFixers;
+    protected $proxyFixers = [];
     public function __construct()
     {
         foreach (\PhpCsFixer\Utils::sortFixers($this->createProxyFixers()) as $proxyFixer) {

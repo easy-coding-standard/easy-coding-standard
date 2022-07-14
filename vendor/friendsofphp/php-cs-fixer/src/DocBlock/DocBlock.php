@@ -37,7 +37,7 @@ final class DocBlock
      */
     private $annotations;
     /**
-     * @var null|NamespaceAnalysis
+     * @var \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis|null
      */
     private $namespace;
     /**

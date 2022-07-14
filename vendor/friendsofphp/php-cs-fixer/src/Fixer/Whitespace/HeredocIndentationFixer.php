@@ -76,6 +76,15 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
+     *
+     * Must run after BracesFixer, StatementIndentationFixer.
+     */
+    public function getPriority() : int
+    {
+        return -26;
+    }
+    /**
+     * {@inheritdoc}
      */
     public function isCandidate(Tokens $tokens) : bool
     {

@@ -369,7 +369,6 @@ $array = [
                 continue;
             }
             if ($token->isGivenKind($functionKind)) {
-                ++$this->deepestLevel;
                 $index = $tokens->getNextTokenOfKind($index, ['(']);
                 $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
                 continue;
@@ -381,10 +380,6 @@ $array = [
             }
             if ($token->equals('[')) {
                 $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
-                continue;
-            }
-            if ($token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
-                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
                 continue;
             }
         }

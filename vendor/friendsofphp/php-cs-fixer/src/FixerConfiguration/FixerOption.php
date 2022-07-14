@@ -23,13 +23,13 @@ final class FixerOption implements \PhpCsFixer\FixerConfiguration\FixerOptionInt
      */
     private $description;
     /**
-     * @var mixed
-     */
-    private $default;
-    /**
      * @var bool
      */
     private $isRequired;
+    /**
+     * @var mixed
+     */
+    private $default;
     /**
      * @var null|string[]
      */

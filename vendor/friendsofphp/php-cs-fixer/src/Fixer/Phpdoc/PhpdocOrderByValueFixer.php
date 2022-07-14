@@ -117,7 +117,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        $allowedValues = ['author', 'covers', 'coversNothing', 'dataProvider', 'depends', 'group', 'internal', 'method', 'property', 'property-read', 'property-write', 'requires', 'throws', 'uses'];
+        $allowedValues = ['author', 'covers', 'coversNothing', 'dataProvider', 'depends', 'group', 'internal', 'method', 'mixin', 'property', 'property-read', 'property-write', 'requires', 'throws', 'uses'];
         return new FixerConfigurationResolver([(new FixerOptionBuilder('annotations', 'List of annotations to order, e.g. `["covers"]`.'))->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset($allowedValues)])->setNormalizer(static function (Options $options, $value) : array {
             $normalized = [];
             foreach ($value as $annotation) {

@@ -39,6 +39,7 @@ if (strpos($haystack, $needle) === false) {}
      * {@inheritdoc}
      *
      * Must run before BinaryOperatorSpacesFixer, NoExtraBlankLinesFixer, NoSpacesInsideParenthesisFixer, NoTrailingWhitespaceFixer, NotOperatorWithSpaceFixer, NotOperatorWithSuccessorSpaceFixer, PhpUnitDedicateAssertFixer, SingleSpaceAfterConstructFixer.
+     * Must run after StrictComparisonFixer.
      */
     public function getPriority() : int
     {
@@ -108,7 +109,10 @@ if (strpos($haystack, $needle) === false) {}
     private function getCompareTokens(Tokens $tokens, int $offsetIndex, int $direction) : ?array
     {
         $operatorIndex = $tokens->getMeaningfulTokenSibling($offsetIndex, $direction);
-        if (null === $operatorIndex) {
+        if (null !== $operatorIndex && $tokens[$operatorIndex]->isGivenKind(\T_NS_SEPARATOR)) {
+            $operatorIndex = $tokens->getMeaningfulTokenSibling($operatorIndex, $direction);
+        }
+        if (null === $operatorIndex || !$tokens[$operatorIndex]->isGivenKind([\T_IS_IDENTICAL, \T_IS_NOT_IDENTICAL])) {
             return null;
         }
         $operandIndex = $tokens->getMeaningfulTokenSibling($operatorIndex, $direction);
@@ -117,9 +121,6 @@ if (strpos($haystack, $needle) === false) {}
         }
         $operand = $tokens[$operandIndex];
         if (!$operand->equals([\T_LNUMBER, '0']) && !$operand->equals([\T_STRING, 'false'], \false)) {
-            return null;
-        }
-        if (!$tokens[$operatorIndex]->isGivenKind([\T_IS_IDENTICAL, \T_IS_NOT_IDENTICAL])) {
             return null;
         }
         $precedenceTokenIndex = $tokens->getMeaningfulTokenSibling($operandIndex, $direction);

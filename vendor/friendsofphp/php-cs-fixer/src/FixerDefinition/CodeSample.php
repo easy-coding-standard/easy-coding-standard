@@ -22,7 +22,7 @@ final class CodeSample implements \PhpCsFixer\FixerDefinition\CodeSampleInterfac
      */
     private $code;
     /**
-     * @var null|array
+     * @var mixed[]|null
      */
     private $configuration;
     public function __construct(string $code, ?array $configuration = null)

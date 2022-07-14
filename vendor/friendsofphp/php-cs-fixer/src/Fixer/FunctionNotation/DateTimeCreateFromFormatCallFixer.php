@@ -51,7 +51,7 @@ final class DateTimeCreateFromFormatCallFixer extends AbstractFixer
                     continue;
                 }
                 $classNameIndex = $tokens->getPrevMeaningfulToken($index);
-                if (!$tokens[$classNameIndex]->equals([\T_STRING, 'DateTime'], \false)) {
+                if (!$tokens[$classNameIndex]->equalsAny([[\T_STRING, 'DateTime'], [\T_STRING, 'DateTimeImmutable']], \false)) {
                     continue;
                 }
                 $preClassNameIndex = $tokens->getPrevMeaningfulToken($classNameIndex);
@@ -63,8 +63,10 @@ final class DateTimeCreateFromFormatCallFixer extends AbstractFixer
                     continue;
                 } else {
                     foreach ($useDeclarations as $useDeclaration) {
-                        if ('datetime' === \strtolower($useDeclaration->getShortName()) && 'datetime' !== \strtolower($useDeclaration->getFullName())) {
-                            continue 2;
+                        foreach (['datetime', 'datetimeimmutable'] as $name) {
+                            if ($name === \strtolower($useDeclaration->getShortName()) && $name !== \strtolower($useDeclaration->getFullName())) {
+                                continue 3;
+                            }
                         }
                     }
                 }

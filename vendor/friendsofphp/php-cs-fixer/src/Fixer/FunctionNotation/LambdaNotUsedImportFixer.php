@@ -45,11 +45,11 @@ final class LambdaNotUsedImportFixer extends AbstractFixer
     /**
      * {@inheritdoc}
      *
-     * Must run before NoSpacesInsideParenthesisFixer.
+     * Must run before MethodArgumentSpaceFixer, NoSpacesInsideParenthesisFixer.
      */
     public function getPriority() : int
     {
-        return 3;
+        return 31;
     }
     /**
      * {@inheritdoc}

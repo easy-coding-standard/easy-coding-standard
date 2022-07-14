@@ -44,7 +44,6 @@ EOT
     /**
      * {@inheritdoc}
      *
-     * Must run before SimpleToComplexStringVariableFixer.
      * Must run after BacktickToShellExecFixer.
      */
     public function getPriority() : int
@@ -101,7 +100,7 @@ EOT
                 if (1 === \count($distinctVariableSet['tokens'])) {
                     $singleVariableIndex = \key($distinctVariableSet['tokens']);
                     $singleVariableToken = \current($distinctVariableSet['tokens']);
-                    $tokens->overrideRange($singleVariableIndex, $singleVariableIndex, [new Token([\T_DOLLAR_OPEN_CURLY_BRACES, '${']), new Token([\T_STRING_VARNAME, \substr($singleVariableToken->getContent(), 1)]), new Token([CT::T_DOLLAR_CLOSE_CURLY_BRACES, '}'])]);
+                    $tokens->overrideRange($singleVariableIndex, $singleVariableIndex, [new Token([\T_CURLY_OPEN, '{']), new Token([\T_VARIABLE, $singleVariableToken->getContent()]), new Token([CT::T_CURLY_CLOSE, '}'])]);
                 } else {
                     foreach ($distinctVariableSet['tokens'] as $variablePartIndex => $variablePartToken) {
                         if ($variablePartToken->isGivenKind(\T_NUM_STRING)) {

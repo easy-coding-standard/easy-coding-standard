@@ -4,11 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit356ec71f0f725394a148ae7286622090
+class ComposerStaticInit1d1b41409a864c2b21a26e8ef60b134c
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '972fda704d680a3a53c68e34e193cb22' => __DIR__ . '/..' . '/react/promise-timer/src/functions_include.php',
@@ -22,6 +23,7 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
             'Symplify\\CodingStandard\\' => 24,
             'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Php80\\' => 23,
+            'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
         ),
         'P' => 
         array (
@@ -85,6 +87,10 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
         'PhpCsFixer\\' => 
         array (
@@ -996,6 +1002,7 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
         'ECSPrefix202207\\Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'ECSPrefix202207\\Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
         'ECSPrefix202207\\Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
+        'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'PhpCsFixer\\AbstractDoctrineAnnotationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractDoctrineAnnotationFixer.php',
         'PhpCsFixer\\AbstractFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractFixer.php',
         'PhpCsFixer\\AbstractFopenFlagFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractFopenFlagFixer.php',
@@ -1095,6 +1102,7 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
         'PhpCsFixer\\Fixer\\ArrayNotation\\TrimArraySpacesFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ArrayNotation/TrimArraySpacesFixer.php',
         'PhpCsFixer\\Fixer\\ArrayNotation\\WhitespaceAfterCommaInArrayFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ArrayNotation/WhitespaceAfterCommaInArrayFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\BracesFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/BracesFixer.php',
+        'PhpCsFixer\\Fixer\\Basic\\CurlyBracesPositionFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/CurlyBracesPositionFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\EncodingFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/EncodingFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\NonPrintableCharacterFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/NonPrintableCharacterFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\OctalNotationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/OctalNotationFixer.php',
@@ -1142,6 +1150,7 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
         'PhpCsFixer\\Fixer\\Comment\\SingleLineCommentStyleFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Comment/SingleLineCommentStyleFixer.php',
         'PhpCsFixer\\Fixer\\ConfigurableFixerInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ConfigurableFixerInterface.php',
         'PhpCsFixer\\Fixer\\ConstantNotation\\NativeConstantInvocationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ConstantNotation/NativeConstantInvocationFixer.php',
+        'PhpCsFixer\\Fixer\\ControlStructure\\ControlStructureBracesFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ControlStructure/ControlStructureBracesFixer.php',
         'PhpCsFixer\\Fixer\\ControlStructure\\ControlStructureContinuationPositionFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ControlStructure/ControlStructureContinuationPositionFixer.php',
         'PhpCsFixer\\Fixer\\ControlStructure\\ElseifFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ControlStructure/ElseifFixer.php',
         'PhpCsFixer\\Fixer\\ControlStructure\\EmptyLoopBodyFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/ControlStructure/EmptyLoopBodyFixer.php',
@@ -1199,6 +1208,7 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
         'PhpCsFixer\\Fixer\\Import\\OrderedImportsFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Import/OrderedImportsFixer.php',
         'PhpCsFixer\\Fixer\\Import\\SingleImportPerStatementFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Import/SingleImportPerStatementFixer.php',
         'PhpCsFixer\\Fixer\\Import\\SingleLineAfterImportsFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Import/SingleLineAfterImportsFixer.php',
+        'PhpCsFixer\\Fixer\\Indentation' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Indentation.php',
         'PhpCsFixer\\Fixer\\LanguageConstruct\\ClassKeywordRemoveFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/LanguageConstruct/ClassKeywordRemoveFixer.php',
         'PhpCsFixer\\Fixer\\LanguageConstruct\\CombineConsecutiveIssetsFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/LanguageConstruct/CombineConsecutiveIssetsFixer.php',
         'PhpCsFixer\\Fixer\\LanguageConstruct\\CombineConsecutiveUnsetsFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/LanguageConstruct/CombineConsecutiveUnsetsFixer.php',
@@ -1226,6 +1236,7 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
         'PhpCsFixer\\Fixer\\Operator\\LogicalOperatorsFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Operator/LogicalOperatorsFixer.php',
         'PhpCsFixer\\Fixer\\Operator\\NewWithBracesFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Operator/NewWithBracesFixer.php',
         'PhpCsFixer\\Fixer\\Operator\\NoSpaceAroundDoubleColonFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Operator/NoSpaceAroundDoubleColonFixer.php',
+        'PhpCsFixer\\Fixer\\Operator\\NoUselessNullsafeOperatorFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Operator/NoUselessNullsafeOperatorFixer.php',
         'PhpCsFixer\\Fixer\\Operator\\NotOperatorWithSpaceFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Operator/NotOperatorWithSpaceFixer.php',
         'PhpCsFixer\\Fixer\\Operator\\NotOperatorWithSuccessorSpaceFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Operator/NotOperatorWithSuccessorSpaceFixer.php',
         'PhpCsFixer\\Fixer\\Operator\\ObjectOperatorWithoutWhitespaceFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Operator/ObjectOperatorWithoutWhitespaceFixer.php',
@@ -1314,6 +1325,7 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
         'PhpCsFixer\\Fixer\\StringNotation\\StringLineEndingFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/StringNotation/StringLineEndingFixer.php',
         'PhpCsFixer\\Fixer\\Whitespace\\ArrayIndentationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/ArrayIndentationFixer.php',
         'PhpCsFixer\\Fixer\\Whitespace\\BlankLineBeforeStatementFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/BlankLineBeforeStatementFixer.php',
+        'PhpCsFixer\\Fixer\\Whitespace\\BlankLineBetweenImportGroupsFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/BlankLineBetweenImportGroupsFixer.php',
         'PhpCsFixer\\Fixer\\Whitespace\\CompactNullableTypehintFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/CompactNullableTypehintFixer.php',
         'PhpCsFixer\\Fixer\\Whitespace\\HeredocIndentationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/HeredocIndentationFixer.php',
         'PhpCsFixer\\Fixer\\Whitespace\\IndentationTypeFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/IndentationTypeFixer.php',
@@ -1325,6 +1337,7 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
         'PhpCsFixer\\Fixer\\Whitespace\\NoTrailingWhitespaceFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/NoTrailingWhitespaceFixer.php',
         'PhpCsFixer\\Fixer\\Whitespace\\NoWhitespaceInBlankLineFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/NoWhitespaceInBlankLineFixer.php',
         'PhpCsFixer\\Fixer\\Whitespace\\SingleBlankLineAtEofFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/SingleBlankLineAtEofFixer.php',
+        'PhpCsFixer\\Fixer\\Whitespace\\StatementIndentationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/StatementIndentationFixer.php',
         'PhpCsFixer\\Fixer\\Whitespace\\TypesSpacesFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Whitespace/TypesSpacesFixer.php',
         'PhpCsFixer\\Fixer\\WhitespacesAwareFixerInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/WhitespacesAwareFixerInterface.php',
         'PhpCsFixer\\Indicator\\PhpUnitTestCaseIndicator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Indicator/PhpUnitTestCaseIndicator.php',
@@ -1435,6 +1448,7 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Normalizer.php',
         'Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
         'Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
         'Symfony\\Polyfill\\Php81\\Php81' => __DIR__ . '/..' . '/symfony/polyfill-php81/Php81.php',
@@ -1589,9 +1603,9 @@ class ComposerStaticInit356ec71f0f725394a148ae7286622090
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit356ec71f0f725394a148ae7286622090::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit356ec71f0f725394a148ae7286622090::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit356ec71f0f725394a148ae7286622090::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1d1b41409a864c2b21a26e8ef60b134c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1d1b41409a864c2b21a26e8ef60b134c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1d1b41409a864c2b21a26e8ef60b134c::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -36,7 +36,7 @@ final class NoSpacesInsideParenthesisFixer extends AbstractFixer
      * {@inheritdoc}
      *
      * Must run before FunctionToConstantFixer, GetClassToClassKeywordFixer, StringLengthToEmptyFixer.
-     * Must run after CombineConsecutiveIssetsFixer, CombineNestedDirnameFixer, LambdaNotUsedImportFixer, ModernizeStrposFixer, NoTrailingCommaInSinglelineFunctionCallFixer, NoUselessSprintfFixer, PowToExponentiationFixer.
+     * Must run after CombineConsecutiveIssetsFixer, CombineNestedDirnameFixer, IncrementStyleFixer, LambdaNotUsedImportFixer, ModernizeStrposFixer, NoTrailingCommaInSinglelineFunctionCallFixer, NoUselessSprintfFixer, PowToExponentiationFixer.
      */
     public function getPriority() : int
     {

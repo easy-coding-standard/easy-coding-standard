@@ -118,7 +118,7 @@ final class TypeExpression
      */
     private $typesGlue = '|';
     /**
-     * @var null|NamespaceAnalysis
+     * @var \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis|null
      */
     private $namespace;
     /**

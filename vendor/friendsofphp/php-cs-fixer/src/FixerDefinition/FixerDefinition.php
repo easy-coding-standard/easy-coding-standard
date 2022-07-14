@@ -26,11 +26,11 @@ final class FixerDefinition implements \PhpCsFixer\FixerDefinition\FixerDefiniti
      */
     private $codeSamples;
     /**
-     * @var null|string
+     * @var string|null
      */
     private $description;
     /**
-     * @var null|string
+     * @var string|null
      */
     private $riskyDescription;
     /**

@@ -27,8 +27,7 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
      *
      * The key is name of rule, value is bool if the rule/set should be used.
      * The key must not point to any set.
-     *
-     * @var array
+     * @var mixed[]
      */
     private $rules;
     public function __construct(array $set = [])

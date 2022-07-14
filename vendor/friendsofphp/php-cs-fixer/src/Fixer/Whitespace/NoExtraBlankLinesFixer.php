@@ -36,7 +36,7 @@ final class NoExtraBlankLinesFixer extends AbstractFixer implements Configurable
     /**
      * @var string[]
      */
-    private static $availableTokens = ['break', 'case', 'continue', 'curly_brace_block', 'default', 'extra', 'parenthesis_brace_block', 'return', 'square_brace_block', 'switch', 'throw', 'use', 'use_trait'];
+    private static $availableTokens = ['attribute', 'break', 'case', 'continue', 'curly_brace_block', 'default', 'extra', 'parenthesis_brace_block', 'return', 'square_brace_block', 'switch', 'throw', 'use', 'use_trait'];
     /**
      * @var array<int, string> key is token id, value is name of callback
      */
@@ -46,11 +46,11 @@ final class NoExtraBlankLinesFixer extends AbstractFixer implements Configurable
      */
     private $tokenEqualsMap;
     /**
-     * @var Tokens
+     * @var \PhpCsFixer\Tokenizer\Tokens
      */
     private $tokens;
     /**
-     * @var TokensAnalyzer
+     * @var \PhpCsFixer\Tokenizer\TokensAnalyzer
      */
     private $tokensAnalyzer;
     /**
@@ -62,16 +62,23 @@ final class NoExtraBlankLinesFixer extends AbstractFixer implements Configurable
             Utils::triggerDeprecation(new \RuntimeException('Option "tokens: use_trait" used in `no_extra_blank_lines` rule is deprecated, use the rule `class_attributes_separation` with `elements: trait_import` instead.'));
         }
         parent::configure($configuration);
-        static $reprToTokenMap = ['break' => \T_BREAK, 'case' => \T_CASE, 'continue' => \T_CONTINUE, 'curly_brace_block' => '{', 'default' => \T_DEFAULT, 'extra' => \T_WHITESPACE, 'parenthesis_brace_block' => '(', 'return' => \T_RETURN, 'square_brace_block' => CT::T_ARRAY_SQUARE_BRACE_OPEN, 'switch' => \T_SWITCH, 'throw' => \T_THROW, 'use' => \T_USE, 'use_trait' => CT::T_USE_TRAIT];
-        static $tokenKindCallbackMap = [\T_BREAK => 'fixAfterToken', \T_CASE => 'fixAfterToken', \T_CONTINUE => 'fixAfterToken', \T_DEFAULT => 'fixAfterToken', \T_RETURN => 'fixAfterToken', \T_SWITCH => 'fixAfterToken', \T_THROW => 'fixAfterThrowToken', \T_USE => 'removeBetweenUse', \T_WHITESPACE => 'removeMultipleBlankLines', CT::T_USE_TRAIT => 'removeBetweenUse', CT::T_ARRAY_SQUARE_BRACE_OPEN => 'fixStructureOpenCloseIfMultiLine'];
-        static $tokenEqualsMap = [
-            '{' => 'fixStructureOpenCloseIfMultiLine',
+        $tokensConfiguration = $this->configuration['tokens'];
+        $this->tokenEqualsMap = [];
+        if (\in_array('curly_brace_block', $tokensConfiguration, \true)) {
+            $this->tokenEqualsMap['{'] = 'fixStructureOpenCloseIfMultiLine';
             // i.e. not: CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN
-            '(' => 'fixStructureOpenCloseIfMultiLine',
-        ];
-        $tokensAssoc = \array_flip(\array_intersect_key($reprToTokenMap, \array_flip($this->configuration['tokens'])));
-        $this->tokenKindCallbackMap = \array_intersect_key($tokenKindCallbackMap, $tokensAssoc);
-        $this->tokenEqualsMap = \array_intersect_key($tokenEqualsMap, $tokensAssoc);
+        }
+        if (\in_array('parenthesis_brace_block', $tokensConfiguration, \true)) {
+            $this->tokenEqualsMap['('] = 'fixStructureOpenCloseIfMultiLine';
+            // i.e. not: CT::T_BRACE_CLASS_INSTANTIATION_OPEN
+        }
+        static $configMap = ['attribute' => [CT::T_ATTRIBUTE_CLOSE, 'fixAfterToken'], 'break' => [\T_BREAK, 'fixAfterToken'], 'case' => [\T_CASE, 'fixAfterCaseToken'], 'continue' => [\T_CONTINUE, 'fixAfterToken'], 'default' => [\T_DEFAULT, 'fixAfterToken'], 'extra' => [\T_WHITESPACE, 'removeMultipleBlankLines'], 'return' => [\T_RETURN, 'fixAfterToken'], 'square_brace_block' => [CT::T_ARRAY_SQUARE_BRACE_OPEN, 'fixStructureOpenCloseIfMultiLine'], 'switch' => [\T_SWITCH, 'fixAfterToken'], 'throw' => [\T_THROW, 'fixAfterThrowToken'], 'use' => [\T_USE, 'removeBetweenUse'], 'use_trait' => [CT::T_USE_TRAIT, 'removeBetweenUse']];
+        $this->tokenKindCallbackMap = [];
+        foreach ($tokensConfiguration as $config) {
+            if (isset($configMap[$config])) {
+                $this->tokenKindCallbackMap[$configMap[$config][0]] = $configMap[$config][1];
+            }
+        }
     }
     /**
      * {@inheritdoc}
@@ -249,6 +256,17 @@ switch($a) {
             }
             if ($this->tokens[$i]->isWhitespace() && \strpos($this->tokens[$i]->getContent(), "\n") !== \false) {
                 break;
+            }
+        }
+        $this->removeEmptyLinesAfterLineWithTokenAt($index);
+    }
+    private function fixAfterCaseToken(int $index) : void
+    {
+        if (\defined('T_ENUM')) {
+            // @TODO: drop condition when PHP 8.1+ is required
+            $enumSwitchIndex = $this->tokens->getPrevTokenOfKind($index, [[\T_SWITCH], [\T_ENUM]]);
+            if (!$this->tokens[$enumSwitchIndex]->isGivenKind(\T_SWITCH)) {
+                return;
             }
         }
         $this->removeEmptyLinesAfterLineWithTokenAt($index);

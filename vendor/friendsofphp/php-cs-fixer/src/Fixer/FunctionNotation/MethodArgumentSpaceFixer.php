@@ -71,7 +71,7 @@ SAMPLE
      * {@inheritdoc}
      *
      * Must run before ArrayIndentationFixer.
-     * Must run after BracesFixer, CombineNestedDirnameFixer, FunctionDeclarationFixer, ImplodeCallFixer, MethodChainingIndentationFixer, NoMultilineWhitespaceAroundDoubleArrowFixer, NoUselessSprintfFixer, PowToExponentiationFixer, StrictParamFixer.
+     * Must run after CombineNestedDirnameFixer, FunctionDeclarationFixer, ImplodeCallFixer, LambdaNotUsedImportFixer, MethodChainingIndentationFixer, NoMultilineWhitespaceAroundDoubleArrowFixer, NoUselessSprintfFixer, PowToExponentiationFixer, StrictParamFixer.
      */
     public function getPriority() : int
     {
@@ -152,7 +152,6 @@ SAMPLE
                 $this->fixSpace($tokens, $index);
                 if (!$isMultiline && $this->isNewline($tokens[$index + 1])) {
                     $isMultiline = \true;
-                    break;
                 }
             }
         }

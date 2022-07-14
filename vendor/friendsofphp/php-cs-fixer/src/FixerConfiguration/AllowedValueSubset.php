@@ -18,7 +18,7 @@ namespace PhpCsFixer\FixerConfiguration;
 final class AllowedValueSubset
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private $allowedValues;
     public function __construct(array $allowedValues)

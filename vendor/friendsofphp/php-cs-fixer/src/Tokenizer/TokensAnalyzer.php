@@ -32,7 +32,7 @@ final class TokensAnalyzer
      */
     private $tokens;
     /**
-     * @var ?GotoLabelAnalyzer
+     * @var \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer|null
      */
     private $gotoLabelAnalyzer;
     public function __construct(\PhpCsFixer\Tokenizer\Tokens $tokens)
@@ -421,7 +421,7 @@ final class TokensAnalyzer
         }
         $tokens = $this->tokens;
         $token = $tokens[$index];
-        if ($token->isGivenKind(\T_ENCAPSED_AND_WHITESPACE)) {
+        if ($token->isGivenKind([\T_INLINE_HTML, \T_ENCAPSED_AND_WHITESPACE, \PhpCsFixer\Tokenizer\CT::T_TYPE_INTERSECTION])) {
             return \false;
         }
         if (isset($potentialUnaryNonArrayOperators[$token->getContent()])) {
