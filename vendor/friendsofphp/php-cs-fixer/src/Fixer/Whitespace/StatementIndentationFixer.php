@@ -88,7 +88,7 @@ else {
             --$endIndex;
         }
         $lastIndent = $this->getLineIndentationWithBracesCompatibility($tokens, 0, $this->extractIndent($this->computeNewLineContent($tokens, 0)));
-        $scopes = [['type' => 'block', 'end_index' => $endIndex, 'initial_indent' => $lastIndent, 'is_indented_block' => \false]];
+        $scopes = [['type' => 'block', 'end_index' => $endIndex, 'end_index_inclusive' => \true, 'initial_indent' => $lastIndent, 'is_indented_block' => \false]];
         $previousLineInitialIndent = '';
         $previousLineNewIndent = '';
         $alternativeBlockStarts = [];
@@ -99,13 +99,14 @@ else {
                 continue;
             }
             if ($token->equalsAny($blockFirstTokens) || $token->equals('(') && !$tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind(\T_ARRAY) || isset($alternativeBlockStarts[$index]) || isset($caseBlockStarts[$index])) {
+                $endIndexInclusive = \true;
                 if ($token->isGivenKind([\T_EXTENDS, \T_IMPLEMENTS])) {
                     $endIndex = $tokens->getNextTokenOfKind($index, ['{']);
                 } elseif ($token->isGivenKind(CT::T_USE_TRAIT)) {
                     $endIndex = $tokens->getNextTokenOfKind($index, [';']);
                 } elseif ($token->equals(':')) {
                     if (isset($caseBlockStarts[$index])) {
-                        $endIndex = $this->findCaseBlockEnd($tokens, $index);
+                        [$endIndex, $endIndexInclusive] = $this->findCaseBlockEnd($tokens, $index);
                     } else {
                         $endIndex = $this->alternativeSyntaxAnalyzer->findAlternativeSyntaxBlockEnd($tokens, $alternativeBlockStarts[$index]);
                     }
@@ -125,7 +126,7 @@ else {
                 } else {
                     $initialIndent = $this->getLineIndentationWithBracesCompatibility($tokens, $index, $lastIndent);
                 }
-                $scopes[] = ['type' => 'block', 'end_index' => $endIndex, 'initial_indent' => $initialIndent, 'is_indented_block' => \true];
+                $scopes[] = ['type' => 'block', 'end_index' => $endIndex, 'end_index_inclusive' => $endIndexInclusive, 'initial_indent' => $initialIndent, 'is_indented_block' => \true];
                 continue;
             }
             if ($token->isGivenKind($blockSignatureFirstTokens)) {
@@ -146,7 +147,7 @@ else {
                         break;
                     }
                 }
-                $scopes[] = ['type' => 'block_signature', 'end_index' => $endIndex, 'initial_indent' => $this->getLineIndentationWithBracesCompatibility($tokens, $index, $lastIndent), 'is_indented_block' => \false];
+                $scopes[] = ['type' => 'block_signature', 'end_index' => $endIndex, 'end_index_inclusive' => \true, 'initial_indent' => $this->getLineIndentationWithBracesCompatibility($tokens, $index, $lastIndent), 'is_indented_block' => \false];
                 continue;
             }
             if ($token->isWhitespace() || $index > 0 && $tokens[$index - 1]->isGivenKind(\T_OPEN_TAG)) {
@@ -177,21 +178,13 @@ else {
                                 break;
                             }
                         }
-                        $isIndentableStatement = !$this->isCommentForControlSructureContinuation($tokens, $index + 1);
-                        if ($isIndentableStatement && (null !== $firstMeaningFulTokenIndex && $firstMeaningFulTokenIndex < $scopes[$currentScope]['end_index'] || null !== $nextNewlineIndex && $nextNewlineIndex < $scopes[$currentScope]['end_index'])) {
-                            $indent = \true;
-                        } elseif (null !== $nextNewlineIndex) {
-                            for ($parentScope = $currentScope - 1; $parentScope >= 0; --$parentScope) {
-                                if ($scopes[$parentScope]['end_index'] < $nextNewlineIndex) {
-                                    continue;
-                                }
-                                if (!isset($scopes[$parentScope]['is_indented_block']) || !$scopes[$parentScope]['is_indented_block']) {
-                                    break;
-                                }
-                                if ($isIndentableStatement && $firstMeaningFulTokenIndex < $scopes[$parentScope]['end_index'] && \strlen($scopes[$parentScope]['initial_indent']) >= \strlen($scopes[$currentScope]['initial_indent'])) {
-                                    $indent = \true;
-                                }
-                                break;
+                        if (!$this->isCommentForControlSructureContinuation($tokens, $index + 1)) {
+                            $endIndex = $scopes[$currentScope]['end_index'];
+                            if (!$scopes[$currentScope]['end_index_inclusive']) {
+                                ++$endIndex;
+                            }
+                            if (null !== $firstMeaningFulTokenIndex && $firstMeaningFulTokenIndex < $endIndex || null !== $nextNewlineIndex && $nextNewlineIndex < $endIndex) {
+                                $indent = \true;
                             }
                         }
                     }
@@ -235,14 +228,14 @@ else {
                 if ($endIndex === $index) {
                     continue;
                 }
-                $scopes[] = ['type' => 'statement', 'end_index' => $endIndex, 'initial_indent' => $previousLineInitialIndent, 'new_indent' => $previousLineNewIndent];
+                $scopes[] = ['type' => 'statement', 'end_index' => $endIndex, 'end_index_inclusive' => \false, 'initial_indent' => $previousLineInitialIndent, 'new_indent' => $previousLineNewIndent];
             }
         }
     }
     private function findStatementEndIndex(Tokens $tokens, int $index, int $parentScopeEndIndex) : int
     {
         $endIndex = null;
-        for ($searchEndIndex = $index; $searchEndIndex < $parentScopeEndIndex; ++$searchEndIndex) {
+        for ($searchEndIndex = $index; $searchEndIndex <= $parentScopeEndIndex; ++$searchEndIndex) {
             $searchEndToken = $tokens[$searchEndIndex];
             if ($searchEndToken->equalsAny(['(', '{', [CT::T_ARRAY_SQUARE_BRACE_OPEN]])) {
                 if ($searchEndToken->equals('(')) {
@@ -256,13 +249,16 @@ else {
                 continue;
             }
             if ($searchEndToken->equalsAny([';', ',', '}', [\T_CLOSE_TAG]])) {
-                $endIndex = $tokens->getPrevMeaningfulToken($searchEndIndex);
+                $endIndex = $tokens->getPrevNonWhitespace($searchEndIndex);
                 break;
             }
         }
         return $endIndex ?? $tokens->getPrevMeaningfulToken($parentScopeEndIndex);
     }
-    private function findCaseBlockEnd(Tokens $tokens, int $index) : int
+    /**
+     * @return array{int, bool}
+     */
+    private function findCaseBlockEnd(Tokens $tokens, int $index) : array
     {
         for ($max = \count($tokens); $index < $max; ++$index) {
             if ($tokens[$index]->isGivenKind(\T_SWITCH)) {
@@ -279,10 +275,10 @@ else {
                 continue;
             }
             if ($tokens[$index]->equalsAny([[\T_CASE], [\T_DEFAULT]])) {
-                return $index;
+                return [$index, \true];
             }
             if ($tokens[$index]->equalsAny(['}', [\T_ENDSWITCH]])) {
-                return $tokens->getPrevMeaningfulToken($index);
+                return [$tokens->getPrevMeaningfulToken($index), \false];
             }
         }
         throw new \LogicException('End of case block not found.');
@@ -303,6 +299,10 @@ else {
             return \false;
         }
         if (!$tokens[$index + 1]->isWhitespace() || 1 !== Preg::match('/\\R/', $tokens[$index + 1]->getContent())) {
+            return \false;
+        }
+        $prevIndex = $tokens->getPrevMeaningfulToken($index);
+        if (null !== $prevIndex && $tokens[$prevIndex]->equals('{')) {
             return \false;
         }
         $index = $tokens->getNextMeaningfulToken($index + 1);
