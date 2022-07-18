@@ -42,7 +42,7 @@ final class File extends BaseFile
      */
     private $previousActiveSniffClass = null;
     /**
-     * @var Sniff[][]
+     * @var array<int|string, Sniff[]>
      */
     private $tokenListeners = [];
     /**
