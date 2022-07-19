@@ -17,9 +17,9 @@ use ECSPrefix202207\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix202207\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix202207\Webmozart\Assert\Assert;
 // needed for scoped version to load unprefixed classes; does not have any effect inside the class
-$scoperAutoloadFilePath = __DIR__ . '/../../../vendor/scoper-autoload.php';
-if (\file_exists($scoperAutoloadFilePath)) {
-    require_once $scoperAutoloadFilePath;
+$scoperAutoloadFilepath = __DIR__ . '/../../../vendor/scoper-autoload.php';
+if (\file_exists($scoperAutoloadFilepath)) {
+    require_once $scoperAutoloadFilepath;
 }
 abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareInterface
 {

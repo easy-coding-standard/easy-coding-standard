@@ -106,11 +106,11 @@ final class AutoloadIncluder
         if (\in_array($file, $this->alreadyLoadedAutoloadFiles, \true)) {
             return;
         }
-        $realpath = \realpath($file);
-        if (!\is_string($realpath)) {
+        $realPath = \realpath($file);
+        if (!\is_string($realPath)) {
             return;
         }
-        $this->alreadyLoadedAutoloadFiles[] = $realpath;
+        $this->alreadyLoadedAutoloadFiles[] = $realPath;
         require_once $file;
     }
 }
