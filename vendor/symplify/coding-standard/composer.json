@@ -13,13 +13,13 @@
     },
     "require-dev": {
         "nette\/application": "^3.1",
-        "nette\/bootstrap": "^3.1",
-        "doctrine\/orm": "^2.10",
+        "nette\/bootstrap": "^3.1.2",
+        "doctrine\/orm": "^2.12.3",
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/smart-file-system": "dev-main",
-        "symfony\/framework-bundle": "^6.0",
+        "symfony\/framework-bundle": "^6.0.10",
         "symplify\/easy-coding-standard": "dev-main",
-        "phpunit\/phpunit": "^9.5",
+        "phpunit\/phpunit": "^9.5.21",
         "symplify\/rule-doc-generator": "dev-main",
         "cweagans\/composer-patches": "^1.7"
     },
