@@ -108,7 +108,11 @@ CODE_SAMPLE
             return;
         }
         $newContent = Strings::replace($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX, '$1' . $this->keyword . '$4');
-        $tokens[$position] = new Token([$token->getId(), $newContent]);
+        $tokenId = $token->getId();
+        if (!\is_int($tokenId)) {
+            throw new \Symplify\CodingStandard\Exception\ShouldNotHappenException();
+        }
+        $tokens[$position] = new Token([$tokenId, $newContent]);
     }
     /**
      * @param Tokens<Token> $tokens
@@ -124,6 +128,10 @@ CODE_SAMPLE
         if ($tokenContent !== $trimmedTokenContent) {
             $spaceEnd = \substr($tokenContent, 0, \strlen($tokenContent) - \strlen($trimmedTokenContent));
         }
-        $tokens[$position] = new Token([$token->getId(), $spaceEnd . $this->keyword]);
+        $tokenId = $token->getId();
+        if (!\is_int($tokenId)) {
+            throw new \Symplify\CodingStandard\Exception\ShouldNotHappenException();
+        }
+        $tokens[$position] = new Token([$tokenId, $spaceEnd . $this->keyword]);
     }
 }

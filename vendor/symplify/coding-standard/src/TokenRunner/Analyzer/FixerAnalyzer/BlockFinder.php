@@ -68,6 +68,9 @@ final class BlockFinder
         $blockType = $this->getBlockTypeByContent($content);
         return new BlockInfo($blockStart, $tokens->findBlockEnd($blockType, $blockStart));
     }
+    /**
+     * @return Tokens::BLOCK_TYPE_*
+     */
     private function getBlockTypeByContent(string $content) : int
     {
         if (isset(self::CONTENT_TO_BLOCK_TYPE[$content])) {
@@ -75,6 +78,9 @@ final class BlockFinder
         }
         throw new MissingImplementationException(\sprintf('Implementation is missing for "%s" in "%s". Just add it to "%s" property with proper block type', $content, __METHOD__, '$contentToBlockType'));
     }
+    /**
+     * @return Tokens::BLOCK_TYPE_*
+     */
     private function getBlockTypeByToken(Token $token) : int
     {
         if ($token->isArray()) {
@@ -87,6 +93,7 @@ final class BlockFinder
     }
     /**
      * @param Tokens<Token> $tokens
+     * @param Tokens::BLOCK_TYPE_* $blockType
      */
     private function createBlockInfo(Token $token, int $position, Tokens $tokens, int $blockType) : ?BlockInfo
     {

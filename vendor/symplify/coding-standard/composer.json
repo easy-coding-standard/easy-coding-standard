@@ -5,7 +5,7 @@
     "require": {
         "php": ">=8.0",
         "nette\/utils": "^3.2",
-        "friendsofphp\/php-cs-fixer": "^3.9.4",
+        "friendsofphp\/php-cs-fixer": "^3.9.5",
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/package-builder": "dev-main",
         "symplify\/autowire-array-parameter": "dev-main",

@@ -1217,6 +1217,7 @@ return array(
     'Symfony\\Polyfill\\Php80\\PhpToken' => $vendorDir . '/symfony/polyfill-php80/PhpToken.php',
     'Symfony\\Polyfill\\Php81\\Php81' => $vendorDir . '/symfony/polyfill-php81/Php81.php',
     'Symplify\\CodingStandard\\DocBlock\\UselessDocBlockCleaner' => $vendorDir . '/symplify/coding-standard/src/DocBlock/UselessDocBlockCleaner.php',
+    'Symplify\\CodingStandard\\Exception\\ShouldNotHappenException' => $vendorDir . '/symplify/coding-standard/src/Exception/ShouldNotHappenException.php',
     'Symplify\\CodingStandard\\Fixer\\AbstractSymplifyFixer' => $vendorDir . '/symplify/coding-standard/src/Fixer/AbstractSymplifyFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Annotation\\DoctrineAnnotationNestedBracketsFixer' => $vendorDir . '/symplify/coding-standard/src/Fixer/Annotation/DoctrineAnnotationNestedBracketsFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Annotation\\RemovePHPStormAnnotationFixer' => $vendorDir . '/symplify/coding-standard/src/Fixer/Annotation/RemovePHPStormAnnotationFixer.php',
