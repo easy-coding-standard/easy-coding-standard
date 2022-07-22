@@ -106,6 +106,9 @@ if (strpos($haystack, $needle) === false) {}
             break;
         }
     }
+    /**
+     * @param -1|1 $direction
+     */
     private function getCompareTokens(Tokens $tokens, int $offsetIndex, int $direction) : ?array
     {
         $operatorIndex = $tokens->getMeaningfulTokenSibling($offsetIndex, $direction);

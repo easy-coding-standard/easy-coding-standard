@@ -26,7 +26,7 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
      * @see https://php.net/manual/en/reserved.other-reserved-words.php
      * @see https://php.net/manual/en/language.pseudo-types.php
      *
-     * @var string[]
+     * @var list<string>
      */
     private static $reservedTypes = ['array', 'bool', 'callable', 'float', 'int', 'iterable', 'mixed', 'never', 'numeric', 'object', 'resource', 'self', 'string', 'void'];
     /**

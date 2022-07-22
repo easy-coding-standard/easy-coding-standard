@@ -153,7 +153,7 @@ final class ControlStructureBracesFixer extends AbstractFixer
         static $tokens = [\T_DECLARE, \T_DO, \T_ELSE, \T_ELSEIF, \T_FINALLY, \T_FOR, \T_FOREACH, \T_IF, \T_WHILE, \T_TRY, \T_CATCH, \T_SWITCH];
         return $tokens;
     }
-    private function getControlContinuationTokensForOpeningToken($openingTokenKind) : array
+    private function getControlContinuationTokensForOpeningToken(int $openingTokenKind) : array
     {
         if (\T_IF === $openingTokenKind) {
             return [\T_ELSE, \T_ELSEIF];
@@ -166,7 +166,7 @@ final class ControlStructureBracesFixer extends AbstractFixer
         }
         return [];
     }
-    private function getFinalControlContinuationTokensForOpeningToken($openingTokenKind) : array
+    private function getFinalControlContinuationTokensForOpeningToken(int $openingTokenKind) : array
     {
         if (\T_IF === $openingTokenKind) {
             return [\T_ELSE];

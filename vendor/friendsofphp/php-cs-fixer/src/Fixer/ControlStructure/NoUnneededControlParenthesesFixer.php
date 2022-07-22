@@ -39,7 +39,6 @@ final class NoUnneededControlParenthesesFixer extends AbstractFixer implements C
     private const BEFORE_TYPES = [
         ';',
         '{',
-        '}',
         [\T_OPEN_TAG],
         [\T_OPEN_TAG_WITH_ECHO],
         [\T_ECHO],
@@ -110,6 +109,7 @@ while ($y) { continue (2); }
      * {@inheritdoc}
      *
      * Must run before ConcatSpaceFixer, NoTrailingWhitespaceFixer.
+     * Must run after NoAlternativeSyntaxFixer.
      */
     public function getPriority() : int
     {
@@ -268,7 +268,11 @@ while ($y) { continue (2); }
             // `[ (x) +` or `+ (X) ]` or `, (X) +` or `+ (X) ,`
             return \true;
         }
-        $beforeIsStatementOpen = $beforeToken->equalsAny(self::BEFORE_TYPES) || $beforeToken->isGivenKind(\T_CASE);
+        if ($tokens[$beforeOpenIndex]->equals('}')) {
+            $beforeIsStatementOpen = !$this->closeCurlyBelongsToDynamicElement($tokens, $beforeOpenIndex);
+        } else {
+            $beforeIsStatementOpen = $beforeToken->equalsAny(self::BEFORE_TYPES) || $beforeToken->isGivenKind(\T_CASE);
+        }
         $afterIsStatementEnd = $afterToken->equalsAny([';', [\T_CLOSE_TAG]]);
         return $beforeIsStatementOpen && $afterIsBinaryOperation || $beforeIsBinaryOperation && $afterIsStatementEnd;
     }
@@ -288,7 +292,13 @@ while ($y) { continue (2); }
             return $tokens[$afterCloseIndex]->equalsAny([':', ';']);
             // `switch case`
         }
-        return $tokens[$afterCloseIndex]->equalsAny([';', [\T_CLOSE_TAG]]) && $tokens[$beforeOpenIndex]->equalsAny(self::BEFORE_TYPES);
+        if (!$tokens[$afterCloseIndex]->equalsAny([';', [\T_CLOSE_TAG]])) {
+            return \false;
+        }
+        if ($tokens[$beforeOpenIndex]->equals('}')) {
+            return !$this->closeCurlyBelongsToDynamicElement($tokens, $beforeOpenIndex);
+        }
+        return $tokens[$beforeOpenIndex]->equalsAny(self::BEFORE_TYPES);
     }
     private function isSimpleAssignment(Tokens $tokens, int $beforeOpenIndex, int $afterCloseIndex) : bool
     {
@@ -355,7 +365,7 @@ while ($y) { continue (2); }
     {
         return $this->tokensAnalyzer->isUnaryPredecessorOperator($index) || $tokens[$index]->isCast();
     }
-    private function getBeforePreUnaryOperation(Tokens $tokens, $index) : int
+    private function getBeforePreUnaryOperation(Tokens $tokens, int $index) : int
     {
         do {
             $index = $tokens->getPrevMeaningfulToken($index);
@@ -368,7 +378,7 @@ while ($y) { continue (2); }
         $token = $tokens[$index];
         return $token->isObjectOperator() || $token->equals('[') || $token->isGivenKind([CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN]);
     }
-    private function getAfterAccess(Tokens $tokens, $index) : int
+    private function getAfterAccess(Tokens $tokens, int $index) : int
     {
         while (\true) {
             $block = $this->getBlock($tokens, $index, \true);
@@ -492,5 +502,18 @@ while ($y) { continue (2); }
         } else {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index);
         }
+    }
+    private function closeCurlyBelongsToDynamicElement(Tokens $tokens, int $beforeOpenIndex) : bool
+    {
+        $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_CURLY_BRACE, $beforeOpenIndex);
+        $index = $tokens->getPrevMeaningfulToken($index);
+        if ($tokens[$index]->isGivenKind(\T_DOUBLE_COLON)) {
+            return \true;
+        }
+        if ($tokens[$index]->equals(':')) {
+            $index = $tokens->getPrevTokenOfKind($index, [[\T_CASE], '?']);
+            return !$tokens[$index]->isGivenKind(\T_CASE);
+        }
+        return \false;
     }
 }

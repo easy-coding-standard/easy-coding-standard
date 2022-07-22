@@ -108,7 +108,7 @@ final class FunctionsAnalyzer
         return \true;
     }
     /**
-     * @return ArgumentAnalysis[]
+     * @return array<string, ArgumentAnalysis>
      */
     public function getFunctionArguments(Tokens $tokens, int $functionIndex) : array
     {

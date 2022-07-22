@@ -867,6 +867,7 @@ return array(
     'PhpCsFixer\\Fixer\\Basic\\BracesFixer' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/BracesFixer.php',
     'PhpCsFixer\\Fixer\\Basic\\CurlyBracesPositionFixer' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/CurlyBracesPositionFixer.php',
     'PhpCsFixer\\Fixer\\Basic\\EncodingFixer' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/EncodingFixer.php',
+    'PhpCsFixer\\Fixer\\Basic\\NoMultipleStatementsPerLineFixer' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/NoMultipleStatementsPerLineFixer.php',
     'PhpCsFixer\\Fixer\\Basic\\NonPrintableCharacterFixer' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/NonPrintableCharacterFixer.php',
     'PhpCsFixer\\Fixer\\Basic\\OctalNotationFixer' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/OctalNotationFixer.php',
     'PhpCsFixer\\Fixer\\Basic\\PsrAutoloadingFixer' => $vendorDir . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/PsrAutoloadingFixer.php',

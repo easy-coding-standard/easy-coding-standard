@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite35e88fbe4067678aa1743e9d27a8c66
+class ComposerStaticInit81fa9c68535b972fbe9f7f3b573dee0f
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1104,6 +1104,7 @@ class ComposerStaticInite35e88fbe4067678aa1743e9d27a8c66
         'PhpCsFixer\\Fixer\\Basic\\BracesFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/BracesFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\CurlyBracesPositionFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/CurlyBracesPositionFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\EncodingFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/EncodingFixer.php',
+        'PhpCsFixer\\Fixer\\Basic\\NoMultipleStatementsPerLineFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/NoMultipleStatementsPerLineFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\NonPrintableCharacterFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/NonPrintableCharacterFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\OctalNotationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/OctalNotationFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\PsrAutoloadingFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/PsrAutoloadingFixer.php',
@@ -1603,9 +1604,9 @@ class ComposerStaticInite35e88fbe4067678aa1743e9d27a8c66
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite35e88fbe4067678aa1743e9d27a8c66::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite35e88fbe4067678aa1743e9d27a8c66::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite35e88fbe4067678aa1743e9d27a8c66::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit81fa9c68535b972fbe9f7f3b573dee0f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit81fa9c68535b972fbe9f7f3b573dee0f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit81fa9c68535b972fbe9f7f3b573dee0f::$classMap;
 
         }, null, ClassLoader::class);
     }

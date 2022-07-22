@@ -33,7 +33,7 @@ final class ReturnTypeDeclarationFixer extends AbstractFixer implements Configur
      */
     public function getDefinition() : FixerDefinitionInterface
     {
-        return new FixerDefinition('There should be one or no space before colon, and one space after it in return type declarations, according to configuration.', [new CodeSample("<?php\nfunction foo(int \$a):string {};\n"), new CodeSample("<?php\nfunction foo(int \$a):string {};\n", ['space_before' => 'none']), new CodeSample("<?php\nfunction foo(int \$a):string {};\n", ['space_before' => 'one'])], 'Rule is applied only in a PHP 7+ environment.');
+        return new FixerDefinition('Adjust spacing around colon in return type declarations and backed enum types.', [new CodeSample("<?php\nfunction foo(int \$a):string {};\n"), new CodeSample("<?php\nfunction foo(int \$a):string {};\n", ['space_before' => 'none']), new CodeSample("<?php\nfunction foo(int \$a):string {};\n", ['space_before' => 'one'])], 'Rule is applied only in a PHP 7+ environment.');
     }
     /**
      * {@inheritdoc}

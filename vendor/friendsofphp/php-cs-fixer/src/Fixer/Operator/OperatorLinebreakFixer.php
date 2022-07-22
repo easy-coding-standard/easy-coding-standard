@@ -132,15 +132,14 @@ function foo() {
     private function getExcludedIndices(Tokens $tokens) : array
     {
         $colonIndices = [];
+        /** @var SwitchAnalysis $analysis */
         foreach (ControlCaseStructuresAnalyzer::findControlStructures($tokens, [\T_SWITCH]) as $analysis) {
             foreach ($analysis->getCases() as $case) {
                 $colonIndices[] = $case->getColonIndex();
             }
-            if ($analysis instanceof SwitchAnalysis) {
-                $defaultAnalysis = $analysis->getDefaultAnalysis();
-                if (null !== $defaultAnalysis) {
-                    $colonIndices[] = $defaultAnalysis->getColonIndex();
-                }
+            $defaultAnalysis = $analysis->getDefaultAnalysis();
+            if (null !== $defaultAnalysis) {
+                $colonIndices[] = $defaultAnalysis->getColonIndex();
             }
         }
         return $colonIndices;

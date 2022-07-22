@@ -67,7 +67,7 @@ final class MyTest extends \\PHPUnit\\Framework\\TestCase
     /**
      * {@inheritdoc}
      *
-     * Must run after PhpUnitDedicateAssertFixer.
+     * Must run after NoBinaryStringFixer, PhpUnitDedicateAssertFixer.
      */
     public function getPriority() : int
     {

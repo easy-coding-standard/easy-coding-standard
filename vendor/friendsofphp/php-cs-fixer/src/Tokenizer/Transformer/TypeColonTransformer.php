@@ -50,6 +50,10 @@ final class TypeColonTransformer extends AbstractTransformer
             return;
         }
         $endIndex = $tokens->getPrevMeaningfulToken($index);
+        if (\defined('T_ENUM') && $tokens[$tokens->getPrevMeaningfulToken($endIndex)]->isGivenKind(\T_ENUM)) {
+            $tokens[$index] = new Token([CT::T_TYPE_COLON, ':']);
+            return;
+        }
         if (!$tokens[$endIndex]->equals(')')) {
             return;
         }

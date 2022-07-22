@@ -88,7 +88,6 @@ final class StaticLambdaFixer extends AbstractFixer
             if ($nextToken->equalsAny([',', ';', [\T_CLOSE_TAG]])) {
                 break;
             }
-            /** @var null|array{isStart: bool, type: int} $blockType */
             $blockType = Tokens::detectBlockType($nextToken);
             if (null !== $blockType && $blockType['isStart']) {
                 $nextIndex = $tokens->findBlockEnd($blockType['type'], $nextIndex);

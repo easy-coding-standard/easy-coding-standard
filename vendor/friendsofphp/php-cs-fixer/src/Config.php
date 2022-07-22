@@ -29,7 +29,7 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     private $customFixers = [];
     /**
-     * @var null|iterable
+     * @var null|iterable<\SplFileInfo>
      */
     private $finder;
     /**

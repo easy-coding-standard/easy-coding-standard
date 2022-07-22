@@ -22,14 +22,12 @@ final class Token
 {
     /**
      * Content of token prototype.
-     *
      * @var string
      */
     private $content;
     /**
      * ID of token prototype, if available.
-     *
-     * @var null|int
+     * @var int|null
      */
     private $id;
     /**
@@ -43,7 +41,7 @@ final class Token
      */
     private $changed = \false;
     /**
-     * @param array|string $token token prototype
+     * @param array{int, string}|string $token token prototype
      */
     public function __construct($token)
     {
@@ -68,7 +66,7 @@ final class Token
         }
     }
     /**
-     * @return int[]
+     * @return list<int>
      */
     public static function getCastTokenKinds() : array
     {
@@ -78,7 +76,7 @@ final class Token
     /**
      * Get classy tokens kinds: T_CLASS, T_INTERFACE and T_TRAIT.
      *
-     * @return int[]
+     * @return list<int>
      */
     public static function getClassyTokenKinds() : array
     {
@@ -95,7 +93,7 @@ final class Token
     /**
      * Get object operator tokens kinds: T_OBJECT_OPERATOR and (if available) T_NULLSAFE_OBJECT_OPERATOR.
      *
-     * @return int[]
+     * @return list<int>
      */
     public static function getObjectOperatorKinds() : array
     {
@@ -113,8 +111,8 @@ final class Token
      *
      * If tokens are arrays, then only keys defined in parameter token are checked.
      *
-     * @param array|string|Token $other         token or it's prototype
-     * @param bool               $caseSensitive perform a case sensitive comparison
+     * @param array{0: int, 1?: string}|string|Token $other         token or it's prototype
+     * @param bool                                   $caseSensitive perform a case sensitive comparison
      */
     public function equals($other, bool $caseSensitive = \true) : bool
     {
@@ -164,8 +162,8 @@ final class Token
     /**
      * Check if token is equals to one of given.
      *
-     * @param array $others        array of tokens or token prototypes
-     * @param bool  $caseSensitive perform a case sensitive comparison
+     * @param list<array{0: int, 1?: string}|string|Token> $others        array of tokens or token prototypes
+     * @param bool                                         $caseSensitive perform a case sensitive comparison
      */
     public function equalsAny(array $others, bool $caseSensitive = \true) : bool
     {
@@ -180,7 +178,7 @@ final class Token
      * A helper method used to find out whether a certain input token has to be case-sensitively matched.
      *
      * @param array<int, bool>|bool $caseSensitive global case sensitiveness or an array of booleans, whose keys should match
-     *                                             the ones used in $others. If any is missing, the default case-sensitive
+     *                                             the ones used in $sequence. If any is missing, the default case-sensitive
      *                                             comparison is used
      * @param int                   $key           the key of the token that has to be looked up
      */
@@ -192,7 +190,7 @@ final class Token
         return $caseSensitive;
     }
     /**
-     * @return array|string token prototype
+     * @return array{int, string}|string
      */
     public function getPrototype()
     {
@@ -317,7 +315,7 @@ final class Token
     /**
      * Check if token is one of given kind.
      *
-     * @param int|int[] $possibleKind kind or array of kinds
+     * @param int|list<int> $possibleKind kind or array of kinds
      */
     public function isGivenKind($possibleKind) : bool
     {
@@ -377,7 +375,7 @@ final class Token
         return $jsonResult;
     }
     /**
-     * @param string[] $tokenNames
+     * @param list<string> $tokenNames
      *
      * @return array<int, int>
      */

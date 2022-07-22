@@ -19,6 +19,9 @@ namespace PhpCsFixer\Tokenizer;
  */
 abstract class AbstractTypeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
 {
+    /**
+     * @param array{0: int, 1?: string}|string $originalToken
+     */
     protected function doProcess(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index, $originalToken) : void
     {
         if (!$tokens[$index]->equals($originalToken)) {

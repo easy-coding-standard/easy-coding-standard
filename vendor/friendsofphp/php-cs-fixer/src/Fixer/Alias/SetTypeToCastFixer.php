@@ -34,6 +34,15 @@ settype($bar, "null");
     }
     /**
      * {@inheritdoc}
+     *
+     * Must run after NoBinaryStringFixer.
+     */
+    public function getPriority() : int
+    {
+        return 0;
+    }
+    /**
+     * {@inheritdoc}
      */
     public function isCandidate(Tokens $tokens) : bool
     {

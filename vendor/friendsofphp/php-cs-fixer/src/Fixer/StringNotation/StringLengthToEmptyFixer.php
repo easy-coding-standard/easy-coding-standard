@@ -227,7 +227,6 @@ final class StringLengthToEmptyFixer extends AbstractFunctionReferenceFixer
             if ($token->isGivenKind([\T_VARIABLE, \T_STRING]) || $token->isObjectOperator() || $token->isWhitespace() || $token->isComment()) {
                 continue;
             }
-            /** @var null|array{isStart: bool, type: int} $blockType */
             $blockType = Tokens::detectBlockType($token);
             if (null !== $blockType && $blockType['isStart']) {
                 $i = $tokens->findBlockEnd($blockType['type'], $i);

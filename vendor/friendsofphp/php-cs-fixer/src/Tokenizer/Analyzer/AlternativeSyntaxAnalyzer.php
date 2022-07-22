@@ -55,15 +55,12 @@ final class AlternativeSyntaxAnalyzer
             if ($tokens[$index]->isGivenKind($endTokenKinds)) {
                 return $index;
             }
-            $blockOpeningIndex = $tokens->getNextTokenOfKind($tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($index + 1, ['('])), [':', '{']);
-            if (!$tokens[$blockOpeningIndex]->equals(':')) {
-                $index = $blockOpeningIndex;
-                continue;
+            if ($this->isStartOfAlternativeSyntaxBlock($tokens, $index)) {
+                $index = $this->findAlternativeSyntaxBlockEnd($tokens, $index);
             }
-            $index = $this->findAlternativeSyntaxBlockEnd($tokens, $index);
         }
     }
-    private function isStartOfAlternativeSyntaxBlock(Tokens $tokens, $index) : bool
+    private function isStartOfAlternativeSyntaxBlock(Tokens $tokens, int $index) : bool
     {
         $map = self::ALTERNATIVE_SYNTAX_BLOCK_EDGES;
         $startTokenKind = $tokens[$index]->getId();

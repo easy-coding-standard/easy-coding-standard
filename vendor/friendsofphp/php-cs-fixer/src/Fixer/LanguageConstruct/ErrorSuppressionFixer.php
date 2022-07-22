@@ -118,7 +118,7 @@ final class ErrorSuppressionFixer extends AbstractFixer implements ConfigurableF
         if ('trigger_error' !== \strtolower($tokens[$index]->getContent())) {
             return \false;
         }
-        $endBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($index, [\T_STRING, '(']));
+        $endBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($index, [[\T_STRING], '(']));
         $prevIndex = $tokens->getPrevMeaningfulToken($endBraceIndex);
         if ($tokens[$prevIndex]->equals(',')) {
             $prevIndex = $tokens->getPrevMeaningfulToken($prevIndex);

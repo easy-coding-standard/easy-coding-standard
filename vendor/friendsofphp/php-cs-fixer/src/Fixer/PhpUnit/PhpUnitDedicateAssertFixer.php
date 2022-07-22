@@ -312,6 +312,14 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         $this->removeFunctionCall($tokens, $defaultNamespaceTokenIndex, $countCallIndex, $countCallOpenBraceIndex, $countCallCloseBraceIndex);
         $tokens[$assertCall['index']] = new Token([\T_STRING, \false === \strpos($assertCall['loweredName'], 'not', 6) ? 'assertCount' : 'assertNotCount']);
     }
+    /**
+     * @return iterable<array{
+     *     index: int,
+     *     loweredName: string,
+     *     openBraceIndex: int,
+     *     closeBraceIndex: int,
+     * }>
+     */
     private function getPreviousAssertCall(Tokens $tokens, int $startIndex, int $endIndex) : iterable
     {
         $functionsAnalyzer = new FunctionsAnalyzer();

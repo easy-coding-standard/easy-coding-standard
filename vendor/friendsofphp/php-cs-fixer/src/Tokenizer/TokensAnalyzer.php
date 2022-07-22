@@ -42,7 +42,7 @@ final class TokensAnalyzer
     /**
      * Get indices of methods and properties in classy code (classes, interfaces and traits).
      *
-     * @return array[]
+     * @return array<int, array{classIndex: int, token: Token, type: string}>
      */
     public function getClassyElements() : array
     {
@@ -61,7 +61,7 @@ final class TokensAnalyzer
      *
      * @param bool $perNamespace Return namespace uses per namespace
      *
-     * @return int[]|int[][]
+     * @return array<int, list<int>>|list<int>
      */
     public function getImportUseIndexes(bool $perNamespace = \false) : array
     {
@@ -145,6 +145,8 @@ final class TokensAnalyzer
      * 'final'      bool
      *
      * @param int $index Token index of the method (T_FUNCTION)
+     *
+     * @return array{visibility: ?int, static: bool, abstract: bool, final: bool}
      */
     public function getMethodAttributes(int $index) : array
     {
@@ -470,6 +472,8 @@ final class TokensAnalyzer
      * Returns an array; first value is the index until the method has analysed (int), second the found classy elements (array).
      *
      * @param int $classIndex classy index
+     *
+     * @return array{int, array<int, array{classIndex: int, token: Token, type: string}>}
      */
     private function findClassyElements(int $classIndex, int $index) : array
     {

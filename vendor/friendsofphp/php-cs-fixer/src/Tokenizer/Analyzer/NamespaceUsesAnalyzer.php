@@ -23,7 +23,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 final class NamespaceUsesAnalyzer
 {
     /**
-     * @return NamespaceUseAnalysis[]
+     * @return list<NamespaceUseAnalysis>
      */
     public function getDeclarationsFromTokens(Tokens $tokens) : array
     {
@@ -32,7 +32,7 @@ final class NamespaceUsesAnalyzer
         return $this->getDeclarations($tokens, $useIndices);
     }
     /**
-     * @return NamespaceUseAnalysis[]
+     * @return list<NamespaceUseAnalysis>
      */
     public function getDeclarationsInNamespace(Tokens $tokens, NamespaceAnalysis $namespace) : array
     {
@@ -45,7 +45,7 @@ final class NamespaceUsesAnalyzer
         return $namespaceUses;
     }
     /**
-     * @return NamespaceUseAnalysis[]
+     * @return list<NamespaceUseAnalysis>
      */
     private function getDeclarations(Tokens $tokens, array $useIndices) : array
     {
