@@ -35,7 +35,7 @@ final class SuperfluousVarNameMalformWorker implements MalformWorkerInterface
             if ($match === null) {
                 continue;
             }
-            $newLineContent = Strings::replace($line->getContent(), self::VAR_VARIABLE_NAME_REGEX, function (array $match) : string {
+            $newLineContent = Strings::replace($line->getContent(), self::VAR_VARIABLE_NAME_REGEX, static function (array $match) : string {
                 $replacement = $match['tag'];
                 if ($match['type'] !== []) {
                     $replacement .= $match['type'];

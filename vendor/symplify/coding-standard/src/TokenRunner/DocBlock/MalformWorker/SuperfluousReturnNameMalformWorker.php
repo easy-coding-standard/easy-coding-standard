@@ -43,7 +43,7 @@ final class SuperfluousReturnNameMalformWorker implements MalformWorkerInterface
             if ($this->shouldSkip($match, $line->getContent())) {
                 continue;
             }
-            $newLineContent = Strings::replace($line->getContent(), self::RETURN_VARIABLE_NAME_REGEX, function (array $match) {
+            $newLineContent = Strings::replace($line->getContent(), self::RETURN_VARIABLE_NAME_REGEX, static function (array $match) {
                 $replacement = $match['tag'];
                 if ($match['type'] !== []) {
                     $replacement .= $match['type'];

@@ -146,7 +146,7 @@ final class ECSConfig extends ContainerConfigurator
     {
         // ensure all rules are registered exactly once
         $checkerClassToCount = \array_count_values($checkerClasses);
-        $duplicatedCheckerClassToCount = \array_filter($checkerClassToCount, function (int $count) : bool {
+        $duplicatedCheckerClassToCount = \array_filter($checkerClassToCount, static function (int $count) : bool {
             return $count > 1;
         });
         if ($duplicatedCheckerClassToCount === []) {

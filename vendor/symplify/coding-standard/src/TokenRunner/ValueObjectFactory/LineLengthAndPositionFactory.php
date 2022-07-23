@@ -21,12 +21,12 @@ final class LineLengthAndPositionFactory
             if (!isset($tokens[$currentPosition])) {
                 throw new TokenNotFoundException($currentPosition);
             }
-            $explode = \explode("\n", $tokens[$currentPosition]->getContent());
+            /** @var Token $currentToken */
+            $currentToken = $tokens[$currentPosition];
+            $explode = \explode("\n", $currentToken->getContent());
             // string precedes current token, so we are interested in end part only
-            if ($explode !== []) {
-                $lastSection = \end($explode);
-                $length += \strlen($lastSection);
-            }
+            $lastSection = \end($explode);
+            $length += \strlen($lastSection);
             --$currentPosition;
             if (\count($explode) > 1) {
                 // no longer need to continue searching for newline

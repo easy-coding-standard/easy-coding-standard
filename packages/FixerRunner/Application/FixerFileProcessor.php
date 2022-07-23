@@ -158,7 +158,7 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private function sortFixers(array $fixers) : array
     {
-        \usort($fixers, function (FixerInterface $firstFixer, FixerInterface $secondFixer) : int {
+        \usort($fixers, static function (FixerInterface $firstFixer, FixerInterface $secondFixer) : int {
             return $secondFixer->getPriority() <=> $firstFixer->getPriority();
         });
         return $fixers;

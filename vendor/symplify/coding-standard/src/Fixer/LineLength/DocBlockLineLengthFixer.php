@@ -175,7 +175,7 @@ CODE_SAMPLE
                 $paragraphLines[$paragraphIndex][] = $descriptionLine;
             }
         }
-        return \array_map(function (array $lines) : string {
+        return \array_map(static function (array $lines) : string {
             return \implode(' ', $lines);
         }, $paragraphLines);
     }

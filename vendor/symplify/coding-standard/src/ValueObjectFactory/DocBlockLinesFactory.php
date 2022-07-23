@@ -26,7 +26,7 @@ final class DocBlockLinesFactory
         // Remove extra whitespace at the end
         $docBlock = \rtrim($docBlock);
         $docBlockLines = $this->splitToLines($docBlock);
-        $docBlockLines = \array_map(function (string $line) : string {
+        $docBlockLines = \array_map(static function (string $line) : string {
             $noWhitespace = Strings::trim($line, Strings::TRIM_CHARACTERS);
             // Remove asterisks on the left side, plus additional whitespace
             return \ltrim($noWhitespace, Strings::TRIM_CHARACTERS . '*');

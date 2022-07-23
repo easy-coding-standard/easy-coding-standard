@@ -6,9 +6,8 @@ declare(strict_types=1);
 
 use Composer\Autoload\ClassLoader;
 
-spl_autoload_register(function (string $class): void {
+spl_autoload_register(static function (string $class): void {
     static $composerAutoloader;
-
     // already loaded in bin/ecs.php
     if (defined('__ECS_RUNNING__')) {
         return;
